@@ -27,8 +27,6 @@ report 50640 PendingStyleSMV
             { }
             column(CreateDate; CreateDate)
             { }
-            column(CostSMV; CostSMV)
-            { }
             column(MerchantName; MerchantName)
             { }
             column(Season; Season)
@@ -47,7 +45,6 @@ report 50640 PendingStyleSMV
                     OrderQty := "Order Qty";
                     ShipDate := "Ship Date";
                     CreateDate := "Created Date";
-                    CostSMV := CostingSMV;
                     MerchantName := "Merchandiser Name";
                     Season := "Season Name";
 
@@ -106,7 +103,6 @@ report 50640 PendingStyleSMV
         OrderQty: BigInteger;
         ShipDate: Date;
         CreateDate: Date;
-        CostSMV: Decimal;
         MerchantName: Text[50];
         Season: Text[50];
         comRec: Record "Company Information";

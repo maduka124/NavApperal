@@ -29,6 +29,7 @@ page 50502 "Contract/LC Card"
                     trigger OnValidate()
                     var
                         CustomerRec: Record Customer;
+
                         "StyleRec": Record "Style Master";
                     begin
 
