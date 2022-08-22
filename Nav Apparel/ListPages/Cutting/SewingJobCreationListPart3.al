@@ -1,0 +1,3006 @@
+page 50591 "Sewing Job Creation ListPart3"
+{
+    PageType = ListPart;
+    SourceTable = SewingJobCreationLine3;
+    SourceTableView = sorting("SJCNo.", "Style No.", "Lot No.", LineNo) order(ascending);
+
+    layout
+    {
+        area(Content)
+        {
+            repeater(General)
+            {
+                field("Lot No."; "Lot No.")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit;
+                    Caption = 'Lot No';
+
+                    trigger OnValidate()
+                    var
+                        AssoRec: Record AssorColorSizeRatio;
+                        StyleMasterPORec: Record "Style Master PO";
+                        SJC3: Record SewingJobCreationLine3;
+                        ShipDate1: Date;
+                        pono: Code[20];
+                        Status: Boolean;
+                    begin
+
+                        SJC3.Reset();
+                        SJC3.SetRange("SJCNo.", "SJCNo.");
+                        SJC3.SetFilter("Lot No.", '<>%1', "Lot No.");
+                        if SJC3.FindSet() then
+                            Error('You cannot put two different Lot Nos.');
+
+
+                        "Style Name" := StyleName;
+
+                        //Get Po details
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", "Style No.");
+                        StyleMasterPORec.SetRange("Lot No.", "Lot No.");
+
+                        if StyleMasterPORec.FindSet() then begin
+                            ShipDate1 := StyleMasterPORec."Ship Date";
+                            pono := StyleMasterPORec."PO No.";
+                        end;
+
+
+                        SJC3.Reset();
+                        SJC3.SetRange("SJCNo.", "SJCNo.");
+                        SJC3.SetRange("Style No.", "Style No.");
+                        SJC3.SetRange("Lot No.", "Lot No.");
+                        SJC3.SetFilter("Record Type", '=%1', 'H');
+
+                        if not SJC3.FindSet() then begin
+
+                            //Get Color size details
+                            AssoRec.Reset();
+                            AssoRec.SetRange("Style No.", "Style No.");
+                            AssoRec.SetRange("Lot No.", "Lot No.");
+
+                            if AssoRec.FindSet() then begin
+
+                                repeat
+
+                                    if (AssoRec."Colour No" = '*') and (Status = false) then begin
+
+                                        "Colour No" := AssoRec."Colour No";
+                                        "Colour Name" := AssoRec."Colour Name";
+                                        ShipDate := ShipDate1;
+                                        "Country Code" := AssoRec."Country Code";
+                                        "Country Name" := AssoRec."Country Name";
+                                        "PO No." := pono;
+                                        "1" := AssoRec."1";
+                                        "2" := AssoRec."2";
+                                        "3" := AssoRec."3";
+                                        "4" := AssoRec."4";
+                                        "5" := AssoRec."5";
+                                        "6" := AssoRec."6";
+                                        "7" := AssoRec."7";
+                                        "8" := AssoRec."8";
+                                        "9" := AssoRec."9";
+                                        "10" := AssoRec."10";
+                                        "11" := AssoRec."11";
+                                        "12" := AssoRec."12";
+                                        "13" := AssoRec."13";
+                                        "14" := AssoRec."14";
+                                        "15" := AssoRec."15";
+                                        "16" := AssoRec."16";
+                                        "17" := AssoRec."17";
+                                        "18" := AssoRec."18";
+                                        "19" := AssoRec."19";
+                                        "20" := AssoRec."20";
+                                        "21" := AssoRec."21";
+                                        "22" := AssoRec."22";
+                                        "23" := AssoRec."23";
+                                        "24" := AssoRec."24";
+                                        "25" := AssoRec."25";
+                                        "26" := AssoRec."26";
+                                        "27" := AssoRec."27";
+                                        "28" := AssoRec."28";
+                                        "29" := AssoRec."29";
+                                        "30" := AssoRec."30";
+                                        "31" := AssoRec."31";
+                                        "32" := AssoRec."32";
+                                        "33" := AssoRec."33";
+                                        "34" := AssoRec."34";
+                                        "35" := AssoRec."35";
+                                        "36" := AssoRec."36";
+                                        "37" := AssoRec."37";
+                                        "38" := AssoRec."38";
+                                        "39" := AssoRec."39";
+                                        "40" := AssoRec."40";
+                                        "41" := AssoRec."41";
+                                        "42" := AssoRec."42";
+                                        "43" := AssoRec."43";
+                                        "44" := AssoRec."44";
+                                        "45" := AssoRec."45";
+                                        "46" := AssoRec."46";
+                                        "47" := AssoRec."47";
+                                        "48" := AssoRec."48";
+                                        "49" := AssoRec."49";
+                                        "50" := AssoRec."50";
+                                        "51" := AssoRec."51";
+                                        "52" := AssoRec."52";
+                                        "53" := AssoRec."53";
+                                        "54" := AssoRec."54";
+                                        "55" := AssoRec."55";
+                                        "56" := AssoRec."56";
+                                        "57" := AssoRec."57";
+                                        "58" := AssoRec."58";
+                                        "59" := AssoRec."59";
+                                        "60" := AssoRec."60";
+                                        "61" := AssoRec."61";
+                                        "62" := AssoRec."62";
+                                        "63" := AssoRec."63";
+                                        "64" := AssoRec."64";
+                                        "Color Total" := AssoRec.Total;
+                                        "Record Type" := 'H';
+                                        LineNo := 1;
+                                        CurrPage.Update();
+
+
+                                        SJC3.Init();
+                                        SJC3."SJCNo." := "SJCNo.";
+                                        SJC3."Style No." := "Style No.";
+                                        SJC3."Style Name" := "Style Name";
+                                        SJC3."Lot No." := "Lot No.";
+                                        SJC3."PO No." := pono;
+                                        SJC3.ShipDate := ShipDate1;
+                                        //SJC3."Record Type" := 'H1';
+                                        SJC3.LineNo := 2;
+                                        SJC3."Created Date" := Today;
+                                        SJC3."Created User" := UserId;
+                                        SJC3.Insert();
+
+                                        Status := true;
+
+                                    end;
+
+                                until AssoRec.Next() = 0;
+
+                            end;
+                        end
+                        else begin
+
+                            //Get max line no
+                            SJC3.Reset();
+                            SJC3.SetRange("SJCNo.", "SJCNo.");
+                            SJC3.SetRange("Style No.", "Style No.");
+                            SJC3.SetRange("Lot No.", "Lot No.");
+                            SJC3.FindLast();
+
+                            ShipDate := ShipDate1;
+                            "PO No." := pono;
+                            "Resource No." := SJC3."Resource No.";
+                            "Resource Name" := SJC3."Resource Name";
+                            LineNo := SJC3.LineNo + 1;
+                            "Created Date" := Today;
+                            "Created User" := UserId;
+                            CurrPage.Update();
+
+                        end;
+
+                    end;
+                }
+
+                field("SubLotNo."; "SubLotNo.")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Caption = 'Sub Lot No';
+                }
+
+                field("Resource Name"; "Resource Name")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Caption = 'Line';
+
+                    trigger OnValidate()
+                    var
+                        WorkCenterRec: Record "Work Center";
+                    begin
+                        //Get Po details
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange("Work Center Group Code", 'PAL');
+                        WorkCenterRec.SetRange(Name, "Resource Name");
+
+                        if WorkCenterRec.FindSet() then
+                            "Resource No." := WorkCenterRec."No.";
+
+                        CurrPage.Update();
+                    end;
+                }
+
+                field("Colour Name"; "Colour Name")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Caption = 'Colour';
+
+                    trigger OnValidate()
+                    var
+                        AssoRec: Record AssorColorSizeRatio;
+                        colorRec: Record Colour;
+                        StyleMasterPORec: Record "Style Master PO";
+                        SJC3: Record SewingJobCreationLine3;
+                        WastageRec: Record Wastage;
+                        Waistage: Decimal;
+                        ShipDate: Date;
+                        pono: Code[20];
+                        Number: Decimal;
+                        ColorTotal: Decimal;
+                    begin
+
+                        if "Colour Name" <> '*' then begin
+
+                            //Check for different colors 
+                            SJC3.Reset();
+                            SJC3.SetRange("SJCNo.", "SJCNo.");
+                            SJC3.SetRange("Style No.", "Style No.");
+                            SJC3.SetRange("Lot No.", "Lot No.");
+                            SJC3.SetFilter("Colour Name", '<>%1&<>%2', "Colour Name", '*');
+
+                            if SJC3.FindSet() then
+                                Error('You cannot use two different colors in one sub scheduling.');
+
+
+                            //Get color name
+                            colorRec.Reset();
+                            colorRec.SetRange("Colour Name", "Colour Name");
+
+                            if colorRec.FindSet() then begin
+                                "Colour No" := colorRec."No.";
+                                CurrPage.Update();
+
+                                //Get Po details
+                                StyleMasterPORec.Reset();
+                                StyleMasterPORec.SetRange("Style No.", "Style No.");
+                                StyleMasterPORec.SetRange("Lot No.", "Lot No.");
+
+                                if StyleMasterPORec.FindSet() then begin
+
+                                    //Get the wastage from wastage table
+                                    WastageRec.Reset();
+                                    WastageRec.SetFilter("Start Qty", '<=%1', StyleMasterPORec.Qty);
+                                    WastageRec.SetFilter("Finish Qty", '>=%1', StyleMasterPORec.Qty);
+
+                                    if WastageRec.FindSet() then
+                                        Waistage := WastageRec.Percentage;
+
+                                    ShipDate := StyleMasterPORec."Ship Date";
+                                    pono := StyleMasterPORec."PO No.";
+
+                                end;
+                                CurrPage.Update();
+
+                                SJC3.Reset();
+                                SJC3.SetRange("SJCNo.", "SJCNo.");
+                                SJC3.SetRange("Style No.", "Style No.");
+                                SJC3.SetRange("Lot No.", "Lot No.");
+                                SJC3.SetRange("Colour No", colorRec."No.");
+                                SJC3.SetRange("Record Type", 'H1');
+
+                                if not SJC3.FindSet() then begin
+                                    "Record Type" := 'H1';
+                                end
+                                else
+                                    "Record Type" := 'L';
+
+                                CurrPage.Update();
+
+                                //Get Color size details
+                                AssoRec.Reset();
+                                AssoRec.SetRange("Style No.", "Style No.");
+                                AssoRec.SetRange("Lot No.", "Lot No.");
+                                AssoRec.SetRange("Colour No", colorRec."No.");
+
+                                if AssoRec.FindSet() then begin
+
+                                    Qty := AssoRec.Qty + (AssoRec.Qty * Waistage) / 100;
+
+                                    if "Record Type" = 'H1' then begin
+                                        if AssoRec."1" <> '' then
+                                            Evaluate(Number, AssoRec."1");
+
+                                        "1" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."2" <> '' then
+                                            Evaluate(Number, AssoRec."2");
+
+                                        "2" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."3" <> '' then
+                                            Evaluate(Number, AssoRec."3");
+
+                                        "3" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."4" <> '' then
+                                            Evaluate(Number, AssoRec."4");
+
+                                        "4" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."5" <> '' then
+                                            Evaluate(Number, AssoRec."5");
+
+                                        "5" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."6" <> '' then
+                                            Evaluate(Number, AssoRec."6");
+
+                                        "6" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+
+                                        Number := 0;
+                                        if AssoRec."7" <> '' then
+                                            Evaluate(Number, AssoRec."7");
+
+                                        "7" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."8" <> '' then
+                                            Evaluate(Number, AssoRec."8");
+
+                                        "8" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."9" <> '' then
+                                            Evaluate(Number, AssoRec."9");
+
+                                        "9" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."10" <> '' then
+                                            Evaluate(Number, AssoRec."10");
+
+                                        "10" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."11" <> '' then
+                                            Evaluate(Number, AssoRec."11");
+
+                                        "11" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."12" <> '' then
+                                            Evaluate(Number, AssoRec."12");
+
+                                        "12" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."13" <> '' then
+                                            Evaluate(Number, AssoRec."13");
+
+                                        "13" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."14" <> '' then
+                                            Evaluate(Number, AssoRec."14");
+
+                                        "14" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+
+                                        Number := 0;
+                                        if AssoRec."15" <> '' then
+                                            Evaluate(Number, AssoRec."15");
+
+                                        "15" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."16" <> '' then
+                                            Evaluate(Number, AssoRec."16");
+
+                                        "16" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."17" <> '' then
+                                            Evaluate(Number, AssoRec."17");
+
+                                        "17" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."18" <> '' then
+                                            Evaluate(Number, AssoRec."18");
+
+                                        "18" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."19" <> '' then
+                                            Evaluate(Number, AssoRec."19");
+
+                                        "19" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."20" <> '' then
+                                            Evaluate(Number, AssoRec."20");
+
+                                        "20" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."21" <> '' then
+                                            Evaluate(Number, AssoRec."21");
+
+                                        "21" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."22" <> '' then
+                                            Evaluate(Number, AssoRec."22");
+
+                                        "22" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+
+                                        Number := 0;
+                                        if AssoRec."23" <> '' then
+                                            Evaluate(Number, AssoRec."23");
+
+                                        "23" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."24" <> '' then
+                                            Evaluate(Number, AssoRec."24");
+
+                                        "24" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."25" <> '' then
+                                            Evaluate(Number, AssoRec."25");
+
+                                        "25" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."26" <> '' then
+                                            Evaluate(Number, AssoRec."26");
+
+                                        "26" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."27" <> '' then
+                                            Evaluate(Number, AssoRec."27");
+
+                                        "27" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."28" <> '' then
+                                            Evaluate(Number, AssoRec."28");
+
+                                        "28" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."29" <> '' then
+                                            Evaluate(Number, AssoRec."29");
+
+                                        "29" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."30" <> '' then
+                                            Evaluate(Number, AssoRec."30");
+
+                                        "30" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+
+                                        Number := 0;
+                                        if AssoRec."31" <> '' then
+                                            Evaluate(Number, AssoRec."31");
+
+                                        "31" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."32" <> '' then
+                                            Evaluate(Number, AssoRec."32");
+
+                                        "32" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."33" <> '' then
+                                            Evaluate(Number, AssoRec."33");
+
+                                        "33" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."34" <> '' then
+                                            Evaluate(Number, AssoRec."34");
+
+                                        "34" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."35" <> '' then
+                                            Evaluate(Number, AssoRec."35");
+
+                                        "35" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."36" <> '' then
+                                            Evaluate(Number, AssoRec."36");
+
+                                        "36" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."37" <> '' then
+                                            Evaluate(Number, AssoRec."37");
+
+                                        "37" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."38" <> '' then
+                                            Evaluate(Number, AssoRec."38");
+
+                                        "38" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+
+                                        Number := 0;
+                                        if AssoRec."39" <> '' then
+                                            Evaluate(Number, AssoRec."39");
+
+                                        "39" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."40" <> '' then
+                                            Evaluate(Number, AssoRec."40");
+
+                                        "40" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."41" <> '' then
+                                            Evaluate(Number, AssoRec."41");
+
+                                        "41" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."42" <> '' then
+                                            Evaluate(Number, AssoRec."42");
+
+                                        "42" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."43" <> '' then
+                                            Evaluate(Number, AssoRec."43");
+
+                                        "43" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."44" <> '' then
+                                            Evaluate(Number, AssoRec."44");
+
+                                        "44" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."45" <> '' then
+                                            Evaluate(Number, AssoRec."45");
+
+                                        "45" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."46" <> '' then
+                                            Evaluate(Number, AssoRec."46");
+
+                                        "46" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+
+                                        Number := 0;
+                                        if AssoRec."47" <> '' then
+                                            Evaluate(Number, AssoRec."47");
+
+                                        "47" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."48" <> '' then
+                                            Evaluate(Number, AssoRec."48");
+
+                                        "48" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."49" <> '' then
+                                            Evaluate(Number, AssoRec."49");
+
+                                        "49" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."50" <> '' then
+                                            Evaluate(Number, AssoRec."50");
+
+                                        "50" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."51" <> '' then
+                                            Evaluate(Number, AssoRec."51");
+
+                                        "51" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."52" <> '' then
+                                            Evaluate(Number, AssoRec."52");
+
+                                        "52" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."53" <> '' then
+                                            Evaluate(Number, AssoRec."53");
+
+                                        "53" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."54" <> '' then
+                                            Evaluate(Number, AssoRec."54");
+
+                                        "54" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+
+                                        Number := 0;
+                                        if AssoRec."55" <> '' then
+                                            Evaluate(Number, AssoRec."55");
+
+                                        "55" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."56" <> '' then
+                                            Evaluate(Number, AssoRec."56");
+
+                                        "56" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."57" <> '' then
+                                            Evaluate(Number, AssoRec."57");
+
+                                        "57" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."58" <> '' then
+                                            Evaluate(Number, AssoRec."58");
+
+                                        "58" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."59" <> '' then
+                                            Evaluate(Number, AssoRec."59");
+
+                                        "59" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."60" <> '' then
+                                            Evaluate(Number, AssoRec."60");
+
+                                        "60" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."61" <> '' then
+                                            Evaluate(Number, AssoRec."61");
+
+                                        "61" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."62" <> '' then
+                                            Evaluate(Number, AssoRec."62");
+
+                                        "62" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+
+                                        Number := 0;
+                                        if AssoRec."63" <> '' then
+                                            Evaluate(Number, AssoRec."63");
+
+                                        "63" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                        if AssoRec."64" <> '' then
+                                            Evaluate(Number, AssoRec."64");
+
+                                        "64" := format(Number + (Number * Waistage) / 100);
+                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        Number := 0;
+
+                                    end;
+
+                                    "Color Total" := ColorTotal;
+                                end;
+
+                                CurrPage.Update();
+
+                            end;
+
+                        end
+                        else
+                            Error('Invalid colour');
+                    end;
+                }
+
+                field("PO No."; "PO No.")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = false;
+                    Caption = 'PO No';
+                }
+
+                field(ShipDate; ShipDate)
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Caption = 'Ship Date';
+                    Editable = false;
+                }
+
+                field(Qty; Qty)
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = false;
+                    Caption = 'Order Qty';
+                }
+
+                field("Color Total"; "Color Total")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = false;
+                }
+
+                field("1"; "1")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible1;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+                field("2"; "2")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible2;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("3"; "3")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible3;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("4"; "4")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible4;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("5"; "5")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible5;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("6"; "6")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible6;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("7"; "7")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible7;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("8"; "8")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible8;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("9"; "9")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible9;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("10"; "10")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible10;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("11"; "11")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible11;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("12"; "12")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible12;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("13"; "13")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible13;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("14"; "14")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible14;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("15"; "15")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible15;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("16"; "16")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible16;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("17"; "17")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible17;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("18"; "18")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible18;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("19"; "19")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible19;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("20"; "20")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible20;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("21"; "21")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible21;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("22"; "22")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible22;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("23"; "23")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible23;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("24"; "24")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible24;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("25"; "25")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible25;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("26"; "26")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible26;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("27"; "27")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible27;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("28"; "28")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible28;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("29"; "29")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible29;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("30"; "30")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible30;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("31"; "31")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible31;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("32"; "32")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible32;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("33"; "33")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible33;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("34"; "34")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible34;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("35"; "35")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible35;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("36"; "36")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible36;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("37"; "37")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible37;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("38"; "38")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible38;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("39"; "39")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible39;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("40"; "40")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible40;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("41"; "41")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible41;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+
+                field("42"; "42")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible42;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+
+                field("43"; "43")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible43;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+
+                field("44"; "44")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible44;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+
+                field("45"; "45")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible45;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+
+                field("46"; "46")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible46;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+
+                field("47"; "47")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible47;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("48"; "48")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible48;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("49"; "49")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible49;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("50"; "50")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible50;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("51"; "51")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible51;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("52"; "52")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible52;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("53"; "53")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible53;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("54"; "54")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible54;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("55"; "55")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible55;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("56"; "56")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible56;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("57"; "57")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible57;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("58"; "58")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible58;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("59"; "59")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible59;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("60"; "60")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible60;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("61"; "61")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible61;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("62"; "62")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible62;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("63"; "63")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible63;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field("64"; "64")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Editable = SetEdit1;
+                    Visible = SetVisible64;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+            }
+        }
+    }
+
+
+    trigger OnAfterGetRecord()
+    var
+        Rowcount: Integer;
+        Count: Integer;
+        AssoDetail: Record AssortmentDetailsInseam;
+    begin
+        StyleExprTxt := ChangeColor.ChangeColorSJC(Rec);
+
+        AssoDetail.Reset();
+        AssoDetail.SetRange("Style No.", "Style No.");
+        AssoDetail.SetRange("Lot No.", "lot No.");
+        AssoDetail.FindSet();
+        Rowcount := AssoDetail.Count;
+
+        for Count := 1 To 64 do begin
+            case Count of
+                1:
+                    if Rowcount >= Count then
+                        SetVisible1 := true
+                    else
+                        SetVisible1 := false;
+                2:
+                    if Rowcount >= Count then
+                        SetVisible2 := true
+                    else
+                        SetVisible2 := false;
+                3:
+                    if Rowcount >= Count then
+                        SetVisible3 := true
+                    else
+                        SetVisible3 := false;
+                4:
+                    if Rowcount >= Count then
+                        SetVisible4 := true
+                    else
+                        SetVisible4 := false;
+                5:
+                    if Rowcount >= Count then
+                        SetVisible5 := true
+                    else
+                        SetVisible5 := false;
+                6:
+                    if Rowcount >= Count then
+                        SetVisible6 := true
+                    else
+                        SetVisible6 := false;
+                7:
+                    if Rowcount >= Count then
+                        SetVisible7 := true
+                    else
+                        SetVisible7 := false;
+                8:
+                    if Rowcount >= Count then
+                        SetVisible8 := true
+                    else
+                        SetVisible8 := false;
+                9:
+                    if Rowcount >= Count then
+                        SetVisible9 := true
+                    else
+                        SetVisible9 := false;
+                10:
+                    if Rowcount >= Count then
+                        SetVisible10 := true
+                    else
+                        SetVisible10 := false;
+                11:
+                    if Rowcount >= Count then
+                        SetVisible11 := true
+                    else
+                        SetVisible11 := false;
+                12:
+                    if Rowcount >= Count then
+                        SetVisible12 := true
+                    else
+                        SetVisible12 := false;
+                13:
+                    if Rowcount >= Count then
+                        SetVisible13 := true
+                    else
+                        SetVisible13 := false;
+                14:
+                    if Rowcount >= Count then
+                        SetVisible14 := true
+                    else
+                        SetVisible14 := false;
+                15:
+                    if Rowcount >= Count then
+                        SetVisible15 := true
+                    else
+                        SetVisible15 := false;
+                16:
+                    if Rowcount >= Count then
+                        SetVisible16 := true
+                    else
+                        SetVisible16 := false;
+                17:
+                    if Rowcount >= Count then
+                        SetVisible17 := true
+                    else
+                        SetVisible17 := false;
+                18:
+                    if Rowcount >= Count then
+                        SetVisible18 := true
+                    else
+                        SetVisible18 := false;
+                19:
+                    if Rowcount >= Count then
+                        SetVisible19 := true
+                    else
+                        SetVisible19 := false;
+                20:
+                    if Rowcount >= Count then
+                        SetVisible20 := true
+                    else
+                        SetVisible20 := false;
+                21:
+                    if Rowcount >= Count then
+                        SetVisible21 := true
+                    else
+                        SetVisible21 := false;
+                22:
+                    if Rowcount >= Count then
+                        SetVisible22 := true
+                    else
+                        SetVisible22 := false;
+                23:
+                    if Rowcount >= Count then
+                        SetVisible23 := true
+                    else
+                        SetVisible23 := false;
+                24:
+                    if Rowcount >= Count then
+                        SetVisible24 := true
+                    else
+                        SetVisible24 := false;
+                25:
+                    if Rowcount >= Count then
+                        SetVisible25 := true
+                    else
+                        SetVisible25 := false;
+                26:
+                    if Rowcount >= Count then
+                        SetVisible26 := true
+                    else
+                        SetVisible26 := false;
+                27:
+                    if Rowcount >= Count then
+                        SetVisible27 := true
+                    else
+                        SetVisible27 := false;
+                28:
+                    if Rowcount >= Count then
+                        SetVisible28 := true
+                    else
+                        SetVisible28 := false;
+                29:
+                    if Rowcount >= Count then
+                        SetVisible29 := true
+                    else
+                        SetVisible29 := false;
+                30:
+                    if Rowcount >= Count then
+                        SetVisible30 := true
+                    else
+                        SetVisible30 := false;
+                31:
+                    if Rowcount >= Count then
+                        SetVisible31 := true
+                    else
+                        SetVisible31 := false;
+                32:
+                    if Rowcount >= Count then
+                        SetVisible32 := true
+                    else
+                        SetVisible32 := false;
+                33:
+                    if Rowcount >= Count then
+                        SetVisible33 := true
+                    else
+                        SetVisible33 := false;
+                34:
+                    if Rowcount >= Count then
+                        SetVisible34 := true
+                    else
+                        SetVisible34 := false;
+                35:
+                    if Rowcount >= Count then
+                        SetVisible35 := true
+                    else
+                        SetVisible35 := false;
+                36:
+                    if Rowcount >= Count then
+                        SetVisible36 := true
+                    else
+                        SetVisible36 := false;
+                37:
+                    if Rowcount >= Count then
+                        SetVisible37 := true
+                    else
+                        SetVisible37 := false;
+                38:
+                    if Rowcount >= Count then
+                        SetVisible38 := true
+                    else
+                        SetVisible38 := false;
+                39:
+                    if Rowcount >= Count then
+                        SetVisible39 := true
+                    else
+                        SetVisible39 := false;
+                40:
+                    if Rowcount >= Count then
+                        SetVisible40 := true
+                    else
+                        SetVisible40 := false;
+                41:
+                    if Rowcount >= Count then
+                        SetVisible41 := true
+                    else
+                        SetVisible41 := false;
+                42:
+                    if Rowcount >= Count then
+                        SetVisible42 := true
+                    else
+                        SetVisible42 := false;
+                43:
+                    if Rowcount >= Count then
+                        SetVisible43 := true
+                    else
+                        SetVisible43 := false;
+                44:
+                    if Rowcount >= Count then
+                        SetVisible44 := true
+                    else
+                        SetVisible44 := false;
+                45:
+                    if Rowcount >= Count then
+                        SetVisible45 := true
+                    else
+                        SetVisible45 := false;
+                46:
+                    if Rowcount >= Count then
+                        SetVisible46 := true
+                    else
+                        SetVisible46 := false;
+                47:
+                    if Rowcount >= Count then
+                        SetVisible47 := true
+                    else
+                        SetVisible47 := false;
+                48:
+                    if Rowcount >= Count then
+                        SetVisible48 := true
+                    else
+                        SetVisible48 := false;
+                49:
+                    if Rowcount >= Count then
+                        SetVisible49 := true
+                    else
+                        SetVisible49 := false;
+                50:
+                    if Rowcount >= Count then
+                        SetVisible50 := true
+                    else
+                        SetVisible50 := false;
+                51:
+                    if Rowcount >= Count then
+                        SetVisible51 := true
+                    else
+                        SetVisible51 := false;
+                52:
+                    if Rowcount >= Count then
+                        SetVisible52 := true
+                    else
+                        SetVisible52 := false;
+                53:
+                    if Rowcount >= Count then
+                        SetVisible53 := true
+                    else
+                        SetVisible53 := false;
+                54:
+                    if Rowcount >= Count then
+                        SetVisible54 := true
+                    else
+                        SetVisible54 := false;
+                55:
+                    if Rowcount >= Count then
+                        SetVisible55 := true
+                    else
+                        SetVisible55 := false;
+                56:
+                    if Rowcount >= Count then
+                        SetVisible56 := true
+                    else
+                        SetVisible56 := false;
+                57:
+                    if Rowcount >= Count then
+                        SetVisible57 := true
+                    else
+                        SetVisible57 := false;
+                58:
+                    if Rowcount >= Count then
+                        SetVisible58 := true
+                    else
+                        SetVisible58 := false;
+                59:
+                    if Rowcount >= Count then
+                        SetVisible59 := true
+                    else
+                        SetVisible59 := false;
+                60:
+                    if Rowcount >= Count then
+                        SetVisible60 := true
+                    else
+                        SetVisible60 := false;
+                61:
+                    if Rowcount >= Count then
+                        SetVisible61 := true
+                    else
+                        SetVisible61 := false;
+                62:
+                    if Rowcount >= Count then
+                        SetVisible62 := true
+                    else
+                        SetVisible62 := false;
+                63:
+                    if Rowcount >= Count then
+                        SetVisible63 := true
+                    else
+                        SetVisible63 := false;
+                64:
+                    if Rowcount >= Count then
+                        SetVisible64 := true
+                    else
+                        SetVisible64 := false;
+            end;
+        end;
+
+
+        if "Colour Name" = '*' then begin
+            Clear(SetEdit);
+            SetEdit := false;
+        end
+        ELSE begin
+            Clear(SetEdit);
+            SetEdit := true;
+        end;
+
+        //Only for the sizes
+        if ("Record Type" = 'H1') or ("Colour Name" = '*') then begin
+            Clear(SetEdit1);
+            SetEdit1 := false;
+        end
+        ELSE begin
+            Clear(SetEdit1);
+            SetEdit1 := true;
+        end;
+
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        StyleMasterRec: record "Style Master";
+        Rowcount: Integer;
+        Count: Integer;
+        AssoDetail: Record AssortmentDetailsInseam;
+    begin
+        StyleMasterRec.Reset();
+        StyleMasterRec.SetRange("No.", "Style No.");
+
+        if StyleMasterRec.FindSet() then
+            StyleName := StyleMasterRec."Style No.";
+
+        AssoDetail.Reset();
+        AssoDetail.SetRange("Style No.", "Style No.");
+        AssoDetail.SetRange("Lot No.", "lot No.");
+
+        if AssoDetail.FindSet() then begin
+            Rowcount := AssoDetail.Count;
+
+            for Count := 1 To 64 do begin
+                case Count of
+                    1:
+                        if Rowcount >= Count then
+                            SetVisible1 := true
+                        else
+                            SetVisible1 := false;
+                    2:
+                        if Rowcount >= Count then
+                            SetVisible2 := true
+                        else
+                            SetVisible2 := false;
+                    3:
+                        if Rowcount >= Count then
+                            SetVisible3 := true
+                        else
+                            SetVisible3 := false;
+                    4:
+                        if Rowcount >= Count then
+                            SetVisible4 := true
+                        else
+                            SetVisible4 := false;
+                    5:
+                        if Rowcount >= Count then
+                            SetVisible5 := true
+                        else
+                            SetVisible5 := false;
+                    6:
+                        if Rowcount >= Count then
+                            SetVisible6 := true
+                        else
+                            SetVisible6 := false;
+                    7:
+                        if Rowcount >= Count then
+                            SetVisible7 := true
+                        else
+                            SetVisible7 := false;
+                    8:
+                        if Rowcount >= Count then
+                            SetVisible8 := true
+                        else
+                            SetVisible8 := false;
+                    9:
+                        if Rowcount >= Count then
+                            SetVisible9 := true
+                        else
+                            SetVisible9 := false;
+                    10:
+                        if Rowcount >= Count then
+                            SetVisible10 := true
+                        else
+                            SetVisible10 := false;
+                    11:
+                        if Rowcount >= Count then
+                            SetVisible11 := true
+                        else
+                            SetVisible11 := false;
+                    12:
+                        if Rowcount >= Count then
+                            SetVisible12 := true
+                        else
+                            SetVisible12 := false;
+                    13:
+                        if Rowcount >= Count then
+                            SetVisible13 := true
+                        else
+                            SetVisible13 := false;
+                    14:
+                        if Rowcount >= Count then
+                            SetVisible14 := true
+                        else
+                            SetVisible14 := false;
+                    15:
+                        if Rowcount >= Count then
+                            SetVisible15 := true
+                        else
+                            SetVisible15 := false;
+                    16:
+                        if Rowcount >= Count then
+                            SetVisible16 := true
+                        else
+                            SetVisible16 := false;
+                    17:
+                        if Rowcount >= Count then
+                            SetVisible17 := true
+                        else
+                            SetVisible17 := false;
+                    18:
+                        if Rowcount >= Count then
+                            SetVisible18 := true
+                        else
+                            SetVisible18 := false;
+                    19:
+                        if Rowcount >= Count then
+                            SetVisible19 := true
+                        else
+                            SetVisible19 := false;
+                    20:
+                        if Rowcount >= Count then
+                            SetVisible20 := true
+                        else
+                            SetVisible20 := false;
+                    21:
+                        if Rowcount >= Count then
+                            SetVisible21 := true
+                        else
+                            SetVisible21 := false;
+                    22:
+                        if Rowcount >= Count then
+                            SetVisible22 := true
+                        else
+                            SetVisible22 := false;
+                    23:
+                        if Rowcount >= Count then
+                            SetVisible23 := true
+                        else
+                            SetVisible23 := false;
+                    24:
+                        if Rowcount >= Count then
+                            SetVisible24 := true
+                        else
+                            SetVisible24 := false;
+                    25:
+                        if Rowcount >= Count then
+                            SetVisible25 := true
+                        else
+                            SetVisible25 := false;
+                    26:
+                        if Rowcount >= Count then
+                            SetVisible26 := true
+                        else
+                            SetVisible26 := false;
+                    27:
+                        if Rowcount >= Count then
+                            SetVisible27 := true
+                        else
+                            SetVisible27 := false;
+                    28:
+                        if Rowcount >= Count then
+                            SetVisible28 := true
+                        else
+                            SetVisible28 := false;
+                    29:
+                        if Rowcount >= Count then
+                            SetVisible29 := true
+                        else
+                            SetVisible29 := false;
+                    30:
+                        if Rowcount >= Count then
+                            SetVisible30 := true
+                        else
+                            SetVisible30 := false;
+                    31:
+                        if Rowcount >= Count then
+                            SetVisible31 := true
+                        else
+                            SetVisible31 := false;
+                    32:
+                        if Rowcount >= Count then
+                            SetVisible32 := true
+                        else
+                            SetVisible32 := false;
+                    33:
+                        if Rowcount >= Count then
+                            SetVisible33 := true
+                        else
+                            SetVisible33 := false;
+                    34:
+                        if Rowcount >= Count then
+                            SetVisible34 := true
+                        else
+                            SetVisible34 := false;
+                    35:
+                        if Rowcount >= Count then
+                            SetVisible35 := true
+                        else
+                            SetVisible35 := false;
+                    36:
+                        if Rowcount >= Count then
+                            SetVisible36 := true
+                        else
+                            SetVisible36 := false;
+                    37:
+                        if Rowcount >= Count then
+                            SetVisible37 := true
+                        else
+                            SetVisible37 := false;
+                    38:
+                        if Rowcount >= Count then
+                            SetVisible38 := true
+                        else
+                            SetVisible38 := false;
+                    39:
+                        if Rowcount >= Count then
+                            SetVisible39 := true
+                        else
+                            SetVisible39 := false;
+                    40:
+                        if Rowcount >= Count then
+                            SetVisible40 := true
+                        else
+                            SetVisible40 := false;
+                    41:
+                        if Rowcount >= Count then
+                            SetVisible41 := true
+                        else
+                            SetVisible41 := false;
+                    42:
+                        if Rowcount >= Count then
+                            SetVisible42 := true
+                        else
+                            SetVisible42 := false;
+                    43:
+                        if Rowcount >= Count then
+                            SetVisible43 := true
+                        else
+                            SetVisible43 := false;
+                    44:
+                        if Rowcount >= Count then
+                            SetVisible44 := true
+                        else
+                            SetVisible44 := false;
+                    45:
+                        if Rowcount >= Count then
+                            SetVisible45 := true
+                        else
+                            SetVisible45 := false;
+                    46:
+                        if Rowcount >= Count then
+                            SetVisible46 := true
+                        else
+                            SetVisible46 := false;
+                    47:
+                        if Rowcount >= Count then
+                            SetVisible47 := true
+                        else
+                            SetVisible47 := false;
+                    48:
+                        if Rowcount >= Count then
+                            SetVisible48 := true
+                        else
+                            SetVisible48 := false;
+                    49:
+                        if Rowcount >= Count then
+                            SetVisible49 := true
+                        else
+                            SetVisible49 := false;
+                    50:
+                        if Rowcount >= Count then
+                            SetVisible50 := true
+                        else
+                            SetVisible50 := false;
+                    51:
+                        if Rowcount >= Count then
+                            SetVisible51 := true
+                        else
+                            SetVisible51 := false;
+                    52:
+                        if Rowcount >= Count then
+                            SetVisible52 := true
+                        else
+                            SetVisible52 := false;
+                    53:
+                        if Rowcount >= Count then
+                            SetVisible53 := true
+                        else
+                            SetVisible53 := false;
+                    54:
+                        if Rowcount >= Count then
+                            SetVisible54 := true
+                        else
+                            SetVisible54 := false;
+                    55:
+                        if Rowcount >= Count then
+                            SetVisible55 := true
+                        else
+                            SetVisible55 := false;
+                    56:
+                        if Rowcount >= Count then
+                            SetVisible56 := true
+                        else
+                            SetVisible56 := false;
+                    57:
+                        if Rowcount >= Count then
+                            SetVisible57 := true
+                        else
+                            SetVisible57 := false;
+                    58:
+                        if Rowcount >= Count then
+                            SetVisible58 := true
+                        else
+                            SetVisible58 := false;
+                    59:
+                        if Rowcount >= Count then
+                            SetVisible59 := true
+                        else
+                            SetVisible59 := false;
+                    60:
+                        if Rowcount >= Count then
+                            SetVisible60 := true
+                        else
+                            SetVisible60 := false;
+                    61:
+                        if Rowcount >= Count then
+                            SetVisible61 := true
+                        else
+                            SetVisible61 := false;
+                    62:
+                        if Rowcount >= Count then
+                            SetVisible62 := true
+                        else
+                            SetVisible62 := false;
+                    63:
+                        if Rowcount >= Count then
+                            SetVisible63 := true
+                        else
+                            SetVisible63 := false;
+                    64:
+                        if Rowcount >= Count then
+                            SetVisible64 := true
+                        else
+                            SetVisible64 := false;
+                end;
+            end;
+        end;
+
+        if "Colour Name" = '*' then begin
+            Clear(SetEdit);
+            SetEdit := false;
+        end
+        ELSE begin
+            Clear(SetEdit);
+            SetEdit := true;
+        end;
+
+        //Only for the sizes
+        if ("Record Type" = 'H1') or ("Colour Name" = '*') then begin
+            Clear(SetEdit1);
+            SetEdit1 := false;
+        end
+        ELSE begin
+            Clear(SetEdit1);
+            SetEdit1 := true;
+        end;
+
+    end;
+
+    procedure CalTotal()
+    var
+        Count: Integer;
+        Number: Integer;
+        Tot: Decimal;
+        SJC3: Record SewingJobCreationLine3;
+        MainColorTotal: Decimal;
+        ColorTotalLines: Decimal;
+    begin
+        if "Colour Name" <> '*' then begin
+            for Count := 1 To 64 do begin
+                case Count of
+                    1:
+                        if "1" <> '' then
+                            Evaluate(Number, "1")
+                        else
+                            Number := 0;
+                    2:
+                        if "2" <> '' then
+                            Evaluate(Number, "2")
+                        else
+                            Number := 0;
+                    3:
+                        if "3" <> '' then
+                            Evaluate(Number, "3")
+                        else
+                            Number := 0;
+                    4:
+                        if "4" <> '' then
+                            Evaluate(Number, "4")
+                        else
+                            Number := 0;
+                    5:
+                        if "5" <> '' then
+                            Evaluate(Number, "5")
+                        else
+                            Number := 0;
+                    6:
+                        if "6" <> '' then
+                            Evaluate(Number, "6")
+                        else
+                            Number := 0;
+                    7:
+                        if "7" <> '' then
+                            Evaluate(Number, "7")
+                        else
+                            Number := 0;
+                    8:
+                        if "8" <> '' then
+                            Evaluate(Number, "8")
+                        else
+                            Number := 0;
+                    9:
+                        if "9" <> '' then
+                            Evaluate(Number, "9")
+                        else
+                            Number := 0;
+                    10:
+                        if "10" <> '' then
+                            Evaluate(Number, "10")
+                        else
+                            Number := 0;
+                    11:
+                        if "11" <> '' then
+                            Evaluate(Number, "11")
+                        else
+                            Number := 0;
+                    12:
+                        if "12" <> '' then
+                            Evaluate(Number, "12")
+                        else
+                            Number := 0;
+                    13:
+                        if "13" <> '' then
+                            Evaluate(Number, "13")
+                        else
+                            Number := 0;
+                    14:
+                        if "14" <> '' then
+                            Evaluate(Number, "14")
+                        else
+                            Number := 0;
+                    15:
+                        if "15" <> '' then
+                            Evaluate(Number, "15")
+                        else
+                            Number := 0;
+                    16:
+                        if "16" <> '' then
+                            Evaluate(Number, "16")
+                        else
+                            Number := 0;
+                    17:
+                        if "17" <> '' then
+                            Evaluate(Number, "17")
+                        else
+                            Number := 0;
+                    18:
+                        if "18" <> '' then
+                            Evaluate(Number, "18")
+                        else
+                            Number := 0;
+                    19:
+                        if "19" <> '' then
+                            Evaluate(Number, "19")
+                        else
+                            Number := 0;
+                    20:
+                        if "20" <> '' then
+                            Evaluate(Number, "20")
+                        else
+                            Number := 0;
+                    21:
+                        if "21" <> '' then
+                            Evaluate(Number, "21")
+                        else
+                            Number := 0;
+                    22:
+                        if "22" <> '' then
+                            Evaluate(Number, "22")
+                        else
+                            Number := 0;
+                    23:
+                        if "23" <> '' then
+                            Evaluate(Number, "23")
+                        else
+                            Number := 0;
+                    24:
+                        if "24" <> '' then
+                            Evaluate(Number, "24")
+                        else
+                            Number := 0;
+                    25:
+                        if "25" <> '' then
+                            Evaluate(Number, "25")
+                        else
+                            Number := 0;
+                    26:
+                        if "26" <> '' then
+                            Evaluate(Number, "26")
+                        else
+                            Number := 0;
+                    27:
+                        if "27" <> '' then
+                            Evaluate(Number, "27")
+                        else
+                            Number := 0;
+                    28:
+                        if "28" <> '' then
+                            Evaluate(Number, "28")
+                        else
+                            Number := 0;
+                    29:
+                        if "29" <> '' then
+                            Evaluate(Number, "29")
+                        else
+                            Number := 0;
+                    30:
+                        if "30" <> '' then
+                            Evaluate(Number, "30")
+                        else
+                            Number := 0;
+                    31:
+                        if "31" <> '' then
+                            Evaluate(Number, "31")
+                        else
+                            Number := 0;
+                    32:
+                        if "32" <> '' then
+                            Evaluate(Number, "32")
+                        else
+                            Number := 0;
+                    33:
+                        if "33" <> '' then
+                            Evaluate(Number, "33")
+                        else
+                            Number := 0;
+                    34:
+                        if "34" <> '' then
+                            Evaluate(Number, "34")
+                        else
+                            Number := 0;
+                    35:
+                        if "35" <> '' then
+                            Evaluate(Number, "35")
+                        else
+                            Number := 0;
+                    36:
+                        if "36" <> '' then
+                            Evaluate(Number, "36")
+                        else
+                            Number := 0;
+                    37:
+                        if "37" <> '' then
+                            Evaluate(Number, "37")
+                        else
+                            Number := 0;
+                    38:
+                        if "38" <> '' then
+                            Evaluate(Number, "38")
+                        else
+                            Number := 0;
+                    39:
+                        if "39" <> '' then
+                            Evaluate(Number, "39")
+                        else
+                            Number := 0;
+                    40:
+                        if "40" <> '' then
+                            Evaluate(Number, "40")
+                        else
+                            Number := 0;
+                    41:
+                        if "41" <> '' then
+                            Evaluate(Number, "41")
+                        else
+                            Number := 0;
+                    42:
+                        if "42" <> '' then
+                            Evaluate(Number, "42")
+                        else
+                            Number := 0;
+                    43:
+                        if "43" <> '' then
+                            Evaluate(Number, "43")
+                        else
+                            Number := 0;
+                    44:
+                        if "44" <> '' then
+                            Evaluate(Number, "44")
+                        else
+                            Number := 0;
+                    45:
+                        if "45" <> '' then
+                            Evaluate(Number, "45")
+                        else
+                            Number := 0;
+                    46:
+                        if "46" <> '' then
+                            Evaluate(Number, "46")
+                        else
+                            Number := 0;
+                    47:
+                        if "47" <> '' then
+                            Evaluate(Number, "47")
+                        else
+                            Number := 0;
+                    48:
+                        if "48" <> '' then
+                            Evaluate(Number, "48")
+                        else
+                            Number := 0;
+                    49:
+                        if "49" <> '' then
+                            Evaluate(Number, "49")
+                        else
+                            Number := 0;
+                    50:
+                        if "50" <> '' then
+                            Evaluate(Number, "50")
+                        else
+                            Number := 0;
+                    51:
+                        if "51" <> '' then
+                            Evaluate(Number, "51")
+                        else
+                            Number := 0;
+                    52:
+                        if "52" <> '' then
+                            Evaluate(Number, "52")
+                        else
+                            Number := 0;
+                    53:
+                        if "53" <> '' then
+                            Evaluate(Number, "53")
+                        else
+                            Number := 0;
+                    54:
+                        if "54" <> '' then
+                            Evaluate(Number, "54")
+                        else
+                            Number := 0;
+                    55:
+                        if "55" <> '' then
+                            Evaluate(Number, "55")
+                        else
+                            Number := 0;
+                    56:
+                        if "56" <> '' then
+                            Evaluate(Number, "56")
+                        else
+                            Number := 0;
+                    57:
+                        if "57" <> '' then
+                            Evaluate(Number, "57")
+                        else
+                            Number := 0;
+                    58:
+                        if "58" <> '' then
+                            Evaluate(Number, "58")
+                        else
+                            Number := 0;
+                    59:
+                        if "59" <> '' then
+                            Evaluate(Number, "59")
+                        else
+                            Number := 0;
+                    60:
+                        if "60" <> '' then
+                            Evaluate(Number, "60")
+                        else
+                            Number := 0;
+                    61:
+                        if "61" <> '' then
+                            Evaluate(Number, "61")
+                        else
+                            Number := 0;
+                    62:
+                        if "62" <> '' then
+                            Evaluate(Number, "62")
+                        else
+                            Number := 0;
+                    63:
+                        if "63" <> '' then
+                            Evaluate(Number, "63")
+                        else
+                            Number := 0;
+                    64:
+                        if "64" <> '' then
+                            Evaluate(Number, "64")
+                        else
+                            Number := 0;
+                end;
+
+                Tot += Number;
+            end;
+
+            "Color Total" := Tot;
+            CurrPage.Update();
+
+
+            if qty < "Color Total" then
+                Error('Total quantity for the color is greater than the po order quantity');
+
+            SJC3.Reset();
+            SJC3.SetRange("SJCNo.", "SJCNo.");
+            SJC3.SetRange("Style No.", "Style No.");
+            SJC3.SetRange("Lot No.", "Lot No.");
+            SJC3.SetRange("Colour No", "Colour No");
+            SJC3.SetFilter("Record Type", '=%1', 'H1');
+
+            if SJC3.FindSet() then
+                MainColorTotal := SJC3.Qty;
+
+            SJC3.Reset();
+            SJC3.SetRange("SJCNo.", "SJCNo.");
+            SJC3.SetRange("Style No.", "Style No.");
+            SJC3.SetRange("Lot No.", "Lot No.");
+            SJC3.SetRange("Colour No", "Colour No");
+            SJC3.SetFilter("Record Type", '=%1', 'L');
+
+            if SJC3.FindSet() then begin
+                repeat
+                    ColorTotalLines += SJC3."Color Total";
+                until SJC3.Next() = 0;
+            end;
+
+            if MainColorTotal < ColorTotalLines then
+                Error('PO colour quantity excceds Total colour total');
+
+        end;
+
+    end;
+
+    var
+        StyleExprTxt: Text[50];
+        ChangeColor: Codeunit NavAppCodeUnit;
+        SetEdit: Boolean;
+        SetEdit1: Boolean;
+        StyleName: Text[50];
+        SetVisible1: Boolean;
+        SetVisible2: Boolean;
+        SetVisible3: Boolean;
+        SetVisible4: Boolean;
+        SetVisible5: Boolean;
+        SetVisible6: Boolean;
+        SetVisible7: Boolean;
+        SetVisible8: Boolean;
+        SetVisible9: Boolean;
+        SetVisible10: Boolean;
+        SetVisible11: Boolean;
+        SetVisible12: Boolean;
+        SetVisible13: Boolean;
+        SetVisible14: Boolean;
+        SetVisible15: Boolean;
+        SetVisible16: Boolean;
+        SetVisible17: Boolean;
+        SetVisible18: Boolean;
+        SetVisible19: Boolean;
+        SetVisible20: Boolean;
+        SetVisible21: Boolean;
+        SetVisible22: Boolean;
+        SetVisible23: Boolean;
+        SetVisible24: Boolean;
+        SetVisible25: Boolean;
+        SetVisible26: Boolean;
+        SetVisible27: Boolean;
+        SetVisible28: Boolean;
+        SetVisible29: Boolean;
+        SetVisible30: Boolean;
+        SetVisible31: Boolean;
+        SetVisible32: Boolean;
+        SetVisible33: Boolean;
+        SetVisible34: Boolean;
+        SetVisible35: Boolean;
+        SetVisible36: Boolean;
+        SetVisible37: Boolean;
+        SetVisible38: Boolean;
+        SetVisible39: Boolean;
+        SetVisible40: Boolean;
+        SetVisible41: Boolean;
+        SetVisible42: Boolean;
+        SetVisible43: Boolean;
+        SetVisible44: Boolean;
+        SetVisible45: Boolean;
+        SetVisible46: Boolean;
+        SetVisible47: Boolean;
+        SetVisible48: Boolean;
+        SetVisible49: Boolean;
+        SetVisible50: Boolean;
+        SetVisible51: Boolean;
+        SetVisible52: Boolean;
+        SetVisible53: Boolean;
+        SetVisible54: Boolean;
+        SetVisible55: Boolean;
+        SetVisible56: Boolean;
+        SetVisible57: Boolean;
+        SetVisible58: Boolean;
+        SetVisible59: Boolean;
+        SetVisible60: Boolean;
+        SetVisible61: Boolean;
+        SetVisible62: Boolean;
+        SetVisible63: Boolean;
+        SetVisible64: Boolean;
+
+
+    trigger OnInit()
+    var
+    begin
+        SetEdit := true;
+    end;
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        SJC3: Record SewingJobCreationLine3;
+        SJC4: Record SewingJobCreationLine4;
+        RatioRec: Record RatioCreation;
+        QuestionH: Text;
+        QuestionL: Text;
+        TextH: Label 'This will erase all the records for "LOT" %1 in "SUB SCHEDULING" and "DAILY LINE REQUIRMENT". Do you want to delete?';
+        TextL: Label 'This will erase all the records for "SUB LOT" %1 in "SUB SCHEDULING" and "DAILY LINE REQUIRMENT". Do you want to delete?';
+    begin
+
+        if ("Record Type" = 'H') or ("Record Type" = 'H1') then begin
+            QuestionH := TextH;
+
+            if (Dialog.Confirm(QuestionH, true, "Lot No.") = true) then begin
+
+                //Get all "L" records
+                SJC3.Reset();
+                SJC3.SetRange("SJCNo.", "SJCNo.");
+                SJC3.SetRange("Style No.", "Style No.");
+                SJC3.SetRange("Lot No.", "Lot No.");
+                SJC3.SetFilter("Record Type", '=%1', 'L');
+
+                if SJC3.FindSet() then begin
+                    repeat
+
+                        SJC4.Reset();
+                        SJC4.SetRange("SJCNo.", "SJCNo.");
+                        SJC4.SetRange("Style No.", "Style No.");
+                        SJC4.SetRange("Lot No.", SJC3."Lot No.");
+                        SJC4.SetRange("SubLotNo.", SJC3."SubLotNo.");
+                        SJC4.SetFilter("Record Type", '=%1', 'L');
+
+                        if SJC4.FindSet() then begin
+                            repeat
+                                RatioRec.Reset();
+                                RatioRec.SetRange("Style No.", "Style No.");
+                                RatioRec.SetRange("Group ID", SJC4."Group ID");
+                                RatioRec.SetRange("Colour No", SJC4."Colour No");
+
+                                if RatioRec.FindSet() then begin
+                                    Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', "Style Name", SJC4."Group ID", SJC4."Colour Name");
+                                    exit(false);
+                                end;
+                            until SJC4.Next() = 0;
+                        end;
+
+                    until SJC3.Next() = 0;
+                end;
+
+
+                SJC4.Reset();
+                SJC4.SetRange("SJCNo.", "SJCNo.");
+                SJC4.SetRange("Style No.", "Style No.");
+                SJC4.SetRange("Lot No.", "Lot No.");
+                if SJC4.FindSet() then
+                    SJC4.DeleteAll();
+
+                SJC3.Reset();
+                SJC3.SetRange("SJCNo.", "SJCNo.");
+                SJC3.SetRange("Style No.", "Style No.");
+                SJC3.SetRange("Lot No.", "Lot No.");
+                if SJC3.FindSet() then
+                    SJC3.DeleteAll();
+
+                // Message('Completed');
+
+            end
+            else
+                exit(false);
+
+        end
+        else begin
+
+            if ("Record Type" = 'L') then begin
+                QuestionL := TextL;
+
+                if (Dialog.Confirm(QuestionL, true, "SubLotNo.") = true) then begin
+
+                    SJC4.Reset();
+                    SJC4.SetRange("SJCNo.", "SJCNo.");
+                    SJC4.SetRange("Style No.", "Style No.");
+                    SJC4.SetRange("Lot No.", "Lot No.");
+                    SJC4.SetRange("SubLotNo.", "SubLotNo.");
+                    SJC4.SetFilter("Record Type", '=%1', 'L');
+
+                    if SJC4.FindSet() then begin
+                        repeat
+                            RatioRec.Reset();
+                            RatioRec.SetRange("Style No.", "Style No.");
+                            RatioRec.SetRange("Group ID", SJC4."Group ID");
+                            RatioRec.SetRange("Colour No", SJC4."Colour No");
+
+                            if RatioRec.FindSet() then begin
+                                Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', "Style Name", SJC4."Group ID", SJC4."Colour Name");
+                                exit(false);
+                            end;
+                        until SJC4.Next() = 0;
+                    end;
+
+                    SJC4.Reset();
+                    SJC4.SetRange("SJCNo.", "SJCNo.");
+                    SJC4.SetRange("Style No.", "Style No.");
+                    SJC4.SetRange("Lot No.", "Lot No.");
+                    SJC4.SetRange("SubLotNo.", "SubLotNo.");
+                    SJC4.SetFilter("Record Type", '=%1', 'L');
+                    if SJC4.FindSet() then
+                        SJC4.DeleteAll();
+
+                    //Message('Completed');
+
+                end
+                else
+                    exit(false);
+            end;
+
+        end;
+    end;
+}

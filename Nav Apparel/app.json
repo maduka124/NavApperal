@@ -1,0 +1,26 @@
+{
+  "id": "774ebb95-d92c-4582-af87-1af18d4033c1",
+  "name": "Nav Apparel",
+  "publisher": "SoftServe Solution",
+  "version": "1.0.0.27",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",  
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "14.0.0.0",
+  "application": "19.0.0.0",
+  "idRanges": [
+    {
+      "from": 50200,
+      "to": 71013580
+    }
+  ],
+  "contextSensitiveHelpUrl": "https://NavAppProject.com/help/",
+  "runtime": "5.5"
+}
+
