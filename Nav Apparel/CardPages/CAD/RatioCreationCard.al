@@ -6,6 +6,8 @@ page 50604 "Ratio Creation Card"
 
     layout
     {
+
+
         area(Content)
         {
             group(General)
