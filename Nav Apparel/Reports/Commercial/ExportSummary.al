@@ -79,7 +79,7 @@ report 50629 ExportSummartReport
                     InvoiceRec.SetRange("PO No", "PO No");
                     if InvoiceRec.FindFirst() then begin
                         InvoiceNO := InvoiceRec."No.";
-                        InvoiceDate := InvoiceRec."Posting Date";
+                        InvoiceDate := InvoiceRec."Document Date";
                     end;
                 end;
 

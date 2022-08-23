@@ -88,6 +88,7 @@ report 50630 ExportStatusReport1
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
+           
         }
 
     }
