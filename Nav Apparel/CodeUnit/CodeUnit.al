@@ -744,6 +744,8 @@ codeunit 71012752 NavAppCodeUnit
     begin
         SalesShptHeader."Style No" := SalesHeader."Style No";
         SalesShptHeader."Style Name" := SalesHeader."Style Name";
+        SalesShptHeader."PO No" := SalesHeader."PO No";
+        SalesShptHeader.Lot := SalesHeader.Lot;
         SalesShptHeader.EntryType := SalesHeader.EntryType;
     end;
 
@@ -754,6 +756,8 @@ codeunit 71012752 NavAppCodeUnit
     begin
         SalesInvHeader."Style No" := SalesHeader."Style No";
         SalesInvHeader."Style Name" := SalesHeader."Style Name";
+        SalesInvHeader."PO No" := SalesHeader."PO No";
+        SalesInvHeader.Lot := SalesHeader.Lot;
         SalesInvHeader.EntryType := SalesHeader.EntryType;
     end;
 
