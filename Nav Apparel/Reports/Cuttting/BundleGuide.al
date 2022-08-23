@@ -22,7 +22,6 @@ report 50634 BundleGuideReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-            // test
             dataitem(BundleGuideLine; BundleGuideLine)
             {
                 DataItemLinkReference = BundleGuideHeader;
@@ -42,10 +41,10 @@ report 50634 BundleGuideReport
                 { }
                 column(BQty; Qty)
                 { }
-                //  column()
-                // {}
-                //  column()
-                // {}
+                column(FactoryName; FactoryName)
+                { }
+                column(PO; PO)
+                { }
 
                 trigger OnAfterGetRecord()
 
@@ -53,6 +52,7 @@ report 50634 BundleGuideReport
                     styleRec.SetRange("No.", BundleGuideHeader."Style No.");
                     if styleRec.FindFirst() then begin
                         Quantity := styleRec."Order Qty";
+                        FactoryName := styleRec."Factory Name";
                     end;
 
                 end;
@@ -113,4 +113,5 @@ report 50634 BundleGuideReport
         Quantity: BigInteger;
         comRec: Record "Company Information";
         BundleGuideNo: code[50];
+        FactoryName: Text[50];
 }
