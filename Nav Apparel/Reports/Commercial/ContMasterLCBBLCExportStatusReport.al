@@ -79,7 +79,7 @@ report 50630 ExportStatusReport1
             trigger OnPreDataItem()
 
             begin
-                SetRange("Buyer No.", BuyerName);
+                SetRange("No.", No);
             end;
 
             trigger OnAfterGetRecord()
@@ -101,11 +101,11 @@ report 50630 ExportStatusReport1
                 group(GroupName)
                 {
                     Caption = 'Filter By';
-                    field(BuyerName; BuyerName)
+                    field(No; No)
                     {
                         ApplicationArea = All;
-                        Caption = 'Buyer Name';
-                        TableRelation = Customer."No.";
+                        Caption = 'Contract No';
+                        TableRelation = "Contract/LCMaster"."No.";
 
                     }
                 }
@@ -131,7 +131,7 @@ report 50630 ExportStatusReport1
         UniPrice: Decimal;
         ConStRec: Record "Contract/LCStyle";
         Qt: BigInteger;
-        BuyerName: Code[50];
+        No: Code[50];
         comRec: Record "Company Information";
 
 
