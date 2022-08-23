@@ -11,61 +11,6 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Cut_No">
-          <DataField>Cut_No</DataField>
-        </Field>
-        <Field Name="Created_Date">
-          <DataField>Created_Date</DataField>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Bundle_No">
-          <DataField>Bundle_No</DataField>
-        </Field>
-        <Field Name="Color_Name">
-          <DataField>Color_Name</DataField>
-        </Field>
-        <Field Name="Shade_Name">
-          <DataField>Shade_Name</DataField>
-        </Field>
-        <Field Name="Sticker_Sequence">
-          <DataField>Sticker_Sequence</DataField>
-        </Field>
-        <Field Name="Role_ID">
-          <DataField>Role_ID</DataField>
-        </Field>
-        <Field Name="Size">
-          <DataField>Size</DataField>
-        </Field>
-        <Field Name="BQty">
-          <DataField>BQty</DataField>
-        </Field>
-        <Field Name="BQtyFormat">
-          <DataField>BQtyFormat</DataField>
-        </Field>
-        <Field Name="FactoryName">
-          <DataField>FactoryName</DataField>
-        </Field>
-        <Field Name="PO">
-          <DataField>PO</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2828,13 +2773,13 @@ DATE</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.5841cm</Width>
+                  <Width>3.41816cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>6.62025cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.89275cm</Width>
+                  <Width>3.22441cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.5cm</Width>
@@ -3293,7 +3238,7 @@ DATE</Value>
             <Top>3.59516cm</Top>
             <Left>0cm</Left>
             <Height>1.64979cm</Height>
-            <Width>14.5971cm</Width>
+            <Width>15.76282cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -4167,12 +4112,6 @@ DATE</Value>
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -4224,4 +4163,56 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Cut_No">
+          <DataField>Cut_No</DataField>
+        </Field>
+        <Field Name="Created_Date">
+          <DataField>Created_Date</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Bundle_No">
+          <DataField>Bundle_No</DataField>
+        </Field>
+        <Field Name="Color_Name">
+          <DataField>Color_Name</DataField>
+        </Field>
+        <Field Name="Shade_Name">
+          <DataField>Shade_Name</DataField>
+        </Field>
+        <Field Name="Sticker_Sequence">
+          <DataField>Sticker_Sequence</DataField>
+        </Field>
+        <Field Name="Role_ID">
+          <DataField>Role_ID</DataField>
+        </Field>
+        <Field Name="Size">
+          <DataField>Size</DataField>
+        </Field>
+        <Field Name="BQty">
+          <DataField>BQty</DataField>
+        </Field>
+        <Field Name="FactoryName">
+          <DataField>FactoryName</DataField>
+        </Field>
+        <Field Name="PO">
+          <DataField>PO</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
