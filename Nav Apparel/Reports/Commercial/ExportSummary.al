@@ -51,8 +51,8 @@ report 50629 ExportSummartReport
                 { }
                 column(InvoiceNO; InvoiceNO)
                 { }
-                //     column()
-                // {}
+                column(InvoiceDate; InvoiceDate)
+                { }
 
                 trigger OnAfterGetRecord()
                 begin
@@ -79,6 +79,7 @@ report 50629 ExportSummartReport
                     InvoiceRec.SetRange("PO No", "PO No");
                     if InvoiceRec.FindFirst() then begin
                         InvoiceNO := InvoiceRec."No.";
+                        InvoiceDate := InvoiceRec."Posting Date";
                     end;
                 end;
 
@@ -179,5 +180,6 @@ report 50629 ExportSummartReport
         FilterDate: Date;
         comRec: Record "Company Information";
         InvoiceRec: Record "Sales Invoice Header";
+
 
 }
