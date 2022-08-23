@@ -1161,6 +1161,13 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Bank Reference List")
+                {
+                    Caption = 'Bank Reference List"';
+                    RunObject = Page "Bank Reference List";
+                    ApplicationArea = all;
+                }
+
                 action("GIT Base On LC")
                 {
                     Caption = 'GIT Base On LC';
