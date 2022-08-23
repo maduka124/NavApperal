@@ -49,9 +49,8 @@ report 50629 ExportSummartReport
                 { }
                 column(UnitPrice; UnitPrice)
                 { }
-
-                //     column()
-                // {}
+                column(InvoiceNO; InvoiceNO)
+                { }
                 //     column()
                 // {}
 
@@ -75,6 +74,12 @@ report 50629 ExportSummartReport
                     //     InvoiceDate := PiDetailsHeaderRec."PI Date";
                     //     InvoiceNO := PiDetailsHeaderRec."No.";
                     // end;
+
+                    InvoiceRec.SetRange("Style No", "No.");
+                    InvoiceRec.SetRange("PO No", "PO No");
+                    if InvoiceRec.FindFirst() then begin
+                        InvoiceNO := InvoiceRec."No.";
+                    end;
                 end;
 
             }
@@ -173,4 +178,6 @@ report 50629 ExportSummartReport
         UnitPrice: Decimal;
         FilterDate: Date;
         comRec: Record "Company Information";
+        InvoiceRec: Record "Sales Invoice Header";
+
 }
