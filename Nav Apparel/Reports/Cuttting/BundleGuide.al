@@ -22,6 +22,7 @@ report 50634 BundleGuideReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+            // test
             dataitem(BundleGuideLine; BundleGuideLine)
             {
                 DataItemLinkReference = BundleGuideHeader;
