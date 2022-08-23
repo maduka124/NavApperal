@@ -759,6 +759,7 @@ codeunit 71012752 NavAppCodeUnit
         SalesInvHeader."PO No" := SalesHeader."PO No";
         SalesInvHeader.Lot := SalesHeader.Lot;
         SalesInvHeader.EntryType := SalesHeader.EntryType;
+
     end;
 
 
