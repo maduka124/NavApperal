@@ -23,6 +23,22 @@ tableextension 71012813 "PostedSales Invoice Extension" extends "Sales Invoice H
             OptionCaption = 'FG,Sample,Washing';
             OptionMembers = FG,Sample,Washing;
         }
+
+        field(71012586; "BankRefNo"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012587; "AssignedBankRefNo"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012588; "Select"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 }
 

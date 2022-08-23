@@ -250,6 +250,13 @@ page 71012751 "NavApp Setup Card"
                     ApplicationArea = All;
                 }
 
+
+                field("BankRef Nos."; "BankRef Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Bank Ref, No';
+                }
+
                 field("Acc Nos."; "Acc Nos.")
                 {
                     ApplicationArea = All;
