@@ -35,7 +35,6 @@ report 50628 ExportLcUtilizationReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-
             column(Quantity__Pcs_; "Quantity (Pcs)")
             { }
             column(Contract_Value; "Contract Value")
@@ -63,6 +62,17 @@ report 50628 ExportLcUtilizationReport
                 { }
                 column(Currency; "Currency No.")
                 { }
+                column(PIValue; PIValue)
+                { }
+
+                trigger OnAfterGetRecord()
+
+                begin
+                    LCPIRec.SetRange("B2BNo.", "No.");
+                    if LCPIRec.FindFirst() then begin
+                        PIValue += LCPIRec."PI Value";
+                    end;
+                end;
             }
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
             {
@@ -163,4 +173,6 @@ report 50628 ExportLcUtilizationReport
         StylePoRec: Record "Style Master PO";
         UniPrice: Decimal;
         comRec: Record "Company Information";
+        LCPIRec: Record B2BLCPI;
+        PIValue: Decimal;
 }

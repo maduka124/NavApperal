@@ -1162,16 +1162,16 @@
                   <Width>6.30745cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.28099cm</Width>
+                  <Width>2.20957cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.81208cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.55038cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>8.24082cm</Width>
+                  <Width>7.26186cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1808,16 +1808,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox66">
+                        <Textbox Name="PIValue">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!PIValue.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1826,7 +1827,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox66</rd:DefaultName>
+                          <rd:DefaultName>PIValue</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -3400,7 +3401,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>27.53552cm</Width>
+      <Width>27.53489cm</Width>
       <Page>
         <PageFooter>
           <Height>1.32292cm</Height>
@@ -3694,6 +3695,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Currency">
           <DataField>Currency</DataField>
+        </Field>
+        <Field Name="PIValue">
+          <DataField>PIValue</DataField>
+        </Field>
+        <Field Name="PIValueFormat">
+          <DataField>PIValueFormat</DataField>
         </Field>
         <Field Name="Qty">
           <DataField>Qty</DataField>
