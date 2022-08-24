@@ -1163,7 +1163,7 @@ page 71012740 "Nav Apperal Role Center"
 
                 action("Bank Reference List")
                 {
-                    Caption = 'Bank Reference List"';
+                    Caption = 'Export Bank Reference List';
                     RunObject = Page "Bank Reference List";
                     ApplicationArea = all;
                 }

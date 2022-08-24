@@ -310,6 +310,36 @@ codeunit 71012752 NavAppCodeUnit
 
     end;
 
+
+    procedure CalQtyBankRef(BankRefNoPara: Code[20])
+    var
+        BankRefHeaderRec: Record BankReferenceHeader;
+        BankRefInvRec: Record BankReferenceInvoice;
+        TotalQty: Decimal;
+        AutoValue: Decimal;
+    begin
+
+        //Get total invoice value
+        BankRefInvRec.Reset();
+        BankRefInvRec.SetRange("No.", BankRefNoPara);
+
+        if BankRefInvRec.FindSet() then begin
+            repeat
+                TotalQty += BankRefInvRec."Ship Value";
+            until BankRefInvRec.Next() = 0;
+        end;
+
+
+        //Update Qty;
+        BankRefHeaderRec.Reset();
+        BankRefHeaderRec.SetRange("No.", BankRefNoPara);
+        BankRefHeaderRec.FindSet();
+        BankRefHeaderRec.Total := TotalQty;
+        BankRefHeaderRec.Modify();
+
+    end;
+
+
     procedure CalGRNBalance(GITNoPara: Code[20])
     var
         GITBaseonPIRec: Record GITBaseonPI;

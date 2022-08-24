@@ -43,6 +43,7 @@ page 50765 "Bank Ref Invoice ListPart2"
                 var
                     SalesInvRec: Record "Sales Invoice Header";
                     BankRefInvRec: Record BankReferenceInvoice;
+                    CodeUnitNav: Codeunit NavAppCodeUnit;
                 begin
                     BankRefInvRec.Reset();
                     BankRefInvRec.SetRange("No.", "No.");
@@ -66,6 +67,7 @@ page 50765 "Bank Ref Invoice ListPart2"
                     BankRefInvRec.SetFilter(Select, '=%1', true);
                     BankRefInvRec.DeleteAll();
 
+                    CodeUnitNav.CalQtyBankRef("No.");
                     CurrPage.Update();
                 end;
             }

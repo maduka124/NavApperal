@@ -25,6 +25,7 @@ page 50763 "Bank Reference Card"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+                    Caption = 'Bank Reference No';
 
                     trigger OnValidate()
                     var
@@ -65,6 +66,12 @@ page 50763 "Bank Reference Card"
                 field(Remarks; Remarks)
                 {
                     ApplicationArea = All;
+                }
+
+                field(Total; Total)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
             }
 

@@ -49,6 +49,11 @@ table 50761 BankReferenceHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(10; "Total"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

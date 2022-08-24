@@ -61,6 +61,7 @@ page 50764 "Bank Ref Invoice ListPart1"
                             BankRefInvRec.Init();
                             BankRefInvRec."No." := SalesInvRec.BankRefNo;
                             BankRefInvRec."Invoice No" := SalesInvRec."No.";
+                            SalesInvRec.CalcFields("Amount Including VAT");
                             BankRefInvRec."Ship Value" := SalesInvRec."Amount Including VAT";
                             BankRefInvRec."Created User" := UserId;
                             BankRefInvRec."Created Date" := WorkDate();
@@ -82,6 +83,7 @@ page 50764 "Bank Ref Invoice ListPart1"
                         SalesInvRec.ModifyAll(Select, false);
                     end;
 
+                    CodeUnitNav.CalQtyBankRef(BankRefNo1);
                     CurrPage.Update();
                 end;
             }
