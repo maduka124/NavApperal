@@ -34,6 +34,11 @@ table 50762 BankReferenceInvoice
         {
             DataClassification = ToBeClassified;
         }
+
+        field(7; "Invoice Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
