@@ -39,6 +39,7 @@ tableextension 71012813 "PostedSales Invoice Extension" extends "Sales Invoice H
             DataClassification = ToBeClassified;
         }
 
+
     }
 }
 
