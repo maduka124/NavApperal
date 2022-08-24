@@ -35,7 +35,6 @@ report 50628 ExportLcUtilizationReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-
             column(Quantity__Pcs_; "Quantity (Pcs)")
             { }
             column(Contract_Value; "Contract Value")

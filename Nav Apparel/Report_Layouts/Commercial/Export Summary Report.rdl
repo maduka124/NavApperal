@@ -1229,7 +1229,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
-                                    <Format>0</Format>
+                                    <Format>#,0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1988,6 +1988,9 @@
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Details" />
+                  <Visibility>
+                    <Hidden>=Fields!Buyer_Name.Value=""</Hidden>
+                  </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <KeepWithGroup>Before</KeepWithGroup>
@@ -2369,6 +2372,9 @@
                       </Group>
                     </TablixMember>
                   </TablixMembers>
+                  <Visibility>
+                    <Hidden>=Fields!Buyer_Name.Value=""</Hidden>
+                  </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <KeepWithGroup>Before</KeepWithGroup>
@@ -2818,6 +2824,9 @@
                       </TablixMembers>
                     </TablixMember>
                   </TablixMembers>
+                  <Visibility>
+                    <Hidden>=Fields!Factory.Value=""</Hidden>
+                  </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <TablixHeader>
@@ -2923,14 +2932,14 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> t</Value>
+                    <Value xml:space="preserve"> </Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>11pt</FontSize>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>o</Value>
+                    <Value>to</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>11pt</FontSize>
@@ -3203,14 +3212,8 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="ContractNo">
           <DataField>ContractNo</DataField>
         </Field>
-        <Field Name="Factory">
-          <DataField>Factory</DataField>
-        </Field>
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
         </Field>
         <Field Name="Style_No_">
           <DataField>Style_No_</DataField>
@@ -3253,6 +3256,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="InvoiceDate">
           <DataField>InvoiceDate</DataField>
+        </Field>
+        <Field Name="Factory">
+          <DataField>Factory</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
         </Field>
       </Fields>
       <Query>
