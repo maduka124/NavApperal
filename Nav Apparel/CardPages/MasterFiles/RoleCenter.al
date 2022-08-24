@@ -1168,6 +1168,13 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Bank Reference Collection List")
+                {
+                    Caption = 'Export Bank Ref. Collection List';
+                    RunObject = Page "Bank Ref Collection List";
+                    ApplicationArea = all;
+                }
+
                 action("GIT Base On LC")
                 {
                     Caption = 'GIT Base On LC';

@@ -47,6 +47,7 @@ page 50764 "Bank Ref Invoice ListPart1"
                 var
                     SalesInvRec: Record "Sales Invoice Header";
                     BankRefInvRec: Record BankReferenceInvoice;
+                    BankRefHeadRec: Record BankReferenceHeader;
                     CodeUnitNav: Codeunit NavAppCodeUnit;
                     BankRefNo1: Code[20];
                 begin
@@ -56,13 +57,20 @@ page 50764 "Bank Ref Invoice ListPart1"
 
                     if SalesInvRec.FindSet() then begin
                         repeat
+
+                            BankRefHeadRec.Reset();
+                            BankRefHeadRec.SetRange("No.", SalesInvRec.BankRefNo);
+                            BankRefHeadRec.FindSet();
+
                             //add new Invoice to the Bankref
                             BankRefNo1 := SalesInvRec.BankRefNo;
                             BankRefInvRec.Init();
+                            BankRefInvRec.BankRefNo := BankRefHeadRec."BankRefNo.";
                             BankRefInvRec."No." := SalesInvRec.BankRefNo;
                             BankRefInvRec."Invoice No" := SalesInvRec."No.";
                             SalesInvRec.CalcFields("Amount Including VAT");
                             BankRefInvRec."Ship Value" := SalesInvRec."Amount Including VAT";
+                            BankRefInvRec."Invoice Date" := SalesInvRec."Document Date";
                             BankRefInvRec."Created User" := UserId;
                             BankRefInvRec."Created Date" := WorkDate();
                             BankRefInvRec.Insert();

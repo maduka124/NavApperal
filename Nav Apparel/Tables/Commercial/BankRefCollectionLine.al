@@ -20,73 +20,90 @@ table 50768 BankRefCollectionLine
             DataClassification = ToBeClassified;
         }
 
-        field(4; "Invoice No"; Code[50])
+        field(4; "AirwayBillNo"; Text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Invoice Date"; Date)
+        field(5; "Airway Bill Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
+        field(6; "Maturity Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(2; "Release Amount"; Decimal)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(7; "Exchange Rate"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(3; "Release Date"; Date)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(8; "Release Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(4; "Margin A/C Amount"; Decimal)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(9; "Margin A/C Amount"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(5; "Exchange Rate"; Decimal)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(10; "Release Amount"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(6; "Bank Charges"; Decimal)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(11; "Bank Charges"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(7; "Tax"; Decimal)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(12; "Tax"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(8; "Currier Charges"; Decimal)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(13; "Currier Charges"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(9; "Created User"; Code[50])
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(14; "FC A/C Amount"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(10; "Created Date"; Date)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(15; "Current A/C Amount"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(11; "FC A/C Amount"; Decimal)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(16; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(12; "Current A/C Amount"; Decimal)
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(17; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
 
+        field(18; "Invoice No"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
 
+        field(19; "Invoice Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(20; "Invoice Amount"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -99,9 +116,9 @@ table 50768 BankRefCollectionLine
 
     fieldgroups
     {
-        fieldgroup(DropDown; "BankRefNo.", "LineNo.")
+        fieldgroup(DropDown; "BankRefNo.", "Invoice No", "Invoice Date", "Invoice Amount", "Release Amount", "Margin A/C Amount", "Release Date", "Exchange Rate")
         {
-            // "Release Amount", "Margin A/C Amount", "Release Date", "Exchange Rate"
+
         }
     }
 
@@ -109,7 +126,7 @@ table 50768 BankRefCollectionLine
     trigger OnInsert()
     var
     begin
-        // "Created Date" := WorkDate();
-        // "Created User" := UserId;
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
     end;
 }

@@ -8,9 +8,11 @@ table 50767 BankRefCollectionHeader
         field(1; "BankRefNo."; Code[50])
         {
             DataClassification = ToBeClassified;
+            TableRelation = BankReferenceHeader."BankRefNo.";
+            ValidateTableRelation = false;
         }
 
-        field(2; "Release Amount"; Decimal)
+        field(2; "Exchange Rate"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
@@ -25,7 +27,7 @@ table 50767 BankRefCollectionHeader
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Exchange Rate"; Decimal)
+        field(5; "Release Amount"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
@@ -45,22 +47,22 @@ table 50767 BankRefCollectionHeader
             DataClassification = ToBeClassified;
         }
 
-        field(9; "Created User"; Code[50])
+        field(9; "FC A/C Amount"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "Created Date"; Date)
+        field(10; "Current A/C Amount"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(11; "FC A/C Amount"; Decimal)
+        field(11; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "Current A/C Amount"; Decimal)
+        field(12; "Created Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
@@ -76,7 +78,7 @@ table 50767 BankRefCollectionHeader
 
     fieldgroups
     {
-        fieldgroup(DropDown; "BankRefNo.", "Release Amount", "Margin A/C Amount", "Release Date", "Exchange Rate")
+        fieldgroup(DropDown; "BankRefNo.", "Release Amount", "Margin A/C Amount", "FC A/C Amount", "Current A/C Amount")
         {
 
         }

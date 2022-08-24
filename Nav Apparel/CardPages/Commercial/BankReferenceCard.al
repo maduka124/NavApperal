@@ -111,8 +111,41 @@ page 50763 "Bank Reference Card"
     trigger OnDeleteRecord(): Boolean
     var
         BankRefeInvRec: Record BankReferenceInvoice;
+        SalesInvRec: Record "Sales Invoice Header";
     begin
+
+        //Update sales invoice header recods
+        BankRefeInvRec.Reset();
         BankRefeInvRec.SetRange("No.", "No.");
-        BankRefeInvRec.DeleteAll();
+        if BankRefeInvRec.FindSet() then begin
+            repeat
+                SalesInvRec.Reset();
+                SalesInvRec.SetRange("No.", BankRefeInvRec."Invoice No");
+                if SalesInvRec.FindSet() then begin
+                    SalesInvRec.AssignedBankRefNo := '';
+                    SalesInvRec.Modify();
+                end;
+            until BankRefeInvRec.Next() = 0;
+
+            //Delete Line records
+            BankRefeInvRec.Delete();
+        end;
+
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        SalesInvRec: Record "Sales Invoice Header";
+    begin
+        if "No." <> '' then begin
+            SalesInvRec.Reset();
+            if SalesInvRec.FindSet() then begin
+                repeat
+                    SalesInvRec.BankRefNo := "No.";
+                    SalesInvRec.Modify();
+                until SalesInvRec.Next() = 0;
+            end;
+        end;
     end;
 }
