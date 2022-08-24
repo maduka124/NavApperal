@@ -45,6 +45,11 @@ page 50766 "Bank Reference List"
                 {
                     ApplicationArea = All;
                 }
+
+                field(Total; Total)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
@@ -53,8 +58,26 @@ page 50766 "Bank Reference List"
     trigger OnDeleteRecord(): Boolean
     var
         BankRefeInvRec: Record BankReferenceInvoice;
+        SalesInvRec: Record "Sales Invoice Header";
     begin
+
+        //Update sales invoice header recods
+        BankRefeInvRec.Reset();
         BankRefeInvRec.SetRange("No.", "No.");
-        BankRefeInvRec.DeleteAll();
+        if BankRefeInvRec.FindSet() then begin
+            repeat
+                SalesInvRec.Reset();
+                SalesInvRec.SetRange("No.", BankRefeInvRec."Invoice No");
+                if SalesInvRec.FindSet() then begin
+                    SalesInvRec.AssignedBankRefNo := '';
+                    SalesInvRec.Modify();
+                end;
+            until BankRefeInvRec.Next() = 0;
+
+            //Delete Line records
+            BankRefeInvRec.Delete();
+        end;
+
     end;
+
 }
