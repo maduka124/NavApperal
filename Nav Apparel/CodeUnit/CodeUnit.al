@@ -198,6 +198,7 @@ codeunit 71012752 NavAppCodeUnit
         PIPoItemDetailsRec: Record "PI Po Item Details";
         PIPoDetailsRec: Record "PI Po Details";
         PurchaseLineRec: Record "Purchase Line";
+        ItemRec: Record Item;
     begin
 
         //Delete old records
@@ -220,6 +221,11 @@ codeunit 71012752 NavAppCodeUnit
                 if PurchaseLineRec.FindSet() then begin
 
                     repeat
+
+                        ItemRec.Reset();
+                        ItemRec.SetRange("No.", PurchaseLineRec."No.");
+                        ItemRec.FindSet();
+
                         PIPoItemDetailsRec.Init();
                         PIPoItemDetailsRec."PI No." := PINo;
                         PIPoItemDetailsRec."PO No." := PIPoDetailsRec."PO No.";
@@ -227,6 +233,8 @@ codeunit 71012752 NavAppCodeUnit
                         PIPoItemDetailsRec."Item Name" := PurchaseLineRec.Description;
                         PIPoItemDetailsRec."UOM Code" := PurchaseLineRec."Unit of Measure";
                         PIPoItemDetailsRec."UOM" := PurchaseLineRec."Unit of Measure Code";
+                        PIPoItemDetailsRec."Main Category No." := ItemRec."Main Category No.";
+                        PIPoItemDetailsRec."Main Category Name" := ItemRec."Main Category Name";
                         PIPoItemDetailsRec.Qty := PurchaseLineRec.Quantity;
                         PIPoItemDetailsRec."Unit Price" := PurchaseLineRec."Direct Unit Cost";
                         PIPoItemDetailsRec.Value := PurchaseLineRec.Amount;

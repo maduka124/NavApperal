@@ -52,9 +52,10 @@ page 71012791 "PI Po Details ListPart 2"
                             //Update Purchase order pi no
                             PurchaseHeaderRec.Reset();
                             PurchaseHeaderRec.SetRange("No.", PIPODetailsRec."PO No.");
-                            PurchaseHeaderRec.FindSet();
-                            PurchaseHeaderRec."Assigned PI No." := '';
-                            PurchaseHeaderRec.Modify();
+                            if PurchaseHeaderRec.FindSet() then begin
+                                PurchaseHeaderRec."Assigned PI No." := '';
+                                PurchaseHeaderRec.Modify();
+                            end;
                         until PIPODetailsRec.Next() = 0;
                     end;
 
