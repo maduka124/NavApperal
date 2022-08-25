@@ -2166,17 +2166,14 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     trigger OnAction()
                     var
                         _options: JsonObject;
-                        "ProdUpdateCard": Page "Prod Update Card";
+                        ProdUpdateCard: Page "Prod Update Card";
                     begin
-
                         if (Dialog.CONFIRM('Do you want to upload sewing out details? After uploading sewing out, you cannot undo the process.', true) = true) then begin
 
                             ProdUpdateCard.LookupMode(true);
                             ProdUpdateCard.RunModal();
                             LoadData();
-
                         end;
-
                     end;
                 }
             }
@@ -2409,11 +2406,14 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         QueueNo: Decimal;
         x: Decimal;
         Temp: Decimal;
+        Status: Integer;
     begin
 
         if StyleNo = '' then
             Error('Select a Style to proceed.');
 
+        if (AllPo = false) and (Lot = '') then
+            Error('Please select POs.');
 
         //Get Max Lineno
         PlanningQueueRec.Reset();
@@ -2489,10 +2489,14 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         StyleMasterPONewRec.Waistage := (Temp * Waistage) / 100;
                         StyleMasterPONewRec.Modify();
 
+                        Status := 1;
                     end;
                 end;
 
             until StyleMasterPORec.Next = 0;
+
+            if Status = 0 then
+                Error('Nothing to queue.');
         end
         else
             Error('Cannot find PO details for the Style : %1', StyleName);
