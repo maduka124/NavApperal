@@ -59,16 +59,17 @@ report 50640 PendingStyleSMV
             trigger OnPreDataItem()
 
             begin
-                user := UserId;
+
                 UserReC.Get(UserId);
-                if UserReC."User ID" = user then begin
-                    if UserReC."Factory Code" = 'ABC' then begin
-                        vis1 := true
-                    end
-                    else
-                        vis1 := false;
-                end;
+                if UserReC."Factory Code" = 'ABC' then begin
+                    vis1 := true;
+                    FactoryCode := 'ABC';
+                end
+                else
+                    vis1 := false;
+                SetRange("Factory Code", FactoryCode);
             end;
+
         }
     }
 
@@ -84,10 +85,10 @@ report 50640 PendingStyleSMV
                     field(FactoryCode; FactoryCode)
                     {
                         ApplicationArea = All;
-                        // TableRelation = Location.Code;
+
                         Caption = 'Factory';
                         Visible = vis1;
-
+                        
                     }
                 }
             }
@@ -119,9 +120,9 @@ report 50640 PendingStyleSMV
         Season: Text[50];
         comRec: Record "Company Information";
         FactoryCode: Code[20];
-        user: Text[100];
         UserReC: Record "User Setup";
         vis1: Boolean;
         vis2: Boolean;
+        ABC: Text[20];
 
 }
