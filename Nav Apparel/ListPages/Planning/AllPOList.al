@@ -1,8 +1,10 @@
 page 50489 "All PO List"
 {
     PageType = Card;
-    SourceTable = "Style Master PO";
+    SourceTable = StyleMaster_StyleMasterPO_T;
     SourceTableView = where(PlannedStatus = filter(false), Status = filter(Confirm));
+    DeleteAllowed = false;
+    InsertAllowed = false;
 
     layout
     {
@@ -14,73 +16,96 @@ page 50489 "All PO List"
                 {
                     ApplicationArea = All;
                     Editable = true;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
 
-                field("Style Name"; "Style Name")
+                field(Style_No; Style_No)
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
+                    Editable = false;
                 }
 
-                field("Lot No."; "Lot No.")
+                field(Lot_No; Lot_No)
                 {
                     ApplicationArea = All;
                     Caption = 'Lot No';
+                    Editable = false;
                 }
 
-                field("PO No."; "PO No.")
+                field(PONo; PONo)
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
+                    Editable = false;
                 }
 
                 field(Qty; Qty)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Mode; Mode)
                 {
                     ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field(SMV; SMV)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(BPCD; BPCD)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
-                field("Ship Date"; "Ship Date")
+                field(ShipDate; ShipDate)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(SID; SID)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
-                field("Unit Price"; "Unit Price")
+                field(UnitPrice; UnitPrice)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Status; Status)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
-                field("Confirm Date"; "Confirm Date")
+                field(ConfirmDate; ConfirmDate)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
             }
         }
     }
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean;
-
     var
         StyleMasterPORec: Record "Style Master PO";
+        TempRec: Record StyleMaster_StyleMasterPO_T;
         PlanningQueueRec: Record "Planning Queue";
         WastageRec: Record Wastage;
         PlanningQueueNewRec: Record "Planning Queue";
@@ -91,7 +116,6 @@ page 50489 "All PO List"
         QueueNo: Decimal;
         x: Decimal;
         Temp: Decimal;
-
     begin
 
         //if CloseAction = Action::OK then begin
@@ -105,20 +129,27 @@ page 50489 "All PO List"
         Waistage := 0;
         QtyWithWaistage := 0;
 
-        StyleMasterPORec.Reset();
-        StyleMasterPORec.SetRange(select, true);
-        StyleMasterPORec.SetFilter(PlannedStatus, '=%1', false);
-        StyleMasterPORec.SetFilter(Status, '=%1', StyleMasterPORec.Status::Confirm);
+        TempRec.Reset();
+        TempRec.SetRange(select, true);
+        TempRec.SetFilter(PlannedStatus, '=%1', false);
+        TempRec.SetFilter(Status, '=%1', TempRec.Status::Confirm);
 
-        if StyleMasterPORec.FindSet() then begin
+        if TempRec.FindSet() then begin
 
             repeat
 
-                if StyleMasterPORec.PlannedStatus = false then begin
+                if TempRec.PlannedStatus = false then begin
+
+                    StyleMasterPORec.Reset();
+                    StyleMasterPORec.SetRange("Style No.", TempRec.No);
+                    StyleMasterPORec.SetRange("Lot No.", TempRec.Lot_No);
+                    if not StyleMasterPORec.FindSet() then
+                        Error('Cannot find PO details.');
 
                     StyleMasterRec.Reset();
                     StyleMasterRec.SetRange("No.", StyleMasterPORec."Style No.");
-                    StyleMasterRec.FindSet();
+                    if not StyleMasterRec.FindSet() then
+                        Error('Cannot find Style details.');
 
                     //Get the wastage from wastage table
                     WastageRec.Reset();
@@ -167,12 +198,50 @@ page 50489 "All PO List"
 
                     end;
                 end;
-            until StyleMasterPORec.Next = 0;
+            until TempRec.Next = 0;
         end;
 
         //end;
     end;
 
+
+    trigger OnOpenPage()
+    var
+        TempQuery: Query StyleMaster_StyleMasterPO_Q;
+        TempRec: Record StyleMaster_StyleMasterPO_T;
+    begin
+
+        //Delete old records
+        TempRec.Reset();
+        TempRec.FindSet();
+        TempRec.DeleteAll();
+
+        //Insert records from query 
+        if TempQuery.Open() then begin
+            while TempQuery.Read() do begin
+
+                Rec.Init();
+                Rec.BPCD := TempQuery.BPCD;
+                Rec.ConfirmDate := TempQuery.ConfirmDate;
+                Rec.Lot_No := TempQuery.Lot_No;
+                Rec.Mode := TempQuery.Mode;
+                Rec.No := TempQuery.No;
+                Rec.PlannedStatus := TempQuery.PlannedStatus;
+                Rec.PONo := TempQuery.PONo;
+                Rec.Qty := TempQuery.Qty;
+                Rec.Select := TempQuery.Select;
+                Rec.ShipDate := TempQuery.ShipDate;
+                Rec.SID := TempQuery.SID;
+                Rec.SMV := TempQuery.SMV;
+                Rec.Status := TempQuery.Status;
+                Rec.Style_No := TempQuery.Style_No;
+                Rec.UnitPrice := TempQuery.UnitPrice;
+                Rec.Insert();
+
+            end;
+            TempQuery.Close();
+        end;
+    end;
 
     var
         Factory: Code[20];
