@@ -16,7 +16,8 @@ page 50626 FabricMappingList
                 field(No; No)
                 {
                     ApplicationArea = All;
-                    Visible = false;
+                    //Visible = false;
+                    Caption = 'Seq No';
 
                     trigger OnAssistEdit()
                     begin
@@ -108,48 +109,78 @@ page 50626 FabricMappingList
 
                     trigger OnLookup(var texts: text): Boolean
                     var
-                        ItemLedRec: Record "Item Ledger Entry";
+                        // ItemLedRec: Record "Item Ledger Entry";
                         PurchRecptLineRec: Record "Purch. Rcpt. Line";
                         ItemCode: Code[20];
                         ItemRec: Record Item;
                         ItemRec1: Record Item;
                     begin
 
-                        ItemLedRec.RESET;
-                        ItemLedRec.SetCurrentKey("Item No.");
-                        ItemLedRec.SetRange("Document Type", ItemLedRec."Document Type"::"Purchase Receipt");
+                        // ItemLedRec.RESET;
+                        // ItemLedRec.SetCurrentKey("Item No.");
+                        // ItemLedRec.SetRange("Document Type", ItemLedRec."Document Type"::"Purchase Receipt");
 
-                        IF ItemLedRec.FindSet() THEN BEGIN
+                        // IF ItemLedRec.FindSet() THEN BEGIN
+
+                        //     REPEAT
+                        //         IF ItemCode <> ItemLedRec."Item No." THEN BEGIN
+                        //             ItemCode := ItemLedRec."Item No.";
+
+                        //             ItemRec.Reset();
+                        //             ItemRec.SetRange("No.", ItemCode);
+                        //             ItemRec.SetRange("Main Category No.", "Main Category No.");
+
+                        //             if ItemRec.FindSet() then begin
+
+                        //                 PurchRecptLineRec.Reset();
+                        //                 PurchRecptLineRec.SetRange("No.", ItemCode);
+                        //                 PurchRecptLineRec.SetRange(StyleName, "Style Name");
+
+                        //                 if PurchRecptLineRec.FindSet() then
+                        //                     ItemLedRec.MARK(TRUE);
+                        //             end;
+                        //         END;
+                        //     UNTIL ItemLedRec.NEXT = 0;
+
+                        //     ItemLedRec.MARKEDONLY(TRUE);
+
+                        //     if Page.RunModal(50760, ItemLedRec) = Action::LookupOK then begin
+                        //         "Item No." := ItemLedRec."Item No.";
+                        //         ItemRec1.Reset();
+                        //         ItemRec1.SetRange("No.", "Item No.");
+                        //         ItemRec1.FindSet();
+                        //         "Item Name" := ItemRec1.Description;
+
+                        //     end;
+                        // end;
+
+                        PurchRecptLineRec.Reset();
+                        PurchRecptLineRec.SetCurrentKey("No.");
+                        PurchRecptLineRec.SetRange(StyleName, "Style Name");
+
+                        IF PurchRecptLineRec.FindSet() THEN BEGIN
 
                             REPEAT
-                                IF ItemCode <> ItemLedRec."Item No." THEN BEGIN
-                                    ItemCode := ItemLedRec."Item No.";
+                                IF ItemCode <> PurchRecptLineRec."No." THEN BEGIN
+                                    ItemCode := PurchRecptLineRec."No.";
 
                                     ItemRec.Reset();
                                     ItemRec.SetRange("No.", ItemCode);
                                     ItemRec.SetRange("Main Category No.", "Main Category No.");
 
-                                    if ItemRec.FindSet() then begin
-
-                                        PurchRecptLineRec.Reset();
-                                        PurchRecptLineRec.SetRange("No.", ItemCode);
-                                        PurchRecptLineRec.SetRange(StyleName, "Style Name");
-
-                                        if PurchRecptLineRec.FindSet() then
-                                            ItemLedRec.MARK(TRUE);
-                                    end;
+                                    if ItemRec.FindSet() then
+                                        PurchRecptLineRec.MARK(TRUE);
                                 END;
-                            UNTIL ItemLedRec.NEXT = 0;
+                            UNTIL PurchRecptLineRec.NEXT = 0;
 
-                            ItemLedRec.MARKEDONLY(TRUE);
+                            PurchRecptLineRec.MARKEDONLY(TRUE);
 
-                            if Page.RunModal(50760, ItemLedRec) = Action::LookupOK then begin
-                                "Item No." := ItemLedRec."Item No.";
+                            if Page.RunModal(50760, PurchRecptLineRec) = Action::LookupOK then begin
+                                "Item No." := PurchRecptLineRec."No.";
                                 ItemRec1.Reset();
                                 ItemRec1.SetRange("No.", "Item No.");
                                 ItemRec1.FindSet();
                                 "Item Name" := ItemRec1.Description;
-
                             end;
                         end;
                         CurrPage.Update();

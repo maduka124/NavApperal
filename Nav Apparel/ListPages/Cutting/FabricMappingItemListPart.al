@@ -2,7 +2,7 @@ page 50760 FabricMappingItemListPart
 {
     PageType = List;
     Caption = 'Item List';
-    SourceTable = "Item Ledger Entry";
+    SourceTable = "Purch. Rcpt. Line";
     Editable = false;
 
     layout
@@ -11,7 +11,7 @@ page 50760 FabricMappingItemListPart
         {
             repeater(General)
             {
-                field("Item No."; "Item No.")
+                field("No."; "No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Item No';
