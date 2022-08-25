@@ -49,15 +49,27 @@ report 50640 PendingStyleSMV
                     Season := "Season Name";
 
                 end;
+
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+
             end;
 
             trigger OnPreDataItem()
 
             begin
+
+                UserReC.Get(UserId);
+                if UserReC."Factory Code" = 'ABC' then begin
+                    vis1 := true;
+                    FactoryCode := 'ABC';
+                end
+                else
+                    vis1 := false;
                 SetRange("Factory Code", FactoryCode);
             end;
+
         }
     }
 
@@ -73,9 +85,10 @@ report 50640 PendingStyleSMV
                     field(FactoryCode; FactoryCode)
                     {
                         ApplicationArea = All;
-                        TableRelation = Location.Code;
-                        Caption = 'Factory';
 
+                        Caption = 'Factory';
+                        Visible = vis1;
+                        
                     }
                 }
             }
@@ -107,5 +120,9 @@ report 50640 PendingStyleSMV
         Season: Text[50];
         comRec: Record "Company Information";
         FactoryCode: Code[20];
+        UserReC: Record "User Setup";
+        vis1: Boolean;
+        vis2: Boolean;
+        ABC: Text[20];
 
 }

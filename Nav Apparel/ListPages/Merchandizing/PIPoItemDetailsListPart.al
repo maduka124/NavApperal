@@ -33,6 +33,11 @@ page 71012792 "PI Po Item Details ListPart"
                     ApplicationArea = All;
                 }
 
+                field("Main Category Name"; "Main Category Name")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(Qty; Qty)
                 {
                     ApplicationArea = All;

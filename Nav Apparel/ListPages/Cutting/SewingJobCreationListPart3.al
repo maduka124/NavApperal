@@ -29,7 +29,8 @@ page 50591 "Sewing Job Creation ListPart3"
 
                         SJC3.Reset();
                         SJC3.SetRange("SJCNo.", "SJCNo.");
-                        SJC3.SetFilter("Lot No.", '<>%1', "Lot No.");
+                        //SJC3.SetFilter("Lot No.", '<>%1', "Lot No.");
+                        SJC3.SetFilter("Lot No.", '<>%1&<>%2', "Lot No.", '');
                         if SJC3.FindSet() then
                             Error('You cannot put two different Lot Nos.');
 
@@ -243,7 +244,7 @@ page 50591 "Sewing Job Creation ListPart3"
                             SJC3.SetRange("SJCNo.", "SJCNo.");
                             SJC3.SetRange("Style No.", "Style No.");
                             SJC3.SetRange("Lot No.", "Lot No.");
-                            SJC3.SetFilter("Colour Name", '<>%1&<>%2', "Colour Name", '*');
+                            SJC3.SetFilter("Colour Name", '<>%1&<>%2&<>%3', "Colour Name", '*', '');
 
                             if SJC3.FindSet() then
                                 Error('You cannot use two different colors in one sub scheduling.');

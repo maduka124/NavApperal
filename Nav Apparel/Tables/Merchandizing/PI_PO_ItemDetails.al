@@ -63,6 +63,17 @@ table 71012712 "PI Po Item Details"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012592; "Main Category No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012593; "Main Category Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
