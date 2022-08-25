@@ -130,12 +130,12 @@ page 50754 BWQualityCheck
                             BWQualityCheckline2.SetFilter(Status, '%1', BWQualityCheckline2.Status::Pass);
 
                             if BWQualityCheckline2.FindSet() then begin
-                                WashsamplereqlineRec."Req Qty BW QC Pass" := BWQualityCheckline2.Qty;
-                                WashsamplereqlineRec."Req Qty BW QC Fail" := Total - BWQualityCheckline2.Qty;
+                                WashsamplereqlineRec."Req Qty BW QC Pass" := WashsamplereqlineRec."Req Qty BW QC Pass" + BWQualityCheckline2.Qty;
+                                WashsamplereqlineRec."Req Qty BW QC Fail" := WashsamplereqlineRec."Req Qty BW QC Fail" + Total - BWQualityCheckline2.Qty;
                             end
                             else begin
-                                WashsamplereqlineRec."Req Qty BW QC Pass" := 0;
-                                WashsamplereqlineRec."Req Qty BW QC Fail" := Total;
+                                WashsamplereqlineRec."Req Qty BW QC Pass" := WashsamplereqlineRec."Req Qty BW QC Pass" + 0;
+                                WashsamplereqlineRec."Req Qty BW QC Fail" := WashsamplereqlineRec."Req Qty BW QC Fail" + Total;
                             end;
 
                             WashsamplereqlineRec."BW QC Date" := "BW QC Date";

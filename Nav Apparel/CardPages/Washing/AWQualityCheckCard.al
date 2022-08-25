@@ -23,7 +23,7 @@ page 50687 QCHeaderCardAW
                         IF AssistEdit THEN
                             CurrPage.UPDATE;
                     end;
-                }              
+                }
 
                 field("Job Card No"; "Job Card No")
                 {
@@ -158,16 +158,16 @@ page 50687 QCHeaderCardAW
                                 WashsamplereqlineRec.FindSet();
 
                                 if WashsamplereqlineRec.FindSet() then begin
-                                    WashsamplereqlineRec."QC Pass Qty (AW)" := QCLine2AWRec.Qty;
-                                    WashsamplereqlineRec."QC Fail Qty (AW)" := Total - QCLine2AWRec.Qty;
-                                    intermediateRec."AW QC Pass Qty " := QCLine2AWRec2.Qty;
-                                    intermediateRec."AW QC Fail Qty" := Total - QCLine2AWRec.Qty;
+                                    WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + QCLine2AWRec.Qty;
+                                    WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + Total - QCLine2AWRec.Qty;
+                                    intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + QCLine2AWRec2.Qty;
+                                    intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + Total - QCLine2AWRec.Qty;
                                 end
                                 else begin
-                                    WashsamplereqlineRec."QC Pass Qty (AW)" := 0;
-                                    WashsamplereqlineRec."QC Fail Qty (AW)" := Total;
-                                    intermediateRec."AW QC Pass Qty " := 0;
-                                    intermediateRec."AW QC Fail Qty" := Total;
+                                    WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + 0;
+                                    WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Fail Qty (AW)" + Total;
+                                    intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + 0;
+                                    intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + Total;
                                 end;
 
                                 WashsamplereqlineRec."QC Date (AW)" := "QC AW Date";
@@ -223,5 +223,5 @@ page 50687 QCHeaderCardAW
         else
             CurrPage.Editable(true);
     end;
-   
+
 }

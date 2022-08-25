@@ -5,7 +5,6 @@ page 50721 "Job Creation Card"
     UsageCategory = Administration;
     Caption = 'Job Creation';
     SourceTable = "Washing Sample Requsition Line";
-
     layout
     {
         area(Content)
@@ -121,7 +120,6 @@ page 50721 "Job Creation Card"
         {
             action(Post)
             {
-                
                 ApplicationArea = All;
                 Image = Post;
 
@@ -173,6 +171,11 @@ page 50721 "Job Creation Card"
                     else
                         Error('No splits for posting.');
                 end;
+            }
+
+            action("Print Job Card")
+            {
+
             }
         }
     }
@@ -254,6 +257,7 @@ page 50721 "Job Creation Card"
             ItemRec.Insert(true);
 
             exit(NextItemNo);
+            Message('Item No', ItemRec."No.");
         end
         else
             exit(ItemMasterRec."No.");
@@ -324,6 +328,7 @@ page 50721 "Job Creation Card"
 
                 IntermediateTableRec."SO No" := "SO No";
                 IntermediateTableRec.Modify();
+                Message('SO No', SalesHeaderRec."No.");
 
             until IntermediateTableRec.Next() = 0;
 
@@ -392,6 +397,7 @@ page 50721 "Job Creation Card"
 
                     IntermediateTableRec."Po No" := PoNo;
                     IntermediateTableRec.Modify();
+                    Message('PO No', PurchaseLine."Document No.");
 
                 end;
             until IntermediateTableRec.Next() = 0;
@@ -400,3 +406,4 @@ page 50721 "Job Creation Card"
         end;
     end;
 }
+

@@ -37,6 +37,16 @@ table 50673 BWQualityLine1
         {
             DataClassification = ToBeClassified;
         }
+
+        field(8; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(9; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -52,7 +62,8 @@ table 50673 BWQualityLine1
 
     trigger OnInsert()
     begin
-
+        "Created Date":= WorkDate();
+        "Created User" := UserId;
     end;
 
     trigger OnModify()

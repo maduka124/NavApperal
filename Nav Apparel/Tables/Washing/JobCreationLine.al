@@ -12,12 +12,13 @@ table 50722 JobCreationLine
         field(2; "Line No"; Integer)
         {
             DataClassification = ToBeClassified;
-            AutoIncrement = true;
+            // AutoIncrement = true;
         }
 
         field(3; "Split No"; Integer)
         {
             DataClassification = ToBeClassified;
+            AutoIncrement = true;
         }
 
         field(4; Type; Option)
@@ -196,6 +197,16 @@ table 50722 JobCreationLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(33; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(34; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -213,4 +224,10 @@ table 50722 JobCreationLine
 
         }
     }
+
+    trigger OnInsert()
+    begin
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
+    end;
 }

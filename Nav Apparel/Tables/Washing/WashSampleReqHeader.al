@@ -134,7 +134,7 @@ table 50741 "Washing Sample Header"
             DataClassification = ToBeClassified;
         }
 
-        field(28; Comment; Text[200])
+        field(28; Comment; code[200])
         {
             DataClassification = ToBeClassified;
         }
@@ -192,8 +192,18 @@ table 50741 "Washing Sample Header"
 
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."Wash Sample Nos.", Today, true);
 
-        "Created Date" := Today();
+        "Created Date" := WorkDate();
         "Created User" := UserId;
+    end;
+
+    trigger OnDelete()
+    var
+        SampleReqLineRec: Record "Washing Sample Requsition Line";
+    begin
+        SampleReqLineRec.Reset();
+        SampleReqLineRec.SetRange("No.", "No.");
+        if SampleReqLineRec.FindSet() then
+            SampleReqLineRec.DeleteAll();
     end;
 
 }

@@ -40,7 +40,6 @@ table 50705 "Washing Sample Requsition Line"
             DataClassification = ToBeClassified;
             TableRelation = Item.Description where("Main Category Name" = filter('FABRIC'));
             ValidateTableRelation = false;
-            
         }
 
         field(7; "Fabrication No."; Code[20])
@@ -339,17 +338,11 @@ table 50705 "Washing Sample Requsition Line"
     }
 
     trigger OnInsert()
-    var
-        NavAppSetup: Record "NavApp Setup";
-        NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
-        NavAppSetup.Get('0001');
-        NavAppSetup.TestField("Wash Purchase Nos.");
-
-        "Document No." := NoSeriesMngment.GetNextNo(NavAppSetup."Wash Purchase Nos.", Today, true);
-
-        "Create Date" := Today();
+        "Create Date" := WorkDate();
         "Create User" := UserId;
     end;
+
+
 
 }

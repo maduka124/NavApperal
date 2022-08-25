@@ -73,6 +73,16 @@ table 50723 IntermediateTable
         {
             DataClassification = ToBeClassified;
         }
+
+        field(15; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(16; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -88,7 +98,8 @@ table 50723 IntermediateTable
 
     trigger OnInsert()
     begin
-
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
     end;
 
     trigger OnModify()

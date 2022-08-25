@@ -76,10 +76,10 @@ table 50738 BWQualityCheckHeader
     trigger OnDelete()
 
     var
-        BWQualityCheckRec: Record BWQualityCheckHeader;
+        BWQualityCheckRec: Record BWQualityLine2;
     begin
         BWQualityCheckRec.Reset();
-        BWQualityCheckRec.SetRange("No.", "No.");
+        BWQualityCheckRec.SetRange("No", "No.");
         if BWQualityCheckRec.FindSet() then
             BWQualityCheckRec.DeleteAll();
     end;

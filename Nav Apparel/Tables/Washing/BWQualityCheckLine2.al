@@ -52,6 +52,17 @@ table 50739 BWQualityLine2
         {
             DataClassification = ToBeClassified;
         }
+
+        field(10; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(11; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
@@ -61,4 +72,10 @@ table 50739 BWQualityLine2
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    begin
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
+    end;
 }
