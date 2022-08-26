@@ -11,6 +11,88 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Store_Name">
+          <DataField>Store_Name</DataField>
+        </Field>
+        <Field Name="Season_Name">
+          <DataField>Season_Name</DataField>
+        </Field>
+        <Field Name="Brand_Name">
+          <DataField>Brand_Name</DataField>
+        </Field>
+        <Field Name="Department_Name">
+          <DataField>Department_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="Lot_No_">
+          <DataField>Lot_No_</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
+        </Field>
+        <Field Name="PO_Total">
+          <DataField>PO_Total</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="LC_No_Contract">
+          <DataField>LC_No_Contract</DataField>
+        </Field>
+        <Field Name="SHMode">
+          <DataField>SHMode</DataField>
+        </Field>
+        <Field Name="Cut_In_Qty">
+          <DataField>Cut_In_Qty</DataField>
+        </Field>
+        <Field Name="Cut_In_QtyFormat">
+          <DataField>Cut_In_QtyFormat</DataField>
+        </Field>
+        <Field Name="Emb_Out_Qty">
+          <DataField>Emb_Out_Qty</DataField>
+        </Field>
+        <Field Name="Emb_In_Qty">
+          <DataField>Emb_In_Qty</DataField>
+        </Field>
+        <Field Name="Print_Out_Qty">
+          <DataField>Print_Out_Qty</DataField>
+        </Field>
+        <Field Name="Print_In_Qty">
+          <DataField>Print_In_Qty</DataField>
+        </Field>
+        <Field Name="Wash_In_Qty">
+          <DataField>Wash_In_Qty</DataField>
+        </Field>
+        <Field Name="Wash_Out_Qty">
+          <DataField>Wash_Out_Qty</DataField>
+        </Field>
+        <Field Name="Shipped_Qty">
+          <DataField>Shipped_Qty</DataField>
+        </Field>
+        <Field Name="Ship_Date">
+          <DataField>Ship_Date</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -40,7 +122,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.60042cm</Top>
-            <Left>9.70704cm</Left>
+            <Left>20.81954cm</Left>
             <Height>1.19062cm</Height>
             <Width>8.99583cm</Width>
             <Style>
@@ -59,7 +141,7 @@
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
             <Top>0.9525cm</Top>
-            <Left>23.59273cm</Left>
+            <Left>50.26273cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
             <ZIndex>1</ZIndex>
@@ -4661,8 +4743,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>4.86516cm</Top>
-            <Left>0cm</Left>
+            <Top>4.8387cm</Top>
+            <Left>0.9525cm</Left>
             <Height>1.76417cm</Height>
             <Width>52.92783cm</Width>
             <ZIndex>2</ZIndex>
@@ -4766,7 +4848,7 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>3.04518cm</Top>
-            <Left>0.12912cm</Left>
+            <Left>1.08162cm</Left>
             <Height>0.69109cm</Height>
             <Width>7.12046cm</Width>
             <ZIndex>3</ZIndex>
@@ -4780,7 +4862,7 @@
         <Height>6.89391cm</Height>
         <Style />
       </Body>
-      <Width>52.94257cm</Width>
+      <Width>53.88033cm</Width>
       <Page>
         <PageFooter>
           <Height>0.80257cm</Height>
@@ -4811,7 +4893,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox134</rd:DefaultName>
               <Top>0.03528cm</Top>
-              <Left>0.7112cm</Left>
+              <Left>1.0287cm</Left>
               <Height>0.6cm</Height>
               <Width>6.53838cm</Width>
               <Style>
@@ -4856,7 +4938,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>0.03528cm</Top>
-              <Left>13.76817cm</Left>
+              <Left>26.78567cm</Left>
               <Height>0.58208cm</Height>
               <Width>4.39208cm</Width>
               <ZIndex>1</ZIndex>
@@ -4910,7 +4992,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>0cm</Top>
-              <Left>25.94984cm</Left>
+              <Left>50.71484cm</Left>
               <Height>0.58208cm</Height>
               <Width>2.31028cm</Width>
               <ZIndex>2</ZIndex>
@@ -4931,8 +5013,8 @@
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>21cm</PageHeight>
-        <PageWidth>29.7cm</PageWidth>
+        <PageHeight>29.7cm</PageHeight>
+        <PageWidth>54cm</PageWidth>
         <LeftMargin>0.5cm</LeftMargin>
         <RightMargin>0.5cm</RightMargin>
         <TopMargin>1cm</TopMargin>
@@ -4942,6 +5024,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -4993,86 +5081,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Store_Name">
-          <DataField>Store_Name</DataField>
-        </Field>
-        <Field Name="Season_Name">
-          <DataField>Season_Name</DataField>
-        </Field>
-        <Field Name="Brand_Name">
-          <DataField>Brand_Name</DataField>
-        </Field>
-        <Field Name="Department_Name">
-          <DataField>Department_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="Lot_No_">
-          <DataField>Lot_No_</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
-        <Field Name="PO_Total">
-          <DataField>PO_Total</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="LC_No_Contract">
-          <DataField>LC_No_Contract</DataField>
-        </Field>
-        <Field Name="SHMode">
-          <DataField>SHMode</DataField>
-        </Field>
-        <Field Name="Cut_In_Qty">
-          <DataField>Cut_In_Qty</DataField>
-        </Field>
-        <Field Name="Cut_In_QtyFormat">
-          <DataField>Cut_In_QtyFormat</DataField>
-        </Field>
-        <Field Name="Emb_Out_Qty">
-          <DataField>Emb_Out_Qty</DataField>
-        </Field>
-        <Field Name="Emb_In_Qty">
-          <DataField>Emb_In_Qty</DataField>
-        </Field>
-        <Field Name="Print_Out_Qty">
-          <DataField>Print_Out_Qty</DataField>
-        </Field>
-        <Field Name="Print_In_Qty">
-          <DataField>Print_In_Qty</DataField>
-        </Field>
-        <Field Name="Wash_In_Qty">
-          <DataField>Wash_In_Qty</DataField>
-        </Field>
-        <Field Name="Wash_Out_Qty">
-          <DataField>Wash_Out_Qty</DataField>
-        </Field>
-        <Field Name="Shipped_Qty">
-          <DataField>Shipped_Qty</DataField>
-        </Field>
-        <Field Name="Ship_Date">
-          <DataField>Ship_Date</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
