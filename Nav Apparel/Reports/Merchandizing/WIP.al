@@ -38,6 +38,8 @@ report 50641 WIPReport
             { }
             column(LC_No_Contract; "LC No/Contract")
             { }
+            // column()
+            // {}
             dataitem("Style Master PO"; "Style Master PO")
             {
 
@@ -64,18 +66,18 @@ report 50641 WIPReport
                 { }
                 column(Ship_Date; "Ship Date")
                 { }
-                //  column()
-                // { }
-                //      column()
-                // { }
-                //      column()
-                // { }
-                //      column()
-                // { }
-                //      column()
-                // { }
-                //      column()
-                // { }
+                column(Sawing_In_Qty; "Sawing In Qty")
+                { }
+                column(Sawing_Out_Qty; "Sawing Out Qty")
+                { }
+                column(Finish_Qty; "Finish Qty")
+                { }
+                column(ShValue; "Unit Price" * "Shipped Qty")
+                { }
+                column(fOB; Qty * "Unit Price")
+                { }
+                column(ExSHORT; Qty - "Shipped Qty")
+                { }
                 //      column()
                 // { }
                 //      column()

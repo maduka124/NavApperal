@@ -11,88 +11,6 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Store_Name">
-          <DataField>Store_Name</DataField>
-        </Field>
-        <Field Name="Season_Name">
-          <DataField>Season_Name</DataField>
-        </Field>
-        <Field Name="Brand_Name">
-          <DataField>Brand_Name</DataField>
-        </Field>
-        <Field Name="Department_Name">
-          <DataField>Department_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="Lot_No_">
-          <DataField>Lot_No_</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
-        <Field Name="PO_Total">
-          <DataField>PO_Total</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="LC_No_Contract">
-          <DataField>LC_No_Contract</DataField>
-        </Field>
-        <Field Name="SHMode">
-          <DataField>SHMode</DataField>
-        </Field>
-        <Field Name="Cut_In_Qty">
-          <DataField>Cut_In_Qty</DataField>
-        </Field>
-        <Field Name="Cut_In_QtyFormat">
-          <DataField>Cut_In_QtyFormat</DataField>
-        </Field>
-        <Field Name="Emb_Out_Qty">
-          <DataField>Emb_Out_Qty</DataField>
-        </Field>
-        <Field Name="Emb_In_Qty">
-          <DataField>Emb_In_Qty</DataField>
-        </Field>
-        <Field Name="Print_Out_Qty">
-          <DataField>Print_Out_Qty</DataField>
-        </Field>
-        <Field Name="Print_In_Qty">
-          <DataField>Print_In_Qty</DataField>
-        </Field>
-        <Field Name="Wash_In_Qty">
-          <DataField>Wash_In_Qty</DataField>
-        </Field>
-        <Field Name="Wash_Out_Qty">
-          <DataField>Wash_Out_Qty</DataField>
-        </Field>
-        <Field Name="Shipped_Qty">
-          <DataField>Shipped_Qty</DataField>
-        </Field>
-        <Field Name="Ship_Date">
-          <DataField>Ship_Date</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -141,7 +59,7 @@
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
             <Top>0.9525cm</Top>
-            <Left>50.26273cm</Left>
+            <Left>50.89773cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
             <ZIndex>1</ZIndex>
@@ -224,10 +142,10 @@
                   <Width>1.81208cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.17708cm</Width>
+                  <Width>2.49999cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.52104cm</Width>
+                  <Width>1.91792cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.49458cm</Width>
@@ -1187,14 +1105,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox58">
+                        <Textbox Name="Textbox10">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>EXP QTY</Value>
+                                  <Value>EX SHORT</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1206,7 +1124,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox58</rd:DefaultName>
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2297,16 +2215,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox43">
+                        <Textbox Name="Sawing_In_Qty">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!Sawing_In_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2315,7 +2234,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox43</rd:DefaultName>
+                          <rd:DefaultName>Sawing_In_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2351,16 +2270,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox45">
+                        <Textbox Name="Sawing_Out_Qty">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!Sawing_Out_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2369,7 +2289,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox45</rd:DefaultName>
+                          <rd:DefaultName>Sawing_Out_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2515,16 +2435,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox51">
+                        <Textbox Name="Finish_Qty">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!Finish_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2533,7 +2454,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox51</rd:DefaultName>
+                          <rd:DefaultName>Finish_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2679,16 +2600,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox57">
+                        <Textbox Name="fOB">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!fOB.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2697,7 +2619,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox57</rd:DefaultName>
+                          <rd:DefaultName>fOB</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2733,16 +2655,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox59">
+                        <Textbox Name="ExSHORT">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!ExSHORT.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2751,7 +2674,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox59</rd:DefaultName>
+                          <rd:DefaultName>ExSHORT</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2841,16 +2764,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox63">
+                        <Textbox Name="ShValue">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!ShValue.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2859,7 +2783,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox63</rd:DefaultName>
+                          <rd:DefaultName>ShValue</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -3933,16 +3857,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox111">
+                        <Textbox Name="Sawing_In_Qty2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!Sawing_In_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3951,7 +3876,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox111</rd:DefaultName>
+                          <rd:DefaultName>Sawing_In_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -3987,16 +3912,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox112">
+                        <Textbox Name="Sawing_Out_Qty2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!Sawing_Out_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4005,7 +3931,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox112</rd:DefaultName>
+                          <rd:DefaultName>Sawing_Out_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4151,16 +4077,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox115">
+                        <Textbox Name="Finish_Qty2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!Finish_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4169,7 +4096,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox115</rd:DefaultName>
+                          <rd:DefaultName>Finish_Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4314,16 +4241,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox118">
+                        <Textbox Name="fOB2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!fOB.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4332,7 +4260,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox118</rd:DefaultName>
+                          <rd:DefaultName>fOB</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4368,16 +4296,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox119">
+                        <Textbox Name="ExSHORT2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!ExSHORT.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4386,7 +4315,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox119</rd:DefaultName>
+                          <rd:DefaultName>ExSHORT</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4476,16 +4405,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox121">
+                        <Textbox Name="ShValue2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!ShValue.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4494,7 +4424,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox121</rd:DefaultName>
+                          <rd:DefaultName>ShValue</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -4744,9 +4674,9 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>4.8387cm</Top>
-            <Left>0.9525cm</Left>
-            <Height>1.76417cm</Height>
-            <Width>52.92783cm</Width>
+            <Left>0cm</Left>
+            <Height>1.76416cm</Height>
+            <Width>54.64762cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -4862,7 +4792,7 @@
         <Height>6.89391cm</Height>
         <Style />
       </Body>
-      <Width>53.88033cm</Width>
+      <Width>54.64762cm</Width>
       <Page>
         <PageFooter>
           <Height>0.80257cm</Height>
@@ -4992,7 +4922,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>0cm</Top>
-              <Left>50.71484cm</Left>
+              <Left>51.98484cm</Left>
               <Height>0.58208cm</Height>
               <Width>2.31028cm</Width>
               <ZIndex>2</ZIndex>
@@ -5014,9 +4944,9 @@
           </Style>
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
-        <PageWidth>54cm</PageWidth>
+        <PageWidth>56cm</PageWidth>
         <LeftMargin>0.5cm</LeftMargin>
-        <RightMargin>0.5cm</RightMargin>
+        <RightMargin>0.4cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
@@ -5024,12 +4954,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -5081,4 +5005,110 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Store_Name">
+          <DataField>Store_Name</DataField>
+        </Field>
+        <Field Name="Season_Name">
+          <DataField>Season_Name</DataField>
+        </Field>
+        <Field Name="Brand_Name">
+          <DataField>Brand_Name</DataField>
+        </Field>
+        <Field Name="Department_Name">
+          <DataField>Department_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="Lot_No_">
+          <DataField>Lot_No_</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
+        </Field>
+        <Field Name="PO_Total">
+          <DataField>PO_Total</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="LC_No_Contract">
+          <DataField>LC_No_Contract</DataField>
+        </Field>
+        <Field Name="SHMode">
+          <DataField>SHMode</DataField>
+        </Field>
+        <Field Name="Cut_In_Qty">
+          <DataField>Cut_In_Qty</DataField>
+        </Field>
+        <Field Name="Cut_In_QtyFormat">
+          <DataField>Cut_In_QtyFormat</DataField>
+        </Field>
+        <Field Name="Emb_Out_Qty">
+          <DataField>Emb_Out_Qty</DataField>
+        </Field>
+        <Field Name="Emb_In_Qty">
+          <DataField>Emb_In_Qty</DataField>
+        </Field>
+        <Field Name="Print_Out_Qty">
+          <DataField>Print_Out_Qty</DataField>
+        </Field>
+        <Field Name="Print_In_Qty">
+          <DataField>Print_In_Qty</DataField>
+        </Field>
+        <Field Name="Wash_In_Qty">
+          <DataField>Wash_In_Qty</DataField>
+        </Field>
+        <Field Name="Wash_Out_Qty">
+          <DataField>Wash_Out_Qty</DataField>
+        </Field>
+        <Field Name="Shipped_Qty">
+          <DataField>Shipped_Qty</DataField>
+        </Field>
+        <Field Name="Ship_Date">
+          <DataField>Ship_Date</DataField>
+        </Field>
+        <Field Name="Sawing_In_Qty">
+          <DataField>Sawing_In_Qty</DataField>
+        </Field>
+        <Field Name="Sawing_Out_Qty">
+          <DataField>Sawing_Out_Qty</DataField>
+        </Field>
+        <Field Name="Finish_Qty">
+          <DataField>Finish_Qty</DataField>
+        </Field>
+        <Field Name="ShValue">
+          <DataField>ShValue</DataField>
+        </Field>
+        <Field Name="ShValueFormat">
+          <DataField>ShValueFormat</DataField>
+        </Field>
+        <Field Name="fOB">
+          <DataField>fOB</DataField>
+        </Field>
+        <Field Name="fOBFormat">
+          <DataField>fOBFormat</DataField>
+        </Field>
+        <Field Name="ExSHORT">
+          <DataField>ExSHORT</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

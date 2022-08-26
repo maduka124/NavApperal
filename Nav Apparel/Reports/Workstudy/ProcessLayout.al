@@ -4,7 +4,7 @@ report 50632 ProcessLayoutReport
     ApplicationArea = All;
     Caption = 'Process Layout Report';
     RDLCLayout = 'Report_Layouts/Workstudy/ProcessLayoutReport.rdl';
-DefaultLayout = RDLC; 
+    DefaultLayout = RDLC;
 
     dataset
     {
