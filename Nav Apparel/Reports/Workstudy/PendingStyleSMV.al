@@ -34,9 +34,7 @@ report 50640 PendingStyleSMV
             column(CompLogo; comRec.Picture)
             { }
 
-
             trigger OnAfterGetRecord()
-
             begin
                 if CostingSMV = 0 then begin
                     BuyerN := "Buyer Name";
@@ -47,29 +45,24 @@ report 50640 PendingStyleSMV
                     CreateDate := "Created Date";
                     MerchantName := "Merchandiser Name";
                     Season := "Season Name";
-
                 end;
 
                 comRec.Get;
                 comRec.CalcFields(Picture);
-
-
             end;
 
             trigger OnPreDataItem()
-
             begin
 
                 UserReC.Get(UserId);
-                if UserReC."Factory Code" = 'ABC' then begin
-                    vis1 := true;
-                    FactoryCode := 'ABC';
-                end
-                else
-                    vis1 := false;
-                SetRange("Factory Code", FactoryCode);
+                //if UserReC."Factory Code" = 'ABC' then begin
+                //    vis1 := true;
+                //    FactoryCode := 'ABC';
+                //end
+                //else
+                //    vis1 := false;
+                "Style Master".SetRange("Factory Code", UserReC."Factory Code");
             end;
-
         }
     }
 
@@ -85,10 +78,8 @@ report 50640 PendingStyleSMV
                     field(FactoryCode; FactoryCode)
                     {
                         ApplicationArea = All;
-
                         Caption = 'Factory';
-                        Visible = vis1;
-                        
+                        Visible = false;
                     }
                 }
             }
