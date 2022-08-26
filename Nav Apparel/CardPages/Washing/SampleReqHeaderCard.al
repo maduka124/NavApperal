@@ -152,6 +152,7 @@ page 50701 "Washing Sample Request Card"
                 field(Comment; Comment)
                 {
                     ApplicationArea = All;
+                    MultiLine = true;
                 }
 
                 field("Req Date"; "Req Date")

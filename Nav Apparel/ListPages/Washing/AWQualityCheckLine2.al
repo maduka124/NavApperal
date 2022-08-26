@@ -14,9 +14,9 @@ page 50745 aWQualityChecklist2
             {
                 field("Line No"; "Line No")
                 {
+                    Caption = 'Seq No';
                     ApplicationArea = all;
                     Editable = false;
-                    Caption = 'Seq No';
                 }
 
                 field(Status; Status)

@@ -14,8 +14,8 @@ page 50685 RTCAWListPart
             {
                 field("Line No"; "Line No")
                 {
-                    ApplicationArea = all;
                     Caption = 'Seq No';
+                    ApplicationArea = all;
                 }
 
                 field(Item; Item)

@@ -159,6 +159,16 @@ table 50707 "Wash Sample Job Creation"
             DataClassification = ToBeClassified;
         }
 
+        field(33; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(34; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
@@ -171,8 +181,10 @@ table 50707 "Wash Sample Job Creation"
 
 
     trigger OnInsert()
+    var
     begin
-
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
     end;
 
     trigger OnModify()

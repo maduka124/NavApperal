@@ -9,10 +9,19 @@ table 50662 "WashingStep"
         field(1; "Code"; Code[20])
         {
             DataClassification = ToBeClassified;
-
         }
 
         field(2; Description; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(3; "Created User"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(4; "Created Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
@@ -31,8 +40,10 @@ table 50662 "WashingStep"
         myInt: Integer;
 
     trigger OnInsert()
+    var
     begin
-
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
     end;
 
     trigger OnModify()

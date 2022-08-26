@@ -90,4 +90,16 @@ table 50686 AWQualityCheckHeader
         "Created User" := UserId;
     end;
 
+    trigger OnDelete()
+    var
+        AWQualityCheckLineRec: Record AWQualityCheckLine;
+    begin
+
+        AWQualityCheckLineRec.Reset();
+        AWQualityCheckLineRec.SetRange(No, "No.");
+
+        if AWQualityCheckLineRec.FindSet() then
+            AWQualityCheckLineRec.DeleteAll();
+    end;
+
 }

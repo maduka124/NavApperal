@@ -14,9 +14,9 @@ page 50747 RTCBWListPart
             {
                 field("Line No"; "Line No")
                 {
+                    Caption = 'Seq No';
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Seq No';
                 }
 
                 field(Item; Item)
@@ -63,7 +63,6 @@ page 50747 RTCBWListPart
     // begin
     //     "Line No" := xRec."Line No" + 1;
     // end;
-
 
     procedure Get_Count(): Integer
     var

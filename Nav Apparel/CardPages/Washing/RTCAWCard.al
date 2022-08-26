@@ -233,7 +233,7 @@ page 50682 RTCAWCard
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."TRCBW No", xRec."No.", "No.") THEN BEGIN
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."RTC AW No", xRec."No.", "No.") THEN BEGIN
             NoSeriesMngment.SetSeries("No.");
             EXIT(TRUE);
         END;

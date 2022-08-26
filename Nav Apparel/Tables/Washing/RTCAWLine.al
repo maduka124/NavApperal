@@ -51,6 +51,17 @@ table 50684 RTCAWLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(15; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(16; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
@@ -60,4 +71,11 @@ table 50684 RTCAWLine
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    var
+    begin
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
+    end;
 }

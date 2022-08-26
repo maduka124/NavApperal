@@ -91,16 +91,15 @@ table 50681 RTCAWHeader
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        "No." := NoSeriesMngment.GetNextNo(NavAppSetup."TRCBW No", Today, true);
-        "Created Date" := Today();
+        "No." := NoSeriesMngment.GetNextNo(NavAppSetup."RTC AW No", Today, true);
+        "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
 
 
-
     trigger OnDelete()
     var
-        ReturntoCustomerHeadeeRec: Record RTCAWHeader;
+        ReturntoCustomerHeadeeRec: Record RTCAWLine;
     begin
         ReturntoCustomerHeadeeRec.Reset();
         ReturntoCustomerHeadeeRec.SetRange("No.", "No.");
