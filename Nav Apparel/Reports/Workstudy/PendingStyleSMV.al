@@ -62,6 +62,7 @@ report 50640 PendingStyleSMV
                 //else
                 //    vis1 := false;
                 "Style Master".SetRange("Factory Code", UserReC."Factory Code");
+                
             end;
         }
     }
