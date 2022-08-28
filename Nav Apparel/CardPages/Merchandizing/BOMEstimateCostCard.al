@@ -364,6 +364,38 @@ page 71012769 "BOM Estimate Cost Card"
 
             group("CM Calculation")
             {
+                field("Factory Name"; "Factory Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Factory';
+
+                    trigger OnValidate()
+                    var
+                        Locationrec: Record Location;
+                        FacCPMRec: Record "Factory CPM";
+                        LineNo: Integer;
+                    begin
+                        Locationrec.Reset();
+                        Locationrec.SetRange(Name, "Factory Name");
+                        if Locationrec.FindSet() then
+                            "Factory Code" := Locationrec.Code;
+
+                        //Get Max line no
+                        FacCPMRec.Reset();
+                        FacCPMRec.SetRange("Factory Code", Locationrec.Code);
+
+                        if FacCPMRec.FindLast() then begin
+                            CPM := FacCPMRec.CPM;
+                            CurrPage.Update();
+                            CalMFGCost();
+                            CalTotalCost();
+                        end;
+
+                        CurrPage.Update();
+                    end;
+                }
+
+
                 field(SMV; SMV)
                 {
                     ApplicationArea = All;

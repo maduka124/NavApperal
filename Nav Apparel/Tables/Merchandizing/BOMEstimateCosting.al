@@ -517,6 +517,18 @@ table 71012766 "BOM Estimate Cost"
             DataClassification = ToBeClassified;
             DecimalPlaces = 3 : 3;
         }
+
+        field(71012669; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012670; "Factory Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Location.Name;
+            ValidateTableRelation = false;
+        }
     }
 
     keys

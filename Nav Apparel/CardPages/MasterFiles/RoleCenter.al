@@ -919,6 +919,13 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Factory Wise CPM")
+                {
+                    Caption = 'Factory Wise CPM';
+                    RunObject = Page "Factory CPM List";
+                    ApplicationArea = all;
+                }
+
                 action("Folder Details")
                 {
                     Caption = 'Folder Details';
