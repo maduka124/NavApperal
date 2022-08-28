@@ -62,6 +62,8 @@ page 50355 "Daily Sewing In/Out Card"
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
                         Users.FindSet();
+                        if Users."Factory Code" = '' then
+                            Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
                         NavProdDetRec.Reset();
                         NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
@@ -192,6 +194,8 @@ page 50355 "Daily Sewing In/Out Card"
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
                         Users.FindSet();
+                        if Users."Factory Code" = '' then
+                            Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
                         NavProdDetRec.Reset();
                         NavProdDetRec.SetRange("Factory No.", Users."Factory Code");

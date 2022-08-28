@@ -60,6 +60,8 @@ page 50360 "Daily Embroidary In/Out Card"
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
                         Users.FindSet();
+                        if Users."Factory Code" = '' then
+                            Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Factory Code", Users."Factory Code");
