@@ -905,17 +905,17 @@ page 71012740 "Nav Apperal Role Center"
             {
                 Caption = 'Work Study';
 
-                action("Style SMV Pending List")
-                {
-                    Caption = 'SMV Pending Style List';
-                    RunObject = Page "Style SMV Pending List";
-                    ApplicationArea = all;
-                }
-
                 action("Copy Breakdown")
                 {
                     Caption = 'Copy Breakdown';
                     RunObject = Page "Copy Breakdown Card";
+                    ApplicationArea = all;
+                }
+
+                action("Costing Planning Para List")
+                {
+                    Caption = 'Costing And Planning Parameters';
+                    RunObject = page "Costing Planning Para Card";
                     ApplicationArea = all;
                 }
 
@@ -993,6 +993,13 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'New Breakdown';
                     RunObject = Page "New Breakdown";
+                    ApplicationArea = all;
+                }
+
+                action("Style SMV Pending List")
+                {
+                    Caption = 'SMV Pending Style List';
+                    RunObject = Page "Style SMV Pending List";
                     ApplicationArea = all;
                 }
 
