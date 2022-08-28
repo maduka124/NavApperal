@@ -27,6 +27,7 @@ table 50774 "Factory CPM"
         field(4; "CPM"; Decimal)
         {
             DataClassification = ToBeClassified;
+            DecimalPlaces = 3 :;
         }
 
         field(5; "Created User"; Code[50])
