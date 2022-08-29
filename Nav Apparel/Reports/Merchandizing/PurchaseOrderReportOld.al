@@ -1,9 +1,9 @@
-report 50642 PurchasingReport
+report 71012806 PurchaseOrderReportOld
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Purchasing Report';
-    RDLCLayout = 'Report_Layouts/Purchasing/PurchasingReport.rdl';
+    Caption = 'Purchase Order Report old';
+    RDLCLayout = 'Report_Layouts/Merchandizing/PurchaseOrderReportOld.rdl';
     DefaultLayout = RDLC;
 
     dataset
@@ -11,30 +11,18 @@ report 50642 PurchasingReport
         dataitem("Purchase Header"; "Purchase Header")
         {
             DataItemTableView = sorting("No.");
-            column(SystemCreatedBy; SystemCreatedBy)
+
+            column(PoNo_; "No.")
             { }
-            column(Vendor_Invoice_No_; "Vendor Invoice No.")
-            { }
-            column(Pay_to_Contact; "Pay-to Contact")
-            { }
-            column(Pay_to_Address; "Pay-to Address")
-            { }
-            column(Buy_from_Vendor_Name; "Buy-from Vendor Name")
-            { }
-            column(companyName; comrec.Name)
-            { }
-            column(CompLogo; comRec.Picture)
-            { }
-            column(Due_Date; "Due Date")
-            { }
-            column(TermDes; TermDes)
-            { }
+
             dataitem("Purchase Line"; "Purchase Line")
             {
                 DataItemLinkReference = "Purchase Header";
                 DataItemLink = "Document No." = field("No.");
                 DataItemTableView = sorting("Document No.");
-                column(Unit_of_Measure; "Unit of Measure")
+                column(No_; "No.")
+                { }
+                column(Description; Description)
                 { }
                 column(SizeRangeNo; SizeRangeNo)
                 { }
@@ -42,23 +30,39 @@ report 50642 PurchasingReport
                 { }
                 column(DimenshionWidthNo; DimenshionWidthNo)
                 { }
+                column(VendorName; VendorName)
+                { }
                 column(color; color)
                 { }
                 column(Quantity; Quantity)
+                { }
+                column(Unit_of_Measure; "Unit of Measure")
                 { }
                 column(Line_Amount; "Line Amount")
                 { }
                 column(Direct_Unit_Cost; "Direct Unit Cost")
                 { }
-                column(Buyer; Buyer)
+                column(Address; Address)
                 { }
-                column(Season; Season)
+                column(PhoneNo; PhoneNo)
                 { }
-                column(Style; Style)
+                column(Order_Date; "Order Date")
                 { }
-                column(Description; Description)
+                column(City; City)
                 { }
-                //     column()
+                column(companyName; comrec.Name)
+                { }
+                column(companuCity; comrec.City)
+                { }
+                column(companyAddres; comrec.Address)
+                { }
+                column(companyPhone; comrec."Phone No.")
+                { }
+                column(CompLogo; comRec.Picture)
+                { }
+                // column(SystemCreatedBy; SystemCreatedBy)
+                // { }
+                // column()
                 // { }
                 trigger OnAfterGetRecord()
                 begin
@@ -69,22 +73,21 @@ report 50642 PurchasingReport
                         DimenshionWidthNo := ItemRec."Dimension Width No.";
                         color := ItemRec."Color Name"
                     end;
-                    StyleRec.SetRange("No.", StyleNo);
-                    if StyleRec.FindFirst() then begin
-                        Buyer := StyleRec."Buyer Name";
-                        Season := StyleRec."Season Name";
-                        Style := StyleRec."Style No.";
+                    VendorRec.SetRange("No.", "Purchase Header"."Buy-from Vendor No.");
+                    if VendorRec.FindFirst() then begin
+                        VendorName := VendorRec.Name;
+                        Address := VendorRec.Address;
+                        PhoneNo := VendorRec."Phone No.";
+                        City := VendorRec.City;
                     end;
+                    comrec.get;
+                    //  comRec.Get;
+                    comRec.CalcFields(Picture);
                 end;
-
             }
             trigger OnAfterGetRecord()
 
             begin
-                PaymentsRec.SetRange(Code, "Payment Terms Code");
-                if PaymentsRec.FindFirst() then begin
-                    TermDes := PaymentsRec.Description;
-                end;
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
@@ -94,8 +97,10 @@ report 50642 PurchasingReport
             begin
                 SetRange("No.", FilterNo);
             end;
+
         }
     }
+
 
     requestpage
     {
@@ -105,7 +110,7 @@ report 50642 PurchasingReport
             {
                 group(GroupName)
                 {
-                    Caption = 'Filter By';
+                    Caption='Filter By';
                     field(FilterNo; FilterNo)
                     {
                         ApplicationArea = All;
@@ -130,28 +135,18 @@ report 50642 PurchasingReport
         }
     }
 
-    // rendering
-    // {
-    //     layout(LayoutName)
-    //     {
-    //         Type = RDLC;
-    //         LayoutFile = 'mylayout.rdl';
-    //     }
-    // }
 
     var
-
-        color: Text[50];
+        ItemRec: Record Item;
+        VendorRec: Record Vendor;
         SizeRangeNo: Code[20];
         Article: Code[20];
         DimenshionWidthNo: Code[20];
-        ItemRec: Record Item;
+        VendorName: Text[50];
+        color: Text[50];
+        Address: Text[50];
+        PhoneNo: Text[30];
+        City: Text[30];
         comrec: Record "Company Information";
-        StyleRec: Record "Style Master";
-        Season: Text[50];
-        Buyer: Text[50];
-        Style: Text[50];
-        PaymentsRec: Record "Payment Terms";
-        TermDes: Text[100];
         FilterNo: Code[30];
 }

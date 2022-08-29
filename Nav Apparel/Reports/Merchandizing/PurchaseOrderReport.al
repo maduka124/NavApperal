@@ -1,4 +1,4 @@
-report 71012806 PurchaseOrderReport
+report 50642 PurchaseOrderReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
@@ -11,83 +11,95 @@ report 71012806 PurchaseOrderReport
         dataitem("Purchase Header"; "Purchase Header")
         {
             DataItemTableView = sorting("No.");
-
-            column(PoNo_; "No.")
+            column(SystemCreatedBy; SystemCreatedBy)
             { }
-
+            column(Vendor_Invoice_No_; "Vendor Invoice No.")
+            { }
+            column(Pay_to_Contact; "Pay-to Contact")
+            { }
+            column(Pay_to_Address; "Pay-to Address")
+            { }
+            column(Buy_from_Vendor_Name; "Buy-from Vendor Name")
+            { }
+            column(companyName; comrec.Name)
+            { }
+            column(CompLogo; comRec.Picture)
+            { }
+            column(Due_Date; "Due Date")
+            { }
+            column(TermDes; TermDes)
+            { }
             dataitem("Purchase Line"; "Purchase Line")
             {
                 DataItemLinkReference = "Purchase Header";
                 DataItemLink = "Document No." = field("No.");
                 DataItemTableView = sorting("Document No.");
-                column(No_; "No.")
+                column(Unit_of_Measure; "Unit of Measure")
                 { }
-                column(Description; Description)
-                { }
-                column(SizeRangeNo; SizeRangeNo)
-                { }
-                column(Article; Article)
-                { }
-                column(DimenshionWidthNo; DimenshionWidthNo)
-                { }
-                column(VendorName; VendorName)
-                { }
-                column(color; color)
+                // column(SizeRangeNo; SizeRangeNo)
+                // { }
+                // column(Article; Article)
+                // { }
+                // column(DimenshionWidthNo; DimenshionWidthNo)
+                // { }
+                column(color; "Color Name")
                 { }
                 column(Quantity; Quantity)
-                { }
-                column(Unit_of_Measure; "Unit of Measure")
                 { }
                 column(Line_Amount; "Line Amount")
                 { }
                 column(Direct_Unit_Cost; "Direct Unit Cost")
                 { }
-                column(Address; Address)
+                column(Buyer; Buyer)
                 { }
-                column(PhoneNo; PhoneNo)
+                column(Season; Season)
                 { }
-                column(Order_Date; "Order Date")
+                column(Style; Style)
                 { }
-                column(City; City)
+                column(Description; Description)
                 { }
-                column(companyName; comrec.Name)
-                { }
-                column(companuCity; comrec.City)
-                { }
-                column(companyAddres; comrec.Address)
-                { }
-                column(companyPhone; comrec."Phone No.")
-                { }
-                column(CompLogo; comRec.Picture)
-                { }
-                // column(SystemCreatedBy; SystemCreatedBy)
+                // column(MainCategory; MainCategory)
                 // { }
-                // column()
-                // { }
+                dataitem(Item; Item)
+                {
+                    DataItemLinkReference = "Purchase Line";
+                    DataItemLink = "No." = field("No.");
+                    DataItemTableView = sorting("No.");
+                    column(MainCategory; "Main Category Name")
+                    { }
+                    column(SizeRangeNo; "Size Range No.")
+                    { }
+                    column(Article; "Article No.")
+                    { }
+                    column(DimenshionWidthNo; "Dimension Width")
+                    { }
+                }
                 trigger OnAfterGetRecord()
                 begin
-                    ItemRec.SetRange("No.", "Purchase Line"."No.");
-                    if ItemRec.FindFirst() then begin
-                        SizeRangeNo := ItemRec."Size Range No.";
-                        Article := ItemRec."Article No.";
-                        DimenshionWidthNo := ItemRec."Dimension Width No.";
-                        color := ItemRec."Color Name"
+                    // ItemRec.SetRange("No.", "Purchase Line"."No.");
+                    // if ItemRec.FindFirst() then begin
+                    //     SizeRangeNo := ItemRec."Size Range No.";
+                    //     Article := ItemRec.Article;
+                    //     DimenshionWidthNo := ItemRec."Dimension Width";
+                    //     color := ItemRec."Color Name";
+                    //     MainCategory := ItemRec."Main Category Name"
+                    // end;
+                    StyleRec.SetRange("No.", StyleNo);
+                    if StyleRec.FindFirst() then begin
+                        Buyer := StyleRec."Buyer Name";
+                        Season := StyleRec."Season Name";
+                        Style := StyleRec."Style No.";
                     end;
-                    VendorRec.SetRange("No.", "Purchase Header"."Buy-from Vendor No.");
-                    if VendorRec.FindFirst() then begin
-                        VendorName := VendorRec.Name;
-                        Address := VendorRec.Address;
-                        PhoneNo := VendorRec."Phone No.";
-                        City := VendorRec.City;
-                    end;
-                    comrec.get;
-                    //  comRec.Get;
-                    comRec.CalcFields(Picture);
                 end;
+
             }
             trigger OnAfterGetRecord()
 
             begin
+                PaymentsRec.SetRange(Code, "Payment Terms Code");
+                if PaymentsRec.FindFirst() then begin
+                    TermDes := PaymentsRec.Description;
+                end;
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
@@ -97,10 +109,8 @@ report 71012806 PurchaseOrderReport
             begin
                 SetRange("No.", FilterNo);
             end;
-
         }
     }
-
 
     requestpage
     {
@@ -110,7 +120,7 @@ report 71012806 PurchaseOrderReport
             {
                 group(GroupName)
                 {
-                    Caption='Filter By';
+                    Caption = 'Filter By';
                     field(FilterNo; FilterNo)
                     {
                         ApplicationArea = All;
@@ -135,18 +145,29 @@ report 71012806 PurchaseOrderReport
         }
     }
 
+    // rendering
+    // {
+    //     layout(LayoutName)
+    //     {
+    //         Type = RDLC;
+    //         LayoutFile = 'mylayout.rdl';
+    //     }
+    // }
 
     var
-        ItemRec: Record Item;
-        VendorRec: Record Vendor;
-        SizeRangeNo: Code[20];
-        Article: Code[20];
-        DimenshionWidthNo: Code[20];
-        VendorName: Text[50];
+
         color: Text[50];
-        Address: Text[50];
-        PhoneNo: Text[30];
-        City: Text[30];
+        SizeRangeNo: Code[20];
+        Article: text[100];
+        DimenshionWidthNo: Text[100];
+        ItemRec: Record Item;
         comrec: Record "Company Information";
+        StyleRec: Record "Style Master";
+        Season: Text[50];
+        Buyer: Text[50];
+        Style: Text[50];
+        PaymentsRec: Record "Payment Terms";
+        TermDes: Text[100];
         FilterNo: Code[30];
+        MainCategory: text[50];
 }
