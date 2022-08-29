@@ -110,6 +110,7 @@ report 71012806 PurchaseOrderReport
             {
                 group(GroupName)
                 {
+                    Caption='Filter By';
                     field(FilterNo; FilterNo)
                     {
                         ApplicationArea = All;
