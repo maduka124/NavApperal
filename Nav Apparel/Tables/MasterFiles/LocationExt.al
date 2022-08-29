@@ -12,6 +12,11 @@ tableextension 71012615 "Location Extension" extends Location
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012583; "Sewing Unit"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     trigger OnBeforeDelete()
