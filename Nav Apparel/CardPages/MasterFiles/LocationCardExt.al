@@ -22,7 +22,11 @@ pageextension 71012738 LocationCardExt extends "Location Card"
             field("Plant Type Name"; "Plant Type Name")
             {
                 ApplicationArea = All;
+            }
 
+            field("Sewing Unit"; "Sewing Unit")
+            {
+                ApplicationArea = All;
             }
         }
     }

@@ -8,6 +8,11 @@ pageextension 71012728 LocationListExt extends "Location List"
             {
                 ApplicationArea = ALL;
             }
+
+            field("Sewing Unit"; "Sewing Unit")
+            {
+                ApplicationArea = ALL;
+            }
         }
     }
 }

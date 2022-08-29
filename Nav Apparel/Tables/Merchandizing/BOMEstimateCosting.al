@@ -526,7 +526,7 @@ table 71012766 "BOM Estimate Cost"
         field(71012670; "Factory Name"; Text[100])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Location.Name;
+            TableRelation = Location.Name where("Sewing Unit" = filter(1));
             ValidateTableRelation = false;
         }
     }
