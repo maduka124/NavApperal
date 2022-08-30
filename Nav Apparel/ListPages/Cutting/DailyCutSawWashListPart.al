@@ -1260,6 +1260,7 @@ page 50353 DailyCuttingOutListPart
 
         //Get In/out Total
         ProductionOutLine.Reset();
+        ProductionOutLine.SetRange("No.", "No.");
         ProductionOutLine.SetRange("Style No.", "Style No.");
         ProductionOutLine.SetRange("Lot No.", "Lot No.");
         ProductionOutLine.SetRange(Type, Type);

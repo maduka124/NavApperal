@@ -213,8 +213,8 @@ page 50489 "All PO List"
 
         //Delete old records
         TempRec.Reset();
-        TempRec.FindSet();
-        TempRec.DeleteAll();
+        if TempRec.FindSet() then
+            TempRec.DeleteAll();
 
         //Insert records from query 
         if TempQuery.Open() then begin

@@ -185,6 +185,6 @@ table 50707 "Wash Sample Job Creation"
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;   
+    end;
 
 }

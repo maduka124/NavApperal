@@ -77,4 +77,28 @@ page 50819 "Split Sample Requests List"
             }
         }
     }
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        JobcreationRec: Record JobCreationLine;
+        Inter1Rec: Record IntermediateTable;
+    begin
+        if "Split Status" = "Split Status"::Yes then
+            Error('This job creation already posted. Cannot delete.');
+
+        JobcreationRec.Reset();
+        JobcreationRec.SetRange(No, "No.");
+        JobcreationRec.SetRange("Line No", "Line no.");
+
+        if JobcreationRec.FindSet() then
+            JobcreationRec.DeleteAll();
+
+        Inter1Rec.Reset();
+        Inter1Rec.SetRange(No, "No.");
+        Inter1Rec.SetRange("Line No", "Line no.");
+
+        if Inter1Rec.FindSet() then
+            Inter1Rec.DeleteAll();
+    end;
 }

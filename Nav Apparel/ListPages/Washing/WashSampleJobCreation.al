@@ -1,4 +1,4 @@
-page 50711 "Wash Sample Job Creation"
+page 50711 "Wash Sample Job Creationdd"
 {
     PageType = ListPart;
     ApplicationArea = All;

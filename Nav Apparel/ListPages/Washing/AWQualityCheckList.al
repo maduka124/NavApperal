@@ -47,4 +47,16 @@ page 50688 AWQualityCheck
             }
         }
     }
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        AWQualityCheckLineRec: Record AWQualityCheckLine;
+    begin
+        AWQualityCheckLineRec.Reset();
+        AWQualityCheckLineRec.SetRange(No, "No.");
+        if AWQualityCheckLineRec.FindSet() then
+            AWQualityCheckLineRec.DeleteAll();
+    end;
+
 }

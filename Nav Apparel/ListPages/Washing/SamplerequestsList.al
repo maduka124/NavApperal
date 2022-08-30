@@ -60,4 +60,32 @@ page 50719 WashingSampleHistry
             }
         }
     }
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        SampleWasLineRec: Record "Washing Sample Requsition Line";
+        Inter1Rec: Record IntermediateTable;
+    begin
+
+        //Check whether request has been processed
+        SampleWasLineRec.Reset();
+        SampleWasLineRec.SetRange("No.", "No.");
+
+        if SampleWasLineRec.FindSet() then begin
+            if SampleWasLineRec."Return Qty (BW)" > 0 then
+                Error('(BW) Returned quantity updated. Cannot delete the request.');
+
+            if SampleWasLineRec."Req Qty BW QC Pass" > 0 then
+                Error('BW quality check has been conpleted. Cannot delete the request.');
+
+            if SampleWasLineRec."Req Qty BW QC Fail" > 0 then
+                Error('BW quality check has been conpleted. Cannot delete the request.');
+
+            if SampleWasLineRec."Split Status" = SampleWasLineRec."Split Status"::Yes then
+                Error('Request has been split. Cannot delete.');
+        end;
+    end;
+
+
 }

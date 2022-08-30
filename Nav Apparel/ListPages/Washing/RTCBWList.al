@@ -37,4 +37,23 @@ page 50746 RTCBWList
             }
         }
     }
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        RTCBWLineRec: Record RTCBWLine;
+        Samplereqline: Record "Washing Sample Requsition Line";
+    begin
+        Samplereqline.Reset();
+        Samplereqline.SetRange("No.", "Req No");
+
+        if Samplereqline.FindSet() then
+            if Samplereqline."Return Qty (BW)" > 0 then
+                Error('Returned quantity updated. Cannot delete.');
+
+        RTCBWLineRec.Reset();
+        RTCBWLineRec.SetRange("No.", "No.");
+        if RTCBWLineRec.FindSet() then
+            RTCBWLineRec.DeleteAll();
+    end;
 }

@@ -47,13 +47,20 @@ page 50748 RTCAWHeaderList
         }
     }
 
+
     trigger OnDeleteRecord(): Boolean
     var
         RTCAWLineRec: Record RTCAWLine;
     begin
+
+        if status = Status::Posted then
+            Error('Entry already posted. Cannot delete.');
+
         RTCAWLineRec.Reset();
         RTCAWLineRec.SetRange("No.", "No.");
         if RTCAWLineRec.FindSet() then
             RTCAWLineRec.DeleteAll();
+
     end;
+
 }

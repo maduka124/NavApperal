@@ -525,7 +525,7 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report PurchaseOrderReport;
                         ApplicationArea = all;
                     }
-                           action("Purchase Order Report Old")
+                    action("Purchase Order Report Old")
                     {
                         Caption = 'Purchase Order Report';
                         Enabled = true;
@@ -556,7 +556,7 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report TnAStyleMerchandizing;
                         ApplicationArea = all;
                     }
-                         action("WIP")
+                    action("WIP")
                     {
                         Caption = 'WIP Report';
                         Enabled = true;
@@ -605,25 +605,6 @@ page 71012740 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Target Sheet Report")
-                    {
-                        Caption = 'Target Sheet Report';
-                        Enabled = true;
-                        RunObject = report TargetSheetReport;
-                        ApplicationArea = all;
-                    }
-                }
-            }
-
-            //Prodcution
-            group("Production")
-            {
-                Caption = 'Production';
-
-                group("Production Reports")
-                {
-                    Caption = 'Production Reports';
-
                     action("Production Status Report")
                     {
                         Caption = 'Production Status Report';
@@ -647,6 +628,14 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report ProductionAndShipmentDetails;
                         ApplicationArea = all;
                     }
+
+                    action("Target Sheet Report")
+                    {
+                        Caption = 'Target Sheet Report';
+                        Enabled = true;
+                        RunObject = report TargetSheetReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
@@ -667,7 +656,6 @@ page 71012740 "Nav Apperal Role Center"
                     RunObject = Page "Ratio Creation";
                     ApplicationArea = all;
                 }
-
             }
 
             group("Warehouse")
