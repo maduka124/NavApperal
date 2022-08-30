@@ -88,7 +88,10 @@ page 50371 "Prod Update Card"
         xQty: Decimal;
         OutputQty: BigInteger;
         status: Integer;
-
+        dtNextMonth: date;
+        dtSt: Date;
+        dtEd: Date;
+        Count: Integer;
     begin
 
         //Get Start and Finish Time
@@ -138,7 +141,24 @@ page 50371 "Prod Update Card"
                         repeat
                             HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
                         until WorkCenCapacityEntryRec.Next() = 0;
+                    end
+                    else begin
+                        Count := 0;
+                        dtNextMonth := CalcDate('<+1M>', dtStart);
+                        dtSt := CalcDate('<-CM>', dtNextMonth);
+                        dtEd := CalcDate('<+CM>', dtNextMonth);
+
+                        WorkCenCapacityEntryRec.Reset();
+                        WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
+                        WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
+
+                        if WorkCenCapacityEntryRec.FindSet() then
+                            Count += WorkCenCapacityEntryRec.Count;
+
+                        if Count < 14 then
+                            Error('Calender is not setup for the Line : %1', WorkCenterName);
                     end;
+
 
                     if HoursPerDay = 0 then
                         dtStart := dtStart + 1;
@@ -207,13 +227,30 @@ page 50371 "Prod Update Card"
                                 repeat
                                     HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
                                 until WorkCenCapacityEntryRec.Next() = 0;
+                            end
+                            else begin
+                                Count := 0;
+                                dtNextMonth := CalcDate('<+1M>', TempDate);
+                                dtSt := CalcDate('<-CM>', dtNextMonth);
+                                dtEd := CalcDate('<+CM>', dtNextMonth);
+
+                                WorkCenCapacityEntryRec.Reset();
+                                WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
+                                WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
+
+                                if WorkCenCapacityEntryRec.FindSet() then
+                                    Count += WorkCenCapacityEntryRec.Count;
+
+                                if Count < 14 then
+                                    Error('Calender is not setup for the Line : %1', WorkCenterName);
                             end;
+
 
                             //if production updated, learning curve shoube incremented
                             if JobPlaLineRec.ProdUpdDays > 0 then
-                                i := JobPlaLineRec.ProdUpdDays
-                            else
-                                i := 0;
+                                i := JobPlaLineRec.ProdUpdDays;
+                            // else
+                            //     i := 0;
 
                             //No learning curve for holidays
                             if HoursPerDay > 0 then
@@ -424,7 +461,24 @@ page 50371 "Prod Update Card"
                                         repeat
                                             HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
                                         until WorkCenCapacityEntryRec.Next() = 0;
+                                    end
+                                    else begin
+                                        Count := 0;
+                                        dtNextMonth := CalcDate('<+1M>', dtStart);
+                                        dtSt := CalcDate('<-CM>', dtNextMonth);
+                                        dtEd := CalcDate('<+CM>', dtNextMonth);
+
+                                        WorkCenCapacityEntryRec.Reset();
+                                        WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
+                                        WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
+
+                                        if WorkCenCapacityEntryRec.FindSet() then
+                                            Count += WorkCenCapacityEntryRec.Count;
+
+                                        if Count < 14 then
+                                            Error('Calender is not setup for the Line : %1', WorkCenterName);
                                     end;
+
 
                                     if HoursPerDay = 0 then
                                         dtStart := dtStart + 1;
@@ -451,7 +505,24 @@ page 50371 "Prod Update Card"
                                         repeat
                                             HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
                                         until WorkCenCapacityEntryRec.Next() = 0;
+                                    end
+                                    else begin
+                                        Count := 0;
+                                        dtNextMonth := CalcDate('<+1M>', TempDate);
+                                        dtSt := CalcDate('<-CM>', dtNextMonth);
+                                        dtEd := CalcDate('<+CM>', dtNextMonth);
+
+                                        WorkCenCapacityEntryRec.Reset();
+                                        WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
+                                        WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
+
+                                        if WorkCenCapacityEntryRec.FindSet() then
+                                            Count += WorkCenCapacityEntryRec.Count;
+
+                                        if Count < 14 then
+                                            Error('Calender is not setup for the Line : %1', WorkCenterName);
                                     end;
+
 
 
                                     //No learning curve for holidays
