@@ -56,29 +56,12 @@ table 50673 BWQualityLine1
             Clustered = true;
         }
     }
-
-    var
-        myInt: Integer;
+  
 
     trigger OnInsert()
     begin
         "Created Date":= WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
+    end;  
 
 }

@@ -35,9 +35,7 @@ table 50662 "WashingStep"
             Clustered = true;
         }
     }
-
-    var
-        myInt: Integer;
+   
 
     trigger OnInsert()
     var
@@ -45,20 +43,5 @@ table 50662 "WashingStep"
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
+   
 }

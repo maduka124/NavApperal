@@ -149,7 +149,7 @@ page 50466 "New Breakdown Op Listpart2"
 
                     if StyleRec.FindSet() then begin
 
-                        if Status = 'INITIAL' then
+                        if Status = 'COSTING' then
                             StyleRec.CostingSMV := SMV
                         else
                             if Status = 'PRODUCTION' then

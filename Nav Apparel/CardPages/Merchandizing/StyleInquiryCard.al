@@ -297,23 +297,23 @@ page 71012723 "Style Inquiry Card"
                 end;
             }
 
-            action(ImportPictureFrontURL)
-            {
-                ApplicationArea = All;
-                Caption = 'Import Front/Back Picture URL';
-                Image = Import;
-                ToolTip = 'Import Front/Back Picture URL';
+            // action(ImportPictureFrontURL)
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Import Front/Back Picture URL';
+            //     Image = Import;
+            //     ToolTip = 'Import Front/Back Picture URL';
 
-                trigger OnAction()
-                var
-                    PictureURLDialog: Page "Picture URL Dialog";
-                begin
-                    PictureURLDialog.SetItemInfo("No.");
-                    if PictureURLDialog.RunModal() = Action::OK then
-                        PictureURLDialog.ImportItemPictureFromURL();
+            //     trigger OnAction()
+            //     var
+            //         PictureURLDialog: Page "Picture URL Dialog";
+            //     begin
+            //         PictureURLDialog.SetItemInfo("No.");
+            //         if PictureURLDialog.RunModal() = Action::OK then
+            //             PictureURLDialog.ImportItemPictureFromURL();
 
-                end;
-            }
+            //     end;
+            // }
 
             // action(ImportPictureBackURL)
             // {
@@ -330,42 +330,7 @@ page 71012723 "Style Inquiry Card"
             //         if PictureURLDialog.RunModal() = Action::OK then
             //             PictureURLDialog.ImportItemPictureFromURL();
             //     end;
-            // }
-
-            // action("Create FG Item")
-            // {
-            //     Image = NewItem;
-
-            //     trigger OnAction()
-            //     var
-            //         ItemRec: Record Item;
-            //         NoSeriesManagementCode: Codeunit NoSeriesManagement;
-            //         NextNo: Code[20];
-            //     begin
-
-            //         if ("Item No" = '') and ("Style No." <> '') then begin
-
-            //             //Get next Item no
-            //             NextNo := NoSeriesManagementCode.GetNextNo('Item1', Today(), true);
-
-            //             //Create new item
-            //             ItemRec.Init();
-            //             ItemRec."No." := NextNo;
-            //             ItemRec.Description := "Style No." + ' - ' + "Garment Type Name";
-            //             ItemRec.Type := 0;
-            //             ItemRec."Base Unit of Measure" := 'PCS';
-            //             ItemRec.Insert();
-
-            //             //Update Item No in the Style Inquiry
-            //             "Item No" := NextNo;
-            //             CurrPage.SaveRecord();
-            //             CurrPage.Update();
-
-            //             Message('New FG item created');
-            //         end;
-
-            //     end;
-            // }
+            // }            
         }
     }
 
@@ -377,57 +342,29 @@ page 71012723 "Style Inquiry Card"
     end;
 
 
-    trigger OnClosePage()
-    var
-        ItemRec: Record Item;
-        NoSeriesManagementCode: Codeunit NoSeriesManagement;
-        NextNo: Code[20];
-        StyleRec: Record "Style Master";
+    // trigger OnClosePage()
+    // var
+    //     ItemRec: Record Item;
+    //     NoSeriesManagementCode: Codeunit NoSeriesManagement;
+    //     NextNo: Code[20];
+    //     StyleRec: Record "Style Master";
 
-        Client: HttpClient;
-        Content: HttpContent;
-        ResponseFront: HttpResponseMessage;
-        ResponseBack: HttpResponseMessage;
-        InStrFront: InStream;
-        InStrBack: InStream;
-    begin
+    //     Client: HttpClient;
+    //     Content: HttpContent;
+    //     ResponseFront: HttpResponseMessage;
+    //     ResponseBack: HttpResponseMessage;
+    //     InStrFront: InStream;
+    //     InStrBack: InStream;
+    // begin    
+    //     StyleRec.Reset();
+    //     StyleRec.SetRange("No.", "No.");
 
-        // StyleRec.SetRange("No.", "No.");
-        // if StyleRec.FindSet() then begin
-
-        //     if ("Item No" = '') and ("Style No." <> '') then begin
-
-        //         //Get next Item no
-        //         NextNo := NoSeriesManagementCode.GetNextNo('Item1', Today(), true);
-
-        //         //Create new item
-        //         ItemRec.Init();
-        //         ItemRec."No." := NextNo;
-        //         ItemRec.Description := "Style No." + ' - ' + "Garment Type Name";
-        //         ItemRec.Type := ItemRec.Type::Inventory;
-        //         ItemRec."Base Unit of Measure" := 'PCS';
-        //         ItemRec.Insert();
-
-        //         //Update Item No in the Style Inquiry
-        //         "Item No" := NextNo;
-        //         CurrPage.SaveRecord();
-        //         CurrPage.Update();
-
-        //     end;
-        // end;
-
-        StyleRec.Reset();
-        StyleRec.SetRange("No.", "No.");
-
-        if StyleRec.FindSet() then begin
-
-            Clear(StyleRec.PictureFront);
-            Clear(StyleRec.PictureBack);
-            StyleRec.Modify(true);
-
-        end;
-
-    end;
+    //     if StyleRec.FindSet() then begin
+    //         Clear(StyleRec.PictureFront);
+    //         Clear(StyleRec.PictureBack);
+    //         StyleRec.Modify(true);
+    //     end;
+    // end;
 
 
     procedure AssistEdit(): Boolean

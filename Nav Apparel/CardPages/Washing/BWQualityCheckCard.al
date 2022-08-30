@@ -174,6 +174,9 @@ page 50754 BWQualityCheck
         BWQualityCheckLineRec: Record BWQualityLine2;
     begin
 
+        if Status = Status::Posted then
+            Error('Entry already posted. Cannot delete.');
+
         BWQualityCheckLineRec.Reset();
         BWQualityCheckLineRec.SetRange("No", "No.");
         if BWQualityCheckLineRec.FindSet() then

@@ -337,12 +337,11 @@ table 50705 "Washing Sample Requsition Line"
         }
     }
 
+
     trigger OnInsert()
     begin
         "Create Date" := WorkDate();
         "Create User" := UserId;
     end;
-
-
 
 }

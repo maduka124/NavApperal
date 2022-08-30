@@ -260,13 +260,11 @@ page 50722 JobcreationPageListPart
             action("Print Job Card")
             {
                 ApplicationArea = Basic, Suite;
-                ;
                 Image = Print;
 
                 trigger OnAction()
                 var
                     JobCreationSplit: Record JobCreationLine;
-                    JobCreationSplit1: Record JobCreationLine;
                     BarcodeString: Text;
                     BarcodeSymbology: Enum "Barcode Symbology";
                     BarcodeFontProvider: Interface "Barcode Font Provider";
@@ -274,13 +272,16 @@ page 50722 JobcreationPageListPart
                     EncodedText: Text;
                     ProdOrderRec: Record "Production Order";
                     Barcode: Text[50];
-                    JobcardReport: Report JobCardReport;
                 begin
+
+                    if "Job Card (Prod Order)" = '' then
+                        Error('No Job Card no entered.');
 
                     JobCreationSplit.Reset();
                     JobCreationSplit.SetRange(No, No);
                     JobCreationSplit.SetRange("Line No", "Line No");
                     JobCreationSplit.SetFilter(Select, '=%1', true);
+
                     if JobCreationSplit.FindSet() then begin
 
                         ProdOrderRec.Reset();

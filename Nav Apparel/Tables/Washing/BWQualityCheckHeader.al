@@ -53,8 +53,6 @@ table 50738 BWQualityCheckHeader
         }
     }
 
-    var
-        myInt: Integer;
 
     trigger OnInsert()
     var
@@ -68,11 +66,7 @@ table 50738 BWQualityCheckHeader
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
+   
     trigger OnDelete()
 
     var
@@ -82,11 +76,6 @@ table 50738 BWQualityCheckHeader
         BWQualityCheckRec.SetRange("No", "No.");
         if BWQualityCheckRec.FindSet() then
             BWQualityCheckRec.DeleteAll();
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
+    end;    
 
 }

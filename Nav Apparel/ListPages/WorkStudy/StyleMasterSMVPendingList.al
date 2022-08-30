@@ -9,6 +9,7 @@ page 50757 "Style SMV Pending List"
     InsertAllowed = false;
     DeleteAllowed = false;
     Caption = 'SMV Pending Style List';
+    ///CardPageId = "New Breakdown Card";
 
     layout
     {
@@ -20,6 +21,16 @@ page 50757 "Style SMV Pending List"
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
+
+                    trigger OnAssistEdit()
+                    var
+                        NewBrRec: Page "New Breakdown Card";
+                    begin
+                        // Clear(SampleList);
+                        // SampleList.LookupMode(true);
+                        NewBrRec.PassParameters("Style No.");
+                        NewBrRec.Run();
+                    end;
                 }
 
                 field("Store Name"; "Store Name")

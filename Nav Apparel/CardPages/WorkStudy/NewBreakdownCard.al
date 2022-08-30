@@ -278,14 +278,38 @@ page 50459 "New Breakdown Card"
     trigger OnOpenPage()
     var
         StyleRec: Record "Style Master";
+        NoSeriesManagementCode: Codeunit NoSeriesManagement;
+        StyleMasterRec: Record "Style Master";
     begin
+
+        if StyleNameGB <> '' then begin
+            "No." := NoSeriesManagementCode.GetNextNo('NEWBR Nos', WorkDate(), true);
+
+            StyleMasterRec.Reset();
+            StyleMasterRec.SetRange("Style No.", StyleNameGB);
+
+            if StyleMasterRec.FindSet() then begin
+                "Style No." := StyleMasterRec."Style No.";
+                "Style Name" := StyleNameGB;
+                "Buyer No." := StyleMasterRec."Buyer No.";
+                "Season No." := StyleMasterRec."Season No.";
+                "Garment Type No." := StyleMasterRec."Garment Type No.";
+                "Buyer Name" := StyleMasterRec."Buyer Name";
+                "Season Name" := StyleMasterRec."Season Name";
+                "Garment Type Name" := StyleMasterRec."Garment Type Name";
+            end;
+
+            CurrPage.Update();
+
+        end;
+
         Set_Status();
 
         StyleRec.Reset();
         StyleRec.SetRange("No.", "Style No.");
         if StyleRec.FindSet() then begin
 
-            if "Style Stage" = 'INITIAL' then
+            if "Style Stage" = 'COSTING' then
                 StyleRec.CostingSMV := "Total SMV"
             else
                 if "Style Stage" = 'PRODUCTION' then
@@ -305,7 +329,6 @@ page 50459 "New Breakdown Card"
         ProductionOutLineRec: Record ProductionOutLine;
         NavAppPlanningLinesRec: Record "NavApp Prod Plans Details";
     begin
-
         //Style Stage 
         ProductionOutLineRec.Reset();
         ProductionOutLineRec.SetRange("Style No.", "Style No.");
@@ -320,12 +343,17 @@ page 50459 "New Breakdown Card"
             if NavAppPlanningLinesRec.FindSet() then
                 "Style Stage" := 'Planning'
             else
-                "Style Stage" := 'Initial';
-
+                "Style Stage" := 'COSTING';
         end;
 
         CurrPage.Update();
+    end;
 
+
+    procedure PassParameters(StyleNamePara: Text[100]);
+    var
+    begin
+        StyleNameGB := StyleNamePara;
     end;
 
 
@@ -334,7 +362,6 @@ page 50459 "New Breakdown Card"
         NewBrOpLine1Rec: Record "New Breakdown Op Line1";
         NewBrOpLine2Rec: Record "New Breakdown Op Line2";
     begin
-
         NewBrOpLine1Rec.Reset();
         NewBrOpLine1Rec.SetRange("NewBRNo.", "No.");
         NewBrOpLine1Rec.DeleteAll();
@@ -342,6 +369,8 @@ page 50459 "New Breakdown Card"
         NewBrOpLine2Rec.Reset();
         NewBrOpLine2Rec.SetRange("No.", "No.");
         NewBrOpLine2Rec.DeleteAll();
-
     end;
+
+    var
+        StyleNameGB: Text[100];
 }

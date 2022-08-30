@@ -195,53 +195,6 @@ page 50701 "Washing Sample Request Card"
         }
     }
 
-    actions
-    {
-        area(Processing)
-        {
-            // action("View Splits")
-            // {
-            //     ApplicationArea = All;
-
-            //     trigger OnAction()
-            //     var
-            //         MyTaskRevise: Page "Job Creation Card";
-            //         WashSampleReqLineRec: Record "Washing Sample Requsition Line";
-            //     begin
-            //         WashSampleReqLineRec.Reset();
-            //         WashSampleReqLineRec.SetFilter("Split Status", '=%1', WashSampleReqLineRec."Split Status"::Yes);
-            //         //WashSampleReqLineRec.SetFilter(WashSampleReqLineRec."Select Item", '=%1', true);
-
-            //         if WashSampleReqLineRec.FindSet() then begin
-
-            //             Clear(MyTaskRevise);
-            //             MyTaskRevise.LookupMode(true);
-            //             MyTaskRevise.PassParameters("No.", LineNo, Editeble::No);
-            //             MyTaskRevise.RunModal();
-            //         end
-            //         else
-            //             Error('Still you have not split the request.');
-            //     end;
-            // }
-
-            action(ImportPictureFrontURL)
-            {
-                ApplicationArea = All;
-                Caption = 'Import Front/Back Picture URL';
-                Image = Import;
-                ToolTip = 'Import Front/Back Picture URL';
-
-                trigger OnAction()
-                var
-                    PictureURLDialog: Page "Washing Sample Picture URL";
-                begin
-                    PictureURLDialog.SetItemInfo("No.");
-                    if PictureURLDialog.RunModal() = Action::OK then
-                        PictureURLDialog.ImportItemPictureFromURL();
-                end;
-            }
-        }
-    }
 
     procedure AssistEdit(): Boolean
     var
@@ -255,10 +208,40 @@ page 50701 "Washing Sample Request Card"
         END;
     end;
 
+
     trigger OnDeleteRecord(): Boolean
     var
         SampleWasLineRec: Record "Washing Sample Requsition Line";
+        Inter1Rec: Record IntermediateTable;
     begin
+
+        //Check whether request has been processed
+        SampleWasLineRec.Reset();
+        SampleWasLineRec.SetRange("No.", "No.");
+
+        if SampleWasLineRec.FindSet() then begin
+            if SampleWasLineRec."Return Qty (BW)" > 0 then
+                Error('(BW) Returned quantity updated. Cannot delete the request.');
+
+            if SampleWasLineRec."Req Qty BW QC Pass" > 0 then
+                Error('BW quality check has been conpleted. Cannot delete the request.');
+
+            if SampleWasLineRec."Req Qty BW QC Fail" > 0 then
+                Error('BW quality check has been conpleted. Cannot delete the request.');
+
+            if SampleWasLineRec."Split Status" = SampleWasLineRec."Split Status"::Yes then
+                Error('Request has been split. Cannot delete.');
+        end;
+
+
+        //Check for split lines
+        Inter1Rec.Reset();
+        Inter1Rec.SetRange(No, "No.");
+        if Inter1Rec.FindSet() then
+            Error('Request has been split. Cannot delete.');
+
+
+        //Delete lines
         SampleWasLineRec.Reset();
         SampleWasLineRec.SetRange("No.", "No.");
         if SampleWasLineRec.FindSet() then
@@ -266,53 +249,10 @@ page 50701 "Washing Sample Request Card"
     end;
 
 
-    trigger OnClosePage()
-    var
-        WashSampleReqHdrRec: Record "Washing Sample Header";
-    begin
-        WashSampleReqHdrRec.Reset();
-        WashSampleReqHdrRec.SetRange("No.", "No.");
-        WashSampleReqHdrRec.SetRange(LineNo, LineNo);
-
-        if WashSampleReqHdrRec.FindSet() then begin
-            Clear(WashSampleReqHdrRec.PictureFront);
-            Clear(WashSampleReqHdrRec.PictureBack);
-            WashSampleReqHdrRec.Modify(true);
-        end;
-    end;
-
-    // var
-    //     SOLineNo: Code[50];
-    //     No: code[20];
-    //     LineNo: Integer;
-    //     editable: Option;
-
-    // procedure EditablePara(editblePara: Option);
-    // var
-    // begin
-    //     editblePara := editblePara;
-    //     Editeble := editable;
-    // end;
-
-    // procedure PassParameters(NoPara: Code[20]; LineNoPara: Integer);
-    // var
-    // begin
-    //     No := NoPara;
-    //     LineNo := LineNoPara;
-    //     "No." := No;
-    //     LineNo := LineNo;
-    // end;
-
     trigger OnOpenPage()
     var
         WashSampleReqLineRec: Record "Washing Sample Requsition Line";
     begin
-        // "No." := No;
-        // LineNo := LineNo;
-        // Editeble := editable;
-
-        // if Editeble = Editeble::No then
-        //     CurrPage.Editable := false
 
         WashSampleReqLineRec.Reset();
         WashSampleReqLineRec.SetRange("No.", "No.");
@@ -323,10 +263,7 @@ page 50701 "Washing Sample Request Card"
                 CurrPage.Editable(false)
             else
                 CurrPage.Editable(true);
-
         end;
 
     end;
-
-
 }

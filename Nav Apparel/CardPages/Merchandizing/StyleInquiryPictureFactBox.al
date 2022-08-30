@@ -8,28 +8,29 @@ page 71012786 "Style Picture FactBox"
     {
         area(Content)
         {
-            // field(Front; Front)
-            // {
-            //     ApplicationArea = All;
-            //     Caption = 'Front View';
-            // }
-            // field(Back; Back)
-            // {
-            //     ApplicationArea = All;
-            //     Caption = 'Back View';
-            // }
-
-            field(PictureFront; PictureFront)
+            field(Front; Front)
             {
                 ApplicationArea = All;
                 Caption = 'Front View';
             }
 
-            field(PictureBack; PictureBack)
+            field(Back; Back)
             {
                 ApplicationArea = All;
                 Caption = 'Back View';
             }
+
+            // field(PictureFront; PictureFront)
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Front View';
+            // }
+
+            // field(PictureBack; PictureBack)
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Back View';
+            // }
         }
     }
 
@@ -37,30 +38,27 @@ page 71012786 "Style Picture FactBox"
     {
         area(Processing)
         {
-            // action("Front Picture")
-            // {
-            //     ApplicationArea = All;
+            action("Front Picture")
+            {
+                ApplicationArea = All;
 
-            //     trigger OnAction()
-            //     begin
-            //         UploadFrontImage();
-            //     end;
-            // }
+                trigger OnAction()
+                begin
+                    UploadFrontImage();
+                end;
+            }
 
-            // action("Back Picture")
-            // {
-            //     ApplicationArea = All;
+            action("Back Picture")
+            {
+                ApplicationArea = All;
 
-            //     trigger OnAction()
-            //     begin
-            //         UploadBackImage();
-            //     end;
-            // }
+                trigger OnAction()
+                begin
+                    UploadBackImage();
+                end;
+            }
         }
     }
-
-    var
-        myInt: Integer;
 
     procedure UploadFrontImage()
     var
@@ -93,83 +91,83 @@ page 71012786 "Style Picture FactBox"
     end;
 
 
-    trigger OnOpenPage()
-    var
-        StyleMasterRec: Record "Style Master";
-        Client: HttpClient;
-        Content: HttpContent;
-        ResponseFront: HttpResponseMessage;
-        ResponseBack: HttpResponseMessage;
-        InStrFront: InStream;
-        InStrBack: InStream;
-    begin
+    // trigger OnOpenPage()
+    // var
+    //     StyleMasterRec: Record "Style Master";
+    //     Client: HttpClient;
+    //     Content: HttpContent;
+    //     ResponseFront: HttpResponseMessage;
+    //     ResponseBack: HttpResponseMessage;
+    //     InStrFront: InStream;
+    //     InStrBack: InStream;
+    // begin
 
-        StyleMasterRec.Reset();
-        StyleMasterRec.SetRange("No.", "No.");
+    //     StyleMasterRec.Reset();
+    //     StyleMasterRec.SetRange("No.", "No.");
 
-        if StyleMasterRec.FindSet() then begin
+    //     if StyleMasterRec.FindSet() then begin
 
-            Client.Get(StyleMasterRec.FrontURL, ResponseFront);
-            ResponseFront.Content.ReadAs(InStrFront);
-            Clear(StyleMasterRec.PictureFront);
-            StyleMasterRec.PictureFront.ImportStream(InStrFront, 'Front picture ');
+    //         Client.Get(StyleMasterRec.FrontURL, ResponseFront);
+    //         ResponseFront.Content.ReadAs(InStrFront);
+    //         Clear(StyleMasterRec.PictureFront);
+    //         StyleMasterRec.PictureFront.ImportStream(InStrFront, 'Front picture ');
 
-            Client.Get(StyleMasterRec.BackURL, ResponseBack);
-            ResponseBack.Content.ReadAs(InStrBack);
-            Clear(StyleMasterRec.PictureBack);
-            StyleMasterRec.PictureBack.ImportStream(InStrBack, 'Back picture ');
+    //         Client.Get(StyleMasterRec.BackURL, ResponseBack);
+    //         ResponseBack.Content.ReadAs(InStrBack);
+    //         Clear(StyleMasterRec.PictureBack);
+    //         StyleMasterRec.PictureBack.ImportStream(InStrBack, 'Back picture ');
 
-            StyleMasterRec.Modify(true);
-        end;
+    //         StyleMasterRec.Modify(true);
+    //     end;
 
-    end;
+    // end;
 
 
-    trigger OnClosePage()
-    var
-        StyleMasterRec: Record "Style Master";
-        Client: HttpClient;
-        Content: HttpContent;
-        ResponseFront: HttpResponseMessage;
-        ResponseBack: HttpResponseMessage;
-        InStrFront: InStream;
-        InStrBack: InStream;
-    begin
+    // trigger OnClosePage()
+    // var
+    //     StyleMasterRec: Record "Style Master";
+    //     Client: HttpClient;
+    //     Content: HttpContent;
+    //     ResponseFront: HttpResponseMessage;
+    //     ResponseBack: HttpResponseMessage;
+    //     InStrFront: InStream;
+    //     InStrBack: InStream;
+    // begin
 
-        StyleMasterRec.Reset();
-        StyleMasterRec.SetRange("No.", "No.");
+    //     StyleMasterRec.Reset();
+    //     StyleMasterRec.SetRange("No.", "No.");
 
-        if StyleMasterRec.FindSet() then begin
+    //     if StyleMasterRec.FindSet() then begin
 
-            Clear(StyleMasterRec.PictureFront);
-            Clear(StyleMasterRec.PictureBack);
-            StyleMasterRec.Modify(true);
+    //         Clear(StyleMasterRec.PictureFront);
+    //         Clear(StyleMasterRec.PictureBack);
+    //         StyleMasterRec.Modify(true);
 
-        end;
+    //     end;
 
-    end;
+    // end;
 
-    trigger OnQueryClosePage(CloseAction: Action): Boolean
-    var
-        StyleMasterRec: Record "Style Master";
-        Client: HttpClient;
-        Content: HttpContent;
-        ResponseFront: HttpResponseMessage;
-        ResponseBack: HttpResponseMessage;
-        InStrFront: InStream;
-        InStrBack: InStream;
-    begin
+    // trigger OnQueryClosePage(CloseAction: Action): Boolean
+    // var
+    //     StyleMasterRec: Record "Style Master";
+    //     Client: HttpClient;
+    //     Content: HttpContent;
+    //     ResponseFront: HttpResponseMessage;
+    //     ResponseBack: HttpResponseMessage;
+    //     InStrFront: InStream;
+    //     InStrBack: InStream;
+    // begin
 
-        StyleMasterRec.Reset();
-        StyleMasterRec.SetRange("No.", "No.");
+    //     StyleMasterRec.Reset();
+    //     StyleMasterRec.SetRange("No.", "No.");
 
-        if StyleMasterRec.FindSet() then begin
+    //     if StyleMasterRec.FindSet() then begin
 
-            Clear(StyleMasterRec.PictureFront);
-            Clear(StyleMasterRec.PictureBack);
-            StyleMasterRec.Modify(true);
+    //         Clear(StyleMasterRec.PictureFront);
+    //         Clear(StyleMasterRec.PictureBack);
+    //         StyleMasterRec.Modify(true);
 
-        end;
+    //     end;
 
-    end;
+    // end;
 }

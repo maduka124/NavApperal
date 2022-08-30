@@ -129,7 +129,7 @@ page 50721 "Job Creation Card"
                     WashSampleReqDataRec: Record "Washing Sample Requsition Line";
                     Quantity: Integer;
                     inTermeDiateTable: Record IntermediateTable;
-                    jobcreationTable: Record JobCreationLine;
+                //jobcreationTable: Record JobCreationLine;
                 begin
 
                     if "Split Status" = "Split Status"::Yes then
@@ -171,11 +171,6 @@ page 50721 "Job Creation Card"
                     else
                         Error('No splits for posting.');
                 end;
-            }
-
-            action("Print Job Card")
-            {
-
             }
         }
     }
@@ -263,7 +258,6 @@ page 50721 "Job Creation Card"
             exit(ItemMasterRec."No.");
     end;
 
-
     procedure Generate_SO()
     var
         SalesHeaderRec: Record "Sales Header";
@@ -337,7 +331,6 @@ page 50721 "Job Creation Card"
         end;
     end;
 
-
     procedure Generate_PO()
     var
         PoNo: Code[20];
@@ -404,6 +397,30 @@ page 50721 "Job Creation Card"
 
             "PO Satatus" := "PO Satatus"::Yes;
         end;
+    end;
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        JobcreationRec: Record JobCreationLine;
+        Inter1Rec: Record IntermediateTable;
+    begin
+        if "Split Status" = "Split Status"::Yes then
+            Error('This job creation already posted. Cannot delete.');
+
+        JobcreationRec.Reset();
+        JobcreationRec.SetRange(No, "No.");
+        JobcreationRec.SetRange("Line No", "Line no.");
+
+        if JobcreationRec.FindSet() then
+            JobcreationRec.DeleteAll();
+
+        Inter1Rec.Reset();
+        Inter1Rec.SetRange(No, "No.");
+        Inter1Rec.SetRange("Line No", "Line no.");
+
+        if Inter1Rec.FindSet() then
+            Inter1Rec.DeleteAll();
     end;
 }
 
