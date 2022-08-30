@@ -18,39 +18,44 @@ page 50744 BWQualityCheckLine2
                     Editable = false;
                 }
 
-                field(Status; Status)
+                field(Defect; Defect)
                 {
                     ApplicationArea = all;
-
-                    trigger OnValidate()
-                    var
-                        BWQualityHeaderRec: Record BWQualityCheckHeader;
-                        BWQualityLine1Rec: Record BWQualityLine2;
-                        CountRec: Integer;
-                    begin
-
-                        BWQualityHeaderRec.Reset();
-                        BWQualityHeaderRec.SetRange("No.", No);
-
-                        if BWQualityHeaderRec.FindSet() then begin
-                            "Sample Req No" := BWQualityHeaderRec."Sample Req No";
-                            "Line No. Header" := BWQualityHeaderRec."Line No";
-                        end;
-
-                        CurrPage.Update();
-                        CountRec := 0;
-                        BWQualityLine1Rec.Reset();
-                        BWQualityLine1Rec.SetRange(No, No);
-                        BWQualityLine1Rec.SetRange("Line No. Header", "Line No. Header");
-                        BWQualityLine1Rec.SetFilter(Status, '%1', BWQualityLine1Rec.Status::Pass);
-
-                        if BWQualityLine1Rec.FindSet() then
-                            CountRec := BWQualityLine1Rec.Count;
-
-                        if CountRec > 1 then
-                            Error('Please select only one pass item');
-                    end;
                 }
+
+                // field(Status; Status)
+                // {
+                //     ApplicationArea = all;
+
+                //     trigger OnValidate()
+                //     var
+                //         BWQualityHeaderRec: Record BWQualityCheckHeader;
+                //         BWQualityLine1Rec: Record BWQualityLine2;
+                //         CountRec: Integer;
+                //     begin
+
+                //         BWQualityHeaderRec.Reset();
+                //         BWQualityHeaderRec.SetRange("No.", No);
+
+                //         if BWQualityHeaderRec.FindSet() then begin
+                //             "Sample Req No" := BWQualityHeaderRec."Sample Req No";
+                //             "Line No. Header" := BWQualityHeaderRec."Line No";
+                //         end;
+
+                //         CurrPage.Update();
+                //         CountRec := 0;
+                //         BWQualityLine1Rec.Reset();
+                //         BWQualityLine1Rec.SetRange(No, No);
+                //         BWQualityLine1Rec.SetRange("Line No. Header", "Line No. Header");
+                //         BWQualityLine1Rec.SetFilter(Status, '%1', BWQualityLine1Rec.Status::Pass);
+
+                //         if BWQualityLine1Rec.FindSet() then
+                //             CountRec := BWQualityLine1Rec.Count;
+
+                //         if CountRec > 1 then
+                //             Error('Please select only one pass item');
+                //     end;
+                // }
 
                 field(Qty; Qty)
                 {
@@ -96,21 +101,16 @@ page 50744 BWQualityCheckLine2
                     end;
                 }
 
-                field(Defect; Defect)
-                {
-                    ApplicationArea = all;
-                }
-
                 field(Comment; Comment)
                 {
                     ApplicationArea = all;
                 }
 
-                field(State; State)
-                {
-                    ApplicationArea = all;
-                    Caption = 'State/Process';
-                }
+                // field(State; State)
+                // {
+                //     ApplicationArea = all;
+                //     Caption = 'State/Process';
+                // }
             }
         }
     }

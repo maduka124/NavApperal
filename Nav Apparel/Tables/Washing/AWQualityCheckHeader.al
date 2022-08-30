@@ -67,6 +67,21 @@ table 50686 AWQualityCheckHeader
             OptionMembers = "Pending","Posted";
             OptionCaption = 'Pending,Posted';
         }
+
+        field(15; "Pass Qty"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(16; "Fail Qty"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(17; Remarks; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

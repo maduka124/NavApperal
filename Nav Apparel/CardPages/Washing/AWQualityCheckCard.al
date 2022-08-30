@@ -91,13 +91,54 @@ page 50687 QCHeaderCardAW
                 }
             }
 
-            group("AW Quality Status")
+            group("AW Defect ")
             {
                 part(aWQualityChecklist2; aWQualityChecklist2)
                 {
                     ApplicationArea = all;
                     Caption = '  ';
                     SubPageLink = No = field("No."), "Sample Req No" = field("Sample Req No"), "Line No. Header" = field("Line No");
+                }
+
+            }
+            group("AW Quality Result")
+            {
+                field("Pass Qty"; "Pass Qty")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        intermidiateRec: Record IntermediateTable;
+                    begin
+                        intermidiateRec.Reset();
+                        intermidiateRec.SetRange(No, "Sample Req No");
+                        intermidiateRec.SetRange("Line no", "Line No");
+                        intermidiateRec.SetRange("Split No", "Split No");
+
+                        if intermidiateRec.FindSet() then begin
+                            if "Pass Qty" > intermidiateRec."Split Qty" then
+                                Error('Pass qty must be less then or qual to split qty');
+
+                            if "Pass Qty" <= intermidiateRec."Split Qty" then begin
+                                "Fail Qty" := intermidiateRec."Split Qty" - "Pass Qty";
+                                CurrPage.Update();
+                            end;
+                        end;
+
+                    end;
+
+                }
+
+                field("Fail Qty"; "Fail Qty")
+                {
+                    ApplicationArea = All;
+                }
+
+                field(Remarks; Remarks)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Comment';
                 }
 
             }
@@ -146,29 +187,23 @@ page 50687 QCHeaderCardAW
 
                             if Total = intermediateRec."Split Qty" then begin
 
-                                QCLine2AWRec2.Reset();
-                                QCLine2AWRec2.SetRange(No, "No.");
-                                QCLine2AWRec2.SetRange("Line No. Header", "Line No");
-                                QCLine2AWRec.SetFilter(Status, '=%1', QCLine2AWRec2.Status::Pass);
-                                QCLine2AWRec.FindSet();
-
                                 WashsamplereqlineRec.Reset();
                                 WashsamplereqlineRec.SetRange("No.", "Sample Req No");
                                 WashsamplereqlineRec.SetRange("Line no.", "Line No");
                                 WashsamplereqlineRec.FindSet();
 
                                 if WashsamplereqlineRec.FindSet() then begin
-                                    WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + QCLine2AWRec.Qty;
-                                    WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + Total - QCLine2AWRec.Qty;
-                                    intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + QCLine2AWRec2.Qty;
-                                    intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + Total - QCLine2AWRec.Qty;
-                                end
-                                else begin
-                                    WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + 0;
-                                    WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Fail Qty (AW)" + Total;
-                                    intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + 0;
-                                    intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + Total;
+                                    WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Pass Qty";
+                                    WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Fail Qty";
+                                    intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + "Pass Qty";
+                                    intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
                                 end;
+                                // else begin
+                                //     WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + 0;
+                                //     WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Fail Qty (AW)" + Total;
+                                //     intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + 0;
+                                //     intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + Total;
+                                // end;
 
                                 WashsamplereqlineRec."QC Date (AW)" := "QC AW Date";
                                 WashsamplereqlineRec.Modify();

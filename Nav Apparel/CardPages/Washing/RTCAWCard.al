@@ -251,7 +251,9 @@ page 50682 RTCAWCard
         RTCAWLineRec.Reset();
         RTCAWLineRec.SetRange("No.", "No.");
         if RTCAWLineRec.FindSet() then
-            RTCAWLineRec.DeleteAll();
+            if status = Status::Posted then
+                Error('Entry already posted. Cannot delete.');
+        RTCAWLineRec.DeleteAll();
 
     end;
 
