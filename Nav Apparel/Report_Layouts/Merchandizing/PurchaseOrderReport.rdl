@@ -1792,13 +1792,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>6.96006cm</Height>
+        <Height>7.22464cm</Height>
         <Style />
       </Body>
       <Width>20.50783cm</Width>
       <Page>
         <PageHeader>
-          <Height>6.74688cm</Height>
+          <Height>8.59896cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1826,7 +1826,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.23001cm</Top>
+              <Top>0.86501cm</Top>
               <Left>3.93912cm</Left>
               <Height>1.2573cm</Height>
               <Width>11.87979cm</Width>
@@ -1876,7 +1876,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox30</rd:DefaultName>
-              <Top>1.90183cm</Top>
+              <Top>2.53683cm</Top>
               <Left>0.0762cm</Left>
               <Height>1.82562cm</Height>
               <Width>9.3486cm</Width>
@@ -1915,7 +1915,7 @@
               <Source>Database</Source>
               <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
               <MIMEType>image/png</MIMEType>
-              <Top>0cm</Top>
+              <Top>0.635cm</Top>
               <Left>16.92523cm</Left>
               <Height>1.56104cm</Height>
               <Width>3.39739cm</Width>
@@ -1970,7 +1970,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox32</rd:DefaultName>
-              <Top>4.36245cm</Top>
+              <Top>4.99745cm</Top>
               <Left>0.04974cm</Left>
               <Height>1.64042cm</Height>
               <Width>9.37507cm</Width>
@@ -2054,7 +2054,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox34</rd:DefaultName>
-              <Top>1.90183cm</Top>
+              <Top>2.53683cm</Top>
               <Left>14.17001cm</Left>
               <Height>1.99002cm</Height>
               <Width>6.15261cm</Width>
@@ -2157,7 +2157,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox35</rd:DefaultName>
-              <Top>4.36245cm</Top>
+              <Top>4.99745cm</Top>
               <Left>14.17001cm</Left>
               <Height>1.905cm</Height>
               <Width>6.15261cm</Width>

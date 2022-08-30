@@ -62,7 +62,7 @@ table 50739 BWQualityLine2
         {
             DataClassification = ToBeClassified;
         }
-
+        
     }
 
     keys

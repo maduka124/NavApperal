@@ -71,7 +71,7 @@ page 50754 BWQualityCheck
                 }
             }
 
-            group("BW Quality Status")
+            group("BW Defect ")
             {
                 part("BW Quality Status1"; BWQualityCheckLine2)
                 {
@@ -79,6 +79,48 @@ page 50754 BWQualityCheck
                     Caption = '  ';
                     SubPageLink = No = field("No.");
                 }
+            }
+
+            group("BW Quality Result")
+            {
+                field("Pass Qty"; "Pass Qty")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        BWQualityCheckline2: Record BWQualityLine2;
+                        WashsamplereqlineRec: Record "Washing Sample Requsition Line";
+                    begin
+                        WashsamplereqlineRec.Reset();
+                        WashsamplereqlineRec.SetRange("No.", "Sample Req No");
+                        WashsamplereqlineRec.SetRange("Line no.", "Line No");
+
+                        if WashsamplereqlineRec.FindSet() then begin
+                            if WashsamplereqlineRec."Req Qty" < "Pass Qty" then
+                                Error('Pass quantity must be less then or equal to Req qty');
+
+                            if WashsamplereqlineRec."Req Qty" >= "Pass Qty" then begin
+                                "Fail Qty" := WashsamplereqlineRec."Req Qty" - "Pass Qty";
+                                CurrPage.Update();
+                            end;
+
+                        end;
+                    end;
+                }
+
+                field("Fail Qty"; "Fail Qty")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field(Remarks; Remarks)
+                {
+                    ApplicationArea = all;
+                    Caption = 'Comment';
+                }
+
             }
         }
     }
@@ -118,25 +160,13 @@ page 50754 BWQualityCheck
                             until BWQualityCheckline2.Next() = 0;
 
                             if Total <> WashSampleReqlineRec."Req Qty" then
-                                Error('Total pass/fail quantity must be equal to the sample requested qty.');
-                        end
-                        else
-                            Error('Cannot find pass/fail entries.');
+                                Error('Total Defect Status quantity must be equal to the sample requested qty.');
+                        end;
 
                         if Total = WashSampleReqlineRec."Req Qty" then begin
 
-                            BWQualityCheckline2.Reset();
-                            BWQualityCheckline2.SetRange("No", "No.");
-                            BWQualityCheckline2.SetFilter(Status, '%1', BWQualityCheckline2.Status::Pass);
-
-                            if BWQualityCheckline2.FindSet() then begin
-                                WashsamplereqlineRec."Req Qty BW QC Pass" := WashsamplereqlineRec."Req Qty BW QC Pass" + BWQualityCheckline2.Qty;
-                                WashsamplereqlineRec."Req Qty BW QC Fail" := WashsamplereqlineRec."Req Qty BW QC Fail" + Total - BWQualityCheckline2.Qty;
-                            end
-                            else begin
-                                WashsamplereqlineRec."Req Qty BW QC Pass" := WashsamplereqlineRec."Req Qty BW QC Pass" + 0;
-                                WashsamplereqlineRec."Req Qty BW QC Fail" := WashsamplereqlineRec."Req Qty BW QC Fail" + Total;
-                            end;
+                            WashsamplereqlineRec."Req Qty BW QC Pass" := "Pass Qty" + WashsamplereqlineRec."Req Qty BW QC Pass";
+                            WashsamplereqlineRec."Req Qty BW QC Fail" := "Fail Qty" + WashsamplereqlineRec."Req Qty BW QC Fail";
 
                             WashsamplereqlineRec."BW QC Date" := "BW QC Date";
                             WashsamplereqlineRec.Modify();
@@ -146,7 +176,6 @@ page 50754 BWQualityCheck
                             CurrPage.Update();
 
                             Message('Quality checking posted.');
-
                         end;
                     end
                     else

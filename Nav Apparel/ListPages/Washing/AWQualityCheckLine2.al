@@ -19,41 +19,6 @@ page 50745 aWQualityChecklist2
                     Editable = false;
                 }
 
-                field(Status; Status)
-                {
-                    ApplicationArea = all;
-
-                    trigger OnValidate()
-                    var
-                        QCAWRec: Record AWQualityCheckHeader;
-                        QCLine2tableAWRec: Record AWQualityCheckLine;
-                        CountRec: Integer;
-                    begin
-
-                        QCAWRec.Reset();
-                        QCAWRec.SetRange("No.", No);
-
-                        if QCAWRec.FindSet() then begin
-                            "Sample Req No" := QCAWRec."Sample Req No";
-                            "Line No. Header" := QCAWRec."Line No";
-                            "Split No" := QCAWRec."Split No";
-                        end;
-
-                        CurrPage.Update();
-                        CountRec := 0;
-                        QCLine2tableAWRec.Reset();
-                        QCLine2tableAWRec.SetRange(No, No);
-                        QCLine2tableAWRec.SetRange("Line No. Header", "Line No. Header");
-                        QCLine2tableAWRec.SetFilter(Status, '%1', QCLine2tableAWRec.Status::Pass);
-
-                        if QCLine2tableAWRec.FindSet() then
-                            CountRec := QCLine2tableAWRec.Count;
-
-                        if CountRec > 1 then
-                            Error('Please select only one pass item');
-                    end;
-                }
-
                 field(Qty; Qty)
                 {
                     ApplicationArea = all;
@@ -112,12 +77,6 @@ page 50745 aWQualityChecklist2
                 field(Comment; Comment)
                 {
                     ApplicationArea = all;
-                }
-
-                field(State; State)
-                {
-                    ApplicationArea = all;
-                    Caption = 'State/Process';
                 }
             }
         }
