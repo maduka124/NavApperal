@@ -40,7 +40,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.60042cm</Top>
-            <Left>20.81954cm</Left>
+            <Left>21.77204cm</Left>
             <Height>1.19062cm</Height>
             <Width>8.99583cm</Width>
             <Style>
@@ -142,13 +142,13 @@
                   <Width>1.81208cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.49999cm</Width>
+                  <Width>2.14749cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.91792cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.49458cm</Width>
+                  <Width>1.84708cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.83854cm</Width>
@@ -1885,14 +1885,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PO_Total">
+                        <Textbox Name="PoQty">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PO_Total.Value</Value>
+                                  <Value>=Fields!PoQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -1904,7 +1904,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PO_Total</rd:DefaultName>
+                          <rd:DefaultName>PoQty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2710,16 +2710,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox61">
+                        <Textbox Name="ExtDate">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!ExtDate.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>d</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2728,7 +2729,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox61</rd:DefaultName>
+                          <rd:DefaultName>ExtDate</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2993,9 +2994,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>TOTAL</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3036,278 +3039,14 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>6</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox96">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox96</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox97">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox97</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox98">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox98</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox99">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox99</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox100">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox100</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Order_Qty2">
@@ -3320,7 +3059,9 @@
                                   <Value>=Sum(Fields!Order_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3375,6 +3116,8 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3415,116 +3158,11 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox103">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox103</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox104">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox104</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="PO_Total2">
@@ -3534,10 +3172,12 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!PO_Total.Value)</Value>
+                                  <Value>=Sum(Fields!PoQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3592,7 +3232,9 @@
                                   <Value>=Sum(Fields!Cut_In_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3647,7 +3289,9 @@
                                   <Value>=Sum(Fields!Emb_Out_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3702,7 +3346,9 @@
                                   <Value>=Sum(Fields!Emb_In_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3757,7 +3403,9 @@
                                   <Value>=Sum(Fields!Print_Out_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3812,7 +3460,9 @@
                                   <Value>=Sum(Fields!Print_In_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3867,7 +3517,9 @@
                                   <Value>=Sum(Fields!Sawing_In_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3922,7 +3574,9 @@
                                   <Value>=Sum(Fields!Sawing_Out_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3977,7 +3631,9 @@
                                   <Value>=Sum(Fields!Wash_Out_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4032,7 +3688,9 @@
                                   <Value>=Sum(Fields!Wash_In_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4087,7 +3745,9 @@
                                   <Value>=Sum(Fields!Finish_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4142,7 +3802,9 @@
                                   <Value>=Sum(Fields!Shipped_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4197,6 +3859,8 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4251,7 +3915,9 @@
                                   <Value>=Sum(Fields!fOB.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4306,7 +3972,9 @@
                                   <Value>=Sum(Fields!ExSHORT.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4361,6 +4029,8 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4415,7 +4085,9 @@
                                   <Value>=Sum(Fields!ShValue.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4470,6 +4142,8 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4524,6 +4198,8 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4578,6 +4254,8 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4777,8 +4455,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>3.04518cm</Top>
-            <Left>1.08162cm</Left>
+            <Top>3.36268cm</Top>
+            <Left>0.12912cm</Left>
             <Height>0.69109cm</Height>
             <Width>7.12046cm</Width>
             <ZIndex>3</ZIndex>
@@ -4945,7 +4623,7 @@
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>56cm</PageWidth>
-        <LeftMargin>0.5cm</LeftMargin>
+        <LeftMargin>0.6cm</LeftMargin>
         <RightMargin>0.4cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
@@ -5035,9 +4713,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Lot_No_">
           <DataField>Lot_No_</DataField>
         </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
         <Field Name="PO_Total">
           <DataField>PO_Total</DataField>
         </Field>
@@ -5103,6 +4778,15 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="ExSHORT">
           <DataField>ExSHORT</DataField>
+        </Field>
+        <Field Name="PoQty">
+          <DataField>PoQty</DataField>
+        </Field>
+        <Field Name="ExtDate">
+          <DataField>ExtDate</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
         </Field>
       </Fields>
       <Query>

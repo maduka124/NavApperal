@@ -30,13 +30,11 @@ report 50641 WIPReport
             { }
             column(Lot_No_; "Lot No.")
             { }
-            column(PO_No; "PO No")
-            { }
             column(PO_Total; "PO Total")
             { }
             column(CompLogo; comRec.Picture)
             { }
-            column(LC_No_Contract; "LC No/Contract")
+            column(LC_No_Contract; ContractNo)
             { }
             // column()
             // {}
@@ -78,11 +76,12 @@ report 50641 WIPReport
                 { }
                 column(ExSHORT; Qty - "Shipped Qty")
                 { }
-                //      column()
-                // { }
-                //      column()
-                // { }
-
+                column(PoQty; Qty)
+                { }
+                column(ExtDate; ExtDate)
+                { }
+                column(PO_No; "PO No.")
+                { }
                 trigger OnAfterGetRecord()
                 var
 
@@ -109,13 +108,28 @@ report 50641 WIPReport
                                         SHMode := 'By-Road';
                                     end;
 
+                    SalesInvoiceRec.SetRange("Style No", "Style No.");
+                    SalesInvoiceRec.SetRange("PO No", "PO No.");
+                    if SalesInvoiceRec.FindFirst() then begin
+                        ExtDate := SalesInvoiceRec."Document Date";
+                    end;
+
                 end;
             }
+
             trigger OnAfterGetRecord()
 
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                LcStyleRec.SetRange("Style No.", "No.");
+                if LcStyleRec.FindFirst() then begin
+                    ContractRec.SetRange("No.", LcStyleRec."No.");
+                    if ContractRec.FindFirst() then begin
+                        ContractNo := ContractRec."Contract No";
+                    end;
+                end;
             end;
 
             trigger OnPreDataItem()
@@ -171,4 +185,10 @@ report 50641 WIPReport
         comRec: Record "Company Information";
         UserReC: Record "User Setup";
         BuyerName: Code[20];
+        SalesInvoiceRec: Record "Sales Invoice Header";
+        ExtDate: Date;
+        ContractRec: Record "Contract/LCMaster";
+        ContractNo: Text[50];
+        LcStyleRec: Record "Contract/LCStyle";
+
 }
