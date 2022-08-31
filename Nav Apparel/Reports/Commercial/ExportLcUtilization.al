@@ -64,6 +64,24 @@ report 50628 ExportLcUtilizationReport
                 { }
                 column(PIValue; PIValue)
                 { }
+                dataitem("PI Details Header"; "PI Details Header")
+                {
+                    DataItemLinkReference = B2BLCMaster;
+                    DataItemLink = B2BNo = field("No.");
+                    DataItemTableView = sorting("No.");
+                    column(MainCatName; MainCatName)
+                    { }
+
+                    trigger OnAfterGetRecord()
+
+                    begin
+                        PiPORec.SetRange("PI No.", "No.");
+                        if PiPORec.FindFirst() then begin
+                            MainCatName := PiPORec."Main Category Name";
+                        end;
+                    end;
+
+                }
 
                 trigger OnAfterGetRecord()
 
@@ -96,7 +114,6 @@ report 50628 ExportLcUtilizationReport
                     if StylePoRec.FindFirst() then begin
                         UniPrice := StylePoRec."Unit Price";
                     end;
-
 
                 end;
 
@@ -169,10 +186,11 @@ report 50628 ExportLcUtilizationReport
         ContractAmountRec: Record "Contract Commision";
         Amount: Decimal;
         No: Code[20];
-        VendorRec: Record Vendor;
         StylePoRec: Record "Style Master PO";
         UniPrice: Decimal;
         comRec: Record "Company Information";
         LCPIRec: Record B2BLCPI;
         PIValue: Decimal;
+        PiPORec: Record "PI Po Item Details";
+        MainCatName: Text[50];
 }
