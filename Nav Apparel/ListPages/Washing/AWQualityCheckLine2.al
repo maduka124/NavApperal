@@ -19,6 +19,11 @@ page 50745 aWQualityChecklist2
                     Editable = false;
                 }
 
+                field(Defect; Defect)
+                {
+                    ApplicationArea = all;
+                }
+
                 field(Qty; Qty)
                 {
                     ApplicationArea = all;
@@ -67,11 +72,6 @@ page 50745 aWQualityChecklist2
                                 Error('Qty must be less than or equal to Job Card Qty');
                         end;
                     end;
-                }
-
-                field(Defect; Defect)
-                {
-                    ApplicationArea = all;
                 }
 
                 field(Comment; Comment)

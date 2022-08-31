@@ -89,7 +89,8 @@ page 50754 BWQualityCheck
 
                     trigger OnValidate()
                     var
-                        BWQualityCheckline2: Record BWQualityLine2;
+                        "Total Qty": Integer;
+                        "Total Fail Qty": Integer;
                         WashsamplereqlineRec: Record "Washing Sample Requsition Line";
                     begin
                         WashsamplereqlineRec.Reset();
@@ -102,9 +103,18 @@ page 50754 BWQualityCheck
 
                             if WashsamplereqlineRec."Req Qty" >= "Pass Qty" then begin
                                 "Fail Qty" := WashsamplereqlineRec."Req Qty" - "Pass Qty";
+
+                                "Total Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + "Pass Qty";
+                                "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + "Fail Qty";
+
+                                if WashsamplereqlineRec."Req Qty" < "Total Qty" then
+                                    Error('Total Pass Qty Should be less than qual to Req qty');
+
+                                if WashsamplereqlineRec."Req Qty" < "Total Fail Qty" then
+                                    Error('Total Fail Qty Should be less than qual to Req qty');
+
                                 CurrPage.Update();
                             end;
-
                         end;
                     end;
                 }
@@ -139,6 +149,8 @@ page 50754 BWQualityCheck
                     BWQualityCheckline2: Record BWQualityLine2;
                     WashsamplereqlineRec: Record "Washing Sample Requsition Line";
                     Total: Integer;
+                    "Total Qty": Integer;
+                    "Total Fail Qty": Integer;
                 begin
 
                     if Status = Status::Posted then
@@ -159,24 +171,30 @@ page 50754 BWQualityCheck
                                 Total += BWQualityCheckline2.Qty;
                             until BWQualityCheckline2.Next() = 0;
 
-                            if Total <> WashSampleReqlineRec."Req Qty" then
-                                Error('Total Defect Status quantity must be equal to the sample requested qty.');
+                            if Total > WashSampleReqlineRec."Req Qty" then
+                                Error('Total defects quantity should be less than sample requested qty.');
                         end;
 
-                        if Total = WashSampleReqlineRec."Req Qty" then begin
+                        WashsamplereqlineRec."Req Qty BW QC Pass" := "Pass Qty" + WashsamplereqlineRec."Req Qty BW QC Pass";
+                        WashsamplereqlineRec."Req Qty BW QC Fail" := "Fail Qty" + WashsamplereqlineRec."Req Qty BW QC Fail";
 
-                            WashsamplereqlineRec."Req Qty BW QC Pass" := "Pass Qty" + WashsamplereqlineRec."Req Qty BW QC Pass";
-                            WashsamplereqlineRec."Req Qty BW QC Fail" := "Fail Qty" + WashsamplereqlineRec."Req Qty BW QC Fail";
+                        "Total Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + "Pass Qty";
+                        "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + "Fail Qty";
 
-                            WashsamplereqlineRec."BW QC Date" := "BW QC Date";
-                            WashsamplereqlineRec.Modify();
+                        if WashsamplereqlineRec."Req Qty" < "Total Qty" then
+                            Error('Total Pass Qty Should be less than  or qual to Req qty');
 
-                            Status := Status::Posted;
-                            CurrPage.Editable(false);
-                            CurrPage.Update();
+                        if WashsamplereqlineRec."Req Qty" < "Total Fail Qty" then
+                            Error('Total Fail Qty Should be less than Or qual to Req qty');
 
-                            Message('Quality checking posted.');
-                        end;
+                        WashsamplereqlineRec."BW QC Date" := "BW QC Date";
+                        WashsamplereqlineRec.Modify();
+
+                        Status := Status::Posted;
+                        CurrPage.Editable(false);
+                        CurrPage.Update();
+
+                        Message('Quality checking posted.');
                     end
                     else
                         Error('Cannot find sample request details.');

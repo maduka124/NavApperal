@@ -110,6 +110,8 @@ page 50687 QCHeaderCardAW
                     trigger OnValidate()
                     var
                         intermidiateRec: Record IntermediateTable;
+                        "Total Pass Qty": Integer;
+                        "Total Fail Qty": Integer;
                     begin
                         intermidiateRec.Reset();
                         intermidiateRec.SetRange(No, "Sample Req No");
@@ -118,10 +120,20 @@ page 50687 QCHeaderCardAW
 
                         if intermidiateRec.FindSet() then begin
                             if "Pass Qty" > intermidiateRec."Split Qty" then
-                                Error('Pass qty must be less then or qual to split qty');
+                                Error('Pass qty must be less than or qual to split qty');
 
                             if "Pass Qty" <= intermidiateRec."Split Qty" then begin
                                 "Fail Qty" := intermidiateRec."Split Qty" - "Pass Qty";
+
+                                "Total Pass Qty" := intermidiateRec."AW QC Pass Qty " + "Pass Qty";
+                                "Total Fail Qty" := intermidiateRec."AW QC Fail Qty" + "Fail Qty";
+
+                                if "Total Pass Qty" > intermidiateRec."Split Qty" then
+                                    Error('Total pass qty should be less than or equal to Split Qty');
+
+                                if "Total Fail Qty" > intermidiateRec."Split Qty" then
+                                    Error('Total fail qty should be less than or equal to Split Qty');
+
                                 CurrPage.Update();
                             end;
                         end;
@@ -162,6 +174,8 @@ page 50687 QCHeaderCardAW
                     washSampleReqLineRec: Record "Washing Sample Requsition Line";
                     Total: Integer;
                     QUantity: Integer;
+                    "Total Pass Qty": Integer;
+                    "Total Fail Qty": Integer;
                 begin
 
                     if Status = Status::Posted then
@@ -182,39 +196,40 @@ page 50687 QCHeaderCardAW
                                 Total += QCLine2AWRec.Qty;
                             until (QCLine2AWRec.Next() = 0);
 
-                            if Total <> intermediateRec."Split Qty" then
-                                Error('Total pass/fail quantity must be equal to the Job Card Qty.');
+                            Message('=%1', Total);
 
-                            if Total = intermediateRec."Split Qty" then begin
+                            if Total > intermediateRec."Split Qty" then
+                                Error('Total Defect quantity must be equal to the Split Qty.');
 
-                                WashsamplereqlineRec.Reset();
-                                WashsamplereqlineRec.SetRange("No.", "Sample Req No");
-                                WashsamplereqlineRec.SetRange("Line no.", "Line No");
-                                WashsamplereqlineRec.FindSet();
+                            "Total Pass Qty" := intermediateRec."AW QC Pass Qty " + "Pass Qty";
+                            "Total Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
 
-                                if WashsamplereqlineRec.FindSet() then begin
-                                    WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Pass Qty";
-                                    WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Fail Qty";
-                                    intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + "Pass Qty";
-                                    intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
-                                end;
-                                // else begin
-                                //     WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + 0;
-                                //     WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Fail Qty (AW)" + Total;
-                                //     intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + 0;
-                                //     intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + Total;
-                                // end;
+                            if "Total Pass Qty" > intermediateRec."Split Qty" then
+                                Error('Total pass qty should be less than or equal to Split Qty');
 
-                                WashsamplereqlineRec."QC Date (AW)" := "QC AW Date";
-                                WashsamplereqlineRec.Modify();
-                                intermediateRec.Modify();
+                            if "Total Fail Qty" > intermediateRec."Split Qty" then
+                                Error('Total fail qty should be less than or equal to Split Qty');
 
-                                Status := Status::Posted;
-                                CurrPage.Editable(false);
-                                CurrPage.Update();
-                                Message('Quality checking posted.');
+                            WashsamplereqlineRec.Reset();
+                            WashsamplereqlineRec.SetRange("No.", "Sample Req No");
+                            WashsamplereqlineRec.SetRange("Line no.", "Line No");
+                            WashsamplereqlineRec.FindSet();
 
+                            if WashsamplereqlineRec.FindSet() then begin
+                                WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Pass Qty";
+                                WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Fail Qty";
+                                intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + "Pass Qty";
+                                intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
                             end;
+
+                            WashsamplereqlineRec."QC Date (AW)" := "QC AW Date";
+                            WashsamplereqlineRec.Modify();
+                            intermediateRec.Modify();
+
+                            Status := Status::Posted;
+                            CurrPage.Editable(false);
+                            CurrPage.Update();
+                            Message('Quality checking posted.');
                         end
                         else
                             Error('Cannot find Job Card details.');
