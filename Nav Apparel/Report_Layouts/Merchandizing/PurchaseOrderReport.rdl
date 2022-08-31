@@ -11,91 +11,6 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="SystemCreatedBy">
-          <DataField>SystemCreatedBy</DataField>
-        </Field>
-        <Field Name="Vendor_Invoice_No_">
-          <DataField>Vendor_Invoice_No_</DataField>
-        </Field>
-        <Field Name="Pay_to_Contact">
-          <DataField>Pay_to_Contact</DataField>
-        </Field>
-        <Field Name="Pay_to_Address">
-          <DataField>Pay_to_Address</DataField>
-        </Field>
-        <Field Name="Buy_from_Vendor_Name">
-          <DataField>Buy_from_Vendor_Name</DataField>
-        </Field>
-        <Field Name="companyName">
-          <DataField>companyName</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Due_Date">
-          <DataField>Due_Date</DataField>
-        </Field>
-        <Field Name="TermDes">
-          <DataField>TermDes</DataField>
-        </Field>
-        <Field Name="Unit_of_Measure">
-          <DataField>Unit_of_Measure</DataField>
-        </Field>
-        <Field Name="color">
-          <DataField>color</DataField>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-        </Field>
-        <Field Name="QuantityFormat">
-          <DataField>QuantityFormat</DataField>
-        </Field>
-        <Field Name="Line_Amount">
-          <DataField>Line_Amount</DataField>
-        </Field>
-        <Field Name="Line_AmountFormat">
-          <DataField>Line_AmountFormat</DataField>
-        </Field>
-        <Field Name="Direct_Unit_Cost">
-          <DataField>Direct_Unit_Cost</DataField>
-        </Field>
-        <Field Name="Direct_Unit_CostFormat">
-          <DataField>Direct_Unit_CostFormat</DataField>
-        </Field>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="Season">
-          <DataField>Season</DataField>
-        </Field>
-        <Field Name="Style">
-          <DataField>Style</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="MainCategory">
-          <DataField>MainCategory</DataField>
-        </Field>
-        <Field Name="SizeRangeNo">
-          <DataField>SizeRangeNo</DataField>
-        </Field>
-        <Field Name="Article">
-          <DataField>Article</DataField>
-        </Field>
-        <Field Name="DimenshionWidthNo">
-          <DataField>DimenshionWidthNo</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1877,13 +1792,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>7.33047cm</Height>
+        <Height>7.22464cm</Height>
         <Style />
       </Body>
       <Width>20.50783cm</Width>
       <Page>
         <PageHeader>
-          <Height>9.97479cm</Height>
+          <Height>8.59896cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1911,7 +1826,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>1.50001cm</Top>
+              <Top>0.86501cm</Top>
               <Left>3.93912cm</Left>
               <Height>1.2573cm</Height>
               <Width>11.87979cm</Width>
@@ -1961,7 +1876,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox30</rd:DefaultName>
-              <Top>3.17183cm</Top>
+              <Top>2.53683cm</Top>
               <Left>0.0762cm</Left>
               <Height>1.82562cm</Height>
               <Width>9.3486cm</Width>
@@ -2034,15 +1949,6 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value />
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
                       <Value xml:space="preserve">        </Value>
                       <Style />
                     </TextRun>
@@ -2064,9 +1970,9 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox32</rd:DefaultName>
-              <Top>5.63245cm</Top>
+              <Top>4.99745cm</Top>
               <Left>0.04974cm</Left>
-              <Height>1.905cm</Height>
+              <Height>1.64042cm</Height>
               <Width>9.37507cm</Width>
               <ZIndex>3</ZIndex>
               <Style>
@@ -2148,7 +2054,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox34</rd:DefaultName>
-              <Top>3.17183cm</Top>
+              <Top>2.53683cm</Top>
               <Left>14.17001cm</Left>
               <Height>1.99002cm</Height>
               <Width>6.15261cm</Width>
@@ -2190,7 +2096,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Fabric Ref    : </Value>
+                      <Value>Fabric Ref   : </Value>
                       <Style>
                         <FontFamily>Calibri</FontFamily>
                       </Style>
@@ -2201,7 +2107,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Season          :</Value>
+                      <Value>Season        : </Value>
                       <Style>
                         <FontFamily>Calibri</FontFamily>
                       </Style>
@@ -2218,7 +2124,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Buyer            :</Value>
+                      <Value>Buyer           : </Value>
                       <Style>
                         <FontFamily>Calibri</FontFamily>
                       </Style>
@@ -2235,7 +2141,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Style No        :</Value>
+                      <Value>Style No       : </Value>
                       <Style>
                         <FontFamily>Calibri</FontFamily>
                       </Style>
@@ -2251,7 +2157,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox35</rd:DefaultName>
-              <Top>5.63245cm</Top>
+              <Top>4.99745cm</Top>
               <Left>14.17001cm</Left>
               <Height>1.905cm</Height>
               <Width>6.15261cm</Width>
@@ -2541,7 +2447,7 @@
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Left</TextAlign>
+                    <TextAlign>Center</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
@@ -2632,7 +2538,7 @@
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Left</TextAlign>
+                    <TextAlign>Center</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
@@ -2818,12 +2724,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2875,4 +2775,89 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="SystemCreatedBy">
+          <DataField>SystemCreatedBy</DataField>
+        </Field>
+        <Field Name="Vendor_Invoice_No_">
+          <DataField>Vendor_Invoice_No_</DataField>
+        </Field>
+        <Field Name="Pay_to_Contact">
+          <DataField>Pay_to_Contact</DataField>
+        </Field>
+        <Field Name="Pay_to_Address">
+          <DataField>Pay_to_Address</DataField>
+        </Field>
+        <Field Name="Buy_from_Vendor_Name">
+          <DataField>Buy_from_Vendor_Name</DataField>
+        </Field>
+        <Field Name="companyName">
+          <DataField>companyName</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Due_Date">
+          <DataField>Due_Date</DataField>
+        </Field>
+        <Field Name="TermDes">
+          <DataField>TermDes</DataField>
+        </Field>
+        <Field Name="Unit_of_Measure">
+          <DataField>Unit_of_Measure</DataField>
+        </Field>
+        <Field Name="color">
+          <DataField>color</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="QuantityFormat">
+          <DataField>QuantityFormat</DataField>
+        </Field>
+        <Field Name="Line_Amount">
+          <DataField>Line_Amount</DataField>
+        </Field>
+        <Field Name="Line_AmountFormat">
+          <DataField>Line_AmountFormat</DataField>
+        </Field>
+        <Field Name="Direct_Unit_Cost">
+          <DataField>Direct_Unit_Cost</DataField>
+        </Field>
+        <Field Name="Direct_Unit_CostFormat">
+          <DataField>Direct_Unit_CostFormat</DataField>
+        </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="Season">
+          <DataField>Season</DataField>
+        </Field>
+        <Field Name="Style">
+          <DataField>Style</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="MainCategory">
+          <DataField>MainCategory</DataField>
+        </Field>
+        <Field Name="SizeRangeNo">
+          <DataField>SizeRangeNo</DataField>
+        </Field>
+        <Field Name="Article">
+          <DataField>Article</DataField>
+        </Field>
+        <Field Name="DimenshionWidthNo">
+          <DataField>DimenshionWidthNo</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
