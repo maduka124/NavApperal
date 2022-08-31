@@ -22,6 +22,11 @@ page 71012597 "Department"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Show in New Operations"; "Show in New Operations")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

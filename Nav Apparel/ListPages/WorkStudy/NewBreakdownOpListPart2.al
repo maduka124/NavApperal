@@ -35,9 +35,18 @@ page 50466 "New Breakdown Op Listpart2"
                 field("Machine Name"; "Machine Name")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                     Caption = 'Machine';
                     StyleExpr = StyleExprTxt;
+
+                    trigger OnValidate()
+                    var
+                        MachineRec: Record "Machine Master";
+                    begin
+                        MachineRec.Reset();
+                        MachineRec.SetRange("Machine Description", "Machine Name");
+                        if MachineRec.FindSet() then
+                            "Machine No." := MachineRec."Machine No.";
+                    end;
                 }
 
                 field(SMV; SMV)

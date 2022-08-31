@@ -31,6 +31,11 @@ page 71012598 "Department Card"
                             Error('Department name already exists.');
                     end;
                 }
+
+                field("Show in New Operations"; "Show in New Operations")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
