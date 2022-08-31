@@ -196,6 +196,7 @@ codeunit 71012752 NavAppCodeUnit
     procedure Update_PI_PO_Items(PINo: Code[20])
     var
         PIPoItemDetailsRec: Record "PI Po Item Details";
+        PIPoItemDetails1Rec: Record "PI Po Item Details";
         PIPoDetailsRec: Record "PI Po Details";
         PurchaseLineRec: Record "Purchase Line";
         ItemRec: Record Item;
@@ -204,7 +205,8 @@ codeunit 71012752 NavAppCodeUnit
         //Delete old records
         PIPoItemDetailsRec.Reset();
         PIPoItemDetailsRec.SetRange("PI No.", PINo);
-        PIPoItemDetailsRec.DeleteAll();
+        if PIPoItemDetailsRec.FindSet() then
+            PIPoItemDetailsRec.DeleteAll();
 
         //Insert all items from PO
         PIPoDetailsRec.Reset();
@@ -222,23 +224,35 @@ codeunit 71012752 NavAppCodeUnit
 
                     repeat
 
-                        ItemRec.Reset();
-                        ItemRec.SetRange("No.", PurchaseLineRec."No.");
-                        ItemRec.FindSet();
+                        PIPoItemDetails1Rec.Reset();
+                        PIPoItemDetails1Rec.SetRange("PI No.", PINo);
+                        PIPoItemDetails1Rec.SetRange("PO No.", PIPoDetailsRec."PO No.");
+                        PIPoItemDetails1Rec.SetRange("Item No.", PurchaseLineRec."No.");
 
-                        PIPoItemDetailsRec.Init();
-                        PIPoItemDetailsRec."PI No." := PINo;
-                        PIPoItemDetailsRec."PO No." := PIPoDetailsRec."PO No.";
-                        PIPoItemDetailsRec."Item No." := PurchaseLineRec."No.";
-                        PIPoItemDetailsRec."Item Name" := PurchaseLineRec.Description;
-                        PIPoItemDetailsRec."UOM Code" := PurchaseLineRec."Unit of Measure";
-                        PIPoItemDetailsRec."UOM" := PurchaseLineRec."Unit of Measure Code";
-                        PIPoItemDetailsRec."Main Category No." := ItemRec."Main Category No.";
-                        PIPoItemDetailsRec."Main Category Name" := ItemRec."Main Category Name";
-                        PIPoItemDetailsRec.Qty := PurchaseLineRec.Quantity;
-                        PIPoItemDetailsRec."Unit Price" := PurchaseLineRec."Direct Unit Cost";
-                        PIPoItemDetailsRec.Value := PurchaseLineRec.Amount;
-                        PIPoItemDetailsRec.Insert();
+                        if PIPoItemDetails1Rec.FindSet() then begin
+                            PIPoItemDetails1Rec.Qty := PIPoItemDetails1Rec.Qty + PurchaseLineRec.Quantity;
+                            PIPoItemDetails1Rec.Value := PIPoItemDetails1Rec.Value + PurchaseLineRec.Amount;
+                            PIPoItemDetails1Rec.Modify();
+                        end
+                        else begin
+                            ItemRec.Reset();
+                            ItemRec.SetRange("No.", PurchaseLineRec."No.");
+                            ItemRec.FindSet();
+
+                            PIPoItemDetailsRec.Init();
+                            PIPoItemDetailsRec."PI No." := PINo;
+                            PIPoItemDetailsRec."PO No." := PIPoDetailsRec."PO No.";
+                            PIPoItemDetailsRec."Item No." := PurchaseLineRec."No.";
+                            PIPoItemDetailsRec."Item Name" := PurchaseLineRec.Description;
+                            PIPoItemDetailsRec."UOM Code" := PurchaseLineRec."Unit of Measure";
+                            PIPoItemDetailsRec."UOM" := PurchaseLineRec."Unit of Measure Code";
+                            PIPoItemDetailsRec."Main Category No." := ItemRec."Main Category No.";
+                            PIPoItemDetailsRec."Main Category Name" := ItemRec."Main Category Name";
+                            PIPoItemDetailsRec.Qty := PurchaseLineRec.Quantity;
+                            PIPoItemDetailsRec."Unit Price" := PurchaseLineRec."Direct Unit Cost";
+                            PIPoItemDetailsRec.Value := PurchaseLineRec.Amount;
+                            PIPoItemDetailsRec.Insert();
+                        end;
 
                     until PurchaseLineRec.Next() = 0;
 
