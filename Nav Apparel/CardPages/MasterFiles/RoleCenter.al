@@ -525,13 +525,7 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report PurchaseOrderReport;
                         ApplicationArea = all;
                     }
-                    action("Purchase Order Report Old")
-                    {
-                        Caption = 'Purchase Order Report';
-                        Enabled = true;
-                        RunObject = report PurchaseOrderReportOld;
-                        ApplicationArea = all;
-                    }
+
 
                     action("Size Colour Wise Quantity Breakdown Report")
                     {
