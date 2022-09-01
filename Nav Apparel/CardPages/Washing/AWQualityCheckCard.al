@@ -120,7 +120,7 @@ page 50687 QCHeaderCardAW
 
                         if intermidiateRec.FindSet() then begin
                             if "Pass Qty" > intermidiateRec."Split Qty" then
-                                Error('Pass qty must be less than or qual to split qty');
+                                Error('Pass qty must be less than or equal to job card qty');
 
                             if "Pass Qty" <= intermidiateRec."Split Qty" then begin
                                 "Fail Qty" := intermidiateRec."Split Qty" - "Pass Qty";
@@ -129,17 +129,15 @@ page 50687 QCHeaderCardAW
                                 "Total Fail Qty" := intermidiateRec."AW QC Fail Qty" + "Fail Qty";
 
                                 if "Total Pass Qty" > intermidiateRec."Split Qty" then
-                                    Error('Total pass qty should be less than or equal to Split Qty');
+                                    Error('Total pass qty should be less than or equal to job card Qty');
 
                                 if "Total Fail Qty" > intermidiateRec."Split Qty" then
-                                    Error('Total fail qty should be less than or equal to Split Qty');
+                                    Error('Total fail qty should be less than or equal to job card Qty');
 
                                 CurrPage.Update();
                             end;
                         end;
-
                     end;
-
                 }
 
                 field("Fail Qty"; "Fail Qty")
@@ -152,7 +150,6 @@ page 50687 QCHeaderCardAW
                     ApplicationArea = All;
                     Caption = 'Comment';
                 }
-
             }
         }
     }
@@ -168,11 +165,10 @@ page 50687 QCHeaderCardAW
 
                 trigger OnAction()
                 var
-                    QCLine2AWRec: Record AWQualityCheckLine;
+                    //QCLine2AWRec: Record AWQualityCheckLine;
                     intermediateRec: Record IntermediateTable;
-                    QCLine2AWRec2: Record AWQualityCheckLine;
                     washSampleReqLineRec: Record "Washing Sample Requsition Line";
-                    Total: Integer;
+                    //Total: Integer;
                     QUantity: Integer;
                     "Total Pass Qty": Integer;
                     "Total Fail Qty": Integer;
@@ -181,61 +177,60 @@ page 50687 QCHeaderCardAW
                     if Status = Status::Posted then
                         Error('Entry already posted.');
 
-                    QCLine2AWRec.Reset();
-                    QCLine2AWRec.SetRange(No, "No.");
+                    // QCLine2AWRec.Reset();
+                    // QCLine2AWRec.SetRange(No, "No.");
 
-                    if QCLine2AWRec.FindSet() then begin
+                    // if QCLine2AWRec.FindSet() then begin
 
-                        intermediateRec.Reset();
-                        intermediateRec.SetRange(No, QCLine2AWRec."Sample Req No");
-                        intermediateRec.SetRange("Line No", QCLine2AWRec."Line No. Header");
-                        intermediateRec.SetRange("Split No", QCLine2AWRec."Split No");
+                    intermediateRec.Reset();
+                    intermediateRec.SetRange(No, "Sample Req No");
+                    intermediateRec.SetRange("Line No", "Line No");
+                    intermediateRec.SetRange("Split No", "Split No");
 
-                        if intermediateRec.FindSet() then begin
-                            repeat
-                                Total += QCLine2AWRec.Qty;
-                            until (QCLine2AWRec.Next() = 0);
+                    if intermediateRec.FindSet() then begin
+                        // repeat
+                        //     Total += QCLine2AWRec.Qty;
+                        // until (QCLine2AWRec.Next() = 0);
 
-                            Message('=%1', Total);
+                        // if Total > intermediateRec."Split Qty" then
+                        //     Error('Total Defects quantity must be equal to the job card Qty.');
 
-                            if Total > intermediateRec."Split Qty" then
-                                Error('Total Defect quantity must be equal to the Split Qty.');
+                        "Total Pass Qty" := intermediateRec."AW QC Pass Qty " + "Pass Qty";
+                        "Total Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
 
-                            "Total Pass Qty" := intermediateRec."AW QC Pass Qty " + "Pass Qty";
-                            "Total Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
+                        if "Total Pass Qty" > intermediateRec."Split Qty" then
+                            Error('Total pass qty should be less than or equal to job card Qty');
 
-                            if "Total Pass Qty" > intermediateRec."Split Qty" then
-                                Error('Total pass qty should be less than or equal to Split Qty');
+                        if "Total Fail Qty" > intermediateRec."Split Qty" then
+                            Error('Total fail qty should be less than or equal to job card Qty');
 
-                            if "Total Fail Qty" > intermediateRec."Split Qty" then
-                                Error('Total fail qty should be less than or equal to Split Qty');
+                        WashsamplereqlineRec.Reset();
+                        WashsamplereqlineRec.SetRange("No.", "Sample Req No");
+                        WashsamplereqlineRec.SetRange("Line no.", "Line No");
+                        WashsamplereqlineRec.FindSet();
 
-                            WashsamplereqlineRec.Reset();
-                            WashsamplereqlineRec.SetRange("No.", "Sample Req No");
-                            WashsamplereqlineRec.SetRange("Line no.", "Line No");
-                            WashsamplereqlineRec.FindSet();
+                        if WashsamplereqlineRec.FindSet() then begin
+                            WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Pass Qty";
+                            WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Fail Qty";
+                        end;
 
-                            if WashsamplereqlineRec.FindSet() then begin
-                                WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Pass Qty";
-                                WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Fail Qty";
-                                intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + "Pass Qty";
-                                intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
-                            end;
+                        WashsamplereqlineRec."QC Date (AW)" := "QC AW Date";
+                        WashsamplereqlineRec.Modify();
 
-                            WashsamplereqlineRec."QC Date (AW)" := "QC AW Date";
-                            WashsamplereqlineRec.Modify();
-                            intermediateRec.Modify();
+                        intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + "Pass Qty";
+                        intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
+                        intermediateRec.Modify();
 
-                            Status := Status::Posted;
-                            CurrPage.Editable(false);
-                            CurrPage.Update();
-                            Message('Quality checking posted.');
-                        end
-                        else
-                            Error('Cannot find Job Card details.');
+                        Status := Status::Posted;
+                        CurrPage.Editable(false);
+                        CurrPage.Update();
+                        Message('Quality checking posted.');
                     end
                     else
-                        Error('Cannot find pass/fail entries.');
+                        Error('Cannot find Job Card details.');
+                    //end
+                    // else
+                    //     Error('Cannot find pass/fail entries.');
                 end;
             }
         }
