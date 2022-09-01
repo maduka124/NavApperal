@@ -36,12 +36,6 @@ report 50642 PurchaseOrderReport
                 DataItemTableView = sorting("Document No.");
                 column(Unit_of_Measure; "Unit of Measure")
                 { }
-                // column(SizeRangeNo; SizeRangeNo)
-                // { }
-                // column(Article; Article)
-                // { }
-                // column(DimenshionWidthNo; DimenshionWidthNo)
-                // { }
                 column(color; "Color Name")
                 { }
                 column(Quantity; Quantity)

@@ -19,19 +19,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.29836cm</Width>
+                  <Width>0.79326cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.63503cm</Width>
+                  <Width>1.59348cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.98336cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.83382cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.1343cm</Width>
+                  <Width>1.66595cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.89016cm</Width>
@@ -40,7 +40,7 @@
                   <Width>2.08736cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.49458cm</Width>
+                  <Width>0.98948cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.70888cm</Width>
@@ -491,6 +491,7 @@
                                   <Value>=Fields!MainCategory.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -562,6 +563,7 @@
                                   <Value>=RowNumber(nothing)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -615,6 +617,7 @@
                                   <Value>=Fields!No_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -668,6 +671,7 @@
                                   <Value>=Fields!ItemDescription.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -721,6 +725,7 @@
                                   <Value>=Fields!color.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -774,6 +779,7 @@
                                   <Value>=Fields!SizeRangeNo.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -827,6 +833,7 @@
                                   <Value>=Fields!Article.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -880,6 +887,7 @@
                                   <Value>=Fields!DimenshionWidthNo.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -933,6 +941,7 @@
                                   <Value>=Fields!Unit_of_Measure.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -986,6 +995,7 @@
                                   <Value>=Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1039,6 +1049,7 @@
                                   <Value>=Fields!Direct_Unit_Cost.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1092,6 +1103,7 @@
                                   <Value>=Fields!Line_Amount.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1150,6 +1162,7 @@
                                   <Value>Sub Total :             </Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>Teal</Color>
                                   </Style>
@@ -1196,6 +1209,7 @@
                                   <Value>=Sum(Fields!Quantity.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
                                     <Color>Teal</Color>
@@ -1238,6 +1252,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>Teal</Color>
                                   </Style>
@@ -1279,6 +1294,7 @@
                                   <Value>=Sum(Fields!Line_Amount.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
                                     <Color>Teal</Color>
@@ -1752,6 +1768,7 @@
                                   <Value>Grand Total :             </Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>Teal</Color>
                                   </Style>
@@ -1798,6 +1815,7 @@
                                   <Value>=Sum(Fields!Quantity.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
                                     <Color>Teal</Color>
@@ -1840,6 +1858,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>Teal</Color>
                                   </Style>
@@ -1881,6 +1900,7 @@
                                   <Value>=Sum(Fields!Line_Amount.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n2</Format>
                                     <Color>Teal</Color>
@@ -1967,7 +1987,7 @@
             <Top>2.7219cm</Top>
             <Left>0.02329cm</Left>
             <Height>3.53771cm</Height>
-            <Width>20.33608cm</Width>
+            <Width>20.29933cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2098,7 +2118,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.86501cm</Top>
+              <Top>0.54751cm</Top>
               <Left>3.93912cm</Left>
               <Height>1.2573cm</Height>
               <Width>11.87979cm</Width>
@@ -2148,7 +2168,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox30</rd:DefaultName>
-              <Top>2.53683cm</Top>
+              <Top>2.21933cm</Top>
               <Left>0.0762cm</Left>
               <Height>1.82562cm</Height>
               <Width>9.3486cm</Width>
@@ -2187,7 +2207,7 @@
               <Source>Database</Source>
               <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
               <MIMEType>image/png</MIMEType>
-              <Top>0.635cm</Top>
+              <Top>0.3175cm</Top>
               <Left>16.92523cm</Left>
               <Height>1.56104cm</Height>
               <Width>3.39739cm</Width>
@@ -2242,7 +2262,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox32</rd:DefaultName>
-              <Top>4.99745cm</Top>
+              <Top>4.67995cm</Top>
               <Left>0.04974cm</Left>
               <Height>1.64042cm</Height>
               <Width>9.37507cm</Width>
@@ -2326,7 +2346,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox34</rd:DefaultName>
-              <Top>2.53683cm</Top>
+              <Top>2.21933cm</Top>
               <Left>14.17001cm</Left>
               <Height>1.99002cm</Height>
               <Width>6.15261cm</Width>
@@ -2429,7 +2449,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox35</rd:DefaultName>
-              <Top>4.99745cm</Top>
+              <Top>4.67995cm</Top>
               <Left>14.17001cm</Left>
               <Height>1.905cm</Height>
               <Width>6.15261cm</Width>
