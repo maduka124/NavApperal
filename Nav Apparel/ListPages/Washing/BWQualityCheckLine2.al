@@ -63,10 +63,10 @@ page 50744 BWQualityCheckLine2
 
                     trigger OnValidate()
                     var
-                        WashSampleReqlineRec: Record "Washing Sample Requsition Line";
+                        //WashSampleReqlineRec: Record "Washing Sample Requsition Line";
                         BWQualityHeaderRec: Record BWQualityCheckHeader;
-                        BWQualityLine2Rec: Record BWQualityLine2;
-                        Quantity: Integer;
+                    //BWQualityLine2Rec: Record BWQualityLine2;
+                    //Quantity: Integer;
                     begin
                         BWQualityHeaderRec.Reset();
                         BWQualityHeaderRec.SetRange("No.", No);
@@ -77,27 +77,27 @@ page 50744 BWQualityCheckLine2
                         end;
 
                         CurrPage.Update();
-                        WashSampleReqlineRec.Reset();
-                        WashSampleReqlineRec.SetRange("No.", "Sample Req No");
-                        WashSampleReqlineRec.SetRange("Line no.", "Line No. Header");
+                        // WashSampleReqlineRec.Reset();
+                        // WashSampleReqlineRec.SetRange("No.", "Sample Req No");
+                        // WashSampleReqlineRec.SetRange("Line no.", "Line No. Header");
 
-                        if WashSampleReqlineRec.Findset() then begin
+                        // if WashSampleReqlineRec.Findset() then begin
 
-                            BWQualityLine2Rec.Reset();
-                            BWQualityLine2Rec.SetRange("Sample Req No", WashSampleReqlineRec."No.");
-                            BWQualityLine2Rec.SetRange("Line No. Header", WashSampleReqlineRec."Line no.");
+                        //     BWQualityLine2Rec.Reset();
+                        //     BWQualityLine2Rec.SetRange("Sample Req No", WashSampleReqlineRec."No.");
+                        //     BWQualityLine2Rec.SetRange("Line No. Header", WashSampleReqlineRec."Line no.");
 
-                            if BWQualityLine2Rec.FindSet() then
-                                repeat
-                                    Quantity += BWQualityLine2Rec.Qty;
-                                until BWQualityLine2Rec.Next() = 0;
+                        //     if BWQualityLine2Rec.FindSet() then
+                        //         repeat
+                        //             Quantity += BWQualityLine2Rec.Qty;
+                        //         until BWQualityLine2Rec.Next() = 0;
 
-                            if Quantity > WashSampleReqlineRec."Req Qty" then
-                                Error('Total Qty must be equal to requested Qty');
+                        //     if Quantity > WashSampleReqlineRec."Req Qty" then
+                        //         Error('Total Qty must be equal to requested Qty');
 
-                            if Qty > WashSampleReqlineRec."Req Qty" then
-                                Error('Qty must be less than or equal to requested Qty');
-                        end;
+                        //     if Qty > WashSampleReqlineRec."Req Qty" then
+                        //         Error('Qty must be less than or equal to requested Qty');
+                        // end;
                     end;
                 }
 

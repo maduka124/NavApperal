@@ -89,7 +89,7 @@ page 50754 BWQualityCheck
 
                     trigger OnValidate()
                     var
-                        "Total Qty": Integer;
+                        "Total Pass Qty": Integer;
                         "Total Fail Qty": Integer;
                         WashsamplereqlineRec: Record "Washing Sample Requsition Line";
                     begin
@@ -104,14 +104,14 @@ page 50754 BWQualityCheck
                             if WashsamplereqlineRec."Req Qty" >= "Pass Qty" then begin
                                 "Fail Qty" := WashsamplereqlineRec."Req Qty" - "Pass Qty";
 
-                                "Total Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + "Pass Qty";
+                                "Total Pass Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + "Pass Qty";
                                 "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + "Fail Qty";
 
-                                if WashsamplereqlineRec."Req Qty" < "Total Qty" then
-                                    Error('Total Pass Qty Should be less than qual to Req qty');
+                                if WashsamplereqlineRec."Req Qty" < "Total Pass Qty" then
+                                    Error('Total Pass Qty should be less than or equal to Req qty');
 
                                 if WashsamplereqlineRec."Req Qty" < "Total Fail Qty" then
-                                    Error('Total Fail Qty Should be less than qual to Req qty');
+                                    Error('Total Fail Qty should be less than or equal to Req qty');
 
                                 CurrPage.Update();
                             end;
@@ -146,10 +146,10 @@ page 50754 BWQualityCheck
 
                 trigger OnAction();
                 var
-                    BWQualityCheckline2: Record BWQualityLine2;
+                    //BWQualityCheckline2: Record BWQualityLine2;
                     WashsamplereqlineRec: Record "Washing Sample Requsition Line";
                     Total: Integer;
-                    "Total Qty": Integer;
+                    "Total Pass Qty": Integer;
                     "Total Fail Qty": Integer;
                 begin
 
@@ -163,29 +163,29 @@ page 50754 BWQualityCheck
                     if WashsamplereqlineRec.FindSet() then begin
 
                         Total := 0;
-                        BWQualityCheckline2.Reset();
-                        BWQualityCheckline2.SetRange("No", "No.");
+                        // BWQualityCheckline2.Reset();
+                        // BWQualityCheckline2.SetRange("No", "No.");
 
-                        if BWQualityCheckline2.FindSet() then begin
-                            repeat
-                                Total += BWQualityCheckline2.Qty;
-                            until BWQualityCheckline2.Next() = 0;
+                        // if BWQualityCheckline2.FindSet() then begin
+                        //     repeat
+                        //         Total += BWQualityCheckline2.Qty;
+                        //     until BWQualityCheckline2.Next() = 0;
 
-                            if Total > WashSampleReqlineRec."Req Qty" then
-                                Error('Total defects quantity should be less than sample requested qty.');
-                        end;
+                        //     if Total > WashSampleReqlineRec."Req Qty" then
+                        //         Error('Total defects quantity should be less than sample requested qty.');
+                        // end;
 
                         WashsamplereqlineRec."Req Qty BW QC Pass" := "Pass Qty" + WashsamplereqlineRec."Req Qty BW QC Pass";
                         WashsamplereqlineRec."Req Qty BW QC Fail" := "Fail Qty" + WashsamplereqlineRec."Req Qty BW QC Fail";
 
-                        "Total Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + "Pass Qty";
+                        "Total Pass Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + "Pass Qty";
                         "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + "Fail Qty";
 
-                        if WashsamplereqlineRec."Req Qty" < "Total Qty" then
-                            Error('Total Pass Qty Should be less than  or qual to Req qty');
+                        if WashsamplereqlineRec."Req Qty" < "Total Pass Qty" then
+                            Error('Total Pass Qty should be less than  or equal to Req qty');
 
                         if WashsamplereqlineRec."Req Qty" < "Total Fail Qty" then
-                            Error('Total Fail Qty Should be less than Or qual to Req qty');
+                            Error('Total Fail Qty should be less than or equal to Req qty');
 
                         WashsamplereqlineRec."BW QC Date" := "BW QC Date";
                         WashsamplereqlineRec.Modify();

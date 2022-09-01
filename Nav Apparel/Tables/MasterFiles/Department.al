@@ -26,6 +26,11 @@ table 71012596 "Department"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012585; "Show in New Operations"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

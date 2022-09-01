@@ -76,7 +76,7 @@ table 50454 "New Operation"
         field(13; "Department Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Department."Department Name";
+            TableRelation = Department."Department Name" where("Show in New Operations" = filter(1));
             ValidateTableRelation = false;
         }
 

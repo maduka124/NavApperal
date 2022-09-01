@@ -53,6 +53,8 @@ table 50465 "New Breakdown Op Line2"
         field(10; "Machine Name"; text[50])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Machine Master"."Machine Description";
+            ValidateTableRelation = false;
         }
 
         field(11; "SMV"; Decimal)

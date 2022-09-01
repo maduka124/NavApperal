@@ -319,26 +319,7 @@ page 50522 "B2B LC Card"
         }
     }
 
-    actions
-    {
-        area(Processing)
-        {
 
-            action("B2B LC Summary")
-            {
-                ApplicationArea = all;
-                Image = List;
-
-                trigger OnAction()
-                var
-                    myInt: Integer;
-                begin
-
-                end;
-
-            }
-        }
-    }
 
     procedure AssistEdit(): Boolean
     var
@@ -360,5 +341,35 @@ page 50522 "B2B LC Card"
         B2BLCPIRec.SetRange("B2BNo.", "No.");
         B2BLCPIRec.SetRange("B2BNo.", "No.");
         B2BLCPIRec.DeleteAll();
+    end;
+
+
+    trigger OnOpenPage()
+    var
+        // B2BRec: Record B2BLCMaster;
+        B2B1Rec: Record B2BLCMaster;
+        // "LC/ContractNo": Code[20];
+        "Tot B2B LC Opened (Value)": Decimal;
+    begin
+        //Calculate B2B LC opened  and %
+        // B2BRec.Reset();
+        // B2BRec.SetRange("No.", "No.");
+        // if B2BRec.FindSet() then begin
+        // "LC/ContractNo" := B2BRec."LC/Contract No.";
+
+        B2B1Rec.Reset();
+        B2B1Rec.SetRange("LC/Contract No.", "LC/Contract No.");
+
+        if B2B1Rec.FindSet() then begin
+            repeat
+                "Tot B2B LC Opened (Value)" += B2B1Rec."B2B LC Value";
+            until B2B1Rec.Next() = 0;
+        end;
+
+        "B2B LC Opened (Value)" := "Tot B2B LC Opened (Value)";
+        "B2B LC Opened (%)" := ("Tot B2B LC Opened (Value)" / "LC Value") * 100;
+        Balance := "B2B LC Limit" - "Tot B2B LC Opened (Value)";
+        CurrPage.Update();
+        //end
     end;
 }
