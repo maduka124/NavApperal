@@ -24,7 +24,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>1.29646cm</Height>
+                  <Height>1.40229cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -75,7 +75,7 @@
             </TablixRowHierarchy>
             <Top>1.09043cm</Top>
             <Left>0cm</Left>
-            <Height>1.29646cm</Height>
+            <Height>1.40229cm</Height>
             <Width>20.35937cm</Width>
             <Style>
               <Border>
@@ -180,7 +180,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1692,7 +1691,7 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Top>3.12998cm</Top>
             <Left>0.02328cm</Left>
-            <Height>2.96417cm</Height>
+            <Height>2.96416cm</Height>
             <Width>20.33609cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -1708,7 +1707,7 @@
       <Width>20.35937cm</Width>
       <Page>
         <PageHeader>
-          <Height>8.98476cm</Height>
+          <Height>10.12072cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1791,7 +1790,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>P.O REF  :   </Value>
+                          <Value>P.O REF   :   </Value>
                           <Style>
                             <FontFamily>Calibri</FontFamily>
                           </Style>
@@ -1878,7 +1877,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Season        : </Value>
+                          <Value>Season         : </Value>
                           <Style>
                             <FontFamily>Calibri</FontFamily>
                           </Style>
@@ -1890,7 +1889,9 @@
                           </Style>
                         </TextRun>
                       </TextRuns>
-                      <Style />
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
                     </Paragraph>
                     <Paragraph>
                       <TextRuns>
@@ -1907,7 +1908,9 @@
                           </Style>
                         </TextRun>
                       </TextRuns>
-                      <Style />
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
                     </Paragraph>
                     <Paragraph>
                       <TextRuns>
@@ -1980,9 +1983,9 @@
                   </Paragraphs>
                   <rd:DefaultName>Textbox30</rd:DefaultName>
                   <Top>2.49521cm</Top>
-                  <Left>0.54455cm</Left>
+                  <Left>0.22705cm</Left>
                   <Height>1.82562cm</Height>
-                  <Width>9.3486cm</Width>
+                  <Width>10.3011cm</Width>
                   <ZIndex>4</ZIndex>
                   <Style>
                     <Border>
@@ -2027,106 +2030,15 @@
                             <FontSize>12pt</FontSize>
                           </Style>
                         </TextRun>
-                        <TextRun>
-                          <Value>=Fields!Buy_from_Vendor_Name.Value</Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value xml:space="preserve">          </Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Fields!Pay_to_Address.Value</Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value xml:space="preserve">          </Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Fields!Pay_to_Address_2.Value</Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value xml:space="preserve">          </Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Fields!Pay_to_City.Value</Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value xml:space="preserve">          </Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Fields!Pay_to_County.Value</Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value xml:space="preserve">         </Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Fields!Pay_to_Post_Code.Value</Value>
-                          <Style>
-                            <FontFamily>Calibri</FontFamily>
-                          </Style>
-                        </TextRun>
                       </TextRuns>
                       <Style />
                     </Paragraph>
                   </Paragraphs>
                   <rd:DefaultName>Textbox32</rd:DefaultName>
                   <Top>4.63833cm</Top>
-                  <Left>0.54455cm</Left>
-                  <Height>3.04271cm</Height>
-                  <Width>9.34861cm</Width>
+                  <Left>0.22705cm</Left>
+                  <Height>2.8575cm</Height>
+                  <Width>10.3011cm</Width>
                   <ZIndex>5</ZIndex>
                   <Style>
                     <Border>
@@ -2158,11 +2070,46 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
+                <Textbox Name="Textbox2">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Fields!Buy_from_Vendor_Name.Value+vbcrlf+Fields!Pay_to_Address.Value+vbcrlf+
+Fields!Pay_to_Address_2.Value+vbcrlf+
+Fields!Pay_to_City.Value+vbcrlf+Fields!Pay_to_County.Value+vbcrlf+
+Fields!Pay_to_Post_Code.Value</Value>
+                          <Style>
+                            <FontFamily>Calibri</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox2</rd:DefaultName>
+                  <Top>4.63833cm</Top>
+                  <Left>1.09134cm</Left>
+                  <Height>2.8575cm</Height>
+                  <Width>9.14577cm</Width>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
               <Top>0.30621cm</Top>
               <Left>0cm</Left>
-              <Height>8.45312cm</Height>
+              <Height>7.81333cm</Height>
               <Width>20.32262cm</Width>
               <Style>
                 <Border>
