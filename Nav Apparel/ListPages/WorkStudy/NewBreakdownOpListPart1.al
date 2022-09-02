@@ -139,6 +139,7 @@ page 50464 "New Breakdown Op Listpart1"
                                     NewBreakOpLine2Rec.Init();
                                     NewBreakOpLine2Rec."No." := NewBreakOpLine1Rec."NewBRNo.";
                                     NewBreakOpLine2Rec."Line No." := LineNo + 1;
+                                    NewBreakOpLine2Rec."Line Position" := LineNo + 1;
                                     NewBreakOpLine2Rec."Item Type No." := NewBreakOpLine1Rec."Item Type No.";
                                     NewBreakOpLine2Rec."Item Type Name" := NewBreakOpLine1Rec."Item Type Name";
                                     NewBreakOpLine2Rec."Garment Part No." := NewBreakOpLine1Rec."Garment Part No.";

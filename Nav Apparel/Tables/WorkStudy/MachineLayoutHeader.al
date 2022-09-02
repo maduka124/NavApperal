@@ -32,7 +32,7 @@ table 50478 "Machine Layout Header"
         field(5; "Work Center Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Work Center".Name;
+            TableRelation = "NavApp Planning Lines"."Resource Name" where("Style No." = field("Style No."));
             ValidateTableRelation = false;
         }
 

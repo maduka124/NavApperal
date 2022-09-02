@@ -25,6 +25,12 @@ page 50267 "BOM Estimate Cost"
                     Caption = 'Style';
                 }
 
+                field("Factory Name"; "Factory Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Factory';
+                }
+
                 field("BOM No."; "BOM No.")
                 {
                     ApplicationArea = All;
@@ -85,7 +91,7 @@ page 50267 "BOM Estimate Cost"
             }
         }
     }
-   
+
 
     trigger OnDeleteRecord(): Boolean
     var

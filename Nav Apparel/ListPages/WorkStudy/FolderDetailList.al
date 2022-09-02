@@ -15,14 +15,14 @@ page 50469 "Folder Detail List"
                 field("No."; "No.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Folder Detail No';
+                    Caption = 'Folder No';
                 }
 
-                field("Folder Name";"Folder Name")
+                field("Folder Name"; "Folder Name")
                 {
                     ApplicationArea = All;
                 }
             }
-        }  
-    }   
+        }
+    }
 }

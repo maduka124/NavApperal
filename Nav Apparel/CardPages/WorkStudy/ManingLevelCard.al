@@ -178,6 +178,12 @@ page 50475 "Maning Level Card"
                 {
                     ApplicationArea = All;
                 }
+
+                part("Maning Levels Listpart1"; "Maning Levels Listpart1")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Planned Lines';
+                }
             }
 
             group("  ")
