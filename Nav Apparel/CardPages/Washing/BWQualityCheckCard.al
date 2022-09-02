@@ -146,7 +146,6 @@ page 50754 BWQualityCheck
 
                 trigger OnAction();
                 var
-                    //BWQualityCheckline2: Record BWQualityLine2;
                     WashsamplereqlineRec: Record "Washing Sample Requsition Line";
                     Total: Integer;
                     "Total Pass Qty": Integer;
@@ -182,7 +181,7 @@ page 50754 BWQualityCheck
                         "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + "Fail Qty";
 
                         if WashsamplereqlineRec."Req Qty" < "Total Pass Qty" then
-                            Error('Total Pass Qty should be less than  or equal to Req qty');
+                            Error('Total Pass Qty should be less than or equal to Req qty');
 
                         if WashsamplereqlineRec."Req Qty" < "Total Fail Qty" then
                             Error('Total Fail Qty should be less than or equal to Req qty');
