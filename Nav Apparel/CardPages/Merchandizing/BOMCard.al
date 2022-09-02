@@ -5590,6 +5590,9 @@ page 71012680 "BOM Card"
 
                     if AssortDetailRec.FindSet() then begin
                         repeat
+
+                            StatusGB := 0;
+
                             FOR Count := 1 TO 64 DO begin
                                 Qty := 0;
 
@@ -6924,7 +6927,7 @@ page 71012680 "BOM Card"
         BOMAUTOProdBOMRec: Record "BOM Line AutoGen ProdBOM";
     begin
 
-        BOMAUTOProdBOMRec.Insert();
+        BOMAUTOProdBOMRec.Reset();
         BOMAUTOProdBOMRec.SetRange("No.", No);
 
         if BOMAUTOProdBOMRec.FindSet() then
@@ -7685,7 +7688,7 @@ page 71012680 "BOM Card"
 
                             // end;
 
-                            if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
+                            if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
 
                                 //Get Dimenion only status
                                 MainCateRec.Reset();
@@ -7838,7 +7841,7 @@ page 71012680 "BOM Card"
                                 // if AutoGenPrBOMRec.FindSet() then begin
                                 //     AutoGenPrBOMRec."Production BOM No." := NextBomNo;
                                 //     AutoGenPrBOMRec.Modify();
-                                // end;
+                                // end;                                
 
                             end;
                         end;
@@ -7848,6 +7851,8 @@ page 71012680 "BOM Card"
                 end;
 
             until AutoGenRec.Next() = 0;
+
+            StatusGB := 1;
 
             //Update Status of the BOM to released
             ProdBOMHeaderRec.Reset();
@@ -7926,7 +7931,7 @@ page 71012680 "BOM Card"
 
                             // end;
 
-                            if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
+                            if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
 
                                 //Get Dimenion only status
                                 MainCateRec.Reset();
@@ -8099,6 +8104,8 @@ page 71012680 "BOM Card"
                                 //     AutoGenPrBOMRec.Modify();
                                 // end;
 
+                                StatusGB := 1;
+
                             end;
                         end;
 
@@ -8268,5 +8275,6 @@ page 71012680 "BOM Card"
         SalesHeaderGenerated: Boolean;
         NextOrderNo: Code[20];
         LineNo: Integer;
+        StatusGB: Integer;
 
 }

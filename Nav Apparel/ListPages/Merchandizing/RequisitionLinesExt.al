@@ -1,5 +1,30 @@
 pageextension 71012824 RequisitionLinesExt extends "Planning Worksheet"
 {
+
+    layout
+    {
+        addafter("No.")
+        {
+            field(StyleName; StyleName)
+            {
+                ApplicationArea = ALL;
+                Caption = 'Style';
+            }
+
+            field(PONo; PONo)
+            {
+                ApplicationArea = ALL;
+                Caption = 'PO';
+            }
+
+            field(Lot; Lot)
+            {
+                ApplicationArea = ALL;
+            }
+        }
+    }
+
+
     actions
     {
         addlast("F&unctions")

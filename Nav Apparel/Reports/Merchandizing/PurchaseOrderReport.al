@@ -36,12 +36,6 @@ report 50642 PurchaseOrderReport
                 DataItemTableView = sorting("Document No.");
                 column(Unit_of_Measure; "Unit of Measure")
                 { }
-                // column(SizeRangeNo; SizeRangeNo)
-                // { }
-                // column(Article; Article)
-                // { }
-                // column(DimenshionWidthNo; DimenshionWidthNo)
-                // { }
                 column(color; "Color Name")
                 { }
                 column(Quantity; Quantity)
@@ -69,10 +63,22 @@ report 50642 PurchaseOrderReport
                     { }
                     column(SizeRangeNo; "Size Range No.")
                     { }
-                    column(Article; "Article No.")
+                    column(Article; ArticleName)
                     { }
                     column(DimenshionWidthNo; "Dimension Width")
                     { }
+                    column(ItemDescription; Description)
+                    { }
+                    column(No_; "No.")
+                    { }
+                    trigger OnAfterGetRecord()
+
+                    begin
+                        ArticleRec.SetRange("No.", "Article No.");
+                        if ArticleRec.FindFirst() then begin
+                            ArticleName := ArticleRec.Article;
+                        end;
+                    end;
                 }
                 trigger OnAfterGetRecord()
                 begin
@@ -158,7 +164,7 @@ report 50642 PurchaseOrderReport
 
         color: Text[50];
         SizeRangeNo: Code[20];
-        Article: text[100];
+        ArticleName: text[50];
         DimenshionWidthNo: Text[100];
         ItemRec: Record Item;
         comrec: Record "Company Information";
@@ -170,4 +176,5 @@ report 50642 PurchaseOrderReport
         TermDes: Text[100];
         FilterNo: Code[30];
         MainCategory: text[50];
+        ArticleRec: Record Article;
 }
