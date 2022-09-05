@@ -190,4 +190,5 @@ report 50642 PurchaseOrderReport
         FilterNo: Code[30];
         MainCategory: text[50];
         ArticleRec: Record Article;
+        
 }
