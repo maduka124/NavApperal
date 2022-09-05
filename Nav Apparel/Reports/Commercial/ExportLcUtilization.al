@@ -71,13 +71,21 @@ report 50628 ExportLcUtilizationReport
                     DataItemTableView = sorting("No.");
                     column(MainCatName; MainCatName)
                     { }
-
+                    // dataitem("PI Po Item Details"; "PI Po Item Details")
+                    // {
+                    //     DataItemLinkReference = "PI Details Header";
+                    //     DataItemLink = "PI No." = field("No.");
+                    //     DataItemTableView = sorting("PI No.");
+                    //     column(MainCatName; "Main Category Name")
+                    //     { }
+                    // }
                     trigger OnAfterGetRecord()
 
                     begin
                         PiPORec.SetRange("PI No.", "No.");
-                        if PiPORec.FindFirst() then begin
+                        if PiPORec.FindLast() then begin
                             MainCatName := PiPORec."Main Category Name";
+                            // Message('test');
                         end;
                     end;
 
@@ -105,6 +113,7 @@ report 50628 ExportLcUtilizationReport
                 { }
                 column(Style_No_; "Style No.")
                 { }
+
 
                 trigger OnAfterGetRecord()
 
