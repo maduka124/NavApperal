@@ -183,6 +183,7 @@ page 50475 "Maning Level Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Planned Lines';
+                    SubPageLink = "Style No." = field("Style No.");
                 }
             }
 
