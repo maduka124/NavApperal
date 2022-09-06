@@ -322,6 +322,7 @@ page 50721 "Job Creation Card"
 
                 IntermediateTableRec."SO No" := "SO No";
                 IntermediateTableRec.Modify();
+                Message('SO No', SalesHeaderRec."No.");
 
             until IntermediateTableRec.Next() = 0;
 
@@ -389,6 +390,8 @@ page 50721 "Job Creation Card"
 
                     IntermediateTableRec."Po No" := PoNo;
                     IntermediateTableRec.Modify();
+                    Message('PO No', PurchaseLine."Document No.");
+
                 end;
             until IntermediateTableRec.Next() = 0;
 
