@@ -50,8 +50,7 @@ report 50628 ExportLcUtilizationReport
                 { }
                 column(Opening_Date_B2B; "Opening Date")
                 { }
-                column(B2B_LC_Value; "B2B LC Value")
-                { }
+
                 column(Remarks; Remarks)
                 { }
                 column(Balance; Balance)
@@ -64,30 +63,33 @@ report 50628 ExportLcUtilizationReport
                 { }
                 column(PIValue; PIValue)
                 { }
-                dataitem("PI Details Header"; "PI Details Header")
+                dataitem(B2BLCPI; B2BLCPI)
                 {
                     DataItemLinkReference = B2BLCMaster;
-                    DataItemLink = B2BNo = field("No.");
-                    DataItemTableView = sorting("No.");
-                    column(MainCatName; MainCatName)
-                    { }
-                    // dataitem("PI Po Item Details"; "PI Po Item Details")
-                    // {
-                    //     DataItemLinkReference = "PI Details Header";
-                    //     DataItemLink = "PI No." = field("No.");
-                    //     DataItemTableView = sorting("PI No.");
-                    //     column(MainCatName; "Main Category Name")
-                    //     { }
-                    // }
-                    trigger OnAfterGetRecord()
+                    DataItemLink = "B2BNo." = field("No.");
+                    DataItemTableView = sorting("B2BNo.");
+                    // column(MainCatName; MainCatName)
+                    // { }
+                    dataitem("PI Po Item Details"; "PI Po Item Details")
+                    {
+                        DataItemLinkReference = B2BLCPI;
+                        DataItemLink = "PI No." = field("PI No.");
+                        DataItemTableView = sorting("PI No.");
+                        column(MainCatName; "Main Category Name")
+                        { }
+                        column(B2B_LC_Value; Value)
+                        { }
 
-                    begin
-                        PiPORec.SetRange("PI No.", "No.");
-                        if PiPORec.FindLast() then begin
-                            MainCatName := PiPORec."Main Category Name";
-                            // Message('test');
-                        end;
-                    end;
+                    }
+                    // trigger OnAfterGetRecord()
+
+                    // begin
+                    //     PiPORec.SetRange("PI No.", "No.");
+                    //     if PiPORec.FindLast() then begin
+                    //         MainCatName := PiPORec."Main Category Name";
+                    //         // Message('test');
+                    //     end;
+                    // end;
 
                 }
 

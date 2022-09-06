@@ -1586,6 +1586,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1925,7 +1926,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!B2B_LC_Value.Value</Value>
+                                  <Value>=Sum(Fields!B2B_LC_Value.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -3851,12 +3852,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Opening_Date_B2B">
           <DataField>Opening_Date_B2B</DataField>
         </Field>
-        <Field Name="B2B_LC_Value">
-          <DataField>B2B_LC_Value</DataField>
-        </Field>
-        <Field Name="B2B_LC_ValueFormat">
-          <DataField>B2B_LC_ValueFormat</DataField>
-        </Field>
         <Field Name="Remarks">
           <DataField>Remarks</DataField>
         </Field>
@@ -3886,6 +3881,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="MainCatName">
           <DataField>MainCatName</DataField>
+        </Field>
+        <Field Name="B2B_LC_Value">
+          <DataField>B2B_LC_Value</DataField>
+        </Field>
+        <Field Name="B2B_LC_ValueFormat">
+          <DataField>B2B_LC_ValueFormat</DataField>
         </Field>
         <Field Name="Qty">
           <DataField>Qty</DataField>
