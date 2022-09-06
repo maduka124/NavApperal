@@ -19,7 +19,7 @@ tableextension 50656 WashingBOMLineExt extends "Production BOM Line"
             DataClassification = ToBeClassified;
         }
 
-        field(49; Time; Code[20])
+        field(49; Time; Decimal)
         {
             DataClassification = ToBeClassified;
         }
