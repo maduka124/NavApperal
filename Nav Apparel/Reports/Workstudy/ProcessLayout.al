@@ -56,15 +56,12 @@ report 50632 ProcessLayoutReport
                 begin
                     Manual := 0;
                     Auto := 0;
-                    if "Machine Name" = 'Helper' then begin
+
+                    if "Machine Name" = 'HEL' then begin
                         Manual := Minutes
                     end
                     else
-                        if "Machine Name" = 'HELPER' then begin
-                            Manual := Minutes
-                        end
-                        else
-                            Auto := Minutes;
+                        Auto := Minutes;
                 end;
             }
             trigger OnAfterGetRecord()
