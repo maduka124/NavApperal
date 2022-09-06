@@ -308,68 +308,6 @@ page 50722 JobcreationPageListPart
                         Error('Select a record.');
                 end;
             }
-
-            action("Up Date Job Card")
-            {
-                ApplicationArea = All;
-
-                trigger OnAction()
-                var
-                    JobcreationLineRec: Record JobCreationLine;
-                    ProdutionBomlineRec: Record "Production BOM Line";
-                    ProductioOrderLineRec: Record "Prod. Order Line";
-                    ProductioOrderLine2Rec: Record "Prod. Order Line";
-                    MaxLineNo: Integer;
-
-                begin
-                    JobcreationLineRec.Reset();
-                    JobcreationLineRec.SetRange(No, No);
-                    JobcreationLineRec.SetRange("Line No", "Line No");
-                    JobcreationLineRec.SetRange("Split No", "Split No");
-                    JobcreationLineRec.SetFilter(Select, '=%1', true);
-
-                    if JobcreationLineRec.FindSet() then begin
-
-                        //Get Max Line No
-                        ProductioOrderLine2Rec.Reset();
-                        ProductioOrderLine2Rec.SetRange("Prod. Order No.", "Job Card (Prod Order)");
-
-                        if ProductioOrderLine2Rec.FindLast() then
-                            MaxLineNo := ProductioOrderLine2Rec."Line No.";
-
-                        ProductioOrderLineRec.Reset();
-                        ProductioOrderLineRec.SetRange("Prod. Order No.", "Job Card (Prod Order)");
-
-                        if ProductioOrderLineRec.FindSet() then begin
-
-                            ProdutionBomlineRec.Reset();
-                            ProdutionBomlineRec.SetRange("Production BOM No.", "Reciepe (Prod BOM)");
-
-                            if ProdutionBomlineRec.FindSet() then begin
-                                repeat
-                                    MaxLineNo += 1;
-
-                                    ProductioOrderLineRec.Init();
-                                    ProductioOrderLineRec.Status := ProductioOrderLineRec.Status::"Firm Planned";
-                                    ProductioOrderLineRec."Line No." := MaxLineNo;
-                                    ProductioOrderLineRec."Item No." := ProdutionBomlineRec."No.";
-                                    ProductioOrderLineRec.Description := ProdutionBomlineRec.Description;
-                                    ProductioOrderLineRec.Step := ProdutionBomlineRec.Step;
-                                    ProductioOrderLineRec.Water := ProdutionBomlineRec."Water(L)";
-                                    ProductioOrderLineRec.Temp:=ProductioOrderLineRec.Temp;
-                                    ProductioOrderLineRec."Time(Min)":=ProdutionBomlineRec.Time;
-                                    ProductioOrderLineRec.Insert();
-                                    ProductioOrderLineRec.Modify();
-
-                                until ProdutionBomlineRec.Next() = 0;
-                                Message('Job card Updated');
-                            end;
-                        end;
-                    end
-                    else
-                        Error('Select a Record');
-                end;
-            }
         }
     }
 
@@ -393,6 +331,7 @@ page 50722 JobcreationPageListPart
         if intermidiateRec.FindSet() then
             intermidiateRec.DeleteAll();
     end;
+
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     var
