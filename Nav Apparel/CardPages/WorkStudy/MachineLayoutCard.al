@@ -288,9 +288,9 @@ page 50481 "Machine Layout Card"
                 }
             }
 
-            group("  ")
+            group("Machine Layout")
             {
-                grid("Machine Layout")
+                grid("Machine Layout ")
                 {
                     GridLayout = Rows;
                     part("Machine Layout 1"; "Machine Layout 1 Listpart")

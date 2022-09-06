@@ -14,12 +14,20 @@ page 50453 "Machine Master Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Machine No';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        "Machine Description" := "Machine No.";
+                        CurrPage.Update();
+                    end;
                 }
 
                 field("Machine Description"; "Machine Description")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+                    Editable = false;
                 }
 
                 field("Machine Category Name"; "Machine Category Name")
