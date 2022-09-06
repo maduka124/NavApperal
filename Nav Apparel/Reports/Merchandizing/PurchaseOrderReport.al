@@ -29,15 +29,24 @@ report 50642 PurchaseOrderReport
             { }
             column(TermDes; TermDes)
             { }
+            column(PONo_; "No.")
+            { }
+            column(Pay_to_Address_2; "Pay-to Address 2")
+            { }
+            column(Pay_to_City; "Pay-to City")
+            { }
+            column(Pay_to_County; "Pay-to County")
+            { }
+            column(Pay_to_Post_Code; "Pay-to Post Code")
+            { }
+            column(Document_Date; "Document Date")
+            { }
             dataitem("Purchase Line"; "Purchase Line")
             {
                 DataItemLinkReference = "Purchase Header";
                 DataItemLink = "Document No." = field("No.");
                 DataItemTableView = sorting("Document No.");
-                column(Unit_of_Measure; "Unit of Measure")
-                { }
-                column(color; "Color Name")
-                { }
+
                 column(Quantity; Quantity)
                 { }
                 column(Line_Amount; "Line Amount")
@@ -70,6 +79,10 @@ report 50642 PurchaseOrderReport
                     column(ItemDescription; Description)
                     { }
                     column(No_; "No.")
+                    { }
+                    column(color; "Color Name")
+                    { }
+                    column(Unit_of_Measure; "Base Unit of Measure")
                     { }
                     trigger OnAfterGetRecord()
 
@@ -177,4 +190,5 @@ report 50642 PurchaseOrderReport
         FilterNo: Code[30];
         MainCategory: text[50];
         ArticleRec: Record Article;
+        
 }

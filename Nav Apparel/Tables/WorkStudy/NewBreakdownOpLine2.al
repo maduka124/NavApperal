@@ -118,6 +118,11 @@ table 50465 "New Breakdown Op Line2"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(22; "Line Position"; Integer)
+        {
+            DataClassification = CustomerContent;
+        }
     }
 
     keys
@@ -134,6 +139,7 @@ table 50465 "New Breakdown Op Line2"
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
+        // "Line Position" := FindLastLinePosition() + 1;
     end;
 
     trigger OnModify()
@@ -150,5 +156,20 @@ table 50465 "New Breakdown Op Line2"
     begin
 
     end;
+
+
+    // procedure FindLastLinePosition(): Integer
+    // var
+    //     NewBRLine: Record "New Breakdown Op Line2";
+    // begin
+    //     NewBRLine.Reset();
+    //     NewBRLine.SetRange("No.", "No.");
+    //     NewBRLine.SetCurrentKey("Line Position");
+    //     NewBRLine.Ascending(true);
+    //     if NewBRLine.FindLast() then
+    //         exit(NewBRLine."Line Position")
+    //     else
+    //         exit(0);
+    // end;
 
 }

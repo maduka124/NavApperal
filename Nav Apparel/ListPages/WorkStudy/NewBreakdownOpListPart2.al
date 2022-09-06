@@ -2,6 +2,7 @@ page 50466 "New Breakdown Op Listpart2"
 {
     PageType = ListPart;
     SourceTable = "New Breakdown Op Line2";
+    AutoSplitKey = true;
 
     layout
     {
@@ -9,15 +10,23 @@ page 50466 "New Breakdown Op Listpart2"
         {
             repeater(General)
             {
-                field("Line No."; "Line No.")
+                field("Line Position"; Rec."Line Position")
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Seq No';
                     StyleExpr = StyleExprTxt;
+                    Caption = 'Seq No1';
                 }
 
-                field(Code; Code)
+                // field("Line No."; Rec."Line No.")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     Caption = 'Seq No2';
+                //     StyleExpr = StyleExprTxt;
+                // }
+
+                field(Code; Rec.Code)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -25,14 +34,14 @@ page 50466 "New Breakdown Op Listpart2"
                     Caption = 'Op Code';
                 }
 
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Machine Name"; "Machine Name")
+                field("Machine Name"; Rec."Machine Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Machine';
@@ -49,7 +58,7 @@ page 50466 "New Breakdown Op Listpart2"
                     end;
                 }
 
-                field(SMV; SMV)
+                field(SMV; Rec.SMV)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -61,14 +70,14 @@ page 50466 "New Breakdown Op Listpart2"
                     end;
                 }
 
-                field("Target Per Hour"; "Target Per Hour")
+                field("Target Per Hour"; Rec."Target Per Hour")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; Rec."Department Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -76,19 +85,19 @@ page 50466 "New Breakdown Op Listpart2"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Barcode; Barcode)
+                field(Barcode; Rec.Barcode)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Attachment; Attachment)
+                field(Attachment; Rec.Attachment)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(LineType; LineType)
+                field(LineType; Rec.LineType)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -198,6 +207,39 @@ page 50466 "New Breakdown Op Listpart2"
 
                 end;
             }
+
+            action("Move Up")
+            {
+                Caption = 'Move Up';
+                ApplicationArea = All;
+                Image = MoveUp;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Move current line up.';
+
+                trigger OnAction()
+                begin
+                    MoveLine(-1);
+                end;
+            }
+
+
+            action("Move Down")
+            {
+                Caption = 'Move Down';
+                ApplicationArea = All;
+                Image = MoveDown;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ToolTip = 'Move current line down.';
+
+                trigger OnAction()
+                begin
+                    MoveLine(1);
+                end;
+            }
         }
     }
 
@@ -207,6 +249,30 @@ page 50466 "New Breakdown Op Listpart2"
     begin
         StyleExprTxt := ChangeColor.ChangeColor(Rec);
     end;
+
+
+    trigger OnOpenPage()
+    begin
+        Rec.SetCurrentKey("Line Position");
+        Rec.Ascending(true);
+    end;
+
+
+    Local procedure MoveLine(MoveBy: Integer)
+    var
+        NewBRLine: Record "New Breakdown Op Line2";
+    begin
+        NewBRLine.Reset();
+        NewBRLine.SetRange("No.", Rec."No.");
+        NewBRLine.SetRange("Line Position", Rec."Line Position" + MoveBy);
+        if NewBRLine.FindFirst then begin
+            NewBRLine."Line Position" -= MoveBy;
+            NewBRLine.Modify();
+            Rec."Line Position" += MoveBy;
+            Rec.Modify();
+        end;
+    end;
+
 
     var
         StyleExprTxt: Text[50];

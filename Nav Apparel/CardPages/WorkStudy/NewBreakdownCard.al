@@ -176,23 +176,23 @@ page 50459 "New Breakdown Card"
                 }
             }
 
-            group(" ")
+            group("New Operations")
             {
                 part("New Breakdown Op Listpart1"; "New Breakdown Op Listpart1")
                 {
                     ApplicationArea = All;
-                    Caption = 'New Operations';
                     SubPageLink = "NewBRNo." = FIELD("No.");
+                    Caption = ' ';
                 }
             }
 
-            group("")
+            group("Breakdown")
             {
                 part("New Breakdown Op Listpart2"; "New Breakdown Op Listpart2")
                 {
                     ApplicationArea = All;
-                    Caption = '  ';
                     SubPageLink = "No." = FIELD("No.");
+                    Caption = ' ';
                 }
             }
         }
@@ -216,7 +216,8 @@ page 50459 "New Breakdown Card"
 
                     NewBreakOpLine2Rec.Reset();
                     NewBreakOpLine2Rec.SetRange("No.", "No.");
-                    NewBreakOpLine2Rec.SetRange("Garment Part Name", "Garment Part Name");
+                    NewBreakOpLine2Rec.SetRange(Description, "Garment Part Name");
+                    NewBreakOpLine2Rec.SetFilter(LineType, '=%1', 'H');
 
                     if not NewBreakOpLine2Rec.FindSet() then begin
 
@@ -231,6 +232,7 @@ page 50459 "New Breakdown Card"
                         NewBreakOpLine2Rec.Init();
                         NewBreakOpLine2Rec."No." := "No.";
                         NewBreakOpLine2Rec."Line No." := LineNo + 1;
+                        NewBreakOpLine2Rec."Line Position" := LineNo + 1;
                         NewBreakOpLine2Rec.Description := "Garment Part Name";
                         NewBreakOpLine2Rec.LineType := 'H';
                         NewBreakOpLine2Rec.Barcode := NewBreakOpLine2Rec.Barcode::No;

@@ -74,12 +74,12 @@ page 50485 "Machine Layout 1 Listpart"
                     Editable = false;
                 }
 
-                field("Machine Name"; "Machine Name")
+                field("Machine No."; "Machine No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Machine';
-                }             
+                }
 
                 field(Minutes; Minutes)
                 {

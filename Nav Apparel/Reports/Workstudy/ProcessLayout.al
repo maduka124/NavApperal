@@ -11,7 +11,6 @@ report 50632 ProcessLayoutReport
         dataitem("Machine Layout Header"; "Machine Layout Header")
         {
             DataItemTableView = sorting("No.");
-
             column(Style_No_; "Style Name")
             { }
             column(Expected_Eff; "Expected Eff")
@@ -22,9 +21,9 @@ report 50632 ProcessLayoutReport
             { }
             column(Garment_Type; "Garment Type")
             { }
-            column(BuyerName; StyleRec."Buyer Name")
+            column(BuyerName; BuyerName)
             { }
-            column(OrderQTY; StyleRec."Order Qty")
+            column(OrderQTY; OrderQTY)
             { }
             column(CompLogo; comRec.Picture)
             { }
@@ -71,14 +70,11 @@ report 50632 ProcessLayoutReport
             trigger OnAfterGetRecord()
             var
             begin
-                // StyleRec.SetRange("No.","Machine Layout Header"."No.");
-                // StyleRec.SetRange("Style No.","Machine Layout Header"."Style No.");
-                // if StyleRec.FindFirst()then begin
-                //     BuyerName:=StyleRec."Buyer Name";
-                //     OrderQTY:=StyleRec."Order Qty";
-
-                // end;
-                StyleRec.Get("No.");
+                StyleRec.SetRange("No.", "Style No.");
+                if StyleRec.FindFirst() then begin
+                    BuyerName := StyleRec."Buyer Name";
+                    OrderQTY := StyleRec."Order Qty";
+                end;
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
@@ -134,6 +130,6 @@ report 50632 ProcessLayoutReport
         StyleRec: Record "Style Master";
         StyleFilter: Text[50];
         comRec: Record "Company Information";
-    // BuyerName: Text[200];
-    // OrderQTY: BigInteger;
+        BuyerName: Text[200];
+        OrderQTY: BigInteger;
 }
