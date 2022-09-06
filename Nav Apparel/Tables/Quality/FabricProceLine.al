@@ -138,6 +138,16 @@ table 50674 "FabricProceLine"
             DataClassification = ToBeClassified;
         }
 
+        field(25; "Color No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(26; "Color Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

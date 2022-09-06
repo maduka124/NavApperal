@@ -115,40 +115,6 @@ page 50683 "FabShrinkageTestCard"
                     END;
                 }
 
-                field("Color Name"; "Color Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Color';
-
-                    trigger OnLookup(var texts: text): Boolean
-                    var
-                        PurchRcpLineRec: Record "Purch. Rcpt. Line";
-                        Colour: Code[20];
-                        colorRec: Record Colour;
-                    begin
-                        PurchRcpLineRec.RESET;
-                        PurchRcpLineRec.SetCurrentKey("Color No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
-
-                        IF PurchRcpLineRec.FINDFIRST THEN BEGIN
-                            REPEAT
-                                IF Colour <> PurchRcpLineRec."Color No." THEN BEGIN
-                                    Colour := PurchRcpLineRec."Color No.";
-
-                                    PurchRcpLineRec.MARK(TRUE);
-                                END;
-                            UNTIL PurchRcpLineRec.NEXT = 0;
-                            PurchRcpLineRec.MARKEDONLY(TRUE);
-
-                            if Page.RunModal(50672, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Color No" := PurchRcpLineRec."Color No.";
-                                "Color Name" := PurchRcpLineRec."Color Name";
-                            end;
-
-                        END;
-                    END;
-                }
-
                 field("Item Name"; "Item Name")
                 {
                     ApplicationArea = All;
@@ -164,7 +130,7 @@ page 50683 "FabShrinkageTestCard"
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("No.");
                         PurchRcpLineRec.SetRange("Document No.", GRN);
-                        PurchRcpLineRec.SetRange("Color No.", "Color No");
+                        //PurchRcpLineRec.SetRange("Color No.", "Color No");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -191,8 +157,11 @@ page 50683 "FabShrinkageTestCard"
 
                                 ItemRec.Reset();
                                 ItemRec.SetRange("No.", "Item No");
-                                if ItemRec.FindSet() then
+                                if ItemRec.FindSet() then begin
                                     "Item Name" := ItemRec.Description;
+                                    "Color Name" := ItemRec."Color Name";
+                                    "Color No" := ItemRec."Color No.";
+                                end;
 
                                 //Get No of rolls
                                 ItemLedEntryRec.Reset();
@@ -210,6 +179,42 @@ page 50683 "FabShrinkageTestCard"
                         END;
                     END;
                 }
+
+                field("Color Name"; "Color Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Color';
+                    Editable = false;
+
+                    // trigger OnLookup(var texts: text): Boolean
+                    // var
+                    //     PurchRcpLineRec: Record "Purch. Rcpt. Line";
+                    //     Colour: Code[20];
+                    //     colorRec: Record Colour;
+                    // begin
+                    //     PurchRcpLineRec.RESET;
+                    //     PurchRcpLineRec.SetCurrentKey("Color No.");
+                    //     PurchRcpLineRec.SetRange("Document No.", GRN);
+
+                    //     IF PurchRcpLineRec.FINDFIRST THEN BEGIN
+                    //         REPEAT
+                    //             IF Colour <> PurchRcpLineRec."Color No." THEN BEGIN
+                    //                 Colour := PurchRcpLineRec."Color No.";
+
+                    //                 PurchRcpLineRec.MARK(TRUE);
+                    //             END;
+                    //         UNTIL PurchRcpLineRec.NEXT = 0;
+                    //         PurchRcpLineRec.MARKEDONLY(TRUE);
+
+                    //         if Page.RunModal(50672, PurchRcpLineRec) = Action::LookupOK then begin
+                    //             "Color No" := PurchRcpLineRec."Color No.";
+                    //             "Color Name" := PurchRcpLineRec."Color Name";
+                    //         end;
+
+                    //     END;
+                    // END;
+                }
+
 
                 field("Fabric Code"; "Fabric Code")
                 {
@@ -282,6 +287,6 @@ page 50683 "FabShrinkageTestCard"
         FabShrTestLineRec.SetRange("FabShrTestNo.", "FabShrTestNo.");
         if FabShrTestLineRec.FindSet() then
             FabShrTestLineRec.DeleteAll();
-    end;
+    end;   
 
 }

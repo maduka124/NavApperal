@@ -52,6 +52,7 @@ table 50682 "FabShrinkageTestHeader"
         field(9; "Color Name"; text[50])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Item."Color Name" where("No." = field("Item No"));
         }
 
         field(10; "Item No"; Code[20])

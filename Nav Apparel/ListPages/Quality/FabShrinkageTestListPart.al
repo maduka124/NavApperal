@@ -10,10 +10,27 @@ page 50686 "FabShrinkageTestListPart"
         {
             repeater(General)
             {
+                field("Pattern Code"; "Pattern Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Pattern';
+
+                    trigger OnValidate()
+                    var
+
+                    begin
+                        if Get_Count() = 1 then
+                            Error('Pattern Code duplicated.');
+
+                        "Pattern Name" := "Pattern Code";
+                    end;
+                }
+
                 field("Pattern Name"; "Pattern Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Pattern';
+                    Visible = false;
                 }
 
                 field(SHRINKAGE; SHRINKAGE)
@@ -110,4 +127,18 @@ page 50686 "FabShrinkageTestListPart"
             }
         }
     }
+
+
+    procedure Get_Count(): Integer
+    var
+        FabShrTestLineRec: Record FabShrinkageTestLine;
+    begin
+        FabShrTestLineRec.Reset();
+        FabShrTestLineRec.SetRange("FabShrTestNo.", "FabShrTestNo.");
+        FabShrTestLineRec.SetFilter("Pattern Code", '=%1', "Pattern Code");
+        if FabShrTestLineRec.FindSet() then
+            exit(FabShrTestLineRec.Count)
+        else
+            exit(0);
+    end;
 }

@@ -115,40 +115,6 @@ page 50671 "FabricProceCard"
                     END;
                 }
 
-                field("Color Name"; "Color Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Color';
-
-                    trigger OnLookup(var texts: text): Boolean
-                    var
-                        PurchRcpLineRec: Record "Purch. Rcpt. Line";
-                        Colour: Code[20];
-                        colorRec: Record Colour;
-                    begin
-                        PurchRcpLineRec.RESET;
-                        PurchRcpLineRec.SetCurrentKey("Color No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
-
-                        IF PurchRcpLineRec.FINDFIRST THEN BEGIN
-                            REPEAT
-                                IF Colour <> PurchRcpLineRec."Color No." THEN BEGIN
-                                    Colour := PurchRcpLineRec."Color No.";
-
-                                    PurchRcpLineRec.MARK(TRUE);
-                                END;
-                            UNTIL PurchRcpLineRec.NEXT = 0;
-                            PurchRcpLineRec.MARKEDONLY(TRUE);
-
-                            if Page.RunModal(50672, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Color No" := PurchRcpLineRec."Color No.";
-                                "Color Name" := PurchRcpLineRec."Color Name";
-                            end;
-
-                        END;
-                    END;
-                }
-
                 field("Item Name"; "Item Name")
                 {
                     ApplicationArea = All;
@@ -164,7 +130,7 @@ page 50671 "FabricProceCard"
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("No.");
                         PurchRcpLineRec.SetRange("Document No.", GRN);
-                        PurchRcpLineRec.SetRange("Color No.", "Color No");
+                        //PurchRcpLineRec.SetRange("Color No.", "Color No");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -191,8 +157,11 @@ page 50671 "FabricProceCard"
 
                                 ItemRec.Reset();
                                 ItemRec.SetRange("No.", "Item No");
-                                if ItemRec.FindSet() then
+                                if ItemRec.FindSet() then begin
                                     "Item Name" := ItemRec.Description;
+                                    "Color No" := ItemRec."Color No.";
+                                    "Color Name" := ItemRec."Color Name";
+                                end;
 
                                 //Get No of rolls
                                 ItemLedEntryRec.Reset();
@@ -214,6 +183,55 @@ page 50671 "FabricProceCard"
                     END;
                 }
 
+                field("Color Name"; "Color Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Color';
+                    Editable = false;
+
+                    trigger OnValidate()
+                    var
+                        colorRec: Record Colour;
+                    begin
+                        colorRec.Reset();
+                        colorRec.SetRange("Colour Name", "Color Name");
+                        colorRec.FindSet();
+                        "Color No" := colorRec."No.";
+
+                    end;
+
+                    // trigger OnLookup(var texts: text): Boolean
+                    // var
+                    //     PurchRcpLineRec: Record "Purch. Rcpt. Line";
+                    //     Colour: Code[20];
+                    //     colorRec: Record Colour;
+                    // begin
+                    //     PurchRcpLineRec.RESET;
+                    //     PurchRcpLineRec.SetCurrentKey("Color No.");
+                    //     PurchRcpLineRec.SetRange("Document No.", GRN);
+                    //     PurchRcpLineRec.SetRange("No.", "Item No");
+
+                    //     IF PurchRcpLineRec.FINDFIRST THEN BEGIN
+                    //         REPEAT
+                    //             IF Colour <> PurchRcpLineRec."Color No." THEN BEGIN
+                    //                 Colour := PurchRcpLineRec."Color No.";
+
+                    //                 PurchRcpLineRec.MARK(TRUE);
+                    //             END;
+                    //         UNTIL PurchRcpLineRec.NEXT = 0;
+                    //         PurchRcpLineRec.MARKEDONLY(TRUE);
+
+                    //         if Page.RunModal(50672, PurchRcpLineRec) = Action::LookupOK then begin
+                    //             "Color No" := PurchRcpLineRec."Color No.";
+                    //             "Color Name" := PurchRcpLineRec."Color Name";
+                    //         end;
+
+                    //     END;
+                    // END;
+                }
+
+
+
                 field("No of Roll"; "No of Roll")
                 {
                     ApplicationArea = All;
@@ -228,7 +246,7 @@ page 50671 "FabricProceCard"
                 {
                     ApplicationArea = All;
                     Caption = 'Roll Details';
-                    SubPageLink = "FabricProceNo." = FIELD("FabricProceNo.");
+                    SubPageLink = "FabricProceNo." = FIELD("FabricProceNo."), "Color No" = field("Color No");
                 }
             }
         }
@@ -271,11 +289,11 @@ page 50671 "FabricProceCard"
         if FabricProLineRec.FindLast() then
             Lineno := FabricProLineRec."Line No.";
 
-        //Deleet old records
-        FabricProLineRec.Reset();
-        FabricProLineRec.SetRange("FabricProceNo.", "FabricProceNo.");
-        if FabricProLineRec.FindSet() then
-            FabricProLineRec.DeleteAll();
+        // //Deleet old records
+        // FabricProLineRec.Reset();
+        // FabricProLineRec.SetRange("FabricProceNo.", "FabricProceNo.");
+        // if FabricProLineRec.FindSet() then
+        //     FabricProLineRec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
@@ -285,24 +303,34 @@ page 50671 "FabricProceCard"
 
         if ItemLedEntryRec.FindSet() then begin
             repeat
-                Lineno += 1;
-                if ItemLedEntryRec."Remaining Quantity" > 0 then begin
-                    FabricProLineRec.Init();
-                    FabricProLineRec."FabricProceNo." := "FabricProceNo.";
-                    FabricProLineRec."Line No." := Lineno;
-                    FabricProLineRec."Roll No" := ItemLedEntryRec."Lot No.";
-                    FabricProLineRec.YDS := ItemLedEntryRec."Length Tag";
-                    FabricProLineRec.Width := ItemLedEntryRec."Width Tag";
-                    FabricProLineRec.MFShade := ItemLedEntryRec.Shade;
-                    FabricProLineRec."MFShade No" := ItemLedEntryRec."Shade No";
-                    FabricProLineRec.Shade := ItemLedEntryRec.Shade;
-                    FabricProLineRec."Shade No" := ItemLedEntryRec."Shade No";
-                    FabricProLineRec.Status := FabricProLineRec.Status::Active;
-                    FabricProLineRec."Item No" := "Item No";
-                    FabricProLineRec."Item Name" := "Item Name";
-                    FabricProLineRec.GRN := GRN;
-                    FabricProLineRec.Qty := ItemLedEntryRec."Remaining Quantity";
-                    FabricProLineRec.Insert();
+                FabricProLineRec.Reset();
+                FabricProLineRec.SetRange("FabricProceNo.", "FabricProceNo.");
+                FabricProLineRec.SetRange("Item No", "Item No");
+                FabricProLineRec.SetRange("Roll No", ItemLedEntryRec."Lot No.");
+
+                if not FabricProLineRec.FindSet() then begin
+
+                    if (ItemLedEntryRec."Remaining Quantity" > 0) and (ItemLedEntryRec."Lot No." <> '') then begin
+                        Lineno += 1;
+                        FabricProLineRec.Init();
+                        FabricProLineRec."FabricProceNo." := "FabricProceNo.";
+                        FabricProLineRec."Line No." := Lineno;
+                        FabricProLineRec."Roll No" := ItemLedEntryRec."Lot No.";
+                        FabricProLineRec.YDS := ItemLedEntryRec."Length Tag";
+                        FabricProLineRec.Width := ItemLedEntryRec."Width Tag";
+                        FabricProLineRec.MFShade := ItemLedEntryRec.Shade;
+                        FabricProLineRec."MFShade No" := ItemLedEntryRec."Shade No";
+                        FabricProLineRec.Shade := ItemLedEntryRec.Shade;
+                        FabricProLineRec."Shade No" := ItemLedEntryRec."Shade No";
+                        FabricProLineRec.Status := FabricProLineRec.Status::Active;
+                        FabricProLineRec."Item No" := "Item No";
+                        FabricProLineRec."Item Name" := "Item Name";
+                        FabricProLineRec.GRN := GRN;
+                        FabricProLineRec.Qty := ItemLedEntryRec."Remaining Quantity";
+                        FabricProLineRec."Color Name" := "Color Name";
+                        FabricProLineRec."Color No" := "Color No";
+                        FabricProLineRec.Insert();
+                    end;
                 end;
             until ItemLedEntryRec.Next() = 0;
         end;

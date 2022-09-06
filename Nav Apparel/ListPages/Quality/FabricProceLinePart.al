@@ -3,7 +3,7 @@ page 50678 "FabricProceListPart"
     PageType = ListPart;
     SourceTable = FabricProceLine;
     InsertAllowed = false;
-    DeleteAllowed = false;
+    //DeleteAllowed = false;
 
     layout
     {
@@ -11,6 +11,13 @@ page 50678 "FabricProceListPart"
         {
             repeater(General)
             {
+                field("Item Name"; "Item Name")
+                {
+                    ApplicationArea = all;
+                    Editable = false;
+                    Caption = 'Item';
+                }
+
                 field("Roll No"; "Roll No")
                 {
                     ApplicationArea = all;
@@ -174,15 +181,15 @@ page 50678 "FabricProceListPart"
                 if FabShriTestLineRec.FindSet() then begin
                     repeat
                         if "Length%" < 0 then begin
-                            if (FabShriTestLineRec."From Length%" >= "Length%") and (FabShriTestLineRec."To Length%" <= "Length%") and (FabShriTestLineRec."From WiDth%" >= "WiDth%") and (FabShriTestLineRec."To WiDth%" <= "WiDth%") then begin
+                            if (FabShriTestLineRec."From Length%" <= "Length%") and (FabShriTestLineRec."To Length%" >= "Length%") and (FabShriTestLineRec."From WiDth%" <= "WiDth%") and (FabShriTestLineRec."To WiDth%" >= "WiDth%") then begin
                                 "PTTN GRP" := FabShriTestLineRec."Pattern Code";
-                                break;
+                                break; //><
                             end;
                         end
                         else
                             if (FabShriTestLineRec."From Length%" <= "Length%") and (FabShriTestLineRec."To Length%" >= "Length%") and (FabShriTestLineRec."From WiDth%" <= "WiDth%") and (FabShriTestLineRec."To WiDth%" >= "WiDth%") then begin
                                 "PTTN GRP" := FabShriTestLineRec."Pattern Code";
-                                break;
+                                break; //< >
                             end
                             else
                                 "PTTN GRP" := '-';
