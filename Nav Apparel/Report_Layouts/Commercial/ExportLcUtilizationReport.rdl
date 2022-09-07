@@ -71,7 +71,7 @@
                   <Width>3.26729cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.49773cm</Width>
+                  <Width>6.6004cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1135,7 +1135,7 @@
             <Top>3.72745cm</Top>
             <Left>0.0762cm</Left>
             <Height>2.99531cm</Height>
-            <Width>27.40894cm</Width>
+            <Width>27.51161cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1171,7 +1171,7 @@
                   <Width>2.55038cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>7.26186cm</Width>
+                  <Width>7.36453cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1586,7 +1586,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2228,7 +2227,11 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Details" />
+                  <Group Name="Details">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!MainCatName.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
                   <Visibility>
                     <Hidden>=Fields!B2B_LC_No.Value=""</Hidden>
                   </Visibility>
@@ -2242,7 +2245,7 @@
             <Top>7.21995cm</Top>
             <Left>0.0762cm</Left>
             <Height>1.68479cm</Height>
-            <Width>27.40894cm</Width>
+            <Width>27.51161cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -3584,7 +3587,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>27.53489cm</Width>
+      <Width>27.58781cm</Width>
       <Page>
         <PageFooter>
           <Height>1.32292cm</Height>
@@ -3703,7 +3706,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox72</rd:DefaultName>
               <Top>0.17639cm</Top>
-              <Left>25.31864cm</Left>
+              <Left>25.26889cm</Left>
               <Height>1.03188cm</Height>
               <Width>2.21625cm</Width>
               <ZIndex>2</ZIndex>
