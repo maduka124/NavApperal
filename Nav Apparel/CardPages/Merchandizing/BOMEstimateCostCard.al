@@ -345,19 +345,58 @@ page 71012769 "BOM Estimate Cost Card"
                     Visible = false;
                 }
 
-                field("Stich Gmt"; "Stich Gmt")
+                field("Stich Gmt Name"; "Stich Gmt Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Stich Gmt';
+
+                    trigger OnValidate()
+                    var
+                        StRec: Record "Stich Gmt";
+                    begin
+
+                        StRec.Reset();
+                        StRec.SetRange("Stich Gmt Name", "Stich Gmt Name");
+                        if StRec.FindSet() then
+                            "Stich Gmt" := StRec."No.";
+
+                    end;
                 }
 
-                field("Print Type"; "Print Type")
+                field("Print Type Name"; "Print Type Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Print Type';
+
+                    trigger OnValidate()
+                    var
+                        PTRec: Record "Print Type";
+                    begin
+
+                        PTRec.Reset();
+                        PTRec.SetRange("Print Type Name", "Print Type Name");
+                        if PTRec.FindSet() then
+                            "Print Type" := PTRec."No.";
+
+                    end;
                 }
 
-                field("Wash Type"; "Wash Type")
+                field("Wash Type Name"; "Wash Type Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Wash Type';
+
+                    trigger OnValidate()
+                    var
+                        WTRec: Record "Wash Type";
+                    begin
+
+                        WTRec.Reset();
+                        WTRec.SetRange("Wash Type Name", "Wash Type Name");
+                        if WTRec.FindSet() then
+                            "Wash Type" := WTRec."No.";
+
+                    end;
                 }
 
             }

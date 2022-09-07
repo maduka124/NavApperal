@@ -132,20 +132,25 @@ table 71012766 "BOM Estimate Cost"
             DataClassification = ToBeClassified;
         }
 
-        field(71012604; "Stich Gmt"; Code[20])
+        field(71012604; "Stich Gmt Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Stich Gmt"."No.";
+            TableRelation = "Stich Gmt"."Stich Gmt Name";
+            ValidateTableRelation = false;
         }
-        field(71012605; "Print Type"; Code[20])
+
+        field(71012605; "Print Type Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Print Type"."No.";
+            TableRelation = "Print Type"."Print Type Name";
+            ValidateTableRelation = false;
         }
-        field(71012606; "Wash Type"; Code[20])
+
+        field(71012606; "Wash Type Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Wash Type"."No.";
+            TableRelation = "Wash Type"."Wash Type Name";
+            ValidateTableRelation = false;
         }
 
         field(71012607; "Sub Total (Dz.)%"; Decimal)
@@ -528,6 +533,19 @@ table 71012766 "BOM Estimate Cost"
             DataClassification = ToBeClassified;
             TableRelation = Location.Name where("Sewing Unit" = filter(1));
             ValidateTableRelation = false;
+        }
+
+        field(71012671; "Stich Gmt"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(71012672; "Print Type"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(71012673; "Wash Type"; Code[20])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 
