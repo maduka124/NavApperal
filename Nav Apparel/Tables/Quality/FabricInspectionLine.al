@@ -1,5 +1,5 @@
 
-table 50557 FabricInspectionLine
+table 50557 FabricInspectionLine1
 {
     DataClassification = ToBeClassified;
 

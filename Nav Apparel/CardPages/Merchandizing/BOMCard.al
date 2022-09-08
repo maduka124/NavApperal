@@ -55,6 +55,9 @@ page 71012680 "BOM Card"
                         StyleMasterRec.SetRange("Style No.", "Style Name");
                         if StyleMasterRec.FindSet() then begin
 
+                            if StyleMasterRec.AssignedContractNo = '' then
+                                Error('Style is not assigned for a Contract. Cannot proceed.');
+
                             "Style No." := StyleMasterRec."No.";
                             "Store No." := StyleMasterRec."Store No.";
                             "Brand No." := StyleMasterRec."Brand No.";

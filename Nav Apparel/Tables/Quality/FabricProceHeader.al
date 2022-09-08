@@ -63,6 +63,7 @@ table 50670 "FabricProceHeader"
         {
             DataClassification = ToBeClassified;
             TableRelation = Item."Color Name" where("No." = field("Item No"));
+            ValidateTableRelation = false;
             //TableRelation = AssorColorSizeRatio."Colour Name" where("Style No." = field("Style No."), "Colour Name" = filter('<> *'));
         }
 
