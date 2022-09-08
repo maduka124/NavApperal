@@ -69,7 +69,9 @@ page 50525 "B2B PI ListPart2"
                             PIHeaderRec.AssignedB2BNo := '';
                             PIHeaderRec.Modify();
                         until B2BLCPIRec.Next() = 0;
-                    end;
+                    end
+                    else
+                        Error('Select records.');
 
                     //Delete from line table
                     B2BLCPIRec.Reset();

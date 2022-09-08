@@ -214,25 +214,6 @@ page 71012788 "PI Details Card"
     end;
 
 
-    // trigger OnNextRecord(Steps: Integer): Integer
-    // var
-    //     PurchaseHeaderRec: Record "Purchase Header";
-    // begin
-    //     if "Supplier No." <> '' then begin
-    //         PurchaseHeaderRec.Reset();
-    //         PurchaseHeaderRec.SetCurrentKey("Buy-from Vendor No.");
-    //         PurchaseHeaderRec.SetRange("Buy-from Vendor No.", "Supplier No.");
-
-    //         if PurchaseHeaderRec.FindSet() then begin
-    //             repeat
-    //                 PurchaseHeaderRec."PI No." := "No.";
-    //                 PurchaseHeaderRec.Modify();
-    //             until PurchaseHeaderRec.Next() = 0;
-    //         end;
-    //     end;
-    // end;
-
-
     trigger OnAfterGetCurrRecord()
     var
         PurchaseHeaderRec: Record "Purchase Header";

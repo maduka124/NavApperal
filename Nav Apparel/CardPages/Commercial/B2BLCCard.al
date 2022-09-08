@@ -350,12 +350,26 @@ page 50522 "B2B LC Card"
         B2B1Rec: Record B2BLCMaster;
         // "LC/ContractNo": Code[20];
         "Tot B2B LC Opened (Value)": Decimal;
+        PIDetMasterRec: Record "PI Details Header";
     begin
         //Calculate B2B LC opened  and %
         // B2BRec.Reset();
         // B2BRec.SetRange("No.", "No.");
         // if B2BRec.FindSet() then begin
         // "LC/ContractNo" := B2BRec."LC/Contract No.";
+
+        if Beneficiary <> '' then begin
+            PIDetMasterRec.Reset();
+            PIDetMasterRec.SetCurrentKey("Supplier No.");
+            PIDetMasterRec.SetRange("Supplier No.", Beneficiary);
+
+            if PIDetMasterRec.FindSet() then begin
+                repeat
+                    PIDetMasterRec.B2BNo := "No.";
+                    PIDetMasterRec.Modify();
+                until PIDetMasterRec.Next() = 0;
+            end;
+        end;
 
         B2B1Rec.Reset();
         B2B1Rec.SetRange("LC/Contract No.", "LC/Contract No.");
@@ -371,5 +385,27 @@ page 50522 "B2B LC Card"
         Balance := "B2B LC Limit" - "Tot B2B LC Opened (Value)";
         CurrPage.Update();
         //end
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        PIDetMasterRec: Record "PI Details Header";
+    begin
+
+        if Beneficiary <> '' then begin
+            PIDetMasterRec.Reset();
+            PIDetMasterRec.SetCurrentKey("Supplier No.");
+            PIDetMasterRec.SetRange("Supplier No.", Beneficiary);
+
+            if PIDetMasterRec.FindSet() then begin
+                repeat
+                    PIDetMasterRec.B2BNo := "No.";
+                    PIDetMasterRec.Modify();
+                until PIDetMasterRec.Next() = 0;
+            end;
+
+            // CurrPage.Update();
+        end;
     end;
 }
