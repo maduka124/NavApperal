@@ -1,7 +1,7 @@
-page 50563 "Fabric Inspection ListPart"
+page 50563 "Fabric Inspection ListPart1"
 {
     PageType = ListPart;
-    SourceTable = FabricInspectionLine;
+    SourceTable = FabricInspectionLine1;
 
     layout
     {
@@ -91,7 +91,7 @@ page 50563 "Fabric Inspection ListPart"
         p3: Decimal;
         p4: Decimal;
         FabricInspecRec: Record FabricInspection;
-        FabricInspecLineRec: Record FabricInspectionLine;
+        FabricInspecLineRec: Record FabricInspectionLine1;
         CustRec: Record Customer;
         Total1: Decimal;
         temp1: Decimal;
@@ -160,6 +160,7 @@ page 50563 "Fabric Inspection ListPart"
 
                 end;
             end;
+
         end;
     end;
 
