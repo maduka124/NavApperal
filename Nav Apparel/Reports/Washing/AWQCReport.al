@@ -2,6 +2,7 @@ report 50901 AWQCReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
+    Caption = 'AW QC Report';
     RDLCLayout = 'Report_Layouts/Washing/AWQCReport.rdl';
     DefaultLayout = RDLC;
 

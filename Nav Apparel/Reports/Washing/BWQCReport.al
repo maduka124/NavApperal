@@ -2,6 +2,7 @@ report 50900 BWQCReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
+    Caption = 'BW QC Report';
     RDLCLayout = 'Report_Layouts/Washing/BWQCReport.rdl';
     DefaultLayout = RDLC;
 
