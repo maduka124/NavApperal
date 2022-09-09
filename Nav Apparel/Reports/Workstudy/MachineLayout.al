@@ -56,6 +56,19 @@ report 50649 MachineLayoutReport
                 { }
                 column(DesCrip2; DesCrip2)
                 { }
+                column(Machine; Machine)
+                { }
+                column(Minutes1; Minutes1)
+                { }
+                column(Target1; Target1)
+                { }
+                column(Machine2; Machine2)
+                { }
+                column(Minutes2; Minutes2)
+                { }
+                column(Target2; Target2)
+                { }
+
 
                 trigger OnAfterGetRecord()
                 begin
@@ -74,6 +87,9 @@ report 50649 MachineLayoutReport
                         SeqNo := "Line No.";
                         OPCode := Code;
                         DesCrip := Description;
+                        Machine := "Machine Name";
+                        Minutes1 := Minutes;
+                        Target1 := Target;
                     end else
 
                         if Type = 2 then begin
@@ -81,6 +97,9 @@ report 50649 MachineLayoutReport
                             SeqNo2 := "Line No.";
                             OPCode2 := Code;
                             DesCrip2 := Description;
+                            Machine2 := "Machine Name";
+                            Minutes2 := Minutes;
+                            Target2 := Target;
                         end;
 
                 end;
@@ -144,5 +163,11 @@ report 50649 MachineLayoutReport
         SeqNo2: Integer;
         OPCode2: Code[50];
         DesCrip2: Text[200];
+        Machine: Text[50];
+        Minutes1: Decimal;
+        Target1: Decimal;
+        Machine2: Text[50];
+        Minutes2: Decimal;
+        Target2: Decimal;
 
 }

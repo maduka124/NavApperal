@@ -312,7 +312,7 @@ page 50722 JobcreationPageListPart
             action("Up Date Job Card")
             {
                 ApplicationArea = All;
-
+                Image = UpdateDescription;
                 trigger OnAction()
                 var
                     JobcreationLineRec: Record JobCreationLine;
@@ -329,6 +329,12 @@ page 50722 JobcreationPageListPart
                     JobcreationLineRec.SetFilter(Select, '=%1', true);
 
                     if JobcreationLineRec.FindSet() then begin
+
+                        if JobcreationLineRec."Reciepe (Prod BOM)" = '' then
+                            Error('Enter reciepe first');
+
+                        if JobcreationLineRec."Job Card (Prod Order)" = '' then
+                            Error('Jobcard No Emty ');
 
                         //Get Max Line No
                         ProductioOrderLine2Rec.Reset();
@@ -356,18 +362,18 @@ page 50722 JobcreationPageListPart
                                     ProductioOrderLineRec.Description := ProdutionBomlineRec.Description;
                                     ProductioOrderLineRec.Step := ProdutionBomlineRec.Step;
                                     ProductioOrderLineRec.Water := ProdutionBomlineRec."Water(L)";
-                                    ProductioOrderLineRec.Temp:=ProductioOrderLineRec.Temp;
-                                    ProductioOrderLineRec."Time(Min)":=ProdutionBomlineRec.Time;
+                                    ProductioOrderLineRec.Temp := ProductioOrderLineRec.Temp;
+                                    ProductioOrderLineRec."Time(Min)" := ProdutionBomlineRec.Time;
                                     ProductioOrderLineRec.Insert();
                                     ProductioOrderLineRec.Modify();
 
                                 until ProdutionBomlineRec.Next() = 0;
-                                Message('Job card Updated');
+                                Message('Job card updated');
                             end;
                         end;
                     end
                     else
-                        Error('Select a Record');
+                        Error('Select a record');
                 end;
             }
         }
