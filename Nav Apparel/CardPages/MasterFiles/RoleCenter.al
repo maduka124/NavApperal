@@ -1129,6 +1129,22 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report JobCardReport;
                         ApplicationArea = all;
                     }
+
+                    action("BW QC Report")
+                    {
+                        Caption = 'BW QC Report';
+                        Enabled = true;
+                        RunObject = report BWQCReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("AW QC Report")
+                    {
+                        Caption = 'AW QC Report';
+                        Enabled = true;
+                        RunObject = report AWQCReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
