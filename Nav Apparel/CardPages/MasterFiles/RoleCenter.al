@@ -1777,6 +1777,13 @@ page 71012740 "Nav Apperal Role Center"
                 RunObject = Page NETRONICVSDevToolDemoAppPage;
                 ApplicationArea = all;
             }
+
+            action("Gate Pass")
+            {
+                Caption = 'Gate Pass';
+                RunObject = Page "Gate Pass List";
+                ApplicationArea = all;
+            }
         }
     }
 }

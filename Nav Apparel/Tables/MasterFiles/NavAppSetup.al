@@ -496,6 +496,12 @@ table 71012749 "NavApp Setup"
             TableRelation = "No. Series";
         }
 
+        field(71012669; "Gatepass Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
+
     }
 
     keys

@@ -497,6 +497,12 @@ page 71012751 "NavApp Setup Card"
                     ApplicationArea = All;
                     Caption = 'Sourcing (%)';
                 }
+
+                field("Gatepass Nos."; "Gatepass Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Gate Pass No';
+                }
             }
         }
     }
