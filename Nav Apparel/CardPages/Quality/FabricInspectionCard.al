@@ -104,20 +104,104 @@ page 50561 "Fabric Inspection Card"
                     end;
                 }
 
+                field(GRN; GRN)
+                {
+                    ApplicationArea = All;
+
+                    trigger OnLookup(var texts: text): Boolean
+                    var
+                        PurchRcpLineRec: Record "Purch. Rcpt. Line";
+                        DocNo: Code[20];
+                    begin
+                        PurchRcpLineRec.RESET;
+                        PurchRcpLineRec.SetCurrentKey("Document No.");
+                        PurchRcpLineRec.SetRange(StyleNo, "Style No");
+
+                        IF PurchRcpLineRec.FINDFIRST THEN BEGIN
+                            REPEAT
+                                IF DocNo <> PurchRcpLineRec."Document No." THEN BEGIN
+                                    DocNo := PurchRcpLineRec."Document No.";
+                                    PurchRcpLineRec.MARK(TRUE);
+                                END;
+                            UNTIL PurchRcpLineRec.NEXT = 0;
+                            PurchRcpLineRec.MARKEDONLY(TRUE);
+
+                            if Page.RunModal(50676, PurchRcpLineRec) = Action::LookupOK then
+                                GRN := PurchRcpLineRec."Document No.";
+                        END;
+                    END;
+                }
+
+                field("Item Name"; "Item Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Item';
+
+                    trigger OnLookup(var texts: text): Boolean
+                    var
+                        PurchRcpLineRec: Record "Purch. Rcpt. Line";
+                        ItemRec: Record Item;
+                        ItemNo: Code[20];
+                        ItemLedEntryRec: Record "Item Ledger Entry";
+                    begin
+                        PurchRcpLineRec.RESET;
+                        PurchRcpLineRec.SetCurrentKey("No.");
+                        PurchRcpLineRec.SetRange("Document No.", GRN);
+
+                        IF PurchRcpLineRec.FINDFIRST THEN BEGIN
+                            REPEAT
+
+                                ItemRec.RESET;
+                                ItemRec.SetRange("No.", PurchRcpLineRec."No.");
+
+                                IF ItemRec.FindSet() THEN BEGIN
+                                    if ItemRec."Main Category Name" = 'FABRIC' then begin
+                                        IF ItemNo <> PurchRcpLineRec."No." THEN BEGIN
+                                            ItemNo := PurchRcpLineRec."No.";
+                                            PurchRcpLineRec.MARK(TRUE);
+                                        END;
+                                    end;
+                                END;
+
+                            UNTIL PurchRcpLineRec.NEXT = 0;
+                            PurchRcpLineRec.MARKEDONLY(TRUE);
+
+                            if Page.RunModal(50677, PurchRcpLineRec) = Action::LookupOK then begin
+                                "Item No" := PurchRcpLineRec."No.";
+                                CurrPage.Update();
+
+                                //get Color
+                                ItemRec.Reset();
+                                ItemRec.SetRange("No.", "Item No");
+                                if ItemRec.FindSet() then begin
+                                    "Item Name" := ItemRec.Description;
+                                    "Color No." := ItemRec."Color No.";
+                                    "Color" := ItemRec."Color Name";
+                                end;
+
+                                //Get roll details
+                                "Total Fab. Rec. YDS" := 0;
+                                ItemLedEntryRec.Reset();
+                                ItemLedEntryRec.SetRange("Item No.", "Item No");
+                                ItemLedEntryRec.SetRange("Document No.", GRN);
+
+                                if ItemLedEntryRec.FindSet() then begin
+                                    repeat
+                                        "Total Fab. Rec. YDS" := "Total Fab. Rec. YDS" + ItemLedEntryRec."Length Tag";
+                                    until ItemLedEntryRec.Next() = 0;
+                                end;
+
+                                CurrPage.Update();
+                            end;
+                        END;
+                    END;
+                }
+
                 field(Color; Color)
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Color ';
-
-                    trigger OnValidate()
-                    var
-                        ColourRec: Record StyleColor;
-                    begin
-                        ColourRec.Reset();
-                        ColourRec.SetRange(Color, Color);
-                        if ColourRec.FindSet() then
-                            "Color No." := ColourRec."Color No.";
-                    end;
+                    Editable = false;
                 }
 
                 field("Total Fab. Rec. YDS"; "Total Fab. Rec. YDS")
@@ -125,9 +209,35 @@ page 50561 "Fabric Inspection Card"
                     ApplicationArea = All;
                 }
 
+                field(Remarks; Remarks)
+                {
+                    ApplicationArea = All;
+                }
+            }
+
+
+            group("Role Details")
+            {
                 field("Roll No"; "Roll No")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        ItemLedEnRec: Record "Item Ledger Entry";
+                    begin
+                        ItemLedEnRec.Reset();
+                        ItemLedEnRec.SetRange("Lot No.", "Roll No");
+                        ItemLedEnRec.SetRange("Item No.", "Item No");
+                        ItemLedEnRec.SetRange("Document No.", GRN);
+                        if ItemLedEnRec.FindSet() then begin
+                            "Batch No" := ItemLedEnRec."Supplier Batch No.";
+                            "TKT Length" := ItemLedEnRec."Length Tag";
+                            "TKT Width" := ItemLedEnRec."Width Tag";
+                            "Actual Length" := ItemLedEnRec."Length Act";
+                            "Actual Width" := ItemLedEnRec."Width Act";
+                        end;
+                    end;
                 }
 
                 field("Batch No"; "Batch No")
@@ -173,16 +283,11 @@ page 50561 "Fabric Inspection Card"
                 {
                     ApplicationArea = All;
                 }
-
-                field(Remarks; Remarks)
-                {
-                    ApplicationArea = All;
-                }
             }
 
             group("Calculate Defects")
             {
-                part("Fabric Inspection ListPart"; "Fabric Inspection ListPart")
+                part("Fabric Inspection ListPart1"; "Fabric Inspection ListPart1")
                 {
                     ApplicationArea = All;
                     Caption = ' ';
@@ -268,7 +373,7 @@ page 50561 "Fabric Inspection Card"
 
     trigger OnDeleteRecord(): Boolean
     var
-        FabricInspectionLineRec: Record FabricInspectionLine;
+        FabricInspectionLineRec: Record FabricInspectionLine1;
     begin
         FabricInspectionLineRec.reset();
         FabricInspectionLineRec.SetRange("InsNo.", "InsNo.");

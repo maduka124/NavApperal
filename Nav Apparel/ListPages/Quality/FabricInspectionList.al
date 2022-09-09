@@ -43,56 +43,6 @@ page 50564 "Fabric Inspection List"
                 {
                     ApplicationArea = All;
                 }
-
-                field("Roll No"; "Roll No")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Batch No"; "Batch No")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("TKT Length"; "TKT Length")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("TKT Width"; "TKT Width")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Actual Length"; "Actual Length")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Actual Width"; "Actual Width")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Face Seal Start"; "Face Seal Start")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Face Seal End"; "Face Seal End")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Length Wise Colour Shading"; "Length Wise Colour Shading")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Width Wise Colour Shading"; "Width Wise Colour Shading")
-                {
-                    ApplicationArea = All;
-                }
             }
         }
     }
@@ -100,7 +50,7 @@ page 50564 "Fabric Inspection List"
 
     trigger OnDeleteRecord(): Boolean
     var
-        FabricInspectionLineRec: Record FabricInspectionLine;
+        FabricInspectionLineRec: Record FabricInspectionLine1;
     begin
         FabricInspectionLineRec.reset();
         FabricInspectionLineRec.SetRange("InsNo.", "InsNo.");

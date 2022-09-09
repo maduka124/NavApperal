@@ -57,7 +57,7 @@ table 71012593 "Defects"
 
     trigger OnDelete()
     var
-        DefectsRec: Record FabricInspectionLine;
+        DefectsRec: Record FabricInspectionLine1;
     begin
 
         //Check for Exsistance

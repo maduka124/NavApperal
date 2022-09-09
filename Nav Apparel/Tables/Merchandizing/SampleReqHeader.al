@@ -113,7 +113,7 @@ table 71012719 "Sample Requsition Header"
 
     keys
     {
-        key(PK; "No.")
+        key(PK; "No.", "Style Name")
         {
             Clustered = true;
         }

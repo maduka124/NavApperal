@@ -58,6 +58,7 @@ page 50523 "B2B PI ListPart1"
                     "LC/ContractNo": Code[20];
                     "Tot B2B LC Opened (Value)": Decimal;
                 begin
+                    CurrPage.Update();
 
                     PIHeaderRec.Reset();
                     PIHeaderRec.SetCurrentKey("Supplier No.");
@@ -84,7 +85,9 @@ page 50523 "B2B PI ListPart1"
 
                         until PIHeaderRec.Next() = 0;
 
-                    end;
+                    end
+                    else
+                        Error('Select records.');
 
                     //Update Select as false
                     PIHeaderRec.Reset();

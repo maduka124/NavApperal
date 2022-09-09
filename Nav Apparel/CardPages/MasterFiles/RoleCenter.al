@@ -1048,6 +1048,13 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report PendingStyleSMV;
                         ApplicationArea = all;
                     }
+                    action("Machine Layout Report")
+                    {
+                        Caption = 'Machine Layout Report';
+                        Enabled = true;
+                        RunObject = report MachineLayoutReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 

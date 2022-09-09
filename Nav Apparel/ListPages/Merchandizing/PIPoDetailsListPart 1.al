@@ -39,8 +39,11 @@ page 71012790 "PI Po Details ListPart 1"
                 trigger OnAction()
                 var
                     PurchaseHeaderRec: Record "Purchase Header";
+                    PIDetailsHeadRec: Record "PI Details Header";
+                    PIPOItemDetRec: Record "PI Po Item Details";
                     PIPODetailsRec: Record "PI Po Details";
                     NavAppCodeUnitRec: Codeunit NavAppCodeUnit;
+                    TotalValue: Decimal;
                 begin
 
                     PurchaseHeaderRec.Reset();
@@ -63,7 +66,9 @@ page 71012790 "PI Po Details ListPart 1"
 
                         until PurchaseHeaderRec.Next() = 0;
 
-                    end;
+                    end
+                    else
+                        Error('Select records.');
 
                     //Update Select as false
                     PurchaseHeaderRec.Reset();
@@ -75,6 +80,21 @@ page 71012790 "PI Po Details ListPart 1"
 
                     //Update PO_PI_Item table
                     NavAppCodeUnitRec.Update_PI_PO_Items("PI No.");
+
+                    //calculate Total Items Value and Update Header Value
+                    PIPOItemDetRec.Reset();
+                    PIPOItemDetRec.SetRange("PI No.", "PI No.");
+
+                    if PIPOItemDetRec.FindSet() then
+                        repeat
+                            TotalValue += PIPOItemDetRec.Value;
+                        until PIPOItemDetRec.Next() = 0;
+
+                    PIDetailsHeadRec.Reset();
+                    PIDetailsHeadRec.SetRange("No.", "PI No.");
+                    PIDetailsHeadRec.FindSet();
+                    PIDetailsHeadRec."PI Value" := TotalValue;
+                    PIDetailsHeadRec.Modify();
 
                     CurrPage.Update();
                 end;
