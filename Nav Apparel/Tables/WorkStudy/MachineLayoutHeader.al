@@ -75,7 +75,7 @@ table 50478 "Machine Layout Header"
 
     keys
     {
-        key(PK; "No.")
+        key(PK; "No.", "Style No.", "Style Name")
         {
             Clustered = true;
         }
