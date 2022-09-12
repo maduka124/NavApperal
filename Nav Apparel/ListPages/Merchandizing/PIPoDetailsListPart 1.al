@@ -22,6 +22,12 @@ page 71012790 "PI Po Details ListPart 1"
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
+
+                field("Amount Including VAT"; "Amount Including VAT")
+                {
+                    ApplicationArea = All;
+                    Caption = 'PO Value';
+                }
             }
         }
     }
@@ -44,6 +50,7 @@ page 71012790 "PI Po Details ListPart 1"
                     PIPODetailsRec: Record "PI Po Details";
                     NavAppCodeUnitRec: Codeunit NavAppCodeUnit;
                     TotalValue: Decimal;
+                    TotPOValue: Decimal;
                 begin
 
                     PurchaseHeaderRec.Reset();
@@ -58,6 +65,8 @@ page 71012790 "PI Po Details ListPart 1"
                             PIPODetailsRec.Init();
                             PIPODetailsRec."PI No." := PurchaseHeaderRec."PI No.";
                             PIPODetailsRec."PO No." := PurchaseHeaderRec."No.";
+                            PurchaseHeaderRec.CalcFields("Amount Including VAT");
+                            PIPODetailsRec."PO Value" := PurchaseHeaderRec."Amount Including VAT";
                             PIPODetailsRec.Insert();
 
                             //Update Purchase order pi no
@@ -90,10 +99,21 @@ page 71012790 "PI Po Details ListPart 1"
                             TotalValue += PIPOItemDetRec.Value;
                         until PIPOItemDetRec.Next() = 0;
 
+
+                    PIPODetailsRec.Reset();
+                    PIPODetailsRec.SetRange("PI No.", "PI No.");
+
+                    if PIPODetailsRec.FindSet() then begin
+                        repeat
+                            TotPOValue += PIPODetailsRec."PO Value";
+                        until PIPODetailsRec.Next() = 0;
+                    end;
+
                     PIDetailsHeadRec.Reset();
                     PIDetailsHeadRec.SetRange("No.", "PI No.");
                     PIDetailsHeadRec.FindSet();
                     PIDetailsHeadRec."PI Value" := TotalValue;
+                    PIDetailsHeadRec."PO Total" := TotPOValue;
                     PIDetailsHeadRec.Modify();
 
                     CurrPage.Update();

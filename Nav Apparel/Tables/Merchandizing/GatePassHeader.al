@@ -48,16 +48,16 @@ table 71012825 "Gate Pass Header"
             DataClassification = ToBeClassified;
         }
 
-        field(71012588; "Consignment Type"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionMembers = Inventory,"Fixed Assets",Other;
-            OptionCaption = 'Inventory,Fixed Assets,Other';
-        }
-        field(71012589; "Description"; text[500])
-        {
-            DataClassification = ToBeClassified;          
-        }
+        // field(71012588; "Consignment Type"; Option)
+        // {
+        //     DataClassification = ToBeClassified;
+        //     OptionMembers = Inventory,"Fixed Assets",Other;
+        //     OptionCaption = 'Inventory,Fixed Assets,Other';
+        // }
+        // field(71012589; "Description"; text[500])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
 
         field(71012590; "Transfer Date"; Date)
         {
@@ -137,6 +137,7 @@ table 71012825 "Gate Pass Header"
 
         "Created Date" := WorkDate();
         "Created User" := UserId;
+        "Sent By" := UserId;
     end;
 
 }

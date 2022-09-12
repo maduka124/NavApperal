@@ -72,16 +72,16 @@ page 71012827 "Gate Pass Card"
                     // end;
                 }
 
-                field("Consignment Type"; "Consignment Type")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Consignment Type"; "Consignment Type")
+                // {
+                //     ApplicationArea = All;
+                // }
 
-                field(Description; Description)
-                {
-                    ApplicationArea = All;
-                    MultiLine = true;
-                }
+                // field(Description; Description)
+                // {
+                //     ApplicationArea = All;
+                //     MultiLine = true;
+                // }
 
                 field("Expected Return Date"; "Expected Return Date")
                 {
@@ -114,18 +114,19 @@ page 71012827 "Gate Pass Card"
                 field(Remarks; Remarks)
                 {
                     ApplicationArea = All;
+                    MultiLine = true;
                 }
             }
 
-            // group("Items")
-            // {
-            //     part("BOM Estimate Line List part"; "BOM Estimate Line List part")
-            //     {
-            //         ApplicationArea = All;
-            //         Caption = 'Line Items';
-            //         SubPageLink = "No." = FIELD("No.");
-            //     }
-            // }
+            group("Items")
+            {
+                part("Gate Pass ListPart"; "Gate Pass ListPart")
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                    SubPageLink = "No." = FIELD("No.");
+                }
+            }
         }
     }
 
@@ -144,48 +145,9 @@ page 71012827 "Gate Pass Card"
                     Total: Decimal;
                 begin
 
-                    // if Quantity = 0 then
-                    //     Error('Quantity is zero. Cannot proceed.');
-
-                    // Total := 0;
-                    // BOMEstimateLIneRec.Reset();
-                    // BOMEstimateLIneRec.SetCurrentKey("No.");
-                    // BOMEstimateLIneRec.SetRange("No.", "No.");
-
-                    // IF (BOMEstimateLIneRec.FINDSET) THEN
-                    //     repeat
-
-                    //         if BOMEstimateLIneRec.Type = BOMEstimateLIneRec.Type::Pcs then
-                    //             if BOMEstimateLIneRec.AjstReq = 0 then
-                    //                 BOMEstimateLIneRec.WST := (100 * BOMEstimateLIneRec.Requirment) / (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) - 100
-                    //             else
-                    //                 BOMEstimateLIneRec.WST := (100 * BOMEstimateLIneRec.AjstReq) / (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) - 100
-                    //         else
-                    //             if BOMEstimateLIneRec.Type = BOMEstimateLIneRec.Type::Doz then
-                    //                 if BOMEstimateLIneRec.AjstReq = 0 then
-                    //                     BOMEstimateLIneRec.WST := (100 * BOMEstimateLIneRec.Requirment * 12) / (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) - 100
-                    //                 else
-                    //                     BOMEstimateLIneRec.WST := (100 * BOMEstimateLIneRec.AjstReq * 12) / (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) - 100;
 
 
-                    //         if BOMEstimateLIneRec.Type = BOMEstimateLIneRec.Type::Pcs then
-                    //             BOMEstimateLIneRec.Requirment := (BOMEstimateLIneRec.Consumption * BOMEstimateLIneRec.Qty) + (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) * BOMEstimateLIneRec.WST / 100
-                    //         else
-                    //             if BOMEstimateLIneRec.Type = BOMEstimateLIneRec.Type::Doz then
-                    //                 BOMEstimateLIneRec.Requirment := ((BOMEstimateLIneRec.Consumption * BOMEstimateLIneRec.Qty) + (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) * BOMEstimateLIneRec.WST / 100) / 12;
-
-                    //         BOMEstimateLIneRec.Requirment := Round(BOMEstimateLIneRec.Requirment, 1);
-                    //         BOMEstimateLIneRec.Value := BOMEstimateLIneRec.Requirment * BOMEstimateLIneRec.Rate;
-                    //         Total += BOMEstimateLIneRec.Value;
-                    //         BOMEstimateLIneRec.Modify();
-
-                    //     until BOMEstimateLIneRec.Next() = 0;
-
-                    // "Material Cost Pcs." := (Total / Quantity);
-                    // "Material Cost Doz." := "Material Cost Pcs." * 12;
-                    // CurrPage.Update();
-
-                    // Message('Completed');
+                    Message('Completed');
 
                 end;
             }

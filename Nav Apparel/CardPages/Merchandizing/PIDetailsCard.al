@@ -100,6 +100,13 @@ page 71012788 "PI Details Card"
                 field("PI Value"; "PI Value")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if "PO Total" <> "PI Value" then
+                            Error('Total PO value and PI value does not match.');
+                    end;
                 }
 
                 field("Payment Mode Name"; "Payment Mode Name")
@@ -136,6 +143,12 @@ page 71012788 "PI Details Card"
                         if CurrencyRec.FindSet() then
                             "Currency Code" := CurrencyRec.Code;
                     end;
+                }
+
+                field("PO Total"; "PO Total")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
             }
 
@@ -230,6 +243,16 @@ page 71012788 "PI Details Card"
                 until PurchaseHeaderRec.Next() = 0;
             end;
         end;
+    end;
+
+
+    trigger OnClosePage()
+    var
+
+    begin
+        if "PO Total" <> "PI Value" then
+            Error('Total PO value and PI value does not match.');
+
     end;
 
 }

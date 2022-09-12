@@ -133,6 +133,12 @@ table 71012714 "PI Details Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012605; "PO Total"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
     }
 
 
@@ -161,21 +167,6 @@ table 71012714 "PI Details Header"
         NavAppSetup.TestField("NEWBR Nos.");
 
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."PI Nos.", Today, true);
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }
