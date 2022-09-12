@@ -331,10 +331,10 @@ page 50722 JobcreationPageListPart
                     if JobcreationLineRec.FindSet() then begin
 
                         if JobcreationLineRec."Reciepe (Prod BOM)" = '' then
-                            Error('Enter reciepe first');
+                            Error('No recipe entered for the selected entry.');
 
                         if JobcreationLineRec."Job Card (Prod Order)" = '' then
-                            Error('Jobcard No Emty ');
+                            Error('No job card for the selected entry.');
 
                         //Get Max Line No
                         ProductioOrderLine2Rec.Reset();
@@ -352,22 +352,22 @@ page 50722 JobcreationPageListPart
                             ProdutionBomlineRec.SetRange("Production BOM No.", "Reciepe (Prod BOM)");
 
                             if ProdutionBomlineRec.FindSet() then begin
-                                repeat
-                                    MaxLineNo += 1;
+                                if ProdutionBomlineRec."No." <> ProductioOrderLineRec."Item No." then
+                                    repeat
+                                        MaxLineNo += 1;
+                                        ProductioOrderLine2Rec.Init();
+                                        ProductioOrderLine2Rec."Prod. Order No." := ProductioOrderLineRec."Prod. Order No.";
+                                        ProductioOrderLine2Rec.Status := ProductioOrderLineRec.Status::"Firm Planned";
+                                        ProductioOrderLine2Rec."Line No." := MaxLineNo;
+                                        ProductioOrderLine2Rec."Item No." := ProdutionBomlineRec."No.";
+                                        ProductioOrderLine2Rec.Description := ProdutionBomlineRec.Description;
+                                        ProductioOrderLine2Rec.Step := ProdutionBomlineRec.Step;
+                                        ProductioOrderLine2Rec.Water := ProdutionBomlineRec."Water(L)";
+                                        ProductioOrderLine2Rec.Temp := ProdutionBomlineRec.Temperature;
+                                        ProductioOrderLine2Rec."Time(Min)" := ProdutionBomlineRec.Time;
+                                        ProductioOrderLine2Rec.Insert();
 
-                                    ProductioOrderLineRec.Init();
-                                    ProductioOrderLineRec.Status := ProductioOrderLineRec.Status::"Firm Planned";
-                                    ProductioOrderLineRec."Line No." := MaxLineNo;
-                                    ProductioOrderLineRec."Item No." := ProdutionBomlineRec."No.";
-                                    ProductioOrderLineRec.Description := ProdutionBomlineRec.Description;
-                                    ProductioOrderLineRec.Step := ProdutionBomlineRec.Step;
-                                    ProductioOrderLineRec.Water := ProdutionBomlineRec."Water(L)";
-                                    ProductioOrderLineRec.Temp := ProductioOrderLineRec.Temp;
-                                    ProductioOrderLineRec."Time(Min)" := ProdutionBomlineRec.Time;
-                                    ProductioOrderLineRec.Insert();
-                                    ProductioOrderLineRec.Modify();
-
-                                until ProdutionBomlineRec.Next() = 0;
+                                    until ProdutionBomlineRec.Next() = 0;
                                 Message('Job card updated');
                             end;
                         end;

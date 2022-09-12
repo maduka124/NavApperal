@@ -422,5 +422,23 @@ page 50721 "Job Creation Card"
         if Inter1Rec.FindSet() then
             Inter1Rec.DeleteAll();
     end;
+
+    trigger OnOpenPage()
+    var
+        jobcreationLine: Record JobCreationLine;
+    begin
+        jobcreationLine.Reset();
+        jobcreationLine.SetRange(No, "No.");
+        jobcreationLine.SetRange("Line No", "Line no.");
+
+        if jobcreationLine.FindSet() then
+            repeat
+                jobcreationLine.Select := false;
+                jobcreationLine.Modify();
+            until jobcreationLine.Next() = 0;
+
+        CurrPage.Update();
+
+    end;
 }
 
