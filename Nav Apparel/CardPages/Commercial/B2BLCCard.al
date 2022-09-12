@@ -381,7 +381,8 @@ page 50522 "B2B LC Card"
         end;
 
         "B2B LC Opened (Value)" := "Tot B2B LC Opened (Value)";
-        "B2B LC Opened (%)" := ("Tot B2B LC Opened (Value)" / "LC Value") * 100;
+        if "LC Value" > 0 then
+            "B2B LC Opened (%)" := ("Tot B2B LC Opened (Value)" / "LC Value") * 100;
         Balance := "B2B LC Limit" - "Tot B2B LC Opened (Value)";
         CurrPage.Update();
         //end

@@ -35,6 +35,13 @@ table 71012713 "PI Po Details"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012587; "PO Value"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
     }
 
     keys

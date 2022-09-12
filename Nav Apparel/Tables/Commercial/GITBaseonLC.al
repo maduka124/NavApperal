@@ -83,7 +83,7 @@ table 50526 "GITBaseonLC"
             DataClassification = ToBeClassified;
         }
 
-        field(15; "BL Date"; Decimal)
+        field(15; "BL Date"; Date)
         {
             DataClassification = ToBeClassified;
         }

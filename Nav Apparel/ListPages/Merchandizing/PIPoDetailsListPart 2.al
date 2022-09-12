@@ -22,6 +22,13 @@ page 71012791 "PI Po Details ListPart 2"
                     Editable = false;
                     Caption = 'PO No';
                 }
+
+                field("PO Value"; "PO Value")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'PO Value';
+                }
             }
         }
     }
@@ -44,6 +51,7 @@ page 71012791 "PI Po Details ListPart 2"
                     PIPODetailsRec: Record "PI Po Details";
                     NavAppCodeUnitRec: Codeunit NavAppCodeUnit;
                     TotalValue: Decimal;
+                    TotPOValue: Decimal;
                 begin
 
                     PIPODetailsRec.Reset();
@@ -82,10 +90,22 @@ page 71012791 "PI Po Details ListPart 2"
                             TotalValue += PIPOItemDetRec.Value;
                         until PIPOItemDetRec.Next() = 0;
 
+                    //Get Total PO value
+                    PIPODetailsRec.Reset();
+                    PIPODetailsRec.SetRange("PI No.", "PI No.");
+
+                    if PIPODetailsRec.FindSet() then begin
+                        repeat
+                            TotPOValue += PIPODetailsRec."PO Value";
+                        until PIPODetailsRec.Next() = 0;
+                    end;
+
+
                     PIDetailsHeadRec.Reset();
                     PIDetailsHeadRec.SetRange("No.", "PI No.");
                     PIDetailsHeadRec.FindSet();
                     PIDetailsHeadRec."PI Value" := TotalValue;
+                    PIDetailsHeadRec."PO Total" := TotPOValue;
                     PIDetailsHeadRec.Modify();
 
                     CurrPage.Update();
