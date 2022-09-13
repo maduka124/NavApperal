@@ -27,8 +27,6 @@ table 71012825 "Gate Pass Header"
         field(71012584; "Transfer From Code"; code[20])
         {
             DataClassification = ToBeClassified;
-            // TableRelation = "Garment Store"."Store Name";
-            // ValidateTableRelation = false;
         }
 
         field(71012585; "Transfer From Name"; text[50])
@@ -39,25 +37,14 @@ table 71012825 "Gate Pass Header"
         field(71012586; "Transfer To Code"; code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Brand."Brand Name";
-            ValidateTableRelation = false;
         }
 
         field(71012587; "Transfer To Name"; text[50])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Location.Name;
+            ValidateTableRelation = false;
         }
-
-        // field(71012588; "Consignment Type"; Option)
-        // {
-        //     DataClassification = ToBeClassified;
-        //     OptionMembers = Inventory,"Fixed Assets",Other;
-        //     OptionCaption = 'Inventory,Fixed Assets,Other';
-        // }
-        // field(71012589; "Description"; text[500])
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
 
         field(71012590; "Transfer Date"; Date)
         {
@@ -89,8 +76,8 @@ table 71012825 "Gate Pass Header"
         field(71012595; "Status"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Pending,Completed;
-            OptionCaption = 'Pending,Completed';
+            OptionMembers = New,"Pending Approval",Approved;
+            OptionCaption = 'New,Pending Approval,Approved';
         }
 
         field(71012596; "Remarks"; text[500])
@@ -104,6 +91,16 @@ table 71012825 "Gate Pass Header"
         }
 
         field(71012598; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012599; "Approved Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012600; FromToFactoryCodes; code[20])
         {
             DataClassification = ToBeClassified;
         }
@@ -129,15 +126,29 @@ table 71012825 "Gate Pass Header"
     var
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
+        UserRec: Record "User Setup";
+        LocationRec: Record Location;
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("Gatepass Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."Gatepass Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
         "Sent By" := UserId;
+        "Transfer Date" := WorkDate();
+
+        UserRec.Reset();
+        UserRec.SetRange("User ID", UserId);
+        if UserRec.FindSet() then
+            "Transfer From Code" := UserRec."Factory Code";
+
+        LocationRec.Reset();
+        LocationRec.SetRange("Code", UserRec."Factory Code");
+        if LocationRec.FindSet() then
+            "Transfer From Name" := LocationRec.Name;
+
+        FromToFactoryCodes := "Transfer From Code" + '/';
+
     end;
 
 }

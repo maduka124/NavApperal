@@ -17,34 +17,61 @@ page 71012831 "Gate Pass ListPart"
                 {
                     ApplicationArea = All;
 
-                    trigger OnValidate()
-                    var
-                    begin
-                        if ("Consignment Type" = "Consignment Type"::Other) then
-                            Enabled := false
-                        else
-                            Enabled := true;
-                    end;
-                }
+                    // trigger OnValidate()
+                    // var
+                    // begin
+                    //     if ("Consignment Type" = "Consignment Type"::Other) then
+                    //         Enabled := false
+                    //     else
+                    //         Enabled := true;
 
-                field("Item No."; "Item No.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'No';
-                    Editable = Enabled;
+                    //     CurrPage.Update();
+                    // end;
                 }
 
                 field(Description; Description)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        ItemRec: Record Item;
+                        FARec: Record "Fixed Asset";
+                        UOMRec: Record "Unit of Measure";
+                    begin
+
+                        if ("Consignment Type" = "Consignment Type"::Inventory) then begin
+                            ItemRec.Reset();
+                            ItemRec.SetRange(Description, Description);
+                            if ItemRec.FindSet() then begin
+                                "Item No." := ItemRec."No.";
+                                "UOM Code" := ItemRec."Base Unit of Measure";
+
+                                UOMRec.Reset();
+                                UOMRec.SetRange(Code, "UOM Code");
+                                if UOMRec.FindSet() then
+                                    UOM := UOMRec.Description;
+                            end;
+                        end
+                        else
+                            if ("Consignment Type" = "Consignment Type"::"Fixed Assets") then begin
+                                FARec.Reset();
+                                FARec.SetRange(Description, Description);
+                                if FARec.FindSet() then
+                                    "Item No." := FARec."No.";
+
+                            end;
+
+                        Enabled := true;
+                    end;
                 }
 
-                field(Qty; Qty)
+                field(UOM; UOM)
                 {
                     ApplicationArea = All;
                 }
 
-                field(UOM; UOM)
+                field(Qty; Qty)
                 {
                     ApplicationArea = All;
                 }

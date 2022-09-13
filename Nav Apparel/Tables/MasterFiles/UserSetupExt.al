@@ -11,6 +11,11 @@ tableextension 71012660 "User Setup Extension" extends "User Setup"
         {
 
         }
+
+        field(71012583; "GT Pass Approve"; Boolean)
+        {
+
+        }
     }
 }
 

@@ -14,6 +14,11 @@ pageextension 71012743 UserSetupCardExt extends "User Setup"
             {
                 ApplicationArea = All;
             }
+
+            field("GT Pass Approval"; "GT Pass Approve")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 }

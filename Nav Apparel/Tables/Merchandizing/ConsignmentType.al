@@ -3,7 +3,8 @@ enum 71012830 "Consignment Type"
     Extensible = true;
     AssignmentCompatibility = true;
 
-    value(0; "Inventory") { Caption = 'Inventory'; }
-    value(1; "Fixed Assets") { Caption = 'Fixed Assets'; }
-    value(2; "Other") { Caption = 'Other'; }
+    value(0; " ") { Caption = ' '; }
+    value(1; "Inventory") { Caption = 'Inventory'; }
+    value(2; "Fixed Assets") { Caption = 'Fixed Assets'; }
+    value(3; "Other") { Caption = 'Other'; }
 }

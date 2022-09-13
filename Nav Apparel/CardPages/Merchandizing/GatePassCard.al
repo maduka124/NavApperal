@@ -42,16 +42,7 @@ page 71012827 "Gate Pass Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Transfer From';
-
-                    // trigger OnValidate()
-                    // var
-                    //     BrandRec: Record "Brand";
-                    // begin
-                    //     BrandRec.Reset();
-                    //     BrandRec.SetRange("Brand Name", "Brand Name");
-                    //     if BrandRec.FindSet() then
-                    //         "Brand No." := BrandRec."No.";
-                    // end;
+                    Editable = false;
                 }
 
                 field("Transfer To Name"; "Transfer To Name")
@@ -59,29 +50,19 @@ page 71012827 "Gate Pass Card"
                     ApplicationArea = All;
                     Caption = 'Transfer To';
 
-                    // trigger OnValidate()
-                    // var
-                    //     BuyerRec: Record Customer;
-                    // begin
-                    //     BuyerRec.Reset();
-                    //     BuyerRec.SetRange(Name, "Buyer Name");
-                    //     if BuyerRec.FindSet() then begin
-                    //         "Buyer No." := BuyerRec."No.";
-                    //         "Currency No." := BuyerRec."Currency Code";
-                    //     end;
-                    // end;
+                    trigger OnValidate()
+                    var
+                        LocationRec: Record Location;
+                    begin
+                        LocationRec.Reset();
+                        LocationRec.SetRange(name, "Transfer To Name");
+                        if LocationRec.FindSet() then
+                            "Transfer To Code" := LocationRec.Code;
+
+                        FromToFactoryCodes := "Transfer From Code" + '/' + LocationRec.Code;
+                        CurrPage.Update();
+                    end;
                 }
-
-                // field("Consignment Type"; "Consignment Type")
-                // {
-                //     ApplicationArea = All;
-                // }
-
-                // field(Description; Description)
-                // {
-                //     ApplicationArea = All;
-                //     MultiLine = true;
-                // }
 
                 field("Expected Return Date"; "Expected Return Date")
                 {
@@ -109,6 +90,7 @@ page 71012827 "Gate Pass Card"
                 field(Status; Status)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Remarks; Remarks)
@@ -134,21 +116,58 @@ page 71012827 "Gate Pass Card"
     {
         area(Processing)
         {
-            action(Calculate)
+            action(Approve)
             {
                 ApplicationArea = All;
-                Image = Calculate;
+                Image = Approve;
 
                 trigger OnAction()
                 var
-                    BOMEstimateLIneRec: Record "BOM Estimate Line";
-                    Total: Decimal;
+                    UserRec: Record "User Setup";
                 begin
+                    UserRec.Reset();
+                    UserRec.SetRange("User ID", UserId);
+                    UserRec.SetFilter("GT Pass Approve", '=%1', true);
+                    if not UserRec.FindSet() then
+                        Message('You are not authorized to approve Gate Pass.')
+                    else begin
+                        if Status = Status::New then
+                            Error('This Gate Pass has not sent for approval.')
+                        else
+                            if Status = Status::Approved then
+                                Error('This Gate Pass has already approved.')
+                            else begin
 
 
+                                "Approved By" := UserId;
+                                "Approved Date" := WorkDate();
+                                Status := Status::Approved;
+                                CurrPage.Update();
+                                Message('Gate Pass approved');
+                            end;
+                    end;
+                end;
+            }
 
-                    Message('Completed');
+            action("Send to Approve")
+            {
+                ApplicationArea = All;
+                Image = SendApprovalRequest;
 
+                trigger OnAction()
+                var
+                begin
+                    if Status = Status::New then begin
+                        if "Transfer From Code" = FactoryGB then begin
+                            Status := Status::"Pending Approval";
+                            CurrPage.Update();
+                            Message('Sent to approval');
+                        end
+                        else
+                            Error('You are not authorized to send this for approval.');
+                    end
+                    else
+                        Message('This Gate Pass has been already sent for approval or approved.');
                 end;
             }
         }
@@ -168,23 +187,37 @@ page 71012827 "Gate Pass Card"
     end;
 
 
-    // trigger OnDeleteRecord(): Boolean
-    // var
-    //     BOMEstimateRec: Record "BOM Estimate";
-    //     BOMLineEstRec: Record "BOM Estimate Line";
-    //     StyleMas: Record "Style Master";
-    // begin
-    //     BOMEstimateRec.SetRange("No.", "No.");
-    //     BOMEstimateRec.DeleteAll();
+    trigger OnDeleteRecord(): Boolean
+    var
+        GatePassLineRec: Record "Gate Pass Line";
+    begin
+        GatePassLineRec.SetRange("No.", "No.");
+        GatePassLineRec.DeleteAll();
+    end;
 
-    //     BOMLineEstRec.SetRange("No.", "No.");
-    //     BOMLineEstRec.DeleteAll();
 
-    //     StyleMas.Reset();
-    //     StyleMas.SetRange("No.", "Style No.");
-    //     StyleMas.FindSet();
-    //     StyleMas.ModifyAll(EstimateBOM, '');
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+        if Approved = Approved::Yes then
+            CurrPage.Editable(false)
+        else begin
+            UserRec.Reset();
+            UserRec.SetRange("User ID", UserId);
+            if UserRec.FindSet() then begin
+                FactoryGB := UserRec."Factory Code";
 
-    // end;   
+                if UserRec."Factory Code" = "Transfer From Code" then
+                    CurrPage.Editable(true)
+                else
+                    CurrPage.Editable(false);
+            end;
+        end;
+    end;
+
+
+    var
+        FactoryGB: Code[20];
 
 }
