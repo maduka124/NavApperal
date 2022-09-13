@@ -37,7 +37,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.10266cm</Top>
+            <Top>1.69016cm</Top>
             <Left>5.68536cm</Left>
             <Height>1.32292cm</Height>
             <Width>9.23396cm</Width>
@@ -670,7 +670,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>2.11349cm</Top>
+            <Top>3.70099cm</Top>
             <Left>0.10583cm</Left>
             <Height>2.39531cm</Height>
             <Width>20.18393cm</Width>
@@ -1380,7 +1380,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>4.94453cm</Top>
+            <Top>6.53203cm</Top>
             <Left>0.10583cm</Left>
             <Height>1.29646cm</Height>
             <Width>10.22111cm</Width>
@@ -2090,7 +2090,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>4.94453cm</Top>
+            <Top>6.53203cm</Top>
             <Left>10.47688cm</Left>
             <Height>1.29646cm</Height>
             <Width>10.23622cm</Width>
@@ -2101,37 +2101,27 @@
               </Border>
             </Style>
           </Tablix>
+          <Image Name="Image3">
+            <Source>Database</Source>
+            <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
+            <MIMEType>image/png</MIMEType>
+            <Top>0.35278cm</Top>
+            <Left>16.48037cm</Left>
+            <Height>1.85208cm</Height>
+            <Width>3.80939cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
         </ReportItems>
-        <Height>6.53204cm</Height>
+        <Height>7.93432cm</Height>
         <Style />
       </Body>
-      <Width>20.71309cm</Width>
+      <Width>20.7131cm</Width>
       <Page>
-        <PageHeader>
-          <Height>2.35479cm</Height>
-          <PrintOnFirstPage>true</PrintOnFirstPage>
-          <ReportItems>
-            <Image Name="Image3">
-              <Source>Database</Source>
-              <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
-              <MIMEType>image/png</MIMEType>
-              <Top>0.31432cm</Top>
-              <Left>16.58465cm</Left>
-              <Height>1.85208cm</Height>
-              <Width>3.80939cm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-              </Style>
-            </Image>
-          </ReportItems>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </PageHeader>
         <PageFooter>
           <Height>1.32292cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>

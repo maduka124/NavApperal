@@ -62,7 +62,35 @@ report 50630 ExportStatusReport1
                 { }
                 column(tot; Qty * UniPrice)
                 { }
+                dataitem("Sales Invoice Header"; "Sales Invoice Header")
+                {
+                    DataItemLinkReference = "Contract/LCStyle";
+                    DataItemLink = "Style No" = field("Style No.");
+                    DataItemTableView = sorting("No.");
+                    dataitem(BankRefCollectionLine; BankRefCollectionLine)
+                    {
+                        DataItemLinkReference = "Sales Invoice Header";
+                        DataItemLink = "Invoice No" = field("No.");
+                        DataItemTableView = sorting("BankRefNo.");
 
+                        column(Margin_A_C_Amount; "Margin A/C Amount")
+                        { }
+                        column(Invoice_No; "Invoice No")
+                        { }
+                        column(Invoice_Amount; "Invoice Amount")
+                        { }
+                        column(BankRefNo_; "BankRefNo.")
+                        { }
+                        column(Release_Amount; "Release Amount")
+                        { }
+                        column(FC_A_C_Amount; "FC A/C Amount")
+                        { }
+                        column(Current_A_C_Amount; "Current A/C Amount")
+                        { }
+                      
+
+                    }
+                }
                 trigger OnAfterGetRecord()
 
                 begin
@@ -88,7 +116,7 @@ report 50630 ExportStatusReport1
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
-           
+
         }
 
     }
