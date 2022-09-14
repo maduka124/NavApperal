@@ -27,14 +27,7 @@ report 50649 MachineLayoutReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-            // column(WP_No_; WPNo)
-            // { }
-            // column(Seq_No; SeqNo)
-            // { }
-            // column(Code; OPCode)
-            // { }
-            // column(Description; DesCrip)
-            // { }
+       
             dataitem("Machine Layout"; "Machine Layout")
             {
                 DataItemLinkReference = "Machine Layout Header";
