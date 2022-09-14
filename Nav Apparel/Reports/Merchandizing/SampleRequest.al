@@ -27,9 +27,8 @@ report 50639 SampleRequest
             { }
             column(CompLogo; comRec.Picture)
             { }
-
-            // column()
-            // { }
+            column(No_; "No.")
+            { }
 
             dataitem("Sample Requsition Line"; "Sample Requsition Line")
             {
@@ -56,7 +55,7 @@ report 50639 SampleRequest
                 DataItemLinkReference = "Sample Requsition Header";
                 DataItemLink = "No." = field("No.");
                 DataItemTableView = sorting("No.");
-                column(Consumption; Consumption)
+                column(Requirment; Requirment)
                 { }
                 column(AcceRemarks; Remarks)
                 { }
