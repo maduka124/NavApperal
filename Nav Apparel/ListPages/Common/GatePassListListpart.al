@@ -13,20 +13,38 @@ page 71012831 "Gate Pass ListPart"
             repeater(General)
             {
 
-                field("Consignment Type"; "Consignment Type")
+                field("Inventory Type"; "Inventory Type")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Main Category Name"; "Main Category Name")
                 {
                     ApplicationArea = All;
 
-                    // trigger OnValidate()
-                    // var
-                    // begin
-                    //     if ("Consignment Type" = "Consignment Type"::Other) then
-                    //         Enabled := false
-                    //     else
-                    //         Enabled := true;
+                    trigger OnValidate()
+                    var
+                        MainCategoryRec: Record "Main Category";
+                        FAClassRec: Record "FA Class";
+                    begin
+                        if ("Inventory Type" = "Inventory Type"::Inventory) then begin
+                            MainCategoryRec.Reset();
+                            MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                            if MainCategoryRec.FindSet() then
+                                "Main Category Code" := MainCategoryRec."No.";
+                        end
+                        else
+                            if ("Inventory Type" = "Inventory Type"::"Fixed Assets") then begin
+                                FAClassRec.Reset();
+                                FAClassRec.SetRange(name, "Main Category Name");
+                                if FAClassRec.FindSet() then
+                                    "Main Category Code" := FAClassRec."code";
+                            end;
 
-                    //     CurrPage.Update();
-                    // end;
+                        CurrPage.Update();
+                    end;
+
+
                 }
 
                 field(Description; Description)
@@ -40,7 +58,7 @@ page 71012831 "Gate Pass ListPart"
                         UOMRec: Record "Unit of Measure";
                     begin
 
-                        if ("Consignment Type" = "Consignment Type"::Inventory) then begin
+                        if ("Inventory Type" = "Inventory Type"::Inventory) then begin
                             ItemRec.Reset();
                             ItemRec.SetRange(Description, Description);
                             if ItemRec.FindSet() then begin
@@ -54,15 +72,14 @@ page 71012831 "Gate Pass ListPart"
                             end;
                         end
                         else
-                            if ("Consignment Type" = "Consignment Type"::"Fixed Assets") then begin
+                            if ("Inventory Type" = "Inventory Type"::"Fixed Assets") then begin
                                 FARec.Reset();
                                 FARec.SetRange(Description, Description);
                                 if FARec.FindSet() then
                                     "Item No." := FARec."No.";
-
                             end;
 
-                        Enabled := true;
+                        //Enabled := true;
                     end;
                 }
 
@@ -84,6 +101,6 @@ page 71012831 "Gate Pass ListPart"
         }
     }
 
-    var
-        Enabled: Boolean;
+    // var
+    //     Enabled: Boolean;
 }

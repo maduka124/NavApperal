@@ -9,15 +9,20 @@ page 71012740 "Nav Apperal Role Center"
     {
         area(RoleCenter)
         {
-            // part(Headline; "Acc. Payables Activities")
-            // {
-            // }
-
-            part(Control98; "Power BI Report Spinner Part")
+            group(Group1)
             {
-                AccessByPermission = TableData "Power BI User Configuration" = I;
-                ApplicationArea = Basic, Suite;
-                Enabled = false;
+                part(Control97; "Cue Activities 1")
+                {
+                    ApplicationArea = Basic, Suite;
+                    Caption = 'Activities';
+                }
+
+                part(Control98; "Power BI Report Spinner Part")
+                {
+                    AccessByPermission = TableData "Power BI User Configuration" = I;
+                    ApplicationArea = Basic, Suite;
+                    Enabled = false;
+                }
             }
         }
     }
@@ -637,6 +642,18 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report TargetSheetReport;
                         ApplicationArea = all;
                     }
+                }
+            }
+
+            group("Gate Pass")
+            {
+                Caption = 'Gate Pass';
+
+                action("Gate Pass1")
+                {
+                    Caption = 'Gate Pass';
+                    RunObject = Page "Gate Pass List";
+                    ApplicationArea = all;
                 }
             }
 
@@ -1791,13 +1808,6 @@ page 71012740 "Nav Apperal Role Center"
             {
                 Caption = 'Visual Planning';
                 RunObject = Page NETRONICVSDevToolDemoAppPage;
-                ApplicationArea = all;
-            }
-
-            action("Gate Pass")
-            {
-                Caption = 'Gate Pass';
-                RunObject = Page "Gate Pass List";
                 ApplicationArea = all;
             }
         }

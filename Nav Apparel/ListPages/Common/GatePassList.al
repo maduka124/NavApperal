@@ -4,6 +4,7 @@ page 71012826 "Gate Pass List"
     ApplicationArea = All;
     UsageCategory = Tasks;
     SourceTable = "Gate Pass Header";
+    SourceTableView = sorting("No.") order(descending);
     CardPageId = "Gate Pass Card";
 
     layout

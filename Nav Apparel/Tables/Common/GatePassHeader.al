@@ -104,6 +104,16 @@ table 71012825 "Gate Pass Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012601; "Barcode"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012602; ApprovalSentToUser; code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

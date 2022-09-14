@@ -62,10 +62,6 @@ table 71012661 "Action Type"
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
 
     trigger OnDelete()
     var
@@ -85,10 +81,4 @@ table 71012661 "Action Type"
             Error('Action Type : %1 already used in operations. Cannot delete.', "Action Type");
 
     end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

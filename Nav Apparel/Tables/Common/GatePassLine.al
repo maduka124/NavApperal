@@ -28,9 +28,9 @@ table 71012829 "Gate Pass Line"
             DataClassification = ToBeClassified;
 
             TableRelation =
-            if ("Consignment Type" = CONST("Inventory")) Item.Description
+            if ("Inventory Type" = CONST("Inventory")) Item.Description where("Main Category No." = field("Main Category Code"))
             else
-            if ("Consignment Type" = CONST("Fixed Assets")) "Fixed Asset".Description;
+            if ("Inventory Type" = CONST("Fixed Assets")) "Fixed Asset".Description where("FA Class Code" = field("Main Category Code"));
 
             ValidateTableRelation = false;
         }
@@ -57,10 +57,25 @@ table 71012829 "Gate Pass Line"
             DataClassification = ToBeClassified;
         }
 
-        field(71012589; "Consignment Type"; Enum "Consignment Type")
+        field(71012589; "Inventory Type"; Enum "Inventory Type")
         {
             DataClassification = ToBeClassified;
+        }
 
+        field(71012590; "Main Category Code"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012591; "Main Category Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation =
+            if ("Inventory Type" = CONST("Inventory")) "Main Category"."Main Category Name"
+            else
+            if ("Inventory Type" = CONST("Fixed Assets")) "FA Class".Name;
+
+            ValidateTableRelation = false;
         }
     }
 
