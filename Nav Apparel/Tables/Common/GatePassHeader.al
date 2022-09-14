@@ -107,6 +107,11 @@ table 71012825 "Gate Pass Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012603; Select; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

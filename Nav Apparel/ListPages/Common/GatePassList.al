@@ -2,10 +2,11 @@ page 71012826 "Gate Pass List"
 {
     PageType = List;
     ApplicationArea = All;
-    UsageCategory = Tasks;
+    UsageCategory = Lists;
     SourceTable = "Gate Pass Header";
     SourceTableView = sorting("No.") order(descending);
     CardPageId = "Gate Pass Card";
+    //DeleteAllowed = false;
 
     layout
     {
@@ -19,6 +20,18 @@ page 71012826 "Gate Pass List"
                     Editable = false;
                     Caption = 'Gate Pass No';
                     StyleExpr = StyleExprTxt;
+                }
+
+                field(Select; Select)
+                {
+                    ApplicationArea = All;
+                    Editable = true;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
 
                 field("Transfer Date"; "Transfer Date")
@@ -83,6 +96,38 @@ page 71012826 "Gate Pass List"
         }
     }
 
+    actions
+    {
+        area(Processing)
+        {
+            action("Archieve")
+            {
+                ApplicationArea = All;
+                Image = Archive;
+
+                trigger OnAction()
+                var
+                    GTPassRec: Record "Gate Pass Header";
+                begin
+                    GTPassRec.Reset();
+                    GTPassRec.SetFilter(Select, '=%1', true);
+
+                    if GTPassRec.FindSet() then begin
+                        repeat
+
+
+
+
+                        until GTPassRec.Next() = 0;
+                        Message('Archieve completed.');
+                    end
+                    else
+                        Error('Select records.');
+                end;
+            }
+        }
+    }
+
 
     trigger OnDeleteRecord(): Boolean
     var
@@ -104,7 +149,7 @@ page 71012826 "Gate Pass List"
 
         Rec.SetCurrentKey(FromToFactoryCodes);
         Rec.SETFILTER(FromToFactoryCodes, '%1', STRSUBSTNO('*%1*', FactoryGB));
-        CurrPage.Editable(false);
+        //CurrPage.Editable(false);
     end;
 
 
