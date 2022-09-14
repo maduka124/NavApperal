@@ -54,7 +54,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>1.36059cm</Top>
-            <Left>1.2132cm</Left>
+            <Left>0.9525cm</Left>
             <Height>0.64029cm</Height>
             <Width>6.01133cm</Width>
             <ZIndex>1</ZIndex>
@@ -722,7 +722,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>2.43099cm</Top>
+            <Top>3.06599cm</Top>
             <Left>0.9525cm</Left>
             <Height>2.96885cm</Height>
             <Width>18.96251cm</Width>
@@ -1544,7 +1544,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>6.04697cm</Top>
+            <Top>6.68197cm</Top>
             <Left>1.0035cm</Left>
             <Height>1.16885cm</Height>
             <Width>18.91151cm</Width>
@@ -1556,7 +1556,7 @@
             </Style>
           </Tablix>
           <Line Name="Line2">
-            <Top>8.14772cm</Top>
+            <Top>8.46522cm</Top>
             <Left>0.9525cm</Left>
             <Height>0cm</Height>
             <Width>18.96251cm</Width>
@@ -1608,7 +1608,7 @@
             </Paragraphs>
             <rd:DefaultName>Barcode</rd:DefaultName>
             <Top>0.2667cm</Top>
-            <Left>1.2132cm</Left>
+            <Left>0.9525cm</Left>
             <Height>0.9175cm</Height>
             <Width>8.16151cm</Width>
             <ZIndex>5</ZIndex>

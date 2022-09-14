@@ -82,12 +82,14 @@ page 71012827 "Gate Pass Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Approved/Rejected By';
                 }
 
-                field(Approved; Approved)
+                field("Approved Date"; "Approved Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Approved/Rejected Date';
                 }
 
                 field(Status; Status)
@@ -128,7 +130,7 @@ page 71012827 "Gate Pass Card"
                 var
                     UserRec: Record "User Setup";
                 begin
-                    if Status = Status::New then begin
+                    if (Status = Status::New) or (Status = Status::Rejected) then begin
                         if "Transfer From Code" = FactoryGB then begin
                             UserRec.Reset();
                             UserRec.SetRange("Factory Code", FactoryGB);
@@ -137,6 +139,8 @@ page 71012827 "Gate Pass Card"
                                 Error('Approval user for factory : %1 has not setup.', "Transfer From Name")
                             else begin
                                 ApprovalSentToUser := UserRec."User ID";
+                                "Approved By" := '';
+                                "Approved Date" := 0D;
                                 Status := Status::"Pending Approval";
                                 CurrPage.Update();
                                 Message('Sent to approval');
@@ -162,26 +166,32 @@ page 71012827 "Gate Pass Card"
                     UserRec.Reset();
                     UserRec.SetRange("User ID", UserId);
                     UserRec.SetFilter("GT Pass Approve", '=%1', true);
+
                     if not UserRec.FindSet() then
                         Message('You are not authorized to approve Gate Pass.')
                     else begin
                         if Status = Status::New then
                             Error('This Gate Pass has not sent for approval.')
-                        else
+                        else begin
                             if Status = Status::Approved then
                                 Error('This Gate Pass has already approved.')
                             else begin
-                                if ("Transfer From Code" = FactoryGB) and (Status = Status::"Pending Approval") then begin
-                                    "Approved By" := UserId;
-                                    Approved := Approved::Yes;
-                                    "Approved Date" := WorkDate();
-                                    Status := Status::Approved;
-                                    CurrPage.Update();
-                                    Message('Gate Pass approved');
-                                end
-                                else
-                                    Error('You are not authorized to send this for approval.');
-                            end;
+                                if Status = Status::Rejected then
+                                    Error('This Gate Pass has already rejeted.')
+                                else begin
+                                    if ("Transfer From Code" = FactoryGB) and (Status = Status::"Pending Approval") then begin
+                                        ApprovalSentToUser := '';
+                                        Status := Status::Approved;
+                                        "Approved By" := UserId;
+                                        "Approved Date" := WorkDate();
+                                        CurrPage.Update();
+                                        Message('Gate Pass approved');
+                                    end
+                                    else
+                                        Error('You are not authorized to approve this Gate Pass.');
+                                end;
+                            end
+                        end
                     end;
                 end;
             }
@@ -198,26 +208,32 @@ page 71012827 "Gate Pass Card"
                     UserRec.Reset();
                     UserRec.SetRange("User ID", UserId);
                     UserRec.SetFilter("GT Pass Approve", '=%1', true);
+
                     if not UserRec.FindSet() then
-                        Message('You are not authorized to approve Gate Pass.')
+                        Message('You are not authorized to reject Gate Pass.')
                     else begin
                         if Status = Status::New then
                             Error('This Gate Pass has not sent for approval.')
-                        else
+                        else begin
                             if Status = Status::Approved then
                                 Error('This Gate Pass has already approved.')
                             else begin
-                                if ("Transfer From Code" = FactoryGB) and (Status = Status::"Pending Approval") then begin
-                                    "Approved By" := UserId;
-                                    Approved := Approved::Yes;
-                                    "Approved Date" := WorkDate();
-                                    Status := Status::Approved;
-                                    CurrPage.Update();
-                                    Message('Gate Pass approved');
-                                end
-                                else
-                                    Error('You are not authorized to send this for approval.');
+                                if Status = Status::Rejected then
+                                    Error('This Gate Pass has already rejected.')
+                                else begin
+                                    if ("Transfer From Code" = FactoryGB) and (Status = Status::"Pending Approval") then begin
+                                        ApprovalSentToUser := '';
+                                        Status := Status::Rejected;
+                                        "Approved By" := UserId;
+                                        "Approved Date" := WorkDate();
+                                        CurrPage.Update();
+                                        Message('Gate Pass rejected');
+                                    end
+                                    else
+                                        Error('You are not authorized to reject this Gate Pass.');
+                                end;
                             end;
+                        end;
                     end;
                 end;
             }
@@ -230,32 +246,12 @@ page 71012827 "Gate Pass Card"
                 trigger OnAction()
                 var
                     UserRec: Record "User Setup";
-                    BarcodeString: Text;
-                    BarcodeSymbology: Enum "Barcode Symbology";
-                    BarcodeFontProvider: Interface "Barcode Font Provider";
-                    GTPassRec: Record "Gate Pass Header";
-                    Temp: Text;
                     GatePassReport: Report GatePassReport;
-                    str: Text[500];
                 begin
 
                     if Status <> Status::Approved then
                         Error('Gate Pass has not approved yet. Cannot print.')
                     else begin
-                        //generate Barcode
-                        BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
-                        BarcodeSymbology := Enum::"Barcode Symbology"::Code39;
-                        BarcodeString := "No.";
-                        BarcodeFontProvider.ValidateInput(BarcodeString, BarcodeSymbology);
-                        EncodedText := BarcodeFontProvider.EncodeFont(BarcodeString, BarcodeSymbology);
-                        Temp := EncodedText.Replace('(', '');
-                        Barcode := Temp.Replace(')', '');
-                        CurrPage.Update();
-
-                        //GTPassRec.Reset();
-                        //GTPassRec.SetRange("No.", "No.");
-                        //Report.RunModal(50785, true, true, GTPassRec);
-
                         GatePassReport.Set_Value("No.");
                         GatePassReport.RunModal();
                     end;
@@ -291,7 +287,7 @@ page 71012827 "Gate Pass Card"
     var
         UserRec: Record "User Setup";
     begin
-        if Approved = Approved::Yes then
+        if Status = Status::Approved then
             CurrPage.Editable(false)
         else begin
             UserRec.Reset();
@@ -314,6 +310,5 @@ page 71012827 "Gate Pass Card"
 
     var
         FactoryGB: Code[20];
-        EncodedText: Text;
 
 }

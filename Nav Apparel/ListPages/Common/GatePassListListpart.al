@@ -78,8 +78,6 @@ page 71012831 "Gate Pass ListPart"
                                 if FARec.FindSet() then
                                     "Item No." := FARec."No.";
                             end;
-
-                        //Enabled := true;
                     end;
                 }
 
@@ -100,7 +98,4 @@ page 71012831 "Gate Pass ListPart"
             }
         }
     }
-
-    // var
-    //     Enabled: Boolean;
 }

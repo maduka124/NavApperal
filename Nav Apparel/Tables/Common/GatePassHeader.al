@@ -66,18 +66,11 @@ table 71012825 "Gate Pass Header"
             DataClassification = ToBeClassified;
         }
 
-        field(710125914; "Approved"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionMembers = No,Yes;
-            OptionCaption = 'No,Yes';
-        }
-
         field(71012595; "Status"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = New,"Pending Approval",Approved;
-            OptionCaption = 'New,Pending Approval,Approved';
+            OptionMembers = New,"Pending Approval",Approved,Rejected;
+            OptionCaption = 'New,Pending Approval,Approved,Rejected';
         }
 
         field(71012596; "Remarks"; text[500])
@@ -138,6 +131,14 @@ table 71012825 "Gate Pass Header"
         NoSeriesMngment: Codeunit NoSeriesManagement;
         UserRec: Record "User Setup";
         LocationRec: Record Location;
+
+        BarcodeString: Text;
+        BarcodeSymbology: Enum "Barcode Symbology";
+        BarcodeFontProvider: Interface "Barcode Font Provider";
+        GTPassRec: Record "Gate Pass Header";
+        Temp: Text;
+        GatePassReport: Report GatePassReport;
+        str: Text[500];
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("Gatepass Nos.");
@@ -159,6 +160,18 @@ table 71012825 "Gate Pass Header"
 
         FromToFactoryCodes := "Transfer From Code" + '/';
 
+        //generate Barcode
+        BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
+        BarcodeSymbology := Enum::"Barcode Symbology"::Code39;
+        BarcodeString := "No.";
+        BarcodeFontProvider.ValidateInput(BarcodeString, BarcodeSymbology);
+        EncodedText := BarcodeFontProvider.EncodeFont(BarcodeString, BarcodeSymbology);
+        Temp := EncodedText.Replace('(', '');
+        Barcode := Temp.Replace(')', '');
+
     end;
+
+    var
+        EncodedText: Text;
 
 }

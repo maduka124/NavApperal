@@ -2,8 +2,6 @@
 table 71012829 "Gate Pass Line"
 {
     DataClassification = ToBeClassified;
-    // LookupPageId = "Gate Pass List";
-    // DrillDownPageId = "Gate Pass List";
 
     fields
     {

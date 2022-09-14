@@ -60,16 +60,18 @@ page 71012826 "Gate Pass List"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Approved; Approved)
+                field("Approved/Rejected By"; "Approved By")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
+                    Caption = 'Approved/Rejected By';
                 }
 
-                field("Approved By"; "Approved By")
+                field("Approved/Rejected Date"; "Approved Date")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
+                    Caption = 'Approved/Rejected Date';
                 }
 
                 field(Status; Status)
