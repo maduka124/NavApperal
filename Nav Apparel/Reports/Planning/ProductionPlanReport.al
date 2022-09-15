@@ -17,7 +17,7 @@ report 50621 ProductionPlanReport
             { }
             column(Buyer_Name; "Buyer Name")
             { }
-            column(Order_Qty; "Order Qty")
+            column(Order_Qty; PoQty)
             { }
             column(BPCD; BPCD)
             { }
@@ -26,6 +26,10 @@ report 50621 ProductionPlanReport
             column(End_Date; endDate)
             { }
             column(CompLogo; comRec.Picture)
+            { }
+            column(Order_NO; PoNo)
+            { }
+            column(LineQty; LineQty)
             { }
 
             dataitem("NavApp Planning Lines"; "NavApp Planning Lines")
@@ -37,8 +41,6 @@ report 50621 ProductionPlanReport
                 column(Style_Name; "Style Name")
                 { }
                 column(Style_Description; Description)
-                { }
-                column(Order_NO; "PO No.")
                 { }
                 column(SMV; SMV)
                 { }
@@ -54,18 +56,25 @@ report 50621 ProductionPlanReport
                 { }
                 column(Ship_Date; shDate)
                 { }
+                column(Carder; Carder)
+                { }
 
                 trigger OnAfterGetRecord()
                 var
                 begin
-                    StyleMasterPoRec.SetRange("Style No.", "NavApp Planning Lines"."Style No.");
-                    StyleMasterPoRec.SetRange("Lot No.", "NavApp Planning Lines"."Lot No.");
+                    StyleMasterPoRec.SetRange("Style No.", "Style No.");
+                    StyleMasterPoRec.SetRange("Lot No.", "Lot No.");
 
                     if StyleMasterPoRec.FindFirst() then begin
                         shDate := StyleMasterPoRec."Ship Date";
                     end;
                 end;
             }
+            //         dataitem("Purch. Rcpt. Line";"Purch. Rcpt. Line")
+            // {
+            //     DataItemLinkReference = "Style Master";
+            //     DataItemLink =StyleNo= field("No.");
+            // }
 
             trigger OnPreDataItem()
             begin
@@ -76,6 +85,16 @@ report 50621 ProductionPlanReport
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                stylePORec.SetRange("Style No.", "No.");
+                if stylePORec.FindFirst() then begin
+                    PoNo := stylePORec."PO No.";
+                    PoQty := stylePORec.Qty
+                end;
+                PurchLineRec.SetRange(StyleNo, "No.");
+                if PurchLineRec.FindFirst() then begin
+                    LineQty := PurchLineRec.Quantity;
+                end;
             end;
         }
     }
@@ -125,4 +144,11 @@ report 50621 ProductionPlanReport
         endDate: Date;
         shDate: Date;
         comRec: Record "Company Information";
+        stylePORec: Record "Style Master PO";
+        PoNo: Code[20];
+        PoQty: BigInteger;
+        PurchLineRec: Record "Purch. Rcpt. Line";
+        LineQty: Decimal;
+
+
 }
