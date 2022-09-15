@@ -108,6 +108,13 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("External Locations")
+                {
+                    Caption = 'External Locations';
+                    RunObject = Page ExternalLocationsList;
+                    ApplicationArea = all;
+                }
+
                 action("Fabric Code")
                 {
                     Caption = 'Fabric Code';

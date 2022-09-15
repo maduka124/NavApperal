@@ -42,7 +42,11 @@ table 71012825 "Gate Pass Header"
         field(71012587; "Transfer To Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Location.Name;
+            TableRelation =
+            if (Type = CONST(Internal)) Location.Name
+            else
+            if (Type = CONST(External)) ExternalLocations."Location Name";
+
             ValidateTableRelation = false;
         }
 

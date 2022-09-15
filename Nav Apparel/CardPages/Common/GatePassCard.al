@@ -33,6 +33,11 @@ page 71012827 "Gate Pass Card"
                     ApplicationArea = All;
                 }
 
+                field(Type; Type)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Transfer From Name"; "Transfer From Name")
                 {
                     ApplicationArea = All;
@@ -48,23 +53,28 @@ page 71012827 "Gate Pass Card"
                     trigger OnValidate()
                     var
                         LocationRec: Record Location;
+                        ExtLocationRec: Record ExternalLocations;
                     begin
-                        LocationRec.Reset();
-                        LocationRec.SetRange(name, "Transfer To Name");
-                        if LocationRec.FindSet() then
-                            "Transfer To Code" := LocationRec.Code;
 
-                        FromToFactoryCodes := "Transfer From Code" + '/' + LocationRec.Code;
+                        if (Type = Type::Internal) then begin
+                            LocationRec.Reset();
+                            LocationRec.SetRange(name, "Transfer To Name");
+                            if LocationRec.FindSet() then
+                                "Transfer To Code" := LocationRec.Code;
 
+                            FromToFactoryCodes := "Transfer From Code" + '/' + LocationRec.Code;
+                        end
+                        else begin
+                            ExtLocationRec.Reset();
+                            ExtLocationRec.SetRange("location Name", "Transfer To Name");
+                            if ExtLocationRec.FindSet() then
+                                "Transfer To Code" := ExtLocationRec."Location Code";
 
+                            FromToFactoryCodes := "Transfer From Code" + '/' + ExtLocationRec."Location Code";
+                        end;
 
                         CurrPage.Update();
                     end;
-                }
-
-                field(Type; Type)
-                {
-                    ApplicationArea = All;
                 }
 
                 field("Expected Return Date"; "Expected Return Date")

@@ -64,19 +64,4 @@ table 71012580 AQL
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

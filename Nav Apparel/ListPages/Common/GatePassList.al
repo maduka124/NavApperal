@@ -145,7 +145,7 @@ page 71012826 "Gate Pass List"
         UserRec.Reset();
         UserRec.SetRange("User ID", UserId);
         if UserRec.FindSet() then
-            "FactoryGB" := UserRec."Factory Code";
+            FactoryGB := UserRec."Factory Code";
 
         Rec.SetCurrentKey(FromToFactoryCodes);
         Rec.SETFILTER(FromToFactoryCodes, '%1', STRSUBSTNO('*%1*', FactoryGB));
