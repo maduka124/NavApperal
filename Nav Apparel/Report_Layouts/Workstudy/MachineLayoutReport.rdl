@@ -671,7 +671,7 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>2.74849cm</Top>
-            <Left>0.10583cm</Left>
+            <Left>0.07938cm</Left>
             <Height>2.39531cm</Height>
             <Width>20.18393cm</Width>
             <ZIndex>1</ZIndex>
@@ -1381,7 +1381,7 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>5.57953cm</Top>
-            <Left>0.10583cm</Left>
+            <Left>0.07938cm</Left>
             <Height>1.29646cm</Height>
             <Width>10.22111cm</Width>
             <ZIndex>2</ZIndex>
@@ -2151,7 +2151,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox70</rd:DefaultName>
               <Top>0.17639cm</Top>
-              <Left>0.42333cm</Left>
+              <Left>0.10583cm</Left>
               <Height>1.03188cm</Height>
               <Width>7.78934cm</Width>
               <Style>
