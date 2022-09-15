@@ -31,6 +31,14 @@ report 50621 ProductionPlanReport
             { }
             column(LineQty; LineQty)
             { }
+            column(StartDt; StartDt)
+            { }
+            column(EndDt; EndDt)
+            { }
+            column(InSpectionDt; InSpectionDt)
+            { }
+            column(PRDHR; PRDHR)
+            { }
 
             dataitem("NavApp Planning Lines"; "NavApp Planning Lines")
             {
@@ -58,6 +66,8 @@ report 50621 ProductionPlanReport
                 { }
                 column(Carder; Carder)
                 { }
+                column(Learning_Curve_No_; "Learning Curve No.")
+                { }
 
                 trigger OnAfterGetRecord()
                 var
@@ -70,12 +80,6 @@ report 50621 ProductionPlanReport
                     end;
                 end;
             }
-            //         dataitem("Purch. Rcpt. Line";"Purch. Rcpt. Line")
-            // {
-            //     DataItemLinkReference = "Style Master";
-            //     DataItemLink =StyleNo= field("No.");
-            // }
-
             trigger OnPreDataItem()
             begin
                 SetRange("Style Master"."Created Date", stDate, endDate);
@@ -95,6 +99,18 @@ report 50621 ProductionPlanReport
                 if PurchLineRec.FindFirst() then begin
                     LineQty := PurchLineRec.Quantity;
                 end;
+
+                NavAppRec.SetRange("Style No.", "No.");
+                if NavAppRec.FindFirst() then begin
+                    StartDt := NavAppRec."Start Date" - 2;
+                    StartDate := NavAppRec."Start Date";
+                end;
+
+                if NavAppRec.FindLast() then begin
+                    EndDt := NavAppRec."End Date";
+                    InSpectionDt := NavAppRec."End Date" + 10;
+                end;
+                PRDHR := EndDt - StartDate;
             end;
         }
     }
@@ -149,6 +165,12 @@ report 50621 ProductionPlanReport
         PoQty: BigInteger;
         PurchLineRec: Record "Purch. Rcpt. Line";
         LineQty: Decimal;
+        NavAppRec: Record "NavApp Planning Lines";
+        StartDt: Date;
+        EndDt: Date;
+        InSpectionDt: Date;
+        StartDate: Date;
+        PRDHR: Integer;
 
 
 }
