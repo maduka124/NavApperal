@@ -2343,7 +2343,7 @@
                                   <Value>=Sum(Fields!Carder.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2384,6 +2384,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

@@ -11,7 +11,7 @@ report 50621 ProductionPlanReport
         dataitem("Style Master"; "Style Master")
         {
             DataItemTableView = sorting("No.");
-            column(Merchandiser_Name; "Merchandiser Name")
+            column(Merchandiser_Name; "Merchandiser Code")
             { }
             column(Factory_Name; "Factory Name")
             { }
@@ -79,11 +79,13 @@ report 50621 ProductionPlanReport
                         shDate := StyleMasterPoRec."Ship Date";
                     end;
                 end;
+
+                trigger OnPreDataItem()
+                begin
+                    SetRange("Start Date", stDate, endDate);
+                end;
             }
-            trigger OnPreDataItem()
-            begin
-                SetRange("Style Master"."Created Date", stDate, endDate);
-            end;
+
 
             trigger OnAfterGetRecord()
             begin
