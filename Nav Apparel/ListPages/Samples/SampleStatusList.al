@@ -93,6 +93,8 @@ page 50440 "Sample Status List"
                 {
                     ApplicationArea = All;
                 }
+
+
             }
         }
     }

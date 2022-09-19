@@ -318,6 +318,13 @@ page 50594 "Sewing Job Creation ListPart4"
                                     "Colour No" := colorRec."No.";
                                     CurrPage.Update();
 
+                                    if "SubLotNo." = '' then
+                                        Error('SubLotNo is blank');
+
+                                    if "Lot No." = '' then
+                                        Error('LotNo is blank');
+
+
                                     SJC4.Reset();
                                     SJC4.SetRange("SJCNo.", "SJCNo.");
                                     SJC4.SetRange("Style No.", "Style No.");

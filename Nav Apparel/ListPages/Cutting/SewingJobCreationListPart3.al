@@ -205,6 +205,9 @@ page 50591 "Sewing Job Creation ListPart3"
                     var
                         WorkCenterRec: Record "Work Center";
                     begin
+                        if "SubLotNo." = '' then
+                            Error('SubLotNo is blank');
+
                         //Get Po details
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange("Work Center Group Code", 'PAL');

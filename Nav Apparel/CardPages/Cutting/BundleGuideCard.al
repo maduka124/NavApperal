@@ -181,6 +181,8 @@ page 50665 "Bundle Guide Card"
 
                     //Get Sewing jOb no
                     SewJobRec.Reset();
+                    SewJobRec.SetRange("Style No.", "Style No.");
+                    SewJobRec.SetRange("Colour No", "Color No");
                     SewJobRec.SetRange("Group ID", "Group ID");
                     SewJobRec.SetFilter("Record Type", '%1', 'L');
                     SewJobRec.FindSet();
@@ -653,7 +655,8 @@ page 50665 "Bundle Guide Card"
                                             StyleMasPoRec.Reset();
                                             StyleMasPoRec.SetRange("Style No.", "Style No.");
                                             StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                            StyleMasPoRec.FindSet();
+                                            if not StyleMasPoRec.FindSet() then
+                                                Error('Cannot find Sewing job no.');
 
                                             BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
                                             BundleGuideLineRec.Insert();
@@ -690,7 +693,9 @@ page 50665 "Bundle Guide Card"
                                                 StyleMasPoRec.Reset();
                                                 StyleMasPoRec.SetRange("Style No.", "Style No.");
                                                 StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                StyleMasPoRec.FindSet();
+                                                if not StyleMasPoRec.FindSet() then
+                                                    Error('Cannot find Sewing job no.');
+
 
                                                 BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
 
@@ -1162,7 +1167,9 @@ page 50665 "Bundle Guide Card"
                                                         StyleMasPoRec.Reset();
                                                         StyleMasPoRec.SetRange("Style No.", "Style No.");
                                                         StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                        StyleMasPoRec.FindSet();
+                                                        if not StyleMasPoRec.FindSet() then
+                                                            Error('Cannot find Sewing job no.');
+
 
                                                         BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
                                                         BundleGuideLineRec.Insert();
@@ -1203,7 +1210,9 @@ page 50665 "Bundle Guide Card"
                                                             StyleMasPoRec.Reset();
                                                             StyleMasPoRec.SetRange("Style No.", "Style No.");
                                                             StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                            StyleMasPoRec.FindSet();
+                                                            if not StyleMasPoRec.FindSet() then
+                                                                Error('Cannot find Sewing job no.');
+
 
                                                             BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
                                                             BundleGuideLineRec.Insert();
