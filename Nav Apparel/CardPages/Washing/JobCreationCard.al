@@ -30,6 +30,12 @@ page 50721 "Job Creation Card"
                     Enabled = false;
                 }
 
+                field("Buyer No"; "Buyer No")
+                {
+                    ApplicationArea = All;
+                    Visible = false;
+                }
+
                 field("Style Name"; "Style Name")
                 {
                     ApplicationArea = All;
@@ -129,6 +135,7 @@ page 50721 "Job Creation Card"
                     WashSampleReqDataRec: Record "Washing Sample Requsition Line";
                     Quantity: Integer;
                     inTermeDiateTable: Record IntermediateTable;
+
                 //jobcreationTable: Record JobCreationLine;
                 begin
 
@@ -192,6 +199,7 @@ page 50721 "Job Creation Card"
                 itemNo := CreateItem(Description, "Color Code", "Unite Price");
                 IntermediateTableRec."FG No" := itemNo;
                 IntermediateTableRec."FG Item Name" := Description;
+
                 IntermediateTableRec.Modify();
             until IntermediateTableRec.Next() = 0;
             "FG Status" := "FG Status"::Yes;
@@ -322,7 +330,7 @@ page 50721 "Job Creation Card"
 
                 IntermediateTableRec."SO No" := "SO No";
                 IntermediateTableRec.Modify();
-                Message('SO No', SalesHeaderRec."No.");
+                Message('SO No %1', "SO No");
 
             until IntermediateTableRec.Next() = 0;
 
@@ -341,6 +349,9 @@ page 50721 "Job Creation Card"
         NavAppSetupRec: Record "NavApp Setup";
         HeaderRenaretor: Integer;
         LineNo: Integer;
+        PurchaseHeader2: Record "Purchase Header";
+        PurchPostCodeunit: Codeunit "Purch.-Post";
+        NavappRec: Record "NavApp Setup";
     begin
 
         IntermediateTableRec.Reset();
@@ -368,6 +379,7 @@ page 50721 "Job Creation Card"
                         PurchaseHeader."Order Date" := "Req Date";
                         PurchaseHeader."Document Type" := PurchaseHeader."Document Type"::Order;
                         PurchaseHeader."Document Date" := "Req Date";
+                        PurchaseHeader."Posting Date" := WorkDate();
                         HeaderRenaretor := 1;
                         PurchaseHeader.Insert();
                     end;
@@ -383,14 +395,25 @@ page 50721 "Job Creation Card"
                     PurchaseLine."Line No." := LineNo;
                     PurchaseLine."Buy-from Vendor No." := NavAppSetupRec."Wash PO Vendor";
                     PurchaseLine.Validate("Buy-from Vendor No.");
-                    //PurchaseLine.Validate(Quantity, WashSampleReQline."REC Qty");
                     PurchaseLine.Validate(Quantity, IntermediateTableRec."Split Qty");
                     purchaseline.Validate("Location Code", "Location Code");
+                    PurchaseLine."Quantity Received" := "Req Qty BW QC Pass";
+                    PurchaseLine."Qty. to Invoice" := "Req Qty BW QC Pass";
                     PurchaseLine.Insert();
 
                     IntermediateTableRec."Po No" := PoNo;
                     IntermediateTableRec.Modify();
-                    Message('PO No', PurchaseLine."Document No.");
+                    Message('pO  %1', PoNo);
+
+                    //Post Purchase Order
+                    PurchaseHeader.Reset();
+                    PurchaseHeader.SetRange("No.", PoNo);
+                    PurchaseHeader.SetRange("Document Type", PurchaseHeader."Document Type");
+
+                    if PurchaseHeader.FindSet() then begin
+                        Message('In');
+                        PurchPostCodeunit.Run(PurchaseHeader);
+                    end;
 
                 end;
             until IntermediateTableRec.Next() = 0;
