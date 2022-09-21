@@ -174,11 +174,11 @@ page 50754 BWQualityCheck
                         //         Error('Total defects quantity should be less than sample requested qty.');
                         // end;
 
-                        WashsamplereqlineRec."Req Qty BW QC Pass" := "Pass Qty" + WashsamplereqlineRec."Req Qty BW QC Pass";
-                        WashsamplereqlineRec."Req Qty BW QC Fail" := "Fail Qty" + WashsamplereqlineRec."Req Qty BW QC Fail";
-
                         "Total Pass Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + "Pass Qty";
                         "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + "Fail Qty";
+
+                        WashsamplereqlineRec."Req Qty BW QC Pass" := "Pass Qty" + WashsamplereqlineRec."Req Qty BW QC Pass";
+                        WashsamplereqlineRec."Req Qty BW QC Fail" := "Fail Qty" + WashsamplereqlineRec."Req Qty BW QC Fail";
 
                         if WashsamplereqlineRec."Req Qty" < "Total Pass Qty" then
                             Error('Total Pass Qty should be less than or equal to Req qty');
