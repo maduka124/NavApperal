@@ -330,7 +330,6 @@ page 50721 "Job Creation Card"
 
                 IntermediateTableRec."SO No" := "SO No";
                 IntermediateTableRec.Modify();
-                Message('SO No %1', "SO No");
 
             until IntermediateTableRec.Next() = 0;
 
@@ -380,11 +379,12 @@ page 50721 "Job Creation Card"
                         PurchaseHeader."Document Type" := PurchaseHeader."Document Type"::Order;
                         PurchaseHeader."Document Date" := "Req Date";
                         PurchaseHeader."Posting Date" := WorkDate();
+                        PurchaseHeader.receive := true;
                         HeaderRenaretor := 1;
                         PurchaseHeader.Insert();
                     end;
 
-                    //Insert Purchse Line
+                    //Insert Purchse Line quantity
                     PurchaseLine.Init();
                     PurchaseLine."Document Type" := PurchaseHeader."Document Type"::Order;
                     PurchaseLine."Document No." := PoNo;
@@ -397,13 +397,12 @@ page 50721 "Job Creation Card"
                     PurchaseLine.Validate("Buy-from Vendor No.");
                     PurchaseLine.Validate(Quantity, IntermediateTableRec."Split Qty");
                     purchaseline.Validate("Location Code", "Location Code");
-                    PurchaseLine."Quantity Received" := "Req Qty BW QC Pass";
-                    PurchaseLine."Qty. to Invoice" := "Req Qty BW QC Pass";
+                    // PurchaseLine."Quantity Received" := "Req Qty BW QC Pass";
+                    // PurchaseLine."Qty. to Invoice" := "Req Qty BW QC Pass";
                     PurchaseLine.Insert();
 
                     IntermediateTableRec."Po No" := PoNo;
                     IntermediateTableRec.Modify();
-                    Message('pO  %1', PoNo);
 
                     //Post Purchase Order
                     PurchaseHeader.Reset();
@@ -411,7 +410,6 @@ page 50721 "Job Creation Card"
                     PurchaseHeader.SetRange("Document Type", PurchaseHeader."Document Type");
 
                     if PurchaseHeader.FindSet() then begin
-                        Message('In');
                         PurchPostCodeunit.Run(PurchaseHeader);
                     end;
 
