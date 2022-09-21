@@ -163,7 +163,7 @@ page 71012781 "Copy BOM Card"
                         BOMEstLineRec.Reset();
                         BOMEstLineRec.SetRange("No.", BOMEstRec."No.");
 
-                        if MainCategoryName <> 'All Categories' then
+                        if MainCategoryName <> 'ALL CATEGORIES' then
                             BOMEstLineRec.SetRange("Main Category No.", MainCategory);
 
                         if BOMEstLineRec.FindSet() then begin

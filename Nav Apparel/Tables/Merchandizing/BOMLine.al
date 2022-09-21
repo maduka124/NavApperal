@@ -40,7 +40,7 @@ table 71012688 "BOM Line"
         field(71012587; "Main Category Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'All Categories'));
+            TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
             ValidateTableRelation = false;
         }
 

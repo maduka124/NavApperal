@@ -5598,6 +5598,7 @@ page 71012680 "BOM Card"
 
                             FOR Count := 1 TO 64 DO begin
                                 Qty := 0;
+                                StatusGB := 0;
 
                                 case Count of
                                     1:
@@ -7724,6 +7725,19 @@ page 71012680 "BOM Card"
 
                                 if ItemMasterRec.FindSet() then begin
                                     NextItemNo := ItemMasterRec."No.";
+
+                                    ItemUinitRec.Reset();
+                                    ItemUinitRec.SetRange("Item No.", NextItemNo);
+                                    ItemUinitRec.SetRange(Code, AutoGenRec."Unit N0.");
+
+                                    if not ItemUinitRec.FindSet() then begin
+                                        //Insert into Item unit of measure
+                                        ItemUinitRec.Init();
+                                        ItemUinitRec."Item No." := NextItemNo;
+                                        ItemUinitRec.Code := AutoGenRec."Unit N0.";
+                                        ItemUinitRec."Qty. per Unit of Measure" := 1;
+                                        ItemUinitRec.Insert();
+                                    end;
                                 end
                                 else begin
 
@@ -7967,6 +7981,19 @@ page 71012680 "BOM Card"
 
                                 if ItemMasterRec.FindSet() then begin
                                     NextItemNo := ItemMasterRec."No.";
+
+                                    ItemUinitRec.Reset();
+                                    ItemUinitRec.SetRange("Item No.", NextItemNo);
+                                    ItemUinitRec.SetRange(Code, AutoGenRec."Unit N0.");
+
+                                    if not ItemUinitRec.FindSet() then begin
+                                        //Insert into Item unit of measure
+                                        ItemUinitRec.Init();
+                                        ItemUinitRec."Item No." := NextItemNo;
+                                        ItemUinitRec.Code := AutoGenRec."Unit N0.";
+                                        ItemUinitRec."Qty. per Unit of Measure" := 1;
+                                        ItemUinitRec.Insert();
+                                    end;
                                 end
                                 else begin
 

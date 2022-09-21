@@ -62,7 +62,7 @@ table 50624 FabricMapping
         field(11; "Main Category Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."Main Category Name" where(SewingJobOnly = filter(1), "Main Category Name" = filter(<> 'All Categories'));
+            TableRelation = "Main Category"."Main Category Name" where(SewingJobOnly = filter(1), "Main Category Name" = filter(<> 'ALL CATEGORIES'));
             ValidateTableRelation = false;
         }
 

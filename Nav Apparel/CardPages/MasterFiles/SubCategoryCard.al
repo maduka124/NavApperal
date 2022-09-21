@@ -19,7 +19,7 @@ page 71012650 "Sub Category Card"
                 field("Main Category No."; "Main Category No.")
                 {
                     ApplicationArea = All;
-                    TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'All Categories'));
+                    TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
                     Caption = 'Main Category';
 
                     trigger OnValidate()

@@ -20,7 +20,7 @@ table 71012648 "Sub Category"
         field(71012583; "Main Category No."; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'All Categories'));
+            TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
         }
 
         field(71012584; "Main Category Name"; text[50])

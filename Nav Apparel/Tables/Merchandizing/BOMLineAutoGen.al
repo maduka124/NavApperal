@@ -24,7 +24,7 @@ table 71012686 "BOM Line AutoGen"
         field(71012584; "Main Category No."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'All Categories'));
+            TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
         }
 
         field(71012585; "Main Category Name"; text[50])
