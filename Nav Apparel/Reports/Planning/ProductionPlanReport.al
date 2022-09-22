@@ -68,6 +68,8 @@ report 50621 ProductionPlanReport
                 { }
                 column(Learning_Curve_No_; "Learning Curve No.")
                 { }
+                column(PO_No_; "PO No.")
+                { }
 
                 trigger OnAfterGetRecord()
                 var
@@ -78,6 +80,25 @@ report 50621 ProductionPlanReport
                     if StyleMasterPoRec.FindFirst() then begin
                         shDate := StyleMasterPoRec."Ship Date";
                     end;
+
+                    NavRec.Reset();
+                    NavRec.SetCurrentKey("Start Date");
+                    NavRec.SetAscending("Start Date", true);
+
+
+                    // NavRec.SetRange("Style No.", "Style No.");
+                    NavRec.SetRange("Resource No.", "Resource No.");
+                    NavRec.SetRange("PO No.", "PO No.");
+                    if NavRec.FindFirst() then begin
+                        StartDt := NavRec."Start Date" - 2;
+                        StartDate := NavRec."Start Date";
+                    end;
+
+                    if NavRec.FindLast() then begin
+                        EndDt := NavRec."End Date";
+                        InSpectionDt := NavRec."End Date" + 10;
+                    end;
+                    PRDHR := EndDt - StartDate;
                 end;
 
                 trigger OnPreDataItem()
@@ -102,17 +123,12 @@ report 50621 ProductionPlanReport
                     LineQty := PurchLineRec.Quantity;
                 end;
 
-                NavAppRec.SetRange("Style No.", "No.");
-                if NavAppRec.FindFirst() then begin
-                    StartDt := NavAppRec."Start Date" - 2;
-                    StartDate := NavAppRec."Start Date";
-                end;
+                // NavAppRec.SetRange("Style No.", "No.");
+                // if NavAppRec.FindFirst() then begin
+                //     // StartDt := NavAppRec."Start Date" - 2;
+                //     // StartDate := NavAppRec."Start Date";
+                // end;
 
-                if NavAppRec.FindLast() then begin
-                    EndDt := NavAppRec."End Date";
-                    InSpectionDt := NavAppRec."End Date" + 10;
-                end;
-                PRDHR := EndDt - StartDate;
             end;
         }
     }
@@ -167,12 +183,13 @@ report 50621 ProductionPlanReport
         PoQty: BigInteger;
         PurchLineRec: Record "Purch. Rcpt. Line";
         LineQty: Decimal;
-        NavAppRec: Record "NavApp Planning Lines";
+        // NavAppRec: Record "NavApp Planning Lines";
         StartDt: Date;
         EndDt: Date;
         InSpectionDt: Date;
         StartDate: Date;
         PRDHR: Integer;
+        NavRec: Record "NavApp Planning Lines";
 
 
 }
