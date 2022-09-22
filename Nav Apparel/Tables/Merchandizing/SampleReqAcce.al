@@ -18,7 +18,7 @@ table 71012717 "Sample Requsition Acce"
         field(71012583; "Item Name"; Text[200])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Item.Description where("Main Category No." = field("Main Category No."), "EstimateBOM Item" = const(false));
+            TableRelation = Item.Description where("Main Category No." = field("Main Category No."), "EstimateBOM Item" = const(true));
             ValidateTableRelation = false;
         }
 

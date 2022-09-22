@@ -42,7 +42,6 @@ page 71012777 SampleReqAccListPart
                             "Item Color Name" := SampleRequLineRec."Color Name";
                             "Item Color No." := SampleRequLineRec."Color No";
                         end;
-
                     end;
                 }
 

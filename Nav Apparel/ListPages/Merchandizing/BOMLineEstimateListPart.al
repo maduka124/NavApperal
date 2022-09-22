@@ -8,11 +8,12 @@ page 71012683 "BOM Line Estimate ListPart"
         area(Content)
         {
             repeater(General)
-            {               
+            {
                 field("Main Category Name"; "Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
@@ -29,6 +30,7 @@ page 71012683 "BOM Line Estimate ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
@@ -51,6 +53,7 @@ page 71012683 "BOM Line Estimate ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Article';
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
@@ -68,6 +71,7 @@ page 71012683 "BOM Line Estimate ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension/Width';
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
@@ -85,6 +89,7 @@ page 71012683 "BOM Line Estimate ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Unit';
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
@@ -98,16 +103,19 @@ page 71012683 "BOM Line Estimate ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Type';
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("GMT Qty"; "GMT Qty")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field(Consumption; Consumption)
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
@@ -121,6 +129,7 @@ page 71012683 "BOM Line Estimate ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'WST%';
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
@@ -133,6 +142,7 @@ page 71012683 "BOM Line Estimate ListPart"
                 field(Rate; Rate)
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
@@ -146,12 +156,14 @@ page 71012683 "BOM Line Estimate ListPart"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Supplier Name."; "Supplier Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
@@ -169,16 +181,17 @@ page 71012683 "BOM Line Estimate ListPart"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field(AjstReq; AjstReq)
                 {
                     ApplicationArea = All;
                     Caption = 'Adjust. Req.';
+                    StyleExpr = StyleExprTxt;
 
                     trigger OnValidate()
                     var
-
                     begin
                         CalculateWST();
                     end;
@@ -187,40 +200,75 @@ page 71012683 "BOM Line Estimate ListPart"
                 field(Qty; Qty)
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Size Sensitive"; "Size Sensitive")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Color Sensitive"; "Color Sensitive")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Country Sensitive"; "Country Sensitive")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("PO Sensitive"; "PO Sensitive")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field(Reconfirm; Reconfirm)
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CurrPage.Update();
+                    end;
                 }
 
                 field("Placement of GMT"; "Placement of GMT")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
             }
         }
     }
+
+
+    trigger OnAfterGetRecord()
+    var
+    begin
+
+        if Reconfirm = true then
+            StyleExprTxt := 'Strong'
+        else
+            StyleExprTxt := 'None';
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+    begin
+
+        if Reconfirm = true then
+            StyleExprTxt := 'Strong'
+        else
+            StyleExprTxt := 'None';
+    end;
 
     procedure CalculateValue(x: Integer)
     var
@@ -250,7 +298,6 @@ page 71012683 "BOM Line Estimate ListPart"
 
     procedure CalculateWST()
     var
-
     begin
 
         if Type = type::Pcs then
@@ -301,5 +348,8 @@ page 71012683 "BOM Line Estimate ListPart"
             BOMLineRec.DeleteAll();
         end;
     end;
+
+    var
+        StyleExprTxt: Text[50];
 
 }
