@@ -476,6 +476,12 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Contract BBLC Summary List1")
+                {
+                    Caption = 'Contract BBLC Summary List';
+                    RunObject = Page "Contract BBLC Summary List";
+                    ApplicationArea = all;
+                }
 
                 group("Merchandizing Reports")
                 {
@@ -1270,6 +1276,13 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Supplier Wise Payment List';
                     RunObject = Page SupplierPaymentList;
+                    ApplicationArea = all;
+                }
+
+                action("Contract BBLC Summary List")
+                {
+                    Caption = 'Contract BBLC Summary List';
+                    RunObject = Page "Contract BBLC Summary List";
                     ApplicationArea = all;
                 }
 
