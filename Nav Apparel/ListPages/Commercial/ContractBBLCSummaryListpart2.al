@@ -2,7 +2,7 @@ page 50794 "ContractBBLC Summary ListPart2"
 {
     PageType = ListPart;
     SourceTable = "Purchase Header";
-    SourceTableView = where("Assigned PI No." = filter(''));
+    SourceTableView = sorting("Buy-from Vendor No.") where("Assigned PI No." = filter(''));
     DeleteAllowed = false;
     InsertAllowed = false;
 
