@@ -1037,7 +1037,6 @@
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -1177,6 +1176,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -3142,7 +3142,11 @@
                       <KeepWithGroup>After</KeepWithGroup>
                     </TablixMember>
                     <TablixMember>
-                      <Group Name="Details1" />
+                      <Group Name="Details1">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!PO_No_.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
                       <TablixMembers>
                         <TablixMember />
                       </TablixMembers>
