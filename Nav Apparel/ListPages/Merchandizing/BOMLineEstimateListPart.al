@@ -21,8 +21,11 @@ page 71012683 "BOM Line Estimate ListPart"
                     begin
                         MainCategoryRec.Reset();
                         MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
-                        if MainCategoryRec.FindSet() then
+                        if MainCategoryRec.FindSet() then begin
+                            if MainCategoryRec."Inv. Posting Group Code" = '' then
+                                Error('Inventory Posting Group is not setup for this Main Category. Cannot proceed.');
                             "Main Category No." := MainCategoryRec."No.";
+                        end;
                     end;
                 }
 

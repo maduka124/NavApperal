@@ -502,6 +502,24 @@ table 71012749 "NavApp Setup"
             TableRelation = "No. Series";
         }
 
+        field(71012670; "Sample RM Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
+
+        field(71012671; "Gen Post Group-RM Sample"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Gen. Product Posting Group".Code;
+        }
+
+        field(71012672; "Inventory Post Group-RM Sample"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Inventory Posting Group".Code;
+        }
+
     }
 
     keys

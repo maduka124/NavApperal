@@ -28,6 +28,11 @@ page 71012616 "Main Category List"
                     ApplicationArea = All;
                 }
 
+                field("Inv. Posting Group Code"; "Inv. Posting Group Code")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(DimensionOnly; DimensionOnly)
                 {
                     ApplicationArea = All;

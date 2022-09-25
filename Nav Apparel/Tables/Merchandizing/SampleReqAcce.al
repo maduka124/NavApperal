@@ -182,7 +182,7 @@ table 71012717 "Sample Requsition Acce"
         field(71012624; "Sub Category Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Sub Category"."Sub Category Name";
+            TableRelation = "Sub Category"."Sub Category Name" where("Main Category No." = field("Main Category No."));
             ValidateTableRelation = false;
         }
 

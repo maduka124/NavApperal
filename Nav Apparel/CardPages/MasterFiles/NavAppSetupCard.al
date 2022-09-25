@@ -69,31 +69,31 @@ page 71012751 "NavApp Setup Card"
                 field("FG Item Nos."; "FG Item Nos.")
                 {
                     ApplicationArea = All;
-                    Caption = 'FG Item Nos';
+                    Caption = 'Bulk FG Item Nos';
                 }
 
                 field("FG SO Nos."; "FG SO Nos.")
                 {
                     ApplicationArea = All;
-                    Caption = 'FG SO Nos';
+                    Caption = 'Bulk FG SO Nos';
                 }
 
                 field("FG ProdBOM Nos."; "FG ProdBOM Nos.")
                 {
                     ApplicationArea = All;
-                    Caption = 'FG ProdBOM Nos';
+                    Caption = 'Bulk FG ProdBOM Nos';
                 }
 
                 field("Gen Posting Group-FG"; "Gen Posting Group-FG")
                 {
                     ApplicationArea = All;
-                    Caption = 'FG-Gen Posting Group';
+                    Caption = 'Bulk FG-Gen Posting Group';
                 }
 
                 field("Inventory Posting Group-FG"; "Inventory Posting Group-FG")
                 {
                     ApplicationArea = All;
-                    Caption = 'FG-Inventory Posting Group';
+                    Caption = 'Bulk FG-Inv. Posting Group';
                 }
 
                 field("Start Time"; "Start Time")
@@ -124,32 +124,27 @@ page 71012751 "NavApp Setup Card"
                 field("RM Nos."; "RM Nos.")
                 {
                     ApplicationArea = All;
-                    Caption = 'RM Nos';
+                    Caption = 'Bulk RM Nos';
                 }
 
                 field("Gen Posting Group-RM"; "Gen Posting Group-RM")
                 {
                     ApplicationArea = All;
-                    Caption = 'RM-Gen Posting Group';
+                    Caption = 'Bulk RM-Gen Posting Group';
                 }
 
                 field("Inventory Posting Group-RM"; "Inventory Posting Group-RM")
                 {
                     ApplicationArea = All;
-                    Caption = 'RM-Inventory Posting Group';
+                    Caption = 'Bulk RM-Inv. Posting Group';
                 }
 
                 //Samples
-                field("Sample Item Nos."; "Sample Item Nos.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Sample FG Item Nos.';
-                }
-
                 field("SAMPLE Nos."; "SAMPLE Nos.")
                 {
                     ApplicationArea = All;
                     TableRelation = "No. Series".Code;
+                    Caption = 'Sample Req Nos.';
                 }
 
                 field("Sample SO Nos."; "Sample SO Nos.")
@@ -182,16 +177,40 @@ page 71012751 "NavApp Setup Card"
                     Caption = 'Sample YY Nos.';
                 }
 
+                field("Sample Item Nos."; "Sample Item Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sample FG Item Nos.';
+                }
+
                 field("Gen Posting Group-SM"; "Gen Posting Group-SM")
                 {
                     ApplicationArea = All;
-                    Caption = 'Sample - Gen Posting Group';
+                    Caption = 'Sample FG Item - Gen Posting Group';
                 }
 
                 field("Inventory Posting Group-SM"; "Inventory Posting Group-SM")
                 {
                     ApplicationArea = All;
-                    Caption = 'Sample - Inventory Posting Group';
+                    Caption = 'Sample FG Item - Inv. Posting Group';
+                }
+
+                field("Sample RM Nos."; "Sample RM Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sample RM Item Nos.';
+                }
+
+                field("Gen Post Group-RM Sample"; "Gen Post Group-RM Sample")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sample RM Item- Gen Posting Group';
+                }
+
+                field("Inventory Post Group-RM Sample"; "Inventory Post Group-RM Sample")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sample RM Item - Inv. Posting Group';
                 }
 
                 field("Cutting Finished"; "Cutting Finished")

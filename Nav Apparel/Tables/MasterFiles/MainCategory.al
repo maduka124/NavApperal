@@ -57,6 +57,16 @@ table 71012615 "Main Category"
             DataClassification = ToBeClassified;
         }
 
+        field(71012591; "Inv. Posting Group Code"; code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Inventory Posting Group".Code;
+        }
+
+        field(71012592; "Inv. Posting Group Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -80,19 +90,35 @@ table 71012615 "Main Category"
     var
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
+        ItemCategoryRec: Record "Item Category";
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("MainCat Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."MainCat Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
+
+        //Insert in to Item category
+        ItemCategoryRec.Reset();
+        ItemCategoryRec.SetRange(Code, "No.");
+        if not ItemCategoryRec.FindSet() then begin
+            ItemCategoryRec.Init();
+            ItemCategoryRec.Code := "No.";
+            ItemCategoryRec.Insert();
+        end;
     end;
 
     trigger OnModify()
+    var
+        ItemCategoryRec: Record "Item Category";
     begin
-
+        //Insert in to Item category
+        ItemCategoryRec.Reset();
+        ItemCategoryRec.SetRange(Code, "No.");
+        if ItemCategoryRec.FindSet() then begin
+            ItemCategoryRec.Description := "Main Category Name";
+            ItemCategoryRec.Modify();
+        end;
     end;
 
     trigger OnDelete()
@@ -110,5 +136,6 @@ table 71012615 "Main Category"
     begin
 
     end;
+
 
 }

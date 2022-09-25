@@ -29,8 +29,11 @@ page 71012777 SampleReqAccListPart
                     begin
                         MainCategoryRec.Reset();
                         MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
-                        if MainCategoryRec.FindSet() then
+                        if MainCategoryRec.FindSet() then begin
+                            if MainCategoryRec."Inv. Posting Group Code" = '' then
+                                Error('Inventory Posting Group is not setup for this Main Category. Cannot proceed.');
                             "Main Category No." := MainCategoryRec."No.";
+                        end;
 
                         SampleRequLineRec.Reset();
                         SampleRequLineRec.SetRange("No.", "No.");
@@ -113,30 +116,6 @@ page 71012777 SampleReqAccListPart
                 //     Caption = 'GMT Size';
                 // }
 
-                field("Unit N0."; "Unit N0.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Unit';
-                    Editable = false;
-
-                    trigger OnValidate()
-                    var
-                    begin
-                        Calculate();
-                    end;
-                }
-
-                // field("Qty"; "Qty")
-                // {
-                //     ApplicationArea = All;
-
-                //     trigger OnValidate()
-                //     var
-                //     begin
-                //         Calculate();
-                //     end;
-                // }
-
                 field("Article Name."; "Article Name.")
                 {
                     ApplicationArea = All;
@@ -169,6 +148,30 @@ page 71012777 SampleReqAccListPart
                             "Dimension No." := DimensionRec."No.";
                     end;
                 }
+
+                field("Unit N0."; "Unit N0.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Unit';
+                    Editable = false;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        Calculate();
+                    end;
+                }
+
+                // field("Qty"; "Qty")
+                // {
+                //     ApplicationArea = All;
+
+                //     trigger OnValidate()
+                //     var
+                //     begin
+                //         Calculate();
+                //     end;
+                // }
 
                 field(Type; Type)
                 {

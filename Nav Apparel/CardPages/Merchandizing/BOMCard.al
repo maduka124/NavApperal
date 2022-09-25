@@ -7603,6 +7603,7 @@ page 71012680 "BOM Card"
     procedure CreateProdBOM(Color: code[20]; Size: Code[20]; Lot: Code[20]; FGItem: Code[20]; ItemDesc: Text[500])
     var
         NextBOMNo: Code[20];
+        ItemCategoryRec: Record "Item Category";
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         ProdBOMHeaderRec: Record "Production BOM Header";
         ProdBOMLineRec: Record "Production BOM Line";
@@ -7697,7 +7698,12 @@ page 71012680 "BOM Card"
                                 //Get Dimenion only status
                                 MainCateRec.Reset();
                                 MainCateRec.SetRange("No.", AutoGenRec."Main Category No.");
-                                MainCateRec.FindSet();
+                                if MainCateRec.FindSet() then begin
+                                    if MainCateRec."Inv. Posting Group Code" = '' then
+                                        Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
+                                end
+                                else
+                                    Error('Cannot find Main Category details.');
 
 
                                 //Generate description
@@ -7750,6 +7756,18 @@ page 71012680 "BOM Card"
                                     ItemMasterRec."Main Category Name" := AutoGenRec."Main Category Name";
                                     ItemMasterRec."Sub Category No." := AutoGenRec."Sub Category No.";
                                     ItemMasterRec."Sub Category Name" := AutoGenRec."Sub Category Name";
+
+                                    //Check for Item category
+                                    ItemCategoryRec.Reset();
+                                    ItemCategoryRec.SetRange(Code, AutoGenRec."Main Category No.");
+                                    if not ItemCategoryRec.FindSet() then begin
+                                        ItemCategoryRec.Init();
+                                        ItemCategoryRec.Code := AutoGenRec."Main Category No.";
+                                        ItemCategoryRec.Description := AutoGenRec."Main Category Name";
+                                        ItemCategoryRec.Insert();
+                                    end;
+
+                                    ItemMasterRec."Item Category Code" := AutoGenRec."Main Category No.";
                                     ItemMasterRec."Color No." := AutoGenRec."Item Color No.";
                                     ItemMasterRec."Color Name" := AutoGenRec."Item Color Name";
 
@@ -7765,7 +7783,8 @@ page 71012680 "BOM Card"
                                     ItemMasterRec."Unit Price" := AutoGenRec.Rate;
                                     ItemMasterRec."Last Direct Cost" := AutoGenRec.Rate;
                                     ItemMasterRec."Gen. Prod. Posting Group" := NavAppSetupRec."Gen Posting Group-RM";
-                                    ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
+                                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                                    //ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
                                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
                                     //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
 
@@ -7886,6 +7905,7 @@ page 71012680 "BOM Card"
     procedure UpdateProdBOM(Color: code[20]; Size: Code[20]; Lot: Code[20]; FGItem: Code[20]; ProdBOM: Code[20])
     var
         //NextBOMNo: Code[20];
+        ItemCategoryRec: Record "Item Category";
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         ProdBOMHeaderRec: Record "Production BOM Header";
         ProdBOMLineRec: Record "Production BOM Line";
@@ -7953,8 +7973,12 @@ page 71012680 "BOM Card"
                                 //Get Dimenion only status
                                 MainCateRec.Reset();
                                 MainCateRec.SetRange("No.", AutoGenRec."Main Category No.");
-                                MainCateRec.FindSet();
-
+                                if MainCateRec.FindSet() then begin
+                                    if MainCateRec."Inv. Posting Group Code" = '' then
+                                        Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
+                                end
+                                else
+                                    Error('Cannot find Main Category details.');
 
                                 //Generate description
                                 Description := AutoGenRec."Item Name";
@@ -8004,6 +8028,19 @@ page 71012680 "BOM Card"
                                     ItemMasterRec.Description := Description;
                                     ItemMasterRec."Main Category No." := AutoGenRec."Main Category No.";
                                     ItemMasterRec."Main Category Name" := AutoGenRec."Main Category Name";
+
+                                    //Check for Item category
+                                    ItemCategoryRec.Reset();
+                                    ItemCategoryRec.SetRange(Code, AutoGenRec."Main Category No.");
+                                    if not ItemCategoryRec.FindSet() then begin
+                                        ItemCategoryRec.Init();
+                                        ItemCategoryRec.Code := AutoGenRec."Main Category No.";
+                                        ItemCategoryRec.Description := AutoGenRec."Main Category Name";
+                                        ItemCategoryRec.Insert();
+                                    end;
+
+                                    ItemMasterRec."Item Category Code" := AutoGenRec."Main Category No.";
+
                                     ItemMasterRec."Sub Category No." := AutoGenRec."Sub Category No.";
                                     ItemMasterRec."Sub Category Name" := AutoGenRec."Sub Category Name";
                                     ItemMasterRec."Color No." := AutoGenRec."Item Color No.";
@@ -8021,7 +8058,8 @@ page 71012680 "BOM Card"
                                     ItemMasterRec."Unit Price" := AutoGenRec.Rate;
                                     ItemMasterRec."Last Direct Cost" := AutoGenRec.Rate;
                                     ItemMasterRec."Gen. Prod. Posting Group" := NavAppSetupRec."Gen Posting Group-RM";
-                                    ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
+                                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                                    //ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
                                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
                                     //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
 
@@ -8169,6 +8207,9 @@ page 71012680 "BOM Card"
         StyMasterRec.Reset();
         StyMasterRec.SetRange("No.", "Style No.");
         StyMasterRec.FindSet();
+
+        if StyMasterRec."Factory Code" = '' then
+            Error('Factory is not assigned for the Style : %1', StyMasterRec."Style No.");
 
         //Get max line no
         RequLineRec.Reset();

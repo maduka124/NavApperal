@@ -172,21 +172,21 @@ page 71012772 "Sample Request Card"
                     SampleRec.Reset();
                     SampleRec.SetRange("No.", "No.");
                     if SampleRec.FindSet() then begin
-
                         repeat
                             if SampleRec."SalesOrder No." = '' then begin
                                 Description := 'SAMPLE' + '/' + "Style Name" + '/' + SampleRec."Fabrication Name" + '/' + SampleRec."Sample Name" + '/' + SampleRec."Color Name" + '/' + SampleRec.Size;
                                 Create_FGItem_SO(Description, SampleRec.Qty, SampleRec."Color No", SampleRec.Size, "No.", SampleRec."Line No.");
-                            end;
+                                Message('Completed');
+                            end
+                            else
+                                Error('Sample  request already posted.');
                         until SampleRec.Next() = 0;
-
                     end;
 
                     Status := Status::Posted;
                     CurrPage.SaveRecord();
                     CurrPage.Update();
 
-                    Message('Completed');
                 end;
             }
         }
@@ -377,6 +377,7 @@ page 71012772 "Sample Request Card"
     procedure CreateProdBOM(No: Code[20]; ItemDesc: Text[500]; FGItem: code[20])
     var
         NavAppSetupRec: Record "NavApp Setup";
+        ItemCategoryRec: Record "Item Category";
         NextBOMNo: Code[20];
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         ProdBOMHeaderRec: Record "Production BOM Header";
@@ -384,6 +385,10 @@ page 71012772 "Sample Request Card"
         ItemMasterRec: Record item;
         SampleReqAcceRec: Record "Sample Requsition Acce";
         LineNo: Integer;
+        MainCateRec: Record "Main Category";
+        Description: Text[500];
+        NextItemNo: Code[20];
+        ItemUinitRec: Record "Item Unit of Measure";
     begin
 
         //Get Worksheet line no
@@ -418,18 +423,120 @@ page 71012772 "Sample Request Card"
         if SampleReqAcceRec.FindSet() then begin
             repeat
 
-                //Update LOT Tracking status
-                if SampleReqAcceRec."Main Category Name" = 'FABRIC' then begin
-                    ItemMasterRec.Reset();
-                    ItemMasterRec.SetRange("No.", SampleReqAcceRec."Item No.");
+                //Get Dimenion only status
+                MainCateRec.Reset();
+                MainCateRec.SetRange("No.", SampleReqAcceRec."Main Category No.");
+                if MainCateRec.FindSet() then begin
+                    if MainCateRec."Inv. Posting Group Code" = '' then
+                        Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', SampleReqAcceRec."Main Category Name");
+                end
+                else
+                    Error('Cannot find Main Category details.');
 
-                    if ItemMasterRec.FindSet() then begin
+                //Generate description
+                Description := SampleReqAcceRec."Item Name";
+
+                if SampleReqAcceRec."Item Color Name" <> '' then
+                    Description := Description + ' / ' + SampleReqAcceRec."Item Color Name";
+
+                if SampleReqAcceRec."Article Name." <> '' then
+                    Description := Description + ' / ' + SampleReqAcceRec."Article Name.";
+
+                if MainCateRec.DimensionOnly then begin
+                    if SampleReqAcceRec."Dimension Name." <> '' then
+                        Description := Description + ' / ' + SampleReqAcceRec."Dimension Name.";
+                end
+                else begin
+                    if SampleReqAcceRec."GMT Size Name" <> '' then
+                        Description := Description + ' / ' + SampleReqAcceRec."GMT Size Name";
+                end;
+
+
+                //Check whether item exists
+                ItemMasterRec.Reset();
+                ItemMasterRec.SetRange(Description, Description);
+
+                if ItemMasterRec.FindSet() then begin
+                    NextItemNo := ItemMasterRec."No.";
+
+                    ItemUinitRec.Reset();
+                    ItemUinitRec.SetRange("Item No.", NextItemNo);
+                    ItemUinitRec.SetRange(Code, SampleReqAcceRec."Unit N0.");
+
+                    if not ItemUinitRec.FindSet() then begin
+                        //Insert into Item unit of measure
+                        ItemUinitRec.Init();
+                        ItemUinitRec."Item No." := NextItemNo;
+                        ItemUinitRec.Code := SampleReqAcceRec."Unit N0.";
+                        ItemUinitRec."Qty. per Unit of Measure" := 1;
+                        ItemUinitRec.Insert();
+                    end;
+                end
+                else begin
+
+                    NextItemNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."Sample RM Nos.", Today(), true);
+
+                    ItemMasterRec.Init();
+                    ItemMasterRec."No." := NextItemNo;
+                    ItemMasterRec.Description := Description;
+                    ItemMasterRec."Main Category No." := SampleReqAcceRec."Main Category No.";
+                    ItemMasterRec."Main Category Name" := SampleReqAcceRec."Main Category Name";
+
+                    //Check for Item category
+                    ItemCategoryRec.Reset();
+                    ItemCategoryRec.SetRange(Code, SampleReqAcceRec."Main Category No.");
+                    if not ItemCategoryRec.FindSet() then begin
+                        ItemCategoryRec.Init();
+                        ItemCategoryRec.Code := SampleReqAcceRec."Main Category No.";
+                        ItemCategoryRec.Description := SampleReqAcceRec."Main Category Name";
+                        ItemCategoryRec.Insert();
+                    end;
+
+                    ItemMasterRec."Item Category Code" := SampleReqAcceRec."Main Category No.";
+
+
+                    ItemMasterRec."Sub Category No." := SampleReqAcceRec."Sub Category No.";
+                    ItemMasterRec."Sub Category Name" := SampleReqAcceRec."Sub Category Name";
+                    ItemMasterRec."Color No." := SampleReqAcceRec."Item Color No.";
+                    ItemMasterRec."Color Name" := SampleReqAcceRec."Item Color Name";
+
+                    if MainCateRec.DimensionOnly then
+                        ItemMasterRec."Size Range No." := SampleReqAcceRec."Dimension Name."
+                    else
+                        ItemMasterRec."Size Range No." := SampleReqAcceRec."GMT Size Name";
+
+                    ItemMasterRec."Article No." := SampleReqAcceRec."Article No.";
+                    ItemMasterRec."Dimension Width No." := SampleReqAcceRec."Dimension No.";
+                    ItemMasterRec.Type := ItemMasterRec.Type::Inventory;
+                    ItemMasterRec."Unit Cost" := SampleReqAcceRec.Rate;
+                    ItemMasterRec."Unit Price" := SampleReqAcceRec.Rate;
+                    ItemMasterRec."Last Direct Cost" := SampleReqAcceRec.Rate;
+                    ItemMasterRec."Gen. Prod. Posting Group" := NavAppSetupRec."Gen Post Group-RM Sample";
+                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                    // ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Post Group-RM Sample";
+                    ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
+                    //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
+
+
+                    if SampleReqAcceRec."Main Category Name" = 'FABRIC' then begin
                         ItemMasterRec."Item Tracking Code" := 'LOTALL';
                         ItemMasterRec."Lot Nos." := NavAppSetupRec."LOTTracking Nos.";
                     end;
-                    ItemMasterRec.Modify();
-                end;
 
+                    //Insert into Item unit of measure
+                    ItemUinitRec.Init();
+                    ItemUinitRec."Item No." := NextItemNo;
+                    ItemUinitRec.Code := SampleReqAcceRec."Unit N0.";
+                    ItemUinitRec."Qty. per Unit of Measure" := 1;
+                    ItemUinitRec.Insert();
+
+                    ItemMasterRec.Validate("Base Unit of Measure", SampleReqAcceRec."Unit N0.");
+                    ItemMasterRec.Validate("Replenishment System", 0);
+                    ItemMasterRec.Validate("Manufacturing Policy", 1);
+                    //ItemMasterRec."Location Filter" Validate();
+                    ItemMasterRec.Insert(true);
+
+                end;
 
                 //Insert BOM Line
                 LineNo += 1000;
@@ -437,14 +544,14 @@ page 71012772 "Sample Request Card"
                 ProdBOMLineRec."Production BOM No." := NextBomNo;
                 ProdBOMLineRec."Line No." := LineNo;
                 ProdBOMLineRec.Type := ProdBOMLineRec.Type::Item;
-                ProdBOMLineRec.Validate("No.", SampleReqAcceRec."Item No.");
-                ProdBOMLineRec.Description := SampleReqAcceRec."Item Name";
+                ProdBOMLineRec.Validate("No.", NextItemNo);
+                ProdBOMLineRec.Description := Description;
                 ProdBOMLineRec.Validate("Unit of Measure Code", SampleReqAcceRec."Unit N0.");
                 ProdBOMLineRec."Quantity per" := SampleReqAcceRec.Consumption;
                 ProdBOMLineRec.Insert(true);
 
                 //Create Worksheet Entry
-                CreateWorksheetEntry(SampleReqAcceRec."Item No.", SampleReqAcceRec."Supplier No.", SampleReqAcceRec.Requirment, SampleReqAcceRec.Rate);
+                CreateWorksheetEntry(NextItemNo, SampleReqAcceRec."Supplier No.", SampleReqAcceRec.Requirment, SampleReqAcceRec.Rate);
 
                 //Update Auto generate                
                 SampleReqAcceRec."Production BOM No." := NextBomNo;
@@ -492,6 +599,9 @@ page 71012772 "Sample Request Card"
         StyMasterRec.Reset();
         StyMasterRec.SetRange("No.", "Style No.");
         StyMasterRec.FindSet();
+
+        if StyMasterRec."Factory Code" = '' then
+            Error('Factory is not assigned for the Style : %1', StyMasterRec."Style No.");
 
         //Get max line no
         RequLineRec.Reset();

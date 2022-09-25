@@ -22,6 +22,11 @@ pageextension 71012824 RequisitionLinesExt extends "Planning Worksheet"
                 ApplicationArea = ALL;
             }
         }
+
+        modify("Location Code")
+        {
+            Visible = true;
+        }
     }
 
 

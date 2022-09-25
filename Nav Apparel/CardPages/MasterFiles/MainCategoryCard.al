@@ -60,6 +60,24 @@ page 71012617 "Main Category Card"
                     end;
                 }
 
+                field("Inv. Posting Group Code"; "Inv. Posting Group Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Inv. Posting Group';
+                    ShowMandatory = true;
+                    //NotBlank = true;
+
+                    trigger OnValidate()
+                    var
+                        InvPostingGroup: Record "Inventory Posting Group";
+                    begin
+                        InvPostingGroup.Reset();
+                        InvPostingGroup.SetRange(Code, "Inv. Posting Group Code");
+                        if InvPostingGroup.FindSet() then
+                            "Inv. Posting Group Name" := InvPostingGroup.Description;
+                    end;
+                }
+
                 field(DimensionOnly; DimensionOnly)
                 {
                     ApplicationArea = All;
@@ -92,5 +110,13 @@ page 71012617 "Main Category Card"
             CurrPage.Update();
             EXIT(TRUE);
         END;
+    end;
+
+    trigger OnClosePage()
+    var
+
+    begin
+        if "Inv. Posting Group Code" = '' then
+            Error('Inventory Posting Group is not setup for this Main Category.');
     end;
 }
