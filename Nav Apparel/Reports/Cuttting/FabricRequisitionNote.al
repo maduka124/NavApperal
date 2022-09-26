@@ -34,6 +34,8 @@ report 50606 FabricRequisitionNote
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(Style_Name; "Style Name")
+            { }
             dataitem(FabricRequsitionLine; FabricRequsitionLine)
             {
                 DataItemLinkReference = FabricRequsition;

@@ -79,9 +79,7 @@ table 50761 BankReferenceHeader
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("BankRef Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."BankRef Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;

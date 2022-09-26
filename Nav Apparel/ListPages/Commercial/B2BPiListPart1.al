@@ -50,12 +50,15 @@ page 50523 "B2B PI ListPart1"
                 trigger OnAction()
                 var
                     PIHeaderRec: Record "PI Details Header";
+                    PIPORec: Record "PI Po Details";
+                    POHeaderRec: Record "Purchase Header";
                     CodeUnitNav: Codeunit NavAppCodeUnit;
                     B2BLCPIRec: Record "B2BLCPI";
                     B2BNo1: Code[20];
                     B2BRec: Record B2BLCMaster;
                     B2B1Rec: Record B2BLCMaster;
                     "LC/ContractNo": Code[20];
+                    "LC/ContractNo1": Code[20];
                     "Tot B2B LC Opened (Value)": Decimal;
                 begin
                     CurrPage.Update();
@@ -78,6 +81,27 @@ page 50523 "B2B PI ListPart1"
                             B2BLCPIRec."PI Value" := PIHeaderRec."PI Value";
                             B2BLCPIRec."Created User" := UserId;
                             B2BLCPIRec.Insert();
+
+                            //Get LC/ContractNo
+                            B2B1Rec.Reset();
+                            B2B1Rec.SetRange("No.", PIHeaderRec.B2BNo);
+                            if B2B1Rec.FindSet() then
+                                "LC/ContractNo1" := B2B1Rec."LC/Contract No.";
+
+                            //Get All POs in the PI
+                            PIPORec.Reset();
+                            PIPORec.SetRange("PI No.", PIHeaderRec."No.");
+                            if PIPORec.FindSet() then
+                                repeat
+                                    //Update LCContarct No in the PO
+                                    POHeaderRec.Reset();
+                                    POHeaderRec.SetRange("No.", PIPORec."PO No.");
+                                    if POHeaderRec.FindSet() then begin
+                                        POHeaderRec."LC/Contract No." := "LC/ContractNo1";
+                                        POHeaderRec.Modify();
+                                    end;
+                                until PIPORec.Next() = 0;
+
 
                             //Update PI Header with  B2Bno
                             PIHeaderRec.AssignedB2BNo := B2BNo1;

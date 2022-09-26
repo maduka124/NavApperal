@@ -47,6 +47,8 @@ page 50525 "B2B PI ListPart2"
                 trigger OnAction()
                 var
                     PIHeaderRec: Record "PI Details Header";
+                    PIPORec: Record "PI Po Details";
+                    POHeaderRec: Record "Purchase Header";
                     CodeUnitNav: Codeunit NavAppCodeUnit;
                     B2BLCPIRec: Record "B2BLCPI";
                     B2BRec: Record B2BLCMaster;
@@ -68,6 +70,21 @@ page 50525 "B2B PI ListPart2"
                             PIHeaderRec.Select := false;
                             PIHeaderRec.AssignedB2BNo := '';
                             PIHeaderRec.Modify();
+
+                            //Get All POs in the PI
+                            PIPORec.Reset();
+                            PIPORec.SetRange("PI No.", B2BLCPIRec."PI No.");
+                            if PIPORec.FindSet() then
+                                repeat
+                                    //Update LCContarct No in the PO
+                                    POHeaderRec.Reset();
+                                    POHeaderRec.SetRange("No.", PIPORec."PO No.");
+                                    if POHeaderRec.FindSet() then begin
+                                        POHeaderRec."LC/Contract No." := '';
+                                        POHeaderRec.Modify();
+                                    end;
+                                until PIPORec.Next() = 0;
+
                         until B2BLCPIRec.Next() = 0;
                     end
                     else
