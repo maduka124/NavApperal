@@ -133,11 +133,11 @@ page 71012751 "NavApp Setup Card"
                     Caption = 'Bulk RM-Gen Posting Group';
                 }
 
-                field("Inventory Posting Group-RM"; "Inventory Posting Group-RM")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Bulk RM-Inv. Posting Group';
-                }
+                // field("Inventory Posting Group-RM"; "Inventory Posting Group-RM")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Bulk RM-Inv. Posting Group';
+                // }
 
                 //Samples
                 field("SAMPLE Nos."; "SAMPLE Nos.")
@@ -207,11 +207,11 @@ page 71012751 "NavApp Setup Card"
                     Caption = 'Sample RM Item- Gen Posting Group';
                 }
 
-                field("Inventory Post Group-RM Sample"; "Inventory Post Group-RM Sample")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Sample RM Item - Inv. Posting Group';
-                }
+                // field("Inventory Post Group-RM Sample"; "Inventory Post Group-RM Sample")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Sample RM Item - Inv. Posting Group';
+                // }
 
                 field("Cutting Finished"; "Cutting Finished")
                 {

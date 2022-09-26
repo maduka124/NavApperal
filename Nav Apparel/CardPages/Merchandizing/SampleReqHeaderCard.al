@@ -600,8 +600,8 @@ page 71012772 "Sample Request Card"
         StyMasterRec.SetRange("No.", "Style No.");
         StyMasterRec.FindSet();
 
-        if StyMasterRec."Factory Code" = '' then
-            Error('Factory is not assigned for the Style : %1', StyMasterRec."Style No.");
+        // if StyMasterRec."Factory Code" = '' then
+        //     Error('Factory is not assigned for the Style : %1', StyMasterRec."Style No.");
 
         //Get max line no
         RequLineRec.Reset();
@@ -642,6 +642,7 @@ page 71012772 "Sample Request Card"
             // RequLineRec1.PONo := PONo;
             // RequLineRec1.Lot := Lot;
             RequLineRec1.Validate("Location Code", StyMasterRec."Factory Code");
+            RequLineRec1."Shortcut Dimension 1 Code" := StyMasterRec."Global Dimension Code";
             RequLineRec1.EntryType := RequLineRec1.EntryType::Sample;
             RequLineRec1.Insert();
 

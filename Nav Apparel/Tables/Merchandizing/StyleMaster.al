@@ -293,6 +293,12 @@ table 71012721 "Style Master"
             DataClassification = ToBeClassified;
         }
 
+        field(71012633; "Global Dimension Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            CaptionClass = '1,2,1';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
+        }
     }
 
     keys

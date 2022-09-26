@@ -27,6 +27,16 @@ pageextension 71012824 RequisitionLinesExt extends "Planning Worksheet"
         {
             Visible = true;
         }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            Visible = true;
+        }
+
+        modify("Shortcut Dimension 2 Code")
+        {
+            Visible = true;
+        }
     }
 
 

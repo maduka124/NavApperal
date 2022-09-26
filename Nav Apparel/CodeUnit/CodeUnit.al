@@ -754,6 +754,7 @@ codeunit 71012752 NavAppCodeUnit
         PurchOrderLine.PONo := ReqLine.PONo;
         PurchOrderLine.Lot := ReqLine.Lot;
         PurchOrderLine.EntryType := ReqLine.EntryType;
+        PurchOrderLine."Shortcut Dimension 1 Code" := ReqLine."Shortcut Dimension 1 Code";
     end;
 
 
@@ -775,6 +776,7 @@ codeunit 71012752 NavAppCodeUnit
         PurchRcptLine.PONo := PurchLine.PONo;
         PurchRcptLine.Lot := PurchLine.Lot;
         PurchRcptLine.EntryType := PurchLine.EntryType;
+        PurchRcptLine."Shortcut Dimension 1 Code" := PurchLine."Shortcut Dimension 1 Code";
     end;
 
 

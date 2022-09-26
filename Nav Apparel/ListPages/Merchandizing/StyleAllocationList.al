@@ -40,6 +40,12 @@ page 71012732 "Style Allocation"
                     end;
                 }
 
+                field("Global Dimension Code";"Global Dimension Code")
+                {
+                    ApplicationArea = All;                 
+                    ShowMandatory = true;                   
+                }
+
                 field("Merchandiser Code"; "Merchandiser Code")
                 {
                     ApplicationArea = All;

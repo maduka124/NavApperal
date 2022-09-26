@@ -8250,6 +8250,7 @@ page 71012680 "BOM Card"
             RequLineRec1.PONo := PONo;
             RequLineRec1.Lot := Lot;
             RequLineRec1.Validate("Location Code", StyMasterRec."Factory Code");
+            RequLineRec1."Shortcut Dimension 1 Code" := StyMasterRec."Global Dimension Code";
             RequLineRec1.EntryType := RequLineRec1.EntryType::FG;
             RequLineRec1.Insert();
 
