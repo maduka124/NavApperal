@@ -1,6 +1,7 @@
 page 71012775 SampleReqLineListPart
 {
     PageType = ListPart;
+    AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
 
     layout

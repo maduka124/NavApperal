@@ -175,7 +175,7 @@ table 71012720 "Sample Requsition Line"
 
     keys
     {
-        key(PK; "No.")
+        key(PK; "No.", "Line No.")
         {
             Clustered = true;
         }
@@ -208,21 +208,6 @@ table 71012720 "Sample Requsition Line"
 
         "Style No." := SampleReqRec."Style No.";
         "Style Name" := StyleRec."Style No.";
-
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
 
     end;
 

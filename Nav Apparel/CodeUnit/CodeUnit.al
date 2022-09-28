@@ -817,6 +817,25 @@ codeunit 71012752 NavAppCodeUnit
     end;
 
 
+
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeader', '', true, true)]
+    local procedure OnAfterCopyGenJnlLineFromPurchHeader(PurchaseHeader: Record "Purchase Header"; var GenJournalLine: Record "Gen. Journal Line")
+
+    begin
+        GenJournalLine."LC/Contract No." := Purchaseheader."LC/Contract No.";
+    end;
+
+
+
+    [EventSubscriber(ObjectType::Table, Database::"G/L Entry", 'OnAfterCopyGLEntryFromGenJnlLine', '', true, true)]
+    local procedure OnAfterCopyGLEntryFromGenJnlLine(var GLEntry: Record "G/L Entry"; var GenJournalLine: Record "Gen. Journal Line")
+
+    begin
+        GLEntry."LC/Contract No." := GenJournalLine."LC/Contract No.";
+    end;
+
+
+
     // [EventSubscriber(ObjectType::Codeunit, Codeunit::LogInManagement, 'OnAfterLogInStart', '', true, true)]
     // local procedure LogIn()
     // var

@@ -23,6 +23,10 @@ tableextension 71012812 "PostedSales Shipment Extension" extends "Sales Shipment
             OptionCaption = 'FG,Sample,Washing';
             OptionMembers = FG,Sample,Washing;
         }
+
+        field(71012589; "LC/Contract No."; Code[20])
+        {
+        }
     }
 }
 

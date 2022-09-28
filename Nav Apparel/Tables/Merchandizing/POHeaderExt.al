@@ -14,7 +14,7 @@ tableextension 71012715 "PO Extension" extends "Purchase Header"
         {
         }
 
-        field(71012584; "LC/Contract No."; Code[20])
+        field(71012589; "LC/Contract No."; Code[20])
         {
         }
 

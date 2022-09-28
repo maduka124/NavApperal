@@ -36,7 +36,7 @@ page 71012772 "Sample Request Card"
                         BuyerRec.SetRange("Name", "Buyer Name");
                         if BuyerRec.FindSet() then begin
                             "Buyer No." := BuyerRec."No.";
-                            CurrPage.Update();
+                            // CurrPage.Update();
                         end;
                     end;
                 }
@@ -270,6 +270,7 @@ page 71012772 "Sample Request Card"
             ItemRec."Gen. Prod. Posting Group" := NavAppSetupRec."Gen Posting Group-SM";
             ItemRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-SM";
             ItemRec.Validate("Color No.", Color);
+            ItemRec."Rounding Precision" := 0.00001;
 
             //Insert into Item unit of measure
             ItemUinitRec.Init();
@@ -389,6 +390,8 @@ page 71012772 "Sample Request Card"
         Description: Text[500];
         NextItemNo: Code[20];
         ItemUinitRec: Record "Item Unit of Measure";
+        UOMRec: Record "Unit of Measure";
+        ConvFactor: Decimal;
     begin
 
         //Get Worksheet line no
@@ -481,6 +484,7 @@ page 71012772 "Sample Request Card"
                     ItemMasterRec.Description := Description;
                     ItemMasterRec."Main Category No." := SampleReqAcceRec."Main Category No.";
                     ItemMasterRec."Main Category Name" := SampleReqAcceRec."Main Category Name";
+                    ItemMasterRec."Rounding Precision" := 0.00001;
 
                     //Check for Item category
                     ItemCategoryRec.Reset();
@@ -547,7 +551,16 @@ page 71012772 "Sample Request Card"
                 ProdBOMLineRec.Validate("No.", NextItemNo);
                 ProdBOMLineRec.Description := Description;
                 ProdBOMLineRec.Validate("Unit of Measure Code", SampleReqAcceRec."Unit N0.");
-                ProdBOMLineRec."Quantity per" := SampleReqAcceRec.Consumption;
+
+                UOMRec.Reset();
+                UOMRec.SetRange(Code, SampleReqAcceRec."Unit N0.");
+                UOMRec.FindSet();
+                ConvFactor := UOMRec."Converion Parameter";
+
+                if ConvFactor = 0 then
+                    ConvFactor := 1;
+
+                ProdBOMLineRec."Quantity per" := SampleReqAcceRec.Consumption / ConvFactor;
                 ProdBOMLineRec.Insert(true);
 
                 //Create Worksheet Entry

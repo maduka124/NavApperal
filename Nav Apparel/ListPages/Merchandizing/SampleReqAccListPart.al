@@ -33,6 +33,16 @@ page 71012777 SampleReqAccListPart
                             if MainCategoryRec."Inv. Posting Group Code" = '' then
                                 Error('Inventory Posting Group is not setup for this Main Category. Cannot proceed.');
                             "Main Category No." := MainCategoryRec."No.";
+                            "Item No." := '';
+                            "Item Name" := '';
+                            "Dimension No." := '';
+                            "Dimension Name." := '';
+                            "Sub Category Name" := '';
+                            "Sub Category No." := '';
+                            "Article No." := '';
+                            "Article Name." := '';
+                            "Supplier No." := '';
+                            "Supplier Name." := '';
                         end;
 
                         SampleRequLineRec.Reset();
@@ -176,7 +186,7 @@ page 71012777 SampleReqAccListPart
                 field(Type; Type)
                 {
                     ApplicationArea = All;
-                    Caption = 'Type';
+                    Caption = 'Consumption Type';
                 }
 
                 field(Consumption; Consumption)
@@ -219,6 +229,26 @@ page 71012777 SampleReqAccListPart
                     //StyleExpr = StyleExprTxt;
                 }
 
+                field(Requirment; Requirment)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    //StyleExpr = StyleExprTxt;
+                }
+
+                field(AjstReq; AjstReq)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Adjust. Req.';
+
+                    trigger OnValidate()
+                    var
+
+                    begin
+                        CalculateWST();
+                    end;
+                }
+
                 field("Supplier Name."; "Supplier Name.")
                 {
                     ApplicationArea = All;
@@ -235,21 +265,6 @@ page 71012777 SampleReqAccListPart
                             "Supplier No." := SupplierRec."No.";
                     end;
                 }
-
-                field(Requirment; Requirment)
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    //StyleExpr = StyleExprTxt;
-                }
-
-                // field(AjstReq; AjstReq)
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Adjust. Req.';
-                //     //Editable = false;
-                //     //StyleExpr = StyleExprTxt;
-                // }
 
                 field("Placement of GMT"; "Placement of GMT")
                 {
@@ -286,7 +301,28 @@ page 71012777 SampleReqAccListPart
         if (ConvFactor <> 0) then
             Requirment := Requirment / ConvFactor;
 
+        Requirment := Round(Requirment, 1);
         Value := Requirment * Rate;
 
     end;
+
+
+    procedure CalculateWST()
+    var
+    begin
+        if Type = type::Pcs then
+            if AjstReq = 0 then
+                WST := (100 * Requirment) / (Qty * Consumption) - 100
+            else
+                WST := (100 * AjstReq) / (Qty * Consumption) - 100;
+        // else
+        //     if Type = type::Doz then
+        //         if AjstReq = 0 then
+        //             WST := (100 * Requirment * 12) / (Qty * Consumption) - 100
+        //         else
+        //             WST := (100 * AjstReq * 12) / (Qty * Consumption) - 100;
+
+        Calculate();
+    end;
+
 }

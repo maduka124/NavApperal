@@ -23,6 +23,11 @@ pageextension 71012824 RequisitionLinesExt extends "Planning Worksheet"
             }
         }
 
+        modify("Vendor No.")
+        {
+            Visible = true;
+        }
+
         modify("Location Code")
         {
             Visible = true;

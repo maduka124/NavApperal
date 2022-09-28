@@ -113,7 +113,7 @@ table 71012719 "Sample Requsition Header"
 
     keys
     {
-        key(PK; "No.", "Style Name")
+        key(PK; "No.")
         {
             Clustered = true;
         }
@@ -125,27 +125,10 @@ table 71012719 "Sample Requsition Header"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        NavAppSetup.TestField("SAMPLE Nos.");
-
+        //NavAppSetup.TestField("SAMPLE Nos.");
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."SAMPLE Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }

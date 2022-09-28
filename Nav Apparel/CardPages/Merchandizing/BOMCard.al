@@ -7364,6 +7364,7 @@ page 71012680 "BOM Card"
             ItemRec."VAT Prod. Posting Group" := 'ZERO';
             //ItemRec."VAT Bus. Posting " := 'ZERO';
             ItemRec.Validate("Color No.", Color);
+            ItemRec."Rounding Precision" := 0.00001;
 
             //Insert into Item unit of measure
             ItemUinitRec.Init();
@@ -7619,6 +7620,8 @@ page 71012680 "BOM Card"
         Description: Text[500];
         NextItemNo: Code[20];
         HeaderGenerated: Boolean;
+        UOMRec: Record "Unit of Measure";
+        ConvFactor: Decimal;
     begin
 
         //Get Worksheet line no
@@ -7756,6 +7759,7 @@ page 71012680 "BOM Card"
                                     ItemMasterRec."Main Category Name" := AutoGenRec."Main Category Name";
                                     ItemMasterRec."Sub Category No." := AutoGenRec."Sub Category No.";
                                     ItemMasterRec."Sub Category Name" := AutoGenRec."Sub Category Name";
+                                    ItemMasterRec."Rounding Precision" := 0.00001;
 
                                     //Check for Item category
                                     ItemCategoryRec.Reset();
@@ -7810,6 +7814,17 @@ page 71012680 "BOM Card"
 
                                 end;
 
+                                UOMRec.Reset();
+                                UOMRec.SetRange(Code, AutoGenRec."Unit N0.");
+                                UOMRec.FindSet();
+                                ConvFactor := UOMRec."Converion Parameter";
+
+                                if ConvFactor = 0 then
+                                    ConvFactor := 1;
+
+                                if (AutoGenRec.Type = AutoGenRec.Type::Doz) and (AutoGenRec."Unit N0." = 'DOZ') then
+                                    ConvFactor := 1;
+
 
                                 //Generate Production BOM Lines
                                 ProdBOMLineRec.Reset();
@@ -7827,16 +7842,16 @@ page 71012680 "BOM Card"
                                     ProdBOMLine1Rec.Validate("No.", NextItemNo);
                                     ProdBOMLine1Rec.Description := Description;
                                     ProdBOMLine1Rec.Validate("Unit of Measure Code", AutoGenRec."Unit N0.");
-                                    //ProdBOMLine1Rec.Validate(Quantity, AutoGenRec.Consumption);
-                                    ProdBOMLine1Rec."Quantity per" := AutoGenRec.Consumption;
+                                    //ProdBOMLine1Rec.Validate(Quantity, AutoGenRec.Consumption);   
+                                    ProdBOMLine1Rec."Quantity per" := AutoGenRec.Consumption / ConvFactor;
                                     ProdBOMLine1Rec.Insert(true);
 
                                 end
                                 else begin  // Update existing item qty
 
                                     //ProdBOMLineRec.Validate(Quantity, ProdBOMLineRec."Quantity" + AutoGenRec.Consumption);
-                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + AutoGenRec.Consumption;
-                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + AutoGenRec.Consumption;
+                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + AutoGenRec.Consumption / ConvFactor;
+                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + AutoGenRec.Consumption / ConvFactor;
                                     ProdBOMLineRec.Modify();
 
                                 end;
@@ -7920,6 +7935,8 @@ page 71012680 "BOM Card"
         ItemMasterRec: Record item;
         Description: Text[500];
         NextItemNo: Code[20];
+        UOMRec: Record "Unit of Measure";
+        ConvFactor: Decimal;
     //HeaderGenerated: Boolean;
     begin
 
@@ -8028,6 +8045,7 @@ page 71012680 "BOM Card"
                                     ItemMasterRec.Description := Description;
                                     ItemMasterRec."Main Category No." := AutoGenRec."Main Category No.";
                                     ItemMasterRec."Main Category Name" := AutoGenRec."Main Category Name";
+                                    ItemMasterRec."Rounding Precision" := 0.00001;
 
                                     //Check for Item category
                                     ItemCategoryRec.Reset();
@@ -8099,6 +8117,19 @@ page 71012680 "BOM Card"
                                 if ProdBOMLineRec.FindLast() then
                                     LineNo := ProdBOMLineRec."Line No.";
 
+
+                                UOMRec.Reset();
+                                UOMRec.SetRange(Code, AutoGenRec."Unit N0.");
+                                UOMRec.FindSet();
+                                ConvFactor := UOMRec."Converion Parameter";
+
+                                if ConvFactor = 0 then
+                                    ConvFactor := 1;
+
+                                if (AutoGenRec.Type = AutoGenRec.Type::Doz) and (AutoGenRec."Unit N0." = 'DOZ') then
+                                    ConvFactor := 1;
+
+
                                 //Generate Production BOM Lines
                                 ProdBOMLineRec.Reset();
                                 ProdBOMLineRec.SetCurrentKey("Production BOM No.", Description);
@@ -8117,14 +8148,14 @@ page 71012680 "BOM Card"
                                     ProdBOMLine1Rec.Validate("Unit of Measure Code", AutoGenRec."Unit N0.");
                                     //ProdBOMLine1Rec.Validate(Quantity, AutoGenRec.Consumption);
                                     ProdBOMLine1Rec.Quantity := AutoGenRec.Consumption;
-                                    ProdBOMLine1Rec."Quantity per" := AutoGenRec.Consumption;
+                                    ProdBOMLine1Rec."Quantity per" := AutoGenRec.Consumption / ConvFactor;
                                     ProdBOMLine1Rec.Insert(true);
 
                                 end
                                 else begin  // Update existing item qty
 
-                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + AutoGenRec.Consumption;
-                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + AutoGenRec.Consumption;
+                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + AutoGenRec.Consumption / ConvFactor;
+                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + AutoGenRec.Consumption / ConvFactor;
                                     //ProdBOMLineRec.Validate(Quantity, ProdBOMLineRec."Quantity" + AutoGenRec.Consumption);
                                     ProdBOMLineRec.Modify();
 
