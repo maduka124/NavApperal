@@ -139,6 +139,19 @@ page 50438 SampleProdLineSendWashListPart
                             CurrPage.Update();
                     end;
                 }
+
+                field("Production Hours"; "Production Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Production Hours';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if "Production Hours" < 0 then
+                            Error('Production Hours is less than zero.');
+                    end;
+                }
             }
         }
     }

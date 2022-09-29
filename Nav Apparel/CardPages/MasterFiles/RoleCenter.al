@@ -890,12 +890,12 @@ page 71012740 "Nav Apperal Role Center"
             {
                 Caption = 'Samples';
 
-                action("Sample Request1")
-                {
-                    Caption = 'Sample Request';
-                    RunObject = Page "Sample Request";
-                    ApplicationArea = all;
-                }
+                // action("Sample Request1")
+                // {
+                //     Caption = 'Sample Request';
+                //     RunObject = Page "Sample Request";
+                //     ApplicationArea = all;
+                // }
 
                 action("Sample Production")
                 {

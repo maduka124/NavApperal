@@ -86,11 +86,9 @@ page 50427 "Sample Request Header ListPart"
                 var
                     WIP: Record wip;
                 begin
-
                     wip.Reset();
                     wip.FindSet();
                     wip.ModifyAll("Req No.", "No.");
-
                 end;
             }
         }

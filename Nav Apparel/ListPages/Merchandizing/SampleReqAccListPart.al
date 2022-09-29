@@ -302,6 +302,10 @@ page 71012777 SampleReqAccListPart
             Requirment := Requirment / ConvFactor;
 
         Requirment := Round(Requirment, 1);
+
+        if Requirment = 0 then
+            Requirment := 1;
+
         Value := Requirment * Rate;
 
     end;

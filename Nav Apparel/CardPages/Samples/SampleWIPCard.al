@@ -11,7 +11,6 @@ page 50426 "Sample WIP Card"
         {
             group(" ")
             {
-
             }
 
             group("Sample Request")
@@ -44,4 +43,14 @@ page 50426 "Sample WIP Card"
             }
         }
     }
+
+
+
+    trigger OnOpenPage()
+    begin
+        if not rec.get() then begin
+            rec.INIT();
+            rec.INSERT();
+        end;
+    end;
 }

@@ -171,6 +171,11 @@ table 71012720 "Sample Requsition Line"
             DataClassification = ToBeClassified;
         }
 
+        field(71012612; "Production Hours"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
