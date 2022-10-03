@@ -59,6 +59,9 @@ page 71012771 "Sample Request"
         SampleReqDocRec: Record "Sample Requsition Doc";
     begin
 
+        if WriteToMRPStatus = 1 then
+            Error('Sample request has been posted already. You cannot delete.');
+
         SampleReqLineRec.Reset();
         SampleReqLineRec.SetRange("No.", "No.");
         SampleReqLineRec.DeleteAll();

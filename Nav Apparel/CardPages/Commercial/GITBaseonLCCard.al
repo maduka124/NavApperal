@@ -103,6 +103,7 @@ page 50528 "GIT Baseon LC Card"
                                             GITLCItemsRec."Item No." := PIPOItemsRec."Item No.";
                                             GITLCItemsRec."Item Name" := PIPOItemsRec."Item Name";
                                             GITLCItemsRec.PINo := B2BLCPI."PI No.";
+                                            GITLCItemsRec.PONo := PIPOItemsRec."Po No.";
 
                                             //GetMain category
                                             ItemRec.Reset();
@@ -274,7 +275,7 @@ page 50528 "GIT Baseon LC Card"
                 part("GIT Based on LC ListPart"; "GIT Based on LC ListPart")
                 {
                     ApplicationArea = All;
-                    Caption = ' ';
+                    Caption = 'PI Items';
                     SubPageLink = "GITLCNo." = FIELD("GITLCNo.");
                 }
             }

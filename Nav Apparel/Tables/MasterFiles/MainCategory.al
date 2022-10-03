@@ -67,6 +67,17 @@ table 71012615 "Main Category"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012593; "Prod. Posting Group Code"; code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Gen. Product Posting Group".Code;
+        }
+
+        field(71012594; "Prod. Posting Group Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

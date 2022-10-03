@@ -121,29 +121,70 @@ page 50437 SampleProdLineSewListPart
                     Editable = false;
                 }
 
+                field("Sewing Operator"; "Sewing Operator")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Sewing Hours"; "Sewing Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sewing Minutes';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if "Sewing Hours" < 0 then
+                            Error('Sewing Minutes is less than zero.');
+                    end;
+                }
+
+                field("Sewing Work center Name"; "Sew Work center Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Router/Work center';
+
+                    trigger OnValidate()
+                    var
+                        WorkCenterRec: Record "Work Center";
+                    begin
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, "Sew Work center Name");
+
+                        if WorkCenterRec.FindSet() then
+                            "Sew Work center Code" := WorkCenterRec."No.";
+                    end;
+                }
+
                 field("Sewing Date"; "Sewing Date")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
-
+                        RouterlineRec: Record "Routing Line";
                     begin
-                        if format("Sewing Date") <> '' then
-                            CurrPage.Update();
-                    end;
-                }
+                        if "Sewing Operator" = '' then
+                            Error('Select a  Sewing Operator');
 
-                field("Production Hours"; "Production Hours")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Production Hours';
+                        if "Sewing Hours" = 0 then
+                            Error('Sewing Minutes is zero');
 
-                    trigger OnValidate()
-                    var
-                    begin
-                        if "Production Hours" < 0 then
-                            Error('Production Hours is less than zero.');
+                        if "Sew Work center Name" = '' then
+                            Error('Select a Router/Work Center');
+
+                        if format("Sewing Date") <> '' then begin
+                            RouterlineRec.Reset();
+                            RouterlineRec.SetRange("Routing No.", "Routing Code");
+                            RouterlineRec.SetRange("No.", "Sew Work center Code");
+                            if RouterlineRec.FindSet() then begin
+                                RouterlineRec."Run Time" := "Sewing Hours";
+                                RouterlineRec.Modify();
+                                CurrPage.Update();
+                            end
+                            else
+                                Error('Cannot find Routing details');
+                        end;
                     end;
                 }
             }

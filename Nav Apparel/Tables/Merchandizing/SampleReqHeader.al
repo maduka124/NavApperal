@@ -107,8 +107,12 @@ table 71012719 "Sample Requsition Header"
             DataClassification = ToBeClassified;
             OptionMembers = Pending,Posted;
             OptionCaption = 'Pending,Posted';
-
         }
+
+        field(71012599; "WriteToMRPStatus"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }        
     }
 
     keys

@@ -301,7 +301,7 @@ page 71012777 SampleReqAccListPart
         if (ConvFactor <> 0) then
             Requirment := Requirment / ConvFactor;
 
-        Requirment := Round(Requirment, 1);
+        //Requirment := Round(Requirment, 1);
 
         if Requirment = 0 then
             Requirment := 1;
@@ -314,11 +314,18 @@ page 71012777 SampleReqAccListPart
     procedure CalculateWST()
     var
     begin
+
         if Type = type::Pcs then
-            if AjstReq = 0 then
-                WST := (100 * Requirment) / (Qty * Consumption) - 100
-            else
-                WST := (100 * AjstReq) / (Qty * Consumption) - 100;
+            WST := WST + ((AjstReq / Requirment) - 1) * 100;
+
+
+        // if Type = type::Pcs then
+        //     if AjstReq = 0 then
+        //         WST := (100 * Requirment) / (Qty * Consumption) - 100
+        //     else
+        //         WST := (100 * AjstReq) / (Qty * Consumption) - 100;
+
+
         // else
         //     if Type = type::Doz then
         //         if AjstReq = 0 then

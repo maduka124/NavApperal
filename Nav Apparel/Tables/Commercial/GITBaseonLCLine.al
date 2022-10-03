@@ -118,6 +118,12 @@ table 50530 "GITBaseonLCLine"
             InitValue = 0;
         }
 
+        field(20; "PONo"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
     }
 
     keys

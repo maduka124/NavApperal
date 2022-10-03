@@ -127,29 +127,71 @@ page 50438 SampleProdLineSendWashListPart
                     Editable = false;
                 }
 
+                field("Wash Sender"; "Wash Sender")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("wash send Hours"; "wash send Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Wash Send Minutes';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if "Wash Send Hours" < 0 then
+                            Error('Wash Send Minutes is less than zero.');
+                    end;
+                }
+
+                field("Wash Send Work center Name"; "Wash Send Work center Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Router/Work center';
+
+                    trigger OnValidate()
+                    var
+                        WorkCenterRec: Record "Work Center";
+                    begin
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, "Wash Send Work center Name");
+
+                        if WorkCenterRec.FindSet() then
+                            "Wash Send Work center Code" := WorkCenterRec."No.";
+                    end;
+                }
+
+
                 field("Send Wash Date"; "Send Wash Date")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
-
+                        RouterlineRec: Record "Routing Line";
                     begin
-                        if format("Send Wash Date") <> '' then
-                            CurrPage.Update();
-                    end;
-                }
+                        if "Wash Sender" = '' then
+                            Error('Select a wash sender name');
 
-                field("Production Hours"; "Production Hours")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Production Hours';
+                        if "Wash Send Hours" = 0 then
+                            Error('Wash Send Minutes is zero');
 
-                    trigger OnValidate()
-                    var
-                    begin
-                        if "Production Hours" < 0 then
-                            Error('Production Hours is less than zero.');
+                        if "Wash Send Work center Name" = '' then
+                            Error('Select a Router/Work Center');
+
+                        if format("Send Wash Date") <> '' then begin
+                            RouterlineRec.Reset();
+                            RouterlineRec.SetRange("Routing No.", "Routing Code");
+                            RouterlineRec.SetRange("No.", "Wash Send Work center Code");
+                            if RouterlineRec.FindSet() then begin
+                                RouterlineRec."Run Time" := "Wash Send Hours";
+                                RouterlineRec.Modify();
+                                CurrPage.Update();
+                            end
+                            else
+                                Error('Cannot find Routing details');
+                        end;
                     end;
                 }
             }

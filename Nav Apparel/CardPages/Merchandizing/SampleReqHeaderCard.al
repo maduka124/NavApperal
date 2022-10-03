@@ -156,7 +156,7 @@ page 71012772 "Sample Request Card"
     {
         area(Processing)
         {
-            action("Post")
+            action("Write To MRP")
             {
                 ApplicationArea = All;
                 Image = AddAction;
@@ -176,17 +176,15 @@ page 71012772 "Sample Request Card"
                             if SampleRec."SalesOrder No." = '' then begin
                                 Description := 'SAMPLE' + '/' + "Style Name" + '/' + SampleRec."Fabrication Name" + '/' + SampleRec."Sample Name" + '/' + SampleRec."Color Name" + '/' + SampleRec.Size;
                                 Create_FGItem_SO(Description, SampleRec.Qty, SampleRec."Color No", SampleRec.Size, "No.", SampleRec."Line No.");
+                                WriteToMRPStatus := 1;
+                                CurrPage.SaveRecord();
+                                CurrPage.Update();
                                 Message('Completed');
                             end
                             else
                                 Error('Sample  request already posted.');
                         until SampleRec.Next() = 0;
                     end;
-
-                    Status := Status::Posted;
-                    CurrPage.SaveRecord();
-                    CurrPage.Update();
-
                 end;
             }
         }
@@ -213,6 +211,9 @@ page 71012772 "Sample Request Card"
         SampleReqDocRec: Record "Sample Requsition Doc";
     begin
 
+        if WriteToMRPStatus = 1 then
+            Error('Sample request has been posted already. You cannot delete.');
+
         SampleReqLineRec.Reset();
         SampleReqLineRec.SetRange("No.", "No.");
         SampleReqLineRec.DeleteAll();
@@ -230,6 +231,7 @@ page 71012772 "Sample Request Card"
     procedure Create_FGItem_SO(ItemDesc: Text[500]; Qty: Integer; Color: Code[20]; Size: Code[20]; No: code[20]; Lineno: Integer)
     var
         FOBPcsPrice: Decimal;
+        SampleReqLineRec: Record "Sample Requsition line";
         NavAppSetupRec: Record "NavApp Setup";
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         ItemMasterRec: Record Item;
@@ -237,9 +239,9 @@ page 71012772 "Sample Request Card"
         BOMEstimateRec: Record "BOM Estimate Cost";
         ItemRec: Record Item;
         NextItemNo: Code[20];
-        ItemNo: Code[20];
         SalesDocNo: Code[20];
         ProdBOM: Code[20];
+        Routing: Code[20];
     begin
 
         //Get FOB Pcs price
@@ -285,10 +287,14 @@ page 71012772 "Sample Request Card"
             ItemRec."Production BOM No." := '';
             ItemRec."Unit Price" := FOBPcsPrice;
 
-            if "Wash Type Name" = '' then
-                ItemRec."Routing No." := NavAppSetupRec."Sample Non Wash Route Nos."
-            else
+            if "Wash Type Name" = '' then begin
                 ItemRec."Routing No." := NavAppSetupRec."Sample Non Wash Route Nos.";
+                Routing := NavAppSetupRec."Sample Non Wash Route Nos.";
+            end
+            else begin
+                ItemRec."Routing No." := NavAppSetupRec."Sample Wash Route Nos.";
+                Routing := NavAppSetupRec."Sample Wash Route Nos.";
+            end;
 
             ItemRec.Insert(true);
 
@@ -300,16 +306,26 @@ page 71012772 "Sample Request Card"
 
         end
         else begin   //If old FG item 
-
-            ItemNo := ItemMasterRec."No.";
+            NextItemNo := ItemMasterRec."No.";
+            Routing := ItemMasterRec."Routing No.";
             //ProdBOM := ItemMasterRec."Production BOM No.";
 
             //Create new sales order
-            CreateSalesOrder(ItemNo, Qty, FOBPcsPrice, No, Lineno);
+            CreateSalesOrder(NextItemNo, Qty, FOBPcsPrice, No, Lineno);
 
             //Create new Prod BOM
-            CreateProdBOM("No.", ItemDesc, ItemNo);
+            CreateProdBOM("No.", ItemDesc, NextItemNo);
         end;
+
+
+        //update router line
+        SampleReqLineRec.Reset();
+        SampleReqLineRec.SetRange("No.", "No.");
+        SampleReqLineRec.FindSet();
+        SampleReqLineRec."Routing Code" := Routing;
+        SampleReqLineRec."FG Code" := NextItemNo;
+        SampleReqLineRec.Modify();
+
 
     end;
 
@@ -364,6 +380,7 @@ page 71012772 "Sample Request Card"
         SalesLineRec.validate("Unit Price", Price);
         SalesLineRec."Unit of Measure Code" := 'PCS';
         SalesLineRec."Tax Group Code" := NavAppSetupRec.TaxGroupCode;
+        SalesLineRec.Validate("Location Code", StyMasterRec."Factory Code");
         SalesLineRec.INSERT();
 
         //update with new sales order no
@@ -432,6 +449,9 @@ page 71012772 "Sample Request Card"
                 if MainCateRec.FindSet() then begin
                     if MainCateRec."Inv. Posting Group Code" = '' then
                         Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', SampleReqAcceRec."Main Category Name");
+
+                    if MainCateRec."Prod. Posting Group Code" = '' then
+                        Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', SampleReqAcceRec."Main Category Name");
                 end
                 else
                     Error('Cannot find Main Category details.');
@@ -515,7 +535,7 @@ page 71012772 "Sample Request Card"
                     ItemMasterRec."Unit Cost" := SampleReqAcceRec.Rate;
                     ItemMasterRec."Unit Price" := SampleReqAcceRec.Rate;
                     ItemMasterRec."Last Direct Cost" := SampleReqAcceRec.Rate;
-                    ItemMasterRec."Gen. Prod. Posting Group" := NavAppSetupRec."Gen Post Group-RM Sample";
+                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Code";
                     ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
                     // ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Post Group-RM Sample";
                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
@@ -690,6 +710,29 @@ page 71012772 "Sample Request Card"
         // //Insert to the reservaton entry table
         // InsertResvEntry(true, Item, StyMasterRec."Factory Code", Qty, 246, 0, NavAppSetupRec."Worksheet Template Name",
         // NavAppSetupRec."Journal Batch Name", 1000, Today, NextLotNo);
+
+    end;
+
+
+    trigger OnOpenPage()
+    var
+    begin
+        if WriteToMRPStatus = 1 then
+            CurrPage.Editable(false)
+        else
+            CurrPage.Editable(true);
+
+    end;
+
+
+    trigger OnAfterGetRecord()
+    var
+    begin
+        if WriteToMRPStatus = 1 then
+            CurrPage.Editable(false)
+        else
+            CurrPage.Editable(true);
+
 
     end;
 }

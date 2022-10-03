@@ -115,29 +115,71 @@ page 50436 SampleProdLineCutListPart
                     Editable = false;
                 }
 
+                field(Cutter; Cutter)
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Cuting Hours"; "Cuting Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Cuting Minutes';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if "Cuting Hours" < 0 then
+                            Error('Cuting Minutes is less than zero.');
+                    end;
+                }
+
+                field("Cut Work center Name"; "Cut Work center Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Router/Work center';
+
+                    trigger OnValidate()
+                    var
+                        WorkCenterRec: Record "Work Center";
+                    begin
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, "Cut Work center Name");
+
+                        if WorkCenterRec.FindSet() then
+                            "Cut Work center Code" := WorkCenterRec."No.";
+                    end;
+                }
+
+
                 field("Cutting Date"; "Cutting Date")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
-
+                        RouterlineRec: Record "Routing Line";
                     begin
-                        if format("Cutting Date") <> '' then
-                            CurrPage.Update();
-                    end;
-                }
+                        if Cutter = '' then
+                            Error('Select a cutter name');
 
-                field("Production Hours"; "Production Hours")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Production Hours';
+                        if "Cuting Hours" = 0 then
+                            Error('Cuting Minutes is zero');
 
-                    trigger OnValidate()
-                    var
-                    begin
-                        if "Production Hours" < 0 then
-                            Error('Production Hours is less than zero.');
+                        if "Cut Work center Name" = '' then
+                            Error('Select a Router/Work Center');
+
+                        if format("Cutting Date") <> '' then begin
+                            RouterlineRec.Reset();
+                            RouterlineRec.SetRange("Routing No.", "Routing Code");
+                            RouterlineRec.SetRange("No.", "Cut Work center Code");
+                            if RouterlineRec.FindSet() then begin
+                                RouterlineRec."Run Time" := "Cuting Hours";
+                                RouterlineRec.Modify();
+                                CurrPage.Update();
+                            end
+                            else
+                                Error('Cannot find Routing details');
+                        end;
                     end;
                 }
             }

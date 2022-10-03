@@ -50,7 +50,17 @@ page 71012823 "YY Requsition ListPart"
                 field("Fabric/Time Desc"; "Fabric/Time Desc")
                 {
                     ApplicationArea = All;
-                    Caption = 'Fabric/Time Description';
+                    Caption = 'Fabric/Item Description';
+
+                    trigger OnValidate()
+                    var
+                        ItemRec: Record Item;
+                    begin
+                        ItemRec.Reset();
+                        ItemRec.SetRange(Description, "Fabric/Time Desc");
+                        if ItemRec.FindSet() then
+                            "Fabric/Time Desc No" := ItemRec."No.";
+                    end;
                 }
 
                 field("Color Name"; "Color Name")

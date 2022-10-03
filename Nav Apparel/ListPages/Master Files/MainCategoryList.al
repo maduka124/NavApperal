@@ -33,6 +33,11 @@ page 71012616 "Main Category List"
                     ApplicationArea = All;
                 }
 
+                field("Prod. Posting Group Name"; "Prod. Posting Group Name")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(DimensionOnly; DimensionOnly)
                 {
                     ApplicationArea = All;

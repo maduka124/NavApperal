@@ -133,29 +133,71 @@ page 50439 SampleProdLineReceWashListPart
                     Editable = false;
                 }
 
+                field("Wash Receiver"; "Wash Receiver")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Wash Receive Hours"; "Wash Receive Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Wash Receive Minutes';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if "Wash Receive Hours" < 0 then
+                            Error('Wash Receive Minutes is less than zero.');
+                    end;
+                }
+
+                field("Wash Receive Work center Name"; "Wash Receive Work center Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Router/Work center';
+
+                    trigger OnValidate()
+                    var
+                        WorkCenterRec: Record "Work Center";
+                    begin
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, "Wash Receive Work center Name");
+
+                        if WorkCenterRec.FindSet() then
+                            "Wash Receive Work center Code" := WorkCenterRec."No.";
+                    end;
+                }
+
                 field("Received Wash Date"; "Received Wash Date")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
-
+                        RouterlineRec: Record "Routing Line";
                     begin
-                        if format("Received Wash Date") <> '' then
-                            CurrPage.Update();
-                    end;
-                }
 
-                field("Production Hours"; "Production Hours")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Production Hours';
+                        if "Wash Receiver" = '' then
+                            Error('Select a wash Receiver name');
 
-                    trigger OnValidate()
-                    var
-                    begin
-                        if "Production Hours" < 0 then
-                            Error('Production Hours is less than zero.');
+                        if "Wash Receive Hours" = 0 then
+                            Error('Wash Receive Minutes is zero');
+
+                        if "Wash Receive Work center Name" = '' then
+                            Error('Select a Router/Work Center');
+
+                        if format("Received Wash Date") <> '' then begin
+                            RouterlineRec.Reset();
+                            RouterlineRec.SetRange("Routing No.", "Routing Code");
+                            RouterlineRec.SetRange("No.", "Wash Receive Work center Code");
+                            if RouterlineRec.FindSet() then begin
+                                RouterlineRec."Run Time" := "Wash Receive Hours";
+                                RouterlineRec.Modify();
+                                CurrPage.Update();
+                            end
+                            else
+                                Error('Cannot find Routing details');
+                        end;
                     end;
                 }
             }

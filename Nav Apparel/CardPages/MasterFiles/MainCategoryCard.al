@@ -65,7 +65,6 @@ page 71012617 "Main Category Card"
                     ApplicationArea = All;
                     Caption = 'Inv. Posting Group';
                     ShowMandatory = true;
-                    //NotBlank = true;
 
                     trigger OnValidate()
                     var
@@ -75,6 +74,23 @@ page 71012617 "Main Category Card"
                         InvPostingGroup.SetRange(Code, "Inv. Posting Group Code");
                         if InvPostingGroup.FindSet() then
                             "Inv. Posting Group Name" := InvPostingGroup.Description;
+                    end;
+                }
+
+                field("Prod. Posting Group Code"; "Prod. Posting Group Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Prod. Posting Group';
+                    ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                        ProdPostingGroup: Record "Gen. Product Posting Group";
+                    begin
+                        ProdPostingGroup.Reset();
+                        ProdPostingGroup.SetRange(Code, "Prod. Posting Group Code");
+                        if ProdPostingGroup.FindSet() then
+                            "Prod. Posting Group Name" := ProdPostingGroup.Description;
                     end;
                 }
 
@@ -118,5 +134,10 @@ page 71012617 "Main Category Card"
     begin
         if "Inv. Posting Group Code" = '' then
             Error('Inventory Posting Group is not setup for this Main Category.');
+
+        if "Prod. Posting Group Code" = '' then
+            Error('Product Posting Group is not setup for this Main Category.');
+
+        exit;
     end;
 }

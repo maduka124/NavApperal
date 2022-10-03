@@ -119,10 +119,19 @@ page 71012781 "Copy BOM Card"
                     NextBOMNo: Code[20];
                     LineNo: Integer;
                     NavAppSetupRec: Record "NavApp Setup";
+                    Qty: BigInteger;
+                    UOMRec: Record "Unit of Measure";
+                    ConvFactor: Decimal;
                 begin
 
                     NavAppSetupRec.Reset();
                     NavAppSetupRec.FindSet();
+
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", DestinationStyle);
+                    if StyleRec.FindSet() then
+                        Qty := StyleRec."Order Qty";
+
 
                     BOMEstRec.Reset();
                     BOMEstRec.SetRange("Style No.", SourceStyle);
@@ -148,7 +157,7 @@ page 71012781 "Copy BOM Card"
                         BOMEstNewRec."Main Category No." := MainCategory;
                         BOMEstNewRec."Material Cost Doz." := BOMEstRec."Material Cost Doz.";
                         BOMEstNewRec."Material Cost Pcs." := BOMEstRec."Material Cost Pcs.";
-                        BOMEstNewRec.Quantity := BOMEstRec.Quantity;
+                        BOMEstNewRec.Quantity := Qty;
                         BOMEstNewRec.Revision := 0;
                         BOMEstNewRec."Season Name" := BOMEstRec."Season Name";
                         BOMEstNewRec."Season No." := BOMEstRec."Season No.";
@@ -190,12 +199,32 @@ page 71012781 "Copy BOM Card"
                                 BOMEstLineNewRec."Unit N0." := BOMEstLineRec."Unit N0.";
 
                                 if SpecialOption = SpecialOption::"With Consumption" then begin
+
+                                    BOMEstLineNewRec.qty := Qty;
+
+                                    UOMRec.Reset();
+                                    UOMRec.SetRange(Code, BOMEstLineRec."Unit N0.");
+                                    if UOMRec.FindSet() then
+                                        ConvFactor := UOMRec."Converion Parameter";
+
+                                    if BOMEstLineRec.Type = BOMEstLineRec.type::Pcs then
+                                        BOMEstLineNewRec.Requirment := (BOMEstLineRec.Consumption * Qty) + (BOMEstLineRec.Consumption * Qty) * BOMEstLineRec.WST / 100
+                                    else
+                                        if BOMEstLineRec.Type = BOMEstLineRec.type::Doz then
+                                            BOMEstLineNewRec.Requirment := ((BOMEstLineRec.Consumption * Qty) + (BOMEstLineRec.Consumption * Qty) * BOMEstLineRec.WST / 100) / 12;
+
+                                    if ConvFactor <> 0 then
+                                        BOMEstLineNewRec.Requirment := BOMEstLineNewRec.Requirment / ConvFactor;
+
+                                    //BOMEstLineNewRec.Requirment := Round(BOMEstLineRec.Requirment, 1);
+                                    BOMEstLineNewRec.Value := BOMEstLineNewRec.Requirment * BOMEstLineRec.Rate;
+
                                     BOMEstLineNewRec.AjstReq := BOMEstLineRec.AjstReq;
                                     BOMEstLineNewRec.Consumption := BOMEstLineRec.Consumption;
-                                    BOMEstLineNewRec.Qty := BOMEstLineRec.Qty;
+                                    //BOMEstLineNewRec.Qty := BOMEstLineRec.Qty;
                                     BOMEstLineNewRec.Rate := BOMEstLineRec.Rate;
-                                    BOMEstLineNewRec.Requirment := BOMEstLineRec.Requirment;
-                                    BOMEstLineNewRec.Value := BOMEstLineRec.Value;
+                                    //BOMEstLineNewRec.Requirment := BOMEstLineRec.Requirment;
+                                    //BOMEstLineNewRec.Value := BOMEstLineRec.Value;
                                     BOMEstLineNewRec.WST := BOMEstLineRec.WST;
                                 end
                                 else

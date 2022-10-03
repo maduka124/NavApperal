@@ -116,11 +116,11 @@ table 71012749 "NavApp Setup"
             TableRelation = "No. Series";
         }
 
-        field(71012601; "Gen Posting Group-RM"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Gen. Product Posting Group".Code;
-        }
+        // field(71012601; "Gen Posting Group-RM"; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = "Gen. Product Posting Group".Code;
+        // }
 
         // field(71012602; "Inventory Posting Group-RM"; Code[20])
         // {
@@ -508,11 +508,11 @@ table 71012749 "NavApp Setup"
             TableRelation = "No. Series";
         }
 
-        field(71012671; "Gen Post Group-RM Sample"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Gen. Product Posting Group".Code;
-        }
+        // field(71012671; "Gen Post Group-RM Sample"; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = "Gen. Product Posting Group".Code;
+        // }
 
         // field(71012672; "Inventory Post Group-RM Sample"; Code[20])
         // {

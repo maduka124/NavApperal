@@ -88,8 +88,8 @@ page 50445 "Acc Inv ListPart1"
                             end
                             else begin
                                 GITBaseonLCRec.Reset();
-                                //GITBaseonLCRec.SetRange("GITLCNo.", AcceptanceInv1Rec."GITNo.");
-                                GITBaseonLCRec.SetRange("B2B LC No. (System)", AcceptanceInv1Rec."GITNo.");
+                                GITBaseonLCRec.SetRange("GITLCNo.", AcceptanceInv1Rec."GITNo.");
+                                //GITBaseonLCRec.SetRange("B2B LC No. (System)", AcceptanceInv1Rec."GITNo.");
                                 GITBaseonLCRec.SetRange("Invoice No", AcceptanceInv1Rec."Inv No.");
                                 GITBaseonLCRec.FindSet();
 

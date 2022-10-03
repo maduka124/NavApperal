@@ -18,11 +18,25 @@ page 50529 "GIT Based on LC ListPart"
                     Editable = false;
                 }
 
+                field(PONo; PONo)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'PO No';
+                }
+
                 field("Main Category Name"; "Main Category Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Main Category';
+                }
+
+                field("Item No."; "Item No.")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Item No';
                 }
 
                 field("Item Name"; "Item Name")

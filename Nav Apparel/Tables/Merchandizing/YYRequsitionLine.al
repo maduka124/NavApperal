@@ -43,6 +43,8 @@ table 71012817 "YY Requsition Line"
         field(71012587; "Fabric/Time Desc"; text[100])
         {
             DataClassification = ToBeClassified;
+            TableRelation = item.Description where("Main Category No." = field("Main Category No."), "EstimateBOM Item" = filter(true));
+            ValidateTableRelation = false;
         }
 
         field(71012588; "1"; Text[20])
@@ -414,6 +416,11 @@ table 71012817 "YY Requsition Line"
             DataClassification = ToBeClassified;
         }
 
+        field(71012664; "Fabric/Time Desc No"; code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
@@ -431,20 +438,4 @@ table 71012817 "YY Requsition Line"
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

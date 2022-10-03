@@ -102,6 +102,43 @@ page 50435 SampleProdLinePatternListPart
                     Editable = false;
                 }
 
+                field("Pattern Maker"; "Pattern Maker")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Pattern Hours"; "Pattern Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Production Minutes';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if "Pattern Hours" < 0 then
+                            Error('Pattern Minutes is less than zero.');
+                    end;
+                }
+
+                field("Pattern Work center Name"; "Pattern Work center Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Router/Work center';
+
+                    trigger OnValidate()
+                    var
+                        WorkCenterRec: Record "Work Center";
+                    begin
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, "Pattern Work center Name");
+
+                        if WorkCenterRec.FindSet() then
+                            "Pattern Work center Code" := WorkCenterRec."No.";
+
+                        CurrPage.Update();
+                    end;
+                }
+
                 field(Status; Status)
                 {
                     ApplicationArea = All;
@@ -115,23 +152,29 @@ page 50435 SampleProdLinePatternListPart
 
                     trigger OnValidate()
                     var
-
+                        RouterlineRec: Record "Routing Line";
                     begin
-                        if format("Pattern Date") <> '' then
-                            CurrPage.Update();
-                    end;
-                }
+                        if "Pattern Maker" = '' then
+                            Error('Select a Pattern Maker');
 
-                field("Production Hours"; "Production Hours")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Production Hours';
+                        if "Pattern Hours" = 0 then
+                            Error('Pattern Minutes is zero');
 
-                    trigger OnValidate()
-                    var
-                    begin
-                        if "Production Hours" < 0 then
-                            Error('Production Hours is less than zero.');
+                        if "Pattern Work center Name" = '' then
+                            Error('Select a Router/Work Center');
+
+                        if format("Pattern Date") <> '' then begin
+                            RouterlineRec.Reset();
+                            RouterlineRec.SetRange("Routing No.", "Routing Code");
+                            RouterlineRec.SetRange("No.", "Pattern Work center Code");
+                            if RouterlineRec.FindSet() then begin
+                                RouterlineRec."Run Time" := "Pattern Hours";
+                                RouterlineRec.Modify();
+                                CurrPage.Update();
+                            end
+                            else
+                                Error('Cannot find Routing details');
+                        end;
                     end;
                 }
             }

@@ -48,6 +48,7 @@ page 71012723 "Style Inquiry Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -66,6 +67,7 @@ page 71012723 "Style Inquiry Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -84,6 +86,7 @@ page 71012723 "Style Inquiry Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -120,6 +123,7 @@ page 71012723 "Style Inquiry Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -138,6 +142,7 @@ page 71012723 "Style Inquiry Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var

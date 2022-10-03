@@ -7547,6 +7547,7 @@ page 71012680 "BOM Card"
                 SalesLineRec."Planned Shipment Date" := StyMasterPORec."Ship Date";
                 SalesLineRec."Shipment Date" := StyMasterPORec."Ship Date";
                 SalesLineRec."Tax Group Code" := NavAppSetupRec.TaxGroupCode;
+                SalesLineRec.Validate("Location Code", StyMasterRec."Factory Code");
                 SalesLineRec.INSERT();
             end
             else begin  //create new sales order
@@ -7590,6 +7591,7 @@ page 71012680 "BOM Card"
                 SalesLineRec."Planned Shipment Date" := StyMasterPORec."Ship Date";
                 SalesLineRec."Shipment Date" := StyMasterPORec."Ship Date";
                 SalesLineRec."Tax Group Code" := NavAppSetupRec.TaxGroupCode;
+                SalesLineRec.Validate("Location Code", StyMasterRec."Factory Code");
                 SalesLineRec.INSERT();
 
                 //update with new sales order
@@ -7704,6 +7706,10 @@ page 71012680 "BOM Card"
                                 if MainCateRec.FindSet() then begin
                                     if MainCateRec."Inv. Posting Group Code" = '' then
                                         Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
+
+                                    if MainCateRec."Prod. Posting Group Code" = '' then
+                                        Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
+
                                 end
                                 else
                                     Error('Cannot find Main Category details.');
@@ -7786,7 +7792,7 @@ page 71012680 "BOM Card"
                                     ItemMasterRec."Unit Cost" := AutoGenRec.Rate;
                                     ItemMasterRec."Unit Price" := AutoGenRec.Rate;
                                     ItemMasterRec."Last Direct Cost" := AutoGenRec.Rate;
-                                    ItemMasterRec."Gen. Prod. Posting Group" := NavAppSetupRec."Gen Posting Group-RM";
+                                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Name";
                                     ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
                                     //ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
                                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
@@ -7993,6 +7999,9 @@ page 71012680 "BOM Card"
                                 if MainCateRec.FindSet() then begin
                                     if MainCateRec."Inv. Posting Group Code" = '' then
                                         Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
+
+                                    if MainCateRec."Prod. Posting Group Code" = '' then
+                                        Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
                                 end
                                 else
                                     Error('Cannot find Main Category details.');
@@ -8075,7 +8084,7 @@ page 71012680 "BOM Card"
                                     ItemMasterRec."Unit Cost" := AutoGenRec.Rate;
                                     ItemMasterRec."Unit Price" := AutoGenRec.Rate;
                                     ItemMasterRec."Last Direct Cost" := AutoGenRec.Rate;
-                                    ItemMasterRec."Gen. Prod. Posting Group" := NavAppSetupRec."Gen Posting Group-RM";
+                                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Code";
                                     ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
                                     //ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
                                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
