@@ -77,6 +77,7 @@ page 50687 QCHeaderCardAW
                 field(Status; Status)
                 {
                     ApplicationArea = All;
+                    Editable = true;
                 }
 
             }
@@ -143,6 +144,7 @@ page 50687 QCHeaderCardAW
                 field("Fail Qty"; "Fail Qty")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Remarks; Remarks)
@@ -207,11 +209,10 @@ page 50687 QCHeaderCardAW
                         WashsamplereqlineRec.Reset();
                         WashsamplereqlineRec.SetRange("No.", "Sample Req No");
                         WashsamplereqlineRec.SetRange("Line no.", "Line No");
-                        WashsamplereqlineRec.FindSet();
 
                         if WashsamplereqlineRec.FindSet() then begin
                             WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Pass Qty";
-                            WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Fail Qty";
+                            WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Fail Qty (AW)" + "Fail Qty";
                         end;
 
                         WashsamplereqlineRec."QC Date (AW)" := "QC AW Date";

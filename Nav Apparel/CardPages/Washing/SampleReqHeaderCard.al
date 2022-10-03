@@ -122,7 +122,7 @@ page 50701 "Washing Sample Request Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Plant No';
-                    Visible = false;
+                    //Visible = false;
 
                     // trigger OnValidate()
                     // var

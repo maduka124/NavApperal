@@ -18,7 +18,7 @@ table 50684 RTCAWLine
         field(3; Item; Text[100])
         {
             DataClassification = ToBeClassified;
-            TableRelation = IntermediateTable."FG Item Name" where(No = field("Req No"), "Line No" = field("Header Line No "), "Split No" = field("Split No"));
+            TableRelation = IntermediateTable."FG Item Name" where(No = field("Req No"), "Split No" = field("Split No"));
             ValidateTableRelation = false;
         }
 
@@ -66,7 +66,7 @@ table 50684 RTCAWLine
 
     keys
     {
-        key(Pk; "No.", "Req No", "Split No", "Line No")
+        key(Pk; "No.", "Req No", "Header Line No ", "Split No", "Line No")
         {
             Clustered = true;
         }

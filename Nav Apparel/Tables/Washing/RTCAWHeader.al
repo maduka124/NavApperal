@@ -51,7 +51,7 @@ table 50681 RTCAWHeader
         field(9; "Req No"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Washing Sample Header"."No.";
+            // TableRelation = "Washing Sample Header"."No.";
         }
 
         field(10; "Gate Pass"; Integer)
