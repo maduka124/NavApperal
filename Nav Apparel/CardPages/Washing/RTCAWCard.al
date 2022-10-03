@@ -134,7 +134,6 @@ page 50682 RTCAWCard
                 }
             }
 
-
             group("  ")
             {
                 part("RTCAWListPart2"; RTCAWListPart)
@@ -162,6 +161,11 @@ page 50682 RTCAWCard
                     sampleReqline: Record "Washing Sample Requsition Line";
                     RTCAWLineRec: Record RTCAWLine;
                     RTCAWHeaderRec: Record RTCAWHeader;
+                    ItemLedgerEntry: Record "Item Ledger Entry";
+                    SampleReqHeader: Record "Washing Sample Header";
+                    users: Record "User Setup";
+                    EntryNo: Integer;
+                    lacation: Code[20];
                 begin
 
                     if "Req No" = '' then
@@ -204,20 +208,46 @@ page 50682 RTCAWCard
                                             sampleReqline.Modify();
                                         end;
 
-                                        Message('Return qty updated');
+                                        // Get Entry No
+                                        ItemLedgerEntry.Reset();
+                                        if ItemLedgerEntry.FindLast() then
+                                            EntryNo := ItemLedgerEntry."Entry No.";
+
+                                        SampleReqHeader.Reset();
+                                        SampleReqHeader.SetRange("No.", "Req No");
+                                        if SampleReqHeader.FindSet() then
+                                            lacation := SampleReqHeader."Wash Plant No.";
+
+
+                                        // create ledger entry  
+                                        ItemLedgerEntry.Init();
+                                        ItemLedgerEntry."Posting Date" := WorkDate();
+                                        ItemLedgerEntry."Entry Type" := ItemLedgerEntry."Entry Type"::Transfer;
+                                        ItemLedgerEntry."Document Type" := ItemLedgerEntry."Document Type"::"Direct Transfer";
+                                        ItemLedgerEntry."Document Date" := "Req Date";
+                                        ItemLedgerEntry."Document No." := "No.";
+                                        ItemLedgerEntry."Entry No." := EntryNo + 1;
+                                        ItemLedgerEntry."Location Code" := lacation;
+                                        ItemLedgerEntry.Validate("Item No.", interMediRec."FG No");
+                                        ItemLedgerEntry."Unit of Measure Code" := 'PCS';
+                                        ItemLedgerEntry.Validate(Quantity, RTCAWLineRec.Qty * (-1));
+                                        ItemLedgerEntry.Insert();
+
                                     end
                                     else
                                         Error('Cannot find split entries.');
 
                                 until RTCAWLineRec.Next() = 0;
+                                Message('Return qty updated');
+
+                                RTCAWHeaderRec.Status := RTCAWHeaderRec.Status::Posted;
+                                RTCAWHeaderRec.Modify();
+
                             end
                             else
                                 Error('Cannot find Pass/Fail entries.');
                         end
                         else begin  //Return Full Lot
-
-
-
                         end;
                     end
                     else

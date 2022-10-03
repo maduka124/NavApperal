@@ -5,6 +5,7 @@ page 50685 RTCAWListPart
     AutoSplitKey = true;
     UsageCategory = Lists;
     SourceTable = RTCAWLine;
+    Caption = 'RTCAWListPart1';
 
     layout
     {
@@ -24,16 +25,14 @@ page 50685 RTCAWListPart
 
                     trigger OnValidate()
                     var
-                        itemRec: Record Item;
+                        ItemRec: Record Item;
                     begin
-                        itemRec.Reset();
-                        itemRec.SetRange(Description, Item);
-                        if itemRec.FindSet() then begin
-                            UOM := itemRec."Base Unit of Measure";
+                        ItemRec.Reset();
+                        ItemRec.SetRange(Description, Item);
+                        if ItemRec.FindSet() then begin
+                            UOM := ItemRec."Base Unit of Measure";
                             ItemCode := itemRec."No.";
                         end;
-
-                        CurrPage.Update();
                     end;
                 }
 
