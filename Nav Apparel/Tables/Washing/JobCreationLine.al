@@ -122,13 +122,13 @@ table 50722 JobCreationLine
         field(17; "Reciepe (Prod BOM)"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Production BOM Header"."No.";
+            TableRelation = "Production BOM Header"."No." where("BOM Type" = filter('Washing'));
         }
 
         field(18; "Job Card (Prod Order)"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Production Order"."No." where(Status = filter("Firm Planned"));
+            TableRelation = "Production Order"."No." where(Status = filter("Firm Planned"), "Prod Order Type" = filter('Washing'));
             ValidateTableRelation = false;
         }
 

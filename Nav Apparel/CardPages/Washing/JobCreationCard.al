@@ -283,34 +283,31 @@ page 50721 "Job Creation Card"
         IntermediateTableRec.SetRange("Line No", "Line no.");
 
         if IntermediateTableRec.FindSet() then begin
-            HeaderRenaretor := 0;
+            //HeaderRenaretor := 0;
             LineNo := 0;
             NavAppSetupRec.Reset();
             NavAppSetupRec.FindSet();
 
             repeat
                 LineNo += 1;
-
-                if HeaderRenaretor = 0 then begin
-
-                    "SO No" := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."Wash SO Nos.", Today(), true);
-                    // Sales Header 
-                    SalesHeaderRec.Init();
-                    SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
-                    SalesHeaderRec."No." := "SO No";
-                    SalesHeaderRec.Validate("Sell-to Customer No.", "Buyer No");
-                    SalesHeaderRec."Document Date" := WorkDate();
-                    SalesHeaderRec."Posting Date" := WorkDate();
-                    SalesHeaderRec."Order Date" := WorkDate();
-                    SalesHeaderRec."Shipping No. Series" := 'S-SHPT';
-                    SalesHeaderRec."Posting No. Series" := 'S-INV+';
-                    SalesHeaderRec."Style Name" := "Style Name";
-                    SalesHeaderRec.Status := SalesHeaderRec.Status::Open;
-                    SalesHeaderRec."Requested Delivery Date" := "Req Date";
-                    SalesHeaderRec.INSERT();
-                    HeaderRenaretor := 1;
-
-                end;
+                //if HeaderRenaretor = 0 then begin
+                "SO No" := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."Wash SO Nos.", Today(), true);
+                // Sales Header 
+                SalesHeaderRec.Init();
+                SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
+                SalesHeaderRec."No." := "SO No";
+                SalesHeaderRec.Validate("Sell-to Customer No.", "Buyer No");
+                SalesHeaderRec."Document Date" := WorkDate();
+                SalesHeaderRec."Posting Date" := WorkDate();
+                SalesHeaderRec."Order Date" := WorkDate();
+                SalesHeaderRec."Shipping No. Series" := 'S-SHPT';
+                SalesHeaderRec."Posting No. Series" := 'S-INV+';
+                SalesHeaderRec."Style Name" := "Style Name";
+                SalesHeaderRec.Status := SalesHeaderRec.Status::Open;
+                SalesHeaderRec."Requested Delivery Date" := "Req Date";
+                SalesHeaderRec.INSERT();
+                //HeaderRenaretor := 1;
+                //end;
 
                 // Sales Line
                 SalesLineRec.Init();

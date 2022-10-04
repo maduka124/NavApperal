@@ -2,6 +2,16 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
 {
     layout
     {
+        addafter("Last Date Modified")
+        {
+            field("Prod Order Type"; "Prod Order Type")
+            {
+                ApplicationArea = all;
+                Caption = 'Prod. Order Type';
+            }
+        }
+
+
         addafter(General)
         {
             group("Washing")

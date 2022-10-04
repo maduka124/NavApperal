@@ -334,7 +334,7 @@ table 50705 "Washing Sample Requsition Line"
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", "Fabric Description")
+        fieldgroup(DropDown; "No.", "Fabric Description", Buyer, "Req Qty", "Factory Name")
         {
 
         }
