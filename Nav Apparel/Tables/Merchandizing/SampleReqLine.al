@@ -179,122 +179,127 @@ table 71012720 "Sample Requsition Line"
         field(71012613; "Pattern Maker"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "User Setup"."User ID";
-        }
-
-        field(71012614; "Cutter"; Text[50])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "User Setup"."User ID";
-        }
-
-        field(71012615; "Sewing Operator"; Text[50])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "User Setup"."User ID";
-        }
-
-        field(71012616; "Wash Sender"; Text[50])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "User Setup"."User ID";
-        }
-
-        field(71012617; "Wash Receiver"; Text[50])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "User Setup"."User ID";
-        }
-
-        field(71012618; "FG Code"; Code[20])  //For sample production purpose
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(71012619; "Routing Code"; Code[20])  //For sample production purpose
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(71012620; "Pattern Work center Code"; Code[20])  //For sample production purpose
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(71012621; "Pattern Work center Name"; text[200])  //For sample production purpose
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Routing Line".Description where("Routing No." = field("Routing Code"));
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('PATTERN MAKER'));
             ValidateTableRelation = false;
         }
 
-        field(71012622; "Cuting Hours"; Decimal)//For sample production purpose
+        field(71012614; "Pattern Work center Code"; Code[20])  //For sample production purpose
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012623; "Sewing Hours"; Decimal)//For sample production purpose
+        field(71012615; "Pattern Work center Name"; text[200])  //For sample production purpose
         {
             DataClassification = ToBeClassified;
-        }
-
-        field(71012624; "Wash Send Hours"; Decimal)//For sample production purpose
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(71012625; "Wash Receive Hours"; Decimal)//For sample production purpose
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(71012626; "Cut Work center Code"; Code[20])  //For sample production purpose
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(71012627; "Cut Work center Name"; text[200])  //For sample production purpose
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Routing Line".Description where("Routing No." = field("Routing Code"));
+            TableRelation = "Routing Line".Description where(Description = filter('SM-PATTERN'));
             ValidateTableRelation = false;
         }
 
-        field(71012628; "Sew Work center Code"; Code[20])  //For sample production purpose
+        field(71012616; "Cuting Hours"; Decimal)//For sample production purpose
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012629; "Sew Work center Name"; text[200])  //For sample production purpose
+        field(71012617; "Cutter"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Routing Line".Description where("Routing No." = field("Routing Code"));
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('CUTTER'));
             ValidateTableRelation = false;
         }
 
-        field(71012630; "Wash Send Work center Code"; Code[20])  //For sample production purpose
+        field(71012618; "Cut Work center Code"; Code[20])  //For sample production purpose
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012631; "Wash Send Work center Name"; text[200])  //For sample production purpose
+        field(71012619; "Cut Work center Name"; text[200])  //For sample production purpose
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Routing Line".Description where("Routing No." = field("Routing Code"));
+            TableRelation = "Routing Line".Description where(Description = filter('SM-CUTTING'));
             ValidateTableRelation = false;
         }
 
-        field(71012632; "Wash Receive Work center Code"; Code[20])  //For sample production purpose
+        field(71012620; "Sewing Hours"; Decimal)//For sample production purpose
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012633; "Wash Receive Work center Name"; text[200])  //For sample production purpose
+        field(71012621; "Sewing Operator"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Routing Line".Description where("Routing No." = field("Routing Code"));
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('SEWING OPERATOR'));
             ValidateTableRelation = false;
         }
+
+        field(71012622; "Sew Work center Code"; Code[20])  //For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012623; "Sew Work center Name"; text[200])  //For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Routing Line".Description where(Description = filter('SM-SEWING'));
+            ValidateTableRelation = false;
+        }
+
+        field(71012624; "Wash Sender"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('WASH SENDER'));
+            ValidateTableRelation = false;
+        }
+
+        field(710126125; "Wash Receiver"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('WASH RECEIVER'));
+            ValidateTableRelation = false;
+        }
+
+        field(71012626; "FG Code"; Code[20])  //For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012627; "Routing Code"; Code[20])  //For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        // field(71012624; "Wash Send Hours"; Decimal)//For sample production purpose
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
+
+        // field(71012625; "Wash Receive Hours"; Decimal)//For sample production purpose
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
+
+        // field(71012630; "Wash Send Work center Code"; Code[20])  //For sample production purpose
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
+
+        // field(71012631; "Wash Send Work center Name"; text[200])  //For sample production purpose
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = "Routing Line".Description where("Routing No." = filter('WASH SEND'));
+        //     ValidateTableRelation = false;
+        // }
+
+        // field(71012632; "Wash Receive Work center Code"; Code[20])  //For sample production purpose
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
+
+        // field(71012633; "Wash Receive Work center Name"; text[200])  //For sample production purpose
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = "Routing Line".Description where("Routing No." = filter('WASH RECEIVE'));
+        //     ValidateTableRelation = false;
+        // }
     }
 
     keys

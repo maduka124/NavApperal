@@ -159,7 +159,11 @@ page 50751 WashingSampleListpart
                     trigger OnValidate()
                     var
                         ColorRec: Record Colour;
+                        StyleColorRec: Record StyleColor;
                     begin
+                        ///////
+                        
+                        
                         ColorRec.Reset();
                         ColorRec.SetRange("Colour Name", "Color Name");
                         if ColorRec.FindSet() then

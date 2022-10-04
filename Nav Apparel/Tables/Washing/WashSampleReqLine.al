@@ -55,7 +55,10 @@ table 50705 "Washing Sample Requsition Line"
         field(8; "Color Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = StyleColor.Color;
+            // TableRelation = StyleColor.Color;
+            // ValidateTableRelation = false;
+
+            TableRelation = Colour."Colour Name";
             ValidateTableRelation = false;
         }
 

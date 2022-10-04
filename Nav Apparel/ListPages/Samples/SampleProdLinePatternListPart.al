@@ -105,6 +105,7 @@ page 50435 SampleProdLinePatternListPart
                 field("Pattern Maker"; "Pattern Maker")
                 {
                     ApplicationArea = All;
+
                 }
 
                 field("Pattern Hours"; "Pattern Hours")
@@ -114,26 +115,27 @@ page 50435 SampleProdLinePatternListPart
 
                     trigger OnValidate()
                     var
+                        WorkCenterRec: Record "Work Center";
+                        RouterRec: Record "Routing Header";
                     begin
                         if "Pattern Hours" < 0 then
                             Error('Pattern Minutes is less than zero.');
-                    end;
-                }
 
-                field("Pattern Work center Name"; "Pattern Work center Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Router/Work center';
-
-                    trigger OnValidate()
-                    var
-                        WorkCenterRec: Record "Work Center";
-                    begin
+                        //Asign Work center
                         WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, "Pattern Work center Name");
+                        WorkCenterRec.SetRange(Name, 'SM-PATTERN');
 
-                        if WorkCenterRec.FindSet() then
+                        if WorkCenterRec.FindSet() then begin
                             "Pattern Work center Code" := WorkCenterRec."No.";
+                            "Pattern Work center Name" := WorkCenterRec.Name;
+                        end;
+
+                        //Get Sample Router Name
+                        RouterRec.Reset();
+                        RouterRec.SetFilter("Sample Router", '=%1', true);
+
+                        if RouterRec.FindSet() then
+                            "Routing Code" := RouterRec."No.";
 
                         CurrPage.Update();
                     end;
