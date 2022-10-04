@@ -36,7 +36,7 @@ report 50644 ProductionOrderReport
             {
                 DataItemLinkReference = "Production Order";
                 DataItemLink = "Prod. Order No." = field("No.");
-                DataItemTableView = sorting("Prod. Order No.");
+                // DataItemTableView = sorting("Prod. Order No.");
                 column(Item_No_; "Item No.")
                 { }
                 column(DescriptionLine; Description)
