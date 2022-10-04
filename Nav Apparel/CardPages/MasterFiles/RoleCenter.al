@@ -297,6 +297,13 @@ page 71012740 "Nav Apperal Role Center"
                     RunObject = Page "Work Center List";
                     ApplicationArea = all;
                 }
+
+                action("Workers")
+                {
+                    Caption = 'Workers';
+                    RunObject = Page "Workers List";
+                    ApplicationArea = all;
+                }
             }
 
             //Merchandizing Group
@@ -687,6 +694,13 @@ page 71012740 "Nav Apperal Role Center"
                     RunObject = Page "Ratio Creation";
                     ApplicationArea = all;
                 }
+
+                action("YY Requsition CAD")
+                {
+                    Caption = 'YY Requisition';
+                    RunObject = Page "YY Requsition List";
+                    ApplicationArea = all;
+                }
             }
 
             group("Warehouse")
@@ -936,6 +950,13 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Upload Document Type';
                     RunObject = Page "Upload Document Type";
+                    ApplicationArea = all;
+                }
+
+                action("YY Requsition samples")
+                {
+                    Caption = 'YY Requisition';
+                    RunObject = Page "YY Requsition List";
                     ApplicationArea = all;
                 }
             }

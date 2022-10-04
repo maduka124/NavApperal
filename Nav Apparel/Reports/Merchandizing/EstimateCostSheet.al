@@ -97,6 +97,8 @@ report 50613 EstimateCostSheetReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(Status; Status)
+            { }
 
             dataitem("BOM Estimate Costing Line"; "BOM Estimate Costing Line")
             {

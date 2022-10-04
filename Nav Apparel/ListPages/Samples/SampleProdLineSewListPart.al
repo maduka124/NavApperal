@@ -133,28 +133,31 @@ page 50437 SampleProdLineSewListPart
 
                     trigger OnValidate()
                     var
+                        WorkCenterRec: Record "Work Center";
+                        RouterRec: Record "Routing Header";
                     begin
                         if "Sewing Hours" < 0 then
                             Error('Sewing Minutes is less than zero.');
-                    end;
-                }
 
-                field("Sewing Work center Name"; "Sew Work center Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Router/Work center';
-
-                    trigger OnValidate()
-                    var
-                        WorkCenterRec: Record "Work Center";
-                    begin
+                        //Asign Work center
                         WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, "Sew Work center Name");
+                        WorkCenterRec.SetRange(Name, 'SM-SEWING');
 
-                        if WorkCenterRec.FindSet() then
+                        if WorkCenterRec.FindSet() then begin
                             "Sew Work center Code" := WorkCenterRec."No.";
+                            "Sew Work center Name" := WorkCenterRec.Name;
+                        end;
+
+                        //Get Sample Router Name
+                        RouterRec.Reset();
+                        RouterRec.SetFilter("Sample Router", '=%1', true);
+
+                        if RouterRec.FindSet() then
+                            "Routing Code" := RouterRec."No.";
+
                     end;
                 }
+
 
                 field("Sewing Date"; "Sewing Date")
                 {

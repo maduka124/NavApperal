@@ -127,29 +127,31 @@ page 50436 SampleProdLineCutListPart
 
                     trigger OnValidate()
                     var
+                        WorkCenterRec: Record "Work Center";
+                        RouterRec: Record "Routing Header";
                     begin
                         if "Cuting Hours" < 0 then
                             Error('Cuting Minutes is less than zero.');
-                    end;
-                }
 
-                field("Cut Work center Name"; "Cut Work center Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Router/Work center';
-
-                    trigger OnValidate()
-                    var
-                        WorkCenterRec: Record "Work Center";
-                    begin
+                        //Asign Work center
                         WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, "Cut Work center Name");
+                        WorkCenterRec.SetRange(Name, 'SM-CUTTING');
 
-                        if WorkCenterRec.FindSet() then
+                        if WorkCenterRec.FindSet() then begin
                             "Cut Work center Code" := WorkCenterRec."No.";
+                            "Cut Work center Name" := WorkCenterRec.Name;
+                        end;
+
+                        //Get Sample Router Name
+                        RouterRec.Reset();
+                        RouterRec.SetFilter("Sample Router", '=%1', true);
+
+                        if RouterRec.FindSet() then
+                            "Routing Code" := RouterRec."No.";
+
+                        CurrPage.Update();
                     end;
                 }
-
 
                 field("Cutting Date"; "Cutting Date")
                 {
