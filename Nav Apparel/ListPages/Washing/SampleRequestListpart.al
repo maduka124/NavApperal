@@ -178,6 +178,7 @@ page 50751 WashingSampleListpart
                             end;
                         end;
                     end;
+
                 }
 
                 field(Size; Size)
