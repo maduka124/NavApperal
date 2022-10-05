@@ -33,11 +33,27 @@ page 50701 "Washing Sample Request Card"
                     trigger OnValidate()
                     var
                         CustomerRec: Record Customer;
+                        Users: Record "User Setup";
                     begin
                         CustomerRec.Reset();
                         CustomerRec.SetRange(Name, "Buyer Name");
-                        if CustomerRec.FindSet() then
+                        if CustomerRec.FindSet() then begin
                             "Buyer No." := CustomerRec."No.";
+                            "Req Date" := WorkDate();
+                            CurrPage.Update();
+                        end;
+
+                        //Get user location
+                        Users.Reset();
+                        Users.SetRange("User ID", UserId());
+
+                        Users.FindSet();
+                        begin
+                            "Request From" := Users."Factory Code";
+                            CurrPage.Update();
+                        end;
+
+
                     end;
                 }
 
@@ -56,10 +72,11 @@ page 50701 "Washing Sample Request Card"
                     begin
                         StyleRec.Reset();
                         StyleRec.SetRange("Style No.", "Style Name");
-                        if StyleRec.FindSet() then
+                        if StyleRec.FindSet() then begin
                             "Style No." := StyleRec."No.";
-
-                        CurrPage.Update();
+                            "Garment Type Name" := StyleRec."Garment Type Name";
+                            CurrPage.Update();
+                        end;
 
                         //Delete old record
                         StyleColorRec.Reset();
@@ -84,6 +101,12 @@ page 50701 "Washing Sample Request Card"
                         end;
 
                     end;
+                }
+
+                field("Request From"; "Request From")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Garment Type No."; "Garment Type No.")
@@ -122,7 +145,7 @@ page 50701 "Washing Sample Request Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Plant No';
-                    //Visible = false;
+                    Visible = false;
 
                     // trigger OnValidate()
                     // var
