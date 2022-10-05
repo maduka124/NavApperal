@@ -55,11 +55,6 @@ table 50705 "Washing Sample Requsition Line"
         field(8; "Color Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            // TableRelation = StyleColor.Color;
-            // ValidateTableRelation = false;
-
-            // TableRelation = Colour."Colour Name";
-            // ValidateTableRelation = false;
         }
 
         field(9; "Req Qty"; Integer)
@@ -347,4 +342,6 @@ table 50705 "Washing Sample Requsition Line"
         "Create User" := UserId;
     end;
 
+    var
+        StyleColorRec: Record StyleColor;
 }

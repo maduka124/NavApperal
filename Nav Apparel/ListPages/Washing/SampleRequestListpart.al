@@ -156,18 +156,27 @@ page 50751 WashingSampleListpart
                     ApplicationArea = All;
                     Caption = 'Colour';
 
-                    trigger OnValidate()
+                    trigger OnLookup(var text: Text): Boolean
                     var
                         ColorRec: Record Colour;
                         StyleColorRec: Record StyleColor;
                     begin
-                        ///////
 
-
-                        ColorRec.Reset();
-                        ColorRec.SetRange("Colour Name", "Color Name");
-                        if ColorRec.FindSet() then
-                            "Color Code" := ColorRec."No.";
+                        StyleColorRec.Reset();
+                        if StyleColorRec.FindSet() then begin
+                            if Page.RunModal(71012840, StyleColorRec) = Action::LookupOK then begin
+                                "Color Code" := StyleColorRec."Color No.";
+                                "Color Name" := StyleColorRec.Color;
+                            end;
+                        end
+                        else begin
+                            ColorRec.Reset();
+                            ColorRec.FindSet();
+                            if Page.RunModal(71012841, ColorRec) = Action::LookupOK then begin
+                                "Color Code" := ColorRec."No.";
+                                "Color Name" := ColorRec."Colour Name";
+                            end;
+                        end;
                     end;
                 }
 
