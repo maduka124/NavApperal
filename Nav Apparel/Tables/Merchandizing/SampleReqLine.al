@@ -179,7 +179,7 @@ table 71012720 "Sample Requsition Line"
         field(71012613; "Pattern Maker"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Workers."Worker Name" where("Worker Type" = const('PATTERN MAKER'));
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('PATTERN MAKER'), Status = filter(Active));
             ValidateTableRelation = false;
         }
 
@@ -203,7 +203,7 @@ table 71012720 "Sample Requsition Line"
         field(71012617; "Cutter"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Workers."Worker Name" where("Worker Type" = const('CUTTER'));
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('CUTTER'), Status = filter(Active));
             ValidateTableRelation = false;
         }
 
@@ -227,7 +227,7 @@ table 71012720 "Sample Requsition Line"
         field(71012621; "Sewing Operator"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Workers."Worker Name" where("Worker Type" = const('SEWING OPERATOR'));
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('SEWING OPERATOR'), Status = filter(Active));
             ValidateTableRelation = false;
         }
 
@@ -246,14 +246,14 @@ table 71012720 "Sample Requsition Line"
         field(71012624; "Wash Sender"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Workers."Worker Name" where("Worker Type" = const('WASH SENDER'));
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('WASH SENDER'), Status = filter(Active));
             ValidateTableRelation = false;
         }
 
         field(710126125; "Wash Receiver"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Workers."Worker Name" where("Worker Type" = const('WASH RECEIVER'));
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('WASH RECEIVER'), Status = filter(Active));
             ValidateTableRelation = false;
         }
 
@@ -280,7 +280,7 @@ table 71012720 "Sample Requsition Line"
         field(71012630; "Finishing Operator"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Workers."Worker Name" where("Worker Type" = const('FINISHING OPERATOR'));
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('FINISHING OPERATOR'), Status = filter(Active));
             ValidateTableRelation = false;
         }
 

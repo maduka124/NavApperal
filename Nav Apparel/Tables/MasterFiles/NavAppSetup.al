@@ -349,17 +349,17 @@ table 71012749 "NavApp Setup"
             TableRelation = "No. Series";
         }
 
-        field(71012643; "Sample Wash Route Nos."; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Routing Header"."No.";
-        }
+        // field(71012643; "Sample Wash Route Nos."; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = "Routing Header"."No.";
+        // }
 
-        field(71012644; "Sample Non Wash Route Nos."; Code[20])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Routing Header"."No.";
-        }
+        // field(71012644; "Sample Non Wash Route Nos."; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = "Routing Header"."No.";
+        // }
 
         field(71012645; "Sample YY Nos."; Code[20])
         {

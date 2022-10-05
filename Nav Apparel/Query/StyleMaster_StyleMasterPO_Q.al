@@ -26,6 +26,9 @@ query 50772 "StyleMaster_StyleMasterPO_Q"
             column(SMV; SMV)
             {
             }
+            column(Buyer_Name; "Buyer Name")
+            {
+            }
 
             dataitem(StyleMasterPO; "Style Master PO")
             {

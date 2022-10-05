@@ -27,13 +27,12 @@ page 50701 "Washing Sample Request Card"
                 field("Buyer Name"; "Buyer Name")
                 {
                     ApplicationArea = All;
-                    //Editable = false;
                     Caption = 'Buyer';
 
                     trigger OnValidate()
                     var
                         CustomerRec: Record Customer;
-                        Users: Record "User Setup";
+                        UsersRec: Record "User Setup";
                     begin
                         CustomerRec.Reset();
                         CustomerRec.SetRange(Name, "Buyer Name");
@@ -44,16 +43,13 @@ page 50701 "Washing Sample Request Card"
                         end;
 
                         //Get user location
-                        Users.Reset();
-                        Users.SetRange("User ID", UserId());
+                        UsersRec.Reset();
+                        UsersRec.SetRange("User ID", UserId());
 
-                        Users.FindSet();
-                        begin
-                            "Request From" := Users."Factory Code";
+                        if UsersRec.FindSet() then begin
+                            "Request From" := UsersRec."Factory Code";
                             CurrPage.Update();
                         end;
-
-
                     end;
                 }
 
@@ -74,6 +70,7 @@ page 50701 "Washing Sample Request Card"
                         StyleRec.SetRange("Style No.", "Style Name");
                         if StyleRec.FindSet() then begin
                             "Style No." := StyleRec."No.";
+                            "Garment Type No." := StyleRec."Garment Type No.";
                             "Garment Type Name" := StyleRec."Garment Type Name";
                             CurrPage.Update();
                         end;

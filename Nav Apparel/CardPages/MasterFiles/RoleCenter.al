@@ -606,7 +606,7 @@ page 71012740 "Nav Apperal Role Center"
 
                 action("Wastage")
                 {
-                    Caption = 'Wastage';
+                    Caption = 'Quanity Wise Extra %';
                     RunObject = Page Wastage;
                     ApplicationArea = all;
                 }

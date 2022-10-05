@@ -2,7 +2,7 @@ page 71012745 "Wastage Card"
 {
     PageType = Card;
     SourceTable = Wastage;
-    Caption = 'Wastage Percentage';
+    Caption = 'Quanity Wise Extra %';
 
     layout
     {

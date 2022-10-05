@@ -729,7 +729,7 @@ codeunit 71012752 NavAppCodeUnit
                     if SewJobCreatLine2Rec.FindSet() then begin
                         SewJobCreatLine2Rec."End Date" := ProdPlanDetRec.PlanDate;
                         SewJobCreatLine2Rec."Allocated Qty" := AllocatedQty;
-                        SewJobCreatLine2Rec."Total Qty" := AllocatedQty + (AllocatedQty * Waistage) / 100;
+                        SewJobCreatLine2Rec."Total Qty" := AllocatedQty; //+ (AllocatedQty * Waistage) / 100;
                         SewJobCreatLine2Rec."Day Max Target" := MaxTarget;
                         SewJobCreatLine2Rec.Modify();
                     end;
