@@ -166,13 +166,16 @@ page 50438 SampleProdLineSendWashListPart
                 field("Send Wash Date"; "Send Wash Date")
                 {
                     ApplicationArea = All;
+                    Caption = 'Wash Send Date';
 
                     trigger OnValidate()
                     var
-                        RouterlineRec: Record "Routing Line";
+                    //RouterlineRec: Record "Routing Line";
                     begin
                         if "Wash Sender" = '' then
                             Error('Select a wash sender name');
+
+                        CurrPage.Update();
 
                         // if "Wash Send Hours" = 0 then
                         //     Error('Wash Send Minutes is zero');

@@ -53,6 +53,15 @@ page 50434 "Sample Production"
                     Caption = ' ';
                 }
             }
+
+            group("Finishing")
+            {
+                part(SampleProdLineFinishListPart; SampleProdLineFinishListPart)
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                }
+            }
         }
     }
 }

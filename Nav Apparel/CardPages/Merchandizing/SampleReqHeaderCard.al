@@ -427,6 +427,7 @@ page 71012772 "Sample Request Card"
         ProdBOMHeaderRec."Last Date Modified" := WorkDate();
         ProdBOMHeaderRec."No. Series" := 'SMPRODBOM';
         ProdBOMHeaderRec.EntryType := ProdBOMHeaderRec.EntryType::Sample;
+        ProdBOMHeaderRec."BOM Type" := ProdBOMHeaderRec."BOM Type"::Samples;
         ProdBOMHeaderRec.Insert(true);
 
         //Update Prod BOm No in item master

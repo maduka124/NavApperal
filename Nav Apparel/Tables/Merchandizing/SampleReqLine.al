@@ -267,6 +267,36 @@ table 71012720 "Sample Requsition Line"
             DataClassification = ToBeClassified;
         }
 
+        field(71012628; "Finishing Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012629; "Finishing Hours"; Decimal)//For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012630; "Finishing Operator"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('FINISHING OPERATOR'));
+            ValidateTableRelation = false;
+        }
+
+        field(71012631; "Finishing Work center Code"; Code[20])  //For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012632; "Finishing Work center Name"; text[200])  //For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Routing Line".Description where(Description = filter('SM-FINISHING'));
+            ValidateTableRelation = false;
+        }
+
+
         // field(71012624; "Wash Send Hours"; Decimal)//For sample production purpose
         // {
         //     DataClassification = ToBeClassified;

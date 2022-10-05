@@ -148,8 +148,8 @@ tableextension 50661 ProductionOderHeadExt extends "Production Order"
         field(140; "Prod Order Type"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = "Finished Goods","Samples","Washing";
-            OptionCaption = 'Finished Goods,Samples,Washing';
+            OptionMembers = "Bulk","Samples","Washing";
+            OptionCaption = 'Bulk,Samples,Washing';
         }
     }
 }

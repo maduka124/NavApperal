@@ -7646,6 +7646,7 @@ page 71012680 "BOM Card"
             ProdBOMHeaderRec."No. Series" := 'PRODBOM';
             ProdBOMHeaderRec.Insert(true);
             ProdBOMHeaderRec.EntryType := ProdBOMHeaderRec.EntryType::FG;
+            ProdBOMHeaderRec."BOM Type" := ProdBOMHeaderRec."BOM Type"::"Bulk";
             HeaderGenerated := true;
 
             //Update Prod BOm No in item master

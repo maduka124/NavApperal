@@ -42,8 +42,8 @@ tableextension 71012814 "ProdBOM Extension" extends "Production BOM Header"
         field(71012587; "BOM Type"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = "Finished Goods","Samples","Washing";
-            OptionCaption = 'Finished Goods,Samples,Washing';
+            OptionMembers = "Bulk","Samples","Washing";
+            OptionCaption = 'Bulk,Samples,Washing';
         }
 
         field(71012588; "Style Name"; Text[50])

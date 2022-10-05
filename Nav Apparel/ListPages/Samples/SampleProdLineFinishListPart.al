@@ -1,9 +1,9 @@
-page 50439 SampleProdLineReceWashListPart
+page 50800 SampleProdLineFinishListPart
 {
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Send Wash Date" = filter(<> ''), "Received Wash Date" = filter(''));
+    SourceTableView = where("Received Wash Date" = filter(<> ''), "Finishing Date" = filter(''));
 
     layout
     {
@@ -130,78 +130,84 @@ page 50439 SampleProdLineReceWashListPart
                 field("Send Wash Date"; "Send Wash Date")
                 {
                     ApplicationArea = All;
-                    //Editable = false;
+                    Editable = false;
                     Caption = 'Wash Send Date';
                 }
-
-                field("Wash Receiver"; "Wash Receiver")
-                {
-                    ApplicationArea = All;
-                }
-
-                // field("Wash Receive Hours"; "Wash Receive Hours")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Wash Receive Minutes';
-
-                //     trigger OnValidate()
-                //     var
-                //     begin
-                //         if "Wash Receive Hours" < 0 then
-                //             Error('Wash Receive Minutes is less than zero.');
-                //     end;
-                // }
-
-                // field("Wash Receive Work center Name"; "Wash Receive Work center Name")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Router/Work center';
-
-                //     trigger OnValidate()
-                //     var
-                //         WorkCenterRec: Record "Work Center";
-                //     begin
-                //         WorkCenterRec.Reset();
-                //         WorkCenterRec.SetRange(Name, "Wash Receive Work center Name");
-
-                //         if WorkCenterRec.FindSet() then
-                //             "Wash Receive Work center Code" := WorkCenterRec."No.";
-                //     end;
-                // }
 
                 field("Received Wash Date"; "Received Wash Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                     Caption = 'Wash Received Date';
+                }
+
+                field("Finishing Operator"; "Finishing Operator")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Finishing Hours"; "Finishing Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Finishing Minutes';
 
                     trigger OnValidate()
                     var
-                    //RouterlineRec: Record "Routing Line";
+                        WorkCenterRec: Record "Work Center";
+                        RouterRec: Record "Routing Header";
                     begin
+                        if "Finishing Hours" < 0 then
+                            Error('Finishing Minutes is less than zero.');
 
-                        if "Wash Receiver" = '' then
-                            Error('Select a wash Receiver name');
+                        //Asign Work center
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, 'SM-FINISHING');
 
-                        CurrPage.Update();
+                        if WorkCenterRec.FindSet() then begin
+                            "Finishing Work center Code" := WorkCenterRec."No.";
+                            "Finishing Work center Name" := WorkCenterRec.Name;
+                        end;
 
-                        // if "Wash Receive Hours" = 0 then
-                        //     Error('Wash Receive Minutes is zero');
+                        //Get Sample Router Name
+                        RouterRec.Reset();
+                        RouterRec.SetFilter("Sample Router", '=%1', true);
 
-                        // if "Wash Receive Work center Name" = '' then
-                        //     Error('Select a Router/Work Center');
+                        if RouterRec.FindSet() then
+                            "Routing Code" := RouterRec."No.";
 
-                        // if format("Received Wash Date") <> '' then begin
-                        //     RouterlineRec.Reset();
-                        //     RouterlineRec.SetRange("Routing No.", "Routing Code");
-                        //     RouterlineRec.SetRange("No.", "Wash Receive Work center Code");
-                        //     if RouterlineRec.FindSet() then begin
-                        //         RouterlineRec."Run Time" := "Wash Receive Hours";
-                        //         RouterlineRec.Modify();
-                        //         CurrPage.Update();
-                        //     end
-                        //     else
-                        //         Error('Cannot find Routing details');
-                        // end;
+                    end;
+                }
+
+
+                field("Finishing Date"; "Finishing Date")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        RouterlineRec: Record "Routing Line";
+                    begin
+                        if "Finishing Operator" = '' then
+                            Error('Select a  Finishing Operator');
+
+                        if "Finishing Hours" = 0 then
+                            Error('Finishing Minutes is zero');
+
+                        if "Finishing Work center Name" = '' then
+                            Error('Select a Router/Work Center');
+
+                        if format("Finishing Date") <> '' then begin
+                            RouterlineRec.Reset();
+                            RouterlineRec.SetRange("Routing No.", "Routing Code");
+                            RouterlineRec.SetRange("No.", "Finishing Work center Code");
+                            if RouterlineRec.FindSet() then begin
+                                RouterlineRec."Run Time" := "Finishing Hours";
+                                RouterlineRec.Modify();
+                                CurrPage.Update();
+                            end
+                            else
+                                Error('Cannot find Routing details');
+                        end;
                     end;
                 }
             }
