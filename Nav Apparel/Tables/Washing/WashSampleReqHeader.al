@@ -164,6 +164,11 @@ table 50741 "Washing Sample Header"
             OptionMembers = "Yes","No";
             OptionCaption = 'Yes,No';
         }
+
+        field(34; "Request From"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

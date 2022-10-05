@@ -58,8 +58,8 @@ table 50705 "Washing Sample Requsition Line"
             // TableRelation = StyleColor.Color;
             // ValidateTableRelation = false;
 
-            TableRelation = Colour."Colour Name";
-            ValidateTableRelation = false;
+            // TableRelation = Colour."Colour Name";
+            // ValidateTableRelation = false;
         }
 
         field(9; "Req Qty"; Integer)

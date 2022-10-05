@@ -162,8 +162,8 @@ page 50751 WashingSampleListpart
                         StyleColorRec: Record StyleColor;
                     begin
                         ///////
-                        
-                        
+
+
                         ColorRec.Reset();
                         ColorRec.SetRange("Colour Name", "Color Name");
                         if ColorRec.FindSet() then
