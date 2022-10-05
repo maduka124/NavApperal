@@ -156,19 +156,26 @@ page 50751 WashingSampleListpart
                     ApplicationArea = All;
                     Caption = 'Colour';
 
+                    //TableRelation=StyleColor.Color;
+
                     trigger OnValidate()
                     var
                         ColorRec: Record Colour;
                         StyleColorRec: Record StyleColor;
                     begin
-                        ///////
 
-
-                        ColorRec.Reset();
-                        ColorRec.SetRange("Colour Name", "Color Name");
-                        if ColorRec.FindSet() then
-                            "Color Code" := ColorRec."No.";
+                        StyleColorRec.Reset();
+                        StyleColorRec.SetRange(Color, "Color Name");
+                        if StyleColorRec.Color <> '' then
+                            "Color Name" := StyleColorRec.Color
+                        else begin
+                            ColorRec.Reset();
+                            ColorRec.SetRange("Colour Name", "Color Name");
+                            if ColorRec.FindSet() then
+                                "Color Name" := "Color Name";
+                        end;
                     end;
+
                 }
 
                 field(Size; Size)
