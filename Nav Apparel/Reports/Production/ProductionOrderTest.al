@@ -1,8 +1,8 @@
-report 50644 ProductionOrderReport
+report 50644 ProductionOrderReportTest
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Production Order Report';
+    Caption = 'Po Test';
     RDLCLayout = 'Report_Layouts/Production/ProductionOrder.rdl';
     DefaultLayout = RDLC;
 
