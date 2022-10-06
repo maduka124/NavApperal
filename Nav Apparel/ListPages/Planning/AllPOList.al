@@ -24,6 +24,12 @@ page 50489 "All PO List"
                     end;
                 }
 
+                field(Buyer; Buyer)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field(Style_No; Style_No)
                 {
                     ApplicationArea = All;
@@ -222,6 +228,7 @@ page 50489 "All PO List"
 
                 Rec.Init();
                 Rec.BPCD := TempQuery.BPCD;
+                Rec.Buyer := TempQuery.Buyer_Name;
                 Rec.ConfirmDate := TempQuery.ConfirmDate;
                 Rec.Lot_No := TempQuery.Lot_No;
                 Rec.Mode := TempQuery.Mode;

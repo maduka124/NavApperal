@@ -729,7 +729,7 @@ codeunit 71012752 NavAppCodeUnit
                     if SewJobCreatLine2Rec.FindSet() then begin
                         SewJobCreatLine2Rec."End Date" := ProdPlanDetRec.PlanDate;
                         SewJobCreatLine2Rec."Allocated Qty" := AllocatedQty;
-                        SewJobCreatLine2Rec."Total Qty" := AllocatedQty + (AllocatedQty * Waistage) / 100;
+                        SewJobCreatLine2Rec."Total Qty" := AllocatedQty; //+ (AllocatedQty * Waistage) / 100;
                         SewJobCreatLine2Rec."Day Max Target" := MaxTarget;
                         SewJobCreatLine2Rec.Modify();
                     end;
@@ -850,6 +850,42 @@ codeunit 71012752 NavAppCodeUnit
     // end;
 
 
+    procedure CreateProdOrder(PassSoNo: Code[20])
+    var
+        ManufacSetup: Record "Manufacturing Setup";
+        ProdOrder: Record "Production Order";
+        ProdOrderCreate: Record "Production Order";
+        SalesHedd: Record "Sales Header";
+        NoserMangement: Codeunit NoSeriesManagement;
+        Window: Dialog;
+        TextCon1: TextConst ENU = 'Creating Production Order ####1';
+
+    begin
+        Window.Open(TextCon1);
+        ManufacSetup.Get();
+        ManufacSetup.TestField("Firm Planned Order Nos.");
+        SalesHedd.get(SalesHedd."Document Type"::Order, PassSoNo);
+        ProdOrder.LockTable();
+
+        ProdOrder.Init();
+        ProdOrder.Status := ProdOrder.Status::"Firm Planned";
+        ProdOrder."No." := NoserMangement.GetNextNo(ManufacSetup."Firm Planned Order Nos.", WorkDate(), true);
+        ProdOrder.Insert(true);
+        Window.Update(1, ProdOrder."No.");
+        Sleep(100);
+        ProdOrder.Validate("Source Type", ProdOrder."Source Type"::"Sales Header");
+        ProdOrder.Validate("Source No.", SalesHedd."No.");
+
+        ProdOrder.Modify();
+        Commit();
+
+        ProdOrderCreate.Reset();
+        ProdOrderCreate.SetRange(Status, ProdOrder.Status);
+        ProdOrderCreate.SetRange("No.", ProdOrder."No.");
+        REPORT.RUNMODAL(REPORT::"Refresh Production Order", FALSE, FALSE, ProdOrderCreate);
+        COMMIT;
+        Window.Close();
+    end;
 
 
 

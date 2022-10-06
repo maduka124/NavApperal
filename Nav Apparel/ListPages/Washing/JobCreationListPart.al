@@ -181,11 +181,39 @@ page 50722 JobcreationPageListPart
                 {
                     ApplicationArea = All;
                     Caption = 'Recipe (Prod. BOM)';
+
+                    trigger OnValidate()
+                    var
+                        JobCreLineRec: Record JobCreationLine;
+                    begin
+                        if "Reciepe (Prod BOM)" <> '' then begin
+                            JobCreLineRec.Reset();
+                            JobCreLineRec.SetRange(No, No);
+                            JobCreLineRec.SetRange("Reciepe (Prod BOM)", "Reciepe (Prod BOM)");
+                            JobCreLineRec.SetFilter("Split No", '<>%1', "Split No");
+                            if JobCreLineRec.FindSet() then
+                                Error('Reciepe already assigned.');
+                        end;
+                    end;
                 }
 
                 field("Job Card (Prod Order)"; "Job Card (Prod Order)")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        JobCreLineRec: Record JobCreationLine;
+                    begin
+                        if "Job Card (Prod Order)" <> '' then begin
+                            JobCreLineRec.Reset();
+                            JobCreLineRec.SetRange(No, No);
+                            JobCreLineRec.SetRange("Job Card (Prod Order)", "Job Card (Prod Order)");
+                            JobCreLineRec.SetFilter("Split No", '<>%1', "Split No");
+                            if JobCreLineRec.FindSet() then
+                                Error('Job Card already assigned.');
+                        end;
+                    end;
                 }
             }
         }

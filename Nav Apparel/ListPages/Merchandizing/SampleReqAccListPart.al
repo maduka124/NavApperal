@@ -32,6 +32,10 @@ page 71012777 SampleReqAccListPart
                         if MainCategoryRec.FindSet() then begin
                             if MainCategoryRec."Inv. Posting Group Code" = '' then
                                 Error('Inventory Posting Group is not setup for this Main Category. Cannot proceed.');
+
+                            if MainCategoryRec."Prod. Posting Group Code" = '' then
+                                Error('Prod. Posting Group is not setup for this Main Category. Cannot proceed.');
+
                             "Main Category No." := MainCategoryRec."No.";
                             "Item No." := '';
                             "Item Name" := '';

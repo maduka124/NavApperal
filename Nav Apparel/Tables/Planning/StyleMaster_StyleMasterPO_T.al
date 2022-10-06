@@ -1,7 +1,7 @@
 
 table 50773 "StyleMaster_StyleMasterPO_T"
 {
-    DataClassification = CustomerContent;   
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -82,6 +82,11 @@ table 50773 "StyleMaster_StyleMasterPO_T"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(16; "Buyer"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -91,5 +96,5 @@ table 50773 "StyleMaster_StyleMasterPO_T"
             Clustered = true;
         }
     }
-    
+
 }

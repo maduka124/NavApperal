@@ -159,17 +159,17 @@ page 71012751 "NavApp Setup Card"
                     Caption = 'Sample ProdBOM Nos';
                 }
 
-                field("Sample Non Wash Route Nos."; "Sample Non Wash Route Nos.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Sample Without Wash Route Nos.';
-                }
+                // field("Sample Non Wash Route Nos."; "Sample Non Wash Route Nos.")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Sample Without Wash Route Nos.';
+                // }
 
-                field("Sample Wash Route Nos."; "Sample Wash Route Nos.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Sample With Wash Route Nos.';
-                }
+                // field("Sample Wash Route Nos."; "Sample Wash Route Nos.")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Sample With Wash Route Nos.';
+                // }
 
                 field("Sample YY Nos."; "Sample YY Nos.")
                 {

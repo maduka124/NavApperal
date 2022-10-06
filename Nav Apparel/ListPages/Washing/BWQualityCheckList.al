@@ -23,6 +23,12 @@ page 50742 BWQualityCheckList
                     ApplicationArea = All;
 
                 }
+
+                field("BW QC Date"; "BW QC Date")
+                {
+                    ApplicationArea = All;
+
+                }
             }
         }
     }

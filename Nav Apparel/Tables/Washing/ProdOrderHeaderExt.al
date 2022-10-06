@@ -144,5 +144,12 @@ tableextension 50661 ProductionOderHeadExt extends "Production Order"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(140; "Prod Order Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = "Bulk","Samples","Washing";
+            OptionCaption = 'Bulk,Samples,Washing';
+        }
     }
 }

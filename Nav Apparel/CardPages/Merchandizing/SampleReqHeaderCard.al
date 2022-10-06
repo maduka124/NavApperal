@@ -237,6 +237,7 @@ page 71012772 "Sample Request Card"
         ItemMasterRec: Record Item;
         ItemUinitRec: Record "Item Unit of Measure";
         BOMEstimateRec: Record "BOM Estimate Cost";
+        RouterRec: Record "Routing Header";
         ItemRec: Record Item;
         NextItemNo: Code[20];
         SalesDocNo: Code[20];
@@ -254,6 +255,15 @@ page 71012772 "Sample Request Card"
         //Get Worksheet line no
         NavAppSetupRec.Reset();
         NavAppSetupRec.FindSet();
+
+
+        //Get Sample Router Name
+        RouterRec.Reset();
+        RouterRec.SetFilter("Sample Router", '=%1', true);
+
+        if RouterRec.FindSet() then
+            Routing := RouterRec."No.";
+
 
         //Check for item existance
         ItemMasterRec.Reset();
@@ -287,14 +297,14 @@ page 71012772 "Sample Request Card"
             ItemRec."Production BOM No." := '';
             ItemRec."Unit Price" := FOBPcsPrice;
 
-            if "Wash Type Name" = '' then begin
-                ItemRec."Routing No." := NavAppSetupRec."Sample Non Wash Route Nos.";
-                Routing := NavAppSetupRec."Sample Non Wash Route Nos.";
-            end
-            else begin
-                ItemRec."Routing No." := NavAppSetupRec."Sample Wash Route Nos.";
-                Routing := NavAppSetupRec."Sample Wash Route Nos.";
-            end;
+            //if "Wash Type Name" = '' then begin
+            ItemRec."Routing No." := Routing;
+            //Routing := NavAppSetupRec."Sample Non Wash Route Nos.";
+            //end
+            //else begin
+            //    ItemRec."Routing No." := NavAppSetupRec."Sample Wash Route Nos.";
+            //    Routing := NavAppSetupRec."Sample Wash Route Nos.";
+            //end;
 
             ItemRec.Insert(true);
 
@@ -427,6 +437,7 @@ page 71012772 "Sample Request Card"
         ProdBOMHeaderRec."Last Date Modified" := WorkDate();
         ProdBOMHeaderRec."No. Series" := 'SMPRODBOM';
         ProdBOMHeaderRec.EntryType := ProdBOMHeaderRec.EntryType::Sample;
+        ProdBOMHeaderRec."BOM Type" := ProdBOMHeaderRec."BOM Type"::Samples;
         ProdBOMHeaderRec.Insert(true);
 
         //Update Prod BOm No in item master
