@@ -29,6 +29,7 @@ tableextension 50661 ProductionOderHeadExt extends "Production Order"
         field(119; "Style No."; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Style Master"."No.";
         }
 
         field(120; PO; Code[20])

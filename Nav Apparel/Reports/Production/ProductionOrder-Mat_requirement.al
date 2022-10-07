@@ -3,7 +3,7 @@ report 50645 ProductionOrderReport
 
     RDLCLayout = 'Report_Layouts/Production/ProdOrderMatRequisition.rdl';
     DefaultLayout = RDLC;
-    ApplicationArea = Manufacturing;
+    // ApplicationArea = Manufacturing;
     Caption = 'Production Order Report';
     UsageCategory = ReportsAndAnalysis;
 
@@ -55,7 +55,7 @@ report 50645 ProductionOrderReport
             { }
             column(Shortcut_Dimension_1_Code; "Shortcut Dimension 1 Code")
             { }
-            column(Style_Name; "Style Name")
+            column(Style_Name; "Style No.")
             { }
             column(PoNo; PO)
             { }
