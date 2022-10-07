@@ -4,21 +4,15 @@ pageextension 50658 WashinBOMList extends "Production BOM Lines"
     {
         addafter(Type)
         {
+            field("Main Category Code"; "Main Category Code")
+            {
+                ApplicationArea = All;
+            }
+
             field("Main Category Name"; "Main Category Name")
             {
                 ApplicationArea = All;
-
-                trigger OnValidate()
-                var
-                    MainCategoryRec: Record "Main Category";
-                    ItemRec: Record Item;
-                begin
-                    MainCategoryRec.Reset();
-                    MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
-                    if MainCategoryRec.FindSet() then
-                        "Main Category Code" := MainCategoryRec."No.";
-                end;
-
+                Editable = false;
             }
         }
 
@@ -56,6 +50,26 @@ pageextension 50658 WashinBOMList extends "Production BOM Lines"
             {
                 ApplicationArea = All;
             }
+        }
+
+        modify("No.")
+        {
+
+            ApplicationArea = all;
+
+            // trigger OnLookup(var texts: text): Boolean
+            // var
+            //IteRec: Record Item;
+            //begin
+            // IteRec.Reset();
+            // IteRec.SetRange("Main Category Name", 'CHEMICAL');
+            // IteRec.FindSet();
+
+            //end;
+
+            // TableRelation = if ("Main Category Name" = filter('CHEMICAL')) Item where("Main Category Name" = filter('CHEMICAL'))
+            // else
+            // Item;
         }
     }
 }

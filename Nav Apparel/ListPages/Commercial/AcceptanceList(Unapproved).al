@@ -74,7 +74,7 @@ page 50541 "Acceptance List"
             action("Approve")
             {
                 ApplicationArea = all;
-                Image = List;
+                Image = Approve;
 
                 trigger OnAction()
                 var

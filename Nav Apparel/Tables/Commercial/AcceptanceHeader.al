@@ -47,6 +47,7 @@ table 50540 AcceptanceHeader
         field(8; "Acceptance S/N"; Code[20])
         {
             DataClassification = ToBeClassified;
+
         }
 
         field(9; "Maturity Date"; Date)
@@ -93,6 +94,27 @@ table 50540 AcceptanceHeader
         }
 
         field(17; "ApproveDate"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(18; "LC Issue Bank No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(19; "LC Issue Bank"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(20; "Acceptance S/N 2"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+            AutoIncrement = true;
+        }
+
+        field(21; "Bank Amount"; Decimal)
         {
             DataClassification = ToBeClassified;
         }

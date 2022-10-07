@@ -31,6 +31,12 @@ tableextension 71012759 "ReqLine Extension" extends "Requisition Line"
             OptionCaption = 'FG,Sample';
             OptionMembers = FG,Sample;
         }
+
+        field(71012588; "Main Category"; Text[50])
+        {
+            TableRelation = "Main Category"."Main Category Name";
+            ValidateTableRelation = false;
+        }
     }
 }
 

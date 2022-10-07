@@ -5,7 +5,7 @@ page 50549 "Payable Chart - Approved"
     UsageCategory = Lists;
     SourceTable = AcceptanceHeader;
     SourceTableView = where(Approved = filter(true), Paid = filter(false));
-    Editable = false;
+    //Editable = false;
     InsertAllowed = false;
     DeleteAllowed = false;
     Caption = 'Payable Chart';
@@ -20,35 +20,53 @@ page 50549 "Payable Chart - Approved"
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
+                    Editable = false;
                 }
 
                 field("B2BLC No"; "B2BLC No")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Suppler Name"; "Suppler Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Suppler';
+                    Editable = false;
                 }
 
                 field("Accept Value"; "Accept Value")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Accept Date"; "Accept Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Acceptance S/N"; "Acceptance S/N")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Maturity Date"; "Maturity Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("LC Issue Bank"; "LC Issue Bank")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Bank Amount"; "Bank Amount")
                 {
                     ApplicationArea = All;
                 }
@@ -56,24 +74,28 @@ page 50549 "Payable Chart - Approved"
                 field("Payment Mode"; "Payment Mode")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Approved; Approved)
                 {
                     ApplicationArea = All;
                     Caption = 'Approved Status';
+                    Editable = false;
                 }
 
                 field(ApproveDate; ApproveDate)
                 {
                     ApplicationArea = All;
                     Caption = 'Approved Date';
+                    Editable = false;
                 }
 
                 field(Paid; Paid)
                 {
                     ApplicationArea = All;
                     Caption = 'Paid Status';
+                    Editable = false;
                 }
             }
         }
@@ -96,9 +118,17 @@ page 50549 "Payable Chart - Approved"
                     M: Integer;
                     TempValue1: Decimal;
                     TempValue2: Decimal;
+                    GenJournalRec: Record "Gen. Journal Line";
+                    NavAppSetupRec: Record "NavApp Setup";
+                    B2BLCRec: Record B2BLCMaster;
+                    LineNo: BigInteger;
                 begin
-                    Paid := true;
-                    PaidDate := Today;
+
+                    if "Bank Amount" = 0 then
+                        Error('Bank amount is blank.');
+
+                    //Paid := true;
+                    // PaidDate := Today;
 
                     evaluate(Y, copystr(Format(Today), 1, 2));
                     Y := Y + 2000;
@@ -380,7 +410,45 @@ page 50549 "Payable Chart - Approved"
                         SuppPayRec.Insert();
                     end;
 
+
+                    //Get Worksheet line no
+                    NavAppSetupRec.Reset();
+                    NavAppSetupRec.FindSet();
+
+                    B2BLCRec.Reset();
+                    B2BLCRec.SetRange("B2B LC No", "B2BLC No");
+                    B2BLCRec.FindSet();
+
+                    //Insert into Payment journal
+                    //Get max line no
+                    GenJournalRec.Reset();
+                    GenJournalRec.SetRange("Journal Template Name", NavAppSetupRec."Pay. Gen. Jrn. Template Name");
+                    GenJournalRec.SetRange("Journal Batch Name", NavAppSetupRec."Pay. Gen. Jrn. Batch Name");
+
+                    if GenJournalRec.FindLast() then
+                        LineNo := GenJournalRec."Line No.";
+
+
+                    LineNo += 100;
+                    GenJournalRec.Init();
+                    GenJournalRec."Journal Template Name" := NavAppSetupRec."Pay. Gen. Jrn. Template Name";
+                    GenJournalRec."Journal Batch Name" := NavAppSetupRec."Pay. Gen. Jrn. Batch Name";
+                    GenJournalRec."Line No." := LineNo;
+                    GenJournalRec."Account Type" := GenJournalRec."Account Type"::"G/L Account";
+                    GenJournalRec."Document Type" := GenJournalRec."Document Type"::Payment;
+                    GenJournalRec."Document No." := "AccNo.";
+                    GenJournalRec."Document Date" := WorkDate();
+                    GenJournalRec.Validate(Amount, "Bank Amount");
+                    GenJournalRec."Posting Date" := WorkDate();
+                    GenJournalRec.Description := 'Acceptance for B2B LC :' + "B2BLC No";
+                    GenJournalRec."Expiration Date" := "Maturity Date";
+                    GenJournalRec."Source Code" := 'PAYMENTJNL';
+                    GenJournalRec."LC/Contract No." := B2BLCRec."LC/Contract No.";
+                    GenJournalRec.Insert();
+
                     CurrPage.Update();
+
+                    Message('Completed');
 
                 end;
             }
@@ -389,11 +457,10 @@ page 50549 "Payable Chart - Approved"
             {
                 ApplicationArea = all;
                 Image = UnApply;
-                Caption = 'Unapprove';
+                Caption = 'Un-approve';
 
                 trigger OnAction()
                 var
-
                 begin
                     Approved := false;
                     ApproveDate := 0D;

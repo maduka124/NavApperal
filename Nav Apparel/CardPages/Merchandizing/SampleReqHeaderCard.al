@@ -168,6 +168,11 @@ page 71012772 "Sample Request Card"
                     NextBomNo: Text;
                     NextItemNo: Text;
                     SampleRec: Record "Sample Requsition Line";
+                    SalesHeaderRec: Record "Sales Header";
+                    Window: Dialog;
+                    TextCon1: TextConst ENU = 'Creating Production Order ####1';
+                    ProOrderNo: Code[20];
+                    CodeUnitNavApp: Codeunit NavAppCodeUnit;
                 begin
                     SampleRec.Reset();
                     SampleRec.SetRange("No.", "No.");
@@ -176,6 +181,24 @@ page 71012772 "Sample Request Card"
                             if SampleRec."SalesOrder No." = '' then begin
                                 Description := 'SAMPLE' + '/' + "Style Name" + '/' + SampleRec."Fabrication Name" + '/' + SampleRec."Sample Name" + '/' + SampleRec."Color Name" + '/' + SampleRec.Size;
                                 Create_FGItem_SO(Description, SampleRec.Qty, SampleRec."Color No", SampleRec.Size, "No.", SampleRec."Line No.");
+
+                                //Create Prod orders                       
+                                SalesHeaderRec.Reset();
+                                SalesHeaderRec.SetRange("Style No", "Style No.");
+                                SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
+                                SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::Sample);
+                                if SalesHeaderRec.FindSet() then begin
+
+                                    //Window.Open(TextCon1);
+                                    repeat
+                                        ProOrderNo := CodeUnitNavApp.CreateProdOrder(SalesHeaderRec."No.", 'Samples');
+                                    //Window.Update(1, ProOrderNo);
+                                    //Sleep(100);
+                                    until SalesHeaderRec.Next() = 0;
+                                    //Window.Close();
+
+                                end;
+
                                 WriteToMRPStatus := 1;
                                 CurrPage.SaveRecord();
                                 CurrPage.Update();
@@ -579,6 +602,8 @@ page 71012772 "Sample Request Card"
                 ProdBOMLineRec."Production BOM No." := NextBomNo;
                 ProdBOMLineRec."Line No." := LineNo;
                 ProdBOMLineRec.Type := ProdBOMLineRec.Type::Item;
+                //ProdBOMLineRec.Validate("Main Category Name", SampleReqAcceRec."Main Category Name");
+                ProdBOMLineRec.Validate("Main Category Code", SampleReqAcceRec."Main Category No.");
                 ProdBOMLineRec.Validate("No.", NextItemNo);
                 ProdBOMLineRec.Description := Description;
                 ProdBOMLineRec.Validate("Unit of Measure Code", SampleReqAcceRec."Unit N0.");
@@ -595,7 +620,7 @@ page 71012772 "Sample Request Card"
                 ProdBOMLineRec.Insert(true);
 
                 //Create Worksheet Entry
-                CreateWorksheetEntry(NextItemNo, SampleReqAcceRec."Supplier No.", SampleReqAcceRec.Requirment, SampleReqAcceRec.Rate);
+                CreateWorksheetEntry(NextItemNo, SampleReqAcceRec."Supplier No.", SampleReqAcceRec.Requirment, SampleReqAcceRec.Rate, SampleReqAcceRec."Main Category Name");
 
                 //Update Auto generate                
                 SampleReqAcceRec."Production BOM No." := NextBomNo;
@@ -623,7 +648,7 @@ page 71012772 "Sample Request Card"
 
     end;
 
-    procedure CreateWorksheetEntry(Item: code[20]; Supplier: Code[20]; Qty: Decimal; Rate: Decimal)
+    procedure CreateWorksheetEntry(Item: code[20]; Supplier: Code[20]; Qty: Decimal; Rate: Decimal; MainCat: Code[50])
     var
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         NavAppSetupRec: Record "NavApp Setup";
@@ -673,6 +698,7 @@ page 71012772 "Sample Request Card"
             RequLineRec1."Journal Batch Name" := NavAppSetupRec."Journal Batch Name";
             RequLineRec1."Line No." := ReqLineNo;
             RequLineRec1.Type := RequLineRec.Type::Item;
+            RequLineRec1."Main Category" := MainCat;
             RequLineRec1.Validate("No.", Item);
             RequLineRec1.Validate("Vendor No.", Supplier);
             RequLineRec1."Action Message" := RequLineRec."Action Message"::New;
@@ -686,7 +712,7 @@ page 71012772 "Sample Request Card"
             // RequLineRec1.PONo := PONo;
             // RequLineRec1.Lot := Lot;
             RequLineRec1.Validate("Location Code", StyMasterRec."Factory Code");
-            RequLineRec1."Shortcut Dimension 1 Code" := StyMasterRec."Global Dimension Code";
+            RequLineRec1.Validate("Shortcut Dimension 1 Code", StyMasterRec."Global Dimension Code");
             RequLineRec1.EntryType := RequLineRec1.EntryType::Sample;
             RequLineRec1.Insert();
 
