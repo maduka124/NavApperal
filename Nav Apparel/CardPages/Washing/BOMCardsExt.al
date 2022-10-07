@@ -120,17 +120,17 @@ pageextension 50755 WashinBOMCards extends "Production BOM"
         }
     }
 
-    actions
-    {
-        addafter("Copy &BOM")
-        {
-            action("Up Date JobCard")
-            {
+    // actions
+    // {
+    //     addafter("Copy &BOM")
+    //     {
+    //         action("Up Date JobCard")
+    //         {
 
-            }
-        }
+    //         }
+    //     }
 
-    }
+    // }
 
     var
         NoGb: code[20];

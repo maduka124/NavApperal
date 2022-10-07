@@ -528,6 +528,10 @@ page 71012772 "Sample Request Card"
                         ItemUinitRec."Qty. per Unit of Measure" := 1;
                         ItemUinitRec.Insert();
                     end;
+
+                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
+                    ItemMasterRec.Modify();
                 end
                 else begin
 
@@ -569,8 +573,8 @@ page 71012772 "Sample Request Card"
                     ItemMasterRec."Unit Cost" := SampleReqAcceRec.Rate;
                     ItemMasterRec."Unit Price" := SampleReqAcceRec.Rate;
                     ItemMasterRec."Last Direct Cost" := SampleReqAcceRec.Rate;
-                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Code";
-                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
                     // ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Post Group-RM Sample";
                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
                     //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';

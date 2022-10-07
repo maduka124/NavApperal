@@ -17,6 +17,16 @@ tableextension 50661 ProductionOderHeadExt extends "Production Order"
         field(117; BuyerCode; Code[20])
         {
             DataClassification = ToBeClassified;
+
+            trigger OnValidate()
+            var
+                CustomerRec: Record Customer;
+            begin
+                CustomerRec.Reset();
+                CustomerRec.SetRange("No.", BuyerCode);
+                if CustomerRec.FindSet() then
+                    Buyer := CustomerRec.Name;
+            end;
         }
 
         field(118; "Style Name"; text[50])

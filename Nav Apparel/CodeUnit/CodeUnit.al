@@ -857,6 +857,7 @@ codeunit 71012752 NavAppCodeUnit
         ProdOrderCreate: Record "Production Order";
         SalesHedd: Record "Sales Header";
         NoserMangement: Codeunit NoSeriesManagement;
+        StyleRec: Record "Style Master";
     //Window: Dialog;
     //TextCon1: TextConst ENU = 'Creating Production Order ####1';
 
@@ -874,6 +875,17 @@ codeunit 71012752 NavAppCodeUnit
         // Window.Update(1, ProdOrder."No.");
         // Sleep(100);
         ProdOrder.Validate("Source Type", ProdOrder."Source Type"::"Sales Header");
+        ProdOrder.Validate(BuyerCode, SalesHedd."Sell-to Customer No.");
+        ProdOrder."Style Name" := SalesHedd."Style Name";
+        ProdOrder."Style No." := SalesHedd."Style No";
+        ProdOrder.PO := SalesHedd."PO No";
+        ProdOrder."Style Name" := SalesHedd."Style Name";
+
+        StyleRec.Reset();
+        StyleRec.SetRange("No.", SalesHedd."Style No");
+        StyleRec.FindSet();
+        ProdOrder."Gament Type" := StyleRec."Garment Type Name";
+        ProdOrder."Gament Type Code" := StyleRec."Garment Type No.";
 
         case OrderType of
             'Bulk':

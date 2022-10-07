@@ -7802,8 +7802,8 @@ page 71012680 "BOM Card"
                                         ItemUinitRec.Insert();
                                     end;
 
-                                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Name";
-                                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
                                     ItemMasterRec.Modify();
                                 end
                                 else begin
@@ -7844,8 +7844,8 @@ page 71012680 "BOM Card"
                                     ItemMasterRec."Unit Cost" := AutoGenRec.Rate;
                                     ItemMasterRec."Unit Price" := AutoGenRec.Rate;
                                     ItemMasterRec."Last Direct Cost" := AutoGenRec.Rate;
-                                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Name";
-                                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
                                     //ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
                                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
                                     //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
@@ -8099,8 +8099,8 @@ page 71012680 "BOM Card"
                                         ItemUinitRec.Insert();
                                     end;
 
-                                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Name";
-                                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
                                     ItemMasterRec.Modify();
                                 end
                                 else begin
@@ -8142,8 +8142,8 @@ page 71012680 "BOM Card"
                                     ItemMasterRec."Unit Cost" := AutoGenRec.Rate;
                                     ItemMasterRec."Unit Price" := AutoGenRec.Rate;
                                     ItemMasterRec."Last Direct Cost" := AutoGenRec.Rate;
-                                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Code";
-                                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
                                     //ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
                                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
                                     //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
