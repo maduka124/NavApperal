@@ -313,13 +313,24 @@ page 71012683 "BOM Line Estimate ListPart"
 
     procedure CalculateWST()
     var
+        X: Decimal;
+        y: Decimal;
     begin
 
         case Type of
             type::Pcs:
-                WST := WST + ((AjstReq / "GMT Qty") - 1) * 100;
+                begin
+                    //Message(format(AjstReq / Requirment));
+                    WST := WST + ((AjstReq / Requirment) - 1) * 100;
+                end;
             type::Doz:
-                WST := WST + ((AjstReq / "GMT Qty" * 12) - 1) * 100;
+                begin
+                    // X := AjstReq / Requirment;
+                    // Message(format(x));
+                    // y := x - 1;
+                    // Message(format(y));
+                    WST := WST + ((AjstReq / Requirment) - 1) * 100;
+                end;
         end;
 
 

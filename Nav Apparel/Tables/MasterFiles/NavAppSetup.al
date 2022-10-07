@@ -530,6 +530,16 @@ table 71012749 "NavApp Setup"
             DataClassification = ToBeClassified;
         }
 
+        field(71012673; "Account No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012674; "Bal Account No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
