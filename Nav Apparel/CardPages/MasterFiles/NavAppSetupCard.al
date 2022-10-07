@@ -536,6 +536,18 @@ page 71012751 "NavApp Setup Card"
                     TableRelation = "Gen. Journal Batch".Name WHERE("Journal Template Name" = FIELD("Pay. Gen. Jrn. Template Name"));
                     Caption = 'Payment Journal Batch Name';
                 }
+
+                field("Account No"; "Account No")
+                {
+                    ApplicationArea = All;
+                    TableRelation = "G/L Account"."No." where("Account Type" = filter(Posting));
+                }
+
+                field("Bal Account No"; "Bal Account No")
+                {
+                    ApplicationArea = All;
+                    TableRelation = "G/L Account"."No." where("Account Type" = filter(Posting));
+                }
             }
         }
     }
