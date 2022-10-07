@@ -55,7 +55,7 @@ report 50645 ProductionOrderReport
             { }
             column(Shortcut_Dimension_1_Code; "Shortcut Dimension 1 Code")
             { }
-            column(Style_Name; "Style No.")
+            column(Style_Name;"Style Name")
             { }
             column(PoNo; PO)
             { }
