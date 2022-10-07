@@ -111,7 +111,6 @@ page 71012683 "BOM Line Estimate ListPart"
 
                     trigger OnValidate()
                     var
-
                     begin
                         CalculateValue(0);
                     end;
@@ -137,7 +136,6 @@ page 71012683 "BOM Line Estimate ListPart"
 
                     trigger OnValidate()
                     var
-
                     begin
                         CalculateValue(0);
                     end;
@@ -151,7 +149,6 @@ page 71012683 "BOM Line Estimate ListPart"
 
                     trigger OnValidate()
                     var
-
                     begin
                         CalculateValue(0);
                     end;
@@ -164,7 +161,6 @@ page 71012683 "BOM Line Estimate ListPart"
 
                     trigger OnValidate()
                     var
-
                     begin
                         CalculateValue(0);
                     end;
@@ -270,7 +266,6 @@ page 71012683 "BOM Line Estimate ListPart"
     trigger OnAfterGetRecord()
     var
     begin
-
         if Reconfirm = true then
             StyleExprTxt := 'Strong'
         else
@@ -281,7 +276,6 @@ page 71012683 "BOM Line Estimate ListPart"
     trigger OnAfterGetCurrRecord()
     var
     begin
-
         if Reconfirm = true then
             StyleExprTxt := 'Strong'
         else
@@ -293,12 +287,12 @@ page 71012683 "BOM Line Estimate ListPart"
         ConvFactor: Decimal;
         UOMRec: Record "Unit of Measure";
     begin
-
         UOMRec.Reset();
         UOMRec.SetRange(Code, "Unit N0.");
         UOMRec.FindSet();
         ConvFactor := UOMRec."Converion Parameter";
-
+        Value := 0;
+        Requirment := 0;
 
         if Type = type::Pcs then
             Requirment := (Consumption * Qty) + (Consumption * Qty) * WST / 100
@@ -309,6 +303,9 @@ page 71012683 "BOM Line Estimate ListPart"
         if (x = 0) and (ConvFactor <> 0) then
             Requirment := Requirment / ConvFactor;
 
+        if Requirment = 0 then
+            Requirment := 1;
+
         Value := Requirment * Rate;
         CurrPage.Update(true);
         // CalculateCost();
@@ -318,19 +315,27 @@ page 71012683 "BOM Line Estimate ListPart"
     var
     begin
 
-        if Type = type::Pcs then
-            if AjstReq = 0 then
-                WST := (100 * Requirment) / (Qty * Consumption) - 100
-            else
-                WST := (100 * AjstReq) / (Qty * Consumption) - 100
-        else
-            if Type = type::Doz then
-                if AjstReq = 0 then
-                    WST := (100 * Requirment * 12) / (Qty * Consumption) - 100
-                else
-                    WST := (100 * AjstReq * 12) / (Qty * Consumption) - 100;
+        case Type of
+            type::Pcs:
+                WST := WST + ((AjstReq / "GMT Qty") - 1) * 100;
+            type::Doz:
+                WST := WST + ((AjstReq / "GMT Qty" * 12) - 1) * 100;
+        end;
 
-        CalculateValue(1);
+
+        //if Type = type::Pcs then
+        // if AjstReq = 0 then
+        //     WST := (100 * Requirment) / (Qty * Consumption) - 100
+        // else
+        //     WST := (100 * AjstReq) / (Qty * Consumption) - 100
+        //else
+        // if Type = type::Doz then
+        //     if AjstReq = 0 then
+        //         WST := (100 * Requirment * 12) / (Qty * Consumption) - 100
+        //     else
+        //         WST := (100 * AjstReq * 12) / (Qty * Consumption) - 100;
+
+        CalculateValue(0);
     end;
 
 

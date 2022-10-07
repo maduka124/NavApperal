@@ -5548,6 +5548,11 @@ page 71012680 "BOM Card"
 
                 trigger OnAction()
                 var
+                    SalesHeaderRec: Record "Sales Header";
+                    Window: Dialog;
+                    TextCon1: TextConst ENU = 'Creating Production Order ####1';
+                    ProOrderNo: Code[20];
+                    CodeUnitNavApp: Codeunit NavAppCodeUnit;
                     BOMLineAutoGenRec: Record "BOM Line AutoGen";
                     BOMLineAutoGenNewRec: Record "BOM Line AutoGen";
                     BOMLineEstimateRec: Record "BOM Line Estimate";
@@ -6630,6 +6635,24 @@ page 71012680 "BOM Card"
 
                         until AssortDetailRec.Next() = 0;
 
+
+                        //Create Prod orders                       
+                        SalesHeaderRec.Reset();
+                        SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
+                        SalesHeaderRec.SetRange("Style No", "Style No.");
+                        SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::FG);
+                        if SalesHeaderRec.FindSet() then begin
+
+                            //Window.Open(TextCon1);
+                            repeat
+                                ProOrderNo := CodeUnitNavApp.CreateProdOrder(SalesHeaderRec."No.", 'Bulk');
+                            //Window.Update(1, ProOrderNo);
+                            //Sleep(100);
+                            until SalesHeaderRec.Next() = 0;
+                            //Window.Close();
+
+                        end;
+
                         Message('Completed');
                     end;
 
@@ -6667,6 +6690,8 @@ page 71012680 "BOM Card"
                     GRNQty: Decimal;
                     ShippedQty: Decimal;
                     PONo: Code[20];
+                    ProOrderHedRec: Record "Production Order";
+                    ProOrderLineRec: Record "Prod. Order Line";
                 begin
 
                     //Get Worksheet line no
@@ -6677,7 +6702,8 @@ page 71012680 "BOM Card"
                     PoPurchInvLRec.Reset();
                     PoPurchInvLRec.SetRange(StyleNo, "Style No.");
                     PoPurchInvLRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
-                    if PoPurchInvLRec.FindSet() then
+
+                    if PoPurchInvLRec.FindSet() then begin
                         repeat begin
                             PurchCMRec.Reset();
                             PurchCMRec.SetRange("Applies-to Doc. No.", PoPurchInvLRec."Document No.");
@@ -6693,21 +6719,23 @@ page 71012680 "BOM Card"
                             // end;
                         end;
                         until PoPurchInvLRec.Next() = 0;
-
+                    end;
 
 
                     //Step 2 : Check GRN /GRN Reversal
                     PoPurchReceRec.Reset();
                     PoPurchReceRec.SetRange(StyleNo, "Style No.");
                     PoPurchReceRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
-                    if PoPurchReceRec.FindSet() then
+
+                    if PoPurchReceRec.FindSet() then begin
                         repeat begin
                             GRNQty := GRNQty + PoPurchReceRec.Quantity;
                         end;
                         until PoPurchReceRec.Next() = 0;
 
-                    if GRNQty > 0 then
-                        Error('Cannot reveres MRP. GRN :  %1 is not reversed.', PoPurchReceRec."Document No.");
+                        if GRNQty > 0 then
+                            Error('Cannot reveres MRP. GRN :  %1 is not reversed.', PoPurchReceRec."Document No.");
+                    end;
 
 
                     //Step 3 : Delete PO
@@ -6717,7 +6745,7 @@ page 71012680 "BOM Card"
                     PurchLineRec.SetCurrentKey("Document No.");
                     PurchLineRec.Ascending(true);
 
-                    if PurchLineRec.FindSet() then
+                    if PurchLineRec.FindSet() then begin
                         repeat begin
                             if PONo <> PurchLineRec."Document No." then begin
 
@@ -6736,7 +6764,7 @@ page 71012680 "BOM Card"
                             PONo := PurchLineRec."Document No.";
                         end;
                         until PoPurchReceRec.Next() = 0;
-
+                    end;
 
 
                     //Step 4 : Delete Planning worksheet
@@ -6780,7 +6808,8 @@ page 71012680 "BOM Card"
                     SalesShipHeRec.SetRange("Style No", "Style No.");
                     SalesShipHeRec.SetFilter(EntryType, '=%1', SalesShipHeRec.EntryType::FG);
                     SalesShipHeRec.SetCurrentKey("No.");
-                    if SalesShipHeRec.FindSet() then
+
+                    if SalesShipHeRec.FindSet() then begin
                         repeat begin
                             SalesShipLRec.Reset();
                             SalesShipLRec.SetRange("Document No.", SalesShipHeRec."No.");
@@ -6797,15 +6826,33 @@ page 71012680 "BOM Card"
 
                         end;
                         until SalesShipHeRec.Next() = 0;
+                    end;
 
 
 
-                    //Step 9 : Delete SO
+                    //Step 9 : Delete SO header/line
                     SalesOrderHRec.Reset();
                     SalesOrderHRec.SetRange("Style No", "Style No.");
                     SalesOrderHRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
-                    if SalesOrderHRec.FindSet() then
+
+                    if SalesOrderHRec.FindSet() then begin
                         repeat begin
+
+                            //Step 9.1 : Delete Production orders
+                            ProOrderHedRec.Reset();
+                            ProOrderHedRec.SetRange("Source Type", ProOrderHedRec."Source Type"::"Sales Header");
+                            ProOrderHedRec.SetRange("Source No.", SalesOrderHRec."No.");
+
+                            if ProOrderHedRec.FindSet() then begin
+                                //Delete Prod order lines
+                                ProOrderLineRec.Reset();
+                                ProOrderLineRec.SetRange("Prod. Order No.", ProOrderHedRec."No.");
+                                if ProOrderLineRec.FindSet() then
+                                    ProOrderLineRec.DeleteAll();
+
+                                ProOrderHedRec.Delete();
+                            end;
+
                             //Delete SO lines
                             SalesOrderLRec.Reset();
                             SalesOrderLRec.SetRange("Document No.", SalesOrderHRec."No.");
@@ -6816,7 +6863,7 @@ page 71012680 "BOM Card"
                             SalesOrderHRec.Delete();
                         end;
                         until SalesOrderHRec.Next() = 0;
-
+                    end;
 
 
                     //Step 10 : remove SO
@@ -7754,6 +7801,10 @@ page 71012680 "BOM Card"
                                         ItemUinitRec."Qty. per Unit of Measure" := 1;
                                         ItemUinitRec.Insert();
                                     end;
+
+                                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Name";
+                                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                                    ItemMasterRec.Modify();
                                 end
                                 else begin
 
@@ -7844,6 +7895,8 @@ page 71012680 "BOM Card"
                                     LineNo += 10000;
                                     ProdBOMLine1Rec.Init();
                                     ProdBOMLine1Rec."Production BOM No." := NextBomNo;
+                                    //ProdBOMLine1Rec.Validate("Main Category Name", AutoGenRec."Main Category Name");
+                                    ProdBOMLine1Rec.Validate("Main Category Code", AutoGenRec."Main Category No.");
                                     ProdBOMLine1Rec."Line No." := LineNo;
                                     ProdBOMLine1Rec.Type := ProdBOMLine1Rec.Type::Item;
                                     ProdBOMLine1Rec.Validate("No.", NextItemNo);
@@ -7864,7 +7917,7 @@ page 71012680 "BOM Card"
                                 end;
 
                                 //Create Worksheet Entry
-                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO);
+                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name");
 
                                 //Update Auto generate
                                 AutoGenRec."Included in PO" := true;
@@ -8045,6 +8098,10 @@ page 71012680 "BOM Card"
                                         ItemUinitRec."Qty. per Unit of Measure" := 1;
                                         ItemUinitRec.Insert();
                                     end;
+
+                                    ItemMasterRec."Gen. Prod. Posting Group" := MainCateRec."Prod. Posting Group Name";
+                                    ItemMasterRec."Inventory Posting Group" := MainCateRec."Inv. Posting Group Code";
+                                    ItemMasterRec.Modify();
                                 end
                                 else begin
 
@@ -8153,6 +8210,8 @@ page 71012680 "BOM Card"
                                     ProdBOMLine1Rec."Production BOM No." := ProdBOM;
                                     ProdBOMLine1Rec."Line No." := LineNo;
                                     ProdBOMLine1Rec.Type := ProdBOMLine1Rec.Type::Item;
+                                    //ProdBOMLine1Rec.Validate("Main Category Name", AutoGenRec."Main Category Name");
+                                    ProdBOMLine1Rec.Validate("Main Category Code", AutoGenRec."Main Category No.");
                                     ProdBOMLine1Rec.Validate("No.", NextItemNo);
                                     ProdBOMLine1Rec.Description := Description;
                                     ProdBOMLine1Rec.Validate("Unit of Measure Code", AutoGenRec."Unit N0.");
@@ -8182,7 +8241,7 @@ page 71012680 "BOM Card"
 
 
                                 //Create Worksheet Entry
-                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO);
+                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name");
 
                                 //Update Auto generate
                                 AutoGenRec."Included in PO" := true;
@@ -8228,7 +8287,7 @@ page 71012680 "BOM Card"
 
     end;
 
-    procedure CreateWorksheetEntry(Item: code[20]; Supplier: Code[20]; Qty: Decimal; Rate: Decimal; Lot: Code[20]; PONo: Code[20])
+    procedure CreateWorksheetEntry(Item: code[20]; Supplier: Code[20]; Qty: Decimal; Rate: Decimal; Lot: Code[20]; PONo: Code[20]; MainCat: Code[20])
     var
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         NavAppSetupRec: Record "NavApp Setup";
@@ -8277,6 +8336,7 @@ page 71012680 "BOM Card"
             RequLineRec1."Worksheet Template Name" := NavAppSetupRec."Worksheet Template Name";
             RequLineRec1."Journal Batch Name" := NavAppSetupRec."Journal Batch Name";
             RequLineRec1."Line No." := ReqLineNo;
+            RequLineRec1."Main Category" := MainCat;
             RequLineRec1.Type := RequLineRec.Type::Item;
             RequLineRec1.Validate("No.", Item);
             RequLineRec1.Validate("Vendor No.", Supplier);
@@ -8291,7 +8351,7 @@ page 71012680 "BOM Card"
             RequLineRec1.PONo := PONo;
             RequLineRec1.Lot := Lot;
             RequLineRec1.Validate("Location Code", StyMasterRec."Factory Code");
-            RequLineRec1."Shortcut Dimension 1 Code" := StyMasterRec."Global Dimension Code";
+            RequLineRec1.Validate("Shortcut Dimension 1 Code", StyMasterRec."Global Dimension Code");
             RequLineRec1.EntryType := RequLineRec1.EntryType::FG;
             RequLineRec1.Insert();
 

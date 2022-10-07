@@ -3,8 +3,22 @@ pageextension 71012824 RequisitionLinesExt extends "Planning Worksheet"
 
     layout
     {
+        addbefore("No.")
+        {
+            field("Main Category"; "Main Category")
+            {
+                ApplicationArea = ALL;
+            }
+        }
+
         addafter("No.")
         {
+            field(Description1; Description)
+            {
+                ApplicationArea = ALL;
+                Caption = 'Description';
+            }
+
             field(StyleName; StyleName)
             {
                 ApplicationArea = ALL;
@@ -21,6 +35,11 @@ pageextension 71012824 RequisitionLinesExt extends "Planning Worksheet"
             {
                 ApplicationArea = ALL;
             }
+        }
+
+        modify(Description)
+        {
+            Visible = false;
         }
 
         modify("Vendor No.")

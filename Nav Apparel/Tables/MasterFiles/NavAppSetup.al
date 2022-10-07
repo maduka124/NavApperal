@@ -520,6 +520,16 @@ table 71012749 "NavApp Setup"
         //     TableRelation = "Inventory Posting Group".Code;
         // }
 
+        field(71012671; "Pay. Gen. Jrn. Template Name"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012672; "Pay. Gen. Jrn. Batch Name"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

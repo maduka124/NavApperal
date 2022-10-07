@@ -28,6 +28,8 @@ page 50542 "Acceptance Card"
                     trigger OnValidate()
                     var
                     begin
+                        "Acceptance S/N" := format("Acceptance S/N 2").PadLeft(7 - strlen(format("Acceptance S/N 2")), '0');
+
                         if Type = Type::"TT or Cash" then begin
                             VisibleVar := false;
                             "B2BLC No" := '';
@@ -50,6 +52,8 @@ page 50542 "Acceptance Card"
                         AcceptanceInv1Rec: Record AcceptanceInv1;
                         GITBaseonPIRec: Record GITBaseonPI;
                     begin
+
+                        "Acceptance S/N" := format("Acceptance S/N 2").PadLeft(7 - strlen(format("Acceptance S/N 2")), '0');
 
                         VendorRec.Reset();
                         VendorRec.SetRange(Name, "Suppler Name");
@@ -106,13 +110,18 @@ page 50542 "Acceptance Card"
                         B2BLCMasRce: Record B2BLCMaster;
                     begin
 
+                        "Acceptance S/N" := format("Acceptance S/N 2").PadLeft(7 - strlen(format("Acceptance S/N 2")), '0');
+
                         if (Type = Type::"Based On B2B LC") and ("B2BLC No (System)" <> '') then begin
 
                             //Get B2B LC No
                             B2BLCMasRce.Reset();
                             B2BLCMasRce.SetRange("No.", "B2BLC No (System)");
-                            B2BLCMasRce.FindSet();
-                            "B2BLC No" := B2BLCMasRce."B2B LC No";
+                            if B2BLCMasRce.FindSet() then begin
+                                "B2BLC No" := B2BLCMasRce."B2B LC No";
+                                "LC Issue Bank" := B2BLCMasRce."Issue Bank";
+                                "LC Issue Bank No." := B2BLCMasRce."LC Issue Bank No.";
+                            end;
 
                             //Delete old records
                             AcceptanceInv1Rec.Reset();
@@ -154,6 +163,12 @@ page 50542 "Acceptance Card"
                     ApplicationArea = All;
                     Editable = false;
                     //Editable = VisibleVar;
+                }
+
+                field("LC Issue Bank"; "LC Issue Bank")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
             }
 
@@ -199,6 +214,7 @@ page 50542 "Acceptance Card"
                 field("Acceptance S/N"; "Acceptance S/N")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Maturity Date"; "Maturity Date")
@@ -210,6 +226,32 @@ page 50542 "Acceptance Card"
                 {
                     ApplicationArea = All;
                 }
+
+                // field("Acceptance S/N 2"; "Acceptance S/N 2")
+                // {
+                //     ApplicationArea = All;
+                // }
+            }
+        }
+    }
+
+
+    actions
+    {
+        area(Processing)
+        {
+            action("Approve")
+            {
+                ApplicationArea = all;
+                Image = Approve;
+
+                trigger OnAction()
+                var
+                begin
+                    Approved := true;
+                    ApproveDate := Today;
+                    CurrPage.Update();
+                end;
             }
         }
     }
@@ -261,6 +303,14 @@ page 50542 "Acceptance Card"
         END;
     end;
 
+
+    trigger OnOpenPage()
+    var
+    begin
+        //  "Acceptance S/N" := PADSTR('', 3 - strlen(format("Acceptance S/N 2")), '0') + format("Acceptance S/N 2");
+        "Acceptance S/N" := format("Acceptance S/N 2").PadLeft(7 - strlen(format("Acceptance S/N 2")), '0');
+        CurrPage.Update();
+    end;
 
     var
         VisibleVar: Boolean;

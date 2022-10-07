@@ -135,8 +135,11 @@ page 50721 "Job Creation Card"
                     WashSampleReqDataRec: Record "Washing Sample Requsition Line";
                     Quantity: Integer;
                     inTermeDiateTable: Record IntermediateTable;
-
-                //jobcreationTable: Record JobCreationLine;
+                    SalesHeaderRec: Record "Sales Header";
+                    Window: Dialog;
+                    TextCon1: TextConst ENU = 'Creating Production Order ####1';
+                    ProOrderNo: Code[20];
+                    CodeUnitNavApp: Codeunit NavAppCodeUnit;
                 begin
 
                     if "Split Status" = "Split Status"::Yes then
@@ -168,9 +171,26 @@ page 50721 "Job Creation Card"
                             //Create Purchase Order
                             Generate_PO();
 
+                            //Create Prod orders                       
+                            SalesHeaderRec.Reset();
+                            SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
+                            SalesHeaderRec.SetRange("Style No", "Style No.");
+                            SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::Washing);
+                            if SalesHeaderRec.FindSet() then begin
+
+                                //Window.Open(TextCon1);
+                                repeat
+                                    ProOrderNo := CodeUnitNavApp.CreateProdOrder(SalesHeaderRec."No.", 'Washing');
+                                //Window.Update(1, ProOrderNo);
+                                //Sleep(100);
+                                until SalesHeaderRec.Next() = 0;
+                                //Window.Close();
+
+                            end;
+
                             CurrPage.Editable(false);
                             CurrPage.Update();
-                            Message('Posting completed.');
+                            Message('completed.');
                         end
                         else
                             Error('This job creation already posted.');
@@ -284,12 +304,12 @@ page 50721 "Job Creation Card"
 
         if IntermediateTableRec.FindSet() then begin
             //HeaderRenaretor := 0;
-            LineNo := 0;
+            //LineNo := 0;
             NavAppSetupRec.Reset();
             NavAppSetupRec.FindSet();
 
             repeat
-                LineNo += 1;
+                //LineNo += 1;
                 //if HeaderRenaretor = 0 then begin
                 "SO No" := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."Wash SO Nos.", Today(), true);
                 // Sales Header 
@@ -302,7 +322,9 @@ page 50721 "Job Creation Card"
                 SalesHeaderRec."Order Date" := WorkDate();
                 SalesHeaderRec."Shipping No. Series" := 'S-SHPT';
                 SalesHeaderRec."Posting No. Series" := 'S-INV+';
+                SalesHeaderRec."Style No" := "Style No.";
                 SalesHeaderRec."Style Name" := "Style Name";
+                SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::Washing;
                 SalesHeaderRec.Status := SalesHeaderRec.Status::Open;
                 SalesHeaderRec."Requested Delivery Date" := "Req Date";
                 SalesHeaderRec.INSERT();
@@ -313,7 +335,7 @@ page 50721 "Job Creation Card"
                 SalesLineRec.Init();
                 SalesLineRec."Document Type" := SalesLineRec."Document Type"::Order;
                 SalesLineRec."Document No." := "SO No";
-                SalesLineRec."Line No." := LineNo;
+                SalesLineRec."Line No." := 1;
                 SalesLineRec.Type := SalesLineRec.Type::Item;
                 SalesLineRec."VAT Bus. Posting Group" := 'ZERO';
                 SalesLineRec."VAT Prod. Posting Group" := 'ZERO';

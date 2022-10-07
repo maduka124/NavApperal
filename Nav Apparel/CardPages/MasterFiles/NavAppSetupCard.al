@@ -522,6 +522,20 @@ page 71012751 "NavApp Setup Card"
                     ApplicationArea = All;
                     Caption = 'Gate Pass No';
                 }
+
+                field("Pay. Gen. Jrn. Template Name"; "Pay. Gen. Jrn. Template Name")
+                {
+                    ApplicationArea = All;
+                    TableRelation = "Gen. Journal Template";
+                    Caption = 'Payment Journal Template Name';
+                }
+
+                field("Pay. Gen. Jrn. Batch Name"; "Pay. Gen. Jrn. Batch Name")
+                {
+                    ApplicationArea = All;
+                    TableRelation = "Gen. Journal Batch".Name WHERE("Journal Template Name" = FIELD("Pay. Gen. Jrn. Template Name"));
+                    Caption = 'Payment Journal Batch Name';
+                }
             }
         }
     }

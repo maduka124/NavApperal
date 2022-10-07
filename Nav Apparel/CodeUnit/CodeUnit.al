@@ -850,18 +850,18 @@ codeunit 71012752 NavAppCodeUnit
     // end;
 
 
-    procedure CreateProdOrder(PassSoNo: Code[20])
+    procedure CreateProdOrder(PassSoNo: Code[20]; OrderType: Text[20]) ProOrderNo: Code[20]
     var
         ManufacSetup: Record "Manufacturing Setup";
         ProdOrder: Record "Production Order";
         ProdOrderCreate: Record "Production Order";
         SalesHedd: Record "Sales Header";
         NoserMangement: Codeunit NoSeriesManagement;
-        Window: Dialog;
-        TextCon1: TextConst ENU = 'Creating Production Order ####1';
+    //Window: Dialog;
+    //TextCon1: TextConst ENU = 'Creating Production Order ####1';
 
     begin
-        Window.Open(TextCon1);
+        //Window.Open(TextCon1);
         ManufacSetup.Get();
         ManufacSetup.TestField("Firm Planned Order Nos.");
         SalesHedd.get(SalesHedd."Document Type"::Order, PassSoNo);
@@ -871,9 +871,19 @@ codeunit 71012752 NavAppCodeUnit
         ProdOrder.Status := ProdOrder.Status::"Firm Planned";
         ProdOrder."No." := NoserMangement.GetNextNo(ManufacSetup."Firm Planned Order Nos.", WorkDate(), true);
         ProdOrder.Insert(true);
-        Window.Update(1, ProdOrder."No.");
-        Sleep(100);
+        // Window.Update(1, ProdOrder."No.");
+        // Sleep(100);
         ProdOrder.Validate("Source Type", ProdOrder."Source Type"::"Sales Header");
+
+        case OrderType of
+            'Bulk':
+                ProdOrder."Prod Order Type" := ProdOrder."Prod Order Type"::Bulk;
+            'Samples':
+                ProdOrder."Prod Order Type" := ProdOrder."Prod Order Type"::Samples;
+            'Washing':
+                ProdOrder."Prod Order Type" := ProdOrder."Prod Order Type"::Washing;
+        end;
+
         ProdOrder.Validate("Source No.", SalesHedd."No.");
 
         ProdOrder.Modify();
@@ -884,7 +894,9 @@ codeunit 71012752 NavAppCodeUnit
         ProdOrderCreate.SetRange("No.", ProdOrder."No.");
         REPORT.RUNMODAL(REPORT::"Refresh Production Order", FALSE, FALSE, ProdOrderCreate);
         COMMIT;
-        Window.Close();
+
+        exit(ProdOrder."No.");
+        //Window.Close();
     end;
 
 
