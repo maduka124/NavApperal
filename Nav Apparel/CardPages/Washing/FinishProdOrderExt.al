@@ -29,19 +29,20 @@ pageextension 50802 FinishProdOrderExt extends "Finished Production Order"
                         BuyerCode := CustomerRec."No.";
                 end;
             }
-            field("Style No."; "Style No.")
+            field("Style Name1"; "Style Name")
             {
-                ApplicationArea = all;
-                Caption = 'Style No';
+                ApplicationArea = All;
+
                 trigger OnValidate()
                 var
-                    styleRec: Record "Style Master";
+                    StyleRec: Record "Style Master";
+
                 begin
-                    styleRec.Reset();
-                    styleRec.SetRange("No.", "Style No.");
-                    if styleRec.FindSet() then begin
-                        "Style No." := styleRec."No.";
-                    end;
+
+                    StyleRec.Reset();
+                    StyleRec.SetRange("Style No.", "Style Name");
+                    if StyleRec.FindSet() then
+                        "Style No." := StyleRec."No.";
                 end;
             }
             // field("Shortcut Dimension 1 Code1"; "Shortcut Dimension 1 Code")
