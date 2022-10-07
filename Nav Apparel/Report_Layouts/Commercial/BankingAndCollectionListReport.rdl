@@ -694,7 +694,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1444,6 +1443,7 @@
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
+                                    <Format>n2</Format>
                                     <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
