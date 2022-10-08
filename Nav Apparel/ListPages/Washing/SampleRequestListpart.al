@@ -163,6 +163,7 @@ page 50751 WashingSampleListpart
                     begin
 
                         StyleColorRec.Reset();
+                        StyleColorRec.SetRange("User ID", UserId);
                         if StyleColorRec.FindSet() then begin
                             if Page.RunModal(71012840, StyleColorRec) = Action::LookupOK then begin
                                 "Color Code" := StyleColorRec."Color No.";

@@ -77,7 +77,10 @@ page 50701 "Washing Sample Request Card"
 
                         //Delete old record
                         StyleColorRec.Reset();
-                        StyleColorRec.DeleteAll();
+                        StyleColorRec.SetRange("User ID", UserId);
+                        if StyleColorRec.FindSet() then
+                            StyleColorRec.DeleteAll();
+
 
                         //Get Colors for the style
                         AssoRec.Reset();
@@ -89,6 +92,7 @@ page 50701 "Washing Sample Request Card"
                             repeat
                                 if Color <> AssoRec."Colour No" then begin
                                     StyleColorRec.Init();
+                                    StyleColorRec."User ID" := UserId;
                                     StyleColorRec."Color No." := AssoRec."Colour No";
                                     StyleColorRec.Color := AssoRec."Colour Name";
                                     StyleColorRec.Insert();

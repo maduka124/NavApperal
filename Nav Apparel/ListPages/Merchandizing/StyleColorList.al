@@ -2,7 +2,7 @@ page 71012840 StyleColorList
 {
     PageType = List;
     SourceTable = StyleColor;
-
+    //SourceTableView = where("User ID" = field(user));
     layout
     {
         area(Content)

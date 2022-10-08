@@ -289,7 +289,7 @@ page 71012683 "BOM Line Estimate ListPart"
     begin
         UOMRec.Reset();
         UOMRec.SetRange(Code, "Unit N0.");
-        UOMRec.FindSet();
+        UOMRec.FindSet(); 
         ConvFactor := UOMRec."Converion Parameter";
         Value := 0;
         Requirment := 0;

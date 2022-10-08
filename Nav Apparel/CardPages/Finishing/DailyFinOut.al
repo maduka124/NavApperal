@@ -164,6 +164,27 @@ page 50364 "Daily Finishing Out Card"
     }
 
 
+    actions
+    {
+        area(Processing)
+        {
+            action("Update Runtime")
+            {
+                ApplicationArea = All;
+                Image = UpdateDescription;
+
+                trigger OnAction()
+                var
+                    CodeUnitNavapp: Codeunit NavAppCodeUnit;
+                begin
+                    CodeUnitNavapp.Update_Runtime("Style Name", "Style No.", 'FINISHING');
+                    Message('Finishing Runtime Updated');
+                end;
+            }
+        }
+    }
+
+
     trigger OnInit()
     var
     begin

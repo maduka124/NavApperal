@@ -180,6 +180,27 @@ page 50351 "Daily Cutting Out Card"
     }
 
 
+    actions
+    {
+        area(Processing)
+        {
+            action("Update Runtime")
+            {
+                ApplicationArea = All;
+                Image = UpdateDescription;
+
+                trigger OnAction()
+                var
+                    CodeUnitNavapp: Codeunit NavAppCodeUnit;
+                begin
+                    CodeUnitNavapp.Update_Runtime("Style Name", "Style No.", 'CUTTING');
+                    Message('Cutting Runtime Updated');
+                end;
+            }
+        }
+    }
+
+
     trigger OnInit()
     var
     begin

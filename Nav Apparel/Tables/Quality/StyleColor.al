@@ -5,12 +5,17 @@ table 50562 "StyleColor"
 
     fields
     {
-        field(1; "Color No."; Code[20])
+        field(1; "User ID"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Color"; text[50])
+        field(2; "Color No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(3; "Color"; text[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -18,7 +23,7 @@ table 50562 "StyleColor"
 
     keys
     {
-        key(PK; "Color No.")
+        key(PK; "User ID", "Color No.")
         {
             Clustered = true;
         }
@@ -31,25 +36,4 @@ table 50562 "StyleColor"
 
         }
     }
-
-    trigger OnInsert()
-    begin
-
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

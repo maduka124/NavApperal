@@ -912,5 +912,94 @@ codeunit 71012752 NavAppCodeUnit
     end;
 
 
+    procedure Update_Runtime(StyleName: Text[50]; StyleNo: Code[20]; Department: code[20])
+    var
+        ProdOutHeaderRec: Record ProductionOutHeader;
+        NewBrDownHeaderRec: Record "New Breakdown";
+        NewBrDownLineRec: Record "New Breakdown Op Line2";
+        RouterRec: Record "Routing Header";
+        RouterLineRec: Record "Routing Line";
+        NewBrNo: Code[20];
+        TotalSMV: Decimal;
+        TotalRuntime: Decimal;
+    begin
+
+        //Get Bulk Router
+        RouterRec.Reset();
+        RouterRec.SetFilter("Bulk Router", '=%1', true);
+        if not RouterRec.FindSet() then
+            Error('cannot find a router for the Bulk Process.');
+
+
+        //Get New Br no
+        NewBrDownHeaderRec.Reset();
+        NewBrDownHeaderRec.SetRange("Style No.", StyleNo);
+        if NewBrDownHeaderRec.FindSet() then
+            NewBrNo := NewBrDownHeaderRec."No."
+        else
+            Error('cannot find new breakdown details.');
+
+
+        //Get total SMV for the department
+        TotalSMV := 0;
+        NewBrDownLineRec.Reset();
+        NewBrDownLineRec.SetRange("No.", NewBrNo);
+        NewBrDownLineRec.SetRange("Department Name", Department);
+        if NewBrDownLineRec.FindSet() then
+            repeat
+                TotalSMV += NewBrDownLineRec.SMV;
+            until NewBrDownLineRec.Next() = 0;
+
+
+        //Get Total Runtime 
+        TotalRuntime := 0;
+        ProdOutHeaderRec.Reset();
+
+        case Department of
+            'CUTTING':
+                begin
+                    ProdOutHeaderRec.SetFilter(Type, '=%1', 0);
+                    ProdOutHeaderRec.SetRange("Style No.", StyleNo);
+                end;
+            'SEWING':
+                begin
+                    ProdOutHeaderRec.SetFilter(Type, '=%1', 1);
+                    ProdOutHeaderRec.SetRange("Out Style No.", StyleNo);
+                end;
+            'WASHING':
+                begin
+                    ProdOutHeaderRec.SetFilter(Type, '=%1', 2);
+                    ProdOutHeaderRec.SetRange("Style No.", StyleNo);
+                end;
+            'FINISHING':
+                begin
+                    ProdOutHeaderRec.SetFilter(Type, '=%1', 6);
+                    ProdOutHeaderRec.SetRange("Style No.", StyleNo);
+                end;
+        end;
+
+        if ProdOutHeaderRec.FindSet() then begin
+            repeat
+                TotalRuntime += ProdOutHeaderRec."Output Qty" * TotalSMV;
+            until ProdOutHeaderRec.Next() = 0;
+        end
+        else
+            Error('Cannot find Output details for Style : %1', StyleName);
+
+        if TotalRuntime = 0 then
+            Error('Total runtime for this style is zero.');
+
+        //Assign to the router line runtime for the dapertment
+        RouterLineRec.Reset();
+        RouterLineRec.SetRange("Routing No.", RouterRec."No.");
+        RouterLineRec.SetRange(Description, Department);
+        if RouterLineRec.FindSet() then begin
+            RouterLineRec."Run Time" := TotalRuntime;
+            RouterLineRec.Modify();
+        end
+        else
+            Error('Cannot find router line for the department %1 :', Department);
+
+    end;
 
 }

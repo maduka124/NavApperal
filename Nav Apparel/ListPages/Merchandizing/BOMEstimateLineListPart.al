@@ -243,7 +243,10 @@ page 71012695 "BOM Estimate Line List part"
         if (x = 0) and (ConvFactor <> 0) then
             Requirment := Requirment / ConvFactor;
 
-        Requirment := Round(Requirment, 1);
+        if Requirment = 0 then
+            Requirment := 1;
+
+        //Requirment := Round(Requirment, 1);
         Value := Requirment * Rate;
         CurrPage.Update(true);
         CalculateCost();
@@ -252,22 +255,32 @@ page 71012695 "BOM Estimate Line List part"
 
     procedure CalculateWST()
     var
-
     begin
 
-        if Type = type::Pcs then
-            if AjstReq = 0 then
-                WST := (100 * Requirment) / (Qty * Consumption) - 100
-            else
-                WST := (100 * AjstReq) / (Qty * Consumption) - 100
-        else
-            if Type = type::Doz then
-                if AjstReq = 0 then
-                    WST := (100 * Requirment * 12) / (Qty * Consumption) - 100
-                else
-                    WST := (100 * AjstReq * 12) / (Qty * Consumption) - 100;
+        case Type of
+            type::Pcs:
+                begin
+                    WST := WST + ((AjstReq / Requirment) - 1) * 100;
+                end;
+            type::Doz:
+                begin
+                    WST := WST + ((AjstReq / Requirment) - 1) * 100;
+                end;
+        end;
 
-        CalculateValue(1);
+        // if Type = type::Pcs then
+        //     if AjstReq = 0 then
+        //         WST := (100 * Requirment) / (Qty * Consumption) - 100
+        //     else
+        //         WST := (100 * AjstReq) / (Qty * Consumption) - 100
+        // else
+        //     if Type = type::Doz then
+        //         if AjstReq = 0 then
+        //             WST := (100 * Requirment * 12) / (Qty * Consumption) - 100
+        //         else
+        //             WST := (100 * AjstReq * 12) / (Qty * Consumption) - 100;
+
+        CalculateValue(0);
     end;
 
     procedure CalculateCost()

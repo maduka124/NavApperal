@@ -309,6 +309,28 @@ page 50355 "Daily Sewing In/Out Card"
     }
 
 
+    actions
+    {
+        area(Processing)
+        {
+            action("Update Runtime")
+            {
+                ApplicationArea = All;
+                Image = UpdateDescription;
+
+                trigger OnAction()
+                var
+                    CodeUnitNavapp: Codeunit NavAppCodeUnit;
+                begin
+                    CodeUnitNavapp.Update_Runtime("Out Style Name", "Out Style No.", 'SEWING');
+                    Message('Sewing Runtime Updated');
+                end;
+            }
+        }
+    }
+
+
+
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     var
         ProductionOutLine: Record ProductionOutLine;

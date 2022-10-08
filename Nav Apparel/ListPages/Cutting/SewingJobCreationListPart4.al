@@ -254,7 +254,9 @@ page 50594 "Sewing Job Creation ListPart4"
 
                         //Deleet old recorsd
                         StyleColorRec.Reset();
-                        StyleColorRec.DeleteAll();
+                        StyleColorRec.SetRange("User ID", UserId);
+                        if StyleColorRec.FindSet() then
+                            StyleColorRec.DeleteAll();
 
                         //Get Colors for the style
                         AssoRec.Reset();
@@ -266,6 +268,7 @@ page 50594 "Sewing Job Creation ListPart4"
                             repeat
                                 if Color <> AssoRec."Colour No" then begin
                                     StyleColorRec.Init();
+                                    StyleColorRec."User ID" := UserId;
                                     StyleColorRec."Color No." := AssoRec."Colour No";
                                     StyleColorRec.Color := AssoRec."Colour Name";
                                     StyleColorRec.Insert();
