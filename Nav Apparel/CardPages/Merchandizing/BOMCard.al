@@ -5577,8 +5577,11 @@ page 71012680 "BOM Card"
                     ItemRec: Record Item;
                     NavAppSetupRec: Record "NavApp Setup";
                     RequLineRec: Record "Requisition Line";
-                    RequLineRec1: Record "Requisition Line";
+                    //RequLineRec1: Record "Requisition Line";
                     Qty: Decimal;
+                    ItemLedgerRec: Record "Item Ledger Entry";
+                    QtyInStock: Decimal;
+                    ItemNotemp: Code[50];
                 begin
 
                     BOMLineAutoGenRec.Reset();
@@ -5603,7 +5606,7 @@ page 71012680 "BOM Card"
 
                             FOR Count := 1 TO 64 DO begin
                                 Qty := 0;
-                                StatusGB := 0;
+                                //StatusGB := 0;
 
                                 case Count of
                                     1:
@@ -6653,6 +6656,85 @@ page 71012680 "BOM Card"
 
                         end;
 
+
+                        NavAppSetupRec.Reset();
+                        NavAppSetupRec.FindSet();
+
+                        //Adjust planning worksheet order qty based on in hand stock
+                        //Get planning worksheet recods  
+                        RequLineRec.Reset();
+                        RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                        RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
+                        RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
+                        RequLineRec.SetRange(StyleNo, "Style No.");
+
+                        if RequLineRec.FindSet() then begin
+                            repeat
+
+                                if ItemNotemp <> RequLineRec."No." then begin
+                                    //Get qty in stock for first time only
+                                    QtyInStock := 0;
+                                    ItemLedgerRec.Reset();
+                                    ItemLedgerRec.SetRange("Item No.", RequLineRec."No.");
+
+                                    if ItemLedgerRec.FindSet() then begin
+                                        repeat
+                                            QtyInStock += ItemLedgerRec."Remaining Quantity";
+                                        until ItemLedgerRec.Next() = 0;
+                                    end;
+
+                                    //Validate qty
+                                    if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
+                                        RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
+                                        RequLineRec.Modify();
+                                        QtyInStock := 0;
+                                    end
+                                    else begin
+                                        if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                            
+                                            QtyInStock := QtyInStock - RequLineRec.Quantity;
+                                            RequLineRec.Quantity := 0;
+                                            RequLineRec.Modify();
+                                        end;
+                                    end;
+
+                                    ItemNotemp := RequLineRec."No.";
+                                end
+                                else begin
+
+                                    //Validate qty
+                                    if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
+                                        RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
+                                        RequLineRec.Modify();
+                                        QtyInStock := 0;
+                                    end
+                                    else begin
+                                        if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                           
+                                            QtyInStock := QtyInStock - RequLineRec.Quantity;
+                                            RequLineRec.Quantity := 0;
+                                            RequLineRec.Modify();
+                                        end;
+                                    end;
+
+                                    ItemNotemp := RequLineRec."No.";
+                                end;
+
+                            until RequLineRec.Next() = 0;
+
+                        end;
+
+
+                        //Delete zero qty records
+                        RequLineRec.Reset();
+                        RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                        RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
+                        RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
+                        RequLineRec.SetRange(StyleNo, "Style No.");
+                        RequLineRec.SetFilter(Quantity, '=%1', 0);
+
+                        if RequLineRec.FindSet() then begin
+                            RequLineRec.DeleteAll();
+                        end;
+
                         Message('Completed');
                     end;
 
@@ -7548,6 +7630,9 @@ page 71012680 "BOM Card"
         StyMasterRec.SetRange("No.", "Style No.");
         StyMasterRec.FindSet();
 
+        if StyMasterRec."Factory Code" = '' then
+            Error('Factory is not assigned for the style : #1', StyMasterRec."Style No.");
+
         //Get ship date
         StyMasterPORec.Reset();
         StyMasterPORec.SetRange("Style No.", "Style No.");
@@ -7728,24 +7813,6 @@ page 71012680 "BOM Card"
 
                         if BOMLineEstimateRec.Reconfirm = false then begin
 
-                            // if HeaderGenerated = false then begin
-
-                            //     //Generate Production BOM Header                                            
-                            //     NextBomNo := NoSeriesManagementCode.GetNextNo('PRODBOM', Today(), true);
-                            //     ProdBOMHeaderRec.Init();
-                            //     ProdBOMHeaderRec."No." := NextBomNo;
-                            //     ProdBOMHeaderRec.Description := ItemDesc;
-                            //     ProdBOMHeaderRec.Validate("Unit of Measure Code", 'PCS');
-                            //     ProdBOMHeaderRec.Validate("Low-Level Code", 0);
-                            //     ProdBOMHeaderRec.Validate(Status, 0);
-                            //     ProdBOMHeaderRec."Creation Date" := WorkDate();
-                            //     ProdBOMHeaderRec."Last Date Modified" := WorkDate();
-                            //     ProdBOMHeaderRec."No. Series" := 'PRODBOM';
-                            //     ProdBOMHeaderRec.Insert(true);
-                            //     HeaderGenerated := true;
-
-                            // end;
-
                             if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
 
                                 //Get Dimenion only status
@@ -7781,6 +7848,8 @@ page 71012680 "BOM Card"
                                         Description := Description + ' / ' + AutoGenRec."GMT Size Name";
                                 end;
 
+                                // if Description = 'COTTON/POLY/STRETCH DENIM / BROOK GREEN / -' then
+                                //     Message(format(AutoGenRec.Requirment));
 
                                 //Check whether item exists
                                 ItemMasterRec.Reset();
@@ -8311,6 +8380,7 @@ page 71012680 "BOM Card"
         if StyMasterRec."Factory Code" = '' then
             Error('Factory is not assigned for the Style : %1', StyMasterRec."Style No.");
 
+
         //Get max line no
         RequLineRec.Reset();
         RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
@@ -8370,11 +8440,11 @@ page 71012680 "BOM Card"
 
         end
         else begin  // Update existing item
-
             RequLineRec."Quantity" := RequLineRec."Quantity" + Qty;
             RequLineRec.Modify();
-
         end;
+
+
 
         // //Get No series for LOT
         // ItemRec.Reset();

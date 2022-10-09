@@ -173,6 +173,11 @@ page 71012772 "Sample Request Card"
                     TextCon1: TextConst ENU = 'Creating Production Order ####1';
                     ProOrderNo: Code[20];
                     CodeUnitNavApp: Codeunit NavAppCodeUnit;
+                    ItemLedgerRec: Record "Item Ledger Entry";
+                    NavAppSetupRec: Record "NavApp Setup";
+                    RequLineRec: Record "Requisition Line";
+                    QtyInStock: Decimal;
+                    ItemNotemp: Code[50];
                 begin
                     SampleRec.Reset();
                     SampleRec.SetRange("No.", "No.");
@@ -187,8 +192,8 @@ page 71012772 "Sample Request Card"
                                 SalesHeaderRec.SetRange("Style No", "Style No.");
                                 SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
                                 SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::Sample);
-                                if SalesHeaderRec.FindSet() then begin
 
+                                if SalesHeaderRec.FindSet() then begin
                                     //Window.Open(TextCon1);
                                     repeat
                                         ProOrderNo := CodeUnitNavApp.CreateProdOrder(SalesHeaderRec."No.", 'Samples');
@@ -196,8 +201,86 @@ page 71012772 "Sample Request Card"
                                     //Sleep(100);
                                     until SalesHeaderRec.Next() = 0;
                                     //Window.Close();
+                                end;
+
+                                NavAppSetupRec.Reset();
+                                NavAppSetupRec.FindSet();
+
+                                //Adjust planning worksheet order qty based on in hand stock
+                                //Get planning worksheet recods  
+                                RequLineRec.Reset();
+                                RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                                RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
+                                RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
+                                RequLineRec.SetRange(StyleNo, "Style No.");
+
+                                if RequLineRec.FindSet() then begin
+                                    repeat
+
+                                        if ItemNotemp <> RequLineRec."No." then begin
+                                            //Get qty in stock for first time only
+                                            QtyInStock := 0;
+                                            ItemLedgerRec.Reset();
+                                            ItemLedgerRec.SetRange("Item No.", RequLineRec."No.");
+
+                                            if ItemLedgerRec.FindSet() then begin
+                                                repeat
+                                                    QtyInStock += ItemLedgerRec."Remaining Quantity";
+                                                until ItemLedgerRec.Next() = 0;
+                                            end;
+
+                                            //Validate qty
+                                            if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
+                                                RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
+                                                RequLineRec.Modify();
+                                                QtyInStock := 0;
+                                            end
+                                            else begin
+                                                if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                            
+                                                    QtyInStock := QtyInStock - RequLineRec.Quantity;
+                                                    RequLineRec.Quantity := 0;
+                                                    RequLineRec.Modify();
+                                                end;
+                                            end;
+
+                                            ItemNotemp := RequLineRec."No.";
+                                        end
+                                        else begin
+
+                                            //Validate qty
+                                            if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
+                                                RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
+                                                RequLineRec.Modify();
+                                                QtyInStock := 0;
+                                            end
+                                            else begin
+                                                if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                           
+                                                    QtyInStock := QtyInStock - RequLineRec.Quantity;
+                                                    RequLineRec.Quantity := 0;
+                                                    RequLineRec.Modify();
+                                                end;
+                                            end;
+
+                                            ItemNotemp := RequLineRec."No.";
+                                        end;
+
+                                    until RequLineRec.Next() = 0;
 
                                 end;
+
+
+                                //Delete zero qty records
+                                RequLineRec.Reset();
+                                RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                                RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
+                                RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
+                                RequLineRec.SetRange(StyleNo, "Style No.");
+                                RequLineRec.SetFilter(Quantity, '=%1', 0);
+
+                                if RequLineRec.FindSet() then begin
+                                    RequLineRec.DeleteAll();
+                                end;
+
 
                                 WriteToMRPStatus := 1;
                                 CurrPage.SaveRecord();

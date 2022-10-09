@@ -158,7 +158,7 @@ page 71012808 "Change Colour Card"
                     end;
 
 
-                    //update quanity breakdown TAB
+                    //update Quantity breakdown TAB
                     AssorColorSizeRatioView.Reset();
                     AssorColorSizeRatioView.Reset();
                     AssorColorSizeRatioView.SetRange("Style No.", "Style No.");

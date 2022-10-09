@@ -5,7 +5,7 @@ page 50369 "Wastage"
     UsageCategory = Lists;
     SourceTable = Wastage;
     CardPageId = "Wastage Card";
-    Caption = 'Quanity Wise Extra %';
+    Caption = 'Quantity Wise Extra %';
 
 
     layout

@@ -284,7 +284,9 @@ page 71012694 "BOM Estimate Card"
 
                 trigger OnAction()
                 var
-                    BOMEstimateLIneRec: Record "BOM Estimate Line";
+                    BOMEstLineRec: Record "BOM Estimate Line";
+                    ConvFactor: Decimal;
+                    UOMRec: Record "Unit of Measure";
                     Total: Decimal;
                 begin
 
@@ -292,44 +294,57 @@ page 71012694 "BOM Estimate Card"
                         Error('Quantity is zero. Cannot proceed.');
 
                     Total := 0;
-                    BOMEstimateLIneRec.Reset();
-                    BOMEstimateLIneRec.SetCurrentKey("No.");
-                    BOMEstimateLIneRec.SetRange("No.", "No.");
+                    BOMEstLineRec.Reset();
+                    BOMEstLineRec.SetCurrentKey("No.");
+                    BOMEstLineRec.SetRange("No.", "No.");
 
-                    IF (BOMEstimateLIneRec.FINDSET) THEN
+                    IF (BOMEstLineRec.FINDSET) THEN
                         repeat
 
-                            if BOMEstimateLIneRec.Type = BOMEstimateLIneRec.Type::Pcs then
-                                if BOMEstimateLIneRec.AjstReq = 0 then
-                                    BOMEstimateLIneRec.WST := (100 * BOMEstimateLIneRec.Requirment) / (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) - 100
-                                else
-                                    BOMEstimateLIneRec.WST := (100 * BOMEstimateLIneRec.AjstReq) / (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) - 100
+                            ConvFactor := 0;
+                            UOMRec.Reset();
+                            UOMRec.SetRange(Code, BOMEstLineRec."Unit N0.");
+                            if UOMRec.FindSet() then
+                                ConvFactor := UOMRec."Converion Parameter";
+
+                            // if BOMEstLineRec.Type = BOMEstLineRec.Type::Pcs then
+                            //     if BOMEstLineRec.AjstReq = 0 then
+                            //         BOMEstLineRec.WST := (100 * BOMEstLineRec.Requirment) / (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) - 100
+                            //     else
+                            //         BOMEstLineRec.WST := (100 * BOMEstLineRec.AjstReq) / (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) - 100
+                            // else
+                            //     if BOMEstLineRec.Type = BOMEstLineRec.Type::Doz then
+                            //         if BOMEstLineRec.AjstReq = 0 then
+                            //             BOMEstLineRec.WST := (100 * BOMEstLineRec.Requirment * 12) / (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) - 100
+                            //         else
+                            //             BOMEstLineRec.WST := (100 * BOMEstLineRec.AjstReq * 12) / (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) - 100;
+
+
+                            if BOMEstLineRec.Type = BOMEstLineRec.Type::Pcs then
+                                BOMEstLineRec.Requirment := (BOMEstLineRec.Consumption * BOMEstLineRec.Qty) + (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) * BOMEstLineRec.WST / 100
                             else
-                                if BOMEstimateLIneRec.Type = BOMEstimateLIneRec.Type::Doz then
-                                    if BOMEstimateLIneRec.AjstReq = 0 then
-                                        BOMEstimateLIneRec.WST := (100 * BOMEstimateLIneRec.Requirment * 12) / (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) - 100
-                                    else
-                                        BOMEstimateLIneRec.WST := (100 * BOMEstimateLIneRec.AjstReq * 12) / (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) - 100;
+                                if BOMEstLineRec.Type = BOMEstLineRec.Type::Doz then
+                                    BOMEstLineRec.Requirment := ((BOMEstLineRec.Consumption * BOMEstLineRec.Qty) + (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) * BOMEstLineRec.WST / 100) / 12;
 
+                            //BOMEstLineRec.Requirment := Round(BOMEstLineRec.Requirment, 1);
 
-                            if BOMEstimateLIneRec.Type = BOMEstimateLIneRec.Type::Pcs then
-                                BOMEstimateLIneRec.Requirment := (BOMEstimateLIneRec.Consumption * BOMEstimateLIneRec.Qty) + (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) * BOMEstimateLIneRec.WST / 100
-                            else
-                                if BOMEstimateLIneRec.Type = BOMEstimateLIneRec.Type::Doz then
-                                    BOMEstimateLIneRec.Requirment := ((BOMEstimateLIneRec.Consumption * BOMEstimateLIneRec.Qty) + (BOMEstimateLIneRec.Qty * BOMEstimateLIneRec.Consumption) * BOMEstimateLIneRec.WST / 100) / 12;
+                            if ConvFactor <> 0 then
+                                BOMEstLineRec.Requirment := BOMEstLineRec.Requirment / ConvFactor;
 
-                            BOMEstimateLIneRec.Requirment := Round(BOMEstimateLIneRec.Requirment, 1);
-                            BOMEstimateLIneRec.Value := BOMEstimateLIneRec.Requirment * BOMEstimateLIneRec.Rate;
-                            Total += BOMEstimateLIneRec.Value;
-                            BOMEstimateLIneRec.Modify();
+                            if BOMEstLineRec.Requirment = 0 then
+                                BOMEstLineRec.Requirment := 1;
 
-                        until BOMEstimateLIneRec.Next() = 0;
+                            BOMEstLineRec.Value := BOMEstLineRec.Requirment * BOMEstLineRec.Rate;
+                            Total += BOMEstLineRec.Value;
+                            BOMEstLineRec.Modify();
+
+                        until BOMEstLineRec.Next() = 0;
 
                     "Material Cost Pcs." := (Total / Quantity);
                     "Material Cost Doz." := "Material Cost Pcs." * 12;
                     CurrPage.Update();
 
-                    Message('Completed');
+                    Message('Calculation completed');
 
                 end;
             }
