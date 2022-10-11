@@ -6657,83 +6657,83 @@ page 71012680 "BOM Card"
                         end;
 
 
-                        NavAppSetupRec.Reset();
-                        NavAppSetupRec.FindSet();
+                        // NavAppSetupRec.Reset();
+                        // NavAppSetupRec.FindSet();
 
-                        //Adjust planning worksheet order qty based on in hand stock
-                        //Get planning worksheet recods  
-                        RequLineRec.Reset();
-                        RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
-                        RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
-                        RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
-                        RequLineRec.SetRange(StyleNo, "Style No.");
+                        // //Adjust planning worksheet order qty based on in hand stock
+                        // //Get planning worksheet recods  
+                        // RequLineRec.Reset();
+                        // RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                        // RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
+                        // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
+                        // RequLineRec.SetRange(StyleNo, "Style No.");
 
-                        if RequLineRec.FindSet() then begin
-                            repeat
+                        // if RequLineRec.FindSet() then begin
+                        //     repeat
 
-                                if ItemNotemp <> RequLineRec."No." then begin
-                                    //Get qty in stock for first time only
-                                    QtyInStock := 0;
-                                    ItemLedgerRec.Reset();
-                                    ItemLedgerRec.SetRange("Item No.", RequLineRec."No.");
+                        //         if ItemNotemp <> RequLineRec."No." then begin
+                        //             //Get qty in stock for first time only
+                        //             QtyInStock := 0;
+                        //             ItemLedgerRec.Reset();
+                        //             ItemLedgerRec.SetRange("Item No.", RequLineRec."No.");
 
-                                    if ItemLedgerRec.FindSet() then begin
-                                        repeat
-                                            QtyInStock += ItemLedgerRec."Remaining Quantity";
-                                        until ItemLedgerRec.Next() = 0;
-                                    end;
+                        //             if ItemLedgerRec.FindSet() then begin
+                        //                 repeat
+                        //                     QtyInStock += ItemLedgerRec."Remaining Quantity";
+                        //                 until ItemLedgerRec.Next() = 0;
+                        //             end;
 
-                                    //Validate qty
-                                    if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
-                                        RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
-                                        RequLineRec.Modify();
-                                        QtyInStock := 0;
-                                    end
-                                    else begin
-                                        if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                            
-                                            QtyInStock := QtyInStock - RequLineRec.Quantity;
-                                            RequLineRec.Quantity := 0;
-                                            RequLineRec.Modify();
-                                        end;
-                                    end;
+                        //             //Validate qty
+                        //             if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
+                        //                 RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
+                        //                 RequLineRec.Modify();
+                        //                 QtyInStock := 0;
+                        //             end
+                        //             else begin
+                        //                 if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                            
+                        //                     QtyInStock := QtyInStock - RequLineRec.Quantity;
+                        //                     RequLineRec.Quantity := 0;
+                        //                     RequLineRec.Modify();
+                        //                 end;
+                        //             end;
 
-                                    ItemNotemp := RequLineRec."No.";
-                                end
-                                else begin
+                        //             ItemNotemp := RequLineRec."No.";
+                        //         end
+                        //         else begin
 
-                                    //Validate qty
-                                    if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
-                                        RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
-                                        RequLineRec.Modify();
-                                        QtyInStock := 0;
-                                    end
-                                    else begin
-                                        if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                           
-                                            QtyInStock := QtyInStock - RequLineRec.Quantity;
-                                            RequLineRec.Quantity := 0;
-                                            RequLineRec.Modify();
-                                        end;
-                                    end;
+                        //             //Validate qty
+                        //             if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
+                        //                 RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
+                        //                 RequLineRec.Modify();
+                        //                 QtyInStock := 0;
+                        //             end
+                        //             else begin
+                        //                 if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                           
+                        //                     QtyInStock := QtyInStock - RequLineRec.Quantity;
+                        //                     RequLineRec.Quantity := 0;
+                        //                     RequLineRec.Modify();
+                        //                 end;
+                        //             end;
 
-                                    ItemNotemp := RequLineRec."No.";
-                                end;
+                        //             ItemNotemp := RequLineRec."No.";
+                        //         end;
 
-                            until RequLineRec.Next() = 0;
+                        //     until RequLineRec.Next() = 0;
 
-                        end;
+                        // end;
 
 
-                        //Delete zero qty records
-                        RequLineRec.Reset();
-                        RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
-                        RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
-                        RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
-                        RequLineRec.SetRange(StyleNo, "Style No.");
-                        RequLineRec.SetFilter(Quantity, '=%1', 0);
+                        // //Delete zero qty records
+                        // RequLineRec.Reset();
+                        // RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                        // RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
+                        // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
+                        // RequLineRec.SetRange(StyleNo, "Style No.");
+                        // RequLineRec.SetFilter(Quantity, '=%1', 0);
 
-                        if RequLineRec.FindSet() then begin
-                            RequLineRec.DeleteAll();
-                        end;
+                        // if RequLineRec.FindSet() then begin
+                        //     RequLineRec.DeleteAll();
+                        // end;
 
                         Message('Completed');
                     end;
@@ -7756,6 +7756,7 @@ page 71012680 "BOM Card"
         HeaderGenerated: Boolean;
         UOMRec: Record "Unit of Measure";
         ConvFactor: Decimal;
+        ConsumptionTot: Decimal;
     begin
 
         //Get Worksheet line no
@@ -7971,16 +7972,43 @@ page 71012680 "BOM Card"
                                     ProdBOMLine1Rec.Validate("No.", NextItemNo);
                                     ProdBOMLine1Rec.Description := Description;
                                     ProdBOMLine1Rec.Validate("Unit of Measure Code", AutoGenRec."Unit N0.");
-                                    //ProdBOMLine1Rec.Validate(Quantity, AutoGenRec.Consumption);   
-                                    ProdBOMLine1Rec."Quantity per" := AutoGenRec.Consumption / ConvFactor;
+                                    //ProdBOMLine1Rec.Validate(Quantity, AutoGenRec.Consumption);  
+
+                                    if AutoGenRec.Type = AutoGenRec.Type::Pcs then
+                                        ConsumptionTot := AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100
+                                    else
+                                        if AutoGenRec.Type = AutoGenRec.Type::Doz then
+                                            ConsumptionTot := (AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100) / 12;
+
+                                    if ConvFactor <> 0 then
+                                        ConsumptionTot := ConsumptionTot / ConvFactor;
+
+                                    if ConsumptionTot = 0 then
+                                        ConsumptionTot := 1;
+
+                                    ProdBOMLine1Rec.Quantity := ConsumptionTot;
+                                    ProdBOMLine1Rec."Quantity per" := ConsumptionTot;
                                     ProdBOMLine1Rec.Insert(true);
 
                                 end
                                 else begin  // Update existing item qty
 
+                                    if AutoGenRec.Type = AutoGenRec.Type::Pcs then
+                                        ConsumptionTot := AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100
+                                    else
+                                        if AutoGenRec.Type = AutoGenRec.Type::Doz then
+                                            ConsumptionTot := (AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100) / 12;
+
+                                    if ConvFactor <> 0 then
+                                        ConsumptionTot := ConsumptionTot / ConvFactor;
+
+                                    if ConsumptionTot = 0 then
+                                        ConsumptionTot := 1;
+
+
                                     //ProdBOMLineRec.Validate(Quantity, ProdBOMLineRec."Quantity" + AutoGenRec.Consumption);
-                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + AutoGenRec.Consumption / ConvFactor;
-                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + AutoGenRec.Consumption / ConvFactor;
+                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + ConsumptionTot;
+                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + ConsumptionTot;
                                     ProdBOMLineRec.Modify();
 
                                 end;
@@ -8066,6 +8094,7 @@ page 71012680 "BOM Card"
         NextItemNo: Code[20];
         UOMRec: Record "Unit of Measure";
         ConvFactor: Decimal;
+        ConsumptionTot: Decimal;
     //HeaderGenerated: Boolean;
     begin
 
@@ -8285,17 +8314,50 @@ page 71012680 "BOM Card"
                                     ProdBOMLine1Rec.Description := Description;
                                     ProdBOMLine1Rec.Validate("Unit of Measure Code", AutoGenRec."Unit N0.");
                                     //ProdBOMLine1Rec.Validate(Quantity, AutoGenRec.Consumption);
-                                    ProdBOMLine1Rec.Quantity := AutoGenRec.Consumption;
-                                    ProdBOMLine1Rec."Quantity per" := AutoGenRec.Consumption / ConvFactor;
+
+                                    if AutoGenRec.Type = AutoGenRec.Type::Pcs then
+                                        ConsumptionTot := AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100
+                                    else
+                                        if AutoGenRec.Type = AutoGenRec.Type::Doz then
+                                            ConsumptionTot := (AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100) / 12;
+
+                                    if ConvFactor <> 0 then
+                                        ConsumptionTot := ConsumptionTot / ConvFactor;
+
+                                    if ConsumptionTot = 0 then
+                                        ConsumptionTot := 1;
+
+                                    ProdBOMLine1Rec.Quantity := ConsumptionTot;
+                                    ProdBOMLine1Rec."Quantity per" := ConsumptionTot;
                                     ProdBOMLine1Rec.Insert(true);
+
+                                    //ProdBOMLine1Rec.Quantity := AutoGenRec.Consumption;
+                                    //ProdBOMLine1Rec."Quantity per" := AutoGenRec.Consumption / ConvFactor;
+                                    //ProdBOMLine1Rec.Insert(true);
 
                                 end
                                 else begin  // Update existing item qty
 
-                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + AutoGenRec.Consumption / ConvFactor;
-                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + AutoGenRec.Consumption / ConvFactor;
-                                    //ProdBOMLineRec.Validate(Quantity, ProdBOMLineRec."Quantity" + AutoGenRec.Consumption);
+                                    if AutoGenRec.Type = AutoGenRec.Type::Pcs then
+                                        ConsumptionTot := AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100
+                                    else
+                                        if AutoGenRec.Type = AutoGenRec.Type::Doz then
+                                            ConsumptionTot := (AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100) / 12;
+
+                                    if ConvFactor <> 0 then
+                                        ConsumptionTot := ConsumptionTot / ConvFactor;
+
+                                    if ConsumptionTot = 0 then
+                                        ConsumptionTot := 1;
+
+                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + ConsumptionTot;
+                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + ConsumptionTot;
                                     ProdBOMLineRec.Modify();
+
+                                    // ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + AutoGenRec.Consumption / ConvFactor;
+                                    // ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + AutoGenRec.Consumption / ConvFactor;
+                                    // //ProdBOMLineRec.Validate(Quantity, ProdBOMLineRec."Quantity" + AutoGenRec.Consumption);
+                                    // ProdBOMLineRec.Modify();
 
                                 end;
 
