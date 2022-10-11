@@ -345,6 +345,7 @@ page 71012772 "Sample Request Card"
         ItemUinitRec: Record "Item Unit of Measure";
         BOMEstimateRec: Record "BOM Estimate Cost";
         RouterRec: Record "Routing Header";
+        ColorRec: Record Colour;
         ItemRec: Record Item;
         NextItemNo: Code[20];
         SalesDocNo: Code[20];
@@ -388,7 +389,14 @@ page 71012772 "Sample Request Card"
             ItemRec.Type := ItemRec.Type::Inventory;
             ItemRec."Gen. Prod. Posting Group" := NavAppSetupRec."Gen Posting Group-SM";
             ItemRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-SM";
-            ItemRec.Validate("Color No.", Color);
+            ItemRec."Color No." := Color;
+
+            ColorRec.Reset();
+            ColorRec.SetRange("No.", Color);
+            ColorRec.FindSet();
+            ItemRec."Color Name" := ColorRec."Colour Name";
+
+            ItemRec."Size Range No." := Size;
             ItemRec."Rounding Precision" := 0.00001;
 
             //Insert into Item unit of measure
@@ -640,8 +648,6 @@ page 71012772 "Sample Request Card"
                     end;
 
                     ItemMasterRec."Item Category Code" := SampleReqAcceRec."Main Category No.";
-
-
                     ItemMasterRec."Sub Category No." := SampleReqAcceRec."Sub Category No.";
                     ItemMasterRec."Sub Category Name" := SampleReqAcceRec."Sub Category Name";
                     ItemMasterRec."Color No." := SampleReqAcceRec."Item Color No.";
@@ -653,7 +659,9 @@ page 71012772 "Sample Request Card"
                         ItemMasterRec."Size Range No." := SampleReqAcceRec."GMT Size Name";
 
                     ItemMasterRec."Article No." := SampleReqAcceRec."Article No.";
+                    ItemMasterRec."Article" := SampleReqAcceRec."Article Name.";
                     ItemMasterRec."Dimension Width No." := SampleReqAcceRec."Dimension No.";
+                    ItemMasterRec."Dimension Width" := SampleReqAcceRec."Dimension Name.";
                     ItemMasterRec.Type := ItemMasterRec.Type::Inventory;
                     ItemMasterRec."Unit Cost" := SampleReqAcceRec.Rate;
                     ItemMasterRec."Unit Price" := SampleReqAcceRec.Rate;
@@ -665,8 +673,8 @@ page 71012772 "Sample Request Card"
                     //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
 
 
-                    if SampleReqAcceRec."Main Category Name" = 'FABRIC' then begin
-                        ItemMasterRec."Item Tracking Code" := 'LOTALL';
+                    if MainCateRec.LOTTracking then begin
+                        ItemMasterRec.Validate("Item Tracking Code", NavAppSetupRec."LOT Tracking Code");
                         ItemMasterRec."Lot Nos." := NavAppSetupRec."LOTTracking Nos.";
                     end;
 

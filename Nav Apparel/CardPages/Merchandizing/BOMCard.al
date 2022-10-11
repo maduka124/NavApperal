@@ -7454,6 +7454,7 @@ page 71012680 "BOM Card"
         NavAppSetupRec: Record "NavApp Setup";
         ItemMasterRec: Record Item;
         ItemUinitRec: Record "Item Unit of Measure";
+        ColorRec: Record Colour;
         BOMEstimateRec: Record "BOM Estimate Cost";
         FOBPcsPrice: Decimal;
         ItemRec: Record Item;
@@ -7492,7 +7493,14 @@ page 71012680 "BOM Card"
             ItemRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-FG";
             ItemRec."VAT Prod. Posting Group" := 'ZERO';
             //ItemRec."VAT Bus. Posting " := 'ZERO';
-            ItemRec.Validate("Color No.", Color);
+            ItemRec."Color No." := Color;
+
+            ColorRec.Reset();
+            ColorRec.SetRange("No.", Color);
+            ColorRec.FindSet();
+            ItemRec."Color Name" := ColorRec."Colour Name";
+
+            ItemRec."Size Range No." := Size;
             ItemRec."Rounding Precision" := 0.00001;
 
             //Insert into Item unit of measure
@@ -7909,7 +7917,9 @@ page 71012680 "BOM Card"
                                         ItemMasterRec."Size Range No." := AutoGenRec."GMT Size Name";
 
                                     ItemMasterRec."Article No." := AutoGenRec."Article No.";
+                                    ItemMasterRec."Article" := AutoGenRec."Article Name.";
                                     ItemMasterRec."Dimension Width No." := AutoGenRec."Dimension No.";
+                                    ItemMasterRec."Dimension Width" := AutoGenRec."Dimension Name.";
                                     ItemMasterRec.Type := ItemMasterRec.Type::Inventory;
                                     ItemMasterRec."Unit Cost" := AutoGenRec.Rate;
                                     ItemMasterRec."Unit Price" := AutoGenRec.Rate;
@@ -7921,8 +7931,8 @@ page 71012680 "BOM Card"
                                     //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
 
 
-                                    if AutoGenRec."Main Category Name" = 'FABRIC' then begin
-                                        ItemMasterRec."Item Tracking Code" := 'LOTALL';
+                                    if MainCateRec.LOTTracking then begin
+                                        ItemMasterRec.Validate("Item Tracking Code", NavAppSetupRec."LOT Tracking Code");
                                         ItemMasterRec."Lot Nos." := NavAppSetupRec."LOTTracking Nos.";
                                     end;
 
@@ -8246,8 +8256,8 @@ page 71012680 "BOM Card"
                                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
                                     //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
 
-                                    if AutoGenRec."Main Category Name" = 'FABRIC' then begin
-                                        ItemMasterRec."Item Tracking Code" := 'LOTALL';
+                                    if MainCateRec.LOTTracking then begin
+                                        ItemMasterRec.Validate("Item Tracking Code", NavAppSetupRec."LOT Tracking Code");
                                         ItemMasterRec."Lot Nos." := NavAppSetupRec."LOTTracking Nos.";
                                     end;
 
