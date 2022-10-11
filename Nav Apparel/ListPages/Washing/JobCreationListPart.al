@@ -135,6 +135,9 @@ page 50722 JobcreationPageListPart
                             repeat
                                 TotalQty += JobCreLineRec.QTY;
                             until JobCreLineRec.Next() = 0;
+                            WashsampleResLine."Total Split Qty" := TotalQty;
+                            WashsampleResLine.Modify();
+                            CurrPage.Update();
                         end;
 
                         if WashsampleResLine."Req Qty BW QC Pass" < TotalQty then
@@ -411,6 +414,7 @@ page 50722 JobcreationPageListPart
     var
         intermidiateRec: Record IntermediateTable;
         WashsampleResLine: Record "Washing Sample Requsition Line";
+        WashsampleResLine2Rec: Record "Washing Sample Requsition Line";
     begin
 
         WashsampleResLine.Reset();
@@ -426,6 +430,18 @@ page 50722 JobcreationPageListPart
 
         if intermidiateRec.FindSet() then
             intermidiateRec.DeleteAll();
+
+
+        // WashsampleResLine2Rec.Reset();
+        // WashsampleResLine2Rec.SetRange("No.", No);
+        // WashsampleResLine2Rec.SetRange("Line no.", "Line No");
+
+
+        // if WashsampleResLine2Rec.FindSet() then begin
+        //     WashsampleResLine2Rec.Delete();
+        //     WashsampleResLine2Rec."Total Split Qty" := WashsampleResLine2Rec."Total Split Qty" - QTY;
+        //     CurrPage.Update();
+        // end;
     end;
 
 

@@ -462,9 +462,9 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Washing Sample Requests")
+                action("Washing Requisition")
                 {
-                    Caption = ' Washing Sample Requests';
+                    Caption = ' Washing Requisition';
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
@@ -853,9 +853,9 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action(" Wash Sample Requests")
+                action(" Washing Requisition")
                 {
-                    Caption = ' Washing Sample Requests';
+                    Caption = ' Washing Requisition';
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
@@ -1115,7 +1115,7 @@ page 71012740 "Nav Apperal Role Center"
 
                 action("Sample Requests")
                 {
-                    Caption = ' Washing Sample Requests';
+                    Caption = ' Washing Requisition';
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }

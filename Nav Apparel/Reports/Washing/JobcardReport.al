@@ -100,7 +100,7 @@ report 50670 JobCardReport
             trigger OnPreDataItem()
 
             begin
-                //SetRange("No.", OrderNo);
+                SetRange("No.", OrderNo);
             end;
         }
     }

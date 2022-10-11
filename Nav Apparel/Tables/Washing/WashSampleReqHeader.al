@@ -154,8 +154,8 @@ table 50741 "Washing Sample Header"
         field(31; "Sample/Bulk"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = "Sample","Bulk";
-            OptionCaption = 'Sample,Bulk';
+            OptionMembers = "Sample","Bulk","Rewash";
+            OptionCaption = 'Sample,Bulk,Rewash';
         }
 
         field(33; Editeble; Option)
@@ -168,6 +168,13 @@ table 50741 "Washing Sample Header"
         field(34; "Request From"; Code[20])
         {
             DataClassification = ToBeClassified;
+        }
+
+        field(36; "PO No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Style Master PO"."PO No." where("Style No." = field("Style No."));
+            ValidateTableRelation = false;
         }
     }
 
