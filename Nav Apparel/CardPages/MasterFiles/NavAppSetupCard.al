@@ -320,7 +320,13 @@ page 71012751 "NavApp Setup Card"
                 field("LOTTracking Nos."; "LOTTracking Nos.")
                 {
                     ApplicationArea = All;
-                    Caption = 'LOT Tracking (RM)';
+                    Caption = 'LOT Tracking Nos. (RM)';
+                }
+
+                field("LOT Tracking Code"; "LOT Tracking Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'LOT Tracking Code (RM)';
                 }
 
                 field("RoleIssu Nos."; "RoleIssu Nos.")

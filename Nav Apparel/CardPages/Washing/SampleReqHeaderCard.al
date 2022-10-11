@@ -2,7 +2,7 @@ page 50701 "Washing Sample Request Card"
 {
     PageType = Card;
     SourceTable = "Washing Sample Header";
-    Caption = 'Washing Sample Request';
+    Caption = 'Washing Requisition';
 
     layout
     {
@@ -170,6 +170,22 @@ page 50701 "Washing Sample Request Card"
                         LocationRec.SetRange(Name, "Wash Plant Name");
                         if LocationRec.FindSet() then
                             "Wash Plant No." := LocationRec.Code;
+                    end;
+                }
+
+                field("PO No"; "PO No")
+                {
+                    ApplicationArea = All;
+
+                    trigger onvalidate()
+                    var
+                        StyleMasterPoRec: Record "Style Master PO";
+                    begin
+                        StyleMasterPoRec.Reset();
+                        StyleMasterPoRec.SetRange("Style No.", "Style No.");
+
+                        if StyleMasterPoRec.FindSet() then
+                            "PO No" := StyleMasterPoRec."PO No.";
                     end;
                 }
 

@@ -312,6 +312,11 @@ table 50705 "Washing Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(65; "Total Split Qty"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

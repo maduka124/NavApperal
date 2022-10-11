@@ -203,83 +203,84 @@ page 71012772 "Sample Request Card"
                                     //Window.Close();
                                 end;
 
-                                NavAppSetupRec.Reset();
-                                NavAppSetupRec.FindSet();
 
-                                //Adjust planning worksheet order qty based on in hand stock
-                                //Get planning worksheet recods  
-                                RequLineRec.Reset();
-                                RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
-                                RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
-                                RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
-                                RequLineRec.SetRange(StyleNo, "Style No.");
+                                // NavAppSetupRec.Reset();
+                                // NavAppSetupRec.FindSet();
 
-                                if RequLineRec.FindSet() then begin
-                                    repeat
+                                // //Adjust planning worksheet order qty based on in hand stock
+                                // //Get planning worksheet recods  
+                                // RequLineRec.Reset();
+                                // RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                                // RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
+                                // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
+                                // RequLineRec.SetRange(StyleNo, "Style No.");
 
-                                        if ItemNotemp <> RequLineRec."No." then begin
-                                            //Get qty in stock for first time only
-                                            QtyInStock := 0;
-                                            ItemLedgerRec.Reset();
-                                            ItemLedgerRec.SetRange("Item No.", RequLineRec."No.");
+                                // if RequLineRec.FindSet() then begin
+                                //     repeat
 
-                                            if ItemLedgerRec.FindSet() then begin
-                                                repeat
-                                                    QtyInStock += ItemLedgerRec."Remaining Quantity";
-                                                until ItemLedgerRec.Next() = 0;
-                                            end;
+                                //         if ItemNotemp <> RequLineRec."No." then begin
+                                //             //Get qty in stock for first time only
+                                //             QtyInStock := 0;
+                                //             ItemLedgerRec.Reset();
+                                //             ItemLedgerRec.SetRange("Item No.", RequLineRec."No.");
 
-                                            //Validate qty
-                                            if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
-                                                RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
-                                                RequLineRec.Modify();
-                                                QtyInStock := 0;
-                                            end
-                                            else begin
-                                                if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                            
-                                                    QtyInStock := QtyInStock - RequLineRec.Quantity;
-                                                    RequLineRec.Quantity := 0;
-                                                    RequLineRec.Modify();
-                                                end;
-                                            end;
+                                //             if ItemLedgerRec.FindSet() then begin
+                                //                 repeat
+                                //                     QtyInStock += ItemLedgerRec."Remaining Quantity";
+                                //                 until ItemLedgerRec.Next() = 0;
+                                //             end;
 
-                                            ItemNotemp := RequLineRec."No.";
-                                        end
-                                        else begin
+                                //             //Validate qty
+                                //             if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
+                                //                 RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
+                                //                 RequLineRec.Modify();
+                                //                 QtyInStock := 0;
+                                //             end
+                                //             else begin
+                                //                 if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                            
+                                //                     QtyInStock := QtyInStock - RequLineRec.Quantity;
+                                //                     RequLineRec.Quantity := 0;
+                                //                     RequLineRec.Modify();
+                                //                 end;
+                                //             end;
 
-                                            //Validate qty
-                                            if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
-                                                RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
-                                                RequLineRec.Modify();
-                                                QtyInStock := 0;
-                                            end
-                                            else begin
-                                                if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                           
-                                                    QtyInStock := QtyInStock - RequLineRec.Quantity;
-                                                    RequLineRec.Quantity := 0;
-                                                    RequLineRec.Modify();
-                                                end;
-                                            end;
+                                //             ItemNotemp := RequLineRec."No.";
+                                //         end
+                                //         else begin
 
-                                            ItemNotemp := RequLineRec."No.";
-                                        end;
+                                //             //Validate qty
+                                //             if RequLineRec.Quantity > QtyInStock then begin   //order balance qty
+                                //                 RequLineRec.Quantity := RequLineRec.Quantity - QtyInStock;
+                                //                 RequLineRec.Modify();
+                                //                 QtyInStock := 0;
+                                //             end
+                                //             else begin
+                                //                 if RequLineRec.Quantity <= QtyInStock then begin  //No need to order.make zero qty                                           
+                                //                     QtyInStock := QtyInStock - RequLineRec.Quantity;
+                                //                     RequLineRec.Quantity := 0;
+                                //                     RequLineRec.Modify();
+                                //                 end;
+                                //             end;
 
-                                    until RequLineRec.Next() = 0;
+                                //             ItemNotemp := RequLineRec."No.";
+                                //         end;
 
-                                end;
+                                //     until RequLineRec.Next() = 0;
+
+                                // end;
 
 
-                                //Delete zero qty records
-                                RequLineRec.Reset();
-                                RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
-                                RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
-                                RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
-                                RequLineRec.SetRange(StyleNo, "Style No.");
-                                RequLineRec.SetFilter(Quantity, '=%1', 0);
+                                // //Delete zero qty records
+                                // RequLineRec.Reset();
+                                // RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                                // RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
+                                // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
+                                // RequLineRec.SetRange(StyleNo, "Style No.");
+                                // RequLineRec.SetFilter(Quantity, '=%1', 0);
 
-                                if RequLineRec.FindSet() then begin
-                                    RequLineRec.DeleteAll();
-                                end;
+                                // if RequLineRec.FindSet() then begin
+                                //     RequLineRec.DeleteAll();
+                                // end;
 
 
                                 WriteToMRPStatus := 1;
@@ -344,6 +345,7 @@ page 71012772 "Sample Request Card"
         ItemUinitRec: Record "Item Unit of Measure";
         BOMEstimateRec: Record "BOM Estimate Cost";
         RouterRec: Record "Routing Header";
+        ColorRec: Record Colour;
         ItemRec: Record Item;
         NextItemNo: Code[20];
         SalesDocNo: Code[20];
@@ -387,7 +389,14 @@ page 71012772 "Sample Request Card"
             ItemRec.Type := ItemRec.Type::Inventory;
             ItemRec."Gen. Prod. Posting Group" := NavAppSetupRec."Gen Posting Group-SM";
             ItemRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-SM";
-            ItemRec.Validate("Color No.", Color);
+            ItemRec."Color No." := Color;
+
+            ColorRec.Reset();
+            ColorRec.SetRange("No.", Color);
+            ColorRec.FindSet();
+            ItemRec."Color Name" := ColorRec."Colour Name";
+
+            ItemRec."Size Range No." := Size;
             ItemRec."Rounding Precision" := 0.00001;
 
             //Insert into Item unit of measure
@@ -525,6 +534,7 @@ page 71012772 "Sample Request Card"
         ItemUinitRec: Record "Item Unit of Measure";
         UOMRec: Record "Unit of Measure";
         ConvFactor: Decimal;
+        ConsumptionTot: Decimal;
     begin
 
         //Get Worksheet line no
@@ -638,8 +648,6 @@ page 71012772 "Sample Request Card"
                     end;
 
                     ItemMasterRec."Item Category Code" := SampleReqAcceRec."Main Category No.";
-
-
                     ItemMasterRec."Sub Category No." := SampleReqAcceRec."Sub Category No.";
                     ItemMasterRec."Sub Category Name" := SampleReqAcceRec."Sub Category Name";
                     ItemMasterRec."Color No." := SampleReqAcceRec."Item Color No.";
@@ -651,7 +659,9 @@ page 71012772 "Sample Request Card"
                         ItemMasterRec."Size Range No." := SampleReqAcceRec."GMT Size Name";
 
                     ItemMasterRec."Article No." := SampleReqAcceRec."Article No.";
+                    ItemMasterRec."Article" := SampleReqAcceRec."Article Name.";
                     ItemMasterRec."Dimension Width No." := SampleReqAcceRec."Dimension No.";
+                    ItemMasterRec."Dimension Width" := SampleReqAcceRec."Dimension Name.";
                     ItemMasterRec.Type := ItemMasterRec.Type::Inventory;
                     ItemMasterRec."Unit Cost" := SampleReqAcceRec.Rate;
                     ItemMasterRec."Unit Price" := SampleReqAcceRec.Rate;
@@ -663,8 +673,8 @@ page 71012772 "Sample Request Card"
                     //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
 
 
-                    if SampleReqAcceRec."Main Category Name" = 'FABRIC' then begin
-                        ItemMasterRec."Item Tracking Code" := 'LOTALL';
+                    if MainCateRec.LOTTracking then begin
+                        ItemMasterRec.Validate("Item Tracking Code", NavAppSetupRec."LOT Tracking Code");
                         ItemMasterRec."Lot Nos." := NavAppSetupRec."LOTTracking Nos.";
                     end;
 
@@ -703,8 +713,21 @@ page 71012772 "Sample Request Card"
                 if ConvFactor = 0 then
                     ConvFactor := 1;
 
-                ProdBOMLineRec."Quantity per" := SampleReqAcceRec.Consumption / ConvFactor;
+                if SampleReqAcceRec.Type = SampleReqAcceRec.Type::Pcs then
+                    ConsumptionTot := SampleReqAcceRec.Consumption + (SampleReqAcceRec.Consumption * SampleReqAcceRec.WST) / 100;
+
+                if ConvFactor <> 0 then
+                    ConsumptionTot := ConsumptionTot / ConvFactor;
+
+                if ConsumptionTot = 0 then
+                    ConsumptionTot := 1;
+
+                ProdBOMLineRec.Quantity := ConsumptionTot;
+                ProdBOMLineRec."Quantity per" := ConsumptionTot;
                 ProdBOMLineRec.Insert(true);
+
+                // ProdBOMLineRec."Quantity per" := SampleReqAcceRec.Consumption / ConvFactor;
+                // ProdBOMLineRec.Insert(true);
 
                 //Create Worksheet Entry
                 CreateWorksheetEntry(NextItemNo, SampleReqAcceRec."Supplier No.", SampleReqAcceRec.Requirment, SampleReqAcceRec.Rate, SampleReqAcceRec."Main Category Name");

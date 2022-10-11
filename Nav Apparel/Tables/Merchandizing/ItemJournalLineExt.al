@@ -54,6 +54,7 @@ tableextension 71012762 "ItemJournalLineExt" extends "Item Journal Line"
         {
 
         }
+
     }
 }
 

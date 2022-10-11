@@ -5,6 +5,7 @@ page 50700 "Washing Sample Request"
     UsageCategory = Lists;
     SourceTable = "Washing Sample Header";
     CardPageId = "Washing Sample Request Card";
+    Caption = 'Washing Requisition';
 
     layout
     {

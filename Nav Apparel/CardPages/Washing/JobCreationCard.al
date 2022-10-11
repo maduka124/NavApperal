@@ -117,6 +117,11 @@ page 50721 "Job Creation Card"
                     SubPageLink = No = field("No."), "Line No" = field("Line no.");
                 }
             }
+
+            field("Total Split Qty"; "Total Split Qty")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 
@@ -454,6 +459,11 @@ page 50721 "Job Creation Card"
 
         if JobcreationRec.FindSet() then
             JobcreationRec.DeleteAll();
+
+        if JobcreationRec.FindSet() then begin
+            JobcreationRec.Delete();
+            "Total Split Qty" := "Total Split Qty" - JobcreationRec.QTY;
+        end;
 
         Inter1Rec.Reset();
         Inter1Rec.SetRange(No, "No.");
