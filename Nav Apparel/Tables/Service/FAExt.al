@@ -24,6 +24,8 @@ tableextension 50734 "FA Extension" extends "Fixed Asset"
         {
 
         }
+
+
     }
 }
 

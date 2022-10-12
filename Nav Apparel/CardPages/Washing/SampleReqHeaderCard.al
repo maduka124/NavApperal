@@ -14,7 +14,7 @@ page 50701 "Washing Sample Request Card"
                 field("No."; "No.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Request No';
+                    Caption = 'Requisition No';
                     //Editable = false;
 
                     trigger OnAssistEdit()
@@ -108,6 +108,7 @@ page 50701 "Washing Sample Request Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Requisition From';
                 }
 
                 field("Garment Type No."; "Garment Type No.")
@@ -198,7 +199,7 @@ page 50701 "Washing Sample Request Card"
                 field("Req Date"; "Req Date")
                 {
                     ApplicationArea = All;
-                    Caption = 'Request Date';
+                    Caption = 'Requisition Date';
                 }
 
                 field("Sample/Bulk"; "Sample/Bulk")
