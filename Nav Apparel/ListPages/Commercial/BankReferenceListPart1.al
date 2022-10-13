@@ -5,6 +5,8 @@ page 50764 "Bank Ref Invoice ListPart1"
     SourceTableView = where(AssignedBankRefNo = filter(''));
     DeleteAllowed = false;
     InsertAllowed = false;
+    Permissions = tabledata "Sales Invoice Header" = rm;
+
 
     layout
     {

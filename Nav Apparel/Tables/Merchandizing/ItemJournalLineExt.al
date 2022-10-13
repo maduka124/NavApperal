@@ -55,6 +55,12 @@ tableextension 71012762 "ItemJournalLineExt" extends "Item Journal Line"
 
         }
 
+        field(71012592; "Cut No"; Code[20])
+        {
+            TableRelation = CutCreationLine."Cut No" where("Cut No" = filter(<> 0));
+            ValidateTableRelation = false;
+        }
+
     }
 }
 

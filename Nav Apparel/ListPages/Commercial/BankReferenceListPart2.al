@@ -4,6 +4,7 @@ page 50765 "Bank Ref Invoice ListPart2"
     SourceTable = BankReferenceInvoice;
     DeleteAllowed = false;
     InsertAllowed = false;
+    Permissions = tabledata "Sales Invoice Header" = rm;
 
     layout
     {

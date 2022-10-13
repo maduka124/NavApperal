@@ -1,5 +1,17 @@
 pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
 {
+    layout
+    {
+        addafter("Document No.")
+        {
+            field("Cut No"; "Cut No")
+            {
+                ApplicationArea = All;
+            }
+        }
+    }
+
+
     actions
     {
         addafter("Pro&d. Order")
