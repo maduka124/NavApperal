@@ -249,7 +249,7 @@ page 50683 "FabShrinkageTestCard"
                 field("No of Roll"; "No of Roll")
                 {
                     ApplicationArea = All;
-                    Caption = 'No of Rolls';
+                    Caption = 'Fabric Code';
                     Editable = false;
                 }
             }
@@ -287,6 +287,6 @@ page 50683 "FabShrinkageTestCard"
         FabShrTestLineRec.SetRange("FabShrTestNo.", "FabShrTestNo.");
         if FabShrTestLineRec.FindSet() then
             FabShrTestLineRec.DeleteAll();
-    end;   
+    end;
 
 }
