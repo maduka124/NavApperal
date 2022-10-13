@@ -31,6 +31,11 @@ table 71012596 "Department"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012586; "Show in Manpower Budget"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -1,10 +1,13 @@
-page 71012597 "Department"
+page 50811 "Dept_DesignationsList2"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = Department;
-    CardPageId = "Department Card";
+    SourceTable = Dept_Designations;
+    SourceTableView = sorting("Department No.", "Designations No.");
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    DeleteAllowed = false;
 
     layout
     {
@@ -12,23 +15,18 @@ page 71012597 "Department"
         {
             repeater(General)
             {
-                field("No."; "No.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Department No';
-                }
-
                 field("Department Name"; "Department Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Show in New Operations"; "Show in New Operations")
+                field("Designations No."; "Designations No.")
                 {
                     ApplicationArea = All;
+                    Caption = 'Designations No';
                 }
 
-                field("Show in Manpower Budget"; "Show in Manpower Budget")
+                field("Designations Name"; "Designations Name")
                 {
                     ApplicationArea = All;
                 }

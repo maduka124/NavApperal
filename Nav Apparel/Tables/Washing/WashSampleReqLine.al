@@ -317,6 +317,11 @@ table 50705 "Washing Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(66; "Style_PO No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

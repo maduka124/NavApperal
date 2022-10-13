@@ -529,6 +529,12 @@ page 71012751 "NavApp Setup Card"
                     Caption = 'Gate Pass No';
                 }
 
+                field("ManBudget Nos."; "ManBudget Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Man Power Budget No';
+                }
+
                 field("Pay. Gen. Jrn. Template Name"; "Pay. Gen. Jrn. Template Name")
                 {
                     ApplicationArea = All;

@@ -158,6 +158,13 @@ codeunit 71012752 NavAppCodeUnit
 
     end;
 
+    procedure ChangeColorManpoerBudget(OpList: Record FactoryManpowerBudgetLine): Text[50]
+    var
+    begin
+        if (OpList."Type" = 1) or (OpList."Type" = 2) then
+            exit('strongaccent')
+    end;
+
     procedure ChangeColorAssoRatio(OpList: Record AssorColorSizeRatioView): Text[50]
     var
     begin

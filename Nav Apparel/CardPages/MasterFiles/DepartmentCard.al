@@ -36,7 +36,36 @@ page 71012598 "Department Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Show in Manpower Budget"; "Show in Manpower Budget")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
+
+    actions
+    {
+        area(Processing)
+        {
+            action("Add Designations")
+            {
+                ApplicationArea = all;
+                Image = ViewDescription;
+
+                trigger OnAction();
+                var
+                    Dept_DesignationsList: Page Dept_DesignationsList1;
+                begin
+                    Clear(Dept_DesignationsList);
+                    Dept_DesignationsList.LookupMode(true);
+                    Dept_DesignationsList.PassParameters("No.", "Department Name");
+                    Dept_DesignationsList.Run();
+                end;
+            }
+
+        }
+    }
+
 }
