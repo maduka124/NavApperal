@@ -219,7 +219,7 @@ page 50683 "FabShrinkageTestCard"
                 field("Fabric Code"; "Fabric Code")
                 {
                     ApplicationArea = All;
-                    Caption = 'Fabric';
+                    Caption = 'Fabric Code';
 
                     trigger OnValidate()
                     var
@@ -249,7 +249,7 @@ page 50683 "FabShrinkageTestCard"
                 field("No of Roll"; "No of Roll")
                 {
                     ApplicationArea = All;
-                    Caption = 'Fabric Code';
+                    Caption = 'No of Roll';
                     Editable = false;
                 }
             }
