@@ -103,11 +103,7 @@ report 50633 AccessoriesStatusReport
 
                 end;
 
-                // trigger OnPreDataItem()
-
-                // begin
-                //     SetRange("No.", FilterNo);
-                // end;
+            
             }
             trigger OnAfterGetRecord()
 
