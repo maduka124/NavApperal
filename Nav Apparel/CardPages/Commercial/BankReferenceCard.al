@@ -2,7 +2,9 @@ page 50763 "Bank Reference Card"
 {
     PageType = Card;
     SourceTable = BankReferenceHeader;
+    UsageCategory = Tasks;
     Caption = 'Export Bank Reference';
+    Permissions = tabledata "Sales Invoice Header" = rm;
 
     layout
     {

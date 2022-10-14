@@ -18,7 +18,6 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
-                        SalesInvRec: Record "Sales Invoice Header";
                         BankRefCollLineRec: Record BankRefCollectionLine;
                         BankRefHeaderRec: Record BankReferenceHeader;
                         BankRefInvRec: Record BankReferenceInvoice;

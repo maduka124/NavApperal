@@ -298,10 +298,20 @@ page 50721 "Job Creation Card"
         NavAppSetupRec: Record "NavApp Setup";
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         IntermediateTableRec: Record IntermediateTable;
+        StyleMasterPo: Record "Style Master PO";
         HeaderRenaretor: Integer;
         "SO No": Code[20];
         LineNo: Integer;
+        LotNo: Code[20];
     begin
+
+        StyleMasterPo.Reset();
+        StyleMasterPo.SetRange("Style No.", "Style No.");
+        StyleMasterPo.SetRange("PO No.", "Style_PO No");
+
+        if StyleMasterPo.FindSet() then
+            LotNo := StyleMasterPo."Lot No.";
+
 
         IntermediateTableRec.Reset();
         IntermediateTableRec.SetRange(No, "No.");
@@ -329,6 +339,8 @@ page 50721 "Job Creation Card"
                 SalesHeaderRec."Posting No. Series" := 'S-INV+';
                 SalesHeaderRec."Style No" := "Style No.";
                 SalesHeaderRec."Style Name" := "Style Name";
+                SalesHeaderRec."PO No" := "Style_PO No";
+                SalesHeaderRec.Lot := LotNo;
                 SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::Washing;
                 SalesHeaderRec.Status := SalesHeaderRec.Status::Open;
                 SalesHeaderRec."Requested Delivery Date" := "Req Date";

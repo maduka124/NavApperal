@@ -545,6 +545,12 @@ table 71012749 "NavApp Setup"
             DataClassification = ToBeClassified;
             TableRelation = "Item Tracking Code".Code;
         }
+
+        field(71012676; "ManBudget Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 
     keys

@@ -96,6 +96,7 @@ page 50751 WashingSampleListpart
 
                         SampleReqHrdRec.Get("No.");
                         "Style No." := SampleReqHrdRec."Style No.";
+                        "Style_PO No" := SampleReqHrdRec."PO No";
                         "Style Name" := SampleReqHrdRec."Style Name";
                         "Wash Plant Name" := SampleReqHrdRec."Wash Plant Name";
                         Buyer := SampleReqHrdRec."Buyer Name";

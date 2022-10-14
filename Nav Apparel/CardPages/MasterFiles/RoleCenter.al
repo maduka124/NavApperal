@@ -101,6 +101,13 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Department/Designations")
+                {
+                    Caption = 'Department/Designations';
+                    RunObject = Page Dept_DesignationsList2;
+                    ApplicationArea = all;
+                }
+
                 action("Dimension Width")
                 {
                     Caption = 'Dimension Width';
@@ -984,6 +991,13 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Factory Wise CPM';
                     RunObject = Page "Factory CPM List";
+                    ApplicationArea = all;
+                }
+
+                action("Factory Manpower Budget Vs Actual")
+                {
+                    Caption = 'Factory Manpower Budget Vs Actual';
+                    RunObject = Page "Factory Manpower Budget List";
                     ApplicationArea = all;
                 }
 

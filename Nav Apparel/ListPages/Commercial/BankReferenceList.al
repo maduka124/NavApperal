@@ -6,6 +6,7 @@ page 50766 "Bank Reference List"
     SourceTable = BankReferenceHeader;
     CardPageId = "Bank Reference Card";
     Editable = false;
+    Permissions = tabledata "Sales Invoice Header" = rm;
 
     layout
     {

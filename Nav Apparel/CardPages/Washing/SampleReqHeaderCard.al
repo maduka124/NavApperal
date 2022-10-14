@@ -178,16 +178,16 @@ page 50701 "Washing Sample Request Card"
                 {
                     ApplicationArea = All;
 
-                    trigger onvalidate()
-                    var
-                        StyleMasterPoRec: Record "Style Master PO";
-                    begin
-                        StyleMasterPoRec.Reset();
-                        StyleMasterPoRec.SetRange("Style No.", "Style No.");
+                    // trigger onvalidate()
+                    // var
+                    //     StyleMasterPoRec: Record "Style Master PO";
+                    // begin
+                    //     StyleMasterPoRec.Reset();
+                    //     StyleMasterPoRec.SetRange("Style No.", "Style No.");
 
-                        if StyleMasterPoRec.FindSet() then
-                            "PO No" := StyleMasterPoRec."PO No.";
-                    end;
+                    //     if StyleMasterPoRec.FindSet() then
+                    //         "PO No" := StyleMasterPoRec."PO No.";
+                    // end;
                 }
 
                 field(Comment; Comment)
