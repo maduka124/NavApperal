@@ -13,7 +13,7 @@ report 50633 AccessoriesStatusReport
         dataitem("Style Master"; "Style Master")
         {
             DataItemTableView = sorting("No.");
-
+           
             column(Style_No_; "Style No.")
             { }
             column(Garment_Type_Name; "Garment Type Name")
@@ -42,7 +42,6 @@ report 50633 AccessoriesStatusReport
                 DataItemTableView = sorting("Line No.");
                 column(GRNQty; Quantity)
                 { }
-
                 dataitem(Item; Item)
                 {
                     DataItemLinkReference = "Purch. Rcpt. Line";
@@ -104,11 +103,7 @@ report 50633 AccessoriesStatusReport
 
                 end;
 
-                trigger OnPreDataItem()
-
-                begin
-                    SetRange("No.", FilterNo);
-                end;
+            
             }
             trigger OnAfterGetRecord()
 

@@ -551,7 +551,7 @@ table 71012766 "BOM Estimate Cost"
 
     keys
     {
-        key(PK; "No.")
+        key(PK; "No.", "Style Name")
         {
             Clustered = true;
         }
