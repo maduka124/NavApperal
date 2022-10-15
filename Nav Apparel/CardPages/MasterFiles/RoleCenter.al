@@ -101,10 +101,10 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Department/Designations")
+                action("Department/Categories")
                 {
-                    Caption = 'Department/Designations';
-                    RunObject = Page Dept_DesignationsList2;
+                    Caption = 'Department/Categories';
+                    RunObject = Page Dept_CategoriesList2;
                     ApplicationArea = all;
                 }
 
@@ -1090,11 +1090,11 @@ page 71012740 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Style Analysis Report")
+                    action("Machine Layout Report")
                     {
-                        Caption = 'Style Analysis Report';
+                        Caption = 'Machine Layout Report';
                         Enabled = true;
-                        RunObject = report StyleAnalysis;
+                        RunObject = report MachineLayoutReport;
                         ApplicationArea = all;
                     }
 
@@ -1113,11 +1113,20 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report PendingStyleSMV;
                         ApplicationArea = all;
                     }
-                    action("Machine Layout Report")
+
+                    action("Style Analysis Report")
                     {
-                        Caption = 'Machine Layout Report';
+                        Caption = 'Style Analysis Report';
                         Enabled = true;
-                        RunObject = report MachineLayoutReport;
+                        RunObject = report StyleAnalysis;
+                        ApplicationArea = all;
+                    }
+
+                    action("Summary of Worker Manpower Report")
+                    {
+                        Caption = 'Summary of Worker Manpower Report';
+                        Enabled = true;
+                        RunObject = report ManpowerBudgetReport;
                         ApplicationArea = all;
                     }
                 }

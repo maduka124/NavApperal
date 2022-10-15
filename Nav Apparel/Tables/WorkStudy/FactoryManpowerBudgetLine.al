@@ -25,21 +25,21 @@ table 50813 FactoryManpowerBudgetLine
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Department Code"; text[50])
+        field(5; "Department Code"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Department Name"; text[50])
+        field(6; "Department Name"; text[100])
         {
             DataClassification = ToBeClassified;
         }
-        field(7; "Designations No."; Code[20])
+        field(7; "Category No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(8; "Designations Name"; text[50])
+        field(8; "Category Name"; text[100])
         {
             DataClassification = ToBeClassified;
         }
@@ -102,6 +102,11 @@ table 50813 FactoryManpowerBudgetLine
         }
 
         field(20; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(21; "Show In Report"; Boolean)
         {
             DataClassification = ToBeClassified;
         }

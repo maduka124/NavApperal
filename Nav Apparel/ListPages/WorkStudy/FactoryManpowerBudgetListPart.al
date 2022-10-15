@@ -20,7 +20,7 @@ page 50816 FactoryManpowerBudgetListPart
                     Editable = false;
                 }
 
-                field("Designations Name"; "Designations Name")
+                field("Category Name"; "Category Name")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -31,16 +31,16 @@ page 50816 FactoryManpowerBudgetListPart
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
-                    Editable = SetEdit1;
+                    Editable = false;
 
                     trigger OnValidate()
                     var
                         ManpowBudLineRec: Record FactoryManpowerBudgetLine;
                         total: BigInteger;
                     begin
-                        CurrPage.Update();
-                        "Final Budget with Absenteesm" := round("Act Budget" * 1.05, 1);
-                        CurrPage.Update();
+                        //CurrPage.Update();
+                        //"Final Budget with Absenteesm" := round("Act Budget" * 1.05, 1);
+                        //CurrPage.Update();
 
                         //get total of the department
                         ManpowBudLineRec.Reset();

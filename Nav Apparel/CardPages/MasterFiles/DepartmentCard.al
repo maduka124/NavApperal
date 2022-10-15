@@ -49,19 +49,19 @@ page 71012598 "Department Card"
     {
         area(Processing)
         {
-            action("Add Designations")
+            action("Add Categories")
             {
                 ApplicationArea = all;
                 Image = ViewDescription;
 
                 trigger OnAction();
                 var
-                    Dept_DesignationsList: Page Dept_DesignationsList1;
+                    Dept_CategoriesList: Page Dept_CategoriesList1;
                 begin
-                    Clear(Dept_DesignationsList);
-                    Dept_DesignationsList.LookupMode(true);
-                    Dept_DesignationsList.PassParameters("No.", "Department Name");
-                    Dept_DesignationsList.Run();
+                    Clear(Dept_CategoriesList);
+                    Dept_CategoriesList.LookupMode(true);
+                    Dept_CategoriesList.PassParameters("No.", "Department Name");
+                    Dept_CategoriesList.Run();
                 end;
             }
 

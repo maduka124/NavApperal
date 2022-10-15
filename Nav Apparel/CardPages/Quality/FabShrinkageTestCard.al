@@ -249,7 +249,7 @@ page 50683 "FabShrinkageTestCard"
                 field("No of Roll"; "No of Roll")
                 {
                     ApplicationArea = All;
-                    Caption = 'No of Roll';
+                    Caption = 'No of Rolls';
                     Editable = false;
                 }
             }

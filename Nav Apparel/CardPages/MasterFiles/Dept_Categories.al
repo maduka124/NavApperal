@@ -1,8 +1,8 @@
-page 50808 "Dept_Designations Card"
+page 50808 "Dept_Categories Card"
 {
     PageType = Card;
-    SourceTable = Dept_Designations;
-    Caption = 'Dept_Designations';
+    SourceTable = Dept_Categories;
+    Caption = 'Dept_Categories';
 
     layout
     {
@@ -25,12 +25,12 @@ page 50808 "Dept_Designations Card"
                     end;
                 }
 
-                field("Designations No."; "Designations No.")
+                field("Category No."; "Category No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Designations Name"; "Designations Name")
+                field("Category Name"; "Category Name")
                 {
                     ApplicationArea = All;
                 }
