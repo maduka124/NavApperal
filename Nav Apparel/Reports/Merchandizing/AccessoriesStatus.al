@@ -66,10 +66,14 @@ report 50633 AccessoriesStatusReport
 
                         begin
 
-                            SetRange("Document No.", "Purch. Rcpt. Line"."Order No.");
-                            if "Entry Type" = "Item Ledger Entry"."Entry Type"::Consumption then begin
-                                IssueQty := Quantity
+                            ItemLedgerRec.SetRange("Style No.", "Style Master"."No.");
+                            ItemLedgerRec.SetRange("Item No.", Item."No.");
+                            if ItemLedgerRec.FindSet() then begin
+                                if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
+                                    IssueQty := ItemLedgerRec.Quantity
+                                end;
                             end;
+
                         end;
 
                     }
@@ -173,5 +177,6 @@ report 50633 AccessoriesStatusReport
         PurchaseArchiveRec: Record "Purchase Line Archive";
         comRec: Record "Company Information";
         FilterNo: Code[30];
+        ItemLedgerRec: Record "Item Ledger Entry";
 
 }
