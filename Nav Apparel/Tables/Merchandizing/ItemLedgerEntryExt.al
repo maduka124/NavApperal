@@ -54,6 +54,16 @@ tableextension 71012763 "ItemLedgerEntryExt" extends "Item Ledger Entry"
         {
 
         }
+
+        field(71012593; "Style No."; Code[20])
+        {
+
+        }
+
+        field(71012594; "Style Name"; text[50])
+        {
+
+        }
     }
 
     fieldgroups

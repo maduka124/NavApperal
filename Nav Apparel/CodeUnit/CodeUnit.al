@@ -1009,4 +1009,25 @@ codeunit 71012752 NavAppCodeUnit
 
     end;
 
+
+    [EventSubscriber(ObjectType::Report, 5405, 'OnBeforeInsertItemJnlLine', '', true, true)]
+    local procedure UpdateConsupjnal(var ItemJournalLine: Record "Item Journal Line"; ProdOrderComponent: Record "Prod. Order Component")
+    var
+        ProdOrdRec: Record "Production Order";
+    begin
+        ProdOrdRec.Get(ProdOrderComponent.Status, ProdOrderComponent."Prod. Order No.");
+        ItemJournalLine."Style No." := ProdOrdRec."Style No.";
+        ItemJournalLine."Style Name" := ProdOrdRec."Style Name";
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, 22, 'OnAfterInitItemLedgEntry', '', true, true)]
+    local procedure UpdateItemLedEntry(var NewItemLedgEntry: Record "Item Ledger Entry"; var ItemJournalLine: Record "Item Journal Line")
+
+    begin
+        NewItemLedgEntry."Style No." := ItemJournalLine."Style No.";
+        NewItemLedgEntry."Style Name" := ItemJournalLine."Style Name";
+    end;
+
+
 }
