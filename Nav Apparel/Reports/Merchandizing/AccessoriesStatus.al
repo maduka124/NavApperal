@@ -13,7 +13,7 @@ report 50633 AccessoriesStatusReport
         dataitem("Style Master"; "Style Master")
         {
             DataItemTableView = sorting("No.");
-           
+
             column(Style_No_; "Style No.")
             { }
             column(Garment_Type_Name; "Garment Type Name")
@@ -82,6 +82,7 @@ report 50633 AccessoriesStatusReport
                         end;
 
 
+
                         DimenRec.SetRange("No.", Item."Dimension Width No.");
                         if DimenRec.FindFirst() then begin
                             Dimension := DimenRec."Dimension Width";
@@ -92,18 +93,21 @@ report 50633 AccessoriesStatusReport
                         end;
 
                     end;
+
                 }
+
+
                 trigger OnAfterGetRecord()
 
                 begin
-                    PurchaseArchiveRec.SetRange("Document No.", "Purch. Rcpt. Line"."Document No.");
+                    PurchaseArchiveRec.SetRange("Document No.", "Purch. Rcpt. Line"."Order No.");
                     if PurchaseArchiveRec.FindFirst() then begin
                         Qty := PurchaseArchiveRec.Quantity;
                     end;
 
                 end;
 
-            
+
             }
             trigger OnAfterGetRecord()
 
