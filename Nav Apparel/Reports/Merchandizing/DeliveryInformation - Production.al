@@ -29,6 +29,10 @@ report 71012805 DeliveryInfoProductReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(stDate; stDate)
+            { }
+            column(endDate; endDate)
+            { }
 
             dataitem("Style Master PO"; "Style Master PO")
             {
@@ -37,31 +41,21 @@ report 71012805 DeliveryInfoProductReport
                 DataItemTableView = sorting("Lot No.");
                 column(PO_No_; "PO No.")
                 { }
-
                 column(Qty; Qty)
                 { }
                 column(Mode; Mode)
                 { }
-
                 column(Sawing_Out_Qty; "Sawing Out Qty")
                 { }
-
                 column(Unit_Price; "Unit Price")
                 { }
-
                 column(Total; "Unit Price" * Qty)
                 { }
-
                 column(Created_Date; "Created Date")
                 { }
-
                 column(Confirm_Date; "Confirm Date")
                 { }
-                column(stDate; stDate)
-                { }
 
-                column(endDate; endDate)
-                { }
 
 
                 trigger OnAfterGetRecord()
@@ -69,11 +63,7 @@ report 71012805 DeliveryInfoProductReport
 
                 end;
 
-                trigger OnPreDataItem()
 
-                begin
-                    SetRange("Created Date", stDate, endDate);
-                end;
 
             }
             trigger OnAfterGetRecord()
@@ -81,6 +71,12 @@ report 71012805 DeliveryInfoProductReport
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+            end;
+
+            trigger OnPreDataItem()
+
+            begin
+                SetRange("Created Date", stDate, endDate);
             end;
         }
     }
