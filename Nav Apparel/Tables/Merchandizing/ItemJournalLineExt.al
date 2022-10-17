@@ -61,6 +61,15 @@ tableextension 71012762 "ItemJournalLineExt" extends "Item Journal Line"
             ValidateTableRelation = false;
         }
 
+        field(71012593; "Style No."; Code[20])
+        {
+
+        }
+
+        field(71012594; "Style Name"; text[50])
+        {
+
+        }
     }
 }
 
