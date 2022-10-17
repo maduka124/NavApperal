@@ -380,13 +380,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.42774cm</Width>
+                  <Width>2.26103cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>6.42528cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.39417cm</Width>
+                  <Width>1.61061cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.02948cm</Width>
@@ -1363,6 +1363,11 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1405,6 +1410,11 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1447,6 +1457,11 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1488,6 +1503,11 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1529,6 +1549,11 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1570,6 +1595,11 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1611,6 +1641,11 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1653,6 +1688,10 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1681,7 +1720,7 @@
                                   <Value>=Fields!GRNQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
+                                    <Format>n5</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1695,6 +1734,10 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1723,6 +1766,7 @@
                                   <Value>=Fields!Qty.Value-Fields!GRNQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n5</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1736,6 +1780,10 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1778,6 +1826,11 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
@@ -1806,7 +1859,7 @@
                                   <Value>=Fields!GRNQty.Value-Fields!IssueQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
+                                    <Format>n5</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1818,20 +1871,9 @@
                           <rd:DefaultName>GRNQty</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1880,7 +1922,7 @@
             <Top>4.07141cm</Top>
             <Left>0cm</Left>
             <Height>1.60541cm</Height>
-            <Width>27.48516cm</Width>
+            <Width>27.53489cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2055,8 +2097,8 @@
         <PageWidth>29.7cm</PageWidth>
         <LeftMargin>1cm</LeftMargin>
         <RightMargin>1cm</RightMargin>
-        <TopMargin>0.3cm</TopMargin>
-        <BottomMargin>0.3cm</BottomMargin>
+        <TopMargin>0.5cm</TopMargin>
+        <BottomMargin>0.5cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
         <Style />
       </Page>
