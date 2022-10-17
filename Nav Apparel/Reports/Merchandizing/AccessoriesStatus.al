@@ -66,7 +66,7 @@ report 50633 AccessoriesStatusReport
 
                         begin
 
-                            SetRange("Order No.", "Purch. Rcpt. Line"."Order No.");
+                            SetRange("Document No.", "Purch. Rcpt. Line"."Order No.");
                             if "Entry Type" = "Item Ledger Entry"."Entry Type"::Consumption then begin
                                 IssueQty := Quantity
                             end;
@@ -91,7 +91,10 @@ report 50633 AccessoriesStatusReport
                         if ArticleRec.FindFirst() then begin
                             Article := ArticleRec.Article;
                         end;
-
+                        PurchaseArchiveRec.SetRange("Document No.", "Purch. Rcpt. Line"."Order No.");
+                        if PurchaseArchiveRec.FindFirst() then begin
+                            Qty := PurchaseArchiveRec.Quantity;
+                        end;
                     end;
 
                 }
@@ -100,10 +103,7 @@ report 50633 AccessoriesStatusReport
                 trigger OnAfterGetRecord()
 
                 begin
-                    PurchaseArchiveRec.SetRange("Document No.", "Purch. Rcpt. Line"."Order No.");
-                    if PurchaseArchiveRec.FindFirst() then begin
-                        Qty := PurchaseArchiveRec.Quantity;
-                    end;
+
 
                 end;
 
