@@ -349,32 +349,32 @@ page 50726 "Service Worksheet Card"
                             ServiceWrokRec.Delete();
                         until ServiceWrokRec.Next() = 0;
 
-                        //Post General Journal
-                        GenJrnlRec.Reset();
-                        GenJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                        GenJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                        GenJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+                        // //Post General Journal
+                        // GenJrnlRec.Reset();
+                        // GenJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+                        // GenJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+                        // GenJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
 
-                        if GenJrnlRec.FindSet() then
-                            GenJnlCodeUnit.Run(GenJrnlRec);
+                        // if GenJrnlRec.FindSet() then
+                        //     GenJnlCodeUnit.Run(GenJrnlRec);
 
-                        //Post Item Journal
-                        ItemJrnlRec.Reset();
-                        ItemJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                        ItemJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                        ItemJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+                        // //Post Item Journal
+                        // ItemJrnlRec.Reset();
+                        // ItemJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+                        // ItemJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+                        // ItemJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
 
-                        if ItemJrnlRec.FindSet() then
-                            ItemJnlCodeUnit.Run(ItemJrnlRec);
+                        // if ItemJrnlRec.FindSet() then
+                        //     ItemJnlCodeUnit.Run(ItemJrnlRec);
 
-                        //Post Resource Journal
-                        ResJrnlRec.Reset();
-                        ResJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                        ResJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                        ResJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+                        // //Post Resource Journal
+                        // ResJrnlRec.Reset();
+                        // ResJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+                        // ResJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+                        // ResJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
 
-                        if ResJrnlRec.FindSet() then
-                            ResJnlCodeUnit.Run(ResJrnlRec);
+                        // if ResJrnlRec.FindSet() then
+                        //     ResJnlCodeUnit.Run(ResJrnlRec);
 
                     end;
 
