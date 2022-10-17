@@ -1031,7 +1031,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>n5</Format>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1079,7 +1079,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>#,0.00000;(#,0.00000)</Format>
+                                    <Format>#,0.00;(#,0.00)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1473,7 +1473,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00000;(#,0.00000)</Format>
+                                    <Format>#,0.00;(#,0.00)</Format>
                                     <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
@@ -1801,7 +1801,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00000;(#,0.00000)</Format>
+                                    <Format>#,0.00;(#,0.00)</Format>
                                     <Color>Maroon</Color>
                                   </Style>
                                 </TextRun>
@@ -1820,6 +1820,10 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </BottomBorder>
+                            <RightBorder>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2139,7 +2143,7 @@
       <Width>29.51229cm</Width>
       <Page>
         <PageFooter>
-          <Height>1.27cm</Height>
+          <Height>0.91017cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>

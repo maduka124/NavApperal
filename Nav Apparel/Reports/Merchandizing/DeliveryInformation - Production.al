@@ -47,9 +47,9 @@ report 71012805 DeliveryInfoProductReport
                 { }
                 column(Sawing_Out_Qty; "Sawing Out Qty")
                 { }
-                column(Unit_Price; "Unit Price")
+                column(Unit_Price; UnitPriceRound)
                 { }
-                column(Total; "Unit Price" * Qty)
+                column(Total; UnitPriceRound * Qty)
                 { }
                 column(Created_Date; "Created Date")
                 { }
@@ -60,7 +60,7 @@ report 71012805 DeliveryInfoProductReport
 
                 trigger OnAfterGetRecord()
                 begin
-
+                    UnitPriceRound := Round("Unit Price", 0.01, '=')
                 end;
 
 
@@ -127,4 +127,5 @@ report 71012805 DeliveryInfoProductReport
         Inx: Integer;
         stDate: Date;
         endDate: Date;
+        UnitPriceRound: Decimal;
 }
