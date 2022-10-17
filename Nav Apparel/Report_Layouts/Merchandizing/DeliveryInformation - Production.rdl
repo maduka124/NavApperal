@@ -19,37 +19,37 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.42795in</Width>
+                  <Width>0.86012in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.8585in</Width>
+                  <Width>0.68941in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.89323in</Width>
+                  <Width>1.3865in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.6467in</Width>
+                  <Width>1.07999in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.55644in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.82379in</Width>
+                  <Width>0.66546in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.73351in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.86892in</Width>
+                  <Width>1.06261in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.95968in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.80467in</Width>
+                  <Width>0.69634in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64351in</Width>
+                  <Width>0.52684in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.08517in</Width>
@@ -120,7 +120,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>STYLE </Value>
+                                  <Value>STYLE NO </Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1016,6 +1016,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1031,7 +1032,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>n2</Format>
+                                    <Format>n5</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1075,11 +1076,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Total.Value</Value>
+                                  <Value>=Fields!Unit_Price.Value*Fields!Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>#,0.00;(#,0.00)</Format>
+                                    <Format>#,0.00000;(#,0.00000)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1393,7 +1394,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                     <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
@@ -1469,11 +1470,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Total.Value)</Value>
+                                  <Value>=Sum(Fields!Unit_Price.Value*Fields!Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00;(#,0.00)</Format>
+                                    <Format>#,0.00000;(#,0.00000)</Format>
                                     <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
@@ -1719,7 +1720,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n0</Format>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>Maroon</Color>
                                   </Style>
@@ -1797,11 +1798,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Total.Value)</Value>
+                                  <Value>=Sum(Fields!Unit_Price.Value*Fields!Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00;(#,0.00)</Format>
+                                    <Format>#,0.00000;(#,0.00000)</Format>
                                     <Color>Maroon</Color>
                                   </Style>
                                 </TextRun>
