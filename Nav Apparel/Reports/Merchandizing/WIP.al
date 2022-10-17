@@ -138,7 +138,7 @@ report 50641 WIPReport
                 UserReC.Get(UserId);
 
                 "Style Master".SetRange("Factory Code", UserReC."Factory Code");
-                SetRange("Buyer No.", BuyerName);
+                SetRange("No.",STFilter);
             end;
         }
     }
@@ -152,11 +152,11 @@ report 50641 WIPReport
                 group(GroupName)
                 {
                     Caption = 'Filter By';
-                    field(BuyerName; BuyerName)
+                    field(STFilter;STFilter)
                     {
                         ApplicationArea = All;
-                        Caption = 'Buyer';
-                        TableRelation = Customer."No.";
+                        Caption = 'Style No';
+                        TableRelation ="Style Master"."No.";
 
                     }
                 }
@@ -184,7 +184,7 @@ report 50641 WIPReport
         SHMode: Text[50];
         comRec: Record "Company Information";
         UserReC: Record "User Setup";
-        BuyerName: Code[20];
+        STFilter: Code[20];
         SalesInvoiceRec: Record "Sales Invoice Header";
         ExtDate: Date;
         ContractRec: Record "Contract/LCMaster";

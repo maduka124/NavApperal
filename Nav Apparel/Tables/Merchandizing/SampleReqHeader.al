@@ -112,12 +112,12 @@ table 71012719 "Sample Requsition Header"
         field(71012599; "WriteToMRPStatus"; Integer)
         {
             DataClassification = ToBeClassified;
-        }        
+        }
     }
 
     keys
     {
-        key(PK; "No.")
+        key(PK; "No.", "Style Name")
         {
             Clustered = true;
         }
