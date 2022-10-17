@@ -39,7 +39,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.60042cm</Top>
+            <Top>0.3175cm</Top>
             <Left>9.70704cm</Left>
             <Height>1.19062cm</Height>
             <Width>10.01183cm</Width>
@@ -1856,7 +1856,7 @@
                 <Value>=Fields!Item_Name.Value</Value>
               </SortExpression>
             </SortExpressions>
-            <Top>7.40516cm</Top>
+            <Top>5.50016cm</Top>
             <Left>0.3937cm</Left>
             <Height>1.73771cm</Height>
             <Width>27.86642cm</Width>
@@ -2269,7 +2269,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>5.15619cm</Top>
+            <Top>3.25119cm</Top>
             <Left>0.3175cm</Left>
             <Height>1.79944cm</Height>
             <Width>6.40291cm</Width>
@@ -2284,7 +2284,7 @@
             <Source>Database</Source>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
-            <Top>0.9525cm</Top>
+            <Top>0cm</Top>
             <Left>23.59273cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
@@ -2761,7 +2761,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>3.10303cm</Top>
+            <Top>1.83303cm</Top>
             <Left>0.37253cm</Left>
             <Height>1.25617cm</Height>
             <Width>27.88759cm</Width>
@@ -2773,7 +2773,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>9.5662cm</Height>
+        <Height>7.4072cm</Height>
         <Style />
       </Body>
       <Width>28.2995cm</Width>
@@ -2807,9 +2807,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox134</rd:DefaultName>
               <Top>0.03528cm</Top>
-              <Left>0.7112cm</Left>
+              <Left>0.3937cm</Left>
               <Height>0.6cm</Height>
-              <Width>6.53838cm</Width>
+              <Width>10.87755cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
