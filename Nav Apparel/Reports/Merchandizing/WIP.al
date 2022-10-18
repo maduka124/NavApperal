@@ -28,8 +28,6 @@ report 50641 WIPReport
             { }
             column(Order_Qty; "Order Qty")
             { }
-            column(Lot_No_; "Lot No.")
-            { }
             column(PO_Total; "PO Total")
             { }
             column(CompLogo; comRec.Picture)
@@ -81,6 +79,8 @@ report 50641 WIPReport
                 column(ExtDate; ExtDate)
                 { }
                 column(PO_No; "PO No.")
+                { }
+                column(Lot_No_; "Lot No.")
                 { }
                 trigger OnAfterGetRecord()
                 var
@@ -138,7 +138,7 @@ report 50641 WIPReport
                 UserReC.Get(UserId);
 
                 "Style Master".SetRange("Factory Code", UserReC."Factory Code");
-                SetRange("No.",STFilter);
+                SetRange("No.", STFilter);
             end;
         }
     }
@@ -152,11 +152,11 @@ report 50641 WIPReport
                 group(GroupName)
                 {
                     Caption = 'Filter By';
-                    field(STFilter;STFilter)
+                    field(STFilter; STFilter)
                     {
                         ApplicationArea = All;
-                        Caption = 'Style No';
-                        TableRelation ="Style Master"."No.";
+                        Caption = 'Style';
+                        TableRelation = "Style Master"."No.";
 
                     }
                 }
