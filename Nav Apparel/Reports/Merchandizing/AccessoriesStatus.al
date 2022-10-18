@@ -131,7 +131,7 @@ report 50633 AccessoriesStatusReport
                     field(FilterNo; FilterNo)
                     {
                         ApplicationArea = All;
-                        Caption = 'Style No';
+                        Caption = 'Style';
                         TableRelation = "Style Master"."No.";
 
                     }
