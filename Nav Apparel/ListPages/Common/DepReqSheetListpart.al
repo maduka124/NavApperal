@@ -47,6 +47,7 @@ page 50710 "DepReqSheetListpart"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Item';
                 }
 
                 field(Qty; Qty)
