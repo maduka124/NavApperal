@@ -8069,36 +8069,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
         </Field>
-        <Field Name="PoNum">
-          <DataField>PoNum</DataField>
-        </Field>
-        <Field Name="shipDate">
-          <DataField>shipDate</DataField>
-        </Field>
-        <Field Name="QTY1">
-          <DataField>QTY1</DataField>
-        </Field>
-        <Field Name="lineAmt">
-          <DataField>lineAmt</DataField>
-        </Field>
-        <Field Name="lineAmtFormat">
-          <DataField>lineAmtFormat</DataField>
-        </Field>
-        <Field Name="Unit_Price_PO">
-          <DataField>Unit_Price_PO</DataField>
-        </Field>
-        <Field Name="Unit_Price_POFormat">
-          <DataField>Unit_Price_POFormat</DataField>
-        </Field>
-        <Field Name="Style_No_po">
-          <DataField>Style_No_po</DataField>
-        </Field>
-        <Field Name="salesInvoiceLineQuanty">
-          <DataField>salesInvoiceLineQuanty</DataField>
-        </Field>
-        <Field Name="salesInvoiceLineQuantyFormat">
-          <DataField>salesInvoiceLineQuantyFormat</DataField>
-        </Field>
         <Field Name="Placement_of_GMT">
           <DataField>Placement_of_GMT</DataField>
         </Field>
@@ -8197,6 +8167,36 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Divi">
           <DataField>Divi</DataField>
+        </Field>
+        <Field Name="PoNum">
+          <DataField>PoNum</DataField>
+        </Field>
+        <Field Name="shipDate">
+          <DataField>shipDate</DataField>
+        </Field>
+        <Field Name="QTY1">
+          <DataField>QTY1</DataField>
+        </Field>
+        <Field Name="lineAmt">
+          <DataField>lineAmt</DataField>
+        </Field>
+        <Field Name="lineAmtFormat">
+          <DataField>lineAmtFormat</DataField>
+        </Field>
+        <Field Name="Unit_Price_PO">
+          <DataField>Unit_Price_PO</DataField>
+        </Field>
+        <Field Name="Unit_Price_POFormat">
+          <DataField>Unit_Price_POFormat</DataField>
+        </Field>
+        <Field Name="Style_No_po">
+          <DataField>Style_No_po</DataField>
+        </Field>
+        <Field Name="salesInvoiceLineQuanty">
+          <DataField>salesInvoiceLineQuanty</DataField>
+        </Field>
+        <Field Name="salesInvoiceLineQuantyFormat">
+          <DataField>salesInvoiceLineQuantyFormat</DataField>
         </Field>
       </Fields>
       <Query>
