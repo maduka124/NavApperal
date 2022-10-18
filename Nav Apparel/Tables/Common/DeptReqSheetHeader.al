@@ -47,6 +47,16 @@ table 50819 DeptReqSheetHeader
             OptionMembers = Pending,Posted;
             OptionCaption = 'Pending,Posted';
         }
+
+        field(9; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(10; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -56,4 +66,16 @@ table 50819 DeptReqSheetHeader
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    var
+        NavAppSetup: Record "NavApp Setup";
+        NoSeriesMngment: Codeunit NoSeriesManagement;
+    begin
+        NavAppSetup.Get('0001');
+        NavAppSetup.TestField("DepReq No");
+        "Req No" := NoSeriesMngment.GetNextNo(NavAppSetup."DepReq No", Today, true);
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
+    end;
 }
