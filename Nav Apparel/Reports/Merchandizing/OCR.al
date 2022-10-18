@@ -41,7 +41,7 @@ report 50612 OCR
             { }
             column(CompLogo; comRec.Picture)
             { }
-          
+
             dataitem(BOM; BOM)
             {
                 DataItemLinkReference = "Style Master";
@@ -122,13 +122,16 @@ report 50612 OCR
 
 
                         TransferLineRecSReceived := 0;
+                        ItemLeRec.Reset();
+                        ItemLeRec.SetRange("Style No.", "Style Master"."No.");
                         ItemLeRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
                         ItemLeRec.SetRange(Color);
                         if ItemLeRec.FindFirst() then begin
                             if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
-                                TransferLineRecSReceived := ItemLeRec.Quantity;
+                                IssueQty := ItemLeRec.Quantity;
                             end;
                         end;
+                        TransferLineRecSReceived := IssueQty * -1;
 
                         TotFab := 0;
                         GarmentConsumption := Qty * Consumption;
@@ -237,14 +240,16 @@ report 50612 OCR
             trigger OnAfterGetRecord()
 
             begin
-                ItemLedgerRec.Reset();
-                ItemLedgerRec.SetRange("Style No.", "No.");
-                if ItemLedgerRec.FindSet() then begin
-                    if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
-                        IssueQty := ItemLedgerRec.Quantity
-                    end;
-                end;
-                TransferLineRecSReceived := IssueQty * -1;
+                // ItemLedgerRec.Reset();
+
+                // ItemLedgerRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
+                // ItemLedgerRec.SetRange("Style No.", "No.");
+                // if ItemLedgerRec.FindSet() then begin
+                //     if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
+                //         IssueQty := ItemLedgerRec.Quantity
+                //     end;
+                // end;
+
 
                 PoTOt := "PO Total";
                 BomEstiRec.SetRange("No.", "No.");

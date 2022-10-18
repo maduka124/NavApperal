@@ -74,7 +74,7 @@ report 71012755 TnAStyleMerchandizing
                     field(styleName; styleName)
                     {
                         ApplicationArea = All;
-                        Caption = 'Style Number';
+                        Caption = 'Style';
                         TableRelation = "Dependency Style Header"."No.";
                     }
                 }
