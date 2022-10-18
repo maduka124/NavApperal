@@ -203,6 +203,7 @@ page 50751 WashingSampleListpart
                 field("Req Date"; "Req Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 // field("BW QC Date"; "BW QC Date")

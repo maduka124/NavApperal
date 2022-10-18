@@ -95,8 +95,8 @@ table 50741 "Washing Sample Header"
         field(14; "Garment Type Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Garment Type"."Garment Type Description";
-            ValidateTableRelation = false;
+            // TableRelation = "Garment Type"."Garment Type Description";
+            // ValidateTableRelation = false;
         }
 
         field(15; LineNo; Integer)

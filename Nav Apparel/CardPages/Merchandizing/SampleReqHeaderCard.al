@@ -56,8 +56,17 @@ page 71012772 "Sample Request Card"
                         StyleMasRec.SetRange("Style No.", "Style Name");
                         if StyleMasRec.FindSet() then begin
                             "Style No." := StyleMasRec."No.";
+                            "Garment Type No" := StyleMasRec."Garment Type No.";
+                            "Garment Type Name" := StyleMasRec."Garment Type Name";
                         end;
                     end;
+                }
+
+                field("Garment Type Name"; "Garment Type Name")
+                {
+                    Caption = 'Garment Type';
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Wash Type Name"; "Wash Type Name")

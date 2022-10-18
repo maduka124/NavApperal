@@ -113,6 +113,16 @@ table 71012719 "Sample Requsition Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012600; "Garment Type No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(7101260; "Garment Type Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

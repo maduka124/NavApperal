@@ -41,9 +41,9 @@ table 71012816 "YY Requsition Header"
 
         field(71012587; "Garment Type Name"; text[50])
         {
-            DataClassification = ToBeClassified;
-            TableRelation = "Garment Type"."Garment Type Description";
-            ValidateTableRelation = false;
+            // DataClassification = ToBeClassified;
+            // TableRelation = "Garment Type"."Garment Type Description";
+            // ValidateTableRelation = false;
         }
 
         field(71012588; "Created User"; Code[50])
