@@ -353,7 +353,7 @@ report 71012754 SizeColourwiseQuantity
                     field(StyleNum; StyleNum)
                     {
                         ApplicationArea = All;
-                        Caption = 'Style Number';
+                        Caption = 'Style';
                         TableRelation = "Style Master"."No.";
 
                     }
