@@ -130,6 +130,7 @@ page 50701 "Washing Sample Request Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -200,6 +201,7 @@ page 50701 "Washing Sample Request Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Requisition Date';
+                    Editable = false;
                 }
 
                 field("Sample/Bulk"; "Sample/Bulk")

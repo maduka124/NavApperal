@@ -50,12 +50,22 @@ page 71012822 "YY Requsition Card"
                     trigger OnValidate()
                     var
                         StyleMasRec: Record "Style Master";
+                        StyleRec: Record "Style Master";
                     begin
 
                         StyleMasRec.Reset();
                         StyleMasRec.SetRange("Style No.", "Style Name");
                         if StyleMasRec.FindSet() then begin
                             "Style No." := StyleMasRec."No.";
+                        end;
+
+                        StyleRec.Reset();
+                        StyleRec.SetRange("Style No.", "Style Name");
+                        if StyleRec.FindSet() then begin
+                            "Style No." := StyleRec."No.";
+                            "Garment Type No." := StyleRec."Garment Type No.";
+                            "Garment Type Name" := StyleRec."Garment Type Name";
+                            CurrPage.Update();
                         end;
                     end;
                 }
@@ -64,6 +74,7 @@ page 71012822 "YY Requsition Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
