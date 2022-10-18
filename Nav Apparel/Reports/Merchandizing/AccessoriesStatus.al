@@ -56,35 +56,25 @@ report 50633 AccessoriesStatusReport
                     column(Colour; "Color Name")
                     { }
 
-                    dataitem("Item Ledger Entry"; "Item Ledger Entry")
-                    {
-                        DataItemLinkReference = Item;
-                        DataItemLink = "Item No." = field("No.");
-                        DataItemTableView = sorting("Entry No.");
 
-                        trigger OnAfterGetRecord()
 
-                        begin
 
-                            ItemLedgerRec.SetRange("Style No.", "Style Master"."No.");
-                            ItemLedgerRec.SetRange("Item No.", Item."No.");
-                            if ItemLedgerRec.FindSet() then begin
-                                if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
-                                    IssueQty := ItemLedgerRec.Quantity
-                                end;
-                            end;
-
-                        end;
-
-                    }
                     trigger OnAfterGetRecord()
                     begin
+
+                        ItemLedgerRec.Reset();
+                        ItemLedgerRec.SetRange("Style No.", "Style Master"."No.");
+                        ItemLedgerRec.SetRange("Item No.", Item."No.");
+                        if ItemLedgerRec.FindSet() then begin
+                            if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
+                                IssueQty := ItemLedgerRec.Quantity
+                            end;
+                        end;
 
                         PurchHDRec.SetRange("No.", "Purch. Rcpt. Line"."Document No.");
                         if PurchHDRec.FindFirst() then begin
                             OrderNO := PurchHDRec."Order No.";
                         end;
-
 
 
                         DimenRec.SetRange("No.", Item."Dimension Width No.");

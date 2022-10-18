@@ -11,6 +11,70 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Garment_Type_Name">
+          <DataField>Garment_Type_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="Dimension">
+          <DataField>Dimension</DataField>
+        </Field>
+        <Field Name="Article">
+          <DataField>Article</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
+        </Field>
+        <Field Name="IssueQty">
+          <DataField>IssueQty</DataField>
+        </Field>
+        <Field Name="IssueQtyFormat">
+          <DataField>IssueQtyFormat</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="QtyFormat">
+          <DataField>QtyFormat</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="GRNQty">
+          <DataField>GRNQty</DataField>
+        </Field>
+        <Field Name="GRNQtyFormat">
+          <DataField>GRNQtyFormat</DataField>
+        </Field>
+        <Field Name="Size_Range_Name">
+          <DataField>Size_Range_Name</DataField>
+        </Field>
+        <Field Name="ItemDes">
+          <DataField>ItemDes</DataField>
+        </Field>
+        <Field Name="Unit">
+          <DataField>Unit</DataField>
+        </Field>
+        <Field Name="Colour">
+          <DataField>Colour</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -37,7 +101,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>0.635cm</Top>
+            <Top>0.3175cm</Top>
             <Left>6.83219cm</Left>
             <Height>1.19062cm</Height>
             <Width>13.67897cm</Width>
@@ -59,13 +123,13 @@
                   <Width>2.52236cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.09424cm</Width>
+                  <Width>8.01904cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.23674cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.54271cm</Width>
+                  <Width>11.36354cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -81,7 +145,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>STYLE NO</Value>
+                                  <Value>STYLE DESC.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -365,10 +429,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>2.6162cm</Top>
+            <Top>2.2987cm</Top>
             <Left>0.02328cm</Left>
             <Height>1.1424cm</Height>
-            <Width>17.39605cm</Width>
+            <Width>25.14168cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -380,13 +444,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.26103cm</Width>
+                  <Width>2.9123cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>6.42528cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.61061cm</Width>
+                  <Width>1.2271cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.02948cm</Width>
@@ -413,7 +477,7 @@
                   <Width>2.13995cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.95552cm</Width>
+                  <Width>2.63802cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1918,10 +1982,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>4.07141cm</Top>
+            <Top>3.75391cm</Top>
             <Left>0cm</Left>
             <Height>1.60541cm</Height>
-            <Width>27.53489cm</Width>
+            <Width>27.48515cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -1933,7 +1997,7 @@
             <Source>Database</Source>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
-            <Top>0.3175cm</Top>
+            <Top>0cm</Top>
             <Left>23.02944cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
@@ -2096,13 +2160,19 @@
         <PageWidth>29.7cm</PageWidth>
         <LeftMargin>1cm</LeftMargin>
         <RightMargin>1cm</RightMargin>
-        <TopMargin>0.5cm</TopMargin>
-        <BottomMargin>0.5cm</BottomMargin>
+        <TopMargin>1cm</TopMargin>
+        <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
         <Style />
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2154,68 +2224,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Garment_Type_Name">
-          <DataField>Garment_Type_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="Dimension">
-          <DataField>Dimension</DataField>
-        </Field>
-        <Field Name="Article">
-          <DataField>Article</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
-        <Field Name="IssueQty">
-          <DataField>IssueQty</DataField>
-        </Field>
-        <Field Name="IssueQtyFormat">
-          <DataField>IssueQtyFormat</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="QtyFormat">
-          <DataField>QtyFormat</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="GRNQty">
-          <DataField>GRNQty</DataField>
-        </Field>
-        <Field Name="GRNQtyFormat">
-          <DataField>GRNQtyFormat</DataField>
-        </Field>
-        <Field Name="Size_Range_Name">
-          <DataField>Size_Range_Name</DataField>
-        </Field>
-        <Field Name="ItemDes">
-          <DataField>ItemDes</DataField>
-        </Field>
-        <Field Name="Unit">
-          <DataField>Unit</DataField>
-        </Field>
-        <Field Name="Colour">
-          <DataField>Colour</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

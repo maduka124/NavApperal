@@ -35,7 +35,7 @@ report 50610 FabricAndTrimsRequiremts
             dataitem(BOM; BOM)
             {
                 DataItemLinkReference = "Style Master";
-                DataItemLink = No = field("No.");
+                DataItemLink = "Style No." = field("No.");
 
                 DataItemTableView = sorting(No);
 
