@@ -11,118 +11,6 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Store_Name">
-          <DataField>Store_Name</DataField>
-        </Field>
-        <Field Name="Season_Name">
-          <DataField>Season_Name</DataField>
-        </Field>
-        <Field Name="Brand_Name">
-          <DataField>Brand_Name</DataField>
-        </Field>
-        <Field Name="Department_Name">
-          <DataField>Department_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="Lot_No_">
-          <DataField>Lot_No_</DataField>
-        </Field>
-        <Field Name="PO_Total">
-          <DataField>PO_Total</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="LC_No_Contract">
-          <DataField>LC_No_Contract</DataField>
-        </Field>
-        <Field Name="SHMode">
-          <DataField>SHMode</DataField>
-        </Field>
-        <Field Name="Cut_In_Qty">
-          <DataField>Cut_In_Qty</DataField>
-        </Field>
-        <Field Name="Cut_In_QtyFormat">
-          <DataField>Cut_In_QtyFormat</DataField>
-        </Field>
-        <Field Name="Emb_Out_Qty">
-          <DataField>Emb_Out_Qty</DataField>
-        </Field>
-        <Field Name="Emb_In_Qty">
-          <DataField>Emb_In_Qty</DataField>
-        </Field>
-        <Field Name="Print_Out_Qty">
-          <DataField>Print_Out_Qty</DataField>
-        </Field>
-        <Field Name="Print_In_Qty">
-          <DataField>Print_In_Qty</DataField>
-        </Field>
-        <Field Name="Wash_In_Qty">
-          <DataField>Wash_In_Qty</DataField>
-        </Field>
-        <Field Name="Wash_Out_Qty">
-          <DataField>Wash_Out_Qty</DataField>
-        </Field>
-        <Field Name="Shipped_Qty">
-          <DataField>Shipped_Qty</DataField>
-        </Field>
-        <Field Name="Ship_Date">
-          <DataField>Ship_Date</DataField>
-        </Field>
-        <Field Name="Sawing_In_Qty">
-          <DataField>Sawing_In_Qty</DataField>
-        </Field>
-        <Field Name="Sawing_Out_Qty">
-          <DataField>Sawing_Out_Qty</DataField>
-        </Field>
-        <Field Name="Finish_Qty">
-          <DataField>Finish_Qty</DataField>
-        </Field>
-        <Field Name="ShValue">
-          <DataField>ShValue</DataField>
-        </Field>
-        <Field Name="ShValueFormat">
-          <DataField>ShValueFormat</DataField>
-        </Field>
-        <Field Name="fOB">
-          <DataField>fOB</DataField>
-        </Field>
-        <Field Name="fOBFormat">
-          <DataField>fOBFormat</DataField>
-        </Field>
-        <Field Name="ExSHORT">
-          <DataField>ExSHORT</DataField>
-        </Field>
-        <Field Name="PoQty">
-          <DataField>PoQty</DataField>
-        </Field>
-        <Field Name="ExtDate">
-          <DataField>ExtDate</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -4153,12 +4041,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -4210,4 +4092,116 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Store_Name">
+          <DataField>Store_Name</DataField>
+        </Field>
+        <Field Name="Season_Name">
+          <DataField>Season_Name</DataField>
+        </Field>
+        <Field Name="Brand_Name">
+          <DataField>Brand_Name</DataField>
+        </Field>
+        <Field Name="Department_Name">
+          <DataField>Department_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="PO_Total">
+          <DataField>PO_Total</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="LC_No_Contract">
+          <DataField>LC_No_Contract</DataField>
+        </Field>
+        <Field Name="SHMode">
+          <DataField>SHMode</DataField>
+        </Field>
+        <Field Name="Cut_In_Qty">
+          <DataField>Cut_In_Qty</DataField>
+        </Field>
+        <Field Name="Cut_In_QtyFormat">
+          <DataField>Cut_In_QtyFormat</DataField>
+        </Field>
+        <Field Name="Emb_Out_Qty">
+          <DataField>Emb_Out_Qty</DataField>
+        </Field>
+        <Field Name="Emb_In_Qty">
+          <DataField>Emb_In_Qty</DataField>
+        </Field>
+        <Field Name="Print_Out_Qty">
+          <DataField>Print_Out_Qty</DataField>
+        </Field>
+        <Field Name="Print_In_Qty">
+          <DataField>Print_In_Qty</DataField>
+        </Field>
+        <Field Name="Wash_In_Qty">
+          <DataField>Wash_In_Qty</DataField>
+        </Field>
+        <Field Name="Wash_Out_Qty">
+          <DataField>Wash_Out_Qty</DataField>
+        </Field>
+        <Field Name="Shipped_Qty">
+          <DataField>Shipped_Qty</DataField>
+        </Field>
+        <Field Name="Ship_Date">
+          <DataField>Ship_Date</DataField>
+        </Field>
+        <Field Name="Sawing_In_Qty">
+          <DataField>Sawing_In_Qty</DataField>
+        </Field>
+        <Field Name="Sawing_Out_Qty">
+          <DataField>Sawing_Out_Qty</DataField>
+        </Field>
+        <Field Name="Finish_Qty">
+          <DataField>Finish_Qty</DataField>
+        </Field>
+        <Field Name="ShValue">
+          <DataField>ShValue</DataField>
+        </Field>
+        <Field Name="ShValueFormat">
+          <DataField>ShValueFormat</DataField>
+        </Field>
+        <Field Name="fOB">
+          <DataField>fOB</DataField>
+        </Field>
+        <Field Name="fOBFormat">
+          <DataField>fOBFormat</DataField>
+        </Field>
+        <Field Name="ExSHORT">
+          <DataField>ExSHORT</DataField>
+        </Field>
+        <Field Name="PoQty">
+          <DataField>PoQty</DataField>
+        </Field>
+        <Field Name="ExtDate">
+          <DataField>ExtDate</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
+        </Field>
+        <Field Name="Lot_No_">
+          <DataField>Lot_No_</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -41,6 +41,8 @@ report 50612 OCR
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(Actual_Procured; QuantityPurch)
+            { }
 
             dataitem(BOM; BOM)
             {
@@ -84,8 +86,7 @@ report 50612 OCR
                     { }
                     column(Main_Category_Name; "Main Category Name")
                     { }
-                    column(Actual_Procured; QuantityPurch)
-                    { }
+
                     column(Value; Value)
                     { }
                     column(TotFab; TotFab)
@@ -146,12 +147,7 @@ report 50612 OCR
                         end;
 
 
-                        postedPurchLineRec.Reset();
-                        postedPurchLineRec.SetRange("No.", "BOM Line AutoGen"."New Item No.");
-                        postedPurchLineRec.SetRange("Line No.", "BOM Line AutoGen"."Line No.");
-                        if postedPurchLineRec.FindFirst() then begin
-                            QuantityPurch := postedPurchLineRec.Quantity;
-                        end;
+
                         BomRec.Reset();
                         BomRec.SetRange(No, "Style Master"."No.");
                         BomRec.SetRange("Style No.", "Style Master"."Style No.");
@@ -250,7 +246,13 @@ report 50612 OCR
                 //     end;
                 // end;
 
-
+                postedPurchLineRec.Reset();
+                postedPurchLineRec.SetRange(StyleNo, "No.");
+                // postedPurchLineRec.SetRange("No.", "BOM Line AutoGen"."New Item No.");
+                // postedPurchLineRec.SetRange("Line No.", "BOM Line AutoGen"."Line No.");
+                if postedPurchLineRec.FindFirst() then begin
+                    QuantityPurch := postedPurchLineRec.Quantity;
+                end;
                 PoTOt := "PO Total";
                 BomEstiRec.SetRange("No.", "No.");
                 if BomEstiRec.FindFirst() then begin
