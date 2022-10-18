@@ -37,7 +37,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.60042cm</Top>
+            <Top>0.28292cm</Top>
             <Left>5.68638cm</Left>
             <Height>0.89958cm</Height>
             <Width>16.31459cm</Width>
@@ -52,7 +52,7 @@
             </Style>
           </Textbox>
           <Line Name="Line2">
-            <Top>4.78578cm</Top>
+            <Top>4.46828cm</Top>
             <Left>0cm</Left>
             <Height>0cm</Height>
             <Width>28.57762cm</Width>
@@ -7154,7 +7154,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>5.21146cm</Top>
+            <Top>4.89396cm</Top>
             <Left>0cm</Left>
             <Height>4.83968cm</Height>
             <Width>28.57763cm</Width>
@@ -7175,13 +7175,13 @@
                   <Width>2.71241cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.31083cm</Width>
+                  <Width>9.66398cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.14229cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.99412cm</Width>
+                  <Width>13.00921cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -7332,7 +7332,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Style No</Value>
+                                  <Value>Style Desc.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -7608,10 +7608,10 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>2.45745cm</Top>
+            <Top>2.13995cm</Top>
             <Left>0.04974cm</Left>
             <Height>1.79531cm</Height>
-            <Width>17.15965cm</Width>
+            <Width>28.52789cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -7623,7 +7623,7 @@
             <Source>Database</Source>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
-            <Top>0.3175cm</Top>
+            <Top>0cm</Top>
             <Left>23.91023cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
@@ -7635,7 +7635,7 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>10.14109cm</Height>
+        <Height>10.03526cm</Height>
         <Style />
       </Body>
       <Width>28.57763cm</Width>
@@ -7793,8 +7793,8 @@
         <PageWidth>29.7cm</PageWidth>
         <LeftMargin>0.5cm</LeftMargin>
         <RightMargin>0.5cm</RightMargin>
-        <TopMargin>0.3cm</TopMargin>
-        <BottomMargin>0.3cm</BottomMargin>
+        <TopMargin>1cm</TopMargin>
+        <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
         <Style />
       </Page>

@@ -39,7 +39,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.60042cm</Top>
+            <Top>0.28292cm</Top>
             <Left>21.77204cm</Left>
             <Height>1.19062cm</Height>
             <Width>8.99583cm</Width>
@@ -58,7 +58,7 @@
             <Source>Database</Source>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
-            <Top>0.9525cm</Top>
+            <Top>0cm</Top>
             <Left>50.89773cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
@@ -3752,7 +3752,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>4.8387cm</Top>
+            <Top>3.2512cm</Top>
             <Left>0cm</Left>
             <Height>1.76416cm</Height>
             <Width>54.64762cm</Width>
@@ -3856,7 +3856,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>3.36268cm</Top>
+            <Top>2.09268cm</Top>
             <Left>0.12912cm</Left>
             <Height>0.69109cm</Height>
             <Width>7.12046cm</Width>
@@ -3868,7 +3868,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>6.89391cm</Height>
+        <Height>5.26408cm</Height>
         <Style />
       </Body>
       <Width>54.64762cm</Width>

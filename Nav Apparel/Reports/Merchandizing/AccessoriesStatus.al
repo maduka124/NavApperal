@@ -28,7 +28,7 @@ report 50633 AccessoriesStatusReport
             { }
             column(PO_No; OrderNO)
             { }
-            column(IssueQty; IssueQty)
+            column(IssueQty; IssuePlus)
             { }
             column(Qty; Qty)
             { }
@@ -70,6 +70,7 @@ report 50633 AccessoriesStatusReport
                                 IssueQty := ItemLedgerRec.Quantity
                             end;
                         end;
+                        IssuePlus := IssueQty * -1;
 
                         PurchHDRec.SetRange("No.", "Purch. Rcpt. Line"."Document No.");
                         if PurchHDRec.FindFirst() then begin
@@ -168,5 +169,6 @@ report 50633 AccessoriesStatusReport
         comRec: Record "Company Information";
         FilterNo: Code[30];
         ItemLedgerRec: Record "Item Ledger Entry";
+        IssuePlus: Decimal;
 
 }

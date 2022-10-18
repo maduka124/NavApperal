@@ -1113,7 +1113,7 @@
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>4.24339cm</Top>
+            <Top>3.60839cm</Top>
             <Left>0.00134cm</Left>
             <Height>2.01492cm</Height>
             <Width>26.16768cm</Width>
@@ -1328,7 +1328,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Style No</Value>
+                                  <Value>Style Desc.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1616,10 +1616,10 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>2.24578cm</Top>
+            <Top>1.61078cm</Top>
             <Left>0cm</Left>
             <Height>1.7424cm</Height>
-            <Width>24.58152cm</Width>
+            <Width>24.58153cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -1631,7 +1631,7 @@
             <Source>Database</Source>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
-            <Top>0.3175cm</Top>
+            <Top>0cm</Top>
             <Left>21.18413cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
@@ -1643,7 +1643,7 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>6.57581cm</Height>
+        <Height>5.89848cm</Height>
         <Style />
       </Body>
       <Width>26.16902cm</Width>
@@ -1790,8 +1790,8 @@
         <PageWidth>29.7cm</PageWidth>
         <LeftMargin>1.8cm</LeftMargin>
         <RightMargin>1.5cm</RightMargin>
-        <TopMargin>0.3cm</TopMargin>
-        <BottomMargin>0.3cm</BottomMargin>
+        <TopMargin>1cm</TopMargin>
+        <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
         <Style />
       </Page>
