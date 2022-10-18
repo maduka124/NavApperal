@@ -1647,6 +1647,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1729,6 +1730,7 @@
                                   <Value>=Sum(Fields!RequirmentQTY.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2615,6 +2617,7 @@
                                   <Value>=Fields!PO_Total.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
