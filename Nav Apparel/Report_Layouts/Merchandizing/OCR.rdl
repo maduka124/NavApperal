@@ -2380,6 +2380,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -8075,6 +8076,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Actual_ProcuredFormat">
           <DataField>Actual_ProcuredFormat</DataField>
         </Field>
+        <Field Name="TransferLineRecSReceived">
+          <DataField>TransferLineRecSReceived</DataField>
+        </Field>
+        <Field Name="TransferLineRecSReceivedFormat">
+          <DataField>TransferLineRecSReceivedFormat</DataField>
+        </Field>
         <Field Name="Placement_of_GMT">
           <DataField>Placement_of_GMT</DataField>
         </Field>
@@ -8149,12 +8156,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="TotFabFormat">
           <DataField>TotFabFormat</DataField>
-        </Field>
-        <Field Name="TransferLineRecSReceived">
-          <DataField>TransferLineRecSReceived</DataField>
-        </Field>
-        <Field Name="TransferLineRecSReceivedFormat">
-          <DataField>TransferLineRecSReceivedFormat</DataField>
         </Field>
         <Field Name="GarmentConsumption">
           <DataField>GarmentConsumption</DataField>

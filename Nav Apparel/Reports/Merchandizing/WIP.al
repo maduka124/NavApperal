@@ -68,9 +68,9 @@ report 50641 WIPReport
                 { }
                 column(Finish_Qty; "Finish Qty")
                 { }
-                column(ShValue; "Unit Price" * "Shipped Qty")
+                column(ShValue; RoundUnitPrice * "Shipped Qty")
                 { }
-                column(fOB; Qty * "Unit Price")
+                column(fOB; Qty * RoundUnitPrice)
                 { }
                 column(ExSHORT; Qty - "Shipped Qty")
                 { }
@@ -81,6 +81,8 @@ report 50641 WIPReport
                 column(PO_No; "PO No.")
                 { }
                 column(Lot_No_; "Lot No.")
+                { }
+                column(RoundUnitPrice; RoundUnitPrice)
                 { }
                 trigger OnAfterGetRecord()
                 var
@@ -114,7 +116,9 @@ report 50641 WIPReport
                         ExtDate := SalesInvoiceRec."Document Date";
                     end;
 
+                    RoundUnitPrice := Round("Unit Price", 0.01, '=');
                 end;
+
             }
 
             trigger OnAfterGetRecord()
@@ -190,5 +194,6 @@ report 50641 WIPReport
         ContractRec: Record "Contract/LCMaster";
         ContractNo: Text[50];
         LcStyleRec: Record "Contract/LCStyle";
+        RoundUnitPrice: Decimal;
 
 }

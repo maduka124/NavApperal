@@ -43,6 +43,8 @@ report 50612 OCR
             { }
             column(Actual_Procured; QuantityPurch)
             { }
+            column(TransferLineRecSReceived; TransferLineRecSReceived)
+            { }
 
             dataitem(BOM; BOM)
             {
@@ -91,8 +93,7 @@ report 50612 OCR
                     { }
                     column(TotFab; TotFab)
                     { }
-                    column(TransferLineRecSReceived; TransferLineRecSReceived)
-                    { }
+
                     column(GarmentConsumption; GarmentConsumption)
                     { }
                     column(GMT_Qty; "GMT Qty")
@@ -122,17 +123,17 @@ report 50612 OCR
                     begin
 
 
-                        TransferLineRecSReceived := 0;
+                        // TransferLineRecSReceived := 0;
                         ItemLeRec.Reset();
                         ItemLeRec.SetRange("Style No.", "Style Master"."No.");
-                        ItemLeRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
-                        ItemLeRec.SetRange(Color);
+                        ItemLeRec.SetRange("Item No.", "Item No.");
+                        // ItemLeRec.SetRange(Color);
                         if ItemLeRec.FindFirst() then begin
                             if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
-                                IssueQty := ItemLeRec.Quantity;
+                                TransferLineRecSReceived := ItemLeRec.Quantity * -1;
                             end;
                         end;
-                        TransferLineRecSReceived := IssueQty * -1;
+                        // TransferLineRecSReceived := IssueQty * -1;
 
                         TotFab := 0;
                         GarmentConsumption := Qty * Consumption;
@@ -245,6 +246,7 @@ report 50612 OCR
                 //         IssueQty := ItemLedgerRec.Quantity
                 //     end;
                 // end;
+
 
                 postedPurchLineRec.Reset();
                 postedPurchLineRec.SetRange(StyleNo, "No.");
