@@ -7831,7 +7831,7 @@ page 71012680 "BOM Card"
 
                         if BOMLineEstimateRec.Reconfirm = false then begin
 
-                            if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
+                            if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
 
                                 //Get Dimenion only status
                                 MainCateRec.Reset();
@@ -8079,7 +8079,7 @@ page 71012680 "BOM Card"
 
             until AutoGenRec.Next() = 0;
 
-            StatusGB := 1;
+            //StatusGB := 1;
 
             //Update Status of the BOM to released
             ProdBOMHeaderRec.Reset();
@@ -8162,7 +8162,7 @@ page 71012680 "BOM Card"
 
                             // end;
 
-                            if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
+                            if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
 
                                 //Get Dimenion only status
                                 MainCateRec.Reset();
@@ -8422,7 +8422,7 @@ page 71012680 "BOM Card"
                                 //     AutoGenPrBOMRec.Modify();
                                 // end;
 
-                                StatusGB := 1;
+                                //StatusGB := 1;
 
                             end;
                         end;
