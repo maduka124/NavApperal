@@ -11,6 +11,115 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Season_Name">
+          <DataField>Season_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Garment_Type_Name">
+          <DataField>Garment_Type_Name</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="Garment_Type_No_">
+          <DataField>Garment_Type_No_</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="PO_Total">
+          <DataField>PO_Total</DataField>
+        </Field>
+        <Field Name="styleNO_p">
+          <DataField>styleNO_p</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="PoNum">
+          <DataField>PoNum</DataField>
+        </Field>
+        <Field Name="shipDate">
+          <DataField>shipDate</DataField>
+        </Field>
+        <Field Name="QTY1">
+          <DataField>QTY1</DataField>
+        </Field>
+        <Field Name="Placement_of_GMT">
+          <DataField>Placement_of_GMT</DataField>
+        </Field>
+        <Field Name="GMT_Color_Name">
+          <DataField>GMT_Color_Name</DataField>
+        </Field>
+        <Field Name="Article_Name_">
+          <DataField>Article_Name_</DataField>
+        </Field>
+        <Field Name="Item_Color_Name">
+          <DataField>Item_Color_Name</DataField>
+        </Field>
+        <Field Name="Unit_N0_">
+          <DataField>Unit_N0_</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="WST">
+          <DataField>WST</DataField>
+        </Field>
+        <Field Name="WSTFormat">
+          <DataField>WSTFormat</DataField>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+        </Field>
+        <Field Name="Consumption">
+          <DataField>Consumption</DataField>
+        </Field>
+        <Field Name="ConsumptionFormat">
+          <DataField>ConsumptionFormat</DataField>
+        </Field>
+        <Field Name="RequirmentQTY">
+          <DataField>RequirmentQTY</DataField>
+        </Field>
+        <Field Name="RequirmentQTYFormat">
+          <DataField>RequirmentQTYFormat</DataField>
+        </Field>
+        <Field Name="AjstReq">
+          <DataField>AjstReq</DataField>
+        </Field>
+        <Field Name="AjstReqFormat">
+          <DataField>AjstReqFormat</DataField>
+        </Field>
+        <Field Name="Dimension_Name_">
+          <DataField>Dimension_Name_</DataField>
+        </Field>
+        <Field Name="GMT_Size_Name">
+          <DataField>GMT_Size_Name</DataField>
+        </Field>
+        <Field Name="Revishion">
+          <DataField>Revishion</DataField>
+        </Field>
+        <Field Name="Item_Name">
+          <DataField>Item_Name</DataField>
+        </Field>
+        <Field Name="Main_Category_Name">
+          <DataField>Main_Category_Name</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2299,7 +2408,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.53246cm</Width>
+                  <Width>1.80763cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>6.45543cm</Width>
@@ -2314,7 +2423,7 @@
                   <Width>3.41017cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.14708cm</Width>
+                  <Width>5.87191cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -2542,7 +2651,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Style No</Value>
+                                  <Value>Style Desc</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2938,6 +3047,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2989,113 +3104,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Season_Name">
-          <DataField>Season_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Garment_Type_Name">
-          <DataField>Garment_Type_Name</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="Garment_Type_No_">
-          <DataField>Garment_Type_No_</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="PO_Total">
-          <DataField>PO_Total</DataField>
-        </Field>
-        <Field Name="styleNO_p">
-          <DataField>styleNO_p</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="PoNum">
-          <DataField>PoNum</DataField>
-        </Field>
-        <Field Name="shipDate">
-          <DataField>shipDate</DataField>
-        </Field>
-        <Field Name="QTY1">
-          <DataField>QTY1</DataField>
-        </Field>
-        <Field Name="Placement_of_GMT">
-          <DataField>Placement_of_GMT</DataField>
-        </Field>
-        <Field Name="GMT_Color_Name">
-          <DataField>GMT_Color_Name</DataField>
-        </Field>
-        <Field Name="Article_Name_">
-          <DataField>Article_Name_</DataField>
-        </Field>
-        <Field Name="Item_Color_Name">
-          <DataField>Item_Color_Name</DataField>
-        </Field>
-        <Field Name="Unit_N0_">
-          <DataField>Unit_N0_</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="WST">
-          <DataField>WST</DataField>
-        </Field>
-        <Field Name="WSTFormat">
-          <DataField>WSTFormat</DataField>
-        </Field>
-        <Field Name="Type">
-          <DataField>Type</DataField>
-        </Field>
-        <Field Name="Consumption">
-          <DataField>Consumption</DataField>
-        </Field>
-        <Field Name="ConsumptionFormat">
-          <DataField>ConsumptionFormat</DataField>
-        </Field>
-        <Field Name="RequirmentQTY">
-          <DataField>RequirmentQTY</DataField>
-        </Field>
-        <Field Name="RequirmentQTYFormat">
-          <DataField>RequirmentQTYFormat</DataField>
-        </Field>
-        <Field Name="AjstReq">
-          <DataField>AjstReq</DataField>
-        </Field>
-        <Field Name="AjstReqFormat">
-          <DataField>AjstReqFormat</DataField>
-        </Field>
-        <Field Name="Dimension_Name_">
-          <DataField>Dimension_Name_</DataField>
-        </Field>
-        <Field Name="GMT_Size_Name">
-          <DataField>GMT_Size_Name</DataField>
-        </Field>
-        <Field Name="Revishion">
-          <DataField>Revishion</DataField>
-        </Field>
-        <Field Name="Item_Name">
-          <DataField>Item_Name</DataField>
-        </Field>
-        <Field Name="Main_Category_Name">
-          <DataField>Main_Category_Name</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
