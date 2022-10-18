@@ -41,6 +41,7 @@ report 50612 OCR
             { }
             column(CompLogo; comRec.Picture)
             { }
+          
             dataitem(BOM; BOM)
             {
                 DataItemLinkReference = "Style Master";
@@ -213,14 +214,14 @@ report 50612 OCR
 
                 begin
 
-                    TransferLineRecSReceived := 0;
-                    TransferLineRec.Reset();
-                    TransferLineRec.SetRange("Style No.", "Style Master"."Style No.");
-                    if TransferLineRec.FindSet() then begin
+                    // TransferLineRecSReceived := 0;
+                    // TransferLineRec.Reset();
+                    // TransferLineRec.SetRange("Style No.", "Style Master"."Style No.");
+                    // if TransferLineRec.FindSet() then begin
 
-                        TransferLineRecSReceived := TransferLineRec."Quantity Received"
+                    //     TransferLineRecSReceived := TransferLineRec."Quantity Received"
 
-                    end;
+                    // end;
 
 
                     lineAmt := 0;
@@ -236,6 +237,15 @@ report 50612 OCR
             trigger OnAfterGetRecord()
 
             begin
+                ItemLedgerRec.Reset();
+                ItemLedgerRec.SetRange("Style No.", "No.");
+                if ItemLedgerRec.FindSet() then begin
+                    if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
+                        IssueQty := ItemLedgerRec.Quantity
+                    end;
+                end;
+                TransferLineRecSReceived := IssueQty * -1;
+
                 PoTOt := "PO Total";
                 BomEstiRec.SetRange("No.", "No.");
                 if BomEstiRec.FindFirst() then begin
@@ -315,6 +325,8 @@ report 50612 OCR
         FobPcs: Decimal;
         comRec: Record "Company Information";
         FilterNo: Code[30];
+        ItemLedgerRec: Record "Item Ledger Entry";
+        IssueQty: Decimal;
 
 
 
