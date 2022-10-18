@@ -7772,6 +7772,7 @@ page 71012680 "BOM Card"
         NextItemNo: Code[20];
         HeaderGenerated: Boolean;
         UOMRec: Record "Unit of Measure";
+        StyMasterPORec: Record "Style Master PO";
         ConvFactor: Decimal;
         ConsumptionTot: Decimal;
     begin
@@ -7779,6 +7780,12 @@ page 71012680 "BOM Card"
         //Get Worksheet line no
         NavAppSetupRec.Reset();
         NavAppSetupRec.FindSet();
+
+        // //Get  date
+        // StyMasterPORec.Reset();
+        // StyMasterPORec.SetRange("Style No.", "Style No.");
+        // StyMasterPORec.SetRange("Lot No.", Lot);
+        // StyMasterPORec.FindSet();
 
         //Generate Prod BOM Header
         if HeaderGenerated = false then begin
@@ -7794,9 +7801,12 @@ page 71012680 "BOM Card"
             ProdBOMHeaderRec."Creation Date" := WorkDate();
             ProdBOMHeaderRec."Last Date Modified" := WorkDate();
             ProdBOMHeaderRec."No. Series" := 'PRODBOM';
-            ProdBOMHeaderRec.Insert(true);
+            ProdBOMHeaderRec."Style No." := "Style No.";
+            ProdBOMHeaderRec."Style Name" := "Style Name";
+            ProdBOMHeaderRec.Lot := Lot;
             ProdBOMHeaderRec.EntryType := ProdBOMHeaderRec.EntryType::FG;
             ProdBOMHeaderRec."BOM Type" := ProdBOMHeaderRec."BOM Type"::"Bulk";
+            ProdBOMHeaderRec.Insert(true);
             HeaderGenerated := true;
 
             //Update Prod BOm No in item master
