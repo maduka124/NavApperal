@@ -4,6 +4,7 @@ page 50821 "Department Requisition Sheet"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = DeptReqSheetHeader;
+    CardPageId = DepReqSheetHeaderCard;
     SourceTableView = sorting("Req No") order(descending);
     //CardPageId = "Department Requisition Sheet Card";
 

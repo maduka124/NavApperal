@@ -41,10 +41,8 @@ report 50612 OCR
             { }
             column(CompLogo; comRec.Picture)
             { }
-            column(Actual_Procured; QuantityPurch)
-            { }
-            column(TransferLineRecSReceived; TransferLineRecSReceived)
-            { }
+
+
 
             dataitem(BOM; BOM)
             {
@@ -101,38 +99,41 @@ report 50612 OCR
                     column(Divi; Divi)
                     { }
 
-                    // dataitem("Item Ledger Entry"; "Item Ledger Entry")
-                    // {
-                    //     DataItemLinkReference = "BOM Line AutoGen";
-                    //     DataItemLink = "Item No." = field("Item No.");
+                    dataitem("Item Ledger Entry"; "Item Ledger Entry")
+                    {
+                        DataItemLinkReference = "BOM Line AutoGen";
+                        DataItemLink = "Item No." = field("Item No.");
+
+                        column(Actual_Procured; Quantity)
+                        { }
+                        column(TransferLineRecSReceived; TransferLineRecSReceived)
+                        { }
+                        trigger OnAfterGetRecord()
+
+                        begin
+
+                            if "Entry Type" = "Entry Type"::Consumption then begin
+                                TransferLineRecSReceived := Quantity * -1;
+                            end;
+                        end;
 
 
-                    //     trigger OnAfterGetRecord()
-
-                    //     begin
-
-                    //         if "Entry Type" = "Entry Type"::Consumption then begin
-                    //             TransferLineRecSReceived := Quantity;
-                    //         end;
-                    //     end;
-
-
-                    // }
+                    }
                     trigger OnAfterGetRecord()
                     var
                     begin
 
 
                         // TransferLineRecSReceived := 0;
-                        ItemLeRec.Reset();
-                        ItemLeRec.SetRange("Style No.", "Style Master"."No.");
-                        ItemLeRec.SetRange("Item No.", "Item No.");
-                        // ItemLeRec.SetRange(Color);
-                        if ItemLeRec.FindFirst() then begin
-                            if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
-                                TransferLineRecSReceived := ItemLeRec.Quantity * -1;
-                            end;
-                        end;
+                        // ItemLeRec.Reset();
+                        // ItemLeRec.SetRange("Style No.", "Style Master"."No.");
+                        // ItemLeRec.SetRange("Item No.", "Item No.");
+                        // // ItemLeRec.SetRange(Color);
+                        // if ItemLeRec.FindFirst() then begin
+                        //     if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
+                        //         TransferLineRecSReceived := ItemLeRec.Quantity * -1;
+                        //     end;
+                        // end;
                         // TransferLineRecSReceived := IssueQty * -1;
 
                         TotFab := 0;
@@ -248,13 +249,13 @@ report 50612 OCR
                 // end;
 
 
-                postedPurchLineRec.Reset();
-                postedPurchLineRec.SetRange(StyleNo, "No.");
-                // postedPurchLineRec.SetRange("No.", "BOM Line AutoGen"."New Item No.");
+                // postedPurchLineRec.Reset();
+                // postedPurchLineRec.SetRange(StyleNo, "No.");
+                // // postedPurchLineRec.SetRange("No.", "BOM Line AutoGen"."New Item No.");
                 // postedPurchLineRec.SetRange("Line No.", "BOM Line AutoGen"."Line No.");
-                if postedPurchLineRec.FindFirst() then begin
-                    QuantityPurch := postedPurchLineRec.Quantity;
-                end;
+                // if postedPurchLineRec.FindFirst() then begin
+                //     QuantityPurch := postedPurchLineRec.Quantity;
+                // end;
                 PoTOt := "PO Total";
                 BomEstiRec.SetRange("No.", "No.");
                 if BomEstiRec.FindFirst() then begin

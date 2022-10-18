@@ -560,6 +560,11 @@ page 71012751 "NavApp Setup Card"
                     ApplicationArea = All;
                     TableRelation = "G/L Account"."No." where("Account Type" = filter(Posting));
                 }
+
+                field("DepReq No"; "DepReq No")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

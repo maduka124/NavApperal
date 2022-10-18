@@ -12,12 +12,13 @@ table 50820 DeptReqSheetLine
         field(2; "Line No"; Integer)
         {
             DataClassification = ToBeClassified;
+            AutoIncrement = true;
         }
 
-        field(3; "Item No"; Code[20])
+        field(3; "Item No"; Code[60])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Item.Description where("EstimateBOM Item" = filter(false));
+            TableRelation = Item."No." where("EstimateBOM Item" = filter(false));
             ValidateTableRelation = false;
         }
 
