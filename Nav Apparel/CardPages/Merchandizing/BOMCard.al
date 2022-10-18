@@ -900,7 +900,8 @@ page 71012680 "BOM Card"
                                                                             BLAutoGenNewRec.SetRange("No.", "No");
                                                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
-                                                                            BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                                                                            BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                                                                            // BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
                                                                             BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
                                                                             BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
                                                                             BLAutoGenNewRec.SetRange(PO, BOMLine4Rec."PO No.");
@@ -1405,7 +1406,8 @@ page 71012680 "BOM Card"
                                                                     BLAutoGenNewRec.SetRange("No.", "No");
                                                                     BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                                     BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
-                                                                    BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                                                                    BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                                                                    //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
                                                                     BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
                                                                     BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
                                                                     BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
@@ -1889,7 +1891,8 @@ page 71012680 "BOM Card"
                                                             BLAutoGenNewRec.SetRange("No.", "No");
                                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
-                                                            BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                                                            BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                                                            //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
                                                             BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
                                                             BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
                                                             BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
@@ -2023,7 +2026,8 @@ page 71012680 "BOM Card"
                                                     BLAutoGenNewRec.SetRange("No.", "No");
                                                     BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                     BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
-                                                    BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                                                    BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                                                    //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
                                                     BLAutoGenNewRec.SetRange("GMT Size Name", '');
                                                     BLAutoGenNewRec.SetRange("Country No.", '');
                                                     BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
@@ -3289,7 +3293,8 @@ page 71012680 "BOM Card"
                                                             BLAutoGenNewRec.SetRange("No.", "No");
                                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
-                                                            BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                                                            BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                                                            //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
                                                             BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine1Rec."GMR Size Name");
                                                             BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
                                                             BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
@@ -3432,6 +3437,7 @@ page 71012680 "BOM Card"
                                                 BLAutoGenNewRec.SetRange("No.", "No");
                                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                                                //BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
                                                 BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
                                                 BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
                                                 BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
@@ -4082,7 +4088,8 @@ page 71012680 "BOM Card"
                                                         BLAutoGenNewRec.SetRange("No.", "No");
                                                         BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                         BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
-                                                        BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                                                        BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                                                        //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
                                                         BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine1Rec."GMR Size Name");
                                                         BLAutoGenNewRec.SetRange("Country No.", BOMLine1Rec."Country Code");
                                                         BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
@@ -4583,7 +4590,8 @@ page 71012680 "BOM Card"
                                                                 BLAutoGenNewRec.SetRange("No.", "No");
                                                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
-                                                                BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                                                                BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                                                                //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
                                                                 BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
                                                                 BLAutoGenNewRec.SetRange("Country No.", BOMLine1Rec."Country Code");
                                                                 BLAutoGenNewRec.SetRange(PO, BOMLine4Rec."PO No.");
@@ -4758,7 +4766,8 @@ page 71012680 "BOM Card"
                                                                 BLAutoGenNewRec.SetRange("No.", "No");
                                                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
-                                                                BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                                                                BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                                                                //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
                                                                 BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine1Rec."GMR Size Name");
                                                                 BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
                                                                 BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
