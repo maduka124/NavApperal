@@ -9,40 +9,44 @@ report 50610 FabricAndTrimsRequiremts
 
     dataset
     {
-        dataitem("Style Master"; "Style Master")
+        dataitem(BOM; BOM)
         {
-            DataItemTableView = sorting("No.");
+            DataItemTableView = sorting(No);
+
+            column(Buyer_Name; "Buyer Name")
+            { }
             column(Season_Name; "Season Name")
             { }
-            column(Buyer_Name; "Buyer Name")
+            column(Style_No_; "Style Name")
             { }
             column(Garment_Type_Name; "Garment Type Name")
             { }
-            column(Style_No_; "Style No.")
-            { }
-            column(Order_Qty; "Order Qty")
+            column(CompLogo; comRec.Picture)
             { }
             column(Garment_Type_No_; "Garment Type No.")
             { }
-            column(No_; "No.")
-            { }
-            column(PO_Total; "PO Total")
-            { }
-            column(styleNO_p; styleNO_p)
-            { }
-            column(CompLogo; comRec.Picture)
-            { }
-            dataitem(BOM; BOM)
+            dataitem("Style Master"; "Style Master")
             {
-                DataItemLinkReference = "Style Master";
-                DataItemLink = "Style No." = field("No.");
 
-                DataItemTableView = sorting(No);
+                DataItemLinkReference = BOM;
+                DataItemLink = "No." = field("Style No.");
+                DataItemTableView = sorting("No.");
+
+
+                column(Order_Qty; "Order Qty")
+                { }
+                column(No_; "No.")
+                { }
+                column(PO_Total; "PO Total")
+                { }
+                column(styleNO_p; styleNO_p)
+                { }
+
 
                 dataitem("Style Master PO"; "Style Master PO")
                 {
                     DataItemLinkReference = BOM;
-                    DataItemLink = "Style No." = field(No);
+                    DataItemLink = "Style No." = field("Style No.");
 
                     DataItemTableView = sorting("Lot No.");
                     column(PoNum; "PO No.")
@@ -53,18 +57,33 @@ report 50610 FabricAndTrimsRequiremts
                     { }
 
                 }
-                trigger OnPreDataItem()
+
+
+
+
+
+                trigger OnAfterGetRecord()
+                var
 
                 begin
-                    SetRange(No, filterBom);
+
+                    // StyleMasterPoRec.Get("No.", "Lot No.");
+                    BomRec.Reset();
+                    BomRec.SetRange(No, "Style Master"."No.");
+                    BomRec.SetRange("Style No.", "Style Master"."Style No.");
+                    if BomRec.FindFirst() then begin
+                        Revishion := BomRec.Revision;
+                    end;
+
+
                 end;
 
 
             }
             dataitem("BOM Line AutoGen"; "BOM Line AutoGen")
             {
-                DataItemLinkReference = "Style Master";
-                DataItemLink = "No." = field("No.");
+                DataItemLinkReference = BOM;
+                DataItemLink = "No." = field(No);
 
                 DataItemTableView = sorting("No.");
                 column(Placement_of_GMT; "Placement of GMT")
@@ -106,31 +125,19 @@ report 50610 FabricAndTrimsRequiremts
                 column(Main_Category_Name; "Main Category Name")
                 { }
 
-
-
-                trigger OnAfterGetRecord()
-                var
-
-                begin
-
-                    // StyleMasterPoRec.Get("No.", "Lot No.");
-                    BomRec.Reset();
-                    BomRec.SetRange(No, "Style Master"."No.");
-                    BomRec.SetRange("Style No.", "Style Master"."Style No.");
-                    if BomRec.FindFirst() then begin
-                        Revishion := BomRec.Revision;
-                    end;
-
-
-                end;
-
-
             }
+
             trigger OnAfterGetRecord()
 
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+            end;
+
+            trigger OnPreDataItem()
+
+            begin
+                SetRange(No, filterBom);
             end;
 
         }
