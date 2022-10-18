@@ -42,8 +42,6 @@ report 50612 OCR
             column(CompLogo; comRec.Picture)
             { }
 
-
-
             dataitem(BOM; BOM)
             {
                 DataItemLinkReference = "Style Master";
@@ -98,43 +96,50 @@ report 50612 OCR
                     { }
                     column(Divi; Divi)
                     { }
+                    column(Actual_Procured; ActualProc)
+                    { }
+                    column(TransferLineRecSReceived; TransferLineRecSReceived)
+                    { }
 
-                    dataitem("Item Ledger Entry"; "Item Ledger Entry")
-                    {
-                        DataItemLinkReference = "BOM Line AutoGen";
-                        DataItemLink = "Item No." = field("Item No.");
-                        DataItemTableView = sorting("Entry No.");
-
-                        column(Actual_Procured; Quantity)
-                        { }
-                        column(TransferLineRecSReceived; TransferLineRecSReceived)
-                        { }
-                        trigger OnAfterGetRecord()
-
-                        begin
-
-                            if "Entry Type" = "Entry Type"::Consumption then begin
-                                TransferLineRecSReceived := Quantity * -1;
-                            end;
-                        end;
+                    // dataitem("Item Ledger Entry"; "Item Ledger Entry")
+                    // {
+                    //     DataItemLinkReference = "BOM Line AutoGen";
+                    //     DataItemLink = "Item No." = field("Item No.");
+                    //     DataItemTableView = sorting("Entry No.");
 
 
-                    }
+                    //     column(TransferLineRecSReceived; TransferLineRecSReceived)
+                    //     { }
+                    //     // trigger OnAfterGetRecord()
+
+                    //     // begin
+
+                    //     //     if "Entry Type" = "Entry Type"::Consumption then begin
+                    //     //         TransferLineRecSReceived := Quantity * -1;
+                    //     //     end;
+                    //     // end;
+
+
+                    // }
                     trigger OnAfterGetRecord()
                     var
                     begin
-
+                        purchRec.Reset();
+                        purchRec.SetRange("No.", "Item No.");
+                        if purchRec.FindFirst() then begin
+                            ActualProc := purchRec.Quantity;
+                        end;
 
                         // TransferLineRecSReceived := 0;
-                        // ItemLeRec.Reset();
-                        // ItemLeRec.SetRange("Style No.", "Style Master"."No.");
-                        // ItemLeRec.SetRange("Item No.", "Item No.");
-                        // // ItemLeRec.SetRange(Color);
-                        // if ItemLeRec.FindFirst() then begin
-                        //     if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
-                        //         TransferLineRecSReceived := ItemLeRec.Quantity * -1;
-                        //     end;
-                        // end;
+                        ItemLeRec.Reset();
+                        ItemLeRec.SetRange("Style No.", "Style Master"."No.");
+                        ItemLeRec.SetRange("Item No.", "Item No.");
+                        // ItemLeRec.SetRange(Color);
+                        if ItemLeRec.FindFirst() then begin
+                            if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
+                                TransferLineRecSReceived := ItemLeRec.Quantity * -1;
+                            end;
+                        end;
                         // TransferLineRecSReceived := IssueQty * -1;
 
                         TotFab := 0;
@@ -338,6 +343,8 @@ report 50612 OCR
         FilterNo: Code[30];
         ItemLedgerRec: Record "Item Ledger Entry";
         IssueQty: Decimal;
+        purchRec: Record "Purch. Rcpt. Line";
+        ActualProc: Decimal;
 
 
 

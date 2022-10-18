@@ -844,7 +844,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1691,7 +1691,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -2365,7 +2365,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Right</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -2969,7 +2969,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -7809,7 +7809,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>41.34899cm</Width>
+      <Width>40.66592cm</Width>
       <Page>
         <PageFooter>
           <Height>0.80257cm</Height>
@@ -7842,7 +7842,7 @@
               <Top>0.03528cm</Top>
               <Left>0.3937cm</Left>
               <Height>0.6cm</Height>
-              <Width>6.53838cm</Width>
+              <Width>11.38555cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
