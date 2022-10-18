@@ -41,7 +41,135 @@ report 50612 OCR
             { }
             column(CompLogo; comRec.Picture)
             { }
+            dataitem(BOM; BOM)
+            {
+                DataItemLinkReference = "Style Master";
+                DataItemLink = "Style No." = field("No.");
+                DataItemTableView = sorting(No);
+                dataitem("BOM Line AutoGen"; "BOM Line AutoGen")
+                {
+                    DataItemLinkReference = BOM;
+                    DataItemLink = "No." = field(No);
+                    DataItemTableView = sorting("No.");
+                    column(Placement_of_GMT; "Placement of GMT")
+                    { }
+                    column(GMT_Color_Name; "GMT Color Name")
+                    { }
+                    column(Article_Name_; "Article Name.")
+                    { }
+                    column(Item_Color_Name; "Item Color Name")
+                    { }
+                    column(Unit_N0_; "Unit N0.")
+                    { }
+                    column(Qty; Qty)
+                    { }
+                    column(WST; WST)
+                    { }
+                    column(Type; Type)
+                    { }
+                    column(Consumption; Consumption)
+                    { }
+                    column(RequirmentQTY; Requirment)
+                    { }
+                    column(AjstReq; AjstReq)
+                    { }
+                    column(Dimension_Name_; "Dimension Name.")
+                    { }
+                    column(Revishion; Revishion)
+                    { }
+                    column(Item_Name; "Item Name")
+                    { }
+                    column(UnitPrice; Rate)
+                    { }
+                    column(Main_Category_Name; "Main Category Name")
+                    { }
+                    column(Actual_Procured; QuantityPurch)
+                    { }
+                    column(Value; Value)
+                    { }
+                    column(TotFab; TotFab)
+                    { }
+                    column(TransferLineRecSReceived; TransferLineRecSReceived)
+                    { }
+                    column(GarmentConsumption; GarmentConsumption)
+                    { }
+                    column(GMT_Qty; "GMT Qty")
+                    { }
+                    column(Divi; Divi)
+                    { }
 
+                    // dataitem("Item Ledger Entry"; "Item Ledger Entry")
+                    // {
+                    //     DataItemLinkReference = "BOM Line AutoGen";
+                    //     DataItemLink = "Item No." = field("Item No.");
+
+
+                    //     trigger OnAfterGetRecord()
+
+                    //     begin
+
+                    //         if "Entry Type" = "Entry Type"::Consumption then begin
+                    //             TransferLineRecSReceived := Quantity;
+                    //         end;
+                    //     end;
+
+
+                    // }
+                    trigger OnAfterGetRecord()
+                    var
+                    begin
+
+
+                        TransferLineRecSReceived := 0;
+                        ItemLeRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
+                        ItemLeRec.SetRange(Color);
+                        if ItemLeRec.FindFirst() then begin
+                            if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
+                                TransferLineRecSReceived := ItemLeRec.Quantity;
+                            end;
+                        end;
+
+                        TotFab := 0;
+                        GarmentConsumption := Qty * Consumption;
+
+                        // vendorRec.get("No.");
+                        TransferLineRec.Reset();
+                        TransferLineRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
+                        if TransferLineRec.FindSet() then begin
+
+                            // TransferLineRecSReceived := TransferLineRec."Quantity Received"
+
+                        end;
+
+
+                        postedPurchLineRec.Reset();
+                        postedPurchLineRec.SetRange("No.", "BOM Line AutoGen"."New Item No.");
+                        postedPurchLineRec.SetRange("Line No.", "BOM Line AutoGen"."Line No.");
+                        if postedPurchLineRec.FindFirst() then begin
+                            QuantityPurch := postedPurchLineRec.Quantity;
+                        end;
+                        BomRec.Reset();
+                        BomRec.SetRange(No, "Style Master"."No.");
+                        BomRec.SetRange("Style No.", "Style Master"."Style No.");
+                        if BomRec.FindFirst() then begin
+                            Revishion := BomRec.Revision;
+                        end;
+
+                        if "Main Category Name" = 'FABRIC' then begin
+                            TotFab += Value;
+                        end;
+                        Divi := 0;
+                        if Type = 0 then begin
+                            Divi := 12;
+                        end
+                        else
+                            Divi := 1;
+                    end;
+
+
+
+                }
+            }
             dataitem("Style Master PO"; "Style Master PO")
             {
                 DataItemLinkReference = "Style Master";
@@ -104,129 +232,7 @@ report 50612 OCR
             }
 
 
-            dataitem("BOM Line AutoGen"; "BOM Line AutoGen")
-            {
-                DataItemLinkReference = "Style Master";
-                DataItemLink = "No." = field("No.");
-                DataItemTableView = sorting("No.");
-                column(Placement_of_GMT; "Placement of GMT")
-                { }
-                column(GMT_Color_Name; "GMT Color Name")
-                { }
-                column(Article_Name_; "Article Name.")
-                { }
-                column(Item_Color_Name; "Item Color Name")
-                { }
-                column(Unit_N0_; "Unit N0.")
-                { }
-                column(Qty; Qty)
-                { }
-                column(WST; WST)
-                { }
-                column(Type; Type)
-                { }
-                column(Consumption; Consumption)
-                { }
-                column(RequirmentQTY; Requirment)
-                { }
-                column(AjstReq; AjstReq)
-                { }
-                column(Dimension_Name_; "Dimension Name.")
-                { }
-                column(Revishion; Revishion)
-                { }
-                column(Item_Name; "Item Name")
-                { }
-                column(UnitPrice; Rate)
-                { }
-                column(Main_Category_Name; "Main Category Name")
-                { }
-                column(Actual_Procured; QuantityPurch)
-                { }
-                column(Value; Value)
-                { }
-                column(TotFab; TotFab)
-                { }
-                column(TransferLineRecSReceived; TransferLineRecSReceived)
-                { }
-                column(GarmentConsumption; GarmentConsumption)
-                { }
-                column(GMT_Qty; "GMT Qty")
-                { }
-                column(Divi; Divi)
-                { }
 
-                // dataitem("Item Ledger Entry"; "Item Ledger Entry")
-                // {
-                //     DataItemLinkReference = "BOM Line AutoGen";
-                //     DataItemLink = "Item No." = field("Item No.");
-
-
-                //     trigger OnAfterGetRecord()
-
-                //     begin
-
-                //         if "Entry Type" = "Entry Type"::Consumption then begin
-                //             TransferLineRecSReceived := Quantity;
-                //         end;
-                //     end;
-
-
-                // }
-                trigger OnAfterGetRecord()
-                var
-                begin
-
-
-                    TransferLineRecSReceived := 0;
-                    ItemLeRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
-                    ItemLeRec.SetRange(Color);
-                    if ItemLeRec.FindFirst() then begin
-                        if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
-                            TransferLineRecSReceived := ItemLeRec.Quantity;
-                        end;
-                    end;
-
-                    TotFab := 0;
-                    GarmentConsumption := Qty * Consumption;
-
-                    // vendorRec.get("No.");
-                    TransferLineRec.Reset();
-                    TransferLineRec.SetRange("Item No.", "BOM Line AutoGen"."Item No.");
-                    if TransferLineRec.FindSet() then begin
-
-                        // TransferLineRecSReceived := TransferLineRec."Quantity Received"
-
-                    end;
-
-
-                    postedPurchLineRec.Reset();
-                    postedPurchLineRec.SetRange("No.", "BOM Line AutoGen"."New Item No.");
-                    postedPurchLineRec.SetRange("Line No.", "BOM Line AutoGen"."Line No.");
-                    if postedPurchLineRec.FindFirst() then begin
-                        QuantityPurch := postedPurchLineRec.Quantity;
-                    end;
-                    BomRec.Reset();
-                    BomRec.SetRange(No, "Style Master"."No.");
-                    BomRec.SetRange("Style No.", "Style Master"."Style No.");
-                    if BomRec.FindFirst() then begin
-                        Revishion := BomRec.Revision;
-                    end;
-
-                    if "Main Category Name" = 'FABRIC' then begin
-                        TotFab += Value;
-                    end;
-                    Divi := 0;
-                    if Type = 0 then begin
-                        Divi := 12;
-                    end
-                    else
-                        Divi := 1;
-                end;
-
-
-
-            }
             trigger OnAfterGetRecord()
 
             begin
@@ -262,7 +268,7 @@ report 50612 OCR
                     field(FilterNo; FilterNo)
                     {
                         ApplicationArea = All;
-                        Caption = 'Style No';
+                        Caption = 'Style';
                         TableRelation = "Style Master"."No.";
 
                     }
