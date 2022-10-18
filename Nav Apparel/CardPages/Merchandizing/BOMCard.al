@@ -964,7 +964,7 @@ page 71012680 "BOM Card"
                                                                                     if (ConvFactor <> 0) then
                                                                                         Requirment := Requirment / ConvFactor;
 
-                                                                                    Requirment := Round(Requirment, 1);
+                                                                                    //Requirment := Round(Requirment, 1);
 
                                                                                     if Requirment < 0 then
                                                                                         Requirment := 1;
@@ -1468,7 +1468,7 @@ page 71012680 "BOM Card"
                                                                             if (ConvFactor <> 0) then
                                                                                 Requirment := Requirment / ConvFactor;
 
-                                                                            Requirment := Round(Requirment, 1);
+                                                                            //Requirment := Round(Requirment, 1);
 
                                                                             if Requirment < 0 then
                                                                                 Requirment := 1;
@@ -1952,7 +1952,7 @@ page 71012680 "BOM Card"
                                                                     if (ConvFactor <> 0) then
                                                                         Requirment := Requirment / ConvFactor;
 
-                                                                    Requirment := Round(Requirment, 1);
+                                                                    //Requirment := Round(Requirment, 1);
 
                                                                     if Requirment < 0 then
                                                                         Requirment := 1;
@@ -2086,7 +2086,7 @@ page 71012680 "BOM Card"
                                                             if (ConvFactor <> 0) then
                                                                 Requirment := Requirment / ConvFactor;
 
-                                                            Requirment := Round(Requirment, 1);
+                                                            //Requirment := Round(Requirment, 1);
 
                                                             if Requirment < 0 then
                                                                 Requirment := 1;
@@ -2564,7 +2564,7 @@ page 71012680 "BOM Card"
                                                             if (ConvFactor <> 0) then
                                                                 Requirment := Requirment / ConvFactor;
 
-                                                            Requirment := Round(Requirment, 1);
+                                                            //Requirment := Round(Requirment, 1);
 
                                                             if Requirment < 0 then
                                                                 Requirment := 1;
@@ -3056,7 +3056,7 @@ page 71012680 "BOM Card"
                                                                     if (ConvFactor <> 0) then
                                                                         Requirment := Requirment / ConvFactor;
 
-                                                                    Requirment := Round(Requirment, 1);
+                                                                    //Requirment := Round(Requirment, 1);
 
                                                                     if Requirment < 0 then
                                                                         Requirment := 1;
@@ -3202,7 +3202,7 @@ page 71012680 "BOM Card"
                                                             if (ConvFactor <> 0) then
                                                                 Requirment := Requirment / ConvFactor;
 
-                                                            Requirment := Round(Requirment, 1);
+                                                            //Requirment := Round(Requirment, 1);
 
                                                             if Requirment < 0 then
                                                                 Requirment := 1;
@@ -3352,7 +3352,7 @@ page 71012680 "BOM Card"
                                                                     if (ConvFactor <> 0) then
                                                                         Requirment := Requirment / ConvFactor;
 
-                                                                    Requirment := Round(Requirment, 1);
+                                                                    //Requirment := Round(Requirment, 1);
 
                                                                     if Requirment < 0 then
                                                                         Requirment := 1;
@@ -3495,7 +3495,7 @@ page 71012680 "BOM Card"
                                                         if (ConvFactor <> 0) then
                                                             Requirment := Requirment / ConvFactor;
 
-                                                        Requirment := Round(Requirment, 1);
+                                                        //Requirment := Round(Requirment, 1);
 
                                                         if Requirment < 0 then
                                                             Requirment := 1;
@@ -3984,7 +3984,7 @@ page 71012680 "BOM Card"
                                                                     if (ConvFactor <> 0) then
                                                                         Requirment := Requirment / ConvFactor;
 
-                                                                    Requirment := Round(Requirment, 1);
+                                                                    //Requirment := Round(Requirment, 1);
 
                                                                     if Requirment < 0 then
                                                                         Requirment := 1;
@@ -4145,7 +4145,7 @@ page 71012680 "BOM Card"
                                                                 if (ConvFactor <> 0) then
                                                                     Requirment := Requirment / ConvFactor;
 
-                                                                Requirment := Round(Requirment, 1);
+                                                                //Requirment := Round(Requirment, 1);
 
                                                                 if Requirment < 0 then
                                                                     Requirment := 1;
@@ -4646,7 +4646,7 @@ page 71012680 "BOM Card"
                                                                         if (ConvFactor <> 0) then
                                                                             Requirment := Requirment / ConvFactor;
 
-                                                                        Requirment := Round(Requirment, 1);
+                                                                        //Requirment := Round(Requirment, 1);
 
                                                                         if Requirment < 0 then
                                                                             Requirment := 1;
@@ -4821,7 +4821,7 @@ page 71012680 "BOM Card"
                                                                         if (ConvFactor <> 0) then
                                                                             Requirment := Requirment / ConvFactor;
 
-                                                                        Requirment := Round(Requirment, 1);
+                                                                        //Requirment := Round(Requirment, 1);
 
                                                                         if Requirment < 0 then
                                                                             Requirment := 1;
@@ -4984,7 +4984,7 @@ page 71012680 "BOM Card"
                                                                 if (ConvFactor <> 0) then
                                                                     Requirment := Requirment / ConvFactor;
 
-                                                                Requirment := Round(Requirment, 1);
+                                                                //Requirment := Round(Requirment, 1);
 
                                                                 if Requirment < 0 then
                                                                     Requirment := 1;
@@ -5496,7 +5496,7 @@ page 71012680 "BOM Card"
                                                                             if (ConvFactor <> 0) then
                                                                                 Requirment := Requirment / ConvFactor;
 
-                                                                            Requirment := Round(Requirment, 1);
+                                                                            //Requirment := Round(Requirment, 1);
 
                                                                             if Requirment < 0 then
                                                                                 Requirment := 1;

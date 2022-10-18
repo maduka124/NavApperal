@@ -61,9 +61,6 @@ report 71012755 TnAStyleMerchandizing
                 comRec.CalcFields(Picture);
             end;
         }
-
-
-
     }
 
     requestpage
@@ -79,32 +76,13 @@ report 71012755 TnAStyleMerchandizing
                         ApplicationArea = All;
                         Caption = 'Style Number';
                         TableRelation = "Dependency Style Header"."No.";
-
                     }
-
-                }
-            }
-        }
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
     }
 
-
     var
-
-
         styleName: Code[20];
         comRec: Record "Company Information";
-
-
-
 }
