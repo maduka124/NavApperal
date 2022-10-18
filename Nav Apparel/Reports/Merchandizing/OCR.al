@@ -103,6 +103,7 @@ report 50612 OCR
                     {
                         DataItemLinkReference = "BOM Line AutoGen";
                         DataItemLink = "Item No." = field("Item No.");
+                        DataItemTableView = sorting("Entry No.");
 
                         column(Actual_Procured; Quantity)
                         { }
