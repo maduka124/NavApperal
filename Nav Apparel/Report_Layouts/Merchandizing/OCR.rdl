@@ -57,7 +57,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.71003cm</Width>
+                  <Width>4.17415cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.51212cm</Width>
@@ -3259,7 +3259,7 @@
             <Top>4.23016cm</Top>
             <Left>0.0762cm</Left>
             <Height>2.31125cm</Height>
-            <Width>40.58972cm</Width>
+            <Width>40.05384cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -7809,7 +7809,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>40.66592cm</Width>
+      <Width>43.16592cm</Width>
       <Page>
         <PageFooter>
           <Height>0.80257cm</Height>
@@ -8168,6 +8168,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="TransferLineRecSReceivedFormat">
           <DataField>TransferLineRecSReceivedFormat</DataField>
+        </Field>
+        <Field Name="NewItemNo">
+          <DataField>NewItemNo</DataField>
         </Field>
         <Field Name="PoNum">
           <DataField>PoNum</DataField>

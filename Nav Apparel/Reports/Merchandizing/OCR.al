@@ -51,7 +51,7 @@ report 50612 OCR
                 {
                     DataItemLinkReference = BOM;
                     DataItemLink = "No." = field(No);
-                    DataItemTableView = sorting("No.");
+                    DataItemTableView = sorting("Item No.");
                     column(Placement_of_GMT; "Placement of GMT")
                     { }
                     column(GMT_Color_Name; "GMT Color Name")
@@ -101,6 +101,9 @@ report 50612 OCR
                     column(TransferLineRecSReceived; TransferLineRecSReceived)
                     { }
 
+                    column(NewItemNo; "New Item No.")
+                    { }
+
                     // dataitem("Item Ledger Entry"; "Item Ledger Entry")
                     // {
                     //     DataItemLinkReference = "BOM Line AutoGen";
@@ -124,21 +127,25 @@ report 50612 OCR
                     trigger OnAfterGetRecord()
                     var
                     begin
+                        ActualProc := 0;
                         purchRec.Reset();
-                        purchRec.SetRange("No.", "Item No.");
+                        purchRec.SetRange("No.", "New Item No.");
+                        purchRec.SetRange(StyleName, "Style Master"."Style No.");
                         if purchRec.FindFirst() then begin
                             ActualProc := purchRec.Quantity;
                         end;
 
-                        // TransferLineRecSReceived := 0;
+                        TransferLineRecSReceived := 0;
                         ItemLeRec.Reset();
                         ItemLeRec.SetRange("Style No.", "Style Master"."No.");
-                        ItemLeRec.SetRange("Item No.", "Item No.");
+                        ItemLeRec.SetRange("Item No.", "BOM Line AutoGen"."New Item No.");
                         // ItemLeRec.SetRange(Color);
-                        if ItemLeRec.FindFirst() then begin
-                            if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
-                                TransferLineRecSReceived := ItemLeRec.Quantity * -1;
-                            end;
+                        if ItemLeRec.FindSet() then begin
+                            repeat
+                                if ItemLeRec."Entry Type" = ItemLeRec."Entry Type"::Consumption then begin
+                                    TransferLineRecSReceived += ItemLeRec.Quantity * -1;
+                                end;
+                            until ItemLeRec.Next() = 0;
                         end;
                         // TransferLineRecSReceived := IssueQty * -1;
 

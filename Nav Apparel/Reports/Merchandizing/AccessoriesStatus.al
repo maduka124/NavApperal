@@ -6,8 +6,6 @@ report 50633 AccessoriesStatusReport
     DefaultLayout = RDLC;
     RDLCLayout = 'Report_Layouts/Merchandizing/AccessoriesStatusReport.rdl';
 
-
-
     dataset
     {
         dataitem("Style Master"; "Style Master")
@@ -56,19 +54,19 @@ report 50633 AccessoriesStatusReport
                     column(Colour; "Color Name")
                     { }
 
-
-
-
                     trigger OnAfterGetRecord()
                     begin
 
+                        IssueQty := 0;
                         ItemLedgerRec.Reset();
                         ItemLedgerRec.SetRange("Style No.", "Style Master"."No.");
                         ItemLedgerRec.SetRange("Item No.", Item."No.");
                         if ItemLedgerRec.FindSet() then begin
-                            if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
-                                IssueQty := ItemLedgerRec.Quantity
-                            end;
+                            repeat
+                                if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
+                                    IssueQty += ItemLedgerRec.Quantity
+                                end;
+                            until ItemLedgerRec.Next() = 0;
                         end;
                         IssuePlus := IssueQty * -1;
 
