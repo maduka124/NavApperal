@@ -12,7 +12,7 @@ table 50820 DeptReqSheetLine
         field(2; "Line No"; Integer)
         {
             DataClassification = ToBeClassified;
-            AutoIncrement = true;
+            // AutoIncrement = true;
         }
 
         field(3; "Item No"; Code[60])

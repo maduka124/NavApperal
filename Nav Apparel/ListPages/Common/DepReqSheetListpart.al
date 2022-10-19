@@ -30,6 +30,7 @@ page 50710 "DepReqSheetListpart"
                     trigger OnValidate()
                     var
                         itemRec: Record Item;
+                        DeptReqSheetLineRec: Record DeptReqSheetLine;
                     begin
                         itemRec.Reset();
                         itemRec.SetRange("No.", "Item No");
@@ -39,7 +40,13 @@ page 50710 "DepReqSheetListpart"
                             UOM := itemRec."Base Unit of Measure";
                         end;
 
+                        DeptReqSheetLineRec.Reset();
+                        DeptReqSheetLineRec.SetRange("Req No", "Req No");
 
+                        if DeptReqSheetLineRec.FindSet() then begin
+                            if "Item No" = "Item No" then
+                                Error('This item already exist in line');
+                        end;
                     end;
                 }
 
@@ -72,19 +79,27 @@ page 50710 "DepReqSheetListpart"
         // }
     }
 
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-                ApplicationArea = All;
+    trigger OnNewRecord(BelowxRec: Boolean)
+    var
+        inx: Integer;
+    begin
+        "Line No" := xRec."Line No" + 1;
+    end;
 
-                trigger OnAction();
-                begin
 
-                end;
-            }
-        }
-    }
+    // actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action(ActionName)
+    //         {
+    //             ApplicationArea = All;
+
+    //             trigger OnAction();
+    //             begin
+
+    //             end;
+    //         }
+    //     }
+    // }
 }
