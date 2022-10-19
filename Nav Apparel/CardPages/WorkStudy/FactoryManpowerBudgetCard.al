@@ -214,6 +214,7 @@ page 50815 "Factory Manpower Budget Card"
                         ManpowBudSummaryRec."No." := ManpowBudLineRec."No.";
                         ManpowBudSummaryRec."Category Name" := 'Sewing Machines';
                         ManpowBudSummaryRec."Factory Name" := ManpowBudLineRec."Factory Name";
+                        ManpowBudSummaryRec."Factory Code" := ManpowBudLineRec."Factory Code";
                         ManpowBudSummaryRec.Date := ManpowBudLineRec.Date;
                         ManpowBudSummaryRec.LineNo := LineNo1;
                         ManpowBudSummaryRec."Act Budget" := ManpowBudLineRec."Act Budget";
@@ -231,6 +232,7 @@ page 50815 "Factory Manpower Budget Card"
                         ManpowBudSummaryRec."No." := ManpowBudLineRec."No.";
                         ManpowBudSummaryRec."Category Name" := 'Sample MC';
                         ManpowBudSummaryRec."Factory Name" := ManpowBudLineRec."Factory Name";
+                        ManpowBudSummaryRec."Factory Code" := ManpowBudLineRec."Factory Code";
                         ManpowBudSummaryRec.Date := ManpowBudLineRec.Date;
                         ManpowBudSummaryRec.LineNo := LineNo1;
                         ManpowBudSummaryRec."Act Budget" := ManpowBudLineRec."Act Budget";
@@ -248,6 +250,7 @@ page 50815 "Factory Manpower Budget Card"
                         ManpowBudSummaryRec."No." := ManpowBudLineRec."No.";
                         ManpowBudSummaryRec."Category Name" := 'Pilot MC';
                         ManpowBudSummaryRec."Factory Name" := ManpowBudLineRec."Factory Name";
+                        ManpowBudSummaryRec."Factory Code" := ManpowBudLineRec."Factory Code";
                         ManpowBudSummaryRec.Date := ManpowBudLineRec.Date;
                         ManpowBudSummaryRec.LineNo := LineNo1;
                         ManpowBudSummaryRec."Act Budget" := ManpowBudLineRec."Act Budget";
@@ -265,6 +268,7 @@ page 50815 "Factory Manpower Budget Card"
                         ManpowBudSummaryRec."No." := ManpowBudLineRec."No.";
                         ManpowBudSummaryRec."Category Name" := 'Finishing MC';
                         ManpowBudSummaryRec."Factory Name" := ManpowBudLineRec."Factory Name";
+                        ManpowBudSummaryRec."Factory Code" := ManpowBudLineRec."Factory Code";
                         ManpowBudSummaryRec.Date := ManpowBudLineRec.Date;
                         ManpowBudSummaryRec.LineNo := LineNo1;
                         ManpowBudSummaryRec."Act Budget" := ManpowBudLineRec."Act Budget";
@@ -288,6 +292,7 @@ page 50815 "Factory Manpower Budget Card"
                 ManpowBudSummaryRec."No." := ManpowBudLineRec."No.";
                 ManpowBudSummaryRec."Category Name" := 'Total MC';
                 ManpowBudSummaryRec."Factory Name" := ManpowBudLineRec."Factory Name";
+                ManpowBudSummaryRec."Factory Code" := ManpowBudLineRec."Factory Code";
                 ManpowBudSummaryRec.Date := ManpowBudLineRec.Date;
                 ManpowBudSummaryRec.LineNo := LineNo1;
                 ManpowBudSummaryRec."Act Budget" := Total1;
@@ -301,6 +306,7 @@ page 50815 "Factory Manpower Budget Card"
                 ManpowBudSummaryRec."No." := ManpowBudLineRec."No.";
                 ManpowBudSummaryRec."Category Name" := 'Total Manpower';
                 ManpowBudSummaryRec."Factory Name" := "Factory Name";
+                ManpowBudSummaryRec."Factory Code" := "Factory Code";
                 ManpowBudSummaryRec.Date := Date;
                 ManpowBudSummaryRec.LineNo := LineNo1;
                 ManpowBudSummaryRec."Act Budget" := GrandTotal1;
@@ -315,6 +321,7 @@ page 50815 "Factory Manpower Budget Card"
                     ManpowBudSummaryRec."No." := ManpowBudLineRec."No.";
                     ManpowBudSummaryRec."Category Name" := 'MMR';
                     ManpowBudSummaryRec."Factory Name" := "Factory Name";
+                    ManpowBudSummaryRec."Factory Code" := "Factory Code";
                     ManpowBudSummaryRec.Date := Date;
                     ManpowBudSummaryRec.LineNo := LineNo1;
                     ManpowBudSummaryRec."Act Budget" := GrandTotal1 / Total1;

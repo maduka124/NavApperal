@@ -49,7 +49,7 @@ report 50817 ManpowerBudgetReport
 
             trigger OnPreDataItem()
             begin
-                SetRange("Factory Name", FFactory);
+                SetRange("Factory Code", FFactory);
                 SetRange(Date, FDate);
                 SetFilter("Show In Report", '=%1', true);
             end;
@@ -68,7 +68,7 @@ report 50817 ManpowerBudgetReport
 
             trigger OnPreDataItem()
             begin
-                SetRange("Factory Name", FFactory);
+                SetRange("Factory Code", FFactory);
                 SetRange(Date, FDate);
             end;
         }

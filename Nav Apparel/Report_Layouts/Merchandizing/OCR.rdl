@@ -90,13 +90,13 @@
                   <Width>1.63308cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.02201cm</Width>
+                  <Width>2.66218cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.94697cm</Width>
+                  <Width>2.59958cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.97084cm</Width>
+                  <Width>1.67451cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.89146cm</Width>
@@ -3259,7 +3259,7 @@
             <Top>4.23016cm</Top>
             <Left>0.0762cm</Left>
             <Height>2.31125cm</Height>
-            <Width>40.05384cm</Width>
+            <Width>39.05029cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>

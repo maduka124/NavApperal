@@ -127,9 +127,17 @@ table 71012719 "Sample Requsition Header"
 
     keys
     {
-        key(PK; "No.", "Style Name")
+        key(PK; "No.")
         {
             Clustered = true;
+        }
+    }
+
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", "Style Name")
+        {
+
         }
     }
 

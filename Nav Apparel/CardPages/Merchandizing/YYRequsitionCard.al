@@ -57,16 +57,18 @@ page 71012822 "YY Requsition Card"
                         StyleMasRec.SetRange("Style No.", "Style Name");
                         if StyleMasRec.FindSet() then begin
                             "Style No." := StyleMasRec."No.";
+                            "Garment Type No." := StyleMasRec."Garment Type No.";
+                            "Garment Type Name" := StyleMasRec."Garment Type Name";
                         end;
 
-                        StyleRec.Reset();
-                        StyleRec.SetRange("Style No.", "Style Name");
-                        if StyleRec.FindSet() then begin
-                            "Style No." := StyleRec."No.";
-                            "Garment Type No." := StyleRec."Garment Type No.";
-                            "Garment Type Name" := StyleRec."Garment Type Name";
-                            CurrPage.Update();
-                        end;
+                        // StyleRec.Reset();
+                        // StyleRec.SetRange("Style No.", "Style Name");
+                        // if StyleRec.FindSet() then begin
+                        //     "Style No." := StyleRec."No.";
+                        //     "Garment Type No." := StyleRec."Garment Type No.";
+                        //     "Garment Type Name" := StyleRec."Garment Type Name";
+                        //     CurrPage.Update();
+                        // end;
                     end;
                 }
 
@@ -76,15 +78,15 @@ page 71012822 "YY Requsition Card"
                     Caption = 'Garment Type';
                     Editable = false;
 
-                    trigger OnValidate()
-                    var
-                        GarmentTypeRec: Record "Garment Type";
-                    begin
-                        GarmentTypeRec.Reset();
-                        GarmentTypeRec.SetRange("Garment Type Description", "Garment Type Name");
-                        if GarmentTypeRec.FindSet() then
-                            "Garment Type No." := GarmentTypeRec."No.";
-                    end;
+                    // trigger OnValidate()
+                    // var
+                    //     GarmentTypeRec: Record "Garment Type";
+                    // begin
+                    //     GarmentTypeRec.Reset();
+                    //     GarmentTypeRec.SetRange("Garment Type Description", "Garment Type Name");
+                    //     if GarmentTypeRec.FindSet() then
+                    //         "Garment Type No." := GarmentTypeRec.Code;
+                    // end;
                 }
 
                 field(Remarks; Remarks)

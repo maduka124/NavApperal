@@ -50,6 +50,10 @@ table 50818 ManpowBudSummary
             DataClassification = ToBeClassified;
         }
 
+        field(10; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
