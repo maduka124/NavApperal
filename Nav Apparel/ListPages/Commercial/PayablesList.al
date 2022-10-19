@@ -114,6 +114,7 @@ page 50549 "Payable Chart - Approved"
                 trigger OnAction()
                 var
                     SuppPayRec: Record SupplierPayments;
+                    PayJrnlPage: page "Payment Journal";
                     Y: Integer;
                     M: Integer;
                     TempValue1: Decimal;
@@ -127,8 +128,8 @@ page 50549 "Payable Chart - Approved"
                     if "Bank Amount" = 0 then
                         Error('Bank amount is blank.');
 
-                    //Paid := true;
-                    // PaidDate := Today;
+                    Paid := true;
+                    PaidDate := Today;
 
                     evaluate(Y, copystr(Format(Today), 1, 2));
                     Y := Y + 2000;
@@ -451,7 +452,9 @@ page 50549 "Payable Chart - Approved"
 
                     CurrPage.Update();
 
-                    Message('Completed');
+                    PayJrnlPage.Run();
+
+                    //Message('Completed');
 
                 end;
             }

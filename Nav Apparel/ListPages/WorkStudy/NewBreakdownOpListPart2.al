@@ -163,7 +163,7 @@ page 50466 "New Breakdown Op Listpart2"
                     NewBreakdownRec.Modify();
 
                     StyleRec.Reset();
-                    StyleRec.SetRange("Style No.", Style);
+                    StyleRec.SetRange("No.", Style);
 
                     if StyleRec.FindSet() then begin
 
@@ -176,6 +176,7 @@ page 50466 "New Breakdown Op Listpart2"
                                 if Status = 'PLANNING' then
                                     StyleRec.PlanningSMV := SMV;
 
+                        StyleRec.SMV := SMV;
                         StyleRec.Modify();
                     end;
 
