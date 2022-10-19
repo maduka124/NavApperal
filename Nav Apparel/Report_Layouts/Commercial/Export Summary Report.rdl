@@ -337,7 +337,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>STYLE NO</Value>
+                                  <Value>STYLE DESC.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
