@@ -551,10 +551,15 @@ table 71012766 "BOM Estimate Cost"
 
     keys
     {
-        key(PK; "No.", "Style Name")
+        key(PK; "No.")
         {
             Clustered = true;
         }
+    }
+    fieldgroups
+    {
+        fieldgroup(dropdown; "No.", "Style Name")
+        { }
     }
 
 
