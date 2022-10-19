@@ -43,8 +43,11 @@ page 50505 "StyleMasterContract ListPart 2"
                 trigger OnAction()
                 var
                     "StyleMasterRec": Record "Style Master";
+                    "Contract/LCMasterRec": Record "Contract/LCMaster";
                     "Contract/LCStyleRec": Record "Contract/LCStyle";
                     CodeUnitNav: Codeunit NavAppCodeUnit;
+                    "B2BLC%": Decimal;
+                    CodeUnit2Nav: Codeunit NavAppCodeUnit2;
                 begin
 
                     "Contract/LCStyleRec".Reset();
@@ -69,8 +72,16 @@ page 50505 "StyleMasterContract ListPart 2"
                     "Contract/LCStyleRec".SetFilter(Select, '=%1', true);
                     "Contract/LCStyleRec".DeleteAll();
 
-
                     CodeUnitNav.CalQty("No.");
+
+                    //Calculate B2BLC %
+                    "B2BLC%" := CodeUnit2Nav.CalB2BLC_Perccentage("No.");
+                    "Contract/LCMasterRec".Reset();
+                    "Contract/LCMasterRec".SetRange("No.", "No.");
+                    "Contract/LCMasterRec".FindSet();
+                    "Contract/LCMasterRec".BBLC := "B2BLC%";
+                    "Contract/LCMasterRec".Modify();
+
                     CurrPage.Update();
                 end;
             }
