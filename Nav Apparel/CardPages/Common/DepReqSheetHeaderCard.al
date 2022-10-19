@@ -72,11 +72,11 @@ page 50709 "DepReqSheetHeaderCard"
                     ApplicationArea = All;
                 }
 
-                field(Status; Status)
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
+                // field(Status; Status)
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                // }
             }
 
             group("")

@@ -37,10 +37,10 @@ page 50821 "Department Requisition Sheet"
                     Caption = 'Department';
                 }
 
-                field(Status; Status)
-                {
-                    ApplicationArea = All;
-                }
+                // field(Status; Status)
+                // {
+                //     ApplicationArea = All;
+                // }
 
                 field(Remarks; Remarks)
                 {

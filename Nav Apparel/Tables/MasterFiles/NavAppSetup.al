@@ -557,6 +557,16 @@ table 71012749 "NavApp Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+
+        field(71012678; "Req Worksheet Template Name"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012679; "Req Journal Batch Name"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

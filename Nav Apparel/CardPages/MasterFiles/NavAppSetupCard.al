@@ -565,6 +565,18 @@ page 71012751 "NavApp Setup Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Req Worksheet Template Name"; "Req Worksheet Template Name")
+                {
+                    ApplicationArea = All;
+                    TableRelation = "Req. Wksh. Template";
+                }
+
+                field("Req Journal Batch Name"; "Req Journal Batch Name")
+                {
+                    ApplicationArea = All;
+                    TableRelation = "Requisition Wksh. Name".Name WHERE("Worksheet Template Name" = FIELD("Req Worksheet Template Name"));
+                }
             }
         }
     }

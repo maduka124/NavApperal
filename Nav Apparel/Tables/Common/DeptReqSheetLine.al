@@ -43,6 +43,16 @@ table 50820 DeptReqSheetLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(8; "Qty Received"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(9; "Qty to Received"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

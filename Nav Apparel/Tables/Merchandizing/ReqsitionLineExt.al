@@ -28,14 +28,36 @@ tableextension 71012759 "ReqLine Extension" extends "Requisition Line"
 
         field(71012587; "EntryType"; Option)
         {
-            OptionCaption = 'FG,Sample';
-            OptionMembers = FG,Sample;
+            OptionCaption = 'FG,Sample,"Central Purchasing"';
+            OptionMembers = FG,Sample,"Central Purchasing";
         }
 
         field(71012588; "Main Category"; Text[50])
         {
             TableRelation = "Main Category"."Main Category Name";
             ValidateTableRelation = false;
+        }
+
+        field(71012589; "Department Code"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012590; "Department Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Department."Department Name";
+            ValidateTableRelation = false;
+        }
+
+        field(71012591; "CP Req Code"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012592; "CP Line"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
         }
     }
 }

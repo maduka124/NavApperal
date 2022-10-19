@@ -41,12 +41,12 @@ table 50819 DeptReqSheetHeader
             DataClassification = ToBeClassified;
         }
 
-        field(8; "Status"; Option)
-        {
-            DataClassification = ToBeClassified;
-            OptionMembers = Pending,Posted;
-            OptionCaption = 'Pending,Posted';
-        }
+        // field(8; "Status"; Option)
+        // {
+        //     DataClassification = ToBeClassified;
+        //     OptionMembers = Pending,Posted;
+        //     OptionCaption = 'Pending,Posted';
+        // }
 
         field(9; "Created Date"; Date)
         {
@@ -56,6 +56,13 @@ table 50819 DeptReqSheetHeader
         field(10; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
+        }
+
+        field(11; "Global Dimension Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            CaptionClass = '1,2,1';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
         }
     }
 

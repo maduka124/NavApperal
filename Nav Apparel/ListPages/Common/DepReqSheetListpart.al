@@ -1,4 +1,4 @@
-page 50710 "DepReqSheetListpart"
+page 50823 "DepReqSheetListpart"
 {
     PageType = ListPart;
     ApplicationArea = All;
@@ -28,16 +28,16 @@ page 50710 "DepReqSheetListpart"
                             UOM := itemRec."Base Unit of Measure";
                         end;
 
-                        DeptReqSheetLineRec.Reset();
-                        DeptReqSheetLineRec.SetRange("Req No", "Req No");
+                        // DeptReqSheetLineRec.Reset();
+                        // DeptReqSheetLineRec.SetRange("Req No", "Req No");
 
-                        if DeptReqSheetLineRec.FindSet() then begin
-                            repeat
-                                if "Item No" = DeptReqSheetLineRec."Item No" then
-                                    Error('This item already exist in line');
-                            until DeptReqSheetLineRec.Next() = 0;
+                        // if DeptReqSheetLineRec.FindSet() then begin
+                        //     repeat
+                        //         if "Item No" = DeptReqSheetLineRec."Item No" then
+                        //             Error('This item already exist in line');
+                        //     until DeptReqSheetLineRec.Next() = 0;
 
-                        end;
+                        // end;
                     end;
                 }
 
@@ -45,17 +45,40 @@ page 50710 "DepReqSheetListpart"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Item';
+                    Caption = 'Item Description';
                 }
 
                 field(Qty; Qty)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        "Qty to Received" := Qty - "Qty Received";
+                    end;
                 }
 
                 field(UOM; UOM)
                 {
                     ApplicationArea = All;
+                }
+
+                field("Qty Received"; "Qty Received")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        "Qty to Received" := Qty - "Qty Received";
+                    end;
+                }
+
+                field("Qty to Received"; "Qty to Received")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Remarks; Remarks)

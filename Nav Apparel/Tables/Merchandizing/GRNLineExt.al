@@ -28,8 +28,8 @@ tableextension 71012756 "GRNLine Extension" extends "Purch. Rcpt. Line"
 
         field(71012587; "EntryType"; Option)
         {
-            OptionCaption = 'FG,Sample,Washing';
-            OptionMembers = FG,Sample,Washing;
+            OptionCaption = 'FG,Sample,Washing,"Central Purchasing"';
+            OptionMembers = FG,Sample,Washing,"Central Purchasing";
         }
     }
 }

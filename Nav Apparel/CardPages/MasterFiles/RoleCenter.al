@@ -718,6 +718,13 @@ page 71012740 "Nav Apperal Role Center"
                     RunObject = page "Department Requisition Sheet";
                     ApplicationArea = All;
                 }
+
+                action("Requisition Worksheet")
+                {
+                    Caption = 'Requisition Worksheet';
+                    RunObject = Page "Req. Worksheet";
+                    ApplicationArea = all;
+                }
             }
 
             group("Warehouse")
