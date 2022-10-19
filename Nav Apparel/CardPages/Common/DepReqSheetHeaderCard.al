@@ -134,15 +134,15 @@ page 50709 "DepReqSheetHeaderCard"
         END;
     end;
 
-    // trigger OnOpenPage()
-    // var
-    //     UserRec: Record "User Setup";
-    // begin
-    //     UserRec.Reset();
-    //     UserRec.SetRange("User ID", UserId);
-    //     if UserRec.FindSet() then begin
-    //         Rec.SetCurrentKey("Factory Code");
-    //         Rec.SETFILTER("Factory Code", '%1', STRSUBSTNO('*%1*', UserRec."Factory Code"));
-    //     end;
-    // end;
+    trigger OnDeleteRecord(): Boolean
+    var
+        DeptReqSheetLine: Record DeptReqSheetLine;
+    begin
+
+        DeptReqSheetLine.Reset();
+        DeptReqSheetLine.SetRange("Req No", "Req No");
+        if DeptReqSheetLine.FindSet() then
+            DeptReqSheetLine.DeleteAll();
+
+    end;
 }
