@@ -163,7 +163,7 @@ page 50466 "New Breakdown Op Listpart2"
                     NewBreakdownRec.Modify();
 
                     StyleRec.Reset();
-                    StyleRec.SetRange("No.", Style);
+                    StyleRec.SetRange("Style No.", Style);
 
                     if StyleRec.FindSet() then begin
 

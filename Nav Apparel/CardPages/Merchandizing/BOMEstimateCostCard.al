@@ -34,6 +34,7 @@ page 71012769 "BOM Estimate Cost Card"
                         CustomerRec: Record Customer;
                         BOMEstCostRec: Record "BOM Estimate Cost";
                         StyleRec: Record "Style Master";
+                        NavAppSetup: Record "NavApp Setup";
                     begin
 
                         if "FOB Pcs" = 0 then
@@ -44,6 +45,11 @@ page 71012769 "BOM Estimate Cost Card"
                         BOMEstCostRec.SetRange("BOM No.", "BOM No.");
                         if BOMEstCostRec.FindSet() then
                             Error('Estimate BOM : %1 already used to create a Estimate Cost Sheet', BOMEstCostRec."BOM No.");
+
+                        NavAppSetup.Get('0001');
+                        "Risk factor %" := NavAppSetup."Risk Factor";
+                        "TAX %" := NavAppSetup.TAX;
+                        "ABA Sourcing %" := NavAppSetup."ABA Sourcing";
 
                         BOMRec.get("BOM No.");
                         "Style No." := BOMRec."Style No.";
@@ -73,6 +79,8 @@ page 71012769 "BOM Estimate Cost Card"
                         StyleRec.Reset();
                         StyleRec.SetRange("No.", BOMRec."Style No.");
                         StyleRec.FindSet();
+                        //SMV := StyleRec.SMV;
+
                         SMV := StyleRec.CostingSMV;
 
                     end;

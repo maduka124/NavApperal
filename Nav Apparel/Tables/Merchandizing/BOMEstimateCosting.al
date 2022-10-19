@@ -556,10 +556,13 @@ table 71012766 "BOM Estimate Cost"
             Clustered = true;
         }
     }
+
     fieldgroups
     {
-        fieldgroup(dropdown; "No.", "Style Name")
-        { }
+        fieldgroup(DropDown; "No.", "Style Name")
+        {
+
+        }
     }
 
 
