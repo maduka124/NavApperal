@@ -42,7 +42,8 @@ page 50459 "New Breakdown Card"
                             "Season Name" := StyleMasterRec."Season Name";
                             "Garment Type Name" := StyleMasterRec."Garment Type Name";
                         end;
-                        Set_Status();
+                        //Set_Status();
+                        "Style Stage" := 'COSTING';
                     end;
                 }
 
@@ -305,24 +306,24 @@ page 50459 "New Breakdown Card"
 
         end;
 
-        Set_Status();
+        //Set_Status();
 
-        StyleRec.Reset();
-        StyleRec.SetRange("No.", "Style No.");
-        if StyleRec.FindSet() then begin
+        // StyleRec.Reset();
+        // StyleRec.SetRange("Style No.", "Style No.");
+        // if StyleRec.FindSet() then begin
 
-            if "Style Stage" = 'COSTING' then
-                StyleRec.CostingSMV := "Total SMV"
-            else
-                if "Style Stage" = 'PRODUCTION' then
-                    StyleRec.ProductionSMV := "Total SMV"
-                else
-                    if "Style Stage" = 'PLANNING' then
-                        StyleRec.PlanningSMV := "Total SMV";
+        //     if "Style Stage" = 'COSTING' then
+        //         StyleRec.CostingSMV := "Total SMV"
+        //     else
+        //         if "Style Stage" = 'PRODUCTION' then
+        //             StyleRec.ProductionSMV := "Total SMV"
+        //         else
+        //             if "Style Stage" = 'PLANNING' then
+        //                 StyleRec.PlanningSMV := "Total SMV";
 
-            StyleRec.Modify();
+        //     StyleRec.Modify();
 
-        end;
+        // end;
     end;
 
 
@@ -336,14 +337,14 @@ page 50459 "New Breakdown Card"
         ProductionOutLineRec.SetRange("Style No.", "Style No.");
 
         if ProductionOutLineRec.FindSet() then
-            "Style Stage" := 'Production'
+            "Style Stage" := 'PRODUCTION'
         else begin
 
             NavAppPlanningLinesRec.Reset();
             NavAppPlanningLinesRec.SetRange("Style No.", "Style No.");
 
             if NavAppPlanningLinesRec.FindSet() then
-                "Style Stage" := 'Planning'
+                "Style Stage" := 'PLANNING'
             else
                 "Style Stage" := 'COSTING';
         end;

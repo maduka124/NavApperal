@@ -11,18 +11,6 @@ page 50710 "DepReqSheetListpart"
         {
             repeater(GroupName)
             {
-                field("Req No"; "Req No")
-                {
-                    ApplicationArea = All;
-                    Visible = false;
-                }
-
-                field("Line No"; "Line No")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Seq No';
-                }
-
                 field("Item No"; "Item No")
                 {
                     ApplicationArea = All;
@@ -44,8 +32,11 @@ page 50710 "DepReqSheetListpart"
                         DeptReqSheetLineRec.SetRange("Req No", "Req No");
 
                         if DeptReqSheetLineRec.FindSet() then begin
-                            if "Item No" = "Item No" then
-                                Error('This item already exist in line');
+                            repeat
+                                if "Item No" = DeptReqSheetLineRec."Item No" then
+                                    Error('This item already exist in line');
+                            until DeptReqSheetLineRec.Next() = 0;
+
                         end;
                     end;
                 }
@@ -73,10 +64,7 @@ page 50710 "DepReqSheetListpart"
                 }
             }
         }
-        // area(Factboxes)
-        // {
 
-        // }
     }
 
     trigger OnNewRecord(BelowxRec: Boolean)
@@ -86,20 +74,4 @@ page 50710 "DepReqSheetListpart"
         "Line No" := xRec."Line No" + 1;
     end;
 
-
-    // actions
-    // {
-    //     area(Processing)
-    //     {
-    //         action(ActionName)
-    //         {
-    //             ApplicationArea = All;
-
-    //             trigger OnAction();
-    //             begin
-
-    //             end;
-    //         }
-    //     }
-    // }
 }

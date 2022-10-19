@@ -2,82 +2,16 @@ pageextension 50686 SalesOrderPageExt extends "Sales Order Subform"
 {
     layout
     {
-        modify(Quantity)
+        addbefore("Total Amount Excl. VAT")
         {
-            trigger OnAfterValidate()
-            var
-                SalesLineRec: Record "Sales Line";
-                TotalQty: Integer;
-            begin
-                SalesLineRec.Reset();
-                SalesLineRec.SetRange("Document Type", "Document Type");
-                SalesLineRec.SetRange("Document No.", "Document No.");
-
-                if SalesLineRec.FindSet() then begin
-                    // TotalQty := 0;
-                    repeat
-                        TotalQty += SalesLineRec.Quantity;
-                    until SalesLineRec.Next() = 0;
-
-                    "Total Qty" := TotalQty;
-                    CurrPage.Update();
-                end;
-
-            end;
-        }
-        addafter("Invoice Disc. Pct.")
-        {
-            field("Total Qty"; "Total Qty")
+            field("Total Quantity_TNG"; TotalSalesLine.Quantity)
             {
-                ApplicationArea = All;
+                ApplicationArea = all;
+                DecimalPlaces = 0 : 5;
+                Caption = 'Total Quantity';
                 Editable = false;
-
-                // trigger OnValidate()
-                // var
-
-                //     TotalQty: Integer;
-                // begin
-
-                //     SalesLineRec.Reset();
-                //     SalesLineRec.SetRange("", "No.");
-
-                //     if SalesLineRec.FindSet() then
-                //         repeat
-                //              += SalesLineRec.Quantity;
-                //             "Total Qty" := TotalQty;
-
-                //             // SalesLineRec.Modify();
-                //             CurrPage.Update();
-                //         until SalesLineRec.Next() = 0;
-
-                // end;
+                ToolTip = 'Specifies the sum of the quantity on all lines in the document.';
             }
         }
     }
-
-    actions
-    {
-        // Add changes to page actions here
-    }
-
-
-    trigger OnOpenPage()
-    var
-        SalesLineRec: Record "Sales Line";
-        TotalQty: Integer;
-    begin
-        SalesLineRec.Reset();
-        SalesLineRec.SetRange("Document Type", "Document Type");
-        SalesLineRec.SetRange("Document No.", "Document No.");
-        //SalesLineRec.SetRange("Line No.", "Line No.");
-
-        if SalesLineRec.FindSet() then begin
-            repeat
-                TotalQty += SalesLineRec.Quantity;
-            until SalesLineRec.Next() = 0;
-            "Total Qty" := TotalQty;
-            //SalesLineRec.Modify();
-        end;
-
-    end;
 }

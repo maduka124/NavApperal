@@ -2,10 +2,10 @@ tableextension 50685 SalesOrderExt extends "Sales Line"
 {
     fields
     {
-        field(200; "Total Qty"; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
+        // field(200; "Total Qty"; Integer)
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
     }
 
     // trigger OnAfterDelete()

@@ -1478,383 +1478,383 @@ page 71012740 "Nav Apperal Role Center"
 
             }
 
-            group("Finance")
-            {
-                Caption = 'Finance';
+            // group("Finance")
+            // {
+            //     Caption = 'Finance';
 
-                action("General Journals")
-                {
-                    Caption = 'General Journals';
-                    RunObject = Page "General Journal";
-                    ApplicationArea = all;
-                }
+            //     action("General Journals")
+            //     {
+            //         Caption = 'General Journals';
+            //         RunObject = Page "General Journal";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Chart Of Accounts")
-                {
-                    Caption = 'Chart Of Accounts';
-                    RunObject = Page "Chart of Accounts";
-                    ApplicationArea = all;
-                }
+            //     action("Chart Of Accounts")
+            //     {
+            //         Caption = 'Chart Of Accounts';
+            //         RunObject = Page "Chart of Accounts";
+            //         ApplicationArea = all;
+            //     }
 
-                action("GL Account Categories")
-                {
-                    Caption = 'GL Account Categories';
-                    RunObject = Page "G/L Account Categories";
-                    ApplicationArea = all;
-                }
+            //     action("GL Account Categories")
+            //     {
+            //         Caption = 'GL Account Categories';
+            //         RunObject = Page "G/L Account Categories";
+            //         ApplicationArea = all;
+            //     }
 
-                action("GL Budgets")
-                {
-                    Caption = 'GL Budgets';
-                    RunObject = Page "G/L Budget Entries";
-                    ApplicationArea = all;
-                }
+            //     action("GL Budgets")
+            //     {
+            //         Caption = 'GL Budgets';
+            //         RunObject = Page "G/L Budget Entries";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Fixed Assets")
-                {
-                    Caption = 'Fixed Assets';
-                    RunObject = Page "Fixed Asset List";
-                    ApplicationArea = all;
-                }
+            //     action("Fixed Assets")
+            //     {
+            //         Caption = 'Fixed Assets';
+            //         RunObject = Page "Fixed Asset List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Account Schedules")
-                {
-                    Caption = 'Account Schedules';
-                    RunObject = Page "Account Schedule";
-                    ApplicationArea = all;
-                }
+            //     action("Account Schedules")
+            //     {
+            //         Caption = 'Account Schedules';
+            //         RunObject = Page "Account Schedule";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Intrastat Journals")
-                {
-                    Caption = 'Intrastat Journals';
-                    RunObject = Page "Intrastat Journal";
-                    ApplicationArea = all;
-                }
+            //     action("Intrastat Journals")
+            //     {
+            //         Caption = 'Intrastat Journals';
+            //         RunObject = Page "Intrastat Journal";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Sales Budgets")
-                {
-                    Caption = 'Sales Budgets';
-                    RunObject = Page "Sales Budget Overview";
-                    ApplicationArea = all;
-                }
+            //     action("Sales Budgets")
+            //     {
+            //         Caption = 'Sales Budgets';
+            //         RunObject = Page "Sales Budget Overview";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Purchase Budgets")
-                {
-                    Caption = 'Purchase Budgets';
-                    RunObject = Page "Purchase Budget Overview";
-                    ApplicationArea = all;
-                }
+            //     action("Purchase Budgets")
+            //     {
+            //         Caption = 'Purchase Budgets';
+            //         RunObject = Page "Purchase Budget Overview";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Sales Analysis Reports")
-                {
-                    Caption = 'Sales Analysis Reports';
-                    RunObject = Page "Sales Analysis Report";
-                    ApplicationArea = all;
-                }
+            //     action("Sales Analysis Reports")
+            //     {
+            //         Caption = 'Sales Analysis Reports';
+            //         RunObject = Page "Sales Analysis Report";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Purchase Analysis Reports")
-                {
-                    Caption = 'Purchase Analysis Reports';
-                    RunObject = Page "Purchase Analysis Report";
-                    ApplicationArea = all;
-                }
+            //     action("Purchase Analysis Reports")
+            //     {
+            //         Caption = 'Purchase Analysis Reports';
+            //         RunObject = Page "Purchase Analysis Report";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Inventory Analysis Reports")
-                {
-                    Caption = 'Inventory Analysis Reports';
-                    RunObject = Page "Inventory Analysis Report";
-                    ApplicationArea = all;
-                }
+            //     action("Inventory Analysis Reports")
+            //     {
+            //         Caption = 'Inventory Analysis Reports';
+            //         RunObject = Page "Inventory Analysis Report";
+            //         ApplicationArea = all;
+            //     }
 
-                action("VAT Returns")
-                {
-                    Caption = 'VAT Returns';
-                    RunObject = Page "VAT Return Period List";
-                    ApplicationArea = all;
-                }
+            //     action("VAT Returns")
+            //     {
+            //         Caption = 'VAT Returns';
+            //         RunObject = Page "VAT Return Period List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Currencies")
-                {
-                    Caption = 'Currencies';
-                    RunObject = Page Currencies;
-                    ApplicationArea = all;
-                }
+            //     action("Currencies")
+            //     {
+            //         Caption = 'Currencies';
+            //         RunObject = Page Currencies;
+            //         ApplicationArea = all;
+            //     }
 
-                action("Employees")
-                {
-                    Caption = 'Employees';
-                    RunObject = Page "Employee List";
-                    ApplicationArea = all;
-                }
+            //     action("Employees")
+            //     {
+            //         Caption = 'Employees';
+            //         RunObject = Page "Employee List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("VAT Statements")
-                {
-                    Caption = 'VAT Statements';
-                    RunObject = Page "VAT Statement";
-                    ApplicationArea = all;
-                }
+            //     action("VAT Statements")
+            //     {
+            //         Caption = 'VAT Statements';
+            //         RunObject = Page "VAT Statement";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Dimensions")
-                {
-                    Caption = 'Dimensions';
-                    RunObject = Page "Dimension List";
-                    ApplicationArea = all;
-                }
+            //     action("Dimensions")
+            //     {
+            //         Caption = 'Dimensions';
+            //         RunObject = Page "Dimension List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Posted General Journals")
-                {
-                    Caption = 'Posted General Journals';
-                    RunObject = Page "Posted General Journal";
-                    ApplicationArea = all;
-                }
+            //     action("Posted General Journals")
+            //     {
+            //         Caption = 'Posted General Journals';
+            //         RunObject = Page "Posted General Journal";
+            //         ApplicationArea = all;
+            //     }
 
-                group("Finance Reports")
-                {
-                    Caption = 'Finance Reports';
+            //     group("Finance Reports")
+            //     {
+            //         Caption = 'Finance Reports';
 
-                    action("Statement Of Net Margin")
-                    {
-                        Caption = 'Statement Of Net Margin Report';
-                        Enabled = true;
-                        RunObject = report StatementOfNetMargin;
-                        ApplicationArea = all;
-                    }
-                }
-            }
+            //         action("Statement Of Net Margin")
+            //         {
+            //             Caption = 'Statement Of Net Margin Report';
+            //             Enabled = true;
+            //             RunObject = report StatementOfNetMargin;
+            //             ApplicationArea = all;
+            //         }
+            //     }
+            // }
 
-            group("Purchasing")
-            {
-                Caption = 'Purchasing';
+            // group("Purchasing")
+            // {
+            //     Caption = 'Purchasing';
 
-                action("Vendors")
-                {
-                    Caption = 'Vendors';
-                    RunObject = Page "Vendor List";
-                    ApplicationArea = all;
-                }
+            //     action("Vendors")
+            //     {
+            //         Caption = 'Vendors';
+            //         RunObject = Page "Vendor List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Incoming Documents")
-                {
-                    Caption = 'Incoming Documents';
-                    RunObject = Page "Incoming Documents";
-                    ApplicationArea = all;
-                }
+            //     action("Incoming Documents")
+            //     {
+            //         Caption = 'Incoming Documents';
+            //         RunObject = Page "Incoming Documents";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Item Charges")
-                {
-                    Caption = 'Item Charges';
-                    RunObject = Page "Item Charges";
-                    ApplicationArea = all;
-                }
+            //     action("Item Charges")
+            //     {
+            //         Caption = 'Item Charges';
+            //         RunObject = Page "Item Charges";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Purchase Quotes")
-                {
-                    Caption = 'Purchase Quotes';
-                    RunObject = Page "Purchase Quotes";
-                    ApplicationArea = all;
-                }
+            //     action("Purchase Quotes")
+            //     {
+            //         Caption = 'Purchase Quotes';
+            //         RunObject = Page "Purchase Quotes";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Purchase Orders")
-                {
-                    Caption = 'Purchase Orders';
-                    RunObject = Page "Purchase Order List";
-                    ApplicationArea = all;
-                }
+            //     action("Purchase Orders")
+            //     {
+            //         Caption = 'Purchase Orders';
+            //         RunObject = Page "Purchase Order List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Blanket Purchase Orders")
-                {
-                    Caption = 'Blanket Purchase Orders';
-                    RunObject = Page "Blanket Purchase Orders";
-                    ApplicationArea = all;
-                }
+            //     action("Blanket Purchase Orders")
+            //     {
+            //         Caption = 'Blanket Purchase Orders';
+            //         RunObject = Page "Blanket Purchase Orders";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Purchase Invoices")
-                {
-                    Caption = 'Purchase Invoices';
-                    RunObject = Page "Purchase Invoices";
-                    ApplicationArea = all;
-                }
+            //     action("Purchase Invoices")
+            //     {
+            //         Caption = 'Purchase Invoices';
+            //         RunObject = Page "Purchase Invoices";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Purchase Credit Memos")
-                {
-                    Caption = 'Purchase Credit Memos';
-                    RunObject = Page "Purchase Credit Memos";
-                    ApplicationArea = all;
-                }
+            //     action("Purchase Credit Memos")
+            //     {
+            //         Caption = 'Purchase Credit Memos';
+            //         RunObject = Page "Purchase Credit Memos";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Purchase Return Orders")
-                {
-                    Caption = 'Purchase Return Orders';
-                    RunObject = Page "Purchase Return Orders";
-                    ApplicationArea = all;
-                }
+            //     action("Purchase Return Orders")
+            //     {
+            //         Caption = 'Purchase Return Orders';
+            //         RunObject = Page "Purchase Return Orders";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Posted Purchase Invoices")
-                {
-                    Caption = 'Posted Purchase Invoices';
-                    RunObject = Page "Posted Purchase Invoices";
-                    ApplicationArea = all;
-                }
+            //     action("Posted Purchase Invoices")
+            //     {
+            //         Caption = 'Posted Purchase Invoices';
+            //         RunObject = Page "Posted Purchase Invoices";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Posted Purchase Credit Memo")
-                {
-                    Caption = 'Posted Purchase Credit Memo';
-                    RunObject = Page "Posted Purchase Credit Memos";
-                    ApplicationArea = all;
-                }
+            //     action("Posted Purchase Credit Memo")
+            //     {
+            //         Caption = 'Posted Purchase Credit Memo';
+            //         RunObject = Page "Posted Purchase Credit Memos";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Posted Purchase Receipts")
-                {
-                    Caption = 'Posted Purchase Receipts';
-                    RunObject = Page "Posted Purchase Receipts";
-                    ApplicationArea = all;
-                }
+            //     action("Posted Purchase Receipts")
+            //     {
+            //         Caption = 'Posted Purchase Receipts';
+            //         RunObject = Page "Posted Purchase Receipts";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Posted Purchase Return Shipments")
-                {
-                    Caption = 'Posted Purchase Return Shipments';
-                    RunObject = Page "Posted Return Shipments";
-                    ApplicationArea = all;
-                }
+            //     action("Posted Purchase Return Shipments")
+            //     {
+            //         Caption = 'Posted Purchase Return Shipments';
+            //         RunObject = Page "Posted Return Shipments";
+            //         ApplicationArea = all;
+            //     }
 
-                group("Purchasing Reports")
-                {
-                    Caption = 'Purchasing Reports';
+            //     group("Purchasing Reports")
+            //     {
+            //         Caption = 'Purchasing Reports';
 
-                    action("Bin Card Report")
-                    {
-                        Caption = 'Bin Card Report';
-                        Enabled = true;
-                        RunObject = report BinCardReport;
-                        ApplicationArea = all;
-                    }
+            //         action("Bin Card Report")
+            //         {
+            //             Caption = 'Bin Card Report';
+            //             Enabled = true;
+            //             RunObject = report BinCardReport;
+            //             ApplicationArea = all;
+            //         }
 
-                    action("Goods Received Note1")
-                    {
-                        Caption = 'Goods Received Note';
-                        Enabled = true;
-                        RunObject = report GrnReport;
-                        ApplicationArea = all;
-                    }
-                }
-            }
+            //         action("Goods Received Note1")
+            //         {
+            //             Caption = 'Goods Received Note';
+            //             Enabled = true;
+            //             RunObject = report GrnReport;
+            //             ApplicationArea = all;
+            //         }
+            //     }
+            // }
 
-            group("Sales")
-            {
-                Caption = 'Sales';
+            // group("Sales")
+            // {
+            //     Caption = 'Sales';
 
-                action("Item Chargess")
-                {
-                    Caption = 'Item Charges';
-                    RunObject = Page "Item Charges";
-                    ApplicationArea = all;
-                }
+            //     action("Item Chargess")
+            //     {
+            //         Caption = 'Item Charges';
+            //         RunObject = Page "Item Charges";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Sales Quotes")
-                {
-                    Caption = 'Sales Quotes';
-                    RunObject = Page "Sales Quotes";
-                    ApplicationArea = all;
-                }
+            //     action("Sales Quotes")
+            //     {
+            //         Caption = 'Sales Quotes';
+            //         RunObject = Page "Sales Quotes";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Sales Orders")
-                {
-                    Caption = 'Sales Orders';
-                    RunObject = Page "Sales Order list";
-                    ApplicationArea = all;
-                }
+            //     action("Sales Orders")
+            //     {
+            //         Caption = 'Sales Orders';
+            //         RunObject = Page "Sales Order list";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Blanket Sales Orders")
-                {
-                    Caption = 'Blanket Sales Orders';
-                    RunObject = Page "Blanket Sales Orders";
-                    ApplicationArea = all;
-                }
+            //     action("Blanket Sales Orders")
+            //     {
+            //         Caption = 'Blanket Sales Orders';
+            //         RunObject = Page "Blanket Sales Orders";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Sales Invoices")
-                {
-                    Caption = 'Sales Invoices';
-                    RunObject = Page "Sales Invoice List";
-                    ApplicationArea = all;
-                }
+            //     action("Sales Invoices")
+            //     {
+            //         Caption = 'Sales Invoices';
+            //         RunObject = Page "Sales Invoice List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Sales Credit Memos")
-                {
-                    Caption = 'Sales Credit Memos';
-                    RunObject = Page "Sales Credit Memos";
-                    ApplicationArea = all;
-                }
+            //     action("Sales Credit Memos")
+            //     {
+            //         Caption = 'Sales Credit Memos';
+            //         RunObject = Page "Sales Credit Memos";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Sales Return Orders")
-                {
-                    Caption = 'Sales Return Orders';
-                    RunObject = Page "Sales Return Orders";
-                    ApplicationArea = all;
-                }
+            //     action("Sales Return Orders")
+            //     {
+            //         Caption = 'Sales Return Orders';
+            //         RunObject = Page "Sales Return Orders";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Reminders")
-                {
-                    Caption = 'Reminders';
-                    RunObject = Page "Reminder List";
-                    ApplicationArea = all;
-                }
+            //     action("Reminders")
+            //     {
+            //         Caption = 'Reminders';
+            //         RunObject = Page "Reminder List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Finance Charge Memo")
-                {
-                    Caption = 'Finance Charge Memo';
-                    RunObject = Page "Finance Charge Memo List";
-                    ApplicationArea = all;
-                }
+            //     action("Finance Charge Memo")
+            //     {
+            //         Caption = 'Finance Charge Memo';
+            //         RunObject = Page "Finance Charge Memo List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Posted Sales Invoices")
-                {
-                    Caption = 'Posted Sales Invoices';
-                    RunObject = Page "Posted Sales Invoices";
-                    ApplicationArea = all;
-                }
+            //     action("Posted Sales Invoices")
+            //     {
+            //         Caption = 'Posted Sales Invoices';
+            //         RunObject = Page "Posted Sales Invoices";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Posted Sales Credit Memos")
-                {
-                    Caption = 'Posted Sales Credit Memos';
-                    RunObject = Page "Posted Sales Credit Memos";
-                    ApplicationArea = all;
-                }
+            //     action("Posted Sales Credit Memos")
+            //     {
+            //         Caption = 'Posted Sales Credit Memos';
+            //         RunObject = Page "Posted Sales Credit Memos";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Posted Sales Shipments")
-                {
-                    Caption = 'Posted Sales Shipments';
-                    RunObject = Page "Posted Sales Shipments";
-                    ApplicationArea = all;
-                }
+            //     action("Posted Sales Shipments")
+            //     {
+            //         Caption = 'Posted Sales Shipments';
+            //         RunObject = Page "Posted Sales Shipments";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Posted Sales Return Receipts")
-                {
-                    Caption = 'Posted Sales Return Receipts';
-                    RunObject = Page "Posted Return Receipts";
-                    ApplicationArea = all;
-                }
+            //     action("Posted Sales Return Receipts")
+            //     {
+            //         Caption = 'Posted Sales Return Receipts';
+            //         RunObject = Page "Posted Return Receipts";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Issued Reminders")
-                {
-                    Caption = 'Issued Reminders';
-                    RunObject = Page "Issued Reminder List";
-                    ApplicationArea = all;
-                }
+            //     action("Issued Reminders")
+            //     {
+            //         Caption = 'Issued Reminders';
+            //         RunObject = Page "Issued Reminder List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Issued Finance Charge Memo")
-                {
-                    Caption = 'Issued Finance Charge Memo';
-                    RunObject = Page "Issued Fin. Charge Memo List";
-                    ApplicationArea = all;
-                }
+            //     action("Issued Finance Charge Memo")
+            //     {
+            //         Caption = 'Issued Finance Charge Memo';
+            //         RunObject = Page "Issued Fin. Charge Memo List";
+            //         ApplicationArea = all;
+            //     }
 
-                action("Transfer Orders")
-                {
-                    Caption = 'Transfer Orders';
-                    RunObject = Page "Transfer Orders";
-                    ApplicationArea = all;
-                }
-            }
+            //     action("Transfer Orders")
+            //     {
+            //         Caption = 'Transfer Orders';
+            //         RunObject = Page "Transfer Orders";
+            //         ApplicationArea = all;
+            //     }
+            // }
 
             group("Admin")
             {

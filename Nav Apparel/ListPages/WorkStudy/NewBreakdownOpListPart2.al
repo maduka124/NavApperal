@@ -176,6 +176,7 @@ page 50466 "New Breakdown Op Listpart2"
                                 if Status = 'PLANNING' then
                                     StyleRec.PlanningSMV := SMV;
 
+                        StyleRec.SMV := SMV;
                         StyleRec.Modify();
                     end;
 

@@ -274,6 +274,7 @@ page 71012723 "Style Inquiry Card"
                     end
                     else begin
                         Status := Status::Confirmed;
+
                         CurrPage.Update();
                         Message('Style confirmed');
                     end;
