@@ -4,7 +4,7 @@ page 50709 "DepReqSheetHeaderCard"
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = DeptReqSheetHeader;
-    Caption = 'Department Requisition Sheet Card';
+    Caption = 'Department Requisition Sheet';
 
     layout
     {
@@ -55,23 +55,11 @@ page 50709 "DepReqSheetHeaderCard"
                     end;
                 }
 
-                field("Factory Code"; "Factory Code")
-                {
-                    ApplicationArea = All;
-                    Visible = false;
-                }
-
                 field("Factory Name"; "Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';
                     Editable = false;
-                }
-
-                field("Department Code"; "Department Code")
-                {
-                    ApplicationArea = All;
-                    Visible = false;
                 }
 
                 field("Request Date"; "Request Date")
@@ -102,25 +90,6 @@ page 50709 "DepReqSheetHeaderCard"
             }
         }
     }
-
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-                ApplicationArea = All;
-
-                trigger OnAction()
-                begin
-
-                end;
-            }
-        }
-    }
-
-    var
-        myInt: Integer;
 
     procedure AssistEdit(): Boolean
     var

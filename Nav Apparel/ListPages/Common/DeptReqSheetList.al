@@ -71,4 +71,16 @@ page 50821 "Department Requisition Sheet"
             Rec.SETFILTER("Factory Code", '%1', STRSUBSTNO('*%1*', UserRec."Factory Code"));
         end;
     end;
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        DeptReqSheetLine: Record DeptReqSheetLine;
+    begin
+
+        DeptReqSheetLine.Reset();
+        DeptReqSheetLine.SetRange("Req No", "Req No");
+        if DeptReqSheetLine.FindSet() then
+            DeptReqSheetLine.DeleteAll();
+
+    end;
 }
