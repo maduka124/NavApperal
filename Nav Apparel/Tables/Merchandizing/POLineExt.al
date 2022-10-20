@@ -31,6 +31,11 @@ tableextension 71012716 "POLine Extension" extends "Purchase Line"
             OptionCaption = 'FG,Sample,Washing,"Central Purchasing"';
             OptionMembers = FG,Sample,Washing,"Central Purchasing";
         }
+
+        field(71012588; "CP Req No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

@@ -8,6 +8,7 @@ pageextension 71012743 UserSetupCardExt extends "User Setup"
             {
                 ApplicationArea = All;
                 Caption = 'Factory';
+                ShowMandatory = true;
             }
 
             field("Service Approval"; "Service Approval")
@@ -24,6 +25,13 @@ pageextension 71012743 UserSetupCardExt extends "User Setup"
             {
                 ApplicationArea = All;
                 Caption = 'User Role';
+                ShowMandatory = true;
+            }
+
+            field("Global Dimension Code"; "Global Dimension Code")
+            {
+                ApplicationArea = All;
+                ShowMandatory = true;
             }
         }
     }

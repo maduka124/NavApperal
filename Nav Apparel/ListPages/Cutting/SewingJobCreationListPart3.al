@@ -306,454 +306,455 @@ page 50591 "Sewing Job Creation ListPart3"
                                 if AssoRec.FindSet() then begin
 
                                     Qty := AssoRec.Qty + (AssoRec.Qty * Waistage) / 100;
+                                    Qty := round(Qty, 1);
 
                                     if "Record Type" = 'H1' then begin
                                         if AssoRec."1" <> '' then
                                             Evaluate(Number, AssoRec."1");
 
-                                        "1" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "1" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."2" <> '' then
                                             Evaluate(Number, AssoRec."2");
 
-                                        "2" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "2" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."3" <> '' then
                                             Evaluate(Number, AssoRec."3");
 
-                                        "3" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "3" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."4" <> '' then
                                             Evaluate(Number, AssoRec."4");
 
-                                        "4" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "4" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."5" <> '' then
                                             Evaluate(Number, AssoRec."5");
 
-                                        "5" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "5" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."6" <> '' then
                                             Evaluate(Number, AssoRec."6");
 
-                                        "6" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "6" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
 
                                         Number := 0;
                                         if AssoRec."7" <> '' then
                                             Evaluate(Number, AssoRec."7");
 
-                                        "7" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "7" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."8" <> '' then
                                             Evaluate(Number, AssoRec."8");
 
-                                        "8" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "8" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."9" <> '' then
                                             Evaluate(Number, AssoRec."9");
 
-                                        "9" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "9" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."10" <> '' then
                                             Evaluate(Number, AssoRec."10");
 
-                                        "10" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "10" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."11" <> '' then
                                             Evaluate(Number, AssoRec."11");
 
-                                        "11" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "11" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."12" <> '' then
                                             Evaluate(Number, AssoRec."12");
 
-                                        "12" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "12" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."13" <> '' then
                                             Evaluate(Number, AssoRec."13");
 
-                                        "13" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "13" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."14" <> '' then
                                             Evaluate(Number, AssoRec."14");
 
-                                        "14" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "14" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
 
                                         Number := 0;
                                         if AssoRec."15" <> '' then
                                             Evaluate(Number, AssoRec."15");
 
-                                        "15" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "15" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."16" <> '' then
                                             Evaluate(Number, AssoRec."16");
 
-                                        "16" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "16" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."17" <> '' then
                                             Evaluate(Number, AssoRec."17");
 
-                                        "17" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "17" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."18" <> '' then
                                             Evaluate(Number, AssoRec."18");
 
-                                        "18" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "18" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."19" <> '' then
                                             Evaluate(Number, AssoRec."19");
 
-                                        "19" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "19" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."20" <> '' then
                                             Evaluate(Number, AssoRec."20");
 
-                                        "20" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "20" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."21" <> '' then
                                             Evaluate(Number, AssoRec."21");
 
-                                        "21" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "21" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."22" <> '' then
                                             Evaluate(Number, AssoRec."22");
 
-                                        "22" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "22" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
 
                                         Number := 0;
                                         if AssoRec."23" <> '' then
                                             Evaluate(Number, AssoRec."23");
 
-                                        "23" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "23" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."24" <> '' then
                                             Evaluate(Number, AssoRec."24");
 
-                                        "24" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "24" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."25" <> '' then
                                             Evaluate(Number, AssoRec."25");
 
-                                        "25" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "25" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."26" <> '' then
                                             Evaluate(Number, AssoRec."26");
 
-                                        "26" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "26" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."27" <> '' then
                                             Evaluate(Number, AssoRec."27");
 
-                                        "27" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "27" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."28" <> '' then
                                             Evaluate(Number, AssoRec."28");
 
-                                        "28" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "28" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."29" <> '' then
                                             Evaluate(Number, AssoRec."29");
 
-                                        "29" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "29" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."30" <> '' then
                                             Evaluate(Number, AssoRec."30");
 
-                                        "30" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "30" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
 
                                         Number := 0;
                                         if AssoRec."31" <> '' then
                                             Evaluate(Number, AssoRec."31");
 
-                                        "31" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "31" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."32" <> '' then
                                             Evaluate(Number, AssoRec."32");
 
-                                        "32" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "32" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."33" <> '' then
                                             Evaluate(Number, AssoRec."33");
 
-                                        "33" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "33" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."34" <> '' then
                                             Evaluate(Number, AssoRec."34");
 
-                                        "34" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "34" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."35" <> '' then
                                             Evaluate(Number, AssoRec."35");
 
-                                        "35" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "35" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."36" <> '' then
                                             Evaluate(Number, AssoRec."36");
 
-                                        "36" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "36" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."37" <> '' then
                                             Evaluate(Number, AssoRec."37");
 
-                                        "37" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "37" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."38" <> '' then
                                             Evaluate(Number, AssoRec."38");
 
-                                        "38" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "38" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
 
                                         Number := 0;
                                         if AssoRec."39" <> '' then
                                             Evaluate(Number, AssoRec."39");
 
-                                        "39" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "39" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."40" <> '' then
                                             Evaluate(Number, AssoRec."40");
 
-                                        "40" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "40" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."41" <> '' then
                                             Evaluate(Number, AssoRec."41");
 
-                                        "41" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "41" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."42" <> '' then
                                             Evaluate(Number, AssoRec."42");
 
-                                        "42" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "42" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."43" <> '' then
                                             Evaluate(Number, AssoRec."43");
 
-                                        "43" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "43" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."44" <> '' then
                                             Evaluate(Number, AssoRec."44");
 
-                                        "44" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "44" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."45" <> '' then
                                             Evaluate(Number, AssoRec."45");
 
-                                        "45" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "45" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."46" <> '' then
                                             Evaluate(Number, AssoRec."46");
 
-                                        "46" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "46" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
 
                                         Number := 0;
                                         if AssoRec."47" <> '' then
                                             Evaluate(Number, AssoRec."47");
 
-                                        "47" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "47" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."48" <> '' then
                                             Evaluate(Number, AssoRec."48");
 
-                                        "48" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "48" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."49" <> '' then
                                             Evaluate(Number, AssoRec."49");
 
-                                        "49" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "49" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."50" <> '' then
                                             Evaluate(Number, AssoRec."50");
 
-                                        "50" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "50" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."51" <> '' then
                                             Evaluate(Number, AssoRec."51");
 
-                                        "51" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "51" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."52" <> '' then
                                             Evaluate(Number, AssoRec."52");
 
-                                        "52" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "52" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."53" <> '' then
                                             Evaluate(Number, AssoRec."53");
 
-                                        "53" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "53" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."54" <> '' then
                                             Evaluate(Number, AssoRec."54");
 
-                                        "54" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "54" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
 
                                         Number := 0;
                                         if AssoRec."55" <> '' then
                                             Evaluate(Number, AssoRec."55");
 
-                                        "55" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "55" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."56" <> '' then
                                             Evaluate(Number, AssoRec."56");
 
-                                        "56" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "56" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."57" <> '' then
                                             Evaluate(Number, AssoRec."57");
 
-                                        "57" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "57" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."58" <> '' then
                                             Evaluate(Number, AssoRec."58");
 
-                                        "58" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "58" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."59" <> '' then
                                             Evaluate(Number, AssoRec."59");
 
-                                        "59" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "59" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."60" <> '' then
                                             Evaluate(Number, AssoRec."60");
 
-                                        "60" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "60" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."61" <> '' then
                                             Evaluate(Number, AssoRec."61");
 
-                                        "61" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "61" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."62" <> '' then
                                             Evaluate(Number, AssoRec."62");
 
-                                        "62" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "62" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
 
                                         Number := 0;
                                         if AssoRec."63" <> '' then
                                             Evaluate(Number, AssoRec."63");
 
-                                        "63" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "63" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                         if AssoRec."64" <> '' then
                                             Evaluate(Number, AssoRec."64");
 
-                                        "64" := format(Number + (Number * Waistage) / 100);
-                                        ColorTotal += Number + (Number * Waistage) / 100;
+                                        "64" := format(Number + round((Number * Waistage) / 100, 1));
+                                        ColorTotal += Number + round((Number * Waistage) / 100, 1);
                                         Number := 0;
 
                                     end;

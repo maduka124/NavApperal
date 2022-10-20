@@ -59,6 +59,13 @@ tableextension 71012759 "ReqLine Extension" extends "Requisition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012593; "Global Dimension Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            CaptionClass = '1,2,1';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
+        }
     }
 }
 

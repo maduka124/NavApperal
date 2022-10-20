@@ -1164,10 +1164,10 @@ page 50596 "Ratio Creation ListPart"
 
             //Get max line no
             RatioCreationLineRec.Reset();
-            RatioCreationLineRec.SetRange(RatioCreNo);
+            RatioCreationLineRec.SetRange(RatioCreNo, RatioCreNo);
 
             if RatioCreationLineRec.FindLast() then
-                MaxLineNo := RatioCreationLineRec.LineNo;
+                MaxLineNo := RatioCreationLineRec.Count;
 
             repeat
 

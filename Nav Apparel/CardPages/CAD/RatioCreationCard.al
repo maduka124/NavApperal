@@ -167,14 +167,14 @@ page 50604 "Ratio Creation Card"
                     if ("Component Group" = '') then
                         Error('Invalid Component');
 
-                    //Get Max line no
-                    RatioCreLineRec.Reset();
-                    RatioCreLineRec.SetRange(RatioCreNo, RatioCreNo);
-                    RatioCreLineRec.SetRange("Group ID", "Group ID");
+                    // //Get Max line no
+                    // RatioCreLineRec.Reset();
+                    // RatioCreLineRec.SetRange(RatioCreNo, RatioCreNo);
+                    // RatioCreLineRec.SetRange("Group ID", "Group ID");
 
-                    if RatioCreLineRec.FindLast() then
-                        LineNo := RatioCreLineRec.LineNo;
-
+                    // if RatioCreLineRec.FindLast() then
+                    //     LineNo := RatioCreLineRec.LineNo;
+                    LineNo := 0;
 
                     //Get selected records for the group
                     SewJobCreLine4Rec.Reset();
@@ -191,13 +191,12 @@ page 50604 "Ratio Creation Card"
                             //Delete old records
                             RatioCreLineRec.Reset();
                             RatioCreLineRec.SetRange(RatioCreNo, RatioCreNo);
-                            RatioCreLineRec.DeleteAll();
+                            if RatioCreLineRec.FindSet() then
+                                RatioCreLineRec.DeleteAll();
 
                             repeat
 
-                                //if (SewJobCreLine4Rec."Record Type" = 'L') then begin
-
-                                LineNo += 1;
+                                //if (SewJobCreLine4Rec."Record Type" = 'L') then begin                                
 
                                 if (SewJobCreLine4Rec."Record Type" = 'H') then begin
 
@@ -218,6 +217,7 @@ page 50604 "Ratio Creation Card"
                                         SewJobCreLine4Rec1.SetRange("Record Type", 'H');
 
                                         if SewJobCreLine4Rec1.FindSet() then begin
+                                            LineNo += 1;
                                             RatioCreLineRec.Init();
                                             RatioCreLineRec.RatioCreNo := RatioCreNo;
                                             RatioCreLineRec."Created Date" := Today;
@@ -324,12 +324,13 @@ page 50604 "Ratio Creation Card"
                                     //Insert Total Line (H1)                  
                                     if not RatioCreLineRec.FindSet() then begin
 
+                                        LineNo += 1;
                                         RatioCreLineRec.Init();
                                         RatioCreLineRec.RatioCreNo := RatioCreNo;
                                         RatioCreLineRec."Created Date" := Today;
                                         RatioCreLineRec."Created User" := UserId;
                                         RatioCreLineRec."Group ID" := "Group ID";
-                                        RatioCreLineRec.LineNo := LineNo + 1;
+                                        RatioCreLineRec.LineNo := LineNo;
                                         // RatioCreLineRec."Lot No." := SewJobCreLine4Rec."Lot No.";
                                         // RatioCreLineRec."PO No." := SewJobCreLine4Rec."PO No.";
                                         RatioCreLineRec.qty := 0;
@@ -882,12 +883,13 @@ page 50604 "Ratio Creation Card"
                                     //Insert Total Line (R)                  
                                     if not RatioCreLineRec.FindSet() then begin
 
+                                        LineNo += 1;
                                         //Insert R Line
                                         RatioCreLineRec.Init();
                                         RatioCreLineRec."Created Date" := Today;
                                         RatioCreLineRec."Created User" := UserId;
                                         RatioCreLineRec."Group ID" := "Group ID";
-                                        RatioCreLineRec.LineNo := LineNo + 1;
+                                        RatioCreLineRec.LineNo := LineNo;
                                         // RatioCreLineRec."Lot No." := SewJobCreLine4Rec."Lot No.";
                                         // RatioCreLineRec."PO No." := SewJobCreLine4Rec."PO No.";
                                         RatioCreLineRec.qty := 0;

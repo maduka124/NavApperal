@@ -31,6 +31,11 @@ page 50821 "Department Requisition Sheet"
                     Caption = 'Factory';
                 }
 
+                field("Global Dimension Code"; "Global Dimension Code")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Department Name"; "Department Name")
                 {
                     ApplicationArea = All;

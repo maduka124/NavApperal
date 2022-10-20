@@ -8,6 +8,11 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
             {
                 ApplicationArea = All;
             }
+
+            field("Global Dimension Code"; "Global Dimension Code")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 
@@ -78,6 +83,7 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                                     RequLineRec1.Validate("Location Code", DeptReqHeaderRec."Factory Code");
                                     RequLineRec1."Department Code" := DeptReqHeaderRec."Department Code";
                                     RequLineRec1."Department Name" := DeptReqHeaderRec."Department Name";
+                                    RequLineRec1.Validate("Global Dimension Code", DeptReqHeaderRec."Global Dimension Code");
                                     RequLineRec1.Validate("Shortcut Dimension 1 Code", DeptReqHeaderRec."Global Dimension Code");
                                     RequLineRec1.EntryType := RequLineRec1.EntryType::"Central Purchasing";
                                     RequLineRec1."CP Req Code" := DeptReqLineRec."Req No";

@@ -672,18 +672,6 @@ page 71012740 "Nav Apperal Role Center"
                 }
             }
 
-            group("Gate Pass")
-            {
-                Caption = 'Gate Pass';
-
-                action("Gate Pass1")
-                {
-                    Caption = 'Gate Pass';
-                    RunObject = Page "Gate Pass List";
-                    ApplicationArea = all;
-                }
-            }
-
             group("CAD")
             {
                 Caption = 'CAD';
@@ -717,6 +705,13 @@ page 71012740 "Nav Apperal Role Center"
                     Caption = 'Department Requisition Sheet';
                     RunObject = page "Department Requisition Sheet";
                     ApplicationArea = All;
+                }
+
+                action("Gate Pass1")
+                {
+                    Caption = 'Gate Pass';
+                    RunObject = Page "Gate Pass List";
+                    ApplicationArea = all;
                 }
 
                 action("Requisition Worksheet")

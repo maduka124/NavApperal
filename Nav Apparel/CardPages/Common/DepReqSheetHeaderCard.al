@@ -44,8 +44,10 @@ page 50709 "DepReqSheetHeaderCard"
                         userRec.Reset();
                         userRec.SetRange("User ID", UserId);
 
-                        if userRec.FindSet() then
+                        if userRec.FindSet() then begin
                             "Factory Code" := userRec."Factory Code";
+                            "Global Dimension Code" := userRec."Global Dimension Code";
+                        end;
 
                         locationRec.Reset();
                         locationRec.SetRange(Code, "Factory Code");
@@ -72,11 +74,11 @@ page 50709 "DepReqSheetHeaderCard"
                     ApplicationArea = All;
                 }
 
-                // field(Status; Status)
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                // }
+                field("Global Dimension Code"; "Global Dimension Code")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
             }
 
             group("")
