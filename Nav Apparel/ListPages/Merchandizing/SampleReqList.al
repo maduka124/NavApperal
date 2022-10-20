@@ -42,11 +42,11 @@ page 71012771 "Sample Request"
                     Caption = 'Wash Type';
                 }
 
-                // field("Wash Plant Name"; "Wash Plant Name")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Wash Plant';
-                // }
+                //Done By Sachith -22/10/20
+                field("Global Dimension Code"; "Global Dimension Code")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
