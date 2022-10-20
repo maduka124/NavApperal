@@ -41,12 +41,12 @@ table 50819 DeptReqSheetHeader
             DataClassification = ToBeClassified;
         }
 
-        // field(8; "Status"; Option)
-        // {
-        //     DataClassification = ToBeClassified;
-        //     OptionMembers = Pending,Posted;
-        //     OptionCaption = 'Pending,Posted';
-        // }
+        field(8; "Completely Received"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = No,Yes;
+            OptionCaption = 'No,Yes';
+        }
 
         field(9; "Created Date"; Date)
         {

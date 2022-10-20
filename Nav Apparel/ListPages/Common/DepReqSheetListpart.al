@@ -51,10 +51,14 @@ page 50823 "DepReqSheetListpart"
                 field(Qty; Qty)
                 {
                     ApplicationArea = All;
+                    Caption = 'Order Qty';
 
                     trigger OnValidate()
                     var
                     begin
+                        if "Qty Received" > 0 then
+                            Error('Goods already marked as received. Cannot change the order quantity.');
+
                         "Qty to Received" := Qty - "Qty Received";
                     end;
                 }
@@ -70,8 +74,37 @@ page 50823 "DepReqSheetListpart"
 
                     trigger OnValidate()
                     var
+                        DeptReqSheetLineRec: Record DeptReqSheetLine;
+                        DeptReqSheetHeadRec: Record DeptReqSheetHeader;
+                        Status: Boolean;
                     begin
                         "Qty to Received" := Qty - "Qty Received";
+                        CurrPage.Update();
+
+                        //Check whether po fully received or not
+                        DeptReqSheetLineRec.Reset();
+                        DeptReqSheetLineRec.SetRange("Req No", "Req No");
+
+                        if DeptReqSheetLineRec.FindSet() then begin
+                            repeat
+                                if DeptReqSheetLineRec."Qty to Received" > 0 then
+                                    Status := true;
+                            until DeptReqSheetLineRec.Next() = 0;
+                        end;
+
+                        //Update Header status
+                        DeptReqSheetHeadRec.Reset();
+                        DeptReqSheetHeadRec.SetRange("Req No", "Req No");
+                        DeptReqSheetHeadRec.FindSet();
+
+                        if Status = false then
+                            DeptReqSheetHeadRec."Completely Received" := DeptReqSheetHeadRec."Completely Received"::Yes
+                        else
+                            DeptReqSheetHeadRec."Completely Received" := DeptReqSheetHeadRec."Completely Received"::No;
+
+                        DeptReqSheetHeadRec.Modify();
+                        CurrPage.Update();
+
                     end;
                 }
 
