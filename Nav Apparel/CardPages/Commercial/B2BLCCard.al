@@ -200,6 +200,12 @@ page 50522 "B2B LC Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Global Dimension Code"; "Global Dimension Code")
+                {
+                    ApplicationArea = All;
+                    //ShowMandatory = true;
+                }
             }
 
             group(" ")

@@ -213,6 +213,13 @@ table 50520 "B2BLCMaster"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(37; "Global Dimension Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            CaptionClass = '1,2,1';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
+        }
     }
 
     keys

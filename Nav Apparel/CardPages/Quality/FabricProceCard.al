@@ -132,7 +132,7 @@ page 50671 "FabricProceCard"
                         PurchRcpLineRec.SetRange("Document No.", GRN);
                         //PurchRcpLineRec.SetRange("Color No.", "Color No");
 
-                        IF PurchRcpLineRec.FINDFIRST THEN BEGIN
+                        IF PurchRcpLineRec.FindSet() THEN BEGIN
                             REPEAT
 
                                 ItemRec.RESET;
@@ -167,10 +167,12 @@ page 50671 "FabricProceCard"
                                 ItemLedEntryRec.Reset();
                                 ItemLedEntryRec.SetRange("Item No.", "Item No");
                                 ItemLedEntryRec.SetRange("Document No.", GRN);
+                                //ItemLedEntryRec.SetFilter("Lot No.", '<>%1', '-');
 
                                 if ItemLedEntryRec.FindSet() then begin
                                     repeat
-                                        "No of Roll" := "No of Roll" + ItemLedEntryRec."Remaining Quantity";
+                                        if ItemLedEntryRec."Lot No." <> '' then
+                                            "No of Roll" := "No of Roll" + ItemLedEntryRec."Remaining Quantity";
                                     until ItemLedEntryRec.Next() = 0;
                                 end;
 
@@ -197,7 +199,6 @@ page 50671 "FabricProceCard"
                         colorRec.SetRange("Colour Name", "Color Name");
                         colorRec.FindSet();
                         "Color No" := colorRec."No.";
-
                     end;
 
                     // trigger OnLookup(var texts: text): Boolean
@@ -229,8 +230,6 @@ page 50671 "FabricProceCard"
                     //     END;
                     // END;
                 }
-
-
 
                 field("No of Roll"; "No of Roll")
                 {
@@ -310,7 +309,7 @@ page 50671 "FabricProceCard"
 
                 if not FabricProLineRec.FindSet() then begin
 
-                    if (ItemLedEntryRec."Remaining Quantity" > 0) and (ItemLedEntryRec."Lot No." <> '') then begin
+                    if ItemLedEntryRec."Lot No." <> '' then begin
                         Lineno += 1;
                         FabricProLineRec.Init();
                         FabricProLineRec."FabricProceNo." := "FabricProceNo.";

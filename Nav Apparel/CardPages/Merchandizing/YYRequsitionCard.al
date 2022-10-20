@@ -14,6 +14,7 @@ page 71012822 "YY Requsition Card"
                 {
                     ApplicationArea = All;
                     Caption = 'YY Request No';
+                    Editable = SetEdit1;
 
                     trigger OnAssistEdit()
                     begin
@@ -27,6 +28,7 @@ page 71012822 "YY Requsition Card"
                     ApplicationArea = All;
                     Caption = 'Buyer';
                     ShowMandatory = true;
+                    Editable = SetEdit1;
 
                     trigger OnValidate()
                     var
@@ -46,6 +48,7 @@ page 71012822 "YY Requsition Card"
                     ApplicationArea = All;
                     Caption = 'Style';
                     ShowMandatory = true;
+                    Editable = SetEdit1;
 
                     trigger OnValidate()
                     var
@@ -60,15 +63,6 @@ page 71012822 "YY Requsition Card"
                             "Garment Type No." := StyleMasRec."Garment Type No.";
                             "Garment Type Name" := StyleMasRec."Garment Type Name";
                         end;
-
-                        // StyleRec.Reset();
-                        // StyleRec.SetRange("Style No.", "Style Name");
-                        // if StyleRec.FindSet() then begin
-                        //     "Style No." := StyleRec."No.";
-                        //     "Garment Type No." := StyleRec."Garment Type No.";
-                        //     "Garment Type Name" := StyleRec."Garment Type Name";
-                        //     CurrPage.Update();
-                        // end;
                     end;
                 }
 
@@ -77,21 +71,12 @@ page 71012822 "YY Requsition Card"
                     ApplicationArea = All;
                     Caption = 'Garment Type';
                     Editable = false;
-
-                    // trigger OnValidate()
-                    // var
-                    //     GarmentTypeRec: Record "Garment Type";
-                    // begin
-                    //     GarmentTypeRec.Reset();
-                    //     GarmentTypeRec.SetRange("Garment Type Description", "Garment Type Name");
-                    //     if GarmentTypeRec.FindSet() then
-                    //         "Garment Type No." := GarmentTypeRec.Code;
-                    // end;
                 }
 
                 field(Remarks; Remarks)
                 {
                     ApplicationArea = All;
+                    Editable = SetEdit1;
                 }
             }
 
@@ -129,4 +114,23 @@ page 71012822 "YY Requsition Card"
         YYReqLineRec.DeleteAll();
     end;
 
+
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+        UserRec.Reset();
+        UserRec.SetRange("User ID", UserId);
+        if UserRec.FindSet() then
+            UserRole := UserRec.UserRole;
+
+        if UserRole = 'CAD' then
+            SetEdit1 := false
+        else
+            SetEdit1 := true;
+    end;
+
+    var
+        SetEdit1: Boolean;
+        UserRole: Text[50];
 }

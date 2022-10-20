@@ -16,6 +16,11 @@ tableextension 71012660 "User Setup Extension" extends "User Setup"
         {
 
         }
+
+        field(71012584; "UserRole"; Text[50])
+        {
+
+        }
     }
 }
 
