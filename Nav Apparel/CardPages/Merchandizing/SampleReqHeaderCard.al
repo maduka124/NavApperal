@@ -127,6 +127,12 @@ page 71012772 "Sample Request Card"
                     ApplicationArea = All;
                     Editable = false;
                 }
+
+                //Done By Sachith -22/10/20
+                field("Global Dimension Code"; "Global Dimension Code")
+                {
+                    ApplicationArea = All;
+                }
             }
 
             group("Sample Details")

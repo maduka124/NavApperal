@@ -123,6 +123,14 @@ table 71012719 "Sample Requsition Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done By Sachith -22/10/20
+        field(71012633; "Global Dimension Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            CaptionClass = '1,2,1';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
+        }
     }
 
     keys
