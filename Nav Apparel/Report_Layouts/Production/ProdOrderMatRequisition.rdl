@@ -11,6 +11,100 @@
       <rd:DataSourceID>19469799-b2b4-487d-a9f7-b13072566965</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="TodayFormatted">
+          <DataField>TodayFormatted</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ProdOrderTableCaptionFilter">
+          <DataField>ProdOrderTableCaptionFilter</DataField>
+        </Field>
+        <Field Name="No_ProdOrder">
+          <DataField>No_ProdOrder</DataField>
+        </Field>
+        <Field Name="Desc_ProdOrder">
+          <DataField>Desc_ProdOrder</DataField>
+        </Field>
+        <Field Name="SourceNo_ProdOrder">
+          <DataField>SourceNo_ProdOrder</DataField>
+        </Field>
+        <Field Name="Status_ProdOrder">
+          <DataField>Status_ProdOrder</DataField>
+        </Field>
+        <Field Name="Qty_ProdOrder">
+          <DataField>Qty_ProdOrder</DataField>
+        </Field>
+        <Field Name="Qty_ProdOrderFormat">
+          <DataField>Qty_ProdOrderFormat</DataField>
+        </Field>
+        <Field Name="Filter_ProdOrder">
+          <DataField>Filter_ProdOrder</DataField>
+        </Field>
+        <Field Name="ProdOrderMaterialRqstnCapt">
+          <DataField>ProdOrderMaterialRqstnCapt</DataField>
+        </Field>
+        <Field Name="CurrReportPageNoCapt">
+          <DataField>CurrReportPageNoCapt</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="Shortcut_Dimension_1_Code">
+          <DataField>Shortcut_Dimension_1_Code</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="PoNo">
+          <DataField>PoNo</DataField>
+        </Field>
+        <Field Name="ItemNo_ProdOrderComp">
+          <DataField>ItemNo_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Desc_ProdOrderComp">
+          <DataField>Desc_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Qtyper_ProdOrderComp">
+          <DataField>Qtyper_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Qtyper_ProdOrderCompFormat">
+          <DataField>Qtyper_ProdOrderCompFormat</DataField>
+        </Field>
+        <Field Name="UOMCode_ProdOrderComp">
+          <DataField>UOMCode_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="RemainingQty_ProdOrderComp">
+          <DataField>RemainingQty_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="RemainingQty_ProdOrderCompFormat">
+          <DataField>RemainingQty_ProdOrderCompFormat</DataField>
+        </Field>
+        <Field Name="Scrap_ProdOrderComp">
+          <DataField>Scrap_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Scrap_ProdOrderCompFormat">
+          <DataField>Scrap_ProdOrderCompFormat</DataField>
+        </Field>
+        <Field Name="DueDate_ProdOrderComp">
+          <DataField>DueDate_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="LocationCode_ProdOrderComp">
+          <DataField>LocationCode_ProdOrderComp</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1245,11 +1339,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Color>Maroon</Color>
-                              <Width>3pt</Width>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingRight>5pt</PaddingRight>
                           </Style>
@@ -1281,11 +1392,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Color>Maroon</Color>
-                              <Width>3pt</Width>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>5pt</PaddingRight>
@@ -1320,11 +1448,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Color>Maroon</Color>
-                              <Width>3pt</Width>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>5pt</PaddingRight>
@@ -1357,11 +1502,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Color>Maroon</Color>
-                              <Width>3pt</Width>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>5pt</PaddingRight>
@@ -1394,11 +1556,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Color>Maroon</Color>
-                              <Width>3pt</Width>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>5pt</PaddingLeft>
                             <PaddingRight>5pt</PaddingRight>
@@ -1431,11 +1610,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
                             <BottomBorder>
                               <Color>Maroon</Color>
-                              <Width>3pt</Width>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>5pt</PaddingLeft>
                           </Style>
@@ -1470,26 +1666,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 , "#EFEFEF","White")</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -1522,26 +1719,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 , "#EFEFEF","White")</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -1578,26 +1776,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 , "#EFEFEF","White")</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -1630,26 +1829,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 , "#EFEFEF","White")</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -1684,26 +1884,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 , "#EFEFEF","White")</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -1736,26 +1937,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>=IIF(RowNumber(Nothing) Mod 2 , "#EFEFEF","White")</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
@@ -2044,7 +2246,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>2.76225cm</Top>
+            <Top>2.12725cm</Top>
             <Height>6.14734cm</Height>
             <Width>19.85986cm</Width>
             <Style />
@@ -2230,7 +2432,7 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>10.49853cm</Top>
+            <Top>9.54603cm</Top>
             <Left>0cm</Left>
             <Height>0.62646cm</Height>
             <Width>19.85986cm</Width>
@@ -2245,7 +2447,7 @@
             <Source>Database</Source>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
-            <Top>0.42333cm</Top>
+            <Top>0cm</Top>
             <Left>15.54234cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
@@ -2278,7 +2480,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>1.09368cm</Top>
+            <Top>0.45868cm</Top>
             <Left>2.45545cm</Left>
             <Height>1.19062cm</Height>
             <Width>13.67897cm</Width>
@@ -2295,7 +2497,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>12.20449cm</Height>
+        <Height>10.34182cm</Height>
         <Style />
       </Body>
       <Width>19.88928cm</Width>
@@ -2444,8 +2646,8 @@
         <InteractiveWidth>8.5in</InteractiveWidth>
         <LeftMargin>0.5cm</LeftMargin>
         <RightMargin>0.5cm</RightMargin>
-        <TopMargin>0.5cm</TopMargin>
-        <BottomMargin>0.5cm</BottomMargin>
+        <TopMargin>1cm</TopMargin>
+        <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
         <Style />
       </Page>
@@ -2640,98 +2842,4 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>f4355aed-d23a-4dff-a00b-d826a436da84</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="TodayFormatted">
-          <DataField>TodayFormatted</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="ProdOrderTableCaptionFilter">
-          <DataField>ProdOrderTableCaptionFilter</DataField>
-        </Field>
-        <Field Name="No_ProdOrder">
-          <DataField>No_ProdOrder</DataField>
-        </Field>
-        <Field Name="Desc_ProdOrder">
-          <DataField>Desc_ProdOrder</DataField>
-        </Field>
-        <Field Name="SourceNo_ProdOrder">
-          <DataField>SourceNo_ProdOrder</DataField>
-        </Field>
-        <Field Name="Status_ProdOrder">
-          <DataField>Status_ProdOrder</DataField>
-        </Field>
-        <Field Name="Qty_ProdOrder">
-          <DataField>Qty_ProdOrder</DataField>
-        </Field>
-        <Field Name="Qty_ProdOrderFormat">
-          <DataField>Qty_ProdOrderFormat</DataField>
-        </Field>
-        <Field Name="Filter_ProdOrder">
-          <DataField>Filter_ProdOrder</DataField>
-        </Field>
-        <Field Name="ProdOrderMaterialRqstnCapt">
-          <DataField>ProdOrderMaterialRqstnCapt</DataField>
-        </Field>
-        <Field Name="CurrReportPageNoCapt">
-          <DataField>CurrReportPageNoCapt</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="Shortcut_Dimension_1_Code">
-          <DataField>Shortcut_Dimension_1_Code</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="PoNo">
-          <DataField>PoNo</DataField>
-        </Field>
-        <Field Name="ItemNo_ProdOrderComp">
-          <DataField>ItemNo_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="Desc_ProdOrderComp">
-          <DataField>Desc_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="Qtyper_ProdOrderComp">
-          <DataField>Qtyper_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="Qtyper_ProdOrderCompFormat">
-          <DataField>Qtyper_ProdOrderCompFormat</DataField>
-        </Field>
-        <Field Name="UOMCode_ProdOrderComp">
-          <DataField>UOMCode_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="RemainingQty_ProdOrderComp">
-          <DataField>RemainingQty_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="RemainingQty_ProdOrderCompFormat">
-          <DataField>RemainingQty_ProdOrderCompFormat</DataField>
-        </Field>
-        <Field Name="Scrap_ProdOrderComp">
-          <DataField>Scrap_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="Scrap_ProdOrderCompFormat">
-          <DataField>Scrap_ProdOrderCompFormat</DataField>
-        </Field>
-        <Field Name="DueDate_ProdOrderComp">
-          <DataField>DueDate_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="LocationCode_ProdOrderComp">
-          <DataField>LocationCode_ProdOrderComp</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
