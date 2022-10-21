@@ -64,6 +64,11 @@ tableextension 71012763 "ItemLedgerEntryExt" extends "Item Ledger Entry"
         {
 
         }
+
+        field(71012595; "CP Req No"; Code[20])
+        {
+
+        }
     }
 
     fieldgroups
@@ -73,7 +78,6 @@ tableextension 71012763 "ItemLedgerEntryExt" extends "Item Ledger Entry"
 
         }
     }
-
 
 }
 pageextension 50641 ItemLedPage extends "Item Ledger Entries"
@@ -86,11 +90,5 @@ pageextension 50641 ItemLedPage extends "Item Ledger Entries"
             Visible = true;
         }
     }
-
-    actions
-    {
-        // Add changes to page actions here
-    }
-
 }
 

@@ -79,6 +79,12 @@ page 50709 "DepReqSheetHeaderCard"
                     ApplicationArea = All;
                     Editable = false;
                 }
+
+                field("Completely Received"; "Completely Received")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
             }
 
             group("")

@@ -1029,6 +1029,15 @@ codeunit 71012752 NavAppCodeUnit
     begin
         NewItemLedgEntry."Style No." := ItemJournalLine."Style No.";
         NewItemLedgEntry."Style Name" := ItemJournalLine."Style Name";
+        NewItemLedgEntry."CP Req No" := ItemJournalLine."CP Req No";
+    end;
+
+
+    [EventSubscriber(ObjectType::Table, 83, 'OnAfterCopyItemJnlLineFromPurchLine', '', true, true)]
+    local procedure OnAfterCopyItemJnlLineFromPurchLine(var ItemJnlLine: Record "Item Journal Line"; PurchLine: Record "Purchase Line")
+
+    begin
+        ItemJnlLine."CP Req No" := PurchLine."CP Req No";
     end;
 
 

@@ -70,6 +70,11 @@ tableextension 71012762 "ItemJournalLineExt" extends "Item Journal Line"
         {
 
         }
+
+        field(71012595; "CP Req No"; Code[20])
+        {
+
+        }
     }
 }
 

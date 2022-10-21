@@ -16,8 +16,8 @@ page 50626 FabricMappingList
                 field(No; No)
                 {
                     ApplicationArea = All;
-                    //Visible = false;
                     Caption = 'Seq No';
+                    Visible = false;
 
                     trigger OnAssistEdit()
                     begin
@@ -40,6 +40,8 @@ page 50626 FabricMappingList
                         StyleRec.SetRange("Style No.", "Style Name");
                         if StyleRec.FindSet() then
                             "Style No." := StyleRec."No.";
+
+                        CurrPage.Update();
                     end;
                 }
 
@@ -63,7 +65,6 @@ page 50626 FabricMappingList
                             REPEAT
                                 IF Colour <> AssoDetailsRec."Colour No" THEN BEGIN
                                     Colour := AssoDetailsRec."Colour No";
-
                                     AssoDetailsRec.MARK(TRUE);
                                 END;
                             UNTIL AssoDetailsRec.NEXT = 0;
@@ -167,6 +168,7 @@ page 50626 FabricMappingList
                                     ItemRec.Reset();
                                     ItemRec.SetRange("No.", ItemCode);
                                     ItemRec.SetRange("Main Category No.", "Main Category No.");
+                                    ItemRec.SetRange("Color No.", "Colour No");
 
                                     if ItemRec.FindSet() then
                                         PurchRecptLineRec.MARK(TRUE);

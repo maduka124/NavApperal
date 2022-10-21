@@ -700,18 +700,23 @@ page 71012740 "Nav Apperal Role Center"
 
             group("Common")
             {
-                action("Department Requisition Sheet")
-                {
-                    Caption = 'Department Requisition Sheet';
-                    RunObject = page "Department Requisition Sheet";
-                    ApplicationArea = All;
-                }
-
                 action("Gate Pass1")
                 {
                     Caption = 'Gate Pass';
                     RunObject = Page "Gate Pass List";
                     ApplicationArea = all;
+                }
+            }
+
+            group("Warehouse")
+            {
+                Caption = 'Warehouse';
+
+                action("Department Requisition Sheet")
+                {
+                    Caption = 'Department Requisition Sheet';
+                    RunObject = page "Department Requisition Sheet";
+                    ApplicationArea = All;
                 }
 
                 action("Requisition Worksheet")
@@ -720,11 +725,6 @@ page 71012740 "Nav Apperal Role Center"
                     RunObject = Page "Req. Worksheet";
                     ApplicationArea = all;
                 }
-            }
-
-            group("Warehouse")
-            {
-                Caption = 'Warehouse';
 
                 action("Roll Picking")
                 {

@@ -393,11 +393,10 @@ table 50593 SewingJobCreationLine4
         field(80; "Colour Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = StyleColor.Color;
+            // TableRelation = StyleColor.Color;         
+            TableRelation = AssorColorSizeRatio."Colour Name" where("Style No." = field("Style No."), "Lot No." = field("Lot No."));
+            //, "Colour No" = filter('<>*'));
             ValidateTableRelation = false;
-            // TableRelation = AssorColorSizeRatio."Colour Name" where("Style No." = field("Style No."), "Lot No." = field("Lot No.")
-            // , "Colour No" = filter('<>*'));
-            // ValidateTableRelation = false;
         }
 
         field(81; "Record Type"; code[20])
