@@ -122,4 +122,28 @@ page 50709 "DepReqSheetHeaderCard"
             DeptReqSheetLine.DeleteAll();
 
     end;
+
+
+    trigger OnOpenPage()
+    var
+    begin
+        if "Completely Received" = "Completely Received"::Yes then
+            CurrPage.Editable(false)
+        else
+            CurrPage.Editable(true);
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+    begin
+        if "Completely Received" = "Completely Received"::Yes then
+            CurrPage.Editable(false)
+        else
+            CurrPage.Editable(true);
+    end;
+
+    var
+        EditableGb: Boolean;
+
 }

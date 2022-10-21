@@ -64,4 +64,7 @@ codeunit 50822 NavAppCodeUnit2
         TotalSalesLine2.CalcSums(Quantity);
     end;
 
+
+    
+
 }

@@ -134,11 +134,15 @@ tableextension 50661 ProductionOderHeadExt extends "Production Order"
         field(135; "Total Water Ltrs:"; Decimal)
         {
             DataClassification = ToBeClassified;
+            // FieldClass = FlowField;
+            // CalcFormula = Sum("Prod. Order Line".Water WHERE("Prod. Order No." = Field("No."), Status = Field(Status)));
         }
 
         field(136; "Process Time:"; Decimal)
         {
             DataClassification = ToBeClassified;
+            // FieldClass = FlowField;
+            // CalcFormula = Sum("Prod. Order Line"."Time(Min)" WHERE("Prod. Order No." = Field("No."), Status = Field(Status)));
         }
 
         field(137; "BarCode"; Code[100])

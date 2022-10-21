@@ -57,7 +57,7 @@ page 50823 "DepReqSheetListpart"
                     var
                     begin
                         if "Qty Received" > 0 then
-                            Error('Goods already marked as received. Cannot change the order quantity.');
+                            Error('Item: %1 already marked as received. Cannot change the order quantity.', "Item Name");
 
                         "Qty to Received" := Qty - "Qty Received";
                     end;
@@ -120,7 +120,6 @@ page 50823 "DepReqSheetListpart"
                 }
             }
         }
-
     }
 
     trigger OnNewRecord(BelowxRec: Boolean)

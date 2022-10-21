@@ -278,11 +278,28 @@ pageextension 50802 FinishProdOrderExt extends "Finished Production Order"
 
     trigger OnOpenPage()
     var
+        ProdLne: Record "Prod. Order Line";
+        TotalWaterLtrs: Decimal;
+        TotalTime: Decimal;
     begin
         if NoGb <> '' then begin
             "No." := NoGb;
             Editable := EditableGb;
             Status := Status::"Firm Planned";
         end;
+
+        // ProdLne.Reset();
+        // ProdLne.SetRange("Prod. Order No.", "No.");
+        // ProdLne.SetRange(Status, Status);
+        // if ProdLne.FindSet() then
+        //     repeat
+        //         TotalWaterLtrs += ProdLne.Water;
+        //         TotalTime += ProdLne."Time(Min)";
+        //     until ProdLne.Next() = 0;
+
+        // "Total Water Ltrs:" := TotalWaterLtrs;
+        // "Process Time:" := TotalTime;
+        // CurrPage.Update();
+
     end;
 }

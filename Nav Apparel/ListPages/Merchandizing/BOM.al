@@ -4,7 +4,7 @@ page 71012679 "BOM"
     ApplicationArea = All;
     UsageCategory = Tasks;
     SourceTable = BOM;
-    SourceTableView = sorting("No") order(descending);
+    SourceTableView = sorting(No) order(descending);
     CardPageId = "BOM Card";
 
     layout

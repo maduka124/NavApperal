@@ -17,7 +17,7 @@ tableextension 50665 ProductionOderLineExt extends "Prod. Order Line"
             var
                 prodHead: Record "Production Order";
             begin
-                prodHead.Get(Status::"Firm Planned", "Prod. Order No.");
+                prodHead.Get(Status, "Prod. Order No.");
 
                 if (Water = 0) then
                     prodHead."Total Water Ltrs:" += Water
@@ -52,7 +52,7 @@ tableextension 50665 ProductionOderLineExt extends "Prod. Order Line"
             var
                 prodHead: Record "Production Order";
             begin
-                prodHead.Get(Status::"Firm Planned", "Prod. Order No.");
+                prodHead.Get(Status, "Prod. Order No.");
                 if ("Time(Min)" = 0) then
                     prodHead."Process Time:" += "Time(Min)"
                 else begin
@@ -63,22 +63,17 @@ tableextension 50665 ProductionOderLineExt extends "Prod. Order Line"
             end;
         }
 
-        // field(5007; DescriptionLine; Code[100])
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
-
         field(5008; "Step Code"; code[50])
         {
             DataClassification = ToBeClassified;
         }
     }
 
-
-    // trigger OnAfterDelete()
+    // trigger OnDelete()
     // var
     //     prodHead: Record "Production Order";
     // begin
+
     //     prodHead.Get(Status::"Firm Planned", "Prod. Order No.");
     //     prodHead."Total Water Ltrs:" -= Water;
     //     prodHead.Modify(true);
@@ -87,5 +82,21 @@ tableextension 50665 ProductionOderLineExt extends "Prod. Order Line"
     //     prodHead."Process Time:" -= "Time(Min)";
     //     prodHead.Modify(true);
     // end;
+
+
+    trigger OnAfterDelete()
+    var
+    //prodHead: Record "Production Order";
+    begin
+
+
+        // prodHead.Get(Status::"Firm Planned", "Prod. Order No.");
+        // prodHead."Total Water Ltrs:" -= Water;
+        // prodHead.Modify(true);
+
+        // prodHead.Get(Status::"Firm Planned", "Prod. Order No.");
+        // prodHead."Process Time:" -= "Time(Min)";
+        // prodHead.Modify(true);
+    end;
 
 }
