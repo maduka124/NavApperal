@@ -11,6 +11,73 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+        </Field>
+        <Field Name="Department_Name">
+          <DataField>Department_Name</DataField>
+        </Field>
+        <Field Name="Category_Name">
+          <DataField>Category_Name</DataField>
+        </Field>
+        <Field Name="Act_Budget">
+          <DataField>Act_Budget</DataField>
+        </Field>
+        <Field Name="Final_Budget_with_Absenteesm">
+          <DataField>Final_Budget_with_Absenteesm</DataField>
+        </Field>
+        <Field Name="Current_onrall">
+          <DataField>Current_onrall</DataField>
+        </Field>
+        <Field Name="Absent">
+          <DataField>Absent</DataField>
+        </Field>
+        <Field Name="Leave">
+          <DataField>Leave</DataField>
+        </Field>
+        <Field Name="Net_Present">
+          <DataField>Net_Present</DataField>
+        </Field>
+        <Field Name="Excess_Short">
+          <DataField>Excess_Short</DataField>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="CategoryNameSummary">
+          <DataField>CategoryNameSummary</DataField>
+        </Field>
+        <Field Name="ActBudgetSummary">
+          <DataField>ActBudgetSummary</DataField>
+        </Field>
+        <Field Name="ActBudgetSummaryFormat">
+          <DataField>ActBudgetSummaryFormat</DataField>
+        </Field>
+        <Field Name="FinalBudgetSummary">
+          <DataField>FinalBudgetSummary</DataField>
+        </Field>
+        <Field Name="FinalBudgetSummaryFormat">
+          <DataField>FinalBudgetSummaryFormat</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -22,7 +89,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Summary of Worker Manpower Report</Value>
+                    <Value>SUMMARY OF WORKER MANPOWER </Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Calibri</FontFamily>
@@ -39,7 +106,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.60042cm</Top>
+            <Top>0.3175cm</Top>
             <Left>7.3459cm</Left>
             <Height>1.19062cm</Height>
             <Width>13.97cm</Width>
@@ -58,7 +125,7 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.9146cm</Width>
+                  <Width>1.47527cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>5.8954cm</Width>
@@ -182,6 +249,7 @@
                                   <Value>=Fields!Date.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>d</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -220,10 +288,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>2.43099cm</Top>
+            <Top>1.79599cm</Top>
             <Left>0.635cm</Left>
             <Height>1.16885cm</Height>
-            <Width>8.81cm</Width>
+            <Width>7.37067cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -291,27 +359,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -347,27 +415,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -403,27 +471,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -459,27 +527,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -515,27 +583,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -571,27 +639,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -627,27 +695,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -683,27 +751,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -739,27 +807,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -799,8 +867,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -835,8 +923,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -871,8 +979,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -907,8 +1035,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -943,8 +1091,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -980,8 +1148,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1017,8 +1205,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1054,14 +1262,35 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1089,8 +1318,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1130,7 +1379,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>4.14197cm</Top>
+            <Top>3.18947cm</Top>
             <Left>0.686cm</Left>
             <Height>1.63452cm</Height>
             <Width>26.548cm</Width>
@@ -1142,7 +1391,7 @@
             </Style>
           </Tablix>
           <Line Name="Line1">
-            <Top>6.47912cm</Top>
+            <Top>5.52662cm</Top>
             <Left>0.69956cm</Left>
             <Height>0cm</Height>
             <Width>26.53442cm</Width>
@@ -1151,27 +1400,27 @@
               <Border>
                 <Color>Maroon</Color>
                 <Style>Solid</Style>
-                <Width>0.25pt</Width>
+                <Width>1.5pt</Width>
               </Border>
               <TopBorder>
                 <Color>Maroon</Color>
                 <Style>Solid</Style>
-                <Width>0.25pt</Width>
+                <Width>1.5pt</Width>
               </TopBorder>
               <BottomBorder>
                 <Color>Maroon</Color>
                 <Style>Solid</Style>
-                <Width>0.25pt</Width>
+                <Width>1.5pt</Width>
               </BottomBorder>
               <LeftBorder>
                 <Color>Maroon</Color>
                 <Style>Solid</Style>
-                <Width>0.25pt</Width>
+                <Width>1.5pt</Width>
               </LeftBorder>
               <RightBorder>
                 <Color>Maroon</Color>
                 <Style>Solid</Style>
-                <Width>0.25pt</Width>
+                <Width>1.5pt</Width>
               </RightBorder>
             </Style>
           </Line>
@@ -1179,7 +1428,7 @@
             <Source>Database</Source>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
-            <Top>0.635cm</Top>
+            <Top>0cm</Top>
             <Left>23.83659cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
@@ -1232,27 +1481,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -1291,27 +1540,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -1347,27 +1596,27 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </LeftBorder>
                             <RightBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </RightBorder>
                             <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -1409,8 +1658,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1446,8 +1715,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1483,8 +1772,28 @@
                           <Style>
                             <Border>
                               <Style>Solid</Style>
-                              <Width>0.25pt</Width>
+                              <Width>0.5pt</Width>
                             </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1518,7 +1827,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>7.01886cm</Top>
+            <Top>6.06636cm</Top>
             <Left>0.686cm</Left>
             <Height>1.33168cm</Height>
             <Width>8.83278cm</Width>
@@ -1551,7 +1860,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>9.1346cm</Height>
+        <Height>7.5471cm</Height>
         <Style />
       </Body>
       <Width>28.72337cm</Width>
@@ -1716,6 +2025,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1767,71 +2082,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
-        <Field Name="Date">
-          <DataField>Date</DataField>
-        </Field>
-        <Field Name="Department_Name">
-          <DataField>Department_Name</DataField>
-        </Field>
-        <Field Name="Category_Name">
-          <DataField>Category_Name</DataField>
-        </Field>
-        <Field Name="Act_Budget">
-          <DataField>Act_Budget</DataField>
-        </Field>
-        <Field Name="Final_Budget_with_Absenteesm">
-          <DataField>Final_Budget_with_Absenteesm</DataField>
-        </Field>
-        <Field Name="Current_onrall">
-          <DataField>Current_onrall</DataField>
-        </Field>
-        <Field Name="Absent">
-          <DataField>Absent</DataField>
-        </Field>
-        <Field Name="Leave">
-          <DataField>Leave</DataField>
-        </Field>
-        <Field Name="Net_Present">
-          <DataField>Net_Present</DataField>
-        </Field>
-        <Field Name="Excess_Short">
-          <DataField>Excess_Short</DataField>
-        </Field>
-        <Field Name="Remarks">
-          <DataField>Remarks</DataField>
-        </Field>
-        <Field Name="Type">
-          <DataField>Type</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="CategoryNameSummary">
-          <DataField>CategoryNameSummary</DataField>
-        </Field>
-        <Field Name="ActBudgetSummary">
-          <DataField>ActBudgetSummary</DataField>
-        </Field>
-        <Field Name="ActBudgetSummaryFormat">
-          <DataField>ActBudgetSummaryFormat</DataField>
-        </Field>
-        <Field Name="FinalBudgetSummary">
-          <DataField>FinalBudgetSummary</DataField>
-        </Field>
-        <Field Name="FinalBudgetSummaryFormat">
-          <DataField>FinalBudgetSummaryFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

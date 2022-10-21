@@ -5,6 +5,7 @@ page 71012590 Colour
     UsageCategory = Lists;
     SourceTable = Colour;
     CardPageId = "Colour Card";
+    SourceTableView = sorting("Created Date") order(descending);
 
     layout
     {
