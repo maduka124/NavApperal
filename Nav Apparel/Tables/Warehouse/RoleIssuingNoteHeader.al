@@ -95,7 +95,12 @@ table 50636 RoleIssuingNoteHeader
         field(17; "GRN No"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Purch. Rcpt. Header"."No.";
+            //TableRelation = "Purch. Rcpt. Line"."No." where(StyleNo = field("Style No."));
+        }
+
+        field(18; "GRN Filter User ID"; text[50])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 
@@ -112,10 +117,8 @@ table 50636 RoleIssuingNoteHeader
         fieldgroup(DropDown; "RoleIssuNo.", "Req No.")
         {
 
-
         }
     }
-
 
 
 
@@ -126,34 +129,21 @@ table 50636 RoleIssuingNoteHeader
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("RoleIssu Nos.");
-
         "RoleIssuNo." := NoSeriesMngment.GetNextNo(NavAppSetup."RoleIssu Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
 
     trigger OnDelete()
     var
         LaySheetHeaderRec: Record "LaySheetHeader";
     begin
-
         //Check for Exsistance
         LaySheetHeaderRec.Reset();
         LaySheetHeaderRec.SetRange("FabReqNo.", "Req No.");
         if LaySheetHeaderRec.FindSet() then
             Error('Fabric Requsition No : %1 already used in Laysheet. Cannot delete.', "Req No.");
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }

@@ -1,5 +1,5 @@
 
-table 50562 StyleColor
+table 50825 StyleWiseGRN
 {
     DataClassification = ToBeClassified;
 
@@ -10,12 +10,17 @@ table 50562 StyleColor
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Color No."; Code[20])
+        field(2; "GRN No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Color"; text[50])
+        field(3; "Style No"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(4; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -23,7 +28,7 @@ table 50562 StyleColor
 
     keys
     {
-        key(PK; "User ID", "Color No.")
+        key(PK; "User ID", "Style Name", "GRN No.")
         {
             Clustered = true;
         }
@@ -31,7 +36,7 @@ table 50562 StyleColor
 
     fieldgroups
     {
-        fieldgroup(DropDown; "Color No.", Color)
+        fieldgroup(DropDown; "Style Name", "GRN No.")
         {
 
         }

@@ -51,22 +51,22 @@ page 71012699 "Dependency Card"
                 }
             }
 
-            group("Dependency List")
+            group("Buyer Dependency List")
             {
-                part("Buyer Dependency List"; "Buyer Dependency List")
+                part("Buyer Dependency List1"; "Buyer Dependency List")
                 {
                     ApplicationArea = All;
-                    Caption = 'Buyer Dependency List';
+                    Caption = ' ';
                     SubPageLink = "Buyer No." = FIELD("Buyer No."), "Main Dependency No." = field("Dependency No.");
                 }
             }
 
-            group("Dependency Parameters")
+            group("Buyer Dependency Parameters")
             {
                 part("Dependency Buyer Para List"; "Dependency Buyer Para List")
                 {
                     ApplicationArea = All;
-                    Caption = 'Buyer Parameter List ';
+                    Caption = '  ';
                     SubPageLink = "Buyer No." = FIELD("Buyer No."), "Main Dependency No." = field("Dependency No.");
                 }
             }

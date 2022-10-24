@@ -300,6 +300,7 @@ page 50459 "New Breakdown Card"
                 "Buyer Name" := StyleMasterRec."Buyer Name";
                 "Season Name" := StyleMasterRec."Season Name";
                 "Garment Type Name" := StyleMasterRec."Garment Type Name";
+                "Style Stage" := 'COSTING';
             end;
 
             CurrPage.Update();

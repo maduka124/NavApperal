@@ -27,6 +27,7 @@ page 50709 "DepReqSheetHeaderCard"
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
+                    Editable = EditableGb;
 
                     trigger OnValidate()
                     var
@@ -67,11 +68,13 @@ page 50709 "DepReqSheetHeaderCard"
                 field("Request Date"; "Request Date")
                 {
                     ApplicationArea = All;
+                    Editable = EditableGb;
                 }
 
                 field(Remarks; Remarks)
                 {
                     ApplicationArea = All;
+                    Editable = EditableGb;
                 }
 
                 field("Global Dimension Code"; "Global Dimension Code")
@@ -128,9 +131,9 @@ page 50709 "DepReqSheetHeaderCard"
     var
     begin
         if "Completely Received" = "Completely Received"::Yes then
-            CurrPage.Editable(false)
+            EditableGb := false
         else
-            CurrPage.Editable(true);
+            EditableGb := true;
     end;
 
 
@@ -138,9 +141,9 @@ page 50709 "DepReqSheetHeaderCard"
     var
     begin
         if "Completely Received" = "Completely Received"::Yes then
-            CurrPage.Editable(false)
+            EditableGb := false
         else
-            CurrPage.Editable(true);
+            EditableGb := true;
     end;
 
     var

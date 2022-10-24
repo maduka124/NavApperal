@@ -14,6 +14,7 @@ page 50823 "DepReqSheetListpart"
                 field("Item No"; "Item No")
                 {
                     ApplicationArea = All;
+                    Editable = EditableGb;
 
                     trigger OnValidate()
                     var
@@ -28,16 +29,6 @@ page 50823 "DepReqSheetListpart"
                             UOM := itemRec."Base Unit of Measure";
                         end;
 
-                        // DeptReqSheetLineRec.Reset();
-                        // DeptReqSheetLineRec.SetRange("Req No", "Req No");
-
-                        // if DeptReqSheetLineRec.FindSet() then begin
-                        //     repeat
-                        //         if "Item No" = DeptReqSheetLineRec."Item No" then
-                        //             Error('This item already exist in line');
-                        //     until DeptReqSheetLineRec.Next() = 0;
-
-                        // end;
                     end;
                 }
 
@@ -52,6 +43,7 @@ page 50823 "DepReqSheetListpart"
                 {
                     ApplicationArea = All;
                     Caption = 'Order Qty';
+                    Editable = EditableGb;
 
                     trigger OnValidate()
                     var
@@ -66,11 +58,13 @@ page 50823 "DepReqSheetListpart"
                 field(UOM; UOM)
                 {
                     ApplicationArea = All;
+                    Editable = EditableGb;
                 }
 
                 field("Qty Received"; "Qty Received")
                 {
                     ApplicationArea = All;
+                    Editable = EditableGb;
 
                     trigger OnValidate()
                     var
@@ -117,10 +111,12 @@ page 50823 "DepReqSheetListpart"
                 field(Remarks; Remarks)
                 {
                     ApplicationArea = All;
+                    Editable = EditableGb;
                 }
             }
         }
     }
+
 
     trigger OnNewRecord(BelowxRec: Boolean)
     var
@@ -128,5 +124,39 @@ page 50823 "DepReqSheetListpart"
     begin
         "Line No" := xRec."Line No" + 1;
     end;
+
+
+    trigger OnOpenPage()
+    var
+        DeptReqSheetHeader: Record DeptReqSheetHeader;
+    begin
+        if "Req No" <> '' then begin
+            DeptReqSheetHeader.Get("Req No");
+
+            if DeptReqSheetHeader."Completely Received" = DeptReqSheetHeader."Completely Received"::Yes then
+                EditableGb := false
+            else
+                EditableGb := true;
+        end;
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        DeptReqSheetHeader: Record DeptReqSheetHeader;
+    begin
+        if "Req No" <> '' then begin
+            DeptReqSheetHeader.Get("Req No");
+
+            if DeptReqSheetHeader."Completely Received" = DeptReqSheetHeader."Completely Received"::Yes then
+                EditableGb := false
+            else
+                EditableGb := true;
+        end;
+    end;
+
+
+    var
+        EditableGb: Boolean;
 
 }

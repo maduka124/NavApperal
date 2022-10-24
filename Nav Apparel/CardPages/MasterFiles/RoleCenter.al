@@ -708,9 +708,9 @@ page 71012740 "Nav Apperal Role Center"
                 }
             }
 
-            group("Warehouse")
+            group("Store")
             {
-                Caption = 'Warehouse';
+                Caption = 'Store';
 
                 action("Department Requisition Sheet")
                 {

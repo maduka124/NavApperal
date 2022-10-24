@@ -22,12 +22,6 @@ page 50635 "Roll Issuing Note Card"
                     end;
                 }
 
-                field("GRN No"; "GRN No")
-                {
-                    ApplicationArea = All;
-                    ShowMandatory = true;
-                }
-
                 field("Req No."; "Req No.")
                 {
                     ApplicationArea = All;
@@ -37,6 +31,9 @@ page 50635 "Roll Issuing Note Card"
                     trigger OnValidate()
                     var
                         FabricReqRec: Record FabricRequsition;
+                        StyleWiseGRNRec: Record StyleWiseGRN;
+                        GRNListRec: Record "Purch. Rcpt. Line";
+                        DocNo: Text[50];
                     begin
                         FabricReqRec.Reset();
                         FabricReqRec.SetRange("FabReqNo.", "Req No.");
@@ -50,9 +47,58 @@ page 50635 "Roll Issuing Note Card"
                             "UOM Code" := FabricReqRec."UOM Code";
                             "Required Width" := FabricReqRec."Marker Width";
                             "Required Length" := FabricReqRec."Required Length";
+                            "GRN Filter User ID" := UserId;
+                            "GRN No" := '';
+
+                            //Load GRN for the style
+                            //Delete old record
+                            StyleWiseGRNRec.Reset();
+                            StyleWiseGRNRec.SetRange("User ID", UserId);
+                            if StyleWiseGRNRec.FindSet() then
+                                StyleWiseGRNRec.DeleteAll();
+
+                            //Get GRN for the style
+                            GRNListRec.Reset();
+                            GRNListRec.SetCurrentKey("Document No.");
+                            GRNListRec.SetRange("StyleNo", "Style No.");
+
+                            if GRNListRec.FindSet() then begin
+                                repeat
+                                    if DocNo <> GRNListRec."Document No." then begin
+                                        StyleWiseGRNRec.Init();
+                                        StyleWiseGRNRec."User ID" := UserId;
+                                        StyleWiseGRNRec."GRN No." := GRNListRec."Document No.";
+                                        StyleWiseGRNRec."Style Name" := GRNListRec.StyleName;
+                                        StyleWiseGRNRec."Style No" := GRNListRec.StyleNo;
+                                        StyleWiseGRNRec.Insert();
+                                        DocNo := GRNListRec."Document No.";
+                                    end;
+                                until GRNListRec.Next() = 0;
+                            end;
+
                             CurrPage.Update();
                         end;
                     end;
+                }
+
+                field("Style Name"; "Style Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Colour Name"; "Colour Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Colour';
+                }
+
+                field("GRN No"; "GRN No")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                    TableRelation = StyleWiseGRN."GRN No." where("User ID" = field("GRN Filter User ID"));
                 }
 
                 field("Item Name"; "Item Name")
