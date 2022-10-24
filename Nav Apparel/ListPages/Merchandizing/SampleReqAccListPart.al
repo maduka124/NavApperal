@@ -77,6 +77,8 @@ page 71012777 SampleReqAccListPart
                         if ItemRec.FindSet() then begin
                             "Item No." := ItemRec."No.";
                             "Unit N0." := ItemRec."Base Unit of Measure";
+                            "Sub Category Name" := ItemRec."Sub Category Name";
+                            "Sub Category No." := ItemRec."Sub Category No.";
                         end;
 
                         SampleRequLineRec.Reset();

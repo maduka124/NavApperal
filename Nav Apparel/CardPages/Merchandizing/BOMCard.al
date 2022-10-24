@@ -442,6 +442,9 @@ page 71012680 "BOM Card"
                     if BLERec.FindSet() then begin
                         repeat
 
+                            SubCat := '';
+                            SubCatDesc := '';
+
                             if BLERec."Color Sensitive" = false then begin
                                 Message('Color Sensitivity not selected. Cannot proceed.');
                                 exit;
@@ -459,10 +462,13 @@ page 71012680 "BOM Card"
                                 SubCat := ItemMasterRec."Sub Category No.";
                                 SubCatDesc := ItemMasterRec."Sub Category Name";
                             end
-                            else begin
-                                SubCat := '';
-                                SubCatDesc := '';
-                            end;
+                            else
+                                Error('Sub Category is blank for the item : %1', BLERec."Item Name");
+
+                            // else begin
+                            //     SubCat := '';
+                            //     SubCatDesc := '';
+                            // end;
 
 
                             // //Check whether already "po raised"items are there, then do not insert
@@ -7708,6 +7714,7 @@ page 71012680 "BOM Card"
                 SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
                 SalesHeaderRec."No." := NextOrderNo;
                 SalesHeaderRec."Posting Date" := WorkDate();
+                SalesHeaderRec."Requested Delivery Date" := StyMasterPORec."Ship Date";
                 SalesHeaderRec."Order Date" := WorkDate();
                 SalesHeaderRec.Validate("Sell-to Customer No.", "Buyer No.");
                 //SalesHeaderRec.Validate("Bill-to Customer No.", "Buyer No.");                

@@ -435,10 +435,10 @@ page 50549 "Payable Chart - Approved"
                     GenJournalRec."Journal Template Name" := NavAppSetupRec."Pay. Gen. Jrn. Template Name";
                     GenJournalRec."Journal Batch Name" := NavAppSetupRec."Pay. Gen. Jrn. Batch Name";
                     GenJournalRec."Line No." := LineNo;
-                    GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::"G/L Account");
-                    GenJournalRec.Validate("Account No.", NavAppSetupRec."Account No");
-                    GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"G/L Account");
-                    GenJournalRec.Validate("Bal. Account No.", NavAppSetupRec."Bal Account No");
+                    GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::Customer);
+                    //GenJournalRec.Validate("Account No.", NavAppSetupRec."Account No");
+                    GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
+                    //GenJournalRec.Validate("Bal. Account No.", NavAppSetupRec."Bal Account No");
                     GenJournalRec."Document Type" := GenJournalRec."Document Type"::Payment;
                     GenJournalRec."Document No." := "AccNo.";
                     GenJournalRec."Document Date" := WorkDate();
@@ -451,10 +451,7 @@ page 50549 "Payable Chart - Approved"
                     GenJournalRec.Insert();
 
                     CurrPage.Update();
-
                     PayJrnlPage.Run();
-
-                    //Message('Completed');
 
                 end;
             }

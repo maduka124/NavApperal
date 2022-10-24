@@ -3,10 +3,7 @@ page 50673 "FabricProceList"
     PageType = List;
     SourceTable = FabricProceHeader;
     CardPageId = FabricProceCard;
-    // SourceTableView = sorting(, "Suppler Name") order(ascending);
-    // SourceTableView=sorting("Created Date")
-    SourceTableView = sorting("Created Date") order(descending);
-    // SourceTableView = sorting("Req No") order(descending);
+    SourceTableView = sorting("FabricProceNo.") order(descending);
 
     layout
     {

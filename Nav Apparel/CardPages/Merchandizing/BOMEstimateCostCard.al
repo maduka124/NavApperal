@@ -35,6 +35,7 @@ page 71012769 "BOM Estimate Cost Card"
                         BOMEstCostRec: Record "BOM Estimate Cost";
                         StyleRec: Record "Style Master";
                         NavAppSetup: Record "NavApp Setup";
+                        CostPlanParaLineRec: Record CostingPlanningParaLine;
                     begin
 
                         if "FOB Pcs" = 0 then
@@ -75,13 +76,30 @@ page 71012769 "BOM Estimate Cost Card"
                         LoadCategoryDetails();
                         CalRawMat();
 
-                        //get Costing SMV
+                        //Get Costing SMV
                         StyleRec.Reset();
                         StyleRec.SetRange("No.", BOMRec."Style No.");
                         StyleRec.FindSet();
-                        //SMV := StyleRec.SMV;
 
-                        SMV := StyleRec.CostingSMV;
+                        if StyleRec.CostingSMV = 0 then
+                            Error('Costing SMV is zero')
+                        else begin
+                            SMV := StyleRec.CostingSMV;
+
+                            //Get Project efficiency                          
+                            CostPlanParaLineRec.Reset();
+                            CostPlanParaLineRec.SetFilter("From SMV", '<=%1', SMV);
+                            CostPlanParaLineRec.SetFilter("To SMV", '>=%1', SMV);
+                            CostPlanParaLineRec.SetFilter("From Qty", '<=%1', Quantity);
+                            CostPlanParaLineRec.SetFilter("To Qty", '>=%1', Quantity);
+                            if CostPlanParaLineRec.FindSet() then
+                                "Project Efficiency." := CostPlanParaLineRec."Costing Eff%"
+                            else
+                                Error('Project efficiency is not setup in the Costing/Planning Parameter');
+                        end;
+
+                        CalMFGCost();
+                        CalTotalCost();
 
                     end;
                 }
@@ -97,6 +115,7 @@ page 71012769 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -113,6 +132,7 @@ page 71012769 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -129,6 +149,7 @@ page 71012769 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -147,6 +168,7 @@ page 71012769 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -163,6 +185,7 @@ page 71012769 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -180,6 +203,7 @@ page 71012769 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -195,12 +219,14 @@ page 71012769 "BOM Estimate Cost Card"
                 field(Quantity; Quantity)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Currency No."; "Currency No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Currency';
+                    Editable = false;
                 }
             }
 
@@ -436,21 +462,21 @@ page 71012769 "BOM Estimate Cost Card"
                             CurrPage.Update();
                             CalMFGCost();
                             CalTotalCost();
-                        end;
+                        end
+                        else
+                            Error('CPM is not setup for the factory : %1', "Factory Name");
 
                         CurrPage.Update();
                     end;
                 }
 
-
                 field(SMV; SMV)
                 {
                     ApplicationArea = All;
-                    Editable = true;
+                    Editable = false;
 
                     trigger OnValidate()
                     var
-
                     begin
                         CalMFGCost();
                         CalTotalCost();
@@ -460,10 +486,10 @@ page 71012769 "BOM Estimate Cost Card"
                 field(CPM; CPM)
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
                     trigger OnValidate()
                     var
-
                     begin
                         CalMFGCost();
                         CalTotalCost();
@@ -473,10 +499,10 @@ page 71012769 "BOM Estimate Cost Card"
                 field("Project Efficiency."; "Project Efficiency.")
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
                     trigger OnValidate()
                     var
-
                     begin
                         CalMFGCost();
                         CalTotalCost();
@@ -489,7 +515,6 @@ page 71012769 "BOM Estimate Cost Card"
 
                     trigger OnValidate()
                     var
-
                     begin
                         CalMFGCost();
                         CalTotalCost();

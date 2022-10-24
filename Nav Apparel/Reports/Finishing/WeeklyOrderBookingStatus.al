@@ -152,7 +152,6 @@ report 50638 WeeklyOrderBookingStatus
                     {
                         ApplicationArea = All;
                         Caption = 'Month Start Date';
-
                     }
                     field(endDate; endDate)
                     {
@@ -160,31 +159,16 @@ report 50638 WeeklyOrderBookingStatus
                         Caption = 'Month End Date';
                         trigger OnValidate()
                         var
-
                         begin
                             endDate := stDate + 30;
                         end;
                     }
                 }
             }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
+        }        
     }
 
-
     var
-
         StyleRec: Record "Style Master";
         WeekNo: Integer;
         firstWeek: BigInteger;
@@ -198,6 +182,4 @@ report 50638 WeeklyOrderBookingStatus
         endDate: Date;
         MoNO: Integer;
         comRec: Record "Company Information";
-
-
 }

@@ -13,6 +13,7 @@ page 71012731 "Style Master PO ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Lot No';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -44,6 +45,7 @@ page 71012731 "Style Master PO ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -63,6 +65,7 @@ page 71012731 "Style Master PO ListPart"
                 field(Qty; Qty)
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -96,6 +99,7 @@ page 71012731 "Style Master PO ListPart"
                 field("Ship Date"; "Ship Date")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
                 field(SID; SID)
@@ -144,5 +148,14 @@ page 71012731 "Style Master PO ListPart"
         end;
     end;
 
+
+    trigger OnQueryClosePage(CloseAction: Action): Boolean
+    var
+    begin
+        rec.TestField("Lot No.");
+        rec.TestField(Qty);
+        rec.TestField("Ship Date");
+        rec.TestField("PO No.");
+    end;
 
 }

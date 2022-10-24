@@ -172,7 +172,7 @@ table 71012721 "Style Master"
 
         field(71012609; "BPCD"; Date)
         {
-            DataClassification = ToBeClassified;
+            DataClassification = ToBeClassified;            
         }
 
         field(71012610; "LC No/Contract"; Text[50])

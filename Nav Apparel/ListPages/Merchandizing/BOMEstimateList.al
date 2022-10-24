@@ -61,11 +61,11 @@ page 71012693 "Estimate BOM"
                     Caption = 'Garment Type';
                 }
 
-                field("Main Category Name"; "Main Category Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Main Category';
-                }
+                // field("Main Category Name"; "Main Category Name")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Main Category';
+                // }
 
                 // field(Revision; Revision)
                 // {
@@ -99,7 +99,7 @@ page 71012693 "Estimate BOM"
             }
         }
     }
-  
+
 
     trigger OnDeleteRecord(): Boolean
     var

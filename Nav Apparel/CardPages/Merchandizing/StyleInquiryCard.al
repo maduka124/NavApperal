@@ -105,6 +105,7 @@ page 71012723 "Style Inquiry Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -161,6 +162,7 @@ page 71012723 "Style Inquiry Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Size Range';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -189,6 +191,7 @@ page 71012723 "Style Inquiry Card"
                 field("Ship Date"; "Ship Date")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
                 field(Front; Front)
@@ -410,6 +413,23 @@ page 71012723 "Style Inquiry Card"
 
 
         end;
+    end;
+
+
+    trigger OnQueryClosePage(CloseAction: Action): Boolean
+    var
+
+    begin
+        rec.TestField("Style No.");
+        rec.TestField("Store Name");
+        rec.TestField("Season Name");
+        rec.TestField("Brand Name");
+        rec.TestField("Department Name");
+        rec.TestField("Buyer Name");
+        rec.TestField("Garment Type Name");
+        rec.TestField("Size Range Name");
+        rec.TestField("Order Qty");
+        rec.TestField("Ship Date");
     end;
 
 }

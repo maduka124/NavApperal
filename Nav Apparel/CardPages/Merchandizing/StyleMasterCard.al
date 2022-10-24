@@ -91,6 +91,7 @@ page 71012730 "Style Master Card"
                 field(BPCD; BPCD)
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
                 // field("LC No/Contract"; "LC No/Contract")
@@ -149,9 +150,11 @@ page 71012730 "Style Master Card"
         StyleMasterPORec: Record "Style Master PO";
         Tot: BigInteger;
     begin
-        if "Order Qty" = 0 then begin
+
+        rec.TestField(BPCD);
+
+        if "Order Qty" = 0 then
             Error('Order quantity cannot be zero.');
-        end;
 
         //Update Po Total         
         StyleMasterPORec.Reset();
@@ -165,9 +168,8 @@ page 71012730 "Style Master Card"
         "PO Total" := Tot;
         CurrPage.Update();
 
-        if "Order Qty" <> "PO Total" then begin
+        if "Order Qty" <> "PO Total" then
             Error('Order quantity should match PO total.');
-        end;
     end;
 
 
