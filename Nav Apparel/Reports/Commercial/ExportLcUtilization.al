@@ -131,7 +131,8 @@ report 50628 ExportLcUtilizationReport
             }
             trigger OnAfterGetRecord()
             begin
-                stylerec.SetRange(ContractNo, "Contract/LCMaster"."No.");
+                
+                stylerec.SetRange("No.", "Contract/LCStyle"."Style No.");
                 if stylerec.FindFirst() then begin
                     OrderQty := stylerec."Order Qty";
                     ShipDate := stylerec."Ship Date";
