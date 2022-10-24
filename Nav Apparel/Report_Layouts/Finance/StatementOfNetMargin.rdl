@@ -3313,7 +3313,20 @@ VALUE</Value>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value> TO </Value>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>TO</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -3618,9 +3631,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="TotalValueFormat">
           <DataField>TotalValueFormat</DataField>
         </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
         <Field Name="stDate">
           <DataField>stDate</DataField>
         </Field>
@@ -3659,6 +3669,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Commission_PcsFormat">
           <DataField>Commission_PcsFormat</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
         </Field>
         <Field Name="TOT">
           <DataField>TOT</DataField>

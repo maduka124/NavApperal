@@ -22,7 +22,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Fabric Requisition Note</Value>
+                    <Value>FABRIC REQUISITION NOTE</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Calibri</FontFamily>
@@ -40,9 +40,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.3175cm</Top>
-            <Left>5.28849cm</Left>
+            <Left>4.99216cm</Left>
             <Height>1.28791cm</Height>
-            <Width>6.985cm</Width>
+            <Width>7.6835cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -566,7 +566,7 @@
             <DataSetName>DataSet_Result</DataSetName>
             <Top>8.88683cm</Top>
             <Left>0.44661cm</Left>
-            <Height>1.22237cm</Height>
+            <Height>1.22238cm</Height>
             <Width>17.11855cm</Width>
             <ZIndex>1</ZIndex>
             <Style>

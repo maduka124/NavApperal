@@ -22,7 +22,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Bin Card</Value>
+                    <Value>BIN CARD</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>18pt</FontSize>
@@ -56,16 +56,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.77063cm</Width>
+                  <Width>2.83229cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.71995cm</Width>
+                  <Width>7.58446cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.43146cm</Width>
+                  <Width>1.88831cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>7.53681cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -495,7 +495,7 @@
             <Top>1.87537cm</Top>
             <Left>0.02328cm</Left>
             <Height>1.75563cm</Height>
-            <Width>15.42204cm</Width>
+            <Width>19.84187cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>

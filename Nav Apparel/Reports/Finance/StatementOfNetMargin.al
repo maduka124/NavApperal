@@ -19,8 +19,8 @@ report 50637 StatementOfNetMargin
             { }
             column(TotalValue; Qty * "Unit Price")
             { }
-            column(Description; Description)
-            { }
+            // column(Description; Description)
+            // { }
             column(stDate; stDate)
             { }
             column(endDate; endDate)
@@ -44,6 +44,8 @@ report 50637 StatementOfNetMargin
                 { }
                 column(Commission_Pcs; "Commission Pcs")
                 { }
+                column(Description; "Style No.")
+                { }
 
                 column(TOT; "Washing (Dz.)" + "Raw Material (Dz.)" + "Commission Pcs" + "Profit Margin Pcs" + "Commercial Pcs")
                 { }
@@ -61,6 +63,7 @@ report 50637 StatementOfNetMargin
                     { }
                     column(Vendor; vendor)
                     { }
+
                     trigger OnPreDataItem()
                     begin
                         SetRange("Buyer No.", buyerName);
