@@ -96,7 +96,7 @@ report 50632 ProcessLayoutReport
                     field(StyleFilter; StyleFilter)
                     {
                         ApplicationArea = All;
-                        Caption = 'Style No';
+                        Caption = 'Style';
                         TableRelation = "Style Master"."No.";
 
                     }

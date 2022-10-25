@@ -96,6 +96,8 @@ report 50614 ManningLevelsReport
 
             begin
                 SetRange("Style No.", StyleFilter);
+                SetRange("Line No.", LineFilter);
+
             end;
 
             trigger OnAfterGetRecord()
@@ -120,9 +122,16 @@ report 50614 ManningLevelsReport
                     field(StyleFilter; StyleFilter)
                     {
                         ApplicationArea = All;
-                        Caption = 'Style No';
+                        Caption = 'Style';
                         TableRelation = "Style Master"."No.";
 
+                    }
+                    field(LineFilter; LineFilter)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Line';
+                        TableRelation = "Work Center"."No.";
+                        
                     }
                 }
             }
@@ -149,4 +158,5 @@ report 50614 ManningLevelsReport
         styleRec: Record "Style Master";
         StyleFilter: Text[50];
         comRec: Record "Company Information";
+        LineFilter: Code[20];
 }
