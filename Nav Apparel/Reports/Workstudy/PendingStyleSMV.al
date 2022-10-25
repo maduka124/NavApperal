@@ -62,7 +62,7 @@ report 50640 PendingStyleSMV
                 //else
                 //    vis1 := false;
                 "Style Master".SetRange("Factory Code", UserReC."Factory Code");
-                
+
             end;
         }
     }
@@ -73,16 +73,17 @@ report 50640 PendingStyleSMV
         {
             area(Content)
             {
-                group(GroupName)
-                {
-                    Caption = 'Filter By';
-                    field(FactoryCode; FactoryCode)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Factory';
-                        Visible = false;
-                    }
-                }
+                // group(GroupName)
+                // {
+                //     Caption = 'Filter By';
+                    
+                //     field(FactoryCode; FactoryCode)
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'Factory';
+                //         Visible = false;
+                //     }
+                // }
             }
         }
 

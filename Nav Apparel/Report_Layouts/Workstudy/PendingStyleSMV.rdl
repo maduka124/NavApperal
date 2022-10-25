@@ -22,12 +22,12 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Pending Styles for SMV as @</Value>
+                    <Value>PENDING STYLES FOR SMV AS @</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>18pt</FontSize>
                       <FontWeight>Bold</FontWeight>
-                      <TextDecoration>None</TextDecoration>
+                      <TextDecoration>Underline</TextDecoration>
                     </Style>
                   </TextRun>
                   <TextRun>
@@ -37,7 +37,7 @@
                       <FontSize>18pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                       <Format>d</Format>
-                      <TextDecoration>None</TextDecoration>
+                      <TextDecoration>Underline</TextDecoration>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -50,7 +50,7 @@
             <Top>0.37042cm</Top>
             <Left>0.06265cm</Left>
             <Height>1.19062cm</Height>
-            <Width>12.54126cm</Width>
+            <Width>15.33293cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -336,7 +336,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>STYLE</Value>
+                                  <Value>STYLE DESC.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>

@@ -27,8 +27,7 @@ report 50628 ExportLcUtilizationReport
             { }
             column(BBLC; BBLC)
             { }
-            column(OrderQty; OrderQty)
-            { }
+
             column(ShipDate; ShipDate)
             { }
             column(Amount; Amount)
@@ -115,6 +114,8 @@ report 50628 ExportLcUtilizationReport
                 { }
                 column(Style_No_; "Style No.")
                 { }
+                column(OrderQty; OrderQty)
+                { }
 
 
                 trigger OnAfterGetRecord()
@@ -125,18 +126,19 @@ report 50628 ExportLcUtilizationReport
                     if StylePoRec.FindFirst() then begin
                         UniPrice := StylePoRec."Unit Price";
                     end;
+                    stylerec.SetRange("No.", "Contract/LCStyle"."Style No.");
+                    if stylerec.FindFirst() then begin
+                        OrderQty := stylerec."Order Qty";
+                        ShipDate := stylerec."Ship Date";
+                    end;
+
 
                 end;
 
             }
             trigger OnAfterGetRecord()
             begin
-                
-                stylerec.SetRange("No.", "Contract/LCStyle"."Style No.");
-                if stylerec.FindFirst() then begin
-                    OrderQty := stylerec."Order Qty";
-                    ShipDate := stylerec."Ship Date";
-                end;
+
 
                 ContractAmountRec.SetRange("No.", "Contract/LCMaster"."No.");
                 if ContractAmountRec.FindFirst() then begin
