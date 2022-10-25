@@ -99,6 +99,22 @@ page 50635 "Roll Issuing Note Card"
                     ApplicationArea = All;
                     ShowMandatory = true;
                     TableRelation = StyleWiseGRN."GRN No." where("User ID" = field("GRN Filter User ID"));
+
+                    trigger OnValidate()
+                    var
+                        GRNLineRec: Record "Purch. Rcpt. Line";
+                        LocRec: Record Location;
+                    begin
+                        GRNLineRec.Reset();
+                        GRNLineRec.SetRange("Document No.", "GRN No");
+                        GRNLineRec.SetFilter(Type, '%1', GRNLineRec.Type::Item);
+                        if GRNLineRec.FindSet() then begin
+                            "Location Code" := GRNLineRec."Location Code";
+                            LocRec.Reset();
+                            LocRec.Get(GRNLineRec."Location Code");
+                            "Location Name" := LocRec.Name;
+                        end;
+                    end;
                 }
 
                 field("Item Name"; "Item Name")
@@ -204,7 +220,6 @@ page 50635 "Roll Issuing Note Card"
     var
         FabricProceHeaderRec: Record FabricProceHeader;
         FabricProceLineRec: Record FabricProceLine;
-        RoleIssuingNoteHeaderRec: Record RoleIssuingNoteHeader;
         RoleIssuLineRec: Record RoleIssuingNoteLine;
         Lineno: BigInteger;
     begin
@@ -241,8 +256,10 @@ page 50635 "Roll Issuing Note Card"
                 RoleIssuLineRec."Length Allocated" := FabricProceLineRec."Act. Legth";
                 RoleIssuLineRec."Width Act" := FabricProceLineRec."Act. Width";
                 RoleIssuLineRec."Width Tag" := FabricProceLineRec.Width;
-                //RoleIssuLineRec.InvoiceNo := FabricProceLineRec.InvoiceNo;
                 RoleIssuLineRec."Role ID" := FabricProceLineRec."Roll No";
+                RoleIssuLineRec."Shade No" := FabricProceLineRec."Shade No";
+                RoleIssuLineRec.Shade := FabricProceLineRec.Shade;
+                //RoleIssuLineRec.InvoiceNo := FabricProceLineRec.InvoiceNo;
                 //RoleIssuLineRec."Supplier Batch No." := FabricProceLineRec.;
                 //RoleIssuLineRec. := FabricProceLineRec.Qty;
                 RoleIssuLineRec.Insert();
