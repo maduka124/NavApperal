@@ -1311,7 +1311,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>3.18947cm</Top>
+            <Top>3.82447cm</Top>
             <Left>0.686cm</Left>
             <Height>1.63452cm</Height>
             <Width>26.548cm</Width>
@@ -1323,7 +1323,7 @@
             </Style>
           </Tablix>
           <Line Name="Line1">
-            <Top>5.52662cm</Top>
+            <Top>6.16162cm</Top>
             <Left>0.69956cm</Left>
             <Height>0cm</Height>
             <Width>26.53442cm</Width>
@@ -1582,7 +1582,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1759,7 +1759,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>6.06636cm</Top>
+            <Top>6.70136cm</Top>
             <Left>0.686cm</Left>
             <Height>1.33168cm</Height>
             <Width>8.83278cm</Width>
@@ -1792,7 +1792,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>7.5471cm</Height>
+        <Height>8.45637cm</Height>
         <Style />
       </Body>
       <Width>27.96137cm</Width>
