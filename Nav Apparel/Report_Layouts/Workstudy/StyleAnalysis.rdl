@@ -11,6 +11,88 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Created_User">
+          <DataField>Created_User</DataField>
+        </Field>
+        <Field Name="Created_Date">
+          <DataField>Created_Date</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Item_Type_Name">
+          <DataField>Item_Type_Name</DataField>
+        </Field>
+        <Field Name="Garment_Part_Name">
+          <DataField>Garment_Part_Name</DataField>
+        </Field>
+        <Field Name="Machine">
+          <DataField>Machine</DataField>
+        </Field>
+        <Field Name="MachineFormat">
+          <DataField>MachineFormat</DataField>
+        </Field>
+        <Field Name="Manual">
+          <DataField>Manual</DataField>
+        </Field>
+        <Field Name="ManualFormat">
+          <DataField>ManualFormat</DataField>
+        </Field>
+        <Field Name="Total_SMV">
+          <DataField>Total_SMV</DataField>
+        </Field>
+        <Field Name="Total_SMVFormat">
+          <DataField>Total_SMVFormat</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+        </Field>
+        <Field Name="Code">
+          <DataField>Code</DataField>
+        </Field>
+        <Field Name="DescriptionLine">
+          <DataField>DescriptionLine</DataField>
+        </Field>
+        <Field Name="Machine_Name">
+          <DataField>Machine_Name</DataField>
+        </Field>
+        <Field Name="SMV">
+          <DataField>SMV</DataField>
+        </Field>
+        <Field Name="SMVFormat">
+          <DataField>SMVFormat</DataField>
+        </Field>
+        <Field Name="Target_Per_Hour">
+          <DataField>Target_Per_Hour</DataField>
+        </Field>
+        <Field Name="Target_Per_HourFormat">
+          <DataField>Target_Per_HourFormat</DataField>
+        </Field>
+        <Field Name="color">
+          <DataField>color</DataField>
+        </Field>
+        <Field Name="LineType">
+          <DataField>LineType</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1568,7 +1650,11 @@
           </Image>
         </ReportItems>
         <Height>6.42703cm</Height>
-        <Style />
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
       </Body>
       <Width>19.86516cm</Width>
       <Page>
@@ -1721,6 +1807,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1772,86 +1864,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Created_User">
-          <DataField>Created_User</DataField>
-        </Field>
-        <Field Name="Created_Date">
-          <DataField>Created_Date</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Item_Type_Name">
-          <DataField>Item_Type_Name</DataField>
-        </Field>
-        <Field Name="Garment_Part_Name">
-          <DataField>Garment_Part_Name</DataField>
-        </Field>
-        <Field Name="Machine">
-          <DataField>Machine</DataField>
-        </Field>
-        <Field Name="MachineFormat">
-          <DataField>MachineFormat</DataField>
-        </Field>
-        <Field Name="Manual">
-          <DataField>Manual</DataField>
-        </Field>
-        <Field Name="ManualFormat">
-          <DataField>ManualFormat</DataField>
-        </Field>
-        <Field Name="Total_SMV">
-          <DataField>Total_SMV</DataField>
-        </Field>
-        <Field Name="Total_SMVFormat">
-          <DataField>Total_SMVFormat</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Line_No_">
-          <DataField>Line_No_</DataField>
-        </Field>
-        <Field Name="Code">
-          <DataField>Code</DataField>
-        </Field>
-        <Field Name="DescriptionLine">
-          <DataField>DescriptionLine</DataField>
-        </Field>
-        <Field Name="Machine_Name">
-          <DataField>Machine_Name</DataField>
-        </Field>
-        <Field Name="SMV">
-          <DataField>SMV</DataField>
-        </Field>
-        <Field Name="SMVFormat">
-          <DataField>SMVFormat</DataField>
-        </Field>
-        <Field Name="Target_Per_Hour">
-          <DataField>Target_Per_Hour</DataField>
-        </Field>
-        <Field Name="Target_Per_HourFormat">
-          <DataField>Target_Per_HourFormat</DataField>
-        </Field>
-        <Field Name="color">
-          <DataField>color</DataField>
-        </Field>
-        <Field Name="LineType">
-          <DataField>LineType</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
