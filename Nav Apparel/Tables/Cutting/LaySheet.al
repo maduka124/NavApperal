@@ -149,6 +149,14 @@ table 50645 LaySheetHeader
         }
     }
 
+    fieldgroups
+    {
+        fieldgroup(DropDown; "LaySheetNo.", "FabReqNo.", "Style Name")
+        {
+
+        }
+    }
+
 
     trigger OnInsert()
     var
@@ -162,21 +170,6 @@ table 50645 LaySheetHeader
 
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }

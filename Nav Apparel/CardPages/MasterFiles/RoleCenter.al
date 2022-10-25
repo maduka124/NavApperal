@@ -980,10 +980,10 @@ page 71012740 "Nav Apperal Role Center"
                 }
             }
 
-            //Work Study
-            group("Work Study")
+            //Industrial Engineering
+            group("Industrial Engineering")
             {
-                Caption = 'Work Study';
+                Caption = 'Industrial Engineering';
 
                 action("Copy Breakdown")
                 {

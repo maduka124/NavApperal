@@ -124,7 +124,7 @@ table 50636 RoleIssuingNoteHeader
 
     fieldgroups
     {
-        fieldgroup(DropDown; "RoleIssuNo.", "Req No.")
+        fieldgroup(DropDown; "RoleIssuNo.", "Req No.", "Style Name")
         {
 
         }

@@ -78,12 +78,6 @@ page 50638 "Roll Issuing Note ListPart"
                     // end;
                 }
 
-                // field(InvoiceNo; InvoiceNo)
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Invoice No';
-                // }
-
                 field("Supplier Batch No."; "Supplier Batch No.")
                 {
                     ApplicationArea = All;
@@ -152,7 +146,10 @@ page 50638 "Roll Issuing Note ListPart"
                         RoleIssueRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
 
                         if RoleIssueRec.FindSet() then begin
-                            RoleIssueRec.ModifyAll("Selected Qty", Qty);
+                            if RoleIssueRec."Required Length" < Qty then
+                                Error('Selected length is over than the required length.')
+                            else
+                                RoleIssueRec.ModifyAll("Selected Qty", Qty);
                         end;
 
                     end;

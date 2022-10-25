@@ -348,7 +348,9 @@ page 50647 "LaySheetCard"
             LaySheetLine1Rec."Created User" := UserId;
             LaySheetLine1Rec.Insert();
 
-        end;
+        end
+        else
+            Error('Cannot find Cut Creation details.');
 
 
         //Get ratio
@@ -435,7 +437,9 @@ page 50647 "LaySheetCard"
             LaySheetLine1Rec."Created User" := UserId;
             LaySheetLine1Rec.Insert();
 
-        end;
+        end
+        else
+            Error('Cannot find Cut Creation details.');
 
 
         //Get Quantity
@@ -522,7 +526,9 @@ page 50647 "LaySheetCard"
             LaySheetLine1Rec."Created User" := UserId;
             LaySheetLine1Rec.Insert();
 
-        end;
+        end
+        else
+            Error('Cannot find Cut Creation details.');
 
     end;
 
@@ -539,6 +545,8 @@ page 50647 "LaySheetCard"
         LaySheetLine2Rec.DeleteAll();
 
         LaySheetLine2Rec.Init();
+        LaySheetLine2Rec."LaySheetNo." := "LaySheetNo.";
+        LaySheetLine2Rec."Line No" := 1;
 
         //Get details from Ratio Creation
         RatioCreRec.Reset();
@@ -551,8 +559,6 @@ page 50647 "LaySheetCard"
 
         if RatioCreRec.FindSet() then begin
 
-            LaySheetLine2Rec."LaySheetNo." := "LaySheetNo.";
-            LaySheetLine2Rec."Line No" := 1;
             LaySheetLine2Rec."Pattern Version" := RatioCreRec."Pattern Version";
             LaySheetLine2Rec."No of Plies" := RatioCreRec.Plies;
 
@@ -565,7 +571,10 @@ page 50647 "LaySheetCard"
             LaySheetLine2Rec."UOM Code" := RatioCreRec."UOM Code";
             LaySheetLine2Rec."UOM" := RatioCreRec."UOM";
 
-        end;
+        end
+        else
+            Error('Cannot find Ratio details.');
+
 
         //Get details from FabricRequsitionLine
         FabReqRec.Reset();
@@ -577,11 +586,12 @@ page 50647 "LaySheetCard"
         FabReqRec.SetRange("Cut No", "Cut No.");
 
         if FabReqRec.FindSet() then begin
-
             LaySheetLine2Rec."Fab. Req. For Lay" := FabReqRec."Required Length";
             LaySheetLine2Rec."Act. Width" := FabReqRec."Marker Width";
+        end
+        else
+            Error('Cannot find Fabric Requisition details.');
 
-        end;
 
         LaySheetLine2Rec."Created User" := UserId;
         LaySheetLine2Rec.Insert();
