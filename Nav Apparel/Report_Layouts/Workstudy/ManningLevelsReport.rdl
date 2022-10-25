@@ -4975,29 +4975,8 @@
         <Height>17.70711cm</Height>
         <Style>
           <Border>
-            <Style>Solid</Style>
-            <Width>0.5pt</Width>
+            <Style>None</Style>
           </Border>
-          <TopBorder>
-            <Color>Black</Color>
-            <Style>Solid</Style>
-            <Width>0.5pt</Width>
-          </TopBorder>
-          <BottomBorder>
-            <Color>Black</Color>
-            <Style>Solid</Style>
-            <Width>0.5pt</Width>
-          </BottomBorder>
-          <LeftBorder>
-            <Color>Black</Color>
-            <Style>Solid</Style>
-            <Width>0.5pt</Width>
-          </LeftBorder>
-          <RightBorder>
-            <Color>Black</Color>
-            <Style>Solid</Style>
-            <Width>0.5pt</Width>
-          </RightBorder>
         </Style>
       </Body>
       <Width>28.63054cm</Width>
