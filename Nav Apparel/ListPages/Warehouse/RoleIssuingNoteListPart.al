@@ -2,6 +2,7 @@ page 50638 "Roll Issuing Note ListPart"
 {
     PageType = ListPart;
     SourceTable = RoleIssuingNoteLine;
+    InsertAllowed = false;
 
     layout
     {
@@ -12,7 +13,7 @@ page 50638 "Roll Issuing Note ListPart"
                 field("Location Name"; "Location Name")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    Visible = false;
 
                     // trigger OnValidate()
                     // var
@@ -77,11 +78,11 @@ page 50638 "Roll Issuing Note ListPart"
                     // end;
                 }
 
-                field(InvoiceNo; InvoiceNo)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Invoice No';
-                }
+                // field(InvoiceNo; InvoiceNo)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Invoice No';
+                // }
 
                 field("Supplier Batch No."; "Supplier Batch No.")
                 {
