@@ -102,7 +102,7 @@ report 50615 StyleAnalysis
                     field(StyleFilter; StyleFilter)
                     {
                         ApplicationArea = All;
-                        Caption = 'Style No';
+                        Caption = 'Style';
                         TableRelation = "Style Master"."No.";
 
                     }

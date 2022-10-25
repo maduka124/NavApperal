@@ -120,7 +120,7 @@ report 50614 ManningLevelsReport
                     field(StyleFilter; StyleFilter)
                     {
                         ApplicationArea = All;
-                        Caption = 'Style No';
+                        Caption = 'Style';
                         TableRelation = "Style Master"."No.";
 
                     }
