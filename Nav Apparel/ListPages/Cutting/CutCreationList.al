@@ -24,6 +24,18 @@ page 50601 "Cut Creation"
                     Caption = 'Style';
                 }
 
+                field("Colour Name"; "Colour Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Color';
+                }
+
+                field("Marker Name"; "Marker Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Marker';
+                }
+
                 field("Group ID"; "Group ID")
                 {
                     ApplicationArea = All;

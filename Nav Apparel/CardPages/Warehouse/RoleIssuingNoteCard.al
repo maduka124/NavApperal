@@ -259,6 +259,7 @@ page 50635 "Roll Issuing Note Card"
                 RoleIssuLineRec."Role ID" := FabricProceLineRec."Roll No";
                 RoleIssuLineRec."Shade No" := FabricProceLineRec."Shade No";
                 RoleIssuLineRec.Shade := FabricProceLineRec.Shade;
+                RoleIssuLineRec."PTTN GRP" := FabricProceLineRec."PTTN GRP";
                 //RoleIssuLineRec.InvoiceNo := FabricProceLineRec.InvoiceNo;
                 //RoleIssuLineRec."Supplier Batch No." := FabricProceLineRec.;
                 //RoleIssuLineRec. := FabricProceLineRec.Qty;

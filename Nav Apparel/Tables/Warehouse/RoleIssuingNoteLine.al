@@ -94,6 +94,11 @@ table 50637 RoleIssuingNoteLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(18; "PTTN GRP"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

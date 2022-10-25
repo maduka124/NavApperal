@@ -454,6 +454,8 @@ page 50647 "LaySheetCard"
 
         if CutCreLineRec.FindSet() then begin
 
+            Evaluate(PlyHieght, CutCreLineRec."1");
+
             LaySheetLine1Rec.Init();
             LaySheetLine1Rec."LaySheetNo." := "LaySheetNo.";
             LaySheetLine1Rec."Line No" := 3;
@@ -560,7 +562,8 @@ page 50647 "LaySheetCard"
         if RatioCreRec.FindSet() then begin
 
             LaySheetLine2Rec."Pattern Version" := RatioCreRec."Pattern Version";
-            LaySheetLine2Rec."No of Plies" := RatioCreRec.Plies;
+            //LaySheetLine2Rec."No of Plies" := RatioCreRec.Plies;
+            LaySheetLine2Rec."No of Plies" := PlyHieght;
 
             if RatioCreRec."UOM Code" = 'YDS' then
                 LaySheetLine2Rec.LayLength := (RatioCreRec.Length + ((RatioCreRec."Length Tollarance  " * 2) / 36))
@@ -633,6 +636,7 @@ page 50647 "LaySheetCard"
         RoleIssRec.Reset();
         RoleIssRec.SetRange("RoleIssuNo.", "LaySheetNo.");
         RoleIssRec.SetCurrentKey("Shade No");
+        RoleIssRec.SetFilter(Selected, '=%1', true);
         RoleIssRec.Ascending(true);
 
         if RoleIssRec.FindSet() then begin
@@ -758,4 +762,7 @@ page 50647 "LaySheetCard"
         end;
 
     end;
+
+    Var
+        PlyHieght: Decimal;
 }

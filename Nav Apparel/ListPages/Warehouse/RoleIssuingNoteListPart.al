@@ -90,6 +90,12 @@ page 50638 "Roll Issuing Note ListPart"
                     Editable = false;
                 }
 
+                field("PTTN GRP"; "PTTN GRP")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field("Length Tag"; "Length Tag")
                 {
                     ApplicationArea = All;
