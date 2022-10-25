@@ -164,13 +164,13 @@ table 50473 "Maning Level"
         }
     }
 
-    // fieldgroups
-    // {
-    //     fieldgroup(DropDown; "No.", "Action Type")
-    //     {
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", "Line No.")
+        {
 
-    //     }
-    // }
+        }
+    }
 
     trigger OnInsert()
     var
