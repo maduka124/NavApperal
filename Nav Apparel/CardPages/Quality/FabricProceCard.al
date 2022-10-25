@@ -317,6 +317,8 @@ page 50671 "FabricProceCard"
                         FabricProLineRec."Roll No" := ItemLedEntryRec."Lot No.";
                         FabricProLineRec.YDS := ItemLedEntryRec."Length Tag";
                         FabricProLineRec.Width := ItemLedEntryRec."Width Tag";
+                        FabricProLineRec."Act. Legth" := ItemLedEntryRec."Length Act";
+                        FabricProLineRec."Act. Width" := ItemLedEntryRec."Width Act";
                         FabricProLineRec.MFShade := ItemLedEntryRec.Shade;
                         FabricProLineRec."MFShade No" := ItemLedEntryRec."Shade No";
                         FabricProLineRec.Shade := ItemLedEntryRec.Shade;

@@ -148,6 +148,11 @@ table 50674 "FabricProceLine"
             DataClassification = ToBeClassified;
         }
 
+        field(27; "Act. Legth"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
     }
 
     keys
@@ -161,26 +166,9 @@ table 50674 "FabricProceLine"
 
     trigger OnInsert()
     var
-
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }

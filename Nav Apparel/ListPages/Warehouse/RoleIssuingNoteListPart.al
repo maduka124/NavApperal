@@ -12,28 +12,30 @@ page 50638 "Roll Issuing Note ListPart"
                 field("Location Name"; "Location Name")
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
-                    trigger OnValidate()
-                    var
-                        LocationRec: Record Location;
-                        RoleIssNoteHeadRec: Record RoleIssuingNoteHeader;
-                    begin
+                    // trigger OnValidate()
+                    // var
+                    //     LocationRec: Record Location;
+                    //     Location: Code[20];
+                    //     RoleIssNoteHeadRec: Record RoleIssuingNoteHeader;
+                    //     PurchRecLineRec: Record "Purch. Rcpt. Line";
+                    // begin
+                    //     RoleIssNoteHeadRec.Reset();
+                    //     RoleIssNoteHeadRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
+                    //     if RoleIssNoteHeadRec.FindSet() then
+                    //         "Item No" := RoleIssNoteHeadRec."Item No";
 
-                        LocationRec.Reset();
-                        LocationRec.SetRange(Name, "Location Name");
-                        if LocationRec.FindSet() then
-                            "Location No" := LocationRec.Code;
+                    //     LocationRec.Reset();
+                    //     LocationRec.SetRange(name, "Location Name");
+                    //     if LocationRec.FindSet() then
+                    //         "Location No" := LocationRec.code;
 
-                        RoleIssNoteHeadRec.Reset();
-                        RoleIssNoteHeadRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
-                        if RoleIssNoteHeadRec.FindSet() then
-                            "Item No" := RoleIssNoteHeadRec."Item No";
-
-                        CurrPage.Update();
-                        Generate_Role_Details();
-                        CurrPage.Update();
-
-                    end;
+                    //     "Role Filter User ID" := UserId;
+                    //     CurrPage.Update();
+                    //     Generate_Role_Details();
+                    //     CurrPage.Update();
+                    // end;
                 }
 
                 field("Role ID"; "Role ID")
@@ -41,38 +43,38 @@ page 50638 "Roll Issuing Note ListPart"
                     ApplicationArea = All;
                     Caption = 'Roll ID';
 
-                    trigger OnValidate()
-                    var
-                        ItemLedgerEnRec: Record "Item Ledger Entry";
-                        FabricProceLineRec: Record FabricProceLine;
-                    begin
+                    // trigger OnValidate()
+                    // var
+                    //     ItemLedgerEnRec: Record "Item Ledger Entry";
+                    //     FabricProceLineRec: Record FabricProceLine;
+                    // begin
 
-                        ItemLedgerEnRec.Reset();
-                        ItemLedgerEnRec.SetRange("Item No.", "Item No");
-                        ItemLedgerEnRec.SetRange("Location Code", "Location No");
-                        ItemLedgerEnRec.SetRange("Lot No.", "Role ID");
+                    //     ItemLedgerEnRec.Reset();
+                    //     ItemLedgerEnRec.SetRange("Item No.", "Item No");
+                    //     ItemLedgerEnRec.SetRange("Location Code", "Location No");
+                    //     ItemLedgerEnRec.SetRange("Lot No.", "Role ID");
 
-                        if ItemLedgerEnRec.FindSet() then begin
-                            "Supplier Batch No." := ItemLedgerEnRec."Supplier Batch No.";
-                            // Shade := ItemLedgerEnRec.Shade;
-                            // "Shade No" := ItemLedgerEnRec."Shade No";
-                            "Length Tag" := ItemLedgerEnRec."Length Tag";
-                            "Length Act" := ItemLedgerEnRec."Length Act";
-                            "Width Tag" := ItemLedgerEnRec."Width Tag";
-                            "Width Act" := ItemLedgerEnRec."Width Act";
-                        end;
+                    //     if ItemLedgerEnRec.FindSet() then begin
+                    //         "Supplier Batch No." := ItemLedgerEnRec."Supplier Batch No.";
+                    //         // Shade := ItemLedgerEnRec.Shade;
+                    //         // "Shade No" := ItemLedgerEnRec."Shade No";
+                    //         "Length Tag" := ItemLedgerEnRec."Length Tag";
+                    //         "Length Act" := ItemLedgerEnRec."Length Act";
+                    //         "Width Tag" := ItemLedgerEnRec."Width Tag";
+                    //         "Width Act" := ItemLedgerEnRec."Width Act";
+                    //     end;
 
-                        //Get shade
-                        FabricProceLineRec.Reset();
-                        FabricProceLineRec.SetRange("Item No", "Item No");
-                        FabricProceLineRec.SetRange("Roll No", "Role ID");
+                    //     //Get shade
+                    //     FabricProceLineRec.Reset();
+                    //     FabricProceLineRec.SetRange("Item No", "Item No");
+                    //     FabricProceLineRec.SetRange("Roll No", "Role ID");
 
-                        if FabricProceLineRec.FindSet() then begin
-                            Shade := FabricProceLineRec.Shade;
-                            "Shade No" := FabricProceLineRec."Shade No";
-                        end;
+                    //     if FabricProceLineRec.FindSet() then begin
+                    //         Shade := FabricProceLineRec.Shade;
+                    //         "Shade No" := FabricProceLineRec."Shade No";
+                    //     end;
 
-                    end;
+                    // end;
                 }
 
                 field(InvoiceNo; InvoiceNo)
@@ -86,11 +88,6 @@ page 50638 "Roll Issuing Note ListPart"
                     ApplicationArea = All;
                     Caption = 'Supplier Batch No';
                 }
-
-                // field("Shade No"; "Shade No")
-                // {
-                //     ApplicationArea = All;
-                // }
 
                 field(Shade; Shade)
                 {
@@ -184,10 +181,11 @@ page 50638 "Roll Issuing Note ListPart"
 
         //Delete old records
         RoleIDDetailsRec.Reset();
-        RoleIDDetailsRec.SetRange("Location No", "Location No");
-        RoleIDDetailsRec.SetRange("Item No", "Item No");
-        //if RoleIDDetailsRec.FindSet() then
-        RoleIDDetailsRec.DeleteAll();
+        RoleIDDetailsRec.SetRange("Role ID Filter User", "Role Filter User ID");
+        // RoleIDDetailsRec.SetRange("Location No", "Location No");
+        // RoleIDDetailsRec.SetRange("Item No", "Item No");
+        if RoleIDDetailsRec.FindSet() then
+            RoleIDDetailsRec.DeleteAll();
 
 
         //Get Max entry no
@@ -202,6 +200,7 @@ page 50638 "Roll Issuing Note ListPart"
         ItemLedEnRec.SetRange("Location Code", "Location No");
         ItemLedEnRec.SetRange("Item No.", "Item No");
         ItemLedEnRec.SetRange("Document No.", GRNNo);
+
         if ItemLedEnRec.FindSet() then begin
 
             repeat
@@ -242,6 +241,7 @@ page 50638 "Roll Issuing Note ListPart"
                     RoleIDDetailsRec."Location Name" := LocRec.Name;
                     RoleIDDetailsRec."Role ID" := ItemLedEnRec."Lot No.";
                     RoleIDDetailsRec."Supplier Batch No." := ItemLedEnRec."Supplier Batch No.";
+                    RoleIDDetailsRec."Role ID Filter User" := UserId;
                     RoleIDDetailsRec.Qty := ItemLedEnRec.Quantity;
                     RoleIDDetailsRec.Insert();
 
@@ -252,9 +252,11 @@ page 50638 "Roll Issuing Note ListPart"
                     RoleIDDetailsRec.SetRange("Item No", ItemLedEnRec."Item No.");
                     RoleIDDetailsRec.SetRange("Location No", ItemLedEnRec."Location Code");
                     RoleIDDetailsRec.SetRange("Role ID", ItemLedEnRec."Lot No.");
-                    RoleIDDetailsRec.FindSet();
-                    RoleIDDetailsRec.Qty := RoleIDDetailsRec.Qty + ItemLedEnRec.Quantity;
-                    RoleIDDetailsRec.Modify();
+                    RoleIDDetailsRec."Role ID Filter User" := UserId;
+                    if RoleIDDetailsRec.FindSet() then begin
+                        RoleIDDetailsRec.Qty := RoleIDDetailsRec.Qty + ItemLedEnRec.Quantity;
+                        RoleIDDetailsRec.Modify();
+                    end;
 
                 end;
 
