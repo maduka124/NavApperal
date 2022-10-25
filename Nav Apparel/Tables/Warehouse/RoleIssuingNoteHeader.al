@@ -102,6 +102,16 @@ table 50636 RoleIssuingNoteHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(19; "Location Code"; code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(20; "Location Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

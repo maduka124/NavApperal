@@ -24,30 +24,11 @@ page 50678 "FabricProceListPart"
                     Editable = false;
                 }
 
-                field(YDS; YDS)
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Tag Length';
-                }
-
                 field(MFShade; MFShade)
                 {
                     ApplicationArea = All;
                     Caption = 'Manufacturer Shade';
                     Editable = false;
-                }
-
-                field(Width; Width)
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Tag Width';
-                }
-
-                field("Act. Width"; "Act. Width")
-                {
-                    ApplicationArea = All;
                 }
 
                 field(Shade; Shade)
@@ -66,6 +47,31 @@ page 50678 "FabricProceListPart"
                         CurrPage.Update();
 
                     end;
+                }
+
+
+                field(YDS; YDS)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Tag Length';
+                }
+
+                field(Width; Width)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Tag Width';
+                }
+
+                field("Act. Width"; "Act. Width")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Act. Legth"; "Act. Legth")
+                {
+                    ApplicationArea = All;
                 }
 
                 field("BW. Length"; "BW. Length")

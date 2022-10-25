@@ -31,7 +31,7 @@ table 50637 RoleIssuingNoteLine
         field(5; "Role ID"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = RoleIDDetails."Role ID" where("Item No" = field("Item No"), "Location No" = field("Location No"), Qty = filter(<> 0));
+            TableRelation = RoleIDDetails."Role ID" where("Item No" = field("Item No"), "Location No" = field("Location No"), Qty = filter(<> 0), "Role ID Filter User" = field("Role Filter User ID"));
             ValidateTableRelation = false;
         }
 
@@ -89,6 +89,11 @@ table 50637 RoleIssuingNoteLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(17; "Role Filter User ID"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -100,25 +105,5 @@ table 50637 RoleIssuingNoteLine
     }
 
 
-    trigger OnInsert()
-    var
-    begin
-
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
 
 }

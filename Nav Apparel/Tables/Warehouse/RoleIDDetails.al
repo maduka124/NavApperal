@@ -85,6 +85,11 @@ table 50643 RoleIDDetails
         {
             DataClassification = ToBeClassified;
         }
+
+        field(17; "Role ID Filter User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -118,6 +118,9 @@ page 50635 "Roll Issuing Note Card"
                             ItemRec.CalcFields(Inventory);
                             OnHandQty := ItemRec.Inventory;
                         end;
+
+                        Generate_Role_Details();
+
                     end;
                 }
 
@@ -195,5 +198,58 @@ page 50635 "Roll Issuing Note Card"
             NoSeriesMngment.SetSeries("RoleIssuNo.");
             EXIT(TRUE);
         END;
+    end;
+
+    procedure Generate_Role_Details()
+    var
+        FabricProceHeaderRec: Record FabricProceHeader;
+        FabricProceLineRec: Record FabricProceLine;
+        RoleIssuingNoteHeaderRec: Record RoleIssuingNoteHeader;
+        RoleIssuLineRec: Record RoleIssuingNoteLine;
+        Lineno: BigInteger;
+    begin
+
+        //Delete old records
+        RoleIssuLineRec.Reset();
+        RoleIssuLineRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
+        if RoleIssuLineRec.FindSet() then
+            RoleIssuLineRec.DeleteAll();
+
+        FabricProceHeaderRec.Reset();
+        FabricProceHeaderRec.SetRange("Style No.", "Style No.");
+        FabricProceHeaderRec.SetRange(GRN, "GRN No");
+        FabricProceHeaderRec.SetRange("Color No", "Colour No");
+        FabricProceHeaderRec.SetRange("Item No", "Item No");
+        FabricProceHeaderRec.FindSet();
+
+        FabricProceLineRec.Reset();
+        FabricProceLineRec.SetRange("FabricProceNo.", FabricProceHeaderRec."FabricProceNo.");
+
+        if FabricProceLineRec.FindSet() then begin
+
+            repeat
+
+                Lineno += 1;
+                RoleIssuLineRec.Init();
+                RoleIssuLineRec."RoleIssuNo." := "RoleIssuNo.";
+                RoleIssuLineRec."Line No." := Lineno;
+                RoleIssuLineRec."Location No" := "Location Code";
+                RoleIssuLineRec."Location Name" := "Location Name";
+                RoleIssuLineRec."Item No" := "Item No";
+                RoleIssuLineRec."Length Act" := FabricProceLineRec."Act. Legth";
+                RoleIssuLineRec."Length Tag" := FabricProceLineRec.YDS;
+                RoleIssuLineRec."Length Allocated" := FabricProceLineRec."Act. Legth";
+                RoleIssuLineRec."Width Act" := FabricProceLineRec."Act. Width";
+                RoleIssuLineRec."Width Tag" := FabricProceLineRec.Width;
+                //RoleIssuLineRec.InvoiceNo := FabricProceLineRec.InvoiceNo;
+                RoleIssuLineRec."Role ID" := FabricProceLineRec."Roll No";
+                //RoleIssuLineRec."Supplier Batch No." := FabricProceLineRec.;
+                //RoleIssuLineRec. := FabricProceLineRec.Qty;
+                RoleIssuLineRec.Insert();
+
+            until FabricProceLineRec.Next() = 0;
+
+        end;
+
     end;
 }
