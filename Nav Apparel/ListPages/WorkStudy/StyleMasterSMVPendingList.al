@@ -28,7 +28,7 @@ page 50757 "Style SMV Pending List"
                     begin
                         // Clear(SampleList);
                         // SampleList.LookupMode(true);
-                        NewBrRec.PassParameters("Style No.");
+                        NewBrRec.PassParameters("No.");
                         NewBrRec.Run();
                     end;
                 }

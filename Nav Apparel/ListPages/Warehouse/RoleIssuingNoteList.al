@@ -25,6 +25,12 @@ page 50639 "Role Issuing Note List"
                     Caption = 'Fabric Req. No';
                 }
 
+                field("Style Name"; "Style Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Style';
+                }
+
                 field("Item Name"; "Item Name")
                 {
                     ApplicationArea = All;

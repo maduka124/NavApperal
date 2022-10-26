@@ -106,6 +106,7 @@ page 50599 "Cut Creation Card"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+                    Caption = 'No. of Plies';
                 }
             }
 

@@ -153,7 +153,7 @@ codeunit 71012752 NavAppCodeUnit
             exit('strongaccent')
         else
             if OpList."Record Type" = 'R' then
-                exit('Favorable');
+                exit('Ambiguous');
 
 
     end;

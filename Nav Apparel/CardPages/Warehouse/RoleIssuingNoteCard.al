@@ -33,6 +33,7 @@ page 50635 "Roll Issuing Note Card"
                         FabricReqRec: Record FabricRequsition;
                         StyleWiseGRNRec: Record StyleWiseGRN;
                         GRNListRec: Record "Purch. Rcpt. Line";
+                        ItemRec: Record Item;
                         DocNo: Text[50];
                     begin
                         FabricReqRec.Reset();
@@ -65,13 +66,21 @@ page 50635 "Roll Issuing Note Card"
                             if GRNListRec.FindSet() then begin
                                 repeat
                                     if DocNo <> GRNListRec."Document No." then begin
-                                        StyleWiseGRNRec.Init();
-                                        StyleWiseGRNRec."User ID" := UserId;
-                                        StyleWiseGRNRec."GRN No." := GRNListRec."Document No.";
-                                        StyleWiseGRNRec."Style Name" := GRNListRec.StyleName;
-                                        StyleWiseGRNRec."Style No" := GRNListRec.StyleNo;
-                                        StyleWiseGRNRec.Insert();
-                                        DocNo := GRNListRec."Document No.";
+
+                                        ItemRec.Reset();
+                                        ItemRec.SetRange("No.", GRNListRec."No.");
+                                        ItemRec.SetFilter("Main Category Name", '=%1', 'FABRIC');
+
+                                        if ItemRec.FindSet() then begin
+                                            StyleWiseGRNRec.Init();
+                                            StyleWiseGRNRec."User ID" := UserId;
+                                            StyleWiseGRNRec."GRN No." := GRNListRec."Document No.";
+                                            StyleWiseGRNRec."Style Name" := GRNListRec.StyleName;
+                                            StyleWiseGRNRec."Style No" := GRNListRec.StyleNo;
+                                            StyleWiseGRNRec.Insert();
+                                            DocNo := GRNListRec."Document No.";
+                                        end;
+
                                     end;
                                 until GRNListRec.Next() = 0;
                             end;

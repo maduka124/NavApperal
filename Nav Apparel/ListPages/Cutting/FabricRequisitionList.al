@@ -20,6 +20,12 @@ page 50621 "FabricRequisitionList"
                     Caption = 'Fabric Requsition No';
                 }
 
+                field("Style Name"; "Style Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Style';
+                }
+
                 field("Colour Name"; "Colour Name")
                 {
                     ApplicationArea = All;

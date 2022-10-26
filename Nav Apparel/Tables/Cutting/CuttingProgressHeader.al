@@ -67,6 +67,16 @@ table 50659 CuttingProgressHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(13; "Style No."; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(14; "Style Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -107,6 +107,16 @@ table 50619 FabricRequsition
         {
             DataClassification = ToBeClassified;
         }
+
+        field(21; "Location Code"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(22; "Location Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

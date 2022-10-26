@@ -2,7 +2,7 @@ page 50616 "Table Creation Card"
 {
     PageType = Card;
     SourceTable = TableCreation;
-    Caption = 'Cutting Table Creation';
+    Caption = 'Cutting Table Planning';
 
     layout
     {

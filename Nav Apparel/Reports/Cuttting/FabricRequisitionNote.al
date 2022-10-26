@@ -36,6 +36,9 @@ report 50606 FabricRequisitionNote
             { }
             column(Style_Name; "Style Name")
             { }
+            column(Location_Name; "Location Name")
+            { }
+
             dataitem(FabricRequsitionLine; FabricRequsitionLine)
             {
                 DataItemLinkReference = FabricRequsition;

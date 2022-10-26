@@ -30,11 +30,27 @@ page 50622 "Fabric Requisition Card"
                     trigger OnValidate()
                     var
                         StyleMasterRec: Record "Style Master";
+                        UserRec: Record "User Setup";
+                        LocationRec: Record Location;
                     begin
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", "Style Name");
                         if StyleMasterRec.FindSet() then
                             "Style No." := StyleMasterRec."No.";
+
+                        //Get location
+
+                        UserRec.Reset();
+                        UserRec.SetRange("User ID", UserId);
+
+                        if UserRec.FindSet() then begin
+                            "Location Code" := UserRec."Factory Code";
+
+                            LocationRec.Reset();
+                            LocationRec.SetRange(Code, UserRec."Factory Code");
+                            if LocationRec.FindSet() then
+                                "Location Name" := LocationRec.Name;
+                        end;
 
                         CurrPage.Update();
                     end;

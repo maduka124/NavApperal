@@ -285,15 +285,15 @@ page 50459 "New Breakdown Card"
         StyleMasterRec: Record "Style Master";
     begin
 
-        if StyleNameGB <> '' then begin
+        if StyleNoGB <> '' then begin
             "No." := NoSeriesManagementCode.GetNextNo('NEWBR Nos', WorkDate(), true);
 
             StyleMasterRec.Reset();
-            StyleMasterRec.SetRange("Style No.", StyleNameGB);
+            StyleMasterRec.SetRange("No.", StyleNoGB);
 
             if StyleMasterRec.FindSet() then begin
-                "Style No." := StyleMasterRec."Style No.";
-                "Style Name" := StyleNameGB;
+                "Style No." := StyleNoGB;
+                "Style Name" := StyleMasterRec."Style No.";
                 "Buyer No." := StyleMasterRec."Buyer No.";
                 "Season No." := StyleMasterRec."Season No.";
                 "Garment Type No." := StyleMasterRec."Garment Type No.";
@@ -354,10 +354,10 @@ page 50459 "New Breakdown Card"
     end;
 
 
-    procedure PassParameters(StyleNamePara: Text[100]);
+    procedure PassParameters(StyleNoPara: code[20]);
     var
     begin
-        StyleNameGB := StyleNamePara;
+        StyleNoGB := StyleNoPara;
     end;
 
 
@@ -376,5 +376,5 @@ page 50459 "New Breakdown Card"
     end;
 
     var
-        StyleNameGB: Text[100];
+        StyleNoGB: Text[100];
 }

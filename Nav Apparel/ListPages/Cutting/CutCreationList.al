@@ -50,6 +50,7 @@ page 50601 "Cut Creation"
                 field("Ply Height"; "Ply Height")
                 {
                     ApplicationArea = All;
+                    Caption = 'No of Plies';
                 }
             }
         }

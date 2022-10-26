@@ -26,6 +26,12 @@ page 50661 "Cutting Progress List"
                     Caption = 'Lay Sheet No';
                 }
 
+                field("Style Name"; "Style Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Style';
+                }
+
                 field("Item Name"; "Item Name")
                 {
                     ApplicationArea = All;

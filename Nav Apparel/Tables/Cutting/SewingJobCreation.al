@@ -80,27 +80,9 @@ table 50585 SewingJobCreation
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("SJC Nos.");
-
         SJCNo := NoSeriesMngment.GetNextNo(NavAppSetup."SJC Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }

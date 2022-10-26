@@ -6,7 +6,7 @@ page 50615 "Table Creation"
     SourceTable = TableCreation;
     CardPageId = "Table Creation Card";
     SourceTableView = sorting(TableCreNo) order(descending);
-
+    Caption = 'Cutting Table Planning';
 
     layout
     {

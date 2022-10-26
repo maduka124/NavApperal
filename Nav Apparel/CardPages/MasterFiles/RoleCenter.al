@@ -818,7 +818,7 @@ page 71012740 "Nav Apperal Role Center"
 
                 action("Table Creation")
                 {
-                    Caption = 'Cutting Table Creation';
+                    Caption = 'Cutting Table Planning';
                     RunObject = Page "Table Creation";
                     ApplicationArea = all;
                 }
