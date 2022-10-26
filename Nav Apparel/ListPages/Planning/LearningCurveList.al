@@ -5,6 +5,7 @@ page 50334 "Learning Curve"
     UsageCategory = Lists;
     SourceTable = "Learning Curve";
     CardPageId = "Learning Curve Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

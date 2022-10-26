@@ -5,6 +5,7 @@ page 71012821 "YY Requsition List"
     UsageCategory = Lists;
     SourceTable = "YY Requsition Header";
     CardPageId = "YY Requsition Card";
+    SourceTableView = sorting("No.") order(descending);
 
 
     layout

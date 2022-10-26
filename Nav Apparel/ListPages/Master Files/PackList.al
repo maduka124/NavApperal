@@ -5,6 +5,7 @@ page 71012625 "Pack List"
     UsageCategory = Lists;
     SourceTable = Pack;
     CardPageId = "Pack Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

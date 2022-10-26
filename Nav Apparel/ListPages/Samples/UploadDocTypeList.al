@@ -5,6 +5,7 @@ page 50416 "Upload Document Type"
     UsageCategory = Lists;
     SourceTable = "Upload Document Type";
     CardPageId = "Upload Document Type Card";
+    SourceTableView = sorting("Doc No.") order(descending);
 
 
     layout

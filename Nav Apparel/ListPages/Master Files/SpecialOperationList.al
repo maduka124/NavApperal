@@ -5,6 +5,7 @@ page 71012643 "Special Operation"
     UsageCategory = Lists;
     SourceTable = "Special Operation";
     CardPageId = "Special Operation Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {
@@ -24,5 +25,5 @@ page 71012643 "Special Operation"
                 }
             }
         }
-    }   
+    }
 }

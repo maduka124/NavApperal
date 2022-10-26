@@ -6,6 +6,7 @@ page 50810 "Dept_CategoriesList1"
     //AutoSplitKey = true;
     SourceTable = Dept_Categories;
     //CardPageId = "Dept_Designations Card";
+    SourceTableView = sorting(No) order(descending);
 
     layout
     {

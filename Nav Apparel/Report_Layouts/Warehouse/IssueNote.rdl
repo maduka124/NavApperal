@@ -11,6 +11,94 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Req_No_">
+          <DataField>Req_No_</DataField>
+        </Field>
+        <Field Name="Item_No">
+          <DataField>Item_No</DataField>
+        </Field>
+        <Field Name="Item_Name">
+          <DataField>Item_Name</DataField>
+        </Field>
+        <Field Name="OnHandQty">
+          <DataField>OnHandQty</DataField>
+        </Field>
+        <Field Name="OnHandQtyFormat">
+          <DataField>OnHandQtyFormat</DataField>
+        </Field>
+        <Field Name="Required_Width">
+          <DataField>Required_Width</DataField>
+        </Field>
+        <Field Name="Required_WidthFormat">
+          <DataField>Required_WidthFormat</DataField>
+        </Field>
+        <Field Name="Required_Length">
+          <DataField>Required_Length</DataField>
+        </Field>
+        <Field Name="Required_LengthFormat">
+          <DataField>Required_LengthFormat</DataField>
+        </Field>
+        <Field Name="Selected_Qty">
+          <DataField>Selected_Qty</DataField>
+        </Field>
+        <Field Name="Selected_QtyFormat">
+          <DataField>Selected_QtyFormat</DataField>
+        </Field>
+        <Field Name="UOM">
+          <DataField>UOM</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Role_ID">
+          <DataField>Role_ID</DataField>
+        </Field>
+        <Field Name="Supplier_Batch_No_">
+          <DataField>Supplier_Batch_No_</DataField>
+        </Field>
+        <Field Name="Shade">
+          <DataField>Shade</DataField>
+        </Field>
+        <Field Name="Length_Tag">
+          <DataField>Length_Tag</DataField>
+        </Field>
+        <Field Name="Length_TagFormat">
+          <DataField>Length_TagFormat</DataField>
+        </Field>
+        <Field Name="Length_Act">
+          <DataField>Length_Act</DataField>
+        </Field>
+        <Field Name="Length_ActFormat">
+          <DataField>Length_ActFormat</DataField>
+        </Field>
+        <Field Name="Width_Act">
+          <DataField>Width_Act</DataField>
+        </Field>
+        <Field Name="Width_ActFormat">
+          <DataField>Width_ActFormat</DataField>
+        </Field>
+        <Field Name="Width_Tag">
+          <DataField>Width_Tag</DataField>
+        </Field>
+        <Field Name="Width_TagFormat">
+          <DataField>Width_TagFormat</DataField>
+        </Field>
+        <Field Name="Length_Allocated">
+          <DataField>Length_Allocated</DataField>
+        </Field>
+        <Field Name="Length_AllocatedFormat">
+          <DataField>Length_AllocatedFormat</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -997,6 +1085,7 @@
                                   <Value>=Fields!Length_Tag.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1051,6 +1140,7 @@
                                   <Value>=Fields!Length_Act.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1160,6 +1250,7 @@
                                   <Value>=Fields!Selected_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1214,6 +1305,7 @@
                                   <Value>=Fields!Width_Tag.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1268,6 +1360,7 @@
                                   <Value>=Fields!Width_Act.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1388,6 +1481,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
+                                    <Format>n2</Format>
                                     <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
@@ -1501,6 +1595,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
+                                    <Format>n2</Format>
                                     <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
@@ -2792,6 +2887,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2843,92 +2944,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Req_No_">
-          <DataField>Req_No_</DataField>
-        </Field>
-        <Field Name="Item_No">
-          <DataField>Item_No</DataField>
-        </Field>
-        <Field Name="Item_Name">
-          <DataField>Item_Name</DataField>
-        </Field>
-        <Field Name="OnHandQty">
-          <DataField>OnHandQty</DataField>
-        </Field>
-        <Field Name="OnHandQtyFormat">
-          <DataField>OnHandQtyFormat</DataField>
-        </Field>
-        <Field Name="Required_Width">
-          <DataField>Required_Width</DataField>
-        </Field>
-        <Field Name="Required_WidthFormat">
-          <DataField>Required_WidthFormat</DataField>
-        </Field>
-        <Field Name="Required_Length">
-          <DataField>Required_Length</DataField>
-        </Field>
-        <Field Name="Required_LengthFormat">
-          <DataField>Required_LengthFormat</DataField>
-        </Field>
-        <Field Name="Selected_Qty">
-          <DataField>Selected_Qty</DataField>
-        </Field>
-        <Field Name="Selected_QtyFormat">
-          <DataField>Selected_QtyFormat</DataField>
-        </Field>
-        <Field Name="UOM">
-          <DataField>UOM</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Role_ID">
-          <DataField>Role_ID</DataField>
-        </Field>
-        <Field Name="Supplier_Batch_No_">
-          <DataField>Supplier_Batch_No_</DataField>
-        </Field>
-        <Field Name="Shade">
-          <DataField>Shade</DataField>
-        </Field>
-        <Field Name="Length_Tag">
-          <DataField>Length_Tag</DataField>
-        </Field>
-        <Field Name="Length_TagFormat">
-          <DataField>Length_TagFormat</DataField>
-        </Field>
-        <Field Name="Length_Act">
-          <DataField>Length_Act</DataField>
-        </Field>
-        <Field Name="Length_ActFormat">
-          <DataField>Length_ActFormat</DataField>
-        </Field>
-        <Field Name="Width_Act">
-          <DataField>Width_Act</DataField>
-        </Field>
-        <Field Name="Width_ActFormat">
-          <DataField>Width_ActFormat</DataField>
-        </Field>
-        <Field Name="Width_Tag">
-          <DataField>Width_Tag</DataField>
-        </Field>
-        <Field Name="Width_TagFormat">
-          <DataField>Width_TagFormat</DataField>
-        </Field>
-        <Field Name="Length_Allocated">
-          <DataField>Length_Allocated</DataField>
-        </Field>
-        <Field Name="Length_AllocatedFormat">
-          <DataField>Length_AllocatedFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

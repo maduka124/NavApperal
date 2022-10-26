@@ -5,6 +5,7 @@ page 50639 "Role Issuing Note List"
     UsageCategory = Lists;
     SourceTable = RoleIssuingNoteHeader;
     CardPageId = "Roll Issuing Note Card";
+    SourceTableView = sorting("RoleIssuNo.") order(descending);
 
     layout
     {

@@ -5,6 +5,7 @@ page 71012628 "Plant Type List"
     UsageCategory = Lists;
     SourceTable = "Plant Type";
     CardPageId = "Plant Type Card";
+    SourceTableView = sorting("Plant Type No.") order(descending);
 
     layout
     {

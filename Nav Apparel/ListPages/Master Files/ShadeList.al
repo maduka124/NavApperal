@@ -5,6 +5,7 @@ page 71012637 Shade
     UsageCategory = Lists;
     SourceTable = Shade;
     CardPageId = "Shade Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

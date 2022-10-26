@@ -5,6 +5,7 @@ page 50605 "Ratio Creation"
     UsageCategory = Lists;
     SourceTable = RatioCreation;
     CardPageId = "Ratio Creation Card";
+    SourceTableView = sorting(RatioCreNo) order(descending);
 
 
     layout

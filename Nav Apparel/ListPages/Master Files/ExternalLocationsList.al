@@ -5,6 +5,7 @@ page 50789 ExternalLocationsList
     UsageCategory = Lists;
     SourceTable = ExternalLocations;
     CardPageId = "ExternalLocations Card";
+    SourceTableView = sorting("Location Code") order(descending);
 
 
     layout

@@ -5,6 +5,7 @@ page 50666 "Bundle Guide List"
     UsageCategory = Lists;
     SourceTable = BundleGuideHeader;
     CardPageId = "Bundle Guide Card";
+    SourceTableView = sorting("BundleGuideNo.") order(descending);
 
     layout
     {

@@ -10,29 +10,23 @@ report 50900 BWQCReport
     {
         dataitem(BWQualityCheckHeader; BWQualityCheckHeader)
         {
+             DataItemTableView = sorting("No.");
             column(No_; "No.")
             { }
-
             column(BW_QC_Date; "BW QC Date")
             { }
-
             column(Status; Status)
             { }
-
             column(Sample_Req_No; "Sample Req No")
             { }
-
             column(Pass_Qty; "Pass Qty")
             { }
-
             column(Fail_Qty; "Fail Qty")
             { }
-
             column(Remarks; Remarks)
             { }
             column(CompLogo; comRec.Picture)
             { }
-
             dataitem("Washing Sample Requsition Line"; "Washing Sample Requsition Line")
             {
                 DataItemLinkReference = BWQualityCheckHeader;
@@ -40,10 +34,8 @@ report 50900 BWQCReport
                 DataItemTableView = sorting("No.");
                 column(Line_no_; "Line no.")
                 { }
-
                 column(Fabric_Description; "Fabric Description")
                 { }
-
                 column(Req_Qty; "Req Qty")
                 { }
             }
@@ -86,9 +78,11 @@ report 50900 BWQCReport
             {
                 group(GroupName)
                 {
+                    Caption='Filter By';
                     field("BW QC No"; "BW QC No")
                     {
                         ApplicationArea = All;
+                         Caption='Before Wash No';
                         TableRelation = BWQualityCheckHeader."No.";
 
                     }

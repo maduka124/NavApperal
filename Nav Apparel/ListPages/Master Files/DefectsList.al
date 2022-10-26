@@ -5,6 +5,7 @@ page 71012594 "Defects List"
     UsageCategory = Lists;
     SourceTable = Defects;
     CardPageId = "Defects Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

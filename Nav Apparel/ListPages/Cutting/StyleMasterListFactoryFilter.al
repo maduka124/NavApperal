@@ -2,6 +2,7 @@ page 71012799 "Style Master Filter"
 {
     PageType = List;
     SourceTable = "Style Master";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

@@ -6,6 +6,7 @@ page 50440 "Sample Status List"
     UsageCategory = Lists;
     SourceTable = "Sample Requsition Line";
     Editable = false;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

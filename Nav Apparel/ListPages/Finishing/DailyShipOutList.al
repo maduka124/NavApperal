@@ -4,7 +4,7 @@ page 50365 "Daily Shipping Out"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = ProductionOutHeader;
-    SourceTableView = where(Type = filter('Ship'));
+    SourceTableView = sorting("No.") order(descending) where(Type = filter('Ship'));
     CardPageId = "Daily Shipping Out Card";
 
     layout

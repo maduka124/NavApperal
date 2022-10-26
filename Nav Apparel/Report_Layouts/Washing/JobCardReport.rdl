@@ -11,6 +11,136 @@
       <rd:DataSourceID>7204f9a5-ace1-4b32-9322-6c56bd589122</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Barcode">
+          <DataField>Barcode</DataField>
+        </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Due_Date">
+          <DataField>Due_Date</DataField>
+        </Field>
+        <Field Name="Style_No">
+          <DataField>Style_No</DataField>
+        </Field>
+        <Field Name="Sample_Bulk">
+          <DataField>Sample_Bulk</DataField>
+        </Field>
+        <Field Name="PO">
+          <DataField>PO</DataField>
+        </Field>
+        <Field Name="Wash_Type">
+          <DataField>Wash_Type</DataField>
+        </Field>
+        <Field Name="Hydro_Extractor__Minutes_">
+          <DataField>Hydro_Extractor__Minutes_</DataField>
+        </Field>
+        <Field Name="Hydro_Extractor__Minutes_Format">
+          <DataField>Hydro_Extractor__Minutes_Format</DataField>
+        </Field>
+        <Field Name="Hot_Dryer__Temp__C_">
+          <DataField>Hot_Dryer__Temp__C_</DataField>
+        </Field>
+        <Field Name="Hot_Dryer__Temp__C_Format">
+          <DataField>Hot_Dryer__Temp__C_Format</DataField>
+        </Field>
+        <Field Name="Cool_Dry">
+          <DataField>Cool_Dry</DataField>
+        </Field>
+        <Field Name="Color">
+          <DataField>Color</DataField>
+        </Field>
+        <Field Name="Fabric">
+          <DataField>Fabric</DataField>
+        </Field>
+        <Field Name="Gament_Type">
+          <DataField>Gament_Type</DataField>
+        </Field>
+        <Field Name="Machine_Type">
+          <DataField>Machine_Type</DataField>
+        </Field>
+        <Field Name="Load_Wght__Kg_">
+          <DataField>Load_Wght__Kg_</DataField>
+        </Field>
+        <Field Name="Load_Wght__Kg_Format">
+          <DataField>Load_Wght__Kg_Format</DataField>
+        </Field>
+        <Field Name="Piece_Wght__g_">
+          <DataField>Piece_Wght__g_</DataField>
+        </Field>
+        <Field Name="Piece_Wght__g_Format">
+          <DataField>Piece_Wght__g_Format</DataField>
+        </Field>
+        <Field Name="Remarks_Job_Card">
+          <DataField>Remarks_Job_Card</DataField>
+        </Field>
+        <Field Name="Total_Water_Ltrs_">
+          <DataField>Total_Water_Ltrs_</DataField>
+        </Field>
+        <Field Name="Total_Water_Ltrs_Format">
+          <DataField>Total_Water_Ltrs_Format</DataField>
+        </Field>
+        <Field Name="Process_Time_">
+          <DataField>Process_Time_</DataField>
+        </Field>
+        <Field Name="Process_Time_Format">
+          <DataField>Process_Time_Format</DataField>
+        </Field>
+        <Field Name="Descriptionline">
+          <DataField>Descriptionline</DataField>
+        </Field>
+        <Field Name="Water">
+          <DataField>Water</DataField>
+        </Field>
+        <Field Name="WaterFormat">
+          <DataField>WaterFormat</DataField>
+        </Field>
+        <Field Name="Temp">
+          <DataField>Temp</DataField>
+        </Field>
+        <Field Name="TempFormat">
+          <DataField>TempFormat</DataField>
+        </Field>
+        <Field Name="Step">
+          <DataField>Step</DataField>
+        </Field>
+        <Field Name="Ph">
+          <DataField>Ph</DataField>
+        </Field>
+        <Field Name="PhFormat">
+          <DataField>PhFormat</DataField>
+        </Field>
+        <Field Name="Instruction">
+          <DataField>Instruction</DataField>
+        </Field>
+        <Field Name="Time_Min_">
+          <DataField>Time_Min_</DataField>
+        </Field>
+        <Field Name="Time_Min_Format">
+          <DataField>Time_Min_Format</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="QuantityFormat">
+          <DataField>QuantityFormat</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1362,7 +1492,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0.11204cm</Top>
-            <Left>3.89837cm</Left>
+            <Left>4.53337cm</Left>
             <Height>0.9731cm</Height>
             <Width>14.66629cm</Width>
             <ZIndex>11</ZIndex>
@@ -2813,6 +2943,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2864,134 +3000,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Barcode">
-          <DataField>Barcode</DataField>
-        </Field>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Due_Date">
-          <DataField>Due_Date</DataField>
-        </Field>
-        <Field Name="Style_No">
-          <DataField>Style_No</DataField>
-        </Field>
-        <Field Name="Sample_Bulk">
-          <DataField>Sample_Bulk</DataField>
-        </Field>
-        <Field Name="PO">
-          <DataField>PO</DataField>
-        </Field>
-        <Field Name="Wash_Type">
-          <DataField>Wash_Type</DataField>
-        </Field>
-        <Field Name="Hydro_Extractor__Minutes_">
-          <DataField>Hydro_Extractor__Minutes_</DataField>
-        </Field>
-        <Field Name="Hydro_Extractor__Minutes_Format">
-          <DataField>Hydro_Extractor__Minutes_Format</DataField>
-        </Field>
-        <Field Name="Hot_Dryer__Temp__C_">
-          <DataField>Hot_Dryer__Temp__C_</DataField>
-        </Field>
-        <Field Name="Hot_Dryer__Temp__C_Format">
-          <DataField>Hot_Dryer__Temp__C_Format</DataField>
-        </Field>
-        <Field Name="Cool_Dry">
-          <DataField>Cool_Dry</DataField>
-        </Field>
-        <Field Name="Color">
-          <DataField>Color</DataField>
-        </Field>
-        <Field Name="Fabric">
-          <DataField>Fabric</DataField>
-        </Field>
-        <Field Name="Gament_Type">
-          <DataField>Gament_Type</DataField>
-        </Field>
-        <Field Name="Machine_Type">
-          <DataField>Machine_Type</DataField>
-        </Field>
-        <Field Name="Load_Wght__Kg_">
-          <DataField>Load_Wght__Kg_</DataField>
-        </Field>
-        <Field Name="Load_Wght__Kg_Format">
-          <DataField>Load_Wght__Kg_Format</DataField>
-        </Field>
-        <Field Name="Piece_Wght__g_">
-          <DataField>Piece_Wght__g_</DataField>
-        </Field>
-        <Field Name="Piece_Wght__g_Format">
-          <DataField>Piece_Wght__g_Format</DataField>
-        </Field>
-        <Field Name="Remarks_Job_Card">
-          <DataField>Remarks_Job_Card</DataField>
-        </Field>
-        <Field Name="Total_Water_Ltrs_">
-          <DataField>Total_Water_Ltrs_</DataField>
-        </Field>
-        <Field Name="Total_Water_Ltrs_Format">
-          <DataField>Total_Water_Ltrs_Format</DataField>
-        </Field>
-        <Field Name="Process_Time_">
-          <DataField>Process_Time_</DataField>
-        </Field>
-        <Field Name="Process_Time_Format">
-          <DataField>Process_Time_Format</DataField>
-        </Field>
-        <Field Name="Descriptionline">
-          <DataField>Descriptionline</DataField>
-        </Field>
-        <Field Name="Water">
-          <DataField>Water</DataField>
-        </Field>
-        <Field Name="WaterFormat">
-          <DataField>WaterFormat</DataField>
-        </Field>
-        <Field Name="Temp">
-          <DataField>Temp</DataField>
-        </Field>
-        <Field Name="TempFormat">
-          <DataField>TempFormat</DataField>
-        </Field>
-        <Field Name="Step">
-          <DataField>Step</DataField>
-        </Field>
-        <Field Name="Ph">
-          <DataField>Ph</DataField>
-        </Field>
-        <Field Name="PhFormat">
-          <DataField>PhFormat</DataField>
-        </Field>
-        <Field Name="Instruction">
-          <DataField>Instruction</DataField>
-        </Field>
-        <Field Name="Time_Min_">
-          <DataField>Time_Min_</DataField>
-        </Field>
-        <Field Name="Time_Min_Format">
-          <DataField>Time_Min_Format</DataField>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-        </Field>
-        <Field Name="QuantityFormat">
-          <DataField>QuantityFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

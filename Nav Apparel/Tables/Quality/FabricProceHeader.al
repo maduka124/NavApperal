@@ -97,6 +97,13 @@ table 50670 "FabricProceHeader"
             Clustered = true;
         }
     }
+    fieldgroups
+    {
+        fieldgroup(Dropdown; "FabricProceNo.", "Style No.", "Style Name")
+        {
+
+        }
+    }
 
 
     trigger OnInsert()

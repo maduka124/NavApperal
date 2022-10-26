@@ -7,6 +7,7 @@ page 50766 "Bank Reference List"
     CardPageId = "Bank Reference Card";
     Editable = false;
     Permissions = tabledata "Sales Invoice Header" = rm;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

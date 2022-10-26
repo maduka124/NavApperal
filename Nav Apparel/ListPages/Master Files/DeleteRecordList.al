@@ -4,6 +4,7 @@ page 50759 "DeleteRecordList"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "NavApp Planning Lines";
+    SourceTableView = sorting("Style No.") order(descending);
 
 
     layout

@@ -6,6 +6,7 @@ page 50719 WashingSampleHistry
     SourceTable = "Washing Sample Header";
     CardPageId = "Washing Sample Request Card";
     Caption = 'History of Sample Requests';
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

@@ -5,6 +5,7 @@ page 50449 "Needle Type List"
     UsageCategory = Lists;
     SourceTable = NeedleType;
     CardPageId = "Needle Type Card";
+    SourceTableView = sorting("No.") order(descending);
 
 
     layout
@@ -19,7 +20,7 @@ page 50449 "Needle Type List"
                     Caption = 'Needle Type No';
                 }
 
-                field("Needle Description";"Needle Description")
+                field("Needle Description"; "Needle Description")
                 {
                     ApplicationArea = All;
                 }

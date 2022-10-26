@@ -3,6 +3,7 @@ page 50694 FabShadeList
     PageType = List;
     SourceTable = FabShadeHeader;
     CardPageId = FabShadeCard;
+    SourceTableView = sorting("FabShadeNo.") order(descending);
 
     layout
     {

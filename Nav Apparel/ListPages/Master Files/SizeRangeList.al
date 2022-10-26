@@ -5,6 +5,7 @@ page 71012640 SizeRange
     UsageCategory = Lists;
     SourceTable = SizeRange;
     CardPageId = "Size Range Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {
@@ -24,5 +25,5 @@ page 71012640 SizeRange
                 }
             }
         }
-    }  
+    }
 }

@@ -5,6 +5,7 @@ page 50615 "Table Creation"
     UsageCategory = Lists;
     SourceTable = TableCreation;
     CardPageId = "Table Creation Card";
+    SourceTableView = sorting(TableCreNo) order(descending);
 
 
     layout

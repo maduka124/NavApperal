@@ -5,6 +5,7 @@ page 71012619 "Marker Category List"
     UsageCategory = Lists;
     SourceTable = MarkerCategory;
     CardPageId = "Marker Category Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

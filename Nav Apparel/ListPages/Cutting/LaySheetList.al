@@ -5,6 +5,7 @@ page 50646 "Lay Sheet List"
     UsageCategory = Lists;
     SourceTable = LaySheetHeader;
     CardPageId = LaySheetCard;
+    SourceTableView = sorting("LaySheetNo.") order(descending);
 
 
     layout

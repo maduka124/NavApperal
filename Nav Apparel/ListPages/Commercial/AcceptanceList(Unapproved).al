@@ -4,7 +4,7 @@ page 50541 "Acceptance List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = AcceptanceHeader;
-    SourceTableView = where(Approved = filter(false));
+    SourceTableView = sorting("AccNo.") order(descending) where(Approved = filter(false));
     CardPageId = "Acceptance Card";
     Editable = false;
     Caption = 'Acceptance List (Unapproved)';

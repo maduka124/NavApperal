@@ -6,6 +6,7 @@ page 50480 "Machine Layout List"
     SourceTable = "Machine Layout Header";
     CardPageId = "Machine Layout Card";
     Caption = 'Machine Layout';
+    SourceTableView = sorting("No.", "Style No.", "Style Name") order(descending);
 
 
     layout

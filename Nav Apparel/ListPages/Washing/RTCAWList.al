@@ -5,6 +5,7 @@ page 50748 RTCAWHeaderList
     UsageCategory = Lists;
     CardPageId = RTCAWCard;
     SourceTable = RTCAWHeader;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

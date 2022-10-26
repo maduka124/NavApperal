@@ -6,6 +6,7 @@ page 50731 "Service Wrks Line List part"
     ModifyAllowed = true;
     InsertAllowed = false;
     DeleteAllowed = false;
+    SourceTableView = sorting("Service Item No") order(descending);
 
     layout
     {

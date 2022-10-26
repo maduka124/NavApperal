@@ -6,6 +6,7 @@ page 50659 WashingBOMList
     SourceTable = "Production BOM Header";
     CardPageId = "Production BOM";
     Caption = 'Recipe/Production BOM';
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

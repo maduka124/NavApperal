@@ -5,6 +5,7 @@ page 50452 "Machine Master"
     UsageCategory = Lists;
     SourceTable = "Machine Master";
     CardPageId = "Machine Master Card";
+    SourceTableView = sorting("Machine No.") order(descending);
 
 
     layout

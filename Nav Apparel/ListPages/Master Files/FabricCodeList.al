@@ -3,6 +3,7 @@ page 50681 "FabricCodeList"
     PageType = List;
     SourceTable = FabricCodeMaster;
     CardPageId = FabricCodeCard;
+    SourceTableView = sorting(FabricCode) order(descending);
 
     layout
     {

@@ -5,6 +5,7 @@ page 71012631 "Print Type List"
     UsageCategory = Lists;
     SourceTable = "Print Type";
     CardPageId = "Print Type Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

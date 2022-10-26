@@ -104,7 +104,7 @@ page 71012670 "Assortment Details"
             }
         }
     }
-   
+
 
     trigger OnDeleteRecord(): Boolean
     var

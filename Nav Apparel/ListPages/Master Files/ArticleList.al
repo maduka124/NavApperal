@@ -5,6 +5,8 @@ page 71012584 Article
     UsageCategory = Lists;
     SourceTable = Article;
     CardPageId = "Article Card";
+    // SourceTableView = sorting("No.") order(descending);
+    SourceTableView = sorting("No.", Article, "Main Category Name") order(descending);
 
 
     layout

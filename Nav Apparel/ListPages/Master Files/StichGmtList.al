@@ -5,6 +5,7 @@ page 71012646 "Stich Gmt"
     UsageCategory = Lists;
     SourceTable = "Stich Gmt";
     CardPageId = "Stich Gmt Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {
@@ -24,5 +25,5 @@ page 71012646 "Stich Gmt"
                 }
             }
         }
-    }   
+    }
 }

@@ -5,6 +5,7 @@ page 71012616 "Main Category List"
     UsageCategory = Lists;
     SourceTable = "Main Category";
     CardPageId = "Main Category Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

@@ -5,6 +5,7 @@ page 71012773 "Sample Type"
     UsageCategory = Lists;
     SourceTable = "Sample Type";
     CardPageId = "Sample Type Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

@@ -8,6 +8,7 @@ page 50792 "Contract BBLC Summary List"
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

@@ -6,6 +6,7 @@ page 50527 "GIT Baseon LC List"
     SourceTable = GITBaseonLC;
     CardPageId = "GIT Baseon LC Card";
     Editable = false;
+    SourceTableView = sorting("GITLCNo.") order(descending);
 
     layout
     {
