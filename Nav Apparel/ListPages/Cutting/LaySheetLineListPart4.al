@@ -42,12 +42,12 @@ page 50655 "Lay Sheet Line4"
                     Editable = false;
                 }
 
-                field("Piles Excess"; "Piles Excess")
+                field("Planned Plies"; "Planned Plies")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Net Length"; "Net Length")
+                field("Actual Plies"; "Actual Plies")
                 {
                     ApplicationArea = All;
                 }

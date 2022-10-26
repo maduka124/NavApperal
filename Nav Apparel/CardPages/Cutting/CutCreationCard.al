@@ -135,6 +135,8 @@ page 50599 "Cut Creation Card"
                     RatioCreLineRec: Record RatioCreationLine;
                     CutCreationLineRec: Record CutCreationLine;
                     CutCreationLine1Rec: Record CutCreationLine;
+                    CutCreationRec: Record CutCreation;
+                    MaxCutNo: Integer;
                     CutNo: Integer;
                     LineNo: Integer;
                     Number1: Integer;
@@ -164,7 +166,8 @@ page 50599 "Cut Creation Card"
                     //Delete old records
                     CutCreationLineRec.Reset();
                     CutCreationLineRec.SetRange("CutCreNo.", CutCreNo);
-                    CutCreationLineRec.DeleteAll();
+                    if CutCreationLineRec.FindSet() then
+                        CutCreationLineRec.DeleteAll();
 
 
                     //Get Max line no
@@ -385,7 +388,17 @@ page 50599 "Cut Creation Card"
                         end;
 
 
+
                         //Generate cut nos
+                        CutCreationLineRec.Reset();
+                        CutCreationLineRec.SetCurrentKey("Cut No");
+                        CutCreationLineRec.Ascending(true);
+                        CutCreationLineRec.SetRange("Style No.", "Style No.");
+                        if CutCreationLineRec.FindLast() then begin
+                            MaxCutNo := CutCreationLineRec."Cut No";
+                        end;
+
+
                         Nooftimes := Plies DIV "Ply Height";
                         Balance := Plies MOD "Ply Height";
 
@@ -397,7 +410,7 @@ page 50599 "Cut Creation Card"
                         Count := 0;
                         if Nooftimes > 0 then begin
 
-                            for Count := 1 To Nooftimes DO begin
+                            for Count := (MaxCutNo + 1) To (MaxCutNo + Nooftimes) DO begin
 
                                 LineNo += 1;
 

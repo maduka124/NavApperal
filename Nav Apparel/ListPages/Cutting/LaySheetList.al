@@ -16,7 +16,7 @@ page 50646 "Lay Sheet List"
                 field("LaySheetNo."; "LaySheetNo.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Lay Sheet No';
+                    Caption = 'Lay Sheet No';                   
                 }
 
                 field("FabReqNo."; "FabReqNo.")

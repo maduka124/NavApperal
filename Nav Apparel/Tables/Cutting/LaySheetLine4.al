@@ -47,17 +47,17 @@ table 50654 LaySheetLine4
             InitValue = 0;
         }
 
-        field(9; "Piles Excess"; Decimal)
-        {
-            DataClassification = ToBeClassified;
-            InitValue = 0;
-        }
+        // field(9; "Piles Excess"; Decimal)
+        // {
+        //     DataClassification = ToBeClassified;
+        //     InitValue = 0;
+        // }
 
-        field(10; "Net Length"; Decimal)
-        {
-            DataClassification = ToBeClassified;
-            InitValue = 0;
-        }
+        // field(10; "Net Length"; Decimal)
+        // {
+        //     DataClassification = ToBeClassified;
+        //     InitValue = 0;
+        // }
 
         field(11; "Damages"; Decimal)
         {
@@ -118,6 +118,18 @@ table 50654 LaySheetLine4
         field(21; UOM; Text[50])
         {
             DataClassification = ToBeClassified;
+        }
+
+        field(22; "Planned Plies"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(23; "Actual Plies"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
         }
     }
 

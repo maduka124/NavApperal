@@ -8,7 +8,7 @@ table 50645 LaySheetHeader
         field(1; "LaySheetNo."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = RoleIssuingNoteHeader."RoleIssuNo.";
+            //TableRelation = RoleIssuingNoteHeader."RoleIssuNo.";
         }
 
         field(2; "FabReqNo."; Code[20])
@@ -138,7 +138,6 @@ table 50645 LaySheetHeader
         {
             DataClassification = ToBeClassified;
         }
-
     }
 
     keys

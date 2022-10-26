@@ -98,20 +98,4 @@ table 50603 RatioCreation
         "Created User" := UserId;
     end;
 
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

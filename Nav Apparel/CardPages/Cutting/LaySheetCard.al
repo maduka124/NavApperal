@@ -14,7 +14,34 @@ page 50647 "LaySheetCard"
                 {
                     ApplicationArea = All;
                     Caption = 'Lay Sheet No';
+
+                    trigger OnLookup(var texts: text): Boolean
+                    var
+                        RoleIssuHeadRec: Record RoleIssuingNoteHeader;
+                        LaySheetHeadRec: Record LaySheetHeader;
+                        RoleIssuNo: Code[20];
+                        colorRec: Record Colour;
+                    begin
+                        RoleIssuHeadRec.RESET;
+                        RoleIssuHeadRec.SetCurrentKey("RoleIssuNo.");
+
+                        IF RoleIssuHeadRec.FindSet() THEN BEGIN
+                            REPEAT
+                                LaySheetHeadRec.RESET;
+                                LaySheetHeadRec.SetRange("LaySheetNo.", RoleIssuHeadRec."RoleIssuNo.");
+                                IF not LaySheetHeadRec.FindSet() THEN
+                                    RoleIssuHeadRec.MARK(TRUE);
+                            UNTIL RoleIssuHeadRec.NEXT = 0;
+
+                            RoleIssuHeadRec.MARKEDONLY(TRUE);
+
+                            if Page.RunModal(50826, RoleIssuHeadRec) = Action::LookupOK then
+                                "LaySheetNo." := RoleIssuHeadRec."RoleIssuNo.";
+
+                        END;
+                    END;
                 }
+
 
                 field("FabReqNo."; "FabReqNo.")
                 {
@@ -604,6 +631,8 @@ page 50647 "LaySheetCard"
     procedure Insert_Lines3_4()
     var
         RoleIssHeadeRec: Record RoleIssuingNoteHeader;
+        RatioLineRec: Record RatioCreationLine;
+        RatioHeadRec: Record RatioCreation;
         RoleIssRec: Record RoleIssuingNoteLine;
         LaySheetLine3Rec: Record LaySheetLine3;
         LaySheetLine4Rec: Record LaySheetLine4;
@@ -614,6 +643,20 @@ page 50647 "LaySheetCard"
         Shade: Code[20];
         TotalQty: Decimal;
     begin
+
+        RatioHeadRec.Reset();
+        RatioHeadRec.SetRange("Style No.", "Style No.");
+        RatioHeadRec.SetRange("Colour No", "Color No.");
+        RatioHeadRec.SetRange("Component Group", "Component Group Code");
+        RatioHeadRec.SetRange("Group ID", "Group ID");
+
+        if RatioHeadRec.FindSet() then begin
+            RatioLineRec.Reset();
+            RatioLineRec.SetRange(RatioCreNo, RatioHeadRec.RatioCreNo);
+            RatioLineRec.SetRange("Marker Name", "Marker Name");
+            RatioLineRec.FindSet();
+        end;
+
 
         //Delete old records
         LaySheetLine3Rec.Reset();
@@ -652,6 +695,12 @@ page 50647 "LaySheetCard"
                 LaySheetLine4Rec.Batch := RoleIssRec."Supplier Batch No.";
                 LaySheetLine4Rec."Role ID" := RoleIssRec."Role ID";
                 LaySheetLine4Rec."Ticket Length" := RoleIssRec."Length Tag";
+
+                if (RatioLineRec.Length + RatioLineRec."Length Tollarance  ") > 0 then
+                    LaySheetLine4Rec."Planned Plies" := round(RoleIssRec."Length Tag" / (RatioLineRec.Length + RatioLineRec."Length Tollarance  "), 1)
+                else
+                    LaySheetLine4Rec."Planned Plies" := 0;
+
                 LaySheetLine4Rec."Allocated Qty" := RoleIssRec."Length Allocated";
                 LaySheetLine4Rec.UOM := UOM;
                 LaySheetLine4Rec."UOM Code" := UOMCode;
