@@ -6,6 +6,7 @@ page 50538 "GIT Baseon PI List"
     SourceTable = GITBaseonPI;
     CardPageId = "GIT Baseon PI Card";
     Editable = false;
+    SourceTableView = sorting("GITPINo.") order(descending);
 
     layout
     {

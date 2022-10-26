@@ -5,8 +5,7 @@ page 50798 "Workers List"
     UsageCategory = Lists;
     SourceTable = Workers;
     CardPageId = "Workers Card";
-
-
+    SourceTableView = sorting("No.") order(descending);
     layout
     {
         area(Content)

@@ -5,6 +5,7 @@ page 50746 RTCBWList
     UsageCategory = Lists;
     SourceTable = RTCBWHeader;
     CardPageId = RTCBWCard;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

@@ -2,6 +2,7 @@ page 71012797 "Style Master PO List"
 {
     PageType = List;
     SourceTable = "Style Master PO";
+    //SourceTableView = sorting("Style No.", "Lot No.") order(descending);
 
     layout
     {

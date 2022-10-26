@@ -6,6 +6,7 @@ page 71012652 TableList
     SourceTable = TableMaster;
     CardPageId = TableCard;
     Caption = 'Cutting Table';
+    SourceTableView = sorting("Table No.") order(descending);
 
     layout
     {

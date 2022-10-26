@@ -4,7 +4,7 @@ page 50811 "Dept_CategoriesList2"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = Dept_Categories;
-    SourceTableView = sorting(No);
+    SourceTableView = sorting(No) order(descending);
     InsertAllowed = false;
     //ModifyAllowed = false;
     DeleteAllowed = false;

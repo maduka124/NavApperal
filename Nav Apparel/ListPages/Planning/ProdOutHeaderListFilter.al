@@ -5,6 +5,7 @@ page 50758 "ProdOutHeaderListFilter"
     InsertAllowed = false;
     DeleteAllowed = false;
     ModifyAllowed = false;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

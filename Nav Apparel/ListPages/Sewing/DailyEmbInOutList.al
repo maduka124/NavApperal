@@ -4,7 +4,7 @@ page 50359 "Daily Embroidary In/Out"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = ProductionOutHeader;
-    SourceTableView = where(Type = filter('Emb'));
+    SourceTableView = sorting("No.") order(descending) where(Type = filter('Emb'));
     CardPageId = "Daily Embroidary In/Out Card";
 
 
@@ -13,7 +13,7 @@ page 50359 "Daily Embroidary In/Out"
         area(Content)
         {
             repeater(General)
-            {   
+            {
                 field("Prod Date"; "Prod Date")
                 {
                     ApplicationArea = All;

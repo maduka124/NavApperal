@@ -3,6 +3,7 @@ page 50698 FabShadeShrinkageList
     PageType = List;
     SourceTable = FabShadeBandShriHeader;
     CardPageId = FabShadeShrinkageCard;
+    SourceTableView = sorting("FabShadeNo.") order(descending);
 
     layout
     {

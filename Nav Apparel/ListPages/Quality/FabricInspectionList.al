@@ -5,6 +5,7 @@ page 50564 "Fabric Inspection List"
     UsageCategory = Lists;
     SourceTable = FabricInspection;
     CardPageId = "Fabric Inspection Card";
+    SourceTableView = sorting("InsNo.") order(descending);
 
     layout
     {

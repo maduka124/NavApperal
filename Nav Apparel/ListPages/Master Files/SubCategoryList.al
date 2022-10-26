@@ -5,6 +5,7 @@ page 71012649 "Sub Category"
     UsageCategory = Lists;
     SourceTable = "Sub Category";
     CardPageId = "Sub Category Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

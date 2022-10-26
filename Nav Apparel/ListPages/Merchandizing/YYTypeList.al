@@ -5,6 +5,7 @@ page 71012819 "YY Type List"
     UsageCategory = Lists;
     SourceTable = "YY Type";
     CardPageId = "YY Type Card";
+    SourceTableView = sorting("No.") order(descending);
 
 
     layout

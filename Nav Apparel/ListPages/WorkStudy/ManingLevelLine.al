@@ -6,6 +6,7 @@ page 50474 "Maning Level List"
     SourceTable = "Maning Level";
     CardPageId = "Maning Level Card";
     Caption = 'Maning Levels';
+    SourceTableView = sorting("No.") order(descending);
 
 
     layout

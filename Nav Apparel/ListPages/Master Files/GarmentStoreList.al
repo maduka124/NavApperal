@@ -5,6 +5,7 @@ page 71012606 "Garment Store"
     UsageCategory = Lists;
     SourceTable = "Garment Store";
     CardPageId = "Garment Store Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {
@@ -29,5 +30,5 @@ page 71012606 "Garment Store"
                 }
             }
         }
-    }   
+    }
 }

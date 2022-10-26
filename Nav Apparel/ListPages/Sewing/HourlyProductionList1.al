@@ -5,6 +5,7 @@ page 50517 "Hourly Production List1"
     UsageCategory = Lists;
     SourceTable = Location;
     Caption = 'Locatio Filter';
+    SourceTableView = sorting(Code) order(descending);
 
     layout
     {

@@ -5,6 +5,7 @@ page 50688 AWQualityCheck
     UsageCategory = Lists;
     SourceTable = AWQualityCheckHeader;
     CardPageId = QCHeaderCardAW;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

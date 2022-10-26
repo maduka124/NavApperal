@@ -6,7 +6,7 @@ page 50521 "B2B LC List"
     SourceTable = "B2BLCMaster";
     CardPageId = "B2B LC Card";
     Editable = false;
-
+    SourceTableView = sorting("No.") order(descending);
     layout
     {
         area(Content)

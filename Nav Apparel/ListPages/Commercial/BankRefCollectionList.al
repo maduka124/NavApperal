@@ -6,6 +6,7 @@ page 50769 "Bank Ref Collection List"
     SourceTable = BankRefCollectionHeader;
     CardPageId = "Bank Ref Collection Card";
     Editable = false;
+    SourceTableView = sorting("BankRefNo.") order(descending);
 
     layout
     {

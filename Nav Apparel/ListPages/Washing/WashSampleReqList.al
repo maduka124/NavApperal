@@ -6,6 +6,7 @@ page 50700 "Washing Sample Request"
     SourceTable = "Washing Sample Header";
     CardPageId = "Washing Sample Request Card";
     Caption = 'Washing Requisition';
+    SourceTableView = sorting("No.", LineNo) order(descending);
 
     layout
     {

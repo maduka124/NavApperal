@@ -3,6 +3,7 @@ page 50684 "FabShrinkageTestList"
     PageType = List;
     SourceTable = FabShrinkageTestHeader;
     CardPageId = FabShrinkageTestCard;
+    SourceTableView = sorting("FabShrTestNo.") order(descending);
 
     layout
     {

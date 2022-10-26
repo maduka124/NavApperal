@@ -4,7 +4,7 @@ page 50549 "Payable Chart - Approved"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = AcceptanceHeader;
-    SourceTableView = where(Approved = filter(true), Paid = filter(false));
+    SourceTableView = sorting("AccNo.") order(descending) where(Approved = filter(true), Paid = filter(false));
     //Editable = false;
     InsertAllowed = false;
     DeleteAllowed = false;

@@ -5,6 +5,7 @@ page 50461 "Item Type List"
     UsageCategory = Lists;
     SourceTable = "Item Type";
     CardPageId = "Item Type Card";
+    SourceTableView = sorting("No.") order(descending);
 
 
     layout

@@ -5,6 +5,7 @@ page 50621 "FabricRequisitionList"
     UsageCategory = Lists;
     SourceTable = FabricRequsition;
     CardPageId = "Fabric Requisition Card";
+    SourceTableView = sorting("FabReqNo.") order(descending);
 
 
     layout

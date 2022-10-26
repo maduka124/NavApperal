@@ -5,6 +5,7 @@ page 71012609 "Garment Type List"
     UsageCategory = Lists;
     SourceTable = "Garment Type";
     CardPageId = "Garment Type Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {
@@ -39,5 +40,5 @@ page 71012609 "Garment Type List"
                 }
             }
         }
-    }   
+    }
 }

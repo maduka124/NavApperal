@@ -5,6 +5,7 @@ page 50661 "Cutting Progress List"
     UsageCategory = Lists;
     SourceTable = CuttingProgressHeader;
     CardPageId = "Cutting Progress Card";
+    SourceTableView = sorting("CutProNo.") order(descending);
 
 
     layout

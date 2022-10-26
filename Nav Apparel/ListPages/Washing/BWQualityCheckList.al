@@ -5,6 +5,7 @@ page 50742 BWQualityCheckList
     UsageCategory = Lists;
     SourceTable = BWQualityCheckHeader;
     CardPageId = BWQualityCheck;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

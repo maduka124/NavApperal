@@ -5,6 +5,7 @@ page 50446 "Machine Category List"
     UsageCategory = Lists;
     SourceTable = "Machine Category";
     CardPageId = "Machine Category Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {
@@ -18,11 +19,11 @@ page 50446 "Machine Category List"
                     Caption = 'Machine Category No';
                 }
 
-                field("Machine Category";"Machine Category")
+                field("Machine Category"; "Machine Category")
                 {
                     ApplicationArea = All;
                 }
             }
         }
-    }    
+    }
 }

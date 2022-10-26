@@ -1,6 +1,6 @@
 page 71012750 "Sample Type List part"
 {
-    PageType = ListPart;  
+    PageType = ListPart;
     SourceTable = "Sample Type";
 
     layout
