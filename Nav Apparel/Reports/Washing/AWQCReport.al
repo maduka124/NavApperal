@@ -10,6 +10,7 @@ report 50901 AWQCReport
     {
         dataitem(AWQualityCheckHeader; AWQualityCheckHeader)
         {
+            DataItemTableView = sorting("No.");
             column(No_; "No.")
             { }
             column(QC_AW_Date; "QC AW Date")
@@ -73,9 +74,11 @@ report 50901 AWQCReport
             {
                 group(GroupName)
                 {
+                    Caption = 'Filter By';
                     field("AW QC No"; "AW QC No")
                     {
                         ApplicationArea = All;
+                        Caption = 'After Wash No';
                         TableRelation = AWQualityCheckHeader."No.";
                     }
                 }

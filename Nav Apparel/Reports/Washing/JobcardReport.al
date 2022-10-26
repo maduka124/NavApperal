@@ -12,10 +12,10 @@ report 50670 JobCardReport
     {
         dataitem("Production Order"; "Production Order")
         {
+             DataItemTableView = sorting("No.");
             //RequestFilterFields=Status;
             column(Barcode; Barcode)
             { }
-
             column(Buyer; Buyer)
             { }
             column(No_; "No.")
@@ -44,55 +44,41 @@ report 50670 JobCardReport
             { }
             column(Gament_Type; "Gament Type")
             { }
-
             column(Machine_Type; "Machine Type")
             { }
-
             column(Load_Wght__Kg_; "Load Weight (Kg)")
             { }
-
             column(Piece_Wght__g_; "Piece Weight (g)")
             { }
-
             column(Remarks_Job_Card; "Remarks Job Card")
             { }
-
             column(Total_Water_Ltrs_; "Total Water Ltrs:")
             { }
-
             column(Process_Time_; "Process Time:")
             { }
-
 
             dataitem("Prod. Order Line"; "Prod. Order Line")
             {
                 DataItemLinkReference = "Production Order";
                 DataItemLink = "Prod. Order No." = field("No.");
+                 DataItemTableView = sorting(Status, "Prod. Order No.", "Line No.");
 
                 column(Descriptionline; Description)
                 { }
-
                 column(Water; Water)
                 { }
-
                 column(Temp; Temp)
                 { }
-
                 column(Step; Step)
                 { }
-
                 column(Ph; Ph)
                 { }
-
                 column(Instruction; Instruction)
                 { }
-
                 column(Time_Min_; "Time(Min)")
                 { }
-
                 // column("Chemical Name")
                 // { }
-
                 column(Quantity; Quantity)
                 { }
 
@@ -113,6 +99,7 @@ report 50670 JobCardReport
             {
                 group(GroupName)
                 {
+                    Caption = 'Filter By';
                     field(OrderNo; OrderNo)
                     {
                         ApplicationArea = All;
