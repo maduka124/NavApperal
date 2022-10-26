@@ -5,6 +5,7 @@ page 71012662 "Action Type List"
     UsageCategory = Lists;
     SourceTable = "Action Type";
     CardPageId = "Action Type Card";
+    SourceTableView = sorting("No.") order(descending);
 
 
     layout
@@ -25,5 +26,5 @@ page 71012662 "Action Type List"
                 }
             }
         }
-    }   
+    }
 }

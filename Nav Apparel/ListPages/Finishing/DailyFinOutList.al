@@ -4,8 +4,9 @@ page 50363 "Daily Finishing Out"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = ProductionOutHeader;
-    SourceTableView = where(Type = filter('Fin'));
+    SourceTableView = sorting("No.") order(descending) where(Type = filter('Fin'));
     CardPageId = "Daily Finishing Out Card";
+
 
 
     layout

@@ -6,6 +6,7 @@ page 50503 "Contract/LC List"
     SourceTable = "Contract/LCMaster";
     CardPageId = "Contract/LC Card";
     Editable = false;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

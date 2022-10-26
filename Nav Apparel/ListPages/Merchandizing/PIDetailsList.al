@@ -5,6 +5,7 @@ page 71012789 "Proforma Invoice Details List"
     UsageCategory = Lists;
     SourceTable = "PI Details Header";
     CardPageId = "PI Details Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

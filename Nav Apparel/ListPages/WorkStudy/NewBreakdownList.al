@@ -5,6 +5,7 @@ page 50458 "New Breakdown"
     UsageCategory = Lists;
     SourceTable = "New Breakdown";
     CardPageId = "New Breakdown Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

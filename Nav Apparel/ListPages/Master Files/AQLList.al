@@ -5,6 +5,7 @@ page 71012581 "AQL"
     UsageCategory = Lists;
     SourceTable = AQL;
     CardPageId = "AQL Card";
+    SourceTableView = sorting("From Qty") order(descending);
 
 
     layout

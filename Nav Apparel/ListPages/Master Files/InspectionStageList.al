@@ -5,6 +5,7 @@ page 71012612 "Inspection Stage List"
     UsageCategory = Lists;
     SourceTable = InspectionStage;
     CardPageId = "Inspection Stage Card";
+    SourceTableView = sorting("No.") order(descending);
 
 
     layout

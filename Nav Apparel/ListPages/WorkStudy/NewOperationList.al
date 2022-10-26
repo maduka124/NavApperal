@@ -5,6 +5,7 @@ page 50455 "New Operation"
     UsageCategory = Lists;
     SourceTable = "New Operation";
     CardPageId = "New Operation Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

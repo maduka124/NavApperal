@@ -5,6 +5,7 @@ page 71012778 "Dependency Style"
     UsageCategory = Lists;
     SourceTable = "Dependency Style Header";
     CardPageId = "Dependency Style Header Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

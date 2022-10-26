@@ -3,6 +3,7 @@ page 71012840 StyleColorList
     PageType = List;
     SourceTable = StyleColor;
     //SourceTableView = where("User ID" = field(user));
+    SourceTableView = sorting("User ID", "Color No.") order(descending);
     layout
     {
         area(Content)

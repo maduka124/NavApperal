@@ -4,6 +4,7 @@ page 50749 WashingStep
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "WashingStep";
+    SourceTableView = sorting(Code) order(descending);
 
     layout
     {

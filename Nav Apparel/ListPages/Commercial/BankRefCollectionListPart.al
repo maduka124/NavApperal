@@ -5,6 +5,7 @@ page 50771 "Bank Ref Collection ListPart"
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
+    SourceTableView = sorting("BankRefNo.") order(descending);
 
     layout
     {

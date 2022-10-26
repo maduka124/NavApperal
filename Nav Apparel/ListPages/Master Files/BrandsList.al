@@ -5,6 +5,7 @@ page 71012587 Brand
     UsageCategory = Lists;
     SourceTable = Brand;
     CardPageId = "Brand Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

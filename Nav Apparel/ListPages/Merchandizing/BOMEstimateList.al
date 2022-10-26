@@ -5,6 +5,7 @@ page 71012693 "Estimate BOM"
     UsageCategory = Tasks;
     SourceTable = "BOM Estimate";
     CardPageId = "BOM Estimate Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

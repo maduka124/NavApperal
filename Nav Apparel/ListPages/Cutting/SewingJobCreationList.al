@@ -5,6 +5,7 @@ page 50586 "Sewing Job Creation"
     UsageCategory = Lists;
     SourceTable = SewingJobCreation;
     CardPageId = "Sewing Job Creation Card";
+    SourceTableView = sorting(SJCNo) order(descending);
 
 
     layout

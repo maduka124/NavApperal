@@ -5,6 +5,7 @@ page 50443 "Garment Part List"
     UsageCategory = Lists;
     SourceTable = GarmentPart;
     CardPageId = "Garment Part Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

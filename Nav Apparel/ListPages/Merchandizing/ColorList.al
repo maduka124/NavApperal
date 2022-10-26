@@ -2,6 +2,7 @@ page 71012841 ColorList
 {
     PageType = List;
     SourceTable = Colour;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

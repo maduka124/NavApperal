@@ -5,6 +5,7 @@ page 50601 "Cut Creation"
     UsageCategory = Lists;
     SourceTable = CutCreation;
     CardPageId = "Cut Creation Card";
+    SourceTableView = sorting(CutCreNo) order(descending);
 
     layout
     {

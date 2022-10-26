@@ -5,6 +5,7 @@ page 71012801 "Dependency"
     UsageCategory = Lists;
     SourceTable = Dependency;
     CardPageId = "Dependency Card";
+    SourceTableView = sorting("No.") order(descending);
 
 
     layout

@@ -6,6 +6,7 @@ page 50626 FabricMappingList
     SourceTable = FabricMapping;
     InsertAllowed = true;
     Editable = true;
+    SourceTableView = sorting(No) order(descending);
 
     layout
     {

@@ -5,6 +5,7 @@ page 71012722 "Style Inquiry"
     UsageCategory = Tasks;
     SourceTable = "Style Master";
     CardPageId = "Style Inquiry Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

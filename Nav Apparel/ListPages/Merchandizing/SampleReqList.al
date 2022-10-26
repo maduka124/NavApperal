@@ -5,6 +5,7 @@ page 71012771 "Sample Request"
     UsageCategory = Lists;
     SourceTable = "Sample Requsition Header";
     CardPageId = "Sample Request Card";
+    SourceTableView = sorting("No.") order(descending);
 
 
     layout

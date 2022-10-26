@@ -5,6 +5,7 @@ page 71012634 "Seasons List"
     UsageCategory = Lists;
     SourceTable = Seasons;
     CardPageId = "Seasons Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {
@@ -24,5 +25,5 @@ page 71012634 "Seasons List"
                 }
             }
         }
-    }   
+    }
 }

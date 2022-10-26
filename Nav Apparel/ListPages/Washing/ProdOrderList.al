@@ -6,6 +6,7 @@ page 50756 JobCardList
     SourceTable = "Production Order";
     CardPageId = "Firm Planned Prod. Order";
     Caption = 'Job Card/Production Order';
+    SourceTableView = sorting(Status, "No.") order(descending);
 
     layout
     {

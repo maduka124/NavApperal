@@ -5,6 +5,7 @@ page 50519 "Nav Prod Filter PO"
     InsertAllowed = false;
     DeleteAllowed = false;
     ModifyAllowed = false;
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

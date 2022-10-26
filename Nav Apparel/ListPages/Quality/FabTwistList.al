@@ -3,6 +3,7 @@ page 50689 "FabTwistList"
     PageType = List;
     SourceTable = FabTwistHeader;
     CardPageId = FabTwistCard;
+    SourceTableView = sorting("FabTwistNo.") order(descending);
 
     layout
     {

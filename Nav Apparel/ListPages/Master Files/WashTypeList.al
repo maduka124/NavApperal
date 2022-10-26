@@ -5,6 +5,7 @@ page 71012656 "Wash Type"
     UsageCategory = Lists;
     SourceTable = "Wash Type";
     CardPageId = "Wash Type Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

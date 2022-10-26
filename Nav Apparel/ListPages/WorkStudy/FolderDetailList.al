@@ -5,6 +5,7 @@ page 50469 "Folder Detail List"
     UsageCategory = Lists;
     SourceTable = "Folder Detail";
     CardPageId = "Folder Detail Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

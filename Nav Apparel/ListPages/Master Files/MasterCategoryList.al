@@ -5,6 +5,7 @@ page 71012622 "Master Category List"
     UsageCategory = Lists;
     SourceTable = "Master Category";
     CardPageId = "Master Category Card";
+    SourceTableView = sorting("No.") order(descending);
 
     layout
     {

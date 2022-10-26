@@ -6,6 +6,7 @@ page 50654 WashingMachineTypeList
     SourceTable = WashingMachineType;
     CardPageId = WashingMachineTypeCard;
     Caption = 'Machine Type List';
+    SourceTableView = sorting(code) order(descending);
 
     layout
     {
