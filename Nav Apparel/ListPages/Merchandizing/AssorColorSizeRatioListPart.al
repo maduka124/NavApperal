@@ -58,7 +58,7 @@ page 71012674 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible1; 
+                    Visible = SetVisible1;
 
                     trigger OnValidate()
                     var
