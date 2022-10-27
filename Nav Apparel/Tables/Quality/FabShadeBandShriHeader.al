@@ -120,6 +120,13 @@ table 50697 FabShadeBandShriHeader
             Clustered = true;
         }
     }
+    fieldgroups
+    {
+        fieldgroup(DropDown; "FabShadeNo.", "Style Name")
+        {
+
+        }
+    }
 
 
     trigger OnInsert()

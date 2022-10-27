@@ -27,7 +27,6 @@ report 50628 ExportLcUtilizationReport
             { }
             column(BBLC; BBLC)
             { }
-
             column(ShipDate; ShipDate)
             { }
             column(Amount; Amount)
