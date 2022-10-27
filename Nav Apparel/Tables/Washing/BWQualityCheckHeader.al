@@ -67,6 +67,13 @@ table 50738 BWQualityCheckHeader
             Clustered = true;
         }
     }
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", "Line No")
+        {
+
+        }
+    }
 
 
     trigger OnInsert()
@@ -81,7 +88,7 @@ table 50738 BWQualityCheckHeader
         "Created User" := UserId;
     end;
 
-   
+
     trigger OnDelete()
 
     var
@@ -91,6 +98,6 @@ table 50738 BWQualityCheckHeader
         BWQualityCheckRec.SetRange("No", "No.");
         if BWQualityCheckRec.FindSet() then
             BWQualityCheckRec.DeleteAll();
-    end;    
+    end;
 
 }

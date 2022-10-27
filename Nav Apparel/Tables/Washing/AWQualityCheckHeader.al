@@ -91,6 +91,13 @@ table 50686 AWQualityCheckHeader
             Clustered = true;
         }
     }
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", "Line No")
+        {
+
+        }
+    }
 
 
     trigger OnInsert()
