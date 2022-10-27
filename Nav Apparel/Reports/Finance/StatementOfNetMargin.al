@@ -61,7 +61,7 @@ report 50637 StatementOfNetMargin
 
                     column(buyer; "Buyer Name")
                     { }
-                    column(Vendor; vendor)
+                    column(Vendor;"Merchandiser Name")
                     { }
 
                     trigger OnPreDataItem()
@@ -80,9 +80,9 @@ report 50637 StatementOfNetMargin
                     // if ItemRec.FindFirst() then begin
                     //     Description := ItemRec.Description;
                     // end;
-                    VendorRec.SetRange("No.", ItemRec."Vendor No.");
+                    // VendorRec.SetRange("No.", ItemRec."Vendor No.");
                     // if VendorRec.FindFirst() then begin
-                    vendor := VendorRec.Name;
+                    // vendor := VendorRec.Name;
                     // end;
 
                 end;
