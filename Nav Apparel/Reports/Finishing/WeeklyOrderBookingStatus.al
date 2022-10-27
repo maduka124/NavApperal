@@ -110,22 +110,22 @@ report 50638 WeeklyOrderBookingStatus
                 WeekNo := Date2DMY("Ship Date", 1);
 
                 if WeekNo <= 7 then begin
-                    firstWeek := "Shipped Qty";
+                    firstWeek := Qty;
                 end
                 else
                     if WeekNo <= 14 then begin
-                        SecondWeek := "Shipped Qty"
+                        SecondWeek := Qty;
                     end
                     else
                         if WeekNo <= 21 then begin
-                            thirdWeek := "Shipped Qty";
+                            thirdWeek := Qty;
                         end
                         else
                             if WeekNo <= 28 then begin
-                                fourthWeek := "Shipped Qty";
+                                fourthWeek := Qty;
                             end
                             else
-                                fifthWeek := "Shipped Qty";
+                                fifthWeek := Qty;
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
@@ -165,7 +165,7 @@ report 50638 WeeklyOrderBookingStatus
                     }
                 }
             }
-        }        
+        }
     }
 
     var
