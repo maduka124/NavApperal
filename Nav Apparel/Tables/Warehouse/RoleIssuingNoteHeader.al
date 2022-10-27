@@ -112,6 +112,17 @@ table 50636 RoleIssuingNoteHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(21; "Group ID"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = GroupMaster."Group ID" where("Style No." = field("Style No."));
+        }
+
+        field(22; "PO No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

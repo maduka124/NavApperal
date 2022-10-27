@@ -117,6 +117,11 @@ table 50619 FabricRequsition
         {
             DataClassification = ToBeClassified;
         }
+
+        field(23; "PO No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

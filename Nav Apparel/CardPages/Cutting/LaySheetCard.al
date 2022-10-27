@@ -70,6 +70,7 @@ page 50647 "LaySheetCard"
                             "Component Group Name" := FabricRequRec."Component Group Name";
                             "Component Group Code" := FabricRequRec."Component Group Code";
                             "Marker Name" := FabricRequRec."Marker Name";
+                            "Po No." := FabricRequRec."PO No.";                            
                         end;
 
                         // Get item name
@@ -121,7 +122,13 @@ page 50647 "LaySheetCard"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Sew. Group ID';
+                    Caption = 'Group ID';
+                }
+
+                field("PO No."; "PO No.")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Color; Color)

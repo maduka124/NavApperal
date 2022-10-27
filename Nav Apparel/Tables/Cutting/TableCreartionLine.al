@@ -95,6 +95,11 @@ table 50610 TableCreartionLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(18; "PO No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

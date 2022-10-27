@@ -88,6 +88,7 @@ table 50668 BundleGuideLine
         field(16; "Role ID"; Code[20])
         {
             DataClassification = ToBeClassified;
+            Caption = 'Roll ID';
         }
 
         field(17; "Style No"; Code[20])

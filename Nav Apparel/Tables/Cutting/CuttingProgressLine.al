@@ -30,6 +30,7 @@ table 50660 CuttingProgressLine
         field(5; "Role ID"; Code[20])
         {
             DataClassification = ToBeClassified;
+            Caption = 'Roll ID';
         }
 
         field(6; "Item No"; Code[20])

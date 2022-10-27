@@ -27,12 +27,12 @@ page 50591 "Sewing Job Creation ListPart3"
                         Status: Boolean;
                     begin
 
-                        // SJC3.Reset();
-                        // SJC3.SetRange("SJCNo.", "SJCNo.");
-                        // //SJC3.SetFilter("Lot No.", '<>%1', "Lot No.");
-                        // SJC3.SetFilter("Lot No.", '<>%1&<>%2', "Lot No.", '');
-                        // if SJC3.FindSet() then
-                        //     Error('You cannot put two different Lot Nos.');
+                        SJC3.Reset();
+                        SJC3.SetRange("SJCNo.", "SJCNo.");
+                        //SJC3.SetFilter("Lot No.", '<>%1', "Lot No.");
+                        SJC3.SetFilter("Lot No.", '<>%1&<>%2', "Lot No.", '');
+                        if SJC3.FindSet() then
+                            Error('You cannot put two different Lot Nos.');
 
 
                         "Style Name" := StyleName;

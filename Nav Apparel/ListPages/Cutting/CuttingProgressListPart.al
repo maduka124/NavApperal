@@ -15,6 +15,7 @@ page 50663 "Cutting Progress ListPart"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Roll ID';
                 }
 
                 field("Supplier Batch No."; "Supplier Batch No.")

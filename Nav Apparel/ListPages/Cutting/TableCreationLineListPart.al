@@ -69,6 +69,28 @@ page 50617 "Table Creation Line ListPart"
                 field("Group ID"; "Group ID")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        SewJobLine4Rec: Record SewingJobCreationLine4;
+                    begin
+                        SewJobLine4Rec.Reset();
+                        SewJobLine4Rec.SetRange("Style No.", "Style No.");
+                        SewJobLine4Rec.SetRange("Colour No", "Colour No");
+                        SewJobLine4Rec.SetRange("Group ID", "Group ID");
+                        if SewJobLine4Rec.FindSet() then
+                            "Po No." := SewJobLine4Rec."PO No."
+                        else
+                            Error('Cannot find sewing Job details for Style/Color/Group');
+
+                        CurrPage.Update();
+                    end;
+                }
+
+                field("PO No."; "PO No.")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Component Group"; "Component Group")

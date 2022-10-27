@@ -219,7 +219,7 @@ page 50561 "Fabric Inspection Card"
             }
 
 
-            group("Role Details")
+            group("Roll Details")
             {
                 field("Roll No"; "Roll No")
                 {

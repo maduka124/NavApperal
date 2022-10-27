@@ -70,6 +70,11 @@ table 50600 CutCreation
         {
             DataClassification = ToBeClassified;
         }
+
+        field(13; "Po No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

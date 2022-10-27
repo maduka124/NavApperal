@@ -50,6 +50,9 @@ page 50635 "Roll Issuing Note Card"
                             "Required Length" := FabricReqRec."Required Length";
                             "GRN Filter User ID" := UserId;
                             "GRN No" := '';
+                            "Po No." := FabricReqRec."PO No.";
+                            "Group ID" := FabricReqRec."Group ID";
+
 
                             //Load GRN for the style
                             //Delete old record
@@ -101,6 +104,18 @@ page 50635 "Roll Issuing Note Card"
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Colour';
+                }
+
+                field("Group ID"; "Group ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("PO No."; "PO No.")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("GRN No"; "GRN No")

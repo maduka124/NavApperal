@@ -221,6 +221,7 @@ table 71012749 "NavApp Setup"
         {
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
+            Caption = 'Roll Issue No';
         }
 
         field(71012619; "CutPro Nos."; Code[20])

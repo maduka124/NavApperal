@@ -66,6 +66,16 @@ table 50603 RatioCreation
         {
             DataClassification = ToBeClassified;
         }
+
+        // field(15; "Lot No."; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
+
+        field(16; "Po No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

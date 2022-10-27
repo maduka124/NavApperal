@@ -33,6 +33,7 @@ table 50654 LaySheetLine4
         field(6; "Role ID"; Code[20])
         {
             DataClassification = ToBeClassified;
+            Caption = 'Roll ID';
         }
 
         field(7; "Ticket Length"; Decimal)

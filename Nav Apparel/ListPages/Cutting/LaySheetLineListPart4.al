@@ -28,6 +28,7 @@ page 50655 "Lay Sheet Line4"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Roll ID';
                 }
 
                 field("Ticket Length"; "Ticket Length")

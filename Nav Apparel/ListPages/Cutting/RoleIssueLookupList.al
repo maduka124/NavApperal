@@ -14,7 +14,7 @@ page 50826 RoleIssueLookupList
                 field("RoleIssuNo."; "RoleIssuNo.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Role Issue No';
+                    Caption = 'Roll Issue No';
                 }
 
                 field("Req No."; "Req No.")
