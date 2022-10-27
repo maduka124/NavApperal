@@ -39,72 +39,99 @@ report 50616 FabricShadeBandandShrinkage
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(WIDTH_Shrinkage; widthShrinkage)
+            { }
+            column(WIDTH_Shrinkage_Total_Rolls; WidthTotal)
+            { }
+            column(Pattern; Pattern)
+            { }
+            column(WIDTH_; Width)
+            { }
+            column(Length_; Length)
+            { }
+            column(Shade; Shade)
+            { }
+            column(Shade_TotalRolls; TotalRolls)
+            { }
+            column(Shade_TotalYDS; TotalYDS)
+            { }
+            column(Width; WidthLine2)
+            { }
+            column(Width_TotalRolls; TotalRollsLine2)
+            { }
+            column(Width_Total_YDS; TotalYDSLine2)
+            { }
+            column(Length_Shrinkage; LengthShrinkage)
+            { }
+            column(Length_Total_Rolls; LengthTotalRolls)
+            { }
 
-            dataitem(FabShadeBandShriLine4; FabShadeBandShriLine4)
-            {
-                DataItemLinkReference = FabShadeBandShriHeader;
-                DataItemLink = "FabShadeNo." = field("FabShadeNo.");
-                DataItemTableView = sorting("FabShadeNo.");
-                column(WIDTH_Shrinkage; "WIDTH Shrinkage")
-                { }
-                column(WIDTH_Shrinkage_Total_Rolls; "Total Rolls")
-                { }
 
-            }
-            dataitem(FabShadeBandShriLine5; FabShadeBandShriLine5)
-            {
-                DataItemLinkReference = FabShadeBandShriHeader;
-                DataItemLink = "FabShadeNo." = field("FabShadeNo.");
-                DataItemTableView = sorting("FabShadeNo.");
-                column(Pattern; Pattern)
-                { }
-                column(WIDTH_; "WIDTH%")
-                { }
-                column(Length_; "Length%")
-                { }
+            // dataitem(FabShadeBandShriLine4; FabShadeBandShriLine4)
+            // {
+            //     DataItemLinkReference = FabShadeBandShriHeader;
+            //     DataItemLink = "FabShadeNo." = field("FabShadeNo.");
+            //     DataItemTableView = sorting("FabShadeNo.");
+            //     column(WIDTH_Shrinkage; "WIDTH Shrinkage")
+            //     { }
+            //     column(WIDTH_Shrinkage_Total_Rolls; "Total Rolls")
+            //     { }
 
-            }
+            // }
+            // dataitem(FabShadeBandShriLine5; FabShadeBandShriLine5)
+            // {
+            //     DataItemLinkReference = FabShadeBandShriHeader;
+            //     DataItemLink = "FabShadeNo." = field("FabShadeNo.");
+            //     DataItemTableView = sorting("FabShadeNo.");
+            //     column(Pattern; Pattern)
+            //     { }
+            //     column(WIDTH_; "WIDTH%")
+            //     { }
+            //     column(Length_; "Length%")
+            //     { }
 
-            dataitem(FabShadeBandShriLine1; FabShadeBandShriLine1)
-            {
-                DataItemLinkReference = FabShadeBandShriHeader;
-                DataItemLink = "FabShadeNo." = field("FabShadeNo.");
-                DataItemTableView = sorting("FabShadeNo.");
+            // }
 
-                column(Shade; Shade)
-                { }
-                column(Shade_TotalRolls; "Total Rolls")
-                { }
-                column(Shade_TotalYDS; "Total YDS")
-                { }
-                // column(Width; FabShadeBandShriLine2Rec.Width)
-                // { }
+            // dataitem(FabShadeBandShriLine1; FabShadeBandShriLine1)
+            // {
+            //     DataItemLinkReference = FabShadeBandShriHeader;
+            //     DataItemLink = "FabShadeNo." = field("FabShadeNo.");
+            //     DataItemTableView = sorting("FabShadeNo.");
 
-            }
+            //     column(Shade; Shade)
+            //     { }
+            //     column(Shade_TotalRolls; "Total Rolls")
+            //     { }
+            //     column(Shade_TotalYDS; "Total YDS")
+            //     { }
+            //     // column(Width; FabShadeBandShriLine2Rec.Width)
+            //     // { }
 
-            dataitem(FabShadeBandShriLine2; FabShadeBandShriLine2)
-            {
-                DataItemLinkReference = FabShadeBandShriHeader;
-                DataItemLink = "FabShadeNo." = field("FabShadeNo.");
-                DataItemTableView = sorting("FabShadeNo.");
+            // }
 
-                column(Width; Width)
-                { }
-                column(Width_TotalRolls; "Total Rolls")
-                { }
-                column(Width_Total_YDS; "Total YDS")
-                { }
-            }
-            dataitem(FabShadeBandShriLine3; FabShadeBandShriLine3)
-            {
-                DataItemLinkReference = FabShadeBandShriHeader;
-                DataItemLink = "FabShadeNo." = field("FabShadeNo.");
-                DataItemTableView = sorting("FabShadeNo.");
-                column(Length_Shrinkage; Shrinkage)
-                { }
-                column(Length_Total_Rolls; "Total Rolls")
-                { }
-            }
+            // dataitem(FabShadeBandShriLine2; FabShadeBandShriLine2)
+            // {
+            //     DataItemLinkReference = FabShadeBandShriHeader;
+            //     DataItemLink = "FabShadeNo." = field("FabShadeNo.");
+            //     DataItemTableView = sorting("FabShadeNo.");
+
+            //     column(Width; Width)
+            //     { }
+            //     column(Width_TotalRolls; "Total Rolls")
+            //     { }
+            //     column(Width_Total_YDS; "Total YDS")
+            //     { }
+            // }
+            // dataitem(FabShadeBandShriLine3; FabShadeBandShriLine3)
+            // {
+            //     DataItemLinkReference = FabShadeBandShriHeader;
+            //     DataItemLink = "FabShadeNo." = field("FabShadeNo.");
+            //     DataItemTableView = sorting("FabShadeNo.");
+            //     column(Length_Shrinkage; Shrinkage)
+            //     { }
+            //     column(Length_Total_Rolls; "Total Rolls")
+            //     { }
+            // }
             trigger OnPreDataItem()
 
             begin
@@ -116,6 +143,42 @@ report 50616 FabricShadeBandandShrinkage
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                FabShadeBandShriLine4Rec.Reset();
+                FabShadeBandShriLine4Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                if FabShadeBandShriLine4Rec.FindFirst() then begin
+                    widthShrinkage := FabShadeBandShriLine4Rec."WIDTH Shrinkage";
+                    WidthTotal := FabShadeBandShriLine4Rec."Total Rolls";
+                end;
+
+                FabShadebandSriline5Rec.Reset();
+                FabShadebandSriline5Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                if FabShadebandSriline5Rec.FindFirst() then begin
+                    Pattern := FabShadebandSriline5Rec.Pattern;
+                    Length := FabShadebandSriline5Rec."Length%";
+                    Width := FabShadebandSriline5Rec."WIDTH%";
+                end;
+                FabShadeBandShriLine1Rec.Reset();
+                FabShadeBandShriLine1Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                if FabShadeBandShriLine1Rec.FindFirst() then begin
+                    Shade := FabShadeBandShriLine1Rec.Shade;
+                    TotalRolls := FabShadeBandShriLine1Rec."Total Rolls";
+                    TotalYDS := FabShadeBandShriLine1Rec."Total YDS";
+                end;
+                FabShadeBandShriLine2Rec.Reset();
+                FabShadeBandShriLine2Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                if FabShadeBandShriLine2Rec.FindFirst() then begin
+                    WidthLine2 := FabShadeBandShriLine2Rec.Width;
+                    TotalRollsLine2 := FabShadeBandShriLine2Rec."Total Rolls";
+                    TotalYDSLine2 := FabShadeBandShriLine2Rec."Total YDS";
+                end;
+
+                FabShadeBandShriLine3Rec.Reset();
+                FabShadeBandShriLine3Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                if FabShadeBandShriLine3Rec.FindFirst() then begin
+                    LengthShrinkage := FabShadeBandShriLine3Rec.Shrinkage;
+                    LengthTotalRolls := FabShadeBandShriLine3Rec."Total Rolls";
+                end;
             end;
         }
     }
@@ -157,11 +220,27 @@ report 50616 FabricShadeBandandShrinkage
     }
     var
         myInt: Integer;
-        // Shade_TotalRolls_Tot: Integer;
-        // FabShadeBandShriLine1Rec: Record FabShadeBandShriLine1;
-        // FabShadeBandShriLine2Rec: Record FabShadeBandShriLine2;
-        // FabShadeBandShriLine3Rec: Record FabShadeBandShriLine3;
-        // FabShadeBandShriLine4Rec: Record FabShadeBandShriLine4;
+        Shade_TotalRolls_Tot: Integer;
+        FabShadeBandShriLine1Rec: Record FabShadeBandShriLine1;
+        FabShadeBandShriLine2Rec: Record FabShadeBandShriLine2;
+        FabShadeBandShriLine3Rec: Record FabShadeBandShriLine3;
+        FabShadeBandShriLine4Rec: Record FabShadeBandShriLine4;
+        FabShadebandSriline5Rec: Record FabShadeBandShriLine5;
         FilterFab: code[20];
         comRec: Record "Company Information";
+
+        widthShrinkage: Decimal;
+        WidthTotal: Integer;
+        Pattern: Code[20];
+        Width: Text[50];
+        Length: Text[50];
+        Shade: Code[20];
+        TotalRolls: Integer;
+        TotalYDS: Decimal;
+        WidthLine2: Decimal;
+        TotalRollsLine2: Integer;
+        TotalYDSLine2: Decimal;
+        LengthShrinkage: Decimal;
+        LengthTotalRolls: Integer;
+
 }
