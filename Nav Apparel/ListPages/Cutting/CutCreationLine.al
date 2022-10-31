@@ -570,6 +570,7 @@ page 50598 "Cut Creation Line"
         CutCreLineRec.Reset();
         CutCreLineRec.SetRange("CutCreNo.", "CutCreNo.");
         CutCreLineRec.SetFilter("Record Type", '=%1', 'H');
+        //CutCreLineRec.SetFilter("Cut No", '=%1', 0);
         CutCreLineRec.FindSet();
 
         for Count := 1 To 64 do begin

@@ -75,13 +75,11 @@ table 50483 "Machine Layout"
         {
             DataClassification = ToBeClassified;
         }
-
-
     }
 
     keys
     {
-        key(PK; PKey)
+        key(PK; "No.", PKey)
         {
             Clustered = true;
         }
@@ -92,21 +90,6 @@ table 50483 "Machine Layout"
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }

@@ -79,6 +79,12 @@ page 50476 "Maning Levels Listpart"
                 {
                     ApplicationArea = All;
                     Caption = 'Actual MO';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        "Act MC" := "Act MO";
+                    end;
                 }
 
                 field("Act HP"; "Act HP")
@@ -91,6 +97,7 @@ page 50476 "Maning Levels Listpart"
                 {
                     ApplicationArea = All;
                     Caption = 'Actual MC';
+                    Editable = false;
                 }
 
                 field(Comments; Comments)

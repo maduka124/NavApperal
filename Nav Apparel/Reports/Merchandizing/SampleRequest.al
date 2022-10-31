@@ -2,7 +2,7 @@ report 50639 SampleRequest
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Sample Request Report';
+    Caption = 'Sample Requisition Report';
     RDLCLayout = 'Report_Layouts/Merchandizing/SampleRequest.rdl';
     DefaultLayout = RDLC;
 

@@ -32,6 +32,27 @@ page 50719 WashingSampleHistry
                     Caption = 'Style';
                 }
 
+                field("PO No"; "PO No")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Sample/Bulk"; "Sample/Bulk")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Sample Req. No"; "Sample Req. No")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Request From"; "Request From")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Requisition From';
+                }
+
                 field("Garment Type Name"; "Garment Type Name")
                 {
                     ApplicationArea = All;
@@ -54,10 +75,10 @@ page 50719 WashingSampleHistry
                     ApplicationArea = All;
                 }
 
-                field("Washing Status"; "Washing Status")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Washing Status"; "Washing Status")
+                // {
+                //     ApplicationArea = All;
+                // }
             }
         }
     }

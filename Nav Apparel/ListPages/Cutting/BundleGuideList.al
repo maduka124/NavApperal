@@ -19,7 +19,7 @@ page 50666 "Bundle Guide List"
                     Caption = 'Bundle Guide No';
                 }
 
-                field("Style No."; "Style No.")
+                field("Style Name"; "Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';

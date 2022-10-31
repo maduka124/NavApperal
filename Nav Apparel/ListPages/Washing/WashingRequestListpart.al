@@ -14,15 +14,6 @@ page 50751 WashingSampleListpart
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
-
-                    // trigger OnValidate()
-                    // var
-                    //     SampleReqRec: Record "Washing Sample Requsition Line";
-                    // begin
-                    //     SampleReqRec.Reset();
-                    //     SampleReqRec.SetRange("No.", "No.");
-                    //     SampleReqRec.SetRange("Line no.", "Line no.");
-                    // end;
                 }
 
                 // field("Select Item"; "Select Item")

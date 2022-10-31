@@ -322,6 +322,11 @@ table 50705 "Washing Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(67; "Sample Req. No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

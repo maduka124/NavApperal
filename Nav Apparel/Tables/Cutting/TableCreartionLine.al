@@ -55,7 +55,7 @@ table 50610 TableCreartionLine
         field(10; "Marker Name"; code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = CutCreationLine."Marker Name" where("Style No." = field("Style No."), "Group ID" = field("Group ID"), "Component Group Code" = field("Component Group"), "Record Type" = filter('R'));
+            TableRelation = CutCreationLine."Marker Name" where("Style No." = field("Style No."), "Group ID" = field("Group ID"), "Component Group Code" = field("Component Group"), "Record Type" = filter('R'), "Cut No" = filter(<> 0));
             ValidateTableRelation = false;
         }
 

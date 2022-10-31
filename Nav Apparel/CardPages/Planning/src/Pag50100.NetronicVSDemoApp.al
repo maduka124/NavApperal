@@ -147,7 +147,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 begin
                     // Message('OnRequestSettings!');
 
-                    _settings.Add('LicenseKey', 'NjQxODUtNzg1NTY2LTIxNDc3MC17InciOiIiLCJpZCI6IlZTQ0FJRXZhbCIsIm4iOiJORVRST05JQyIsInUiOiIiLCJlIjoyMjEwLCJ2IjoiNC4wIiwiZiI6WzEwMDFdLCJlZCI6IkJhc2UifQ==');
+                    _settings.Add('LicenseKey', 'MTI3NDYwLTg4ODA4OS0xMTc3NzgteyJ3IjoiIiwiaWQiOiJWU0NBSUV2YWwiLCJuIjoiTkVUUk9OSUMiLCJ1IjoiIiwiZSI6MjIxMSwidiI6IjQuMCIsImYiOlsxMDAxXSwiZWQiOiJCYXNlIn0=');
 
                     _settings.Add('Start', gdtconVSControlAddInStart);
                     _settings.Add('End', gdtconVSControlAddInEnd);
@@ -315,6 +315,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     ProdPlansDetails: Record "NavApp Prod Plans Details";
                     ProdHeaderRec: Record ProductionOutHeader;
                     StyleMasterPORec: Record "Style Master PO";
+                    SHCalHolidayRec: Record "Shop Calendar Holiday";
+                    SHCalWorkRec: Record "Shop Calendar Working Days";
                     dtStart: Date;
                     dtEnd: Date;
                     D: Integer;
@@ -349,7 +351,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     IsInserted: Boolean;
                     MaxLineNo: BigInteger;
                     xQty: Decimal;
-
+                    DayForWeek: Record Date;
+                    Day: Integer;
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -495,6 +498,41 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 until ResCapacityEntryRec.Next() = 0;
                             end;
 
+                            if HoursPerDay = 0 then begin
+
+                                //Validate the day (Holiday or Weekend)
+                                SHCalHolidayRec.Reset();
+                                SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                SHCalHolidayRec.SETRANGE(Date, dtStart);
+
+                                if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                    DayForWeek.Get(DayForWeek."Period Type"::Date, dtStart);
+
+                                    case DayForWeek."Period Name" of
+                                        'Monday':
+                                            Day := 0;
+                                        'Tuesday':
+                                            Day := 1;
+                                        'Wednesday':
+                                            Day := 2;
+                                        'Thursday':
+                                            Day := 3;
+                                        'Friday':
+                                            Day := 4;
+                                        'Saturday':
+                                            Day := 5;
+                                        'Sunday':
+                                            Day := 6;
+                                    end;
+
+                                    SHCalWorkRec.Reset();
+                                    SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                    SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                    if SHCalWorkRec.FindSet() then   //If not weekend
+                                        Error('Calender for date : %1  Work center : %2 has not calculated', dtStart, ResourceRec.Name);
+                                end;
+                            end;
+
                             if HoursPerDay = 0 then
                                 dtStart := dtStart + 1;
 
@@ -570,6 +608,42 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
                                 until ResCapacityEntryRec.Next() = 0;
                             end;
+
+                            if HoursPerDay = 0 then begin
+
+                                //Validate the day (Holiday or Weekend)
+                                SHCalHolidayRec.Reset();
+                                SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                SHCalHolidayRec.SETRANGE(Date, TempDate);
+
+                                if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                    DayForWeek.Get(DayForWeek."Period Type"::Date, TempDate);
+
+                                    case DayForWeek."Period Name" of
+                                        'Monday':
+                                            Day := 0;
+                                        'Tuesday':
+                                            Day := 1;
+                                        'Wednesday':
+                                            Day := 2;
+                                        'Thursday':
+                                            Day := 3;
+                                        'Friday':
+                                            Day := 4;
+                                        'Saturday':
+                                            Day := 5;
+                                        'Sunday':
+                                            Day := 6;
+                                    end;
+
+                                    SHCalWorkRec.Reset();
+                                    SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                    SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                    if SHCalWorkRec.FindSet() then   //If not weekend
+                                        Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, ResourceRec.Name);
+                                end;
+                            end;
+
 
                             //No learning curve for holidays
                             if HoursPerDay > 0 then

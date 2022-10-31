@@ -6,7 +6,7 @@ page 71012771 "Sample Request"
     SourceTable = "Sample Requsition Header";
     CardPageId = "Sample Request Card";
     SourceTableView = sorting("No.") order(descending);
-
+    Caption = 'Sample Requisition';
 
     layout
     {

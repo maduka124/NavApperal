@@ -38,6 +38,8 @@ report 50606 FabricRequisitionNote
             { }
             column(Location_Name; "Location Name")
             { }
+            column(PO_No_; "PO No.")
+            { }
 
             dataitem(FabricRequsitionLine; FabricRequsitionLine)
             {

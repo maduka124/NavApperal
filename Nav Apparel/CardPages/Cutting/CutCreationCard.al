@@ -324,6 +324,7 @@ page 50599 "Cut Creation Card"
                             CutCreationLineRec."PO No." := RatioCreLineRec."PO No.";
                             CutCreationLineRec.qty := 0;
                             CutCreationLineRec.Plies := RatioCreLineRec.Plies;
+                            //CutCreationLineRec."Record Type" := RatioCreLineRec."Record Type";
                             CutCreationLineRec."Record Type" := RatioCreLineRec."Record Type";
                             CutCreationLineRec."Sewing Job No." := RatioCreLineRec."Sewing Job No.";
                             CutCreationLineRec.ShipDate := RatioCreLineRec.ShipDate;

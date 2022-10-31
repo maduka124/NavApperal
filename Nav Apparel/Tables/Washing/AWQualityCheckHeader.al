@@ -92,6 +92,14 @@ table 50686 AWQualityCheckHeader
         }
     }
 
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", "QC AW Date", "Sample Req No")
+        {
+
+        }
+    }
+
 
     trigger OnInsert()
     var
@@ -105,11 +113,11 @@ table 50686 AWQualityCheckHeader
         "Created User" := UserId;
     end;
 
+
     trigger OnDelete()
     var
         AWQualityCheckLineRec: Record AWQualityCheckLine;
     begin
-
         AWQualityCheckLineRec.Reset();
         AWQualityCheckLineRec.SetRange(No, "No.");
 

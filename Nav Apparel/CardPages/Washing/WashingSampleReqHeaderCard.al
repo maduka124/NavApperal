@@ -15,12 +15,34 @@ page 50701 "Washing Sample Request Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Requisition No';
-                    //Editable = false;
 
                     trigger OnAssistEdit()
                     begin
                         IF AssistEdit THEN
                             CurrPage.UPDATE;
+                    end;
+                }
+
+                field("Sample/Bulk"; "Sample/Bulk")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        WashSMReqLineRec: Record "Washing Sample Requsition Line";
+                    begin
+                        if "Sample/Bulk" = "Sample/Bulk"::Sample then
+                            EditableGB := true
+                        else begin
+                            EditableGB := false;
+                            "Sample Req. No" := '';
+
+                            WashSMReqLineRec.Reset();
+                            WashSMReqLineRec.SetRange("No.", "No.");
+                            if WashSMReqLineRec.FindSet() then
+                                WashSMReqLineRec.ModifyAll("Sample Req. No", '');
+
+                        end;
                     end;
                 }
 
@@ -104,6 +126,80 @@ page 50701 "Washing Sample Request Card"
                     end;
                 }
 
+                field("Sample Req. No"; "Sample Req. No")
+                {
+                    ApplicationArea = All;
+                    Editable = EditableGB;
+
+                    trigger OnValidate()
+                    var
+                        SMReqHeaderRec: Record "Sample Requsition Header";
+                        SMReqLineRec: Record "Sample Requsition Line";
+                        WashSMReqLineRec: Record "Washing Sample Requsition Line";
+                    begin
+
+                        if "Sample/Bulk" = "Sample/Bulk"::Sample then begin
+
+                            SMReqHeaderRec.Reset();
+                            SMReqHeaderRec.SetRange("No.", "Sample Req. No");
+                            if SMReqHeaderRec.FindSet() then begin
+                                "Wash Plant No." := SMReqHeaderRec."Wash Plant No.";
+                                "Wash Plant Name" := SMReqHeaderRec."Wash Plant Name";
+                            end;
+
+                            if "Sample Req. No" <> '' then begin
+                                //Insert request line
+                                SMReqLineRec.Reset();
+                                SMReqLineRec.SetRange("No.", "Sample Req. No");
+                                if SMReqLineRec.FindSet() then begin
+
+                                    //Delete old records
+                                    WashSMReqLineRec.Reset();
+                                    WashSMReqLineRec.SetRange("No.", "No.");
+                                    if WashSMReqLineRec.FindSet() then
+                                        WashSMReqLineRec.DeleteAll();
+
+                                    WashSMReqLineRec.Init();
+                                    WashSMReqLineRec."No." := "No.";
+                                    WashSMReqLineRec."Style No." := "Style No.";
+                                    WashSMReqLineRec."Style_PO No" := "PO No";
+                                    WashSMReqLineRec."Style Name" := "Style Name";
+                                    WashSMReqLineRec."Wash Plant Name" := "Wash Plant Name";
+                                    WashSMReqLineRec.Buyer := "Buyer Name";
+                                    WashSMReqLineRec."Buyer No" := "Buyer No.";
+                                    WashSMReqLineRec."Gament Type" := "Garment Type Name";
+                                    WashSMReqLineRec."Factory Name" := "Wash Plant Name";
+                                    WashSMReqLineRec."Location Code" := "Wash Plant No.";
+                                    WashSMReqLineRec."Req Date" := WorkDate();
+                                    WashSMReqLineRec.SampleType := SMReqLineRec."Sample Name";
+                                    WashSMReqLineRec."Sample No." := SMReqLineRec."Sample No.";
+                                    WashSMReqLineRec."Wash Type No." := SMReqHeaderRec."Wash Type No.";
+                                    WashSMReqLineRec."Wash Type" := SMReqHeaderRec."Wash Type Name";
+                                    WashSMReqLineRec."Fabric Description" := SMReqLineRec."Fabrication Name";
+                                    WashSMReqLineRec."Fabrication No." := SMReqLineRec."Fabrication No.";
+                                    WashSMReqLineRec."Color Code" := SMReqLineRec."Color No";
+                                    WashSMReqLineRec."Color Name" := SMReqLineRec."Color Name";
+                                    WashSMReqLineRec.Size := SMReqLineRec.Size;
+                                    WashSMReqLineRec."Req Qty" := SMReqLineRec.Qty;
+                                    WashSMReqLineRec."Sample Req. No" := "Sample Req. No";
+                                    WashSMReqLineRec.Insert();
+
+                                    CurrPage.Update();
+                                end;
+                            end
+                            else begin
+                                WashSMReqLineRec.Reset();
+                                WashSMReqLineRec.SetRange("No.", "No.");
+                                if WashSMReqLineRec.FindSet() then
+                                    WashSMReqLineRec.ModifyAll("Sample Req. No", '');
+
+                            end;
+
+                        end;
+
+                    end;
+                }
+
                 field("Request From"; "Request From")
                 {
                     ApplicationArea = All;
@@ -116,14 +212,6 @@ page 50701 "Washing Sample Request Card"
                     ApplicationArea = All;
                     TableRelation = "Garment Type"."No.";
                     Visible = false;
-
-                    // trigger OnValidate()
-                    // var
-                    //     GarmentTypeRec: Record "Garment Type";
-                    // begin
-                    //     GarmentTypeRec.get("Garment Type No.");
-                    //     "Garment Type Name" := GarmentTypeRec."Garment Type Description";
-                    // end;
                 }
 
                 field("Garment Type Name"; "Garment Type Name")
@@ -149,14 +237,6 @@ page 50701 "Washing Sample Request Card"
                     ApplicationArea = All;
                     Caption = 'Wash Plant No';
                     Visible = false;
-
-                    // trigger OnValidate()
-                    // var
-                    //     LocationRec: Record Location;
-                    // begin
-                    //     LocationRec.get("Wash Plant No.");
-                    //     "Wash Plant Name" := LocationRec.Name;
-                    // end;
                 }
 
                 field("Wash Plant Name"; "Wash Plant Name")
@@ -178,17 +258,6 @@ page 50701 "Washing Sample Request Card"
                 field("PO No"; "PO No")
                 {
                     ApplicationArea = All;
-
-                    // trigger onvalidate()
-                    // var
-                    //     StyleMasterPoRec: Record "Style Master PO";
-                    // begin
-                    //     StyleMasterPoRec.Reset();
-                    //     StyleMasterPoRec.SetRange("Style No.", "Style No.");
-
-                    //     if StyleMasterPoRec.FindSet() then
-                    //         "PO No" := StyleMasterPoRec."PO No.";
-                    // end;
                 }
 
                 field(Comment; Comment)
@@ -204,17 +273,11 @@ page 50701 "Washing Sample Request Card"
                     Editable = false;
                 }
 
-                field("Sample/Bulk"; "Sample/Bulk")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Washing Status"; "Washing Status")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
-
+                // field("Washing Status"; "Washing Status")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                // }
             }
 
             group("Sample Details")
@@ -296,7 +359,6 @@ page 50701 "Washing Sample Request Card"
     var
         WashSampleReqLineRec: Record "Washing Sample Requsition Line";
     begin
-
         WashSampleReqLineRec.Reset();
         WashSampleReqLineRec.SetRange("No.", "No.");
 
@@ -307,6 +369,22 @@ page 50701 "Washing Sample Request Card"
             else
                 CurrPage.Editable(true);
         end;
-
     end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+    begin
+        if "Sample/Bulk" = "Sample/Bulk"::Sample then
+            EditableGB := true
+        else begin
+            EditableGB := false;
+            "Sample Req. No" := '';
+        end;
+    end;
+
+
+    var
+        EditableGB: Boolean;
+
 }

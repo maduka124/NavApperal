@@ -149,11 +149,16 @@ codeunit 71012752 NavAppCodeUnit
     procedure ChangeColorCutCreation(OpList: Record CutCreationLine): Text[50]
     var
     begin
-        if (OpList."Record Type" = 'H') or (OpList."Record Type" = 'H1') then
+        // if (OpList."Record Type" = 'H') or (OpList."Record Type" = 'H1') then
+        //     exit('strongaccent')
+        // else
+        //     if OpList."Record Type" = 'R' then
+        //         exit('Ambiguous');
+
+        if OpList."Cut No" = 0 then
             exit('strongaccent')
         else
-            if OpList."Record Type" = 'R' then
-                exit('Ambiguous');
+            exit('Ambiguous');
 
 
     end;

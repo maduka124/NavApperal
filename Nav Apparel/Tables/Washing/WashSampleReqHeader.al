@@ -176,6 +176,12 @@ table 50741 "Washing Sample Header"
             TableRelation = "Style Master PO"."PO No." where("Style No." = field("Style No."));
             ValidateTableRelation = false;
         }
+
+        field(37; "Sample Req. No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Sample Requsition Header"."No." where("Style No." = field("Style No."));
+        }
     }
 
     keys

@@ -78,7 +78,7 @@ report 50901 AWQCReport
                     field("AW QC No"; "AW QC No")
                     {
                         ApplicationArea = All;
-                        Caption = 'After Wash No';
+                        Caption = 'After Wash QC No';
                         TableRelation = AWQualityCheckHeader."No.";
                     }
                 }

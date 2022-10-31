@@ -455,9 +455,9 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Sample Request")
+                action("Sample Requisition")
                 {
-                    Caption = 'Sample Request';
+                    Caption = 'Sample Requisition';
                     RunObject = Page "Sample Request";
                     ApplicationArea = all;
                 }
@@ -495,6 +495,13 @@ page 71012740 "Nav Apperal Role Center"
                     Caption = 'Contract BBLC Summary List';
                     RunObject = Page "Contract BBLC Summary List";
                     ApplicationArea = all;
+                }
+
+                action("SampleWashingRequestsWIP1")
+                {
+                    RunObject = page SampleWashingRequestsWIP;
+                    ApplicationArea = All;
+                    Caption = 'Washing Requests WIP';
                 }
 
                 group("Merchandizing Reports")
@@ -576,7 +583,7 @@ page 71012740 "Nav Apperal Role Center"
 
                     action("Sample Request Report")
                     {
-                        Caption = 'Sample Request Report';
+                        Caption = 'Sample Requisition Report';
                         Enabled = true;
                         RunObject = report SampleRequest;
                         ApplicationArea = all;
@@ -667,6 +674,14 @@ page 71012740 "Nav Apperal Role Center"
                         Caption = 'Target Sheet Report';
                         Enabled = true;
                         RunObject = report TargetSheetReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Weekly Order Booking")
+                    {
+                        Caption = 'Weekly Order Booking';
+                        Enabled = true;
+                        RunObject = report WeeklyOrderBookingStatus;
                         ApplicationArea = all;
                     }
                 }
@@ -905,18 +920,18 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                group("Fnishing Reports")
-                {
-                    Caption = 'Fnishing Reports';
+                // group("Fnishing Reports")
+                // {
+                //     Caption = 'Fnishing Reports';
 
-                    action("Weekly Order Booking")
-                    {
-                        Caption = 'Weekly Order Booking';
-                        Enabled = true;
-                        RunObject = report WeeklyOrderBookingStatus;
-                        ApplicationArea = all;
-                    }
-                }
+                //     action("Weekly Order Booking")
+                //     {
+                //         Caption = 'Weekly Order Booking';
+                //         Enabled = true;
+                //         RunObject = report WeeklyOrderBookingStatus;
+                //         ApplicationArea = all;
+                //     }
+                // }
             }
 
             group("Samples")
@@ -1209,6 +1224,13 @@ page 71012740 "Nav Apperal Role Center"
                     RunObject = page WashingMachineTypeList;
                     ApplicationArea = All;
                     Caption = 'Machine Types';
+                }
+
+                action("SampleWashingRequestsWIP")
+                {
+                    RunObject = page SampleWashingRequestsWIP;
+                    ApplicationArea = All;
+                    Caption = 'Washing Requests WIP';
                 }
 
                 group("Washing Reports")

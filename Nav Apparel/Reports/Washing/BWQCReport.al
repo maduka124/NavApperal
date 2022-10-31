@@ -10,7 +10,7 @@ report 50900 BWQCReport
     {
         dataitem(BWQualityCheckHeader; BWQualityCheckHeader)
         {
-             DataItemTableView = sorting("No.");
+            DataItemTableView = sorting("No.");
             column(No_; "No.")
             { }
             column(BW_QC_Date; "BW QC Date")
@@ -78,11 +78,11 @@ report 50900 BWQCReport
             {
                 group(GroupName)
                 {
-                    Caption='Filter By';
+                    Caption = 'Filter By';
                     field("BW QC No"; "BW QC No")
                     {
                         ApplicationArea = All;
-                         Caption='Before Wash No';
+                        Caption = 'Before Wash QC No';
                         TableRelation = BWQualityCheckHeader."No.";
 
                     }

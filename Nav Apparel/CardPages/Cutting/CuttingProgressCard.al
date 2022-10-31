@@ -48,6 +48,9 @@ page 50662 "Cutting Progress Card"
                             "Cut No." := LaySheetHeaderRec."Cut No.";
                             "Created Date" := Today;
                             "Created User" := UserId;
+                            "Style Name" := LaySheetHeaderRec."Style Name";
+                            "Style No." := LaySheetHeaderRec."Style No.";
+                            "PO No." := LaySheetHeaderRec."PO No.";
                         end;
 
                         CurrPage.Update();
@@ -121,6 +124,20 @@ page 50662 "Cutting Progress Card"
                         CurrPage.Update();
 
                     end;
+                }
+
+                field("Style Name"; "Style Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Style';
+                }
+
+                field("PO No."; "PO No.")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'PO No';
                 }
 
                 field("Item Name"; "Item Name")

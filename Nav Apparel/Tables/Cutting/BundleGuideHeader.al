@@ -75,6 +75,11 @@ table 50664 BundleGuideHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(13; "PO No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -2,7 +2,7 @@ page 71012772 "Sample Request Card"
 {
     PageType = Card;
     SourceTable = "Sample Requsition Header";
-    Caption = 'Sample Request';
+    Caption = 'Sample Requisition';
 
     layout
     {

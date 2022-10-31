@@ -68,6 +68,14 @@ table 50738 BWQualityCheckHeader
         }
     }
 
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", "BW QC Date", "Sample Req No")
+        {
+
+        }
+    }
+
 
     trigger OnInsert()
     var
@@ -81,9 +89,8 @@ table 50738 BWQualityCheckHeader
         "Created User" := UserId;
     end;
 
-   
-    trigger OnDelete()
 
+    trigger OnDelete()
     var
         BWQualityCheckRec: Record BWQualityLine2;
     begin
@@ -91,6 +98,6 @@ table 50738 BWQualityCheckHeader
         BWQualityCheckRec.SetRange("No", "No.");
         if BWQualityCheckRec.FindSet() then
             BWQualityCheckRec.DeleteAll();
-    end;    
+    end;
 
 }

@@ -170,32 +170,50 @@ page 50721 "Job Creation Card"
                             //Create Sample Items
                             Generate_Sample_Items();
 
-                            //Create Sales Order
+                            //Create Sales Orders
                             Generate_SO();
 
-                            //Create Purchase Order
-                            Generate_PO();
+                            //Create Purchase Order (For GRN of received items)
+                            Generate_PO("Style No.", "Style Name");
 
                             //Create Prod orders                       
                             SalesHeaderRec.Reset();
                             SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
                             SalesHeaderRec.SetRange("Style No", "Style No.");
                             SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::Washing);
+
                             if SalesHeaderRec.FindSet() then begin
 
-                                //Window.Open(TextCon1);
                                 repeat
+
                                     ProOrderNo := CodeUnitNavApp.CreateProdOrder(SalesHeaderRec."No.", 'Washing');
-                                //Window.Update(1, ProOrderNo);
-                                //Sleep(100);
+
+                                    //get split no of the So
+                                    inTermeDiateTable.Reset();
+                                    inTermeDiateTable.SetRange(No, "No.");
+                                    inTermeDiateTable.SetRange("Line No", "Line no.");
+                                    inTermeDiateTable.SetRange("SO No", SalesHeaderRec."No.");
+
+                                    if inTermeDiateTable.FindSet() then begin
+
+                                        JobcreationRec.Reset();
+                                        JobcreationRec.SetRange(No, "No.");
+                                        JobcreationRec.SetRange("Line No", "Line no.");
+                                        JobcreationRec.SetRange("Split No", inTermeDiateTable."Split No");
+
+                                        if JobcreationRec.FindSet() then begin
+                                            JobcreationRec."Job Card (Prod Order)" := ProOrderNo;
+                                            JobcreationRec.Modify();
+                                        end;
+                                    end;
+
                                 until SalesHeaderRec.Next() = 0;
-                                //Window.Close();
 
                             end;
 
                             CurrPage.Editable(false);
                             CurrPage.Update();
-                            Message('completed.');
+                            Message('Posting completed.');
                         end
                         else
                             Error('This job creation already posted.');
@@ -230,7 +248,6 @@ page 50721 "Job Creation Card"
             "FG Status" := "FG Status"::Yes;
         end;
     end;
-
 
     procedure CreateItem(ItemDesc: Text[500]; color: code[50]; "Unit Price": Decimal): code[20]
     var
@@ -374,7 +391,7 @@ page 50721 "Job Creation Card"
         end;
     end;
 
-    procedure Generate_PO()
+    procedure Generate_PO(StyleNo: code[20]; StyleName: Text[50])
     var
         PoNo: Code[20];
         IntermediateTableRec: Record IntermediateTable;
@@ -382,7 +399,7 @@ page 50721 "Job Creation Card"
         PurchaseHeader: Record "Purchase Header";
         PurchaseLine: Record "Purchase Line";
         NavAppSetupRec: Record "NavApp Setup";
-        HeaderRenaretor: Integer;
+        HeaderGenerated: Integer;
         LineNo: Integer;
         PurchaseHeader2: Record "Purchase Header";
         PurchPostCodeunit: Codeunit "Purch.-Post";
@@ -394,7 +411,7 @@ page 50721 "Job Creation Card"
         IntermediateTableRec.SetRange("Line No", "Line no.");
 
         if IntermediateTableRec.FindSet() then begin
-            HeaderRenaretor := 0;
+            HeaderGenerated := 0;
             LineNo := 0;
             NavAppSetupRec.Reset();
             NavAppSetupRec.FindSet();
@@ -403,7 +420,7 @@ page 50721 "Job Creation Card"
                 LineNo += 1;
                 begin
                     // Insert Purchase Header 
-                    if HeaderRenaretor = 0 then begin
+                    if HeaderGenerated = 0 then begin
                         PoNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."Wash Purchase Nos.", Today(), true);
                         PurchaseHeader.Init();
                         PurchaseHeader."No." := PoNo;
@@ -416,7 +433,7 @@ page 50721 "Job Creation Card"
                         PurchaseHeader."Document Date" := "Req Date";
                         PurchaseHeader."Posting Date" := WorkDate();
                         PurchaseHeader.receive := true;
-                        HeaderRenaretor := 1;
+                        HeaderGenerated := 1;
                         PurchaseHeader.Insert();
                     end;
 
@@ -424,6 +441,8 @@ page 50721 "Job Creation Card"
                     PurchaseLine.Init();
                     PurchaseLine."Document Type" := PurchaseHeader."Document Type"::Order;
                     PurchaseLine."Document No." := PoNo;
+                    PurchaseLine.StyleNo := StyleNo;
+                    PurchaseLine.StyleName := StyleName;
                     PurchaseLine.Type := PurchaseLine.Type::Item;
                     PurchaseLine."VAT Bus. Posting Group" := 'ZERO';
                     PurchaseLine."VAT Prod. Posting Group" := 'ZERO';
@@ -440,17 +459,17 @@ page 50721 "Job Creation Card"
                     IntermediateTableRec."Po No" := PoNo;
                     IntermediateTableRec.Modify();
 
-                    //Post Purchase Order
-                    PurchaseHeader.Reset();
-                    PurchaseHeader.SetRange("No.", PoNo);
-                    PurchaseHeader.SetRange("Document Type", PurchaseHeader."Document Type");
-
-                    if PurchaseHeader.FindSet() then begin
-                        PurchPostCodeunit.Run(PurchaseHeader);
-                    end;
-
                 end;
             until IntermediateTableRec.Next() = 0;
+
+            //Post Purchase Order
+            PurchaseHeader.Reset();
+            PurchaseHeader.SetRange("No.", PoNo);
+            PurchaseHeader.SetRange("Document Type", PurchaseHeader."Document Type"::Order);
+
+            if PurchaseHeader.FindSet() then begin
+                PurchPostCodeunit.Run(PurchaseHeader);
+            end;
 
             "PO Satatus" := "PO Satatus"::Yes;
         end;

@@ -6,7 +6,7 @@ page 50369 "Wastage"
     SourceTable = Wastage;
     CardPageId = "Wastage Card";
     Caption = 'Quantity Wise Extra %';
-    SourceTableView = sorting("Start Qty") order(descending);
+    //SourceTableView = sorting("Start Qty") order(descending);
 
 
     layout

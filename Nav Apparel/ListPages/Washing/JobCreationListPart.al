@@ -188,6 +188,8 @@ page 50722 JobcreationPageListPart
                     trigger OnValidate()
                     var
                         JobCreLineRec: Record JobCreationLine;
+                        ItemRec: Record Item;
+                        IntermediateTable: Record IntermediateTable;
                     begin
                         if "Reciepe (Prod BOM)" <> '' then begin
                             JobCreLineRec.Reset();
@@ -195,14 +197,37 @@ page 50722 JobcreationPageListPart
                             JobCreLineRec.SetRange("Reciepe (Prod BOM)", "Reciepe (Prod BOM)");
                             JobCreLineRec.SetFilter("Split No", '<>%1', "Split No");
                             if JobCreLineRec.FindSet() then
-                                Error('Reciepe already assigned.');
+                                Error('Reciepe already assigned.')
                         end;
+
+                        //Get FG No of the line
+                        IntermediateTable.Reset();
+                        IntermediateTable.SetRange(No, No);
+                        IntermediateTable.SetRange("Line No", "Line No");
+                        IntermediateTable.SetRange("Split No", "Split No");
+
+                        if IntermediateTable.FindSet() then begin
+                            //Update BOM of the FG
+                            ItemRec.Reset();
+                            ItemRec.SetRange("No.", IntermediateTable."FG No");
+
+                            if ItemRec.FindSet() then begin
+                                ItemRec."Production BOM No." := "Reciepe (Prod BOM)";
+                                ItemRec.Modify();
+                            end
+                            else
+                                Error('Cannot find the FG item');
+                        end
+                        else
+                            Error('Cannot find the Intermediate line');
+
                     end;
                 }
 
                 field("Job Card (Prod Order)"; "Job Card (Prod Order)")
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
                     trigger OnValidate()
                     var
