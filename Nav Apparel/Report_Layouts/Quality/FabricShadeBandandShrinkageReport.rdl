@@ -1667,9 +1667,6 @@
                   <TablixMembers>
                     <TablixMember />
                   </TablixMembers>
-                  <Visibility>
-                    <Hidden>=Fields!Shade.Value=""</Hidden>
-                  </Visibility>
                 </TablixMember>
                 <TablixMember />
               </TablixMembers>
@@ -2303,9 +2300,6 @@
                       <GroupExpression>=Fields!Width.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
-                  <Visibility>
-                    <Hidden>=Fields!Width.Value=0</Hidden>
-                  </Visibility>
                 </TablixMember>
                 <TablixMember />
               </TablixMembers>
@@ -2763,9 +2757,6 @@
                 <TablixMember />
                 <TablixMember>
                   <Group Name="Details3" />
-                  <Visibility>
-                    <Hidden>=Fields!Length_Shrinkage.Value=0</Hidden>
-                  </Visibility>
                 </TablixMember>
                 <TablixMember />
               </TablixMembers>
@@ -3301,9 +3292,6 @@
                       <GroupExpression>=Fields!Width.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
-                  <Visibility>
-                    <Hidden>=Fields!WIDTH_Shrinkage_Total_Rolls.Value=0</Hidden>
-                  </Visibility>
                 </TablixMember>
                 <TablixMember />
               </TablixMembers>
@@ -3764,9 +3752,6 @@
                 <TablixMember />
                 <TablixMember>
                   <Group Name="Details5" />
-                  <Visibility>
-                    <Hidden>=Fields!Pattern.Value=""</Hidden>
-                  </Visibility>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
