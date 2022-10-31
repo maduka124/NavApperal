@@ -63,6 +63,16 @@ table 50809 "Dept_Categories"
             DataClassification = ToBeClassified;
             AutoIncrement = true;
         }
+
+        field(71012592; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012593; "Factory Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -75,7 +85,7 @@ table 50809 "Dept_Categories"
 
     fieldgroups
     {
-        fieldgroup(DropDown; "Department Name", "Category Name")
+        fieldgroup(DropDown; "Factory Name", "Department Name", "Category Name")
         {
 
         }

@@ -3,9 +3,7 @@ page 50810 "Dept_CategoriesList1"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    //AutoSplitKey = true;
     SourceTable = Dept_Categories;
-    //CardPageId = "Dept_Designations Card";
     SourceTableView = sorting(No) order(descending);
 
     layout
@@ -14,12 +12,6 @@ page 50810 "Dept_CategoriesList1"
         {
             repeater(General)
             {
-
-                // field("Department No."; "Department No.")
-                // {
-                //     ApplicationArea = all;
-                // }
-
                 field("Category No."; "Category No.")
                 {
                     ApplicationArea = All;
@@ -37,6 +29,16 @@ page 50810 "Dept_CategoriesList1"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Factory Code"; "Factory Code")
+                {
+                    ApplicationArea = All;
+                }
+                field("Factory Name"; "Factory Name")
+                {
+                    ApplicationArea = All;
+                }
+
 
                 field("Act Budget"; "Act Budget")
                 {
@@ -68,19 +70,27 @@ page 50810 "Dept_CategoriesList1"
         }
     }
 
-    procedure PassParameters(DeptNoPara: Code[20]; DeptNamePara: Text[50]);
+    procedure PassParameters(DeptNoPara: Code[20]; DeptNamePara: Text[50]; FactoryNoPara: Code[20]; FactoryNamePara: Text[50]);
     var
     begin
         "Department No." := DeptNoPara;
         DepartmentNoGB := DeptNoPara;
         "Department Name" := DeptNamePara;
         DepartmentNameGB := DeptNamePara;
+
+        "Factory Code" := FactoryNoPara;
+        FactoryNoGB := FactoryNoPara;
+        "Factory Name" := FactoryNamePara;
+        FactoryNameGB := FactoryNamePara;
+
         CurrPage.Update();
     end;
 
     var
         DepartmentNoGB: Code[20];
         DepartmentNameGB: Text[50];
+        FactoryNoGB: Code[20];
+        FactoryNameGB: Text[50];
 
 
 
@@ -88,6 +98,7 @@ page 50810 "Dept_CategoriesList1"
     var
     begin
         SetFilter("Department No.", "Department No.");
+        SetFilter("Factory Code", "Factory Code");
         CurrPage.Update();
     end;
 }
