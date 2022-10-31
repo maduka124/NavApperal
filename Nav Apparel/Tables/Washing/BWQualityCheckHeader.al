@@ -67,6 +67,13 @@ table 50738 BWQualityCheckHeader
             Clustered = true;
         }
     }
+    // fieldgroups
+    // {
+    //     fieldgroup(DropDown; "No.", "Line No")
+    //     {
+
+    //     }
+    // }
 
     fieldgroups
     {

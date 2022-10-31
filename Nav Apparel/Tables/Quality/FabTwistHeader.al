@@ -108,6 +108,13 @@ table 50687 "FabTwistHeader"
             Clustered = true;
         }
     }
+    fieldgroups
+    {
+        fieldgroup(DropDown; "FabTwistNo.", "Style Name")
+        {
+
+        }
+    }
 
 
     trigger OnInsert()

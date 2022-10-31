@@ -33,14 +33,14 @@ report 50610 FabricAndTrimsRequiremts
                 DataItemTableView = sorting("No.");
 
 
-                column(Order_Qty; "Order Qty")
-                { }
-                column(No_; "No.")
-                { }
+                // column(Order_Qty; "Order Qty")
+                // { }
+                // column(No_; "No.")
+                // { }
                 column(PO_Total; "PO Total")
                 { }
-                column(styleNO_p; styleNO_p)
-                { }
+                // column(styleNO_p; styleNO_p)
+                // { }
 
 
                 dataitem("Style Master PO"; "Style Master PO")
@@ -84,8 +84,8 @@ report 50610 FabricAndTrimsRequiremts
             {
                 DataItemLinkReference = BOM;
                 DataItemLink = "No." = field(No);
-
                 DataItemTableView = sorting("No.");
+
                 column(Placement_of_GMT; "Placement of GMT")
                 { }
                 column(GMT_Color_Name; "GMT Color Name")
@@ -96,7 +96,7 @@ report 50610 FabricAndTrimsRequiremts
                 { }
                 column(Unit_N0_; "Unit N0.")
                 { }
-                column(Qty; Qty)
+                column(Qty; "GMT Qty")
                 { }
                 column(WST; WST)
                 { }

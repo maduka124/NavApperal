@@ -47,10 +47,8 @@ report 50900 BWQCReport
                 DataItemTableView = sorting(No);
                 column(Defect; Defect)
                 { }
-
                 column(Qty; Qty)
                 { }
-
                 column(Comment; Comment)
                 { }
             }
