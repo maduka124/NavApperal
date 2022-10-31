@@ -33,14 +33,14 @@ report 50610 FabricAndTrimsRequiremts
                 DataItemTableView = sorting("No.");
 
 
-                column(Order_Qty; "Order Qty")
-                { }
-                column(No_; "No.")
-                { }
+                // column(Order_Qty; "Order Qty")
+                // { }
+                // column(No_; "No.")
+                // { }
                 column(PO_Total; "PO Total")
                 { }
-                column(styleNO_p; styleNO_p)
-                { }
+                // column(styleNO_p; styleNO_p)
+                // { }
 
 
                 dataitem("Style Master PO"; "Style Master PO")
