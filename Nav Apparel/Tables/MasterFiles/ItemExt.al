@@ -61,6 +61,51 @@ tableextension 71012614 "Item Extension" extends Item
         field(71012593; "EstimateBOM Item"; Boolean)
         {
         }
+
+        field(71012594; "Type of Machine"; Code[100])
+        {
+        }
+
+        field(71012595; "Model Code"; Code[20])
+        {
+        }
+
+        field(71012596; "Model Name"; text[100])
+        {
+        }
+
+        field(71012597; "Brand Code"; Code[20])
+        {
+        }
+
+        field(71012598; "Brand Name"; text[100])
+        {
+        }
+
+        field(71012599; "Part No"; Code[100])
+        {
+        }
+
+        field(71012600; "Ref Page in Catelog"; Code[100])
+        {
+        }
+
+        field(71012601; "Chemical Type Code"; Code[20])
+        {
+        }
+
+
+        field(71012602; "Chemical Type Name"; text[100])
+        {
+        }
+
+        field(71012603; "Batch"; Code[100])
+        {
+        }
+
+        field(71012604; "Lot"; Code[100])
+        {
+        }
     }
 
     trigger OnBeforeDelete()

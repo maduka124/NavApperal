@@ -73,6 +73,13 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Chemical Type")
+                {
+                    Caption = 'Chemical Type';
+                    RunObject = Page ChemicalTypeList;
+                    ApplicationArea = all;
+                }
+
                 action("Country")
                 {
                     Caption = 'Country';
@@ -161,6 +168,13 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Location';
                     RunObject = Page "Location List";
+                    ApplicationArea = all;
+                }
+
+                action("Model")
+                {
+                    Caption = 'Model';
+                    RunObject = Page ModelList;
                     ApplicationArea = all;
                 }
 

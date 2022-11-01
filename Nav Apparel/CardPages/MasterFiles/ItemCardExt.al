@@ -69,19 +69,77 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                     end;
                 }
 
-                field("Dimension Width"; "Dimension Width")
+                field("Type of Machine"; "Type of Machine")
                 {
                     ApplicationArea = All;
+                }
+
+                field("Model Name"; "Model Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Model';
 
                     trigger OnValidate()
                     var
-                        DimensionWidthRec: Record DimensionWidth;
+                        ModelRec: Record Model;
                     begin
-                        DimensionWidthRec.Reset();
-                        DimensionWidthRec.SetRange("Dimension Width", "Dimension Width");
-                        if DimensionWidthRec.FindSet() then
-                            "Dimension Width No." := DimensionWidthRec."No.";
+                        ModelRec.Reset();
+                        ModelRec.SetRange("Model Name", "Model Name");
+                        if ModelRec.FindSet() then
+                            "Model Code" := ModelRec."No.";
                     end;
+                }
+
+                field("Brand Name"; "Brand Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Brand';
+
+                    trigger OnValidate()
+                    var
+                        BrandRec: Record Brand;
+                    begin
+                        BrandRec.Reset();
+                        BrandRec.SetRange("Brand Name", "Brand Name");
+                        if BrandRec.FindSet() then
+                            "Brand Code" := BrandRec."No.";
+                    end;
+                }
+
+                field("Part No"; "Part No")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Ref Page in Catelog"; "Ref Page in Catelog")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Chemical Type Name"; "Chemical Type Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Chemical Type';
+
+                    trigger OnValidate()
+                    var
+                        ChemicalTypeRec: Record "ChemicalType";
+                    begin
+                        ChemicalTypeRec.Reset();
+                        ChemicalTypeRec.SetRange("Chemical Type Name", "Chemical Type Name");
+                        if ChemicalTypeRec.FindSet() then
+                            "Chemical Type Code" := ChemicalTypeRec."No.";
+                    end;
+                }
+
+                field(Batch; Batch)
+                {
+                    ApplicationArea = All;
+                }
+
+                field(Lot; Lot)
+                {
+                    ApplicationArea = All;
                 }
 
                 field("EstimateBOM Item"; "EstimateBOM Item")
