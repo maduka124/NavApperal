@@ -45,6 +45,32 @@ page 50587 "Sewing Job Creation Card"
                     Caption = 'Style';
                     ShowMandatory = true;
 
+
+                    // trigger OnLookup(var Texts: Text): Boolean
+                    // var
+                    //     NavapplaningLinrRec: Record "NavApp Planning Lines";
+                    //     BuyerRec: Record Customer;
+                    // begin
+
+                    //     BuyerRec.Reset();
+                    //     BuyerRec.SetRange("No.", "Buyer No.");
+
+                    //     if BuyerRec.FindSet() then begin
+
+                    //         NavapplaningLinrRec.Reset();
+                    //         NavapplaningLinrRec.SetRange("Style No.");
+
+                    //         if NavapplaningLinrRec.FindSet() then begin
+
+                    //         end;
+
+                    //         // if Page.RunModal(71012677, BuyerRec) = Action::LookupOK then begin
+
+                    //         // end;
+                    //     end
+
+                    // end;
+
                     trigger OnValidate()
                     var
                         StyleMasterRec: Record "Style Master";
