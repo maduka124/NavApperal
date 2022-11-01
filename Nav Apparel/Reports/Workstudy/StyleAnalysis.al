@@ -59,16 +59,13 @@ report 50615 StyleAnalysis
                 { }
                 column(Department_Name; "Department Name")
                 { }
-<<<<<<< Updated upstream
-
-=======
                 column(Garment_Part_Name; "Garment Part Name")
                 { }
                 column(ManualLine; Manual)
                 { }
                 column(Auto; Auto)
                 { }
->>>>>>> Stashed changes
+
                 trigger OnAfterGetRecord()
 
                 begin

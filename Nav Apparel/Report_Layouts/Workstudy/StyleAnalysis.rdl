@@ -2030,7 +2030,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2714,9 +2713,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Item_Type_Name">
           <DataField>Item_Type_Name</DataField>
         </Field>
-        <Field Name="Garment_Part_Name">
-          <DataField>Garment_Part_Name</DataField>
-        </Field>
         <Field Name="Machine">
           <DataField>Machine</DataField>
         </Field>
@@ -2770,6 +2766,21 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Department_Name">
           <DataField>Department_Name</DataField>
+        </Field>
+        <Field Name="Garment_Part_Name">
+          <DataField>Garment_Part_Name</DataField>
+        </Field>
+        <Field Name="ManualLine">
+          <DataField>ManualLine</DataField>
+        </Field>
+        <Field Name="ManualLineFormat">
+          <DataField>ManualLineFormat</DataField>
+        </Field>
+        <Field Name="Auto">
+          <DataField>Auto</DataField>
+        </Field>
+        <Field Name="AutoFormat">
+          <DataField>AutoFormat</DataField>
         </Field>
       </Fields>
       <Query>
