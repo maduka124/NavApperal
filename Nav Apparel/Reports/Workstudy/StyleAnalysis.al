@@ -82,20 +82,23 @@ report 50615 StyleAnalysis
 
                     Manual := 0;
                     Auto := 0;
-
-                    if "Machine Name" = 'HELPER' then begin
+                    if "Machine Name" = 'HEL' then begin
                         Manual := SMV
                     end
                     else
-                        if "Machine Name" = 'Helper' then begin
-                            Manual := SMV
-                        end
-                        else
-                            if "Machine Name" = 'helper' then begin
-                                Manual := SMV
-                            end
-                            else
-                                Auto := SMV;
+                        // if "Machine Name" = 'HELPER' then begin
+                        //     Manual := SMV
+                        // end
+                        // else
+                        //     if "Machine Name" = 'Helper' then begin
+                        //         Manual := SMV
+                        //     end
+                        //     else
+                        //         if "Machine Name" = 'helper' then begin
+                        //             Manual := SMV
+                        //         end
+                        //         else
+                                    Auto := SMV;
 
                 end;
 
