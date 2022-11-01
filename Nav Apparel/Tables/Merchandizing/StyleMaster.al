@@ -347,11 +347,6 @@ table 71012721 "Style Master"
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."Style Nos.", Today, true);
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
 
     trigger OnDelete()
     var
@@ -368,11 +363,6 @@ table 71012721 "Style Master"
         BOMEstRec.SetRange("Style No.", "No.");
         if BOMEstRec.FindSet() then
             Error('Style : %1 already used in BOM. Cannot delete.', "Style No.");
-
-    end;
-
-    trigger OnRename()
-    begin
 
     end;
 

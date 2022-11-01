@@ -446,6 +446,7 @@ page 71012769 "BOM Estimate Cost Card"
                     var
                         Locationrec: Record Location;
                         FacCPMRec: Record "Factory CPM";
+                        StyleRec: Record "Style Master";
                         LineNo: Integer;
                     begin
                         Locationrec.Reset();
@@ -462,6 +463,18 @@ page 71012769 "BOM Estimate Cost Card"
                             CurrPage.Update();
                             CalMFGCost();
                             CalTotalCost();
+
+                            //Update Allocated factory in style master
+                            StyleRec.Reset();
+                            StyleRec.SetRange("No.", "Style No.");
+                            if StyleRec.FindSet() then begin
+                                StyleRec."Factory Code" := Locationrec.Code;
+                                StyleRec."Factory Name" := "Factory Name";
+                                StyleRec.Modify();
+                            end
+                            else
+                                Error('Cannot find style details.');
+
                         end
                         else
                             Error('CPM is not setup for the factory : %1', "Factory Name");
