@@ -23,8 +23,8 @@ report 50615 StyleAnalysis
             { }
             column(Item_Type_Name; "Item Type Name")
             { }
-            column(Garment_Part_Name; "Garment Part Name")
-            { }
+            // column(Garment_Part_Name; "Garment Part Name")
+            // { }
             column(Machine; Machine)
             { }
             column(Manual; Manual)
@@ -59,22 +59,46 @@ report 50615 StyleAnalysis
                 { }
                 column(Department_Name; "Department Name")
                 { }
+<<<<<<< Updated upstream
 
+=======
+                column(Garment_Part_Name; "Garment Part Name")
+                { }
+                column(ManualLine; Manual)
+                { }
+                column(Auto; Auto)
+                { }
+>>>>>>> Stashed changes
                 trigger OnAfterGetRecord()
 
                 begin
-                    color := '';
+                    // color := '';
 
 
-                    if "New Breakdown Op Line2".Description = 'FRONT' then
-                        color := 'teal'
+                    // if "New Breakdown Op Line2".Description = 'FRONT' then
+                    //     color := 'teal'
+                    // else
+                    //     if "New Breakdown Op Line2".Description = 'BACK' then
+                    //         color := 'teal'
+                    //     else
+                    //         color := 'black';
+
+                    Manual := 0;
+                    Auto := 0;
+
+                    if "Machine Name" = 'HELPER' then begin
+                        Manual := SMV
+                    end
                     else
-                        if "New Breakdown Op Line2".Description = 'BACK' then
-                            color := 'teal'
+                        if "Machine Name" = 'Helper' then begin
+                            Manual := SMV
+                        end
                         else
-                            color := 'black';
-
-
+                            if "Machine Name" = 'helper' then begin
+                                Manual := SMV
+                            end
+                            else
+                                Auto := SMV;
 
                 end;
 
@@ -133,5 +157,7 @@ report 50615 StyleAnalysis
         color: Text;
         StyleFilter: Text[50];
         comRec: Record "Company Information";
+        Manual: Decimal;
+        Auto: Decimal;
 
 }
