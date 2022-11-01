@@ -1124,9 +1124,145 @@ page 71012769 "BOM Estimate Cost Card"
 
                 trigger OnAction()
                 var
+                    BOMCostHeaderRec: Record "BOM Estimate Cost";
+                    BOMCostLineRec: Record "BOM Estimate Costing Line";
+                    BOMCostReviHeaderRec: Record "BOM Estimate Cost Revision";
+                    BOMCostReviLineRec: Record "BOM Estima Cost Line Revision";
+                    Revision: Integer;
                 begin
                     Status := Status::Approved;
+                    "Approved Date" := WorkDate();
+                    "Rejected Date" := 0D;
                     CurrPage.Update();
+
+                    //Get max revision no
+                    BOMCostReviHeaderRec.Reset();
+                    BOMCostReviHeaderRec.SetRange("No.", "No.");
+
+                    if not BOMCostReviHeaderRec.FindSet() then
+                        Revision := 1
+                    else
+                        Revision := BOMCostReviHeaderRec.Count + 1;
+
+                    //Write to Revision table
+                    BOMCostReviHeaderRec.Init();
+                    BOMCostReviHeaderRec."No." := "No.";
+                    BOMCostReviHeaderRec.Revision := Revision;
+                    BOMCostReviHeaderRec."ABA Sourcing %" := "ABA Sourcing %";
+                    BOMCostReviHeaderRec."ABA Sourcing Dz." := "ABA Sourcing Dz.";
+                    BOMCostReviHeaderRec."ABA Sourcing Pcs" := "ABA Sourcing Pcs";
+                    BOMCostReviHeaderRec."ABA Sourcing Total" := "ABA Sourcing Total";
+                    BOMCostReviHeaderRec."BOM No." := "BOM No.";
+                    BOMCostReviHeaderRec."Brand Name" := "Brand Name";
+                    BOMCostReviHeaderRec."Brand No." := "Brand No.";
+                    BOMCostReviHeaderRec."Buyer Name" := "Buyer Name";
+                    BOMCostReviHeaderRec."Buyer No." := "Buyer No.";
+                    BOMCostReviHeaderRec."CM Doz" := "CM Doz";
+                    BOMCostReviHeaderRec."Commercial %" := "Commercial %";
+                    BOMCostReviHeaderRec."Commercial Dz." := "Commercial Dz.";
+                    BOMCostReviHeaderRec."Commercial Pcs" := "Commercial Pcs";
+                    BOMCostReviHeaderRec."Commercial Total" := "Commercial Total";
+                    BOMCostReviHeaderRec."Commission %" := "Commission %";
+                    BOMCostReviHeaderRec."Commission Dz." := "Commission Dz.";
+                    BOMCostReviHeaderRec."Commercial Pcs" := "Commission Pcs";
+                    BOMCostReviHeaderRec."Commercial Total" := "Commission Total";
+                    BOMCostReviHeaderRec.CPM := CPM;
+                    BOMCostReviHeaderRec."Created Date" := "Created Date";
+                    BOMCostReviHeaderRec."Created User" := "Created User";
+                    BOMCostReviHeaderRec."Currency No." := "Currency No.";
+                    BOMCostReviHeaderRec."Deferred Payment %" := "Deferred Payment %";
+                    BOMCostReviHeaderRec."Deferred Payment Dz." := "Deferred Payment Dz.";
+                    BOMCostReviHeaderRec."Deferred Payment Pcs" := "Deferred Payment Pcs";
+                    BOMCostReviHeaderRec."Deferred Payment Total" := "Deferred Payment Total";
+                    BOMCostReviHeaderRec."Department Name" := "Department Name";
+                    BOMCostReviHeaderRec."Department No." := "Department No.";
+                    BOMCostReviHeaderRec."Embroidery (Dz.)" := "Embroidery (Dz.)";
+                    BOMCostReviHeaderRec.EPM := EPM;
+                    BOMCostReviHeaderRec."Factory Code" := "Factory Code";
+                    BOMCostReviHeaderRec."Factory Name" := "Factory Name";
+                    BOMCostReviHeaderRec."FOB %" := "FOB %";
+                    BOMCostReviHeaderRec."FOB Dz." := "FOB Dz.";
+                    BOMCostReviHeaderRec."FOB Pcs" := "FOB Pcs";
+                    BOMCostReviHeaderRec."FOB Total" := "FOB Total";
+                    BOMCostReviHeaderRec."Garment Type Name" := "Garment Type Name";
+                    BOMCostReviHeaderRec."Garment Type No." := "Garment Type No.";
+                    BOMCostReviHeaderRec."Gross CM Less Commission" := "Gross CM Less Commission";
+                    BOMCostReviHeaderRec."Gross CM With Commission %" := "Gross CM With Commission %";
+                    BOMCostReviHeaderRec."Gross CM With Commission Dz." := "Gross CM With Commission Dz.";
+                    BOMCostReviHeaderRec."Gross CM With Commission Pcs" := "Gross CM With Commission Pcs";
+                    BOMCostReviHeaderRec."Gross CM With Commission Total" := "Gross CM With Commission Total";
+                    BOMCostReviHeaderRec."MFG Cost %" := "MFG Cost %";
+                    BOMCostReviHeaderRec."MFG Cost Dz." := "MFG Cost Dz.";
+                    BOMCostReviHeaderRec."MFG Cost Pcs" := "MFG Cost Pcs";
+                    BOMCostReviHeaderRec."MFG Cost Total" := "MFG Cost Total";
+                    BOMCostReviHeaderRec."Others (Dz.)" := "Others (Dz.)";
+                    BOMCostReviHeaderRec."Overhead %" := "Overhead %";
+                    BOMCostReviHeaderRec."Overhead Dz." := "Overhead Dz.";
+                    BOMCostReviHeaderRec."Overhead Pcs" := "Overhead Pcs";
+                    BOMCostReviHeaderRec."Overhead Total" := "Overhead Total";
+                    BOMCostReviHeaderRec."Print Type" := "Print Type";
+                    BOMCostReviHeaderRec."Print Type Name" := "Print Type Name";
+                    BOMCostReviHeaderRec."Printing (Dz.)" := "Printing (Dz.)";
+                    BOMCostReviHeaderRec."Profit Margin %" := "Profit Margin %";
+                    BOMCostReviHeaderRec."Profit Margin Dz." := "Profit Margin Dz.";
+                    BOMCostReviHeaderRec."Profit Margin Pcs" := "Profit Margin Pcs";
+                    BOMCostReviHeaderRec."Profit Margin Total" := "Profit Margin Total";
+                    BOMCostReviHeaderRec."Project Efficiency." := "Project Efficiency.";
+                    BOMCostReviHeaderRec.Quantity := Quantity;
+                    BOMCostReviHeaderRec.Rate := Rate;
+                    BOMCostReviHeaderRec."Raw Material (Dz.)" := "Raw Material (Dz.)";
+                    BOMCostReviHeaderRec."Revised Date" := WorkDate();
+                    BOMCostReviHeaderRec."Risk factor %" := "Risk factor %";
+                    BOMCostReviHeaderRec."Risk factor Dz." := "Risk factor Dz.";
+                    BOMCostReviHeaderRec."Risk factor Pcs" := "Risk factor Pcs";
+                    BOMCostReviHeaderRec."Risk factor Total" := "Risk factor Total";
+                    BOMCostReviHeaderRec."Season Name" := "Season Name";
+                    BOMCostReviHeaderRec."Season No." := "Season No.";
+                    BOMCostReviHeaderRec.SMV := SMV;
+                    BOMCostReviHeaderRec.Status := Status;
+                    BOMCostReviHeaderRec."Stich Gmt" := "Stich Gmt";
+                    BOMCostReviHeaderRec."Stich Gmt Name" := "Stich Gmt Name";
+                    BOMCostReviHeaderRec."Store Name" := "Store Name";
+                    BOMCostReviHeaderRec."Store No." := "Store No.";
+                    BOMCostReviHeaderRec."Style Name" := "Style Name";
+                    BOMCostReviHeaderRec."Style No." := "Style No.";
+                    BOMCostReviHeaderRec."Sub Total (Dz.) Dz." := "Sub Total (Dz.) Dz.";
+                    BOMCostReviHeaderRec."Sub Total (Dz.) Pcs" := "Sub Total (Dz.) Pcs";
+                    BOMCostReviHeaderRec."Sub Total (Dz.) Total" := "Sub Total (Dz.) Total";
+                    BOMCostReviHeaderRec."Sub Total (Dz.)%" := "Sub Total (Dz.)%";
+                    BOMCostReviHeaderRec."TAX %" := "TAX %";
+                    BOMCostReviHeaderRec."TAX Dz." := "TAX Dz.";
+                    BOMCostReviHeaderRec."TAX Pcs" := "TAX Pcs";
+                    BOMCostReviHeaderRec."TAX Total" := "TAX Total";
+                    BOMCostReviHeaderRec."Total Cost %" := "Total Cost %";
+                    BOMCostReviHeaderRec."Total Cost Dz." := "Total Cost Dz.";
+                    BOMCostReviHeaderRec."Total Cost Pcs" := "Total Cost Pcs";
+                    BOMCostReviHeaderRec."Total Cost Total" := "Total Cost Total";
+                    BOMCostReviHeaderRec."Wash Type" := "Wash Type";
+                    BOMCostReviHeaderRec."Wash Type Name" := "Wash Type Name";
+                    BOMCostReviHeaderRec."Washing (Dz.)" := "Washing (Dz.)";
+                    BOMCostReviHeaderRec.Insert();
+
+                    //Write to line table
+                    BOMCostLineRec.Reset();
+                    BOMCostLineRec.SetRange("No.", "No.");
+
+                    if BOMCostLineRec.FindSet() then begin
+                        repeat
+                            BOMCostReviLineRec.Init();
+                            BOMCostReviLineRec."No." := "No.";
+                            BOMCostReviLineRec.Revision := Revision;
+                            BOMCostReviLineRec."BOM No." := BOMCostLineRec."BOM No.";
+                            BOMCostReviLineRec."Created User" := BOMCostLineRec."Created User";
+                            BOMCostReviLineRec."Created Date" := BOMCostLineRec."Created Date";
+                            BOMCostReviLineRec."Doz Cost" := BOMCostLineRec."Doz Cost";
+                            BOMCostReviLineRec.Value := BOMCostLineRec.Value;
+                            BOMCostReviLineRec."Master Category No." := BOMCostLineRec."Master Category No.";
+                            BOMCostReviLineRec."Master Category Name" := BOMCostLineRec."Master Category Name";
+                            BOMCostReviLineRec.Insert();
+                        until BOMCostLineRec.Next() = 0;
+                    end;
+
                     Message('BOM Costing Approved');
                 end;
             }
@@ -1140,6 +1276,8 @@ page 71012769 "BOM Estimate Cost Card"
                 var
                 begin
                     Status := Status::Rejected;
+                    "Rejected Date" := WorkDate();
+                    "Approved Date" := 0D;
                     CurrPage.Update();
                     Message('BOM Costing Rejected');
                 end;

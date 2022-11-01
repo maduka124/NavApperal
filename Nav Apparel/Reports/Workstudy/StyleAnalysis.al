@@ -35,6 +35,7 @@ report 50615 StyleAnalysis
             { }
 
 
+
             dataitem("New Breakdown Op Line2"; "New Breakdown Op Line2")
             {
                 DataItemLinkReference = "New Breakdown";
@@ -56,6 +57,9 @@ report 50615 StyleAnalysis
                 { }
                 column(LineType; LineType)
                 { }
+                column(Department_Name; "Department Name")
+                { }
+
                 trigger OnAfterGetRecord()
 
                 begin

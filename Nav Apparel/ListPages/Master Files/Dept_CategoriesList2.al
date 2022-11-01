@@ -4,10 +4,10 @@ page 50811 "Dept_CategoriesList2"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = Dept_Categories;
-    SourceTableView = sorting(No) order(descending);
+    SourceTableView = sorting("Factory Name", "Department Name", "Category Name", No) order(ascending);
     InsertAllowed = false;
     //ModifyAllowed = false;
-    DeleteAllowed = false;
+    DeleteAllowed = true;
 
     layout
     {
@@ -21,17 +21,15 @@ page 50811 "Dept_CategoriesList2"
                     Editable = false;
                 }
 
-                field("Category No."; "Category No.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Category No';
-                    Editable = false;
-                }
-
                 field("Category Name"; "Category Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field("Factory Name"; "Factory Name")
+                {
+                    ApplicationArea = All;
                 }
 
                 field("Act Budget"; "Act Budget")

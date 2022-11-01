@@ -1,5 +1,5 @@
 
-table 71012766 "BOM Estimate Cost"
+table 71012842 "BOM Estimate Cost Revision"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "BOM Estimate Cost";
@@ -539,21 +539,23 @@ table 71012766 "BOM Estimate Cost"
         {
             DataClassification = ToBeClassified;
         }
+
         field(71012672; "Print Type"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
+
         field(71012673; "Wash Type"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012674; "Approved Date"; Date)
+        field(71012674; "Revision"; Integer)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012675; "Rejected Date"; Date)
+        field(71012675; "Revised Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
@@ -561,7 +563,7 @@ table 71012766 "BOM Estimate Cost"
 
     keys
     {
-        key(PK; "No.")
+        key(PK; "No.", Revision)
         {
             Clustered = true;
         }
@@ -569,41 +571,10 @@ table 71012766 "BOM Estimate Cost"
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", "Style Name")
+        fieldgroup(DropDown; "No.", "Style Name", Revision)
         {
 
         }
     }
-
-
-    trigger OnInsert()
-    var
-        NavAppSetup: Record "NavApp Setup";
-        NoSeriesMngment: Codeunit NoSeriesManagement;
-    begin
-        NavAppSetup.Get('0001');
-        NavAppSetup.TestField("BOM Cost Nos.");
-
-        "No." := NoSeriesMngment.GetNextNo(NavAppSetup."BOM Cost Nos.", Today, true);
-
-        "Created Date" := WorkDate();
-        "Created User" := UserId;
-    end;
-
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
 
 }

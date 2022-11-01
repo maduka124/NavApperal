@@ -4,7 +4,7 @@ page 50810 "Dept_CategoriesList1"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = Dept_Categories;
-    SourceTableView = sorting(No) order(descending);
+    SourceTableView = sorting("Factory Name", "Category Name", No) order(ascending);
 
     layout
     {
@@ -22,6 +22,8 @@ page 50810 "Dept_CategoriesList1"
                     begin
                         "Department No." := DepartmentNoGB;
                         "Department Name" := DepartmentNameGB;
+                        // "Factory Code" := FactoryNoGB;
+                        // "Factory Name" := FactoryNameGB;
                     end;
                 }
 
@@ -30,15 +32,20 @@ page 50810 "Dept_CategoriesList1"
                     ApplicationArea = All;
                 }
 
-                field("Factory Code"; "Factory Code")
-                {
-                    ApplicationArea = All;
-                }
                 field("Factory Name"; "Factory Name")
                 {
                     ApplicationArea = All;
-                }
 
+                    trigger OnValidate()
+                    var
+                        LocationRec: Record Location;
+                    begin
+                        LocationRec.Reset();
+                        LocationRec.SetRange(name, "Factory Name");
+                        if LocationRec.FindSet() then
+                            "Factory Code" := LocationRec.Code;
+                    end;
+                }
 
                 field("Act Budget"; "Act Budget")
                 {
@@ -70,35 +77,77 @@ page 50810 "Dept_CategoriesList1"
         }
     }
 
-    procedure PassParameters(DeptNoPara: Code[20]; DeptNamePara: Text[50]; FactoryNoPara: Code[20]; FactoryNamePara: Text[50]);
+
+    // actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action("update")
+    //         {
+    //             ApplicationArea = All;
+    //             Image = Calculate;
+
+    //             trigger OnAction()
+    //             var
+    //                 Dept_Categories: Record Dept_Categories;
+
+    //             begin
+
+
+    //                 //Get SMV total/Machine SMV TOTAL/Helper SMV Total
+    //                 Dept_Categories.Reset();
+    //                 Dept_Categories.FindSet();
+    //                 Dept_Categories.ModifyAll("Factory Code", FactoryNoGB);
+    //                 Dept_Categories.ModifyAll("Factory Name", FactoryNameGB);
+    //                 CurrPage.Update();
+
+    //                 Message('Calculation completed.');
+
+    //             end;
+    //         }
+
+    //     }
+    // }
+
+
+    procedure PassParameters(DeptNoPara: Code[20]; DeptNamePara: Text[50]);
     var
     begin
-        "Department No." := DeptNoPara;
         DepartmentNoGB := DeptNoPara;
-        "Department Name" := DeptNamePara;
         DepartmentNameGB := DeptNamePara;
-
-        "Factory Code" := FactoryNoPara;
-        FactoryNoGB := FactoryNoPara;
-        "Factory Name" := FactoryNamePara;
-        FactoryNameGB := FactoryNamePara;
-
         CurrPage.Update();
     end;
+
+    // procedure PassParameters(DeptNoPara: Code[20]; DeptNamePara: Text[50]; FactoryNoPara: Code[20]; FactoryNamePara: Text[50]);
+    // var
+    // begin
+    //     //"Department No." := DeptNoPara;
+    //     DepartmentNoGB := DeptNoPara;
+    //     //"Department Name" := DeptNamePara;
+    //     DepartmentNameGB := DeptNamePara;
+
+    //     //"Factory Code" := FactoryNoPara;
+    //     FactoryNoGB := FactoryNoPara;
+    //     //"Factory Name" := FactoryNamePara;
+    //     FactoryNameGB := FactoryNamePara;
+
+    //     CurrPage.Update();
+    // end;
 
     var
         DepartmentNoGB: Code[20];
         DepartmentNameGB: Text[50];
-        FactoryNoGB: Code[20];
-        FactoryNameGB: Text[50];
+    // FactoryNoGB: Code[20];
+    // FactoryNameGB: Text[50];
 
 
 
     trigger OnOpenPage()
     var
     begin
-        SetFilter("Department No.", "Department No.");
-        SetFilter("Factory Code", "Factory Code");
-        CurrPage.Update();
+        SetFilter("Department No.", DepartmentNoGB);
+        //SetFilter("Factory Code", FactoryNoGB);
     end;
+
+
 }

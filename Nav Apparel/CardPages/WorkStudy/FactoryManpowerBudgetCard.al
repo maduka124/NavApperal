@@ -21,11 +21,43 @@ page 50815 "Factory Manpower Budget Card"
                     end;
                 }
 
+                field(Date; Date)
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                        Locationrec: Record Location;
+                        userRec: Record "User Setup";
+                    begin
+                        userRec.Reset();
+                        userRec.SetRange("User ID", UserId);
+
+                        if userRec.FindSet() then begin
+                            "Factory Code" := userRec."Factory Code";
+
+                            Locationrec.Reset();
+                            Locationrec.SetRange(code, "Factory Code");
+                            if Locationrec.FindSet() then
+                                "Factory Name" := Locationrec.Name
+                            else
+                                Error('Cannot find factory details');
+
+                            CurrPage.Update();
+                            GenerateLines();
+                        end
+                        else
+                            Error('Factory not setup for the user : %1', UserId);
+                    end;
+                }
+
                 field("Factory Name"; "Factory Name")
                 {
                     ShowMandatory = true;
                     ApplicationArea = All;
                     Caption = 'Factory';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -36,18 +68,6 @@ page 50815 "Factory Manpower Budget Card"
                         if Locationrec.FindSet() then
                             "Factory Code" := Locationrec.Code;
 
-                        GenerateLines();
-                    end;
-                }
-
-                field(Date; Date)
-                {
-                    ApplicationArea = All;
-                    ShowMandatory = true;
-
-                    trigger OnValidate()
-                    var
-                    begin
                         GenerateLines();
                     end;
                 }
@@ -104,6 +124,7 @@ page 50815 "Factory Manpower Budget Card"
                 Dept_desigRec.Reset();
                 Dept_desigRec.SetCurrentKey(No);
                 Dept_desigRec.Ascending(true);
+                Dept_desigRec.SetRange("Factory Code", "Factory Code");
                 if Dept_desigRec.FindSet() then begin
 
                     //Insert Grand total line
@@ -461,4 +482,5 @@ page 50815 "Factory Manpower Budget Card"
         end;
 
     end;
+
 }

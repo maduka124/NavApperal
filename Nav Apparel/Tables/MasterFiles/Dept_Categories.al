@@ -72,6 +72,8 @@ table 50809 "Dept_Categories"
         field(71012593; "Factory Name"; Text[200])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Location.Name;
+            ValidateTableRelation = false;
         }
     }
 
@@ -80,6 +82,14 @@ table 50809 "Dept_Categories"
         key(PK; No)
         {
             Clustered = true;
+        }
+
+        key(SK; "Factory Name", "Category Name", No)
+        {
+        }
+
+        key(SK1; "Factory Name", "Department Name", "Category Name", No)
+        {
         }
     }
 

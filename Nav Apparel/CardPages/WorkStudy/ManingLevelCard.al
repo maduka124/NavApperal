@@ -133,7 +133,6 @@ page 50475 "Maning Level Card"
 
                     trigger OnValidate()
                     var
-                        myInt: Integer;
                     begin
                         Cal_Values();
                     end;
@@ -145,7 +144,6 @@ page 50475 "Maning Level Card"
 
                     trigger OnValidate()
                     var
-                        myInt: Integer;
                     begin
                         Cal_Values();
                     end;
@@ -158,7 +156,6 @@ page 50475 "Maning Level Card"
 
                     trigger OnValidate()
                     var
-                        myInt: Integer;
                     begin
                         Cal_Values();
                     end;
@@ -221,7 +218,7 @@ page 50475 "Maning Level Card"
                 grid("Sewing Dept")
                 {
                     GridLayout = Rows;
-                    group("M/O")
+                    group("Machine operator")
                     {
                         field(MOTheo; MOTheo)
                         {
@@ -252,7 +249,7 @@ page 50475 "Maning Level Card"
                         }
                     }
 
-                    group("H/P")
+                    group("Helper")
                     {
                         field(HPTheo; HPTheo)
                         {

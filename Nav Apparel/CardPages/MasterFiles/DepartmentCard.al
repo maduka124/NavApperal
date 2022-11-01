@@ -57,25 +57,30 @@ page 71012598 "Department Card"
                 trigger OnAction();
                 var
                     Dept_CategoriesList: Page Dept_CategoriesList1;
-                    UserRec: Record "User Setup";
-                    LocationRec: Record Location;
+                // UserRec: Record "User Setup";
+                // LocationRec: Record Location;
                 begin
 
-                    UserRec.Reset();
-                    UserRec.SetRange("User ID", UserId);
+                    Clear(Dept_CategoriesList);
+                    Dept_CategoriesList.LookupMode(true);
+                    Dept_CategoriesList.PassParameters("No.", "Department Name");
+                    Dept_CategoriesList.Run();
 
-                    if UserRec.FindSet() then begin
-                        LocationRec.Reset();
-                        LocationRec.SetRange(Name, UserRec."Factory Code");
-                        LocationRec.FindSet();
+                    // UserRec.Reset();
+                    // UserRec.SetRange("User ID", UserId);
 
-                        Clear(Dept_CategoriesList);
-                        Dept_CategoriesList.LookupMode(true);
-                        Dept_CategoriesList.PassParameters("No.", "Department Name", UserRec."Factory Code", LocationRec.Name);
-                        Dept_CategoriesList.Run();
-                    end
-                    else
-                        Error('Factory not setup for the User : %1', UserId);
+                    // if UserRec.FindSet() then begin
+                    //     LocationRec.Reset();
+                    //     LocationRec.SetRange(Code, UserRec."Factory Code");
+                    //     LocationRec.FindSet();
+
+                    //     Clear(Dept_CategoriesList);
+                    //     Dept_CategoriesList.LookupMode(true);
+                    //     Dept_CategoriesList.PassParameters("No.", "Department Name", UserRec."Factory Code", LocationRec.Name);
+                    //     Dept_CategoriesList.Run();
+                    // end
+                    // else
+                    //     Error('Factory not setup for the User : %1', UserId);
 
                 end;
             }

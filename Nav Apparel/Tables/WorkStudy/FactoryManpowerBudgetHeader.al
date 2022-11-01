@@ -67,9 +67,7 @@ table 50812 FactoryManpowerBudgetHeader
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("ManBudget Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."ManBudget Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
