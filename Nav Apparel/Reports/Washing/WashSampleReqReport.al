@@ -2,9 +2,8 @@ report 50710 WashSampleReqReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Washing Sample Requation Report';
+    Caption = 'Washing Requisition Report';
     RDLCLayout = 'Report_Layouts/Washing/WashingSampleReqReport.rdl';
-    //PdfFontEmbedding = Yes;
     DefaultLayout = RDLC;
 
     dataset
@@ -36,14 +35,11 @@ report 50710 WashSampleReqReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-            //  column(bw)
-            //     {}
 
             dataitem("Washing Sample Requsition Line"; "Washing Sample Requsition Line")
             {
                 DataItemLinkReference = "Washing Sample Header";
-                DataItemLink = "Sample Req. No" = field("No.");
-                // DataItemTableView = sorting(, "Prod. Order No.", "Line No.");
+                DataItemLink = "No." = field("No.");
 
                 column(SampleType; SampleType)
                 { }
@@ -57,8 +53,6 @@ report 50710 WashSampleReqReport
                 { }
                 column(Req_Qty; "Req Qty")
                 { }
-                // column(Req_Date;"Req Date")
-                // { }
                 column(Unite_Price; "Unite Price")
                 { }
                 column(Value; Value)
@@ -83,13 +77,13 @@ report 50710 WashSampleReqReport
                 { }
                 column(BW_QC_Date; "BW QC Date")
                 { }
-               
+
             }
 
             trigger OnPreDataItem()
 
             begin
-                // SetRange("No.", "Req No");
+                SetRange("No.", "Req No");
             end;
 
             trigger OnAfterGetRecord()
@@ -121,28 +115,7 @@ report 50710 WashSampleReqReport
                 }
             }
         }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
     }
-
-    // rendering
-    // {
-    //     layout(LayoutName)
-    //     {
-    //         Type = RDLC;
-    //         LayoutFile = 'mylayout.rdl';
-    //     }
-    // }
 
     var
         "Req No": Code[50];

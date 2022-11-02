@@ -194,7 +194,7 @@ table 50741 "Washing Sample Header"
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", "Req Date", "Buyer Name", "Style Name", "Garment Type Name")
+        fieldgroup(DropDown; "No.", "Req Date", "Sample Req. No", "Buyer Name", "Style Name", "Garment Type Name")
         {
         }
     }
