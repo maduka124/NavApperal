@@ -18,7 +18,7 @@ table 50820 DeptReqSheetLine
         field(3; "Item No"; Code[60])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Item."No." where("EstimateBOM Item" = filter(false));
+            TableRelation = Item."No." where("EstimateBOM Item" = filter(false), "Main Category No." = field("Main Category No."));
             ValidateTableRelation = false;
         }
 
@@ -116,6 +116,17 @@ table 50820 DeptReqSheetLine
         }
 
         field(21; "Lot"; Code[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(22; "Main Category No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
+        }
+
+        field(23; "Main Category Name"; text[50])
         {
             DataClassification = ToBeClassified;
         }

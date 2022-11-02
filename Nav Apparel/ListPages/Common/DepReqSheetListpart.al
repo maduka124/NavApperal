@@ -11,6 +11,22 @@ page 50823 "DepReqSheetListpart"
         {
             repeater(GroupName)
             {
+                field("Main Category Name"; "Main Category Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Main Category';
+
+                    trigger OnValidate()
+                    var
+                        MainCategoryRec: Record "Main Category";
+                    begin
+                        MainCategoryRec.Reset();
+                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        if MainCategoryRec.FindSet() then
+                            "Main Category No." := MainCategoryRec."No.";
+                    end;
+                }
+
                 field("Item No"; "Item No")
                 {
                     ApplicationArea = All;
