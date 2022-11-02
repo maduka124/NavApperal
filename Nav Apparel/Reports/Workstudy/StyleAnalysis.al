@@ -82,7 +82,7 @@ report 50615 StyleAnalysis
 
                     Manual := 0;
                     Auto := 0;
-                    if "Machine Name" = 'HEL' then begin
+                    if "Machine No." = 'HEL' then begin
                         Manual := SMV
                     end
                     else
