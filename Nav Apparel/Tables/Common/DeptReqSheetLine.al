@@ -58,6 +58,67 @@ table 50820 DeptReqSheetLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(11; "Type of Machine"; Code[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(12; "Model Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(13; "Model Name"; text[100])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Model."Model Name";
+            ValidateTableRelation = false;
+        }
+
+        field(14; "Brand Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(15; "Brand Name"; text[100])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Brand."Brand Name";
+            ValidateTableRelation = false;
+        }
+
+        field(16; "Part No"; Code[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(17; "Ref Page in Catelog"; Code[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(18; "Chemical Type Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(19; "Chemical Type Name"; text[100])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = ChemicalType."Chemical Type Name";
+            ValidateTableRelation = false;
+        }
+
+        field(20; "Batch"; Code[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(21; "Lot"; Code[100])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -67,4 +128,15 @@ table 50820 DeptReqSheetLine
             Clustered = true;
         }
     }
+
+
+    trigger OnDelete()
+    var
+    begin
+        if "Qty Received" > 0 then
+            Error('Cannot delete the Item as Qty already received.');
+
+        if "PO Raized" then
+            Error('Cannot delete the Item as PO already created by the central purchasing department.');
+    end;
 }

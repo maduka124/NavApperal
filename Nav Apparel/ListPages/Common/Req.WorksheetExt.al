@@ -64,7 +64,7 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                                 RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
                                 RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
                                 RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
-                                RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);                                                       
+                                RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
                                 RequLineRec.SetRange("No.", DeptReqLineRec."Item No");
                                 RequLineRec.SetRange("CP Req Code", DeptReqLineRec."Req No");
 
@@ -89,7 +89,7 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                                     RequLineRec1.EntryType := RequLineRec1.EntryType::"Central Purchasing";
                                     RequLineRec1."CP Req Code" := DeptReqLineRec."Req No";
                                     RequLineRec1."CP Line" := DeptReqLineRec."Line No";
-                                    RequLineRec1.Insert();                                   
+                                    RequLineRec1.Insert();
                                 end;
 
                             end;
@@ -110,6 +110,9 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                 NavAppSetupRec: Record "NavApp Setup";
                 DeptReqSheetLineRec: Record DeptReqSheetLine;
             begin
+                NavAppSetupRec.Reset();
+                NavAppSetupRec.FindSet();
+
                 RequLineRec.Reset();
                 RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
                 RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
@@ -120,14 +123,16 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                 if RequLineRec.FindSet() then begin
                     repeat
                         DeptReqSheetLineRec.Reset();
-                        DeptReqSheetLineRec.SetRange("Req No", "CP Req Code");
-                        DeptReqSheetLineRec.SetRange("Item No", "No.");
+                        DeptReqSheetLineRec.SetRange("Req No", RequLineRec."CP Req Code");
+                        DeptReqSheetLineRec.SetRange("Item No", RequLineRec."No.");
 
                         if DeptReqSheetLineRec.FindSet() then begin
                             DeptReqSheetLineRec."PO Raized" := true;
                             DeptReqSheetLineRec.Modify();
                         end;
                     until RequLineRec.Next() = 0;
+
+                    Commit();
                 end
             end;
 
@@ -138,6 +143,9 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                 NavAppSetupRec: Record "NavApp Setup";
                 DeptReqSheetLineRec: Record DeptReqSheetLine;
             begin
+                NavAppSetupRec.Reset();
+                NavAppSetupRec.FindSet();
+
                 RequLineRec.Reset();
                 RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
                 RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
@@ -148,14 +156,16 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                 if RequLineRec.FindSet() then begin
                     repeat
                         DeptReqSheetLineRec.Reset();
-                        DeptReqSheetLineRec.SetRange("Req No", "CP Req Code");
-                        DeptReqSheetLineRec.SetRange("Item No", "No.");
+                        DeptReqSheetLineRec.SetRange("Req No", RequLineRec."CP Req Code");
+                        DeptReqSheetLineRec.SetRange("Item No", RequLineRec."No.");
 
                         if DeptReqSheetLineRec.FindSet() then begin
                             DeptReqSheetLineRec."PO Raized" := false;
                             DeptReqSheetLineRec.Modify();
                         end;
                     until RequLineRec.Next() = 0;
+
+                    Commit();
                 end
             end;
         }

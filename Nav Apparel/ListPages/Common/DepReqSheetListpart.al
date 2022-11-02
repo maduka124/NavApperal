@@ -21,6 +21,12 @@ page 50823 "DepReqSheetListpart"
                         itemRec: Record Item;
                         DeptReqSheetLineRec: Record DeptReqSheetLine;
                     begin
+                        if "Qty Received" > 0 then
+                            Error('Cannot change the Item as Qty already received.');
+
+                        if "PO Raized" then
+                            Error('Cannot change the Item as PO already created by the central purchasing department.');
+
                         itemRec.Reset();
                         itemRec.SetRange("No.", "Item No");
 
@@ -51,6 +57,10 @@ page 50823 "DepReqSheetListpart"
                         if "Qty Received" > 0 then
                             Error('Item: %1 already marked as received. Cannot change the order quantity.', "Item Name");
 
+                        if "PO Raized" then
+                            Error('Cannot change the order quantity as PO already created by the central purchasing department.');
+
+
                         "Qty to Received" := Qty - "Qty Received";
                     end;
                 }
@@ -72,6 +82,10 @@ page 50823 "DepReqSheetListpart"
                         DeptReqSheetHeadRec: Record DeptReqSheetHeader;
                         Status: Boolean;
                     begin
+                        if "Qty Received" > Qty then
+                            Error('Qty Received is greater than the Order Qty.');
+
+
                         "Qty to Received" := Qty - "Qty Received";
                         CurrPage.Update();
 
@@ -117,7 +131,7 @@ page 50823 "DepReqSheetListpart"
                 field("PO Raized"; "PO Raized")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
                 }
             }
         }
