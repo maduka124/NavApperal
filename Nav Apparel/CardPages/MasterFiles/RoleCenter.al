@@ -1251,11 +1251,11 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Washing Reports';
 
-                    action("Job Card Report")
+                    action("Washing Requisition Report")
                     {
-                        Caption = 'Job Card Report';
+                        Caption = 'Washing Requisition Report';
                         Enabled = true;
-                        RunObject = report JobCardReport;
+                        RunObject = report WashSampleReqReport;
                         ApplicationArea = all;
                     }
 
@@ -1267,19 +1267,19 @@ page 71012740 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Job Card Report")
+                    {
+                        Caption = 'Job Card Report';
+                        Enabled = true;
+                        RunObject = report JobCardReport;
+                        ApplicationArea = all;
+                    }
+
                     action("AW QC Report")
                     {
                         Caption = 'AW QC Report';
                         Enabled = true;
                         RunObject = report AWQCReport;
-                        ApplicationArea = all;
-                    }
-
-                    action("Washing Requisition Report")
-                    {
-                        Caption = 'Washing Requisition Report';
-                        Enabled = true;
-                        RunObject = report WashSampleReqReport;
                         ApplicationArea = all;
                     }
                 }
