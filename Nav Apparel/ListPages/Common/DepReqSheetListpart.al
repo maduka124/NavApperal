@@ -113,6 +113,12 @@ page 50823 "DepReqSheetListpart"
                     ApplicationArea = All;
                     Editable = EditableGb;
                 }
+
+                field("PO Raized"; "PO Raized")
+                {
+                    ApplicationArea = All;
+
+                }
             }
         }
     }
