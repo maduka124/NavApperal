@@ -11,6 +11,112 @@
       <rd:DataSourceID>6d2633e0-73d9-464e-ab3b-e89b48c7fb45</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Sample_Bulk">
+          <DataField>Sample_Bulk</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Sample_Req__No">
+          <DataField>Sample_Req__No</DataField>
+        </Field>
+        <Field Name="Request_From">
+          <DataField>Request_From</DataField>
+        </Field>
+        <Field Name="Garment_Type_Name">
+          <DataField>Garment_Type_Name</DataField>
+        </Field>
+        <Field Name="Wash_Plant_Name">
+          <DataField>Wash_Plant_Name</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
+        </Field>
+        <Field Name="Req_Date">
+          <DataField>Req_Date</DataField>
+        </Field>
+        <Field Name="Comment">
+          <DataField>Comment</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="SampleType">
+          <DataField>SampleType</DataField>
+        </Field>
+        <Field Name="Wash_Type">
+          <DataField>Wash_Type</DataField>
+        </Field>
+        <Field Name="Fabric_Description">
+          <DataField>Fabric_Description</DataField>
+        </Field>
+        <Field Name="Color_Name">
+          <DataField>Color_Name</DataField>
+        </Field>
+        <Field Name="Size">
+          <DataField>Size</DataField>
+        </Field>
+        <Field Name="Req_Qty">
+          <DataField>Req_Qty</DataField>
+        </Field>
+        <Field Name="Unite_Price">
+          <DataField>Unite_Price</DataField>
+        </Field>
+        <Field Name="Unite_PriceFormat">
+          <DataField>Unite_PriceFormat</DataField>
+        </Field>
+        <Field Name="Value">
+          <DataField>Value</DataField>
+        </Field>
+        <Field Name="ValueFormat">
+          <DataField>ValueFormat</DataField>
+        </Field>
+        <Field Name="Req_Qty_BW_QC_Fail">
+          <DataField>Req_Qty_BW_QC_Fail</DataField>
+        </Field>
+        <Field Name="Req_Qty_BW_QC_Pass">
+          <DataField>Req_Qty_BW_QC_Pass</DataField>
+        </Field>
+        <Field Name="Return_Qty__BW_">
+          <DataField>Return_Qty__BW_</DataField>
+        </Field>
+        <Field Name="QC_Date__AW_">
+          <DataField>QC_Date__AW_</DataField>
+        </Field>
+        <Field Name="QC_Pass_Qty__AW_">
+          <DataField>QC_Pass_Qty__AW_</DataField>
+        </Field>
+        <Field Name="QC_Fail_Qty__AW_">
+          <DataField>QC_Fail_Qty__AW_</DataField>
+        </Field>
+        <Field Name="Return_Qty__AW_">
+          <DataField>Return_Qty__AW_</DataField>
+        </Field>
+        <Field Name="Dispatch_Qty">
+          <DataField>Dispatch_Qty</DataField>
+        </Field>
+        <Field Name="RemarkLine">
+          <DataField>RemarkLine</DataField>
+        </Field>
+        <Field Name="BW_QC_Date">
+          <DataField>BW_QC_Date</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -22,7 +128,27 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>WASHING REQUISTION REPORT</Value>
+                    <Value>WASHING </Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>18pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>Underline</TextDecoration>
+                      <Color>#000000</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>REQUISITION </Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>18pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>Underline</TextDecoration>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>REPORT</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Calibri</FontFamily>
@@ -40,7 +166,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.22607cm</Top>
-            <Left>10.6398cm</Left>
+            <Left>11.9098cm</Left>
             <Height>1.19062cm</Height>
             <Width>15.28938cm</Width>
             <Style>
@@ -553,7 +679,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>PO No</Value>
+                                  <Value>Requisition Date</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -578,17 +704,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PO_No">
+                        <Textbox Name="Req_Date">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PO_No.Value</Value>
+                                  <Value>=Fields!Req_Date.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n0</Format>
+                                    <Format>d</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -597,7 +723,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PO_No</rd:DefaultName>
+                          <rd:DefaultName>Req_Date</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -624,7 +750,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Requisition Date</Value>
+                                  <Value>PO No</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -649,16 +775,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Req_Date">
+                        <Textbox Name="PO_No1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Req_Date.Value</Value>
+                                  <Value>=Fields!PO_No.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>d</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -667,7 +794,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Req_Date</rd:DefaultName>
+                          <rd:DefaultName>PO_No1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -918,25 +1045,25 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.41605cm</Width>
+                  <Width>3.01116cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.81219cm</Width>
+                  <Width>2.58008cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.01844cm</Width>
+                  <Width>4.63429cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.50407cm</Width>
+                  <Width>1.44482cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.17485cm</Width>
+                  <Width>1.36904cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.70713cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.10124cm</Width>
+                  <Width>1.83948cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.0651cm</Width>
@@ -954,7 +1081,7 @@
                   <Width>2.02375cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.10313cm</Width>
+                  <Width>1.82797cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.05962cm</Width>
@@ -963,13 +1090,13 @@
                   <Width>1.992cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>1.90733cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.1825cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1004,7 +1131,8 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1042,7 +1170,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1080,7 +1210,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1118,7 +1250,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1156,7 +1290,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1194,7 +1330,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1237,9 +1375,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.5pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1251,7 +1389,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
-                            <BackgroundColor>LightBlue</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1293,9 +1430,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.5pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1307,7 +1444,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
-                            <BackgroundColor>LightBlue</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1349,9 +1485,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.5pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1363,7 +1499,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
-                            <BackgroundColor>LightBlue</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1405,9 +1540,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Black</Color>
+                              <Color>Maroon</Color>
                               <Style>Solid</Style>
-                              <Width>0.5pt</Width>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1419,7 +1554,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
-                            <BackgroundColor>LightBlue</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1456,7 +1590,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1494,7 +1630,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1532,7 +1670,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1570,7 +1710,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1608,7 +1750,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1646,7 +1790,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1684,7 +1830,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1722,7 +1870,9 @@
                               <Width>0.5pt</Width>
                             </Border>
                             <BottomBorder>
-                              <Style>None</Style>
+                              <Color>Maroon</Color>
+                              <Style>Solid</Style>
+                              <Width>1.5pt</Width>
                             </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1753,7 +1903,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1808,7 +1958,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1862,7 +2012,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -2241,7 +2391,7 @@
                                   <Value>=Fields!Req_Qty_BW_QC_Pass.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2256,26 +2406,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2296,7 +2426,7 @@
                                   <Value>=Fields!Req_Qty_BW_QC_Fail.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2311,26 +2441,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2351,7 +2461,7 @@
                                   <Value>=Fields!Return_Qty__BW_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2366,26 +2476,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2406,6 +2496,7 @@
                                   <Value>=Fields!QC_Date__AW_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>d</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2460,6 +2551,7 @@
                                   <Value>=Fields!QC_Pass_Qty__AW_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2474,26 +2566,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2514,6 +2586,7 @@
                                   <Value>=Fields!QC_Fail_Qty__AW_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>0;(0)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2528,26 +2601,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2568,6 +2621,7 @@
                                   <Value>=Fields!Return_Qty__AW_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>0;(0)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2582,26 +2636,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2637,26 +2671,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2667,14 +2681,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox181">
+                        <Textbox Name="RemarkLine">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!RemarkLine.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -2685,7 +2699,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox181</rd:DefaultName>
+                          <rd:DefaultName>RemarkLine</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2759,7 +2773,7 @@
             <Top>5.8056cm</Top>
             <Left>0cm</Left>
             <Height>1.27cm</Height>
-            <Width>39.62972cm</Width>
+            <Width>39.29642cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2786,7 +2800,7 @@
         <Height>7.331cm</Height>
         <Style />
       </Body>
-      <Width>39.62972cm</Width>
+      <Width>39.4849cm</Width>
       <Page>
         <PageFooter>
           <Height>0.78317cm</Height>
@@ -2841,12 +2855,14 @@
                       <Style>
                         <FontFamily>Calibri</FontFamily>
                         <FontWeight>Normal</FontWeight>
+                        <Format>d</Format>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>: </Value>
                       <Style>
                         <FontFamily>Calibri</FontFamily>
+                        <Format>d</Format>
                       </Style>
                     </TextRun>
                     <TextRun>
@@ -2862,7 +2878,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>0cm</Top>
-              <Left>15.27947cm</Left>
+              <Left>18.45447cm</Left>
               <Height>0.58208cm</Height>
               <Width>4.39208cm</Width>
               <ZIndex>1</ZIndex>
@@ -2916,7 +2932,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>0cm</Top>
-              <Left>35.71614cm</Left>
+              <Left>36.98614cm</Left>
               <Height>0.58208cm</Height>
               <Width>2.31028cm</Width>
               <ZIndex>2</ZIndex>
@@ -2939,8 +2955,8 @@
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>42cm</PageWidth>
-        <LeftMargin>1cm</LeftMargin>
-        <RightMargin>1cm</RightMargin>
+        <LeftMargin>1.3cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
@@ -2948,6 +2964,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2987,110 +3009,4 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Sample_Bulk">
-          <DataField>Sample_Bulk</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Sample_Req__No">
-          <DataField>Sample_Req__No</DataField>
-        </Field>
-        <Field Name="Request_From">
-          <DataField>Request_From</DataField>
-        </Field>
-        <Field Name="Garment_Type_Name">
-          <DataField>Garment_Type_Name</DataField>
-        </Field>
-        <Field Name="Wash_Plant_Name">
-          <DataField>Wash_Plant_Name</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
-        <Field Name="Req_Date">
-          <DataField>Req_Date</DataField>
-        </Field>
-        <Field Name="Comment">
-          <DataField>Comment</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="SampleType">
-          <DataField>SampleType</DataField>
-        </Field>
-        <Field Name="Wash_Type">
-          <DataField>Wash_Type</DataField>
-        </Field>
-        <Field Name="Fabric_Description">
-          <DataField>Fabric_Description</DataField>
-        </Field>
-        <Field Name="Color_Name">
-          <DataField>Color_Name</DataField>
-        </Field>
-        <Field Name="Size">
-          <DataField>Size</DataField>
-        </Field>
-        <Field Name="Req_Qty">
-          <DataField>Req_Qty</DataField>
-        </Field>
-        <Field Name="Unite_Price">
-          <DataField>Unite_Price</DataField>
-        </Field>
-        <Field Name="Unite_PriceFormat">
-          <DataField>Unite_PriceFormat</DataField>
-        </Field>
-        <Field Name="Value">
-          <DataField>Value</DataField>
-        </Field>
-        <Field Name="ValueFormat">
-          <DataField>ValueFormat</DataField>
-        </Field>
-        <Field Name="Req_Qty_BW_QC_Fail">
-          <DataField>Req_Qty_BW_QC_Fail</DataField>
-        </Field>
-        <Field Name="Req_Qty_BW_QC_Pass">
-          <DataField>Req_Qty_BW_QC_Pass</DataField>
-        </Field>
-        <Field Name="Return_Qty__BW_">
-          <DataField>Return_Qty__BW_</DataField>
-        </Field>
-        <Field Name="QC_Date__AW_">
-          <DataField>QC_Date__AW_</DataField>
-        </Field>
-        <Field Name="QC_Pass_Qty__AW_">
-          <DataField>QC_Pass_Qty__AW_</DataField>
-        </Field>
-        <Field Name="QC_Fail_Qty__AW_">
-          <DataField>QC_Fail_Qty__AW_</DataField>
-        </Field>
-        <Field Name="Return_Qty__AW_">
-          <DataField>Return_Qty__AW_</DataField>
-        </Field>
-        <Field Name="Dispatch_Qty">
-          <DataField>Dispatch_Qty</DataField>
-        </Field>
-        <Field Name="RemarkLine">
-          <DataField>RemarkLine</DataField>
-        </Field>
-        <Field Name="BW_QC_Date">
-          <DataField>BW_QC_Date</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

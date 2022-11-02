@@ -72,14 +72,19 @@ tableextension 71012614 "Item Extension" extends Item
 
         field(71012596; "Model Name"; text[100])
         {
+            TableRelation = Model."Model Name";
+            ValidateTableRelation = false;
         }
 
         field(71012597; "Brand Code"; Code[20])
         {
+
         }
 
         field(71012598; "Brand Name"; text[100])
         {
+            TableRelation = Brand."Brand Name";
+            ValidateTableRelation = false;
         }
 
         field(71012599; "Part No"; Code[100])
@@ -97,6 +102,8 @@ tableextension 71012614 "Item Extension" extends Item
 
         field(71012602; "Chemical Type Name"; text[100])
         {
+            TableRelation = ChemicalType."Chemical Type Name";
+            ValidateTableRelation = false;
         }
 
         field(71012603; "Batch"; Code[100])
