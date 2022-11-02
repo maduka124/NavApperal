@@ -40,6 +40,7 @@ report 50710 WashSampleReqReport
             {
                 DataItemLinkReference = "Washing Sample Header";
                 DataItemLink = "No." = field("No.");
+                DataItemTableView = sorting("No.", "Line no.");
 
                 column(SampleType; SampleType)
                 { }
