@@ -1,9 +1,10 @@
-report 50646 DayTarget
+report 50646 DayWiseSewingTarget
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
+    Caption = 'Day Wise Sewing Target Report';
 
-    RDLCLayout = 'Report_Layouts/Planning/Daytarget.rdl';
+    RDLCLayout = 'Report_Layouts/Planning/DayWiseSewingTarget.rdl';
     DefaultLayout = RDLC;
 
 
@@ -11,11 +12,14 @@ report 50646 DayTarget
     {
         dataitem("Style Master"; "Style Master")
         {
+            DataItemTableView = sorting("No.");
             column(Factory_Name; "Factory Name")
             { }
             column(Buyer_Name; "Buyer Name")
             { }
             column(CompLogo; comRec.Picture)
+            { }
+            column(Order_Qty; "Order Qty")
             { }
 
             dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
@@ -95,6 +99,8 @@ report 50646 DayTarget
                 column(thirtyone; thirtyone)
                 { }
                 column(Year; Year)
+                { }
+                column(SawingOut; SawingOut)
                 { }
 
                 trigger OnAfterGetRecord()
@@ -311,6 +317,14 @@ report 50646 DayTarget
                                                                                                                                             if DayNo = 31 then begin
                                                                                                                                                 thirtyone := DayQty;
                                                                                                                                             end;
+
+                    StylePoRec.Reset();
+                    StylePoRec.SetRange("Style No.", "Style No.");
+                    if StylePoRec.FindFirst() then begin
+                        SawingOut := StylePoRec."Sawing Out Qty";
+                    end;
+
+                    SetRange(PlanDate, stDate, endDate);
                 end;
             }
             trigger OnAfterGetRecord()
@@ -323,8 +337,8 @@ report 50646 DayTarget
             trigger OnPreDataItem()
 
             begin
-                // SetRange("Factory Name", FTY);
-                // SetRange("No.", Style);
+                SetRange("Factory Name", FTY);
+                SetRange("No.", Style);
             end;
         }
     }
@@ -352,6 +366,18 @@ report 50646 DayTarget
                         TableRelation = "Style Master"."No.";
 
                     }
+                    field(stDate; stDate)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Start Date';
+
+                    }
+                    field(endDate; endDate)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'End Date';
+
+                    }
                 }
             }
         }
@@ -369,17 +395,9 @@ report 50646 DayTarget
         }
     }
 
-    // rendering
-    // {
-    //     layout(LayoutName)
-    //     {
-    //         Type = RDLC;
-    //         LayoutFile = 'mylayout.rdl';
-    //     }
-    // }
-
     var
-        myInt: Integer;
+        stDate: Date;
+        endDate: Date;
         Month: text;
         MonthNo: Integer;
         DayQty: Decimal;
@@ -419,5 +437,7 @@ report 50646 DayTarget
         Year: Integer;
         FTY: Text[50];
         Style: Code[20];
+        StylePoRec: Record "Style Master PO";
+        SawingOut: BigInteger;
 
 }
