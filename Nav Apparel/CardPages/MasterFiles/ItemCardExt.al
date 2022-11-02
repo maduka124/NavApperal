@@ -15,6 +15,7 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                     trigger OnValidate()
                     var
                         CategoryRec: Record "Sub Category";
+                        MainCatRec: Record "Main Category";
                     begin
                         CategoryRec.Reset();
                         CategoryRec.SetRange("Sub Category Name", "Sub Category Name");
@@ -22,6 +23,13 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                             "Sub Category No." := CategoryRec."No.";
                             "Main Category No." := CategoryRec."Main Category No.";
                             "Main Category Name" := CategoryRec."Main Category Name";
+
+                            MainCatRec.Reset();
+                            MainCatRec.SetRange("No.", CategoryRec."Main Category No.");
+                            if MainCatRec.FindSet() then begin
+                                Validate("Gen. Prod. Posting Group", MainCatRec."Prod. Posting Group Code");
+                                Validate("Inventory Posting Group", MainCatRec."Inv. Posting Group Code");
+                            end;
                         end;
                     end;
                 }
@@ -68,6 +76,23 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                             "Article No." := ArticleRec."No.";
                     end;
                 }
+
+
+                field("Dimension Width"; "Dimension Width")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        DimensionWidthRec: Record DimensionWidth;
+                    begin
+                        DimensionWidthRec.Reset();
+                        DimensionWidthRec.SetRange("Dimension Width", "Dimension Width");
+                        if DimensionWidthRec.FindSet() then
+                            "Dimension Width No." := DimensionWidthRec."No.";
+                    end;
+                }
+
 
                 field("Type of Machine"; "Type of Machine")
                 {
@@ -154,4 +179,5 @@ pageextension 71012736 ItemCardExt extends "Item Card"
             }
         }
     }
+
 }

@@ -50,7 +50,9 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                     DeptReqLineRec.Reset();
                     DeptReqLineRec.SetCurrentKey("Item No");
                     DeptReqLineRec.Ascending(true);
-                    DeptReqLineRec.SetFilter(DeptReqLineRec."Qty to Received", '>%1', 0);
+                    DeptReqLineRec.SetFilter("Qty to Received", '>%1', 0);
+                    DeptReqLineRec.SetFilter("PO Raized", '=%1', false);
+
                     if DeptReqLineRec.FindSet() then begin
 
                         repeat
@@ -62,8 +64,7 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                                 RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
                                 RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
                                 RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
-                                RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
-                                //RequLineRec.SetRange("Vendor No.", Supplier);                              
+                                RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);                                                       
                                 RequLineRec.SetRange("No.", DeptReqLineRec."Item No");
                                 RequLineRec.SetRange("CP Req Code", DeptReqLineRec."Req No");
 
@@ -88,11 +89,7 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                                     RequLineRec1.EntryType := RequLineRec1.EntryType::"Central Purchasing";
                                     RequLineRec1."CP Req Code" := DeptReqLineRec."Req No";
                                     RequLineRec1."CP Line" := DeptReqLineRec."Line No";
-                                    RequLineRec1.Insert();
-                                    // end
-                                    // else begin  // Update existing item
-                                    //     RequLineRec."Quantity" := RequLineRec."Quantity" + DeptReqLineRec.Qty;
-                                    //     RequLineRec.Modify();
+                                    RequLineRec1.Insert();                                   
                                 end;
 
                             end;
@@ -105,5 +102,62 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
             }
         }
 
+        modify(CarryOutActionMessage)
+        {
+            trigger OnBeforeAction()
+            var
+                RequLineRec: Record "Requisition Line";
+                NavAppSetupRec: Record "NavApp Setup";
+                DeptReqSheetLineRec: Record DeptReqSheetLine;
+            begin
+                RequLineRec.Reset();
+                RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
+                RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
+                RequLineRec.SetFilter("Accept Action Message", '=%1', true);
+
+                if RequLineRec.FindSet() then begin
+                    repeat
+                        DeptReqSheetLineRec.Reset();
+                        DeptReqSheetLineRec.SetRange("Req No", "CP Req Code");
+                        DeptReqSheetLineRec.SetRange("Item No", "No.");
+
+                        if DeptReqSheetLineRec.FindSet() then begin
+                            DeptReqSheetLineRec."PO Raized" := true;
+                            DeptReqSheetLineRec.Modify();
+                        end;
+                    until RequLineRec.Next() = 0;
+                end
+            end;
+
+
+            trigger OnAfterAction()
+            var
+                RequLineRec: Record "Requisition Line";
+                NavAppSetupRec: Record "NavApp Setup";
+                DeptReqSheetLineRec: Record DeptReqSheetLine;
+            begin
+                RequLineRec.Reset();
+                RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
+                RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
+                RequLineRec.SetFilter("Accept Action Message", '=%1', true);
+
+                if RequLineRec.FindSet() then begin
+                    repeat
+                        DeptReqSheetLineRec.Reset();
+                        DeptReqSheetLineRec.SetRange("Req No", "CP Req Code");
+                        DeptReqSheetLineRec.SetRange("Item No", "No.");
+
+                        if DeptReqSheetLineRec.FindSet() then begin
+                            DeptReqSheetLineRec."PO Raized" := false;
+                            DeptReqSheetLineRec.Modify();
+                        end;
+                    until RequLineRec.Next() = 0;
+                end
+            end;
+        }
     }
 }

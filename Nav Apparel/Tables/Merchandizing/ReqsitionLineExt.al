@@ -67,5 +67,12 @@ tableextension 71012759 "ReqLine Extension" extends "Requisition Line"
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
         }
     }
+
+    // trigger OnAfterDelete()
+    // var
+
+    // begin
+    //     Message('Deletedxx');
+    // end;
 }
 

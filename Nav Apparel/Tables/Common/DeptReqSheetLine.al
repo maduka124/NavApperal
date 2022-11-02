@@ -53,6 +53,11 @@ table 50820 DeptReqSheetLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(10; "PO Raized"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
