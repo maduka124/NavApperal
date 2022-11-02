@@ -47,7 +47,7 @@ report 50615 StyleAnalysis
                 { }
                 column(DescriptionLine; Description)
                 { }
-                column(Machine_Name; "Machine Name")
+                column(Machine_Name; "Machine No.")
                 { }
                 column(SMV; SMV)
                 { }

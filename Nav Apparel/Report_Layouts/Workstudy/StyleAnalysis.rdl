@@ -644,10 +644,10 @@
                   <Width>1.61205cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.865cm</Width>
+                  <Width>9.50894cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.21017cm</Width>
+                  <Width>3.56622cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.04703cm</Width>
@@ -1661,14 +1661,14 @@
               <TablixMembers>
                 <TablixMember />
                 <TablixMember>
-                  <Group Name="Garment_Part_Name">
+                  <Group Name="Department_Name2">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!Garment_Part_Name.Value</GroupExpression>
+                      <GroupExpression>=Fields!Department_Name.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Code.Value</Value>
+                      <Value>=Fields!Department_Name.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixMembers>
@@ -1728,7 +1728,7 @@
             <Top>4.60058cm</Top>
             <Left>0cm</Left>
             <Height>3.09645cm</Height>
-            <Width>19.86516cm</Width>
+            <Width>19.86515cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
