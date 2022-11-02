@@ -698,6 +698,13 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report WeeklyOrderBookingStatus;
                         ApplicationArea = all;
                     }
+                    action("Day Wise Sewing Target")
+                    {
+                        Caption = 'Day Wise Sewing Target Report';
+                        Enabled = true;
+                        RunObject = report DayWiseSewingTarget;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
