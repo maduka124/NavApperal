@@ -1274,6 +1274,14 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report AWQCReport;
                         ApplicationArea = all;
                     }
+
+                    action("Washing Requisition Report")
+                    {
+                        Caption = 'Washing Requisition Report';
+                        Enabled = true;
+                        RunObject = report WashSampleReqReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 

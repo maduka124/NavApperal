@@ -12,7 +12,7 @@ report 50670 JobCardReport
     {
         dataitem("Production Order"; "Production Order")
         {
-             DataItemTableView = sorting("No.");
+            DataItemTableView = sorting("No.");
             //RequestFilterFields=Status;
             column(Barcode; Barcode)
             { }
@@ -61,7 +61,7 @@ report 50670 JobCardReport
             {
                 DataItemLinkReference = "Production Order";
                 DataItemLink = "Prod. Order No." = field("No.");
-                 DataItemTableView = sorting(Status, "Prod. Order No.", "Line No.");
+                DataItemTableView = sorting(Status, "Prod. Order No.", "Line No.");
 
                 column(Descriptionline; Description)
                 { }
