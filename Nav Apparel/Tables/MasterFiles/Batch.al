@@ -1,9 +1,9 @@
 
-table 71012844 Model
+table 71012850 Batch
 {
     DataClassification = ToBeClassified;
-    LookupPageId = ModelList;
-    DrillDownPageId = ModelList;
+    // LookupPageId = Article;
+    // DrillDownPageId = Article;
 
     fields
     {
@@ -12,7 +12,7 @@ table 71012844 Model
             DataClassification = ToBeClassified;
         }
 
-        field(71012582; "Model Name"; text[50])
+        field(71012582; "Batch"; text[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -38,7 +38,7 @@ table 71012844 Model
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", "Model Name")
+        fieldgroup(DropDown; "No.", Batch)
         {
 
         }
@@ -48,17 +48,7 @@ table 71012844 Model
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
+    end; 
 
-    trigger OnDelete()
-    var
-    // ItemRec: Record Item;
-    begin
-        // //Check for Exsistance
-        // ItemRec.Reset();
-        // ItemRec.SetRange("Brand Code", "No.");
-        // if ItemRec.FindSet() then
-        //     Error('Model : %1 already used in Items. Cannot delete.', "Model Name");
-    end;
 
 }

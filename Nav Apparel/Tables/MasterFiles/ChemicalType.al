@@ -52,13 +52,13 @@ table 71012847 ChemicalType
 
     trigger OnDelete()
     var
-        ItemRec: Record Item;
+    // ItemRec: Record Item;
     begin
-        //Check for Exsistance
-        ItemRec.Reset();
-        ItemRec.SetRange("Chemical Type Code", "No.");
-        if ItemRec.FindSet() then
-            Error('Chemical Type : %1 already used in Items. Cannot delete.', "Chemical Type Name");
+        // //Check for Exsistance
+        // ItemRec.Reset();
+        // ItemRec.SetRange("Chemical Type Code", "No.");
+        // if ItemRec.FindSet() then
+        //     Error('Chemical Type : %1 already used in Items. Cannot delete.', "Chemical Type Name");
     end;
 
 }
