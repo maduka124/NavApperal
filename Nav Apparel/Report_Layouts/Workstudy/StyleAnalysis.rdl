@@ -1673,11 +1673,19 @@
                   </SortExpressions>
                   <TablixMembers>
                     <TablixMember>
-                      <Group Name="Department_Name">
-                        <GroupExpressions>
-                          <GroupExpression>=Fields!Department_Name.Value</GroupExpression>
-                        </GroupExpressions>
-                      </Group>
+                      <Visibility>
+                        <Hidden>=Fields!Department_Name.Value=""</Hidden>
+                      </Visibility>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=Fields!Garment_Part_Name.Value=""</Hidden>
+                      </Visibility>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Group Name="Details" />
                       <SortExpressions>
                         <SortExpression>
                           <Value>=Fields!Department_Name.Value</Value>
@@ -1685,34 +1693,11 @@
                         </SortExpression>
                       </SortExpressions>
                       <TablixMembers>
-                        <TablixMember>
-                          <Visibility>
-                            <Hidden>=Fields!Department_Name.Value=""</Hidden>
-                          </Visibility>
-                          <KeepWithGroup>After</KeepWithGroup>
-                        </TablixMember>
-                        <TablixMember>
-                          <Visibility>
-                            <Hidden>=Fields!Garment_Part_Name.Value=""</Hidden>
-                          </Visibility>
-                          <KeepWithGroup>After</KeepWithGroup>
-                        </TablixMember>
-                        <TablixMember>
-                          <Group Name="Details" />
-                          <SortExpressions>
-                            <SortExpression>
-                              <Value>=Fields!Department_Name.Value</Value>
-                              <Direction>Descending</Direction>
-                            </SortExpression>
-                          </SortExpressions>
-                          <TablixMembers>
-                            <TablixMember />
-                          </TablixMembers>
-                          <Visibility>
-                            <Hidden>=Fields!Code.Value=""</Hidden>
-                          </Visibility>
-                        </TablixMember>
+                        <TablixMember />
                       </TablixMembers>
+                      <Visibility>
+                        <Hidden>=Fields!Code.Value=""</Hidden>
+                      </Visibility>
                     </TablixMember>
                   </TablixMembers>
                 </TablixMember>
