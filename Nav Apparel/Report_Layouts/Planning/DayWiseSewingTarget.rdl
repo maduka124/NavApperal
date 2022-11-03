@@ -2896,7 +2896,7 @@
                                   <Value>=Fields!SawingOut.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2938,6 +2938,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2952,7 +2953,7 @@
                                   <Value>=Sum(Fields!Order_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4287,7 +4288,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                     <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
