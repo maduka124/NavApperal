@@ -11,82 +11,6 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Posting_Date">
-          <DataField>Posting_Date</DataField>
-        </Field>
-        <Field Name="SystemCreatedBy">
-          <DataField>SystemCreatedBy</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="StyleName">
-          <DataField>StyleName</DataField>
-        </Field>
-        <Field Name="BuyerName">
-          <DataField>BuyerName</DataField>
-        </Field>
-        <Field Name="garmentTypeName">
-          <DataField>garmentTypeName</DataField>
-        </Field>
-        <Field Name="TransferFrom">
-          <DataField>TransferFrom</DataField>
-        </Field>
-        <Field Name="TransfeTo">
-          <DataField>TransfeTo</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="PoQty">
-          <DataField>PoQty</DataField>
-        </Field>
-        <Field Name="PONo">
-          <DataField>PONo</DataField>
-        </Field>
-        <Field Name="Item_No_">
-          <DataField>Item_No_</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Unit_of_Measure">
-          <DataField>Unit_of_Measure</DataField>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-        </Field>
-        <Field Name="QuantityFormat">
-          <DataField>QuantityFormat</DataField>
-        </Field>
-        <Field Name="ItemColor">
-          <DataField>ItemColor</DataField>
-        </Field>
-        <Field Name="Planned_Order_No_">
-          <DataField>Planned_Order_No_</DataField>
-        </Field>
-        <Field Name="PO">
-          <DataField>PO</DataField>
-        </Field>
-        <Field Name="Quantityprodline">
-          <DataField>Quantityprodline</DataField>
-        </Field>
-        <Field Name="QuantityprodlineFormat">
-          <DataField>QuantityprodlineFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1341,13 +1265,13 @@
                   <Width>2.33539cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.28965cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>8.70635cm</Width>
+                  <Width>9.39887cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.5cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.54233cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.05469cm</Width>
@@ -1414,14 +1338,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox63">
+                        <Textbox Name="Textbox65">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value> Color</Value>
+                                  <Value>Description</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1433,7 +1357,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox63</rd:DefaultName>
+                          <rd:DefaultName>Textbox65</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1469,14 +1393,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox65">
+                        <Textbox Name="Textbox64">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Description</Value>
+                                  <Value> Color</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1488,7 +1412,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox65</rd:DefaultName>
+                          <rd:DefaultName>Textbox63</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1693,14 +1617,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="ItemColor">
+                        <Textbox Name="Description">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ItemColor.Value</Value>
+                                  <Value>=Fields!Description.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -1711,7 +1635,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>ItemColor</rd:DefaultName>
+                          <rd:DefaultName>Description</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1747,14 +1671,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Description">
+                        <Textbox Name="ItemColor2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Description.Value</Value>
+                                  <Value>=Fields!ItemColor.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -1765,7 +1689,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Description</rd:DefaultName>
+                          <rd:DefaultName>ItemColor</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1928,16 +1852,24 @@
                 <TablixMember>
                   <Group Name="Details1" />
                   <Visibility>
-                    <Hidden>=Fields!Item_No_.Value=""</Hidden>
+                    <Hidden>=IIF(Fields!Item_No_.Value=Previous(Fields!Item_No_.Value),True,False)</Hidden>
                   </Visibility>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
+            <SortExpressions>
+              <SortExpression>
+                <Value>=Fields!Item_No_.Value</Value>
+              </SortExpression>
+              <SortExpression>
+                <Value>=Fields!Description.Value</Value>
+              </SortExpression>
+            </SortExpressions>
             <Top>8.7757cm</Top>
             <Left>0.03387cm</Left>
             <Height>1.12184cm</Height>
-            <Width>19.88608cm</Width>
+            <Width>19.83128cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -2179,13 +2111,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>12.70677cm</Height>
+        <Height>12.6221cm</Height>
         <Style />
       </Body>
-      <Width>19.91995cm</Width>
+      <Width>19.86515cm</Width>
       <Page>
         <PageFooter>
-          <Height>1.8609cm</Height>
+          <Height>0.71438cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2214,7 +2146,7 @@
               <rd:DefaultName>Textbox70</rd:DefaultName>
               <Top>0cm</Top>
               <Left>0cm</Left>
-              <Height>1.03188cm</Height>
+              <Height>0.62971cm</Height>
               <Width>8.636cm</Width>
               <Style>
                 <Border>
@@ -2252,7 +2184,7 @@
               <rd:DefaultName>Textbox71</rd:DefaultName>
               <Top>0cm</Top>
               <Left>9.01912cm</Left>
-              <Height>0.97896cm</Height>
+              <Height>0.62971cm</Height>
               <Width>6.37646cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
@@ -2302,7 +2234,7 @@
               <rd:DefaultName>Textbox72</rd:DefaultName>
               <Top>0cm</Top>
               <Left>17.6489cm</Left>
-              <Height>1.8609cm</Height>
+              <Height>0.62971cm</Height>
               <Width>2.21625cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
@@ -2333,12 +2265,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2390,4 +2316,80 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Posting_Date">
+          <DataField>Posting_Date</DataField>
+        </Field>
+        <Field Name="SystemCreatedBy">
+          <DataField>SystemCreatedBy</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="StyleName">
+          <DataField>StyleName</DataField>
+        </Field>
+        <Field Name="BuyerName">
+          <DataField>BuyerName</DataField>
+        </Field>
+        <Field Name="garmentTypeName">
+          <DataField>garmentTypeName</DataField>
+        </Field>
+        <Field Name="TransferFrom">
+          <DataField>TransferFrom</DataField>
+        </Field>
+        <Field Name="TransfeTo">
+          <DataField>TransfeTo</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="PoQty">
+          <DataField>PoQty</DataField>
+        </Field>
+        <Field Name="PONo">
+          <DataField>PONo</DataField>
+        </Field>
+        <Field Name="Item_No_">
+          <DataField>Item_No_</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Unit_of_Measure">
+          <DataField>Unit_of_Measure</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="QuantityFormat">
+          <DataField>QuantityFormat</DataField>
+        </Field>
+        <Field Name="ItemColor">
+          <DataField>ItemColor</DataField>
+        </Field>
+        <Field Name="Planned_Order_No_">
+          <DataField>Planned_Order_No_</DataField>
+        </Field>
+        <Field Name="PO">
+          <DataField>PO</DataField>
+        </Field>
+        <Field Name="Quantityprodline">
+          <DataField>Quantityprodline</DataField>
+        </Field>
+        <Field Name="QuantityprodlineFormat">
+          <DataField>QuantityprodlineFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
