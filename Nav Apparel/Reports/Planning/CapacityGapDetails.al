@@ -11,7 +11,7 @@ report 50623 CapacityGapDetailsReport
         dataitem("NavApp Planning Lines"; "NavApp Planning Lines")
         {
             DataItemTableView = sorting("Style No.");
-            column(Resource_No_; "Resource No.")
+            column(Resource_No_; WorkCenterName)
             { }
             column(Start_Date; "Start Date")
             { }
@@ -147,6 +147,11 @@ report 50623 CapacityGapDetailsReport
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
+                WorkCenterRec.SetRange("No.", "Resource No.");
+                if WorkCenterRec.FindFirst() then begin
+                    WorkCenterName := WorkCenterRec.Name;
+                end;
+
             end;
 
             trigger OnPreDataItem()
@@ -195,6 +200,7 @@ report 50623 CapacityGapDetailsReport
 
 
     var
+        WorkCenterName: Text[100];
         StyleMasterRec: Record "Style Master";
         Factory_Name: Text[50];
         LastDate: Decimal;
@@ -214,6 +220,7 @@ report 50623 CapacityGapDetailsReport
         Lasdate: Date;
         sumFirstDate: Integer;
         comRec: Record "Company Information";
+        WorkCenterRec: Record "Work Center";
 
 
 }
