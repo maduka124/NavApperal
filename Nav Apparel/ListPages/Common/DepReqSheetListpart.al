@@ -15,6 +15,7 @@ page 50823 "DepReqSheetListpart"
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
+                    Editable = EditableGb;
 
                     trigger OnValidate()
                     var
@@ -24,6 +25,55 @@ page 50823 "DepReqSheetListpart"
                         MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
                         if MainCategoryRec.FindSet() then
                             "Main Category No." := MainCategoryRec."No.";
+
+                        //Article
+                        if ("Main Category Name" = 'SPAIR PARTS') or ("Main Category Name" = 'CHEMICAL')
+                            or ("Main Category Name" = 'STATIONARY') or ("Main Category Name" = 'IT ACESSORIES')
+                            or ("Main Category Name" = 'ELETRICAL') then
+                            CaptionA := 'Brand'
+                        else
+                            CaptionA := 'Article';
+
+                        //Size                            
+                        if ("Main Category Name" = 'SPAIR PARTS') then
+                            CaptionB := 'Type of Machine'
+                        else
+                            if ("Main Category Name" = 'CHEMICAL') then
+                                CaptionB := 'Chemical Type'
+                            else
+                                CaptionB := 'Size';
+
+                        //Color                            
+                        if ("Main Category Name" = 'SPAIR PARTS') then
+                            CaptionC := 'Model'
+                        else
+                            if ("Main Category Name" = 'CHEMICAL') then
+                                CaptionC := 'Batch'
+                            else
+                                CaptionC := 'Color';
+
+                        //remarks                            
+                        if ("Main Category Name" = 'SPAIR PARTS') then
+                            CaptionD := 'Part No'
+                        else
+                            if ("Main Category Name" = 'CHEMICAL') then
+                                CaptionD := 'Lot'
+                            else
+                                CaptionD := 'Other';
+
+
+                        "Item Name" := '';
+                        "Item No" := '';
+                        "Dimension No." := '';
+                        "Dimension Name." := '';
+                        "Article No." := '';
+                        Article := '';
+                        "Size Range No." := '';
+                        Remarks := '';
+                        "Color Name" := '';
+                        "Color No." := '';
+                        "Sub Category Name" := '';
+                        "Sub Category No." := '';
                     end;
                 }
 
@@ -49,8 +99,17 @@ page 50823 "DepReqSheetListpart"
                         if itemRec.FindSet() then begin
                             "Item Name" := itemRec.Description;
                             UOM := itemRec."Base Unit of Measure";
+                            Article := itemRec.Article;
+                            "Article No." := itemRec."Article No.";
+                            "Color Name" := itemRec."Color Name";
+                            "Color No." := itemRec."Color No.";
+                            "Dimension Name." := itemRec."Dimension Width";
+                            "Dimension No." := itemRec."Dimension Width No.";
+                            "Size Range No." := itemRec."Size Range No.";
+                            Other := itemRec.Remarks;
+                            "Sub Category No." := itemRec."Sub Category No.";
+                            "Sub Category Name" := itemRec."Sub Category Name";
                         end;
-
                     end;
                 }
 
@@ -58,7 +117,114 @@ page 50823 "DepReqSheetListpart"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Item Description';
+                }
+
+                field("Sub Category Name"; "Sub Category Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sub Category';
+
+                    trigger OnValidate()
+                    var
+                        CategoryRec: Record "Sub Category";
+                    begin
+                        CategoryRec.Reset();
+                        CategoryRec.SetRange("Sub Category Name", "Sub Category Name");
+                        if CategoryRec.FindSet() then
+                            "Sub Category No." := CategoryRec."No.";
+                    end;
+                }
+
+                field(Article; Article)
+                {
+                    ApplicationArea = All;
+                    CaptionClass = CaptionA;
+                    Editable = EditableGb;
+
+                    trigger OnValidate()
+                    var
+                        ArticleRec: Record Article;
+                        BrandRec: Record Brand;
+                    begin
+                        if ("Main Category Name" = 'SPAIR PARTS') or ("Main Category Name" = 'CHEMICAL')
+                        or ("Main Category Name" = 'STATIONARY') or ("Main Category Name" = 'IT ACESSORIES')
+                        or ("Main Category Name" = 'ELETRICAL') then begin
+                            BrandRec.Reset();
+                            BrandRec.SetRange("Brand Name", Article);
+                            if BrandRec.FindSet() then
+                                "Article No." := BrandRec."No.";
+                        end
+                        else begin
+                            ArticleRec.Reset();
+                            ArticleRec.SetRange(Article, Article);
+                            if ArticleRec.FindSet() then
+                                "Article No." := ArticleRec."No.";
+                        end;
+                    end;
+                }
+
+                field("Size Range No."; "Size Range No.")
+                {
+                    ApplicationArea = All;
+                    CaptionClass = CaptionB;
+                }
+
+                field("Color Name"; "Color Name")
+                {
+                    ApplicationArea = All;
+                    CaptionClass = CaptionC;
+
+                    trigger OnValidate()
+                    var
+                        ColourRec: Record Colour;
+                        ModelRec: Record Model;
+                    begin
+
+                        if ("Main Category Name" = 'SPAIR PARTS') then begin
+                            ModelRec.Reset();
+                            ModelRec.SetRange("Model Name", "Color Name");
+                            if ModelRec.FindSet() then
+                                "Color No." := ModelRec."No.";
+                        end
+                        else
+                            if ("Main Category Name" = 'ELETRICAL') or ("Main Category Name" = 'STATIONARY') or ("Main Category Name" = 'IT ACESSORIES') then begin
+                                ColourRec.Reset();
+                                ColourRec.SetRange("Colour Name", "Color Name");
+                                if ColourRec.FindSet() then
+                                    "Color No." := ColourRec."No.";
+                            end
+                            else
+                                if ("Main Category Name" = 'CHEMICAL') then begin
+
+                                end
+                                else begin
+                                    ColourRec.Reset();
+                                    ColourRec.SetRange("Colour Name", "Color Name");
+                                    if ColourRec.FindSet() then
+                                        "Color No." := ColourRec."No.";
+                                end;
+                    end;
+                }
+
+                field("Dimension Name."; "Dimension Name.")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        DimensionWidthRec: Record DimensionWidth;
+                    begin
+                        DimensionWidthRec.Reset();
+                        DimensionWidthRec.SetRange("Dimension Width", "Dimension Name.");
+                        if DimensionWidthRec.FindSet() then
+                            "Dimension No." := DimensionWidthRec."No.";
+                    end;
+                }
+
+                field(Other; Other)
+                {
+                    ApplicationArea = All;
+                    CaptionClass = CaptionD;
                 }
 
                 field(Qty; Qty)
@@ -194,5 +360,9 @@ page 50823 "DepReqSheetListpart"
 
     var
         EditableGb: Boolean;
+        CaptionA: Text[100];
+        CaptionB: Text[100];
+        CaptionC: Text[100];
+        CaptionD: Text[100];
 
 }

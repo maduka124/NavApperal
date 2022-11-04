@@ -86,7 +86,7 @@ tableextension 71012614 "Item Extension" extends Item
             if ("Main Category Name" = filter('ELETRICAL'))
                     Brand."Brand Name"
             else
-            Article.Article;
+            Article.Article where("Main Category No." = field("Main Category No."));
 
             ValidateTableRelation = false;
         }
@@ -115,7 +115,7 @@ tableextension 71012614 "Item Extension" extends Item
 
             //     ValidateTableRelation = false;
 
-            TableRelation = DimensionWidth."Dimension Width";
+            TableRelation = DimensionWidth."Dimension Width" where("Main Category No." = field("Main Category No."));
             ValidateTableRelation = false;
         }
 

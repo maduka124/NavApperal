@@ -131,6 +131,106 @@ table 50820 DeptReqSheetLine
             TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
             ValidateTableRelation = false;
         }
+
+        field(24; "Article No."; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(25; "Article"; text[100])
+        {
+            DataClassification = ToBeClassified;
+
+            TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
+                    Brand."Brand Name"
+            else
+            if ("Main Category Name" = filter('CHEMICAL'))
+                    Brand."Brand Name"
+            else
+            if ("Main Category Name" = filter('STATIONARY'))
+                    Brand."Brand Name"
+            else
+            if ("Main Category Name" = filter('IT ACESSORIES'))
+                    Brand."Brand Name"
+            else
+            if ("Main Category Name" = filter('ELETRICAL'))
+                    Brand."Brand Name"
+            else
+            Article.Article where("Main Category No." = field("Main Category No."));
+
+            ValidateTableRelation = false;
+        }
+
+        field(26; "Dimension No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(27; "Dimension Name."; text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = DimensionWidth."Dimension Width" where("Main Category No." = field("Main Category No."));
+            ValidateTableRelation = false;
+        }
+
+        field(28; "Color No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(29; "Color Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+
+            TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
+                    Model."Model Name"
+            else
+            if ("Main Category Name" = filter('STATIONARY'))
+                    Colour."Colour Name"
+            else
+            if ("Main Category Name" = filter('IT ACESSORIES'))
+                    Colour."Colour Name"
+            else
+            if ("Main Category Name" = filter('ELETRICAL'))
+                    Colour."Colour Name"
+            else
+            if ("Main Category Name" = filter('CHEMICAL'))
+                    Batch.Batch
+            else
+            Colour."Colour Name";
+
+            ValidateTableRelation = false;
+        }
+
+        field(30; "Size Range No."; code[20])
+        {
+            DataClassification = ToBeClassified;
+
+            TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
+                    "Service Item".Description
+            else
+            if ("Main Category Name" = filter('CHEMICAL'))
+                    ChemicalType."Chemical Type Name";
+
+            ValidateTableRelation = false;
+        }
+
+        field(31; "Other"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(32; "Sub Category No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(33; "Sub Category Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Sub Category"."Sub Category Name" where("Main Category No." = field("Main Category No."));
+            ValidateTableRelation = false;
+        }
     }
 
     keys
