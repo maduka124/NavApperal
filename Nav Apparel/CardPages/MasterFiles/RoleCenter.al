@@ -773,6 +773,13 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Warehouse Reports';
 
+                    action("DepartmentRequisitionReport")
+                    {
+                        Caption = 'Department Requisition Report';
+                        Enabled = true;
+                        RunObject = report DepartmentRequisitionReport;
+                        ApplicationArea = All;
+                    }
                     action("Roll Issuing Report")
                     {
                         Caption = 'Roll Issuing Report';
