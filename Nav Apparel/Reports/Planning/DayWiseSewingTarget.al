@@ -333,25 +333,19 @@ report 50646 DayWiseSewingTarget
             end;
 
             trigger OnPreDataItem()
-            var
-
             begin
+                SetRange(PlanDate, stDate, endDate);
                 SetRange("Factory No.", FTY);
                 SetRange("Style No.", Style);
-                SetRange(PlanDate, stDate, endDate);
                 SetRange("Lot No.", LotFilter);
             end;
 
-            // trigger OnValidate()
 
-            // begin
-            //     location := FTY;
-
-            // end;
         }
 
-
     }
+
+
 
     requestpage
     {
@@ -367,11 +361,7 @@ report 50646 DayWiseSewingTarget
                         ApplicationArea = All;
                         Caption = 'Factory';
                         TableRelation = Location.Code;
-                        // trigger OnValidate()
 
-                        // begin
-                        //     location := FTY;
-                        // end;
 
                     }
 
@@ -379,7 +369,8 @@ report 50646 DayWiseSewingTarget
                     {
                         ApplicationArea = All;
                         Caption = 'Style';
-                        // TableRelation = "Style Master"."No." where("Factory Code" = field(fac));
+                        TableRelation = "Style Master"."No.";
+
 
                     }
                     field(LotFilter; LotFilter)
