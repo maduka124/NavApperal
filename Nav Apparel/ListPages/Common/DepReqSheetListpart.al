@@ -93,23 +93,27 @@ page 50823 "DepReqSheetListpart"
                         if "PO Raized" then
                             Error('Cannot change the Item as PO already created by the central purchasing department.');
 
-                        itemRec.Reset();
-                        itemRec.SetRange("No.", "Item No");
+                        if "Item No" <> '' then begin
+                            itemRec.Reset();
+                            itemRec.SetRange("No.", "Item No");
 
-                        if itemRec.FindSet() then begin
-                            "Item Name" := itemRec.Description;
-                            UOM := itemRec."Base Unit of Measure";
-                            Article := itemRec.Article;
-                            "Article No." := itemRec."Article No.";
-                            "Color Name" := itemRec."Color Name";
-                            "Color No." := itemRec."Color No.";
-                            "Dimension Name." := itemRec."Dimension Width";
-                            "Dimension No." := itemRec."Dimension Width No.";
-                            "Size Range No." := itemRec."Size Range No.";
-                            Other := itemRec.Remarks;
-                            "Sub Category No." := itemRec."Sub Category No.";
-                            "Sub Category Name" := itemRec."Sub Category Name";
-                        end;
+                            if itemRec.FindSet() then begin
+                                "Item Name" := itemRec.Description;
+                                UOM := itemRec."Base Unit of Measure";
+                                Article := itemRec.Article;
+                                "Article No." := itemRec."Article No.";
+                                "Color Name" := itemRec."Color Name";
+                                "Color No." := itemRec."Color No.";
+                                "Dimension Name." := itemRec."Dimension Width";
+                                "Dimension No." := itemRec."Dimension Width No.";
+                                "Size Range No." := itemRec."Size Range No.";
+                                Other := itemRec.Remarks;
+                                "Sub Category No." := itemRec."Sub Category No.";
+                                "Sub Category Name" := itemRec."Sub Category Name";
+                            end;
+                        end
+                        else
+                            "Item Name" := '';
                     end;
                 }
 
@@ -330,10 +334,22 @@ page 50823 "DepReqSheetListpart"
 
                 trigger OnAction()
                 var
+                    NoSeriesManagementCode: Codeunit NoSeriesManagement;
+                    ItemCategoryRec: Record "Item Category";
                     DeptReqSheetLineRec: Record DeptReqSheetLine;
                     DeptReqSheetHeaderRec: Record DeptReqSheetHeader;
+                    NavAppSetupRec: Record "NavApp Setup";
+                    ItemUinitRec: Record "Item Unit of Measure";
+                    MainCateRec: Record "Main Category";
+                    ItemMasterRec: Record item;
+                    NextItemNo: Code[20];
                     ItemDesc: Text[500];
                 begin
+
+                    //Get Worksheet line no
+                    NavAppSetupRec.Reset();
+                    NavAppSetupRec.FindSet();
+
                     DeptReqSheetLineRec.Reset();
                     DeptReqSheetLineRec.SetRange("Req No", "Req No");
                     if DeptReqSheetLineRec.FindSet() then begin
@@ -357,6 +373,86 @@ page 50823 "DepReqSheetListpart"
                                 if Other <> '' then
                                     ItemDesc := ItemDesc + ' / ' + Other;
 
+                                //Check whether item exists
+                                ItemMasterRec.Reset();
+                                ItemMasterRec.SetRange(Description, ItemDesc);
+
+                                if ItemMasterRec.FindSet() then begin
+                                    "Item No" := ItemMasterRec."No.";
+                                    "Item Name" := ItemDesc;
+                                    UOM := ItemMasterRec."Base Unit of Measure";
+                                end
+                                else begin
+
+                                    //Get Dimenion only status
+                                    MainCateRec.Reset();
+                                    MainCateRec.SetRange("No.", "Main Category No.");
+                                    if MainCateRec.FindSet() then
+                                        if MainCateRec."Inv. Posting Group Code" = '' then
+                                            Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', "Main Category Name");
+
+                                    if MainCateRec."Prod. Posting Group Code" = '' then
+                                        Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', "Main Category Name");
+
+                                    NextItemNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."RM Nos.", Today(), true);
+
+                                    ItemMasterRec.Init();
+                                    ItemMasterRec."No." := NextItemNo;
+                                    ItemMasterRec.Description := ItemDesc;
+                                    ItemMasterRec."Main Category No." := "Main Category No.";
+                                    ItemMasterRec."Main Category Name" := "Main Category Name";
+                                    ItemMasterRec."Sub Category No." := "Sub Category No.";
+                                    ItemMasterRec."Sub Category Name" := "Sub Category Name";
+                                    ItemMasterRec."Rounding Precision" := 0.00001;
+
+                                    //Check for Item category
+                                    ItemCategoryRec.Reset();
+                                    ItemCategoryRec.SetRange(Code, "Main Category No.");
+                                    if not ItemCategoryRec.FindSet() then begin
+                                        ItemCategoryRec.Init();
+                                        ItemCategoryRec.Code := "Main Category No.";
+                                        ItemCategoryRec.Description := "Main Category Name";
+                                        ItemCategoryRec.Insert();
+                                    end;
+
+                                    ItemMasterRec."Item Category Code" := "Main Category No.";
+                                    ItemMasterRec."Color No." := "Color No.";
+                                    ItemMasterRec."Color Name" := "Color Name";
+                                    ItemMasterRec."Size Range No." := "Size Range No.";
+                                    ItemMasterRec."Article No." := "Article No.";
+                                    ItemMasterRec."Article" := "Article";
+                                    ItemMasterRec."Dimension Width No." := "Dimension No.";
+                                    ItemMasterRec."Dimension Width" := "Dimension Name.";
+                                    ItemMasterRec.Remarks := Other;
+                                    ItemMasterRec.Type := ItemMasterRec.Type::Inventory;
+                                    ItemMasterRec."Unit Cost" := 0;
+                                    ItemMasterRec."Unit Price" := 0;
+                                    ItemMasterRec."Last Direct Cost" := 0;
+                                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
+                                    ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
+
+                                    if MainCateRec.LOTTracking then begin
+                                        ItemMasterRec.Validate("Item Tracking Code", NavAppSetupRec."LOT Tracking Code");
+                                        ItemMasterRec."Lot Nos." := NavAppSetupRec."LOTTracking Nos.";
+                                    end;
+
+                                    //Insert into Item unit of measure
+                                    ItemUinitRec.Init();
+                                    ItemUinitRec."Item No." := NextItemNo;
+                                    ItemUinitRec.Code := UOM;
+                                    ItemUinitRec."Qty. per Unit of Measure" := 1;
+                                    ItemUinitRec.Insert();
+
+                                    ItemMasterRec.Validate("Base Unit of Measure", UOM);
+                                    ItemMasterRec.Validate("Replenishment System", 0);
+                                    ItemMasterRec.Validate("Manufacturing Policy", 1);
+                                    ItemMasterRec.Insert(true);
+
+                                    "Item No" := NextItemNo;
+                                    "Item Name" := ItemDesc;
+
+                                end;
                             end;
                         until DeptReqSheetLineRec.Next() = 0;
                     end;
