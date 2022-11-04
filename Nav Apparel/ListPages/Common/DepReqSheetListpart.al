@@ -319,6 +319,52 @@ page 50823 "DepReqSheetListpart"
         }
     }
 
+    actions
+    {
+        area(Processing)
+        {
+            action("Generate Items")
+            {
+                Image = Create;
+                ApplicationArea = all;
+
+                trigger OnAction()
+                var
+                    DeptReqSheetLineRec: Record DeptReqSheetLine;
+                    DeptReqSheetHeaderRec: Record DeptReqSheetHeader;
+                    ItemDesc: Text[500];
+                begin
+                    DeptReqSheetLineRec.Reset();
+                    DeptReqSheetLineRec.SetRange("Req No", "Req No");
+                    if DeptReqSheetLineRec.FindSet() then begin
+                        repeat
+                            if "Item No" = '' then begin
+
+                                ItemDesc := "Sub Category Name";
+
+                                if Article <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + Article;
+
+                                if "Color Name" <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + "Color Name";
+
+                                if "Size Range No." <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + "Size Range No.";
+
+                                if "Dimension Name." <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + "Dimension Name.";
+
+                                if Other <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + Other;
+
+                            end;
+                        until DeptReqSheetLineRec.Next() = 0;
+                    end;
+                end;
+            }
+        }
+    }
+
 
     trigger OnNewRecord(BelowxRec: Boolean)
     var

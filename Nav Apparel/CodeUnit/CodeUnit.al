@@ -1046,4 +1046,21 @@ codeunit 71012752 NavAppCodeUnit
     end;
 
 
+    [EventSubscriber(ObjectType::Table, 5746, 'OnAfterCopyFromTransferHeader', '', true, true)]
+    local procedure UpdateTransRec(var TransferReceiptHeader: Record "Transfer Receipt Header"; TransferHeader: Record "Transfer Header")
+    begin
+        TransferReceiptHeader."Style No." := TransferHeader."Style No.";
+        TransferReceiptHeader."Style Name" := TransferHeader."Style Name";
+        TransferReceiptHeader.PO := TransferHeader.PO;
+    end;
+
+    [EventSubscriber(ObjectType::Table, 5744, 'OnAfterCopyFromTransferHeader', '', true, true)]
+    local procedure UpdateShipRec(var TransferShipmentHeader: Record "Transfer Shipment Header"; TransferHeader: Record "Transfer Header")
+    begin
+        TransferShipmentHeader."Style No." := TransferHeader."Style No.";
+        TransferShipmentHeader."Style Name" := TransferHeader."Style Name";
+        TransferShipmentHeader.PO := TransferHeader.PO;
+    end;
+
+
 }
