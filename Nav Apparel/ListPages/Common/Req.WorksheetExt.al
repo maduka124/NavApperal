@@ -51,6 +51,7 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                     DeptReqLineRec.SetCurrentKey("Item No");
                     DeptReqLineRec.Ascending(true);
                     DeptReqLineRec.SetFilter("Qty to Received", '>%1', 0);
+                    DeptReqLineRec.SetFilter("Item No", '<>%1', '');
                     DeptReqLineRec.SetFilter("PO Raized", '=%1', false);
 
                     if DeptReqLineRec.FindSet() then begin

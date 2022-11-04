@@ -6,6 +6,62 @@ pageextension 71012736 ItemCardExt extends "Item Card"
         {
             group("Apperal Settings")
             {
+                field("Main Category Name"; "Main Category Name")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                    Caption = 'Main Category';
+
+                    trigger OnValidate()
+                    var
+                        MainCatRec: Record "Main Category";
+                    begin
+
+                        MainCatRec.Reset();
+                        MainCatRec.SetRange("Main Category Name", "Main Category Name");
+                        if MainCatRec.FindSet() then begin
+                            "Main Category No." := MainCatRec."No.";
+                            Validate("Gen. Prod. Posting Group", MainCatRec."Prod. Posting Group Code");
+                            Validate("Inventory Posting Group", MainCatRec."Inv. Posting Group Code");
+                        end;
+
+                        //Article
+                        if ("Main Category Name" = 'SPAIR PARTS') or ("Main Category Name" = 'CHEMICAL')
+                            or ("Main Category Name" = 'STATIONARY') or ("Main Category Name" = 'IT ACESSORIES')
+                            or ("Main Category Name" = 'ELETRICAL') then
+                            CaptionA := 'Brand'
+                        else
+                            CaptionA := 'Article';
+
+                        //Size                            
+                        if ("Main Category Name" = 'SPAIR PARTS') then
+                            CaptionB := 'Type of Machine'
+                        else
+                            if ("Main Category Name" = 'CHEMICAL') then
+                                CaptionB := 'Chemical Type'
+                            else
+                                CaptionB := 'Size';
+
+                        //Color                            
+                        if ("Main Category Name" = 'SPAIR PARTS') then
+                            CaptionC := 'Model'
+                        else
+                            if ("Main Category Name" = 'CHEMICAL') then
+                                CaptionC := 'Batch'
+                            else
+                                CaptionC := 'Color';
+
+                        //remarks                            
+                        if ("Main Category Name" = 'SPAIR PARTS') then
+                            CaptionD := 'Part No'
+                        else
+                            if ("Main Category Name" = 'CHEMICAL') then
+                                CaptionD := 'Lot'
+                            else
+                                CaptionD := 'Other';
+                    end;
+                }
+
                 field("Sub Category Name"; "Sub Category Name")
                 {
                     ApplicationArea = All;
@@ -15,65 +71,15 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                     trigger OnValidate()
                     var
                         CategoryRec: Record "Sub Category";
-                        MainCatRec: Record "Main Category";
                     begin
                         CategoryRec.Reset();
                         CategoryRec.SetRange("Sub Category Name", "Sub Category Name");
-                        if CategoryRec.FindSet() then begin
+                        if CategoryRec.FindSet() then
                             "Sub Category No." := CategoryRec."No.";
-                            "Main Category No." := CategoryRec."Main Category No.";
-                            "Main Category Name" := CategoryRec."Main Category Name";
-
-                            //Article
-                            if ("Main Category Name" = 'SPAIR PARTS') or ("Main Category Name" = 'CHEMICAL')
-                                or ("Main Category Name" = 'STATIONARY') or ("Main Category Name" = 'IT ACESSORIES')
-                                or ("Main Category Name" = 'ELETRICAL') then
-                                CaptionA := 'Brand'
-                            else
-                                CaptionA := 'Article';
-
-                            //Size                            
-                            if ("Main Category Name" = 'SPAIR PARTS') then
-                                CaptionB := 'Type of Machine'
-                            else
-                                if ("Main Category Name" = 'CHEMICAL') then
-                                    CaptionB := 'Chemical Type'
-                                else
-                                    CaptionB := 'Size';
-
-                            //Color                            
-                            if ("Main Category Name" = 'SPAIR PARTS') then
-                                CaptionC := 'Model'
-                            else
-                                if ("Main Category Name" = 'CHEMICAL') then
-                                    CaptionC := 'Batch'
-                                else
-                                    CaptionC := 'Color';
-
-                            //remarks                            
-                            if ("Main Category Name" = 'SPAIR PARTS') then
-                                CaptionD := 'Part No'
-                            else
-                                if ("Main Category Name" = 'CHEMICAL') then
-                                    CaptionD := 'Lot'
-                                else
-                                    CaptionD := 'Other';
-
-                            MainCatRec.Reset();
-                            MainCatRec.SetRange("No.", CategoryRec."Main Category No.");
-                            if MainCatRec.FindSet() then begin
-                                Validate("Gen. Prod. Posting Group", MainCatRec."Prod. Posting Group Code");
-                                Validate("Inventory Posting Group", MainCatRec."Inv. Posting Group Code");
-                            end;
-                        end;
                     end;
                 }
 
-                field("Main Category Name"; "Main Category Name")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
+
 
                 field("Color Name"; "Color Name")
                 {
@@ -279,6 +285,46 @@ pageextension 71012736 ItemCardExt extends "Item Card"
             }
         }
     }
+
+    trigger OnAfterGetCurrRecord()
+    var
+
+    begin
+        //Article
+        if ("Main Category Name" = 'SPAIR PARTS') or ("Main Category Name" = 'CHEMICAL')
+            or ("Main Category Name" = 'STATIONARY') or ("Main Category Name" = 'IT ACESSORIES')
+            or ("Main Category Name" = 'ELETRICAL') then
+            CaptionA := 'Brand'
+        else
+            CaptionA := 'Article';
+
+        //Size                            
+        if ("Main Category Name" = 'SPAIR PARTS') then
+            CaptionB := 'Type of Machine'
+        else
+            if ("Main Category Name" = 'CHEMICAL') then
+                CaptionB := 'Chemical Type'
+            else
+                CaptionB := 'Size';
+
+        //Color                            
+        if ("Main Category Name" = 'SPAIR PARTS') then
+            CaptionC := 'Model'
+        else
+            if ("Main Category Name" = 'CHEMICAL') then
+                CaptionC := 'Batch'
+            else
+                CaptionC := 'Color';
+
+        //remarks                            
+        if ("Main Category Name" = 'SPAIR PARTS') then
+            CaptionD := 'Part No'
+        else
+            if ("Main Category Name" = 'CHEMICAL') then
+                CaptionD := 'Lot'
+            else
+                CaptionD := 'Other';
+    end;
 
     var
         CaptionA: Text[100];

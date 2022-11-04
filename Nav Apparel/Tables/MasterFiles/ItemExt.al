@@ -8,7 +8,7 @@ tableextension 71012614 "Item Extension" extends Item
 
         field(71012582; "Sub Category Name"; Text[50])
         {
-            TableRelation = "Sub Category"."Sub Category Name";
+            TableRelation = "Sub Category"."Sub Category Name" where("Main Category No." = field("Main Category No."));
             ValidateTableRelation = false;
         }
 
@@ -18,6 +18,8 @@ tableextension 71012614 "Item Extension" extends Item
 
         field(71012584; "Main Category Name"; Text[50])
         {
+            TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
+            ValidateTableRelation = false;
         }
 
         field(71012585; "Color No."; Code[20])
