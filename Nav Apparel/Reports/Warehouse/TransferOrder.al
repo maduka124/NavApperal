@@ -10,6 +10,7 @@ report 50625 TransferOrder
     {
         dataitem("Transfer Header"; "Transfer Header")
         {
+            DataItemTableView = sorting("No.");
             column(No_; "No.")
             { }
             column(Posting_Date; "Posting Date")
