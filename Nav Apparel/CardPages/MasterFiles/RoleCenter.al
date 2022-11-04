@@ -787,6 +787,13 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report IssueNoteReport;
                         ApplicationArea = all;
                     }
+                       action("Transfer Order Report")
+                    {
+                        Caption = 'Transfer Order Report';
+                        Enabled = true;
+                        RunObject = report TransferOrder;
+                        ApplicationArea = all;
+                    }
                 }
 
             }
