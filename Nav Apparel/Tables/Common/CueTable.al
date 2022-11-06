@@ -14,6 +14,12 @@ table 50786 "Activities Cue 1"
             FieldClass = FlowField;
             CalcFormula = Count("Gate Pass Header" where(Status = filter("Pending Approval")));
         }
+
+        field(3; "Dept. Purch - Pending Approv"; Integer)
+        {
+            FieldClass = FlowField;
+            CalcFormula = Count(DeptReqSheetHeader where(Status = filter("Pending Approval")));
+        }
     }
 
     keys

@@ -21,6 +21,13 @@ page 50787 "Cue Activities 1"
                     ApplicationArea = all;
                 }
 
+                field("Dept. Purch - Pending Approv"; "Dept. Purch - Pending Approv")
+                {
+                    DrillDownPageID = "Department Requisition Sheet";
+                    Caption = 'Dept. Purchasing - Pending Approvals';
+                    ApplicationArea = all;
+                }
+
                 // actions
                 // {
                 //     action(ActionName)

@@ -28,6 +28,11 @@ tableextension 71012660 "User Setup Extension" extends "User Setup"
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
         }
+
+        field(71012586; "Purchasing Approval"; Boolean)
+        {
+
+        }
     }
 }
 

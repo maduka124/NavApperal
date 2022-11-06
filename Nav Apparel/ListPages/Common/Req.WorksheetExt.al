@@ -61,38 +61,39 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                             DeptReqHeaderRec.SetRange("Req No", DeptReqLineRec."Req No");
                             if DeptReqHeaderRec.FindSet() then begin
 
-                                RequLineRec.Reset();
-                                RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
-                                RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
-                                RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
-                                RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
-                                RequLineRec.SetRange("No.", DeptReqLineRec."Item No");
-                                RequLineRec.SetRange("CP Req Code", DeptReqLineRec."Req No");
+                                if DeptReqHeaderRec.Status = DeptReqHeaderRec.Status::Approved then begin
+                                    RequLineRec.Reset();
+                                    RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
+                                    RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
+                                    RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                                    RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
+                                    RequLineRec.SetRange("No.", DeptReqLineRec."Item No");
+                                    RequLineRec.SetRange("CP Req Code", DeptReqLineRec."Req No");
 
-                                if not RequLineRec.FindSet() then begin    //Not existing items
+                                    if not RequLineRec.FindSet() then begin    //Not existing items
 
-                                    ReqLineNo += 1;
-                                    RequLineRec1.Init();
-                                    RequLineRec1."Worksheet Template Name" := NavAppSetupRec."Req Worksheet Template Name";
-                                    RequLineRec1."Journal Batch Name" := NavAppSetupRec."Req Journal Batch Name";
-                                    RequLineRec1."Line No." := ReqLineNo;
-                                    RequLineRec1.Type := RequLineRec.Type::Item;
-                                    RequLineRec1.Validate("No.", DeptReqLineRec."Item No");
-                                    RequLineRec1."Action Message" := RequLineRec."Action Message"::New;
-                                    RequLineRec1."Accept Action Message" := true;
-                                    RequLineRec1."Ending Date" := Today + 7;
-                                    RequLineRec1.Quantity := DeptReqLineRec."Qty to Received";
-                                    RequLineRec1.Validate("Location Code", DeptReqHeaderRec."Factory Code");
-                                    RequLineRec1."Department Code" := DeptReqHeaderRec."Department Code";
-                                    RequLineRec1."Department Name" := DeptReqHeaderRec."Department Name";
-                                    RequLineRec1.Validate("Global Dimension Code", DeptReqHeaderRec."Global Dimension Code");
-                                    RequLineRec1.Validate("Shortcut Dimension 1 Code", DeptReqHeaderRec."Global Dimension Code");
-                                    RequLineRec1.EntryType := RequLineRec1.EntryType::"Central Purchasing";
-                                    RequLineRec1."CP Req Code" := DeptReqLineRec."Req No";
-                                    RequLineRec1."CP Line" := DeptReqLineRec."Line No";
-                                    RequLineRec1.Insert();
+                                        ReqLineNo += 1;
+                                        RequLineRec1.Init();
+                                        RequLineRec1."Worksheet Template Name" := NavAppSetupRec."Req Worksheet Template Name";
+                                        RequLineRec1."Journal Batch Name" := NavAppSetupRec."Req Journal Batch Name";
+                                        RequLineRec1."Line No." := ReqLineNo;
+                                        RequLineRec1.Type := RequLineRec.Type::Item;
+                                        RequLineRec1.Validate("No.", DeptReqLineRec."Item No");
+                                        RequLineRec1."Action Message" := RequLineRec."Action Message"::New;
+                                        RequLineRec1."Accept Action Message" := true;
+                                        RequLineRec1."Ending Date" := Today + 7;
+                                        RequLineRec1.Quantity := DeptReqLineRec."Qty to Received";
+                                        RequLineRec1.Validate("Location Code", DeptReqHeaderRec."Factory Code");
+                                        RequLineRec1."Department Code" := DeptReqHeaderRec."Department Code";
+                                        RequLineRec1."Department Name" := DeptReqHeaderRec."Department Name";
+                                        RequLineRec1.Validate("Global Dimension Code", DeptReqHeaderRec."Global Dimension Code");
+                                        RequLineRec1.Validate("Shortcut Dimension 1 Code", DeptReqHeaderRec."Global Dimension Code");
+                                        RequLineRec1.EntryType := RequLineRec1.EntryType::"Central Purchasing";
+                                        RequLineRec1."CP Req Code" := DeptReqLineRec."Req No";
+                                        RequLineRec1."CP Line" := DeptReqLineRec."Line No";
+                                        RequLineRec1.Insert();
+                                    end;
                                 end;
-
                             end;
                         until DeptReqLineRec.Next() = 0;
 

@@ -577,6 +577,12 @@ page 71012751 "NavApp Setup Card"
                     ApplicationArea = All;
                     TableRelation = "Requisition Wksh. Name".Name WHERE("Worksheet Template Name" = FIELD("Req Worksheet Template Name"));
                 }
+
+                field("MISCITEM Nos."; "MISCITEM Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Other Item Nos.';
+                }
             }
         }
     }

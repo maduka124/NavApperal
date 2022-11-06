@@ -64,6 +64,24 @@ table 50819 DeptReqSheetHeader
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
         }
+
+        field(12; "Approved Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
+        field(13; "Approved By"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(14; "Status"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = New,"Pending Approval",Approved,Rejected;
+            OptionCaption = 'New,Pending Approval,Approved,Rejected';
+        }
     }
 
     keys

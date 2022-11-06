@@ -21,6 +21,11 @@ pageextension 71012743 UserSetupCardExt extends "User Setup"
                 ApplicationArea = All;
             }
 
+            field("Purchasing Approval"; "Purchasing Approval")
+            {
+                ApplicationArea = All;
+            }
+
             field(UserRole; UserRole)
             {
                 ApplicationArea = All;

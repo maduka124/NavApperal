@@ -76,9 +76,10 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                         CategoryRec.SetRange("Sub Category Name", "Sub Category Name");
                         if CategoryRec.FindSet() then
                             "Sub Category No." := CategoryRec."No.";
+
+                        Get_Description();
                     end;
                 }
-
 
 
                 field("Color Name"; "Color Name")
@@ -115,6 +116,8 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                                     if ColourRec.FindSet() then
                                         "Color No." := ColourRec."No.";
                                 end;
+
+                        Get_Description();
                     end;
                 }
 
@@ -123,25 +126,28 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                     ApplicationArea = All;
                     CaptionClass = CaptionB;
 
-                    // trigger OnValidate()
-                    // var
+                    trigger OnValidate()
+                    var
                     //     // ChemicalTypeRec: Record ChemicalType;
                     //     ServiceItemRec: Record "Service Item";
-                    // begin
-                    //     if ("Main Category Name" = 'SPAIR PARTS') then begin
-                    //         ServiceItemRec.Reset();
-                    //         ServiceItemRec.SetRange(Description, "Size Range No.");
-                    //         if ServiceItemRec.FindSet() then
-                    //             "Article No." := ServiceItemRec."No.";
-                    //     end
-                    //     else
-                    //         if ("Main Category Name" = 'CHEMICAL') then begin
-                    //             ChemicalTypeRec.Reset();
-                    //             ChemicalTypeRec.SetRange("Chemical Type Name", "Size Range No.");
-                    //             if ChemicalTypeRec.FindSet() then
-                    //                 "Article No." := ChemicalTypeRec."No.";
-                    //         end
-                    // end;
+                    begin
+                        Get_Description();
+                        //     if ("Main Category Name" = 'SPAIR PARTS') then begin
+                        //         ServiceItemRec.Reset();
+                        //         ServiceItemRec.SetRange(Description, "Size Range No.");
+                        //         if ServiceItemRec.FindSet() then
+                        //             "Article No." := ServiceItemRec."No.";
+                        //     end
+                        //     else
+                        //         if ("Main Category Name" = 'CHEMICAL') then begin
+                        //             ChemicalTypeRec.Reset();
+                        //             ChemicalTypeRec.SetRange("Chemical Type Name", "Size Range No.");
+                        //             if ChemicalTypeRec.FindSet() then
+                        //                 "Article No." := ChemicalTypeRec."No.";
+                        //         end
+                    end;
+
+
                 }
 
                 field(Article; Article)
@@ -168,6 +174,8 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                             if ArticleRec.FindSet() then
                                 "Article No." := ArticleRec."No.";
                         end;
+
+                        Get_Description();
                     end;
 
                     // trigger OnValidate()
@@ -194,6 +202,8 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                         DimensionWidthRec.SetRange("Dimension Width", "Dimension Width");
                         if DimensionWidthRec.FindSet() then
                             "Dimension Width No." := DimensionWidthRec."No.";
+
+                        Get_Description();
                     end;
                 }
 
@@ -276,6 +286,12 @@ pageextension 71012736 ItemCardExt extends "Item Card"
                     ApplicationArea = All;
                     CaptionClass = CaptionD;
 
+                    trigger OnValidate()
+                    var
+                    begin
+                        Get_Description();
+                    end;
+
                 }
 
                 field("EstimateBOM Item"; "EstimateBOM Item")
@@ -325,6 +341,32 @@ pageextension 71012736 ItemCardExt extends "Item Card"
             else
                 CaptionD := 'Other';
     end;
+
+
+    procedure Get_Description()
+    var
+        ItemDesc: Text[500];
+    begin
+        ItemDesc := "Sub Category Name";
+
+        if Article <> '' then
+            ItemDesc := ItemDesc + ' / ' + Article;
+
+        if "Color Name" <> '' then
+            ItemDesc := ItemDesc + ' / ' + "Color Name";
+
+        if "Size Range No." <> '' then
+            ItemDesc := ItemDesc + ' / ' + "Size Range No.";
+
+        if "Dimension Width" <> '' then
+            ItemDesc := ItemDesc + ' / ' + "Dimension Width";
+
+        if Remarks <> '' then
+            ItemDesc := ItemDesc + ' / ' + Remarks;
+
+        Description := ItemDesc;
+    end;
+
 
     var
         CaptionA: Text[100];

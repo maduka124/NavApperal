@@ -42,27 +42,33 @@ page 50821 "Department Requisition Sheet"
                     Caption = 'Department';
                 }
 
-                // field(Status; Status)
-                // {
-                //     ApplicationArea = All;
-                // }
-
                 field(Remarks; Remarks)
                 {
                     ApplicationArea = All;
                 }
+
+                field("Approved/Rejected By"; "Approved By")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Caption = 'Approved/Rejected By';
+                }
+
+                field("Approved/Rejected Date"; "Approved Date")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    Caption = 'Approved/Rejected Date';
+                }
+
+                field(Status; Status)
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                }
             }
         }
     }
-
-
-    // trigger OnDeleteRecord(): Boolean
-    // var
-    //     GatePassLineRec: Record "Gate Pass Line";
-    // begin
-    //     GatePassLineRec.SetRange("No.", "No.");
-    //     GatePassLineRec.DeleteAll();
-    // end;
 
 
     trigger OnOpenPage()
@@ -88,4 +94,19 @@ page 50821 "Department Requisition Sheet"
             DeptReqSheetLine.DeleteAll();
 
     end;
+
+
+    trigger OnAfterGetRecord()
+    var
+    begin
+        if Status = Status::"Pending Approval" then
+            StyleExprTxt := 'strongaccent'
+        else
+            StyleExprTxt := 'None';
+    end;
+
+
+    var
+        StyleExprTxt: Text[50];
+
 }

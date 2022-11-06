@@ -568,6 +568,12 @@ table 71012749 "NavApp Setup"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012680; "MISCITEM Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 
     keys
@@ -577,21 +583,5 @@ table 71012749 "NavApp Setup"
             Clustered = true;
         }
     }
-
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
 
 }
