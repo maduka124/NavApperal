@@ -67,7 +67,7 @@ table 50624 FabricMapping
         field(12; "Main Category Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."Main Category Name" where(SewingJobOnly = filter(1), "Main Category Name" = filter(<> 'ALL CATEGORIES'));
+            TableRelation = "Main Category"."Main Category Name" where(SewingJobOnly = filter(1), "Main Category Name" = filter(<> 'ALL CATEGORIES'), "Style Related" = filter(1));
             ValidateTableRelation = false;
         }
     }
@@ -99,6 +99,6 @@ table 50624 FabricMapping
         "No" := NoSeriesMngment.GetNextNo(NavAppSetup."FabMap Nos.", Today, true);
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;   
+    end;
 
 }

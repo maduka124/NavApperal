@@ -153,8 +153,8 @@ page 71012781 "Copy BOM Card"
                         BOMEstNewRec."Department No." := BOMEstRec."Department No.";
                         BOMEstNewRec."Garment Type Name" := BOMEstRec."Garment Type Name";
                         BOMEstNewRec."Garment Type No." := BOMEstRec."Garment Type No.";
-                        BOMEstNewRec."Main Category Name" := MainCategoryName;
-                        BOMEstNewRec."Main Category No." := MainCategory;
+                        //BOMEstNewRec."Main Category Name" := MainCategoryName;
+                        //BOMEstNewRec."Main Category No." := MainCategory;
                         BOMEstNewRec."Material Cost Doz." := BOMEstRec."Material Cost Doz.";
                         BOMEstNewRec."Material Cost Pcs." := BOMEstRec."Material Cost Pcs.";
                         BOMEstNewRec.Quantity := Qty;

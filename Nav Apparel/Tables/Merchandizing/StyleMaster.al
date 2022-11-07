@@ -172,7 +172,7 @@ table 71012721 "Style Master"
 
         field(71012609; "BPCD"; Date)
         {
-            DataClassification = ToBeClassified;            
+            DataClassification = ToBeClassified;
         }
 
         field(71012610; "LC No/Contract"; Text[50])
@@ -298,6 +298,13 @@ table 71012721 "Style Master"
             DataClassification = ToBeClassified;
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
+        }
+
+        field(71012634; Type; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = Sample,Costing;
+            OptionCaption = 'Sample,Costing';
         }
     }
 

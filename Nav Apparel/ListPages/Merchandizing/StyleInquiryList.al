@@ -88,6 +88,11 @@ page 71012722 "Style Inquiry"
                 {
                     ApplicationArea = All;
                 }
+
+                field(Type; Type)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

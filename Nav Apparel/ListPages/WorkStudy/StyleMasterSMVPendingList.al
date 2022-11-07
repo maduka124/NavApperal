@@ -4,7 +4,7 @@ page 50757 "Style SMV Pending List"
     ApplicationArea = All;
     UsageCategory = Tasks;
     SourceTable = "Style Master";
-    SourceTableView = sorting("No.") order(descending) where(CostingSMV = filter(0));
+    SourceTableView = sorting("No.") order(descending) where(CostingSMV = filter(0), Type = filter(Costing));
     ModifyAllowed = false;
     InsertAllowed = false;
     DeleteAllowed = false;

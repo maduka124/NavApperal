@@ -56,26 +56,9 @@ table 71012767 "BOM Estimate Costing Line"
         }
     }
 
-
     trigger OnInsert()
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
+    end; 
 }

@@ -64,6 +64,7 @@ page 71012669 "Assortment Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
+                     Editable = false;
                 }
 
                 field("Order Qty"; "Order Qty")

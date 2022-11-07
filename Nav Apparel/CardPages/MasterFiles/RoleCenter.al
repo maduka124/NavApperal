@@ -755,6 +755,20 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = All;
                 }
 
+                action("Item1")
+                {
+                    Caption = 'Item';
+                    RunObject = Page "Item List";
+                    ApplicationArea = all;
+                }
+
+                action("Posted Purchase Receipts")
+                {
+                    Caption = 'GRN';
+                    RunObject = Page "Posted Purchase Receipts";
+                    ApplicationArea = all;
+                }
+
                 action("Requisition Worksheet")
                 {
                     Caption = 'Requisition Worksheet';
@@ -769,9 +783,16 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Transfer Orders")
+                {
+                    Caption = 'Transfer Orders';
+                    RunObject = Page "Transfer Orders";
+                    ApplicationArea = all;
+                }
+
                 group("Warehouse Reports")
                 {
-                    Caption = 'Warehouse Reports';
+                    Caption = 'Store Reports';
 
                     action("DepartmentRequisitionReport")
                     {
@@ -787,7 +808,7 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report IssueNoteReport;
                         ApplicationArea = all;
                     }
-                       action("Transfer Order Report")
+                    action("Transfer Order Report")
                     {
                         Caption = 'Transfer Order Report';
                         Enabled = true;

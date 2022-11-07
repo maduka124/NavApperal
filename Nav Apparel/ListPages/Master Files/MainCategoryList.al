@@ -56,6 +56,11 @@ page 71012616 "Main Category List"
                     ApplicationArea = All;
                     Caption = 'LOT Tracking';
                 }
+
+                  field("Style Related";"Style Related")
+                {
+                    ApplicationArea = All;                    
+                }
             }
         }
     }

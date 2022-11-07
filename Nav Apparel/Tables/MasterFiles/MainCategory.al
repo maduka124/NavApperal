@@ -78,6 +78,11 @@ table 71012615 "Main Category"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012595; "Style Related"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

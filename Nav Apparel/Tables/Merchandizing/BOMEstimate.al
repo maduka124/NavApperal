@@ -88,17 +88,17 @@ table 71012692 "BOM Estimate"
             ValidateTableRelation = false;
         }
 
-        field(71012595; "Main Category No."; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
+        // field(71012595; "Main Category No."; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
 
-        field(71012596; "Main Category Name"; text[50])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
-            ValidateTableRelation = false;
-        }
+        // field(71012596; "Main Category Name"; text[50])
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
+        //     ValidateTableRelation = false;
+        // }
 
         field(71012597; "Revision"; Integer)
         {
@@ -139,7 +139,7 @@ table 71012692 "BOM Estimate"
         field(71012604; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No.";
+            TableRelation = "Style Master"."Style No." where(Type = filter(Costing));
             ValidateTableRelation = false;
         }
 

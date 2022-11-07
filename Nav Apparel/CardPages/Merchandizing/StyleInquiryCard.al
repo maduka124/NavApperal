@@ -215,6 +215,11 @@ page 71012723 "Style Inquiry Card"
                 //     Caption = 'Finished Good Item';
                 //     Editable = false;
                 // }
+
+                field(Type; Type)
+                {
+                    ApplicationArea = All;
+                }
             }
 
             group(" ")
@@ -418,18 +423,22 @@ page 71012723 "Style Inquiry Card"
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     var
-
     begin
-        rec.TestField("Style No.");
-        rec.TestField("Store Name");
-        rec.TestField("Season Name");
-        rec.TestField("Brand Name");
-        rec.TestField("Department Name");
-        rec.TestField("Buyer Name");
-        rec.TestField("Garment Type Name");
-        rec.TestField("Size Range Name");
-        rec.TestField("Order Qty");
-        rec.TestField("Ship Date");
+        if "No." <> '' then begin
+            //rec.TestField("Style No.");
+            if "Style No." = '' then
+                Error('Style Name cannot blank.');
+
+            rec.TestField("Store Name");
+            rec.TestField("Season Name");
+            rec.TestField("Brand Name");
+            rec.TestField("Department Name");
+            rec.TestField("Buyer Name");
+            rec.TestField("Garment Type Name");
+            rec.TestField("Size Range Name");
+            rec.TestField("Order Qty");
+            rec.TestField("Ship Date");
+        end;
     end;
 
 }

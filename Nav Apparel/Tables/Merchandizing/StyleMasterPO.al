@@ -232,12 +232,7 @@ table 71012726 "Style Master PO"
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-
-    end;
-
+   
     // trigger OnDelete()
     // var
     //     StyleMasterRec: Record "Style Master";
@@ -260,10 +255,5 @@ table 71012726 "Style Master PO"
 
     // end;
 
-    trigger OnRename()
-    begin
-
-    end;
-
-
+   
 }

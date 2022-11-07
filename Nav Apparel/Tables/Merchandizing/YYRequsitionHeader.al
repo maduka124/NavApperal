@@ -77,26 +77,9 @@ table 71012816 "YY Requsition Header"
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("Sample YY Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."Sample YY Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
+  
 }

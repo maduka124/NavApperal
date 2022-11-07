@@ -36,7 +36,7 @@ table 71012817 "YY Requsition Line"
         field(71012586; "Main Category Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."Main Category Name";
+            TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'), "Style Related" = filter(1));
             ValidateTableRelation = false;
         }
 

@@ -30,7 +30,7 @@ table 71012717 "Sample Requsition Acce"
         field(71012585; "Main Category Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
+            TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'), "Style Related" = filter(1));
             ValidateTableRelation = false;
         }
 
@@ -205,26 +205,9 @@ table 71012717 "Sample Requsition Acce"
         }
     }
 
-
     trigger OnInsert()
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

@@ -24,7 +24,7 @@ table 71012686 "BOM Line AutoGen"
         field(71012584; "Main Category No."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
+            TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'ALL CATEGORIES'), "Style Related" = filter(1));
         }
 
         field(71012585; "Main Category Name"; text[50])
@@ -260,21 +260,6 @@ table 71012686 "BOM Line AutoGen"
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }

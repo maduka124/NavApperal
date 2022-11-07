@@ -28,7 +28,7 @@ table 50533 "GITBaseonPILine"
         field(5; "Main Category Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."Main Category Name";
+            TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'), "Style Related" = filter(1));
             ValidateTableRelation = false;
         }
 

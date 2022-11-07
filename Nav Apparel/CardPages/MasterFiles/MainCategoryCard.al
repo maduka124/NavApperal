@@ -111,6 +111,11 @@ page 71012617 "Main Category Card"
                     ApplicationArea = All;
                     Caption = 'LOT Tracking';
                 }
+
+                field("Style Related"; "Style Related")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

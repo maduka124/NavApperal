@@ -58,7 +58,6 @@ table 71012682 "BOMPOSelection"
             DataClassification = ToBeClassified;
         }
 
-
     }
 
     keys
@@ -69,29 +68,10 @@ table 71012682 "BOMPOSelection"
         }
     }
 
-
-
     trigger OnInsert()
 
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

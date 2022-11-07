@@ -89,17 +89,17 @@ table 71012678 "BOM"
             ValidateTableRelation = false;
         }
 
-        field(71012595; "Main Category No."; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
+        // field(71012595; "Main Category No."; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
 
-        field(71012596; "Main Category Name"; text[50])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
-            ValidateTableRelation = false;
-        }
+        // field(71012596; "Main Category Name"; text[50])
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
+        //     ValidateTableRelation = false;
+        // }
 
         field(71012597; "Revision"; Integer)
         {
@@ -129,7 +129,7 @@ table 71012678 "BOM"
         field(71012602; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No.";
+            TableRelation = "Style Master"."Style No." where(Type = filter(Costing));
             ValidateTableRelation = false;
         }
     }
@@ -157,27 +157,9 @@ table 71012678 "BOM"
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("BOM1 Nos.");
-
         "No" := NoSeriesMngment.GetNextNo(NavAppSetup."BOM1 Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }
