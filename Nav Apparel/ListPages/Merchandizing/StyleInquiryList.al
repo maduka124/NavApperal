@@ -22,6 +22,11 @@ page 71012722 "Style Inquiry"
                     Caption = 'Style';
                 }
 
+                field("Style Display Name"; "Style Display Name")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Store Name"; "Store Name")
                 {
                     ApplicationArea = All;
@@ -90,6 +95,11 @@ page 71012722 "Style Inquiry"
                 }
 
                 field(Type; Type)
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production File Handover Date"; "Production File Handover Date")
                 {
                     ApplicationArea = All;
                 }

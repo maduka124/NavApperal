@@ -1,11 +1,11 @@
-pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
+pageextension 71012851 GRNListExt extends "Posted Purchase Rcpt. Subform"
 {
     layout
     {
-        modify("Location Code")
-        {
-            ShowMandatory = true;
-        }
+        // modify("Location Code")
+        // {
+        //     ShowMandatory = true;
+        // }
 
         addafter(Description)
         {
@@ -13,6 +13,7 @@ pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
             {
                 ApplicationArea = all;
                 Caption = 'Buyer';
+                Editable = false;
 
                 trigger OnValidate()
                 var
@@ -29,6 +30,7 @@ pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
             {
                 ApplicationArea = all;
                 Caption = 'Style';
+                Editable = false;
             }
         }
     }

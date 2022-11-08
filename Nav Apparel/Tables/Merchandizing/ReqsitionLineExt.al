@@ -66,6 +66,18 @@ tableextension 71012759 "ReqLine Extension" extends "Requisition Line"
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
         }
+
+        field(71012594; "Buyer No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012595; "Buyer Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Customer.Name;
+            ValidateTableRelation = false;
+        }
     }
 
     // trigger OnAfterDelete()

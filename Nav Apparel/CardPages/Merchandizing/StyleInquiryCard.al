@@ -31,17 +31,23 @@ page 71012723 "Style Inquiry Card"
                     trigger OnValidate()
                     var
                         StyleMasRec: Record "Style Master";
+                    //UppercaseStyleName: text[100];
                     begin
-
+                        //UppercaseStyleName := UpperCase("Style No.");
                         CurrPage.Update();
                         StyleMasRec.Reset();
-                        StyleMasRec.SetRange("Style No.", "Style No.");
+                        //StyleMasRec.SetRange("Style No.", "Style No.");
+                        StyleMasRec.SETFILTER("Style No.", '@%1', "Style No.");
                         StyleMasRec.SetFilter("No.", '<>%1', "No.");
 
                         if StyleMasRec.FindSet() then
                             Error('Style No : %1 already exists', "Style No.");
-
                     end;
+                }
+
+                field("Style Display Name"; "Style Display Name")
+                {
+                    ApplicationArea = All;
                 }
 
                 field("Store Name"; "Store Name")
@@ -217,6 +223,11 @@ page 71012723 "Style Inquiry Card"
                 // }
 
                 field(Type; Type)
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Production File Handover Date"; "Production File Handover Date")
                 {
                     ApplicationArea = All;
                 }

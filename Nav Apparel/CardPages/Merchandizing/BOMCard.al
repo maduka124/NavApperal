@@ -8507,6 +8507,8 @@ page 71012680 "BOM Card"
             RequLineRec1."Main Category" := MainCat;
             RequLineRec1.Type := RequLineRec.Type::Item;
             RequLineRec1.Validate("No.", Item);
+            RequLineRec1."Buyer No." := "Buyer No.";
+            RequLineRec1."Buyer Name" := "Buyer Name";
             RequLineRec1.Validate("Vendor No.", Supplier);
             RequLineRec1."Action Message" := RequLineRec."Action Message"::New;
             RequLineRec1."Accept Action Message" := false;

@@ -306,6 +306,16 @@ table 71012721 "Style Master"
             OptionMembers = Sample,Costing;
             OptionCaption = 'Sample,Costing';
         }
+
+        field(71012635; "Production File Handover Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012636; "Style Display Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

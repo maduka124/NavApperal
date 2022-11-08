@@ -768,6 +768,8 @@ codeunit 71012752 NavAppCodeUnit
         PurchOrderLine.EntryType := ReqLine.EntryType;
         PurchOrderLine."Shortcut Dimension 1 Code" := ReqLine."Shortcut Dimension 1 Code";
         PurchOrderLine."CP Req No" := ReqLine."CP Req Code";
+        PurchOrderLine."Buyer Name" := ReqLine."Buyer Name";
+        PurchOrderLine."Buyer No." := ReqLine."Buyer No.";
     end;
 
 
@@ -791,6 +793,8 @@ codeunit 71012752 NavAppCodeUnit
         PurchRcptLine.EntryType := PurchLine.EntryType;
         PurchRcptLine."Shortcut Dimension 1 Code" := PurchLine."Shortcut Dimension 1 Code";
         PurchRcptLine."CP Req No" := PurchLine."CP Req No";
+        PurchRcptLine."Buyer Name" := PurchLine."Buyer Name";
+        PurchRcptLine."Buyer No." := PurchLine."Buyer No.";
     end;
 
 
