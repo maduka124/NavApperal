@@ -37,8 +37,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>0.3175cm</Top>
-            <Left>13.49969cm</Left>
+            <Top>0.37042cm</Top>
+            <Left>13.05624cm</Left>
             <Height>1.19062cm</Height>
             <Width>13.67897cm</Width>
             <Style>
@@ -83,10 +83,10 @@
                   <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>1.88617cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>1.9285cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.5cm</Width>
@@ -2052,7 +2052,7 @@
                         </SortExpression>
                       </SortExpressions>
                       <TablixHeader>
-                        <Size>1.97038cm</Size>
+                        <Size>3.15571cm</Size>
                         <CellContents>
                           <Textbox Name="Req_No">
                             <CanGrow>true</CanGrow>
@@ -2231,7 +2231,7 @@
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>1.89653cm</Top>
-            <Left>0.04974cm</Left>
+            <Left>0cm</Left>
             <Height>0.63147cm</Height>
             <Width>10.66759cm</Width>
             <ZIndex>3</ZIndex>
@@ -2248,7 +2248,7 @@
                   <Width>2.01317cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.97038cm</Width>
+                  <Width>3.15571cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.5cm</Width>
@@ -2260,7 +2260,7 @@
                   <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25.27454cm</Width>
+                  <Width>24.08921cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -2631,7 +2631,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>39.59989cm</Width>
+      <Width>39.63675cm</Width>
       <Page>
         <PageFooter>
           <Height>1.20827cm</Height>
@@ -2700,7 +2700,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox71</rd:DefaultName>
               <Top>0.22931cm</Top>
-              <Left>18.91136cm</Left>
+              <Left>18.27636cm</Left>
               <Height>0.97896cm</Height>
               <Width>6.37646cm</Width>
               <ZIndex>1</ZIndex>
@@ -2773,7 +2773,7 @@
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>42cm</PageWidth>
-        <LeftMargin>1.1cm</LeftMargin>
+        <LeftMargin>1.2cm</LeftMargin>
         <RightMargin>1cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
