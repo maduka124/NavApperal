@@ -112,8 +112,10 @@ page 71012772 "Sample Request Card"
                     begin
                         SampleRoomRec.Reset();
                         SampleRoomRec.SetRange("Sample Room Name", "Sample Room Name");
-                        if SampleRoomRec.FindSet() then
+                        if SampleRoomRec.FindSet() then begin
                             "Sample Room No." := SampleRoomRec."Sample Room No.";
+                            Validate("Global Dimension Code", SampleRoomRec."Global Dimension Code");
+                        end;
                     end;
                 }
 
