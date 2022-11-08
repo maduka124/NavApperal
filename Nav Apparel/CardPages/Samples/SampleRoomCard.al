@@ -30,6 +30,11 @@ page 50430 "Sample Room Card"
                             Error('Sample Room name already exists.');
                     end;
                 }
+
+                field("Global Dimension Code"; "Global Dimension Code")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

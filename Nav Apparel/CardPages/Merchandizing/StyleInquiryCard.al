@@ -31,17 +31,42 @@ page 71012723 "Style Inquiry Card"
                     trigger OnValidate()
                     var
                         StyleMasRec: Record "Style Master";
-                    //UppercaseStyleName: text[100];
+                        SampleReqRec: Record "Sample Requsition Header";
+                        EstBOMRec: Record "BOM Estimate";
+                        NewBRRec: Record "New Breakdown";
                     begin
-                        //UppercaseStyleName := UpperCase("Style No.");
-                        CurrPage.Update();
+
+                        //Check for style rename  
+                        SampleReqRec.Reset();
+                        SampleReqRec.SetFilter("Style No.", "No.");
+                        if SampleReqRec.FindSet() then
+                            Error('Style Name : %1 already usade in Sample requests. Cannot rename', "Style No.");
+
+                        EstBOMRec.Reset();
+                        EstBOMRec.SetFilter("Style No.", "No.");
+                        if EstBOMRec.FindSet() then
+                            Error('Style Name : %1 already usade in Estimate BOM. Cannot rename', "Style No.");
+
+                        NewBRRec.Reset();
+                        NewBRRec.SetFilter("Style No.", "No.");
+                        if NewBRRec.FindSet() then
+                            Error('Style Name : %1 already usade in New Breakdown. Cannot rename', "Style No.");
+
+                        if Status = Status::Confirmed then
+                            Error('Style Name : %1 already confirmed. Cannot rename', "Style No.");
+
+
                         StyleMasRec.Reset();
-                        //StyleMasRec.SetRange("Style No.", "Style No.");
-                        StyleMasRec.SETFILTER("Style No.", '@%1', "Style No.");
                         StyleMasRec.SetFilter("No.", '<>%1', "No.");
 
-                        if StyleMasRec.FindSet() then
-                            Error('Style No : %1 already exists', "Style No.");
+                        if StyleMasRec.FindSet() then begin
+                            repeat
+                                if UpperCase(StyleMasRec."Style No.") = UpperCase("Style No.") then
+                                    Error('Style Name : %1 already exists', "Style No.");
+                            until StyleMasRec.Next() = 0;
+                        end;
+
+                        CurrPage.Update();
                     end;
                 }
 

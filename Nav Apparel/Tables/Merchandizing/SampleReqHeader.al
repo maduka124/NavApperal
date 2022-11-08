@@ -119,13 +119,12 @@ table 71012719 "Sample Requsition Header"
             DataClassification = ToBeClassified;
         }
 
-        field(7101260; "Garment Type Name"; Text[100])
+        field(71012601; "Garment Type Name"; Text[100])
         {
             DataClassification = ToBeClassified;
         }
 
-        //Done By Sachith -22/10/20
-        field(71012633; "Global Dimension Code"; Code[20])
+        field(71012602; "Global Dimension Code"; Code[20])
         {
             DataClassification = ToBeClassified;
             CaptionClass = '1,2,1';
