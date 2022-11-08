@@ -24,6 +24,13 @@ page 50429 "Sample Room List"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Global Dimension Code"; "Global Dimension Code")
+                {
+                    ApplicationArea = All;
+                }
+
+
             }
         }
     }

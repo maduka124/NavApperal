@@ -17,12 +17,12 @@ page 71012740 "Nav Apperal Role Center"
                     Caption = 'Activities';
                 }
 
-                part(Control98; "Power BI Report Spinner Part")
-                {
-                    AccessByPermission = TableData "Power BI User Configuration" = I;
-                    ApplicationArea = Basic, Suite;
-                    Enabled = false;
-                }
+                // part(Control98; "Power BI Report Spinner Part")
+                // {
+                //     AccessByPermission = TableData "Power BI User Configuration" = I;
+                //     ApplicationArea = Basic, Suite;
+                //     Enabled = false;
+                // }
             }
         }
     }

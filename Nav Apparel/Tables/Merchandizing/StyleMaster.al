@@ -337,6 +337,7 @@ table 71012721 "Style Master"
     trigger OnInsert()
     var
         UserRec: Record User;
+        UserSetupRec: Record "User Setup";
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
         LoginDetails: Record LoginDetails;
@@ -351,7 +352,11 @@ table 71012721 "Style Master"
         // else
         //     Error('Invalid SessionID');
 
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
 
+        if UserSetupRec.FindSet() then
+            "Global Dimension Code" := UserSetupRec."Global Dimension Code";
 
         UserRec.Reset();
         UserRec.Get(UserSecurityId());

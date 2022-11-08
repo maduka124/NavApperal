@@ -14,6 +14,29 @@ page 50680 FabricCodeCard
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Code';
+
+                    trigger OnValidate()
+                    var
+                        ArticleRec: Record Article;
+                        MainCatRec: Record "Main Category";
+                    begin
+                        MainCatRec.Reset();
+                        MainCatRec.SetRange("Main Category Name", 'FABRIC');
+                        MainCatRec.FindSet();
+
+                        ArticleRec.Reset();
+                        ArticleRec.SetRange(Article, FabricCode);
+                        if not ArticleRec.FindSet() then begin
+                            ArticleRec.Init();
+                            ArticleRec."No." := FabricCode;
+                            ArticleRec.Article := FabricCode;
+                            ArticleRec."Created Date" := WorkDate();
+                            ArticleRec."Created User" := UserId;
+                            ArticleRec."Main Category No." := MainCatRec."No.";
+                            ArticleRec."Main Category Name" := 'FABRIC';
+                            ArticleRec.Insert();
+                        end;
+                    end;
                 }
 
                 field(Composition; Composition)
@@ -45,14 +68,12 @@ page 50680 FabricCodeCard
                     var
                         VendorRec: Record Vendor;
                     begin
-
                         VendorRec.Reset();
                         VendorRec.SetRange(Name, "Supplier Name");
                         if VendorRec.FindSet() then
                             "Supplier No." := VendorRec."No.";
 
                         CurrPage.Update();
-
                     end;
                 }
             }

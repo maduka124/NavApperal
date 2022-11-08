@@ -47,6 +47,41 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
         {
             TableRelation = Location.Name;
         }
+
+        field(209; "Location Code"; code[20])
+        {
+        }
+
+        field(210; "Location"; Text[100])
+        {
+            TableRelation = Department."Department Name";
+        }
+
+        field(211; "Machine Category Code"; code[20])
+        {
+        }
+
+        field(212; "Machine Category"; Text[100])
+        {
+            TableRelation = "Machine Master"."Machine Description";
+        }
+
+        field(213; "Ownership Code"; code[20])
+        {
+        }
+
+        field(214; "Ownership"; Text[100])
+        {
+            TableRelation = Location.Name;
+        }
+
+        field(215; "Global Dimension Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            CaptionClass = '1,2,1';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
+        }
     }
 }
+
 

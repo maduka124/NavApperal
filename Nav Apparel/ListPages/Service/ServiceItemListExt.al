@@ -23,6 +23,21 @@ pageextension 50807 ServiceItemListExt extends "Service Item List"
             {
                 ApplicationArea = ALL;
             }
+
+            field(Location; Location)
+            {
+                ApplicationArea = All;
+            }
+
+            field("Machine Category"; "Machine Category")
+            {
+                ApplicationArea = All;
+            }
+
+            field(Ownership; Ownership)
+            {
+                ApplicationArea = All;
+            }
         }
     }
 }

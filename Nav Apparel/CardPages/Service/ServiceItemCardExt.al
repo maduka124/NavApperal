@@ -67,6 +67,56 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                         "Factory Code" := LocationRec."code";
                 end;
             }
+
+            field(Location; Location)
+            {
+                ApplicationArea = All;
+
+                trigger OnValidate()
+                var
+                    DepartmentRec: Record Department;
+                begin
+                    DepartmentRec.Reset();
+                    DepartmentRec.SetRange("Department Name", "Location");
+                    if DepartmentRec.FindSet() then
+                        "Location Code" := DepartmentRec."No.";
+                end;
+            }
+
+            field("Machine Category"; "Machine Category")
+            {
+                ApplicationArea = All;
+
+                trigger OnValidate()
+                var
+                    MachineRec: Record "Machine Master";
+                begin
+                    MachineRec.Reset();
+                    MachineRec.SetRange("Machine Description", "Machine Category");
+                    if MachineRec.FindSet() then
+                        "Machine Category Code" := MachineRec."Machine No.";
+                end;
+            }
+
+            field(Ownership; Ownership)
+            {
+                ApplicationArea = All;
+
+                trigger OnValidate()
+                var
+                    LocationRec: Record Location;
+                begin
+                    LocationRec.Reset();
+                    LocationRec.SetRange(Name, "Ownership");
+                    if LocationRec.FindSet() then
+                        "Ownership Code" := LocationRec."code";
+                end;
+            }
+
+            field("Global Dimension Code"; "Global Dimension Code")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 }
