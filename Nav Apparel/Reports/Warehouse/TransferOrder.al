@@ -15,7 +15,7 @@ report 50625 TransferOrder
             { }
             column(Posting_Date; "Posting Date")
             { }
-            column(SystemCreatedBy; SystemCreatedBy)
+            column(SystemCreatedBy; UserName)
             { }
             column(Style_No_; "Style No.")
             { }
@@ -120,7 +120,16 @@ report 50625 TransferOrder
                 if locationRec2.FindFirst() then begin
                     TransfeTo := locationRec2.Address;
                 end;
+                UserRec.Reset();
+                
+                UserRec.SetRange("User Security ID", SystemCreatedBy);
+                if UserRec.FindFirst() then begin
+                    UserName := UserRec."User Name";
+                end;
+                
             end;
+
+            // end;
 
             trigger OnPreDataItem()
 
@@ -165,6 +174,8 @@ report 50625 TransferOrder
 
 
     var
+        UserName: Code[50];
+        UserRec: Record User;
         TransferOrderFilter: Code[20];
         comRec: Record "Company Information";
         StyleRec: Record "Style Master";
