@@ -120,13 +120,15 @@ report 50625 TransferOrder
                 if locationRec2.FindFirst() then begin
                     TransfeTo := locationRec2.Address;
                 end;
-                UserRec.Reset();
-                
-                UserRec.SetRange("User Security ID", SystemCreatedBy);
-                if UserRec.FindFirst() then begin
-                    UserName := UserRec."User Name";
-                end;
-                
+
+
+                // UserRec.Reset();
+                // //UserRec.SetRange("User Security ID", SystemCreatedBy);
+                // UserRec.SetFilter("User Security ID", '=%1', SystemCreatedBy);
+                // if UserRec.Findset() then begin
+                //     UserName := UserRec."User Name";
+                // end;
+
             end;
 
             // end;

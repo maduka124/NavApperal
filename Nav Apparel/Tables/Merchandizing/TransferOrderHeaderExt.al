@@ -18,5 +18,16 @@ tableextension 71012757 TransferOrderHeaderExt extends "Transfer Header"
             TableRelation = "Style Master PO"."PO No." where("Style No." = field("Style No."));
             ValidateTableRelation = false;
         }
+
+        field(71012584; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
+
+    trigger OnAfterInsert()
+    var
+    begin
+        "Created User" := UserId;
+    end;
 }
