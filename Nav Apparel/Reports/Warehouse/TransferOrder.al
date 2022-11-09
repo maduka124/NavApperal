@@ -15,7 +15,7 @@ report 50625 TransferOrder
             { }
             column(Posting_Date; "Posting Date")
             { }
-            column(SystemCreatedBy; UserName)
+            column(SystemCreatedBy; "Created User")
             { }
             column(Style_No_; "Style No.")
             { }
