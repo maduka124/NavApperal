@@ -586,6 +586,13 @@ page 71012740 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Production Plan Report1")
+                    {
+                        Caption = 'Production Plan Report';
+                        Enabled = true;
+                        RunObject = report ProductionPlanReport;
+                        ApplicationArea = all;
+                    }
 
                     action("Size Colour Wise Quantity Breakdown Report")
                     {

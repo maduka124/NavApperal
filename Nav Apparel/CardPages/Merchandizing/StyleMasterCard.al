@@ -76,16 +76,19 @@ page 71012730 "Style Master Card"
                 field("CM Price (Doz)"; "CM Price (Doz)")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(SMV; SMV)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Plan Efficiency %"; "Plan Efficiency %")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(BPCD; BPCD)

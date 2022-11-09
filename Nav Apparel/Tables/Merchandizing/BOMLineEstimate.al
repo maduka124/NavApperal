@@ -18,7 +18,7 @@ table 71012684 "BOM Line Estimate"
         field(71012583; "Item Name"; Text[200])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Item.Description where("Main Category No." = field("Main Category No."));
+            TableRelation = Item.Description where("Main Category No." = field("Main Category No."), "EstimateBOM Item" = filter(true));
             ValidateTableRelation = false;
         }
 

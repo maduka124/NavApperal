@@ -34,7 +34,7 @@ page 71012616 "Main Category List"
                     ApplicationArea = All;
                 }
 
-                field("Prod. Posting Group Name"; "Prod. Posting Group Name")
+                field("Prod. Posting Group Code"; "Prod. Posting Group Code")
                 {
                     ApplicationArea = All;
                 }
@@ -57,9 +57,9 @@ page 71012616 "Main Category List"
                     Caption = 'LOT Tracking';
                 }
 
-                  field("Style Related";"Style Related")
+                field("Style Related"; "Style Related")
                 {
-                    ApplicationArea = All;                    
+                    ApplicationArea = All;
                 }
             }
         }
