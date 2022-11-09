@@ -1,8 +1,8 @@
-report 50625 TransferOrder
+report 50631 TransferOrderCardPageReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Transfer Order Report';
+    Caption = 'Transfer Order Card Page Report';
     RDLCLayout = 'Report_Layouts/Warehouse/TransferOrder.rdl';
     DefaultLayout = RDLC;
 
@@ -153,31 +153,27 @@ report 50625 TransferOrder
                     {
                         ApplicationArea = All;
                         Caption = 'Transfer Order No';
-                        TableRelation = "Transfer Header"."No.";
+                        Editable = false;
+                        // TableRelation = "Transfer Header"."No.";
 
                     }
                 }
             }
         }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
     }
+
+    procedure Set_Value(TransferOrderFil: Code[20])
+    var
+    begin
+        TransferOrderFilter := TransferOrderFil;
+    end;
+
 
 
 
     var
-        TransferFromFilter: Code[20];
-        TransferTo: Code[20];
+        // TransferFromFilter: Code[20];
+        // TransferTo: Code[20];
         UserName: Code[50];
         UserRec: Record User;
         TransferOrderFilter: Code[20];
