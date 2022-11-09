@@ -26,6 +26,13 @@ table 71012586 Brand
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012585; "Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = "Merchandiser","Other";
+            OptionCaption = 'Merchandiser,Other';
+        }
     }
 
     keys

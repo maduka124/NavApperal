@@ -23,6 +23,11 @@ page 71012587 Brand
                 {
                     ApplicationArea = All;
                 }
+
+                field(Type; Type)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

@@ -30,6 +30,11 @@ page 71012588 "Brand Card"
                             Error('Brand name already exists.');
                     end;
                 }
+
+                field(Type; Type)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
