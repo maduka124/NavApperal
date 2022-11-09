@@ -251,10 +251,28 @@ page 50823 "DepReqSheetListpart"
                     end;
                 }
 
+                field("UOM Code"; "UOM Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'UOM';
+                    trigger OnValidate()
+                    var
+                        UOMRec: Record "Unit of Measure";
+                    begin
+
+                        UOMRec.Reset();
+                        UOMRec.SetRange(Code, "UOM Code");
+
+                        if UOMRec.FindSet() then
+                            UOM := UOMRec.Description;
+                    end;
+                }
+
                 field(UOM; UOM)
                 {
                     ApplicationArea = All;
                     Editable = EditableGb;
+                    Visible = false;
                 }
 
                 field("Qty Received"; "Qty Received")
@@ -440,11 +458,11 @@ page 50823 "DepReqSheetListpart"
                                     //Insert into Item unit of measure
                                     ItemUinitRec.Init();
                                     ItemUinitRec."Item No." := NextItemNo;
-                                    ItemUinitRec.Code := UOM;
+                                    ItemUinitRec.Code := "UOM Code";
                                     ItemUinitRec."Qty. per Unit of Measure" := 1;
                                     ItemUinitRec.Insert();
 
-                                    ItemMasterRec.Validate("Base Unit of Measure", UOM);
+                                    ItemMasterRec.Validate("Base Unit of Measure", "UOM Code");
                                     ItemMasterRec.Validate("Replenishment System", 0);
                                     ItemMasterRec.Validate("Manufacturing Policy", 1);
                                     ItemMasterRec.Insert(true);

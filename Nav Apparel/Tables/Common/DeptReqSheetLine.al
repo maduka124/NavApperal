@@ -35,8 +35,8 @@ table 50820 DeptReqSheetLine
         field(6; "UOM"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Unit of Measure".Description;
-            ValidateTableRelation = false;
+            // TableRelation = "Unit of Measure".Description;
+            // ValidateTableRelation = false;
         }
 
         field(7; "Remarks"; text[100])
@@ -230,6 +230,12 @@ table 50820 DeptReqSheetLine
             DataClassification = ToBeClassified;
             TableRelation = "Sub Category"."Sub Category Name" where("Main Category No." = field("Main Category No."));
             ValidateTableRelation = false;
+        }
+
+        field(34; "UOM Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Unit of Measure".Code;
         }
     }
 
