@@ -41,6 +41,8 @@ report 50642 PurchaseOrderReport
             { }
             column(Document_Date; "Document Date")
             { }
+            column(Status; Status)
+            { }
             dataitem("Purchase Line"; "Purchase Line")
             {
                 DataItemLinkReference = "Purchase Header";
@@ -190,5 +192,5 @@ report 50642 PurchaseOrderReport
         FilterNo: Code[30];
         MainCategory: text[50];
         ArticleRec: Record Article;
-        
+
 }
