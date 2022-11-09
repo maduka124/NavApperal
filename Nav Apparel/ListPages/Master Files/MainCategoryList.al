@@ -39,6 +39,11 @@ page 71012616 "Main Category List"
                     ApplicationArea = All;
                 }
 
+                field("No Series"; "No Series")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(DimensionOnly; DimensionOnly)
                 {
                     ApplicationArea = All;

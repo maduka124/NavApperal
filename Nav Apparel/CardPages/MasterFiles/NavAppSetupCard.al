@@ -583,6 +583,17 @@ page 71012751 "NavApp Setup Card"
                     ApplicationArea = All;
                     Caption = 'Other Item Nos.';
                 }
+
+                field("Main Category Nos."; "Main Category Nos.")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Main Category 2 Nos."; "Main Category 2 Nos.")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Main Category 2 Nos.';
+                }
             }
         }
     }
