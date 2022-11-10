@@ -18,6 +18,11 @@ page 71012737 "Learning Curve Card"
                     Editable = false;
                 }
 
+                field(Type;Type)
+                {
+                    ApplicationArea = All;                  
+                }
+
                 field(Day1; Day1)
                 {
                     ApplicationArea = All;

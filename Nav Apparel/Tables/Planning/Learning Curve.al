@@ -55,6 +55,13 @@ table 50333 "Learning Curve"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(11; "Type"; option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = "Efficiency Wise","Hourly";
+            OptionCaption = 'Efficiency Wise,Hourly';
+        }
     }
 
     keys
@@ -67,7 +74,7 @@ table 50333 "Learning Curve"
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", Day1, Day2, Day3, Day4, Day5, Day6, Day7)
+        fieldgroup(DropDown; "No.", Type, Day1, Day2, Day3, Day4, Day5, Day6, Day7)
         {
 
         }
@@ -77,11 +84,6 @@ table 50333 "Learning Curve"
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
     end;
 
 
@@ -107,13 +109,6 @@ table 50333 "Learning Curve"
         NavAppPlQRec.SetRange("Learning Curve No.", "No.");
         if NavAppPlQRec.FindSet() then
             Error('Learning Curve : %1 already used in planning. Cannot delete.', "No.");
-
-
-    end;
-
-
-    trigger OnRename()
-    begin
 
     end;
 

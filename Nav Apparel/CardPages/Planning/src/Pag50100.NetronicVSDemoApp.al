@@ -353,6 +353,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     xQty: Decimal;
                     DayForWeek: Record Date;
                     Day: Integer;
+                    LCurveFinishDate: Date;
+                    LCurveStartTime: Time;
+                    LCurveFinishTime: Time;
+                    LcurveTemp: Integer;
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -594,6 +598,35 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         TempDate := dtStart;
 
 
+                        //Check learning curve                        
+                        LCurveFinishDate := StartDate;
+                        LCurveFinishTime := TImeStart;
+                        LCurveStartTime := TImeStart;
+
+                        if PlanningQueueeRec."Learning Curve No." <> 0 then begin
+                            LearningCurveRec.Reset();
+                            LearningCurveRec.SetRange("No.", PlanningQueueeRec."Learning Curve No.");
+
+                            if LearningCurveRec.FindSet() then
+                                if LearningCurveRec.Type = LearningCurveRec.Type::Hourly then begin
+                                    LcurveTemp := LearningCurveRec.Day1;
+                                    repeat
+                                        if (NavAppSetupRec."Finish Time" - LCurveStartTime <= LcurveTemp) then begin
+                                            LcurveTemp -= NavAppSetupRec."Finish Time" - LCurveStartTime;
+                                            LCurveStartTime := NavAppSetupRec."Start Time";
+                                            LCurveFinishDate += 1;
+                                        end
+                                        else begin
+                                            LcurveTemp -= LcurveTemp;
+                                            LCurveStartTime := LCurveStartTime + LcurveTemp;
+                                        end;
+                                    until LcurveTemp <= 0;
+
+                                    LCurveFinishTime := LCurveStartTime;
+                                end;
+                        end;
+
+
                         repeat
 
                             //Get working hours for the day
@@ -654,52 +687,84 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 HoursPerDay := HoursPerDay - (TImeStart - NavAppSetupRec."Start Time") / 3600000;
                             end;
 
+
                             if PlanningQueueeRec."Learning Curve No." <> 0 then begin
 
                                 //Aplly learning curve
                                 LearningCurveRec.Reset();
                                 LearningCurveRec.SetRange("No.", PlanningQueueeRec."Learning Curve No.");
 
-                                if LearningCurveRec.FindSet() then begin
-                                    case i of
-                                        1:
-                                            Rate := LearningCurveRec.Day1;
-                                        2:
-                                            Rate := LearningCurveRec.Day2;
-                                        3:
-                                            Rate := LearningCurveRec.Day3;
-                                        4:
-                                            Rate := LearningCurveRec.Day4;
-                                        5:
-                                            Rate := LearningCurveRec.Day5;
-                                        6:
-                                            Rate := LearningCurveRec.Day6;
-                                        7:
-                                            Rate := LearningCurveRec.Day7;
-                                        else
+                                if LearningCurveRec.FindSet() then begin   //Efficiency wise
+                                    if LearningCurveRec.Type = LearningCurveRec.Type::"Efficiency Wise" then begin
+                                        case i of
+                                            1:
+                                                Rate := LearningCurveRec.Day1;
+                                            2:
+                                                Rate := LearningCurveRec.Day2;
+                                            3:
+                                                Rate := LearningCurveRec.Day3;
+                                            4:
+                                                Rate := LearningCurveRec.Day4;
+                                            5:
+                                                Rate := LearningCurveRec.Day5;
+                                            6:
+                                                Rate := LearningCurveRec.Day6;
+                                            7:
+                                                Rate := LearningCurveRec.Day7;
+                                            else
+                                                Rate := 100;
+                                        end;
+
+                                        if Rate = 0 then
                                             Rate := 100;
+
+
+                                        if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < PlanningQueueeRec.Qty) then begin
+                                            TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
+                                            xQty := round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
+                                        end
+                                        else begin
+                                            TempQty1 := PlanningQueueeRec.Qty - TempQty;
+                                            xQty := TempQty1;
+                                            TempQty := TempQty + TempQty1;
+                                            TempHours := TempQty1 / TargetPerHour;
+
+                                            if (TempHours IN [0.1 .. 0.99]) then
+                                                TempHours := 1;
+
+                                            TempHours := round(TempHours, 1);
+
+                                        end;
+                                    end
+                                    else begin  //Hourly
+
+                                        Rate := 100;
+
+                                        if LCurveFinishDate > TempDate then
+                                            HoursPerDay := 0
+                                        else
+                                            if LCurveFinishDate = TempDate then
+                                                HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart);
+
+                                        if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < PlanningQueueeRec.Qty) then begin
+                                            TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
+                                            xQty := round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
+                                        end
+                                        else begin
+                                            TempQty1 := PlanningQueueeRec.Qty - TempQty;
+                                            xQty := TempQty1;
+                                            TempQty := TempQty + TempQty1;
+                                            TempHours := TempQty1 / TargetPerHour;
+
+                                            if (TempHours IN [0.1 .. 0.99]) then
+                                                TempHours := 1;
+
+                                            TempHours := round(TempHours, 1);
+
+                                        end;
                                     end;
                                 end;
 
-                                if Rate = 0 then
-                                    Rate := 100;
-
-                                if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < PlanningQueueeRec.Qty) then begin
-                                    TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
-                                    xQty := round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
-                                end
-                                else begin
-                                    TempQty1 := PlanningQueueeRec.Qty - TempQty;
-                                    xQty := TempQty1;
-                                    TempQty := TempQty + TempQty1;
-                                    TempHours := TempQty1 / TargetPerHour;
-
-                                    if (TempHours IN [0.1 .. 0.99]) then
-                                        TempHours := 1;
-
-                                    TempHours := round(TempHours, 1);
-
-                                end;
                             end
                             else begin
 
@@ -746,6 +811,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             ProdPlansDetails.Eff := Eff;
                             ProdPlansDetails."Learning Curve No." := PlanningQueueeRec."Learning Curve No.";
                             ProdPlansDetails.SMV := SMV;
+
                             if i = 1 then
                                 ProdPlansDetails."Start Time" := TImeStart
                             else
@@ -755,6 +821,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 ProdPlansDetails."Finish Time" := NavAppSetupRec."Finish Time"
                             else
                                 ProdPlansDetails."Finish Time" := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+
                             ProdPlansDetails.Qty := xQty;
                             ProdPlansDetails.Target := TargetPerDay;
                             ProdPlansDetails.HoursPerDay := HoursPerDay;

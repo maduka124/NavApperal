@@ -19,6 +19,11 @@ page 50334 "Learning Curve"
                     Caption = 'Curve No';
                 }
 
+                field(Type; Type)
+                {
+                    ApplicationArea = All;
+                }
+
                 field(Day1; Day1)
                 {
                     ApplicationArea = All;
