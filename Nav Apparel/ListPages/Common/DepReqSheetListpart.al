@@ -412,7 +412,10 @@ page 50823 "DepReqSheetListpart"
                                     if MainCateRec."Prod. Posting Group Code" = '' then
                                         Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', "Main Category Name");
 
-                                    NextItemNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."MISCITEM Nos.", Today(), true);
+
+                                    NextItemNo := NoSeriesManagementCode.GetNextNo(MainCateRec."No Series", Today(), true);
+
+                                    // NextItemNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."MISCITEM Nos.", Today(), true);
 
                                     ItemMasterRec.Init();
                                     ItemMasterRec."No." := NextItemNo;
