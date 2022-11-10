@@ -3,7 +3,7 @@ report 50647 MaterialRequition
     RDLCLayout = 'Report_Layouts/Production/MaterialRequition.rdl';
     DefaultLayout = RDLC;
     // ApplicationArea = Manufacturing;
-    Caption = 'Material Report';
+    Caption = 'Material Requisition Report';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
@@ -59,7 +59,7 @@ report 50647 MaterialRequition
             { }
             column(PoNo; PO)
             { }
-           
+
             dataitem("Item Journal Line"; "Item Journal Line")
             {
 
