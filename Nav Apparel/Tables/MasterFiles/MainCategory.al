@@ -83,6 +83,12 @@ table 71012615 "Main Category"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012596; "No Series"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series".Code;
+        }
     }
 
     keys
@@ -146,11 +152,6 @@ table 71012615 "Main Category"
         SubCategoryRec.SetRange("Main Category No.", "No.");
         if SubCategoryRec.FindSet() then
             Error('Main Category : %1 already used in operations. Cannot delete.', "Main Category Name");
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 

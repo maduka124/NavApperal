@@ -94,6 +94,11 @@ page 71012617 "Main Category Card"
                     end;
                 }
 
+                field("No Series"; "No Series")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(DimensionOnly; DimensionOnly)
                 {
                     ApplicationArea = All;
