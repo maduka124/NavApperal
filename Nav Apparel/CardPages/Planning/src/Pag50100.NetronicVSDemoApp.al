@@ -324,9 +324,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     Y: Integer;
                     TImeStart: Time;
                     LineNo: BigInteger;
+                    LEARNCURVENO: Integer;
                     LineNo1: text;
                     _objID: Text;
                     STYNo: Text;
+                    STYNAME: Text;
                     PONo: Text;
                     LOTNo: Text;
                     Temp: Text;
@@ -958,6 +960,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             TImeStart := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
                             LineNo := JobPlaLineRec."Line No.";
                             STYNo := JobPlaLineRec."Style No.";
+                            STYNAME := JobPlaLineRec."Style Name";
+                            LEARNCURVENO := JobPlaLineRec."Learning Curve No.";
+                            LOTNo := JobPlaLineRec."Lot No.";
                             PONo := JobPlaLineRec."PO No.";
                             Qty := JobPlaLineRec.Qty;
 
@@ -1104,15 +1109,21 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     ProdPlansDetails.Init();
                                     ProdPlansDetails."No." := MaxLineNo;
                                     ProdPlansDetails.PlanDate := TempDate;
-                                    ProdPlansDetails."Style No." := PlanningQueueeRec."Style No.";
-                                    ProdPlansDetails."Style Name" := PlanningQueueeRec."Style Name";
-                                    ProdPlansDetails."PO No." := PlanningQueueeRec."PO No.";
-                                    ProdPlansDetails."Lot No." := PlanningQueueeRec."Lot No.";
+                                    // ProdPlansDetails."Style No." := PlanningQueueeRec."Style No.";
+                                    // ProdPlansDetails."Style Name" := PlanningQueueeRec."Style Name";
+                                    // ProdPlansDetails."PO No." := PlanningQueueeRec."PO No.";
+                                    // ProdPlansDetails."Lot No." := PlanningQueueeRec."Lot No.";
+                                    // ProdPlansDetails."Learning Curve No." := PlanningQueueeRec."Learning Curve No.";
+                                    ProdPlansDetails."Style No." := STYNo;
+                                    ProdPlansDetails."Style Name" := STYNAME;
+                                    ProdPlansDetails."PO No." := PONo;
+                                    ProdPlansDetails."Lot No." := LotNo;
+                                    ProdPlansDetails."Learning Curve No." := LEARNCURVENO;
                                     ProdPlansDetails."Line No." := LineNo;
                                     ProdPlansDetails."Resource No." := ResourceNo;
                                     ProdPlansDetails.Carder := Carder;
                                     ProdPlansDetails.Eff := Eff;
-                                    ProdPlansDetails."Learning Curve No." := PlanningQueueeRec."Learning Curve No.";
+
                                     ProdPlansDetails.SMV := SMV;
                                     if i = 1 then
                                         ProdPlansDetails."Start Time" := TImeStart
@@ -1148,6 +1159,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 JobPlaLineRec.SetRange("Style No.", STYNo);
                                 JobPlaLineRec.SetRange("Lot No.", LotNo);
                                 JobPlaLineRec.SetRange("Line No.", LineNo);
+                                JobPlaLineRec.FindSet();
                                 JobPlaLineRec."Start Date" := dtStart;
                                 JobPlaLineRec."End Date" := TempDate;
                                 JobPlaLineRec."Start Time" := TImeStart;
@@ -1174,6 +1186,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     TImeStart := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                     LineNo := JobPlaLineRec."Line No.";
                                     STYNo := JobPlaLineRec."Style No.";
+                                    StyleName := JobPlaLineRec."Style Name";
+                                    LEARNCURVENO := JobPlaLineRec."Learning Curve No.";
                                     PONo := JobPlaLineRec."PO No.";
                                     LOTNo := JobPlaLineRec."Lot No.";
                                     Qty := JobPlaLineRec.Qty;
