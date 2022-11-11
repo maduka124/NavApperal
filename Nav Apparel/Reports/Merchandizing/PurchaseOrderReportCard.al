@@ -1,4 +1,4 @@
-report 50650 PurchaseOrderReport
+report 50642 PurchaseOrderReportCard
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
@@ -163,8 +163,8 @@ report 50650 PurchaseOrderReport
                     {
                         ApplicationArea = All;
                         Caption = 'Purchase No';
-                        // Editable = false;
-                        TableRelation = "Purchase Header"."No.";
+                        Editable = false;
+                        // TableRelation = "Purchase Header"."No.";
 
                     }
                     field(PriceFilter; PriceFilter)
@@ -189,11 +189,11 @@ report 50650 PurchaseOrderReport
             }
         }
     }
-    // procedure Set_Value(PurchaseOrderFilter: Code[20])
-    // var
-    // begin
-    //     FilterNo := PurchaseOrderFilter;
-    // end;
+    procedure Set_Value(PurchaseOrderFilter: Code[20])
+    var
+    begin
+        FilterNo := PurchaseOrderFilter;
+    end;
     // rendering
     // {
     //     layout(LayoutName)

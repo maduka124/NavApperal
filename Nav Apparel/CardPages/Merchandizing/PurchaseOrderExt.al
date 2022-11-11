@@ -34,12 +34,12 @@ pageextension 71012852 PurchaseOrderCardExt extends "Purchase Order"
     }
     actions
     {
-        modify("Post and &Print")
+        modify("&Print")
         {
             trigger OnBeforeAction()
             var
                 myInt: Integer;
-                PurchaseorderReportRec: Report PurchaseOrderReport;
+                PurchaseorderReportRec: Report PurchaseOrderReportCard;
             begin
                 PurchaseorderReportRec.Set_value("No.");
                 PurchaseorderReportRec.RunModal();
