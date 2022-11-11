@@ -942,7 +942,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         StyleMasterPORec.Modify();
 
 
-                        //Check whether new allocation conflicts other allocation                     
+                        /////////////////Check whether new allocation conflicts other allocation                     
                         JobPlaLineRec.Reset();
                         JobPlaLineRec.SetRange("Resource No.", ResourceNo);
                         JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(dtStart, TImeStart), CreateDateTime(TempDate, NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours));
