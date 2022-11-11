@@ -11,9 +11,12 @@ report 50647 MaterialRequition
     {
         dataitem("Production Order"; "Production Order")
         {
-            DataItemTableView = SORTING(Status, "No.");
+
+            DataItemTableView = where(Status = filter('Released'));
             PrintOnlyIfDetail = true;
-            RequestFilterFields = Status, "No.", Buyer, "Style Name", PO;
+
+            // RequestFilterFields = "No.";
+
             column(TodayFormatted; Format(Today, 0, 4))
             {
             }
@@ -66,6 +69,7 @@ report 50647 MaterialRequition
                 DataItemLinkReference = "Production Order";
                 DataItemLink = "Document No." = field("No.");
                 DataItemTableView = sorting("Item No.", "Posting Date");
+                // RequestFilterFields = "Document No.";
                 // DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("No.");
                 // DataItemTableView = SORTING(Status, "Prod. Order No.", "Prod. Order Line No.", "Line No.");
                 column(ItemNo_ProdOrderComp; "Item No.")
@@ -84,23 +88,17 @@ report 50647 MaterialRequition
                 {
                     IncludeCaption = true;
                 }
-                // column(RemainingQty_ProdOrderComp; rema)
-                // {
-                //     IncludeCaption = true;
-                // }
-                // column(Scrap_ProdOrderComp; "Scrap %")
-                // {
-                //     IncludeCaption = true;
-                // }
-                // column(DueDate_ProdOrderComp; Format("Due Date"))
-                // {
-                //     IncludeCaption = false;
-                // }
+
                 column(LocationCode_ProdOrderComp; "Location Code")
                 {
                     IncludeCaption = true;
                 }
 
+                trigger OnPreDataItem()
+
+                begin
+                    // SetRange("Document No.", JournalNo);
+                end;
 
             }
             trigger OnAfterGetRecord()
@@ -148,22 +146,39 @@ report 50647 MaterialRequition
 
     requestpage
     {
-
         layout
         {
-        }
+            area(Content)
+            {
+                group(GroupName)
+                {
+                    Caption = 'Filter By';
+                    field(JournalNo; JournalNo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'No';
+                        TableRelation = "Production Order"."No.";
 
-        actions
-        {
+                    }
+
+                }
+            }
         }
     }
-
     labels
     {
         ProdOrderCompDueDateCapt = 'Due Date';
     }
+    procedure Set_Value(Journal: Code[20])
+    var
+    begin
+        JournalNo := Journal;
+    end;
+
+
 
     var
+        JournalNo: Code[20];
         ReservationEntry: Record "Reservation Entry";
         ReservationEntry2: Record "Reservation Entry";
         ProdOrderFilter: Text;

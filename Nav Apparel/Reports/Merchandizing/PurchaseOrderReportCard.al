@@ -142,7 +142,7 @@ report 50642 PurchaseOrderReportCard
             begin
                 PriceVisibility := 0;
 
-                SetRange("No.", FilterNo);
+                // SetRange("No.", FilterNo);
                 if PriceFilter = false then begin
                     PriceVisibility := 1;
                 end;
@@ -164,6 +164,7 @@ report 50642 PurchaseOrderReportCard
                         ApplicationArea = All;
                         Caption = 'Purchase No';
                         Editable = false;
+
                         // TableRelation = "Purchase Header"."No.";
 
                     }
