@@ -594,6 +594,11 @@ page 71012751 "NavApp Setup Card"
                     ApplicationArea = all;
                     Caption = 'Main Category 2 Nos.';
                 }
+
+                field("Poly bag Nos."; "Poly bag Nos.")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }
