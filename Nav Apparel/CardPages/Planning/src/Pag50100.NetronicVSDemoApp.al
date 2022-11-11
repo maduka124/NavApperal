@@ -356,7 +356,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     LCurveFinishDate: Date;
                     LCurveStartTime: Time;
                     LCurveFinishTime: Time;
-                    LcurveTemp: Integer;
+                    LcurveTemp: Decimal;
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -599,7 +599,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
 
                         //Check learning curve                        
-                        LCurveFinishDate := StartDate;
+                        LCurveFinishDate := dtStart;
                         LCurveFinishTime := TImeStart;
                         LCurveStartTime := TImeStart;
 
@@ -611,14 +611,68 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 if LearningCurveRec.Type = LearningCurveRec.Type::Hourly then begin
                                     LcurveTemp := LearningCurveRec.Day1;
                                     repeat
-                                        if (NavAppSetupRec."Finish Time" - LCurveStartTime <= LcurveTemp) then begin
-                                            LcurveTemp -= NavAppSetupRec."Finish Time" - LCurveStartTime;
+                                        if ((NavAppSetupRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                            LcurveTemp -= (NavAppSetupRec."Finish Time" - LCurveStartTime) / 3600000;
                                             LCurveStartTime := NavAppSetupRec."Start Time";
                                             LCurveFinishDate += 1;
+
+                                            //Get working hours for the start date. If start date is a holiday, shift start date to next date.
+                                            HoursPerDay := 0;
+                                            repeat
+
+                                                ResCapacityEntryRec.Reset();
+                                                ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
+                                                ResCapacityEntryRec.SETRANGE(Date, LCurveFinishDate);
+
+                                                if ResCapacityEntryRec.FindSet() then begin
+                                                    repeat
+                                                        HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                                                    until ResCapacityEntryRec.Next() = 0;
+                                                end;
+
+                                                if HoursPerDay = 0 then begin
+
+                                                    //Validate the day (Holiday or Weekend)
+                                                    SHCalHolidayRec.Reset();
+                                                    SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                                    SHCalHolidayRec.SETRANGE(Date, LCurveFinishDate);
+
+                                                    if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                                        DayForWeek.Get(DayForWeek."Period Type"::Date, LCurveFinishDate);
+
+                                                        case DayForWeek."Period Name" of
+                                                            'Monday':
+                                                                Day := 0;
+                                                            'Tuesday':
+                                                                Day := 1;
+                                                            'Wednesday':
+                                                                Day := 2;
+                                                            'Thursday':
+                                                                Day := 3;
+                                                            'Friday':
+                                                                Day := 4;
+                                                            'Saturday':
+                                                                Day := 5;
+                                                            'Sunday':
+                                                                Day := 6;
+                                                        end;
+
+                                                        SHCalWorkRec.Reset();
+                                                        SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                                        SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                                        if SHCalWorkRec.FindSet() then   //If not weekend
+                                                            Error('Calender for date : %1  Work center : %2 has not calculated', LCurveFinishDate, ResourceRec.Name);
+                                                    end;
+                                                end;
+
+                                                if HoursPerDay = 0 then
+                                                    LCurveFinishDate := LCurveFinishDate + 1;
+
+                                            until HoursPerDay > 0;
                                         end
                                         else begin
+                                            LCurveStartTime := LCurveStartTime + 60 * 60 * 1000 * LcurveTemp;
                                             LcurveTemp -= LcurveTemp;
-                                            LCurveStartTime := LCurveStartTime + LcurveTemp;
                                         end;
                                     until LcurveTemp <= 0;
 
@@ -744,7 +798,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             HoursPerDay := 0
                                         else
                                             if LCurveFinishDate = TempDate then
-                                                HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart);
+                                                HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
 
                                         if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < PlanningQueueeRec.Qty) then begin
                                             TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);

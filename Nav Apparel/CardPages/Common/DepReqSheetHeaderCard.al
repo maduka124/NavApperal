@@ -10,7 +10,7 @@ page 50709 "DepReqSheetHeaderCard"
     {
         area(Content)
         {
-            group(Genaral)
+            group(General)
             {
                 field("Req No"; "Req No")
                 {
