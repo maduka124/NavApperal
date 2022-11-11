@@ -1601,7 +1601,11 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
+                <TablixMember>
+                  <Visibility>
+                    <Hidden>=Fields!PriceVisibility.Value=1</Hidden>
+                  </Visibility>
+                </TablixMember>
                 <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
@@ -2741,6 +2745,9 @@ QAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRR
         </Field>
         <Field Name="Status">
           <DataField>Status</DataField>
+        </Field>
+        <Field Name="PriceVisibility">
+          <DataField>PriceVisibility</DataField>
         </Field>
         <Field Name="Quantity">
           <DataField>Quantity</DataField>
