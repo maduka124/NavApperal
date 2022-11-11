@@ -23,6 +23,8 @@ report 50642 PurchaseOrderReport
             { }
             column(companyName; LocationName)
             { }
+            column(companyName2; comrec.Name)
+            { }
             column(CompLogo; comRec.Picture)
             { }
             column(Due_Date; "Due Date")
@@ -43,6 +45,7 @@ report 50642 PurchaseOrderReport
             { }
             column(Status; Status)
             { }
+
 
             dataitem("Purchase Line"; "Purchase Line")
             {
@@ -125,10 +128,10 @@ report 50642 PurchaseOrderReport
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
-                locationRec.Reset();
-                locationRec.SetRange(Code, "Shortcut Dimension 1 Code");
-                if locationRec.FindFirst() then begin
-                    LocationName := locationRec.Name;
+                DimentionValueRec.Reset();
+                DimentionValueRec.SetRange(Code, "Shortcut Dimension 1 Code");
+                if DimentionValueRec.FindFirst() then begin
+                    LocationName := DimentionValueRec.Name;
                 end;
             end;
 
@@ -153,7 +156,8 @@ report 50642 PurchaseOrderReport
                     {
                         ApplicationArea = All;
                         Caption = 'Purchase No';
-                        TableRelation = "Purchase Header"."No.";
+                        Editable = false;
+                        // TableRelation = "Purchase Header"."No.";
 
                     }
                 }
@@ -172,7 +176,11 @@ report 50642 PurchaseOrderReport
             }
         }
     }
-
+    procedure Set_Value(PurchaseOrderFilter: Code[20])
+    var
+    begin
+        PurchaseOrderFilter := FilterNo;
+    end;
     // rendering
     // {
     //     layout(LayoutName)
@@ -183,8 +191,8 @@ report 50642 PurchaseOrderReport
     // }
 
     var
-        locationRec: Record Location;
-        LocationName: Text[100];
+        DimentionValueRec: Record "Dimension Value";
+        LocationName: Text[50];
         color: Text[50];
         SizeRangeNo: Code[20];
         ArticleName: text[50];

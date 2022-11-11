@@ -32,7 +32,20 @@ pageextension 71012852 PurchaseOrderCardExt extends "Purchase Order"
         //     Editable = EditableGB;
         // }
     }
-
+    actions
+    {
+        modify("Post and &Print")
+        {
+            trigger OnBeforeAction()
+            var
+                myInt: Integer;
+                PurchaseorderReportRec: Report PurchaseOrderReport;
+            begin
+                PurchaseorderReportRec.Set_value("No.");
+                PurchaseorderReportRec.RunModal();
+            end;
+        }
+    }
     trigger OnAfterGetCurrRecord()
     var
     begin

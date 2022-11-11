@@ -2224,7 +2224,7 @@ Fields!Pay_to_Post_Code.Value</Value>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Fields!companyName.Value</Value>
+                          <Value>=Fields!companyName2.Value</Value>
                           <Style>
                             <FontFamily>Calibri</FontFamily>
                             <FontSize>16pt</FontSize>
@@ -2708,6 +2708,9 @@ QAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRR
         </Field>
         <Field Name="companyName">
           <DataField>companyName</DataField>
+        </Field>
+        <Field Name="companyName2">
+          <DataField>companyName2</DataField>
         </Field>
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
