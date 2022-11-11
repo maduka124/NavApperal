@@ -13,7 +13,7 @@ report 50647 MaterialRequition
         {
             DataItemTableView = SORTING(Status, "No.");
             PrintOnlyIfDetail = true;
-            RequestFilterFields = Status, "No.", "Source Type";
+            RequestFilterFields = Status, "No.", Buyer, "Style Name", PO;
             column(TodayFormatted; Format(Today, 0, 4))
             {
             }
