@@ -512,20 +512,20 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 if not SHCalHolidayRec.FindSet() then begin  //If not holiday
                                     DayForWeek.Get(DayForWeek."Period Type"::Date, dtStart);
 
-                                    case DayForWeek."Period Name" of
-                                        'Monday':
+                                    case DayForWeek."Period No." of
+                                        1:
                                             Day := 0;
-                                        'Tuesday':
+                                        2:
                                             Day := 1;
-                                        'Wednesday':
+                                        3:
                                             Day := 2;
-                                        'Thursday':
+                                        4:
                                             Day := 3;
-                                        'Friday':
+                                        5:
                                             Day := 4;
-                                        'Saturday':
+                                        6:
                                             Day := 5;
-                                        'Sunday':
+                                        7:
                                             Day := 6;
                                     end;
 
@@ -585,10 +585,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 until HoursPerDay > 0;
 
                             end
-                            else begin
+                            else
                                 Found := false;
-                                //Message(Format('not found'));
-                            end;
 
                         until (not Found);
 
@@ -640,20 +638,20 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     if not SHCalHolidayRec.FindSet() then begin  //If not holiday
                                                         DayForWeek.Get(DayForWeek."Period Type"::Date, LCurveFinishDate);
 
-                                                        case DayForWeek."Period Name" of
-                                                            'Monday':
+                                                        case DayForWeek."Period No." of
+                                                            1:
                                                                 Day := 0;
-                                                            'Tuesday':
+                                                            2:
                                                                 Day := 1;
-                                                            'Wednesday':
+                                                            3:
                                                                 Day := 2;
-                                                            'Thursday':
+                                                            4:
                                                                 Day := 3;
-                                                            'Friday':
+                                                            5:
                                                                 Day := 4;
-                                                            'Saturday':
+                                                            6:
                                                                 Day := 5;
-                                                            'Sunday':
+                                                            7:
                                                                 Day := 6;
                                                         end;
 
@@ -706,20 +704,20 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 if not SHCalHolidayRec.FindSet() then begin  //If not holiday
                                     DayForWeek.Get(DayForWeek."Period Type"::Date, TempDate);
 
-                                    case DayForWeek."Period Name" of
-                                        'Monday':
+                                    case DayForWeek."Period No." of
+                                        1:
                                             Day := 0;
-                                        'Tuesday':
+                                        2:
                                             Day := 1;
-                                        'Wednesday':
+                                        3:
                                             Day := 2;
-                                        'Thursday':
+                                        4:
                                             Day := 3;
-                                        'Friday':
+                                        5:
                                             Day := 4;
-                                        'Saturday':
+                                        6:
                                             Day := 5;
-                                        'Sunday':
+                                        7:
                                             Day := 6;
                                     end;
 
