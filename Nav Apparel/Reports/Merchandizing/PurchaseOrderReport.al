@@ -43,6 +43,10 @@ report 50642 PurchaseOrderReport
             { }
             column(Status; Status)
             { }
+            column(Shortcut_Dimension_1_Code;"Shortcut Dimension 1 Code")
+            {}
+            column(Shortcut_Dimension_2_Code;"Shortcut Dimension 2 Code")
+            {}
             dataitem("Purchase Line"; "Purchase Line")
             {
                 DataItemLinkReference = "Purchase Header";
