@@ -743,24 +743,34 @@ page 71012740 "Nav Apperal Role Center"
 
             group("Common")
             {
-                action("Gate Pass1")
-                {
-                    Caption = 'Gate Pass';
-                    RunObject = Page "Gate Pass List";
-                    ApplicationArea = all;
-                }
-            }
-
-            group("Store")
-            {
-                Caption = 'Store';
-
                 action("Department Requisition Sheet")
                 {
                     Caption = 'Department Requisition Sheet';
                     RunObject = page "Department Requisition Sheet";
                     ApplicationArea = All;
                 }
+                action("Gate Pass1")
+                {
+                    Caption = 'Gate Pass';
+                    RunObject = Page "Gate Pass List";
+                    ApplicationArea = all;
+                }
+
+                group("Common Reports")
+                {
+                    action("DepartmentRequisitionReport")
+                    {
+                        Caption = 'Department Requisition Report';
+                        Enabled = true;
+                        RunObject = report DepartmentRequisitionReport;
+                        ApplicationArea = All;
+                    }
+                }
+            }
+
+            group("Store")
+            {
+                Caption = 'Store';
 
                 action("Item1")
                 {
@@ -771,8 +781,21 @@ page 71012740 "Nav Apperal Role Center"
 
                 action("Posted Purchase Receipts")
                 {
-                    Caption = 'GRN';
+                    Caption = 'Good Receipts';
                     RunObject = Page "Posted Purchase Receipts";
+                    ApplicationArea = all;
+                }
+
+                action("Supplier Invoice")
+                {
+                    RunObject = page "Posted Purchase Invoices";
+                    ApplicationArea = all;
+                }
+
+                action("Purchase Orders")
+                {
+                    Caption = 'Purchase Orders';
+                    RunObject = Page "Purchase Order List";
                     ApplicationArea = all;
                 }
 
@@ -801,13 +824,6 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Store Reports';
 
-                    action("DepartmentRequisitionReport")
-                    {
-                        Caption = 'Department Requisition Report';
-                        Enabled = true;
-                        RunObject = report DepartmentRequisitionReport;
-                        ApplicationArea = All;
-                    }
                     action("Roll Issuing Report")
                     {
                         Caption = 'Roll Issuing Report';
@@ -815,12 +831,34 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report IssueNoteReport;
                         ApplicationArea = all;
                     }
+
                     action("Transfer Order Report")
                     {
                         Caption = 'Transfer Order Report';
                         Enabled = true;
                         RunObject = report TransferOrder;
                         ApplicationArea = all;
+                    }
+
+                    action("Inventory Valuation Report")
+                    {
+                        Enabled = true;
+                        RunObject = Report "Inventory Valuation";
+                        ApplicationArea = All;
+                    }
+
+                    action("Good Reciept Report")
+                    {
+                        Enabled = true;
+                        RunObject = report GrnReport;
+                        ApplicationArea = All;
+                    }
+
+                    action("Phys. Inventory List Report")
+                    {
+                        Enabled = true;
+                        RunObject = report "Phys. Inventory List";
+                        ApplicationArea = All;
                     }
                 }
 
