@@ -372,79 +372,80 @@ page 50823 "DepReqSheetListpart"
                     DeptReqSheetLineRec.SetRange("Req No", "Req No");
                     if DeptReqSheetLineRec.FindSet() then begin
                         repeat
-                            if "Item No" = '' then begin
+                            if DeptReqSheetLineRec."Item No" = '' then begin
 
-                                ItemDesc := "Sub Category Name";
+                                ItemDesc := DeptReqSheetLineRec."Sub Category Name";
 
-                                if Article <> '' then
-                                    ItemDesc := ItemDesc + ' / ' + Article;
+                                if DeptReqSheetLineRec.Article <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + DeptReqSheetLineRec.Article;
 
-                                if "Color Name" <> '' then
-                                    ItemDesc := ItemDesc + ' / ' + "Color Name";
+                                if DeptReqSheetLineRec."Color Name" <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + DeptReqSheetLineRec."Color Name";
 
-                                if "Size Range No." <> '' then
-                                    ItemDesc := ItemDesc + ' / ' + "Size Range No.";
+                                if DeptReqSheetLineRec."Size Range No." <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + DeptReqSheetLineRec."Size Range No.";
 
-                                if "Dimension Name." <> '' then
-                                    ItemDesc := ItemDesc + ' / ' + "Dimension Name.";
+                                if DeptReqSheetLineRec."Dimension Name." <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + DeptReqSheetLineRec."Dimension Name.";
 
-                                if Other <> '' then
-                                    ItemDesc := ItemDesc + ' / ' + Other;
+                                if DeptReqSheetLineRec.Other <> '' then
+                                    ItemDesc := ItemDesc + ' / ' + DeptReqSheetLineRec.Other;
 
                                 //Check whether item exists
                                 ItemMasterRec.Reset();
                                 ItemMasterRec.SetRange(Description, ItemDesc);
 
                                 if ItemMasterRec.FindSet() then begin
-                                    "Item No" := ItemMasterRec."No.";
-                                    "Item Name" := ItemDesc;
-                                    UOM := ItemMasterRec."Base Unit of Measure";
+                                    DeptReqSheetLineRec."Item No" := ItemMasterRec."No.";
+                                    DeptReqSheetLineRec."Item Name" := ItemDesc;
+                                    DeptReqSheetLineRec.UOM := ItemMasterRec."Base Unit of Measure";
+                                    DeptReqSheetLineRec.Modify();
                                 end
                                 else begin
 
                                     //Get Dimenion only status
                                     MainCateRec.Reset();
-                                    MainCateRec.SetRange("No.", "Main Category No.");
+                                    MainCateRec.SetRange("No.", DeptReqSheetLineRec."Main Category No.");
                                     if MainCateRec.FindSet() then
                                         if MainCateRec."Inv. Posting Group Code" = '' then
-                                            Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', "Main Category Name");
+                                            Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', DeptReqSheetLineRec."Main Category Name");
 
                                     if MainCateRec."Prod. Posting Group Code" = '' then
-                                        Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', "Main Category Name");
+                                        Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', DeptReqSheetLineRec."Main Category Name");
 
-
-                                    NextItemNo := NoSeriesManagementCode.GetNextNo(MainCateRec."No Series", Today(), true);
-
-                                    // NextItemNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."MISCITEM Nos.", Today(), true);
+                                    if MainCateRec."No Series" <> '' then
+                                        NextItemNo := NoSeriesManagementCode.GetNextNo(MainCateRec."No Series", Today(), true)
+                                    else
+                                        NextItemNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."MISCITEM Nos.", Today(), true);
 
                                     ItemMasterRec.Init();
                                     ItemMasterRec."No." := NextItemNo;
                                     ItemMasterRec.Description := ItemDesc;
-                                    ItemMasterRec."Main Category No." := "Main Category No.";
-                                    ItemMasterRec."Main Category Name" := "Main Category Name";
-                                    ItemMasterRec."Sub Category No." := "Sub Category No.";
-                                    ItemMasterRec."Sub Category Name" := "Sub Category Name";
+                                    ItemMasterRec."Main Category No." := DeptReqSheetLineRec."Main Category No.";
+                                    ItemMasterRec."Main Category Name" := DeptReqSheetLineRec."Main Category Name";
+                                    ItemMasterRec."Sub Category No." := DeptReqSheetLineRec."Sub Category No.";
+                                    ItemMasterRec."Sub Category Name" := DeptReqSheetLineRec."Sub Category Name";
                                     ItemMasterRec."Rounding Precision" := 0.00001;
 
                                     //Check for Item category
                                     ItemCategoryRec.Reset();
-                                    ItemCategoryRec.SetRange(Code, "Main Category No.");
+                                    ItemCategoryRec.SetRange(Code, DeptReqSheetLineRec."Main Category No.");
                                     if not ItemCategoryRec.FindSet() then begin
                                         ItemCategoryRec.Init();
-                                        ItemCategoryRec.Code := "Main Category No.";
-                                        ItemCategoryRec.Description := "Main Category Name";
+                                        ItemCategoryRec.Code := DeptReqSheetLineRec."Main Category No.";
+                                        ItemCategoryRec.Description := DeptReqSheetLineRec."Main Category Name";
                                         ItemCategoryRec.Insert();
                                     end;
 
-                                    ItemMasterRec."Item Category Code" := "Main Category No.";
-                                    ItemMasterRec."Color No." := "Color No.";
-                                    ItemMasterRec."Color Name" := "Color Name";
-                                    ItemMasterRec."Size Range No." := "Size Range No.";
-                                    ItemMasterRec."Article No." := "Article No.";
-                                    ItemMasterRec."Article" := "Article";
-                                    ItemMasterRec."Dimension Width No." := "Dimension No.";
-                                    ItemMasterRec."Dimension Width" := "Dimension Name.";
-                                    ItemMasterRec.Remarks := Other;
+                                    ItemMasterRec."Item Category Code" := DeptReqSheetLineRec."Main Category No.";
+                                    ItemMasterRec."Color No." := DeptReqSheetLineRec."Color No.";
+                                    ItemMasterRec."Color Name" := DeptReqSheetLineRec."Color Name";
+                                    ItemMasterRec."Size Range No." := DeptReqSheetLineRec."Size Range No.";
+                                    ItemMasterRec."Article No." := DeptReqSheetLineRec."Article No.";
+                                    ItemMasterRec."Article" := DeptReqSheetLineRec."Article";
+                                    ItemMasterRec."Dimension Width No." := DeptReqSheetLineRec."Dimension No.";
+                                    ItemMasterRec."Dimension Width" := DeptReqSheetLineRec."Dimension Name.";
+                                    ItemMasterRec.Remarks := DeptReqSheetLineRec.Other;
                                     ItemMasterRec.Type := ItemMasterRec.Type::Inventory;
                                     ItemMasterRec."Unit Cost" := 0;
                                     ItemMasterRec."Unit Price" := 0;
@@ -461,21 +462,23 @@ page 50823 "DepReqSheetListpart"
                                     //Insert into Item unit of measure
                                     ItemUinitRec.Init();
                                     ItemUinitRec."Item No." := NextItemNo;
-                                    ItemUinitRec.Code := "UOM Code";
+                                    ItemUinitRec.Code := DeptReqSheetLineRec."UOM Code";
                                     ItemUinitRec."Qty. per Unit of Measure" := 1;
                                     ItemUinitRec.Insert();
 
-                                    ItemMasterRec.Validate("Base Unit of Measure", "UOM Code");
+                                    ItemMasterRec.Validate("Base Unit of Measure", DeptReqSheetLineRec."UOM Code");
                                     ItemMasterRec.Validate("Replenishment System", 0);
                                     ItemMasterRec.Validate("Manufacturing Policy", 1);
                                     ItemMasterRec.Insert(true);
 
-                                    "Item No" := NextItemNo;
-                                    "Item Name" := ItemDesc;
+                                    DeptReqSheetLineRec."Item No" := NextItemNo;
+                                    DeptReqSheetLineRec."Item Name" := ItemDesc;
+                                    DeptReqSheetLineRec.Modify();
 
                                 end;
                             end;
                         until DeptReqSheetLineRec.Next() = 0;
+                        CurrPage.Update();
                     end;
                 end;
             }
