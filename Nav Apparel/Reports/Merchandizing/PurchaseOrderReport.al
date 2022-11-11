@@ -21,7 +21,7 @@ report 50642 PurchaseOrderReport
             { }
             column(Buy_from_Vendor_Name; "Buy-from Vendor Name")
             { }
-            column(companyName; comrec.Name)
+            column(companyName; LocationName)
             { }
             column(CompLogo; comRec.Picture)
             { }
@@ -43,10 +43,7 @@ report 50642 PurchaseOrderReport
             { }
             column(Status; Status)
             { }
-            column(Shortcut_Dimension_1_Code;"Shortcut Dimension 1 Code")
-            {}
-            column(Shortcut_Dimension_2_Code;"Shortcut Dimension 2 Code")
-            {}
+
             dataitem("Purchase Line"; "Purchase Line")
             {
                 DataItemLinkReference = "Purchase Header";
@@ -127,6 +124,12 @@ report 50642 PurchaseOrderReport
                 end;
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                locationRec.Reset();
+                locationRec.SetRange(Code, "Shortcut Dimension 1 Code");
+                if locationRec.FindFirst() then begin
+                    LocationName := locationRec.Name;
+                end;
             end;
 
             trigger OnPreDataItem()
@@ -180,7 +183,8 @@ report 50642 PurchaseOrderReport
     // }
 
     var
-
+        locationRec: Record Location;
+        LocationName: Text[100];
         color: Text[50];
         SizeRangeNo: Code[20];
         ArticleName: text[50];
