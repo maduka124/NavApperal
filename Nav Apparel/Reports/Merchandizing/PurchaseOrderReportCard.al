@@ -170,7 +170,7 @@ report 50642 PurchaseOrderReportCard
                     field(PriceFilter; PriceFilter)
                     {
                         ApplicationArea = all;
-                        Caption = 'Price Visibility';
+                        Caption = 'With Price';
 
                     }
                 }
