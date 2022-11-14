@@ -97,7 +97,7 @@ report 50647 MaterialRequition
                 trigger OnPreDataItem()
 
                 begin
-                    // SetRange("Document No.", JournalNo);
+                    SetRange("Document No.", JournalNo);
                 end;
 
             }
