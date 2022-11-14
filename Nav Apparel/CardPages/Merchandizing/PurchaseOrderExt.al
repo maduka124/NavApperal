@@ -1,5 +1,6 @@
 pageextension 71012852 PurchaseOrderCardExt extends "Purchase Order"
 {
+
     layout
     {
         modify(General)
@@ -32,18 +33,36 @@ pageextension 71012852 PurchaseOrderCardExt extends "Purchase Order"
         //     Editable = EditableGB;
         // }
     }
+
     actions
     {
         modify("&Print")
         {
-            trigger OnBeforeAction()
-            var
-                myInt: Integer;
-                PurchaseorderReportRec: Report PurchaseOrderReportCard;
-            begin
-                PurchaseorderReportRec.Set_value("No.");
-                PurchaseorderReportRec.RunModal();
-            end;
+            Visible = false;
+            // trigger OnBeforeAction()
+            // var
+
+            //     PurchaseorderReportRec: Report PurchaseOrderReportCard;
+            // begin
+            //     PurchaseorderReportRec.Set_value("No.");
+            //     PurchaseorderReportRec.RunModal();
+            // end;
+        }
+        addafter("Request Approval")
+        {
+            action("Purchase Order Report")
+            {
+                ApplicationArea = all;
+                trigger OnAction()
+                var
+
+                    PurchaseorderReportRec: Report PurchaseOrderReportCard;
+                begin
+                    PurchaseorderReportRec.Set_value("No.");
+                    PurchaseorderReportRec.RunModal();
+                end;
+            }
+
         }
     }
     trigger OnAfterGetCurrRecord()

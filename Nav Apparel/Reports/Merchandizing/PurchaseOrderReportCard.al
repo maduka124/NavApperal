@@ -95,6 +95,7 @@ report 50642 PurchaseOrderReportCard
                     trigger OnAfterGetRecord()
 
                     begin
+                        ArticleRec.Reset();
                         ArticleRec.SetRange("No.", "Article No.");
                         if ArticleRec.FindFirst() then begin
                             ArticleName := ArticleRec.Article;
@@ -111,6 +112,7 @@ report 50642 PurchaseOrderReportCard
                     //     color := ItemRec."Color Name";
                     //     MainCategory := ItemRec."Main Category Name"
                     // end;
+                    StyleRec.Reset();
                     StyleRec.SetRange("No.", StyleNo);
                     if StyleRec.FindFirst() then begin
                         Buyer := StyleRec."Buyer Name";
@@ -119,16 +121,20 @@ report 50642 PurchaseOrderReportCard
                     end;
                 end;
 
+
             }
             trigger OnAfterGetRecord()
 
             begin
+                PaymentsRec.Reset();
                 PaymentsRec.SetRange(Code, "Payment Terms Code");
                 if PaymentsRec.FindFirst() then begin
                     TermDes := PaymentsRec.Description;
                 end;
+                comrec.Reset();
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
 
                 DimentionValueRec.Reset();
                 DimentionValueRec.SetRange(Code, "Shortcut Dimension 1 Code");
@@ -141,8 +147,8 @@ report 50642 PurchaseOrderReportCard
 
             begin
                 PriceVisibility := 0;
+                SetRange("No.", FilterNo);
 
-                // SetRange("No.", FilterNo);
                 if PriceFilter = false then begin
                     PriceVisibility := 1;
                 end;
@@ -178,17 +184,17 @@ report 50642 PurchaseOrderReportCard
             }
         }
 
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
+        // actions
+        // {
+        //     area(processing)
+        //     {
+        //         action(ActionName)
+        //         {
+        //             ApplicationArea = All;
 
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
     }
     procedure Set_Value(PurchaseOrderFilter: Code[20])
     var
