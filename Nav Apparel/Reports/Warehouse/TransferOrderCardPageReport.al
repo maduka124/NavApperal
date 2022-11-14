@@ -2,7 +2,7 @@ report 50631 TransferOrderCardPageReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Transfer Order Card Page Report';
+    Caption = 'Transfer Order Report';
     RDLCLayout = 'Report_Layouts/Warehouse/TransferOrder.rdl';
     DefaultLayout = RDLC;
 
@@ -34,6 +34,8 @@ report 50631 TransferOrderCardPageReport
             column(PoQty; PoQty)
             { }
             column(PONo; PONo)
+            { }
+            column(PO; PO)
             { }
             //     column(po)
             // { }
@@ -79,8 +81,8 @@ report 50631 TransferOrderCardPageReport
 
                 column(Planned_Order_No_; "No.")
                 { }
-                column(PO; PO)
-                { }
+                // column(PO; PO)
+                // { }
                 // column()
                 // { }
                 dataitem("Prod. Order Line"; "Prod. Order Line")
@@ -111,11 +113,12 @@ report 50631 TransferOrderCardPageReport
                 //     PoQty := StylePoRec.Qty;
                 //     PONo := StylePoRec."PO No.";
                 // end;
-
+                locationRec.Reset();
                 locationRec.SetRange(Code, "Transfer-from Code");
                 if locationRec.FindFirst() then begin
                     TransferFrom := locationRec.Address;
                 end;
+                locationRec2.Reset();
                 locationRec2.SetRange(Code, "Transfer-to Code");
                 if locationRec2.FindFirst() then begin
                     TransfeTo := locationRec2.Address;

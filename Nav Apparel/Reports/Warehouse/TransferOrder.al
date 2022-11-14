@@ -64,6 +64,7 @@ report 50625 TransferOrder
                 trigger OnAfterGetRecord()
 
                 begin
+                    ItemRec.Reset();
                     ItemRec.SetRange("No.", "Item No.");
                     if ItemRec.FindFirst() then begin
                         ItemColor := ItemRec."Color Name";
@@ -99,6 +100,7 @@ report 50625 TransferOrder
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
+                StyleRec.Reset();
                 StyleRec.SetRange("No.", "Style No.");
                 if StyleRec.FindFirst() then begin
                     StyleName := StyleRec."Style No.";
@@ -111,11 +113,12 @@ report 50625 TransferOrder
                 //     PoQty := StylePoRec.Qty;
                 //     PONo := StylePoRec."PO No.";
                 // end;
-
+                locationRec.Reset();
                 locationRec.SetRange(Code, "Transfer-from Code");
                 if locationRec.FindFirst() then begin
                     TransferFrom := locationRec.Address;
                 end;
+                locationRec2.Reset();
                 locationRec2.SetRange(Code, "Transfer-to Code");
                 if locationRec2.FindFirst() then begin
                     TransfeTo := locationRec2.Address;
