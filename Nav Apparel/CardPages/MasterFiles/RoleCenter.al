@@ -772,6 +772,13 @@ page 71012740 "Nav Apperal Role Center"
             {
                 Caption = 'Store';
 
+                action("Consumption Journal")
+                {
+                    Caption = 'Consumption Journal';
+                    RunObject = Page "Consumption Journal";
+                    ApplicationArea = all;
+                }
+
                 action("Item1")
                 {
                     Caption = 'Item';
