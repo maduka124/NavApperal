@@ -646,6 +646,12 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Pre-Production Follow Up")
+                {
+                    RunObject = page PreProductionfollowup;
+                    ApplicationArea = all;
+                }
+
                 group("Planning Reports")
                 {
                     Caption = 'Planning Reports';
