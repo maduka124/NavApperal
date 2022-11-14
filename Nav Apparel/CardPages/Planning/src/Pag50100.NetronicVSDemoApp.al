@@ -3000,6 +3000,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         StyleMasterPORec: Record "Style Master PO";
         StyleMasterRec: Record "Style Master";
         StyleMasterPONewRec: Record "Style Master PO";
+        CostPlanParaLineRec: Record CostingPlanningParaLine;
         Waistage: Decimal;
         QtyWithWaistage: Decimal;
         QueueNo: Decimal;
@@ -3059,6 +3060,13 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                     if StyleMasterPORec.Qty > x then begin
 
+                        //Get plan efficiency                          
+                        CostPlanParaLineRec.Reset();
+                        CostPlanParaLineRec.SetFilter("From SMV", '<=%1', StyleMasterRec.SMV);
+                        CostPlanParaLineRec.SetFilter("To SMV", '>=%1', StyleMasterRec.SMV);
+                        CostPlanParaLineRec.SetFilter("From Qty", '<=%1', StyleMasterRec."Order Qty");
+                        CostPlanParaLineRec.SetFilter("To Qty", '>=%1', StyleMasterRec."Order Qty");
+
                         //Insert new line to Queue
                         PlanningQueueNewRec.Init();
                         PlanningQueueNewRec."Queue No." := QueueNo;
@@ -3075,6 +3083,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         PlanningQueueNewRec."Resource No" := '';
                         PlanningQueueNewRec.Front := StyleMasterRec.Front;
                         PlanningQueueNewRec.Back := StyleMasterRec.Back;
+
+                        if CostPlanParaLineRec.FindSet() then
+                            PlanningQueueNewRec.Eff := CostPlanParaLineRec."Planning Eff%";
+
                         PlanningQueueNewRec.Insert();
 
 
