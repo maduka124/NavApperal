@@ -796,9 +796,14 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                         if LCurveFinishDate > TempDate then
                                             HoursPerDay := 0
-                                        else
-                                            if LCurveFinishDate = TempDate then
-                                                HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                        else begin
+                                            if LCurveFinishDate = TempDate then begin
+                                                if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
+                                                    HoursPerDay := HoursPerDay - (TImeStart - LCurveFinishTime) / 3600000
+                                                else
+                                                    HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                            end;
+                                        end;
 
                                         if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < PlanningQueueeRec.Qty) then begin
                                             TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
@@ -1163,9 +1168,14 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                                 if LCurveFinishDate > TempDate then
                                                     HoursPerDay := 0
-                                                else
-                                                    if LCurveFinishDate = TempDate then
-                                                        HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                else begin
+                                                    if LCurveFinishDate = TempDate then begin
+                                                        if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
+                                                            HoursPerDay := HoursPerDay - (TImeStart - LCurveFinishTime) / 3600000
+                                                        else
+                                                            HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                    end;
+                                                end;
 
                                                 if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < Qty) then begin
                                                     TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
@@ -1658,9 +1668,14 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                         if LCurveFinishDate > TempDate then
                                             HoursPerDay := 0
-                                        else
-                                            if LCurveFinishDate = TempDate then
-                                                HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                        else begin
+                                            if LCurveFinishDate = TempDate then begin
+                                                if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
+                                                    HoursPerDay := HoursPerDay - (TImeStart - LCurveFinishTime) / 3600000
+                                                else
+                                                    HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                            end;
+                                        end;
 
                                         if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < JobPlaLineRec.Qty) then begin
                                             TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
@@ -1999,9 +2014,14 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                                 if LCurveFinishDate > TempDate then
                                                     HoursPerDay := 0
-                                                else
-                                                    if LCurveFinishDate = TempDate then
-                                                        HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                else begin
+                                                    if LCurveFinishDate = TempDate then begin
+                                                        if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
+                                                            HoursPerDay := HoursPerDay - (TImeStart - LCurveFinishTime) / 3600000
+                                                        else
+                                                            HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                    end;
+                                                end;
 
                                                 if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < Qty) then begin
                                                     TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
