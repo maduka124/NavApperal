@@ -175,6 +175,7 @@ report 50631 TransferOrderCardPageReport
 
 
     var
+
         // TransferFromFilter: Code[20];
         // TransferTo: Code[20];
         UserName: Code[50];
