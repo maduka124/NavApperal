@@ -12,6 +12,7 @@ pageextension 50632 TransferHeaderExt extends "Transfer Order"
         {
             Visible = false;
         }
+
         addafter("P&osting")
         {
             action("Transfer Order Report")
@@ -29,6 +30,4 @@ pageextension 50632 TransferHeaderExt extends "Transfer Order"
         }
     }
 
-    var
-        myInt: Integer;
 }
