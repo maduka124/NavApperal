@@ -62,7 +62,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         //Load Resources 
         lrecResource.SETCURRENTKEY(lrecResource.Name);
         lrecResource.SETRANGE(lrecResource.Name);
-        lrecResource.SETRANGE(lrecResource."Work Center Group Code", 'PAL');
+        lrecResource.SetFilter("Planning Line", '=%1', true);
 
         if FactoryNo <> '' then
             lrecResource.SETRANGE(lrecResource."Factory No.", FactoryNo);
@@ -141,7 +141,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         //Create Calendars by Resource Capacity 
         WorkCenterRec.SETCURRENTKEY(WorkCenterRec.Name);
         WorkCenterRec.SETRANGE(WorkCenterRec.Name);
-        WorkCenterRec.SETRANGE(WorkCenterRec."Work Center Group Code", 'PAL');
+        WorkCenterRec.SetFilter("Planning Line", '=%1', true);
         WorkCenterRec.SETRANGE("Factory No.", FactoryNo);
 
         IF WorkCenterRec.FIND('-') THEN

@@ -100,7 +100,7 @@ page 50371 "Prod Update Card"
 
         //Get all work center line details
         WorkCenterRec.Reset();
-        WorkCenterRec.SetRange("Work Center Group Code", 'PAL');
+        WorkCenterRec.SetFilter("Planning Line", '=%1', true);
         if WorkCenterRec.FindSet() then begin
 
             repeat
