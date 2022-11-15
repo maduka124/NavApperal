@@ -3,7 +3,7 @@ page 50835 PreProductionfollowup
     PageType = Card;
     ApplicationArea = All;
     UsageCategory = Administration;
-    Caption = 'Per-Production Follow Up';
+    Caption = 'Pre-Production Follow Up';
 
     layout
     {
