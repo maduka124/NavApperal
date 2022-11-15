@@ -25,9 +25,9 @@ report 50625 TransferOrder
             { }
             column(garmentTypeName; garmentTypeName)
             { }
-            column(TransferFrom; TransferFrom)
+            column(TransferFrom; "Transfer-from Name")
             { }
-            column(TransfeTo; TransfeTo)
+            column(TransfeTo; "Transfer-to Name")
             { }
             column(CompLogo; comRec.Picture)
             { }
@@ -113,16 +113,17 @@ report 50625 TransferOrder
                 //     PoQty := StylePoRec.Qty;
                 //     PONo := StylePoRec."PO No.";
                 // end;
-                locationRec.Reset();
-                locationRec.SetRange(Code, "Transfer-from Code");
-                if locationRec.FindFirst() then begin
-                    TransferFrom := locationRec.Address;
-                end;
-                locationRec2.Reset();
-                locationRec2.SetRange(Code, "Transfer-to Code");
-                if locationRec2.FindFirst() then begin
-                    TransfeTo := locationRec2.Address;
-                end;
+
+                // locationRec.Reset();
+                // locationRec.SetRange(Code, "Transfer-from Code");
+                // if locationRec.FindFirst() then begin
+                //     TransferFrom := locationRec.Address;
+                // end;
+                // locationRec2.Reset();
+                // locationRec2.SetRange(Code, "Transfer-to Code");
+                // if locationRec2.FindFirst() then begin
+                //     TransfeTo := locationRec2.Address;
+                // end;
 
 
                 // UserRec.Reset();
