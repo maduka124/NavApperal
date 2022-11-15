@@ -14,114 +14,122 @@ page 50834 PreProductionFallowLine
                 field(Factory; Factory)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Buyer; Buyer)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Style; Style)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Order Qty"; "Order Qty")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Ship Date"; "Ship Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Start Date"; "Start Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
-                field("END DATE"; "End Date")
+                field("END Date"; "End Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Production File Received Date"; "Production File Received Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("production file received date"; "production file received date")
+                field("PP Sample Recevied Date"; "PP Sample Recevied Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PP SAMPLE RECEVIED DATE"; "PP SAMPLE RECEVIED DATE")
+                field("Patten Received Date"; "Patten Received Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Patten received date"; "Patten received date")
+                field("Fabric Received Date"; "Fabric Received Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Fabric received date"; "Fabric received date")
+                field("Shrinkage Report Received Date"; "Shrinkage Report Received Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Shrinkage report received date"; "Shrinkage report received date")
+                field("Fabric Relax Date"; "Fabric Relax Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Fabric relax date"; "Fabric relax date")
+                field("Size set Marker Date"; "Size Set Marker Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Size set marker date"; "Size set marker date")
+                field("Size Set Cutting Date"; "Size Set Cutting Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("size set cutting date"; "size set cutting date")
+                field("Size Set Sewing Date"; "size Set Sewing Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("size set sewing date"; "size set sewing date")
+                field("Size Set Wash Send Date"; "Size Set Wash Send Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Size set wash  send date"; "Size set wash  send date")
+                field("Size Set Wash Received Date"; "Size Set Wash Received Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Size Set Wash  Received Date';
+                }
+
+                field("Size Set QC Report"; "Size Set QC Report")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Size set wash  received date"; "Size set wash  received date")
+                field("Pilot Cutting Date"; "Pilot Cutting Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Size set QC Report"; "Size set QC Report")
+                field("Pilot Sewing Date"; "Pilot Sewing Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Pilot cutting date"; "Pilot cutting date")
+                field("Pilot Wash Send Date"; "Pilot Wash Send Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Pilot Sewing date"; "Pilot Sewing date")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Pilot wash send date"; "Pilot wash send date")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Pilot wash received date"; "Pilot wash received date")
+                field("Pilot Wash Received Date"; "Pilot Wash Received Date")
                 {
                     ApplicationArea = All;
                 }
@@ -131,12 +139,12 @@ page 50834 PreProductionFallowLine
                     ApplicationArea = All;
                 }
 
-                field("Bulk cutting date"; "Bulk cutting date")
+                field("Bulk Cutting Date"; "Bulk Cutting Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Line layout date"; "Line layout date")
+                field("Line layout Date"; "Line layout Date")
                 {
                     ApplicationArea = All;
                 }
