@@ -3,7 +3,7 @@ page 50835 PreProductionfollowup
     PageType = Card;
     ApplicationArea = All;
     UsageCategory = Administration;
-    Caption = 'Pre-Production Follow Up';
+    Caption = 'Per-Production Follow Up';
 
     layout
     {
@@ -71,7 +71,7 @@ page 50835 PreProductionfollowup
                             if not PreProductionFallowline.FindSet() then begin
 
                                 StyleMasterRec.Reset();
-                                StyleMasterRec.SetRange("Style No.", NavPlaningLine."Style No.");
+                                StyleMasterRec.SetRange("No.", NavPlaningLine."Style No.");
 
                                 if StyleMasterRec.FindSet() then begin
                                     NavPlaningLine.SetCurrentKey("Start Date");
@@ -88,6 +88,7 @@ page 50835 PreProductionfollowup
 
                                     PreProductionFallowline.Init();
                                     PreProductionFallowline.Factory := NavPlaningLine.Factory;
+                                    PreProductionFallowline."Factory Code" := Factory;
                                     PreProductionFallowline.Buyer := StyleMasterRec."Buyer Name";
                                     PreProductionFallowline."Buyer No" := StyleMasterRec."Buyer No.";
                                     PreProductionFallowline.Style := NavPlaningLine."Style Name";
