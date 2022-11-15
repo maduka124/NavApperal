@@ -34,7 +34,7 @@ page 50726 "Service Worksheet Card"
                         WorkCenterRec: Record "Work Center";
                     begin
                         WorkCenterRec.RESET;
-                        WorkCenterRec.SetRange("Work Center Group Code", 'SERVICE');
+                        WorkCenterRec.SetFilter("Linked To Service Item", '=%1', true);
 
                         if Page.RunModal(50728, WorkCenterRec) = Action::LookupOK then begin
 
@@ -91,7 +91,7 @@ page 50726 "Service Worksheet Card"
 
                     //Get All selected Work stations
                     WorkCenRec.Reset();
-                    WorkCenRec.SetRange("Work Center Group Code", 'SERVICE');
+                    WorkCenRec.SetFilter("Linked To Service Item", '=%1', true);
                     WorkCenRec.SetFilter(Select, '=%1', true);
 
                     if WorkCenRec.FindSet() then begin

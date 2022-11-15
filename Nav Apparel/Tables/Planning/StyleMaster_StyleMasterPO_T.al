@@ -87,6 +87,11 @@ table 50773 "StyleMaster_StyleMasterPO_T"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(17; "Production File Handover Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

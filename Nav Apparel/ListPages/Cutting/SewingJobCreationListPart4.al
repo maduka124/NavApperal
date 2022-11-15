@@ -245,7 +245,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     begin
                         //Get Po details
                         WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange("Work Center Group Code", 'PAL');
+                        WorkCenterRec.SetFilter("Planning Line", '=%1', true);
                         WorkCenterRec.SetRange(Name, "Resource Name");
 
                         if WorkCenterRec.FindSet() then

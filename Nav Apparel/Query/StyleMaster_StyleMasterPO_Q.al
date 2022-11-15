@@ -29,6 +29,9 @@ query 50772 "StyleMaster_StyleMasterPO_Q"
             column(Buyer_Name; "Buyer Name")
             {
             }
+            column(Production_File_Handover_Date; "Production File Handover Date")
+            {
+            }
 
             dataitem(StyleMasterPO; "Style Master PO")
             {

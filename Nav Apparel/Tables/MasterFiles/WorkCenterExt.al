@@ -45,6 +45,14 @@ tableextension 71012658 "Work Center Extension" extends "Work Center"
         field(71012591; "Select"; Boolean)
         {
         }
+
+        field(71012592; "Planning Line"; Boolean)
+        {
+        }
+
+        field(71012593; "Linked To Service Item"; Boolean)
+        {
+        }
     }
 }
 

@@ -2,10 +2,23 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
 {
     layout
     {
+        addafter("Last Date Modified")
+        {
+            field("Linked To Service Item"; "Linked To Service Item")
+            {
+                ApplicationArea = All;
+            }
+        }
+
         addafter(Warehouse)
         {
             group("Planning")
             {
+                field("Planning Line"; "Planning Line")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(MO; MO)
                 {
                     ApplicationArea = All;
@@ -13,7 +26,6 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
 
                     trigger OnValidate()
                     var
-
                     begin
                         "Carder" := MO + HP;
                     end;
@@ -26,7 +38,6 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
 
                     trigger OnValidate()
                     var
-
                     begin
                         "Carder" := MO + HP;
                     end;
@@ -95,7 +106,6 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
                 field(Floor; Floor)
                 {
                     ApplicationArea = All;
-                    //Caption = 'Supervisor';
                 }
             }
         }

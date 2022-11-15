@@ -3,8 +3,8 @@ page 50728 WorkCenterList
     PageType = List;
     Caption = 'Work Center List';
     SourceTable = "Work Center";
-    SourceTableView = where("Work Center Group Code" = filter('SERVICE'));
-  
+    SourceTableView = where("Linked To Service Item" = filter(true));
+
     layout
     {
         area(Content)

@@ -81,7 +81,7 @@ page 50489 "All PO List"
                     Editable = false;
                 }
 
-                field(SID; SID)
+                field("Production File Handover Date"; "Production File Handover Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -243,6 +243,7 @@ page 50489 "All PO List"
                 Rec.Status := TempQuery.Status;
                 Rec.Style_No := TempQuery.Style_No;
                 Rec.UnitPrice := TempQuery.UnitPrice;
+                Rec."Production File Handover Date" := TempQuery.Production_File_Handover_Date;
                 Rec.Insert();
 
             end;

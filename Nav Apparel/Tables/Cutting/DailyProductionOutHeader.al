@@ -32,7 +32,7 @@ table 50349 ProductionOutHeader
         field(5; "Resource Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Work Center".Name where("Work Center Group Code" = const('PAL'));
+            TableRelation = "Work Center".Name where("Planning Line" = filter(true));
             ValidateTableRelation = false;
         }
 

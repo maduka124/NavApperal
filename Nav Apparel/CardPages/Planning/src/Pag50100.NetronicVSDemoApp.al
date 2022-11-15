@@ -473,6 +473,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         if PlanningQueueeRec.Eff <> 0 then
                             Eff := PlanningQueueeRec.Eff;
 
+                        if Eff = 0 then
+                            Error('Efficiency is zero. Cannot proceed.');
+
                         SMV := PlanningQueueeRec.SMV;
 
                         if SMV = 0 then
@@ -1370,6 +1373,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                         if JobPlaLineRec.Eff <> 0 then
                             Eff := JobPlaLineRec.Eff;
+
+                        if Eff = 0 then
+                            Error('Efficiency is zero. Cannot proceed.');
 
                         SMV := JobPlaLineRec.SMV;
 
