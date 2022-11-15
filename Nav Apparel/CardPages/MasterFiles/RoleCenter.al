@@ -799,16 +799,11 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Supplier Invoice")
-                {
-                    RunObject = page "Posted Purchase Invoices";
-                    ApplicationArea = all;
-                }
-
                 action("Purchase Orders")
                 {
                     Caption = 'Purchase Orders';
                     RunObject = Page "Purchase Order List";
+                    RunPageView = order(ascending) where(Status = filter(Released));
                     ApplicationArea = all;
                 }
 
@@ -874,7 +869,6 @@ page 71012740 "Nav Apperal Role Center"
                         ApplicationArea = All;
                     }
                 }
-
             }
 
             //Cutting
