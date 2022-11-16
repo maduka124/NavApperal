@@ -792,6 +792,14 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("General Issuing")
+                {
+                    Caption = 'General Issuing';
+                    RunObject = Page "Item Journal";
+                    RunPageView = where("Journal Template Name" = const('GEN-ISUUE'));
+                    ApplicationArea = all;
+                }
+
                 action("Posted Purchase Receipts")
                 {
                     Caption = 'Good Receipts';
