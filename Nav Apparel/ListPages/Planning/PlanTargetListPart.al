@@ -2,7 +2,8 @@ page 50346 "Plan Target List part"
 {
     PageType = ListPart;
     SourceTable = "NavApp Prod Plans Details";
-    SourceTableView = sorting("No.") order(ascending) where(HoursPerDay = filter(<> 0));
+    //SourceTableView = sorting("No.") order(ascending) where(HoursPerDay = filter(<> 0));
+    SourceTableView = sorting("No.") order(ascending);
     Editable = false;
     Caption = 'Plan Targets';
 
@@ -11,7 +12,7 @@ page 50346 "Plan Target List part"
         area(Content)
         {
             repeater(General)
-            {              
+            {
                 field(PlanDate; PlanDate)
                 {
                     ApplicationArea = All;
@@ -34,7 +35,7 @@ page 50346 "Plan Target List part"
                     Caption = 'Hours';
                 }
 
-                field(Qty; Qty)
+                field(Target; Target)
                 {
                     ApplicationArea = All;
                     Caption = 'Target';

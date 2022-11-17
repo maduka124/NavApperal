@@ -3,7 +3,7 @@ page 50835 PreProductionfollowup
     PageType = Card;
     ApplicationArea = All;
     UsageCategory = Administration;
-    Caption = 'Per-Production Follow Up';
+    Caption = 'Pre-Production Follow Up';
 
     layout
     {
@@ -14,7 +14,7 @@ page 50835 PreProductionfollowup
                 field(Factory; Factory)
                 {
                     ApplicationArea = All;
-                    TableRelation = Location.Code;
+                    TableRelation = Location.Code where("Sewing Unit" = filter(1));
 
                     trigger OnValidate()
                     var

@@ -352,6 +352,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
 
         NavAppSetupRec.Reset();
         NavAppSetupRec.FindSet();
+        pStart := pStart - 30;
 
         lrecJobPlanningLine.SETCURRENTKEY(lrecJobPlanningLine."Start Date");
         lrecJobPlanningLine.SetRange(lrecJobPlanningLine."Start Date", pStart, pEnd);
@@ -512,7 +513,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         ldnContextMenu.Add('ID', 'CM_Allocation');
         tempEntries := createJsonArray();
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Prperties');
+        ldnContextMenuItem.Add('Text', 'Properties');
         ldnContextMenuItem.Add('Code', 'Al_01');
         ldnContextMenuItem.Add('SortCode', 'a');
         tempEntries.Add(ldnContextMenuItem);
@@ -605,7 +606,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Prperties');
+        ldnContextMenuItem.Add('Text', 'Properties');
         ldnContextMenuItem.Add('Code', 'E_04');
         ldnContextMenuItem.Add('SortCode', 'd');
         tempEntries.Add(ldnContextMenuItem);

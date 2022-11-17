@@ -639,6 +639,19 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Pre-Production Follow Up")
+                {
+                    RunObject = page PreProductionfollowup;
+                    ApplicationArea = all;
+                }
+
+                action("Shop Calenders")
+                {
+                    Caption = 'Shop Calenders';
+                    RunObject = Page "Shop Calendars";
+                    ApplicationArea = all;
+                }
+
                 action("Wastage")
                 {
                     Caption = 'Quantity Wise Extra %';
@@ -646,9 +659,10 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Pre-Production Follow Up")
+                action("Work Center Plan")
                 {
-                    RunObject = page PreProductionfollowup;
+                    Caption = 'Work Center';
+                    RunObject = Page "Work Center List";
                     ApplicationArea = all;
                 }
 
@@ -801,7 +815,7 @@ page 71012740 "Nav Apperal Role Center"
 
                 action("Purchase Orders")
                 {
-                    Caption = 'Purchase Orders';
+                    Caption = 'Approved Purchase Orders';
                     RunObject = Page "Purchase Order List";
                     RunPageView = order(ascending) where(Status = filter(Released));
                     ApplicationArea = all;

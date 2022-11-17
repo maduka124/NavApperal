@@ -1,7 +1,7 @@
 page 50324 "NETRONICVSDevToolDemoAppPage"
 {
     PageType = Card;
-    Caption = 'Visual Planning - Navision Apparel';
+    Caption = 'Visual Planning';
     UsageCategory = Tasks;
     ApplicationArea = All;
 
@@ -14,7 +14,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 field("FactoryNo"; "FactoryNo")
                 {
                     Caption = 'Factory Code';
-                    TableRelation = Location.Code;
+                    TableRelation = Location.Code where("Sewing Unit" = filter(1));
+
                     ApplicationArea = All;
 
                     trigger OnValidate()

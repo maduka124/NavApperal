@@ -11,7 +11,7 @@ page 50348 "Plan Target Vs Acheive"
         area(Content)
         {
             repeater(General)
-            {               
+            {
                 field("Resource No."; "Resource No.")
                 {
                     ApplicationArea = All;
