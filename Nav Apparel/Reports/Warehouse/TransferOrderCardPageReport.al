@@ -172,8 +172,6 @@ report 50631 TransferOrderCardPageReport
     end;
 
 
-
-
     var
 
         // TransferFromFilter: Code[20];

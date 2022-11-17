@@ -63,6 +63,7 @@ report 50647 MaterialRequition
             column(PoNo; PO)
             { }
 
+
             dataitem("Item Journal Line"; "Item Journal Line")
             {
 
@@ -93,11 +94,31 @@ report 50647 MaterialRequition
                 {
                     IncludeCaption = true;
                 }
+                column(Size; Size)
+                { }
 
                 trigger OnPreDataItem()
 
                 begin
                     SetRange("Document No.", JournalNo);
+                    SetRange("Journal Batch Name", JournalBatchFilter);
+                end;
+
+                trigger OnAfterGetRecord()
+
+                begin
+                    ProductionLineRec.Reset();
+                    ProductionLineRec.SetRange("Prod. Order No.", "Document No.");
+                    ProductionLineRec.SetRange("Line No.", "Line No.");
+                    if ProductionLineRec.FindFirst() then begin
+                        ItemCode := ProductionLineRec."Item No.";
+                    end;
+                    ItemRec.Reset();
+                    ItemRec.SetRange("No.", ItemCode);
+                    if ItemRec.FindFirst() then begin
+                        Size := ItemRec."Size Range No."
+                    end;
+
                 end;
 
             }
@@ -130,6 +151,8 @@ report 50647 MaterialRequition
                     //         CurrReport.Skip();
                     // end;
                 end;
+
+
             end;
 
             // trigger OnPreDataItem()
@@ -160,6 +183,13 @@ report 50647 MaterialRequition
                         TableRelation = "Production Order"."No.";
 
                     }
+                    field(JournalBatchFilter; JournalBatchFilter)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Batch';
+                        TableRelation = "Item Journal Line"."Journal Batch Name";
+
+                    }
 
                 }
             }
@@ -178,6 +208,11 @@ report 50647 MaterialRequition
 
 
     var
+        JournalBatchFilter: Code[10];
+        Size: Code[20];
+        ItemRec: Record Item;
+        ItemCode: Code[20];
+        ProductionLineRec: Record "Prod. Order Line";
         JournalNo: Code[20];
         ReservationEntry: Record "Reservation Entry";
         ReservationEntry2: Record "Reservation Entry";
