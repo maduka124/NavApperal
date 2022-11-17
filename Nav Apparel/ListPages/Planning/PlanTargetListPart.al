@@ -35,7 +35,7 @@ page 50346 "Plan Target List part"
                     Caption = 'Hours';
                 }
 
-                field(Target; Target)
+                field(Qty; Qty)
                 {
                     ApplicationArea = All;
                     Caption = 'Target';

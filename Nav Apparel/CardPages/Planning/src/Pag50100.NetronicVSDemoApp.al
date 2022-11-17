@@ -887,6 +887,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                             ProdPlansDetails.Qty := xQty;
+                            // ProdPlansDetails.Target := TargetPerDay;
                             ProdPlansDetails.Target := TargetPerDay;
                             ProdPlansDetails.HoursPerDay := HoursPerDay;
                             ProdPlansDetails.ProdUpd := 0;

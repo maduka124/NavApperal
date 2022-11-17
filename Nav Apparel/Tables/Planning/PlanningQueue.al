@@ -50,7 +50,7 @@ table 50332 "Planning Queue"
         field(8; "Learning Curve No."; Integer)
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Learning Curve"."No.";
+            TableRelation = "Learning Curve"."No." where(Active = filter(1));
             InitValue = 0;
         }
 
@@ -148,11 +148,11 @@ table 50332 "Planning Queue"
             Clustered = true;
         }
     }
-  
+
 
     trigger OnInsert()
     begin
-       
+
     end;
 
     trigger OnModify()

@@ -58,7 +58,7 @@ table 50342 "NavApp Planning Lines"
         field(11; "Learning Curve No."; Integer)
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Learning Curve"."No.";
+            TableRelation = "Learning Curve"."No." where(Active = filter(1));
         }
 
         field(12; SMV; Decimal)
