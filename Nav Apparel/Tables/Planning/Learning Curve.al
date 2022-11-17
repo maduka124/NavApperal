@@ -62,6 +62,11 @@ table 50333 "Learning Curve"
             OptionMembers = "Efficiency Wise","Hourly";
             OptionCaption = 'Efficiency Wise,Hourly';
         }
+
+        field(12; "Active"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -74,7 +79,7 @@ table 50333 "Learning Curve"
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", Type, Day1, Day2, Day3, Day4, Day5, Day6, Day7)
+        fieldgroup(DropDown; "No.", Type, Day1, Day2, Day3, Day4, Day5, Day6, Day7, Active)
         {
 
         }

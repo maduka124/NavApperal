@@ -65,6 +65,11 @@ page 50334 "Learning Curve"
                     ApplicationArea = All;
                     Caption = 'Day 7';
                 }
+
+                field(Active; Active)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

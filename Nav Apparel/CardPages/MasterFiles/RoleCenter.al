@@ -810,7 +810,7 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'General Issuing';
                     RunObject = Page "Item Journal";
-                    RunPageView = where("Journal Template Name" = const('GEN-ISUUE'));
+                    RunPageView = where("Journal Template Name" = const('GEN-ISSUE'));
                     ApplicationArea = all;
                 }
 

@@ -47,12 +47,9 @@ page 50371 "Prod Update Card"
         ProdDate := WorkDate() - 1;
     end;
 
-    var
-        ProdDate: Date;
 
     procedure Reschedule()
     var
-        NavAppSetupRec: Record "NavApp Setup";
         WorkCenCapacityEntryRec: Record "Calendar Entry";
         WorkCenterRec: Record "Work Center";
         LearningCurveRec: Record "Learning Curve";
@@ -61,6 +58,7 @@ page 50371 "Prod Update Card"
         JobPlaLineRec: Record "NavApp Planning Lines";
         ProdOutHeaderRec: Record ProductionOutHeader;
         StyleMasterPORec: Record "Style Master PO";
+        LocationRec: Record Location;
 
         dtStart: Date;
         dtEnd: Date;
@@ -95,8 +93,9 @@ page 50371 "Prod Update Card"
     begin
 
         //Get Start and Finish Time
-        NavAppSetupRec.Reset();
-        NavAppSetupRec.FindSet();
+        LocationRec.Reset();
+        LocationRec.SetRange(code, FactoryNo);
+        LocationRec.FindSet();
 
         //Get all work center line details
         WorkCenterRec.Reset();
@@ -122,7 +121,7 @@ page 50371 "Prod Update Card"
                 WorkCenterName := WorkCenterRec.Name;
                 WorkCenterNo := WorkCenterRec."No.";
                 dtStart := ProdDate + 1;
-                TImeStart := NavAppSetupRec."Start Time";
+                TImeStart := LocationRec."Start Time";
                 HoursPerDay := 0;
                 TempQty := 0;
                 TempQty1 := 0;
@@ -258,7 +257,7 @@ page 50371 "Prod Update Card"
 
                             if (i = 1) and (HoursPerDay > 0) then begin
                                 //Calculate hours for the first day (substracti hours if delay start)
-                                HoursPerDay := HoursPerDay - (TImeStart - NavAppSetupRec."Start Time") / 3600000;
+                                HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                             end;
 
                             if JobPlaLineRec."Learning Curve No." <> 0 then begin
@@ -356,12 +355,12 @@ page 50371 "Prod Update Card"
                             if i = 1 then
                                 ProdPlansDetails."Start Time" := TImeStart
                             else
-                                ProdPlansDetails."Start Time" := NavAppSetupRec."Start Time";
+                                ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                             if TempHours = 0 then
-                                ProdPlansDetails."Finish Time" := NavAppSetupRec."Finish Time"
+                                ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
                             else
-                                ProdPlansDetails."Finish Time" := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                             ProdPlansDetails.Qty := xQty;
                             ProdPlansDetails.Target := TargetPerDay;
@@ -388,12 +387,12 @@ page 50371 "Prod Update Card"
                         JobPlaLineRec."Start Time" := TImeStart;
 
                         if TempHours = 0 then
-                            JobPlaLineRec."Finish Time" := NavAppSetupRec."Finish Time"
+                            JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
                         else
-                            JobPlaLineRec."Finish Time" := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                         JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                        JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                        JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
                         JobPlaLineRec.ProdUpdDays := JobPlaLineRec.ProdUpdDays + 1;
                         JobPlaLineRec.Qty := JobPlaLineRec.Qty - OutputQty;
                         JobPlaLineRec.Modify();
@@ -423,7 +422,7 @@ page 50371 "Prod Update Card"
                         //Check whether new allocation conflicts other allocation                     
                         JobPlaLineRec.Reset();
                         JobPlaLineRec.SetRange("Resource No.", WorkCenterNo);
-                        JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(dtStart, TImeStart), CreateDateTime(TempDate, NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours));
+                        JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(dtStart, TImeStart), CreateDateTime(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours));
                         JobPlaLineRec.SetCurrentKey(StartDateTime);
                         JobPlaLineRec.SetAscending(StartDateTime, false);
                         JobPlaLineRec.SetFilter("Line No.", '<>%1', LineNo);
@@ -435,7 +434,7 @@ page 50371 "Prod Update Card"
                             i := 0;
                             TempQty := 0;
                             dtStart := TempDate;
-                            TImeStart := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            TImeStart := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                             LineNo := JobPlaLineRec."Line No.";
                             Qty := JobPlaLineRec.Qty;
 
@@ -445,8 +444,8 @@ page 50371 "Prod Update Card"
 
                                 HoursPerDay := 0;
                                 //if start time greater than parameter Finish time, set start time next day morning
-                                if ((TImeStart - NavAppSetupRec."Finish Time") >= 0) then begin
-                                    TImeStart := NavAppSetupRec."Start Time";
+                                if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
+                                    TImeStart := LocationRec."Start Time";
                                     dtStart := dtStart + 1;
                                 end;
 
@@ -531,7 +530,7 @@ page 50371 "Prod Update Card"
 
                                     if (i = 1) and (HoursPerDay > 0) then begin
                                         //Calculate hours for the first day (substracti hours if delay start)
-                                        HoursPerDay := HoursPerDay - (TImeStart - NavAppSetupRec."Start Time") / 3600000;
+                                        HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                     end;
 
                                     if JobPlaLineRec."Learning Curve No." <> 0 then begin
@@ -628,12 +627,12 @@ page 50371 "Prod Update Card"
                                     if i = 1 then
                                         ProdPlansDetails."Start Time" := TImeStart
                                     else
-                                        ProdPlansDetails."Start Time" := NavAppSetupRec."Start Time";
+                                        ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                                     if TempHours = 0 then
-                                        ProdPlansDetails."Finish Time" := NavAppSetupRec."Finish Time"
+                                        ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
                                     else
-                                        ProdPlansDetails."Finish Time" := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                        ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                     ProdPlansDetails.Qty := xQty;
                                     ProdPlansDetails.Target := TargetPerDay;
                                     ProdPlansDetails.HoursPerDay := HoursPerDay;
@@ -662,18 +661,18 @@ page 50371 "Prod Update Card"
                                 JobPlaLineRec."End Date" := TempDate;
                                 JobPlaLineRec."Start Time" := TImeStart;
                                 if TempHours = 0 then
-                                    JobPlaLineRec."Finish Time" := NavAppSetupRec."Finish Time"
+                                    JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
                                 else
-                                    JobPlaLineRec."Finish Time" := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                 JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                                JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                                JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
                                 JobPlaLineRec.Modify();
 
 
                                 //Check whether new allocation conflicts other allocation                     
                                 JobPlaLineRec.Reset();
                                 JobPlaLineRec.SetRange("Resource No.", WorkCenterNo);
-                                JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(dtStart, TImeStart), CreateDateTime(TempDate, NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours));
+                                JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(dtStart, TImeStart), CreateDateTime(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours));
                                 JobPlaLineRec.SetCurrentKey(StartDateTime);
                                 JobPlaLineRec.SetAscending(StartDateTime, false);
                                 JobPlaLineRec.SetFilter("Line No.", '<>%1', LineNo);
@@ -681,7 +680,7 @@ page 50371 "Prod Update Card"
                                 if JobPlaLineRec.FindSet() then begin
                                     Found := true;
                                     dtStart := TempDate;
-                                    TImeStart := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    TImeStart := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                     LineNo := JobPlaLineRec."Line No.";
                                     Qty := JobPlaLineRec.Qty;
                                 end
@@ -709,4 +708,15 @@ page 50371 "Prod Update Card"
             Error('Cannot find work center details.');
     end;
 
+
+    procedure PassParameters(FactoryNoPara: Code[20]);
+    var
+    begin
+        FactoryNo := FactoryNoPara;
+    end;
+
+
+    var
+        ProdDate: Date;
+        FactoryNo: code[20];
 }

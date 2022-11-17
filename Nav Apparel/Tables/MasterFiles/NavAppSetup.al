@@ -45,15 +45,15 @@ table 71012749 "NavApp Setup"
             TableRelation = "No. Series";
         }
 
-        field(71012588; "Start Time"; Time)
-        {
-            DataClassification = ToBeClassified;
-        }
+        // field(71012588; "Start Time"; Time)
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
 
-        field(71012589; "Finish Time"; Time)
-        {
-            DataClassification = ToBeClassified;
-        }
+        // field(71012589; "Finish Time"; Time)
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
 
         field(71012590; "Worksheet Template Name"; Code[20])
         {
@@ -591,6 +591,13 @@ table 71012749 "NavApp Setup"
         {
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
+        }
+
+        field(71012684; "Learning Curve Type"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = Hourly,"Efficiency Wise";
+            OptionCaption = 'Hourly,Efficiency Wise';
         }
     }
 

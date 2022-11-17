@@ -2,10 +2,10 @@ pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
 {
     layout
     {
-        modify(Control1)
-        {
-            Editable = EditableGB;
-        }
+        // modify(Control1)
+        // {
+        //     Editable = EditableGB;
+        // }
 
         modify("Location Code")
         {
@@ -18,6 +18,7 @@ pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
             {
                 ApplicationArea = all;
                 Caption = 'Buyer';
+                Editable = EditableGB;
 
                 trigger OnValidate()
                 var
@@ -34,6 +35,7 @@ pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
             {
                 ApplicationArea = all;
                 Caption = 'Style';
+                Editable = EditableGB;
             }
         }
     }
