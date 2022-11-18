@@ -109,7 +109,7 @@ report 50647 MaterialRequition
                 begin
                     ProductionLineRec.Reset();
                     ProductionLineRec.SetRange("Prod. Order No.", "Document No.");
-                    ProductionLineRec.SetRange("Line No.", "Line No.");
+                    ProductionLineRec.SetRange("Line No.", "Order Line No.");
                     if ProductionLineRec.FindFirst() then begin
                         ItemCode := ProductionLineRec."Item No.";
                     end;
@@ -203,6 +203,12 @@ report 50647 MaterialRequition
     var
     begin
         JournalNo := Journal;
+    end;
+
+    procedure Set_Batch(JournalBatch: Code[10])
+    var
+    begin
+        JournalBatchFilter := JournalBatch;
     end;
 
 
