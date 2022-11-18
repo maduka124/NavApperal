@@ -17,6 +17,17 @@ tableextension 71012615 "Location Extension" extends Location
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012584; "Start Time"; Time)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012585; "Finish Time"; Time)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     trigger OnBeforeDelete()

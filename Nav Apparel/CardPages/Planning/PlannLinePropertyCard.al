@@ -140,11 +140,11 @@ page 50343 "Planning Line Property Card"
                     JobPlaLineRec: Record "NavApp Planning Lines";
                     JobPlaLineModRec: Record "NavApp Planning Lines";
                     ResCapacityEntryRec: Record "Calendar Entry";
-                    NavAppSetupRec: Record "NavApp Setup";
                     LearningCurveRec: Record "Learning Curve";
                     SHCalHolidayRec: Record "Shop Calendar Holiday";
                     SHCalWorkRec: Record "Shop Calendar Working Days";
                     ProdPlansDetails: Record "NavApp Prod Plans Details";
+                    LocationRec: Record Location;
                     MaxLineNo: BigInteger;
                     dtStart: Date;
                     dtEnd: Date;
@@ -169,8 +169,11 @@ page 50343 "Planning Line Property Card"
                     LcurveTemp: Decimal;
                 begin
 
-                    NavAppSetupRec.Reset();
-                    NavAppSetupRec.FindSet();
+                    //Get Start and Finish Time
+                    LocationRec.Reset();
+                    LocationRec.SetRange(code, Factory);
+                    LocationRec.FindSet();
+
                     HrsPerDay := 0;
                     dtStart := "Start Date";
                     TImeStart := "Start Time";
@@ -340,9 +343,9 @@ page 50343 "Planning Line Property Card"
                                     if LearningCurveRec.Type = LearningCurveRec.Type::Hourly then begin
                                         LcurveTemp := LearningCurveRec.Day1;
                                         repeat
-                                            if ((NavAppSetupRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                                LcurveTemp -= (NavAppSetupRec."Finish Time" - LCurveStartTime) / 3600000;
-                                                LCurveStartTime := NavAppSetupRec."Start Time";
+                                            if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                                LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                                LCurveStartTime := LocationRec."Start Time";
                                                 LCurveFinishDate += 1;
 
                                                 //Get working hours for the start date. If start date is a holiday, shift start date to next date.
@@ -474,7 +477,7 @@ page 50343 "Planning Line Property Card"
 
                                 if (i = 1) then begin
                                     //Calculate hours for the first day (substracti hours if delay start)
-                                    HrsPerDay := HrsPerDay - (TImeStart - NavAppSetupRec."Start Time") / 3600000;
+                                    HrsPerDay := HrsPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                 end;
 
 
@@ -599,12 +602,12 @@ page 50343 "Planning Line Property Card"
                                 if i = 1 then
                                     ProdPlansDetails."Start Time" := TImeStart
                                 else
-                                    ProdPlansDetails."Start Time" := NavAppSetupRec."Start Time";
+                                    ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
                                 if TempHours = 0 then
-                                    ProdPlansDetails."Finish Time" := NavAppSetupRec."Finish Time"
+                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
                                 else
-                                    ProdPlansDetails."Finish Time" := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                 ProdPlansDetails.Qty := TempQty;
                                 ProdPlansDetails.Target := TargetPerDay;
                                 ProdPlansDetails.HoursPerDay := HrsPerDay;
@@ -635,10 +638,10 @@ page 50343 "Planning Line Property Card"
                                 JobPlaLineRec."Start Date" := dtStart;
                                 JobPlaLineRec."End Date" := TempDate;
                                 JobPlaLineRec."Start Time" := TImeStart;
-                                JobPlaLineRec."Finish Time" := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                 JobPlaLineRec."Created User" := UserId;
                                 //JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                                JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                                JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
                                 JobPlaLineRec.Modify();
 
                             end
@@ -649,17 +652,17 @@ page 50343 "Planning Line Property Card"
                                 JobPlaLineRec."Start Date" := dtStart;
                                 JobPlaLineRec."End Date" := TempDate;
                                 JobPlaLineRec."Start Time" := TImeStart;
-                                JobPlaLineRec."Finish Time" := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                 JobPlaLineRec."Created User" := UserId;
                                 //JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                                JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                                JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
                                 JobPlaLineRec.Modify();
 
                             end;
 
 
                             dtStart := TempDate;
-                            TImeStart := NavAppSetupRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            TImeStart := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                         until JobPlaLineRec.Next() = 0;
 

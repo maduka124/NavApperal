@@ -28,6 +28,16 @@ pageextension 71012738 LocationCardExt extends "Location Card"
             {
                 ApplicationArea = All;
             }
+
+            field("Start Time"; "Start Time")
+            {
+                ApplicationArea = ALL;
+            }
+
+            field("Finish Time"; "Finish Time")
+            {
+                ApplicationArea = ALL;
+            }
         }
     }
 }

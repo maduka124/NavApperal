@@ -96,17 +96,17 @@ page 71012751 "NavApp Setup Card"
                     Caption = 'Bulk FG-Inv. Posting Group';
                 }
 
-                field("Start Time"; "Start Time")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Planning Start Time';
-                }
+                // field("Start Time"; "Start Time")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Planning Start Time';
+                // }
 
-                field("Finish Time"; "Finish Time")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Planning Finish Time';
-                }
+                // field("Finish Time"; "Finish Time")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Planning Finish Time';
+                // }
 
                 field("Worksheet Template Name"; "Worksheet Template Name")
                 {
@@ -596,6 +596,11 @@ page 71012751 "NavApp Setup Card"
                 }
 
                 field("Poly bag Nos."; "Poly bag Nos.")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Learning Curve Type"; "Learning Curve Type")
                 {
                     ApplicationArea = All;
                 }

@@ -13,6 +13,16 @@ pageextension 71012728 LocationListExt extends "Location List"
             {
                 ApplicationArea = ALL;
             }
+
+            field("Start Time"; "Start Time")
+            {
+                ApplicationArea = ALL;
+            }
+
+            field("Finish Time"; "Finish Time")
+            {
+                ApplicationArea = ALL;
+            }
         }
     }
 }

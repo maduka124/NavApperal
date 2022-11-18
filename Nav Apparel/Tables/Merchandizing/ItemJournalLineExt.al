@@ -76,17 +76,17 @@ tableextension 71012762 "ItemJournalLineExt" extends "Item Journal Line"
 
         }
 
-        field(71012596; "Department"; code[50])
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = Department."Department Name";
-            ValidateTableRelation = false;
-        }
+        // field(71012596; "Department"; code[50])
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = Department."Department Name";
+        //     ValidateTableRelation = false;
+        // }
 
-        field(71012597; "Department No"; code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
+        // field(71012597; "Department No"; code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
 
     }
 

@@ -3,35 +3,35 @@ pageextension 71012852 PurchaseOrderCardExt extends "Purchase Order"
 
     layout
     {
-        modify(General)
-        {
-            Editable = EditableGB;
-        }
-
-        modify("Invoice Details")
-        {
-            Editable = EditableGB;
-        }
-
-        modify("Shipping and Payment")
-        {
-            Editable = EditableGB;
-        }
-
-        modify("Foreign Trade")
-        {
-            Editable = EditableGB;
-        }
-
-        modify(Prepayment)
-        {
-            Editable = EditableGB;
-        }
-
-        // modify("PurchLines")
+        // modify(General)
         // {
         //     Editable = EditableGB;
         // }
+
+        // modify("Invoice Details")
+        // {
+        //     Editable = EditableGB;
+        // }
+
+        // modify("Shipping and Payment")
+        // {
+        //     Editable = EditableGB;
+        // }
+
+        // modify("Foreign Trade")
+        // {
+        //     Editable = EditableGB;
+        // }
+
+        // modify(Prepayment)
+        // {
+        //     Editable = EditableGB;
+        // }
+
+        // // modify("PurchLines")
+        // // {
+        // //     Editable = EditableGB;
+        // // }
     }
 
     actions

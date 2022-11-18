@@ -129,14 +129,15 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         ldnCalendarEntry: JsonObject;
         WorkCenterRec: Record "Work Center";
         lrecDate: Record 2000000007;
-        NavAppSetupRec: Record "NavApp Setup";
+        LocationRec: Record Location;
         tempEntities: JsonArray;
         ResCapacityEntryRec: Record "Calendar Entry";
     begin
 
         //Get Start and Finish Time
-        NavAppSetupRec.Reset();
-        NavAppSetupRec.FindSet();
+        LocationRec.Reset();
+        LocationRec.SetRange(code, FactoryNo);
+        LocationRec.FindSet();
 
         //Create Calendars by Resource Capacity 
         WorkCenterRec.SETCURRENTKEY(WorkCenterRec.Name);
@@ -157,8 +158,8 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
 
                         WorkCenterRec.SETRANGE("Date Filter", lrecDate."Period Start", lrecDate."Period Start");
                         ldnCalendarEntry := createJsonObject();
-                        ldnCalendarEntry.Add('Start', CREATEDATETIME(lrecDate."Period Start", NavAppSetupRec."Start Time"));
-                        ldnCalendarEntry.Add('End', CREATEDATETIME(lrecDate."Period Start", NavAppSetupRec."Finish Time"));
+                        ldnCalendarEntry.Add('Start', CREATEDATETIME(lrecDate."Period Start", LocationRec."Start Time"));
+                        ldnCalendarEntry.Add('End', CREATEDATETIME(lrecDate."Period Start", LocationRec."Finish Time"));
 
                         ResCapacityEntryRec.Reset();
                         ResCapacityEntryRec.SETRANGE("No.", WorkCenterRec."No.");
