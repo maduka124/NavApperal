@@ -120,7 +120,8 @@ table 50833 PreProductionFollowUpline
         field(27; "Create User"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = User."User Security ID";
+            TableRelation = User."User Name";
+            ValidateTableRelation = false;
         }
 
         field(28; "Production File Received Date"; Date)
