@@ -33,7 +33,11 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
                     // RPORec.FindSet();
                     // ManuPrintReport.PrintProductionOrder(RPORec, 1);
                     MaterialReport.Set_Value("Document No.");
+                    MaterialReport.Set_Batch("Journal Batch Name");
                     MaterialReport.Run();
+                    
+                 
+
 
                 end;
             }

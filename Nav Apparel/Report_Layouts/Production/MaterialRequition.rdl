@@ -345,6 +345,12 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
                                   <Value>=Fields!Style_Name.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
