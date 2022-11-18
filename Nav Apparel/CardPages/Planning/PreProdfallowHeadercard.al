@@ -11,8 +11,9 @@ page 50835 PreProductionfollowup
         {
             group(General)
             {
-                field(Factory; Factory)
+                field("Factory Code"; "Factory Code")
                 {
+                    Caption = 'Factory';
                     ApplicationArea = All;
                     TableRelation = Location.Code where("Sewing Unit" = filter(1));
 
@@ -22,7 +23,7 @@ page 50835 PreProductionfollowup
                     begin
 
                         locationRec.Reset();
-                        locationRec.SetRange(Code, Factory);
+                        locationRec.SetRange(Code, "Factory Code");
 
                         if locationRec.FindSet() then
                             "Factory Name" := locationRec.Name;
@@ -34,6 +35,7 @@ page 50835 PreProductionfollowup
             {
                 ApplicationArea = All;
                 Caption = '  ';
+                // SubPageLink=Factory=field()
 
             }
         }
@@ -49,50 +51,72 @@ page 50835 PreProductionfollowup
 
                 trigger OnAction()
                 var
-                    NavPlaningLine: Record "NavApp Planning Lines";
+                    NavPlaningLineRec: Record "NavApp Planning Lines";
+                    NavPlaningLine2Rec: Record "NavApp Planning Lines";
                     PreProductionFallowline: Record PreProductionFollowUpline;
                     StyleMasterRec: Record "Style Master";
+                    //StyleMaster1Rec: Record "Style Master";
                     "Min Date": Date;
                     "Max Date": Date;
+                    MaxNo: BigInteger;
+
+
                 begin
 
-                    NavPlaningLine.Reset();
-                    NavPlaningLine.SetRange(Factory, Factory);
-                    NavPlaningLine.SetCurrentKey("Style No.");
-                    NavPlaningLine.Ascending(true);
-
-                    if NavPlaningLine.FindSet() then begin
+                    NavPlaningLineRec.Reset();
+                    NavPlaningLineRec.SetRange(Factory, "Factory Code");
+                    NavPlaningLineRec.SetCurrentKey("Style No.");
+                    NavPlaningLineRec.Ascending(true);
+                    MaxNo := 0;
+                    if NavPlaningLineRec.FindSet() then begin
 
                         repeat
 
                             PreProductionFallowline.Reset();
-                            PreProductionFallowline.SetRange("Style No", NavPlaningLine."Style No.");
+                            PreProductionFallowline.SetRange("Factory Code", "Factory Code");
+                            PreProductionFallowline.SetRange("Style No", NavPlaningLineRec."Style No.");
 
                             if not PreProductionFallowline.FindSet() then begin
 
                                 StyleMasterRec.Reset();
-                                StyleMasterRec.SetRange("No.", NavPlaningLine."Style No.");
+                                StyleMasterRec.SetRange("No.", NavPlaningLineRec."Style No.");
 
                                 if StyleMasterRec.FindSet() then begin
-                                    NavPlaningLine.SetCurrentKey("Start Date");
-                                    NavPlaningLine.Ascending(true);
 
-                                    if NavPlaningLine.FindFirst() then
-                                        "Min Date" := NavPlaningLine."Start Date";
+                                    NavPlaningLine2Rec.Reset();
+                                    NavPlaningLine2Rec.SetRange(Factory, "Factory Code");
+                                    NavPlaningLine2Rec.SetRange("Style No.", StyleMasterRec."No.");
+                                    NavPlaningLine2Rec.SetCurrentKey("Start Date");
+                                    NavPlaningLine2Rec.Ascending(true);
 
-                                    NavPlaningLine.SetCurrentKey("End Date");
-                                    NavPlaningLine.Ascending(true);
+                                    if NavPlaningLine2Rec.FindFirst() then
+                                        "Min Date" := NavPlaningLine2Rec."Start Date";
 
-                                    if NavPlaningLine.FindLast() then
-                                        "Max Date" := NavPlaningLine."End Date";
+
+                                    NavPlaningLine2Rec.Reset();
+                                    NavPlaningLine2Rec.SetRange(Factory, "Factory Code");
+                                    NavPlaningLine2Rec.SetRange("Style No.", StyleMasterRec."No.");
+                                    NavPlaningLine2Rec.SetCurrentKey("End Date");
+                                    NavPlaningLine2Rec.Ascending(false);
+
+                                    if NavPlaningLine2Rec.FindFirst() then
+                                        "Max Date" := NavPlaningLine2Rec."End Date";
+
+                                    if PreProductionFallowline.FindLast() then begin
+
+                                        MaxNo := PreProductionFallowline."Line No";
+                                    end;
+
+                                    MaxNo += 1;
 
                                     PreProductionFallowline.Init();
-                                    PreProductionFallowline.Factory := NavPlaningLine.Factory;
-                                    PreProductionFallowline."Factory Code" := Factory;
+                                    PreProductionFallowline."Line No" := MaxNo;
+                                    PreProductionFallowline.Factory := "Factory Name";
+                                    PreProductionFallowline."Factory Code" := "Factory Code";
                                     PreProductionFallowline.Buyer := StyleMasterRec."Buyer Name";
                                     PreProductionFallowline."Buyer No" := StyleMasterRec."Buyer No.";
-                                    PreProductionFallowline.Style := NavPlaningLine."Style Name";
-                                    PreProductionFallowline."Style No" := NavPlaningLine."Style No.";
+                                    PreProductionFallowline.Style := StyleMasterRec."Style No.";
+                                    PreProductionFallowline."Style No" := StyleMasterRec."No.";
                                     PreProductionFallowline."Order Qty" := StyleMasterRec."Order Qty";
                                     PreProductionFallowline."Ship Date" := StyleMasterRec."Ship Date";
                                     PreProductionFallowline."Start Date" := "Min Date";
@@ -101,16 +125,15 @@ page 50835 PreProductionfollowup
 
                                 end;
                             end;
-
-                        until NavPlaningLine.Next() = 0;
-                    end;
+                        until NavPlaningLineRec.Next() = 0;
+                    end
                 end;
             }
         }
     }
 
     var
-        Factory: Text[20];
+        "Factory Code": Text[20];
         "Factory Name": Code[20];
 
 }
