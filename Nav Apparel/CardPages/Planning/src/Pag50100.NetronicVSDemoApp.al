@@ -360,6 +360,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     LCurveStartTime: Time;
                     LCurveFinishTime: Time;
                     LcurveTemp: Decimal;
+                    Holiday: code[10];
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -690,6 +691,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             //Get working hours for the day
                             HoursPerDay := 0;
+                            Holiday := 'No';
                             Rate := 0;
                             ResCapacityEntryRec.Reset();
                             ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
@@ -732,8 +734,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
                                     SHCalWorkRec.SetFilter(Day, '=%1', Day);
                                     if SHCalWorkRec.FindSet() then   //If not weekend
-                                        Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, ResourceRec.Name);
-                                end;
+                                        Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, ResourceRec.Name)
+                                    else
+                                        Holiday := 'Yes';
+                                end
+                                else
+                                    Holiday := 'Yes';
                             end;
 
 
@@ -803,10 +809,22 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             HoursPerDay := 0
                                         else begin
                                             if LCurveFinishDate = TempDate then begin
-                                                if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
-                                                    HoursPerDay := HoursPerDay - (TImeStart - LCurveFinishTime) / 3600000
-                                                else
-                                                    HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+
+                                                if i = 1 then begin
+
+                                                    if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
+                                                        HoursPerDay := HoursPerDay - (TImeStart - LCurveFinishTime) / 3600000
+                                                    else
+                                                        HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                end
+                                                else begin
+
+                                                    if ((LCurveFinishTime - LocationRec."Start Time") / 3600000) < 0 then
+                                                        HoursPerDay := HoursPerDay - (LocationRec."Start Time" - LCurveFinishTime) / 3600000
+                                                    else
+                                                        HoursPerDay := HoursPerDay - (LCurveFinishTime - LocationRec."Start Time") / 3600000;
+                                                end;
+
                                             end;
                                         end;
 
@@ -860,7 +878,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             MaxLineNo += 1;
 
-
                             //insert to ProdPlansDetails
                             ProdPlansDetails.Init();
                             ProdPlansDetails."No." := MaxLineNo;
@@ -876,20 +893,27 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             ProdPlansDetails."Learning Curve No." := PlanningQueueeRec."Learning Curve No.";
                             ProdPlansDetails.SMV := SMV;
 
-                            if i = 1 then
-                                ProdPlansDetails."Start Time" := TImeStart
-                            else
-                                ProdPlansDetails."Start Time" := LocationRec."Start Time";
+                            if Holiday = 'NO' then begin
+                                if i = 1 then
+                                    ProdPlansDetails."Start Time" := TImeStart
+                                else
+                                    ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
-                            if TempHours = 0 then
-                                ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                            else
-                                ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                if TempHours = 0 then
+                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                else
+                                    ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            end;
 
                             ProdPlansDetails.Qty := xQty;
                             // ProdPlansDetails.Target := TargetPerDay;
                             ProdPlansDetails.Target := TargetPerDay;
-                            ProdPlansDetails.HoursPerDay := HoursPerDay;
+
+                            if Holiday = 'NO' then
+                                ProdPlansDetails.HoursPerDay := HoursPerDay
+                            else
+                                ProdPlansDetails.HoursPerDay := 0;
+
                             ProdPlansDetails.ProdUpd := 0;
                             ProdPlansDetails.ProdUpdQty := 0;
                             ProdPlansDetails."Created User" := UserId;
@@ -969,6 +993,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             TempQty := 0;
                             dtStart := TempDate;
                             TImeStart := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            TempHours := 0;
                             LineNo := JobPlaLineRec."Line No.";
                             STYNo := JobPlaLineRec."Style No.";
                             STYNAME := JobPlaLineRec."Style Name";
@@ -976,6 +1001,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             LOTNo := JobPlaLineRec."Lot No.";
                             PONo := JobPlaLineRec."PO No.";
                             Qty := JobPlaLineRec.Qty;
+
+                            ResourceRec.Reset();
+                            ResourceRec.SetRange("No.", ResourceNo);
+                            ResourceRec.FindSet();
 
 
                             //repeat for all the items, until no items 
@@ -1101,6 +1130,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                     //Get working hours for the day
                                     HoursPerDay := 0;
+                                    Holiday := 'No';
                                     Rate := 0;
                                     ResCapacityEntryRec.Reset();
                                     ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
@@ -1110,6 +1140,46 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         repeat
                                             HoursPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
                                         until ResCapacityEntryRec.Next() = 0;
+                                    end;
+
+
+                                    if HoursPerDay = 0 then begin
+
+                                        //Validate the day (Holiday or Weekend)
+                                        SHCalHolidayRec.Reset();
+                                        SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                        SHCalHolidayRec.SETRANGE(Date, TempDate);
+
+                                        if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                            DayForWeek.Get(DayForWeek."Period Type"::Date, TempDate);
+
+                                            case DayForWeek."Period No." of
+                                                1:
+                                                    Day := 0;
+                                                2:
+                                                    Day := 1;
+                                                3:
+                                                    Day := 2;
+                                                4:
+                                                    Day := 3;
+                                                5:
+                                                    Day := 4;
+                                                6:
+                                                    Day := 5;
+                                                7:
+                                                    Day := 6;
+                                            end;
+
+                                            SHCalWorkRec.Reset();
+                                            SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                            SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                            if SHCalWorkRec.FindSet() then   //If not weekend
+                                                Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, ResourceRec.Name)
+                                            else
+                                                Holiday := 'Yes';
+                                        end
+                                        else
+                                            Holiday := 'Yes';
                                     end;
 
 
@@ -1176,10 +1246,22 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     HoursPerDay := 0
                                                 else begin
                                                     if LCurveFinishDate = TempDate then begin
-                                                        if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
-                                                            HoursPerDay := HoursPerDay - (TImeStart - LCurveFinishTime) / 3600000
-                                                        else
-                                                            HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+
+                                                        if i = 1 then begin
+
+                                                            if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
+                                                                HoursPerDay := HoursPerDay - (TImeStart - LCurveFinishTime) / 3600000
+                                                            else
+                                                                HoursPerDay := HoursPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                        end
+                                                        else begin
+
+                                                            if ((LCurveFinishTime - LocationRec."Start Time") / 3600000) < 0 then
+                                                                HoursPerDay := HoursPerDay - (LocationRec."Start Time" - LCurveFinishTime) / 3600000
+                                                            else
+                                                                HoursPerDay := HoursPerDay - (LCurveFinishTime - LocationRec."Start Time") / 3600000;
+                                                        end;
+
                                                     end;
                                                 end;
 
@@ -1250,20 +1332,32 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     ProdPlansDetails."Resource No." := ResourceNo;
                                     ProdPlansDetails.Carder := Carder;
                                     ProdPlansDetails.Eff := Eff;
-
                                     ProdPlansDetails.SMV := SMV;
-                                    if i = 1 then
-                                        ProdPlansDetails."Start Time" := TImeStart
-                                    else
-                                        ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
-                                    if TempHours = 0 then
-                                        ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                                    else
-                                        ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    if Holiday = 'NO' then begin
+                                        if i = 1 then
+                                            ProdPlansDetails."Start Time" := TImeStart
+                                        else
+                                            ProdPlansDetails."Start Time" := LocationRec."Start Time";
+
+                                        if TempHours = 0 then
+                                            ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                        else begin
+                                            if i = 1 then
+                                                ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                            else
+                                                ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                        end;
+                                    end;
+
                                     ProdPlansDetails.Qty := xQty;
                                     ProdPlansDetails.Target := TargetPerDay;
-                                    ProdPlansDetails.HoursPerDay := HoursPerDay;
+
+                                    if Holiday = 'NO' then
+                                        ProdPlansDetails.HoursPerDay := HoursPerDay
+                                    else
+                                        ProdPlansDetails.HoursPerDay := 0;
+
                                     ProdPlansDetails.ProdUpd := 0;
                                     ProdPlansDetails.ProdUpdQty := 0;
                                     ProdPlansDetails."Created User" := UserId;
