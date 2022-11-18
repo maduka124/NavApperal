@@ -187,7 +187,8 @@ report 50647 MaterialRequition
                     {
                         ApplicationArea = All;
                         Caption = 'Batch';
-                        TableRelation = "Item Journal Line"."Journal Batch Name";
+                        // TableRelation = "Item Journal Line"."Journal Batch Name";
+                        Visible = false;
 
                     }
 
