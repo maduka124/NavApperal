@@ -300,7 +300,7 @@ page 50371 "Prod Update Card"
                                     TempHours := TempQty1 / TargetPerHour;
                                     xQty := TempQty1;
 
-                                    if (TempHours IN [0.1 .. 0.99]) then
+                                    if (TempHours IN [0.0001 .. 0.99]) then
                                         TempHours := 1;
 
                                     TempHours := round(TempHours, 1);
@@ -319,7 +319,7 @@ page 50371 "Prod Update Card"
                                     TempHours := TempQty1 / TargetPerHour;
                                     xQty := TempQty1;
 
-                                    if (TempHours IN [0.1 .. 0.99]) then
+                                    if (TempHours IN [0.0001 .. 0.99]) then
                                         TempHours := 1;
 
                                     TempHours := round(TempHours, 1);
@@ -573,7 +573,7 @@ page 50371 "Prod Update Card"
                                             TempHours := TempQty1 / TargetPerHour;
                                             xQty := TempQty1;
 
-                                            if (TempHours IN [0.1 .. 0.99]) then
+                                            if (TempHours IN [0.0001 .. 0.99]) then
                                                 TempHours := 1;
 
                                             TempHours := round(TempHours, 1);
@@ -592,7 +592,7 @@ page 50371 "Prod Update Card"
                                             TempHours := TempQty1 / TargetPerHour;
                                             xQty := TempQty1;
 
-                                            if (TempHours IN [0.1 .. 0.99]) then
+                                            if (TempHours IN [0.0001 .. 0.99]) then
                                                 TempHours := 1;
 
                                             TempHours := round(TempHours, 1);

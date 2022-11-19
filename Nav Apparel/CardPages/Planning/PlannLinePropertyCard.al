@@ -167,6 +167,11 @@ page 50343 "Planning Line Property Card"
                     LCurveStartTime: Time;
                     LCurveFinishTime: Time;
                     LcurveTemp: Decimal;
+                    Holiday: code[10];
+                    xQty: Decimal;
+                    StyleDesc: text[200];
+                    Counter: Integer;
+                    ApplyLearningCurve: Integer;
                 begin
 
                     //Get Start and Finish Time
@@ -238,7 +243,7 @@ page 50343 "Planning Line Property Card"
                     until HrsPerDay > 0;
 
 
-                    //Get all allocations after the current date                                   
+                    //Get all allocations after the start date                                   
                     JobPlaLineRec.Reset();
                     JobPlaLineRec.SetRange("Resource No.", "Resource No.");
                     JobPlaLineRec.SetFilter("StartDateTime", '>=%1', CreateDateTime(dtStart, TImeStart));
@@ -249,11 +254,14 @@ page 50343 "Planning Line Property Card"
 
                         dtStart := JobPlaLineRec."Start Date";
                         TImeStart := JobPlaLineRec."Start Time";
+                        StyleDesc := JobPlaLineRec."Style Name";
 
                         repeat
 
                             HrsPerDay := 0;
                             TempQty := 0;
+                            TempHours := 0;
+                            Counter += 1;
 
                             //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                             repeat
@@ -308,7 +316,6 @@ page 50343 "Planning Line Property Card"
 
                             until HrsPerDay > 0;
 
-
                             if JobPlaLineRec."Style No." = "Style No." then
                                 TargetPerDay := round(((60 / SMV) * Carder * HrsPerDay * Eff) / 100, 1)
                             else
@@ -330,87 +337,104 @@ page 50343 "Planning Line Property Card"
                             ProdPlansDetails.SetFilter(ProdUpd, '=%1', 0);
                             ProdPlansDetails.DeleteAll();
 
-                            //Check learning curve                        
-                            LCurveFinishDate := dtStart;
-                            LCurveFinishTime := TImeStart;
-                            LCurveStartTime := TImeStart;
 
-                            if "Learning Curve No." <> 0 then begin
-                                LearningCurveRec.Reset();
-                                LearningCurveRec.SetRange("No.", "Learning Curve No.");
+                            //Validate learning curve
+                            if (JobPlaLineRec."Style Name" = StyleDesc) and (Counter = 1) then
+                                ApplyLearningCurve := 1
+                            else begin
+                                if (JobPlaLineRec."Style Name" = StyleDesc) and (Counter > 1) then
+                                    ApplyLearningCurve := 0
+                                else
+                                    if (JobPlaLineRec."Style Name" <> StyleDesc) and (Counter > 1) then
+                                        ApplyLearningCurve := 1;
+                            end;
 
-                                if LearningCurveRec.FindSet() then begin
-                                    if LearningCurveRec.Type = LearningCurveRec.Type::Hourly then begin
-                                        LcurveTemp := LearningCurveRec.Day1;
-                                        repeat
-                                            if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
-                                                LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
-                                                LCurveStartTime := LocationRec."Start Time";
-                                                LCurveFinishDate += 1;
 
-                                                //Get working hours for the start date. If start date is a holiday, shift start date to next date.
-                                                HrsPerDay := 0;
-                                                repeat
+                            if ApplyLearningCurve = 1 then begin
 
-                                                    ResCapacityEntryRec.Reset();
-                                                    ResCapacityEntryRec.SETRANGE("No.", "Resource No.");
-                                                    ResCapacityEntryRec.SETRANGE(Date, LCurveFinishDate);
+                                //Check learning curve                        
+                                LCurveFinishDate := dtStart;
+                                LCurveFinishTime := TImeStart;
+                                LCurveStartTime := TImeStart;
 
-                                                    if ResCapacityEntryRec.FindSet() then begin
-                                                        repeat
-                                                            HrsPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
-                                                        until ResCapacityEntryRec.Next() = 0;
-                                                    end;
+                                if JobPlaLineRec."Learning Curve No." <> 0 then begin
+                                    LearningCurveRec.Reset();
+                                    LearningCurveRec.SetRange("No.", JobPlaLineRec."Learning Curve No.");
 
-                                                    if HrsPerDay = 0 then begin
+                                    if LearningCurveRec.FindSet() then begin
+                                        if LearningCurveRec.Type = LearningCurveRec.Type::Hourly then begin
+                                            LcurveTemp := LearningCurveRec.Day1;
+                                            repeat
+                                                if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
+                                                    LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
+                                                    LCurveStartTime := LocationRec."Start Time";
+                                                    LCurveFinishDate += 1;
 
-                                                        //Validate the day (Holiday or Weekend)
-                                                        SHCalHolidayRec.Reset();
-                                                        SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
-                                                        SHCalHolidayRec.SETRANGE(Date, LCurveFinishDate);
+                                                    //Get working hours for the start date. If start date is a holiday, shift start date to next date.
+                                                    HrsPerDay := 0;
+                                                    repeat
 
-                                                        if not SHCalHolidayRec.FindSet() then begin  //If not holiday
-                                                            DayForWeek.Get(DayForWeek."Period Type"::Date, LCurveFinishDate);
+                                                        ResCapacityEntryRec.Reset();
+                                                        ResCapacityEntryRec.SETRANGE("No.", "Resource No.");
+                                                        ResCapacityEntryRec.SETRANGE(Date, LCurveFinishDate);
 
-                                                            case DayForWeek."Period No." of
-                                                                1:
-                                                                    Day := 0;
-                                                                2:
-                                                                    Day := 1;
-                                                                3:
-                                                                    Day := 2;
-                                                                4:
-                                                                    Day := 3;
-                                                                5:
-                                                                    Day := 4;
-                                                                6:
-                                                                    Day := 5;
-                                                                7:
-                                                                    Day := 6;
-                                                            end;
-
-                                                            SHCalWorkRec.Reset();
-                                                            SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
-                                                            SHCalWorkRec.SetFilter(Day, '=%1', Day);
-                                                            if SHCalWorkRec.FindSet() then   //If not weekend
-                                                                Error('Calender for date : %1  Work center : %2 has not calculated', LCurveFinishDate, ResourceRec.Name);
+                                                        if ResCapacityEntryRec.FindSet() then begin
+                                                            repeat
+                                                                HrsPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                                                            until ResCapacityEntryRec.Next() = 0;
                                                         end;
-                                                    end;
 
-                                                    if HrsPerDay = 0 then
-                                                        LCurveFinishDate := LCurveFinishDate + 1;
+                                                        if HrsPerDay = 0 then begin
 
-                                                until HrsPerDay > 0;
-                                            end
-                                            else begin
-                                                LCurveStartTime := LCurveStartTime + 60 * 60 * 1000 * LcurveTemp;
-                                                LcurveTemp -= LcurveTemp;
-                                            end;
-                                        until LcurveTemp <= 0;
+                                                            //Validate the day (Holiday or Weekend)
+                                                            SHCalHolidayRec.Reset();
+                                                            SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                                            SHCalHolidayRec.SETRANGE(Date, LCurveFinishDate);
 
-                                        LCurveFinishTime := LCurveStartTime;
+                                                            if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                                                DayForWeek.Get(DayForWeek."Period Type"::Date, LCurveFinishDate);
+
+                                                                case DayForWeek."Period No." of
+                                                                    1:
+                                                                        Day := 0;
+                                                                    2:
+                                                                        Day := 1;
+                                                                    3:
+                                                                        Day := 2;
+                                                                    4:
+                                                                        Day := 3;
+                                                                    5:
+                                                                        Day := 4;
+                                                                    6:
+                                                                        Day := 5;
+                                                                    7:
+                                                                        Day := 6;
+                                                                end;
+
+                                                                SHCalWorkRec.Reset();
+                                                                SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                                                SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                                                if SHCalWorkRec.FindSet() then   //If not weekend
+                                                                    Error('Calender for date : %1  Work center : %2 has not calculated', LCurveFinishDate, ResourceRec.Name);
+                                                            end;
+                                                        end;
+
+                                                        if HrsPerDay = 0 then
+                                                            LCurveFinishDate := LCurveFinishDate + 1;
+
+                                                    until HrsPerDay > 0;
+                                                end
+                                                else begin
+                                                    LCurveStartTime := LCurveStartTime + 60 * 60 * 1000 * LcurveTemp;
+                                                    LcurveTemp -= LcurveTemp;
+                                                end;
+                                            until LcurveTemp <= 0;
+
+                                            LCurveFinishTime := LCurveStartTime;
+                                        end;
                                     end;
                                 end;
+
                             end;
 
                             repeat
@@ -418,58 +442,56 @@ page 50343 "Planning Line Property Card"
                                 //Get working hours for the day
                                 HrsPerDay := 0;
                                 Rate := 0;
+                                Holiday := 'NO';
 
-                                repeat
+                                ResCapacityEntryRec.Reset();
+                                ResCapacityEntryRec.SETRANGE("No.", "Resource No.");
+                                ResCapacityEntryRec.SETRANGE(Date, TempDate);
 
-                                    ResCapacityEntryRec.Reset();
-                                    ResCapacityEntryRec.SETRANGE("No.", "Resource No.");
-                                    ResCapacityEntryRec.SETRANGE(Date, TempDate);
+                                if ResCapacityEntryRec.FindSet() then begin
+                                    repeat
+                                        HrsPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                                    until ResCapacityEntryRec.Next() = 0;
+                                end;
 
-                                    if ResCapacityEntryRec.FindSet() then begin
-                                        repeat
-                                            HrsPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
-                                        until ResCapacityEntryRec.Next() = 0;
-                                    end;
+                                if HrsPerDay = 0 then begin
 
-                                    if HrsPerDay = 0 then begin
+                                    //Validate the day (Holiday or Weekend)
+                                    SHCalHolidayRec.Reset();
+                                    SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                    SHCalHolidayRec.SETRANGE(Date, TempDate);
 
-                                        //Validate the day (Holiday or Weekend)
-                                        SHCalHolidayRec.Reset();
-                                        SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
-                                        SHCalHolidayRec.SETRANGE(Date, TempDate);
+                                    if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                        DayForWeek.Get(DayForWeek."Period Type"::Date, TempDate);
 
-                                        if not SHCalHolidayRec.FindSet() then begin  //If not holiday
-                                            DayForWeek.Get(DayForWeek."Period Type"::Date, TempDate);
-
-                                            case DayForWeek."Period No." of
-                                                1:
-                                                    Day := 0;
-                                                2:
-                                                    Day := 1;
-                                                3:
-                                                    Day := 2;
-                                                4:
-                                                    Day := 3;
-                                                5:
-                                                    Day := 4;
-                                                6:
-                                                    Day := 5;
-                                                7:
-                                                    Day := 6;
-                                            end;
-
-                                            SHCalWorkRec.Reset();
-                                            SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
-                                            SHCalWorkRec.SetFilter(Day, '=%1', Day);
-                                            if SHCalWorkRec.FindSet() then   //If not weekend
-                                                Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, ResourceRec.Name);
+                                        case DayForWeek."Period No." of
+                                            1:
+                                                Day := 0;
+                                            2:
+                                                Day := 1;
+                                            3:
+                                                Day := 2;
+                                            4:
+                                                Day := 3;
+                                            5:
+                                                Day := 4;
+                                            6:
+                                                Day := 5;
+                                            7:
+                                                Day := 6;
                                         end;
-                                    end;
 
-                                    if HrsPerDay = 0 then
-                                        TempDate := TempDate + 1;
-
-                                until HrsPerDay > 0;
+                                        SHCalWorkRec.Reset();
+                                        SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                        SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                        if SHCalWorkRec.FindSet() then   //If not weekend
+                                            Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, ResourceRec.Name)
+                                        else
+                                            Holiday := 'Yes';
+                                    end
+                                    else
+                                        Holiday := 'Yes';
+                                end;
 
                                 //No learning curve for holidays
                                 if HrsPerDay > 0 then
@@ -481,98 +503,137 @@ page 50343 "Planning Line Property Card"
                                 end;
 
 
-                                if "Learning Curve No." <> 0 then begin
+                                if ApplyLearningCurve = 1 then begin
 
-                                    //Aplly learning curve
-                                    LearningCurveRec.Reset();
-                                    LearningCurveRec.SetRange("No.", "Learning Curve No.");
+                                    if JobPlaLineRec."Learning Curve No." <> 0 then begin
 
-                                    if LearningCurveRec.FindSet() then begin   //Efficiency wise
-                                        if LearningCurveRec.Type = LearningCurveRec.Type::"Efficiency Wise" then begin
-                                            case i of
-                                                1:
-                                                    Rate := LearningCurveRec.Day1;
-                                                2:
-                                                    Rate := LearningCurveRec.Day2;
-                                                3:
-                                                    Rate := LearningCurveRec.Day3;
-                                                4:
-                                                    Rate := LearningCurveRec.Day4;
-                                                5:
-                                                    Rate := LearningCurveRec.Day5;
-                                                6:
-                                                    Rate := LearningCurveRec.Day6;
-                                                7:
-                                                    Rate := LearningCurveRec.Day7;
-                                                else
+                                        //Aplly learning curve
+                                        LearningCurveRec.Reset();
+                                        LearningCurveRec.SetRange("No.", JobPlaLineRec."Learning Curve No.");
+
+                                        if LearningCurveRec.FindSet() then begin
+
+                                            if LearningCurveRec.Type = LearningCurveRec.Type::"Efficiency Wise" then begin  //Efficiency wise
+                                                case i of
+                                                    1:
+                                                        Rate := LearningCurveRec.Day1;
+                                                    2:
+                                                        Rate := LearningCurveRec.Day2;
+                                                    3:
+                                                        Rate := LearningCurveRec.Day3;
+                                                    4:
+                                                        Rate := LearningCurveRec.Day4;
+                                                    5:
+                                                        Rate := LearningCurveRec.Day5;
+                                                    6:
+                                                        Rate := LearningCurveRec.Day6;
+                                                    7:
+                                                        Rate := LearningCurveRec.Day7;
+                                                    else
+                                                        Rate := 100;
+                                                end;
+
+                                                if Rate = 0 then
                                                     Rate := 100;
-                                            end;
 
-                                            if Rate = 0 then
+                                                if (TempQty + round((TargetPerHour * HrsPerDay) * Rate / 100, 1) < JobPlaLineRec.Qty) then begin
+                                                    TempQty += round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
+                                                end
+                                                else begin
+                                                    TempQty1 := JobPlaLineRec.Qty - TempQty;
+                                                    TempQty := TempQty + TempQty1;
+                                                    TempHours := TempQty1 / TargetPerHour;
+
+                                                    if (TempHours IN [0.0001 .. 0.99]) then
+                                                        TempHours := 1;
+
+                                                    TempHours := round(TempHours, 1);
+
+                                                end;
+                                            end
+                                            else begin  //Hourly
+
                                                 Rate := 100;
 
-                                            if (TempQty + round((TargetPerHour * HrsPerDay) * Rate / 100, 1) < JobPlaLineRec.Qty) then begin
-                                                TempQty += round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
-                                            end
-                                            else begin
-                                                TempQty1 := JobPlaLineRec.Qty - TempQty;
-                                                TempQty := TempQty + TempQty1;
-                                                TempHours := TempQty1 / TargetPerHour;
+                                                if LCurveFinishDate > TempDate then
+                                                    HrsPerDay := 0
+                                                else begin
+                                                    if LCurveFinishDate = TempDate then begin
 
-                                                if (TempHours IN [0.1 .. 0.99]) then
-                                                    TempHours := 1;
+                                                        if i = 1 then begin
 
-                                                TempHours := round(TempHours, 1);
+                                                            if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
+                                                                HrsPerDay := HrsPerDay - (TImeStart - LCurveFinishTime) / 3600000
+                                                            else
+                                                                HrsPerDay := HrsPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                        end
+                                                        else begin
 
-                                            end;
-                                        end
-                                        else begin  //Hourly
+                                                            if ((LCurveFinishTime - LocationRec."Start Time") / 3600000) < 0 then
+                                                                HrsPerDay := HrsPerDay - (LocationRec."Start Time" - LCurveFinishTime) / 3600000
+                                                            else
+                                                                HrsPerDay := HrsPerDay - (LCurveFinishTime - LocationRec."Start Time") / 3600000;
+                                                        end;
 
-                                            Rate := 100;
+                                                    end;
+                                                end;
 
-                                            if LCurveFinishDate > TempDate then
-                                                HrsPerDay := 0
-                                            else begin
-                                                if LCurveFinishDate = TempDate then begin
-                                                    if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
-                                                        HrsPerDay := HrsPerDay - (TImeStart - LCurveFinishTime) / 3600000
-                                                    else
-                                                        HrsPerDay := HrsPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                if (TempQty + round((TargetPerHour * HrsPerDay) * Rate / 100, 1) < JobPlaLineRec.Qty) then begin
+                                                    TempQty += round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
+                                                    xQty := round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
+                                                end
+                                                else begin
+                                                    TempQty1 := JobPlaLineRec.Qty - TempQty;
+                                                    xQty := TempQty1;
+                                                    TempQty := TempQty + TempQty1;
+                                                    TempHours := TempQty1 / TargetPerHour;
+
+                                                    if (TempHours IN [0.0001 .. 0.99]) then
+                                                        TempHours := 1;
+
+                                                    TempHours := round(TempHours, 1);
                                                 end;
                                             end;
 
-                                            if (TempQty + round((TargetPerHour * HrsPerDay) * Rate / 100, 1) < JobPlaLineRec.Qty) then begin
-                                                TempQty += round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
-                                            end
-                                            else begin
-                                                TempQty1 := JobPlaLineRec.Qty - TempQty;
-                                                TempQty := TempQty + TempQty1;
-                                                TempHours := TempQty1 / TargetPerHour;
-
-                                                if (TempHours IN [0.1 .. 0.99]) then
-                                                    TempHours := 1;
-
-                                                TempHours := round(TempHours, 1);
-                                            end;
                                         end;
 
                                     end
                                     else begin
 
-                                        if (TempQty + (TargetPerHour * HrsPerDay) < JobPlaLineRec.Qty) then
-                                            TempQty := TempQty + (TargetPerHour * HrsPerDay)
+                                        if (TempQty + (TargetPerHour * HrsPerDay) < JobPlaLineRec.Qty) then begin
+                                            TempQty := TempQty + (TargetPerHour * HrsPerDay);
+                                            xQty := TargetPerHour * HrsPerDay;
+                                        end
                                         else begin
                                             TempQty1 := JobPlaLineRec.Qty - TempQty;
                                             TempQty := TempQty + TempQty1;
                                             TempHours := TempQty1 / TargetPerHour;
+                                            xQty := TempQty1;
 
-                                            if (TempHours IN [0.1 .. 0.99]) then
+                                            if (TempHours IN [0.0001 .. 0.99]) then
                                                 TempHours := 1;
 
                                             TempHours := round(TempHours, 1);
                                         end;
                                     end;
+                                end
+                                else begin
 
+                                    if (TempQty + (TargetPerHour * HrsPerDay) < JobPlaLineRec.Qty) then begin
+                                        TempQty := TempQty + (TargetPerHour * HrsPerDay);
+                                        xQty := TargetPerHour * HrsPerDay;
+                                    end
+                                    else begin
+                                        TempQty1 := JobPlaLineRec.Qty - TempQty;
+                                        TempQty := TempQty + TempQty1;
+                                        TempHours := TempQty1 / TargetPerHour;
+                                        xQty := TempQty1;
+
+                                        if (TempHours IN [0.0001 .. 0.99]) then
+                                            TempHours := 1;
+
+                                        TempHours := round(TempHours, 1);
+                                    end;
                                 end;
 
 
@@ -599,18 +660,30 @@ page 50343 "Planning Line Property Card"
                                 ProdPlansDetails.Eff := JobPlaLineRec.Eff;
                                 ProdPlansDetails."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
                                 ProdPlansDetails.SMV := JobPlaLineRec.SMV;
-                                if i = 1 then
-                                    ProdPlansDetails."Start Time" := TImeStart
-                                else
-                                    ProdPlansDetails."Start Time" := LocationRec."Start Time";
 
-                                if TempHours = 0 then
-                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                if Holiday = 'NO' then begin
+                                    if i = 1 then
+                                        ProdPlansDetails."Start Time" := TImeStart
+                                    else
+                                        ProdPlansDetails."Start Time" := LocationRec."Start Time";
+
+                                    if TempHours = 0 then
+                                        ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                    else
+                                        ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                end;
+
+                                if Holiday = 'NO' then begin
+                                    if TempHours > 0 then
+                                        ProdPlansDetails.HoursPerDay := TempHours
+                                    else
+                                        ProdPlansDetails.HoursPerDay := HrsPerDay;
+                                end
                                 else
-                                    ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
-                                ProdPlansDetails.Qty := TempQty;
+                                    ProdPlansDetails.HoursPerDay := 0;
+
+                                ProdPlansDetails.Qty := xQty;
                                 ProdPlansDetails.Target := TargetPerDay;
-                                ProdPlansDetails.HoursPerDay := HrsPerDay;
                                 ProdPlansDetails.ProdUpd := 0;
                                 ProdPlansDetails.ProdUpdQty := 0;
                                 ProdPlansDetails."Created User" := UserId;
@@ -628,17 +701,23 @@ page 50343 "Planning Line Property Card"
                             if TempHours = 0 then
                                 TempDate := TempDate - 1;
 
-                            if JobPlaLineRec."Style No." = "Style No." then begin
+                            if (JobPlaLineRec."Style Name" = StyleDesc) and (Counter = 1) then begin
 
                                 //Modify to the Planning line table                                
                                 JobPlaLineRec.Eff := Eff;
                                 JobPlaLineRec.Carder := Carder;
-                                JobPlaLineRec."Learning Curve No." := "Learning Curve No.";
+                                JobPlaLineRec."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
                                 JobPlaLineRec.Target := Target;
                                 JobPlaLineRec."Start Date" := dtStart;
                                 JobPlaLineRec."End Date" := TempDate;
                                 JobPlaLineRec."Start Time" := TImeStart;
-                                JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                // JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+
+                                if TempHours = 0 then
+                                    JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                else
+                                    JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+
                                 JobPlaLineRec."Created User" := UserId;
                                 //JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                                 JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
@@ -646,20 +725,53 @@ page 50343 "Planning Line Property Card"
 
                             end
                             else begin
+                                if (JobPlaLineRec."Style Name" = StyleDesc) and (Counter > 1) then begin
 
-                                //Modify to the Planning line table                              
-                                JobPlaLineRec.Target := Target;
-                                JobPlaLineRec."Start Date" := dtStart;
-                                JobPlaLineRec."End Date" := TempDate;
-                                JobPlaLineRec."Start Time" := TImeStart;
-                                JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
-                                JobPlaLineRec."Created User" := UserId;
-                                //JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                                JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
-                                JobPlaLineRec.Modify();
+                                    //Modify to the Planning line table                              
+                                    JobPlaLineRec.Target := Target;
+                                    JobPlaLineRec.Eff := Eff;
+                                    JobPlaLineRec.Carder := Carder;
+                                    JobPlaLineRec."Learning Curve No." := 0;
+                                    JobPlaLineRec."Start Date" := dtStart;
+                                    JobPlaLineRec."End Date" := TempDate;
+                                    JobPlaLineRec."Start Time" := TImeStart;
+                                    // JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
+                                    if TempHours = 0 then
+                                        JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                    else
+                                        JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+
+                                    JobPlaLineRec."Created User" := UserId;
+                                    //JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
+                                    JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                                    JobPlaLineRec.Modify();
+
+                                end
+                                else
+                                    if (JobPlaLineRec."Style Name" <> StyleDesc) and (Counter > 1) then begin
+
+                                        //Modify to the Planning line table                              
+                                        JobPlaLineRec.Target := Target;
+                                        JobPlaLineRec."Start Date" := dtStart;
+                                        JobPlaLineRec."End Date" := TempDate;
+                                        JobPlaLineRec."Start Time" := TImeStart;
+                                        // JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+
+                                        if TempHours = 0 then
+                                            JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                        else
+                                            JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+
+                                        JobPlaLineRec."Created User" := UserId;
+                                        //JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
+                                        JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                                        JobPlaLineRec.Modify();
+
+                                        StyleDesc := '';
+
+                                    end;
                             end;
-
 
                             dtStart := TempDate;
                             TImeStart := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
