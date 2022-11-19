@@ -120,6 +120,8 @@ table 50833 PreProductionFollowUpline
         field(27; "Create User"; Text[50])
         {
             DataClassification = ToBeClassified;
+            TableRelation = User."User Name";
+            ValidateTableRelation = false;
         }
 
         field(28; "Production File Received Date"; Date)
@@ -142,13 +144,18 @@ table 50833 PreProductionFollowUpline
             DataClassification = ToBeClassified;
         }
 
+        field(38; "Line No"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
     {
-        // key(PK1; Factory)
-        // {
-        //     Clustered = true;
-        // }
+        key(PK; "Line No", Factory, "Style No")
+        {
+            Clustered = true;
+        }
     }
+
 }

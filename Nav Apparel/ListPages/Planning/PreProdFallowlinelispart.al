@@ -4,6 +4,8 @@ page 50834 PreProductionFallowLine
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = PreProductionFollowUpline;
+    DeleteAllowed = false;
+    InsertAllowed = false;
 
     layout
     {
@@ -11,12 +13,6 @@ page 50834 PreProductionFallowLine
         {
             repeater(GroupName)
             {
-                field(Factory; Factory)
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
-
                 field(Buyer; Buyer)
                 {
                     ApplicationArea = All;
@@ -162,5 +158,4 @@ page 50834 PreProductionFallowLine
             }
         }
     }
-
 }

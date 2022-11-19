@@ -3,6 +3,7 @@ report 50645 ProductionOrderReport
 
     RDLCLayout = 'Report_Layouts/Production/ProdOrderMatRequisition.rdl';
     DefaultLayout = RDLC;
+    ApplicationArea = All;
     // ApplicationArea = Manufacturing;
     Caption = 'Production Order Report';
     UsageCategory = ReportsAndAnalysis;
@@ -55,7 +56,7 @@ report 50645 ProductionOrderReport
             { }
             column(Shortcut_Dimension_1_Code; "Shortcut Dimension 1 Code")
             { }
-            column(Style_Name;"Style Name")
+            column(Style_Name; "Style Name")
             { }
             column(PoNo; PO)
             { }
@@ -95,12 +96,21 @@ report 50645 ProductionOrderReport
                 {
                     IncludeCaption = true;
                 }
+                column(Size; Size)
+                { }
 
                 trigger OnAfterGetRecord()
                 begin
 
                     comRec.Get;
                     comRec.CalcFields(Picture);
+
+
+                    ItemRec.Reset();
+                    ItemRec.SetRange("No.", "Item No.");
+                    if ItemRec.FindFirst() then begin
+                        Size := ItemRec."Size Range No.";
+                    end;
 
                     with ReservationEntry do begin
                         SetCurrentKey("Source ID", "Source Ref. No.", "Source Type", "Source Subtype");
@@ -158,6 +168,8 @@ report 50645 ProductionOrderReport
     }
 
     var
+        Size: Code[20];
+        ItemRec: Record Item;
         ReservationEntry: Record "Reservation Entry";
         ReservationEntry2: Record "Reservation Entry";
         ProdOrderFilter: Text;
