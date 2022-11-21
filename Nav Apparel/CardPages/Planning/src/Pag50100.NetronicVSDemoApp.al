@@ -37,64 +37,64 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     ApplicationArea = All;
                 }
 
-                field("StyleNo"; "StyleNo")
-                {
-                    TableRelation = "Style Master"."No.";
-                    Caption = 'Style No';
-                    ApplicationArea = All;
+                // field("StyleNo"; "StyleNo")
+                // {
+                //     TableRelation = "Style Master"."No.";
+                //     Caption = 'Style No';
+                //     ApplicationArea = All;
 
-                    trigger OnValidate()
-                    var
-                        StyleRec: Record "Style Master";
-                    begin
-                        StyleRec.get("StyleNo");
+                //     trigger OnValidate()
+                //     var
+                //         StyleRec: Record "Style Master";
+                //     begin
+                //         StyleRec.get("StyleNo");
 
-                        if StyleRec.SMV = 0 then
-                            Error('SMV is zero. Cannot proceed.')
-                        else
-                            "StyleName" := StyleRec."Style No.";
-                    end;
-                }
+                //         if StyleRec.SMV = 0 then
+                //             Error('SMV is zero. Cannot proceed.')
+                //         else
+                //             "StyleName" := StyleRec."Style No.";
+                //     end;
+                // }
 
-                field("StyleName"; "StyleName")
-                {
-                    Caption = 'Style';
-                    Editable = false;
-                    ApplicationArea = All;
-                }
+                // field("StyleName"; "StyleName")
+                // {
+                //     Caption = 'Style';
+                //     Editable = false;
+                //     ApplicationArea = All;
+                // }
 
-                field(Lot; Lot)
-                {
-                    Caption = 'Lot';
-                    ApplicationArea = All;
+                // field(Lot; Lot)
+                // {
+                //     Caption = 'Lot';
+                //     ApplicationArea = All;
 
-                    trigger OnLookup(var text: Text): Boolean
-                    var
-                        StyleMasterRec: Record "Style Master PO";
-                    begin
-                        StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "StyleNo");
-                        StyleMasterRec.SetRange(PlannedStatus, false);
+                //     trigger OnLookup(var text: Text): Boolean
+                //     var
+                //         StyleMasterRec: Record "Style Master PO";
+                //     begin
+                //         StyleMasterRec.Reset();
+                //         StyleMasterRec.SetRange("Style No.", "StyleNo");
+                //         StyleMasterRec.SetRange(PlannedStatus, false);
 
-                        if Page.RunModal(71012797, StyleMasterRec) = Action::LookupOK then begin
-                            "Lot" := StyleMasterRec."Lot No.";
-                            "Po" := StyleMasterRec."PO No.";
-                        end;
-                    end;
-                }
+                //         if Page.RunModal(71012797, StyleMasterRec) = Action::LookupOK then begin
+                //             "Lot" := StyleMasterRec."Lot No.";
+                //             "Po" := StyleMasterRec."PO No.";
+                //         end;
+                //     end;
+                // }
 
-                field(Po; Po)
-                {
-                    Caption = 'PO';
-                    Editable = false;
-                    ApplicationArea = All;
-                }
+                // field(Po; Po)
+                // {
+                //     Caption = 'PO';
+                //     Editable = false;
+                //     ApplicationArea = All;
+                // }
 
-                field(AllPo; AllPo)
-                {
-                    Caption = 'All PO';
-                    ApplicationArea = All;
-                }
+                // field(AllPo; AllPo)
+                // {
+                //     Caption = 'All PO';
+                //     ApplicationArea = All;
+                // }
 
                 field("StartDate"; "StartDate")
                 {
@@ -484,7 +484,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             SMV := PlanningQueueeRec.SMV;
 
                             if SMV = 0 then
-                                Error('SMV for Style : %1 is zero. Cannot proceed.', StyleName);
+                                Error('SMV for Style : %1 is zero. Cannot proceed.', PlanningQueueeRec."Style Name");
 
 
                             //if start time earlier than parameter start time, set start time as parameter time
@@ -1484,7 +1484,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         SMV := JobPlaLineRec.SMV;
 
                         if SMV = 0 then
-                            Error('SMV for Style : %1 is zero. Cannot proceed.', StyleName);
+                            Error('SMV for Style : %1 is zero. Cannot proceed.', JobPlaLineRec."Style Name");
 
                         //if start time earlier than parameter start time, set start time as parameter time                      
                         if ((LocationRec."Start Time" - TImeStart) > 0) then begin
@@ -3011,32 +3011,33 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                     trigger OnAction()
                     var
-                        StyleMasterRec: Page "All PO List";
+                        AllPOListPage: Page "All PO List";
                     begin
+                        if FactoryNo = '' then
+                            Error('Select a factory');
 
-                        Clear(StyleMasterRec);
-                        StyleMasterRec.LookupMode(true);
-                        StyleMasterRec.PassParameters(FactoryNo, LearningCurveNo);
-                        StyleMasterRec.RunModal();
-                        LoadData();
-                        SetconVSControlAddInSettings();
-
-                    end;
-                }
-
-                action("Generate Queue")
-                {
-                    ToolTip = 'Generate Queue';
-                    Image = TaskList;
-                    ApplicationArea = All;
-
-                    trigger OnAction()
-                    begin
-                        GenerateQueue();
+                        Clear(AllPOListPage);
+                        AllPOListPage.LookupMode(true);
+                        AllPOListPage.PassParameters(FactoryNo, LearningCurveNo);
+                        AllPOListPage.RunModal();
                         LoadData();
                         SetconVSControlAddInSettings();
                     end;
                 }
+
+                // action("Generate Queue")
+                // {
+                //     ToolTip = 'Generate Queue';
+                //     Image = TaskList;
+                //     ApplicationArea = All;
+
+                //     trigger OnAction()
+                //     begin
+                //         GenerateQueue();
+                //         LoadData();
+                //         SetconVSControlAddInSettings();
+                //     end;
+                // }
 
                 action("Show/Hide Plannnig Queue")
                 {
