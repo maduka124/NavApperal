@@ -30,12 +30,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     end;
                 }
 
-                field("FactoryName"; "FactoryName")
-                {
-                    Editable = false;
-                    Caption = 'Factory';
-                    ApplicationArea = All;
-                }
+                // field("FactoryName"; "FactoryName")
+                // {
+                //     Editable = false;
+                //     Caption = 'Factory';
+                //     ApplicationArea = All;
+                // }
 
                 // field("StyleNo"; "StyleNo")
                 // {
@@ -2546,6 +2546,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     PlanTargetList: Page "Plan Target List part";
                     PlanHistoryList: Page "Plan History List part";
                     PlanTargetVsAchList: Page "Plan Target Vs Acheive";
+                    AccessoriesStatusReport: Report AccessoriesStatusReport;
+                    TnAStyleMerchanReport: Report TnAStyleMerchandizing;
                     ProPicFactBoxPlan: Page "Property Picture FactBox Plan";
                     STY: Code[20];
                     PO: Code[20];
@@ -2963,6 +2965,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                         end;
 
+                        if _contextMenuItemCode = 'Al_08' then begin   //Accessories Status  
+                            AccessoriesStatusReport.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
+                            AccessoriesStatusReport.RunModal();
+                        end;
+
                         if _contextMenuItemCode = 'Al_10' then begin   //picture
 
                             Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
@@ -2977,15 +2984,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
 
                         if _contextMenuItemCode = 'Al_11' then begin   //Time and Action Plan
-
-                            // Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
-                            // LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-
-                            // Clear(ProPicFactBoxPlan);
-                            // ProPicFactBoxPlan.LookupMode(true);
-                            // ProPicFactBoxPlan.PassParameters(LineNo1);
-                            // ProPicFactBoxPlan.RunModal();
-
+                            TnAStyleMerchanReport.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
+                            TnAStyleMerchanReport.RunModal();
                         end;
 
                         LoadData();
@@ -3059,6 +3059,42 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
             }
             group(Miscellaneous)
             {
+                action("Search By Style")
+                {
+                    Image = Find;
+                    ApplicationArea = All;
+
+                    trigger OnAction()
+                    var
+                        PlanHistoryListPage: Page "Plan Lines - Search List";
+                    begin
+                        Clear(PlanHistoryListPage);
+                        PlanHistoryListPage.LookupMode(true);
+                        PlanHistoryListPage.RunModal();
+                    end;
+                }
+
+                action("Production Update")
+                {
+                    ToolTip = 'Production Update';
+                    Image = Production;
+                    ApplicationArea = All;
+
+                    trigger OnAction()
+                    var
+                        _options: JsonObject;
+                        ProdUpdateCard: Page "Prod Update Card";
+                    begin
+                        if (Dialog.CONFIRM('Do you want to upload sewing out details? After uploading sewing out, you cannot undo the process.', true) = true) then begin
+
+                            ProdUpdateCard.LookupMode(true);
+                            ProdUpdateCard.PassParameters(FactoryNo);
+                            ProdUpdateCard.RunModal();
+                            LoadData();
+                        end;
+                    end;
+                }
+
                 action(Reload)
                 {
                     Image = RefreshLines;
@@ -3084,27 +3120,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     begin
 
                         CurrPage.conVSControlAddIn.SaveAsPDF('VSCAI_SavedChart', _options);
-                    end;
-                }
-
-                action("Production Update")
-                {
-                    ToolTip = 'Production Update';
-                    Image = Production;
-                    ApplicationArea = All;
-
-                    trigger OnAction()
-                    var
-                        _options: JsonObject;
-                        ProdUpdateCard: Page "Prod Update Card";
-                    begin
-                        if (Dialog.CONFIRM('Do you want to upload sewing out details? After uploading sewing out, you cannot undo the process.', true) = true) then begin
-
-                            ProdUpdateCard.LookupMode(true);
-                            ProdUpdateCard.PassParameters(FactoryNo);
-                            ProdUpdateCard.RunModal();
-                            LoadData();
-                        end;
                     end;
                 }
             }

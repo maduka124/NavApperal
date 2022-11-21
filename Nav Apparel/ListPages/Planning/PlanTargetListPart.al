@@ -35,6 +35,12 @@ page 50346 "Plan Target List part"
                     Caption = 'Hours';
                 }
 
+                field("Learning Curve No."; "Learning Curve No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Learning Curve';
+                }
+
                 field(Qty; Qty)
                 {
                     ApplicationArea = All;

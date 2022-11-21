@@ -50,7 +50,7 @@ page 50343 "Planning Line Property Card"
                 field(HoursPerDay; HoursPerDay)
                 {
                     ApplicationArea = All;
-                    Caption = 'Hours Per Day';
+                    Caption = 'Working Hours Per Day';
                     Editable = false;
 
                     trigger OnValidate()

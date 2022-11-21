@@ -48,6 +48,12 @@ page 50348 "Plan Target Vs Acheive"
                     Caption = 'Planned Qty';
                 }
 
+                field("Learning Curve No."; "Learning Curve No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Learning Curve';
+                }
+
                 field(ProdUpdQty; ProdUpdQty)
                 {
                     ApplicationArea = All;

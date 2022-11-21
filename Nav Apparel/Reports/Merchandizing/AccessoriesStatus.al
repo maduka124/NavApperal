@@ -130,29 +130,24 @@ report 50633 AccessoriesStatusReport
                     {
                         ApplicationArea = All;
                         Caption = 'Style';
+                        Editable = not EditableGB;
                         TableRelation = "Style Master"."No.";
-
                     }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
     }
 
+    procedure PassParameters(StyleNoPara: Code[20])
+    var
+    begin
+        FilterNo := StyleNoPara;
+        EditableGB := true;
+    end;
+
 
     var
-
+        EditableGB: Boolean;
         DimenRec: Record DimensionWidth;
         Dimension: Text[200];
         ArticleRec: Record Article;

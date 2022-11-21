@@ -1,10 +1,12 @@
-page 50347 "Plan History List part"
+page 50840 "Plan Lines - Search List"
 {
-    PageType = ListPart;
+    PageType = list;
     SourceTable = "NavApp Planning Lines";
     SourceTableView = sorting("Style No.", "Lot No.", "Line No.") order(ascending);
-    Editable = false;
-    Caption = 'Plan History';
+    DeleteAllowed = false;
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    Caption = 'Planned History - Search';
 
     layout
     {
@@ -29,15 +31,15 @@ page 50347 "Plan History List part"
                     Caption = 'PO No';
                 }
 
-                field("Line No."; "Line No.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Sub PO No';
-                }
-
                 field(Qty; Qty)
                 {
                     ApplicationArea = All;
+                }
+
+                field("Resource Name"; "Resource Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Machine Line';
                 }
 
                 field(StartDateTime; StartDateTime)
@@ -50,12 +52,6 @@ page 50347 "Plan History List part"
                 {
                     ApplicationArea = All;
                     Caption = 'Finish Date/Time';
-                }
-
-                field("Resource Name"; "Resource Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Machine Line';
                 }
 
                 field(Carder; Carder)
@@ -74,6 +70,7 @@ page 50347 "Plan History List part"
                 {
                     ApplicationArea = All;
                 }
+
                 field("Learning Curve No."; "Learning Curve No.")
                 {
                     ApplicationArea = All;
@@ -82,21 +79,4 @@ page 50347 "Plan History List part"
             }
         }
     }
-
-    trigger OnOpenPage()
-    var
-    begin
-        SetFilter("Style No.", StyleNo);
-    end;
-
-
-    procedure PassParameters(StyleNoPara: Text);
-    var
-    begin
-        StyleNo := StyleNoPara;
-    end;
-
-    var
-        StyleNo: Text;
-
 }

@@ -75,6 +75,7 @@ report 71012755 TnAStyleMerchandizing
                     {
                         ApplicationArea = All;
                         Caption = 'Style';
+                        Editable = not EditableGB;
                         TableRelation = "Dependency Style Header"."No.";
                     }
                 }
@@ -82,7 +83,15 @@ report 71012755 TnAStyleMerchandizing
         }
     }
 
+    procedure PassParameters(StyleNoPara: Code[20])
+    var
+    begin
+        styleName := StyleNoPara;
+        EditableGB := true;
+    end;
+
     var
         styleName: Code[20];
         comRec: Record "Company Information";
+        EditableGB: Boolean;
 }

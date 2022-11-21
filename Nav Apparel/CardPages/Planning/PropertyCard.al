@@ -62,7 +62,7 @@ page 50340 "Property Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Hours Per Day';
+                    Caption = 'Working Hours Per Day';
 
                     trigger OnValidate()
                     var
