@@ -641,7 +641,8 @@ page 71012740 "Nav Apperal Role Center"
 
                 action("Pre-Production Follow Up")
                 {
-                    RunObject = page PreProductionfollowup;
+                    RunObject = page PreProductionfollowupList;
+                    //RunPageMode = Edit;
                     ApplicationArea = all;
                 }
 
@@ -2049,7 +2050,12 @@ page 71012740 "Nav Apperal Role Center"
         }
     }
 
+    var
+
+        PreProdfollowup: Page PreProductionfollowup;
+
 }
+
 
 profile NAVAPP
 {

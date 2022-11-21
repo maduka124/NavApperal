@@ -1,22 +1,20 @@
 table 50833 PreProductionFollowUpline
 {
     DataClassification = ToBeClassified;
-    // LookupPageId = PreProductionFallowLineL;
-    // DrillDownPageId = PreProductionFallowLineL;
 
     fields
     {
-        field(1; Factory; Text[50])
+        field(1; "Factory"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Buyer"; Text[50])
+        field(2; "Buyer"; Text[200])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Style"; Text[20])
+        field(3; "Style"; Text[200])
         {
             DataClassification = ToBeClassified;
         }
@@ -129,11 +127,6 @@ table 50833 PreProductionFollowUpline
             DataClassification = ToBeClassified;
         }
 
-        field(29; "Factory Code"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-
         field(30; "Buyer No"; Code[20])
         {
             DataClassification = ToBeClassified;
@@ -148,11 +141,21 @@ table 50833 PreProductionFollowUpline
         {
             DataClassification = ToBeClassified;
         }
+
+        field(39; "Factory Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(40; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
     {
-        key(PK; "Line No", Factory, "Style No")
+        key(PK; "Line No", "Factory", "Style No")
         {
             Clustered = true;
         }

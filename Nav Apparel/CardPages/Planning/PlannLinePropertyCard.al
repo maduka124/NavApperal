@@ -317,12 +317,13 @@ page 50343 "Planning Line Property Card"
                             until HrsPerDay > 0;
 
                             if JobPlaLineRec."Style No." = "Style No." then
-                                TargetPerDay := round(((60 / SMV) * Carder * HrsPerDay * Eff) / 100, 1)
+                                TargetPerDay := round(((60 / SMV) * Carder * HrsPerDay * Eff) / 100, 1, '>')
                             else
-                                TargetPerDay := round(((60 / JobPlaLineRec.SMV) * JobPlaLineRec.Carder * HrsPerDay * JobPlaLineRec.Eff) / 100, 1);
+                                TargetPerDay := round(((60 / JobPlaLineRec.SMV) * JobPlaLineRec.Carder * HrsPerDay * JobPlaLineRec.Eff) / 100, 1, '>');
 
 
-                            TargetPerHour := round(TargetPerDay / HrsPerDay, 1);
+                            TargetPerHour := TargetPerDay / HrsPerDay;
+                            // TargetPerHour := round(TargetPerDay / HrsPerDay, 1);
                             TempDate := dtStart;
 
                             //if production updated, learning curve shoube incremented
@@ -547,7 +548,7 @@ page 50343 "Planning Line Property Card"
                                                     if (TempHours IN [0.0001 .. 0.99]) then
                                                         TempHours := 1;
 
-                                                    TempHours := round(TempHours, 1);
+                                                    TempHours := round(TempHours, 1, '>');
 
                                                 end;
                                             end
@@ -591,7 +592,7 @@ page 50343 "Planning Line Property Card"
                                                     if (TempHours IN [0.0001 .. 0.99]) then
                                                         TempHours := 1;
 
-                                                    TempHours := round(TempHours, 1);
+                                                    TempHours := round(TempHours, 1, '>');
                                                 end;
                                             end;
 
@@ -600,9 +601,9 @@ page 50343 "Planning Line Property Card"
                                     end
                                     else begin
 
-                                        if (TempQty + (TargetPerHour * HrsPerDay) < JobPlaLineRec.Qty) then begin
-                                            TempQty := TempQty + (TargetPerHour * HrsPerDay);
-                                            xQty := TargetPerHour * HrsPerDay;
+                                        if (TempQty + round((TargetPerHour * HrsPerDay), 1) < JobPlaLineRec.Qty) then begin
+                                            TempQty := TempQty + round((TargetPerHour * HrsPerDay), 1);
+                                            xQty := round(TargetPerHour * HrsPerDay, 1);
                                         end
                                         else begin
                                             TempQty1 := JobPlaLineRec.Qty - TempQty;
@@ -613,15 +614,15 @@ page 50343 "Planning Line Property Card"
                                             if (TempHours IN [0.0001 .. 0.99]) then
                                                 TempHours := 1;
 
-                                            TempHours := round(TempHours, 1);
+                                            TempHours := round(TempHours, 1, '>');
                                         end;
                                     end;
                                 end
                                 else begin
 
-                                    if (TempQty + (TargetPerHour * HrsPerDay) < JobPlaLineRec.Qty) then begin
-                                        TempQty := TempQty + (TargetPerHour * HrsPerDay);
-                                        xQty := TargetPerHour * HrsPerDay;
+                                    if (TempQty + round((TargetPerHour * HrsPerDay), 1) < JobPlaLineRec.Qty) then begin
+                                        TempQty := TempQty + round((TargetPerHour * HrsPerDay), 1);
+                                        xQty := round((TargetPerHour * HrsPerDay), 1);
                                     end
                                     else begin
                                         TempQty1 := JobPlaLineRec.Qty - TempQty;
@@ -632,7 +633,7 @@ page 50343 "Planning Line Property Card"
                                         if (TempHours IN [0.0001 .. 0.99]) then
                                             TempHours := 1;
 
-                                        TempHours := round(TempHours, 1);
+                                        TempHours := round(TempHours, 1, '>');
                                     end;
                                 end;
 
@@ -801,7 +802,7 @@ page 50343 "Planning Line Property Card"
     var
     begin
         if SMV <> 0 then begin
-            Target := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
+            Target := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1, '>');
         end
         else
             Message('SMV is zero. Cannot continue.');
