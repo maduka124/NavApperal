@@ -17,12 +17,12 @@ page 71012740 "Nav Apperal Role Center"
                     Caption = 'Activities';
                 }
 
-                // part(Control98; "Power BI Report Spinner Part")
-                // {
-                //     AccessByPermission = TableData "Power BI User Configuration" = I;
-                //     ApplicationArea = Basic, Suite;
-                //     Enabled = false;
-                // }
+                part(Control98; "Power BI Report Spinner Part")
+                {
+                    AccessByPermission = TableData "Power BI User Configuration" = I;
+                    ApplicationArea = Basic, Suite;
+                    Enabled = false;
+                }
             }
         }
     }
@@ -671,6 +671,13 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Planning Reports';
 
+                    action("PowerBIReport1")
+                    {
+                        Caption = 'PowerBIReport1';
+                        RunObject = Page "PowerBIReport1";
+                        ApplicationArea = all;
+                    }
+
                     action("Capacity Gap Details Report")
                     {
                         Caption = 'Capacity Gap Details Report';
@@ -804,6 +811,13 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Item';
                     RunObject = Page "Item List";
+                    ApplicationArea = all;
+                }
+
+                action("Contract/Style Allocation")
+                {
+                    Caption = 'Contract/Style Allocation';
+                    RunObject = Page "StyleContract Allocations List";
                     ApplicationArea = all;
                 }
 
