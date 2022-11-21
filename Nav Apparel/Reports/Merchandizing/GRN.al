@@ -11,7 +11,7 @@ report 71012753 GrnReport
         dataitem("Purch. Rcpt. Header"; "Purch. Rcpt. Header")
         {
             DataItemTableView = sorting("No.");
-            // RequestFilterFields = "No.";
+            RequestFilterFields = "No.";
             column("GRN_No"; "No.")
             { }
             column(Pay_to_Name; "Pay-to Name")
@@ -50,11 +50,19 @@ report 71012753 GrnReport
                 { }
                 column(Lot; Lot)
                 { }
+
+                trigger OnPreDataItem()
+
+                begin
+
+
+                end;
             }
-            trigger OnPreDataItem()
-            begin
-                SetRange("No.", CodeNo);
-            end;
+            // trigger OnPreDataItem()
+            // begin
+            //     SetRange("No.", CodeNo);
+
+            // end;
 
             trigger OnAfterGetRecord()
 
@@ -72,16 +80,16 @@ report 71012753 GrnReport
         {
             area(Content)
             {
-                group(GroupName)
-                {
-                    field(CodeNo; CodeNo)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'GRN No';
-                        TableRelation = "Purch. Rcpt. Header"."No.";
+                // group(GroupName)
+                // {
+                //     field(CodeNo; CodeNo)
+                //     {
+                //         ApplicationArea = All;
+                //         Caption = 'GRN No';
+                //         TableRelation = "Purch. Rcpt. Header"."No.";
 
-                    }
-                }
+                //     }
+                // }
             }
         }
 
@@ -108,6 +116,7 @@ report 71012753 GrnReport
     // }
 
     var
+        QT: Decimal;
         myInt: Integer;
         CodeNo: Code[50];
         comRec: Record "Company Information";

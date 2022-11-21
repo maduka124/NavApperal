@@ -32,6 +32,8 @@ pageextension 71012851 GRNListExt extends "Posted Purchase Rcpt. Subform"
                 Caption = 'Style';
                 Editable = false;
             }
+
+            
         }
     }
 }
