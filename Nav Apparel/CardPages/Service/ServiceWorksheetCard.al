@@ -12,6 +12,14 @@ page 50726 "Service Worksheet Card"
         {
             group(Filters)
             {
+                field("Global Dimension Code"; "Global Dimension Code")
+                {
+                    ApplicationArea = All;
+                    CaptionClass = '1,2,1';
+                    TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1),
+                                                          Blocked = CONST(false));
+                }
+
                 field(StartDate; StartDate)
                 {
                     ApplicationArea = All;
@@ -35,9 +43,10 @@ page 50726 "Service Worksheet Card"
                     begin
                         WorkCenterRec.RESET;
                         WorkCenterRec.SetFilter("Linked To Service Item", '=%1', true);
+                        WorkCenterRec.SetRange("Global Dimension 1 Code", "Global Dimension Code");
 
                         if Page.RunModal(50728, WorkCenterRec) = Action::LookupOK then begin
-
+                            "Work Center No." := WorkCenterRec.Name;
                         end;
                     end;
                 }
@@ -435,6 +444,6 @@ page 50726 "Service Worksheet Card"
         EndDate: Date;
         "Work Center No.": Code[20];
         No: BigInteger;
-
         SMTPConn: Option;
+        "Global Dimension Code": Code[20];
 }

@@ -1,9 +1,9 @@
-report 71012753 GrnReport
+report 50648 GrnFullReport
 {
     UsageCategory = ReportsAndAnalysis;
-    // ApplicationArea = All;
+    ApplicationArea = All;
     Caption = 'GRN Report';
-    RDLCLayout = 'Report_Layouts/Merchandizing/GRN_Report.rdl';
+    RDLCLayout = 'Report_Layouts/Merchandizing/GRN_ReportFull.rdl';
     DefaultLayout = RDLC;
 
     dataset
@@ -34,6 +34,8 @@ report 71012753 GrnReport
                 DataItemLinkReference = "Purch. Rcpt. Header";
                 DataItemLink = "Document No." = field("No.");
                 DataItemTableView = sorting("Document No.");
+                RequestFilterFields = "No.";
+
                 column(Order_No_; PONo)
                 { }
                 column(ItemNo; "No.")
@@ -54,15 +56,16 @@ report 71012753 GrnReport
                 trigger OnPreDataItem()
 
                 begin
-
+                    // SetRange("No.", ItemCode);
 
                 end;
             }
-            // trigger OnPreDataItem()
-            // begin
-            //     SetRange("No.", CodeNo);
+            trigger OnPreDataItem()
+            begin
+                // SetRange("No.", CodeNo);
+                // SetRange("Posting Date", stDate, endDate);
 
-            // end;
+            end;
 
             trigger OnAfterGetRecord()
 
@@ -80,16 +83,36 @@ report 71012753 GrnReport
         {
             area(Content)
             {
-                // group(GroupName)
-                // {
-                //     field(CodeNo; CodeNo)
-                //     {
-                //         ApplicationArea = All;
-                //         Caption = 'GRN No';
-                //         TableRelation = "Purch. Rcpt. Header"."No.";
+                group(GroupName)
+                {
+                    // field(CodeNo; CodeNo)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'GRN No';
+                    //     TableRelation = "Purch. Rcpt. Header"."No.";
 
-                //     }
-                // }
+                    // }
+                    // field(ItemCode; ItemCode)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'Item No';
+                    //     TableRelation = Item."No.";
+
+                    // }
+                    // field(stDate; stDate)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'Start Date';
+
+                    // }
+                    // field(endDate; endDate)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'End Date';
+
+                    // }
+
+                }
                 // date,item,vendor
             }
         }
@@ -117,6 +140,9 @@ report 71012753 GrnReport
     // }
 
     var
+        ItemCode: Code[20];
+        stDate: Date;
+        endDate: Date;
         QT: Decimal;
         myInt: Integer;
         CodeNo: Code[50];
