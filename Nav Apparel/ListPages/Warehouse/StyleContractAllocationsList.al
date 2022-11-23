@@ -14,6 +14,13 @@ page 50841 "StyleContract Allocations List"
         {
             repeater(General)
             {
+
+                field("ContractNo"; "ContractNo")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Contract';
+                }
+
                 field(FactoryName; FactoryName)
                 {
                     ApplicationArea = All;
@@ -35,12 +42,7 @@ page 50841 "StyleContract Allocations List"
                 field(Qty; Qty)
                 {
                     ApplicationArea = All;
-                }
-
-                field("ContractNo"; "ContractNo")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Contract No';
+                    Caption = 'Order Qty';
                 }
             }
         }
