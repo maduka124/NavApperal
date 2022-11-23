@@ -869,11 +869,35 @@ page 71012740 "Nav Apperal Role Center"
                 {
                     Caption = 'Store Reports';
 
+                    action("Accessory Status ")
+                    {
+                        Caption = 'Accessory Status Report';
+                        Enabled = true;
+                        RunObject = report AccessoriesStatusReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Fabric & Trims requiremts - Marchandizingn ")
+                    {
+                        Caption = 'Fabric & Trims requiremts Report';
+                        Enabled = true;
+                        RunObject = report FabricAndTrimsRequiremts;
+                        ApplicationArea = all;
+                    }
+
                     action("Roll Issuing Report")
                     {
                         Caption = 'Roll Issuing Report';
                         Enabled = true;
                         RunObject = report IssueNoteReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Size Colour Wise Quantity Breakdown Report ")
+                    {
+                        Caption = 'Size Colour Wise Quantity Breakdown';
+                        Enabled = true;
+                        RunObject = report SizeColourwiseQuantity;
                         ApplicationArea = all;
                     }
 
