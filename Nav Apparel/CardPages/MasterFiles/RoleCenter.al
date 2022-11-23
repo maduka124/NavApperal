@@ -673,7 +673,7 @@ page 71012740 "Nav Apperal Role Center"
 
                     action("Planning Efficiency Dashboard")
                     {
-                        Caption = 'PowerBIReport1';
+                        Caption = 'Planning Efficiency Dashboard';
                         RunObject = Page "Planning Efficiency Dashboard1";
                         ApplicationArea = all;
                     }

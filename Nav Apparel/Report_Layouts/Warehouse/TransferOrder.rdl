@@ -2499,6 +2499,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="PONo">
           <DataField>PONo</DataField>
         </Field>
+        <Field Name="PO">
+          <DataField>PO</DataField>
+        </Field>
         <Field Name="Item_No_">
           <DataField>Item_No_</DataField>
         </Field>
@@ -2519,9 +2522,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Planned_Order_No_">
           <DataField>Planned_Order_No_</DataField>
-        </Field>
-        <Field Name="PO">
-          <DataField>PO</DataField>
         </Field>
         <Field Name="Quantityprodline">
           <DataField>Quantityprodline</DataField>
