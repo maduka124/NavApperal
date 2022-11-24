@@ -189,6 +189,7 @@ page 50489 "All PO List"
                         PlanningQueueNewRec."Resource No" := '';
                         PlanningQueueNewRec.Front := StyleMasterRec.Front;
                         PlanningQueueNewRec.Back := StyleMasterRec.Back;
+                        PlanningQueueNewRec."User ID" := UserId;
                         PlanningQueueNewRec.Insert();
 
 

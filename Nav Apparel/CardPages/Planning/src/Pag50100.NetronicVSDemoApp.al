@@ -2809,6 +2809,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanningQueueRec.Front := PlanningLinesRec.Front;
                             PlanningQueueRec.Back := PlanningLinesRec.Back;
                             PlanningQueueRec.Waistage := 0;
+                            PlanningQueueRec."User ID" := UserId;
                             PlanningQueueRec.Factory := PlanningLinesRec.Factory;
                             PlanningQueueRec.Target := PlanningLinesRec.Target;
                             PlanningQueueRec.Insert();
@@ -2896,6 +2897,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanningQueueRec.Back := PlanningLinesRec.Back;
                             PlanningQueueRec.Waistage := 0;
                             PlanningQueueRec.Factory := PlanningLinesRec.Factory;
+                            PlanningQueueRec."User ID" := UserId;
                             PlanningQueueRec.Target := PlanningLinesRec.Target;
                             PlanningQueueRec.Insert();
 

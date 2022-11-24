@@ -77,6 +77,7 @@ page 71012741 "Split Card"
                         PlanningQueueRec.Factory := Factory;
                         PlanningQueueRec.HoursPerDay := HoursPerDay;
                         PlanningQueueRec."Planned Date" := WorkDate();
+                        PlanningQueueRec."User ID" := UserId;
                         PlanningQueueRec.Insert();
 
                         //modify existing record

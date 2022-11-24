@@ -402,10 +402,11 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         ldnEntity: JsonObject;
         tempEntityToken: JsonToken;
         TempString: Text;
-        "PlanningQueueRec": Record "Planning Queue";
+        PlanningQueueRec: Record "Planning Queue";
     begin
 
         PlanningQueueRec.Reset();
+        PlanningQueueRec.SetRange("User ID", UserId);
 
         if PlanningQueueRec.FindSet() then begin
             repeat
