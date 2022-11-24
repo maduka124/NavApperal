@@ -17,12 +17,12 @@ page 71012740 "Nav Apperal Role Center"
                     Caption = 'Activities';
                 }
 
-                part(Control98; "Power BI Report Spinner Part")
-                {
-                    AccessByPermission = TableData "Power BI User Configuration" = I;
-                    ApplicationArea = Basic, Suite;
-                    Enabled = false;
-                }
+                // part(Control98; "Power BI Report Spinner Part")
+                // {
+                //     AccessByPermission = TableData "Power BI User Configuration" = I;
+                //     ApplicationArea = Basic, Suite;
+                //     Enabled = false;
+                // }
             }
         }
     }
@@ -631,6 +631,13 @@ page 71012740 "Nav Apperal Role Center"
             group("Planning")
             {
                 Caption = 'Planning';
+
+                action("Visual Planning")
+                {
+                    Caption = 'Visual Planning';
+                    RunObject = Page NETRONICVSDevToolDemoAppPage;
+                    ApplicationArea = all;
+                }
 
                 action("Learning Curve")
                 {
@@ -2077,15 +2084,15 @@ page 71012740 "Nav Apperal Role Center"
             }
         }
 
-        area(Creation)
-        {
-            action("Visual Planning")
-            {
-                Caption = 'Visual Planning';
-                RunObject = Page NETRONICVSDevToolDemoAppPage;
-                ApplicationArea = all;
-            }
-        }
+        // area(Creation)
+        // {
+        //     action("Visual Planning")
+        //     {
+        //         Caption = 'Visual Planning';
+        //         RunObject = Page NETRONICVSDevToolDemoAppPage;
+        //         ApplicationArea = all;
+        //     }
+        // }
     }
 
     var
