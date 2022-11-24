@@ -117,6 +117,7 @@ page 50338 "Split More Card"
                                 PlanningQueueRec.Factory := Factory;
                                 PlanningQueueRec.HoursPerDay := HoursPerDay;
                                 PlanningQueueRec."Planned Date" := WorkDate();
+                                PlanningQueueRec."User ID" := UserId;
                                 PlanningQueueRec.Insert();
 
                                 z := (y + x);
@@ -179,6 +180,7 @@ page 50338 "Split More Card"
                                             PlanningQueueRec.Factory := Factory;
                                             PlanningQueueRec.HoursPerDay := HoursPerDay;
                                             PlanningQueueRec."Planned Date" := WorkDate();
+                                            PlanningQueueRec."User ID" := UserId;
                                             PlanningQueueRec.Insert();
 
                                         end;
