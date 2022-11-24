@@ -65,6 +65,18 @@ codeunit 50822 NavAppCodeUnit2
     end;
 
 
-    
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Prod. Order from Sale", 'OnCreateProdOrderOnBeforeProdOrderInsert', '', false, false)]
+    local procedure OnCreateProdOrderOnBeforeProdOrderInsert(var ProductionOrder: Record "Production Order"; SalesLine: Record "Sales Line")
+    var
+        SalesOrderRec: Record "Sales Header";
+    begin
+
+        SalesOrderRec.get(SalesLine."Document Type", SalesLine."Document No.");
+        ProductionOrder."Style Name" := SalesOrderRec."Style Name";
+        ProductionOrder."Style No." := SalesOrderRec."Style No";
+        ProductionOrder.PO := SalesOrderRec."PO No";
+        ProductionOrder.validate(BuyerCode, SalesOrderRec."Sell-to Customer No.");
+    end;
+
 
 }

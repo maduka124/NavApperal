@@ -897,7 +897,7 @@ codeunit 71012752 NavAppCodeUnit
         ProdOrder."Style Name" := SalesHedd."Style Name";
         ProdOrder."Style No." := SalesHedd."Style No";
         ProdOrder.PO := SalesHedd."PO No";
-        ProdOrder."Style Name" := SalesHedd."Style Name";
+        //ProdOrder."Style Name" := SalesHedd."Style Name";
 
         StyleRec.Reset();
         StyleRec.SetRange("No.", SalesHedd."Style No");
