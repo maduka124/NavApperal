@@ -33,6 +33,11 @@ tableextension 71012660 "User Setup Extension" extends "User Setup"
         {
 
         }
+
+        field(71012587; "Merchandizer Head"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

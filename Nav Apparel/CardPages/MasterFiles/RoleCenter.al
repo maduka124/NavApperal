@@ -411,6 +411,13 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("MerchandizingGroup")
+                {
+                    Caption = 'Merchandizing Group';
+                    RunObject = Page MerchandizingGroupPage;
+                    ApplicationArea = all;
+                }
+
                 action("Planning Worksheet")
                 {
                     Caption = 'Planning Worksheet';
@@ -649,7 +656,6 @@ page 71012740 "Nav Apperal Role Center"
                 action("Pre-Production Follow Up")
                 {
                     RunObject = page PreProductionfollowupList;
-                    //RunPageMode = Edit;
                     ApplicationArea = all;
                 }
 
@@ -842,6 +848,14 @@ page 71012740 "Nav Apperal Role Center"
                     RunObject = Page "Posted Purchase Receipts";
                     ApplicationArea = all;
                 }
+
+                action("Pre-Production Follow Up- Store")
+                {
+                    Caption = 'Pre-Production Follow Up';
+                    RunObject = page PreProductionfollowupList;
+                    ApplicationArea = all;
+                }
+
 
                 action("Purchase Orders")
                 {

@@ -38,6 +38,11 @@ pageextension 71012743 UserSetupCardExt extends "User Setup"
                 ApplicationArea = All;
                 ShowMandatory = true;
             }
+
+            field("Merchandizer Head"; "Merchandizer Head")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 }
