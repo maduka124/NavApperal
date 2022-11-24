@@ -1089,7 +1089,8 @@ page 71012674 AssorColorSizeRatioListPart
                                 AssorColorSizeRatioNewRec.SetRange("Style No.", "Style No.");
                                 AssorColorSizeRatioNewRec.SetRange("lot No.", "lot No.");
                                 AssorColorSizeRatioNewRec.SetRange("Colour No", '*');
-                                AssorColorSizeRatioNewRec.SetRange("Pack No", AssorDetailsPackCountryRec."Pack No");
+                                AssorColorSizeRatioNewRec.SetRange("Country Code", AssorDetailsPackCountryRec."Country Code");
+                                //AssorColorSizeRatioNewRec.SetRange("Pack No", AssorDetailsPackCountryRec."Pack No");
                                 // AssorColorSizeRatioNewRec."Country Code" := AssorDetailsPackCountryRec."Country Code";
                                 // AssorColorSizeRatioNewRec."Country Name" := AssorDetailsPackCountryRec."Country Name";
                                 AssorColorSizeRatioNewRec.FindSet();
@@ -1713,7 +1714,7 @@ page 71012674 AssorColorSizeRatioListPart
                         TotalLine += Number;
                     end;
 
-                    if AssoRec."Colour Name" = "Colour Name" then
+                    if (AssoRec."Colour Name" = "Colour Name") and (AssoRec."Country Name" = "Country Name") then
                         TotalLine1 := TotalLine;
 
                     Tot := Tot + TotalLine;
