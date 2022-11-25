@@ -760,6 +760,13 @@ page 71012740 "Nav Apperal Role Center"
                         RunObject = report DayWiseSewingTarget;
                         ApplicationArea = all;
                     }
+                    action("Sewing Production Details")
+                    {
+                        Caption = 'Sewing Production Details';
+                        Enabled = true;
+                        RunObject = report SewingProductionDetails;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
