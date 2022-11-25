@@ -24,4 +24,12 @@ table 50847 MerchandizingGroupTable
             Clustered = true;
         }
     }
+
+    fieldgroups
+    {
+        fieldgroup(DropDown; "Group Id", "Group Head")
+        {
+
+        }
+    }
 }

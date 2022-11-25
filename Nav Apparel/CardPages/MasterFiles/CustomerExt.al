@@ -10,6 +10,13 @@ pageextension 71012733 CustomerCardExt extends "Customer Card"
                 ApplicationArea = All;
                 Caption = 'Fabric Inspection Level (%)';
             }
+
+
+            field("Group Id"; "Group Id")
+            {
+                ApplicationArea = All;
+                Caption = 'Merchandizer Group';
+            }
         }
 
         addafter(Shipping)

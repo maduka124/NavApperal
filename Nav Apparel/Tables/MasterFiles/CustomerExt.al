@@ -5,6 +5,11 @@ tableextension 71012592 "Customer Extension" extends Customer
         field(71012581; "Fab Inspection Level"; Decimal)
         {
         }
+
+        field(71012582; "Group Id"; Code[20])
+        {
+            TableRelation = MerchandizingGroupTable."Group Id";
+        }
     }
 
     trigger OnBeforeDelete()
