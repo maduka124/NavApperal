@@ -1,4 +1,4 @@
-page 50857 CapacityAllocationList
+page 50857 SAH_CapacityAllocationList
 {
     PageType = List;
     ApplicationArea = All;

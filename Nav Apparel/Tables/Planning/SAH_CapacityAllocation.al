@@ -1,9 +1,7 @@
 
-table 50853 CapacityAllocation
+table 50853 SAH_CapacityAllocation
 {
     DataClassification = ToBeClassified;
-    // LookupPageId = "Learning Curve";
-    // DrillDownPageId = "Learning Curve";
 
     fields
     {

@@ -642,7 +642,7 @@ page 71012740 "Nav Apperal Role Center"
                 action("Capacity Utilization By SAH")
                 {
                     Caption = 'Capacity Utilization By SAH';
-                    RunObject = Page CapacityAllocationList;
+                    RunObject = Page SAH_CapacityAllocationList;
                     ApplicationArea = all;
                 }
 
@@ -858,7 +858,7 @@ page 71012740 "Nav Apperal Role Center"
 
                 action("Pre-Production Follow Up- Store")
                 {
-                    Caption = 'Pre-Production Follow Up';                  
+                    Caption = 'Pre-Production Follow Up';
                     RunPageMode = View;
                     RunObject = page PreProductionfollowupdtoreList;
                     ApplicationArea = all;

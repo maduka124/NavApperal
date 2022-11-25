@@ -1,9 +1,9 @@
-page 50854 CapacityAllocationListPart
+page 50854 SAH_CapacityAllocationListPart
 {
     PageType = ListPart;
-    SourceTable = CapacityAllocation;
+    SourceTable = SAH_CapacityAllocation;
     SourceTableView = sorting("No.") order(ascending);
-    Caption = 'Capacity Allocation';
+    Caption = ' ';
 
     layout
     {
