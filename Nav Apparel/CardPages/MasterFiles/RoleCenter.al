@@ -858,10 +858,9 @@ page 71012740 "Nav Apperal Role Center"
 
                 action("Pre-Production Follow Up- Store")
                 {
-                    Caption = 'Pre-Production Follow Up';
-                    RunObject = page PreProductionfollowupList;
+                    Caption = 'Pre-Production Follow Up';                  
                     RunPageMode = View;
-
+                    RunObject = page PreProductionfollowupdtoreList;
                     ApplicationArea = all;
                 }
 
