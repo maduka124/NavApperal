@@ -14,7 +14,7 @@ report 50852 SewingProductionDetails
             DataItemTableView = sorting("No.");
             column(Style_No_; "Style No.")
             { }
-            column(Resource_No_; "Resource No.")
+            column(Resource_No_; ResourceName)
             { }
             column(BuyerName; BuyerName)
             { }
@@ -37,8 +37,6 @@ report 50852 SewingProductionDetails
             column(ShipDate; ShipDate)
             { }
             column(stDate; stDate)
-            { }
-            column(endDate; endDate)
             { }
             column(TodayOutput; TodayOutput)
             { }
@@ -63,9 +61,7 @@ report 50852 SewingProductionDetails
                     BuyerName := StyleRec."Buyer Name";
                     Style := StyleRec."Style No.";
                     Factory := StyleRec."Factory Name";
-                    OrderQy := StyleRec."Order Qty";
                 end;
-
 
                 NavLinesRec.Reset();
                 NavLinesRec.SetRange("Style No.", "Style No.");
@@ -79,10 +75,12 @@ report 50852 SewingProductionDetails
 
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Style No.");
+                StylePoRec.SetRange("Lot No.", "Lot No.");
                 StylePoRec.SetRange("PO No.", "PO No.");
                 if StylePoRec.FindFirst() then begin
                     TotalOuput := StylePoRec."Sawing Out Qty";
                     ShipDate := StylePoRec."Ship Date";
+                    OrderQy := StylePoRec.Qty;
                 end;
 
                 ProductionHeaderRec.Reset();
@@ -92,12 +90,18 @@ report 50852 SewingProductionDetails
                     OutPutStartDate := ProductionHeaderRec."Prod Date";
                     TodayOutput := ProductionHeaderRec."Output Qty";
                 end;
+
+                WorkcenterRec.Reset();
+                WorkcenterRec.SetRange("No.", "Resource No.");
+                if WorkcenterRec.FindFirst() then begin
+                    ResourceName := WorkcenterRec.Name;
+                end;
             end;
 
             trigger OnPreDataItem()
 
             begin
-                SetRange(PlanDate, stDate, endDate);
+                SetRange(PlanDate, stDate);
             end;
         }
     }
@@ -114,15 +118,10 @@ report 50852 SewingProductionDetails
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
-                        Caption = 'Start Date';
+                        Caption = 'Date';
 
                     }
-                    field(endDate; endDate)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'End Date';
 
-                    }
                 }
             }
         }
@@ -133,6 +132,8 @@ report 50852 SewingProductionDetails
 
 
     var
+        ResourceName: Text[100];
+        WorkcenterRec: Record "Work Center";
         OrderQy: BigInteger;
         Factory: Text[100];
         Style: Text[50];
@@ -150,5 +151,5 @@ report 50852 SewingProductionDetails
         BuyerName: Text[50];
         StyleRec: Record "Style Master";
         stDate: Date;
-        endDate: Date;
+
 }
