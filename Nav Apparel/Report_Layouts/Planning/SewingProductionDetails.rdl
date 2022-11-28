@@ -73,22 +73,22 @@
                   <Width>1.53811cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.02916cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.60944cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.5795cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.64737cm</Width>
+                  <Width>1.92253cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.56867cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.01317cm</Width>
+                  <Width>1.738cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.0555cm</Width>
@@ -97,19 +97,19 @@
                   <Width>1.86267cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.26717cm</Width>
+                  <Width>1.94967cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.26717cm</Width>
+                  <Width>1.992cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.20133cm</Width>
+                  <Width>1.69333cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.373cm</Width>
+                  <Width>2.119cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.16133cm</Width>
+                  <Width>1.90733cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -134,7 +134,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -190,7 +190,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -246,7 +246,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -302,7 +302,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -358,7 +358,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1259,7 +1259,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2083,7 +2082,7 @@
             <Top>2.97603cm</Top>
             <Left>0.0127cm</Left>
             <Height>2.724cm</Height>
-            <Width>28.56493cm</Width>
+            <Width>28.56491cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2157,7 +2156,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -2210,7 +2209,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>28.57763cm</Width>
+      <Width>28.57762cm</Width>
       <Page>
         <PageFooter>
           <Height>0.80257cm</Height>
