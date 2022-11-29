@@ -2172,23 +2172,11 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Dimension">
           <DataField>Dimension</DataField>
         </Field>
-        <Field Name="Article">
-          <DataField>Article</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
         <Field Name="IssueQty">
           <DataField>IssueQty</DataField>
         </Field>
         <Field Name="IssueQtyFormat">
           <DataField>IssueQtyFormat</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="QtyFormat">
-          <DataField>QtyFormat</DataField>
         </Field>
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
@@ -2198,6 +2186,15 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="GRNQtyFormat">
           <DataField>GRNQtyFormat</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="QtyFormat">
+          <DataField>QtyFormat</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
         </Field>
         <Field Name="Size_Range_Name">
           <DataField>Size_Range_Name</DataField>
@@ -2210,6 +2207,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Colour">
           <DataField>Colour</DataField>
+        </Field>
+        <Field Name="Article">
+          <DataField>Article</DataField>
         </Field>
       </Fields>
       <Query>
