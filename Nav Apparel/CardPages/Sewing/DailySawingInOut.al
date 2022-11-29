@@ -69,7 +69,8 @@ page 50355 "Daily Sewing In/Out Card"
                         NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavProdDetRec.SetRange("Resource No.", "Resource No.");
                         NavProdDetRec.SetFilter(PlanDate, '%1..%2', "Prod Date", "Prod Date" + 3);
-                        NavProdDetRec.FindSet();
+                        if not NavProdDetRec.FindSet() then
+                            Error('Cannot find planning details');
 
                         if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
                             "Style No." := NavProdDetRec."Style No.";
@@ -104,6 +105,8 @@ page 50355 "Daily Sewing In/Out Card"
                         NavAppProdPlansDetRec.SetRange("Resource No.", "Resource No.");
                         NavAppProdPlansDetRec.SetRange("Style No.", "Style No.");
                         NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', "Prod Date");
+                        if NavAppProdPlansDetRec.FindSet() then
+                            Error('Cannot find planning details');
 
                         if Page.RunModal(50519, NavAppProdPlansDetRec) = Action::LookupOK then begin
                             "PO No" := NavAppProdPlansDetRec."PO No.";
@@ -201,6 +204,8 @@ page 50355 "Daily Sewing In/Out Card"
                         NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavProdDetRec.SetRange("Resource No.", "Resource No.");
                         NavProdDetRec.SetFilter(PlanDate, '=%1', "Prod Date");
+                        if NavProdDetRec.FindSet() then
+                            Error('Cannot find planning details');
 
                         if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
                             "Out Style No." := NavProdDetRec."Style No.";
@@ -241,6 +246,8 @@ page 50355 "Daily Sewing In/Out Card"
                         NavAppProdPlansDetRec.SetRange("Resource No.", "Resource No.");
                         NavAppProdPlansDetRec.SetRange("Style No.", "Style No.");
                         NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', "Prod Date");
+                        if NavAppProdPlansDetRec.FindSet() then
+                            Error('Cannot find planning details');
 
                         if Page.RunModal(50519, NavAppProdPlansDetRec) = Action::LookupOK then begin
                             "OUT PO No" := NavAppProdPlansDetRec."PO No.";
@@ -348,18 +355,21 @@ page 50355 "Daily Sewing In/Out Card"
             StyleMasterPORec.Reset();
             StyleMasterPORec.SetRange("Style No.", "Style No.");
             StyleMasterPORec.SetRange("Lot No.", "Lot No.");
-            StyleMasterPORec.FindSet();
+            if StyleMasterPORec.FindSet() then begin
 
-            if "Input Qty" > StyleMasterPORec."Cut Out Qty" then begin
-                Error('Input quantity is greater than total cut quantity.');
-                exit;
-            end;
+                if "Input Qty" > StyleMasterPORec."Cut Out Qty" then begin
+                    Error('Input quantity is greater than total cut quantity.');
+                    exit;
+                end;
 
-            //Check Input qty with output qty
-            if StyleMasterPORec."Sawing In Qty" < "Output Qty" then begin
-                Error('Sewing output total quantity is greater than sewing input total quantity.');
-                exit;
-            end;
+                //Check Input qty with output qty
+                if StyleMasterPORec."Sawing In Qty" < "Output Qty" then begin
+                    Error('Sewing output total quantity is greater than sewing input total quantity.');
+                    exit;
+                end;
+            end
+            else
+                Error('Cannot find Style : %1', "Style Name");
 
 
             //Line In Qty

@@ -12,8 +12,12 @@ table 50847 MerchandizingGroupTable
         field(2; "Group Head"; Text[200])
         {
             DataClassification = ToBeClassified;
-
             TableRelation = "User Setup"."User ID" where("Merchandizer Head" = const(true));
+        }
+
+        field(3; "Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 
@@ -27,7 +31,7 @@ table 50847 MerchandizingGroupTable
 
     fieldgroups
     {
-        fieldgroup(DropDown; "Group Id", "Group Head")
+        fieldgroup(DropDown; "Group Id", "Group Name", "Group Head")
         {
 
         }

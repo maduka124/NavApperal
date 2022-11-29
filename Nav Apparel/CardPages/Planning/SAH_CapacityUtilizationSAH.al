@@ -46,6 +46,16 @@ page 50855 CapacityUtilizationSAH
                     SubPageLink = Year = field(Year);
                 }
             }
+
+            group("Merchand Group Wise Allocation")
+            {
+                part(SAH_MerchGRPWiseAlloListPart; SAH_MerchGRPWiseAlloListPart)
+                {
+                    ApplicationArea = All;
+                    Caption = '';
+                    SubPageLink = Year = field(Year);
+                }
+            }
         }
     }
 
@@ -63,6 +73,8 @@ page 50855 CapacityUtilizationSAH
                     CapacityAlloRec: Record SAH_CapacityAllocation;
                     PlanEfficiencyRec: Record SAH_PlanEfficiency;
                     FactoryCapacityRec: Record SAH_FactoryCapacity;
+                    SAH_MerchGRPWiseAllocRec: Record SAH_MerchGRPWiseAllocation;
+                    MerchanGroupTableRec: Record MerchandizingGroupTable;
                     LocationsRec: Record Location;
                     WorkCenterRec: Record "Work Center";
                     CalenderRec: Record "Calendar Entry";
@@ -358,7 +370,24 @@ page 50855 CapacityUtilizationSAH
                         end;
 
 
-                        
+                        //Merchand group wise allocaton
+                        //Insert all group heads
+                        MerchanGroupTableRec.Reset();
+                        if MerchanGroupTableRec.FindSet() then begin
+                            repeat
+                                SAH_MerchGRPWiseAllocRec.Init();
+                                SAH_MerchGRPWiseAllocRec."Group Id" := MerchanGroupTableRec."Group Id";
+                                SAH_MerchGRPWiseAllocRec."Group Head" := MerchanGroupTableRec."Group Head";
+                                SAH_MerchGRPWiseAllocRec."Group Name" := MerchanGroupTableRec."Group Name";
+                                SAH_MerchGRPWiseAllocRec.Year := Year;
+                                SAH_MerchGRPWiseAllocRec."Created User" := UserId;
+                                SAH_MerchGRPWiseAllocRec."Created Date" := WorkDate();
+                                SAH_MerchGRPWiseAllocRec.Insert();
+                            until MerchanGroupTableRec.Next() = 0;
+                        end;
+
+
+
                     end
                     else
                         Error('Year is blank.');

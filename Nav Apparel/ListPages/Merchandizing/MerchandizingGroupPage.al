@@ -17,6 +17,11 @@ page 50848 MerchandizingGroupPage
                     ApplicationArea = All;
                 }
 
+                field("Group Name"; "Group Name")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Group Head"; "Group Head")
                 {
                     ApplicationArea = All;
