@@ -112,6 +112,12 @@ page 71012683 "BOM Line Estimate ListPart"
                     trigger OnValidate()
                     var
                     begin
+                        if "Article Name." = '' then
+                            Error('Article is blank.');
+
+                        if "Dimension Name." = '' then
+                            Error('Dimension is blank.');
+
                         CalculateValue(0);
                     end;
                 }
@@ -121,12 +127,32 @@ page 71012683 "BOM Line Estimate ListPart"
                     ApplicationArea = All;
                     Caption = 'Type';
                     StyleExpr = StyleExprTxt;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if "Article Name." = '' then
+                            Error('Article is blank.');
+
+                        if "Dimension Name." = '' then
+                            Error('Dimension is blank.');
+                    end;
                 }
 
                 field("GMT Qty"; "GMT Qty")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if "Article Name." = '' then
+                            Error('Article is blank.');
+
+                        if "Dimension Name." = '' then
+                            Error('Dimension is blank.');
+                    end;
                 }
 
                 field(Consumption; Consumption)
@@ -287,9 +313,16 @@ page 71012683 "BOM Line Estimate ListPart"
         ConvFactor: Decimal;
         UOMRec: Record "Unit of Measure";
     begin
+
+        if "Article Name." = '' then
+            Error('Article is blank.');
+
+        if "Dimension Name." = '' then
+            Error('Dimension is blank.');
+
         UOMRec.Reset();
         UOMRec.SetRange(Code, "Unit N0.");
-        UOMRec.FindSet(); 
+        UOMRec.FindSet();
         ConvFactor := UOMRec."Converion Parameter";
         Value := 0;
         Requirment := 0;

@@ -1,5 +1,5 @@
 
-table 50863 SAH_PlanEfficiency
+table 50866 SAH_FactoryCapacity
 {
     DataClassification = ToBeClassified;
 
@@ -10,62 +10,62 @@ table 50863 SAH_PlanEfficiency
             DataClassification = ToBeClassified;
         }
 
-        field(2; "JAN"; decimal)
+        field(2; "JAN"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "FEB"; decimal)
+        field(3; "FEB"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(4; "MAR"; decimal)
+        field(4; "MAR"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "APR"; decimal)
+        field(5; "APR"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(6; "MAY"; decimal)
+        field(6; "MAY"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(7; "JUN"; decimal)
+        field(7; "JUN"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(8; "JUL"; decimal)
+        field(8; "JUL"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(9; "AUG"; decimal)
+        field(9; "AUG"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "SEP"; decimal)
+        field(10; "SEP"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(11; "OCT"; decimal)
+        field(11; "OCT"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "NOV"; decimal)
+        field(12; "NOV"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(13; "DEC"; decimal)
+        field(13; "DEC"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
@@ -79,11 +79,21 @@ table 50863 SAH_PlanEfficiency
         {
             DataClassification = ToBeClassified;
         }
+
+        field(16; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(17; "Factory Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
     {
-        key(PK; Year)
+        key(PK; Year, "Factory Name")
         {
             Clustered = true;
         }
@@ -91,7 +101,7 @@ table 50863 SAH_PlanEfficiency
 
     fieldgroups
     {
-        fieldgroup(DropDown; Year)
+        fieldgroup(DropDown; Year, "Factory Name")
         {
 
         }

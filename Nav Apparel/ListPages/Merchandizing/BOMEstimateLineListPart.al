@@ -226,6 +226,12 @@ page 71012695 "BOM Estimate Line List part"
         UOMRec: Record "Unit of Measure";
     begin
 
+        if "Article Name." = '' then
+            Error('Article is blank.');
+
+        if "Dimension Name." = '' then
+            Error('Dimension is blank.');
+
         UOMRec.Reset();
         UOMRec.SetRange(Code, "Unit N0.");
         if UOMRec.FindSet() then
