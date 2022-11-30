@@ -32,7 +32,7 @@ page 50860 FacWiseProductplaningPart
                     ApplicationArea = All;
                 }
 
-                field("Cutting Deference"; "Cutting Deference")
+                field("Cutting Difference"; "Cutting Difference")
                 {
                     ApplicationArea = All;
                 }
@@ -47,7 +47,7 @@ page 50860 FacWiseProductplaningPart
                     ApplicationArea = All;
                 }
 
-                field("Sewing Deference"; "Sewing Deference")
+                field("Sewing Difference"; "Sewing Difference")
                 {
                     ApplicationArea = All;
                 }
@@ -62,7 +62,7 @@ page 50860 FacWiseProductplaningPart
                     ApplicationArea = All;
                 }
 
-                field("Finishing Deference"; "Finishing Deference")
+                field("Finishing Difference"; "Finishing Difference")
                 {
                     ApplicationArea = All;
                 }

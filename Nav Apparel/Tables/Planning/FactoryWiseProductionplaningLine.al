@@ -19,7 +19,7 @@ table 50859 FacWiseProductplaningLineTable
             DataClassification = ToBeClassified;
         }
 
-        field(4; "Cutting Deference"; Integer)
+        field(4; "Cutting Difference"; Integer)
         {
             DataClassification = ToBeClassified;
         }
@@ -34,7 +34,7 @@ table 50859 FacWiseProductplaningLineTable
             DataClassification = ToBeClassified;
         }
 
-        field(7; "Sewing Deference"; Integer)
+        field(7; "Sewing Difference"; Integer)
         {
             DataClassification = ToBeClassified;
         }
@@ -49,7 +49,7 @@ table 50859 FacWiseProductplaningLineTable
             DataClassification = ToBeClassified;
         }
 
-        field(10; "Finishing Deference"; Integer)
+        field(10; "Finishing Difference"; Integer)
         {
             DataClassification = ToBeClassified;
         }
