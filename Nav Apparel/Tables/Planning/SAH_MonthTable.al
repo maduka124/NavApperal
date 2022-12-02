@@ -1,6 +1,8 @@
 table 50875 MonthTable
 {
     DataClassification = CustomerContent;
+    DrillDownPageId = MonthList;
+    LookupPageId = MonthList;
 
     fields
     {
@@ -21,13 +23,17 @@ table 50875 MonthTable
         {
             Clustered = true;
         }
+
+        key(SK; "Month No")
+        {
+        }
     }
 
-    // fieldgroups
-    // {
-    //     fieldgroup(DropDown; "Month Name")
-    //     {
+    fieldgroups
+    {
+        fieldgroup(DropDown; "Month No", "Month Name")
+        {
 
-    //     }
-    // }
+        }
+    }
 }

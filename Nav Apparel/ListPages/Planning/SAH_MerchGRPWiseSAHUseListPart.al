@@ -18,12 +18,14 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
                 {
                     ApplicationArea = all;
                     TableRelation = YearTable.Year;
+                    Caption = 'Year';
                 }
 
                 field(MonthName; MonthName)
                 {
                     ApplicationArea = all;
                     TableRelation = MonthTable."Month Name";
+                    Caption = 'Month';
 
                     trigger OnValidate()
                     var
