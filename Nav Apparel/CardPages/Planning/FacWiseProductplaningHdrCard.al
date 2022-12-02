@@ -12,13 +12,13 @@ page 50862 FacWiseProductplaningHdrCard
         {
             group(General)
             {
-
                 field(No; No)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field(Factory; Factory)
+
+                field("Factory Name"; "Factory Name")
                 {
                     ApplicationArea = All;
 
@@ -28,7 +28,7 @@ page 50862 FacWiseProductplaningHdrCard
                     begin
 
                         LocationRec.Reset();
-                        LocationRec.SetRange(Name, Factory);
+                        LocationRec.SetRange(Name, "Factory Name");
 
                         if LocationRec.FindSet() then
                             "Factory Code" := LocationRec.Code;
@@ -63,22 +63,21 @@ page 50862 FacWiseProductplaningHdrCard
             {
                 ApplicationArea = All;
                 Image = WorkCenterLoad;
+
                 trigger OnAction()
                 var
                     ProductionOutHeaderRec: Record ProductionOutHeader;
                     FacWiseProductplaningLineRec: Record FacWiseProductplaningLineTable;
                     FacWiseProductplaning2LineRec: Record FacWiseProductplaningLineTable;
-                    // FacWiseProductplaning3LineRec: Record FacWiseProductplaningLineTable;
-                    // FacWiseProductplaning4LineRec: Record FacWiseProductplaningLineTable;
                     StylemasterRec: Record "Style Master";
-                    navappPlaningRec: Record "NavApp Prod Plans Details";
+                    NavappPlaningRec: Record "NavApp Prod Plans Details";
                     SewingProductionOutHeaderRec: Record ProductionOutHeader;
                     FinishingProductionOutHeaderRec: Record ProductionOutHeader;
-                    workcentersRec: record "Work Center";
-                    Total: Integer;
+                    WorkcentersRec: record "Work Center";
+
                 begin
-                    if Factory = '' then
-                        Error('Selcet factory first');
+                    if "Factory Name" = '' then
+                        Error('Select factory first');
 
                     if ("From Date" = 0D) or ("To Date" = 0D) then
                         Error('Invalid date period');
@@ -101,11 +100,11 @@ page 50862 FacWiseProductplaningHdrCard
                     if ProductionOutHeaderRec.FindSet() then begin
                         repeat
 
-                            StylemasterRec.Reset();
-                            StylemasterRec.SetRange("Style No.", ProductionOutHeaderRec."Style Name");
-                            StylemasterRec.SetRange("Factory Name", Factory);
+                            WorkcentersRec.Reset();
+                            WorkcentersRec.SetRange("No.", ProductionOutHeaderRec."Resource No.");
+                            WorkcentersRec.SetRange("Factory No.", "Factory Code");
 
-                            if StylemasterRec.FindSet() then begin
+                            if WorkcentersRec.FindSet() then begin
 
                                 FacWiseProductplaningLineRec.Reset();
                                 FacWiseProductplaningLineRec.SetRange(Date, ProductionOutHeaderRec."Prod Date");
@@ -133,19 +132,19 @@ page 50862 FacWiseProductplaningHdrCard
                     end;
 
                     //Sewing Planinned qty
-                    navappPlaningRec.Reset();
-                    navappPlaningRec.SetRange(PlanDate, "From Date", "To Date");
-                    navappPlaningRec.SetRange("Factory No.", "Factory Code");
+                    NavappPlaningRec.Reset();
+                    NavappPlaningRec.SetRange(PlanDate, "From Date", "To Date");
+                    NavappPlaningRec.SetRange("Factory No.", "Factory Code");
 
-                    if navappPlaningRec.FindSet() then begin
+                    if NavappPlaningRec.FindSet() then begin
                         repeat
 
                             FacWiseProductplaningLineRec.Reset();
-                            FacWiseProductplaningLineRec.SetRange(Date, navappPlaningRec.PlanDate);
+                            FacWiseProductplaningLineRec.SetRange(Date, NavappPlaningRec.PlanDate);
                             FacWiseProductplaningLineRec.SetRange("No.", No);
 
                             if FacWiseProductplaningLineRec.FindSet() then begin
-                                FacWiseProductplaningLineRec."Sewing Planned" := FacWiseProductplaningLineRec."Sewing Planned" + navappPlaningRec.Qty;
+                                FacWiseProductplaningLineRec."Sewing Planned" := FacWiseProductplaningLineRec."Sewing Planned" + NavappPlaningRec.Qty;
                                 FacWiseProductplaningLineRec.Modify();
 
                             end;
@@ -153,12 +152,12 @@ page 50862 FacWiseProductplaningHdrCard
                             if not FacWiseProductplaningLineRec.FindSet() then begin
                                 FacWiseProductplaningLineRec.Init();
                                 FacWiseProductplaningLineRec."No." := No;
-                                FacWiseProductplaningLineRec.Date := navappPlaningRec.PlanDate;
-                                FacWiseProductplaningLineRec."Sewing Planned" := navappPlaningRec.Qty;
+                                FacWiseProductplaningLineRec.Date := NavappPlaningRec.PlanDate;
+                                FacWiseProductplaningLineRec."Sewing Planned" := NavappPlaningRec.Qty;
                                 FacWiseProductplaningLineRec.Insert();
 
                             end;
-                        until navappPlaningRec.Next() = 0;
+                        until NavappPlaningRec.Next() = 0;
                     End;
 
                     // Sewing Out Qty
@@ -169,11 +168,11 @@ page 50862 FacWiseProductplaningHdrCard
                     if SewingProductionOutHeaderRec.FindSet() then begin
                         repeat
 
-                            workcentersRec.Reset();
-                            workcentersRec.SetRange("Name", SewingProductionOutHeaderRec."Resource Name");
-                            workcentersRec.SetRange("Factory Name", Factory);
+                            WorkcentersRec.Reset();
+                            WorkcentersRec.SetRange("Name", SewingProductionOutHeaderRec."Resource Name");
+                            WorkcentersRec.SetRange("Factory No.", "Factory Code");
 
-                            if workcentersRec.FindSet() then begin
+                            if WorkcentersRec.FindSet() then begin
                                 FacWiseProductplaningLineRec.Reset();
                                 FacWiseProductplaningLineRec.SetRange(Date, SewingProductionOutHeaderRec."Prod Date");
                                 FacWiseProductplaningLineRec.SetRange("No.", No);
@@ -206,11 +205,11 @@ page 50862 FacWiseProductplaningHdrCard
                     if FinishingProductionOutHeaderRec.FindSet() then begin
                         repeat
 
-                            workcentersRec.Reset();
-                            workcentersRec.SetRange("Name", FinishingProductionOutHeaderRec."Resource Name");
-                            workcentersRec.SetRange("Factory Name", Factory);
+                            WorkcentersRec.Reset();
+                            WorkcentersRec.SetRange("Name", FinishingProductionOutHeaderRec."Resource Name");
+                            WorkcentersRec.SetRange("Factory No.", "Factory Code");
 
-                            if workcentersRec.FindSet() then begin
+                            if WorkcentersRec.FindSet() then begin
                                 FacWiseProductplaningLineRec.Reset();
                                 FacWiseProductplaningLineRec.SetRange(Date, FinishingProductionOutHeaderRec."Prod Date");
                                 FacWiseProductplaningLineRec.SetRange("No.", No);

@@ -4,7 +4,14 @@ table 50858 FactWiseProductPlaningHdrtbale
 
     fields
     {
-        field(1; Factory; Text[50])
+
+        field(1; "No"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+            AutoIncrement = true;
+        }
+
+        field(5; "Factory Name"; Text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = Location.Name;
@@ -25,17 +32,11 @@ table 50858 FactWiseProductPlaningHdrtbale
         {
             DataClassification = ToBeClassified;
         }
-
-        field(5; "No"; Integer)
-        {
-            DataClassification = ToBeClassified;
-            AutoIncrement = true;
-        }
     }
 
     keys
     {
-        key(PK; "No", Factory)
+        key(PK; "No")
         {
             Clustered = true;
         }
