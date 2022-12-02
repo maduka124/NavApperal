@@ -22,13 +22,7 @@ report 50633 AccessoriesStatusReport
             { }
             column(Dimension; Dimension)
             { }
-            column(Article; Article)
-            { }
-            column(PO_No; OrderNO)
-            { }
             column(IssueQty; IssuePlus)
-            { }
-            column(Qty; Qty)
             { }
             column(CompLogo; comRec.Picture)
             { }
@@ -39,6 +33,10 @@ report 50633 AccessoriesStatusReport
                 DataItemLink = StyleNo = field("No.");
                 DataItemTableView = sorting("Line No.");
                 column(GRNQty; Quantity)
+                { }
+                column(Qty; Qty)
+                { }
+                column(PO_No; OrderNO)
                 { }
                 dataitem(Item; Item)
                 {
@@ -52,6 +50,8 @@ report 50633 AccessoriesStatusReport
                     column(Unit; "Base Unit of Measure")
                     { }
                     column(Colour; "Color Name")
+                    { }
+                    column(Article; Article)
                     { }
 
                     trigger OnAfterGetRecord()
@@ -70,24 +70,15 @@ report 50633 AccessoriesStatusReport
                         end;
                         IssuePlus := IssueQty * -1;
 
-                        PurchHDRec.SetRange("No.", "Purch. Rcpt. Line"."Document No.");
-                        if PurchHDRec.FindFirst() then begin
-                            OrderNO := PurchHDRec."Order No.";
-                        end;
-
-
                         DimenRec.SetRange("No.", Item."Dimension Width No.");
                         if DimenRec.FindFirst() then begin
                             Dimension := DimenRec."Dimension Width";
                         end;
-                        ArticleRec.SetRange("No.", Item."Article No.");
+                        ArticleRec.SetRange("No.", "Article No.");
                         if ArticleRec.FindFirst() then begin
                             Article := ArticleRec.Article;
                         end;
-                        PurchaseArchiveRec.SetRange("Document No.", "Purch. Rcpt. Line"."Order No.");
-                        if PurchaseArchiveRec.FindFirst() then begin
-                            Qty := PurchaseArchiveRec.Quantity;
-                        end;
+
                     end;
 
                 }
@@ -97,7 +88,16 @@ report 50633 AccessoriesStatusReport
 
                 begin
 
+                    PurchaseArchiveRec.SetRange("Document No.", "Order No.");
+                    PurchaseArchiveRec.SetRange("No.", "No.");
+                    if PurchaseArchiveRec.FindFirst() then begin
+                        Qty := PurchaseArchiveRec.Quantity;
+                    end;
 
+                    PurchHDRec.SetRange("No.", "Document No.");
+                    if PurchHDRec.FindFirst() then begin
+                        OrderNO := PurchHDRec."Order No.";
+                    end;
                 end;
 
 

@@ -2079,6 +2079,11 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
+            <SortExpressions>
+              <SortExpression>
+                <Value>=Fields!Resource_No_.Value</Value>
+              </SortExpression>
+            </SortExpressions>
             <Top>2.97603cm</Top>
             <Left>0.0127cm</Left>
             <Height>2.724cm</Height>

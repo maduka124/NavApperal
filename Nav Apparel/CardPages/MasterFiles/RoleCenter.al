@@ -653,6 +653,13 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+
+                action("Factory Wise Production Planning")
+                {
+                    RunObject = Page FacWiseProductplaningHdrList;
+                    ApplicationArea = all;
+                }
+
                 action("Learning Curve")
                 {
                     Caption = 'Learning Curve';

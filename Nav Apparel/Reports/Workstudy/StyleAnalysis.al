@@ -34,8 +34,6 @@ report 50615 StyleAnalysis
             column(CompLogo; comRec.Picture)
             { }
 
-
-
             dataitem("New Breakdown Op Line2"; "New Breakdown Op Line2")
             {
                 DataItemLinkReference = "New Breakdown";
