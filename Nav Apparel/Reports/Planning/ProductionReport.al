@@ -80,6 +80,8 @@ report 50865 DailyProductionReport
             { }
             column(variance; variance)
             { }
+            // column(GarmentType; GarmentType)
+            // { }
 
 
             trigger OnAfterGetRecord()
