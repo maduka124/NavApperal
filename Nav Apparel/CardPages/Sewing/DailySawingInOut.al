@@ -105,7 +105,7 @@ page 50355 "Daily Sewing In/Out Card"
                         NavAppProdPlansDetRec.SetRange("Resource No.", "Resource No.");
                         NavAppProdPlansDetRec.SetRange("Style No.", "Style No.");
                         NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', "Prod Date");
-                        if NavAppProdPlansDetRec.FindSet() then
+                        if not NavAppProdPlansDetRec.FindSet() then
                             Error('Cannot find planning details');
 
                         if Page.RunModal(50519, NavAppProdPlansDetRec) = Action::LookupOK then begin
@@ -447,6 +447,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionOutLine.Type := Type;
                         ProductionOutLine.In_Out := 'IN';
                         ProductionOutLine.Total := 0;
+                        ProductionOutLine."Style Name" := AssoRec."Style Name";
                         ProductionOutLine."Style No." := AssoRec."Style No.";
                         ProductionOutLine."PO No." := AssoRec."PO No.";
                         ProductionOutLine."Lot No." := AssoRec."Lot No.";
@@ -603,6 +604,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionOutLine.In_Out := 'OUT';
                         ProductionOutLine.Total := 0;
                         ProductionOutLine."Style No." := AssoRec."Style No.";
+                        ProductionOutLine."Style Name" := AssoRec."Style Name";
                         ProductionOutLine."PO No." := AssoRec."PO No.";
                         ProductionOutLine."Lot No." := AssoRec."Lot No.";
 
