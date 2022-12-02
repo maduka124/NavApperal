@@ -79,7 +79,7 @@ table 50457 "New Breakdown"
         field(15; "Garment Part Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = GarmentPart.Description;
+            TableRelation = GarmentPart.Description where("Item Type No." = field("Item Type No."));
             ValidateTableRelation = false;
         }
 
