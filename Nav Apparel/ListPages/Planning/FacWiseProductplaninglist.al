@@ -6,7 +6,7 @@ page 50861 FacWiseProductplaningHdrList
     CardPageId = FacWiseProductplaningHdrCard;
     SourceTable = FactWiseProductPlaningHdrtbale;
     Caption = 'Factory Wise Production Planning';
-    SourceTableView = sorting(Factory);
+    SourceTableView = sorting(No) order(descending);
 
     layout
     {
@@ -20,7 +20,7 @@ page 50861 FacWiseProductplaningHdrList
                     ApplicationArea = All;
                 }
 
-                field(Factory; Factory)
+                field("Factory Name"; "Factory Name")
                 {
                     ApplicationArea = All;
                 }

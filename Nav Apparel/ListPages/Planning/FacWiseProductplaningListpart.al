@@ -4,7 +4,8 @@ page 50860 FacWiseProductplaningPart
     SourceTable = FacWiseProductplaningLineTable;
     Editable = false;
     DeleteAllowed = false;
-
+    InsertAllowed = false;
+    SourceTableView = sorting(Date) order(ascending);
     layout
     {
         area(Content)
@@ -17,6 +18,7 @@ page 50860 FacWiseProductplaningPart
                     ApplicationArea = All;
                     Visible = false;
                 }
+
                 field(Date; Date)
                 {
                     ApplicationArea = All;
