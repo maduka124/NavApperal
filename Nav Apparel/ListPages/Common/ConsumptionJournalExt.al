@@ -21,11 +21,12 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
                 Caption = 'Mat. &Requisition';
                 Image = PrintCover;
                 ApplicationArea = All;
+                Visible = false;
 
                 trigger OnAction();
                 var
                     RPORec: Record "Production Order";
-                    // MaterialReport: Report MaterialRequition;
+                // MaterialReport: Report MaterialRequition;
                 begin
                     RPORec.Reset();
                     RPORec.SetRange("No.", "Order No.");
