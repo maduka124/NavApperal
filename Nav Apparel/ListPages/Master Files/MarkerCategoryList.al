@@ -13,13 +13,13 @@ page 71012619 "Marker Category List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Marker Category No';
                 }
 
-                field("Marker Category"; "Marker Category")
+                field("Marker Category"; Rec."Marker Category")
                 {
                     ApplicationArea = All;
                 }

@@ -13,56 +13,56 @@ page 71012616 "Main Category List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category No';
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Master Category Name"; "Master Category Name")
+                field("Master Category Name"; Rec."Master Category Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Inv. Posting Group Code"; "Inv. Posting Group Code")
+                field("Inv. Posting Group Code"; Rec."Inv. Posting Group Code")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Prod. Posting Group Code"; "Prod. Posting Group Code")
+                field("Prod. Posting Group Code"; Rec."Prod. Posting Group Code")
                 {
                     ApplicationArea = All;
                 }
 
-                field("No Series"; "No Series")
+                field("No Series"; Rec."No Series")
                 {
                     ApplicationArea = All;
                 }
 
-                field(DimensionOnly; DimensionOnly)
+                field(DimensionOnly; Rec.DimensionOnly)
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension Only';
                 }
 
-                field(SewingJobOnly; SewingJobOnly)
+                field(SewingJobOnly; Rec.SewingJobOnly)
                 {
                     ApplicationArea = All;
                     Caption = 'Sewing Job Only';
                 }
 
-                field(LOTTracking; LOTTracking)
+                field(LOTTracking; Rec.LOTTracking)
                 {
                     ApplicationArea = All;
                     Caption = 'LOT Tracking';
                 }
 
-                field("Style Related"; "Style Related")
+                field("Style Related"; Rec."Style Related")
                 {
                     ApplicationArea = All;
                 }

@@ -13,28 +13,28 @@ page 71012609 "Garment Type List"
         {
             repeater(General)
             {
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
 
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Code; Code)
+                field(Code; Rec.Code)
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type Code';
                 }
 
-                field("Garment Type Description"; "Garment Type Description")
+                field("Garment Type Description"; Rec."Garment Type Description")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Category; Category)
+                field(Category; Rec.Category)
                 {
                     ApplicationArea = All;
                 }

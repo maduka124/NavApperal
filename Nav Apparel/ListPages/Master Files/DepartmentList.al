@@ -13,23 +13,23 @@ page 71012597 "Department"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Department No';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; Rec."Department Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Show in New Operations"; "Show in New Operations")
+                field("Show in New Operations"; Rec."Show in New Operations")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Show in Manpower Budget"; "Show in Manpower Budget")
+                field("Show in Manpower Budget"; Rec."Show in Manpower Budget")
                 {
                     ApplicationArea = All;
                 }

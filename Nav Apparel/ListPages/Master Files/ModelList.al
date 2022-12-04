@@ -13,13 +13,13 @@ page 71012845 ModelList
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Model No';
                 }
 
-                field("Model Name"; "Model Name")
+                field("Model Name"; Rec."Model Name")
                 {
                     ApplicationArea = All;
                 }

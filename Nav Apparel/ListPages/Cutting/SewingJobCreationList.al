@@ -14,31 +14,31 @@ page 50586 "Sewing Job Creation"
         {
             repeater(General)
             {
-                field(SJCNo; SJCNo)
+                field(SJCNo; Rec.SJCNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Sewing Job Creation No';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; Rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field(MarkerCatName; MarkerCatName)
+                field(MarkerCatName; Rec.MarkerCatName)
                 {
                     ApplicationArea = All;
                     Caption = 'Marker Category';
                 }
 
-                field("Created Date"; "Created Date")
+                field("Created Date"; Rec."Created Date")
                 {
                     ApplicationArea = All;
                 }
@@ -58,18 +58,18 @@ page 50586 "Sewing Job Creation"
 
         //Check whether ratio created or not
         SJC4.Reset();
-        SJC4.SetRange("SJCNo.", SJCNo);
+        SJC4.SetRange("SJCNo.", Rec.SJCNo);
         SJC4.SetFilter("Record Type", '=%1', 'L');
 
         if SJC4.FindSet() then begin
             repeat
                 RatioRec.Reset();
-                RatioRec.SetRange("Style No.", "Style No.");
+                RatioRec.SetRange("Style No.", Rec."Style No.");
                 RatioRec.SetRange("Group ID", SJC4."Group ID");
                 RatioRec.SetRange("Colour No", SJC4."Colour No");
 
                 if RatioRec.FindSet() then begin
-                    Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', "Style Name", SJC4."Group ID", SJC4."Colour Name");
+                    Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', Rec."Style Name", SJC4."Group ID", SJC4."Colour Name");
                     exit(false);
                 end;
             until SJC4.Next() = 0;
@@ -78,22 +78,22 @@ page 50586 "Sewing Job Creation"
 
         //Delete "DAILY LINE REQUIRMENT"
         SJC4.Reset();
-        SJC4.SetRange("SJCNo.", SJCNo);
+        SJC4.SetRange("SJCNo.", Rec.SJCNo);
         if SJC4.FindSet() then
             SJC4.DeleteAll();
 
         //Delete group master record
         GroupMasterRec.Reset();
-        GroupMasterRec.SetRange("Style No.", "Style No.");
+        GroupMasterRec.SetRange("Style No.", Rec."Style No.");
         if GroupMasterRec.FindSet() then
             GroupMasterRec.DeleteAll();
 
         //Delete "SUB SCHEDULING"
-        SJC3.SetRange("SJCNo.", SJCNo);
+        SJC3.SetRange("SJCNo.", Rec.SJCNo);
         if SJC3.FindSet() then
             SJC3.DeleteAll();
 
-        SJC2.SetRange("SJCNo.", SJCNo);
+        SJC2.SetRange("SJCNo.", Rec.SJCNo);
         if SJC2.FindSet() then
             SJC2.DeleteAll();
 

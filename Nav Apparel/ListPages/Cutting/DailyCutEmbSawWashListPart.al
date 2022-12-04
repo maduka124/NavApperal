@@ -617,7 +617,7 @@ page 50353 DailyCuttingOutListPart
                 }
 
 
-                field("42"; "42")
+                field("42"; Rec."42")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -632,7 +632,7 @@ page 50353 DailyCuttingOutListPart
                 }
 
 
-                field("43"; "43")
+                field("43"; Rec."43")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -647,7 +647,7 @@ page 50353 DailyCuttingOutListPart
                 }
 
 
-                field("44"; "44")
+                field("44"; Rec."44")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -662,7 +662,7 @@ page 50353 DailyCuttingOutListPart
                 }
 
 
-                field("45"; "45")
+                field("45"; Rec."45")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -677,7 +677,7 @@ page 50353 DailyCuttingOutListPart
                 }
 
 
-                field("46"; "46")
+                field("46"; Rec."46")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -692,7 +692,7 @@ page 50353 DailyCuttingOutListPart
                 }
 
 
-                field("47"; "47")
+                field("47"; Rec."47")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -708,7 +708,7 @@ page 50353 DailyCuttingOutListPart
 
 
 
-                field("48"; "48")
+                field("48"; Rec."48")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -723,7 +723,7 @@ page 50353 DailyCuttingOutListPart
                 }
 
 
-                field("49"; "49")
+                field("49"; Rec."49")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -737,7 +737,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("50"; "50")
+                field("50"; Rec."50")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -751,7 +751,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("51"; "51")
+                field("51"; Rec."51")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -765,7 +765,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("52"; "52")
+                field("52"; Rec."52")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -779,7 +779,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("53"; "53")
+                field("53"; Rec."53")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -793,7 +793,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("54"; "54")
+                field("54"; Rec."54")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -807,7 +807,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("55"; "55")
+                field("55"; Rec."55")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -822,7 +822,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("56"; "56")
+                field("56"; Rec."56")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -836,7 +836,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("57"; "57")
+                field("57"; Rec."57")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -850,7 +850,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("58"; "58")
+                field("58"; Rec."58")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -864,7 +864,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("59"; "59")
+                field("59"; Rec."59")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -878,7 +878,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("60"; "60")
+                field("60"; Rec."60")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -892,7 +892,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("61"; "61")
+                field("61"; Rec."61")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -906,7 +906,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("62"; "62")
+                field("62"; Rec."62")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -920,7 +920,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("63"; "63")
+                field("63"; Rec."63")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -934,7 +934,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("64"; "64")
+                field("64"; Rec."64")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -948,7 +948,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field(Total; Total)
+                field(Total; Rec.Total)
                 {
                     ApplicationArea = All;
                     StyleExpr = 'strongaccent';
@@ -966,327 +966,327 @@ page 50353 DailyCuttingOutListPart
         Number: Integer;
         Tot: Integer;
     begin
-        if "Colour Name" <> '*' then begin
+        if Rec."Colour Name" <> '*' then begin
             for Count := 1 To 64 do begin
                 case Count of
                     1:
-                        if "1" <> '' then
-                            Evaluate(Number, "1")
+                        if Rec."1" <> '' then
+                            Evaluate(Number, Rec."1")
                         else
                             Number := 0;
                     2:
-                        if "2" <> '' then
-                            Evaluate(Number, "2")
+                        if Rec."2" <> '' then
+                            Evaluate(Number, Rec."2")
                         else
                             Number := 0;
                     3:
-                        if "3" <> '' then
-                            Evaluate(Number, "3")
+                        if Rec."3" <> '' then
+                            Evaluate(Number, Rec."3")
                         else
                             Number := 0;
                     4:
-                        if "4" <> '' then
-                            Evaluate(Number, "4")
+                        if Rec."4" <> '' then
+                            Evaluate(Number, Rec."4")
                         else
                             Number := 0;
                     5:
-                        if "5" <> '' then
-                            Evaluate(Number, "5")
+                        if Rec."5" <> '' then
+                            Evaluate(Number, Rec."5")
                         else
                             Number := 0;
                     6:
-                        if "6" <> '' then
-                            Evaluate(Number, "6")
+                        if Rec."6" <> '' then
+                            Evaluate(Number, Rec."6")
                         else
                             Number := 0;
                     7:
-                        if "7" <> '' then
-                            Evaluate(Number, "7")
+                        if Rec."7" <> '' then
+                            Evaluate(Number, Rec."7")
                         else
                             Number := 0;
                     8:
-                        if "8" <> '' then
-                            Evaluate(Number, "8")
+                        if Rec."8" <> '' then
+                            Evaluate(Number, Rec."8")
                         else
                             Number := 0;
                     9:
-                        if "9" <> '' then
-                            Evaluate(Number, "9")
+                        if Rec."9" <> '' then
+                            Evaluate(Number, Rec."9")
                         else
                             Number := 0;
                     10:
-                        if "10" <> '' then
-                            Evaluate(Number, "10")
+                        if Rec."10" <> '' then
+                            Evaluate(Number, Rec."10")
                         else
                             Number := 0;
                     11:
-                        if "11" <> '' then
-                            Evaluate(Number, "11")
+                        if Rec."11" <> '' then
+                            Evaluate(Number, Rec."11")
                         else
                             Number := 0;
                     12:
-                        if "12" <> '' then
-                            Evaluate(Number, "12")
+                        if Rec."12" <> '' then
+                            Evaluate(Number, Rec."12")
                         else
                             Number := 0;
                     13:
-                        if "13" <> '' then
-                            Evaluate(Number, "13")
+                        if Rec."13" <> '' then
+                            Evaluate(Number, Rec."13")
                         else
                             Number := 0;
                     14:
-                        if "14" <> '' then
-                            Evaluate(Number, "14")
+                        if Rec."14" <> '' then
+                            Evaluate(Number, Rec."14")
                         else
                             Number := 0;
                     15:
-                        if "15" <> '' then
-                            Evaluate(Number, "15")
+                        if Rec."15" <> '' then
+                            Evaluate(Number, Rec."15")
                         else
                             Number := 0;
                     16:
-                        if "16" <> '' then
-                            Evaluate(Number, "16")
+                        if Rec."16" <> '' then
+                            Evaluate(Number, Rec."16")
                         else
                             Number := 0;
                     17:
-                        if "17" <> '' then
-                            Evaluate(Number, "17")
+                        if Rec."17" <> '' then
+                            Evaluate(Number, Rec."17")
                         else
                             Number := 0;
                     18:
-                        if "18" <> '' then
-                            Evaluate(Number, "18")
+                        if Rec."18" <> '' then
+                            Evaluate(Number, Rec."18")
                         else
                             Number := 0;
                     19:
-                        if "19" <> '' then
-                            Evaluate(Number, "19")
+                        if Rec."19" <> '' then
+                            Evaluate(Number, Rec."19")
                         else
                             Number := 0;
                     20:
-                        if "20" <> '' then
-                            Evaluate(Number, "20")
+                        if Rec."20" <> '' then
+                            Evaluate(Number, Rec."20")
                         else
                             Number := 0;
                     21:
-                        if "21" <> '' then
-                            Evaluate(Number, "21")
+                        if Rec."21" <> '' then
+                            Evaluate(Number, Rec."21")
                         else
                             Number := 0;
                     22:
-                        if "22" <> '' then
-                            Evaluate(Number, "22")
+                        if Rec."22" <> '' then
+                            Evaluate(Number, Rec."22")
                         else
                             Number := 0;
                     23:
-                        if "23" <> '' then
-                            Evaluate(Number, "23")
+                        if Rec."23" <> '' then
+                            Evaluate(Number, Rec."23")
                         else
                             Number := 0;
                     24:
-                        if "24" <> '' then
-                            Evaluate(Number, "24")
+                        if Rec."24" <> '' then
+                            Evaluate(Number, Rec."24")
                         else
                             Number := 0;
                     25:
-                        if "25" <> '' then
-                            Evaluate(Number, "25")
+                        if Rec."25" <> '' then
+                            Evaluate(Number, Rec."25")
                         else
                             Number := 0;
                     26:
-                        if "26" <> '' then
-                            Evaluate(Number, "26")
+                        if Rec."26" <> '' then
+                            Evaluate(Number, Rec."26")
                         else
                             Number := 0;
                     27:
-                        if "27" <> '' then
-                            Evaluate(Number, "27")
+                        if Rec."27" <> '' then
+                            Evaluate(Number, Rec."27")
                         else
                             Number := 0;
                     28:
-                        if "28" <> '' then
-                            Evaluate(Number, "28")
+                        if Rec."28" <> '' then
+                            Evaluate(Number, Rec."28")
                         else
                             Number := 0;
                     29:
-                        if "29" <> '' then
-                            Evaluate(Number, "29")
+                        if Rec."29" <> '' then
+                            Evaluate(Number, Rec."29")
                         else
                             Number := 0;
                     30:
-                        if "30" <> '' then
-                            Evaluate(Number, "30")
+                        if Rec."30" <> '' then
+                            Evaluate(Number, Rec."30")
                         else
                             Number := 0;
                     31:
-                        if "31" <> '' then
-                            Evaluate(Number, "31")
+                        if Rec."31" <> '' then
+                            Evaluate(Number, Rec."31")
                         else
                             Number := 0;
                     32:
-                        if "32" <> '' then
-                            Evaluate(Number, "32")
+                        if Rec."32" <> '' then
+                            Evaluate(Number, Rec."32")
                         else
                             Number := 0;
                     33:
-                        if "33" <> '' then
-                            Evaluate(Number, "33")
+                        if Rec."33" <> '' then
+                            Evaluate(Number, Rec."33")
                         else
                             Number := 0;
                     34:
-                        if "34" <> '' then
-                            Evaluate(Number, "34")
+                        if Rec."34" <> '' then
+                            Evaluate(Number, Rec."34")
                         else
                             Number := 0;
                     35:
-                        if "35" <> '' then
-                            Evaluate(Number, "35")
+                        if Rec."35" <> '' then
+                            Evaluate(Number, Rec."35")
                         else
                             Number := 0;
                     36:
-                        if "36" <> '' then
-                            Evaluate(Number, "36")
+                        if Rec."36" <> '' then
+                            Evaluate(Number, Rec."36")
                         else
                             Number := 0;
                     37:
-                        if "37" <> '' then
-                            Evaluate(Number, "37")
+                        if Rec."37" <> '' then
+                            Evaluate(Number, Rec."37")
                         else
                             Number := 0;
                     38:
-                        if "38" <> '' then
-                            Evaluate(Number, "38")
+                        if Rec."38" <> '' then
+                            Evaluate(Number, Rec."38")
                         else
                             Number := 0;
                     39:
-                        if "39" <> '' then
-                            Evaluate(Number, "39")
+                        if Rec."39" <> '' then
+                            Evaluate(Number, Rec."39")
                         else
                             Number := 0;
                     40:
-                        if "40" <> '' then
-                            Evaluate(Number, "40")
+                        if Rec."40" <> '' then
+                            Evaluate(Number, Rec."40")
                         else
                             Number := 0;
                     41:
-                        if "41" <> '' then
-                            Evaluate(Number, "41")
+                        if Rec."41" <> '' then
+                            Evaluate(Number, Rec."41")
                         else
                             Number := 0;
                     42:
-                        if "42" <> '' then
-                            Evaluate(Number, "42")
+                        if Rec."42" <> '' then
+                            Evaluate(Number, Rec."42")
                         else
                             Number := 0;
                     43:
-                        if "43" <> '' then
-                            Evaluate(Number, "43")
+                        if Rec."43" <> '' then
+                            Evaluate(Number, Rec."43")
                         else
                             Number := 0;
                     44:
-                        if "44" <> '' then
-                            Evaluate(Number, "44")
+                        if Rec."44" <> '' then
+                            Evaluate(Number, Rec."44")
                         else
                             Number := 0;
                     45:
-                        if "45" <> '' then
-                            Evaluate(Number, "45")
+                        if Rec."45" <> '' then
+                            Evaluate(Number, Rec."45")
                         else
                             Number := 0;
                     46:
-                        if "46" <> '' then
-                            Evaluate(Number, "46")
+                        if Rec."46" <> '' then
+                            Evaluate(Number, Rec."46")
                         else
                             Number := 0;
                     47:
-                        if "47" <> '' then
-                            Evaluate(Number, "47")
+                        if Rec."47" <> '' then
+                            Evaluate(Number, Rec."47")
                         else
                             Number := 0;
                     48:
-                        if "48" <> '' then
-                            Evaluate(Number, "48")
+                        if Rec."48" <> '' then
+                            Evaluate(Number, Rec."48")
                         else
                             Number := 0;
                     49:
-                        if "49" <> '' then
-                            Evaluate(Number, "49")
+                        if Rec."49" <> '' then
+                            Evaluate(Number, Rec."49")
                         else
                             Number := 0;
                     50:
-                        if "50" <> '' then
-                            Evaluate(Number, "50")
+                        if Rec."50" <> '' then
+                            Evaluate(Number, Rec."50")
                         else
                             Number := 0;
                     51:
-                        if "51" <> '' then
-                            Evaluate(Number, "51")
+                        if Rec."51" <> '' then
+                            Evaluate(Number, Rec."51")
                         else
                             Number := 0;
                     52:
-                        if "52" <> '' then
-                            Evaluate(Number, "52")
+                        if Rec."52" <> '' then
+                            Evaluate(Number, Rec."52")
                         else
                             Number := 0;
                     53:
-                        if "53" <> '' then
-                            Evaluate(Number, "53")
+                        if Rec."53" <> '' then
+                            Evaluate(Number, Rec."53")
                         else
                             Number := 0;
                     54:
-                        if "54" <> '' then
-                            Evaluate(Number, "54")
+                        if Rec."54" <> '' then
+                            Evaluate(Number, Rec."54")
                         else
                             Number := 0;
                     55:
-                        if "55" <> '' then
-                            Evaluate(Number, "55")
+                        if Rec."55" <> '' then
+                            Evaluate(Number, Rec."55")
                         else
                             Number := 0;
                     56:
-                        if "56" <> '' then
-                            Evaluate(Number, "56")
+                        if Rec."56" <> '' then
+                            Evaluate(Number, Rec."56")
                         else
                             Number := 0;
                     57:
-                        if "57" <> '' then
-                            Evaluate(Number, "57")
+                        if Rec."57" <> '' then
+                            Evaluate(Number, Rec."57")
                         else
                             Number := 0;
                     58:
-                        if "58" <> '' then
-                            Evaluate(Number, "58")
+                        if Rec."58" <> '' then
+                            Evaluate(Number, Rec."58")
                         else
                             Number := 0;
                     59:
-                        if "59" <> '' then
-                            Evaluate(Number, "59")
+                        if Rec."59" <> '' then
+                            Evaluate(Number, Rec."59")
                         else
                             Number := 0;
                     60:
-                        if "60" <> '' then
-                            Evaluate(Number, "60")
+                        if Rec."60" <> '' then
+                            Evaluate(Number, Rec."60")
                         else
                             Number := 0;
                     61:
-                        if "61" <> '' then
-                            Evaluate(Number, "61")
+                        if Rec."61" <> '' then
+                            Evaluate(Number, Rec."61")
                         else
                             Number := 0;
                     62:
-                        if "62" <> '' then
-                            Evaluate(Number, "62")
+                        if Rec."62" <> '' then
+                            Evaluate(Number, Rec."62")
                         else
                             Number := 0;
                     63:
-                        if "63" <> '' then
-                            Evaluate(Number, "63")
+                        if Rec."63" <> '' then
+                            Evaluate(Number, Rec."63")
                         else
                             Number := 0;
                     64:
-                        if "64" <> '' then
-                            Evaluate(Number, "64")
+                        if Rec."64" <> '' then
+                            Evaluate(Number, Rec."64")
                         else
                             Number := 0;
                 end;
@@ -1295,7 +1295,7 @@ page 50353 DailyCuttingOutListPart
             end;
         end;
 
-        Total := Tot;
+        Rec.Total := Tot;
 
         CurrPage.Update();
         Update_Sty_Master_PO();
@@ -1314,7 +1314,7 @@ page 50353 DailyCuttingOutListPart
     begin
 
         ProdOutHeaderRec.Reset();
-        ProdOutHeaderRec.SetRange("No.", "No.");
+        ProdOutHeaderRec.SetRange("No.", Rec."No.");
 
         if ProdOutHeaderRec.FindSet() then begin
             OutputQtyVar := ProdOutHeaderRec."Output Qty";
@@ -1325,11 +1325,11 @@ page 50353 DailyCuttingOutListPart
 
         //Get In/out Total
         ProductionOutLine.Reset();
-        ProductionOutLine.SetRange("No.", "No.");
-        ProductionOutLine.SetRange("Style No.", "Style No.");
-        ProductionOutLine.SetRange("Lot No.", "Lot No.");
-        ProductionOutLine.SetRange(Type, Type);
-        ProductionOutLine.SetRange(In_Out, In_Out);
+        ProductionOutLine.SetRange("No.", Rec."No.");
+        ProductionOutLine.SetRange("Style No.", Rec."Style No.");
+        ProductionOutLine.SetRange("Lot No.", Rec."Lot No.");
+        ProductionOutLine.SetRange(Type, Rec.Type);
+        ProductionOutLine.SetRange(In_Out, Rec.In_Out);
 
         if ProductionOutLine.FindSet() then begin
             repeat
@@ -1338,62 +1338,62 @@ page 50353 DailyCuttingOutListPart
             until ProductionOutLine.Next() = 0;
         end;
 
-        if In_Out = 'IN' then
+        if Rec.In_Out = 'IN' then
             if InputQtyVar < LineTotal then
                 Error('Input quantity should match color/size total quantity.');
 
-        if In_Out = 'OUT' then
+        if Rec.In_Out = 'OUT' then
             if OutputQtyVar < LineTotal then
                 Error('Output quantity should match color/size total quantity.');
 
 
         StyleMasterPORec.Reset();
-        StyleMasterPORec.SetRange("Style No.", "Style No.");
-        StyleMasterPORec.SetRange("Lot No.", "Lot No.");
+        StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
+        StyleMasterPORec.SetRange("Lot No.", Rec."Lot No.");
         StyleMasterPORec.FindSet();
 
-        CASE Type OF
-            type::Saw:
+        CASE Rec.Type OF
+            Rec.type::Saw:
                 BEGIN
-                    if In_Out = 'IN' then
+                    if Rec.In_Out = 'IN' then
                         StyleMasterPORec.ModifyAll("Sawing In Qty", LineTotal)
                     else
-                        if In_Out = 'OUT' then
+                        if Rec.In_Out = 'OUT' then
                             StyleMasterPORec.ModifyAll("Sawing Out Qty", LineTotal);
                 END;
-            type::Wash:
+            Rec.type::Wash:
                 begin
-                    if In_Out = 'IN' then
+                    if Rec.In_Out = 'IN' then
                         StyleMasterPORec.ModifyAll("Wash In Qty", LineTotal)
                     else
-                        if In_Out = 'OUT' then
+                        if Rec.In_Out = 'OUT' then
                             StyleMasterPORec.ModifyAll("Wash Out Qty", LineTotal);
                 end;
-            type::Cut:
+            Rec.type::Cut:
                 begin
                     StyleMasterPORec.ModifyAll("Cut Out Qty", LineTotal);
                 end;
-            type::Emb:
+            Rec.type::Emb:
                 begin
-                    if In_Out = 'IN' then
+                    if Rec.In_Out = 'IN' then
                         StyleMasterPORec.ModifyAll("Emb In Qty", LineTotal)
                     else
-                        if In_Out = 'OUT' then
+                        if Rec.In_Out = 'OUT' then
                             StyleMasterPORec.ModifyAll("Emb Out Qty", LineTotal);
                 end;
-            type::Print:
+            Rec.type::Print:
                 begin
-                    if In_Out = 'IN' then
+                    if Rec.In_Out = 'IN' then
                         StyleMasterPORec.ModifyAll("Print In Qty", LineTotal)
                     else
-                        if In_Out = 'OUT' then
+                        if Rec.In_Out = 'OUT' then
                             StyleMasterPORec.ModifyAll("print Out Qty", LineTotal);
                 end;
-            type::Fin:
+            Rec.type::Fin:
                 begin
                     StyleMasterPORec.ModifyAll("Finish Qty", LineTotal);
                 end;
-            type::Ship:
+            Rec.type::Ship:
                 begin
                     StyleMasterPORec.ModifyAll("Shipped Qty", LineTotal);
                 end;
@@ -1411,7 +1411,7 @@ page 50353 DailyCuttingOutListPart
     begin
         StyleExprTxt := ChangeColor.ChangeColorSewing(Rec);
 
-        if "Colour Name" = '*' then begin
+        if Rec."Colour Name" = '*' then begin
             Clear(SetEdit);
             SetEdit := false;
         end
@@ -1421,8 +1421,8 @@ page 50353 DailyCuttingOutListPart
         end;
 
         ProductionOutLineRec.Reset();
-        ProductionOutLineRec.SetRange("No.", "No.");
-        ProductionOutLineRec.SetRange(Type, Type);
+        ProductionOutLineRec.SetRange("No.", Rec."No.");
+        ProductionOutLineRec.SetRange(Type, Rec.Type);
         ProductionOutLineRec.SetFilter("Colour Name", '=%1', '*');
         if ProductionOutLineRec.FindSet() then begin
 

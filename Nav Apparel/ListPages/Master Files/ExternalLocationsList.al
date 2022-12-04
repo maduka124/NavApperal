@@ -14,12 +14,12 @@ page 50789 ExternalLocationsList
         {
             repeater(General)
             {
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Location Name"; "Location Name")
+                field("Location Name"; Rec."Location Name")
                 {
                     ApplicationArea = All;
                 }

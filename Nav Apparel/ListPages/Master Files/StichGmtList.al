@@ -13,13 +13,13 @@ page 71012646 "Stich Gmt"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Stich Gmt No';
                 }
 
-                field("Stich Gmt Name"; "Stich Gmt Name")
+                field("Stich Gmt Name"; Rec."Stich Gmt Name")
                 {
                     ApplicationArea = All;
                 }

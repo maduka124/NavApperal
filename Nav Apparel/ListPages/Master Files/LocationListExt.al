@@ -4,22 +4,22 @@ pageextension 71012728 LocationListExt extends "Location List"
     {
         addlast(Control1)
         {
-            field("Plant Type Name"; "Plant Type Name")
+            field("Plant Type Name"; Rec."Plant Type Name")
             {
                 ApplicationArea = ALL;
             }
 
-            field("Sewing Unit"; "Sewing Unit")
+            field("Sewing Unit"; Rec."Sewing Unit")
             {
                 ApplicationArea = ALL;
             }
 
-            field("Start Time"; "Start Time")
+            field("Start Time"; Rec."Start Time")
             {
                 ApplicationArea = ALL;
             }
 
-            field("Finish Time"; "Finish Time")
+            field("Finish Time"; Rec."Finish Time")
             {
                 ApplicationArea = ALL;
             }

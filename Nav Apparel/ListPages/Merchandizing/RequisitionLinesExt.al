@@ -5,7 +5,7 @@ pageextension 71012824 RequisitionLinesExt extends "Planning Worksheet"
     {
         addbefore("No.")
         {
-            field("Main Category"; "Main Category")
+            field("Main Category"; Rec."Main Category")
             {
                 ApplicationArea = ALL;
             }
@@ -13,25 +13,25 @@ pageextension 71012824 RequisitionLinesExt extends "Planning Worksheet"
 
         addafter("No.")
         {
-            field(Description1; Description)
+            field(Description1; Rec.Description)
             {
                 ApplicationArea = ALL;
                 Caption = 'Description';
             }
 
-            field(StyleName; StyleName)
+            field(StyleName; Rec.StyleName)
             {
                 ApplicationArea = ALL;
                 Caption = 'Style';
             }
 
-            field(PONo; PONo)
+            field(PONo; Rec.PONo)
             {
                 ApplicationArea = ALL;
                 Caption = 'PO';
             }
 
-            field(Lot; Lot)
+            field(Lot; Rec.Lot)
             {
                 ApplicationArea = ALL;
             }

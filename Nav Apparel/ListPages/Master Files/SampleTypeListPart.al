@@ -9,29 +9,29 @@ page 71012750 "Sample Type List part"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Type No';
                 }
 
-                field("Sample Type Name"; "Sample Type Name")
+                field("Sample Type Name"; Rec."Sample Type Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Lead Time"; "Lead Time")
+                field("Lead Time"; Rec."Lead Time")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Selection; Selection)
+                field(Selection; Rec.Selection)
                 {
                     ApplicationArea = All;
                     Visible = false;
                 }
 
-                field(Selected; Selected)
+                field(Selected; Rec.Selected)
                 {
                     ApplicationArea = All;
                 }

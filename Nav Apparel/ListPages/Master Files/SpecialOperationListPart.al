@@ -12,21 +12,21 @@ page 50288 "Special Operation List part"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Special Op. No';
                     Editable = false;
                 }
 
-                field("SpecialOperation Name"; "SpecialOperation Name")
+                field("SpecialOperation Name"; Rec."SpecialOperation Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Special Op. Name';
                 }
 
-                field(Selected; Selected)
+                field(Selected; Rec.Selected)
                 {
                     ApplicationArea = All;
                     Caption = 'Select';

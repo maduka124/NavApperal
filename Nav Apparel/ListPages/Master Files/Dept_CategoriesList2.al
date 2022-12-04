@@ -15,42 +15,42 @@ page 50811 "Dept_CategoriesList2"
         {
             repeater(General)
             {
-                field("Department Name"; "Department Name")
+                field("Department Name"; Rec."Department Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Category Name"; "Category Name")
+                field("Category Name"; Rec."Category Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; Rec."Factory Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Act Budget"; "Act Budget")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
-
-                field("Final Budget with Absenteesm"; "Final Budget with Absenteesm")
+                field("Act Budget"; Rec."Act Budget")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Absent%"; "Absent%")
+                field("Final Budget with Absenteesm"; Rec."Final Budget with Absenteesm")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Show In Report"; "Show In Report")
+                field("Absent%"; Rec."Absent%")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Show In Report"; Rec."Show In Report")
                 {
                     ApplicationArea = All;
                 }

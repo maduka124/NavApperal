@@ -13,30 +13,30 @@ page 50365 "Daily Shipping Out"
         {
             repeater(General)
             {
-                field("Prod Date"; "Prod Date")
+                field("Prod Date"; Rec."Prod Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Production Date';
                 }
 
-                field("Resource Name"; "Resource Name")
+                field("Resource Name"; Rec."Resource Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Resource';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("PO No"; "PO No")
+                field("PO No"; Rec."PO No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Output Qty"; "Output Qty")
+                field("Output Qty"; Rec."Output Qty")
                 {
                     ApplicationArea = All;
                 }
@@ -49,6 +49,6 @@ page 50365 "Daily Shipping Out"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
-        NavAppCodeUnit.Delete_Prod_Records("No.", "Style No.", "PO No", 'OUT', 'Ship', Type::Ship);
+        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."PO No", 'OUT', 'Ship', Rec.Type::Ship);
     end;
 }

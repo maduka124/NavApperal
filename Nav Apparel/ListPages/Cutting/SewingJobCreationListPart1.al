@@ -15,21 +15,21 @@ page 50588 "Sewing Job Creation ListPart1"
         {
             repeater(General)
             {
-                field("Lot No."; "Lot No.")
+                field("Lot No."; Rec."Lot No.")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Caption = 'Lot No';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; Rec."PO No.")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Caption = 'PO No';
                 }
 
-                field("Country Name"; "Country Name")
+                field("Country Name"; Rec."Country Name")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;

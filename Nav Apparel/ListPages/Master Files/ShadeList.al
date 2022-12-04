@@ -13,13 +13,13 @@ page 71012637 Shade
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Shade No';
                 }
 
-                field(Shade; Shade)
+                field(Shade; Rec.Shade)
                 {
                     ApplicationArea = All;
                 }

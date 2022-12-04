@@ -13,13 +13,13 @@ page 71012622 "Master Category List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Master Category No';
                 }
 
-                field("Master Category Name"; "Master Category Name")
+                field("Master Category Name"; Rec."Master Category Name")
                 {
                     ApplicationArea = All;
 

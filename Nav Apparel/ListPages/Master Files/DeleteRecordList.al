@@ -13,12 +13,12 @@ page 50759 "DeleteRecordList"
         {
             repeater(General)
             {
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Qty; Qty)
+                field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
                 }

@@ -9,13 +9,13 @@ page 71012724 "SpecialOperationStyle Listpart"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Special Operation No';
                 }
 
-                field("Special Operation Name"; "Special Operation Name")
+                field("Special Operation Name"; Rec."Special Operation Name")
                 {
                     ApplicationArea = All;
                 }

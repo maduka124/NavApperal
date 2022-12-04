@@ -14,13 +14,13 @@ page 71012662 "Action Type List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Action Type No';
                 }
 
-                field("Action Type"; "Action Type")
+                field("Action Type"; Rec."Action Type")
                 {
                     ApplicationArea = All;
                 }

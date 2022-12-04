@@ -13,13 +13,12 @@ page 71012594 "Defects List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Defects No';
                 }
-
-                field(Defects; Defects)
+                field(Defects; Rec.Defects)
                 {
                     ApplicationArea = All;
                 }
