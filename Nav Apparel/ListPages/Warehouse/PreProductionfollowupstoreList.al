@@ -16,13 +16,13 @@ page 50850 "PreProductionfollowupdtoreList"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                 }
@@ -38,6 +38,6 @@ page 50850 "PreProductionfollowupdtoreList"
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
         if UserSetupRec.FindSet() then
-            SetFilter("Factory Code", UserSetupRec."Factory Code");
+            rec.SetFilter("Factory Code", UserSetupRec."Factory Code");
     end;
 }

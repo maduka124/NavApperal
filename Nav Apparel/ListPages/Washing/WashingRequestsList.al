@@ -14,63 +14,63 @@ page 50719 WashingSampleHistry
         {
             repeater(GroupName)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'No';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("PO No"; "PO No")
+                field("PO No"; rec."PO No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sample/Bulk"; "Sample/Bulk")
+                field("Sample/Bulk"; rec."Sample/Bulk")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sample Req. No"; "Sample Req. No")
+                field("Sample Req. No"; rec."Sample Req. No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Request From"; "Request From")
+                field("Request From"; rec."Request From")
                 {
                     ApplicationArea = All;
                     Caption = 'Requisition From';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
                 }
 
-                field("Wash Plant Name"; "Wash Plant Name")
+                field("Wash Plant Name"; rec."Wash Plant Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Washing Plant';
                 }
 
-                field(Comment; Comment)
+                field(Comment; rec.Comment)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                 }
@@ -92,7 +92,7 @@ page 50719 WashingSampleHistry
 
         //Check whether request has been processed
         SampleWasLineRec.Reset();
-        SampleWasLineRec.SetRange("No.", "No.");
+        SampleWasLineRec.SetRange("No.",rec. "No.");
 
         if SampleWasLineRec.FindSet() then begin
             if SampleWasLineRec."Return Qty (BW)" > 0 then

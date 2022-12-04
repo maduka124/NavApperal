@@ -13,42 +13,42 @@ page 50458 "New Breakdown"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
                 }
 
-                field("Total SMV"; "Total SMV")
+                field("Total SMV"; rec."Total SMV")
                 {
                     ApplicationArea = All;
                 }
@@ -64,11 +64,11 @@ page 50458 "New Breakdown"
     begin
 
         NewBrOpLine1Rec.Reset();
-        NewBrOpLine1Rec.SetRange("NewBRNo.", "No.");
+        NewBrOpLine1Rec.SetRange("NewBRNo.", rec."No.");
         NewBrOpLine1Rec.DeleteAll();
 
         NewBrOpLine2Rec.Reset();
-        NewBrOpLine2Rec.SetRange("No.", "No.");
+        NewBrOpLine2Rec.SetRange("No.", rec."No.");
         NewBrOpLine2Rec.DeleteAll();
 
     end;

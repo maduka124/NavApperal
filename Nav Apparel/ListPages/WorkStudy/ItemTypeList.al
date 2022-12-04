@@ -14,13 +14,13 @@ page 50461 "Item Type List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Item Type No';
                 }
 
-                field("Item Type Name"; "Item Type Name")
+                field("Item Type Name"; rec."Item Type Name")
                 {
                     ApplicationArea = All;
                 }

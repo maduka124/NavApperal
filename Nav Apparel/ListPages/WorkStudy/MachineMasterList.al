@@ -14,30 +14,30 @@ page 50452 "Machine Master"
         {
             repeater(General)
             {
-                field("Machine No."; "Machine No.")
+                field("Machine No."; rec."Machine No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Machine No';
                 }
 
-                field("Machine Description"; "Machine Description")
+                field("Machine Description"; rec."Machine Description")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Machine Category Name"; "Machine Category Name")
+                field("Machine Category Name"; rec."Machine Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Machine Category';
                 }
 
-                field("Needle Type Name"; "Needle Type Name")
+                field("Needle Type Name"; rec."Needle Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Needle Type';
                 }
 
-                field("Machine Type"; "Machine Type")
+                field("Machine Type"; rec."Machine Type")
                 {
                     ApplicationArea = All;
                     Caption = 'Machine Type';

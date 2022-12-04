@@ -13,48 +13,48 @@ page 50782 "Costing Plan Para Listpart3"
         {
             repeater(General)
             {
-                field("From SMV"; "From SMV")
+                field("From SMV"; rec."From SMV")
                 {
                     ApplicationArea = All;
                 }
 
-                field("To SMV"; "To SMV")
-                {
-                    ApplicationArea = All;
-                }
-
-
-                field("From Qty"; "From Qty")
+                field("To SMV"; rec."To SMV")
                 {
                     ApplicationArea = All;
                 }
 
 
-                field("To Qty"; "To Qty")
+                field("From Qty"; rec."From Qty")
                 {
                     ApplicationArea = All;
                 }
 
 
-                field("Costing Eff%"; "Costing Eff%")
+                field("To Qty"; rec."To Qty")
                 {
                     ApplicationArea = All;
                 }
 
 
-                field("Costing Avg Pro"; "Costing Avg Pro")
+                field("Costing Eff%"; rec."Costing Eff%")
                 {
                     ApplicationArea = All;
                 }
 
 
-                field("Planning Eff%"; "Planning Eff%")
+                field("Costing Avg Pro"; rec."Costing Avg Pro")
                 {
                     ApplicationArea = All;
                 }
 
 
-                field("Planning Avg Pro"; "Planning Avg Pro")
+                field("Planning Eff%"; rec."Planning Eff%")
+                {
+                    ApplicationArea = All;
+                }
+
+
+                field("Planning Avg Pro"; rec."Planning Avg Pro")
                 {
                     ApplicationArea = All;
                 }

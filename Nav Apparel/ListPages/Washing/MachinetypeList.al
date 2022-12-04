@@ -14,12 +14,12 @@ page 50654 WashingMachineTypeList
         {
             repeater(GroupName)
             {
-                field(code; code)
+                field(code; rec.code)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                 }

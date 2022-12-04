@@ -27,7 +27,7 @@ page 50841 "StyleContract Allocations List"
                     Caption = 'Factory';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -39,7 +39,7 @@ page 50841 "StyleContract Allocations List"
                     Caption = 'Buyer';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Caption = 'Order Qty';
@@ -59,19 +59,19 @@ page 50841 "StyleContract Allocations List"
 
         //Get Contract No
         ContractRec.Reset();
-        ContractRec.SetRange("No.", "No.");
+        ContractRec.SetRange("No.", rec."No.");
         if ContractRec.FindSet() then
             ContractNo := ContractRec."Contract No";
 
         //Get Buyer name
         CustomerRec.Reset();
-        CustomerRec.SetRange("No.", "Buyer No.");
+        CustomerRec.SetRange("No.", rec."Buyer No.");
         if CustomerRec.FindSet() then
             BuyerName := CustomerRec.Name;
 
         //Get Style details
         StyleMasterRec.Reset();
-        StyleMasterRec.SetRange("No.", "Style No.");
+        StyleMasterRec.SetRange("No.", rec."Style No.");
         StyleMasterRec.FindSet();
 
         //Get factory name

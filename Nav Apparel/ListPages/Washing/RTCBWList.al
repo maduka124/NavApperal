@@ -13,25 +13,25 @@ page 50746 RTCBWList
         {
             repeater(GroupName)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     Caption = 'Document No';
                     ApplicationArea = All;
                 }
 
-                field("Req No"; "Req No")
+                field("Req No"; rec."Req No")
                 {
                     ApplicationArea = all;
                     Caption = 'Req. No';
                 }
 
-                field("CusTomer Name"; "CusTomer Name")
+                field("CusTomer Name"; rec."CusTomer Name")
                 {
                     Caption = 'Customer';
                     ApplicationArea = all;
                 }
 
-                field("Gate Pass"; "Gate Pass")
+                field("Gate Pass"; rec."Gate Pass")
                 {
                     ApplicationArea = all;
                 }
@@ -46,14 +46,14 @@ page 50746 RTCBWList
         Samplereqline: Record "Washing Sample Requsition Line";
     begin
         Samplereqline.Reset();
-        Samplereqline.SetRange("No.", "Req No");
+        Samplereqline.SetRange("No.",rec. "Req No");
 
         if Samplereqline.FindSet() then
             if Samplereqline."Return Qty (BW)" > 0 then
                 Error('Returned quantity updated. Cannot delete.');
 
         RTCBWLineRec.Reset();
-        RTCBWLineRec.SetRange("No.", "No.");
+        RTCBWLineRec.SetRange("No.", rec."No.");
         if RTCBWLineRec.FindSet() then
             RTCBWLineRec.DeleteAll();
     end;

@@ -14,19 +14,19 @@ page 50668 aWQualityChecklist1
         {
             repeater(GroupName)
             {
-                field("Line No"; "Line No")
+                field("Line No"; rec."Line No")
                 {
                     Caption = 'Seq No';
                     ApplicationArea = All;
                 }
 
-                field("FG Item Name"; "FG Item Name")
+                field("FG Item Name"; rec."FG Item Name")
                 {
                     ApplicationArea = all;
                     Caption = 'Fabrication';
                 }
 
-                field("Split Qty"; "Split Qty")
+                field("Split Qty"; rec."Split Qty")
                 {
                     Caption = 'Qty';
                     ApplicationArea = All;

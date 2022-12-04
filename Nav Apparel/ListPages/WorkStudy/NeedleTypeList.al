@@ -14,13 +14,13 @@ page 50449 "Needle Type List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Needle Type No';
                 }
 
-                field("Needle Description"; "Needle Description")
+                field("Needle Description"; rec."Needle Description")
                 {
                     ApplicationArea = All;
                 }

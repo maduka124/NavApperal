@@ -13,47 +13,47 @@ page 50639 "Role Issuing Note List"
         {
             repeater(General)
             {
-                field("RoleIssuNo."; "RoleIssuNo.")
+                field("RoleIssuNo."; rec."RoleIssuNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Roll Issuing No';
                 }
 
-                field("Req No."; "Req No.")
+                field("Req No."; rec."Req No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Req. No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
                 }
 
-                field(OnHandQty; OnHandQty)
+                field(OnHandQty; rec.OnHandQty)
                 {
                     ApplicationArea = All;
                     Caption = 'On Hand Qty';
                 }
 
-                field("Required Width"; "Required Width")
+                field("Required Width"; rec."Required Width")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Required Length"; "Required Length")
+                field("Required Length"; rec."Required Length")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Selected Qty"; "Selected Qty")
+                field("Selected Qty"; rec."Selected Qty")
                 {
                     ApplicationArea = All;
                 }
@@ -69,7 +69,7 @@ page 50639 "Role Issuing Note List"
 
         //Check in the laysheet
         LaySheetRec.Reset();
-        LaySheetRec.SetRange("LaySheetNo.", "RoleIssuNo.");
+        LaySheetRec.SetRange("LaySheetNo.", rec."RoleIssuNo.");
 
         if LaySheetRec.FindSet() then begin
             Message('Cannot delete. Role Issue No already used in the Laysheet No : %1', LaySheetRec."LaySheetNo.");
@@ -77,7 +77,7 @@ page 50639 "Role Issuing Note List"
         end;
 
         RoleIssuingNoteLineRec.reset();
-        RoleIssuingNoteLineRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
+        RoleIssuingNoteLineRec.SetRange("RoleIssuNo.", rec."RoleIssuNo.");
         RoleIssuingNoteLineRec.DeleteAll();
     end;
 

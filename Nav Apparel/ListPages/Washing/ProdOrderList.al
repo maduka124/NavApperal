@@ -14,48 +14,48 @@ page 50756 JobCardList
         {
             repeater(GroupName)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Job Card/Prod. Order No';
                 }
 
-                field(Buyer; Buyer)
+                field(Buyer; rec.Buyer)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Color; Color)
+                field(Color; rec.Color)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Wash Type"; "Wash Type")
+                field("Wash Type"; rec."Wash Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Fabric; Fabric)
+                field(Fabric; rec.Fabric)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Gament Type"; "Gament Type")
+                field("Gament Type"; rec."Gament Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sample/Bulk"; "Sample/Bulk")
+                field("Sample/Bulk"; rec."Sample/Bulk")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Machine Type"; "Machine Type")
+                field("Machine Type"; rec."Machine Type")
                 {
                     ApplicationArea = All;
                 }

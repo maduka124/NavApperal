@@ -10,50 +10,50 @@ page 50464 "New Breakdown Op Listpart1"
             repeater(General)
             {
 
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Target Per Hour"; "Target Per Hour")
+                field("Target Per Hour"; rec."Target Per Hour")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Machine Name"; "Machine Name")
+                field("Machine Name"; rec."Machine Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Machine';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Department';
                 }
 
-                field(Grade; Grade)
+                field(Grade; rec.Grade)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Video; Video)
+                field(Video; rec.Video)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Upload Video"; "Upload Video")
+                field("Upload Video"; rec."Upload Video")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -66,7 +66,7 @@ page 50464 "New Breakdown Op Listpart1"
                     end;
                 }
 
-                field("Download Video"; "Download Video")
+                field("Download Video"; rec."Download Video")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -80,7 +80,7 @@ page 50464 "New Breakdown Op Listpart1"
                     end;
                 }
 
-                field(Select; Select)
+                field(Select; rec.Select)
                 {
                     ApplicationArea = All;
                 }
@@ -109,7 +109,7 @@ page 50464 "New Breakdown Op Listpart1"
 
                     CurrPage.Update();
                     NewBreakOpLine1Rec.Reset();
-                    NewBreakOpLine1Rec.SetRange("NewBRNo.", "NewBRNo.");
+                    NewBreakOpLine1Rec.SetRange("NewBRNo.", rec."NewBRNo.");
 
                     if NewBreakOpLine1Rec.FindSet() then begin
 
@@ -173,7 +173,7 @@ page 50464 "New Breakdown Op Listpart1"
     var
 
     begin
-        CurrentNo := "NewBRNo.";
+        CurrentNo := rec."NewBRNo.";
     end;
 
 
@@ -181,8 +181,8 @@ page 50464 "New Breakdown Op Listpart1"
     var
 
     begin
-        "Upload Video" := 'Upload Video File.....';
-        "Download Video" := 'Download/View Video File.....';
+        rec."Upload Video" := 'Upload Video File.....';
+        rec."Download Video" := 'Download/View Video File.....';
     end;
 
 
@@ -195,9 +195,9 @@ page 50464 "New Breakdown Op Listpart1"
         if not Confirm(Override) then
             exit;
         if UploadIntoStream('Import', '', 'MP4 Files (*.MP4)|*.MP4', FromFileName, PicInStream) then begin
-            Clear(Video);
-            Video.ImportStream(PicInStream, FromFileName);
-            Modify(true);
+            Clear(rec.Video);
+            rec.Video.ImportStream(PicInStream, FromFileName);
+            rec.Modify(true);
 
             Message('Uploaded');
         end;
@@ -211,7 +211,7 @@ page 50464 "New Breakdown Op Listpart1"
         PicInStream: InStream;
         Filename: Text;
     begin
-        TenMediaRec.Get(Video.MediaId);
+        TenMediaRec.Get(rec.Video.MediaId);
         TenMediaRec.CalcFields(Content);
         Filename := 'Video.mp4';
         TenMediaRec.Content.CreateInStream(PicInStream);

@@ -12,12 +12,12 @@ page 50749 WashingStep
         {
             repeater(GroupName)
             {
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                 }

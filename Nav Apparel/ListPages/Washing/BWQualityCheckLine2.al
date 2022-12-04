@@ -11,14 +11,14 @@ page 50744 BWQualityCheckLine2
         {
             repeater(GroupName)
             {
-                field("Line No"; "Line No")
+                field("Line No"; rec."Line No")
                 {
                     Caption = 'Seq No';
                     ApplicationArea = all;
                     Editable = false;
                 }
 
-                field(Defect; Defect)
+                field(Defect; rec.Defect)
                 {
                     ApplicationArea = all;
                 }
@@ -57,7 +57,7 @@ page 50744 BWQualityCheckLine2
                 //     end;
                 // }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = all;
 
@@ -69,11 +69,11 @@ page 50744 BWQualityCheckLine2
                     //Quantity: Integer;
                     begin
                         BWQualityHeaderRec.Reset();
-                        BWQualityHeaderRec.SetRange("No.", No);
+                        BWQualityHeaderRec.SetRange("No.", rec.No);
 
                         if BWQualityHeaderRec.FindSet() then begin
-                            "Sample Req No" := BWQualityHeaderRec."Sample Req No";
-                            "Line No. Header" := BWQualityHeaderRec."Line No";
+                            rec."Sample Req No" := BWQualityHeaderRec."Sample Req No";
+                            rec."Line No. Header" := BWQualityHeaderRec."Line No";
                         end;
 
                         CurrPage.Update();
@@ -101,7 +101,7 @@ page 50744 BWQualityCheckLine2
                     end;
                 }
 
-                field(Comment; Comment)
+                field(Comment; rec.Comment)
                 {
                     ApplicationArea = all;
                 }
@@ -119,6 +119,6 @@ page 50744 BWQualityCheckLine2
     var
         inx: Integer;
     begin
-        "Line No" := xRec."Line No" + 1;
+        rec."Line No" := xRec."Line No" + 1;
     end;
 }

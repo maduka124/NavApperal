@@ -14,44 +14,44 @@ page 50659 WashingBOMList
         {
             repeater(GroupName)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Recipe/Prod. BOM No';
                 }
 
-                field("Wash Type"; "Wash Type")
+                field("Wash Type"; rec."Wash Type")
                 {
                     ApplicationArea = All;
 
                 }
 
-                field("BOM Type"; "BOM Type")
+                field("BOM Type"; rec."BOM Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Bulk/Sample"; "Bulk/Sample")
+                field("Bulk/Sample"; rec."Bulk/Sample")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Lot Size (Kg)"; "Lot Size (Kg)")
+                field("Lot Size (Kg)"; rec."Lot Size (Kg)")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Lot; Lot)
+                field(Lot; rec.Lot)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Color; Color)
+                field(Color; rec.Color)
                 {
                     ApplicationArea = All;
                 }

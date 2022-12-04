@@ -15,40 +15,40 @@ page 50480 "Machine Layout List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Layout No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Work Center Name"; "Work Center Name")
+                field("Work Center Name"; rec."Work Center Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Work Center';
                 }
 
-                field("Garment Type"; "Garment Type")
+                field("Garment Type"; rec."Garment Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Expected Eff"; "Expected Eff")
+                field("Expected Eff"; rec."Expected Eff")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Expected Target"; "Expected Target")
+                field("Expected Target"; rec."Expected Target")
                 {
                     ApplicationArea = All;
                 }
 
-                field("No of Workstation"; "No of Workstation")
+                field("No of Workstation"; rec."No of Workstation")
                 {
                     ApplicationArea = All;
                 }
@@ -64,11 +64,11 @@ page 50480 "Machine Layout List"
     begin
 
         MachineLayoutineRec.Reset();
-        MachineLayoutineRec.SetRange("No.", "No.");
+        MachineLayoutineRec.SetRange("No.", rec."No.");
         MachineLayoutineRec.DeleteAll();
 
         MachineLayout1Rec.Reset();
-        MachineLayout1Rec.SetRange("No.", "No.");
+        MachineLayout1Rec.SetRange("No.", rec."No.");
         MachineLayout1Rec.DeleteAll();
 
     end;

@@ -13,13 +13,13 @@ page 50469 "Folder Detail List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No.";rec. "No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Folder No';
                 }
 
-                field("Folder Name"; "Folder Name")
+                field("Folder Name"; rec."Folder Name")
                 {
                     ApplicationArea = All;
                 }

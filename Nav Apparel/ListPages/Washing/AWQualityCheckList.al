@@ -13,34 +13,34 @@ page 50688 AWQualityCheck
         {
             repeater(GroupName)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'AW Quality Check No';
                 }
 
-                field("Job Card No"; "Job Card No")
+                field("Job Card No"; rec."Job Card No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sample Req No"; "Sample Req No")
+                field("Sample Req No"; rec."Sample Req No")
                 {
                     ApplicationArea = All;
                 }
 
-                field(CustomerName; CustomerName)
+                field(CustomerName; rec.CustomerName)
                 {
                     ApplicationArea = All;
                     Caption = 'Customer';
                 }
 
-                field("Req date"; "Req date")
+                field("Req date"; rec."Req date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("QC AW Date"; "QC AW Date")
+                field("QC AW Date"; rec."QC AW Date")
                 {
                     ApplicationArea = All;
                     Caption = 'AW QC Date';
@@ -55,7 +55,7 @@ page 50688 AWQualityCheck
         AWQualityCheckLineRec: Record AWQualityCheckLine;
     begin
         AWQualityCheckLineRec.Reset();
-        AWQualityCheckLineRec.SetRange(No, "No.");
+        AWQualityCheckLineRec.SetRange(No, rec."No.");
         if AWQualityCheckLineRec.FindSet() then
             AWQualityCheckLineRec.DeleteAll();
     end;

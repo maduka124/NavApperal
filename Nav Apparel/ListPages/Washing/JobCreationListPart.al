@@ -12,13 +12,13 @@ page 50722 JobcreationPageListPart
         {
             repeater(GroupName)
             {
-                field("Split No"; "Split No")
+                field("Split No"; rec."Split No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Select; Select)
+                field(Select; rec.Select)
                 {
                     ApplicationArea = All;
 
@@ -30,8 +30,8 @@ page 50722 JobcreationPageListPart
                         CurrPage.Update();
                         CountRec := 0;
                         WashingSampleReqRec.Reset();
-                        WashingSampleReqRec.SetRange(No, No);
-                        WashingSampleReqRec.SetRange("Line No", "Line No");
+                        WashingSampleReqRec.SetRange(No, rec.No);
+                        WashingSampleReqRec.SetRange("Line No", rec."Line No");
                         WashingSampleReqRec.SetFilter(Select, '=%1', true);
 
                         if WashingSampleReqRec.FindSet() then
@@ -42,7 +42,7 @@ page 50722 JobcreationPageListPart
                     end;
                 }
 
-                field("wash Type"; "wash Type")
+                field("wash Type"; rec."wash Type")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Type';
@@ -54,19 +54,19 @@ page 50722 JobcreationPageListPart
                     begin
 
                         WashsampleResLine.Reset();
-                        WashsampleResLine.SetRange("No.", No);
+                        WashsampleResLine.SetRange("No.", rec.No);
                         WashsampleResLine.FindSet();
                         if WashsampleResLine."Split Status" = WashsampleResLine."Split Status"::Yes then
                             Error('This sample request already posted. Cannot change Wash Type.');
 
                         WashtypeRec.Reset();
-                        WashtypeRec.SetRange("Wash Type Name", "Wash Type");
+                        WashtypeRec.SetRange("Wash Type Name", rec."Wash Type");
                         if WashtypeRec.FindSet() then
-                            "Wash Type No." := WashtypeRec."No.";
+                            rec."Wash Type No." := WashtypeRec."No.";
                     end;
                 }
 
-                field(QTY; QTY)
+                field(QTY; rec.QTY)
                 {
                     ApplicationArea = All;
 
@@ -79,7 +79,7 @@ page 50722 JobcreationPageListPart
                         TotalQty: Integer;
                     begin
                         WashsampleResLine.Reset();
-                        WashsampleResLine.SetRange("No.", No);
+                        WashsampleResLine.SetRange("No.", rec.No);
                         WashsampleResLine.FindSet();
                         if WashsampleResLine."Split Status" = WashsampleResLine."Split Status"::Yes then
                             Error('This sample request already posted. Cannot change Qty.');
@@ -87,49 +87,49 @@ page 50722 JobcreationPageListPart
                         CurrPage.Update();
 
                         WashsampleResLine.Reset();
-                        WashsampleResLine.SetRange("No.", No);
+                        WashsampleResLine.SetRange("No.", rec.No);
                         WashsampleResLine.FindSet();
 
-                        Type := WashsampleResLine.Type;
-                        BuyerCode := WashsampleResLine."Buyer No";
-                        BuyerName := WashsampleResLine.Buyer;
-                        "Style No" := WashsampleResLine."Style No.";
-                        "Style Name" := WashsampleResLine."Style Name";
-                        "Color Name" := WashsampleResLine."Color Name";
-                        "Color Code" := WashsampleResLine."Color Code";
-                        Size := WashsampleResLine.Size;
-                        "Req Date" := WashsampleResLine."Req Date";
-                        "Order Qty" := WashsampleResLine."Req Qty BW QC Pass";
-                        "Garment Type" := WashsampleResLine."Gament Type";
-                        "Sample Type" := WashsampleResLine.SampleType;
-                        Remark := WashsampleResLine.RemarkLine;
-                        "Unite Price" := WashsampleResLine."Unite Price";
+                        rec.Type := WashsampleResLine.Type;
+                        rec.BuyerCode := WashsampleResLine."Buyer No";
+                        rec.BuyerName := WashsampleResLine.Buyer;
+                        rec."Style No" := WashsampleResLine."Style No.";
+                        rec."Style Name" := WashsampleResLine."Style Name";
+                        rec."Color Name" := WashsampleResLine."Color Name";
+                        rec."Color Code" := WashsampleResLine."Color Code";
+                        rec.Size := WashsampleResLine.Size;
+                        rec."Req Date" := WashsampleResLine."Req Date";
+                        rec."Order Qty" := WashsampleResLine."Req Qty BW QC Pass";
+                        rec."Garment Type" := WashsampleResLine."Gament Type";
+                        rec."Sample Type" := WashsampleResLine.SampleType;
+                        rec.Remark := WashsampleResLine.RemarkLine;
+                        rec."Unite Price" := WashsampleResLine."Unite Price";
 
                         Inter1Rec.Reset();
-                        Inter1Rec.SetRange("No", No);
-                        Inter1Rec.SetRange("Line No", "Line No");
-                        Inter1Rec.SetRange("Split No", "Split No");
+                        Inter1Rec.SetRange("No", rec.No);
+                        Inter1Rec.SetRange("Line No", rec."Line No");
+                        Inter1Rec.SetRange("Split No", rec."Split No");
 
                         if not Inter1Rec.FindSet() then begin
                             InterRec.Init();
-                            InterRec.No := No;
-                            InterRec."Line No" := "Line No";
-                            InterRec."Split No" := "Split No";
-                            InterRec."Split Qty" := QTY;
-                            InterRec."Wash Type" := "wash Type";
-                            InterRec."Unite Price" := "Unite Price";
+                            InterRec.No := rec.No;
+                            InterRec."Line No" := rec."Line No";
+                            InterRec."Split No" := rec."Split No";
+                            InterRec."Split Qty" := rec.QTY;
+                            InterRec."Wash Type" := rec."wash Type";
+                            InterRec."Unite Price" := rec."Unite Price";
                             InterRec.Insert();
                         end
                         else begin
-                            Inter1Rec."Split Qty" := QTY;
+                            Inter1Rec."Split Qty" := rec.QTY;
                             Inter1Rec.Modify();
                         end;
 
                         CurrPage.Update();
 
                         JobCreLineRec.Reset();
-                        JobCreLineRec.SetRange("No", No);
-                        JobCreLineRec.SetRange("Line No", "Line No");
+                        JobCreLineRec.SetRange("No", rec.No);
+                        JobCreLineRec.SetRange("Line No", rec."Line No");
 
                         if JobCreLineRec.FindSet() then begin
                             repeat
@@ -145,7 +145,7 @@ page 50722 JobcreationPageListPart
                     end;
                 }
 
-                field(Comment; Comment)
+                field(Comment; rec.Comment)
                 {
                     ApplicationArea = All;
 
@@ -155,14 +155,14 @@ page 50722 JobcreationPageListPart
                     begin
 
                         WashsampleResLine.Reset();
-                        WashsampleResLine.SetRange("No.", No);
+                        WashsampleResLine.SetRange("No.", rec.No);
                         WashsampleResLine.FindSet();
                         if WashsampleResLine."Split Status" = WashsampleResLine."Split Status"::Yes then
                             Error('This sample request already posted. Cannot change Comment.');
                     end;
                 }
 
-                field(Option; Option)
+                field(Option; rec.Option)
                 {
                     ApplicationArea = All;
                     Caption = 'Split Options';
@@ -173,14 +173,14 @@ page 50722 JobcreationPageListPart
                     begin
 
                         WashsampleResLine.Reset();
-                        WashsampleResLine.SetRange("No.", No);
+                        WashsampleResLine.SetRange("No.", rec.No);
                         WashsampleResLine.FindSet();
                         if WashsampleResLine."Split Status" = WashsampleResLine."Split Status"::Yes then
                             Error('This sample request already posted. Cannot change Option (Split).');
                     end;
                 }
 
-                field("Reciepe (Prod BOM)"; "Reciepe (Prod BOM)")
+                field("Reciepe (Prod BOM)"; rec."Reciepe (Prod BOM)")
                 {
                     ApplicationArea = All;
                     Caption = 'Recipe (Prod. BOM)';
@@ -191,20 +191,20 @@ page 50722 JobcreationPageListPart
                         ItemRec: Record Item;
                         IntermediateTable: Record IntermediateTable;
                     begin
-                        if "Reciepe (Prod BOM)" <> '' then begin
+                        if rec."Reciepe (Prod BOM)" <> '' then begin
                             JobCreLineRec.Reset();
-                            JobCreLineRec.SetRange(No, No);
-                            JobCreLineRec.SetRange("Reciepe (Prod BOM)", "Reciepe (Prod BOM)");
-                            JobCreLineRec.SetFilter("Split No", '<>%1', "Split No");
+                            JobCreLineRec.SetRange(No, rec.No);
+                            JobCreLineRec.SetRange("Reciepe (Prod BOM)", rec."Reciepe (Prod BOM)");
+                            JobCreLineRec.SetFilter("Split No", '<>%1', rec."Split No");
                             if JobCreLineRec.FindSet() then
                                 Error('Reciepe already assigned.')
                         end;
 
                         //Get FG No of the line
                         IntermediateTable.Reset();
-                        IntermediateTable.SetRange(No, No);
-                        IntermediateTable.SetRange("Line No", "Line No");
-                        IntermediateTable.SetRange("Split No", "Split No");
+                        IntermediateTable.SetRange(No, rec.No);
+                        IntermediateTable.SetRange("Line No", rec."Line No");
+                        IntermediateTable.SetRange("Split No", rec."Split No");
 
                         if IntermediateTable.FindSet() then begin
                             //Update BOM of the FG
@@ -212,7 +212,7 @@ page 50722 JobcreationPageListPart
                             ItemRec.SetRange("No.", IntermediateTable."FG No");
 
                             if ItemRec.FindSet() then begin
-                                ItemRec."Production BOM No." := "Reciepe (Prod BOM)";
+                                ItemRec."Production BOM No." := rec."Reciepe (Prod BOM)";
                                 ItemRec.Modify();
                             end
                             else
@@ -224,7 +224,7 @@ page 50722 JobcreationPageListPart
                     end;
                 }
 
-                field("Job Card (Prod Order)"; "Job Card (Prod Order)")
+                field("Job Card (Prod Order)"; rec."Job Card (Prod Order)")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -233,11 +233,11 @@ page 50722 JobcreationPageListPart
                     var
                         JobCreLineRec: Record JobCreationLine;
                     begin
-                        if "Job Card (Prod Order)" <> '' then begin
+                        if rec."Job Card (Prod Order)" <> '' then begin
                             JobCreLineRec.Reset();
-                            JobCreLineRec.SetRange(No, No);
-                            JobCreLineRec.SetRange("Job Card (Prod Order)", "Job Card (Prod Order)");
-                            JobCreLineRec.SetFilter("Split No", '<>%1', "Split No");
+                            JobCreLineRec.SetRange(No, rec.No);
+                            JobCreLineRec.SetRange("Job Card (Prod Order)", rec."Job Card (Prod Order)");
+                            JobCreLineRec.SetFilter("Split No", '<>%1', rec."Split No");
                             if JobCreLineRec.FindSet() then
                                 Error('Job Card already assigned.');
                         end;
@@ -262,8 +262,8 @@ page 50722 JobcreationPageListPart
                     ProductionBomRevise: Page "Production BOM";
                 begin
                     JobCreationSplit.Reset();
-                    JobCreationSplit.SetRange(No, No);
-                    JobCreationSplit.SetRange("Line No", "Line No");
+                    JobCreationSplit.SetRange(No, rec.No);
+                    JobCreationSplit.SetRange("Line No", rec."Line No");
                     JobCreationSplit.SetFilter(Select, '=%1', true);
 
                     if JobCreationSplit.FindSet() then begin
@@ -293,8 +293,8 @@ page 50722 JobcreationPageListPart
                     ProdOrderRevise: Page "Firm Planned Prod. Order";
                 begin
                     JobCreationSplit.Reset();
-                    JobCreationSplit.SetRange(No, No);
-                    JobCreationSplit.SetRange("Line No", "Line No");
+                    JobCreationSplit.SetRange(No, rec.No);
+                    JobCreationSplit.SetRange("Line No", rec."Line No");
                     JobCreationSplit.SetFilter(Select, '=%1', true);
 
                     if JobCreationSplit.FindSet() then begin
@@ -330,18 +330,18 @@ page 50722 JobcreationPageListPart
                     Barcode: Text[50];
                 begin
 
-                    if "Job Card (Prod Order)" = '' then
+                    if rec."Job Card (Prod Order)" = '' then
                         Error('No Job Card no entered.');
 
                     JobCreationSplit.Reset();
-                    JobCreationSplit.SetRange(No, No);
-                    JobCreationSplit.SetRange("Line No", "Line No");
+                    JobCreationSplit.SetRange(No, rec.No);
+                    JobCreationSplit.SetRange("Line No", rec."Line No");
                     JobCreationSplit.SetFilter(Select, '=%1', true);
 
                     if JobCreationSplit.FindSet() then begin
 
                         ProdOrderRec.Reset();
-                        ProdOrderRec.SetRange("No.", "Job Card (Prod Order)");
+                        ProdOrderRec.SetRange("No.", rec."Job Card (Prod Order)");
                         Report.RunModal(50670, true, true, ProdOrderRec);
 
                         BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
@@ -379,9 +379,9 @@ page 50722 JobcreationPageListPart
 
                 begin
                     JobcreationLineRec.Reset();
-                    JobcreationLineRec.SetRange(No, No);
-                    JobcreationLineRec.SetRange("Line No", "Line No");
-                    JobcreationLineRec.SetRange("Split No", "Split No");
+                    JobcreationLineRec.SetRange(No, rec.No);
+                    JobcreationLineRec.SetRange("Line No", rec."Line No");
+                    JobcreationLineRec.SetRange("Split No", rec."Split No");
                     JobcreationLineRec.SetFilter(Select, '=%1', true);
 
                     if JobcreationLineRec.FindSet() then begin
@@ -394,18 +394,18 @@ page 50722 JobcreationPageListPart
 
                         //Get Max Line No
                         ProductioOrderLine2Rec.Reset();
-                        ProductioOrderLine2Rec.SetRange("Prod. Order No.", "Job Card (Prod Order)");
+                        ProductioOrderLine2Rec.SetRange("Prod. Order No.", rec."Job Card (Prod Order)");
 
                         if ProductioOrderLine2Rec.FindLast() then
                             MaxLineNo := ProductioOrderLine2Rec."Line No.";
 
                         ProductioOrderLineRec.Reset();
-                        ProductioOrderLineRec.SetRange("Prod. Order No.", "Job Card (Prod Order)");
+                        ProductioOrderLineRec.SetRange("Prod. Order No.", rec."Job Card (Prod Order)");
 
                         if ProductioOrderLineRec.FindSet() then begin
 
                             ProdutionBomlineRec.Reset();
-                            ProdutionBomlineRec.SetRange("Production BOM No.", "Reciepe (Prod BOM)");
+                            ProdutionBomlineRec.SetRange("Production BOM No.", rec."Reciepe (Prod BOM)");
 
                             if ProdutionBomlineRec.FindSet() then begin
                                 if ProdutionBomlineRec."No." <> ProductioOrderLineRec."Item No." then
@@ -443,15 +443,15 @@ page 50722 JobcreationPageListPart
     begin
 
         WashsampleResLine.Reset();
-        WashsampleResLine.SetRange("No.", No);
+        WashsampleResLine.SetRange("No.", rec.No);
         WashsampleResLine.FindSet();
         if WashsampleResLine."Split Status" = WashsampleResLine."Split Status"::Yes then
             Error('This sample request already posted. Cannot delete the entry.');
 
         intermidiateRec.Reset();
-        intermidiateRec.SetRange(No, No);
-        intermidiateRec.SetRange("Line No", "Line No");
-        intermidiateRec.SetRange("Split No", "Split No");
+        intermidiateRec.SetRange(No, rec.No);
+        intermidiateRec.SetRange("Line No", rec."Line No");
+        intermidiateRec.SetRange("Split No", rec."Split No");
 
         if intermidiateRec.FindSet() then
             intermidiateRec.DeleteAll();
@@ -475,7 +475,7 @@ page 50722 JobcreationPageListPart
         WashsampleResLine: Record "Washing Sample Requsition Line";
     begin
         WashsampleResLine.Reset();
-        WashsampleResLine.SetRange("No.", No);
+        WashsampleResLine.SetRange("No.", rec.No);
         WashsampleResLine.FindSet();
         if WashsampleResLine."Split Status" = WashsampleResLine."Split Status"::Yes then
             Error('This sample request already posted. Cannot insert new entry.');

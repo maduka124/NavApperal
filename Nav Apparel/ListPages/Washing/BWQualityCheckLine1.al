@@ -14,20 +14,20 @@ page 50743 BWQualityCheckline1
         {
             repeater(GroupName)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     Caption = 'Seq No';
                     ApplicationArea = all;
                     Editable = false;
                 }
 
-                field("Fabric Description"; "Fabric Description")
+                field("Fabric Description"; rec."Fabric Description")
                 {
                     ApplicationArea = all;
                     Editable = false;
                 }
 
-                field("Req Qty"; "Req Qty")
+                field("Req Qty"; rec."Req Qty")
                 {
                     Caption = 'Req. Qty';
                     ApplicationArea = all;

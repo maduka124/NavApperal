@@ -13,24 +13,24 @@ page 50443 "Garment Part List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Part No';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Item Type Name"; "Item Type Name")
+                field("Item Type Name"; rec."Item Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item Type';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';

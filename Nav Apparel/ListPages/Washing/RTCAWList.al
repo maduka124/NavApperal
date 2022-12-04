@@ -13,34 +13,34 @@ page 50748 RTCAWHeaderList
         {
             repeater(GroupName)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Document No';
                 }
 
-                field("JoB Card No"; "JoB Card No")
+                field("JoB Card No"; rec."JoB Card No")
                 {
                     ApplicationArea = all;
                 }
 
-                field("Req No"; "Req No")
+                field("Req No"; rec."Req No")
                 {
                     ApplicationArea = all;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = all;
                 }
 
-                field(CustomerName; CustomerName)
+                field(CustomerName; rec.CustomerName)
                 {
                     ApplicationArea = all;
                     Caption = 'Customer';
                 }
 
-                field("Gate Pass"; "Gate Pass")
+                field("Gate Pass"; rec."Gate Pass")
                 {
                     ApplicationArea = all;
                 }
@@ -54,11 +54,11 @@ page 50748 RTCAWHeaderList
         RTCAWLineRec: Record RTCAWLine;
     begin
 
-        if status = Status::Posted then
+        if rec.status = rec.Status::Posted then
             Error('Entry already posted. Cannot delete.');
 
         RTCAWLineRec.Reset();
-        RTCAWLineRec.SetRange("No.", "No.");
+        RTCAWLineRec.SetRange("No.", rec."No.");
         if RTCAWLineRec.FindSet() then
             RTCAWLineRec.DeleteAll();
 

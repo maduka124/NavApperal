@@ -4,12 +4,12 @@ pageextension 50658 WashinBOMList extends "Production BOM Lines"
     {
         addafter(Type)
         {
-            field("Main Category Code"; "Main Category Code")
+            field("Main Category Code"; rec."Main Category Code")
             {
                 ApplicationArea = All;
             }
 
-            field("Main Category Name"; "Main Category Name")
+            field("Main Category Name"; rec."Main Category Name")
             {
                 ApplicationArea = All;
                 Editable = false;
@@ -19,34 +19,34 @@ pageextension 50658 WashinBOMList extends "Production BOM Lines"
 
         addafter("Unit of Measure Code")
         {
-            field(Step; Step)
+            field(Step; rec.Step)
             {
                 ApplicationArea = All;
             }
 
-            field("Water(L)"; "Water(L)")
+            field("Water(L)"; rec."Water(L)")
             {
                 ApplicationArea = All;
             }
 
-            field(Temperature; Temperature)
+            field(Temperature; rec.Temperature)
             {
                 ApplicationArea = All;
                 Caption = 'Temperature (C)';
             }
 
-            field(Time; Time)
+            field(Time; rec.Time)
             {
                 ApplicationArea = All;
                 Caption = 'Time (Minutes)';
             }
 
-            field("Weight(Kg)"; "Weight(Kg)")
+            field("Weight(Kg)"; rec."Weight(Kg)")
             {
                 ApplicationArea = All;
             }
 
-            field(Remark; Remark)
+            field(Remark; rec.Remark)
             {
                 ApplicationArea = All;
             }

@@ -10,14 +10,14 @@ page 50485 "Machine Layout 1 Listpart"
         {
             repeater(General)
             {
-                field("WP No."; "WP No.")
+                field("WP No."; rec."WP No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Wp No';
                 }
 
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
@@ -30,28 +30,28 @@ page 50485 "Machine Layout 1 Listpart"
 
                         //Check for duplicates
                         MachineLayoutRec.Reset();
-                        MachineLayoutRec.SetRange("No.", "No.");
-                        MachineLayoutRec.SetRange("Line No.", "Line No.");
+                        MachineLayoutRec.SetRange("No.", rec."No.");
+                        MachineLayoutRec.SetRange("Line No.", rec."Line No.");
 
                         if not MachineLayoutRec.FindSet() then begin
 
                             MachineLayout1Rec.Reset();
-                            MachineLayout1Rec.SetRange("No.", "No.");
-                            MachineLayout1Rec.SetRange("Line No.", "Line No.");
+                            MachineLayout1Rec.SetRange("No.", rec."No.");
+                            MachineLayout1Rec.SetRange("Line No.", rec."Line No.");
 
                             if MachineLayout1Rec.FindSet() then begin
 
                                 //Assign selected values
-                                Code := MachineLayout1Rec.Code;
-                                Description := MachineLayout1Rec.Description;
-                                "Machine No." := MachineLayout1Rec."Machine No.";
-                                "Machine Name" := MachineLayout1Rec."Machine Name";
-                                smv := MachineLayout1Rec.SMV;
-                                Minutes := MachineLayout1Rec.Minutes;
-                                Target := MachineLayout1Rec.Target;
+                                rec.Code := MachineLayout1Rec.Code;
+                                rec.Description := MachineLayout1Rec.Description;
+                                rec."Machine No." := MachineLayout1Rec."Machine No.";
+                                rec."Machine Name" := MachineLayout1Rec."Machine Name";
+                                rec.smv := MachineLayout1Rec.SMV;
+                                rec.Minutes := MachineLayout1Rec.Minutes;
+                                rec.Target := MachineLayout1Rec.Target;
 
                                 //Delete from the top list
-                                MachineLayout1Rec.ModifyAll("WP No", "WP No.");
+                                MachineLayout1Rec.ModifyAll("WP No", rec."WP No.");
                                 CurrPage.Update();
 
                             end;
@@ -61,33 +61,33 @@ page 50485 "Machine Layout 1 Listpart"
                     end;
                 }
 
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Op Code';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Machine No."; "Machine No.")
+                field("Machine No."; rec."Machine No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Machine';
                 }
 
-                field(Minutes; Minutes)
+                field(Minutes; rec.Minutes)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Target; Target)
+                field(Target; rec.Target)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -103,8 +103,8 @@ page 50485 "Machine Layout 1 Listpart"
     begin
 
         MachineLayoutineRec.Reset();
-        MachineLayoutineRec.SetRange("No.", "No.");
-        MachineLayoutineRec.SetRange("Line No.", "Line No.");
+        MachineLayoutineRec.SetRange("No.", rec."No.");
+        MachineLayoutineRec.SetRange("Line No.", rec."Line No.");
         MachineLayoutineRec.FindSet();
         MachineLayoutineRec.ModifyAll("WP No", 0);
         CurrPage.Update();

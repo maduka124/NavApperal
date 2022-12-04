@@ -13,13 +13,13 @@ page 50685 RTCAWListPart
         {
             repeater(GroupName)
             {
-                field("Line No"; "Line No")
+                field("Line No"; rec."Line No")
                 {
                     Caption = 'Seq No';
                     ApplicationArea = all;
                 }
 
-                field(Item; Item)
+                field(Item; rec.Item)
                 {
                     ApplicationArea = all;
 
@@ -28,20 +28,20 @@ page 50685 RTCAWListPart
                         ItemRec: Record Item;
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, Item);
+                        ItemRec.SetRange(Description, rec.Item);
                         if ItemRec.FindSet() then begin
-                            UOM := ItemRec."Base Unit of Measure";
-                            ItemCode := itemRec."No.";
+                            rec.UOM := ItemRec."Base Unit of Measure";
+                            rec.ItemCode := itemRec."No.";
                         end;
                     end;
                 }
 
-                field(UOM; UOM)
+                field(UOM; rec.UOM)
                 {
                     ApplicationArea = all;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     trigger OnValidate()
@@ -49,12 +49,12 @@ page 50685 RTCAWListPart
                         interMediRec: Record IntermediateTable;
                     begin
                         interMediRec.Reset();
-                        interMediRec.SetRange(No, "Req No");
-                        interMediRec.SetRange("Line No", "Header Line No ");
-                        interMediRec.SetRange("Split No", "Split No");
+                        interMediRec.SetRange(No, rec."Req No");
+                        interMediRec.SetRange("Line No", rec."Header Line No ");
+                        interMediRec.SetRange("Split No", rec."Split No");
 
                         if interMediRec.FindSet() then begin
-                            if interMediRec."Split Qty" < Qty then
+                            if interMediRec."Split Qty" < rec.Qty then
                                 Error('Return qty cannot be greater than Job Card Qty.');
                         end;
                     end;

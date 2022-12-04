@@ -4,32 +4,32 @@ pageextension 50803 ReleasedProdOrderLine extends "Released Prod. Order Lines"
     {
         addafter("Cost Amount")
         {
-            field(Step; Step)
+            field(Step; rec.Step)
             {
                 ApplicationArea = All;
             }
 
-            field(Water; Water)
+            field(Water; rec.Water)
             {
                 ApplicationArea = All;
             }
 
-            field(Temp; Temp)
+            field(Temp; rec.Temp)
             {
                 ApplicationArea = All;
             }
 
-            field(Ph; Ph)
+            field(Ph; rec.Ph)
             {
                 ApplicationArea = All;
             }
 
-            field(Instruction; Instruction)
+            field(Instruction; rec.Instruction)
             {
                 ApplicationArea = All;
             }
 
-            field("Time(Min)"; "Time(Min)")
+            field("Time(Min)"; rec."Time(Min)")
             {
                 ApplicationArea = All;
             }
@@ -53,8 +53,8 @@ pageextension 50803 ReleasedProdOrderLine extends "Released Prod. Order Lines"
                     TotalTime: Decimal;
                 begin
                     ProdLne.Reset();
-                    ProdLne.SetRange("Prod. Order No.", "Prod. Order No.");
-                    ProdLne.SetRange(Status, Status);
+                    ProdLne.SetRange("Prod. Order No.", rec."Prod. Order No.");
+                    ProdLne.SetRange(Status,rec. Status);
                     if ProdLne.FindSet() then
                         repeat
                             TotalWaterLtrs += ProdLne.Water;
@@ -62,8 +62,8 @@ pageextension 50803 ReleasedProdOrderLine extends "Released Prod. Order Lines"
                         until ProdLne.Next() = 0;
 
                     ProdHead.Reset();
-                    ProdHead.SetRange("No.", "Prod. Order No.");
-                    ProdHead.SetRange(Status, Status);
+                    ProdHead.SetRange("No.", rec."Prod. Order No.");
+                    ProdHead.SetRange(Status, rec.Status);
                     if ProdHead.FindSet() then begin
                         ProdHead."Total Water Ltrs:" := TotalWaterLtrs;
                         ProdHead."Process Time:" := TotalTime;

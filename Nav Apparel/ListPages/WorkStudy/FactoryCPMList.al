@@ -14,12 +14,12 @@ page 50775 "Factory CPM List"
         {
             repeater(General)
             {
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field(CPM; CPM)
+                field(CPM; rec.CPM)
                 {
                     ApplicationArea = All;
                 }

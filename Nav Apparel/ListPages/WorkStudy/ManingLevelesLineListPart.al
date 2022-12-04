@@ -9,73 +9,73 @@ page 50476 "Maning Levels Listpart"
         {
             repeater(General)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Op Code';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Machine Name"; "Machine Name")
+                field("Machine Name"; rec."Machine Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Machine';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Department';
                 }
 
-                field("SMV Machine"; "SMV Machine")
+                field("SMV Machine"; rec."SMV Machine")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("SMV Manual"; "SMV Manual")
+                field("SMV Manual"; rec."SMV Manual")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Target Per Hour"; "Target Per Hour")
+                field("Target Per Hour"; rec."Target Per Hour")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Theo MO"; "Theo MO")
+                field("Theo MO"; rec."Theo MO")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Theoretical MO';
                 }
 
-                field("Theo HP"; "Theo HP")
+                field("Theo HP"; rec."Theo HP")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Theoretical HP';
                 }
 
-                field("Act MO"; "Act MO")
+                field("Act MO"; rec."Act MO")
                 {
                     ApplicationArea = All;
                     Caption = 'Actual MO';
@@ -83,24 +83,24 @@ page 50476 "Maning Levels Listpart"
                     trigger OnValidate()
                     var
                     begin
-                        "Act MC" := "Act MO";
+                        rec."Act MC" := rec."Act MO";
                     end;
                 }
 
-                field("Act HP"; "Act HP")
+                field("Act HP"; rec."Act HP")
                 {
                     ApplicationArea = All;
                     Caption = 'Actual HP';
                 }
 
-                field("Act MC"; "Act MC")
+                field("Act MC"; rec."Act MC")
                 {
                     ApplicationArea = All;
                     Caption = 'Actual MC';
                     Editable = false;
                 }
 
-                field(Comments; Comments)
+                field(Comments; rec.Comments)
                 {
                     ApplicationArea = All;
                 }
@@ -127,7 +127,7 @@ page 50476 "Maning Levels Listpart"
 
                     //Calculate Actual values
                     ManingLevelsLineRec.Reset();
-                    ManingLevelsLineRec.SetRange("No.", "No.");
+                    ManingLevelsLineRec.SetRange("No.", rec."No.");
 
                     if ManingLevelsLineRec.FindSet() then begin
                         repeat
@@ -139,7 +139,7 @@ page 50476 "Maning Levels Listpart"
 
                     //Update Master table
                     ManingLevelRec.Reset();
-                    ManingLevelRec.SetRange("No.", "No.");
+                    ManingLevelRec.SetRange("No.", rec."No.");
 
                     if ManingLevelRec.FindSet() then begin
 

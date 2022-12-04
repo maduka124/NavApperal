@@ -15,54 +15,54 @@ page 50474 "Maning Level List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Maning No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Line';
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Val; Val)
+                field(Val; rec.Val)
                 {
                     ApplicationArea = All;
                     Caption = 'Qty';
                 }
 
-                field(Eff; Eff)
+                field(Eff; rec.Eff)
                 {
                     ApplicationArea = All;
                     Caption = 'Expected Eff %';
                 }
 
-                field("Total SMV"; "Total SMV")
+                field("Total SMV"; rec."Total SMV")
                 {
                     ApplicationArea = All;
                     Caption = 'Total Sewing SMV';
                 }
 
-                field("Sewing SMV"; "Sewing SMV")
+                field("Sewing SMV"; rec."Sewing SMV")
                 {
                     ApplicationArea = All;
                     Caption = 'Sewing SMV';
                 }
 
-                field("Manual SMV"; "Manual SMV")
+                field("Manual SMV"; rec."Manual SMV")
                 {
                     ApplicationArea = All;
                     Caption = 'Manual SMV';
@@ -78,7 +78,7 @@ page 50474 "Maning Level List"
     begin
 
         ManingLevelsLineRec.Reset();
-        ManingLevelsLineRec.SetRange("No.", "No.");
+        ManingLevelsLineRec.SetRange("No.", rec."No.");
         ManingLevelsLineRec.DeleteAll();
 
     end;

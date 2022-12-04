@@ -16,134 +16,134 @@ page 50829 SampleWashingRequestsWIP
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Washing Req. No';
                 }
 
-                field("Sample Req. No"; "Sample Req. No")
+                field("Sample Req. No"; rec."Sample Req. No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field(Buyer; Buyer)
+                field(Buyer; rec.Buyer)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Gament Type"; "Gament Type")
+                field("Gament Type"; rec."Gament Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Wash Plant Name"; "Wash Plant Name")
+                field("Wash Plant Name"; rec."Wash Plant Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Washing Plant';
                 }
 
-                field("Wash Type"; "Wash Type")
+                field("Wash Type"; rec."Wash Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Fabric Description"; "Fabric Description")
+                field("Fabric Description"; rec."Fabric Description")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabrication';
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Colour';
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Req Qty"; "Req Qty")
+                field("Req Qty"; rec."Req Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Unite Price"; "Unite Price")
+                field("Unite Price"; rec."Unite Price")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Value; Value)
+                field(Value; rec.Value)
                 {
                     ApplicationArea = All;
                 }
 
-                field("BW QC Date"; "BW QC Date")
+                field("BW QC Date"; rec."BW QC Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Req Qty BW QC Pass"; "Req Qty BW QC Pass")
+                field("Req Qty BW QC Pass"; rec."Req Qty BW QC Pass")
                 {
                     ApplicationArea = All;
                     Caption = 'BW QC Pass Qty';
                 }
 
-                field("Req Qty BW QC Fail"; "Req Qty BW QC Fail")
+                field("Req Qty BW QC Fail"; rec."Req Qty BW QC Fail")
                 {
                     ApplicationArea = All;
                     Caption = 'BW QC Failed Qty';
                 }
 
-                field("Return Qty (BW)"; "Return Qty (BW)")
+                field("Return Qty (BW)"; rec."Return Qty (BW)")
                 {
                     ApplicationArea = All;
                     Caption = 'BW Returned Qty';
                 }
 
-                field("AW QC Date"; "QC Date (AW)")
+                field("AW QC Date"; rec."QC Date (AW)")
                 {
                     ApplicationArea = All;
                 }
 
-                field("QC Pass Qty (AW)"; "QC Pass Qty (AW)")
+                field("QC Pass Qty (AW)"; rec."QC Pass Qty (AW)")
                 {
                     ApplicationArea = All;
                     Caption = 'AW QC Pass Qty';
                 }
 
-                field("QC Fail Qty (AW)"; "QC Fail Qty (AW)")
+                field("QC Fail Qty (AW)"; rec."QC Fail Qty (AW)")
                 {
                     ApplicationArea = All;
                     Caption = 'AW QC Failed Qty';
                 }
 
-                field("Return Qty (AW)"; "Return Qty (AW)")
+                field("Return Qty (AW)"; rec."Return Qty (AW)")
                 {
                     ApplicationArea = All;
                     Caption = 'AW Returned Qty';
                 }
 
-                field("Dispatch Qty"; "Dispatch Qty")
+                field("Dispatch Qty"; rec."Dispatch Qty")
                 {
                     ApplicationArea = All;
                     Caption = 'Final Dispatch Qty';
                 }
 
-                field(RemarkLine; RemarkLine)
+                field(RemarkLine; rec.RemarkLine)
                 {
                     Caption = 'Remark';
                     ApplicationArea = All;

@@ -14,32 +14,32 @@ page 50700 "Washing Sample Request"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Request No';
                     //Visible = false;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
                 }
 
-                field("Wash Plant Name"; "Wash Plant Name")
+                field("Wash Plant Name"; rec."Wash Plant Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Plant';
@@ -57,7 +57,7 @@ page 50700 "Washing Sample Request"
 
         //Check whether request has been processed
         SampleWasLineRec.Reset();
-        SampleWasLineRec.SetRange("No.", "No.");
+        SampleWasLineRec.SetRange("No.", rec."No.");
 
         if SampleWasLineRec.FindSet() then begin
             if SampleWasLineRec."Return Qty (BW)" > 0 then
@@ -76,14 +76,14 @@ page 50700 "Washing Sample Request"
 
         //Check for split lines
         Inter1Rec.Reset();
-        Inter1Rec.SetRange(No, "No.");
+        Inter1Rec.SetRange(No, rec."No.");
         if Inter1Rec.FindSet() then
             Error('Request has been split. Cannot delete.');
 
 
         //Delete lines
         SampleWasLineRec.Reset();
-        SampleWasLineRec.SetRange("No.", "No.");
+        SampleWasLineRec.SetRange("No.", rec."No.");
         if SampleWasLineRec.FindSet() then
             SampleWasLineRec.DeleteAll();
     end;

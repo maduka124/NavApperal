@@ -14,17 +14,17 @@ page 50814 "Factory Manpower Budget List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Date; Date)
+                field(Date; rec.Date)
                 {
                     ApplicationArea = All;
                 }
@@ -38,7 +38,7 @@ page 50814 "Factory Manpower Budget List"
         ManpowBudLineRec: Record FactoryManpowerBudgetLine;
     begin
         ManpowBudLineRec.Reset();
-        ManpowBudLineRec.SetRange("No.", "No.");
+        ManpowBudLineRec.SetRange("No.", rec."No.");
         if ManpowBudLineRec.FindSet() then begin
             ManpowBudLineRec.DeleteAll();
         end;

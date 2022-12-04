@@ -13,21 +13,21 @@ page 50816 FactoryManpowerBudgetListPart
         {
             repeater(General)
             {
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = false;
                 }
 
-                field("Category Name"; "Category Name")
+                field("Category Name"; rec."Category Name")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = false;
                 }
 
-                field("Act Budget"; "Act Budget")
+                field("Act Budget"; rec."Act Budget")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -44,8 +44,8 @@ page 50816 FactoryManpowerBudgetListPart
 
                         //get total of the department
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 0);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -56,8 +56,8 @@ page 50816 FactoryManpowerBudgetListPart
 
                         //Update sub total of the department
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -68,8 +68,8 @@ page 50816 FactoryManpowerBudgetListPart
 
                         //get total of the "Final Budget with Absenteesm"
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 0);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -80,8 +80,8 @@ page 50816 FactoryManpowerBudgetListPart
 
                         //Update sub total of the "Final Budget with Absenteesm"
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -95,14 +95,14 @@ page 50816 FactoryManpowerBudgetListPart
                     end;
                 }
 
-                field("Final Budget with Absenteesm"; "Final Budget with Absenteesm")
+                field("Final Budget with Absenteesm"; rec."Final Budget with Absenteesm")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Current onrall"; "Current onrall")
+                field("Current onrall"; rec."Current onrall")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -114,13 +114,13 @@ page 50816 FactoryManpowerBudgetListPart
                         total: BigInteger;
                     begin
                         CurrPage.Update();
-                        "Excess/Short" := "Current onrall" - "Final Budget with Absenteesm";
+                        rec."Excess/Short" := rec."Current onrall" - rec."Final Budget with Absenteesm";
                         Cal();
 
                         //get total of the department
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 0);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -131,8 +131,8 @@ page 50816 FactoryManpowerBudgetListPart
 
                         //Update sub total of the department
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -146,7 +146,7 @@ page 50816 FactoryManpowerBudgetListPart
                     end;
                 }
 
-                field(Absent; Absent)
+                field(Absent; rec.Absent)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -162,8 +162,8 @@ page 50816 FactoryManpowerBudgetListPart
 
                         //get total of the department
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 0);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -174,8 +174,8 @@ page 50816 FactoryManpowerBudgetListPart
 
                         //Update sub total of the department
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -188,7 +188,7 @@ page 50816 FactoryManpowerBudgetListPart
                     end;
                 }
 
-                field(Leave; Leave)
+                field(Leave; rec.Leave)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -204,8 +204,8 @@ page 50816 FactoryManpowerBudgetListPart
 
                         //get total of the department
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 0);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -216,8 +216,8 @@ page 50816 FactoryManpowerBudgetListPart
 
                         //Update sub total of the department
                         ManpowBudLineRec.Reset();
-                        ManpowBudLineRec.SetRange("No.", "No.");
-                        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+                        ManpowBudLineRec.SetRange("No.", rec."No.");
+                        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
                         ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
                         if ManpowBudLineRec.FindSet() then begin
@@ -230,21 +230,21 @@ page 50816 FactoryManpowerBudgetListPart
                     end;
                 }
 
-                field("Net Present"; "Net Present")
+                field("Net Present"; rec."Net Present")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Excess/Short"; "Excess/Short")
+                field("Excess/Short"; rec."Excess/Short")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -260,13 +260,13 @@ page 50816 FactoryManpowerBudgetListPart
         totalNet: BigInteger;
         totalExcess: BigInteger;
     begin
-        "Net Present" := "Current onrall" - Absent - Leave;
+        rec."Net Present" := rec."Current onrall" - rec.Absent - rec.Leave;
         CurrPage.Update();
 
         //get total of the department
         ManpowBudLineRec.Reset();
-        ManpowBudLineRec.SetRange("No.", "No.");
-        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+        ManpowBudLineRec.SetRange("No.", rec."No.");
+        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
         ManpowBudLineRec.SetFilter(Type, '=%1', 0);
 
         if ManpowBudLineRec.FindSet() then begin
@@ -278,8 +278,8 @@ page 50816 FactoryManpowerBudgetListPart
 
         //Update sub total of the department
         ManpowBudLineRec.Reset();
-        ManpowBudLineRec.SetRange("No.", "No.");
-        ManpowBudLineRec.SetRange("Department Code", "Department Code");
+        ManpowBudLineRec.SetRange("No.", rec."No.");
+        ManpowBudLineRec.SetRange("Department Code", rec."Department Code");
         ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
         if ManpowBudLineRec.FindSet() then begin
@@ -303,7 +303,7 @@ page 50816 FactoryManpowerBudgetListPart
     begin
         //Get sub totals
         ManpowBudLineRec.Reset();
-        ManpowBudLineRec.SetRange("No.", "No.");
+        ManpowBudLineRec.SetRange("No.", rec."No.");
         ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
         if ManpowBudLineRec.FindSet() then begin
@@ -320,7 +320,7 @@ page 50816 FactoryManpowerBudgetListPart
 
         //Update grand total
         ManpowBudLineRec.Reset();
-        ManpowBudLineRec.SetRange("No.", "No.");
+        ManpowBudLineRec.SetRange("No.", rec."No.");
         ManpowBudLineRec.SetFilter(Type, '=%1', 2);
 
         if ManpowBudLineRec.FindSet() then begin
@@ -350,7 +350,7 @@ page 50816 FactoryManpowerBudgetListPart
     begin
         StyleExprTxt := ChangeColor.ChangeColorManpoerBudget(Rec);
 
-        if (Type = 1) or (Type = 2) then begin
+        if (rec.Type = 1) or (rec.Type = 2) then begin
             Clear(SetEdit1);
             SetEdit1 := false;
         end
@@ -366,7 +366,7 @@ page 50816 FactoryManpowerBudgetListPart
     begin
         StyleExprTxt := ChangeColor.ChangeColorManpoerBudget(Rec);
 
-        if (Type = 1) or (Type = 2) then begin
+        if (rec.Type = 1) or (rec.Type = 2) then begin
             Clear(SetEdit1);
             SetEdit1 := false;
         end

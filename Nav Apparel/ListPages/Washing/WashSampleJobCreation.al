@@ -13,99 +13,99 @@ page 50711 "Wash Sample Job Creationdd"
             repeater(GroupName)
             {
 
-                field("Seq No."; "Seq No.")
+                field("Seq No."; rec."Seq No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
                     Editable = false;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';
                     Editable = false;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                     Editable = false;
 
                 }
 
-                field(Buyer; Buyer)
+                field(Buyer; rec.Buyer)
                 {
                     ApplicationArea = All;
                     Editable = false;
 
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                     Editable = false;
                 }
 
-                field(PO; PO)
+                field(PO; rec.PO)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Colour';
                     Editable = false;
                 }
 
-                field("Order Qty"; "Order Qty")
+                field("Order Qty"; rec."Order Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Gament Type"; "Gament Type")
+                field("Gament Type"; rec."Gament Type")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Sample Type"; SampleType)
+                field("Sample Type"; rec.SampleType)
                 {
                     Caption = 'Sample Type';
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(" Req Qty"; " Req Qty")
+                field(" Req Qty"; rec." Req Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Sample Item Name"; "Sample Item Name")
+                field("Sample Item Name"; rec."Sample Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Item';
                     Editable = false;
                 }
 
-                field("REC Qty"; "REC Qty")
+                field("REC Qty"; rec."REC Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -117,18 +117,18 @@ page 50711 "Wash Sample Job Creationdd"
                 //     Editable = false;
                 // }
 
-                field("GRN No"; "GRN No")
+                field("GRN No"; rec."GRN No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Option; Option)
+                field(Option; rec.Option)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
 
@@ -139,15 +139,15 @@ page 50711 "Wash Sample Job Creationdd"
 
                     begin
 
-                        if Qty >= "REC Qty" then
+                        if rec.Qty >= rec."REC Qty" then
                             Error('Quntity Greater Then Rec Qty');
 
                         CurrPage.Update();
 
                         quantity := 0;
                         SampleJobCreationRec.Reset();
-                        SampleJobCreationRec.SetRange("No.", "No.");
-                        SampleJobCreationRec.SetRange("Line No", "Line No");
+                        SampleJobCreationRec.SetRange("No.", rec."No.");
+                        SampleJobCreationRec.SetRange("Line No", rec."Line No");
 
                         if SampleJobCreationRec.FindSet() then begin
 
@@ -165,7 +165,7 @@ page 50711 "Wash Sample Job Creationdd"
 
                 }
 
-                field("Wash Type"; "Wash Type")
+                field("Wash Type"; rec."Wash Type")
                 {
                     ApplicationArea = All;
 
@@ -173,12 +173,12 @@ page 50711 "Wash Sample Job Creationdd"
                     var
                         WashTypeRec: Record "Wash Type";
                     begin
-                        WashTypeRec.get("Wash Type");
-                        "Wash Type" := WashTypeRec."Wash Type Name";
+                        WashTypeRec.get(rec."Wash Type");
+                        rec."Wash Type" := WashTypeRec."Wash Type Name";
                     end;
                 }
 
-                field(Remark; Remark)
+                field(Remark; rec.Remark)
                 {
                     ApplicationArea = All;
                 }
@@ -204,8 +204,8 @@ page 50711 "Wash Sample Job Creationdd"
 
                     //Get max line
                     washsampleJobcreate.Reset();
-                    washsampleJobcreate.SetRange("No.", "No.");
-                    washsampleJobcreate.SetRange("Line No", "Line No");
+                    washsampleJobcreate.SetRange("No.", rec."No.");
+                    washsampleJobcreate.SetRange("Line No", rec."Line No");
 
                     if washsampleJobcreate.FindLast() then
                         MaxLineNo := washsampleJobcreate."Seq No.";
@@ -213,8 +213,8 @@ page 50711 "Wash Sample Job Creationdd"
                     MaxLineNo += 1;
 
                     WashSampleReqDataRec.Reset();
-                    WashSampleReqDataRec.SetRange("No.", "No.");
-                    WashSampleReqDataRec.SetRange("Line no.", "Line No");
+                    WashSampleReqDataRec.SetRange("No.", rec."No.");
+                    WashSampleReqDataRec.SetRange("Line no.", rec."Line No");
 
                     if WashSampleReqDataRec.FindSet() then begin
 

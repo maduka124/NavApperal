@@ -13,19 +13,19 @@ page 50742 BWQualityCheckList
         {
             repeater(GroupName)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'B/W Quality Check No';
                 }
 
-                field("Sample Req No"; "Sample Req No")
+                field("Sample Req No";rec. "Sample Req No")
                 {
                     ApplicationArea = All;
 
                 }
 
-                field("BW QC Date"; "BW QC Date")
+                field("BW QC Date"; rec."BW QC Date")
                 {
                     ApplicationArea = All;
 
@@ -39,7 +39,7 @@ page 50742 BWQualityCheckList
         BWqualityCheckLine2Rec: Record BWQualityLine2;
     begin
         BWqualityCheckLine2Rec.Reset();
-        BWqualityCheckLine2Rec.SetRange(No, "No.");
+        BWqualityCheckLine2Rec.SetRange(No, rec."No.");
 
         if BWqualityCheckLine2Rec.FindSet() then
             BWqualityCheckLine2Rec.DeleteAll();

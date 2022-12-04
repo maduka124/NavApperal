@@ -13,60 +13,60 @@ page 50455 "New Operation"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'No';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Item Type Name"; "Item Type Name")
+                field("Item Type Name"; rec."Item Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item Type';
                 }
 
-                field("Garment Part Name"; "Garment Part Name")
+                field("Garment Part Name"; rec."Garment Part Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Part';
                 }
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                 }
 
-                field(SMV; SMV)
+                field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Target Per Hour"; "Target Per Hour")
+                field("Target Per Hour"; rec."Target Per Hour")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Seam Length"; "Seam Length")
+                field("Seam Length"; rec."Seam Length")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Grade; Grade)
+                field(Grade; rec.Grade)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
                 }
 
-                field("Machine Name"; "Machine Name")
+                field("Machine Name"; rec."Machine Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Machine';

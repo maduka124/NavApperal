@@ -17,7 +17,7 @@ page 50757 "Style SMV Pending List"
         {
             repeater(General)
             {
-                field("Style No."; "Style No.")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -28,69 +28,69 @@ page 50757 "Style SMV Pending List"
                     begin
                         // Clear(SampleList);
                         // SampleList.LookupMode(true);
-                        NewBrRec.PassParameters("No.");
+                        NewBrRec.PassParameters(rec."No.");
                         NewBrRec.Run();
                     end;
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
                 }
 
-                field("Size Range Name"; "Size Range Name")
+                field("Size Range Name"; rec."Size Range Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Size Range';
                 }
 
-                field("Merchandiser Name"; "Merchandiser Name")
+                field("Merchandiser Name"; rec."Merchandiser Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Order Qty"; "Order Qty")
+                field("Order Qty"; rec."Order Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Created Date"; "Created Date")
+                field("Created Date"; rec."Created Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Ship Date"; "Ship Date")
+                field("Ship Date"; rec."Ship Date")
                 {
                     ApplicationArea = All;
                 }

@@ -10,7 +10,7 @@ page 50751 WashingSampleListpart
         {
             repeater(General)
             {
-                field("Line no."; "Line no.")
+                field("Line no."; rec."Line no.")
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
@@ -68,7 +68,7 @@ page 50751 WashingSampleListpart
                 //     end;
                 // }
 
-                field(SampleType; SampleType)
+                field(SampleType; rec.SampleType)
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Type';
@@ -80,22 +80,22 @@ page 50751 WashingSampleListpart
                     begin
 
                         SampleTyprRec.Reset();
-                        SampleTyprRec.SetRange("Sample Type Name", SampleType);
+                        SampleTyprRec.SetRange("Sample Type Name", rec.SampleType);
 
                         if SampleTyprRec.FindSet() then
-                            "Sample No." := SampleTyprRec."No.";
+                            rec."Sample No." := SampleTyprRec."No.";
 
-                        SampleReqHrdRec.Get("No.");
-                        "Style No." := SampleReqHrdRec."Style No.";
-                        "Style_PO No" := SampleReqHrdRec."PO No";
-                        "Style Name" := SampleReqHrdRec."Style Name";
-                        "Wash Plant Name" := SampleReqHrdRec."Wash Plant Name";
-                        Buyer := SampleReqHrdRec."Buyer Name";
-                        "Buyer No" := SampleReqHrdRec."Buyer No.";
-                        "Gament Type" := SampleReqHrdRec."Garment Type Name";
-                        "Factory Name" := SampleReqHrdRec."Wash Plant Name";
-                        "Location Code" := SampleReqHrdRec."Wash Plant No.";
-                        "Req Date" := SampleReqHrdRec."Req Date";
+                        SampleReqHrdRec.Get(rec."No.");
+                        rec."Style No." := SampleReqHrdRec."Style No.";
+                        rec."Style_PO No" := SampleReqHrdRec."PO No";
+                        rec."Style Name" := SampleReqHrdRec."Style Name";
+                        rec."Wash Plant Name" := SampleReqHrdRec."Wash Plant Name";
+                        rec.Buyer := SampleReqHrdRec."Buyer Name";
+                        rec."Buyer No" := SampleReqHrdRec."Buyer No.";
+                        rec."Gament Type" := SampleReqHrdRec."Garment Type Name";
+                        rec."Factory Name" := SampleReqHrdRec."Wash Plant Name";
+                        rec."Location Code" := SampleReqHrdRec."Wash Plant No.";
+                        rec."Req Date" := SampleReqHrdRec."Req Date";
 
                         CurrPage.Update();
 
@@ -104,7 +104,7 @@ page 50751 WashingSampleListpart
                     end;
                 }
 
-                field("Wash Type"; "Wash Type")
+                field("Wash Type"; rec."Wash Type")
                 {
                     ApplicationArea = All;
 
@@ -113,9 +113,9 @@ page 50751 WashingSampleListpart
                         WashtypeRec: record "Wash Type";
                     begin
                         WashtypeRec.Reset();
-                        WashtypeRec.SetRange("Wash Type Name", "Wash Type");
+                        WashtypeRec.SetRange("Wash Type Name", rec."Wash Type");
                         if WashtypeRec.FindSet() then
-                            "Wash Type No." := WashtypeRec."No.";
+                            rec."Wash Type No." := WashtypeRec."No.";
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
@@ -123,7 +123,7 @@ page 50751 WashingSampleListpart
                     end;
                 }
 
-                field("Fabric Description"; "Fabric Description")
+                field("Fabric Description"; rec."Fabric Description")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabrication';
@@ -133,9 +133,9 @@ page 50751 WashingSampleListpart
                         ItemRec: Record Item;
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Fabric Description");
+                        ItemRec.SetRange(Description, rec."Fabric Description");
                         if ItemRec.FindSet() then begin
-                            "Fabrication No." := ItemRec."No.";
+                            rec."Fabrication No." := ItemRec."No.";
                         end;
 
                         if Get_Count() = 1 then
@@ -143,7 +143,7 @@ page 50751 WashingSampleListpart
                     end;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Colour';
@@ -158,28 +158,28 @@ page 50751 WashingSampleListpart
                         StyleColorRec.SetRange("User ID", UserId);
                         if StyleColorRec.FindSet() then begin
                             if Page.RunModal(71012840, StyleColorRec) = Action::LookupOK then begin
-                                "Color Code" := StyleColorRec."Color No.";
-                                "Color Name" := StyleColorRec.Color;
+                                rec."Color Code" := StyleColorRec."Color No.";
+                                rec."Color Name" := StyleColorRec.Color;
                             end;
                         end
                         else begin
                             ColorRec.Reset();
                             ColorRec.FindSet();
                             if Page.RunModal(71012841, ColorRec) = Action::LookupOK then begin
-                                "Color Code" := ColorRec."No.";
-                                "Color Name" := ColorRec."Colour Name";
+                                rec."Color Code" := ColorRec."No.";
+                                rec."Color Name" := ColorRec."Colour Name";
                             end;
                         end;
                     end;
 
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Req Qty"; "Req Qty")
+                field("Req Qty"; rec."Req Qty")
                 {
                     ApplicationArea = All;
 
@@ -187,11 +187,11 @@ page 50751 WashingSampleListpart
                     trigger OnValidate()
                     var
                     begin
-                        Value := "Unite Price" * "Req Qty";
+                        rec.Value := rec."Unite Price" * rec."Req Qty";
                     end;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -216,84 +216,84 @@ page 50751 WashingSampleListpart
                 //     Editable = false;
                 // }
 
-                field("Unite Price"; "Unite Price")
+                field("Unite Price"; rec."Unite Price")
                 {
                     ApplicationArea = All;
                     trigger OnValidate()
                     var
                     begin
-                        Value := "Unite Price" * "Req Qty";
+                        rec.Value := rec."Unite Price" * rec."Req Qty";
                     end;
                 }
 
-                field(Value; Value)
+                field(Value; rec.Value)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("BW QC Date"; "BW QC Date")
+                field("BW QC Date"; rec."BW QC Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Req Qty BW QC Pass"; "Req Qty BW QC Pass")
+                field("Req Qty BW QC Pass"; rec."Req Qty BW QC Pass")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'BW QC Pass Qty';
                 }
 
-                field("Req Qty BW QC Fail"; "Req Qty BW QC Fail")
+                field("Req Qty BW QC Fail"; rec."Req Qty BW QC Fail")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'BW QC Failed Qty';
                 }
 
-                field("Return Qty (BW)"; "Return Qty (BW)")
+                field("Return Qty (BW)"; rec."Return Qty (BW)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'BW Returned Qty';
                 }
 
-                field("AW QC Date"; "QC Date (AW)")
+                field("AW QC Date"; rec."QC Date (AW)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("QC Pass Qty (AW)"; "QC Pass Qty (AW)")
+                field("QC Pass Qty (AW)"; rec."QC Pass Qty (AW)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'AW QC Pass Qty';
                 }
 
-                field("QC Fail Qty (AW)"; "QC Fail Qty (AW)")
+                field("QC Fail Qty (AW)"; rec."QC Fail Qty (AW)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'AW QC Failed Qty';
                 }
 
-                field("Return Qty (AW)"; "Return Qty (AW)")
+                field("Return Qty (AW)"; rec."Return Qty (AW)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'AW Returned Qty';
                 }
 
-                field("Dispatch Qty"; "Dispatch Qty")
+                field("Dispatch Qty"; rec."Dispatch Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Final Dispatch Qty';
                 }
 
-                field(RemarkLine; RemarkLine)
+                field(RemarkLine; rec.RemarkLine)
                 {
                     Caption = 'Remark';
                     ApplicationArea = All;
@@ -308,8 +308,8 @@ page 50751 WashingSampleListpart
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Wash Sample Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."Wash Sample Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -319,12 +319,12 @@ page 50751 WashingSampleListpart
     var
         SampleWasLineRec: Record "Washing Sample Requsition Line";
     begin
-        if "Split Status" = "Split Status"::Yes then
+        if rec."Split Status" = rec."Split Status"::Yes then
             Error('You cannot delete a Split Sample request.');
 
         SampleWasLineRec.Reset();
-        SampleWasLineRec.SetRange("No.", "No.");
-        SampleWasLineRec.SetRange("Line no.", "Line no.");
+        SampleWasLineRec.SetRange("No.", rec."No.");
+        SampleWasLineRec.SetRange("Line no.", rec."Line no.");
         if SampleWasLineRec.FindSet() then
             SampleWasLineRec.DeleteAll();
     end;
@@ -337,8 +337,8 @@ page 50751 WashingSampleListpart
         SampleReqLineRec: Record "Washing Sample Requsition Line";
     begin
         SampleReqLineRec.Reset();
-        SampleReqLineRec.SetRange("No.", "No.");
-        SampleReqLineRec.SetFilter("Line No.", '<>%1', "Line No.");
+        SampleReqLineRec.SetRange("No.", rec."No.");
+        SampleReqLineRec.SetFilter("Line No.", '<>%1', rec."Line No.");
 
         if SampleReqLineRec.FindSet() then
             exit(SampleReqLineRec.Count)

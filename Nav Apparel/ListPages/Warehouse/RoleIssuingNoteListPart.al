@@ -10,7 +10,7 @@ page 50638 "Roll Issuing Note ListPart"
         {
             repeater(General)
             {
-                field("Location Name"; "Location Name")
+                field("Location Name"; rec."Location Name")
                 {
                     ApplicationArea = All;
                     Visible = false;
@@ -39,7 +39,7 @@ page 50638 "Roll Issuing Note ListPart"
                     // end;
                 }
 
-                field("Role ID"; "Role ID")
+                field("Role ID"; rec."Role ID")
                 {
                     ApplicationArea = All;
                     Caption = 'Roll ID';
@@ -78,55 +78,55 @@ page 50638 "Roll Issuing Note ListPart"
                     // end;
                 }
 
-                field("Supplier Batch No."; "Supplier Batch No.")
+                field("Supplier Batch No."; rec."Supplier Batch No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier Batch No';
                 }
 
-                field(Shade; Shade)
+                field(Shade; rec.Shade)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("PTTN GRP"; "PTTN GRP")
+                field("PTTN GRP"; rec."PTTN GRP")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Length Tag"; "Length Tag")
+                field("Length Tag"; rec."Length Tag")
                 {
                     ApplicationArea = All;
                     Caption = 'Tag Length';
                 }
 
-                field("Length Act"; "Length Act")
+                field("Length Act"; rec."Length Act")
                 {
                     ApplicationArea = All;
                     Caption = 'Act Length';
                 }
 
-                field("Length Allocated"; "Length Allocated")
+                field("Length Allocated"; rec."Length Allocated")
                 {
                     ApplicationArea = All;
                     Caption = 'Allocated Length';
                 }
 
-                field("Width Tag"; "Width Tag")
+                field("Width Tag"; rec."Width Tag")
                 {
                     ApplicationArea = All;
                     Caption = 'Tag Width';
                 }
 
-                field("Width Act"; "Width Act")
+                field("Width Act"; rec."Width Act")
                 {
                     ApplicationArea = All;
                     Caption = 'Act Width';
                 }
 
-                field(Selected; Selected)
+                field(Selected; rec.Selected)
                 {
                     ApplicationArea = All;
 
@@ -139,7 +139,7 @@ page 50638 "Roll Issuing Note ListPart"
 
                         CurrPage.Update();
                         RoleIssueLineRec.Reset();
-                        RoleIssueLineRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
+                        RoleIssueLineRec.SetRange("RoleIssuNo.", rec."RoleIssuNo.");
 
                         if RoleIssueLineRec.FindSet() then begin
                             repeat
@@ -149,7 +149,7 @@ page 50638 "Roll Issuing Note ListPart"
                         end;
 
                         RoleIssueRec.Reset();
-                        RoleIssueRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
+                        RoleIssueRec.SetRange("RoleIssuNo.", rec."RoleIssuNo.");
 
                         if RoleIssueRec.FindSet() then begin
                             if RoleIssueRec."Required Length" < Qty then
@@ -179,13 +179,13 @@ page 50638 "Roll Issuing Note ListPart"
     begin
 
         RoleIssuingNoteHeaderRec.Reset();
-        RoleIssuingNoteHeaderRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
+        RoleIssuingNoteHeaderRec.SetRange("RoleIssuNo.", rec."RoleIssuNo.");
         RoleIssuingNoteHeaderRec.FindSet();
         GRNNo := RoleIssuingNoteHeaderRec."GRN No";
 
         //Delete old records
         RoleIDDetailsRec.Reset();
-        RoleIDDetailsRec.SetRange("Role ID Filter User", "Role Filter User ID");
+        RoleIDDetailsRec.SetRange("Role ID Filter User", rec."Role Filter User ID");
         // RoleIDDetailsRec.SetRange("Location No", "Location No");
         // RoleIDDetailsRec.SetRange("Item No", "Item No");
         if RoleIDDetailsRec.FindSet() then
@@ -201,8 +201,8 @@ page 50638 "Roll Issuing Note ListPart"
         ItemLedEnRec.Reset();
         ItemLedEnRec.SetCurrentKey("Lot No.");
         ItemLedEnRec.Ascending := true;
-        ItemLedEnRec.SetRange("Location Code", "Location No");
-        ItemLedEnRec.SetRange("Item No.", "Item No");
+        ItemLedEnRec.SetRange("Location Code", rec."Location No");
+        ItemLedEnRec.SetRange("Item No.", rec."Item No");
         ItemLedEnRec.SetRange("Document No.", GRNNo);
 
         if ItemLedEnRec.FindSet() then begin

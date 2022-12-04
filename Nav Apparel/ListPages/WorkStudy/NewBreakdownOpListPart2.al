@@ -52,9 +52,9 @@ page 50466 "New Breakdown Op Listpart2"
                         MachineRec: Record "Machine Master";
                     begin
                         MachineRec.Reset();
-                        MachineRec.SetRange("Machine Description", "Machine Name");
+                        MachineRec.SetRange("Machine Description", rec."Machine Name");
                         if MachineRec.FindSet() then
-                            "Machine No." := MachineRec."Machine No.";
+                            rec."Machine No." := MachineRec."Machine No.";
                     end;
                 }
 
@@ -66,7 +66,7 @@ page 50466 "New Breakdown Op Listpart2"
                     trigger OnValidate()
                     var
                     begin
-                        "Target Per Hour" := round((60 / SMV), 1);
+                        rec."Target Per Hour" := round((60 / rec.SMV), 1);
                     end;
                 }
 
@@ -130,7 +130,7 @@ page 50466 "New Breakdown Op Listpart2"
                 begin
 
                     NewBreakdownRec.Reset();
-                    NewBreakdownRec.SetRange("No.", "No.");
+                    NewBreakdownRec.SetRange("No.", rec."No.");
                     NewBreakdownRec.FindSet();
                     Status := NewBreakdownRec."Style Stage";
                     Style := NewBreakdownRec."Style No.";
@@ -139,7 +139,7 @@ page 50466 "New Breakdown Op Listpart2"
                     //Get SMV total/Machine SMV TOTAL/Helper SMV Total
                     NewBrOpLine2Rec.Reset();
                     NewBrOpLine2Rec.SetCurrentKey("No.");
-                    NewBrOpLine2Rec.SetRange("No.", "No.");
+                    NewBrOpLine2Rec.SetRange("No.", rec."No.");
                     NewBrOpLine2Rec.FindSet();
 
                     repeat
@@ -156,7 +156,7 @@ page 50466 "New Breakdown Op Listpart2"
 
                     NewBreakdownRec.Reset();
                     NewBreakdownRec.SetCurrentKey("No.");
-                    NewBreakdownRec.Get("No.");
+                    NewBreakdownRec.Get(rec."No.");
                     NewBreakdownRec."Total SMV" := SMV;
                     NewBreakdownRec.Machine := MachineTotal;
                     NewBreakdownRec.Manual := HelperTotal;

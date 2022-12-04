@@ -12,19 +12,19 @@ page 50745 aWQualityChecklist2
         {
             repeater(general)
             {
-                field("Line No"; "Line No")
+                field("Line No"; rec."Line No")
                 {
                     Caption = 'Seq No';
                     ApplicationArea = all;
                     Editable = false;
                 }
 
-                field(Defect; Defect)
+                field(Defect; rec.Defect)
                 {
                     ApplicationArea = all;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = all;
 
@@ -38,12 +38,12 @@ page 50745 aWQualityChecklist2
                     begin
 
                         QCAWRec.Reset();
-                        QCAWRec.SetRange("No.", No);
+                        QCAWRec.SetRange("No.", rec.No);
 
                         if QCAWRec.FindSet() then begin
-                            "Sample Req No" := QCAWRec."Sample Req No";
-                            "Line No. Header" := QCAWRec."Line No";
-                            "Split No" := QCAWRec."Split No";
+                           rec. "Sample Req No" := QCAWRec."Sample Req No";
+                           rec. "Line No. Header" := QCAWRec."Line No";
+                            rec."Split No" := QCAWRec."Split No";
                         end;
 
                         CurrPage.Update();
@@ -74,7 +74,7 @@ page 50745 aWQualityChecklist2
                     end;
                 }
 
-                field(Comment; Comment)
+                field(Comment; rec.Comment)
                 {
                     ApplicationArea = all;
                 }

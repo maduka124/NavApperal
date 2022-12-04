@@ -10,46 +10,46 @@ page 50482 "Machine Layout Listpart"
         {
             repeater(General)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Op Code';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Machine Name"; "Machine Name")
+                field("Machine Name"; rec."Machine Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Machine';
                 }
 
-                field(SMV; SMV)
+                field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Minutes; Minutes)
+                field(Minutes; rec.Minutes)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Target; Target)
+                field(Target; rec.Target)
                 {
                     ApplicationArea = All;
                     Editable = false;
