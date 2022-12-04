@@ -1,4 +1,4 @@
-page 71012783 "My Task Pending"
+page 51050 "My Task Pending"
 {
     PageType = ListPart;
     SourceTable = "Dependency Style Line";

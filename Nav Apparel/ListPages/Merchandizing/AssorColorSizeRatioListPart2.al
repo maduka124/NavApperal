@@ -1,4 +1,4 @@
-page 71012675 AssorColorSizeRatioListPart2
+page 51019 AssorColorSizeRatioListPart2
 {
     PageType = ListPart;
     //AutoSplitKey = true;

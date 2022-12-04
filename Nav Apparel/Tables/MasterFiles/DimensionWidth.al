@@ -1,5 +1,5 @@
 
-table 71012602 DimensionWidth
+table 51094 DimensionWidth
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Dimension Width";

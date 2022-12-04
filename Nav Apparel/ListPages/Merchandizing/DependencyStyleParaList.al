@@ -1,4 +1,4 @@
-page 71012780 "Dependency Style Para List"
+page 51044 "Dependency Style Para List"
 {
     PageType = ListPart;
     SourceTable = "Dependency Style Line";

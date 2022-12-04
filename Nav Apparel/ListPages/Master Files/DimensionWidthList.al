@@ -1,4 +1,4 @@
-page 71012603 "Dimension Width"
+page 50650 "Dimension Width"
 {
     PageType = List;
     ApplicationArea = All;

@@ -1,4 +1,4 @@
-page 71012777 SampleReqAccListPart
+page 51060 SampleReqAccListPart
 {
     PageType = ListPart;
     AutoSplitKey = true;

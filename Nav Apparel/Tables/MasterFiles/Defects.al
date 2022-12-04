@@ -1,5 +1,5 @@
 
-table 71012593 "Defects"
+table 51091 "Defects"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Defects List";

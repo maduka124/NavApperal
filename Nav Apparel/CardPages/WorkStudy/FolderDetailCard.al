@@ -1,4 +1,4 @@
-page 71012735 "Folder Detail Card"
+page 50620 "Folder Detail Card"
 {
     PageType = Card;
     SourceTable = "Folder Detail";

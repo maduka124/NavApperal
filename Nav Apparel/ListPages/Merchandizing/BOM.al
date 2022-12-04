@@ -1,4 +1,4 @@
-page 71012679 "BOM"
+page 51022 "BOM"
 {
     PageType = List;
     ApplicationArea = All;

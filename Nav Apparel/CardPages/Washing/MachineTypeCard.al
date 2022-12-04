@@ -1,4 +1,4 @@
-page 50652 WashingMachineTypeCard
+page 50660 WashingMachineTypeCard
 {
     PageType = Card;
     ApplicationArea = All;

@@ -1,4 +1,4 @@
-pageextension 71012851 GRNListExt extends "Posted Purchase Rcpt. Subform"
+pageextension 51045 GRNListExt extends "Posted Purchase Rcpt. Subform"
 {
     layout
     {

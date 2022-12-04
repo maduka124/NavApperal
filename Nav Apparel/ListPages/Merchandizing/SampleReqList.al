@@ -1,4 +1,4 @@
-page 71012771 "Sample Request"
+page 51063 "Sample Request"
 {
     PageType = List;
     ApplicationArea = All;

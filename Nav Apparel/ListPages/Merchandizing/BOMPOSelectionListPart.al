@@ -1,4 +1,4 @@
-page 71012681 "BOM PO Selection ListPart"
+page 51034 "BOM PO Selection ListPart"
 {
     PageType = ListPart;
     SourceTable = BOMPOSelection;

@@ -1,4 +1,4 @@
-page 71012799 "Style Master Filter"
+page 50623 "Style Master Filter"
 {
     PageType = List;
     SourceTable = "Style Master";

@@ -1,4 +1,4 @@
-page 71012690 "BOM Line Country ListPart"
+page 51030 "BOM Line Country ListPart"
 {
     PageType = ListPart;
     SourceTable = "BOM Line";

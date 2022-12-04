@@ -1,4 +1,4 @@
-page 71012671 AssoColourSizeListPart
+page 51015 AssoColourSizeListPart
 {
     PageType = ListPart;
     AutoSplitKey = true;

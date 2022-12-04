@@ -1,5 +1,5 @@
 
-table 71012850 Batch
+table 51084 Batch
 {
     DataClassification = ToBeClassified;
     // LookupPageId = Article;

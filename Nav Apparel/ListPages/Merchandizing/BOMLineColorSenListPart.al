@@ -1,4 +1,4 @@
-page 71012687 "BOM Line Color ListPart"
+page 51029 "BOM Line Color ListPart"
 {
     PageType = ListPart;
     SourceTable = "BOM Line";

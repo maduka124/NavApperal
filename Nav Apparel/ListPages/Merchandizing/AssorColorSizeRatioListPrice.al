@@ -1,4 +1,4 @@
-page 71012676 AssorColorSizeRatiPricListPart
+page 51020 AssorColorSizeRatiPricListPart
 {
     PageType = ListPart;
     //AutoSplitKey = true;

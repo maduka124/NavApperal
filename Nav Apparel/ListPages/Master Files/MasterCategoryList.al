@@ -1,4 +1,4 @@
-page 71012622 "Master Category List"
+page 50644 "Master Category List"
 {
     PageType = List;
     ApplicationArea = All;

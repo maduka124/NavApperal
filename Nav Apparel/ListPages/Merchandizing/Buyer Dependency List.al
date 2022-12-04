@@ -1,4 +1,4 @@
-page 71012700 "Buyer Dependency List"
+page 51035 "Buyer Dependency List"
 {
     PageType = ListPart;
     SourceTable = "Dependency Buyer";
@@ -10,7 +10,7 @@ page 71012700 "Buyer Dependency List"
         {
             repeater(General)
             {
-                field("Dependency No.";rec. "Dependency No.")
+                field("Dependency No."; rec."Dependency No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Code';

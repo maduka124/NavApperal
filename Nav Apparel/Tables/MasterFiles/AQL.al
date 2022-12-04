@@ -1,5 +1,5 @@
 
-table 71012580 AQL
+table 51082 AQL
 {
     DataClassification = ToBeClassified;
     LookupPageId = AQL;

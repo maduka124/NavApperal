@@ -1,5 +1,5 @@
 
-table 71012599 "Department Style"
+table 51093 "Department Style"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Department (Style)";

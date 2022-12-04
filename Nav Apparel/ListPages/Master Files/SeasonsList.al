@@ -1,4 +1,4 @@
-page 71012634 "Seasons List"
+page 51002 "Seasons List"
 {
     PageType = List;
     ApplicationArea = All;

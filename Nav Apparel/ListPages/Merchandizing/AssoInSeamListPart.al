@@ -1,4 +1,4 @@
-page 71012672 AssoInSeamListPart
+page 51016 AssoInSeamListPart
 {
     PageType = ListPart;
     AutoSplitKey = true;

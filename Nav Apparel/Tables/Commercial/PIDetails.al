@@ -1,5 +1,5 @@
 
-table 71012714 "PI Details Header"
+table 51079 "PI Details Header"
 {
     DataClassification = ToBeClassified;
 

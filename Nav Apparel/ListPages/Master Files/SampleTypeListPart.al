@@ -1,4 +1,4 @@
-page 71012750 "Sample Type List part"
+page 51027 "Sample Type List part"
 {
     PageType = ListPart;
     SourceTable = "Sample Type";

@@ -1,4 +1,4 @@
-page 71012628 "Plant Type List"
+page 50647 "Plant Type List"
 {
     PageType = List;
     ApplicationArea = All;

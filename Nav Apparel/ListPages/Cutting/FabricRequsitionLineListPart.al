@@ -1,4 +1,4 @@
-page 50623 "FabricRequisitionLineListPart"
+page 50629 "FabricRequisitionLineListPart"
 {
     PageType = ListPart;
     SourceTable = FabricRequsitionLine;

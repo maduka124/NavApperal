@@ -1,4 +1,4 @@
-page 71012702 "Dependency Buyer Para List"
+page 51037 "Dependency Buyer Para List"
 {
     PageType = ListPart;
     SourceTable = "Dependency Buyer Para";

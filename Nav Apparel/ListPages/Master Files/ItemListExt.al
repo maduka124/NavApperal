@@ -1,4 +1,4 @@
-pageextension 71012727 ItemListExt extends "Item List"
+pageextension 50639 ItemListExt extends "Item List"
 {
     layout
     {

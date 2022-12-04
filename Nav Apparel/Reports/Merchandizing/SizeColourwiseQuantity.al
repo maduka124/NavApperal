@@ -1,4 +1,4 @@
-report 71012754 SizeColourwiseQuantity
+report 51077 SizeColourwiseQuantity
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

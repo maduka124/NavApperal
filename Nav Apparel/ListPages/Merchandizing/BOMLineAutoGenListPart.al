@@ -1,4 +1,4 @@
-page 71012685 "BOM Line Autogen ListPart"
+page 51028 "BOM Line Autogen ListPart"
 {
     PageType = ListPart;
     SourceTable = "BOM Line AutoGen";

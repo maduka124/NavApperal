@@ -1,4 +1,4 @@
-page 71012768 "BOM EstimateCost Line Listpart"
+page 51023 "BOM EstimateCost Line Listpart"
 {
     PageType = ListPart;
     SourceTable = "BOM Estimate Costing Line";

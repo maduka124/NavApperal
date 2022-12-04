@@ -1,4 +1,4 @@
-page 71012823 "YY Requsition ListPart"
+page 51074 "YY Requsition ListPart"
 {
     PageType = ListPart;
     SourceTable = "YY Requsition Line";

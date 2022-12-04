@@ -1,4 +1,4 @@
-page 71012803 "Dependency Buyer Para ListPart"
+page 51038 "Dependency Buyer Para ListPart"
 {
     PageType = Card;
     SourceTable = "Dependency Parameters";

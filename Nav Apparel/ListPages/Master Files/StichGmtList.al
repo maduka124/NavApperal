@@ -1,4 +1,4 @@
-page 71012646 "Stich Gmt"
+page 51008 "Stich Gmt"
 {
     PageType = List;
     ApplicationArea = All;

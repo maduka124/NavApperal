@@ -1,4 +1,4 @@
-page 71012770 "BOM Estimate Cost (Approval)"
+page 51024 "BOM Estimate Cost (Approval)"
 {
     PageType = List;
     ApplicationArea = All;

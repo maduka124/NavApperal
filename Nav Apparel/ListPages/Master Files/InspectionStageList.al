@@ -1,4 +1,4 @@
-page 71012612 "Inspection Stage List"
+page 50642 "Inspection Stage List"
 {
     PageType = List;
     ApplicationArea = All;

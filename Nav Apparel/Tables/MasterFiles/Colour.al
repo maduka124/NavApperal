@@ -1,5 +1,5 @@
 
-table 71012589 Colour
+table 51088 Colour
 {
     DataClassification = ToBeClassified;
     LookupPageId = Colour;

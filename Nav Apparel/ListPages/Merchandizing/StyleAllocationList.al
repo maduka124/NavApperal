@@ -1,4 +1,4 @@
-page 71012732 "Style Allocation"
+page 51064 "Style Allocation"
 {
     PageType = List;
     ApplicationArea = All;

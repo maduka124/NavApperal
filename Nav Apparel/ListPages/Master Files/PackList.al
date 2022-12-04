@@ -1,4 +1,4 @@
-page 71012625 "Pack List"
+page 50652 "Pack List"
 {
     PageType = List;
     ApplicationArea = All;

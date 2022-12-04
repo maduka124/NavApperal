@@ -1,4 +1,4 @@
-page 71012729 "Style Master"
+page 51067 "Style Master"
 {
     PageType = List;
     ApplicationArea = All;

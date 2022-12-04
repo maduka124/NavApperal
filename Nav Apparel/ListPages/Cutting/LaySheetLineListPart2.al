@@ -1,4 +1,4 @@
-page 50651 "Lay Sheet Line2"
+page 50664 "Lay Sheet Line2"
 {
     PageType = ListPart;
     SourceTable = LaySheetLine2;

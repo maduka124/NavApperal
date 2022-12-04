@@ -1,4 +1,4 @@
-page 71012662 "Action Type List"
+page 51013 "Action Type List"
 {
     PageType = List;
     ApplicationArea = All;

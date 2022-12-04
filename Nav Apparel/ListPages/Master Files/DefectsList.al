@@ -1,4 +1,4 @@
-page 71012594 "Defects List"
+page 50632 "Defects List"
 {
     PageType = List;
     ApplicationArea = All;

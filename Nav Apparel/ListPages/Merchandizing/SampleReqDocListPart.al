@@ -1,4 +1,4 @@
-page 71012776 SampleReqDocListPart
+page 51061 SampleReqDocListPart
 {
     PageType = ListPart;
     SourceTable = "Sample Requsition Doc";

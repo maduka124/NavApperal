@@ -1,4 +1,4 @@
-page 71012848 ChemicalTypeList
+page 50649 ChemicalTypeList
 {
     PageType = List;
     ApplicationArea = All;

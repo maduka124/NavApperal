@@ -1,4 +1,4 @@
-page 71012600 "Department (Style)"
+page 50634 "Department (Style)"
 {
     PageType = List;
     ApplicationArea = All;

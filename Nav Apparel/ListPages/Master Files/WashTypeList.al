@@ -1,4 +1,4 @@
-page 71012656 "Wash Type"
+page 51012 "Wash Type"
 {
     PageType = List;
     ApplicationArea = All;

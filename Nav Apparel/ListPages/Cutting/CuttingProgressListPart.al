@@ -1,4 +1,4 @@
-page 50663 "Cutting Progress ListPart"
+page 51000 "Cutting Progress ListPart"
 {
     PageType = ListPart;
     SourceTable = CuttingProgressLine;

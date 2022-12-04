@@ -1,5 +1,5 @@
 
-table 71012847 ChemicalType
+table 51087 ChemicalType
 {
     DataClassification = ToBeClassified;
     LookupPageId = ChemicalTypeList;

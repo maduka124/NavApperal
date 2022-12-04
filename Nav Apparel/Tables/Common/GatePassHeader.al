@@ -1,5 +1,5 @@
 
-table 71012825 "Gate Pass Header"
+table 51080 "Gate Pass Header"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Gate Pass List";

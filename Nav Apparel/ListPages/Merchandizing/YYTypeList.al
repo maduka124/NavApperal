@@ -1,4 +1,4 @@
-page 71012819 "YY Type List"
+page 51075 "YY Type List"
 {
     PageType = List;
     ApplicationArea = All;

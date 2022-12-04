@@ -1,4 +1,4 @@
-page 71012670 "Assortment Details"
+page 51021 "Assortment Details"
 {
     PageType = List;
     ApplicationArea = All;

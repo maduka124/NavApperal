@@ -1,5 +1,5 @@
 
-table 71012583 Article
+table 51083 Article
 {
     DataClassification = ToBeClassified;
     LookupPageId = Article;

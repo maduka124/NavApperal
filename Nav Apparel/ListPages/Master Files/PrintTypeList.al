@@ -1,4 +1,4 @@
-page 71012631 "Print Type List"
+page 50648 "Print Type List"
 {
     PageType = List;
     ApplicationArea = All;

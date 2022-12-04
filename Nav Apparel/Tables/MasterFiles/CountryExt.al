@@ -1,4 +1,4 @@
-tableextension 71012815 "Country Extension" extends "Country/Region"
+tableextension 51089 "Country Extension" extends "Country/Region"
 {
     trigger OnBeforeDelete()
     var

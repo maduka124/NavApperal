@@ -1,4 +1,4 @@
-page 71012826 "Gate Pass List"
+page 50627 "Gate Pass List"
 {
     PageType = List;
     ApplicationArea = All;

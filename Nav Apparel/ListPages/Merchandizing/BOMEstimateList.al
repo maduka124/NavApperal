@@ -1,4 +1,4 @@
-page 71012693 "Estimate BOM"
+page 51026 "Estimate BOM"
 {
     PageType = List;
     ApplicationArea = All;

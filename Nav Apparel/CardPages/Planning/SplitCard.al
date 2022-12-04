@@ -1,4 +1,4 @@
-page 71012741 "Split Card"
+page 50613 "Split Card"
 {
     PageType = Card;
     Caption = 'Split';

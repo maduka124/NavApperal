@@ -1,5 +1,5 @@
 
-table 71012829 "Gate Pass Line"
+table 51081 "Gate Pass Line"
 {
     DataClassification = ToBeClassified;
 

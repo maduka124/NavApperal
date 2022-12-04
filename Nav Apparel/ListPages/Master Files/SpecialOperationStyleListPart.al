@@ -1,4 +1,4 @@
-page 71012724 "SpecialOperationStyle Listpart"
+page 51007 "SpecialOperationStyle Listpart"
 {
     PageType = ListPart;
     SourceTable = "Special Operation Style";

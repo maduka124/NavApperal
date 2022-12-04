@@ -1,4 +1,4 @@
-page 71012705 "Dependency Group"
+page 51039 "Dependency Group"
 {
     PageType = List;
     ApplicationArea = All;

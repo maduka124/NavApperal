@@ -1,4 +1,4 @@
-pageextension 71012728 LocationListExt extends "Location List"
+pageextension 50640 LocationListExt extends "Location List"
 {
     layout
     {

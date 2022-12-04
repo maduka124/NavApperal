@@ -1,4 +1,4 @@
-codeunit 71012765 ReservationEntryCodeUnit
+codeunit 50621 ReservationEntryCodeUnit
 {
     [EventSubscriber(ObjectType::Page, Page::"Item Tracking Lines", 'OnRegisterChangeOnAfterCreateReservEntry', '', false, false)]
     local procedure ItemTrackingLinesOnRegisterChangeOnAfterCreateReservEntry(var ReservEntry: Record "Reservation Entry"; OldTrackingSpecification: Record "Tracking Specification")

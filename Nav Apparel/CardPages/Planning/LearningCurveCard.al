@@ -1,4 +1,4 @@
-page 71012737 "Learning Curve Card"
+page 50611 "Learning Curve Card"
 {
     PageType = Card;
     SourceTable = "Learning Curve";

@@ -1,4 +1,4 @@
-page 71012649 "Sub Category"
+page 51009 "Sub Category"
 {
     PageType = List;
     ApplicationArea = All;

@@ -1,4 +1,4 @@
-page 71012797 "Style Master PO List"
+page 51068 "Style Master PO List"
 {
     PageType = List;
     SourceTable = "Style Master PO";

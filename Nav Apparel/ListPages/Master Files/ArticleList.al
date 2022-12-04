@@ -1,4 +1,4 @@
-page 71012584 Article
+page 50625 Article
 {
     PageType = List;
     ApplicationArea = All;

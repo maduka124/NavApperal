@@ -1,4 +1,4 @@
-page 71012722 "Style Inquiry"
+page 51066 "Style Inquiry"
 {
     PageType = List;
     ApplicationArea = All;

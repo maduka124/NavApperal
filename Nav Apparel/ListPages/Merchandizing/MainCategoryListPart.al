@@ -1,4 +1,4 @@
-page 71012747 "Main Category List part"
+page 51047 "Main Category List part"
 {
     PageType = ListPart;
     SourceTable = "Main Category";

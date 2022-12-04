@@ -1,4 +1,4 @@
-page 71012792 "PI Po Item Details ListPart"
+page 51055 "PI Po Item Details ListPart"
 {
     PageType = ListPart;
     SourceTable = "PI Po Item Details";

@@ -1,4 +1,4 @@
-page 50661 "Cutting Progress List"
+page 50663 "Cutting Progress List"
 {
     PageType = List;
     ApplicationArea = All;

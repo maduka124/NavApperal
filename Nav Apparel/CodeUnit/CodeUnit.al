@@ -1,4 +1,4 @@
-codeunit 71012752 NavAppCodeUnit
+codeunit 50618 NavAppCodeUnit
 {
     //Update Production in the Style Master table
     procedure Update_Sty_Master_PO(StyleNo: Code[20]; LotNo: Code[20]; Input: code[10]; Type: Text[10]; Type1: Option)

@@ -1,4 +1,4 @@
-page 71012609 "Garment Type List"
+page 50637 "Garment Type List"
 {
     PageType = List;
     ApplicationArea = All;

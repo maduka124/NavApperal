@@ -1,4 +1,4 @@
-page 71012789 "Proforma Invoice Details List"
+page 51052 "Proforma Invoice Details List"
 {
     PageType = List;
     ApplicationArea = All;

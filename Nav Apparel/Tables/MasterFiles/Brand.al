@@ -1,5 +1,5 @@
 
-table 71012586 Brand
+table 51085 Brand
 {
     DataClassification = ToBeClassified;
     LookupPageId = Brand;

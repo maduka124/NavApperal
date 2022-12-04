@@ -1,4 +1,4 @@
-page 71012802 "Dependency Group ListPart"
+page 51040 "Dependency Group ListPart"
 {
     PageType = Card;
     SourceTable = "Dependency Group";

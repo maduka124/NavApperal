@@ -1,4 +1,4 @@
-page 71012784 "My Task Completed"
+page 51049 "My Task Completed"
 {
     PageType = ListPart;
     SourceTable = "Dependency Style Line";
