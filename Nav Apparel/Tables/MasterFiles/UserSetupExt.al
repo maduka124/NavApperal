@@ -1,4 +1,4 @@
-tableextension 71012660 "User Setup Extension" extends "User Setup"
+tableextension 51141 "User Setup Extension" extends "User Setup"
 {
     fields
     {

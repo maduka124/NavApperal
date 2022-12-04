@@ -1,5 +1,5 @@
 
-table 71012651 TableMaster
+table 51135 TableMaster
 {
     DataClassification = ToBeClassified;
     LookupPageId = TableList;

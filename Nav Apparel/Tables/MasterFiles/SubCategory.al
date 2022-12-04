@@ -1,5 +1,5 @@
 
-table 71012648 "Sub Category"
+table 51134 "Sub Category"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Sub Category";

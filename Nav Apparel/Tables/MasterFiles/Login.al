@@ -1,5 +1,5 @@
 
-table 71012804 LoginDetails
+table 51100 LoginDetails
 {
     DataClassification = ToBeClassified;
 

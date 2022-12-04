@@ -1,5 +1,5 @@
 
-table 71012618 MarkerCategory
+table 51102 MarkerCategory
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Marker Category List";

@@ -1,5 +1,5 @@
 
-table 71012749 "NavApp Setup"
+table 51139 "NavApp Setup"
 {
     DataClassification = ToBeClassified;
 

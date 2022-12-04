@@ -1,5 +1,5 @@
 
-table 71012627 "Plant Type"
+table 51127 "Plant Type"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Plant Type List";

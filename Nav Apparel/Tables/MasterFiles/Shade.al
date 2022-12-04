@@ -1,5 +1,5 @@
 
-table 71012636 Shade
+table 51130 Shade
 {
     DataClassification = ToBeClassified;
     LookupPageId = Shade;

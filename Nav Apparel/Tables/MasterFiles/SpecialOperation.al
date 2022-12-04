@@ -1,5 +1,5 @@
 
-table 71012642 "Special Operation"
+table 51132 "Special Operation"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Special Operation";

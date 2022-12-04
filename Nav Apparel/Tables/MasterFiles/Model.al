@@ -1,5 +1,5 @@
 
-table 71012844 Model
+table 51104 Model
 {
     DataClassification = ToBeClassified;
     LookupPageId = ModelList;

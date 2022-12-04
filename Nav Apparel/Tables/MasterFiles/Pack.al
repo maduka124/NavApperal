@@ -1,5 +1,5 @@
 
-table 71012624 Pack
+table 51126 Pack
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Pack List";

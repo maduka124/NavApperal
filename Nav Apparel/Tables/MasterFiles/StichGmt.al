@@ -1,5 +1,5 @@
 
-table 71012645 "Stich Gmt"
+table 51133 "Stich Gmt"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Stich Gmt";

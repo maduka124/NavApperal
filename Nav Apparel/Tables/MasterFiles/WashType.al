@@ -1,5 +1,5 @@
 
-table 71012655 "Wash Type"
+table 51140 "Wash Type"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Wash Type";

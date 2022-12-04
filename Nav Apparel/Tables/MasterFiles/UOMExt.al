@@ -1,4 +1,4 @@
-tableextension 71012659 "UOM Extension" extends "Unit of Measure"
+tableextension 51136 "UOM Extension" extends "Unit of Measure"
 {
     fields
     {

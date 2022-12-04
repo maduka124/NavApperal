@@ -1,5 +1,5 @@
 
-table 71012621 "Master Category"
+table 51125 "Master Category"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Master Category List";

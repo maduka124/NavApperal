@@ -1,5 +1,5 @@
 
-table 71012639 SizeRange
+table 51131 SizeRange
 {
     DataClassification = ToBeClassified;
     LookupPageId = SizeRange;

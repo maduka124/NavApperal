@@ -1,4 +1,4 @@
-tableextension 71012658 "Work Center Extension" extends "Work Center"
+tableextension 51142 "Work Center Extension" extends "Work Center"
 {
     fields
     {

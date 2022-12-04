@@ -1,5 +1,5 @@
 
-table 71012853 "Sample Type"
+table 51137 "Sample Type"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Sample Type";

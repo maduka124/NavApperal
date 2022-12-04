@@ -1,5 +1,5 @@
 
-table 71012608 "Garment Type"
+table 51096 "Garment Type"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Garment Type List";

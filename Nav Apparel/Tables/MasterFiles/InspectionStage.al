@@ -1,5 +1,5 @@
 
-table 71012611 InspectionStage
+table 51097 InspectionStage
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Inspection Stage List";

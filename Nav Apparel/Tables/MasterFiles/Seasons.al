@@ -1,5 +1,5 @@
 
-table 71012633 Seasons
+table 51129 Seasons
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Seasons List";

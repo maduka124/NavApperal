@@ -1,5 +1,5 @@
 
-table 71012630 "Print Type"
+table 51128 "Print Type"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Print Type List";
