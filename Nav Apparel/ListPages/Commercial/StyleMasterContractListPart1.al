@@ -12,19 +12,19 @@ page 50504 "Style Master Contract ListPart"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Style No."; "Style No.")
+                field("Style No."; Rec."Style No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field("Order Qty"; "Order Qty")
+                field("Order Qty"; Rec."Order Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -55,7 +55,7 @@ page 50504 "Style Master Contract ListPart"
 
                     StyleMasterRec.Reset();
                     StyleMasterRec.SetCurrentKey("Buyer No.");
-                    StyleMasterRec.SetRange("Buyer No.", "Buyer No.");
+                    StyleMasterRec.SetRange("Buyer No.", Rec."Buyer No.");
                     StyleMasterRec.SetFilter(Select, '=%1', true);
 
                     if StyleMasterRec.FindSet() then begin
@@ -74,7 +74,7 @@ page 50504 "Style Master Contract ListPart"
                             "Contract/LCStyleRec".Insert();
 
                             //Update Style master contractno
-                            StyleMasterRec.AssignedContractNo := ContractNo;
+                            StyleMasterRec.AssignedContractNo := Rec.ContractNo;
                             StyleMasterRec.Modify();
 
                         until StyleMasterRec.Next() = 0;
@@ -83,7 +83,7 @@ page 50504 "Style Master Contract ListPart"
 
                     //Update Select as false
                     StyleMasterRec.Reset();
-                    StyleMasterRec.SetRange("Buyer No.", "Buyer No.");
+                    StyleMasterRec.SetRange("Buyer No.", Rec."Buyer No.");
                     StyleMasterRec.SetFilter(Select, '=%1', true);
 
                     if StyleMasterRec.FindSet() then begin

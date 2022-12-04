@@ -13,12 +13,12 @@ page 71012831 "Gate Pass ListPart"
             repeater(General)
             {
 
-                field("Inventory Type"; "Inventory Type")
+                field("Inventory Type"; Rec."Inventory Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
 
@@ -27,18 +27,18 @@ page 71012831 "Gate Pass ListPart"
                         MainCategoryRec: Record "Main Category";
                         FAClassRec: Record "FA Class";
                     begin
-                        if ("Inventory Type" = "Inventory Type"::Inventory) then begin
+                        if (Rec."Inventory Type" = Rec."Inventory Type"::Inventory) then begin
                             MainCategoryRec.Reset();
-                            MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                            MainCategoryRec.SetRange("Main Category Name", Rec."Main Category Name");
                             if MainCategoryRec.FindSet() then
-                                "Main Category Code" := MainCategoryRec."No.";
+                                Rec."Main Category Code" := MainCategoryRec."No.";
                         end
                         else
-                            if ("Inventory Type" = "Inventory Type"::"Fixed Assets") then begin
+                            if (Rec."Inventory Type" = Rec."Inventory Type"::"Fixed Assets") then begin
                                 FAClassRec.Reset();
-                                FAClassRec.SetRange(name, "Main Category Name");
+                                FAClassRec.SetRange(name, Rec."Main Category Name");
                                 if FAClassRec.FindSet() then
-                                    "Main Category Code" := FAClassRec."code";
+                                    Rec."Main Category Code" := FAClassRec."code";
                             end;
 
                         CurrPage.Update();
@@ -47,7 +47,7 @@ page 71012831 "Gate Pass ListPart"
 
                 }
 
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
 
@@ -58,40 +58,40 @@ page 71012831 "Gate Pass ListPart"
                         UOMRec: Record "Unit of Measure";
                     begin
 
-                        if ("Inventory Type" = "Inventory Type"::Inventory) then begin
+                        if (Rec."Inventory Type" = Rec."Inventory Type"::Inventory) then begin
                             ItemRec.Reset();
-                            ItemRec.SetRange(Description, Description);
+                            ItemRec.SetRange(Description, Rec.Description);
                             if ItemRec.FindSet() then begin
-                                "Item No." := ItemRec."No.";
-                                "UOM Code" := ItemRec."Base Unit of Measure";
+                                Rec."Item No." := ItemRec."No.";
+                                Rec."UOM Code" := ItemRec."Base Unit of Measure";
 
                                 UOMRec.Reset();
-                                UOMRec.SetRange(Code, "UOM Code");
+                                UOMRec.SetRange(Code, Rec."UOM Code");
                                 if UOMRec.FindSet() then
-                                    UOM := UOMRec.Description;
+                                    Rec.UOM := UOMRec.Description;
                             end;
                         end
                         else
-                            if ("Inventory Type" = "Inventory Type"::"Fixed Assets") then begin
+                            if (Rec."Inventory Type" = Rec."Inventory Type"::"Fixed Assets") then begin
                                 FARec.Reset();
-                                FARec.SetRange(Description, Description);
+                                FARec.SetRange(Description, Rec.Description);
                                 if FARec.FindSet() then
-                                    "Item No." := FARec."No.";
+                                    Rec."Item No." := FARec."No.";
                             end;
                     end;
                 }
 
-                field(UOM; UOM)
+                field(UOM; Rec.UOM)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Qty; Qty)
+                field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; Rec.Remarks)
                 {
                     ApplicationArea = All;
                 }

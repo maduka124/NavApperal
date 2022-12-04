@@ -11,7 +11,7 @@ page 50823 "DepReqSheetListpart"
         {
             repeater(GroupName)
             {
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -22,62 +22,62 @@ page 50823 "DepReqSheetListpart"
                         MainCategoryRec: Record "Main Category";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Main Category Name", Rec."Main Category Name");
                         if MainCategoryRec.FindSet() then
-                            "Main Category No." := MainCategoryRec."No.";
+                            Rec."Main Category No." := MainCategoryRec."No.";
 
                         //Article
-                        if ("Main Category Name" = 'SPAIR PARTS') or ("Main Category Name" = 'CHEMICAL')
-                            or ("Main Category Name" = 'STATIONARY') or ("Main Category Name" = 'IT ACESSORIES')
-                            or ("Main Category Name" = 'ELETRICAL') then
+                        if (Rec."Main Category Name" = 'SPAIR PARTS') or (Rec."Main Category Name" = 'CHEMICAL')
+                            or (Rec."Main Category Name" = 'STATIONARY') or (Rec."Main Category Name" = 'IT ACESSORIES')
+                            or (Rec."Main Category Name" = 'ELETRICAL') then
                             CaptionA := 'Brand'
                         else
                             CaptionA := 'Article';
 
                         //Size                            
-                        if ("Main Category Name" = 'SPAIR PARTS') then
+                        if (Rec."Main Category Name" = 'SPAIR PARTS') then
                             CaptionB := 'Type of Machine'
                         else
-                            if ("Main Category Name" = 'CHEMICAL') then
+                            if (Rec."Main Category Name" = 'CHEMICAL') then
                                 CaptionB := 'Chemical Type'
                             else
                                 CaptionB := 'Size';
 
                         //Color                            
-                        if ("Main Category Name" = 'SPAIR PARTS') then
+                        if (Rec."Main Category Name" = 'SPAIR PARTS') then
                             CaptionC := 'Model'
                         else
-                            if ("Main Category Name" = 'CHEMICAL') then
+                            if (Rec."Main Category Name" = 'CHEMICAL') then
                                 CaptionC := 'Batch'
                             else
                                 CaptionC := 'Color';
 
                         //remarks                            
-                        if ("Main Category Name" = 'SPAIR PARTS') then
+                        if (Rec."Main Category Name" = 'SPAIR PARTS') then
                             CaptionD := 'Part No'
                         else
-                            if ("Main Category Name" = 'CHEMICAL') then
+                            if (Rec."Main Category Name" = 'CHEMICAL') then
                                 CaptionD := 'Lot'
                             else
                                 CaptionD := 'Other';
 
 
-                        "Item Name" := '';
-                        "Item No" := '';
-                        "Dimension No." := '';
-                        "Dimension Name." := '';
-                        "Article No." := '';
-                        Article := '';
-                        "Size Range No." := '';
-                        Remarks := '';
-                        "Color Name" := '';
-                        "Color No." := '';
-                        "Sub Category Name" := '';
-                        "Sub Category No." := '';
+                        Rec."Item Name" := '';
+                        Rec."Item No" := '';
+                        Rec."Dimension No." := '';
+                        Rec."Dimension Name." := '';
+                        Rec."Article No." := '';
+                        Rec.Article := '';
+                        Rec."Size Range No." := '';
+                        Rec.Remarks := '';
+                        Rec."Color Name" := '';
+                        Rec."Color No." := '';
+                        Rec."Sub Category Name" := '';
+                        Rec."Sub Category No." := '';
                     end;
                 }
 
-                field("Item No"; "Item No")
+                field("Item No"; Rec."Item No")
                 {
                     ApplicationArea = All;
                     Editable = EditableGb;
@@ -87,43 +87,43 @@ page 50823 "DepReqSheetListpart"
                         itemRec: Record Item;
                         DeptReqSheetLineRec: Record DeptReqSheetLine;
                     begin
-                        if "Qty Received" > 0 then
+                        if Rec."Qty Received" > 0 then
                             Error('Cannot change the Item as Qty already received.');
 
-                        if "PO Raized" then
+                        if Rec."PO Raized" then
                             Error('Cannot change the Item as PO already created by the central purchasing department.');
 
-                        if "Item No" <> '' then begin
+                        if Rec."Item No" <> '' then begin
                             itemRec.Reset();
-                            itemRec.SetRange("No.", "Item No");
+                            itemRec.SetRange("No.", Rec."Item No");
 
                             if itemRec.FindSet() then begin
-                                "Item Name" := itemRec.Description;
-                                UOM := itemRec."Base Unit of Measure";
-                                Article := itemRec.Article;
-                                "Article No." := itemRec."Article No.";
-                                "Color Name" := itemRec."Color Name";
-                                "Color No." := itemRec."Color No.";
-                                "Dimension Name." := itemRec."Dimension Width";
-                                "Dimension No." := itemRec."Dimension Width No.";
-                                "Size Range No." := itemRec."Size Range No.";
-                                Other := itemRec.Remarks;
-                                "Sub Category No." := itemRec."Sub Category No.";
-                                "Sub Category Name" := itemRec."Sub Category Name";
+                                Rec."Item Name" := itemRec.Description;
+                                Rec.UOM := itemRec."Base Unit of Measure";
+                                Rec.Article := itemRec.Article;
+                                Rec."Article No." := itemRec."Article No.";
+                                Rec."Color Name" := itemRec."Color Name";
+                                Rec."Color No." := itemRec."Color No.";
+                                Rec."Dimension Name." := itemRec."Dimension Width";
+                                Rec."Dimension No." := itemRec."Dimension Width No.";
+                                Rec."Size Range No." := itemRec."Size Range No.";
+                                Rec.Other := itemRec.Remarks;
+                                Rec."Sub Category No." := itemRec."Sub Category No.";
+                                Rec."Sub Category Name" := itemRec."Sub Category Name";
                             end;
                         end
                         else
-                            "Item Name" := '';
+                            Rec."Item Name" := '';
                     end;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; Rec."Item Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Sub Category Name"; "Sub Category Name")
+                field("Sub Category Name"; Rec."Sub Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Sub Category';
@@ -133,13 +133,13 @@ page 50823 "DepReqSheetListpart"
                         CategoryRec: Record "Sub Category";
                     begin
                         CategoryRec.Reset();
-                        CategoryRec.SetRange("Sub Category Name", "Sub Category Name");
+                        CategoryRec.SetRange("Sub Category Name", Rec."Sub Category Name");
                         if CategoryRec.FindSet() then
-                            "Sub Category No." := CategoryRec."No.";
+                            Rec."Sub Category No." := CategoryRec."No.";
                     end;
                 }
 
-                field(Article; Article)
+                field(Article; Rec.Article)
                 {
                     ApplicationArea = All;
                     CaptionClass = CaptionA;
@@ -150,30 +150,30 @@ page 50823 "DepReqSheetListpart"
                         ArticleRec: Record Article;
                         BrandRec: Record Brand;
                     begin
-                        if ("Main Category Name" = 'SPAIR PARTS') or ("Main Category Name" = 'CHEMICAL')
-                        or ("Main Category Name" = 'STATIONARY') or ("Main Category Name" = 'IT ACESSORIES')
-                        or ("Main Category Name" = 'ELETRICAL') then begin
+                        if (Rec."Main Category Name" = 'SPAIR PARTS') or (Rec."Main Category Name" = 'CHEMICAL')
+                        or (Rec."Main Category Name" = 'STATIONARY') or (Rec."Main Category Name" = 'IT ACESSORIES')
+                        or (Rec."Main Category Name" = 'ELETRICAL') then begin
                             BrandRec.Reset();
-                            BrandRec.SetRange("Brand Name", Article);
+                            BrandRec.SetRange("Brand Name", Rec.Article);
                             if BrandRec.FindSet() then
-                                "Article No." := BrandRec."No.";
+                                Rec."Article No." := BrandRec."No.";
                         end
                         else begin
                             ArticleRec.Reset();
-                            ArticleRec.SetRange(Article, Article);
+                            ArticleRec.SetRange(Article, Rec.Article);
                             if ArticleRec.FindSet() then
-                                "Article No." := ArticleRec."No.";
+                                Rec."Article No." := ArticleRec."No.";
                         end;
                     end;
                 }
 
-                field("Size Range No."; "Size Range No.")
+                field("Size Range No."; Rec."Size Range No.")
                 {
                     ApplicationArea = All;
                     CaptionClass = CaptionB;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; Rec."Color Name")
                 {
                     ApplicationArea = All;
                     CaptionClass = CaptionC;
@@ -184,33 +184,33 @@ page 50823 "DepReqSheetListpart"
                         ModelRec: Record Model;
                     begin
 
-                        if ("Main Category Name" = 'SPAIR PARTS') then begin
+                        if (Rec."Main Category Name" = 'SPAIR PARTS') then begin
                             ModelRec.Reset();
-                            ModelRec.SetRange("Model Name", "Color Name");
+                            ModelRec.SetRange("Model Name", Rec."Color Name");
                             if ModelRec.FindSet() then
-                                "Color No." := ModelRec."No.";
+                                Rec."Color No." := ModelRec."No.";
                         end
                         else
-                            if ("Main Category Name" = 'ELETRICAL') or ("Main Category Name" = 'STATIONARY') or ("Main Category Name" = 'IT ACESSORIES') then begin
+                            if (Rec."Main Category Name" = 'ELETRICAL') or (Rec."Main Category Name" = 'STATIONARY') or (Rec."Main Category Name" = 'IT ACESSORIES') then begin
                                 ColourRec.Reset();
-                                ColourRec.SetRange("Colour Name", "Color Name");
+                                ColourRec.SetRange("Colour Name", Rec."Color Name");
                                 if ColourRec.FindSet() then
-                                    "Color No." := ColourRec."No.";
+                                    Rec."Color No." := ColourRec."No.";
                             end
                             else
-                                if ("Main Category Name" = 'CHEMICAL') then begin
+                                if (Rec."Main Category Name" = 'CHEMICAL') then begin
 
                                 end
                                 else begin
                                     ColourRec.Reset();
-                                    ColourRec.SetRange("Colour Name", "Color Name");
+                                    ColourRec.SetRange("Colour Name", Rec."Color Name");
                                     if ColourRec.FindSet() then
-                                        "Color No." := ColourRec."No.";
+                                        Rec."Color No." := ColourRec."No.";
                                 end;
                     end;
                 }
 
-                field("Dimension Name."; "Dimension Name.")
+                field("Dimension Name."; Rec."Dimension Name.")
                 {
                     ApplicationArea = All;
 
@@ -219,19 +219,19 @@ page 50823 "DepReqSheetListpart"
                         DimensionWidthRec: Record DimensionWidth;
                     begin
                         DimensionWidthRec.Reset();
-                        DimensionWidthRec.SetRange("Dimension Width", "Dimension Name.");
+                        DimensionWidthRec.SetRange("Dimension Width", Rec."Dimension Name.");
                         if DimensionWidthRec.FindSet() then
-                            "Dimension No." := DimensionWidthRec."No.";
+                            Rec."Dimension No." := DimensionWidthRec."No.";
                     end;
                 }
 
-                field(Other; Other)
+                field(Other; Rec.Other)
                 {
                     ApplicationArea = All;
                     CaptionClass = CaptionD;
                 }
 
-                field(Qty; Qty)
+                field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
                     Caption = 'Order Qty';
@@ -240,18 +240,18 @@ page 50823 "DepReqSheetListpart"
                     trigger OnValidate()
                     var
                     begin
-                        if "Qty Received" > 0 then
-                            Error('Item: %1 already marked as received. Cannot change the order quantity.', "Item Name");
+                        if Rec."Qty Received" > 0 then
+                            Error('Item: %1 already marked as received. Cannot change the order quantity.', Rec."Item Name");
 
-                        if "PO Raized" then
+                        if Rec."PO Raized" then
                             Error('Cannot change the order quantity as PO already created by the central purchasing department.');
 
 
-                        "Qty to Received" := Qty - "Qty Received";
+                        Rec."Qty to Received" := Rec.Qty - Rec."Qty Received";
                     end;
                 }
 
-                field("UOM Code"; "UOM Code")
+                field("UOM Code"; Rec."UOM Code")
                 {
                     ApplicationArea = All;
                     Caption = 'UOM';
@@ -261,21 +261,21 @@ page 50823 "DepReqSheetListpart"
                     begin
 
                         UOMRec.Reset();
-                        UOMRec.SetRange(Code, "UOM Code");
+                        UOMRec.SetRange(Code, Rec."UOM Code");
 
                         if UOMRec.FindSet() then
-                            UOM := UOMRec.Description;
+                            Rec.UOM := UOMRec.Description;
                     end;
                 }
 
-                field(UOM; UOM)
+                field(UOM; Rec.UOM)
                 {
                     ApplicationArea = All;
                     Editable = EditableGb;
                     Visible = false;
                 }
 
-                field("Qty Received"; "Qty Received")
+                field("Qty Received"; Rec."Qty Received")
                 {
                     ApplicationArea = All;
                     Editable = EditableGb;
@@ -286,16 +286,16 @@ page 50823 "DepReqSheetListpart"
                         DeptReqSheetHeadRec: Record DeptReqSheetHeader;
                         Status: Boolean;
                     begin
-                        if "Qty Received" > Qty then
+                        if Rec."Qty Received" > Rec.Qty then
                             Error('Qty Received is greater than the Order Qty.');
 
 
-                        "Qty to Received" := Qty - "Qty Received";
+                        Rec."Qty to Received" := Rec.Qty - Rec."Qty Received";
                         CurrPage.Update();
 
                         //Check whether po fully received or not
                         DeptReqSheetLineRec.Reset();
-                        DeptReqSheetLineRec.SetRange("Req No", "Req No");
+                        DeptReqSheetLineRec.SetRange("Req No", Rec."Req No");
 
                         if DeptReqSheetLineRec.FindSet() then begin
                             repeat
@@ -306,7 +306,7 @@ page 50823 "DepReqSheetListpart"
 
                         //Update Header status
                         DeptReqSheetHeadRec.Reset();
-                        DeptReqSheetHeadRec.SetRange("Req No", "Req No");
+                        DeptReqSheetHeadRec.SetRange("Req No", Rec."Req No");
                         DeptReqSheetHeadRec.FindSet();
 
                         if Status = false then
@@ -320,19 +320,19 @@ page 50823 "DepReqSheetListpart"
                     end;
                 }
 
-                field("Qty to Received"; "Qty to Received")
+                field("Qty to Received"; Rec."Qty to Received")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; Rec.Remarks)
                 {
                     ApplicationArea = All;
                     Editable = EditableGb;
                 }
 
-                field("PO Raized"; "PO Raized")
+                field("PO Raized"; Rec."PO Raized")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -369,7 +369,7 @@ page 50823 "DepReqSheetListpart"
                     NavAppSetupRec.FindSet();
 
                     DeptReqSheetLineRec.Reset();
-                    DeptReqSheetLineRec.SetRange("Req No", "Req No");
+                    DeptReqSheetLineRec.SetRange("Req No", Rec."Req No");
                     if DeptReqSheetLineRec.FindSet() then begin
                         repeat
                             if DeptReqSheetLineRec."Item No" = '' then begin
@@ -490,7 +490,7 @@ page 50823 "DepReqSheetListpart"
     var
         inx: Integer;
     begin
-        "Line No" := xRec."Line No" + 1;
+        Rec."Line No" := xRec."Line No" + 1;
     end;
 
 
@@ -498,8 +498,8 @@ page 50823 "DepReqSheetListpart"
     var
         DeptReqSheetHeader: Record DeptReqSheetHeader;
     begin
-        if "Req No" <> '' then begin
-            DeptReqSheetHeader.Get("Req No");
+        if Rec."Req No" <> '' then begin
+            DeptReqSheetHeader.Get(Rec."Req No");
 
             if DeptReqSheetHeader."Completely Received" = DeptReqSheetHeader."Completely Received"::Yes then
                 EditableGb := false
@@ -513,8 +513,8 @@ page 50823 "DepReqSheetListpart"
     var
         DeptReqSheetHeader: Record DeptReqSheetHeader;
     begin
-        if "Req No" <> '' then begin
-            DeptReqSheetHeader.Get("Req No");
+        if Rec."Req No" <> '' then begin
+            DeptReqSheetHeader.Get(Rec."Req No");
 
             if DeptReqSheetHeader."Completely Received" = DeptReqSheetHeader."Completely Received"::Yes then
                 EditableGb := false

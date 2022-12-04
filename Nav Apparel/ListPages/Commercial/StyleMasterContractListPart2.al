@@ -11,19 +11,19 @@ page 50505 "StyleMasterContract ListPart 2"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Qty"; "Qty")
+                field("Qty"; Rec."Qty")
                 {
                     ApplicationArea = All;
                 }
@@ -51,7 +51,7 @@ page 50505 "StyleMasterContract ListPart 2"
                 begin
 
                     "Contract/LCStyleRec".Reset();
-                    "Contract/LCStyleRec".SetRange("No.", "No.");
+                    "Contract/LCStyleRec".SetRange("No.", Rec."No.");
                     "Contract/LCStyleRec".SetFilter(Select, '=%1', true);
 
                     if "Contract/LCStyleRec".FindSet() then begin
@@ -68,16 +68,16 @@ page 50505 "StyleMasterContract ListPart 2"
 
                     //Delete from line table
                     "Contract/LCStyleRec".Reset();
-                    "Contract/LCStyleRec".SetRange("No.", "No.");
+                    "Contract/LCStyleRec".SetRange("No.", Rec."No.");
                     "Contract/LCStyleRec".SetFilter(Select, '=%1', true);
                     "Contract/LCStyleRec".DeleteAll();
 
-                    CodeUnitNav.CalQty("No.");
+                    CodeUnitNav.CalQty(Rec."No.");
 
                     //Calculate B2BLC %
-                    "B2BLC%" := CodeUnit2Nav.CalB2BLC_Perccentage("No.");
+                    "B2BLC%" := CodeUnit2Nav.CalB2BLC_Perccentage(Rec."No.");
                     "Contract/LCMasterRec".Reset();
-                    "Contract/LCMasterRec".SetRange("No.", "No.");
+                    "Contract/LCMasterRec".SetRange("No.", Rec."No.");
                     "Contract/LCMasterRec".FindSet();
                     "Contract/LCMasterRec".BBLC := "B2BLC%";
                     "Contract/LCMasterRec".Modify();

@@ -12,79 +12,79 @@ page 50529 "GIT Based on LC ListPart"
         {
             repeater(General)
             {
-                field(PINo; PINo)
+                field(PINo; Rec.PINo)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(PONo; PONo)
+                field(PONo; Rec.PONo)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'PO No';
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Main Category';
                 }
 
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Item No';
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; Rec."Item Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Item';
                 }
 
-                field("Unit Name"; "Unit Name")
+                field("Unit Name"; Rec."Unit Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Unit';
                 }
 
-                field("Req Qty"; "Req Qty")
+                field("Req Qty"; Rec."Req Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Currency Name"; "Currency Name")
+                field("Currency Name"; Rec."Currency Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Currency';
                 }
 
-                field("Unit Price"; "Unit Price")
+                field("Unit Price"; Rec."Unit Price")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Total Value"; "Total Value")
+                field("Total Value"; Rec."Total Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("GRN Qty"; "GRN Qty")
+                field("GRN Qty"; Rec."GRN Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Rec. Value"; "Rec. Value")
+                field("Rec. Value"; Rec."Rec. Value")
                 {
                     ApplicationArea = All;
                     Editable = false;

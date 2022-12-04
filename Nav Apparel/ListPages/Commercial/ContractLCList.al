@@ -14,74 +14,74 @@ page 50503 "Contract/LC List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
                 }
 
-                field("Contract No"; "Contract No")
+                field("Contract No"; Rec."Contract No")
                 {
                     ApplicationArea = All;
                     Caption = 'Contract/LC No';
                 }
 
-                field("Contract Value"; "Contract Value")
+                field("Contract Value"; Rec."Contract Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Buyer; Buyer)
+                field(Buyer; Rec.Buyer)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Season; Season)
+                field(Season; Rec.Season)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Factory; Factory)
+                field(Factory; Rec.Factory)
                 {
                     ApplicationArea = All;
                 }
 
-                field("B2B Payment Type"; "B2B Payment Type")
+                field("B2B Payment Type"; Rec."B2B Payment Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field(BBLC; BBLC)
+                field(BBLC; Rec.BBLC)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Opening Date"; "Opening Date")
+                field("Opening Date"; Rec."Opening Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Amend Date"; "Amend Date")
+                field("Amend Date"; Rec."Amend Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Last Shipment Date"; "Last Shipment Date")
+                field("Last Shipment Date"; Rec."Last Shipment Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Expiry Date"; "Expiry Date")
+                field("Expiry Date"; Rec."Expiry Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Status of LC"; "Status of LC")
+                field("Status of LC"; Rec."Status of LC")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Payment Terms (Days)"; "Payment Terms (Days)")
+                field("Payment Terms (Days)"; Rec."Payment Terms (Days)")
                 {
                     ApplicationArea = All;
                 }
@@ -95,13 +95,13 @@ page 50503 "Contract/LC List"
         "Contract/LCStyleRec": Record "Contract/LCStyle";
         "Contract CommisionRec": Record "Contract Commision";
     begin
-        "Contract/LCMasterRec".SetRange("No.", "No.");
+        "Contract/LCMasterRec".SetRange("No.", Rec."No.");
         "Contract/LCMasterRec".DeleteAll();
 
-        "Contract/LCStyleRec".SetRange("No.", "No.");
+        "Contract/LCStyleRec".SetRange("No.", Rec."No.");
         "Contract/LCStyleRec".DeleteAll();
 
-        "Contract CommisionRec".SetRange("No.", "No.");
+        "Contract CommisionRec".SetRange("No.", Rec."No.");
         "Contract CommisionRec".DeleteAll();
     end;
 }

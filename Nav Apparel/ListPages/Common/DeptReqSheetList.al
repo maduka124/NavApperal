@@ -14,54 +14,54 @@ page 50821 "Department Requisition Sheet"
         {
             repeater(General)
             {
-                field("Req No"; "Req No")
+                field("Req No"; Rec."Req No")
                 {
                     ApplicationArea = All;
                     Caption = 'Requisition No';
                 }
 
-                field("Request Date"; "Request Date")
+                field("Request Date"; Rec."Request Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; Rec."Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';
                 }
 
-                field("Global Dimension Code"; "Global Dimension Code")
+                field("Global Dimension Code"; Rec."Global Dimension Code")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; Rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; Rec.Remarks)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Approved/Rejected By"; "Approved By")
+                field("Approved/Rejected By"; Rec."Approved By")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Caption = 'Approved/Rejected By';
                 }
 
-                field("Approved/Rejected Date"; "Approved Date")
+                field("Approved/Rejected Date"; Rec."Approved Date")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Caption = 'Approved/Rejected Date';
                 }
 
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -89,7 +89,7 @@ page 50821 "Department Requisition Sheet"
     begin
 
         DeptReqSheetLine.Reset();
-        DeptReqSheetLine.SetRange("Req No", "Req No");
+        DeptReqSheetLine.SetRange("Req No", Rec."Req No");
         if DeptReqSheetLine.FindSet() then
             DeptReqSheetLine.DeleteAll();
 
@@ -99,7 +99,7 @@ page 50821 "Department Requisition Sheet"
     trigger OnAfterGetRecord()
     var
     begin
-        if Status = Status::"Pending Approval" then
+        if Rec.Status = Rec.Status::"Pending Approval" then
             StyleExprTxt := 'strongaccent'
         else
             StyleExprTxt := 'None';

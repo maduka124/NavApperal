@@ -11,24 +11,24 @@ page 50537 "GIT PI ListPart2"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field("PI No."; "PI No.")
+                field("PI No."; Rec."PI No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PI No';
                 }
 
-                field("PI Date"; "PI Date")
+                field("PI Date"; Rec."PI Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PI Value"; "PI Value")
+                field("PI Value"; Rec."PI Value")
                 {
                     ApplicationArea = All;
                 }
@@ -53,7 +53,7 @@ page 50537 "GIT PI ListPart2"
                 begin
 
                     GITPIPIRec.Reset();
-                    GITPIPIRec.SetRange("GITPINo.", "GITPINo.");
+                    GITPIPIRec.SetRange("GITPINo.", Rec."GITPINo.");
                     GITPIPIRec.SetFilter(Select, '=%1', true);
 
                     if GITPIPIRec.FindSet() then begin
@@ -70,14 +70,14 @@ page 50537 "GIT PI ListPart2"
 
                     //Delete from line table
                     GITPIPIRec.Reset();
-                    GITPIPIRec.SetRange("GITPINo.", "GITPINo.");
+                    GITPIPIRec.SetRange("GITPINo.", Rec."GITPINo.");
                     GITPIPIRec.SetFilter(Select, '=%1', true);
                     GITPIPIRec.DeleteAll();
 
-                    CodeUnitNav.Add_GIT_PI_Items("GITPINo.");
+                    CodeUnitNav.Add_GIT_PI_Items(Rec."GITPINo.");
 
                     //GRN Balance
-                    CodeUnitNav.CalGRNBalance("GITPINo.");
+                    CodeUnitNav.CalGRNBalance(Rec."GITPINo.");
 
                     CurrPage.Update();
                 end;

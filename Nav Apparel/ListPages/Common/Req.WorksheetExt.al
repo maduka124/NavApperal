@@ -4,12 +4,12 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
     {
         addafter("Location Code")
         {
-            field("Department Name"; "Department Name")
+            field("Department Name"; Rec."Department Name")
             {
                 ApplicationArea = All;
             }
 
-            field("Global Dimension Code"; "Global Dimension Code")
+            field("Global Dimension Code"; Rec."Global Dimension Code")
             {
                 ApplicationArea = All;
             }

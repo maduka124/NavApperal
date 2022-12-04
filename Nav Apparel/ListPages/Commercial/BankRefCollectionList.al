@@ -14,43 +14,43 @@ page 50769 "Bank Ref Collection List"
         {
             repeater(General)
             {
-                field("BankRefNo."; "BankRefNo.")
+                field("BankRefNo."; Rec."BankRefNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bank Reference No';
                 }
 
-                field("Release Amount"; "Release Amount")
+                field("Release Amount"; Rec."Release Amount")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Release Date"; "Release Date")
+                field("Release Date"; Rec."Release Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Exchange Rate"; "Exchange Rate")
+                field("Exchange Rate"; Rec."Exchange Rate")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Margin A/C Amount"; "Margin A/C Amount")
+                field("Margin A/C Amount"; Rec."Margin A/C Amount")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Bank Charges"; "Bank Charges")
+                field("Bank Charges"; Rec."Bank Charges")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Tax; Tax)
+                field(Tax; Rec.Tax)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Currier Charges"; "Currier Charges")
+                field("Currier Charges"; Rec."Currier Charges")
                 {
                     ApplicationArea = All;
                 }
@@ -64,7 +64,7 @@ page 50769 "Bank Ref Collection List"
         BankRefeCollRec: Record BankRefCollectionLine;
     begin
         BankRefeCollRec.Reset();
-        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+        BankRefeCollRec.SetRange("BankRefNo.", Rec."BankRefNo.");
         if BankRefeCollRec.FindSet() then
             BankRefeCollRec.Delete();
     end;

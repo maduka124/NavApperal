@@ -12,28 +12,28 @@ page 50793 "ContractBBLC Summary ListPart1"
         {
             repeater(General)
             {
-                field("Beneficiary Name"; "Beneficiary Name")
+                field("Beneficiary Name"; Rec."Beneficiary Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
                 }
 
-                field("B2B LC No"; "B2B LC No")
+                field("B2B LC No"; Rec."B2B LC No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("B2B LC Value"; "B2B LC Value")
+                field("B2B LC Value"; Rec."B2B LC Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Opening Date"; "Opening Date")
+                field("Opening Date"; Rec."Opening Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Expiry Date"; "Expiry Date")
+                field("Expiry Date"; Rec."Expiry Date")
                 {
                     ApplicationArea = All;
                 }

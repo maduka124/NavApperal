@@ -11,7 +11,7 @@ page 50353 DailyCuttingOutListPart
         {
             repeater(General)
             {
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -19,7 +19,7 @@ page 50353 DailyCuttingOutListPart
                     Caption = 'Style';
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; Rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -27,7 +27,7 @@ page 50353 DailyCuttingOutListPart
                     Caption = 'Lot No';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; Rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -35,7 +35,7 @@ page 50353 DailyCuttingOutListPart
                     Caption = 'PO No';
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; Rec."Colour Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -43,7 +43,7 @@ page 50353 DailyCuttingOutListPart
                     Caption = 'Colour';
                 }
 
-                field("1"; "1")
+                field("1"; Rec."1")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -56,7 +56,7 @@ page 50353 DailyCuttingOutListPart
                         CalTotal();
                     end;
                 }
-                field("2"; "2")
+                field("2"; Rec."2")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -70,7 +70,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("3"; "3")
+                field("3"; Rec."3")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -84,7 +84,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("4"; "4")
+                field("4"; Rec."4")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -98,7 +98,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("5"; "5")
+                field("5"; Rec."5")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -112,7 +112,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("6"; "6")
+                field("6"; Rec."6")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -126,7 +126,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("7"; "7")
+                field("7"; Rec."7")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -140,7 +140,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("8"; "8")
+                field("8"; Rec."8")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -154,7 +154,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("9"; "9")
+                field("9"; Rec."9")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -168,7 +168,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("10"; "10")
+                field("10"; Rec."10")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -182,7 +182,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("11"; "11")
+                field("11"; Rec."11")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -196,7 +196,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("12"; "12")
+                field("12"; Rec."12")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -210,7 +210,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("13"; "13")
+                field("13"; Rec."13")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -224,7 +224,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("14"; "14")
+                field("14"; Rec."14")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -238,7 +238,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("15"; "15")
+                field("15"; Rec."15")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -252,7 +252,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("16"; "16")
+                field("16"; Rec."16")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -266,7 +266,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("17"; "17")
+                field("17"; Rec."17")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -280,7 +280,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("18"; "18")
+                field("18"; Rec."18")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -294,7 +294,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("19"; "19")
+                field("19"; Rec."19")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -308,7 +308,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("20"; "20")
+                field("20"; Rec."20")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -322,7 +322,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("21"; "21")
+                field("21"; Rec."21")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -336,7 +336,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("22"; "22")
+                field("22"; Rec."22")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -350,7 +350,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("23"; "23")
+                field("23"; Rec."23")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -364,7 +364,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("24"; "24")
+                field("24"; Rec."24")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -378,7 +378,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("25"; "25")
+                field("25"; Rec."25")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -392,7 +392,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("26"; "26")
+                field("26"; Rec."26")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -406,7 +406,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("27"; "27")
+                field("27"; Rec."27")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -420,7 +420,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("28"; "28")
+                field("28"; Rec."28")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -434,7 +434,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("29"; "29")
+                field("29"; Rec."29")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -448,7 +448,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("30"; "30")
+                field("30"; Rec."30")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -462,7 +462,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("31"; "31")
+                field("31"; Rec."31")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -476,7 +476,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("32"; "32")
+                field("32"; Rec."32")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -490,7 +490,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("33"; "33")
+                field("33"; Rec."33")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -504,7 +504,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("34"; "34")
+                field("34"; Rec."34")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -518,7 +518,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("35"; "35")
+                field("35"; Rec."35")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -532,7 +532,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("36"; "36")
+                field("36"; Rec."36")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -546,7 +546,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("37"; "37")
+                field("37"; Rec."37")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -560,7 +560,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("38"; "38")
+                field("38"; Rec."38")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -574,7 +574,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("39"; "39")
+                field("39"; Rec."39")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -588,7 +588,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("40"; "40")
+                field("40"; Rec."40")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -602,7 +602,7 @@ page 50353 DailyCuttingOutListPart
                     end;
                 }
 
-                field("41"; "41")
+                field("41"; Rec."41")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;

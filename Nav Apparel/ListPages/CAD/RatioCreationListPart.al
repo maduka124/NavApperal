@@ -10,7 +10,7 @@ page 50596 "Ratio Creation ListPart"
         {
             repeater(General)
             {
-                field("Marker Name"; "Marker Name")
+                field("Marker Name"; Rec."Marker Name")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -27,11 +27,11 @@ page 50596 "Ratio Creation ListPart"
                         UOMCodeVar: Code[20];
                     begin
 
-                        if LineNo = 0 then begin
+                        if Rec.LineNo = 0 then begin
 
                             //Get Component group no
                             RatioCreationLineRec.Reset();
-                            RatioCreationLineRec.SetRange(RatioCreNo, "RatioCreNo");
+                            RatioCreationLineRec.SetRange(RatioCreNo, Rec."RatioCreNo");
                             RatioCreationLineRec.SetFilter("Record Type", '%1', 'H');
 
                             if RatioCreationLineRec.FindSet() then begin
@@ -42,106 +42,106 @@ page 50596 "Ratio Creation ListPart"
 
                             //Get Max line no
                             RatioCreationLineRec.Reset();
-                            RatioCreationLineRec.SetRange(RatioCreNo, "RatioCreNo");
-                            RatioCreationLineRec.SetRange("Group ID", "Group ID");
+                            RatioCreationLineRec.SetRange(RatioCreNo, Rec."RatioCreNo");
+                            RatioCreationLineRec.SetRange("Group ID", Rec."Group ID");
 
                             if RatioCreationLineRec.FindLast() then
                                 LineNo1 := RatioCreationLineRec.LineNo;
 
-                            LineNo := LineNo1 + 1;
+                            Rec.LineNo := LineNo1 + 1;
 
                             // Get detalis of existing line                 
                             RatioCreationLineRec1.Reset();
-                            RatioCreationLineRec1.SetRange("RatioCreNo", "RatioCreNo");
-                            RatioCreationLineRec1.SetRange("Group ID", "Group ID");
+                            RatioCreationLineRec1.SetRange("RatioCreNo", Rec."RatioCreNo");
+                            RatioCreationLineRec1.SetRange("Group ID", Rec."Group ID");
                             RatioCreationLineRec1.SetRange(LineNo, LineNo1 - 1);
                             RatioCreationLineRec1.SetFilter("Record Type", '%1', 'R');
 
                             if RatioCreationLineRec1.FindSet() then begin
 
                                 //Insert R1 Line                        
-                                "Created Date" := Today;
-                                "Created User" := UserId;
-                                "Group ID" := "Group ID";
-                                "Lot No." := RatioCreationLineRec1."Lot No.";
-                                "PO No." := RatioCreationLineRec1."PO No.";
-                                qty := 0;
-                                "Record Type" := 'R';
-                                "Sewing Job No." := RatioCreationLineRec1."Sewing Job No.";
-                                ShipDate := RatioCreationLineRec1.ShipDate;
-                                "Style Name" := RatioCreationLineRec1."Style Name";
-                                "Style No." := RatioCreationLineRec1."Style No.";
-                                "SubLotNo." := RatioCreationLineRec1."SubLotNo.";
-                                "Colour No" := RatioCreationLineRec1."Colour No";
-                                "Colour Name" := RatioCreationLineRec1."Colour Name";
-                                "Component Group Code" := ComponentGroupCode;
-                                UOM := UOMVar;
-                                "UOM Code" := UOMCodeVar;
-                                Plies := 0;
-                                "1" := '0';
-                                "2" := '0';
-                                "3" := '0';
-                                "4" := '0';
-                                "5" := '0';
-                                "6" := '0';
-                                "7" := '0';
-                                "8" := '0';
-                                "9" := '0';
-                                "10" := '0';
-                                "11" := '0';
-                                "12" := '0';
-                                "13" := '0';
-                                "14" := '0';
-                                "15" := '0';
-                                "16" := '0';
-                                "17" := '0';
-                                "18" := '0';
-                                "19" := '0';
-                                "20" := '0';
-                                "21" := '0';
-                                "22" := '0';
-                                "23" := '0';
-                                "24" := '0';
-                                "25" := '0';
-                                "26" := '0';
-                                "27" := '0';
-                                "28" := '0';
-                                "29" := '0';
-                                "30" := '0';
-                                "31" := '0';
-                                "32" := '0';
-                                "33" := '0';
-                                "34" := '0';
-                                "35" := '0';
-                                "36" := '0';
-                                "37" := '0';
-                                "38" := '0';
-                                "39" := '0';
-                                "40" := '0';
-                                "41" := '0';
-                                "42" := '0';
-                                "43" := '0';
-                                "44" := '0';
-                                "45" := '0';
-                                "46" := '0';
-                                "47" := '0';
-                                "48" := '0';
-                                "49" := '0';
-                                "50" := '0';
-                                "51" := '0';
-                                "52" := '0';
-                                "53" := '0';
-                                "54" := '0';
-                                "55" := '0';
-                                "56" := '0';
-                                "57" := '0';
-                                "58" := '0';
-                                "59" := '0';
-                                "60" := '0';
-                                "61" := '0';
-                                "62" := '0';
-                                "63" := '0';
-                                "64" := '0';
+                                Rec."Created Date" := Today;
+                                Rec."Created User" := UserId;
+                                Rec."Group ID" := Rec."Group ID";
+                                Rec."Lot No." := RatioCreationLineRec1."Lot No.";
+                                Rec."PO No." := RatioCreationLineRec1."PO No.";
+                                Rec.qty := 0;
+                                Rec."Record Type" := 'R';
+                                Rec."Sewing Job No." := RatioCreationLineRec1."Sewing Job No.";
+                                Rec.ShipDate := RatioCreationLineRec1.ShipDate;
+                                Rec."Style Name" := RatioCreationLineRec1."Style Name";
+                                Rec."Style No." := RatioCreationLineRec1."Style No.";
+                                Rec."SubLotNo." := RatioCreationLineRec1."SubLotNo.";
+                                Rec."Colour No" := RatioCreationLineRec1."Colour No";
+                                Rec."Colour Name" := RatioCreationLineRec1."Colour Name";
+                                Rec."Component Group Code" := ComponentGroupCode;
+                                Rec.UOM := UOMVar;
+                                Rec."UOM Code" := UOMCodeVar;
+                                Rec.Plies := 0;
+                                Rec."1" := '0';
+                                Rec."2" := '0';
+                                Rec."3" := '0';
+                                Rec."4" := '0';
+                                Rec."5" := '0';
+                                Rec."6" := '0';
+                                Rec."7" := '0';
+                                Rec."8" := '0';
+                                Rec."9" := '0';
+                                Rec."10" := '0';
+                                Rec."11" := '0';
+                                Rec."12" := '0';
+                                Rec."13" := '0';
+                                Rec."14" := '0';
+                                Rec."15" := '0';
+                                Rec."16" := '0';
+                                Rec."17" := '0';
+                                Rec."18" := '0';
+                                Rec."19" := '0';
+                                Rec."20" := '0';
+                                Rec."21" := '0';
+                                Rec."22" := '0';
+                                Rec."23" := '0';
+                                Rec."24" := '0';
+                                Rec."25" := '0';
+                                Rec."26" := '0';
+                                Rec."27" := '0';
+                                Rec."28" := '0';
+                                Rec."29" := '0';
+                                Rec."30" := '0';
+                                Rec."31" := '0';
+                                Rec."32" := '0';
+                                Rec."33" := '0';
+                                Rec."34" := '0';
+                                Rec."35" := '0';
+                                Rec."36" := '0';
+                                Rec."37" := '0';
+                                Rec."38" := '0';
+                                Rec."39" := '0';
+                                Rec."40" := '0';
+                                Rec."41" := '0';
+                                Rec."42" := '0';
+                                Rec."43" := '0';
+                                Rec."44" := '0';
+                                Rec."45" := '0';
+                                Rec."46" := '0';
+                                Rec."47" := '0';
+                                Rec."48" := '0';
+                                Rec."49" := '0';
+                                Rec."50" := '0';
+                                Rec."51" := '0';
+                                Rec."52" := '0';
+                                Rec."53" := '0';
+                                Rec."54" := '0';
+                                Rec."55" := '0';
+                                Rec."56" := '0';
+                                Rec."57" := '0';
+                                Rec."58" := '0';
+                                Rec."59" := '0';
+                                Rec."60" := '0';
+                                Rec."61" := '0';
+                                Rec."62" := '0';
+                                Rec."63" := '0';
+                                Rec."64" := '0';
 
                                 CurrPage.Update();
                             end;
@@ -150,20 +150,20 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("Pattern Version"; "Pattern Version")
+                field("Pattern Version"; Rec."Pattern Version")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit1;
                 }
-                field(Length; Length)
+                field(Length; Rec.Length)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit1;
                 }
 
-                field("Length Tollarance  "; "Length Tollarance  ")
+                field("Length Tollarance  "; Rec."Length Tollarance  ")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -171,14 +171,14 @@ page 50596 "Ratio Creation ListPart"
                     Caption = 'Length Tollarance (cm/inch)';
                 }
 
-                field(Width; Width)
+                field(Width; Rec.Width)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit1;
                 }
 
-                field("Width Tollarance"; "Width Tollarance")
+                field("Width Tollarance"; Rec."Width Tollarance")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -186,14 +186,14 @@ page 50596 "Ratio Creation ListPart"
                     Caption = 'Width Tollarance (cm/inch)';
                 }
 
-                field(Efficiency; Efficiency)
+                field(Efficiency; Rec.Efficiency)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit1;
                 }
 
-                field(Plies; Plies)
+                field(Plies; Rec.Plies)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -208,14 +208,14 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("Color Total"; "Color Total")
+                field("Color Total"; Rec."Color Total")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = false;
                 }
 
-                field("1"; "1")
+                field("1"; Rec."1")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -229,7 +229,7 @@ page 50596 "Ratio Creation ListPart"
                         Cal_Balance();
                     end;
                 }
-                field("2"; "2")
+                field("2"; Rec."2")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -244,7 +244,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("3"; "3")
+                field("3"; Rec."3")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -259,7 +259,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("4"; "4")
+                field("4"; Rec."4")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -274,7 +274,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("5"; "5")
+                field("5"; Rec."5")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -289,7 +289,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("6"; "6")
+                field("6"; Rec."6")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -304,7 +304,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("7"; "7")
+                field("7"; Rec."7")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -319,7 +319,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("8"; "8")
+                field("8"; Rec."8")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -334,7 +334,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("9"; "9")
+                field("9"; Rec."9")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -349,7 +349,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("10"; "10")
+                field("10"; Rec."10")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -364,7 +364,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("11"; "11")
+                field("11"; Rec."11")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -379,7 +379,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("12"; "12")
+                field("12"; Rec."12")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -394,7 +394,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("13"; "13")
+                field("13"; Rec."13")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -409,7 +409,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("14"; "14")
+                field("14"; Rec."14")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -424,7 +424,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("15"; "15")
+                field("15"; Rec."15")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -439,7 +439,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("16"; "16")
+                field("16"; Rec."16")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -454,7 +454,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("17"; "17")
+                field("17"; Rec."17")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -469,7 +469,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("18"; "18")
+                field("18"; Rec."18")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -484,7 +484,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("19"; "19")
+                field("19"; Rec."19")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -499,7 +499,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("20"; "20")
+                field("20"; Rec."20")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -514,7 +514,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("21"; "21")
+                field("21"; Rec."21")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -529,7 +529,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("22"; "22")
+                field("22"; Rec."22")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -544,7 +544,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("23"; "23")
+                field("23"; Rec."23")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -559,7 +559,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("24"; "24")
+                field("24"; Rec."24")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -574,7 +574,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("25"; "25")
+                field("25"; Rec."25")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -589,7 +589,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("26"; "26")
+                field("26"; Rec."26")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -604,7 +604,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("27"; "27")
+                field("27"; Rec."27")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -619,7 +619,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("28"; "28")
+                field("28"; Rec."28")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -634,7 +634,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("29"; "29")
+                field("29"; Rec."29")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -649,7 +649,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("30"; "30")
+                field("30"; Rec."30")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -664,7 +664,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("31"; "31")
+                field("31"; Rec."31")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -679,7 +679,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("32"; "32")
+                field("32"; Rec."32")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -694,7 +694,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("33"; "33")
+                field("33"; Rec."33")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -709,7 +709,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("34"; "34")
+                field("34"; Rec."34")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -724,7 +724,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("35"; "35")
+                field("35"; Rec."35")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -739,7 +739,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("36"; "36")
+                field("36"; Rec."36")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -754,7 +754,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("37"; "37")
+                field("37"; Rec."37")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -769,7 +769,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("38"; "38")
+                field("38"; Rec."38")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -784,7 +784,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("39"; "39")
+                field("39"; Rec."39")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -799,7 +799,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("40"; "40")
+                field("40"; Rec."40")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -814,7 +814,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("41"; "41")
+                field("41"; Rec."41")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -829,7 +829,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("42"; "42")
+                field("42"; Rec."42")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -844,7 +844,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("43"; "43")
+                field("43"; Rec."43")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -859,7 +859,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("44"; "44")
+                field("44"; Rec."44")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -874,7 +874,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("45"; "45")
+                field("45"; Rec."45")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -890,7 +890,7 @@ page 50596 "Ratio Creation ListPart"
                 }
 
 
-                field("46"; "46")
+                field("46"; Rec."46")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -905,7 +905,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("47"; "47")
+                field("47"; Rec."47")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -920,7 +920,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("48"; "48")
+                field("48"; Rec."48")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -935,7 +935,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("49"; "49")
+                field("49"; Rec."49")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -950,7 +950,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("50"; "50")
+                field("50"; Rec."50")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -965,7 +965,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("51"; "51")
+                field("51"; Rec."51")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -980,7 +980,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("52"; "52")
+                field("52"; Rec."52")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -995,7 +995,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("53"; "53")
+                field("53"; Rec."53")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1010,7 +1010,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("54"; "54")
+                field("54"; Rec."54")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1025,7 +1025,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("55"; "55")
+                field("55"; Rec."55")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1040,7 +1040,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("56"; "56")
+                field("56"; Rec."56")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1055,7 +1055,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("57"; "57")
+                field("57"; Rec."57")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1070,7 +1070,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("58"; "58")
+                field("58"; Rec."58")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1085,7 +1085,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("59"; "59")
+                field("59"; Rec."59")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1100,7 +1100,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("60"; "60")
+                field("60"; Rec."60")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1115,7 +1115,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("61"; "61")
+                field("61"; Rec."61")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1130,7 +1130,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("62"; "62")
+                field("62"; Rec."62")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1145,7 +1145,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("63"; "63")
+                field("63"; Rec."63")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1160,7 +1160,7 @@ page 50596 "Ratio Creation ListPart"
                     end;
                 }
 
-                field("64"; "64")
+                field("64"; Rec."64")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -1187,7 +1187,7 @@ page 50596 "Ratio Creation ListPart"
     begin
         StyleExprTxt := ChangeColor.ChangeColorRatioCreation(Rec);
         RatioCreLineRec.Reset();
-        RatioCreLineRec.SetRange(RatioCreNo, RatioCreNo);
+        RatioCreLineRec.SetRange(RatioCreNo, Rec.RatioCreNo);
         RatioCreLineRec.SetFilter("Record Type", '=%1', 'H');
         RatioCreLineRec.FindSet();
 
@@ -1516,7 +1516,7 @@ page 50596 "Ratio Creation ListPart"
             end;
         end;
 
-        if ("Record Type" = 'R') or ("Record Type" = '') then begin
+        if (Rec."Record Type" = 'R') or (Rec."Record Type" = '') then begin
             Clear(SetEdit1);
             SetEdit1 := true;
         end
@@ -1532,7 +1532,7 @@ page 50596 "Ratio Creation ListPart"
     begin
         StyleExprTxt := ChangeColor.ChangeColorRatioCreation(Rec);
 
-        if ("Record Type" = 'R') or ("Record Type" = '') then begin
+        if (Rec."Record Type" = 'R') or (Rec."Record Type" = '') then begin
             Clear(SetEdit1);
             SetEdit1 := true;
         end
@@ -1554,13 +1554,13 @@ page 50596 "Ratio Creation ListPart"
         Number1: Decimal;
     begin
 
-        if Plies <> 0 then begin
+        if Rec.Plies <> 0 then begin
 
-            LineNo1 := LineNo;
+            LineNo1 := Rec.LineNo;
 
             //Get max line no
             RatioCreationLineRec.Reset();
-            RatioCreationLineRec.SetRange(RatioCreNo, RatioCreNo);
+            RatioCreationLineRec.SetRange(RatioCreNo, Rec.RatioCreNo);
 
             if RatioCreationLineRec.FindLast() then
                 MaxLineNo := RatioCreationLineRec.Count;
@@ -1568,8 +1568,8 @@ page 50596 "Ratio Creation ListPart"
             repeat
 
                 RatioCreationLineRec.Reset();
-                RatioCreationLineRec.SetRange(RatioCreNo, RatioCreNo);
-                RatioCreationLineRec.SetRange("Group ID", "Group ID");
+                RatioCreationLineRec.SetRange(RatioCreNo, Rec.RatioCreNo);
+                RatioCreationLineRec.SetRange("Group ID", Rec."Group ID");
                 RatioCreationLineRec.SetRange(Ref, LineNo1);
                 RatioCreationLineRec.SetRange("Marker Name", 'Balance');
 
@@ -1579,23 +1579,23 @@ page 50596 "Ratio Creation ListPart"
                     RatioCreationLineRec.Init();
                     RatioCreationLineRec."Created Date" := Today;
                     RatioCreationLineRec."Created User" := UserId;
-                    RatioCreationLineRec."Group ID" := "Group ID";
+                    RatioCreationLineRec."Group ID" := Rec."Group ID";
                     RatioCreationLineRec.LineNo := LineNo1 + 1;
-                    RatioCreationLineRec."Lot No." := "Lot No.";
-                    RatioCreationLineRec."PO No." := "PO No.";
+                    RatioCreationLineRec."Lot No." := Rec."Lot No.";
+                    RatioCreationLineRec."PO No." := Rec."PO No.";
                     RatioCreationLineRec.qty := 0;
                     RatioCreationLineRec."Record Type" := 'B';
-                    RatioCreationLineRec."Sewing Job No." := "Sewing Job No.";
-                    RatioCreationLineRec."Component Group Code" := "Component Group Code";
-                    RatioCreationLineRec.ShipDate := ShipDate;
-                    RatioCreationLineRec."RatioCreNo" := "RatioCreNo";
-                    RatioCreationLineRec."Style Name" := "Style Name";
-                    RatioCreationLineRec."Style No." := "Style No.";
-                    RatioCreationLineRec."SubLotNo." := "SubLotNo.";
+                    RatioCreationLineRec."Sewing Job No." := Rec."Sewing Job No.";
+                    RatioCreationLineRec."Component Group Code" := Rec."Component Group Code";
+                    RatioCreationLineRec.ShipDate := Rec.ShipDate;
+                    RatioCreationLineRec."RatioCreNo" := Rec."RatioCreNo";
+                    RatioCreationLineRec."Style Name" := Rec."Style Name";
+                    RatioCreationLineRec."Style No." := Rec."Style No.";
+                    RatioCreationLineRec."SubLotNo." := Rec."SubLotNo.";
                     RatioCreationLineRec."Marker Name" := 'Balance';
                     RatioCreationLineRec.Ref := LineNo1;
-                    RatioCreationLineRec."Colour No" := "Colour No";
-                    RatioCreationLineRec."Colour Name" := "Colour Name";
+                    RatioCreationLineRec."Colour No" := Rec."Colour No";
+                    RatioCreationLineRec."Colour Name" := Rec."Colour Name";
                     RatioCreationLineRec."1" := '0';
                     RatioCreationLineRec."2" := '0';
                     RatioCreationLineRec."3" := '0';
@@ -1665,24 +1665,24 @@ page 50596 "Ratio Creation ListPart"
 
                 //Get balance line record
                 RatioCreationLineRec1.Reset();
-                RatioCreationLineRec1.SetRange(RatioCreNo, RatioCreNo);
-                RatioCreationLineRec1.SetRange("Group ID", "Group ID");
+                RatioCreationLineRec1.SetRange(RatioCreNo, Rec.RatioCreNo);
+                RatioCreationLineRec1.SetRange("Group ID", Rec."Group ID");
                 RatioCreationLineRec1.SetRange(LineNo, LineNo1 + 1);
                 RatioCreationLineRec1.FindSet();
 
 
                 //Get Current line
                 RatioCreationLineRec2.Reset();
-                RatioCreationLineRec2.SetRange(RatioCreNo, RatioCreNo);
-                RatioCreationLineRec2.SetRange("Group ID", "Group ID");
+                RatioCreationLineRec2.SetRange(RatioCreNo, Rec.RatioCreNo);
+                RatioCreationLineRec2.SetRange("Group ID", Rec."Group ID");
                 RatioCreationLineRec2.SetRange(LineNo, LineNo1);
                 RatioCreationLineRec2.FindSet();
 
 
                 //Get totals of before line
                 RatioCreationLineRec.Reset();
-                RatioCreationLineRec.SetRange(RatioCreNo, RatioCreNo);
-                RatioCreationLineRec.SetRange("Group ID", "Group ID");
+                RatioCreationLineRec.SetRange(RatioCreNo, Rec.RatioCreNo);
+                RatioCreationLineRec.SetRange("Group ID", Rec."Group ID");
                 RatioCreationLineRec.SetRange(LineNo, LineNo1 - 1);
 
                 if RatioCreationLineRec.FindSet() then begin
@@ -2477,27 +2477,27 @@ page 50596 "Ratio Creation ListPart"
         FabRec: Record FabricRequsition;
     begin
 
-        if ("Record Type" = 'R') then begin
+        if (Rec."Record Type" = 'R') then begin
 
             //Check for cut creation
             CurCreLineRec.Reset();
-            CurCreLineRec.SetRange("Marker Name", "Marker Name");
-            CurCreLineRec.SetRange("Style No.", "Style No.");
-            CurCreLineRec.SetRange("Colour No", "Colour No");
-            CurCreLineRec.SetRange("Group ID", "Group ID");
-            CurCreLineRec.SetRange("Component Group Code", "Component Group Code");
+            CurCreLineRec.SetRange("Marker Name", Rec."Marker Name");
+            CurCreLineRec.SetRange("Style No.", Rec."Style No.");
+            CurCreLineRec.SetRange("Colour No", Rec."Colour No");
+            CurCreLineRec.SetRange("Group ID", Rec."Group ID");
+            CurCreLineRec.SetRange("Component Group Code", Rec."Component Group Code");
 
             if CurCreLineRec.FindSet() then begin
-                Message('Cannot delete. Cut creation already created for this Marker : %1', "Marker Name");
+                Message('Cannot delete. Cut creation already created for this Marker : %1', Rec."Marker Name");
                 exit(false);
             end;
 
             //Check for Fabric Requsition
             FabRec.Reset();
-            FabRec.SetRange("Marker Name", "Marker Name");
-            FabRec.SetRange("Style No.", "Style No.");
-            FabRec.SetRange("Group ID", "Group ID");
-            FabRec.SetRange("Component Group Code", "Component Group Code");
+            FabRec.SetRange("Marker Name", Rec."Marker Name");
+            FabRec.SetRange("Style No.", Rec."Style No.");
+            FabRec.SetRange("Group ID", Rec."Group ID");
+            FabRec.SetRange("Component Group Code", Rec."Component Group Code");
 
             if FabRec.FindSet() then begin
                 Message('Cannot delete. Fabric requsition has created for this Ratio');
@@ -2506,42 +2506,42 @@ page 50596 "Ratio Creation ListPart"
 
         end;
 
-        if ("Record Type" = 'B') then begin
+        if (Rec."Record Type" = 'B') then begin
 
             //Get marker name            
             RatioLineRec.Reset();
-            RatioLineRec.SetRange(RatioCreNo, RatioCreNo);
-            RatioLineRec.SetRange("Group ID", "Group ID");
-            RatioLineRec.SetRange("Style No.", "Style No.");
-            RatioLineRec.SetRange("Colour No", "Colour No");
-            RatioLineRec.SetRange("Component Group Code", "Component Group Code");
-            RatioLineRec.SetRange(LineNo, ref);
+            RatioLineRec.SetRange(RatioCreNo, Rec.RatioCreNo);
+            RatioLineRec.SetRange("Group ID", Rec."Group ID");
+            RatioLineRec.SetRange("Style No.", Rec."Style No.");
+            RatioLineRec.SetRange("Colour No", Rec."Colour No");
+            RatioLineRec.SetRange("Component Group Code", Rec."Component Group Code");
+            RatioLineRec.SetRange(LineNo, Rec.ref);
             RatioLineRec.FindSet();
 
             CurCreLineRec.Reset();
             CurCreLineRec.SetRange("Marker Name", RatioLineRec."Marker Name");
-            CurCreLineRec.SetRange("Style No.", "Style No.");
-            CurCreLineRec.SetRange("Colour No", "Colour No");
-            CurCreLineRec.SetRange("Group ID", "Group ID");
-            CurCreLineRec.SetRange("Component Group Code", "Component Group Code");
+            CurCreLineRec.SetRange("Style No.", Rec."Style No.");
+            CurCreLineRec.SetRange("Colour No", Rec."Colour No");
+            CurCreLineRec.SetRange("Group ID", Rec."Group ID");
+            CurCreLineRec.SetRange("Component Group Code", Rec."Component Group Code");
 
             if CurCreLineRec.FindSet() then begin
-                Message('Cannot delete. Cut creation already created for this Marker : %1', "Marker Name");
+                Message('Cannot delete. Cut creation already created for this Marker : %1', Rec."Marker Name");
                 exit(false);
             end;
 
         end;
 
 
-        if ("Record Type" = 'H') or ("Record Type" = 'H1') then begin
+        if (Rec."Record Type" = 'H') or (Rec."Record Type" = 'H1') then begin
 
             //Get Ration lines
             RatioLineRec.Reset();
-            RatioLineRec.SetRange(RatioCreNo, RatioCreNo);
-            RatioLineRec.SetRange("Group ID", "Group ID");
-            RatioLineRec.SetRange("Style No.", "Style No.");
-            RatioLineRec.SetRange("Colour No", "Colour No");
-            RatioLineRec.SetRange("Component Group Code", "Component Group Code");
+            RatioLineRec.SetRange(RatioCreNo, Rec.RatioCreNo);
+            RatioLineRec.SetRange("Group ID", Rec."Group ID");
+            RatioLineRec.SetRange("Style No.", Rec."Style No.");
+            RatioLineRec.SetRange("Colour No", Rec."Colour No");
+            RatioLineRec.SetRange("Component Group Code", Rec."Component Group Code");
             RatioLineRec.SetFilter("Record Type", '=%1', 'R');
 
             if RatioLineRec.FindSet() then begin
@@ -2577,7 +2577,7 @@ page 50596 "Ratio Creation ListPart"
 
             //Delete all Ratio lines
             RatioLineRec.Reset();
-            RatioLineRec.SetRange(RatioCreNo, RatioCreNo);
+            RatioLineRec.SetRange(RatioCreNo, Rec.RatioCreNo);
             if RatioLineRec.FindSet() then
                 RatioLineRec.DeleteAll();
 

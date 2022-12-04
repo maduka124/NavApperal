@@ -16,13 +16,13 @@ page 50792 "Contract BBLC Summary List"
         {
             repeater(General)
             {
-                field("Contract No"; "Contract No")
+                field("Contract No"; Rec."Contract No")
                 {
                     ApplicationArea = All;
                     Caption = 'LC/Contract No';
                 }
 
-                field(Buyer; Buyer)
+                field(Buyer; Rec.Buyer)
                 {
                     ApplicationArea = All;
                 }

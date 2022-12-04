@@ -13,41 +13,41 @@ page 50601 "Cut Creation"
         {
             repeater(General)
             {
-                field(CutCreNo; CutCreNo)
+                field(CutCreNo; Rec.CutCreNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Cut Creation No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; Rec."Colour Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
                 }
 
-                field("Marker Name"; "Marker Name")
+                field("Marker Name"; Rec."Marker Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Marker';
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; Rec."Group ID")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Component Group"; "Component Group")
+                field("Component Group"; Rec."Component Group")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Ply Height"; "Ply Height")
+                field("Ply Height"; Rec."Ply Height")
                 {
                     ApplicationArea = All;
                     Caption = 'No of Plies';
@@ -67,7 +67,7 @@ page 50601 "Cut Creation"
 
         //Check fabric requsition
         CurCreLineRec.Reset();
-        CurCreLineRec.SetRange("CutCreNo.", CutCreNo);
+        CurCreLineRec.SetRange("CutCreNo.", Rec.CutCreNo);
         CurCreLineRec.SetFilter("Cut No", '<>%1', 0);
 
         if CurCreLineRec.FindSet() then begin
@@ -75,12 +75,12 @@ page 50601 "Cut Creation"
 
                 //Check for cut creation
                 FabRec.Reset();
-                FabRec.SetRange("Marker Name", "Marker Name");
-                FabRec.SetRange("Style No.", "Style No.");
-                FabRec.SetRange("Colour No", "Colour No");
-                FabRec.SetRange("Group ID", "Group ID");
-                FabRec.SetRange("Component Group Code", "Component Group");
-                FabRec.SetRange("Marker Name", "Marker Name");
+                FabRec.SetRange("Marker Name", Rec."Marker Name");
+                FabRec.SetRange("Style No.", Rec."Style No.");
+                FabRec.SetRange("Colour No", Rec."Colour No");
+                FabRec.SetRange("Group ID", Rec."Group ID");
+                FabRec.SetRange("Component Group Code", Rec."Component Group");
+                FabRec.SetRange("Marker Name", Rec."Marker Name");
                 FabRec.SetRange("Cut No", CurCreLineRec."Cut No");
 
                 if FabRec.FindSet() then begin
@@ -93,7 +93,7 @@ page 50601 "Cut Creation"
 
         //Check Table creation
         CurCreLineRec.Reset();
-        CurCreLineRec.SetRange("CutCreNo.", CutCreNo);
+        CurCreLineRec.SetRange("CutCreNo.", Rec.CutCreNo);
         CurCreLineRec.SetFilter("Cut No", '<>%1', 0);
 
         if CurCreLineRec.FindSet() then begin
@@ -101,12 +101,12 @@ page 50601 "Cut Creation"
 
                 //Check for cut creation
                 TableRec.Reset();
-                TableRec.SetRange("Marker Name", "Marker Name");
-                TableRec.SetRange("Style No.", "Style No.");
-                TableRec.SetRange("Colour No", "Colour No");
-                TableRec.SetRange("Group ID", "Group ID");
-                TableRec.SetRange("Component Group", "Component Group");
-                TableRec.SetRange("Marker Name", "Marker Name");
+                TableRec.SetRange("Marker Name", Rec."Marker Name");
+                TableRec.SetRange("Style No.", Rec."Style No.");
+                TableRec.SetRange("Colour No", Rec."Colour No");
+                TableRec.SetRange("Group ID", Rec."Group ID");
+                TableRec.SetRange("Component Group", Rec."Component Group");
+                TableRec.SetRange("Marker Name", Rec."Marker Name");
                 TableRec.SetRange("Cut No", CurCreLineRec."Cut No");
 
                 if TableRec.FindSet() then begin
@@ -119,7 +119,7 @@ page 50601 "Cut Creation"
 
         //Check LaySheet
         CurCreLineRec.Reset();
-        CurCreLineRec.SetRange("CutCreNo.", CutCreNo);
+        CurCreLineRec.SetRange("CutCreNo.", Rec.CutCreNo);
         CurCreLineRec.SetFilter("Record Type", '=%1', 'R');
 
         if CurCreLineRec.FindSet() then begin
@@ -127,11 +127,11 @@ page 50601 "Cut Creation"
 
                 //Check for cut creation
                 LaySheetRec.Reset();
-                LaySheetRec.SetRange("Marker Name", "Marker Name");
-                LaySheetRec.SetRange("Style No.", "Style No.");
-                LaySheetRec.SetRange("Color No.", "Colour No");
-                LaySheetRec.SetRange("Group ID", "Group ID");
-                LaySheetRec.SetRange("Component Group Code", "Component Group");
+                LaySheetRec.SetRange("Marker Name", Rec."Marker Name");
+                LaySheetRec.SetRange("Style No.", Rec."Style No.");
+                LaySheetRec.SetRange("Color No.", Rec."Colour No");
+                LaySheetRec.SetRange("Group ID", Rec."Group ID");
+                LaySheetRec.SetRange("Component Group Code", Rec."Component Group");
                 LaySheetRec.SetRange("Cut No.", CurCreLineRec."Cut No");
 
                 if LaySheetRec.FindSet() then begin
@@ -143,7 +143,7 @@ page 50601 "Cut Creation"
 
 
         CurCreLineRec.Reset();
-        CurCreLineRec.SetRange("CutCreNo.", CutCreNo);
+        CurCreLineRec.SetRange("CutCreNo.", Rec.CutCreNo);
         if CurCreLineRec.FindSet() then
             CurCreLineRec.DeleteAll();
     end;
