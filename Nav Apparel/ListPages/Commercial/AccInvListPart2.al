@@ -11,24 +11,24 @@ page 50543 "Acc Inv ListPart2"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field("Inv No."; "Inv No.")
+                field("Inv No."; Rec."Inv No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Inv No';
                 }
 
-                field("Inv Date"; "Inv Date")
+                field("Inv Date"; Rec."Inv Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Inv Value"; "Inv Value")
+                field("Inv Value"; Rec."Inv Value")
                 {
                     ApplicationArea = All;
                 }
@@ -53,7 +53,7 @@ page 50543 "Acc Inv ListPart2"
                 begin
 
                     AcceptanceInv2Rec.Reset();
-                    AcceptanceInv2Rec.SetRange("AccNo.", "AccNo.");
+                    AcceptanceInv2Rec.SetRange("AccNo.", Rec."AccNo.");
                     AcceptanceInv2Rec.SetFilter(Select, '=%1', true);
 
                     if AcceptanceInv2Rec.FindSet() then begin
@@ -71,11 +71,11 @@ page 50543 "Acc Inv ListPart2"
 
                     //Delete from line table
                     AcceptanceInv2Rec.Reset();
-                    AcceptanceInv2Rec.SetRange("AccNo.", "AccNo.");
+                    AcceptanceInv2Rec.SetRange("AccNo.", Rec."AccNo.");
                     AcceptanceInv2Rec.SetFilter(Select, '=%1', true);
                     AcceptanceInv2Rec.DeleteAll();
 
-                    CodeUnitNav.Add_ACC_INV_Items(Format(Type), "AccNo.");
+                    CodeUnitNav.Add_ACC_INV_Items(Format(Rec.Type), Rec."AccNo.");
 
                     CurrPage.Update();
                 end;

@@ -12,18 +12,18 @@ page 50765 "Bank Ref Invoice ListPart2"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field("Invoice No"; "Invoice No")
+                field("Invoice No"; Rec."Invoice No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Ship Value"; "Ship Value")
+                field("Ship Value"; Rec."Ship Value")
                 {
                     ApplicationArea = All;
                 }
@@ -47,7 +47,7 @@ page 50765 "Bank Ref Invoice ListPart2"
                     CodeUnitNav: Codeunit NavAppCodeUnit;
                 begin
                     BankRefInvRec.Reset();
-                    BankRefInvRec.SetRange("No.", "No.");
+                    BankRefInvRec.SetRange("No.", Rec."No.");
                     BankRefInvRec.SetFilter(Select, '=%1', true);
 
                     if BankRefInvRec.FindSet() then begin
@@ -64,11 +64,11 @@ page 50765 "Bank Ref Invoice ListPart2"
 
                     //Delete from line table
                     BankRefInvRec.Reset();
-                    BankRefInvRec.SetRange("No.", "No.");
+                    BankRefInvRec.SetRange("No.", Rec."No.");
                     BankRefInvRec.SetFilter(Select, '=%1', true);
                     BankRefInvRec.DeleteAll();
 
-                    CodeUnitNav.CalQtyBankRef("No.");
+                    CodeUnitNav.CalQtyBankRef(Rec."No.");
                     CurrPage.Update();
                 end;
             }

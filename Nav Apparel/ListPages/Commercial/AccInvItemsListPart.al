@@ -12,80 +12,80 @@ page 50547 "Acc Inv Items ListPart"
         {
             repeater(General)
             {
-                field("PI No"; "PI No")
+                field("PI No"; Rec."PI No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Inv No"; "Inv No")
+                field("Inv No"; Rec."Inv No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; Rec."Item Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Item';
                 }
 
-                field("Unit Name"; "Unit Name")
+                field("Unit Name"; Rec."Unit Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Unit';
                 }
 
-                field(Color; Color)
+                field(Color; Rec.Color)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Size; Size)
+                field(Size; Rec.Size)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Article "; "Article ")
+                field("Article "; Rec."Article ")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Dimension; Dimension)
+                field(Dimension; Rec.Dimension)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Qty; Qty)
+                field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Unit Price"; "Unit Price")
+                field("Unit Price"; Rec."Unit Price")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Total Value"; "Total Value")
+                field("Total Value"; Rec."Total Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("GRN Qty"; "GRN Qty")
+                field("GRN Qty"; Rec."GRN Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Rec. Value"; "Rec. Value")
+                field("Rec. Value"; Rec."Rec. Value")
                 {
                     ApplicationArea = All;
                     Editable = false;

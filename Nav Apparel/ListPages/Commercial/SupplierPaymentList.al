@@ -16,68 +16,68 @@ page 50551 "SupplierPaymentList"
         {
             repeater(General)
             {
-                field("Suppler Name"; "Suppler Name")
+                field("Suppler Name"; Rec."Suppler Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Suppler';
                 }
 
-                field(January; January)
+                field(January; Rec.January)
                 {
                     ApplicationArea = All;
                 }
 
-                field(February; February)
+                field(February; Rec.February)
                 {
                     ApplicationArea = All;
                 }
 
-                field(March; March)
+                field(March; Rec.March)
                 {
                     ApplicationArea = All;
                 }
 
-                field(April; April)
+                field(April; Rec.April)
                 {
                     ApplicationArea = All;
                 }
 
-                field(May; May)
+                field(May; Rec.May)
                 {
                     ApplicationArea = All;
                 }
 
-                field(June; June)
+                field(June; Rec.June)
                 {
                     ApplicationArea = All;
                 }
 
-                field(July; July)
+                field(July; Rec.July)
                 {
                     ApplicationArea = All;
                 }
 
-                field(August; August)
+                field(August; Rec.August)
                 {
                     ApplicationArea = All;
                 }
 
-                field(September; September)
+                field(September; Rec.September)
                 {
                     ApplicationArea = All;
                 }
 
-                field(October; October)
+                field(October; Rec.October)
                 {
                     ApplicationArea = All;
                 }
 
-                field(November; November)
+                field(November; Rec.November)
                 {
                     ApplicationArea = All;
                 }
 
-                field(December; December)
+                field(December; Rec.December)
                 {
                     ApplicationArea = All;
                 }

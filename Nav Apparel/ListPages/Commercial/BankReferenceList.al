@@ -15,40 +15,40 @@ page 50766 "Bank Reference List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'No';
                 }
 
-                field("BankRefNo."; "BankRefNo.")
+                field("BankRefNo."; Rec."BankRefNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bank Reference No';
                 }
 
-                field("Reference Date"; "Reference Date")
+                field("Reference Date"; Rec."Reference Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field(AirwayBillNo; AirwayBillNo)
+                field(AirwayBillNo; Rec.AirwayBillNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Air Way Bill No';
                 }
 
-                field("Airway Bill Date"; "Airway Bill Date")
+                field("Airway Bill Date"; Rec."Airway Bill Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Maturity Date"; "Maturity Date")
+                field("Maturity Date"; Rec."Maturity Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Total; Total)
+                field(Total; Rec.Total)
                 {
                     ApplicationArea = All;
                 }
@@ -65,7 +65,7 @@ page 50766 "Bank Reference List"
 
         //Update sales invoice header recods
         BankRefeInvRec.Reset();
-        BankRefeInvRec.SetRange("No.", "No.");
+        BankRefeInvRec.SetRange("No.", Rec."No.");
         if BankRefeInvRec.FindSet() then begin
             repeat
                 SalesInvRec.Reset();

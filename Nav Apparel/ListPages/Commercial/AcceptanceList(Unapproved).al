@@ -15,49 +15,49 @@ page 50541 "Acceptance List"
         {
             repeater(General)
             {
-                field("AccNo."; "AccNo.")
+                field("AccNo."; Rec."AccNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
                 }
 
-                field("B2BLC No"; "B2BLC No")
+                field("B2BLC No"; Rec."B2BLC No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Suppler Name"; "Suppler Name")
+                field("Suppler Name"; Rec."Suppler Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Suppler';
                 }
 
-                field("Accept Value"; "Accept Value")
+                field("Accept Value"; Rec."Accept Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Accept Date"; "Accept Date")
+                field("Accept Date"; Rec."Accept Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Acceptance S/N"; "Acceptance S/N")
+                field("Acceptance S/N"; Rec."Acceptance S/N")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Maturity Date"; "Maturity Date")
+                field("Maturity Date"; Rec."Maturity Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Payment Mode"; "Payment Mode")
+                field("Payment Mode"; Rec."Payment Mode")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Approved; Approved)
+                field(Approved; Rec.Approved)
                 {
                     ApplicationArea = All;
                     Caption = 'Approved Status';
@@ -80,8 +80,8 @@ page 50541 "Acceptance List"
                 var
 
                 begin
-                    Approved := true;
-                    ApproveDate := Today;
+                    Rec.Approved := true;
+                    Rec.ApproveDate := Today;
                     CurrPage.Update();
                 end;
 
@@ -99,24 +99,24 @@ page 50541 "Acceptance List"
         GITBaseonPIRec: Record GITBaseonPI;
     begin
         AcceptanceLineRec.reset();
-        AcceptanceLineRec.SetRange("AccNo.", "AccNo.");
+        AcceptanceLineRec.SetRange("AccNo.", Rec."AccNo.");
         AcceptanceLineRec.DeleteAll();
 
         AcceptanceInv1Rec.reset();
-        AcceptanceInv1Rec.SetRange("AccNo.", "AccNo.");
+        AcceptanceInv1Rec.SetRange("AccNo.", Rec."AccNo.");
         AcceptanceInv1Rec.DeleteAll();
 
         AcceptanceInv2Rec.reset();
-        AcceptanceInv2Rec.SetRange("AccNo.", "AccNo.");
+        AcceptanceInv2Rec.SetRange("AccNo.", Rec."AccNo.");
         AcceptanceInv2Rec.DeleteAll();
 
         GITBaseonLCRec.reset();
-        GITBaseonLCRec.SetRange(AssignedAccNo, "AccNo.");
+        GITBaseonLCRec.SetRange(AssignedAccNo, Rec."AccNo.");
         if GITBaseonLCRec.FindSet() then
             GITBaseonLCRec.ModifyAll(AssignedAccNo, '');
 
         GITBaseonPIRec.reset();
-        GITBaseonPIRec.SetRange(AssignedAccNo, "AccNo.");
+        GITBaseonPIRec.SetRange(AssignedAccNo, Rec."AccNo.");
         if GITBaseonPIRec.FindSet() then
             GITBaseonPIRec.ModifyAll(AssignedAccNo, '');
 

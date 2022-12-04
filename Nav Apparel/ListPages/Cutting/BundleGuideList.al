@@ -13,45 +13,45 @@ page 50666 "Bundle Guide List"
         {
             repeater(General)
             {
-                field("BundleGuideNo."; "BundleGuideNo.")
+                field("BundleGuideNo."; Rec."BundleGuideNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bundle Guide No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; Rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; Rec."Group ID")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Component Group"; "Component Group")
+                field("Component Group"; Rec."Component Group")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Cut No"; "Cut No")
+                field("Cut No"; Rec."Cut No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Bundle Rule"; "Bundle Rule")
+                field("Bundle Rule"; Rec."Bundle Rule")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Bundle Method"; "Bundle Method")
+                field("Bundle Method"; Rec."Bundle Method")
                 {
                     ApplicationArea = All;
                 }
@@ -64,7 +64,7 @@ page 50666 "Bundle Guide List"
         BundleGuideLineRec: Record BundleGuideLine;
     begin
         BundleGuideLineRec.reset();
-        BundleGuideLineRec.SetRange("BundleGuideNo.", "BundleGuideNo.");
+        BundleGuideLineRec.SetRange("BundleGuideNo.", Rec."BundleGuideNo.");
         BundleGuideLineRec.DeleteAll();
     end;
 

@@ -5,7 +5,7 @@ pageextension 50796 "Component Listpart Extension" extends "Prod. Order Componen
     {
         addbefore("Expected Quantity")
         {
-            field("Quantity In Stock"; "Quantity In Stock")
+            field("Quantity In Stock"; Rec."Quantity In Stock")
             {
                 ApplicationArea = ALL;
             }
@@ -32,13 +32,13 @@ pageextension 50796 "Component Listpart Extension" extends "Prod. Order Componen
         ItemLedgerRec: Record "Item Ledger Entry";
     begin
         ItemLedgerRec.Reset();
-        ItemLedgerRec.SetRange("Item No.", "Item No.");
-        if "Location Code" <> '' then
-            ItemLedgerRec.SetRange("Location Code", "Location Code");
+        ItemLedgerRec.SetRange("Item No.", Rec."Item No.");
+        if Rec."Location Code" <> '' then
+            ItemLedgerRec.SetRange("Location Code", Rec."Location Code");
 
         if ItemLedgerRec.FindSet() then begin
             repeat
-                "Quantity In Stock" += ItemLedgerRec."Remaining Quantity";
+                Rec."Quantity In Stock" += ItemLedgerRec."Remaining Quantity";
             until ItemLedgerRec.Next() = 0;
         end;
     end;

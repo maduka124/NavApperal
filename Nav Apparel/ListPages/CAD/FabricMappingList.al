@@ -14,7 +14,7 @@ page 50626 FabricMappingList
         {
             repeater(General)
             {
-                field(No; No)
+                field(No; Rec.No)
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
@@ -27,7 +27,7 @@ page 50626 FabricMappingList
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -38,15 +38,15 @@ page 50626 FabricMappingList
                         StyleRec: Record "Style Master";
                     begin
                         StyleRec.Reset();
-                        StyleRec.SetRange("Style No.", "Style Name");
+                        StyleRec.SetRange("Style No.", Rec."Style Name");
                         if StyleRec.FindSet() then
-                            "Style No." := StyleRec."No.";
+                            Rec."Style No." := StyleRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; Rec."Colour Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -60,7 +60,7 @@ page 50626 FabricMappingList
                     begin
                         AssoDetailsRec.RESET;
                         AssoDetailsRec.SetCurrentKey("Colour No");
-                        AssoDetailsRec.SetRange("Style No.", "Style No.");
+                        AssoDetailsRec.SetRange("Style No.", Rec."Style No.");
 
                         IF AssoDetailsRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -72,23 +72,23 @@ page 50626 FabricMappingList
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
-                                "Colour No" := AssoDetailsRec."Colour No";
+                                Rec."Colour No" := AssoDetailsRec."Colour No";
                                 colorRec.Reset();
-                                colorRec.SetRange("No.", "Colour No");
+                                colorRec.SetRange("No.", Rec."Colour No");
                                 colorRec.FindSet();
-                                "Colour Name" := colorRec."Colour Name";
+                                Rec."Colour Name" := colorRec."Colour Name";
                             end;
                         END;
                     END;
                 }
 
-                field("Component Group"; "Component Group")
+                field("Component Group"; Rec."Component Group")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -98,13 +98,13 @@ page 50626 FabricMappingList
                         MainCategoryRec: Record "Main Category";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Main Category Name", Rec."Main Category Name");
                         if MainCategoryRec.FindSet() then
-                            "Main Category No." := MainCategoryRec."No.";
+                            Rec."Main Category No." := MainCategoryRec."No.";
                     end;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; Rec."Item Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -158,7 +158,7 @@ page 50626 FabricMappingList
 
                         PurchRecptLineRec.Reset();
                         PurchRecptLineRec.SetCurrentKey("No.");
-                        PurchRecptLineRec.SetRange(StyleName, "Style Name");
+                        PurchRecptLineRec.SetRange(StyleName, Rec."Style Name");
 
                         IF PurchRecptLineRec.FindSet() THEN BEGIN
 
@@ -168,8 +168,8 @@ page 50626 FabricMappingList
 
                                     ItemRec.Reset();
                                     ItemRec.SetRange("No.", ItemCode);
-                                    ItemRec.SetRange("Main Category No.", "Main Category No.");
-                                    ItemRec.SetRange("Color No.", "Colour No");
+                                    ItemRec.SetRange("Main Category No.", Rec."Main Category No.");
+                                    ItemRec.SetRange("Color No.", Rec."Colour No");
 
                                     if ItemRec.FindSet() then
                                         PurchRecptLineRec.MARK(TRUE);
@@ -179,11 +179,11 @@ page 50626 FabricMappingList
                             PurchRecptLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50760, PurchRecptLineRec) = Action::LookupOK then begin
-                                "Item No." := PurchRecptLineRec."No.";
+                                Rec."Item No." := PurchRecptLineRec."No.";
                                 ItemRec1.Reset();
-                                ItemRec1.SetRange("No.", "Item No.");
+                                ItemRec1.SetRange("No.", Rec."Item No.");
                                 ItemRec1.FindSet();
-                                "Item Name" := ItemRec1.Description;
+                                Rec."Item Name" := ItemRec1.Description;
                             end;
                         end;
                         CurrPage.Update();
@@ -199,8 +199,8 @@ page 50626 FabricMappingList
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabMap Nos.", xRec."No", "No") THEN BEGIN
-            NoSeriesMngment.SetSeries("No");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabMap Nos.", xRec."No", Rec."No") THEN BEGIN
+            NoSeriesMngment.SetSeries(Rec."No");
             CurrPage.Update();
             EXIT(TRUE);
         END;

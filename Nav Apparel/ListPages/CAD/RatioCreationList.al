@@ -14,23 +14,23 @@ page 50605 "Ratio Creation"
         {
             repeater(General)
             {
-                field(RatioCreNo; RatioCreNo)
+                field(RatioCreNo; Rec.RatioCreNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Ratio Creation No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; Rec."Group ID")
                 {
                     ApplicationArea = All;
                 }
-                field(UOM; UOM)
+                field(UOM; Rec.UOM)
                 {
                     ApplicationArea = All;
                 }
@@ -48,7 +48,7 @@ page 50605 "Ratio Creation"
 
         //Get Ratio lines
         RatioLineRec.Reset();
-        RatioLineRec.SetRange(RatioCreNo, RatioCreNo);
+        RatioLineRec.SetRange(RatioCreNo, Rec.RatioCreNo);
         RatioLineRec.SetFilter("Record Type", '=%1', 'R');
 
         if RatioLineRec.FindSet() then begin
@@ -84,7 +84,7 @@ page 50605 "Ratio Creation"
 
         //Delete all Ratio lines
         RatioLineRec.Reset();
-        RatioLineRec.SetRange(RatioCreNo, RatioCreNo);
+        RatioLineRec.SetRange(RatioCreNo, Rec.RatioCreNo);
         if RatioLineRec.FindSet() then
             RatioLineRec.DeleteAll();
     end;

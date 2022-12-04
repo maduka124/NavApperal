@@ -4,7 +4,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
     {
         addafter("Document No.")
         {
-            field("Cut No"; "Cut No")
+            field("Cut No"; Rec."Cut No")
             {
                 ApplicationArea = All;
             }
@@ -29,7 +29,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
                 // MaterialReport: Report MaterialRequition;
                 begin
                     RPORec.Reset();
-                    RPORec.SetRange("No.", "Order No.");
+                    RPORec.SetRange("No.", Rec."Order No.");
                     RPORec.SetRange(Status, RPORec.Status::Released);
                     // RPORec.FindSet();
                     // ManuPrintReport.PrintProductionOrder(RPORec, 1);

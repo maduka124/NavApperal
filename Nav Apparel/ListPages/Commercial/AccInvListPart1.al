@@ -12,25 +12,25 @@ page 50445 "Acc Inv ListPart1"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Inv No."; "Inv No.")
+                field("Inv No."; Rec."Inv No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Inv No';
                 }
 
-                field("Inv Date"; "Inv Date")
+                field("Inv Date"; Rec."Inv Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Inv Value"; "Inv Value")
+                field("Inv Value"; Rec."Inv Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -77,7 +77,7 @@ page 50445 "Acc Inv ListPart1"
                             AcceptanceInv2Rec.Type := AcceptanceInv1Rec.Type;
                             AcceptanceInv2Rec.Insert();
 
-                            if AcceptanceInv1Rec.Type = Type::"TT or Cash" then begin
+                            if AcceptanceInv1Rec.Type = Rec.Type::"TT or Cash" then begin
                                 GITBaseonPIRec.Reset();
                                 GITBaseonPIRec.SetRange("GITPINo.", AcceptanceInv1Rec."GITNo.");
                                 GITBaseonPIRec.SetRange("Invoice No", AcceptanceInv1Rec."Inv No.");
@@ -101,7 +101,7 @@ page 50445 "Acc Inv ListPart1"
 
                     end;
 
-                    CodeUnitNav.Add_ACC_INV_Items(Format(Type), AccNo1);
+                    CodeUnitNav.Add_ACC_INV_Items(Format(Rec.Type), AccNo1);
 
                     //Update Select as false
                     AcceptanceInv1Rec.Reset();

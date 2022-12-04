@@ -14,7 +14,7 @@ page 71012826 "Gate Pass List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -22,7 +22,7 @@ page 71012826 "Gate Pass List"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                     Editable = true;
@@ -34,60 +34,60 @@ page 71012826 "Gate Pass List"
                     end;
                 }
 
-                field("Transfer Date"; "Transfer Date")
+                field("Transfer Date"; Rec."Transfer Date")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Vehicle No."; "Vehicle No.")
+                field("Vehicle No."; Rec."Vehicle No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Vehicle No';
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Transfer From Name"; "Transfer From Name")
+                field("Transfer From Name"; Rec."Transfer From Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Transfer From';
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Transfer To Name"; "Transfer To Name")
+                field("Transfer To Name"; Rec."Transfer To Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Transfer To';
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Sent By"; "Sent By")
+                field("Sent By"; Rec."Sent By")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Approved/Rejected By"; "Approved By")
+                field("Approved/Rejected By"; Rec."Approved By")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Caption = 'Approved/Rejected By';
                 }
 
-                field("Approved/Rejected Date"; "Approved Date")
+                field("Approved/Rejected Date"; Rec."Approved Date")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Caption = 'Approved/Rejected Date';
                 }
 
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -133,7 +133,7 @@ page 71012826 "Gate Pass List"
     var
         GatePassLineRec: Record "Gate Pass Line";
     begin
-        GatePassLineRec.SetRange("No.", "No.");
+        GatePassLineRec.SetRange("No.", Rec."No.");
         GatePassLineRec.DeleteAll();
     end;
 
@@ -156,7 +156,7 @@ page 71012826 "Gate Pass List"
     trigger OnAfterGetRecord()
     var
     begin
-        if Status = Status::"Pending Approval" then
+        if Rec.Status = Rec.Status::"Pending Approval" then
             StyleExprTxt := 'strongaccent'
         else
             StyleExprTxt := 'None';

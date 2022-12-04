@@ -12,24 +12,24 @@ page 50523 "B2B PI ListPart1"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                 }
 
-                field("PI No"; "PI No")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
-
-                field("PI Date"; "PI Date")
+                field("PI No"; Rec."PI No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("PI Value"; "PI Value")
+                field("PI Date"; Rec."PI Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("PI Value"; Rec."PI Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -65,7 +65,7 @@ page 50523 "B2B PI ListPart1"
 
                     PIHeaderRec.Reset();
                     PIHeaderRec.SetCurrentKey("Supplier No.");
-                    PIHeaderRec.SetRange("Supplier No.", "Supplier No.");
+                    PIHeaderRec.SetRange("Supplier No.", Rec."Supplier No.");
                     PIHeaderRec.SetFilter(Select, '=%1', true);
 
                     if PIHeaderRec.FindSet() then begin
@@ -115,7 +115,7 @@ page 50523 "B2B PI ListPart1"
 
                     //Update Select as false
                     PIHeaderRec.Reset();
-                    PIHeaderRec.SetRange("Supplier No.", "Supplier No.");
+                    PIHeaderRec.SetRange("Supplier No.", Rec."Supplier No.");
                     PIHeaderRec.SetFilter(Select, '=%1', true);
 
                     if PIHeaderRec.FindSet() then begin

@@ -14,19 +14,19 @@ page 50764 "Bank Ref Invoice ListPart1"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                 }
 
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Invoice No';
                 }
 
-                field("Amount Including VAT"; "Amount Including VAT")
+                field("Amount Including VAT"; Rec."Amount Including VAT")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -78,7 +78,7 @@ page 50764 "Bank Ref Invoice ListPart1"
                             BankRefInvRec.Insert();
 
                             //Update Style master contractno
-                            SalesInvRec.AssignedBankRefNo := BankRefNo;
+                            SalesInvRec.AssignedBankRefNo := Rec.BankRefNo;
                             SalesInvRec.Modify();
 
                         until SalesInvRec.Next() = 0;

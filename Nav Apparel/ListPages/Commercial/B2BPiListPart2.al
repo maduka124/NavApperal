@@ -11,23 +11,23 @@ page 50525 "B2B PI ListPart2"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field("PI No."; "PI No.")
+                field("PI No."; Rec."PI No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PI Date"; "PI Date")
+                field("PI Date"; Rec."PI Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PI Value"; "PI Value")
+                field("PI Value"; Rec."PI Value")
                 {
                     ApplicationArea = All;
                 }
@@ -58,7 +58,7 @@ page 50525 "B2B PI ListPart2"
                 begin
 
                     B2BLCPIRec.Reset();
-                    B2BLCPIRec.SetRange("B2BNo.", "B2BNo.");
+                    B2BLCPIRec.SetRange("B2BNo.", Rec."B2BNo.");
                     B2BLCPIRec.SetFilter(Select, '=%1', true);
 
                     if B2BLCPIRec.FindSet() then begin
@@ -92,18 +92,18 @@ page 50525 "B2B PI ListPart2"
 
                     //Delete from line table
                     B2BLCPIRec.Reset();
-                    B2BLCPIRec.SetRange("B2BNo.", "B2BNo.");
+                    B2BLCPIRec.SetRange("B2BNo.", Rec."B2BNo.");
                     B2BLCPIRec.SetFilter(Select, '=%1', true);
                     if B2BLCPIRec.FindSet() then
                         B2BLCPIRec.DeleteAll();
 
-                    CodeUnitNav.CalQtyB2B("B2BNo.");
+                    CodeUnitNav.CalQtyB2B(Rec."B2BNo.");
                     CurrPage.Update();
 
 
                     //Calculate B2B LC opened  and %
                     B2BRec.Reset();
-                    B2BRec.SetRange("No.", "B2BNo.");
+                    B2BRec.SetRange("No.", Rec."B2BNo.");
                     if B2BRec.FindSet() then begin
                         "LC/ContractNo" := B2BRec."LC/Contract No.";
 

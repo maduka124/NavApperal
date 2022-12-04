@@ -11,40 +11,40 @@ page 50669 BundleGuideLineListpart
         {
             repeater(General)
             {
-                field("Bundle No"; "Bundle No")
+                field("Bundle No"; Rec."Bundle No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Cut No"; "Cut No")
+                field("Cut No"; Rec."Cut No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(SJCNo; SJCNo)
+                field(SJCNo; Rec.SJCNo)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Sew. Job No';
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; Rec."Color Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Color';
                 }
 
-                field("Role ID"; "Role ID")
+                field("Role ID"; Rec."Role ID")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Roll ID';
                 }
 
-                field("Shade Name"; "Shade Name")
+                field("Shade Name"; Rec."Shade Name")
                 {
                     ApplicationArea = All;
 
@@ -53,28 +53,28 @@ page 50669 BundleGuideLineListpart
                         ShadeRec: Record Shade;
                     begin
                         ShadeRec.Reset();
-                        ShadeRec.SetRange(Shade, "Shade Name");
+                        ShadeRec.SetRange(Shade, Rec."Shade Name");
                         if ShadeRec.FindSet() then
-                            "Shade No" := ShadeRec."No.";
+                            Rec."Shade No" := ShadeRec."No.";
 
                         CurrPage.Update();
 
                     end;
                 }
 
-                field("Sticker Sequence"; "Sticker Sequence")
+                field("Sticker Sequence"; Rec."Sticker Sequence")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Size; Size)
+                field(Size; Rec.Size)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Qty; Qty)
+                field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -102,11 +102,11 @@ page 50669 BundleGuideLineListpart
 
                     BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
                     BarcodeSymbology := Enum::"Barcode Symbology"::Code39;
-                    BarcodeString := "BundleGuideNo.";
+                    BarcodeString := Rec."BundleGuideNo.";
                     BarcodeFontProvider.ValidateInput(BarcodeString, BarcodeSymbology);
                     EncodedText := BarcodeFontProvider.EncodeFont(BarcodeString, BarcodeSymbology);
                     Temp := EncodedText.Replace('(', '');
-                    Barcode := Temp.Replace(')', '');
+                    Rec.Barcode := Temp.Replace(')', '');
 
                     CurrPage.Update();
                 end;

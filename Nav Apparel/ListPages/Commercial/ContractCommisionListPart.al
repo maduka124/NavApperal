@@ -9,7 +9,7 @@ page 50507 "Contract Commision ListPart"
         {
             repeater(General)
             {
-                field(Commision; Commision)
+                field(Commision; Rec.Commision)
                 {
                     ApplicationArea = All;
 
@@ -18,14 +18,14 @@ page 50507 "Contract Commision ListPart"
                         ItemChargeRec: Record "Item Charge";
                     begin
                         ItemChargeRec.Reset();
-                        ItemChargeRec.SetRange(Description, "Commision");
+                        ItemChargeRec.SetRange(Description, Rec."Commision");
 
                         if ItemChargeRec.FindSet() then
-                            "Commision No." := ItemChargeRec."No.";
+                            Rec."Commision No." := ItemChargeRec."No.";
                     end;
                 }
 
-                field(Currency; Currency)
+                field(Currency; Rec.Currency)
                 {
                     ApplicationArea = All;
 
@@ -34,13 +34,13 @@ page 50507 "Contract Commision ListPart"
                         CurrencyRec: Record Currency;
                     begin
                         CurrencyRec.Reset();
-                        CurrencyRec.SetRange(Description, Currency);
+                        CurrencyRec.SetRange(Description, Rec.Currency);
                         if CurrencyRec.FindSet() then
-                            "Currency No." := CurrencyRec.Code;
+                            Rec."Currency No." := CurrencyRec.Code;
                     end;
                 }
 
-                field(Percentage; Percentage)
+                field(Percentage; Rec.Percentage)
                 {
                     ApplicationArea = All;
 
@@ -49,13 +49,13 @@ page 50507 "Contract Commision ListPart"
                         "Contract/LCMasterRec": Record "Contract/LCMaster";
                     begin
                         "Contract/LCMasterRec".Reset();
-                        "Contract/LCMasterRec".SetRange("No.", "No.");
+                        "Contract/LCMasterRec".SetRange("No.", Rec."No.");
                         "Contract/LCMasterRec".FindSet();
-                        Amount := ("Contract/LCMasterRec"."Auto Calculate Value" * Percentage) / 100;
+                        Rec.Amount := ("Contract/LCMasterRec"."Auto Calculate Value" * Rec.Percentage) / 100;
                     end;
                 }
 
-                field(Amount; Amount)
+                field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
                     Editable = false;

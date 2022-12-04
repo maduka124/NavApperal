@@ -14,29 +14,29 @@ page 50538 "GIT Baseon PI List"
         {
             repeater(General)
             {
-                field("GITPINo."; "GITPINo.")
+                field("GITPINo."; Rec."GITPINo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
                 }
 
-                field("Suppler Name"; "Suppler Name")
+                field("Suppler Name"; Rec."Suppler Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Suppler';
                 }
 
-                field("Invoice No"; "Invoice No")
+                field("Invoice No"; Rec."Invoice No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Invoice Date"; "Invoice Date")
+                field("Invoice Date"; Rec."Invoice Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Invoice Value"; "Invoice Value")
+                field("Invoice Value"; Rec."Invoice Value")
                 {
                     ApplicationArea = All;
                 }
@@ -51,11 +51,11 @@ page 50538 "GIT Baseon PI List"
         GITPIPIRec: Record GITPIPI;
     begin
         GITBaseonPILineRec.Reset();
-        GITBaseonPILineRec.SetRange("GITPINo.", "GITPINo.");
+        GITBaseonPILineRec.SetRange("GITPINo.", Rec."GITPINo.");
         GITBaseonPILineRec.DeleteAll();
 
         GITPIPIRec.Reset();
-        GITPIPIRec.SetRange("GITPINo.", "GITPINo.");
+        GITPIPIRec.SetRange("GITPINo.", Rec."GITPINo.");
         GITPIPIRec.DeleteAll();
     end;
 }
