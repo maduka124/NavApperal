@@ -11,7 +11,7 @@ page 71012671 AssoColourSizeListPart
         {
             repeater(General)
             {
-                field("Colour No"; "Colour No")
+                field("Colour No"; Rec."Colour No")
                 {
                     ApplicationArea = All;
                     Caption = 'Color Code';
@@ -25,11 +25,11 @@ page 71012671 AssoColourSizeListPart
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
 
-                        if "Lot No." = '' then
+                        if Rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
                         //Check for whether BOm created for the style
-                        BOMRec.SetRange("Style No.", "Style No.");
+                        BOMRec.SetRange("Style No.", Rec."Style No.");
                         if BOMRec.FindSet() then begin
                             BOMAutoGenRec.Reset();
                             BOMAutoGenRec.SetRange("No.", BOMRec.No);
@@ -43,27 +43,27 @@ page 71012671 AssoColourSizeListPart
 
                         //Check Duplicates
                         AssoDetRec.Reset();
-                        AssoDetRec.SetRange("Style No.", "Style No.");
-                        AssoDetRec.SetRange("Colour No", "Colour No");
-                        AssoDetRec.SetRange("Lot No.", "Lot No.");
+                        AssoDetRec.SetRange("Style No.", Rec."Style No.");
+                        AssoDetRec.SetRange("Colour No", Rec."Colour No");
+                        AssoDetRec.SetRange("Lot No.", Rec."Lot No.");
                         AssoDetRec.SetFilter(Type, '=%1', '1');
 
                         if AssoDetRec.FindSet() then
                             Error('Color already defined.');
 
-                        ColourRec.get("Colour No");
-                        "Colour Name" := ColourRec."Colour Name";
+                        ColourRec.get(Rec."Colour No");
+                        Rec."Colour Name" := ColourRec."Colour Name";
 
                         StyleRec.Reset();
-                        StyleRec.SetRange("Style No.", "Style No.");
-                        StyleRec.SetRange("Lot No.", "Lot No.");
+                        StyleRec.SetRange("Style No.", Rec."Style No.");
+                        StyleRec.SetRange("Lot No.", Rec."Lot No.");
                         StyleRec.FindLast();
 
-                        "PO No." := StyleRec."PO No.";
+                        Rec."PO No." := StyleRec."PO No.";
                     end;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; Rec."Colour Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -89,7 +89,7 @@ page 71012671 AssoColourSizeListPart
 
                     Clear(ChangeColour);
                     ChangeColour.LookupMode(true);
-                    ChangeColour.PassParameters("Style No.", "Lot No.");
+                    ChangeColour.PassParameters(Rec."Style No.", Rec."Lot No.");
                     ChangeColour.RunModal();
 
                 end;
@@ -100,7 +100,7 @@ page 71012671 AssoColourSizeListPart
     trigger OnOpenPage()
     var
     begin
-        Type := '1';
+        Rec.Type := '1';
     end;
 
 
@@ -119,17 +119,17 @@ page 71012671 AssoColourSizeListPart
     begin
 
         //Check for whether BOM created for the style
-        BOMRec.SetRange("Style No.", "Style No.");
+        BOMRec.SetRange("Style No.", Rec."Style No.");
         if BOMRec.FindSet() then
             Error('Style %1 already assigned for the BOM %2 . You cannot delete colors.', Style1Rec."Style No.", BOMRec.No)
         else begin
 
             //Inform user about color usage in other pos
             AssorColorSizeRatioRec.Reset();
-            AssorColorSizeRatioRec.SetRange("Style No.", "Style No.");
-            AssorColorSizeRatioRec.SetRange("Colour No", "Colour No");
+            AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
+            AssorColorSizeRatioRec.SetRange("Colour No", Rec."Colour No");
             AssorColorSizeRatioRec.SetCurrentKey("lot No.");
-            AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', "Lot No.");
+            AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', Rec."Lot No.");
 
             if AssorColorSizeRatioRec.FindSet() then begin
                 repeat
@@ -142,7 +142,7 @@ page 71012671 AssoColourSizeListPart
 
             if LotTemp <> '' then begin
                 Question := Text;
-                if (Dialog.Confirm(Question, true, "Colour Name", LotTemp) = true) then
+                if (Dialog.Confirm(Question, true, Rec."Colour Name", LotTemp) = true) then
                     Confirm := true
                 else
                     Confirm := false;
@@ -159,8 +159,8 @@ page 71012671 AssoColourSizeListPart
             //Delete from color TAB (Other POs)
             if Confirm = true then begin
                 AssorDetailsRec.Reset();
-                AssorDetailsRec.SetRange("Style No.", "Style No.");
-                AssorDetailsRec.SetRange("Colour No", "Colour No");
+                AssorDetailsRec.SetRange("Style No.", Rec."Style No.");
+                AssorDetailsRec.SetRange("Colour No", Rec."Colour No");
 
                 if AssorDetailsRec.FindSet() then
                     AssorDetailsRec.DeleteAll();
@@ -169,11 +169,11 @@ page 71012671 AssoColourSizeListPart
 
             //Delete from color size ratio TAB
             AssorColorSizeRatioRec.Reset();
-            AssorColorSizeRatioRec.SetRange("Style No.", "Style No.");
-            AssorColorSizeRatioRec.SetRange("Colour No", "Colour No");
+            AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
+            AssorColorSizeRatioRec.SetRange("Colour No", Rec."Colour No");
 
             if Confirm = false then
-                AssorColorSizeRatioRec.SetRange("lot No.", "Lot No.");
+                AssorColorSizeRatioRec.SetRange("lot No.", Rec."Lot No.");
 
             if AssorColorSizeRatioRec.FindSet() then
                 AssorColorSizeRatioRec.DeleteAll();
@@ -181,11 +181,11 @@ page 71012671 AssoColourSizeListPart
 
             //Delete from Quantity breakdown TAB
             AssorColorSizeRatioView.Reset();
-            AssorColorSizeRatioView.SetRange("Style No.", "Style No.");
-            AssorColorSizeRatioView.SetRange("Colour No", "Colour No");
+            AssorColorSizeRatioView.SetRange("Style No.", Rec."Style No.");
+            AssorColorSizeRatioView.SetRange("Colour No", Rec."Colour No");
 
             if Confirm = false then
-                AssorColorSizeRatioView.SetRange("lot No.", "Lot No.");
+                AssorColorSizeRatioView.SetRange("lot No.", Rec."Lot No.");
 
             if AssorColorSizeRatioView.FindSet() then
                 AssorColorSizeRatioView.DeleteAll();
@@ -193,11 +193,11 @@ page 71012671 AssoColourSizeListPart
 
             //Delete from color wise price TAB
             AssorColorSizeRatioPriceRec.Reset();
-            AssorColorSizeRatioPriceRec.SetRange("Style No.", "Style No.");
-            AssorColorSizeRatioPriceRec.SetRange("Colour No", "Colour No");
+            AssorColorSizeRatioPriceRec.SetRange("Style No.", Rec."Style No.");
+            AssorColorSizeRatioPriceRec.SetRange("Colour No", Rec."Colour No");
 
             if Confirm = false then
-                AssorColorSizeRatioPriceRec.SetRange("lot No.", "Lot No.");
+                AssorColorSizeRatioPriceRec.SetRange("lot No.", Rec."Lot No.");
 
             if AssorColorSizeRatioPriceRec.FindSet() then
                 AssorColorSizeRatioPriceRec.DeleteAll();

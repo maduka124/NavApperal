@@ -9,83 +9,83 @@ page 50354 "Style Master PO Prod ListPart"
         {
             repeater(General)
             {
-                field("Lot No."; "Lot No.")
+                field("Lot No."; Rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Lot No';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; Rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
 
-                field(Qty; Qty)
+                field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
                     Caption = 'Order Qty';
                 }
 
-                field("Cut In Qty"; "Cut In Qty")
+                field("Cut In Qty"; Rec."Cut In Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Cut Out Qty"; "Cut Out Qty")
+                field("Cut Out Qty"; Rec."Cut Out Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Emb In Qty"; "Emb In Qty")
+                field("Emb In Qty"; Rec."Emb In Qty")
                 {
                     ApplicationArea = All;
                     Caption = 'Embroidary In Qty';
                 }
 
-                field("Emb Out Qty"; "Emb Out Qty")
+                field("Emb Out Qty"; Rec."Emb Out Qty")
                 {
                     ApplicationArea = All;
                     Caption = 'Embroidary Out Qty';
                 }
 
-                field("Print In Qty"; "Print In Qty")
+                field("Print In Qty"; Rec."Print In Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Print Out Qty"; "Print Out Qty")
+                field("Print Out Qty"; Rec."Print Out Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sawing In Qty"; "Sawing In Qty")
+                field("Sawing In Qty"; Rec."Sawing In Qty")
                 {
                     ApplicationArea = All;
                     Caption = 'Sewing In Qty';
                 }
 
-                field("Sawing Out Qty"; "Sawing Out Qty")
+                field("Sawing Out Qty"; Rec."Sawing Out Qty")
                 {
                     ApplicationArea = All;
                     Caption = 'Sewing Out Qty';
                 }
 
-                field("Wash In Qty"; "Wash In Qty")
+                field("Wash In Qty"; Rec."Wash In Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Wash Out Qty"; "Wash Out Qty")
+                field("Wash Out Qty"; Rec."Wash Out Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Finish Qty"; "Finish Qty")
+                field("Finish Qty"; Rec."Finish Qty")
                 {
                     ApplicationArea = All;
                 }
-                field("Shipped Qty"; "Shipped Qty")
+                field("Shipped Qty"; Rec."Shipped Qty")
                 {
                     ApplicationArea = All;
                 }

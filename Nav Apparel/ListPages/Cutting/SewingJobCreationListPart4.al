@@ -10,7 +10,7 @@ page 50594 "Sewing Job Creation ListPart4"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; Rec.Select)
                 {
                     ApplicationArea = All;
 
@@ -18,13 +18,13 @@ page 50594 "Sewing Job Creation ListPart4"
                     var
                         SJC4: Record SewingJobCreationLine4;
                     begin
-                        if ("Record Type" = 'H') then
+                        if (Rec."Record Type" = 'H') then
                             Error('Cannot select header record');
 
-                        if ("Record Type" = 'H1') and (Select = true) then begin
+                        if (Rec."Record Type" = 'H1') and (Rec.Select = true) then begin
                             SJC4.Reset();
-                            SJC4.SetRange("SJCNo.", "SJCNo.");
-                            SJC4.SetRange("Colour No", "Colour No");
+                            SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                            SJC4.SetRange("Colour No", Rec."Colour No");
                             SJC4.SetFilter("Record Type", '=%1', 'L');
                             SJC4.SetFilter("Group ID", '=%1', 0);
 
@@ -32,10 +32,10 @@ page 50594 "Sewing Job Creation ListPart4"
                                 SJC4.ModifyAll(Select, true);
                         end;
 
-                        if ("Record Type" = 'H1') and (Select = false) then begin
+                        if (Rec."Record Type" = 'H1') and (Rec.Select = false) then begin
                             SJC4.Reset();
-                            SJC4.SetRange("SJCNo.", "SJCNo.");
-                            SJC4.SetRange("Colour No", "Colour No");
+                            SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                            SJC4.SetRange("Colour No", Rec."Colour No");
                             SJC4.SetFilter("Record Type", '=%1', 'L');
                             SJC4.SetFilter("Group ID", '=%1', 0);
 
@@ -43,18 +43,18 @@ page 50594 "Sewing Job Creation ListPart4"
                                 SJC4.ModifyAll(Select, false);
                         end;
 
-                        if ("Group ID" <> 0) and (Select = true) then
+                        if (Rec."Group ID" <> 0) and (Rec.Select = true) then
                             Error('This sewing job already allocated.');
                     end;
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; Rec."Group ID")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; Rec."Lot No.")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -64,11 +64,11 @@ page 50594 "Sewing Job Creation ListPart4"
                     trigger OnValidate()
                     var
                     begin
-                        "Style Name" := StyleName;
+                        Rec."Style Name" := StyleName;
                     end;
                 }
 
-                field("SubLotNo."; "SubLotNo.")
+                field("SubLotNo."; Rec."SubLotNo.")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -84,107 +84,107 @@ page 50594 "Sewing Job Creation ListPart4"
                     begin
 
                         SJC4.Reset();
-                        SJC4.SetRange("SJCNo.", "SJCNo.");
-                        SJC4.SetRange("Style No.", "Style No.");
-                        SJC4.SetRange("Lot No.", "Lot No.");
-                        SJC4.SetRange("SubLotNo.", "SubLotNo.");
+                        SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                        SJC4.SetRange("Style No.", Rec."Style No.");
+                        SJC4.SetRange("Lot No.", Rec."Lot No.");
+                        SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
                         SJC4.SetFilter("Record Type", '=%1', 'H');
 
                         if not SJC4.FindSet() then begin
 
                             //Get Color * details
                             AssoRec.Reset();
-                            AssoRec.SetRange("Style No.", "Style No.");
-                            AssoRec.SetRange("Lot No.", "Lot No.");
+                            AssoRec.SetRange("Style No.", Rec."Style No.");
+                            AssoRec.SetRange("Lot No.", Rec."Lot No.");
 
                             if AssoRec.FindSet() then begin
                                 repeat
                                     if (AssoRec."Colour No" = '*') and (Status = false) then begin
 
-                                        "Colour No" := AssoRec."Colour No";
-                                        "Colour Name" := AssoRec."Colour Name";
-                                        ShipDate := AssoRec.ShipDate;
-                                        "Country Code" := AssoRec."Country Code";
-                                        "Country Name" := AssoRec."Country Name";
-                                        "PO No." := AssoRec."PO No.";
-                                        "1" := AssoRec."1";
-                                        "2" := AssoRec."2";
-                                        "3" := AssoRec."3";
-                                        "4" := AssoRec."4";
-                                        "5" := AssoRec."5";
-                                        "6" := AssoRec."6";
-                                        "7" := AssoRec."7";
-                                        "8" := AssoRec."8";
-                                        "9" := AssoRec."9";
-                                        "10" := AssoRec."10";
-                                        "11" := AssoRec."11";
-                                        "12" := AssoRec."12";
-                                        "13" := AssoRec."13";
-                                        "14" := AssoRec."14";
-                                        "15" := AssoRec."15";
-                                        "16" := AssoRec."16";
-                                        "17" := AssoRec."17";
-                                        "18" := AssoRec."18";
-                                        "19" := AssoRec."19";
-                                        "20" := AssoRec."20";
-                                        "21" := AssoRec."21";
-                                        "22" := AssoRec."22";
-                                        "23" := AssoRec."23";
-                                        "24" := AssoRec."24";
-                                        "25" := AssoRec."25";
-                                        "26" := AssoRec."26";
-                                        "27" := AssoRec."27";
-                                        "28" := AssoRec."28";
-                                        "29" := AssoRec."29";
-                                        "30" := AssoRec."30";
-                                        "31" := AssoRec."31";
-                                        "32" := AssoRec."32";
-                                        "33" := AssoRec."33";
-                                        "34" := AssoRec."34";
-                                        "35" := AssoRec."35";
-                                        "36" := AssoRec."36";
-                                        "37" := AssoRec."37";
-                                        "38" := AssoRec."38";
-                                        "39" := AssoRec."39";
-                                        "40" := AssoRec."40";
-                                        "41" := AssoRec."41";
-                                        "42" := AssoRec."42";
-                                        "43" := AssoRec."43";
-                                        "44" := AssoRec."44";
-                                        "45" := AssoRec."45";
-                                        "46" := AssoRec."46";
-                                        "47" := AssoRec."47";
-                                        "48" := AssoRec."48";
-                                        "49" := AssoRec."49";
-                                        "50" := AssoRec."50";
-                                        "51" := AssoRec."51";
-                                        "52" := AssoRec."52";
-                                        "53" := AssoRec."53";
-                                        "54" := AssoRec."54";
-                                        "55" := AssoRec."55";
-                                        "56" := AssoRec."56";
-                                        "57" := AssoRec."57";
-                                        "58" := AssoRec."58";
-                                        "59" := AssoRec."59";
-                                        "60" := AssoRec."60";
-                                        "61" := AssoRec."61";
-                                        "62" := AssoRec."62";
-                                        "63" := AssoRec."63";
-                                        "64" := AssoRec."64";
-                                        "Color Total" := AssoRec.Total;
-                                        "Record Type" := 'H';
-                                        LineNo := 1;
+                                        Rec."Colour No" := AssoRec."Colour No";
+                                        Rec."Colour Name" := AssoRec."Colour Name";
+                                        Rec.ShipDate := AssoRec.ShipDate;
+                                        Rec."Country Code" := AssoRec."Country Code";
+                                        Rec."Country Name" := AssoRec."Country Name";
+                                        Rec."PO No." := AssoRec."PO No.";
+                                        Rec."1" := AssoRec."1";
+                                        Rec."2" := AssoRec."2";
+                                        Rec."3" := AssoRec."3";
+                                        Rec."4" := AssoRec."4";
+                                        Rec."5" := AssoRec."5";
+                                        Rec."6" := AssoRec."6";
+                                        Rec."7" := AssoRec."7";
+                                        Rec."8" := AssoRec."8";
+                                        Rec."9" := AssoRec."9";
+                                        Rec."10" := AssoRec."10";
+                                        Rec."11" := AssoRec."11";
+                                        Rec."12" := AssoRec."12";
+                                        Rec."13" := AssoRec."13";
+                                        Rec."14" := AssoRec."14";
+                                        Rec."15" := AssoRec."15";
+                                        Rec."16" := AssoRec."16";
+                                        Rec."17" := AssoRec."17";
+                                        Rec."18" := AssoRec."18";
+                                        Rec."19" := AssoRec."19";
+                                        Rec."20" := AssoRec."20";
+                                        Rec."21" := AssoRec."21";
+                                        Rec."22" := AssoRec."22";
+                                        Rec."23" := AssoRec."23";
+                                        Rec."24" := AssoRec."24";
+                                        Rec."25" := AssoRec."25";
+                                        Rec."26" := AssoRec."26";
+                                        Rec."27" := AssoRec."27";
+                                        Rec."28" := AssoRec."28";
+                                        Rec."29" := AssoRec."29";
+                                        Rec."30" := AssoRec."30";
+                                        Rec."31" := AssoRec."31";
+                                        Rec."32" := AssoRec."32";
+                                        Rec."33" := AssoRec."33";
+                                        Rec."34" := AssoRec."34";
+                                        Rec."35" := AssoRec."35";
+                                        Rec."36" := AssoRec."36";
+                                        Rec."37" := AssoRec."37";
+                                        Rec."38" := AssoRec."38";
+                                        Rec."39" := AssoRec."39";
+                                        Rec."40" := AssoRec."40";
+                                        Rec."41" := AssoRec."41";
+                                        Rec."42" := AssoRec."42";
+                                        Rec."43" := AssoRec."43";
+                                        Rec."44" := AssoRec."44";
+                                        Rec."45" := AssoRec."45";
+                                        Rec."46" := AssoRec."46";
+                                        Rec."47" := AssoRec."47";
+                                        Rec."48" := AssoRec."48";
+                                        Rec."49" := AssoRec."49";
+                                        Rec."50" := AssoRec."50";
+                                        Rec."51" := AssoRec."51";
+                                        Rec."52" := AssoRec."52";
+                                        Rec."53" := AssoRec."53";
+                                        Rec."54" := AssoRec."54";
+                                        Rec."55" := AssoRec."55";
+                                        Rec."56" := AssoRec."56";
+                                        Rec."57" := AssoRec."57";
+                                        Rec."58" := AssoRec."58";
+                                        Rec."59" := AssoRec."59";
+                                        Rec."60" := AssoRec."60";
+                                        Rec."61" := AssoRec."61";
+                                        Rec."62" := AssoRec."62";
+                                        Rec."63" := AssoRec."63";
+                                        Rec."64" := AssoRec."64";
+                                        Rec."Color Total" := AssoRec.Total;
+                                        Rec."Record Type" := 'H';
+                                        Rec.LineNo := 1;
                                         CurrPage.Update();
 
 
                                         SJC4.Init();
-                                        SJC4."SJCNo." := "SJCNo.";
-                                        SJC4."Style No." := "Style No.";
-                                        SJC4."Style Name" := "Style Name";
-                                        SJC4."Lot No." := "Lot No.";
+                                        SJC4."SJCNo." := Rec."SJCNo.";
+                                        SJC4."Style No." := Rec."Style No.";
+                                        SJC4."Style Name" := Rec."Style Name";
+                                        SJC4."Lot No." := Rec."Lot No.";
                                         SJC4."PO No." := AssoRec."PO No.";
                                         SJC4.ShipDate := AssoRec.ShipDate;
-                                        SJC4."SubLotNo." := "SubLotNo.";
+                                        SJC4."SubLotNo." := Rec."SubLotNo.";
                                         //SJC3."Record Type" := 'H1';
                                         SJC4.LineNo := 2;
                                         SJC4."Created Date" := Today;
@@ -201,19 +201,19 @@ page 50594 "Sewing Job Creation ListPart4"
 
                             //Get max line no
                             SJC4.Reset();
-                            SJC4.SetRange("SJCNo.", "SJCNo.");
-                            SJC4.SetRange("Style No.", "Style No.");
-                            SJC4.SetRange("Lot No.", "Lot No.");
-                            SJC4.SetRange("SubLotNo.", "SubLotNo.");
+                            SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                            SJC4.SetRange("Style No.", Rec."Style No.");
+                            SJC4.SetRange("Lot No.", Rec."Lot No.");
+                            SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
                             SJC4.FindLast();
 
-                            ShipDate := SJC4.ShipDate;
-                            "Resource No." := SJC4."Resource No.";
-                            "Resource Name" := SJC4."Resource Name";
-                            "PO No." := SJC4."PO No.";
-                            LineNo := SJC4.LineNo + 1;
-                            "Created Date" := Today;
-                            "Created User" := UserId;
+                            Rec.ShipDate := SJC4.ShipDate;
+                            Rec."Resource No." := SJC4."Resource No.";
+                            Rec."Resource Name" := SJC4."Resource Name";
+                            Rec."PO No." := SJC4."PO No.";
+                            Rec.LineNo := SJC4.LineNo + 1;
+                            Rec."Created Date" := Today;
+                            Rec."Created User" := UserId;
                             CurrPage.Update();
 
                         end;
@@ -221,7 +221,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("Sewing Job No."; "Sewing Job No.")
+                field("Sewing Job No."; Rec."Sewing Job No.")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -229,7 +229,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     Caption = 'Sewing Job No';
                 }
 
-                field("Resource Name"; "Resource Name")
+                field("Resource Name"; Rec."Resource Name")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -246,10 +246,10 @@ page 50594 "Sewing Job Creation ListPart4"
                         //Get Po details
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetFilter("Planning Line", '=%1', true);
-                        WorkCenterRec.SetRange(Name, "Resource Name");
+                        WorkCenterRec.SetRange(Name, Rec."Resource Name");
 
                         if WorkCenterRec.FindSet() then
-                            "Resource No." := WorkCenterRec."No.";
+                            Rec."Resource No." := WorkCenterRec."No.";
 
 
                         //Deleet old recorsd
@@ -261,7 +261,7 @@ page 50594 "Sewing Job Creation ListPart4"
                         //Get Colors for the style
                         AssoRec.Reset();
                         AssoRec.SetCurrentKey("Style No.", "Colour Name");
-                        AssoRec.SetRange("Style No.", "Style No.");
+                        AssoRec.SetRange("Style No.", Rec."Style No.");
                         AssoRec.SetFilter("Colour Name", '<>%1', '*');
 
                         if AssoRec.FindSet() then begin
@@ -281,7 +281,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; Rec."Colour Name")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -308,508 +308,508 @@ page 50594 "Sewing Job Creation ListPart4"
                         ColorTotal: Decimal;
                     begin
 
-                        if "Resource No." <> '' then begin
+                        if Rec."Resource No." <> '' then begin
 
-                            if "Colour Name" <> '*' then begin
+                            if Rec."Colour Name" <> '*' then begin
 
                                 Waistage := 0.1;
                                 //Get color name
                                 colorRec.Reset();
-                                colorRec.SetRange("Colour Name", "Colour Name");
+                                colorRec.SetRange("Colour Name", Rec."Colour Name");
 
                                 if colorRec.FindSet() then begin
-                                    "Colour No" := colorRec."No.";
+                                    Rec."Colour No" := colorRec."No.";
                                     CurrPage.Update();
 
-                                    if "SubLotNo." = '' then
+                                    if Rec."SubLotNo." = '' then
                                         Error('SubLotNo is blank');
 
-                                    if "Lot No." = '' then
+                                    if Rec."Lot No." = '' then
                                         Error('LotNo is blank');
 
 
                                     SJC4.Reset();
-                                    SJC4.SetRange("SJCNo.", "SJCNo.");
-                                    SJC4.SetRange("Style No.", "Style No.");
-                                    SJC4.SetRange("Lot No.", "Lot No.");
-                                    SJC4.SetRange("SubLotNo.", "SubLotNo.");
+                                    SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                                    SJC4.SetRange("Style No.", Rec."Style No.");
+                                    SJC4.SetRange("Lot No.", Rec."Lot No.");
+                                    SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
                                     SJC4.SetRange("Colour No", colorRec."No.");
                                     SJC4.SetRange("Record Type", 'H1');
 
                                     if not SJC4.FindSet() then
-                                        "Record Type" := 'H1'
+                                        Rec."Record Type" := 'H1'
                                     else
-                                        "Record Type" := 'L';
+                                        Rec."Record Type" := 'L';
 
                                     CurrPage.Update();
 
 
                                     //Fill Header sizes                               
                                     SJC3.Reset();
-                                    SJC3.SetRange("SJCNo.", "SJCNo.");
-                                    SJC3.SetRange("Style No.", "Style No.");
-                                    SJC3.SetRange("Lot No.", "Lot No.");
-                                    SJC3.SetRange("SubLotNo.", "SubLotNo.");
+                                    SJC3.SetRange("SJCNo.", Rec."SJCNo.");
+                                    SJC3.SetRange("Style No.", Rec."Style No.");
+                                    SJC3.SetRange("Lot No.", Rec."Lot No.");
+                                    SJC3.SetRange("SubLotNo.", Rec."SubLotNo.");
                                     SJC3.SetRange("Colour No", colorRec."No.");
-                                    SJC3.SetRange("Resource No.", "Resource No.");
+                                    SJC3.SetRange("Resource No.", Rec."Resource No.");
 
                                     if SJC3.FindSet() then begin
 
-                                        Qty := SJC3.Qty + (SJC3.Qty * Waistage) / 100;
-                                        TempQty := Qty;
+                                        Rec.Qty := SJC3.Qty + (SJC3.Qty * Waistage) / 100;
+                                        TempQty := Rec.Qty;
 
-                                        if "Record Type" = 'H1' then begin
+                                        if Rec."Record Type" = 'H1' then begin
                                             if SJC3."1" <> '' then
                                                 Evaluate(Number, SJC3."1");
 
-                                            "1" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."1" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."2" <> '' then
                                                 Evaluate(Number, SJC3."2");
 
-                                            "2" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."2" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."3" <> '' then
                                                 Evaluate(Number, SJC3."3");
 
-                                            "3" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."3" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."4" <> '' then
                                                 Evaluate(Number, SJC3."4");
 
-                                            "4" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."4" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."5" <> '' then
                                                 Evaluate(Number, SJC3."5");
 
-                                            "5" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."5" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."6" <> '' then
                                                 Evaluate(Number, SJC3."6");
 
-                                            "6" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."6" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
 
                                             Number := 0;
                                             if SJC3."7" <> '' then
                                                 Evaluate(Number, SJC3."7");
 
-                                            "7" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."7" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."8" <> '' then
                                                 Evaluate(Number, SJC3."8");
 
-                                            "8" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."8" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."9" <> '' then
                                                 Evaluate(Number, SJC3."9");
 
-                                            "9" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."9" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."10" <> '' then
                                                 Evaluate(Number, SJC3."10");
 
-                                            "10" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."10" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."11" <> '' then
                                                 Evaluate(Number, SJC3."11");
 
-                                            "11" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."11" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."12" <> '' then
                                                 Evaluate(Number, SJC3."12");
 
-                                            "12" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."12" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."13" <> '' then
                                                 Evaluate(Number, SJC3."13");
 
-                                            "13" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."13" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."14" <> '' then
                                                 Evaluate(Number, SJC3."14");
 
-                                            "14" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."14" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
 
                                             Number := 0;
                                             if SJC3."15" <> '' then
                                                 Evaluate(Number, SJC3."15");
 
-                                            "15" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."15" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."16" <> '' then
                                                 Evaluate(Number, SJC3."16");
 
-                                            "16" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."16" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."17" <> '' then
                                                 Evaluate(Number, SJC3."17");
 
-                                            "17" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."17" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."18" <> '' then
                                                 Evaluate(Number, SJC3."18");
 
-                                            "18" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."18" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."19" <> '' then
                                                 Evaluate(Number, SJC3."19");
 
-                                            "19" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."19" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."20" <> '' then
                                                 Evaluate(Number, SJC3."20");
 
-                                            "20" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."20" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."21" <> '' then
                                                 Evaluate(Number, SJC3."21");
 
-                                            "21" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."21" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."22" <> '' then
                                                 Evaluate(Number, SJC3."22");
 
-                                            "22" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."22" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
 
                                             Number := 0;
                                             if SJC3."23" <> '' then
                                                 Evaluate(Number, SJC3."23");
 
-                                            "23" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."23" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."24" <> '' then
                                                 Evaluate(Number, SJC3."24");
 
-                                            "24" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."24" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."25" <> '' then
                                                 Evaluate(Number, SJC3."25");
 
-                                            "25" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."25" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."26" <> '' then
                                                 Evaluate(Number, SJC3."26");
 
-                                            "26" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."26" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."27" <> '' then
                                                 Evaluate(Number, SJC3."27");
 
-                                            "27" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."27" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."28" <> '' then
                                                 Evaluate(Number, SJC3."28");
 
-                                            "28" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."28" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."29" <> '' then
                                                 Evaluate(Number, SJC3."29");
 
-                                            "29" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."29" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."30" <> '' then
                                                 Evaluate(Number, SJC3."30");
 
-                                            "30" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."30" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
 
                                             Number := 0;
                                             if SJC3."31" <> '' then
                                                 Evaluate(Number, SJC3."31");
 
-                                            "31" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."31" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."32" <> '' then
                                                 Evaluate(Number, SJC3."32");
 
-                                            "32" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."32" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."33" <> '' then
                                                 Evaluate(Number, SJC3."33");
 
-                                            "33" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."33" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."34" <> '' then
                                                 Evaluate(Number, SJC3."34");
 
-                                            "34" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."34" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."35" <> '' then
                                                 Evaluate(Number, SJC3."35");
 
-                                            "35" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."35" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."36" <> '' then
                                                 Evaluate(Number, SJC3."36");
 
-                                            "36" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."36" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."37" <> '' then
                                                 Evaluate(Number, SJC3."37");
 
-                                            "37" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."37" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."38" <> '' then
                                                 Evaluate(Number, SJC3."38");
 
-                                            "38" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."38" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
 
                                             Number := 0;
                                             if SJC3."39" <> '' then
                                                 Evaluate(Number, SJC3."39");
 
-                                            "39" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."39" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."40" <> '' then
                                                 Evaluate(Number, SJC3."40");
 
-                                            "40" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."40" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."41" <> '' then
                                                 Evaluate(Number, SJC3."41");
 
-                                            "41" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."41" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."42" <> '' then
                                                 Evaluate(Number, SJC3."42");
 
-                                            "42" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."42" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."43" <> '' then
                                                 Evaluate(Number, SJC3."43");
 
-                                            "43" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."43" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."44" <> '' then
                                                 Evaluate(Number, SJC3."44");
 
-                                            "44" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."44" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."45" <> '' then
                                                 Evaluate(Number, SJC3."45");
 
-                                            "45" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."45" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."46" <> '' then
                                                 Evaluate(Number, SJC3."46");
 
-                                            "46" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."46" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
 
                                             Number := 0;
                                             if SJC3."47" <> '' then
                                                 Evaluate(Number, SJC3."47");
 
-                                            "47" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."47" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."48" <> '' then
                                                 Evaluate(Number, SJC3."48");
 
-                                            "48" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."48" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."49" <> '' then
                                                 Evaluate(Number, SJC3."49");
 
-                                            "49" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."49" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."50" <> '' then
                                                 Evaluate(Number, SJC3."50");
 
-                                            "50" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."50" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."51" <> '' then
                                                 Evaluate(Number, SJC3."51");
 
-                                            "51" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."51" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."52" <> '' then
                                                 Evaluate(Number, SJC3."52");
 
-                                            "52" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."52" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."53" <> '' then
                                                 Evaluate(Number, SJC3."53");
 
-                                            "53" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."53" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."54" <> '' then
                                                 Evaluate(Number, SJC3."54");
 
-                                            "54" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."54" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
 
                                             Number := 0;
                                             if SJC3."55" <> '' then
                                                 Evaluate(Number, SJC3."55");
 
-                                            "55" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."55" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."56" <> '' then
                                                 Evaluate(Number, SJC3."56");
 
-                                            "56" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."56" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."57" <> '' then
                                                 Evaluate(Number, SJC3."57");
 
-                                            "57" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."57" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."58" <> '' then
                                                 Evaluate(Number, SJC3."58");
 
-                                            "58" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."58" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."59" <> '' then
                                                 Evaluate(Number, SJC3."59");
 
-                                            "59" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."59" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."60" <> '' then
                                                 Evaluate(Number, SJC3."60");
 
-                                            "60" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."60" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."61" <> '' then
                                                 Evaluate(Number, SJC3."61");
 
-                                            "61" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."61" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."62" <> '' then
                                                 Evaluate(Number, SJC3."62");
 
-                                            "62" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."62" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
 
                                             Number := 0;
                                             if SJC3."63" <> '' then
                                                 Evaluate(Number, SJC3."63");
 
-                                            "63" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."63" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                             if SJC3."64" <> '' then
                                                 Evaluate(Number, SJC3."64");
 
-                                            "64" := format(round(Number + (Number * Waistage) / 100, 1));
+                                            Rec."64" := format(round(Number + (Number * Waistage) / 100, 1));
                                             ColorTotal += round(Number + (Number * Waistage) / 100, 1);
                                             Number := 0;
 
                                         end;
 
-                                        "Color Total" := ColorTotal;
+                                        Rec."Color Total" := ColorTotal;
                                     end;
 
                                     CurrPage.Update();
@@ -817,10 +817,10 @@ page 50594 "Sewing Job Creation ListPart4"
 
                                     //Get Max target qty / Plan date
                                     SJC2.Reset();
-                                    SJC2.SetRange("SJCNo.", "SJCNo.");
-                                    SJC2.SetRange("Style No.", "Style No.");
-                                    SJC2.SetRange("Lot No.", "Lot No.");
-                                    SJC2.SetRange("Line No.", "Resource No.");
+                                    SJC2.SetRange("SJCNo.", Rec."SJCNo.");
+                                    SJC2.SetRange("Style No.", Rec."Style No.");
+                                    SJC2.SetRange("Lot No.", Rec."Lot No.");
+                                    SJC2.SetRange("Line No.", Rec."Resource No.");
 
                                     if SJC2.FindSet() then begin
                                         TempTarget := SJC2."Day Max Target";
@@ -837,10 +837,10 @@ page 50594 "Sewing Job Creation ListPart4"
 
                                     //Get max line no
                                     SJC4.Reset();
-                                    SJC4.SetRange("SJCNo.", "SJCNo.");
-                                    SJC4.SetRange("Style No.", "Style No.");
-                                    SJC4.SetRange("Lot No.", "Lot No.");
-                                    SJC4.SetRange("SubLotNo.", "SubLotNo.");
+                                    SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                                    SJC4.SetRange("Style No.", Rec."Style No.");
+                                    SJC4.SetRange("Lot No.", Rec."Lot No.");
+                                    SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
                                     SJC4.FindLast();
 
                                     LineNo := SJC4.LineNo;
@@ -852,32 +852,32 @@ page 50594 "Sewing Job Creation ListPart4"
                                         ColorTotal := 0;
 
                                         SJC4.Init();
-                                        SJC4."SJCNo." := "SJCNo.";
-                                        SJC4."Style No." := "Style No.";
-                                        SJC4."Style Name" := "Style Name";
-                                        SJC4."Sewing Job No." := "SubLotNo." + '-' + format(Count);
-                                        SJC4."Lot No." := "Lot No.";
-                                        SJC4."SubLotNo." := "SubLotNo.";
+                                        SJC4."SJCNo." := Rec."SJCNo.";
+                                        SJC4."Style No." := Rec."Style No.";
+                                        SJC4."Style Name" := Rec."Style Name";
+                                        SJC4."Sewing Job No." := Rec."SubLotNo." + '-' + format(Count);
+                                        SJC4."Lot No." := Rec."Lot No.";
+                                        SJC4."SubLotNo." := Rec."SubLotNo.";
                                         SJC4.LineNo := LineNo;
-                                        SJC4."PO No." := "PO No.";
+                                        SJC4."PO No." := Rec."PO No.";
                                         SJC4."Created Date" := Today;
                                         SJC4."Created User" := UserId;
                                         SJC4.Qty := TempTarget;
-                                        SJC4.ShipDate := ShipDate;
-                                        SJC4."Colour No" := "Colour No";
-                                        SJC4."Colour Name" := "Colour Name";
+                                        SJC4.ShipDate := Rec.ShipDate;
+                                        SJC4."Colour No" := Rec."Colour No";
+                                        SJC4."Colour Name" := Rec."Colour Name";
                                         SJC4."Record Type" := 'L';
-                                        SJC4."Resource No." := "Resource No.";
-                                        SJC4."Resource Name" := "Resource Name";
+                                        SJC4."Resource No." := Rec."Resource No.";
+                                        SJC4."Resource Name" := Rec."Resource Name";
                                         SJC4."Plan Date" := StartDate;
                                         SJC4."Plan Target" := TempTarget;
 
                                         //Get size details
                                         SJC4New.Reset();
-                                        SJC4New.SetRange("SJCNo.", "SJCNo.");
-                                        SJC4New.SetRange("Style No.", "Style No.");
-                                        SJC4New.SetRange("Lot No.", "Lot No.");
-                                        SJC4New.SetRange("SubLotNo.", "SubLotNo.");
+                                        SJC4New.SetRange("SJCNo.", Rec."SJCNo.");
+                                        SJC4New.SetRange("Style No.", Rec."Style No.");
+                                        SJC4New.SetRange("Lot No.", Rec."Lot No.");
+                                        SJC4New.SetRange("SubLotNo.", Rec."SubLotNo.");
                                         SJC4New.SetRange("Colour No", colorRec."No.");
                                         SJC4New.SetFilter("Record Type", '%1', 'H1');
                                         SJC4New.FindLast();
@@ -1901,32 +1901,32 @@ page 50594 "Sewing Job Creation ListPart4"
                                     ColorTotal := 0;
 
                                     SJC4.Init();
-                                    SJC4."SJCNo." := "SJCNo.";
-                                    SJC4."Style No." := "Style No.";
-                                    SJC4."Style Name" := "Style Name";
-                                    SJC4."Sewing Job No." := "SubLotNo." + '-' + format(Count + 1);
-                                    SJC4."Lot No." := "Lot No.";
-                                    SJC4."SubLotNo." := "SubLotNo.";
-                                    SJC4.LineNo := LineNo;
-                                    SJC4."PO No." := "PO No.";
+                                    SJC4."SJCNo." := Rec."SJCNo.";
+                                    SJC4."Style No." := Rec."Style No.";
+                                    SJC4."Style Name" := Rec."Style Name";
+                                    SJC4."Sewing Job No." := Rec."SubLotNo." + '-' + format(Count + 1);
+                                    SJC4."Lot No." := Rec."Lot No.";
+                                    SJC4."SubLotNo." := Rec."SubLotNo.";
+                                    SJC4.LineNo := Rec.LineNo;
+                                    SJC4."PO No." := Rec."PO No.";
                                     SJC4."Created Date" := Today;
                                     SJC4."Created User" := UserId;
                                     SJC4.Qty := Balance;
-                                    SJC4.ShipDate := ShipDate;
+                                    SJC4.ShipDate := Rec.ShipDate;
                                     SJC4."Colour No" := colorRec."No.";
-                                    SJC4."Colour Name" := "Colour Name";
+                                    SJC4."Colour Name" := Rec."Colour Name";
                                     SJC4."Record Type" := 'L';
-                                    SJC4."Resource No." := "Resource No.";
-                                    SJC4."Resource Name" := "Resource Name";
+                                    SJC4."Resource No." := Rec."Resource No.";
+                                    SJC4."Resource Name" := Rec."Resource Name";
                                     SJC4."Plan Date" := StartDate;
                                     SJC4."Plan Target" := Balance;
 
                                     //Get size details
                                     SJC4New.Reset();
-                                    SJC4New.SetRange("SJCNo.", "SJCNo.");
-                                    SJC4New.SetRange("Style No.", "Style No.");
-                                    SJC4New.SetRange("Lot No.", "Lot No.");
-                                    SJC4New.SetRange("SubLotNo.", "SubLotNo.");
+                                    SJC4New.SetRange("SJCNo.", Rec."SJCNo.");
+                                    SJC4New.SetRange("Style No.", Rec."Style No.");
+                                    SJC4New.SetRange("Lot No.", Rec."Lot No.");
+                                    SJC4New.SetRange("SubLotNo.", Rec."SubLotNo.");
                                     SJC4New.SetRange("Colour No", colorRec."No.");
                                     SJC4New.SetFilter("Record Type", '%1', 'H1');
                                     SJC4New.FindLast();
@@ -2954,7 +2954,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; Rec."PO No.")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -2962,7 +2962,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     Caption = 'PO No';
                 }
 
-                field(ShipDate; ShipDate)
+                field(ShipDate; Rec.ShipDate)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -2970,21 +2970,21 @@ page 50594 "Sewing Job Creation ListPart4"
                     Editable = false;
                 }
 
-                field("Plan Date"; "Plan Date")
+                field("Plan Date"; Rec."Plan Date")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = false;
                 }
 
-                field("Plan Target"; "Plan Target")
+                field("Plan Target"; Rec."Plan Target")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = false;
                 }
 
-                field(Qty; Qty)
+                field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -2992,14 +2992,14 @@ page 50594 "Sewing Job Creation ListPart4"
                     Caption = 'Order Qty';
                 }
 
-                field("Color Total"; "Color Total")
+                field("Color Total"; Rec."Color Total")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = false;
                 }
 
-                field("1"; "1")
+                field("1"; Rec."1")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3012,7 +3012,7 @@ page 50594 "Sewing Job Creation ListPart4"
                         CalTotal();
                     end;
                 }
-                field("2"; "2")
+                field("2"; Rec."2")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3026,7 +3026,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("3"; "3")
+                field("3"; Rec."3")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3040,7 +3040,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("4"; "4")
+                field("4"; Rec."4")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3054,7 +3054,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("5"; "5")
+                field("5"; Rec."5")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3068,7 +3068,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("6"; "6")
+                field("6"; Rec."6")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3082,7 +3082,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("7"; "7")
+                field("7"; Rec."7")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3096,7 +3096,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("8"; "8")
+                field("8"; Rec."8")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3110,7 +3110,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("9"; "9")
+                field("9"; Rec."9")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3124,7 +3124,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("10"; "10")
+                field("10"; Rec."10")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3138,7 +3138,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("11"; "11")
+                field("11"; Rec."11")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3152,7 +3152,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("12"; "12")
+                field("12"; Rec."12")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3166,7 +3166,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("13"; "13")
+                field("13"; Rec."13")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3180,7 +3180,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("14"; "14")
+                field("14"; Rec."14")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3194,7 +3194,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("15"; "15")
+                field("15"; Rec."15")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3208,7 +3208,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("16"; "16")
+                field("16"; Rec."16")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3222,7 +3222,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("17"; "17")
+                field("17"; Rec."17")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3236,7 +3236,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("18"; "18")
+                field("18"; Rec."18")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3250,7 +3250,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("19"; "19")
+                field("19"; Rec."19")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3264,7 +3264,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("20"; "20")
+                field("20"; Rec."20")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3278,7 +3278,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("21"; "21")
+                field("21"; Rec."21")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3292,7 +3292,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("22"; "22")
+                field("22"; Rec."22")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3306,7 +3306,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("23"; "23")
+                field("23"; Rec."23")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3320,7 +3320,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("24"; "24")
+                field("24"; Rec."24")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3334,7 +3334,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("25"; "25")
+                field("25"; Rec."25")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3348,7 +3348,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("26"; "26")
+                field("26"; Rec."26")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3362,7 +3362,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("27"; "27")
+                field("27"; Rec."27")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3376,7 +3376,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("28"; "28")
+                field("28"; Rec."28")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3390,7 +3390,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("29"; "29")
+                field("29"; Rec."29")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3404,7 +3404,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("30"; "30")
+                field("30"; Rec."30")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3418,7 +3418,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("31"; "31")
+                field("31"; Rec."31")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3432,7 +3432,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("32"; "32")
+                field("32"; Rec."32")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3445,8 +3445,7 @@ page 50594 "Sewing Job Creation ListPart4"
                         CalTotal();
                     end;
                 }
-
-                field("33"; "33")
+                field("33"; Rec."33")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3460,7 +3459,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("34"; "34")
+                field("34"; Rec."34")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3474,7 +3473,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("35"; "35")
+                field("35"; Rec."35")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3488,7 +3487,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("36"; "36")
+                field("36"; Rec."36")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3502,7 +3501,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("37"; "37")
+                field("37"; Rec."37")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3516,7 +3515,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("38"; "38")
+                field("38"; Rec."38")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3530,7 +3529,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("39"; "39")
+                field("39"; Rec."39")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3544,7 +3543,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("40"; "40")
+                field("40"; Rec."40")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3558,7 +3557,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("41"; "41")
+                field("41"; Rec."41")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3573,7 +3572,7 @@ page 50594 "Sewing Job Creation ListPart4"
                 }
 
 
-                field("42"; "42")
+                field("42"; Rec."42")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3588,7 +3587,7 @@ page 50594 "Sewing Job Creation ListPart4"
                 }
 
 
-                field("43"; "43")
+                field("43"; Rec."43")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3603,7 +3602,7 @@ page 50594 "Sewing Job Creation ListPart4"
                 }
 
 
-                field("44"; "44")
+                field("44"; Rec."44")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3618,7 +3617,7 @@ page 50594 "Sewing Job Creation ListPart4"
                 }
 
 
-                field("45"; "45")
+                field("45"; Rec."45")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3633,7 +3632,7 @@ page 50594 "Sewing Job Creation ListPart4"
                 }
 
 
-                field("46"; "46")
+                field("46"; Rec."46")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3648,7 +3647,7 @@ page 50594 "Sewing Job Creation ListPart4"
                 }
 
 
-                field("47"; "47")
+                field("47"; Rec."47")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3662,7 +3661,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("48"; "48")
+                field("48"; Rec."48")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3676,7 +3675,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("49"; "49")
+                field("49"; Rec."49")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3690,7 +3689,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("50"; "50")
+                field("50"; Rec."50")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3704,7 +3703,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("51"; "51")
+                field("51"; Rec."51")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3718,7 +3717,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("52"; "52")
+                field("52"; Rec."52")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3732,7 +3731,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("53"; "53")
+                field("53"; Rec."53")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3746,7 +3745,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("54"; "54")
+                field("54"; Rec."54")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3760,7 +3759,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("55"; "55")
+                field("55"; Rec."55")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3774,7 +3773,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("56"; "56")
+                field("56"; Rec."56")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3788,7 +3787,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("57"; "57")
+                field("57"; Rec."57")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3802,7 +3801,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("58"; "58")
+                field("58"; Rec."58")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3816,7 +3815,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("59"; "59")
+                field("59"; Rec."59")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3830,7 +3829,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("60"; "60")
+                field("60"; Rec."60")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3844,7 +3843,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("61"; "61")
+                field("61"; Rec."61")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3858,7 +3857,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("62"; "62")
+                field("62"; Rec."62")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3872,7 +3871,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("63"; "63")
+                field("63"; Rec."63")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3886,7 +3885,7 @@ page 50594 "Sewing Job Creation ListPart4"
                     end;
                 }
 
-                field("64"; "64")
+                field("64"; Rec."64")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -3935,7 +3934,7 @@ page 50594 "Sewing Job Creation ListPart4"
 
                     //Get selected records
                     SewJobCreLine4Rec.Reset();
-                    SewJobCreLine4Rec.SetRange("SJCNo.", "SJCNo.");
+                    SewJobCreLine4Rec.SetRange("SJCNo.", Rec."SJCNo.");
                     SewJobCreLine4Rec.SetRange(Select, true);
 
                     if SewJobCreLine4Rec.FindSet() then begin
@@ -3946,7 +3945,7 @@ page 50594 "Sewing Job Creation ListPart4"
 
                                 //Update Master table - group id 
                                 SewJobCreRec.Reset();
-                                SewJobCreRec.SetRange("SJCNo", "SJCNo.");
+                                SewJobCreRec.SetRange("SJCNo", Rec."SJCNo.");
                                 SewJobCreRec.FindSet();
                                 SewJobCreRec.ModifyAll("Group ID", GroupID);
 
@@ -3960,8 +3959,8 @@ page 50594 "Sewing Job Creation ListPart4"
                                     GroupMasterRec.Reset();
                                     GroupMasterRec.Init();
                                     GroupMasterRec."Group ID" := GroupID;
-                                    GroupMasterRec."Style No." := "Style No.";
-                                    GroupMasterRec."Style Name" := "Style Name";
+                                    GroupMasterRec."Style No." := Rec."Style No.";
+                                    GroupMasterRec."Style Name" := Rec."Style Name";
                                     GroupMasterRec.Insert();
 
                                 end;
@@ -3979,7 +3978,7 @@ page 50594 "Sewing Job Creation ListPart4"
 
                     //Set select flag to 'False'
                     SewJobCreLine4Rec.Reset();
-                    SewJobCreLine4Rec.SetRange("SJCNo.", "SJCNo.");
+                    SewJobCreLine4Rec.SetRange("SJCNo.", Rec."SJCNo.");
                     SewJobCreLine4Rec.SetRange(Select, true);
                     SewJobCreLine4Rec.FindSet();
                     SewJobCreLine4Rec.ModifyAll(Select, false);
@@ -4001,8 +4000,8 @@ page 50594 "Sewing Job Creation ListPart4"
         StyleExprTxt := ChangeColor.ChangeColorSJC4(Rec);
 
         AssoDetail.Reset();
-        AssoDetail.SetRange("Style No.", "Style No.");
-        AssoDetail.SetRange("Lot No.", "lot No.");
+        AssoDetail.SetRange("Style No.", Rec."Style No.");
+        AssoDetail.SetRange("Lot No.", Rec."lot No.");
         AssoDetail.FindSet();
         Rowcount := AssoDetail.Count;
 
@@ -4331,7 +4330,7 @@ page 50594 "Sewing Job Creation ListPart4"
             end;
         end;
 
-        if "Colour Name" = '*' then begin
+        if Rec."Colour Name" = '*' then begin
             Clear(SetEdit);
             SetEdit := false;
         end
@@ -4341,7 +4340,7 @@ page 50594 "Sewing Job Creation ListPart4"
         end;
 
         //Only for the sizes
-        if ("Record Type" = 'H1') or ("Colour Name" = '*') then begin
+        if (Rec."Record Type" = 'H1') or (Rec."Colour Name" = '*') then begin
             Clear(SetEdit1);
             SetEdit1 := false;
         end
@@ -4362,14 +4361,14 @@ page 50594 "Sewing Job Creation ListPart4"
         AssoDetail: Record AssortmentDetailsInseam;
     begin
         StyleMasterRec.Reset();
-        StyleMasterRec.SetRange("No.", "Style No.");
+        StyleMasterRec.SetRange("No.", Rec."Style No.");
 
         if StyleMasterRec.FindSet() then
             StyleName := StyleMasterRec."Style No.";
 
         AssoDetail.Reset();
-        AssoDetail.SetRange("Style No.", "Style No.");
-        AssoDetail.SetRange("Lot No.", "lot No.");
+        AssoDetail.SetRange("Style No.", Rec."Style No.");
+        AssoDetail.SetRange("Lot No.", Rec."lot No.");
         if AssoDetail.FindSet() then begin
             Rowcount := AssoDetail.Count;
 
@@ -4699,7 +4698,7 @@ page 50594 "Sewing Job Creation ListPart4"
             end;
         end;
 
-        if "Colour Name" = '*' then begin
+        if Rec."Colour Name" = '*' then begin
             Clear(SetEdit);
             SetEdit := false;
         end
@@ -4709,7 +4708,7 @@ page 50594 "Sewing Job Creation ListPart4"
         end;
 
         //Only for the sizes
-        if ("Record Type" = 'H1') or ("Colour Name" = '*') then begin
+        if (Rec."Record Type" = 'H1') or (Rec."Colour Name" = '*') then begin
             Clear(SetEdit1);
             SetEdit1 := false;
         end
@@ -4730,327 +4729,327 @@ page 50594 "Sewing Job Creation ListPart4"
         MainColorTotal: Decimal;
         ColorTotalLines: Decimal;
     begin
-        if "Colour Name" <> '*' then begin
+        if Rec."Colour Name" <> '*' then begin
             for Count := 1 To 64 do begin
                 case Count of
                     1:
-                        if "1" <> '' then
-                            Evaluate(Number, "1")
+                        if Rec."1" <> '' then
+                            Evaluate(Number, Rec."1")
                         else
                             Number := 0;
                     2:
-                        if "2" <> '' then
-                            Evaluate(Number, "2")
+                        if Rec."2" <> '' then
+                            Evaluate(Number, Rec."2")
                         else
                             Number := 0;
                     3:
-                        if "3" <> '' then
-                            Evaluate(Number, "3")
+                        if Rec."3" <> '' then
+                            Evaluate(Number, Rec."3")
                         else
                             Number := 0;
                     4:
-                        if "4" <> '' then
-                            Evaluate(Number, "4")
+                        if Rec."4" <> '' then
+                            Evaluate(Number, Rec."4")
                         else
                             Number := 0;
                     5:
-                        if "5" <> '' then
-                            Evaluate(Number, "5")
+                        if Rec."5" <> '' then
+                            Evaluate(Number, Rec."5")
                         else
                             Number := 0;
                     6:
-                        if "6" <> '' then
-                            Evaluate(Number, "6")
+                        if Rec."6" <> '' then
+                            Evaluate(Number, Rec."6")
                         else
                             Number := 0;
                     7:
-                        if "7" <> '' then
-                            Evaluate(Number, "7")
+                        if Rec."7" <> '' then
+                            Evaluate(Number, Rec."7")
                         else
                             Number := 0;
                     8:
-                        if "8" <> '' then
-                            Evaluate(Number, "8")
+                        if Rec."8" <> '' then
+                            Evaluate(Number, Rec."8")
                         else
                             Number := 0;
                     9:
-                        if "9" <> '' then
-                            Evaluate(Number, "9")
+                        if Rec."9" <> '' then
+                            Evaluate(Number, Rec."9")
                         else
                             Number := 0;
                     10:
-                        if "10" <> '' then
-                            Evaluate(Number, "10")
+                        if Rec."10" <> '' then
+                            Evaluate(Number, Rec."10")
                         else
                             Number := 0;
                     11:
-                        if "11" <> '' then
-                            Evaluate(Number, "11")
+                        if Rec."11" <> '' then
+                            Evaluate(Number, Rec."11")
                         else
                             Number := 0;
                     12:
-                        if "12" <> '' then
-                            Evaluate(Number, "12")
+                        if Rec."12" <> '' then
+                            Evaluate(Number, Rec."12")
                         else
                             Number := 0;
                     13:
-                        if "13" <> '' then
-                            Evaluate(Number, "13")
+                        if Rec."13" <> '' then
+                            Evaluate(Number, Rec."13")
                         else
                             Number := 0;
                     14:
-                        if "14" <> '' then
-                            Evaluate(Number, "14")
+                        if Rec."14" <> '' then
+                            Evaluate(Number, Rec."14")
                         else
                             Number := 0;
                     15:
-                        if "15" <> '' then
-                            Evaluate(Number, "15")
+                        if Rec."15" <> '' then
+                            Evaluate(Number, Rec."15")
                         else
                             Number := 0;
                     16:
-                        if "16" <> '' then
-                            Evaluate(Number, "16")
+                        if Rec."16" <> '' then
+                            Evaluate(Number, Rec."16")
                         else
                             Number := 0;
                     17:
-                        if "17" <> '' then
-                            Evaluate(Number, "17")
+                        if Rec."17" <> '' then
+                            Evaluate(Number, Rec."17")
                         else
                             Number := 0;
                     18:
-                        if "18" <> '' then
-                            Evaluate(Number, "18")
+                        if Rec."18" <> '' then
+                            Evaluate(Number, Rec."18")
                         else
                             Number := 0;
                     19:
-                        if "19" <> '' then
-                            Evaluate(Number, "19")
+                        if Rec."19" <> '' then
+                            Evaluate(Number, Rec."19")
                         else
                             Number := 0;
                     20:
-                        if "20" <> '' then
-                            Evaluate(Number, "20")
+                        if Rec."20" <> '' then
+                            Evaluate(Number, Rec."20")
                         else
                             Number := 0;
                     21:
-                        if "21" <> '' then
-                            Evaluate(Number, "21")
+                        if Rec."21" <> '' then
+                            Evaluate(Number, Rec."21")
                         else
                             Number := 0;
                     22:
-                        if "22" <> '' then
-                            Evaluate(Number, "22")
+                        if Rec."22" <> '' then
+                            Evaluate(Number, Rec."22")
                         else
                             Number := 0;
                     23:
-                        if "23" <> '' then
-                            Evaluate(Number, "23")
+                        if Rec."23" <> '' then
+                            Evaluate(Number, Rec."23")
                         else
                             Number := 0;
                     24:
-                        if "24" <> '' then
-                            Evaluate(Number, "24")
+                        if Rec."24" <> '' then
+                            Evaluate(Number, Rec."24")
                         else
                             Number := 0;
                     25:
-                        if "25" <> '' then
-                            Evaluate(Number, "25")
+                        if Rec."25" <> '' then
+                            Evaluate(Number, Rec."25")
                         else
                             Number := 0;
                     26:
-                        if "26" <> '' then
-                            Evaluate(Number, "26")
+                        if Rec."26" <> '' then
+                            Evaluate(Number, Rec."26")
                         else
                             Number := 0;
                     27:
-                        if "27" <> '' then
-                            Evaluate(Number, "27")
+                        if Rec."27" <> '' then
+                            Evaluate(Number, Rec."27")
                         else
                             Number := 0;
                     28:
-                        if "28" <> '' then
-                            Evaluate(Number, "28")
+                        if Rec."28" <> '' then
+                            Evaluate(Number, Rec."28")
                         else
                             Number := 0;
                     29:
-                        if "29" <> '' then
-                            Evaluate(Number, "29")
+                        if Rec."29" <> '' then
+                            Evaluate(Number, Rec."29")
                         else
                             Number := 0;
                     30:
-                        if "30" <> '' then
-                            Evaluate(Number, "30")
+                        if Rec."30" <> '' then
+                            Evaluate(Number, Rec."30")
                         else
                             Number := 0;
                     31:
-                        if "31" <> '' then
-                            Evaluate(Number, "31")
+                        if Rec."31" <> '' then
+                            Evaluate(Number, Rec."31")
                         else
                             Number := 0;
                     32:
-                        if "32" <> '' then
-                            Evaluate(Number, "32")
+                        if Rec."32" <> '' then
+                            Evaluate(Number, Rec."32")
                         else
                             Number := 0;
                     33:
-                        if "33" <> '' then
-                            Evaluate(Number, "33")
+                        if Rec."33" <> '' then
+                            Evaluate(Number, Rec."33")
                         else
                             Number := 0;
                     34:
-                        if "34" <> '' then
-                            Evaluate(Number, "34")
+                        if Rec."34" <> '' then
+                            Evaluate(Number, Rec."34")
                         else
                             Number := 0;
                     35:
-                        if "35" <> '' then
-                            Evaluate(Number, "35")
+                        if Rec."35" <> '' then
+                            Evaluate(Number, Rec."35")
                         else
                             Number := 0;
                     36:
-                        if "36" <> '' then
-                            Evaluate(Number, "36")
+                        if Rec."36" <> '' then
+                            Evaluate(Number, Rec."36")
                         else
                             Number := 0;
                     37:
-                        if "37" <> '' then
-                            Evaluate(Number, "37")
+                        if Rec."37" <> '' then
+                            Evaluate(Number, Rec."37")
                         else
                             Number := 0;
                     38:
-                        if "38" <> '' then
-                            Evaluate(Number, "38")
+                        if Rec."38" <> '' then
+                            Evaluate(Number, Rec."38")
                         else
                             Number := 0;
                     39:
-                        if "39" <> '' then
-                            Evaluate(Number, "39")
+                        if Rec."39" <> '' then
+                            Evaluate(Number, Rec."39")
                         else
                             Number := 0;
                     40:
-                        if "40" <> '' then
-                            Evaluate(Number, "40")
+                        if Rec."40" <> '' then
+                            Evaluate(Number, Rec."40")
                         else
                             Number := 0;
                     41:
-                        if "41" <> '' then
-                            Evaluate(Number, "41")
+                        if Rec."41" <> '' then
+                            Evaluate(Number, Rec."41")
                         else
                             Number := 0;
                     42:
-                        if "42" <> '' then
-                            Evaluate(Number, "42")
+                        if Rec."42" <> '' then
+                            Evaluate(Number, Rec."42")
                         else
                             Number := 0;
                     43:
-                        if "43" <> '' then
-                            Evaluate(Number, "43")
+                        if Rec."43" <> '' then
+                            Evaluate(Number, Rec."43")
                         else
                             Number := 0;
                     44:
-                        if "44" <> '' then
-                            Evaluate(Number, "44")
+                        if Rec."44" <> '' then
+                            Evaluate(Number, Rec."44")
                         else
                             Number := 0;
                     45:
-                        if "45" <> '' then
-                            Evaluate(Number, "45")
+                        if Rec."45" <> '' then
+                            Evaluate(Number, Rec."45")
                         else
                             Number := 0;
                     46:
-                        if "46" <> '' then
-                            Evaluate(Number, "46")
+                        if Rec."46" <> '' then
+                            Evaluate(Number, Rec."46")
                         else
                             Number := 0;
                     47:
-                        if "47" <> '' then
-                            Evaluate(Number, "47")
+                        if Rec."47" <> '' then
+                            Evaluate(Number, Rec."47")
                         else
                             Number := 0;
                     48:
-                        if "48" <> '' then
-                            Evaluate(Number, "48")
+                        if Rec."48" <> '' then
+                            Evaluate(Number, Rec."48")
                         else
                             Number := 0;
                     49:
-                        if "49" <> '' then
-                            Evaluate(Number, "49")
+                        if Rec."49" <> '' then
+                            Evaluate(Number, Rec."49")
                         else
                             Number := 0;
                     50:
-                        if "50" <> '' then
-                            Evaluate(Number, "50")
+                        if Rec."50" <> '' then
+                            Evaluate(Number, Rec."50")
                         else
                             Number := 0;
                     51:
-                        if "51" <> '' then
-                            Evaluate(Number, "51")
+                        if Rec."51" <> '' then
+                            Evaluate(Number, Rec."51")
                         else
                             Number := 0;
                     52:
-                        if "52" <> '' then
-                            Evaluate(Number, "52")
+                        if Rec."52" <> '' then
+                            Evaluate(Number, Rec."52")
                         else
                             Number := 0;
                     53:
-                        if "53" <> '' then
-                            Evaluate(Number, "53")
+                        if Rec."53" <> '' then
+                            Evaluate(Number, Rec."53")
                         else
                             Number := 0;
                     54:
-                        if "54" <> '' then
-                            Evaluate(Number, "54")
+                        if Rec."54" <> '' then
+                            Evaluate(Number, Rec."54")
                         else
                             Number := 0;
                     55:
-                        if "55" <> '' then
-                            Evaluate(Number, "55")
+                        if Rec."55" <> '' then
+                            Evaluate(Number, Rec."55")
                         else
                             Number := 0;
                     56:
-                        if "56" <> '' then
-                            Evaluate(Number, "56")
+                        if Rec."56" <> '' then
+                            Evaluate(Number, Rec."56")
                         else
                             Number := 0;
                     57:
-                        if "57" <> '' then
-                            Evaluate(Number, "57")
+                        if Rec."57" <> '' then
+                            Evaluate(Number, Rec."57")
                         else
                             Number := 0;
                     58:
-                        if "58" <> '' then
-                            Evaluate(Number, "58")
+                        if Rec."58" <> '' then
+                            Evaluate(Number, Rec."58")
                         else
                             Number := 0;
                     59:
-                        if "59" <> '' then
-                            Evaluate(Number, "59")
+                        if Rec."59" <> '' then
+                            Evaluate(Number, Rec."59")
                         else
                             Number := 0;
                     60:
-                        if "60" <> '' then
-                            Evaluate(Number, "60")
+                        if Rec."60" <> '' then
+                            Evaluate(Number, Rec."60")
                         else
                             Number := 0;
                     61:
-                        if "61" <> '' then
-                            Evaluate(Number, "61")
+                        if Rec."61" <> '' then
+                            Evaluate(Number, Rec."61")
                         else
                             Number := 0;
                     62:
-                        if "62" <> '' then
-                            Evaluate(Number, "62")
+                        if Rec."62" <> '' then
+                            Evaluate(Number, Rec."62")
                         else
                             Number := 0;
                     63:
-                        if "63" <> '' then
-                            Evaluate(Number, "63")
+                        if Rec."63" <> '' then
+                            Evaluate(Number, Rec."63")
                         else
                             Number := 0;
                     64:
-                        if "64" <> '' then
-                            Evaluate(Number, "64")
+                        if Rec."64" <> '' then
+                            Evaluate(Number, Rec."64")
                         else
                             Number := 0;
                 end;
@@ -5058,30 +5057,30 @@ page 50594 "Sewing Job Creation ListPart4"
                 Tot += Number;
             end;
 
-            "Color Total" := Tot;
+            Rec."Color Total" := Tot;
             CurrPage.Update();
 
 
-            if qty < "Color Total" then
+            if Rec.qty < Rec."Color Total" then
                 Error('Total quantity for the color is greater than the po order quantity');
 
             SJC4.Reset();
-            SJC4.SetRange("SJCNo.", "SJCNo.");
-            SJC4.SetRange("Style No.", "Style No.");
-            SJC4.SetRange("Lot No.", "Lot No.");
-            SJC4.SetRange("SubLotNo.", "SubLotNo.");
-            SJC4.SetRange("Colour No", "Colour No");
+            SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+            SJC4.SetRange("Style No.", Rec."Style No.");
+            SJC4.SetRange("Lot No.", Rec."Lot No.");
+            SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
+            SJC4.SetRange("Colour No", Rec."Colour No");
             SJC4.SetFilter("Record Type", '=%1', 'H1');
 
             if SJC4.FindSet() then
                 MainColorTotal := SJC4.Qty;
 
             SJC4.Reset();
-            SJC4.SetRange("SJCNo.", "SJCNo.");
-            SJC4.SetRange("Style No.", "Style No.");
-            SJC4.SetRange("Lot No.", "Lot No.");
-            SJC4.SetRange("SubLotNo.", "SubLotNo.");
-            SJC4.SetRange("Colour No", "Colour No");
+            SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+            SJC4.SetRange("Style No.", Rec."Style No.");
+            SJC4.SetRange("Lot No.", Rec."Lot No.");
+            SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
+            SJC4.SetRange("Colour No", Rec."Colour No");
             SJC4.SetFilter("Record Type", '=%1', 'L');
 
             if SJC4.FindSet() then begin
@@ -5189,31 +5188,31 @@ page 50594 "Sewing Job Creation ListPart4"
         RatioRec: Record RatioCreation;
     begin
 
-        if ("Record Type" = 'L') then begin
+        if (Rec."Record Type" = 'L') then begin
 
             RatioRec.Reset();
-            RatioRec.SetRange("Style Name", "Style No.");
-            RatioRec.SetRange("Group ID", "Group ID");
-            RatioRec.SetRange("Colour No", "Colour No");
+            RatioRec.SetRange("Style Name", Rec."Style No.");
+            RatioRec.SetRange("Group ID", Rec."Group ID");
+            RatioRec.SetRange("Colour No", Rec."Colour No");
 
             if RatioRec.FindSet() then begin
-                Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', "Style Name", "Group ID", "Colour Name");
+                Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', Rec."Style Name", Rec."Group ID", Rec."Colour Name");
                 exit(false);
             end;
 
             //Check for the group id count
             SJC4.Reset();
-            SJC4.SetRange("SJCNo.", "SJCNo.");
-            SJC4.SetRange("Style No.", "Style No.");
-            SJC4.SetRange("Group ID", "Group ID");
+            SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+            SJC4.SetRange("Style No.", Rec."Style No.");
+            SJC4.SetRange("Group ID", Rec."Group ID");
 
             if SJC4.FindSet() then begin
                 if SJC4.Count = 1 then begin
 
                     //delete group master record
                     GroupMasterRec.Reset();
-                    GroupMasterRec.SetRange("Style No.", "Style No.");
-                    GroupMasterRec.SetRange("Group ID", "Group ID");
+                    GroupMasterRec.SetRange("Style No.", Rec."Style No.");
+                    GroupMasterRec.SetRange("Group ID", Rec."Group ID");
                     if GroupMasterRec.FindSet() then
                         GroupMasterRec.DeleteAll();
 
@@ -5222,28 +5221,28 @@ page 50594 "Sewing Job Creation ListPart4"
         end;
 
 
-        if ("Record Type" = 'H') or ("Record Type" = 'H1') then begin
+        if (Rec."Record Type" = 'H') or (Rec."Record Type" = 'H1') then begin
             QuestionH := TextH;
 
-            if (Dialog.Confirm(QuestionH, true, "Lot No.") = true) then begin
+            if (Dialog.Confirm(QuestionH, true, Rec."Lot No.") = true) then begin
 
                 //Check whether ratio created or not
                 SJC4.Reset();
-                SJC4.SetRange("SJCNo.", "SJCNo.");
-                SJC4.SetRange("Style No.", "Style No.");
-                SJC4.SetRange("Lot No.", "Lot No.");
-                SJC4.SetRange("SubLotNo.", "SubLotNo.");
+                SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                SJC4.SetRange("Style No.", Rec."Style No.");
+                SJC4.SetRange("Lot No.", Rec."Lot No.");
+                SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
                 SJC4.SetFilter("Record Type", '=%1', 'L');
 
                 if SJC4.FindSet() then begin
                     repeat
                         RatioRec.Reset();
-                        RatioRec.SetRange("Style No.", "Style No.");
+                        RatioRec.SetRange("Style No.", Rec."Style No.");
                         RatioRec.SetRange("Group ID", SJC4."Group ID");
                         RatioRec.SetRange("Colour No", SJC4."Colour No");
 
                         if RatioRec.FindSet() then begin
-                            Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', "Style Name", SJC4."Group ID", SJC4."Colour Name");
+                            Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', Rec."Style Name", SJC4."Group ID", SJC4."Colour Name");
                             exit(false);
                         end;
                     until SJC4.Next() = 0;
@@ -5252,30 +5251,30 @@ page 50594 "Sewing Job Creation ListPart4"
 
                 //Delete "DAILY LINE REQUIRMENT"
                 SJC4.Reset();
-                SJC4.SetRange("SJCNo.", "SJCNo.");
-                SJC4.SetRange("Style No.", "Style No.");
-                SJC4.SetRange("Lot No.", "Lot No.");
+                SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                SJC4.SetRange("Style No.", Rec."Style No.");
+                SJC4.SetRange("Lot No.", Rec."Lot No.");
                 if SJC4.FindSet() then
                     SJC4.DeleteAll();
 
 
                 //Get all the groups for the style
                 GroupMasterRec.Reset();
-                GroupMasterRec.SetRange("Style No.", "Style No.");
+                GroupMasterRec.SetRange("Style No.", Rec."Style No.");
 
                 if GroupMasterRec.FindSet() then begin
 
                     repeat
                         SJC4.Reset();
-                        SJC4.SetRange("SJCNo.", "SJCNo.");
-                        SJC4.SetRange("Style No.", "Style No.");
+                        SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                        SJC4.SetRange("Style No.", Rec."Style No.");
                         SJC4.SetRange("Group ID", GroupMasterRec."Group ID");
 
                         if not SJC4.FindSet() then begin
 
                             //delete group master record
                             GroupMaster1Rec.Reset();
-                            GroupMaster1Rec.SetRange("Style No.", "Style No.");
+                            GroupMaster1Rec.SetRange("Style No.", Rec."Style No.");
                             GroupMaster1Rec.SetRange("Group ID", GroupMasterRec."Group ID");
                             if GroupMaster1Rec.FindSet() then
                                 GroupMaster1Rec.DeleteAll();
