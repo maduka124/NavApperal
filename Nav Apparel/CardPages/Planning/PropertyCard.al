@@ -12,27 +12,27 @@ page 50340 "Property Card"
         {
             group(Properties)
             {
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                     Editable = false;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Caption = 'Qty';
                     Editable = false;
                 }
 
-                field(SMV; SMV)
+                field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Carder; Carder)
+                field(Carder; rec.Carder)
                 {
                     ApplicationArea = All;
                     Caption = 'Man/Machine Req.';
@@ -45,7 +45,7 @@ page 50340 "Property Card"
                     end;
                 }
 
-                field(Eff; Eff)
+                field(Eff; rec.Eff)
                 {
                     ApplicationArea = All;
                     Caption = 'Plan Efficiency (%)';
@@ -58,7 +58,7 @@ page 50340 "Property Card"
                     end;
                 }
 
-                field(HoursPerDay; HoursPerDay)
+                field(HoursPerDay; rec.HoursPerDay)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -72,19 +72,19 @@ page 50340 "Property Card"
                     end;
                 }
 
-                field(Target; Target)
+                field(Target; rec.Target)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Learning Curve No."; "Learning Curve No.")
+                field("Learning Curve No."; rec."Learning Curve No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Learning Curve';
                 }
 
-                field("TGTSEWFIN Date"; "TGTSEWFIN Date")
+                field("TGTSEWFIN Date"; rec."TGTSEWFIN Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Req. Saw. Finish Date';
@@ -104,8 +104,8 @@ page 50340 "Property Card"
     procedure Cal();
     var
     begin
-        if SMV <> 0 then begin
-            Target := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
+        if rec.SMV <> 0 then begin
+            rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1);
         end
         else
             Message('SMV is zero. Cannot continue.');

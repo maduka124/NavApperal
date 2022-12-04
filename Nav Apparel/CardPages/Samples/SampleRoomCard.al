@@ -10,13 +10,13 @@ page 50430 "Sample Room Card"
         {
             group(General)
             {
-                field("Sample Room No."; "Sample Room No.")
+                field("Sample Room No."; rec."Sample Room No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Room No';
                 }
 
-                field("Sample Room Name"; "Sample Room Name")
+                field("Sample Room Name"; rec."Sample Room Name")
                 {
                     ApplicationArea = All;
 
@@ -25,13 +25,13 @@ page 50430 "Sample Room Card"
                         SampleRoomRec: Record "Sample Room";
                     begin
                         SampleRoomRec.Reset();
-                        SampleRoomRec.SetRange("Sample Room Name", "Sample Room Name");
+                        SampleRoomRec.SetRange("Sample Room Name", rec."Sample Room Name");
                         if SampleRoomRec.FindSet() then
                             Error('Sample Room name already exists.');
                     end;
                 }
 
-                field("Global Dimension Code"; "Global Dimension Code")
+                field("Global Dimension Code"; rec."Global Dimension Code")
                 {
                     ApplicationArea = All;
                 }

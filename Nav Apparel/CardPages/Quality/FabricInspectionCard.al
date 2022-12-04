@@ -9,7 +9,7 @@ page 50561 "Fabric Inspection Card"
         {
             group(General)
             {
-                field("InsNo."; "InsNo.")
+                field("InsNo."; rec."InsNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fab. Ins. No';
@@ -21,7 +21,7 @@ page 50561 "Fabric Inspection Card"
                     end;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -32,13 +32,13 @@ page 50561 "Fabric Inspection Card"
                         BuyerRec: Record Customer;
                     begin
                         BuyerRec.Reset();
-                        BuyerRec.SetRange(Name, "Buyer Name");
+                        BuyerRec.SetRange(Name, rec."Buyer Name");
                         if BuyerRec.FindSet() then
-                            "Buyer No." := BuyerRec."No.";
+                            rec."Buyer No." := BuyerRec."No.";
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -53,9 +53,9 @@ page 50561 "Fabric Inspection Card"
                     begin
 
                         StyleMasRec.Reset();
-                        StyleMasRec.SetRange("Style No.", "Style Name");
+                        StyleMasRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasRec.FindSet() then
-                            "Style No" := StyleMasRec."No.";
+                            rec."Style No" := StyleMasRec."No.";
 
                         CurrPage.Update();
 
@@ -68,7 +68,7 @@ page 50561 "Fabric Inspection Card"
                         //Get Colors for the style
                         AssoRec.Reset();
                         AssoRec.SetCurrentKey("Style No.", "Colour Name");
-                        AssoRec.SetRange("Style No.", "Style No");
+                        AssoRec.SetRange("Style No.", rec."Style No");
                         AssoRec.SetFilter("Colour Name", '<>%1', '*');
 
                         if AssoRec.FindSet() then begin
@@ -87,12 +87,12 @@ page 50561 "Fabric Inspection Card"
                     end;
                 }
 
-                field(Scale; Scale)
+                field(Scale; rec.Scale)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Inspection Stage"; "Inspection Stage")
+                field("Inspection Stage"; rec."Inspection Stage")
                 {
                     ApplicationArea = All;
 
@@ -101,13 +101,13 @@ page 50561 "Fabric Inspection Card"
                         InsStageRec: Record InspectionStage;
                     begin
                         InsStageRec.Reset();
-                        InsStageRec.SetRange("Inspection Stage", "Inspection Stage");
+                        InsStageRec.SetRange("Inspection Stage", rec."Inspection Stage");
                         if InsStageRec.FindSet() then
-                            "Inspection Stage No." := InsStageRec."No.";
+                            rec."Inspection Stage No." := InsStageRec."No.";
                     end;
                 }
 
-                field(GRN; GRN)
+                field(GRN; rec.GRN)
                 {
                     ApplicationArea = All;
 
@@ -118,7 +118,7 @@ page 50561 "Fabric Inspection Card"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Document No.");
-                        PurchRcpLineRec.SetRange(StyleNo, "Style No");
+                        PurchRcpLineRec.SetRange(StyleNo, rec."Style No");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -130,12 +130,12 @@ page 50561 "Fabric Inspection Card"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50676, PurchRcpLineRec) = Action::LookupOK then
-                                GRN := PurchRcpLineRec."Document No.";
+                                rec.GRN := PurchRcpLineRec."Document No.";
                         END;
                     END;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -149,7 +149,7 @@ page 50561 "Fabric Inspection Card"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
+                        PurchRcpLineRec.SetRange("Document No.", rec.GRN);
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -170,27 +170,27 @@ page 50561 "Fabric Inspection Card"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50677, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Item No" := PurchRcpLineRec."No.";
+                                rec."Item No" := PurchRcpLineRec."No.";
                                 CurrPage.Update();
 
                                 //get Color
                                 ItemRec.Reset();
-                                ItemRec.SetRange("No.", "Item No");
+                                ItemRec.SetRange("No.", rec."Item No");
                                 if ItemRec.FindSet() then begin
-                                    "Item Name" := ItemRec.Description;
-                                    "Color No." := ItemRec."Color No.";
-                                    "Color" := ItemRec."Color Name";
+                                    rec."Item Name" := ItemRec.Description;
+                                    rec."Color No." := ItemRec."Color No.";
+                                    rec."Color" := ItemRec."Color Name";
                                 end;
 
                                 //Get roll details
-                                "Total Fab. Rec. YDS" := 0;
+                                rec."Total Fab. Rec. YDS" := 0;
                                 ItemLedEntryRec.Reset();
-                                ItemLedEntryRec.SetRange("Item No.", "Item No");
-                                ItemLedEntryRec.SetRange("Document No.", GRN);
+                                ItemLedEntryRec.SetRange("Item No.", rec."Item No");
+                                ItemLedEntryRec.SetRange("Document No.", rec.GRN);
 
                                 if ItemLedEntryRec.FindSet() then begin
                                     repeat
-                                        "Total Fab. Rec. YDS" := "Total Fab. Rec. YDS" + ItemLedEntryRec."Length Tag";
+                                        rec."Total Fab. Rec. YDS" := rec."Total Fab. Rec. YDS" + ItemLedEntryRec."Length Tag";
                                     until ItemLedEntryRec.Next() = 0;
                                 end;
 
@@ -200,19 +200,19 @@ page 50561 "Fabric Inspection Card"
                     END;
                 }
 
-                field(Color; Color)
+                field(Color; rec.Color)
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Color ';
                     Editable = false;
                 }
 
-                field("Total Fab. Rec. YDS"; "Total Fab. Rec. YDS")
+                field("Total Fab. Rec. YDS"; rec."Total Fab. Rec. YDS")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                 }
@@ -221,7 +221,7 @@ page 50561 "Fabric Inspection Card"
 
             group("Roll Details")
             {
-                field("Roll No"; "Roll No")
+                field("Roll No"; rec."Roll No")
                 {
                     ApplicationArea = All;
 
@@ -230,59 +230,59 @@ page 50561 "Fabric Inspection Card"
                         ItemLedEnRec: Record "Item Ledger Entry";
                     begin
                         ItemLedEnRec.Reset();
-                        ItemLedEnRec.SetRange("Lot No.", "Roll No");
-                        ItemLedEnRec.SetRange("Item No.", "Item No");
-                        ItemLedEnRec.SetRange("Document No.", GRN);
+                        ItemLedEnRec.SetRange("Lot No.", rec."Roll No");
+                        ItemLedEnRec.SetRange("Item No.", rec."Item No");
+                        ItemLedEnRec.SetRange("Document No.", rec.GRN);
                         if ItemLedEnRec.FindSet() then begin
-                            "Batch No" := ItemLedEnRec."Supplier Batch No.";
-                            "TKT Length" := ItemLedEnRec."Length Tag";
-                            "TKT Width" := ItemLedEnRec."Width Tag";
-                            "Actual Length" := ItemLedEnRec."Length Act";
-                            "Actual Width" := ItemLedEnRec."Width Act";
+                            rec."Batch No" := ItemLedEnRec."Supplier Batch No.";
+                            rec."TKT Length" := ItemLedEnRec."Length Tag";
+                            rec."TKT Width" := ItemLedEnRec."Width Tag";
+                            rec."Actual Length" := ItemLedEnRec."Length Act";
+                            rec."Actual Width" := ItemLedEnRec."Width Act";
                         end;
                     end;
                 }
 
-                field("Batch No"; "Batch No")
+                field("Batch No"; rec."Batch No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("TKT Length"; "TKT Length")
+                field("TKT Length"; rec."TKT Length")
                 {
                     ApplicationArea = All;
                 }
 
-                field("TKT Width"; "TKT Width")
+                field("TKT Width"; rec."TKT Width")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Actual Length"; "Actual Length")
+                field("Actual Length"; rec."Actual Length")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Actual Width"; "Actual Width")
+                field("Actual Width"; rec."Actual Width")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Face Seal Start"; "Face Seal Start")
+                field("Face Seal Start"; rec."Face Seal Start")
                 {
                     ApplicationArea = All;
                 }
-                field("Face Seal End"; "Face Seal End")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Length Wise Colour Shading"; "Length Wise Colour Shading")
+                field("Face Seal End"; rec."Face Seal End")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Width Wise Colour Shading"; "Width Wise Colour Shading")
+                field("Length Wise Colour Shading"; rec."Length Wise Colour Shading")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Width Wise Colour Shading"; rec."Width Wise Colour Shading")
                 {
                     ApplicationArea = All;
                 }
@@ -301,69 +301,69 @@ page 50561 "Fabric Inspection Card"
 
             group("4 Point Details")
             {
-                field("1 Point (Up to 3 inches)"; "1 Point (Up to 3 inches)")
+                field("1 Point (Up to 3 inches)"; rec."1 Point (Up to 3 inches)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("2 Point (Up to 3-6 inches)"; "2 Point (Up to 3-6 inches)")
+                field("2 Point (Up to 3-6 inches)"; rec."2 Point (Up to 3-6 inches)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("3 Point (Up to 6-9 inches)"; "3 Point (Up to 6-9 inches)")
+                field("3 Point (Up to 6-9 inches)"; rec."3 Point (Up to 6-9 inches)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("4 Point (Above 9 inches) "; "4 Point (Above 9 inches) ")
+                field("4 Point (Above 9 inches) "; rec."4 Point (Above 9 inches) ")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("1 Point"; "1 Point")
+                field("1 Point"; rec."1 Point")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("2 Point"; "2 Point")
+                field("2 Point"; rec."2 Point")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("3 Point "; "3 Point ")
+                field("3 Point "; rec."3 Point ")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("4 Point"; "4 Point")
+                field("4 Point"; rec."4 Point")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Points per 100 SQ Yds 1"; "Points per 100 SQ Yds 1")
+                field("Points per 100 SQ Yds 1"; rec."Points per 100 SQ Yds 1")
                 {
                     ApplicationArea = All;
                     Caption = '1 Point (Up to 3 Inches)';
                     Editable = false;
                 }
 
-                field("Points per 100 SQ Yds 2"; "Points per 100 SQ Yds 2")
+                field("Points per 100 SQ Yds 2"; rec."Points per 100 SQ Yds 2")
                 {
                     ApplicationArea = All;
                     Caption = '2 Point (Between 3 -6 Inches)';
                     Editable = false;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -379,7 +379,7 @@ page 50561 "Fabric Inspection Card"
         FabricInspectionLineRec: Record FabricInspectionLine1;
     begin
         FabricInspectionLineRec.reset();
-        FabricInspectionLineRec.SetRange("InsNo.", "InsNo.");
+        FabricInspectionLineRec.SetRange("InsNo.", rec."InsNo.");
         FabricInspectionLineRec.DeleteAll();
     end;
 
@@ -390,8 +390,8 @@ page 50561 "Fabric Inspection Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Ins Nos.", xRec."InsNo.", "InsNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("InsNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."Ins Nos.", xRec."InsNo.", rec."InsNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."InsNo.");
             EXIT(TRUE);
         END;
     end;

@@ -10,7 +10,7 @@ page 50695 "FabShadeCard"
         {
             group(General)
             {
-                field("FabShadeNo."; "FabShadeNo.")
+                field("FabShadeNo."; rec."FabShadeNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fab. Shade No';
@@ -22,7 +22,7 @@ page 50695 "FabShadeCard"
                     end;
                 }
 
-                field("Buyer Name."; "Buyer Name.")
+                field("Buyer Name."; rec."Buyer Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -32,15 +32,15 @@ page 50695 "FabShadeCard"
                         CustomerRec: Record Customer;
                     begin
                         CustomerRec.Reset();
-                        CustomerRec.SetRange(Name, "Buyer Name.");
+                        CustomerRec.SetRange(Name, rec."Buyer Name.");
                         if CustomerRec.FindSet() then
-                            "Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -50,15 +50,15 @@ page 50695 "FabShadeCard"
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
@@ -70,7 +70,7 @@ page 50695 "FabShadeCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Order No.");
-                        PurchRcpLineRec.SetRange(StyleNo, "Style No.");
+                        PurchRcpLineRec.SetRange(StyleNo, rec."Style No.");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -82,12 +82,12 @@ page 50695 "FabShadeCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50675, PurchRcpLineRec) = Action::LookupOK then
-                                "PO No." := PurchRcpLineRec."Order No.";
+                                rec."PO No." := PurchRcpLineRec."Order No.";
                         END;
                     END;
                 }
 
-                field(GRN; GRN)
+                field(GRN; rec.GRN)
                 {
                     ApplicationArea = All;
 
@@ -98,7 +98,7 @@ page 50695 "FabShadeCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Document No.");
-                        PurchRcpLineRec.SetRange("Order No.", "PO No.");
+                        PurchRcpLineRec.SetRange("Order No.", rec."PO No.");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -110,12 +110,12 @@ page 50695 "FabShadeCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50676, PurchRcpLineRec) = Action::LookupOK then
-                                GRN := PurchRcpLineRec."Document No.";
+                                rec.GRN := PurchRcpLineRec."Document No.";
                         END;
                     END;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
@@ -128,7 +128,7 @@ page 50695 "FabShadeCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Color No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
+                        PurchRcpLineRec.SetRange("Document No.", rec.GRN);
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -141,15 +141,15 @@ page 50695 "FabShadeCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50672, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Color No" := PurchRcpLineRec."Color No.";
-                                "Color Name" := PurchRcpLineRec."Color Name";
+                                rec."Color No" := PurchRcpLineRec."Color No.";
+                                rec."Color Name" := PurchRcpLineRec."Color Name";
                             end;
 
                         END;
                     END;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -163,8 +163,8 @@ page 50695 "FabShadeCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
-                        PurchRcpLineRec.SetRange("Color No.", "Color No");
+                        PurchRcpLineRec.SetRange("Document No.", rec.GRN);
+                        PurchRcpLineRec.SetRange("Color No.", rec."Color No");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -185,23 +185,23 @@ page 50695 "FabShadeCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50677, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Item No" := PurchRcpLineRec."No.";
-                                "No of Roll" := 0;
+                                rec."Item No" := PurchRcpLineRec."No.";
+                                rec."No of Roll" := 0;
                                 CurrPage.Update();
 
                                 ItemRec.Reset();
-                                ItemRec.SetRange("No.", "Item No");
+                                ItemRec.SetRange("No.", rec."Item No");
                                 if ItemRec.FindSet() then
-                                    "Item Name" := ItemRec.Description;
+                                    rec."Item Name" := ItemRec.Description;
 
                                 //Get No of rolls
                                 ItemLedEntryRec.Reset();
-                                ItemLedEntryRec.SetRange("Item No.", "Item No");
-                                ItemLedEntryRec.SetRange("Document No.", GRN);
+                                ItemLedEntryRec.SetRange("Item No.", rec."Item No");
+                                ItemLedEntryRec.SetRange("Document No.", rec.GRN);
 
                                 if ItemLedEntryRec.FindSet() then begin
                                     repeat
-                                        "No of Roll" := "No of Roll" + ItemLedEntryRec."Remaining Quantity";
+                                        rec."No of Roll" := rec."No of Roll" + ItemLedEntryRec."Remaining Quantity";
                                     until ItemLedEntryRec.Next() = 0;
                                 end;
 
@@ -214,7 +214,7 @@ page 50695 "FabShadeCard"
                     END;
                 }
 
-                field("Fabric Code"; "Fabric Code")
+                field("Fabric Code"; rec."Fabric Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric';
@@ -224,27 +224,27 @@ page 50695 "FabShadeCard"
                         FabicCodeRec: Record FabricCodeMaster;
                     begin
                         FabicCodeRec.Reset();
-                        FabicCodeRec.SetRange(FabricCode, "Fabric Code");
+                        FabicCodeRec.SetRange(FabricCode, rec."Fabric Code");
                         if FabicCodeRec.FindSet() then begin
-                            Composition := FabicCodeRec.Composition;
-                            Construction := FabicCodeRec.Construction;
+                            rec.Composition := FabicCodeRec.Composition;
+                            rec.Construction := FabicCodeRec.Construction;
                         end;
                     end;
                 }
 
-                field(Composition; Composition)
+                field(Composition; rec.Composition)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Construction; Construction)
+                field(Construction; rec.Construction)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("No of Roll"; "No of Roll")
+                field("No of Roll"; rec."No of Roll")
                 {
                     ApplicationArea = All;
                     Caption = 'No of Rolls';
@@ -290,8 +290,8 @@ page 50695 "FabShadeCard"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabShad Nos.", xRec."FabShadeNo.", "FabShadeNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("FabShadeNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabShad Nos.", xRec."FabShadeNo.", rec."FabShadeNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."FabShadeNo.");
             EXIT(TRUE);
         END;
     end;
@@ -303,12 +303,12 @@ page 50695 "FabShadeCard"
         FabShadeLine2Rec: Record FabShadeLine2;
     begin
         FabShadeLine1Rec.reset();
-        FabShadeLine1Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeLine1Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeLine1Rec.FindSet() then
             FabShadeLine1Rec.DeleteAll();
 
         FabShadeLine2Rec.reset();
-        FabShadeLine2Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeLine2Rec.FindSet() then
             FabShadeLine2Rec.DeleteAll();
 
@@ -325,22 +325,22 @@ page 50695 "FabShadeCard"
 
         //Get Max line no
         FabShadeLineRec.Reset();
-        FabShadeLineRec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeLineRec.SetRange("FabShadeNo.", rec."FabShadeNo.");
 
         if FabShadeLineRec.FindLast() then
             Lineno := FabShadeLineRec."Line No.";
 
         //Deleet old records
         FabShadeLineRec.Reset();
-        FabShadeLineRec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeLineRec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeLineRec.FindSet() then
             FabShadeLineRec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
         ItemLedEntryRec.Reset();
-        ItemLedEntryRec.SetRange("Item No.", "Item No");
-        ItemLedEntryRec.SetRange("Document No.", GRN);
+        ItemLedEntryRec.SetRange("Item No.", rec."Item No");
+        ItemLedEntryRec.SetRange("Document No.", rec.GRN);
 
         if ItemLedEntryRec.FindSet() then begin
             repeat
@@ -348,13 +348,13 @@ page 50695 "FabShadeCard"
                 if ItemLedEntryRec."Remaining Quantity" > 0 then begin
 
                     FabShadeLineRec.Init();
-                    FabShadeLineRec."FabShadeNo." := "FabShadeNo.";
+                    FabShadeLineRec."FabShadeNo." := rec."FabShadeNo.";
                     FabShadeLineRec."Line No." := Lineno;
                     FabShadeLineRec."Roll No" := ItemLedEntryRec."Lot No.";
                     FabShadeLineRec.YDS := ItemLedEntryRec."Length Tag";
 
                     FabProLineRec.Reset();
-                    FabProLineRec.SetRange("Item No", "Item No");
+                    FabProLineRec.SetRange("Item No", rec."Item No");
                     FabProLineRec.SetRange("Roll No", ItemLedEntryRec."Lot No.");
 
                     if FabProLineRec.FindSet() then begin
@@ -381,22 +381,22 @@ page 50695 "FabShadeCard"
 
         //Get Max line no
         FabShadeLine2Rec.Reset();
-        FabShadeLine2Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
 
         if FabShadeLine2Rec.FindLast() then
             Lineno := FabShadeLine2Rec."Line No.";
 
         //Deleet old records
         FabShadeLine2Rec.Reset();
-        FabShadeLine2Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeLine2Rec.FindSet() then
             FabShadeLine2Rec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
         FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", "Item No");
-        FabProLineRec.SetRange(GRN, GRN);
+        FabProLineRec.SetRange("Item No", rec."Item No");
+        FabProLineRec.SetRange(GRN, rec.GRN);
         FabProLineRec.SetCurrentKey(Shade);
 
         if FabProLineRec.FindSet() then begin
@@ -407,7 +407,7 @@ page 50695 "FabShadeCard"
                     Shade := FabProLineRec.Shade;
 
                     FabShadeLine2Rec.Init();
-                    FabShadeLine2Rec."FabShadeNo." := "FabShadeNo.";
+                    FabShadeLine2Rec."FabShadeNo." := rec."FabShadeNo.";
                     FabShadeLine2Rec."Line No." := Lineno;
                     FabShadeLine2Rec."Total Rolls" := FabProLineRec.Qty;
                     FabShadeLine2Rec."Total YDS" := FabProLineRec.YDS;
@@ -419,7 +419,7 @@ page 50695 "FabShadeCard"
                 else begin
 
                     FabShadeLine2Rec.Reset();
-                    FabShadeLine2Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                    FabShadeLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
                     FabShadeLine2Rec.SetRange("Shade No", ShadeNo);
 
                     if FabShadeLine2Rec.FindSet() then begin
@@ -445,22 +445,22 @@ page 50695 "FabShadeCard"
 
         //Get Max line no
         FabShadeLine3Rec.Reset();
-        FabShadeLine3Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeLine3Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
 
         if FabShadeLine3Rec.FindLast() then
             Lineno := FabShadeLine3Rec."Line No.";
 
         //Deleet old records
         FabShadeLine3Rec.Reset();
-        FabShadeLine3Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeLine3Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeLine3Rec.FindSet() then
             FabShadeLine3Rec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
         FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", "Item No");
-        FabProLineRec.SetRange(GRN, GRN);
+        FabProLineRec.SetRange("Item No", rec."Item No");
+        FabProLineRec.SetRange(GRN, rec.GRN);
         FabProLineRec.SetCurrentKey("PTTN GRP");
 
         if FabProLineRec.FindSet() then begin
@@ -471,7 +471,7 @@ page 50695 "FabShadeCard"
                     Pattern := FabProLineRec."PTTN GRP";
 
                     FabShadeLine3Rec.Init();
-                    FabShadeLine3Rec."FabShadeNo." := "FabShadeNo.";
+                    FabShadeLine3Rec."FabShadeNo." := rec."FabShadeNo.";
                     FabShadeLine3Rec."Line No." := Lineno;
                     FabShadeLine3Rec."Total Rolls" := FabProLineRec.Qty;
                     FabShadeLine3Rec."Total YDS" := FabProLineRec.YDS;
@@ -482,7 +482,7 @@ page 50695 "FabShadeCard"
                 else begin
 
                     FabShadeLine3Rec.Reset();
-                    FabShadeLine3Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                    FabShadeLine3Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
                     FabShadeLine3Rec.SetRange(Pattern, Pattern);
 
                     if FabShadeLine3Rec.FindSet() then begin

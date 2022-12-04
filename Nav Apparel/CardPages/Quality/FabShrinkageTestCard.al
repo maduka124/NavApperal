@@ -10,7 +10,7 @@ page 50683 "FabShrinkageTestCard"
         {
             group(General)
             {
-                field("FabShrTestNo."; "FabShrTestNo.")
+                field("FabShrTestNo."; rec."FabShrTestNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Shrinkage No';
@@ -22,7 +22,7 @@ page 50683 "FabShrinkageTestCard"
                     end;
                 }
 
-                field("Buyer Name."; "Buyer Name.")
+                field("Buyer Name."; rec."Buyer Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -32,15 +32,15 @@ page 50683 "FabShrinkageTestCard"
                         CustomerRec: Record Customer;
                     begin
                         CustomerRec.Reset();
-                        CustomerRec.SetRange(Name, "Buyer Name.");
+                        CustomerRec.SetRange(Name, rec."Buyer Name.");
                         if CustomerRec.FindSet() then
-                            "Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -50,15 +50,15 @@ page 50683 "FabShrinkageTestCard"
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
@@ -70,7 +70,7 @@ page 50683 "FabShrinkageTestCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Order No.");
-                        PurchRcpLineRec.SetRange(StyleNo, "Style No.");
+                        PurchRcpLineRec.SetRange(StyleNo, rec."Style No.");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -82,12 +82,12 @@ page 50683 "FabShrinkageTestCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50675, PurchRcpLineRec) = Action::LookupOK then
-                                "PO No." := PurchRcpLineRec."Order No.";
+                                rec."PO No." := PurchRcpLineRec."Order No.";
                         END;
                     END;
                 }
 
-                field(GRN; GRN)
+                field(GRN; rec.GRN)
                 {
                     ApplicationArea = All;
 
@@ -98,7 +98,7 @@ page 50683 "FabShrinkageTestCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Document No.");
-                        PurchRcpLineRec.SetRange("Order No.", "PO No.");
+                        PurchRcpLineRec.SetRange("Order No.", rec."PO No.");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -110,12 +110,12 @@ page 50683 "FabShrinkageTestCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50676, PurchRcpLineRec) = Action::LookupOK then
-                                GRN := PurchRcpLineRec."Document No.";
+                                rec.GRN := PurchRcpLineRec."Document No.";
                         END;
                     END;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -129,7 +129,7 @@ page 50683 "FabShrinkageTestCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
+                        PurchRcpLineRec.SetRange("Document No.", rec.GRN);
                         //PurchRcpLineRec.SetRange("Color No.", "Color No");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
@@ -151,26 +151,26 @@ page 50683 "FabShrinkageTestCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50677, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Item No" := PurchRcpLineRec."No.";
-                                "No of Roll" := 0;
+                                rec."Item No" := PurchRcpLineRec."No.";
+                                rec."No of Roll" := 0;
                                 CurrPage.Update();
 
                                 ItemRec.Reset();
-                                ItemRec.SetRange("No.", "Item No");
+                                ItemRec.SetRange("No.", rec."Item No");
                                 if ItemRec.FindSet() then begin
-                                    "Item Name" := ItemRec.Description;
-                                    "Color Name" := ItemRec."Color Name";
-                                    "Color No" := ItemRec."Color No.";
+                                    rec."Item Name" := ItemRec.Description;
+                                    rec."Color Name" := ItemRec."Color Name";
+                                    rec."Color No" := ItemRec."Color No.";
                                 end;
 
                                 //Get No of rolls
                                 ItemLedEntryRec.Reset();
-                                ItemLedEntryRec.SetRange("Item No.", "Item No");
-                                ItemLedEntryRec.SetRange("Document No.", GRN);
+                                ItemLedEntryRec.SetRange("Item No.", rec."Item No");
+                                ItemLedEntryRec.SetRange("Document No.", rec.GRN);
 
                                 if ItemLedEntryRec.FindSet() then begin
                                     repeat
-                                        "No of Roll" := "No of Roll" + ItemLedEntryRec."Remaining Quantity";
+                                        rec."No of Roll" := rec."No of Roll" + ItemLedEntryRec."Remaining Quantity";
                                     until ItemLedEntryRec.Next() = 0;
                                 end;
 
@@ -180,7 +180,7 @@ page 50683 "FabShrinkageTestCard"
                     END;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
@@ -216,7 +216,7 @@ page 50683 "FabShrinkageTestCard"
                 }
 
 
-                field("Fabric Code"; "Fabric Code")
+                field("Fabric Code"; rec."Fabric Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Code';
@@ -226,27 +226,27 @@ page 50683 "FabShrinkageTestCard"
                         FabicCodeRec: Record FabricCodeMaster;
                     begin
                         FabicCodeRec.Reset();
-                        FabicCodeRec.SetRange(FabricCode, "Fabric Code");
+                        FabicCodeRec.SetRange(FabricCode, rec."Fabric Code");
                         if FabicCodeRec.FindSet() then begin
-                            Composition := FabicCodeRec.Composition;
-                            Construction := FabicCodeRec.Construction;
+                            rec.Composition := FabicCodeRec.Composition;
+                            rec.Construction := FabicCodeRec.Construction;
                         end;
                     end;
                 }
 
-                field(Composition; Composition)
+                field(Composition; rec.Composition)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Construction; Construction)
+                field(Construction; rec.Construction)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("No of Roll"; "No of Roll")
+                field("No of Roll"; rec."No of Roll")
                 {
                     ApplicationArea = All;
                     Caption = 'No of Rolls';
@@ -272,8 +272,8 @@ page 50683 "FabShrinkageTestCard"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabShrTest Nos.", xRec."FabShrTestNo.", "FabShrTestNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("FabShrTestNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabShrTest Nos.", xRec."FabShrTestNo.", rec."FabShrTestNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."FabShrTestNo.");
             EXIT(TRUE);
         END;
     end;
@@ -284,7 +284,7 @@ page 50683 "FabShrinkageTestCard"
         FabShrTestLineRec: Record FabShrinkageTestLine;
     begin
         FabShrTestLineRec.reset();
-        FabShrTestLineRec.SetRange("FabShrTestNo.", "FabShrTestNo.");
+        FabShrTestLineRec.SetRange("FabShrTestNo.", rec."FabShrTestNo.");
         if FabShrTestLineRec.FindSet() then
             FabShrTestLineRec.DeleteAll();
     end;

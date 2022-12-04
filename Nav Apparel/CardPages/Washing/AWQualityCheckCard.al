@@ -12,7 +12,7 @@ page 50687 QCHeaderCardAW
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'AW Quality Check No';
@@ -25,7 +25,7 @@ page 50687 QCHeaderCardAW
                     end;
                 }
 
-                field("Job Card No"; "Job Card No")
+                field("Job Card No"; rec."Job Card No")
                 {
                     ApplicationArea = All;
 
@@ -34,47 +34,47 @@ page 50687 QCHeaderCardAW
                         jobcreaationRec: Record JobCreationLine;
                     begin
                         jobcreaationRec.Reset();
-                        jobcreaationRec.SetRange("Job Card (Prod Order)", "JoB Card No");
+                        jobcreaationRec.SetRange("Job Card (Prod Order)", rec."JoB Card No");
 
                         if jobcreaationRec.FindSet() then begin
-                            CustomerCode := jobcreaationRec.BuyerCode;
-                            CustomerName := jobcreaationRec.BuyerName;
-                            "Req Date" := jobcreaationRec."Req Date";
-                            "Line No" := jobcreaationRec."Line No";
-                            "Sample Req No" := jobcreaationRec.No;
-                            "Split No" := jobcreaationRec."Split No";
-                            "QC AW Date" := WorkDate();
+                            rec.CustomerCode := jobcreaationRec.BuyerCode;
+                            rec.CustomerName := jobcreaationRec.BuyerName;
+                            rec."Req Date" := jobcreaationRec."Req Date";
+                            rec."Line No" := jobcreaationRec."Line No";
+                            rec."Sample Req No" := jobcreaationRec.No;
+                            rec."Split No" := jobcreaationRec."Split No";
+                            rec."QC AW Date" := WorkDate();
                         end
                         else
                             Error('Invalid Job Card no.');
                     end;
                 }
 
-                field("Sample Req No"; "Sample Req No")
+                field("Sample Req No"; rec."Sample Req No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(CustomerName; CustomerName)
+                field(CustomerName; rec.CustomerName)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Customer';
                 }
 
-                field("Req date"; "Req date")
+                field("Req date"; rec."Req date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("QC AW Date"; "QC AW Date")
+                field("QC AW Date"; rec."QC AW Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = true;
@@ -104,7 +104,7 @@ page 50687 QCHeaderCardAW
             }
             group("AW Quality Result")
             {
-                field("Pass Qty"; "Pass Qty")
+                field("Pass Qty"; rec."Pass Qty")
                 {
                     ApplicationArea = All;
 
@@ -115,19 +115,19 @@ page 50687 QCHeaderCardAW
                         "Total Fail Qty": Integer;
                     begin
                         intermidiateRec.Reset();
-                        intermidiateRec.SetRange(No, "Sample Req No");
-                        intermidiateRec.SetRange("Line no", "Line No");
-                        intermidiateRec.SetRange("Split No", "Split No");
+                        intermidiateRec.SetRange(No, rec."Sample Req No");
+                        intermidiateRec.SetRange("Line no", rec."Line No");
+                        intermidiateRec.SetRange("Split No", rec."Split No");
 
                         if intermidiateRec.FindSet() then begin
-                            if "Pass Qty" > intermidiateRec."Split Qty" then
+                            if rec."Pass Qty" > intermidiateRec."Split Qty" then
                                 Error('Pass qty must be less than or equal to job card qty');
 
-                            if "Pass Qty" <= intermidiateRec."Split Qty" then begin
-                                "Fail Qty" := intermidiateRec."Split Qty" - "Pass Qty";
+                            if rec."Pass Qty" <= intermidiateRec."Split Qty" then begin
+                                rec."Fail Qty" := intermidiateRec."Split Qty" - rec."Pass Qty";
 
-                                "Total Pass Qty" := intermidiateRec."AW QC Pass Qty " + "Pass Qty";
-                                "Total Fail Qty" := intermidiateRec."AW QC Fail Qty" + "Fail Qty";
+                                "Total Pass Qty" := intermidiateRec."AW QC Pass Qty " + rec."Pass Qty";
+                                "Total Fail Qty" := intermidiateRec."AW QC Fail Qty" + rec."Fail Qty";
 
                                 if "Total Pass Qty" > intermidiateRec."Split Qty" then
                                     Error('Total pass qty should be less than or equal to job card Qty');
@@ -141,13 +141,13 @@ page 50687 QCHeaderCardAW
                     end;
                 }
 
-                field("Fail Qty"; "Fail Qty")
+                field("Fail Qty"; rec."Fail Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                     Caption = 'Comment';
@@ -176,7 +176,7 @@ page 50687 QCHeaderCardAW
                     "Total Fail Qty": Integer;
                 begin
 
-                    if Status = Status::Posted then
+                    if rec.Status = rec.Status::Posted then
                         Error('Entry already posted.');
 
                     // QCLine2AWRec.Reset();
@@ -185,9 +185,9 @@ page 50687 QCHeaderCardAW
                     // if QCLine2AWRec.FindSet() then begin
 
                     intermediateRec.Reset();
-                    intermediateRec.SetRange(No, "Sample Req No");
-                    intermediateRec.SetRange("Line No", "Line No");
-                    intermediateRec.SetRange("Split No", "Split No");
+                    intermediateRec.SetRange(No, rec."Sample Req No");
+                    intermediateRec.SetRange("Line No", rec."Line No");
+                    intermediateRec.SetRange("Split No", rec."Split No");
 
                     if intermediateRec.FindSet() then begin
                         // repeat
@@ -197,8 +197,8 @@ page 50687 QCHeaderCardAW
                         // if Total > intermediateRec."Split Qty" then
                         //     Error('Total Defects quantity must be equal to the job card Qty.');
 
-                        "Total Pass Qty" := intermediateRec."AW QC Pass Qty " + "Pass Qty";
-                        "Total Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
+                        "Total Pass Qty" := intermediateRec."AW QC Pass Qty " + rec."Pass Qty";
+                        "Total Fail Qty" := intermediateRec."AW QC Fail Qty" + rec."Fail Qty";
 
                         if "Total Pass Qty" > intermediateRec."Split Qty" then
                             Error('Total pass qty should be less than or equal to job card Qty');
@@ -207,22 +207,22 @@ page 50687 QCHeaderCardAW
                             Error('Total fail qty should be less than or equal to job card Qty');
 
                         WashsamplereqlineRec.Reset();
-                        WashsamplereqlineRec.SetRange("No.", "Sample Req No");
-                        WashsamplereqlineRec.SetRange("Line no.", "Line No");
+                        WashsamplereqlineRec.SetRange("No.", rec."Sample Req No");
+                        WashsamplereqlineRec.SetRange("Line no.", rec."Line No");
 
                         if WashsamplereqlineRec.FindSet() then begin
-                            WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + "Pass Qty";
-                            WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Fail Qty (AW)" + "Fail Qty";
+                            WashsamplereqlineRec."QC Pass Qty (AW)" := WashsamplereqlineRec."QC Pass Qty (AW)" + rec."Pass Qty";
+                            WashsamplereqlineRec."QC Fail Qty (AW)" := WashsamplereqlineRec."QC Fail Qty (AW)" + rec."Fail Qty";
                         end;
 
-                        WashsamplereqlineRec."QC Date (AW)" := "QC AW Date";
+                        WashsamplereqlineRec."QC Date (AW)" := rec."QC AW Date";
                         WashsamplereqlineRec.Modify();
 
-                        intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + "Pass Qty";
-                        intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + "Fail Qty";
+                        intermediateRec."AW QC Pass Qty " := intermediateRec."AW QC Pass Qty " + rec."Pass Qty";
+                        intermediateRec."AW QC Fail Qty" := intermediateRec."AW QC Fail Qty" + rec."Fail Qty";
                         intermediateRec.Modify();
 
-                        Status := Status::Posted;
+                        rec.Status := rec.Status::Posted;
                         CurrPage.Editable(false);
                         CurrPage.Update();
                         Message('Quality checking posted.');
@@ -243,8 +243,8 @@ page 50687 QCHeaderCardAW
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."QC AW No", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."QC AW No", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -255,7 +255,7 @@ page 50687 QCHeaderCardAW
         AWQualityCheckLineRec: Record AWQualityCheckLine;
     begin
         AWQualityCheckLineRec.Reset();
-        AWQualityCheckLineRec.SetRange(No, "No.");
+        AWQualityCheckLineRec.SetRange(No, rec."No.");
         if AWQualityCheckLineRec.FindSet() then
             AWQualityCheckLineRec.DeleteAll();
     end;
@@ -264,7 +264,7 @@ page 50687 QCHeaderCardAW
     trigger OnOpenPage()
     var
     begin
-        if Status = Status::Posted then
+        if rec.Status = rec.Status::Posted then
             CurrPage.Editable(false)
         else
             CurrPage.Editable(true);

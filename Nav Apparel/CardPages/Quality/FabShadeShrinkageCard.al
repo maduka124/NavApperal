@@ -10,7 +10,7 @@ page 50699 FabShadeShrinkageCard
         {
             group(General)
             {
-                field("FabShadeNo."; "FabShadeNo.")
+                field("FabShadeNo."; rec."FabShadeNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fab. Shade No';
@@ -22,7 +22,7 @@ page 50699 FabShadeShrinkageCard
                     end;
                 }
 
-                field("Buyer Name."; "Buyer Name.")
+                field("Buyer Name."; rec."Buyer Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -32,15 +32,15 @@ page 50699 FabShadeShrinkageCard
                         CustomerRec: Record Customer;
                     begin
                         CustomerRec.Reset();
-                        CustomerRec.SetRange(Name, "Buyer Name.");
+                        CustomerRec.SetRange(Name, rec."Buyer Name.");
                         if CustomerRec.FindSet() then
-                            "Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -50,15 +50,15 @@ page 50699 FabShadeShrinkageCard
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
@@ -70,7 +70,7 @@ page 50699 FabShadeShrinkageCard
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Order No.");
-                        PurchRcpLineRec.SetRange(StyleNo, "Style No.");
+                        PurchRcpLineRec.SetRange(StyleNo, rec."Style No.");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -82,12 +82,12 @@ page 50699 FabShadeShrinkageCard
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50675, PurchRcpLineRec) = Action::LookupOK then
-                                "PO No." := PurchRcpLineRec."Order No.";
+                                rec."PO No." := PurchRcpLineRec."Order No.";
                         END;
                     END;
                 }
 
-                field(GRN; GRN)
+                field(GRN; rec.GRN)
                 {
                     ApplicationArea = All;
 
@@ -98,7 +98,7 @@ page 50699 FabShadeShrinkageCard
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Document No.");
-                        PurchRcpLineRec.SetRange("Order No.", "PO No.");
+                        PurchRcpLineRec.SetRange("Order No.", rec."PO No.");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -110,12 +110,12 @@ page 50699 FabShadeShrinkageCard
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50676, PurchRcpLineRec) = Action::LookupOK then
-                                GRN := PurchRcpLineRec."Document No.";
+                                rec.GRN := PurchRcpLineRec."Document No.";
                         END;
                     END;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
@@ -128,7 +128,7 @@ page 50699 FabShadeShrinkageCard
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Color No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
+                        PurchRcpLineRec.SetRange("Document No.", rec.GRN);
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -141,15 +141,15 @@ page 50699 FabShadeShrinkageCard
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50672, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Color No" := PurchRcpLineRec."Color No.";
-                                "Color Name" := PurchRcpLineRec."Color Name";
+                                rec."Color No" := PurchRcpLineRec."Color No.";
+                                rec."Color Name" := PurchRcpLineRec."Color Name";
                             end;
 
                         END;
                     END;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -164,8 +164,8 @@ page 50699 FabShadeShrinkageCard
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
-                        PurchRcpLineRec.SetRange("Color No.", "Color No");
+                        PurchRcpLineRec.SetRange("Document No.", rec.GRN);
+                        PurchRcpLineRec.SetRange("Color No.", rec."Color No");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -186,23 +186,23 @@ page 50699 FabShadeShrinkageCard
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50677, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Item No" := PurchRcpLineRec."No.";
-                                "No of Roll" := 0;
+                                rec."Item No" := PurchRcpLineRec."No.";
+                                rec."No of Roll" := 0;
                                 CurrPage.Update();
 
                                 ItemRec.Reset();
-                                ItemRec.SetRange("No.", "Item No");
+                                ItemRec.SetRange("No.", rec."Item No");
                                 if ItemRec.FindSet() then
-                                    "Item Name" := ItemRec.Description;
+                                    rec."Item Name" := ItemRec.Description;
 
                                 //Get No of rolls                                
                                 ItemLedEntryRec.Reset();
-                                ItemLedEntryRec.SetRange("Item No.", "Item No");
-                                ItemLedEntryRec.SetRange("Document No.", GRN);
+                                ItemLedEntryRec.SetRange("Item No.", rec."Item No");
+                                ItemLedEntryRec.SetRange("Document No.", rec.GRN);
 
                                 if ItemLedEntryRec.FindSet() then begin
                                     repeat
-                                        "No of Roll" := "No of Roll" + ItemLedEntryRec."Remaining Quantity";
+                                        rec."No of Roll" := rec."No of Roll" + ItemLedEntryRec."Remaining Quantity";
                                     until ItemLedEntryRec.Next() = 0;
                                 end;
 
@@ -214,15 +214,15 @@ page 50699 FabShadeShrinkageCard
 
                                 //Get Fabric Twist Average
                                 FabTwistHeaderRec.RESET;
-                                FabTwistHeaderRec.SetRange("Style No.", "Style No.");
-                                FabTwistHeaderRec.SetRange("Buyer No.", "Buyer No.");
-                                FabTwistHeaderRec.SetRange("PO No.", "PO No.");
-                                FabTwistHeaderRec.SetRange(GRN, GRN);
-                                FabTwistHeaderRec.SetRange("Color No", "Color No");
-                                FabTwistHeaderRec.SetRange("Item No", "Item No");
+                                FabTwistHeaderRec.SetRange("Style No.", rec."Style No.");
+                                FabTwistHeaderRec.SetRange("Buyer No.", rec."Buyer No.");
+                                FabTwistHeaderRec.SetRange("PO No.", rec."PO No.");
+                                FabTwistHeaderRec.SetRange(GRN, rec.GRN);
+                                FabTwistHeaderRec.SetRange("Color No", rec."Color No");
+                                FabTwistHeaderRec.SetRange("Item No", rec."Item No");
 
                                 IF FabTwistHeaderRec.FindSet() THEN
-                                    "Fab Twist Avg" := FabTwistHeaderRec.Avg;
+                                    rec."Fab Twist Avg" := FabTwistHeaderRec.Avg;
 
                                 CurrPage.Update();
                             end;
@@ -230,7 +230,7 @@ page 50699 FabShadeShrinkageCard
                     END;
                 }
 
-                field("Fabric Code"; "Fabric Code")
+                field("Fabric Code"; rec."Fabric Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric';
@@ -240,40 +240,40 @@ page 50699 FabShadeShrinkageCard
                         FabicCodeRec: Record FabricCodeMaster;
                     begin
                         FabicCodeRec.Reset();
-                        FabicCodeRec.SetRange(FabricCode, "Fabric Code");
+                        FabicCodeRec.SetRange(FabricCode, rec."Fabric Code");
                         if FabicCodeRec.FindSet() then begin
-                            Composition := FabicCodeRec.Composition;
-                            Construction := FabicCodeRec.Construction;
+                            rec.Composition := FabicCodeRec.Composition;
+                            rec.Construction := FabicCodeRec.Construction;
                         end;
                     end;
                 }
 
-                field(Composition; Composition)
+                field(Composition; rec.Composition)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Construction; Construction)
+                field(Construction; rec.Construction)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("No of Roll"; "No of Roll")
+                field("No of Roll"; rec."No of Roll")
                 {
                     ApplicationArea = All;
                     Caption = 'No of Rolls';
                     Editable = false;
                 }
 
-                field("Fab Twist Avg"; "Fab Twist Avg")
+                field("Fab Twist Avg"; rec."Fab Twist Avg")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Approved Shade"; "Approved Shade")
+                field("Approved Shade"; rec."Approved Shade")
                 {
                     ApplicationArea = All;
                 }
@@ -337,8 +337,8 @@ page 50699 FabShadeShrinkageCard
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabShadShrink Nos.", xRec."FabShadeNo.", "FabShadeNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("FabShadeNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabShadShrink Nos.", xRec."FabShadeNo.", rec."FabShadeNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."FabShadeNo.");
             EXIT(TRUE);
         END;
     end;
@@ -366,22 +366,22 @@ page 50699 FabShadeShrinkageCard
 
         //Get Max line no
         FabShadeShriLine1Rec.Reset();
-        FabShadeShriLine1Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine1Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
 
         if FabShadeShriLine1Rec.FindLast() then
             Lineno := FabShadeShriLine1Rec."Line No.";
 
         //Deleet old records
         FabShadeShriLine1Rec.Reset();
-        FabShadeShriLine1Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine1Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeShriLine1Rec.FindSet() then
             FabShadeShriLine1Rec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
         FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", "Item No");
-        FabProLineRec.SetRange(GRN, GRN);
+        FabProLineRec.SetRange("Item No", rec."Item No");
+        FabProLineRec.SetRange(GRN, rec.GRN);
         FabProLineRec.SetCurrentKey(Shade);
 
         if FabProLineRec.FindSet() then begin
@@ -392,7 +392,7 @@ page 50699 FabShadeShrinkageCard
                     Shade := FabProLineRec.Shade;
 
                     FabShadeShriLine1Rec.Init();
-                    FabShadeShriLine1Rec."FabShadeNo." := "FabShadeNo.";
+                    FabShadeShriLine1Rec."FabShadeNo." := rec."FabShadeNo.";
                     FabShadeShriLine1Rec."Line No." := Lineno;
                     FabShadeShriLine1Rec."Total Rolls" := FabProLineRec.Qty;
                     FabShadeShriLine1Rec."Total YDS" := FabProLineRec.YDS;
@@ -404,7 +404,7 @@ page 50699 FabShadeShrinkageCard
                 else begin
 
                     FabShadeShriLine1Rec.Reset();
-                    FabShadeShriLine1Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                    FabShadeShriLine1Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
                     FabShadeShriLine1Rec.SetRange("Shade No", ShadeNo);
 
                     if FabShadeShriLine1Rec.FindSet() then begin
@@ -430,22 +430,22 @@ page 50699 FabShadeShrinkageCard
 
         //Get Max line no
         FabShadeShriLine2Rec.Reset();
-        FabShadeShriLine2Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
 
         if FabShadeShriLine2Rec.FindLast() then
             Lineno := FabShadeShriLine2Rec."Line No.";
 
         //Deleet old records
         FabShadeShriLine2Rec.Reset();
-        FabShadeShriLine2Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeShriLine2Rec.FindSet() then
             FabShadeShriLine2Rec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
         FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", "Item No");
-        FabProLineRec.SetRange(GRN, GRN);
+        FabProLineRec.SetRange("Item No", rec."Item No");
+        FabProLineRec.SetRange(GRN, rec.GRN);
         FabProLineRec.SetCurrentKey("Act. Width");
 
         if FabProLineRec.FindSet() then begin
@@ -456,7 +456,7 @@ page 50699 FabShadeShrinkageCard
                     ActWidth := FabProLineRec."Act. Width";
 
                     FabShadeShriLine2Rec.Init();
-                    FabShadeShriLine2Rec."FabShadeNo." := "FabShadeNo.";
+                    FabShadeShriLine2Rec."FabShadeNo." := rec."FabShadeNo.";
                     FabShadeShriLine2Rec."Line No." := Lineno;
                     FabShadeShriLine2Rec."Total Rolls" := FabProLineRec.Qty;
                     FabShadeShriLine2Rec."Total YDS" := FabProLineRec.YDS;
@@ -467,7 +467,7 @@ page 50699 FabShadeShrinkageCard
                 else begin
 
                     FabShadeShriLine2Rec.Reset();
-                    FabShadeShriLine2Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                    FabShadeShriLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
                     FabShadeShriLine2Rec.SetRange(Width, FabProLineRec."Act. Width");
 
                     if FabShadeShriLine2Rec.FindSet() then begin
@@ -493,22 +493,22 @@ page 50699 FabShadeShrinkageCard
 
         //Get Max line no
         FabShadeShriLine3Rec.Reset();
-        FabShadeShriLine3Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine3Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
 
         if FabShadeShriLine3Rec.FindLast() then
             Lineno := FabShadeShriLine3Rec."Line No.";
 
         //Deleet old records
         FabShadeShriLine3Rec.Reset();
-        FabShadeShriLine3Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine3Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeShriLine3Rec.FindSet() then
             FabShadeShriLine3Rec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
         FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", "Item No");
-        FabProLineRec.SetRange(GRN, GRN);
+        FabProLineRec.SetRange("Item No", rec."Item No");
+        FabProLineRec.SetRange(GRN, rec.GRN);
         FabProLineRec.SetCurrentKey("Length%");
 
         if FabProLineRec.FindSet() then begin
@@ -519,7 +519,7 @@ page 50699 FabShadeShrinkageCard
                     SHR := FabProLineRec."Length%";
 
                     FabShadeShriLine3Rec.Init();
-                    FabShadeShriLine3Rec."FabShadeNo." := "FabShadeNo.";
+                    FabShadeShriLine3Rec."FabShadeNo." := rec."FabShadeNo.";
                     FabShadeShriLine3Rec."Line No." := Lineno;
                     FabShadeShriLine3Rec."Total Rolls" := FabProLineRec.Qty;
                     FabShadeShriLine3Rec.Shrinkage := FabProLineRec."Length%";
@@ -529,7 +529,7 @@ page 50699 FabShadeShrinkageCard
                 else begin
 
                     FabShadeShriLine3Rec.Reset();
-                    FabShadeShriLine3Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                    FabShadeShriLine3Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
                     FabShadeShriLine3Rec.SetRange(Shrinkage, FabProLineRec."Length%");
 
                     if FabShadeShriLine3Rec.FindSet() then begin
@@ -554,22 +554,22 @@ page 50699 FabShadeShrinkageCard
 
         //Get Max line no
         FabShadeShriLine4Rec.Reset();
-        FabShadeShriLine4Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine4Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
 
         if FabShadeShriLine4Rec.FindLast() then
             Lineno := FabShadeShriLine4Rec."Line No.";
 
         //Deleet old records
         FabShadeShriLine4Rec.Reset();
-        FabShadeShriLine4Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine4Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeShriLine4Rec.FindSet() then
             FabShadeShriLine4Rec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
         FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", "Item No");
-        FabProLineRec.SetRange(GRN, GRN);
+        FabProLineRec.SetRange("Item No", rec."Item No");
+        FabProLineRec.SetRange(GRN, rec.GRN);
         FabProLineRec.SetCurrentKey("WiDth%");
 
         if FabProLineRec.FindSet() then begin
@@ -580,7 +580,7 @@ page 50699 FabShadeShrinkageCard
                     SHR := FabProLineRec."WiDth%";
 
                     FabShadeShriLine4Rec.Init();
-                    FabShadeShriLine4Rec."FabShadeNo." := "FabShadeNo.";
+                    FabShadeShriLine4Rec."FabShadeNo." := rec."FabShadeNo.";
                     FabShadeShriLine4Rec."Line No." := Lineno;
                     FabShadeShriLine4Rec."Total Rolls" := FabProLineRec.Qty;
                     FabShadeShriLine4Rec."WIDTH Shrinkage" := FabProLineRec."WiDth%";
@@ -590,7 +590,7 @@ page 50699 FabShadeShrinkageCard
                 else begin
 
                     FabShadeShriLine4Rec.Reset();
-                    FabShadeShriLine4Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+                    FabShadeShriLine4Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
                     FabShadeShriLine4Rec.SetRange("WIDTH Shrinkage", FabProLineRec."WiDth%");
 
                     if FabShadeShriLine4Rec.FindSet() then begin
@@ -616,22 +616,22 @@ page 50699 FabShadeShrinkageCard
 
         //Get Max line no
         FabShadeShriLine5Rec.Reset();
-        FabShadeShriLine5Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine5Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
 
         if FabShadeShriLine5Rec.FindLast() then
             Lineno := FabShadeShriLine5Rec."Line No.";
 
         //Deleet old records
         FabShadeShriLine5Rec.Reset();
-        FabShadeShriLine5Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeShriLine5Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeShriLine5Rec.FindSet() then
             FabShadeShriLine5Rec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
         FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", "Item No");
-        FabProLineRec.SetRange(GRN, GRN);
+        FabProLineRec.SetRange("Item No", rec."Item No");
+        FabProLineRec.SetRange(GRN, rec.GRN);
         FabProLineRec.SetCurrentKey("PTTN GRP");
 
         if FabProLineRec.FindSet() then begin
@@ -642,7 +642,7 @@ page 50699 FabShadeShrinkageCard
                     Pattern := FabProLineRec."PTTN GRP";
 
                     FabShadeShriLine5Rec.Init();
-                    FabShadeShriLine5Rec."FabShadeNo." := "FabShadeNo.";
+                    FabShadeShriLine5Rec."FabShadeNo." := rec."FabShadeNo.";
                     FabShadeShriLine5Rec."Line No." := Lineno;
                     FabShadeShriLine5Rec.Pattern := FabProLineRec."PTTN GRP";
 

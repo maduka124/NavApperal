@@ -4,7 +4,7 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
     {
         addafter("Preferred Resource")
         {
-            field("Service due date"; "Service due date")
+            field("Service due date"; rec."Service due date")
             {
                 ApplicationArea = All;
 
@@ -12,12 +12,12 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                 var
 
                 begin
-                    if "Service due date" < Today then
+                    if rec."Service due date" < Today then
                         Error('Service due date is less than Todays date');
                 end;
             }
 
-            field("Work center Name"; "Work center Name")
+            field("Work center Name"; rec."Work center Name")
             {
                 ApplicationArea = All;
 
@@ -26,34 +26,34 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                     WorkCenterRec: Record "Work Center";
                 begin
                     WorkCenterRec.Reset();
-                    WorkCenterRec.SetRange(Name, "Work center Name");
+                    WorkCenterRec.SetRange(Name, rec."Work center Name");
 
                     if WorkCenterRec.FindSet() then
-                        "Work center Code" := WorkCenterRec."No.";
+                        rec."Work center Code" := WorkCenterRec."No.";
                 end;
             }
 
-            field("Service Period"; "Service Period")
+            field("Service Period"; rec."Service Period")
             {
                 ApplicationArea = All;
             }
 
-            field("Model"; "Model")
+            field("Model"; rec."Model")
             {
                 ApplicationArea = All;
             }
 
-            field(Brand; Brand)
+            field(Brand; rec.Brand)
             {
                 ApplicationArea = All;
             }
 
-            field("Purchase Year"; "Purchase Year")
+            field("Purchase Year"; rec."Purchase Year")
             {
                 ApplicationArea = All;
             }
 
-            field(Factory; Factory)
+            field(Factory; rec.Factory)
             {
                 ApplicationArea = All;
 
@@ -62,13 +62,13 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                     LocationRec: Record Location;
                 begin
                     LocationRec.Reset();
-                    LocationRec.SetRange(Name, "Factory");
+                    LocationRec.SetRange(Name, rec."Factory");
                     if LocationRec.FindSet() then
-                        "Factory Code" := LocationRec."code";
+                        rec."Factory Code" := LocationRec."code";
                 end;
             }
 
-            field(Location; Location)
+            field(Location; rec.Location)
             {
                 ApplicationArea = All;
 
@@ -77,13 +77,13 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                     DepartmentRec: Record Department;
                 begin
                     DepartmentRec.Reset();
-                    DepartmentRec.SetRange("Department Name", "Location");
+                    DepartmentRec.SetRange("Department Name", rec."Location");
                     if DepartmentRec.FindSet() then
-                        "Location Code" := DepartmentRec."No.";
+                        rec."Location Code" := DepartmentRec."No.";
                 end;
             }
 
-            field("Machine Category"; "Machine Category")
+            field("Machine Category"; rec."Machine Category")
             {
                 ApplicationArea = All;
 
@@ -92,13 +92,13 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                     MachineRec: Record "Machine Master";
                 begin
                     MachineRec.Reset();
-                    MachineRec.SetRange("Machine Description", "Machine Category");
+                    MachineRec.SetRange("Machine Description", rec."Machine Category");
                     if MachineRec.FindSet() then
-                        "Machine Category Code" := MachineRec."Machine No.";
+                        rec."Machine Category Code" := MachineRec."Machine No.";
                 end;
             }
 
-            field(Ownership; Ownership)
+            field(Ownership; rec.Ownership)
             {
                 ApplicationArea = All;
 
@@ -107,13 +107,13 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                     LocationRec: Record Location;
                 begin
                     LocationRec.Reset();
-                    LocationRec.SetRange(Name, "Ownership");
+                    LocationRec.SetRange(Name, rec."Ownership");
                     if LocationRec.FindSet() then
-                        "Ownership Code" := LocationRec."code";
+                        rec."Ownership Code" := LocationRec."code";
                 end;
             }
 
-            field("Global Dimension Code"; "Global Dimension Code")
+            field("Global Dimension Code"; rec."Global Dimension Code")
             {
                 ApplicationArea = All;
             }

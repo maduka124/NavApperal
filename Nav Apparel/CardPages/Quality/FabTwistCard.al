@@ -10,7 +10,7 @@ page 50690 "FabTwistCard"
         {
             group(General)
             {
-                field("FabTwistNo."; "FabTwistNo.")
+                field("FabTwistNo."; rec."FabTwistNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fab. Twist No';
@@ -22,7 +22,7 @@ page 50690 "FabTwistCard"
                     end;
                 }
 
-                field("Buyer Name."; "Buyer Name.")
+                field("Buyer Name."; rec."Buyer Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -32,15 +32,15 @@ page 50690 "FabTwistCard"
                         CustomerRec: Record Customer;
                     begin
                         CustomerRec.Reset();
-                        CustomerRec.SetRange(Name, "Buyer Name.");
+                        CustomerRec.SetRange(Name, rec."Buyer Name.");
                         if CustomerRec.FindSet() then
-                            "Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -50,15 +50,15 @@ page 50690 "FabTwistCard"
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
@@ -70,7 +70,7 @@ page 50690 "FabTwistCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Order No.");
-                        PurchRcpLineRec.SetRange(StyleNo, "Style No.");
+                        PurchRcpLineRec.SetRange(StyleNo, rec."Style No.");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -82,12 +82,12 @@ page 50690 "FabTwistCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50675, PurchRcpLineRec) = Action::LookupOK then
-                                "PO No." := PurchRcpLineRec."Order No.";
+                                rec."PO No." := PurchRcpLineRec."Order No.";
                         END;
                     END;
                 }
 
-                field(GRN; GRN)
+                field(GRN; rec.GRN)
                 {
                     ApplicationArea = All;
 
@@ -98,7 +98,7 @@ page 50690 "FabTwistCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Document No.");
-                        PurchRcpLineRec.SetRange("Order No.", "PO No.");
+                        PurchRcpLineRec.SetRange("Order No.", rec."PO No.");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -110,12 +110,12 @@ page 50690 "FabTwistCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50676, PurchRcpLineRec) = Action::LookupOK then
-                                GRN := PurchRcpLineRec."Document No.";
+                                rec.GRN := PurchRcpLineRec."Document No.";
                         END;
                     END;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
@@ -128,7 +128,7 @@ page 50690 "FabTwistCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Color No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
+                        PurchRcpLineRec.SetRange("Document No.", rec.GRN);
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -141,15 +141,15 @@ page 50690 "FabTwistCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50672, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Color No" := PurchRcpLineRec."Color No.";
-                                "Color Name" := PurchRcpLineRec."Color Name";
+                                rec."Color No" := PurchRcpLineRec."Color No.";
+                                rec."Color Name" := PurchRcpLineRec."Color Name";
                             end;
 
                         END;
                     END;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -162,8 +162,8 @@ page 50690 "FabTwistCard"
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("No.");
-                        PurchRcpLineRec.SetRange("Document No.", GRN);
-                        PurchRcpLineRec.SetRange("Color No.", "Color No");
+                        PurchRcpLineRec.SetRange("Document No.", rec.GRN);
+                        PurchRcpLineRec.SetRange("Color No.", rec."Color No");
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -184,13 +184,13 @@ page 50690 "FabTwistCard"
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50677, PurchRcpLineRec) = Action::LookupOK then begin
-                                "Item No" := PurchRcpLineRec."No.";
+                                rec."Item No" := PurchRcpLineRec."No.";
                                 CurrPage.Update();
 
                                 ItemRec.Reset();
-                                ItemRec.SetRange("No.", "Item No");
+                                ItemRec.SetRange("No.", rec."Item No");
                                 if ItemRec.FindSet() then
-                                    "Item Name" := ItemRec.Description;
+                                    rec."Item Name" := ItemRec.Description;
 
                                 //Get Roll details
                                 Get_Roll_details();
@@ -201,7 +201,7 @@ page 50690 "FabTwistCard"
                     END;
                 }
 
-                field("Fabric Code"; "Fabric Code")
+                field("Fabric Code"; rec."Fabric Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric';
@@ -211,27 +211,27 @@ page 50690 "FabTwistCard"
                         FabicCodeRec: Record FabricCodeMaster;
                     begin
                         FabicCodeRec.Reset();
-                        FabicCodeRec.SetRange(FabricCode, "Fabric Code");
+                        FabicCodeRec.SetRange(FabricCode, rec."Fabric Code");
                         if FabicCodeRec.FindSet() then begin
-                            Composition := FabicCodeRec.Composition;
-                            Construction := FabicCodeRec.Construction;
+                            rec.Composition := FabicCodeRec.Composition;
+                            rec.Construction := FabicCodeRec.Construction;
                         end;
                     end;
                 }
 
-                field(Composition; Composition)
+                field(Composition; rec.Composition)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Construction; Construction)
+                field(Construction; rec.Construction)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Avg; Avg)
+                field(Avg; rec.Avg)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -258,8 +258,8 @@ page 50690 "FabTwistCard"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabTwist Nos.", xRec."FabTwistNo.", "FabTwistNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("FabTwistNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabTwist Nos.", xRec."FabTwistNo.", rec."FabTwistNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."FabTwistNo.");
             EXIT(TRUE);
         END;
     end;
@@ -270,7 +270,7 @@ page 50690 "FabTwistCard"
         FabTwistLineRec: Record FabTwistLine;
     begin
         FabTwistLineRec.reset();
-        FabTwistLineRec.SetRange("FabTwistNo.", "FabTwistNo.");
+        FabTwistLineRec.SetRange("FabTwistNo.", rec."FabTwistNo.");
         if FabTwistLineRec.FindSet() then
             FabTwistLineRec.DeleteAll();
     end;
@@ -285,29 +285,29 @@ page 50690 "FabTwistCard"
 
         //Get Max line no
         FabTwistLineRec.Reset();
-        FabTwistLineRec.SetRange("FabTwistNo.", "FabTwistNo.");
+        FabTwistLineRec.SetRange("FabTwistNo.", rec."FabTwistNo.");
 
         if FabTwistLineRec.FindLast() then
             Lineno := FabTwistLineRec."Line No.";
 
         //Deleet old records
         FabTwistLineRec.Reset();
-        FabTwistLineRec.SetRange("FabTwistNo.", "FabTwistNo.");
+        FabTwistLineRec.SetRange("FabTwistNo.", rec."FabTwistNo.");
         if FabTwistLineRec.FindSet() then
             FabTwistLineRec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
         ItemLedEntryRec.Reset();
-        ItemLedEntryRec.SetRange("Item No.", "Item No");
-        ItemLedEntryRec.SetRange("Document No.", GRN);
+        ItemLedEntryRec.SetRange("Item No.", rec."Item No");
+        ItemLedEntryRec.SetRange("Document No.", rec.GRN);
 
         if ItemLedEntryRec.FindSet() then begin
             repeat
                 Lineno += 1;
                 if ItemLedEntryRec."Remaining Quantity" > 0 then begin
                     FabTwistLineRec.Init();
-                    FabTwistLineRec."FabTwistNo." := "FabTwistNo.";
+                    FabTwistLineRec."FabTwistNo." := rec."FabTwistNo.";
                     FabTwistLineRec."Line No." := Lineno;
                     FabTwistLineRec."RollID" := ItemLedEntryRec."Lot No.";
                     FabTwistLineRec."Color No" := ItemLedEntryRec."Color No";

@@ -22,4 +22,25 @@ pageextension 50833 ItemjournalExt extends "Item Journal"
         //     }
         // }
     }
+
+    actions
+    {
+        addafter("P&osting")
+        {
+            action(Print)
+            {
+                ApplicationArea = all;
+                Image = Print;
+
+                trigger OnAction()
+                var
+                    GeneralIssueRec: Report generalIssueReportItem;
+                begin
+                    GeneralIssueRec.Set_value(Rec."Document No.");
+                    GeneralIssueRec.Set_batch(Rec."Location Code");
+                    GeneralIssueRec.RunModal();
+                end;
+            }
+        }
+    }
 }

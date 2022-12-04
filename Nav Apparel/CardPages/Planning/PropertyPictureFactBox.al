@@ -12,12 +12,12 @@ page 50341 "Property Picture FactBox"
                 GridLayout = Rows;
                 group(" ")
                 {
-                    field(Front; Front)
+                    field(Front; rec.Front)
                     {
                         ApplicationArea = All;
                         Caption = 'Front';
                     }
-                    field(Back; Back)
+                    field(Back; rec.Back)
                     {
                         ApplicationArea = All;
                         Caption = 'Back';

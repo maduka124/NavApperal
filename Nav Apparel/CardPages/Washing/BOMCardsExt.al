@@ -4,12 +4,12 @@ pageextension 50755 WashinBOMCards extends "Production BOM"
     {
         addafter("Last Date Modified")
         {
-            field("BOM Type"; "BOM Type")
+            field("BOM Type"; rec."BOM Type")
             {
                 ApplicationArea = All;
             }
 
-            field("Style Name"; "Style Name")
+            field("Style Name"; rec."Style Name")
             {
                 ApplicationArea = All;
 
@@ -22,9 +22,9 @@ pageextension 50755 WashinBOMCards extends "Production BOM"
                 begin
 
                     StyleMasRec.Reset();
-                    StyleMasRec.SetRange("Style No.", "Style Name");
+                    StyleMasRec.SetRange("Style No.", rec."Style Name");
                     if StyleMasRec.FindSet() then
-                        "Style No." := StyleMasRec."No.";
+                        rec."Style No." := StyleMasRec."No.";
 
                     CurrPage.Update();
 
@@ -55,12 +55,12 @@ pageextension 50755 WashinBOMCards extends "Production BOM"
                 end;
             }
 
-            field(Lot; Lot)
+            field(Lot; rec.Lot)
             {
                 ApplicationArea = All;
             }
 
-            field(Color; Color)
+            field(Color; rec.Color)
             {
                 ApplicationArea = All;
 
@@ -69,9 +69,9 @@ pageextension 50755 WashinBOMCards extends "Production BOM"
                     StyleColorRec: Record StyleColor;
                 begin
                     StyleColorRec.Reset();
-                    StyleColorRec.SetRange(Color, Color);
+                    StyleColorRec.SetRange(Color, rec.Color);
                     if StyleColorRec.FindSet() then
-                        ColorCode := StyleColorRec."Color No.";
+                        rec.ColorCode := StyleColorRec."Color No.";
                 end;
             }
         }
@@ -80,12 +80,12 @@ pageextension 50755 WashinBOMCards extends "Production BOM"
         {
             group(Washing)
             {
-                field("Lot Size (Kg)"; "Lot Size (Kg)")
+                field("Lot Size (Kg)"; rec."Lot Size (Kg)")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Wash Type"; "Wash Type")
+                field("Wash Type"; rec."Wash Type")
                 {
                     ApplicationArea = All;
 
@@ -94,18 +94,18 @@ pageextension 50755 WashinBOMCards extends "Production BOM"
                         WashTypeRec: Record "Wash Type";
                     begin
                         WashTypeRec.Reset();
-                        WashTypeRec.SetRange("Wash Type Name", "Wash Type");
+                        WashTypeRec.SetRange("Wash Type Name", rec."Wash Type");
                         if WashTypeRec.FindSet() then
-                            "Wash Type No" := WashTypeRec."No.";
+                            rec."Wash Type No" := WashTypeRec."No.";
                     end;
                 }
 
-                field("Bulk/Sample"; "Bulk/Sample")
+                field("Bulk/Sample"; rec."Bulk/Sample")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Machine Type"; "Machine Type")
+                field("Machine Type"; rec."Machine Type")
                 {
                     ApplicationArea = All;
 
@@ -114,9 +114,9 @@ pageextension 50755 WashinBOMCards extends "Production BOM"
                         WashingMachineTypeRec: Record WashingMachineType;
                     begin
                         WashingMachineTypeRec.Reset();
-                        WashingMachineTypeRec.SetRange(Description, "Machine Type");
+                        WashingMachineTypeRec.SetRange(Description, rec."Machine Type");
                         if WashingMachineTypeRec.FindSet() then
-                            "Machine Type Code" := WashingMachineTypeRec.code;
+                            rec."Machine Type Code" := WashingMachineTypeRec.code;
                     end;
                 }
             }
@@ -151,7 +151,7 @@ pageextension 50755 WashinBOMCards extends "Production BOM"
     var
     begin
         if NoGb <> '' then begin
-            "No." := NoGb;
+            rec."No." := NoGb;
             Editable := EditableGb;
         end;
     end;
