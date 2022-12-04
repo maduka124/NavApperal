@@ -11,59 +11,59 @@ page 50694 FabShadeList
         {
             repeater(General)
             {
-                field("FabShadeNo."; "FabShadeNo.")
+                field("FabShadeNo."; rec."FabShadeNo.")
                 {
                     ApplicationArea = all;
                     Caption = 'Fab. Shade No';
                 }
 
-                field("Buyer Name."; "Buyer Name.")
+                field("Buyer Name."; rec."Buyer Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO';
                 }
 
-                field(GRN; GRN)
+                field(GRN; rec.GRN)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
                 }
 
-                field("Fabric Code"; "Fabric Code")
+                field("Fabric Code"; rec."Fabric Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric';
                 }
 
-                field(Composition; Composition)
+                field(Composition; rec.Composition)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Construction; Construction)
+                field(Construction; rec.Construction)
                 {
                     ApplicationArea = All;
                 }
@@ -76,7 +76,7 @@ page 50694 FabShadeList
         FabShadeLine1Rec: Record FabShadeLine1;
     begin
         FabShadeLine1Rec.reset();
-        FabShadeLine1Rec.SetRange("FabShadeNo.", "FabShadeNo.");
+        FabShadeLine1Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
         if FabShadeLine1Rec.FindSet() then
             FabShadeLine1Rec.DeleteAll();
     end;

@@ -14,18 +14,18 @@ page 50429 "Sample Room List"
         {
             repeater(General)
             {
-                field("Sample Room No."; "Sample Room No.")
+                field("Sample Room No."; rec."Sample Room No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Room No';
                 }
 
-                field("Sample Room Name"; "Sample Room Name")
+                field("Sample Room Name"; rec."Sample Room Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Global Dimension Code"; "Global Dimension Code")
+                field("Global Dimension Code"; rec."Global Dimension Code")
                 {
                     ApplicationArea = All;
                 }

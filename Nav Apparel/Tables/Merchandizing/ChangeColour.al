@@ -1,5 +1,5 @@
 
-table 71012809 "Change Colour"
+table 50899 "Change Colour"
 {
     DataClassification = ToBeClassified;
 

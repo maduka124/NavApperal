@@ -1,5 +1,5 @@
 
-table 71012843 "BOM Estima Cost Line Revision"
+table 50891 "BOM Estima Cost Line Revision"
 {
     DataClassification = ToBeClassified;
 

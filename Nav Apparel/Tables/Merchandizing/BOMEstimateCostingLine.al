@@ -1,5 +1,5 @@
 
-table 71012767 "BOM Estimate Costing Line"
+table 50890 "BOM Estimate Costing Line"
 {
     DataClassification = ToBeClassified;
     //LookupPageId = 50265;
@@ -60,5 +60,5 @@ table 71012767 "BOM Estimate Costing Line"
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end; 
+    end;
 }

@@ -14,79 +14,79 @@ page 50867 SAH_FactoryCapacityListPart
         {
             repeater(General)
             {
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     //Editable = JAN_EDITABLE;
                 }
 
-                field(JAN; JAN)
+                field(JAN; rec.JAN)
                 {
                     ApplicationArea = All;
                     //Editable = JAN_EDITABLE;
                 }
 
-                field(FEB; FEB)
+                field(FEB; rec.FEB)
                 {
                     ApplicationArea = All;
                     //Editable = FEB_EDITABLE;
                 }
 
-                field(MAR; MAR)
+                field(MAR; rec.MAR)
                 {
                     ApplicationArea = All;
                     //Editable = MAR_EDITABLE;
                 }
 
-                field(APR; APR)
+                field(APR; rec.APR)
                 {
                     ApplicationArea = All;
                     //Editable = APR_EDITABLE;
                 }
 
-                field(MAY; MAY)
+                field(MAY; rec.MAY)
                 {
                     ApplicationArea = All;
                     //Editable = MAY_EDITABLE;
                 }
 
-                field(JUN; JUN)
+                field(JUN; rec.JUN)
                 {
                     ApplicationArea = All;
                     //Editable = JUN_EDITABLE;
                 }
 
-                field(JUL; JUL)
+                field(JUL; rec.JUL)
                 {
                     ApplicationArea = All;
                     //Editable = JUL_EDITABLE;
                 }
 
-                field(AUG; AUG)
+                field(AUG; rec.AUG)
                 {
                     ApplicationArea = All;
                     //Editable = AUG_EDITABLE;
                 }
 
-                field(SEP; SEP)
+                field(SEP; rec.SEP)
                 {
                     ApplicationArea = All;
                     //Editable = SEP_EDITABLE;
                 }
 
-                field(OCT; OCT)
+                field(OCT; rec.OCT)
                 {
                     ApplicationArea = All;
                     //Editable = OCT_EDITABLE;
                 }
 
-                field(NOV; NOV)
+                field(NOV; rec.NOV)
                 {
                     ApplicationArea = All;
                     //Editable = NOV_EDITABLE;
                 }
 
-                field(DEC; DEC)
+                field(DEC; rec.DEC)
                 {
                     ApplicationArea = All;
                     //Editable = DEC_EDITABLE;
@@ -288,7 +288,7 @@ page 50867 SAH_FactoryCapacityListPart
     // end;
 
 
-     var
+    var
         Month: Integer;
         JAN_EDITABLE: Boolean;
         FEB_EDITABLE: Boolean;

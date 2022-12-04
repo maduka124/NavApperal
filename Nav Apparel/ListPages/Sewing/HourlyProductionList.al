@@ -14,18 +14,18 @@ page 50518 "Hourly Production List"
         {
             repeater(General)
             {
-                field("Prod Date"; "Prod Date")
+                field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                 }
@@ -37,7 +37,7 @@ page 50518 "Hourly Production List"
     var
         HourlyProdLinesRec: Record "Hourly Production Lines";
     begin
-        HourlyProdLinesRec.SetRange("No.", "No.");
+        HourlyProdLinesRec.SetRange("No.", rec."No.");
         HourlyProdLinesRec.DeleteAll();
     end;
 }

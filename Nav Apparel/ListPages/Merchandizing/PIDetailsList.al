@@ -13,57 +13,57 @@ page 71012789 "Proforma Invoice Details List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Doc No';
                 }
 
-                field("PI No"; "PI No")
+                field("PI No"; rec."PI No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PI Date"; "PI Date")
+                field("PI Date"; rec."PI Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PI Value"; "PI Value")
+                field("PI Value"; rec."PI Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Supplier Name"; "Supplier Name")
+                field("Supplier Name"; rec."Supplier Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
                 }
 
-                field("Payment Mode Name"; "Payment Mode Name")
+                field("Payment Mode Name"; rec."Payment Mode Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Payment Mode';
                 }
 
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; rec."Shipment Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
@@ -77,10 +77,10 @@ page 71012789 "Proforma Invoice Details List"
         PIPoDetailsRec: Record "PI Po Details";
         PIPoItemsDetailsRec: Record "PI Po Item Details";
     begin
-        PIPoDetailsRec.SetRange("PI No.", "PI No");
+        PIPoDetailsRec.SetRange("PI No.", rec."PI No");
         PIPoDetailsRec.DeleteAll();
 
-        PIPoItemsDetailsRec.SetRange("PI No.", "PI No");
+        PIPoItemsDetailsRec.SetRange("PI No.", rec."PI No");
         PIPoItemsDetailsRec.DeleteAll();
     end;
 }

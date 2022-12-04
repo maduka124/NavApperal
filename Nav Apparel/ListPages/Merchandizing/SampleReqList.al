@@ -14,37 +14,37 @@ page 71012771 "Sample Request"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Request No';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Wash Type Name"; "Wash Type Name")
+                field("Wash Type Name"; rec."Wash Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Type';
                 }
 
                 //Done By Sachith -22/10/20
-                field("Global Dimension Code"; "Global Dimension Code")
+                field("Global Dimension Code"; rec."Global Dimension Code")
                 {
                     ApplicationArea = All;
                 }
@@ -60,19 +60,19 @@ page 71012771 "Sample Request"
         SampleReqDocRec: Record "Sample Requsition Doc";
     begin
 
-        if WriteToMRPStatus = 1 then
+        if rec.WriteToMRPStatus = 1 then
             Error('Sample request has been posted already. You cannot delete.');
 
         SampleReqLineRec.Reset();
-        SampleReqLineRec.SetRange("No.", "No.");
+        SampleReqLineRec.SetRange("No.", rec."No.");
         SampleReqLineRec.DeleteAll();
 
         SampleReqAcceRec.Reset();
-        SampleReqAcceRec.SetRange("No.", "No.");
+        SampleReqAcceRec.SetRange("No.", rec."No.");
         SampleReqAcceRec.DeleteAll();
 
         SampleReqDocRec.Reset();
-        SampleReqDocRec.SetRange("No.", "No.");
+        SampleReqDocRec.SetRange("No.", rec."No.");
         SampleReqDocRec.DeleteAll();
 
     end;

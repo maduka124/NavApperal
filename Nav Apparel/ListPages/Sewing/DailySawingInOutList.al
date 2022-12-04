@@ -13,30 +13,30 @@ page 50356 "Daily Sewing In/Out"
         {
             repeater(General)
             {
-                field("Prod Date"; "Prod Date")
+                field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Production Date';
                 }
 
-                field("Resource Name"; "Resource Name")
+                field("Resource Name"; rec."Resource Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Resource';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Resource';
                 }
 
-                field("PO No"; "PO No")
+                field("PO No"; rec."PO No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Output Qty"; "Output Qty")
+                field("Output Qty"; rec."Output Qty")
                 {
                     ApplicationArea = All;
                 }
@@ -49,7 +49,7 @@ page 50356 "Daily Sewing In/Out"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
-        NavAppCodeUnit.Delete_Prod_Records("No.", "Style No.", "PO No", 'IN', 'Saw', Type::Saw);
-        NavAppCodeUnit.Delete_Prod_Records("No.", "Style No.", "PO No", 'OUT', 'Saw', Type::Saw);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'IN', 'Saw', rec.Type::Saw);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'OUT', 'Saw', rec.Type::Saw);
     end;
 }

@@ -14,32 +14,32 @@ page 50731 "Service Wrks Line List part"
         {
             repeater(General)
             {
-                field("Service Item No"; "Service Item No")
+                field("Service Item No"; rec."Service Item No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Service Item Name"; "Service Item Name")
+                field("Service Item Name"; rec."Service Item Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Work Center Name"; "Work Center Name")
+                field("Work Center Name"; rec."Work Center Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Work Center';
                     Editable = false;
                 }
 
-                field("Service Date"; "Service Date")
+                field("Service Date"; rec."Service Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Standard Service Desc"; "Standard Service Desc")
+                field("Standard Service Desc"; rec."Standard Service Desc")
                 {
                     ApplicationArea = All;
                     Caption = 'Standard Service Code';
@@ -50,31 +50,31 @@ page 50731 "Service Wrks Line List part"
                         StanSerCodeRec: Record "Standard Service Code";
                     begin
                         StanSerCodeRec.Reset();
-                        StanSerCodeRec.SetRange(Description, "Standard Service Desc");
+                        StanSerCodeRec.SetRange(Description, rec."Standard Service Desc");
                         if StanSerCodeRec.FindSet() then
-                            "Standard Service Code" := StanSerCodeRec.Code;
+                            rec."Standard Service Code" := StanSerCodeRec.Code;
                     end;
                 }
 
-                field("Next Service Date"; "Next Service Date")
+                field("Next Service Date"; rec."Next Service Date")
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field("Doc No"; "Doc No")
+                field("Doc No"; rec."Doc No")
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field(Approval; Approval)
+                field(Approval; rec.Approval)
                 {
                     ApplicationArea = All;
                     Editable = true;

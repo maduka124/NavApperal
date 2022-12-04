@@ -11,76 +11,76 @@ page 71012783 "My Task Pending"
         {
             repeater(General)
             {
-                field("Action User"; "Action User")
+                field("Action User"; rec."Action User")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Buyer';
                 }
 
-                field("Style No."; "Style No.")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Garment Type';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Action Description"; "Action Description")
+                field("Action Description"; rec."Action Description")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan Date"; "Plan Date")
+                field("Plan Date"; rec."Plan Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Complete; Complete)
+                field(Complete; rec.Complete)
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field("MK Critical"; "MK Critical")
+                field("MK Critical"; rec."MK Critical")
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field(Department; Department)
+                field(Department; rec.Department)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Revise; Revise)
+                field(Revise; rec.Revise)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -92,7 +92,7 @@ page 71012783 "My Task Pending"
 
                         Clear(MyTaskRevise);
                         MyTaskRevise.LookupMode(true);
-                        MyTaskRevise.PassParameters("Style No.", "Line No.", "Buyer No.");
+                        MyTaskRevise.PassParameters(rec."Style No.", rec."Line No.", rec."Buyer No.");
                         MyTaskRevise.RunModal();
 
                     end;
@@ -104,6 +104,6 @@ page 71012783 "My Task Pending"
 
     trigger OnOpenPage()
     begin
-        SetRange("Action User", UserId);
+        rec.SetRange("Action User", UserId);
     end;
 }

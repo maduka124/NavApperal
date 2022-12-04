@@ -10,114 +10,114 @@ page 50431 SampleReqLineListPartWIP
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field("Sample Name"; "Sample Name")
+                field("Sample Name"; rec."Sample Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Sample';
                 }
 
-                field("Fabrication Name"; "Fabrication Name")
+                field("Fabrication Name"; rec."Fabrication Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Fabrication';
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Color';
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Comment; Comment)
+                field(Comment; rec.Comment)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan Start Date"; "Plan Start Date")
+                field("Plan Start Date"; rec."Plan Start Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Plan End Date"; "Plan End Date")
+                field("Plan End Date"; rec."Plan End Date")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if "Plan Start Date" > "Plan End Date" then
+                        if rec."Plan Start Date" > rec."Plan End Date" then
                             Error('Start date is greater than end date');
 
                     end;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
                 }
 
-                field("Complete Qty"; "Complete Qty")
+                field("Complete Qty"; rec."Complete Qty")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if (Status = Status::Yes) and ("Complete Qty" = 0) then
+                        if (rec.Status = rec.Status::Yes) and (rec."Complete Qty" = 0) then
                             Error('Enter complate qty');
 
                     end;
                 }
 
-                field("Reject Qty"; "Reject Qty")
+                field("Reject Qty"; rec."Reject Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Reject Comment"; "Reject Comment")
+                field("Reject Comment"; rec."Reject Comment")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if (Status = Status::Reject) and ("Reject Qty" = 0) then
+                        if (rec.Status = rec.Status::Reject) and (rec."Reject Qty" = 0) then
                             Error('Enter reject qty');
 
                     end;
@@ -143,13 +143,13 @@ page 50431 SampleReqLineListPartWIP
                 begin
 
                     SampleReqLineRec.Reset();
-                    SampleReqLineRec.SetRange("No.", "No.");
+                    SampleReqLineRec.SetRange("No.", rec."No.");
                     SampleReqLineRec.SetFilter(Status, '=%1', SampleReqLineRec.Status::No);
 
                     if not SampleReqLineRec.FindSet() then begin
 
                         SampleReqHeaderRec.Reset();
-                        SampleReqHeaderRec.SetRange("No.", "No.");
+                        SampleReqHeaderRec.SetRange("No.", rec."No.");
                         SampleReqHeaderRec.FindSet();
                         SampleReqHeaderRec.ModifyAll(Status, SampleReqHeaderRec.Status::Posted);
 

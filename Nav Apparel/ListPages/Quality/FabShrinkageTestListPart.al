@@ -10,7 +10,7 @@ page 50686 "FabShrinkageTestListPart"
         {
             repeater(General)
             {
-                field("Pattern Code"; "Pattern Code")
+                field("Pattern Code"; rec."Pattern Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Pattern';
@@ -22,104 +22,104 @@ page 50686 "FabShrinkageTestListPart"
                         if Get_Count() = 1 then
                             Error('Pattern Code duplicated.');
 
-                        "Pattern Name" := "Pattern Code";
+                        rec."Pattern Name" := rec."Pattern Code";
                     end;
                 }
 
-                field("Pattern Name"; "Pattern Name")
+                field("Pattern Name"; rec."Pattern Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Pattern';
                     Visible = false;
                 }
 
-                field(SHRINKAGE; SHRINKAGE)
+                field(SHRINKAGE; rec.SHRINKAGE)
                 {
                     ApplicationArea = All;
                     Caption = 'Shrinkage';
                 }
 
-                field("From Length%"; "From Length%")
+                field("From Length%"; rec."From Length%")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        "Length%" := format("From Length%") + ' To ' + format("To Length%");
-                        "Avg Pattern% Length" := ("From Length%" + "To Length%") / 2;
+                        rec."Length%" := format(rec."From Length%") + ' To ' + format(rec."To Length%");
+                        rec."Avg Pattern% Length" := (rec."From Length%" + rec."To Length%") / 2;
                     end;
                 }
 
-                field("To Length%"; "To Length%")
+                field("To Length%"; rec."To Length%")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        "Length%" := format("From Length%") + ' To ' + format("To Length%");
-                        "Avg Pattern% Length" := ("From Length%" + "To Length%") / 2;
+                        rec."Length%" := format(rec."From Length%") + ' To ' + format(rec."To Length%");
+                        rec."Avg Pattern% Length" := (rec."From Length%" + rec."To Length%") / 2;
                     end;
                 }
 
-                field("Length%"; "Length%")
+                field("Length%"; rec."Length%")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Avg Pattern% Length"; "Avg Pattern% Length")
+                field("Avg Pattern% Length"; rec."Avg Pattern% Length")
                 {
                     ApplicationArea = All;
                     Caption = 'Avg Pattern%';
                     Editable = false;
                 }
 
-                field("PTN VARI Length"; "PTN VARI Length")
+                field("PTN VARI Length"; rec."PTN VARI Length")
                 {
                     ApplicationArea = All;
                     Caption = 'PTN Variation';
                 }
 
-                field("From WiDth%"; "From WiDth%")
+                field("From WiDth%"; rec."From WiDth%")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        "WiDth%" := format("From WiDth%") + ' To ' + format("To WiDth%");
-                        "Avg Pattern% Width" := ("From WiDth%" + "To WiDth%") / 2;
+                        rec."WiDth%" := format(rec."From WiDth%") + ' To ' + format(rec."To WiDth%");
+                        rec."Avg Pattern% Width" := (rec."From WiDth%" + rec."To WiDth%") / 2;
                     end;
                 }
 
-                field("To WiDth%"; "To WiDth%")
+                field("To WiDth%"; rec."To WiDth%")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        "WiDth%" := format("From WiDth%") + ' To ' + format("To WiDth%");
-                        "Avg Pattern% Width" := ("From WiDth%" + "To WiDth%") / 2;
+                        rec."WiDth%" := format(rec."From WiDth%") + ' To ' + format(rec."To WiDth%");
+                        rec."Avg Pattern% Width" := (rec."From WiDth%" + rec."To WiDth%") / 2;
                     end;
                 }
 
-                field("WiDth%"; "WiDth%")
+                field("WiDth%"; rec."WiDth%")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Avg Pattern% Width"; "Avg Pattern% Width")
+                field("Avg Pattern% Width"; rec."Avg Pattern% Width")
                 {
                     ApplicationArea = All;
                     Caption = 'Avg Pattern%';
                     Editable = false;
                 }
 
-                field("PTN VARI WiDth"; "PTN VARI WiDth")
+                field("PTN VARI WiDth"; rec."PTN VARI WiDth")
                 {
                     ApplicationArea = All;
                     Caption = 'PTN Variation';
@@ -134,8 +134,8 @@ page 50686 "FabShrinkageTestListPart"
         FabShrTestLineRec: Record FabShrinkageTestLine;
     begin
         FabShrTestLineRec.Reset();
-        FabShrTestLineRec.SetRange("FabShrTestNo.", "FabShrTestNo.");
-        FabShrTestLineRec.SetFilter("Pattern Code", '=%1', "Pattern Code");
+        FabShrTestLineRec.SetRange("FabShrTestNo.", rec."FabShrTestNo.");
+        FabShrTestLineRec.SetFilter("Pattern Code", '=%1', rec."Pattern Code");
         if FabShrTestLineRec.FindSet() then
             exit(FabShrTestLineRec.Count)
         else

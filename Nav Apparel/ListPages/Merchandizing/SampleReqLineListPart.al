@@ -10,14 +10,14 @@ page 71012775 SampleReqLineListPart
         {
             repeater(General)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field("Fabrication Name"; "Fabrication Name")
+                field("Fabrication Name"; rec."Fabrication Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabrication';
@@ -27,16 +27,16 @@ page 71012775 SampleReqLineListPart
                         ItemRec: Record Item;
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Fabrication Name");
+                        ItemRec.SetRange(Description, rec."Fabrication Name");
                         if ItemRec.FindSet() then
-                            "Fabrication No." := ItemRec."No.";
+                            rec."Fabrication No." := ItemRec."No.";
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
                     end;
                 }
 
-                field("Sample Name"; "Sample Name")
+                field("Sample Name"; rec."Sample Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Type';
@@ -46,16 +46,16 @@ page 71012775 SampleReqLineListPart
                         SampleRec: Record "Sample Type";
                     begin
                         SampleRec.Reset();
-                        SampleRec.SetRange("Sample Type Name", "Sample Name");
+                        SampleRec.SetRange("Sample Type Name", rec."Sample Name");
                         if SampleRec.FindSet() then
-                            "Sample No." := SampleRec."No.";
+                            rec."Sample No." := SampleRec."No.";
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
                     end;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
@@ -65,16 +65,16 @@ page 71012775 SampleReqLineListPart
                         ColourRec: Record Colour;
                     begin
                         ColourRec.Reset();
-                        ColourRec.SetRange("Colour Name", "Color Name");
+                        ColourRec.SetRange("Colour Name", rec."Color Name");
                         if ColourRec.FindSet() then
-                            "Color No" := ColourRec."No.";
+                            rec."Color No" := ColourRec."No.";
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
                     end;
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
 
@@ -86,7 +86,7 @@ page 71012775 SampleReqLineListPart
                     end;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
 
@@ -99,7 +99,7 @@ page 71012775 SampleReqLineListPart
 
                         CurrPage.Update();
                         SampleReqLine.Reset();
-                        SampleReqLine.SetRange("No.", "No.");
+                        SampleReqLine.SetRange("No.", rec."No.");
 
                         if SampleReqLine.FindSet() then begin
                             repeat
@@ -108,7 +108,7 @@ page 71012775 SampleReqLineListPart
                         end;
 
                         SampleReqHeader.Reset();
-                        SampleReqHeader.SetRange("No.", "No.");
+                        SampleReqHeader.SetRange("No.", rec."No.");
                         SampleReqHeader.FindSet();
                         SampleReqHeader.Qty := Total;
                         SampleReqHeader.Modify();
@@ -119,7 +119,7 @@ page 71012775 SampleReqLineListPart
                     end;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
 
@@ -131,7 +131,7 @@ page 71012775 SampleReqLineListPart
                     end;
                 }
 
-                field(Comment; Comment)
+                field(Comment; rec.Comment)
                 {
                     ApplicationArea = All;
 
@@ -152,8 +152,8 @@ page 71012775 SampleReqLineListPart
         SampleReqLineRec: Record "Sample Requsition Line";
     begin
         SampleReqLineRec.Reset();
-        SampleReqLineRec.SetRange("No.", "No.");
-        SampleReqLineRec.SetFilter("Line No.", '<>%1', "Line No.");
+        SampleReqLineRec.SetRange("No.", rec."No.");
+        SampleReqLineRec.SetFilter("Line No.", '<>%1', rec."Line No.");
         if SampleReqLineRec.FindSet() then
             exit(SampleReqLineRec.Count)
         else

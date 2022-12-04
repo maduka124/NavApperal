@@ -9,7 +9,7 @@ page 50571 "Trim Inspection List"
     CardPageId = "Trim Inspection Card";
     DeleteAllowed = false;
     InsertAllowed = false;
-    
+
     layout
     {
         area(Content)
@@ -17,31 +17,31 @@ page 50571 "Trim Inspection List"
             repeater(General)
             {
 
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'GRN No';
                 }
 
-                field("Document Date"; "Document Date")
+                field("Document Date"; rec."Document Date")
                 {
                     ApplicationArea = All;
                     Caption = 'GRN Date';
                 }
 
-                field("Buy-from Vendor Name"; "Buy-from Vendor Name")
+                field("Buy-from Vendor Name"; rec."Buy-from Vendor Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
                 }
 
-                field("Order No."; "Order No.")
+                field("Order No."; rec."Order No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
 
-                field("Trim Inspected"; "Trim Inspected")
+                field("Trim Inspected"; rec."Trim Inspected")
                 {
                     ApplicationArea = All;
                     Caption = 'Trim Inspected (Yes/No)';

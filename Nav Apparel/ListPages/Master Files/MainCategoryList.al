@@ -62,6 +62,11 @@ page 71012616 "Main Category List"
                     Caption = 'LOT Tracking';
                 }
 
+                field("General Issuing"; rec."General Issuing")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Style Related"; Rec."Style Related")
                 {
                     ApplicationArea = All;

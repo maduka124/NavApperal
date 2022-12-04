@@ -13,12 +13,12 @@ page 50517 "Hourly Production List1"
         {
             repeater(General)
             {
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Name; Name)
+                field(Name; rec.Name)
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';

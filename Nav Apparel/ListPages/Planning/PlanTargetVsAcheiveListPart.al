@@ -12,49 +12,49 @@ page 50348 "Plan Target Vs Acheive"
         {
             repeater(General)
             {
-                field("Resource No."; "Resource No.")
+                field("Resource No."; rec."Resource No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Line No';
                 }
 
-                field(PlanDate; PlanDate)
+                field(PlanDate; rec.PlanDate)
                 {
                     ApplicationArea = All;
                     Caption = 'Plan Date';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Lot No';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Caption = 'Planned Qty';
                 }
 
-                field("Learning Curve No."; "Learning Curve No.")
+                field("Learning Curve No."; rec."Learning Curve No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Learning Curve';
                 }
 
-                field(ProdUpdQty; ProdUpdQty)
+                field(ProdUpdQty; rec.ProdUpdQty)
                 {
                     ApplicationArea = All;
                     Caption = 'Achieved Qty';
@@ -72,7 +72,7 @@ page 50348 "Plan Target Vs Acheive"
     trigger OnAfterGetRecord()
     var
     begin
-        Variance := ProdUpdQty - qty;
+        Variance := rec.ProdUpdQty - rec.qty;
     end;
 
 
@@ -80,7 +80,7 @@ page 50348 "Plan Target Vs Acheive"
     var
     begin
         //SetFilter("Resource No.", ResourceNo);
-        SetFilter("Line No.", LineNo);
+        rec.SetFilter("Line No.", LineNo);
     end;
 
 

@@ -10,61 +10,61 @@ page 50427 "Sample Request Header ListPart"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Request No';
                     Editable = false;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Created User"; "Created User")
+                field("Created User"; rec."Created User")
                 {
                     ApplicationArea = All;
                     Caption = 'Merchant';
                     Editable = false;
                 }
 
-                field("Created Date"; "Created Date")
+                field("Created Date"; rec."Created Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Ent. Date';
                     Editable = false;
                 }
 
-                field("Sample Room Name"; "Sample Room Name")
+                field("Sample Room Name"; rec."Sample Room Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Room';
                     Editable = false;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Group HD"; "Group HD")
+                field("Group HD"; rec."Group HD")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -90,7 +90,7 @@ page 50427 "Sample Request Header ListPart"
                 begin
                     wip.Reset();
                     wip.FindSet();
-                    wip.ModifyAll("Req No.", "No.");
+                    wip.ModifyAll("Req No.", rec."No.");
                 end;
             }
         }

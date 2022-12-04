@@ -12,19 +12,19 @@ page 50752 FabShadeListPart2
         {
             repeater(General)
             {
-                field(Shade; Shade)
+                field(Shade; rec.Shade)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Total Rolls"; "Total Rolls")
+                field("Total Rolls"; rec."Total Rolls")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Total YDS"; "Total YDS")
+                field("Total YDS"; rec."Total YDS")
                 {
                     ApplicationArea = All;
                     Editable = false;

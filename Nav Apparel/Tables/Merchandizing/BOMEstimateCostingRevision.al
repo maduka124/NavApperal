@@ -1,5 +1,5 @@
 
-table 71012842 "BOM Estimate Cost Revision"
+table 50892 "BOM Estimate Cost Revision"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "BOM Estimate Cost";

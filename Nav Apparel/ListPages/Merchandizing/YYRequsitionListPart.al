@@ -9,14 +9,14 @@ page 71012823 "YY Requsition ListPart"
         {
             repeater(General)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
                     Editable = false;
                 }
 
-                field("YY Type"; "YY Type")
+                field("YY Type"; rec."YY Type")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
@@ -26,13 +26,13 @@ page 71012823 "YY Requsition ListPart"
                         YYTypeRec: Record "YY Type";
                     begin
                         YYTypeRec.Reset();
-                        YYTypeRec.SetRange("YY Type Desc", "YY Type");
+                        YYTypeRec.SetRange("YY Type Desc", rec."YY Type");
                         if YYTypeRec.FindSet() then
-                            "YY Type No." := YYTypeRec."No.";
+                            rec."YY Type No." := YYTypeRec."No.";
                     end;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -43,13 +43,13 @@ page 71012823 "YY Requsition ListPart"
                         MainCategoryRec: Record "Main Category";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                         if MainCategoryRec.FindSet() then
-                            "Main Category No." := MainCategoryRec."No.";
+                            rec."Main Category No." := MainCategoryRec."No.";
                     end;
                 }
 
-                field("Fabric/Time Desc"; "Fabric/Time Desc")
+                field("Fabric/Time Desc"; rec."Fabric/Time Desc")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric/Item Description';
@@ -60,13 +60,13 @@ page 71012823 "YY Requsition ListPart"
                         ItemRec: Record Item;
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Fabric/Time Desc");
+                        ItemRec.SetRange(Description, rec."Fabric/Time Desc");
                         if ItemRec.FindSet() then
-                            "Fabric/Time Desc No" := ItemRec."No.";
+                            rec."Fabric/Time Desc No" := ItemRec."No.";
                     end;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
@@ -77,13 +77,13 @@ page 71012823 "YY Requsition ListPart"
                         ColourRec: Record Colour;
                     begin
                         ColourRec.Reset();
-                        ColourRec.SetRange("Colour Name", "Color Name");
+                        ColourRec.SetRange("Colour Name", rec."Color Name");
                         if ColourRec.FindSet() then
-                            "Color No" := ColourRec."No.";
+                            rec."Color No" := ColourRec."No.";
                     end;
                 }
 
-                field("Wash Type Name"; "Wash Type Name")
+                field("Wash Type Name"; rec."Wash Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Type';
@@ -94,425 +94,425 @@ page 71012823 "YY Requsition ListPart"
                         WashTypeRec: Record "Wash Type";
                     begin
                         WashTypeRec.Reset();
-                        WashTypeRec.SetRange("Wash Type Name", "Wash Type Name");
+                        WashTypeRec.SetRange("Wash Type Name", rec."Wash Type Name");
                         if WashTypeRec.FindSet() then
-                            "Wash Type No" := WashTypeRec."No.";
+                            rec."Wash Type No" := WashTypeRec."No.";
                     end;
                 }
 
-                field(Width; Width)
+                field(Width; rec.Width)
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("Skincage (L)"; "Skincage (L)")
+                field("Skincage (L)"; rec."Skincage (L)")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("Width( W)"; "Width( W)")
+                field("Width( W)"; rec."Width( W)")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("TARGET YY"; "TARGET YY")
+                field("TARGET YY"; rec."TARGET YY")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("Acutal YY"; "Acutal YY")
+                field("Acutal YY"; rec."Acutal YY")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("1"; "1")
+                field("1"; rec."1")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
-                field("2"; "2")
+                field("2"; rec."2")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("3"; "3")
+                field("3"; rec."3")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("4"; "4")
+                field("4"; rec."4")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("5"; "5")
+                field("5"; rec."5")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("6"; "6")
+                field("6"; rec."6")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("7"; "7")
+                field("7"; rec."7")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("8"; "8")
+                field("8"; rec."8")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("9"; "9")
+                field("9"; rec."9")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("10"; "10")
+                field("10"; rec."10")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("11"; "11")
+                field("11"; rec."11")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("12"; "12")
+                field("12"; rec."12")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("13"; "13")
+                field("13"; rec."13")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("14"; "14")
+                field("14"; rec."14")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("15"; "15")
+                field("15"; rec."15")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("16"; "16")
+                field("16"; rec."16")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("17"; "17")
+                field("17"; rec."17")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("18"; "18")
+                field("18"; rec."18")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("19"; "19")
+                field("19"; rec."19")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("20"; "20")
+                field("20"; rec."20")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("21"; "21")
+                field("21"; rec."21")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("22"; "22")
+                field("22"; rec."22")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("23"; "23")
+                field("23"; rec."23")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("24"; "24")
+                field("24"; rec."24")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("25"; "25")
+                field("25"; rec."25")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("26"; "26")
+                field("26"; rec."26")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("27"; "27")
+                field("27"; rec."27")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("28"; "28")
+                field("28"; rec."28")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("29"; "29")
+                field("29"; rec."29")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("30"; "30")
+                field("30"; rec."30")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("31"; "31")
+                field("31"; rec."31")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("32"; "32")
+                field("32"; rec."32")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("33"; "33")
+                field("33"; rec."33")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("34"; "34")
+                field("34"; rec."34")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("35"; "35")
+                field("35"; rec."35")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("36"; "36")
+                field("36"; rec."36")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("37"; "37")
+                field("37"; rec."37")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("38"; "38")
+                field("38"; rec."38")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("39"; "39")
+                field("39"; rec."39")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("40"; "40")
+                field("40"; rec."40")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("41"; "41")
+                field("41"; rec."41")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("42"; "42")
+                field("42"; rec."42")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("43"; "43")
+                field("43"; rec."43")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("44"; "44")
+                field("44"; rec."44")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("45"; "45")
+                field("45"; rec."45")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("46"; "46")
+                field("46"; rec."46")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("47"; "47")
+                field("47"; rec."47")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("48"; "48")
+                field("48"; rec."48")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("49"; "49")
+                field("49"; rec."49")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("50"; "50")
+                field("50"; rec."50")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("51"; "51")
+                field("51"; rec."51")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("52"; "52")
+                field("52"; rec."52")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("53"; "53")
+                field("53"; rec."53")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("54"; "54")
+                field("54"; rec."54")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("55"; "55")
+                field("55"; rec."55")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("56"; "56")
+                field("56"; rec."56")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("57"; "57")
+                field("57"; rec."57")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("58"; "58")
+                field("58"; rec."58")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("59"; "59")
+                field("59"; rec."59")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("60"; "60")
+                field("60"; rec."60")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("61"; "61")
+                field("61"; rec."61")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("62"; "62")
+                field("62"; rec."62")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("63"; "63")
+                field("63"; rec."63")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
                 }
 
-                field("64"; "64")
+                field("64"; rec."64")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;

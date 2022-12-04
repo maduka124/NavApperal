@@ -12,18 +12,18 @@ page 71012790 "PI Po Details ListPart 1"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; rec.Select)
                 {
                     ApplicationArea = All;
                 }
 
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
 
-                field("Amount Including VAT"; "Amount Including VAT")
+                field("Amount Including VAT"; rec."Amount Including VAT")
                 {
                     ApplicationArea = All;
                     Caption = 'PO Value';
@@ -55,7 +55,7 @@ page 71012790 "PI Po Details ListPart 1"
 
                     PurchaseHeaderRec.Reset();
                     PurchaseHeaderRec.SetCurrentKey("Buy-from Vendor No.");
-                    PurchaseHeaderRec.SetRange("Buy-from Vendor No.", "Buy-from Vendor No.");
+                    PurchaseHeaderRec.SetRange("Buy-from Vendor No.", rec."Buy-from Vendor No.");
                     PurchaseHeaderRec.SetFilter(Select, '=%1', true);
 
                     if PurchaseHeaderRec.FindSet() then begin
@@ -81,18 +81,18 @@ page 71012790 "PI Po Details ListPart 1"
 
                     //Update Select as false
                     PurchaseHeaderRec.Reset();
-                    PurchaseHeaderRec.SetRange("Buy-from Vendor No.", "Buy-from Vendor No.");
+                    PurchaseHeaderRec.SetRange("Buy-from Vendor No.", rec."Buy-from Vendor No.");
                     PurchaseHeaderRec.SetFilter(Select, '=%1', true);
 
                     if PurchaseHeaderRec.FindSet() then
                         PurchaseHeaderRec.ModifyAll(Select, false);
 
                     //Update PO_PI_Item table
-                    NavAppCodeUnitRec.Update_PI_PO_Items("PI No.");
+                    NavAppCodeUnitRec.Update_PI_PO_Items(rec."PI No.");
 
                     //calculate Total Items Value and Update Header Value
                     PIPOItemDetRec.Reset();
-                    PIPOItemDetRec.SetRange("PI No.", "PI No.");
+                    PIPOItemDetRec.SetRange("PI No.", rec."PI No.");
 
                     if PIPOItemDetRec.FindSet() then
                         repeat
@@ -101,7 +101,7 @@ page 71012790 "PI Po Details ListPart 1"
 
 
                     PIPODetailsRec.Reset();
-                    PIPODetailsRec.SetRange("PI No.", "PI No.");
+                    PIPODetailsRec.SetRange("PI No.", rec."PI No.");
 
                     if PIPODetailsRec.FindSet() then begin
                         repeat
@@ -110,7 +110,7 @@ page 71012790 "PI Po Details ListPart 1"
                     end;
 
                     PIDetailsHeadRec.Reset();
-                    PIDetailsHeadRec.SetRange("No.", "PI No.");
+                    PIDetailsHeadRec.SetRange("No.", rec."PI No.");
                     PIDetailsHeadRec.FindSet();
                     PIDetailsHeadRec."PI Value" := TotalValue;
                     PIDetailsHeadRec."PO Total" := TotPOValue;

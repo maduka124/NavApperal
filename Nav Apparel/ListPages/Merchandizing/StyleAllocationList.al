@@ -16,14 +16,14 @@ page 71012732 "Style Allocation"
             {
                 Editable = true;
 
-                field("Style No."; "Style No.")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                     Editable = false;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';
@@ -34,19 +34,19 @@ page 71012732 "Style Allocation"
                         Locationrec: Record Location;
                     begin
                         Locationrec.Reset();
-                        Locationrec.SetRange(Name, "Factory Name");
+                        Locationrec.SetRange(Name, rec."Factory Name");
                         if Locationrec.FindSet() then
-                            "Factory Code" := Locationrec.Code;
+                            rec."Factory Code" := Locationrec.Code;
                     end;
                 }
 
-                field("Global Dimension Code";"Global Dimension Code")
+                field("Global Dimension Code"; rec."Global Dimension Code")
                 {
-                    ApplicationArea = All;                 
-                    ShowMandatory = true;                   
+                    ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
-                field("Merchandiser Code"; "Merchandiser Code")
+                field("Merchandiser Code"; rec."Merchandiser Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Merchandiser';
@@ -57,89 +57,89 @@ page 71012732 "Style Allocation"
                         UserRec: Record User;
                     begin
                         UserRec.Reset();
-                        UserRec.SetRange("User Name", "Merchandiser Code");
+                        UserRec.SetRange("User Name", rec."Merchandiser Code");
 
                         if UserRec.FindFirst() then
-                            "Merchandiser Name" := UserRec."Full Name"
+                            rec."Merchandiser Name" := UserRec."Full Name"
                         else
-                            "Merchandiser Name" := '';
+                            rec."Merchandiser Name" := '';
                     end;
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
                     Editable = false;
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
                     Editable = false;
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
                     Editable = false;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
                     Editable = false;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Buyer';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
                     Editable = false;
                 }
 
-                field("Size Range Name"; "Size Range Name")
+                field("Size Range Name"; rec."Size Range Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Size Range';
                     Editable = false;
                 }
 
-                field("Order Qty"; "Order Qty")
+                field("Order Qty"; rec."Order Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Lead Time"; "Lead Time")
+                field("Lead Time"; rec."Lead Time")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Ship Date"; "Ship Date")
+                field("Ship Date"; rec."Ship Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(SMV; SMV)
+                field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = false;

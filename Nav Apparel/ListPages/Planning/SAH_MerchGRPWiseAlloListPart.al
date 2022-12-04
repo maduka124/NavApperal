@@ -2,7 +2,7 @@ page 50873 SAH_MerchGRPWiseAlloListPart
 {
     PageType = ListPart;
     SourceTable = SAH_MerchGRPWiseAllocation;
-    SourceTableView = sorting(Year, "Group Name") order(ascending);
+    SourceTableView = sorting(Year, "Group Id") order(ascending);
     Caption = ' ';
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -14,67 +14,67 @@ page 50873 SAH_MerchGRPWiseAlloListPart
         {
             repeater(General)
             {
-                field("Group Name"; "Group Name")
+                field("Group Name"; rec."Group Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field(JAN; JAN)
+                field(JAN; rec.JAN)
                 {
                     ApplicationArea = All;
                 }
 
-                field(FEB; FEB)
+                field(FEB; rec.FEB)
                 {
                     ApplicationArea = All;
                 }
 
-                field(MAR; MAR)
+                field(MAR; rec.MAR)
                 {
                     ApplicationArea = All;
                 }
 
-                field(APR; APR)
+                field(APR; rec.APR)
                 {
                     ApplicationArea = All;
                 }
 
-                field(MAY; MAY)
+                field(MAY; rec.MAY)
                 {
                     ApplicationArea = All;
                 }
 
-                field(JUN; JUN)
+                field(JUN; rec.JUN)
                 {
                     ApplicationArea = All;
                 }
 
-                field(JUL; JUL)
+                field(JUL; rec.JUL)
                 {
                     ApplicationArea = All;
                 }
 
-                field(AUG; AUG)
+                field(AUG; rec.AUG)
                 {
                     ApplicationArea = All;
                 }
 
-                field(SEP; SEP)
+                field(SEP; rec.SEP)
                 {
                     ApplicationArea = All;
                 }
 
-                field(OCT; OCT)
+                field(OCT; rec.OCT)
                 {
                     ApplicationArea = All;
                 }
 
-                field(NOV; NOV)
+                field(NOV; rec.NOV)
                 {
                     ApplicationArea = All;
                 }
 
-                field(DEC; DEC)
+                field(DEC; rec.DEC)
                 {
                     ApplicationArea = All;
                 }

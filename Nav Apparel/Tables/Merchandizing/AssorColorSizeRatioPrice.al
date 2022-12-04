@@ -1,5 +1,5 @@
 
-table 71012665 AssorColorSizeRatioPrice
+table 50883 AssorColorSizeRatioPrice
 {
     DataClassification = ToBeClassified;
 

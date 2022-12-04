@@ -322,9 +322,36 @@ page 50522 "B2B LC Card"
                     RowSpan = 10;
                 }
             }
+
+            part("Other Chargers"; "Other Charges")
+            {
+                ApplicationArea = All;
+                Caption = 'Bank / Other Chargers';
+                SubPageLink = "Document No." = field("No.");
+            }
         }
     }
 
+    actions
+    {
+        area(Creation)
+        {
+            action("Process Item Charge")
+            {
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                Image = IssueFinanceCharge;
+                trigger OnAction()
+                var
+                    CustMangemnt: Codeunit "Customization Management";
+                begin
+                    if Confirm('Do you want to process the Item Charges?', true) then
+                        CustMangemnt.CreateItemChargeEntry(Rec);
+                end;
+            }
+        }
+    }
 
 
     procedure AssistEdit(): Boolean

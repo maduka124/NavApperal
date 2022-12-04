@@ -11,142 +11,142 @@ page 50800 SampleProdLineFinishListPart
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Request No';
                     Editable = false;
                 }
 
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field("Group Head"; "Group Head")
+                field("Group Head"; rec."Group Head")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field("Sample Name"; "Sample Name")
+                field("Sample Name"; rec."Sample Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Sample';
                 }
 
-                field("Fabrication Name"; "Fabrication Name")
+                field("Fabrication Name"; rec."Fabrication Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Fabrication';
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Color';
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Comment; Comment)
+                field(Comment; rec.Comment)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan Start Date"; "Plan Start Date")
+                field("Plan Start Date"; rec."Plan Start Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan End Date"; "Plan End Date")
+                field("Plan End Date"; rec."Plan End Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
                     Editable = false;
                 }
 
-                field("Pattern Date"; "Pattern Date")
+                field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Cutting Date"; "Cutting Date")
+                field("Cutting Date"; rec."Cutting Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Sewing Date"; "Sewing Date")
+                field("Sewing Date"; rec."Sewing Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Send Wash Date"; "Send Wash Date")
+                field("Send Wash Date"; rec."Send Wash Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Wash Send Date';
                 }
 
-                field("Received Wash Date"; "Received Wash Date")
+                field("Received Wash Date"; rec."Received Wash Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Wash Received Date';
                 }
 
-                field("Finishing Operator"; "Finishing Operator")
+                field("Finishing Operator"; rec."Finishing Operator")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Finishing Hours"; "Finishing Hours")
+                field("Finishing Hours"; rec."Finishing Hours")
                 {
                     ApplicationArea = All;
                     Caption = 'Finishing Minutes';
@@ -156,7 +156,7 @@ page 50800 SampleProdLineFinishListPart
                         WorkCenterRec: Record "Work Center";
                         RouterRec: Record "Routing Header";
                     begin
-                        if "Finishing Hours" < 0 then
+                        if rec."Finishing Hours" < 0 then
                             Error('Finishing Minutes is less than zero.');
 
                         //Asign Work center
@@ -164,8 +164,8 @@ page 50800 SampleProdLineFinishListPart
                         WorkCenterRec.SetRange(Name, 'SM-FINISHING');
 
                         if WorkCenterRec.FindSet() then begin
-                            "Finishing Work center Code" := WorkCenterRec."No.";
-                            "Finishing Work center Name" := WorkCenterRec.Name;
+                            rec."Finishing Work center Code" := WorkCenterRec."No.";
+                            rec."Finishing Work center Name" := WorkCenterRec.Name;
                         end;
 
                         //Get Sample Router Name
@@ -173,13 +173,13 @@ page 50800 SampleProdLineFinishListPart
                         RouterRec.SetFilter("Sample Router", '=%1', true);
 
                         if RouterRec.FindSet() then
-                            "Routing Code" := RouterRec."No.";
+                            rec."Routing Code" := RouterRec."No.";
 
                     end;
                 }
 
 
-                field("Finishing Date"; "Finishing Date")
+                field("Finishing Date"; rec."Finishing Date")
                 {
                     ApplicationArea = All;
 
@@ -187,21 +187,21 @@ page 50800 SampleProdLineFinishListPart
                     var
                         RouterlineRec: Record "Routing Line";
                     begin
-                        if "Finishing Operator" = '' then
+                        if rec."Finishing Operator" = '' then
                             Error('Select a  Finishing Operator');
 
-                        if "Finishing Hours" = 0 then
+                        if rec."Finishing Hours" = 0 then
                             Error('Finishing Minutes is zero');
 
-                        if "Finishing Work center Name" = '' then
+                        if rec."Finishing Work center Name" = '' then
                             Error('Select a Router/Work Center');
 
-                        if format("Finishing Date") <> '' then begin
+                        if format(rec."Finishing Date") <> '' then begin
                             RouterlineRec.Reset();
-                            RouterlineRec.SetRange("Routing No.", "Routing Code");
-                            RouterlineRec.SetRange("No.", "Finishing Work center Code");
+                            RouterlineRec.SetRange("Routing No.", rec."Routing Code");
+                            RouterlineRec.SetRange("No.", rec."Finishing Work center Code");
                             if RouterlineRec.FindSet() then begin
-                                RouterlineRec."Run Time" := "Finishing Hours";
+                                RouterlineRec."Run Time" := rec."Finishing Hours";
                                 RouterlineRec.Modify();
                                 CurrPage.Update();
                             end

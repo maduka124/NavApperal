@@ -12,7 +12,7 @@ page 71012691 "BOM Line ItemPO ListPart"
         {
             repeater(General)
             {
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -22,13 +22,13 @@ page 71012691 "BOM Line ItemPO ListPart"
                         MainCategoryRec: Record "Main Category";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                         if MainCategoryRec.FindSet() then
-                            "Main Category No." := MainCategoryRec."No.";
+                            rec."Main Category No." := MainCategoryRec."No.";
                     end;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -38,32 +38,32 @@ page 71012691 "BOM Line ItemPO ListPart"
                         ItemRec: Record "Item";
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Item Name");
+                        ItemRec.SetRange(Description, rec."Item Name");
                         if ItemRec.FindSet() then
-                            "Item No." := ItemRec."No.";
+                            rec."Item No." := ItemRec."No.";
                     end;
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Lot';
                     Editable = false;
                 }
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO';
                     Editable = false;
                 }
 
-                field(Placement; Placement)
+                field(Placement; rec.Placement)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Select; Select)
+                field(Select; rec.Select)
                 {
                     ApplicationArea = All;
                 }

@@ -1,5 +1,5 @@
 
-table 71012692 "BOM Estimate"
+table 50888 "BOM Estimate"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Estimate BOM";

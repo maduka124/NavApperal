@@ -1,3 +1,4 @@
+
 page 50489 "All PO List"
 {
     PageType = Card;
@@ -12,7 +13,7 @@ page 50489 "All PO List"
         {
             repeater(General)
             {
-                field(select; select)
+                field(select; rec.select)
                 {
                     ApplicationArea = All;
                     Editable = true;
@@ -24,82 +25,82 @@ page 50489 "All PO List"
                     end;
                 }
 
-                field(Buyer; Buyer)
+                field(Buyer; rec.Buyer)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Style_No; Style_No)
+                field(Style_No; rec.Style_No)
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                     Editable = false;
                 }
 
-                field(Lot_No; Lot_No)
+                field(Lot_No; Rec.Lot_No)
                 {
                     ApplicationArea = All;
                     Caption = 'Lot No';
                     Editable = false;
                 }
 
-                field(PONo; PONo)
+                field(PONo; Rec.PONo)
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                     Editable = false;
                 }
 
-                field(Qty; Qty)
+                field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Mode; Mode)
+                field(Mode; Rec.Mode)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(SMV; SMV)
+                field(SMV; Rec.SMV)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(BPCD; BPCD)
+                field(BPCD; Rec.BPCD)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(ShipDate; ShipDate)
+                field(ShipDate; Rec.ShipDate)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Production File Handover Date"; "Production File Handover Date")
+                field("Production File Handover Date"; Rec."Production File Handover Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(UnitPrice; UnitPrice)
+                field(UnitPrice; Rec.UnitPrice)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(ConfirmDate; ConfirmDate)
+                field(ConfirmDate; Rec.ConfirmDate)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -264,3 +265,5 @@ page 50489 "All PO List"
     end;
 
 }
+
+

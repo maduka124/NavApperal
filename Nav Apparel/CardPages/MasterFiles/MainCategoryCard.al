@@ -121,6 +121,17 @@ page 71012617 "Main Category Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Routing Link Code"; rec."Routing Link Code")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                }
+                field("General Issuing"; rec."General Issuing")
+                {
+                    ApplicationArea = All;
+                }
+
             }
         }
     }

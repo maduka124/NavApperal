@@ -13,18 +13,18 @@ page 50346 "Plan Target List part"
         {
             repeater(General)
             {
-                field(PlanDate; PlanDate)
+                field(PlanDate; rec.PlanDate)
                 {
                     ApplicationArea = All;
                     Caption = 'Plan Date';
                 }
 
-                field("Start Time"; "Start Time")
+                field("Start Time"; rec."Start Time")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Finish Time"; "Finish Time")
+                field("Finish Time"; rec."Finish Time")
                 {
                     ApplicationArea = All;
                 }
@@ -35,13 +35,13 @@ page 50346 "Plan Target List part"
                     Caption = 'Hours';
                 }
 
-                field("Learning Curve No."; "Learning Curve No.")
+                field("Learning Curve No."; rec."Learning Curve No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Learning Curve';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Caption = 'Target';
@@ -53,13 +53,13 @@ page 50346 "Plan Target List part"
     trigger OnAfterGetRecord()
     var
     begin
-        Hours := ("Finish Time" - "Start Time") / (60 * 60 * 1000);
+        Hours := (rec."Finish Time" - rec."Start Time") / (60 * 60 * 1000);
     end;
 
     trigger OnOpenPage()
     var
     begin
-        SetFilter("Line No.", LineNo);
+        rec.SetFilter("Line No.", LineNo);
     end;
 
     procedure PassParameters(LineNoPara: Text);

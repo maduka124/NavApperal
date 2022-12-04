@@ -12,25 +12,25 @@ page 50696 FabShadeListPart1
         {
             repeater(General)
             {
-                field("Roll No"; "Roll No")
+                field("Roll No"; rec."Roll No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(YDS; YDS)
+                field(YDS; rec.YDS)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Shade; Shade)
+                field(Shade; rec.Shade)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("PTTN GRP"; "PTTN GRP")
+                field("PTTN GRP"; rec."PTTN GRP")
                 {
                     ApplicationArea = All;
                     Enabled = false;

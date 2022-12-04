@@ -1,5 +1,5 @@
 
-table 71012682 "BOMPOSelection"
+table 50898 "BOMPOSelection"
 {
     DataClassification = ToBeClassified;
 

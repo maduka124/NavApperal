@@ -10,13 +10,13 @@ page 71012700 "Buyer Dependency List"
         {
             repeater(General)
             {
-                field("Dependency No."; "Dependency No.")
+                field("Dependency No.";rec. "Dependency No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Code';
                 }
 
-                field(Dependency; Dependency)
+                field(Dependency; rec.Dependency)
                 {
                     ApplicationArea = All;
                     Caption = 'Dependency';

@@ -10,13 +10,13 @@ page 71012841 ColorList
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Color Code';
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; rec."Colour Name")
                 {
                     ApplicationArea = All;
                 }

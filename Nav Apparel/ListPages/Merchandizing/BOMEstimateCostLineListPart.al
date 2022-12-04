@@ -10,20 +10,20 @@ page 71012768 "BOM EstimateCost Line Listpart"
         {
             repeater(General)
             {
-                field("Master Category Name"; "Master Category Name")
+                field("Master Category Name"; rec."Master Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Category';
                     Editable = false;
                 }
 
-                field(Value; Value)
+                field(Value;rec. Value)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Doz Cost"; "Doz Cost")
+                field("Doz Cost"; rec."Doz Cost")
                 {
                     ApplicationArea = All;
                     Editable = false;

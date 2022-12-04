@@ -12,7 +12,7 @@ page 71012689 "BOM Line Size ListPart"
         {
             repeater(General)
             {
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -22,20 +22,20 @@ page 71012689 "BOM Line Size ListPart"
                         MainCategoryRec: Record "Main Category";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                         if MainCategoryRec.FindSet() then
-                            "Main Category No." := MainCategoryRec."No.";
+                            rec."Main Category No." := MainCategoryRec."No.";
                     end;
                 }
 
-                field("GMR Size Name"; "GMR Size Name")
+                field("GMR Size Name"; rec."GMR Size Name")
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Size';
                     Editable = false;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -45,13 +45,13 @@ page 71012689 "BOM Line Size ListPart"
                         ItemRec: Record "Item";
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Item Name");
+                        ItemRec.SetRange(Description, rec."Item Name");
                         if ItemRec.FindSet() then
-                            "Item No." := ItemRec."No.";
+                            rec."Item No." := ItemRec."No.";
                     end;
                 }
 
-                field("Dimension Name"; "Dimension Name")
+                field("Dimension Name"; rec."Dimension Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension';
@@ -61,18 +61,18 @@ page 71012689 "BOM Line Size ListPart"
                         DimensionRec: Record DimensionWidth;
                     begin
                         DimensionRec.Reset();
-                        DimensionRec.SetRange("Dimension Width", "Dimension Name");
+                        DimensionRec.SetRange("Dimension Width", rec."Dimension Name");
                         if DimensionRec.FindSet() then
-                            "Dimension No." := DimensionRec."No.";
+                            rec."Dimension No." := DimensionRec."No.";
 
                         CurrPage.Update();
-                        if "Dimension No." <> '' then begin
-                            "Main Cat size Name" := ''
+                        if rec."Dimension No." <> '' then begin
+                            rec."Main Cat size Name" := ''
                         end;
                     end;
                 }
 
-                field("Main Cat size Name"; "Main Cat size Name")
+                field("Main Cat size Name"; rec."Main Cat size Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category size';
@@ -82,30 +82,30 @@ page 71012689 "BOM Line Size ListPart"
                     var
 
                     begin
-                        if "Main Cat size Name" <> '' then begin
-                            "Dimension No." := '';
-                            "Dimension Name" := '';
+                        if rec."Main Cat size Name" <> '' then begin
+                            rec."Dimension No." := '';
+                            rec."Dimension Name" := '';
                         end;
                     end;
                 }
 
-                field(Placement; Placement)
+                field(Placement; rec.Placement)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Price; Price)
+                field(Price; rec.Price)
                 {
                     ApplicationArea = All;
                 }
 
-                field(WST; WST)
+                field(WST; rec.WST)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Select; Select)
+                field(Select; rec.Select)
                 {
                     ApplicationArea = All;
                 }
@@ -127,12 +127,12 @@ page 71012689 "BOM Line Size ListPart"
                     BOMLineRec: Record "BOM Line";
                 begin
 
-                    if "Dimension No." <> '' then begin
+                    if rec."Dimension No." <> '' then begin
                         Message('Clear Dimension Value Size');
                     end
                     else begin
                         BOMLineRec.Reset();
-                        BOMLineRec.SetRange("No.", "No.");
+                        BOMLineRec.SetRange("No.", rec."No.");
                         BOMLineRec.SetRange(Type, 2);
                         BOMLineRec.SetRange("Line No", Lineno);
                         BOMLineRec.FindSet();
@@ -154,13 +154,13 @@ page 71012689 "BOM Line Size ListPart"
                 begin
 
                     BOMLineRec.Reset();
-                    BOMLineRec.SetRange("No.", "No.");
+                    BOMLineRec.SetRange("No.", rec."No.");
                     BOMLineRec.SetRange(Type, 2);
                     BOMLineRec.SetRange("Item No.", ItemNo);
                     BOMLineRec.SetRange("Main Cat size Name", SizeName);
                     BOMLineRec.FindSet();
 
-                    BOMLineRec.ModifyAll(Price, Price);
+                    BOMLineRec.ModifyAll(Price, rec.Price);
                     CurrPage.Update();
 
                 end;
@@ -173,17 +173,17 @@ page 71012689 "BOM Line Size ListPart"
     var
 
     begin
-        SizeName := "GMR Size Name";
-        Lineno := "Line No";
-        Price := Price;
-        ItemNo := "Item No.";
-        MainCateSize := "Main Cat size Name";
+        SizeName := rec."GMR Size Name";
+        Lineno := rec."Line No";
+        Pricee := rec.Price;
+        ItemNo := rec."Item No.";
+        MainCateSize := rec."Main Cat size Name";
     end;
 
     var
         Lineno: Integer;
         SizeName: Text[50];
-        Price: Decimal;
+        Pricee: Decimal;
         ItemNo: Code[20];
         MainCateSize: Text[50];
 

@@ -27,74 +27,74 @@ page 50854 SAH_CapacityAllocationListPart
 
             repeater(General)
             {
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';
                 }
 
-                field("Line Name"; "Line Name")
+                field("Line Name"; rec."Line Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Line';
                 }
 
-                field(JAN; JAN)
+                field(JAN; rec.JAN)
                 {
                     ApplicationArea = All;
                 }
 
-                field(FEB; FEB)
+                field(FEB; rec.FEB)
                 {
                     ApplicationArea = All;
                 }
 
-                field(MAR; MAR)
+                field(MAR; rec.MAR)
                 {
                     ApplicationArea = All;
                 }
 
-                field(APR; APR)
+                field(APR; rec.APR)
                 {
                     ApplicationArea = All;
                 }
 
-                field(MAY; MAY)
+                field(MAY; rec.MAY)
                 {
                     ApplicationArea = All;
                 }
 
-                field(JUN; JUN)
+                field(JUN; rec.JUN)
                 {
                     ApplicationArea = All;
                 }
 
-                field(JUL; JUL)
+                field(JUL; rec.JUL)
                 {
                     ApplicationArea = All;
                 }
 
-                field(AUG; AUG)
+                field(AUG; rec.AUG)
                 {
                     ApplicationArea = All;
                 }
 
-                field(SEP; SEP)
+                field(SEP; rec.SEP)
                 {
                     ApplicationArea = All;
                 }
 
-                field(OCT; OCT)
+                field(OCT; rec.OCT)
                 {
                     ApplicationArea = All;
                 }
 
-                field(NOV; NOV)
+                field(NOV; rec.NOV)
                 {
                     ApplicationArea = All;
                 }
 
-                field(DEC; DEC)
+                field(DEC; rec.DEC)
                 {
                     ApplicationArea = All;
                 }

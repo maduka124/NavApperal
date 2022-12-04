@@ -10,31 +10,31 @@ page 71012785 "My Task Revise"
         {
             repeater(General)
             {
-                field("Action Description"; "Action Description")
+                field("Action Description"; rec."Action Description")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Gap Days"; "Gap Days")
+                field("Gap Days"; rec."Gap Days")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan Date"; "Plan Date")
+                field("Plan Date"; rec."Plan Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(BPCD; BPCD)
+                field(BPCD; rec.BPCD)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Revise Date"; "Revise Date")
+                field("Revise Date"; rec."Revise Date")
                 {
                     ApplicationArea = All;
                     Editable = true;
@@ -47,8 +47,8 @@ page 71012785 "My Task Revise"
                         GapDays: Integer;
                     begin
 
-                        GapDays := "Revise Date" - "Plan Date";
-                        Recursive(GapDays, "Style No.", "Buyer No.", "No.");
+                        GapDays := rec."Revise Date" - rec."Plan Date";
+                        Recursive(GapDays, rec."Style No.", rec."Buyer No.", rec."No.");
 
                     end;
                 }
@@ -109,7 +109,7 @@ page 71012785 "My Task Revise"
 
     trigger OnOpenPage()
     begin
-        SetRange("Action User", UserId);
+        rec.SetRange("Action User", UserId);
     end;
 
 

@@ -11,7 +11,7 @@ page 50676 GRNGRNListPart
         {
             repeater(General)
             {
-                field("Document No."; "Document No.")
+                field("Document No.";rec. "Document No.")
                 {
                     ApplicationArea = All;
                     Caption = 'GRN';

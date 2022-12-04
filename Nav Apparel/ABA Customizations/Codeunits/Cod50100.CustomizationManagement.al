@@ -1,4 +1,4 @@
-codeunit 50100 "Customization Management"
+codeunit 50878 "Customization Management"
 {
     procedure MergePlanningLines(TempCode: Code[10]; BatchName: code[10])
     var

@@ -11,19 +11,19 @@ page 71012791 "PI Po Details ListPart 2"
         {
             repeater(General)
             {
-                field(Select; Select)
+                field(Select; rec.Select)
                 {
                     ApplicationArea = All;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'PO No';
                 }
 
-                field("PO Value"; "PO Value")
+                field("PO Value"; rec."PO Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -55,7 +55,7 @@ page 71012791 "PI Po Details ListPart 2"
                 begin
 
                     PIPODetailsRec.Reset();
-                    PIPODetailsRec.SetRange("PI No.", "PI No.");
+                    PIPODetailsRec.SetRange("PI No.", rec."PI No.");
                     PIPODetailsRec.SetFilter(Select, '=%1', true);
 
                     if PIPODetailsRec.FindSet() then begin
@@ -75,15 +75,15 @@ page 71012791 "PI Po Details ListPart 2"
 
                     //Delete from line table
                     PIPODetailsRec.Reset();
-                    PIPODetailsRec.SetRange("PI No.", "PI No.");
+                    PIPODetailsRec.SetRange("PI No.", rec."PI No.");
                     PIPODetailsRec.SetFilter(Select, '=%1', true);
                     PIPODetailsRec.DeleteAll();
 
-                    NavAppCodeUnitRec.Update_PI_PO_Items("PI No.");
+                    NavAppCodeUnitRec.Update_PI_PO_Items(rec."PI No.");
 
                     //calculate Total Items Value and Update Header Value
                     PIPOItemDetRec.Reset();
-                    PIPOItemDetRec.SetRange("PI No.", "PI No.");
+                    PIPOItemDetRec.SetRange("PI No.", rec."PI No.");
 
                     if PIPOItemDetRec.FindSet() then
                         repeat
@@ -92,7 +92,7 @@ page 71012791 "PI Po Details ListPart 2"
 
                     //Get Total PO value
                     PIPODetailsRec.Reset();
-                    PIPODetailsRec.SetRange("PI No.", "PI No.");
+                    PIPODetailsRec.SetRange("PI No.", rec."PI No.");
 
                     if PIPODetailsRec.FindSet() then begin
                         repeat
@@ -102,7 +102,7 @@ page 71012791 "PI Po Details ListPart 2"
 
 
                     PIDetailsHeadRec.Reset();
-                    PIDetailsHeadRec.SetRange("No.", "PI No.");
+                    PIDetailsHeadRec.SetRange("No.", rec."PI No.");
                     PIDetailsHeadRec.FindSet();
                     PIDetailsHeadRec."PI Value" := TotalValue;
                     PIDetailsHeadRec."PO Total" := TotPOValue;

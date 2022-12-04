@@ -6,7 +6,7 @@ page 71012584 Article
     SourceTable = Article;
     CardPageId = "Article Card";
     // SourceTableView = sorting("No.") order(descending);
-    SourceTableView = sorting("No.", Article, "Main Category Name") order(descending);
+    SourceTableView = sorting("Main Category Name", Article) order(descending);
 
 
     layout

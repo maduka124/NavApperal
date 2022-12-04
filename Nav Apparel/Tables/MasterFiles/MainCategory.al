@@ -89,6 +89,18 @@ table 71012615 "Main Category"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series".Code;
         }
+
+        field(50100; "Routing Link Code"; Code[10])
+        {
+            Caption = 'Routing Link Code';
+            DataClassification = ToBeClassified;
+            TableRelation = "Routing Link";
+        }
+
+        field(50101; "General Issuing"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

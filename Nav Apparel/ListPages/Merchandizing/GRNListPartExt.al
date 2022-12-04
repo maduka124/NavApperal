@@ -9,7 +9,7 @@ pageextension 71012851 GRNListExt extends "Posted Purchase Rcpt. Subform"
 
         addafter(Description)
         {
-            field("Buyer Name"; "Buyer Name")
+            field("Buyer Name"; rec."Buyer Name")
             {
                 ApplicationArea = all;
                 Caption = 'Buyer';
@@ -20,20 +20,20 @@ pageextension 71012851 GRNListExt extends "Posted Purchase Rcpt. Subform"
                     BuyerRec: Record Customer;
                 begin
                     BuyerRec.Reset();
-                    BuyerRec.SetRange(Name, "Buyer Name");
+                    BuyerRec.SetRange(Name, rec."Buyer Name");
                     if BuyerRec.FindSet() then
-                        "Buyer No." := BuyerRec."No.";
+                        rec."Buyer No." := BuyerRec."No.";
                 end;
             }
 
-            field(StyleName; StyleName)
+            field(StyleName; rec.StyleName)
             {
                 ApplicationArea = all;
                 Caption = 'Style';
                 Editable = false;
             }
 
-            
+
         }
     }
 }

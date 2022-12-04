@@ -87,7 +87,7 @@ pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
 
         addafter(Description)
         {
-            field("Buyer Name"; "Buyer Name")
+            field("Buyer Name"; rec."Buyer Name")
             {
                 ApplicationArea = all;
                 Caption = 'Buyer';
@@ -98,13 +98,13 @@ pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
                     BuyerRec: Record Customer;
                 begin
                     BuyerRec.Reset();
-                    BuyerRec.SetRange(Name, "Buyer Name");
+                    BuyerRec.SetRange(Name, rec."Buyer Name");
                     if BuyerRec.FindSet() then
-                        "Buyer No." := BuyerRec."No.";
+                        rec."Buyer No." := BuyerRec."No.";
                 end;
             }
 
-            field(StyleName; StyleName)
+            field(StyleName; rec.StyleName)
             {
                 ApplicationArea = all;
                 Caption = 'Style';
@@ -118,7 +118,7 @@ pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
     var
         PurchaseOrderRec: Record "Purchase Header";
     begin
-        PurchaseOrderRec.get("Document Type", "Document No.");
+        PurchaseOrderRec.get(rec."Document Type", rec."Document No.");
 
         if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then
             EditableGb := false
@@ -131,7 +131,7 @@ pageextension 71012832 PurchaseOrderListExt extends "Purchase Order Subform"
     var
         PurchaseOrderRec: Record "Purchase Header";
     begin
-        PurchaseOrderRec.get("Document Type", "Document No.");
+        PurchaseOrderRec.get(rec."Document Type", rec."Document No.");
 
         if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then
             EditableGb := false

@@ -9,13 +9,13 @@ page 71012746 "Main Category Vendor List part"
         {
             repeater(General)
             {               
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category No';
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                 }

@@ -14,64 +14,64 @@ page 50840 "Plan Lines - Search List"
         {
             repeater(General)
             {
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Lot No';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Resource Name"; "Resource Name")
+                field("Resource Name"; rec."Resource Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Machine Line';
                 }
 
-                field(StartDateTime; StartDateTime)
+                field(StartDateTime; rec.StartDateTime)
                 {
                     ApplicationArea = All;
                     Caption = 'Start Date/Time';
                 }
 
-                field(FinishDateTime; FinishDateTime)
+                field(FinishDateTime; rec.FinishDateTime)
                 {
                     ApplicationArea = All;
                     Caption = 'Finish Date/Time';
                 }
 
-                field(Carder; Carder)
+                field(Carder; rec.Carder)
                 {
                     ApplicationArea = All;
                     Caption = 'No of Machines';
                 }
 
-                field(Eff; Eff)
+                field(Eff; rec.Eff)
                 {
                     ApplicationArea = All;
                     Caption = 'Efficiency';
                 }
 
-                field(SMV; SMV)
+                field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Learning Curve No."; "Learning Curve No.")
+                field("Learning Curve No."; rec."Learning Curve No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Learning Curve';

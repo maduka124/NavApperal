@@ -11,104 +11,104 @@ page 50435 SampleProdLinePatternListPart
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Request No';
                     Editable = false;
                 }
 
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field("Group Head"; "Group Head")
+                field("Group Head"; rec."Group Head")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field("Sample Name"; "Sample Name")
+                field("Sample Name"; rec."Sample Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Sample';
                 }
 
-                field("Fabrication Name"; "Fabrication Name")
+                field("Fabrication Name"; rec."Fabrication Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Fabrication';
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Color';
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Comment; Comment)
+                field(Comment; rec.Comment)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan Start Date"; "Plan Start Date")
+                field("Plan Start Date"; rec."Plan Start Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan End Date"; "Plan End Date")
+                field("Plan End Date"; rec."Plan End Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Pattern Maker"; "Pattern Maker")
+                field("Pattern Maker"; rec."Pattern Maker")
                 {
                     ApplicationArea = All;
 
                 }
 
-                field("Pattern Hours"; "Pattern Hours")
+                field("Pattern Hours"; rec."Pattern Hours")
                 {
                     ApplicationArea = All;
                     Caption = 'Production Minutes';
@@ -118,7 +118,7 @@ page 50435 SampleProdLinePatternListPart
                         WorkCenterRec: Record "Work Center";
                         RouterRec: Record "Routing Header";
                     begin
-                        if "Pattern Hours" < 0 then
+                        if rec."Pattern Hours" < 0 then
                             Error('Pattern Minutes is less than zero.');
 
                         //Asign Work center
@@ -126,8 +126,8 @@ page 50435 SampleProdLinePatternListPart
                         WorkCenterRec.SetRange(Name, 'SM-PATTERN');
 
                         if WorkCenterRec.FindSet() then begin
-                            "Pattern Work center Code" := WorkCenterRec."No.";
-                            "Pattern Work center Name" := WorkCenterRec.Name;
+                            rec."Pattern Work center Code" := WorkCenterRec."No.";
+                            rec."Pattern Work center Name" := WorkCenterRec.Name;
                         end;
 
                         //Get Sample Router Name
@@ -135,20 +135,20 @@ page 50435 SampleProdLinePatternListPart
                         RouterRec.SetFilter("Sample Router", '=%1', true);
 
                         if RouterRec.FindSet() then
-                            "Routing Code" := RouterRec."No.";
+                            rec."Routing Code" := RouterRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
                     Editable = false;
                 }
 
-                field("Pattern Date"; "Pattern Date")
+                field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
 
@@ -156,21 +156,21 @@ page 50435 SampleProdLinePatternListPart
                     var
                         RouterlineRec: Record "Routing Line";
                     begin
-                        if "Pattern Maker" = '' then
+                        if rec."Pattern Maker" = '' then
                             Error('Select a Pattern Maker');
 
-                        if "Pattern Hours" = 0 then
+                        if rec."Pattern Hours" = 0 then
                             Error('Pattern Minutes is zero');
 
-                        if "Pattern Work center Name" = '' then
+                        if rec."Pattern Work center Name" = '' then
                             Error('Select a Router/Work Center');
 
-                        if format("Pattern Date") <> '' then begin
+                        if format(rec."Pattern Date") <> '' then begin
                             RouterlineRec.Reset();
-                            RouterlineRec.SetRange("Routing No.", "Routing Code");
-                            RouterlineRec.SetRange("No.", "Pattern Work center Code");
+                            RouterlineRec.SetRange("Routing No.", rec."Routing Code");
+                            RouterlineRec.SetRange("No.", rec."Pattern Work center Code");
                             if RouterlineRec.FindSet() then begin
-                                RouterlineRec."Run Time" := "Pattern Hours";
+                                RouterlineRec."Run Time" := rec."Pattern Hours";
                                 RouterlineRec.Modify();
                                 CurrPage.Update();
                             end

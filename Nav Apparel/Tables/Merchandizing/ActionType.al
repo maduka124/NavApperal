@@ -1,5 +1,5 @@
 
-table 71012661 "Action Type"
+table 50881 "Action Type"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Action Type List";

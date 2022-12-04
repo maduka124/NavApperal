@@ -12,19 +12,19 @@ page 50753 FabShadeShrinkageListPart2
         {
             repeater(General)
             {
-                field(Width; Width)
+                field(Width; rec.Width)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Total YDS"; "Total YDS")
+                field("Total YDS"; rec."Total YDS")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Total Rolls"; "Total Rolls")
+                field("Total Rolls"; rec."Total Rolls")
                 {
                     ApplicationArea = All;
                     Editable = false;

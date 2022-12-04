@@ -11,7 +11,7 @@ page 50675 GRNPOListPart
         {
             repeater(General)
             {
-                field("Order No."; "Order No.")
+                field("Order No.";rec. "Order No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Order No';

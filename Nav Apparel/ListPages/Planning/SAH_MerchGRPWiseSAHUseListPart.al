@@ -41,47 +41,47 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
 
             repeater(General)
             {
-                field("Group Name"; "Group Name")
+                field("Group Name"; rec."Group Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Allocated Lines"; "Allocated Lines")
+                field("Allocated Lines"; rec."Allocated Lines")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Allocated SAH"; "Allocated SAH")
+                field("Allocated SAH"; rec."Allocated SAH")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Used SAH"; "Used SAH")
+                field("Used SAH"; rec."Used SAH")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Difference Hrs"; "Difference Hrs")
+                field("Difference Hrs"; rec."Difference Hrs")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Avg SMV"; "Avg SMV")
+                field("Avg SMV"; rec."Avg SMV")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Capacity Pcs"; "Capacity Pcs")
+                field("Capacity Pcs"; rec."Capacity Pcs")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Booked Pcs"; "Booked Pcs")
+                field("Booked Pcs"; rec."Booked Pcs")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Difference Pcs"; "Difference Pcs")
+                field("Difference Pcs"; rec."Difference Pcs")
                 {
                     ApplicationArea = All;
                 }

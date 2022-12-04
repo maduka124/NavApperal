@@ -15,19 +15,19 @@ page 50511 "Nav Prod Filter"
             {
                 Editable = false;
 
-                field(PlanDate; PlanDate)
+                field(PlanDate;rec. PlanDate)
                 {
                     ApplicationArea = All;
                     Caption = 'Plan Date';
                 }
 
-                field("Style No."; "Style No.")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
                     Caption = 'No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                 }

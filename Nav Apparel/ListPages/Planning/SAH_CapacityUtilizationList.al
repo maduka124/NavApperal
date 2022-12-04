@@ -13,7 +13,7 @@ page 50857 SAH_CapacityAllocationList
         {
             repeater(General)
             {
-                field(Year; Year)
+                field(Year; rec.Year)
                 {
                     ApplicationArea = All;
                 }
@@ -34,37 +34,37 @@ page 50857 SAH_CapacityAllocationList
 
     begin
         SAH_FactoryCapacity.Reset();
-        SAH_FactoryCapacity.SetRange(Year, Year);
+        SAH_FactoryCapacity.SetRange(Year, rec.Year);
         if SAH_FactoryCapacity.FindSet() then
             SAH_FactoryCapacity.DeleteAll();
 
         SAH_CapacityAllocation.Reset();
-        SAH_CapacityAllocation.SetRange(Year, Year);
+        SAH_CapacityAllocation.SetRange(Year, rec.Year);
         if SAH_CapacityAllocation.FindSet() then
             SAH_CapacityAllocation.DeleteAll();
 
         SAH_MerchGRPWiseAllocation.Reset();
-        SAH_MerchGRPWiseAllocation.SetRange(Year, Year);
+        SAH_MerchGRPWiseAllocation.SetRange(Year, rec.Year);
         if SAH_MerchGRPWiseAllocation.FindSet() then
             SAH_MerchGRPWiseAllocation.DeleteAll();
 
         SAH_MerchGRPWiseAvgSMV.Reset();
-        SAH_MerchGRPWiseAvgSMV.SetRange(Year, Year);
+        SAH_MerchGRPWiseAvgSMV.SetRange(Year, rec.Year);
         if SAH_MerchGRPWiseAvgSMV.FindSet() then
             SAH_MerchGRPWiseAvgSMV.DeleteAll();
 
         SAH_MerchGRPWiseBalance.Reset();
-        SAH_MerchGRPWiseBalance.SetRange(Year, Year);
+        SAH_MerchGRPWiseBalance.SetRange(Year, rec.Year);
         if SAH_MerchGRPWiseBalance.FindSet() then
             SAH_MerchGRPWiseBalance.DeleteAll();
 
         SAH_MerchGRPWiseSAHUsed.Reset();
-        SAH_MerchGRPWiseSAHUsed.SetRange(Year, Year);
+        SAH_MerchGRPWiseSAHUsed.SetRange(Year, rec.Year);
         if SAH_MerchGRPWiseSAHUsed.FindSet() then
             SAH_MerchGRPWiseSAHUsed.DeleteAll();
 
         SAH_PlanEfficiency.Reset();
-        SAH_PlanEfficiency.SetRange(Year, Year);
+        SAH_PlanEfficiency.SetRange(Year, rec.Year);
         if SAH_PlanEfficiency.FindSet() then
             SAH_PlanEfficiency.DeleteAll();
     end;

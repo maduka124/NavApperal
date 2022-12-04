@@ -9,14 +9,14 @@ page 71012776 SampleReqDocListPart
         {
             repeater(General)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field("Doc Type Name"; "Doc Type Name")
+                field("Doc Type Name"; rec."Doc Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Doc Type';
@@ -26,13 +26,13 @@ page 71012776 SampleReqDocListPart
                         UploadDocRec: Record "Upload Document Type";
                     begin
                         UploadDocRec.Reset();
-                        UploadDocRec.SetRange("Doc Name", "Doc Type Name");
+                        UploadDocRec.SetRange("Doc Name", rec."Doc Type Name");
                         if UploadDocRec.FindSet() then
-                            "Doc Type No." := UploadDocRec."Doc No.";
+                            rec."Doc Type No." := UploadDocRec."Doc No.";
                     end;
                 }
 
-                field(Path; Path)
+                field(Path; rec.Path)
                 {
                     ApplicationArea = All;
                     Caption = 'Upload File';
@@ -43,11 +43,11 @@ page 71012776 SampleReqDocListPart
                         RecRef: RecordRef;
                         DocumentAttachmentDetails: page "Document Attachment Details";
                     begin
-                        UploadFile("No.", "Line No.");
+                        UploadFile(rec."No.", rec."Line No.");
                     end;
                 }
 
-                field(FileType; FileType)
+                field(FileType; rec.FileType)
                 {
                     ApplicationArea = All;
                     Caption = 'View File';
@@ -103,8 +103,8 @@ page 71012776 SampleReqDocListPart
     begin
 
         SampleReqDocRec.Reset();
-        SampleReqDocRec.SetRange("No.", "No.");
-        SampleReqDocRec.SetRange("Line No.", "Line No.");
+        SampleReqDocRec.SetRange("No.", rec."No.");
+        SampleReqDocRec.SetRange("Line No.", rec."Line No.");
 
         if SampleReqDocRec.FindSet() then begin
             if SampleReqDocRec.Path.HasValue then begin

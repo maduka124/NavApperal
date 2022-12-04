@@ -11,59 +11,59 @@ page 50689 "FabTwistList"
         {
             repeater(General)
             {
-                field("FabTwistNo."; "FabTwistNo.")
+                field("FabTwistNo."; rec."FabTwistNo.")
                 {
                     ApplicationArea = all;
                     Caption = 'Fab. Twist No';
                 }
 
-                field("Buyer Name."; "Buyer Name.")
+                field("Buyer Name."; rec."Buyer Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No.";rec. "PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
 
-                field(GRN; GRN)
+                field(GRN;rec. GRN)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
                 }
 
-                field("Fabric Code"; "Fabric Code")
+                field("Fabric Code";rec. "Fabric Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric';
                 }
 
-                field(Composition; Composition)
+                field(Composition;rec. Composition)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Construction; Construction)
+                field(Construction; rec.Construction)
                 {
                     ApplicationArea = All;
                 }
@@ -76,7 +76,7 @@ page 50689 "FabTwistList"
         FabTwistLineRec: Record FabTwistLine;
     begin
         FabTwistLineRec.reset();
-        FabTwistLineRec.SetRange("FabTwistNo.", "FabTwistNo.");
+        FabTwistLineRec.SetRange("FabTwistNo.", rec."FabTwistNo.");
         if FabTwistLineRec.FindSet() then
             FabTwistLineRec.DeleteAll();
     end;

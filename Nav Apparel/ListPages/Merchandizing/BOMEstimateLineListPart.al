@@ -11,7 +11,7 @@ page 71012695 "BOM Estimate Line List part"
         {
             repeater(General)
             {
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -21,7 +21,7 @@ page 71012695 "BOM Estimate Line List part"
                         MainCategoryRec: Record "Main Category";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                         if MainCategoryRec.FindSet() then begin
 
                             if MainCategoryRec."Inv. Posting Group Code" = '' then
@@ -30,23 +30,23 @@ page 71012695 "BOM Estimate Line List part"
                             if MainCategoryRec."Prod. Posting Group Code" = '' then
                                 Error('Prod. Posting Group is not setup for this Main Category. Cannot proceed.');
 
-                            "Main Category No." := MainCategoryRec."No.";
-                            "Master Category No." := MainCategoryRec."Master Category No.";
-                            "Master Category Name" := MainCategoryRec."Master Category Name";
+                            rec."Main Category No." := MainCategoryRec."No.";
+                            rec."Master Category No." := MainCategoryRec."Master Category No.";
+                            rec."Master Category Name" := MainCategoryRec."Master Category Name";
 
-                            "Item No." := '';
-                            "Item Name" := '';
-                            "Dimension No." := '';
-                            "Dimension Name." := '';
-                            "Article No." := '';
-                            "Article Name." := '';
-                            "Supplier No." := '';
-                            "Supplier Name." := '';
+                            rec."Item No." := '';
+                            rec."Item Name" := '';
+                            rec."Dimension No." := '';
+                            rec."Dimension Name." := '';
+                            rec."Article No." := '';
+                            rec."Article Name." := '';
+                            rec."Supplier No." := '';
+                            rec."Supplier Name." := '';
                         end;
                     end;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -58,32 +58,32 @@ page 71012695 "BOM Estimate Line List part"
                         VendorRec: Record Vendor;
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Item Name");
+                        ItemRec.SetRange(Description, rec."Item Name");
                         if ItemRec.FindSet() then
-                            "Item No." := ItemRec."No.";
+                            rec."Item No." := ItemRec."No.";
 
                         CurrPage.Update();
 
                         if ItemRec."Vendor No." <> '' then begin
 
-                            "Supplier No." := ItemRec."Vendor No.";
+                            rec."Supplier No." := ItemRec."Vendor No.";
                             VendorRec.Reset();
                             VendorRec.SetRange("No.", ItemRec."Vendor No.");
 
                             if VendorRec.FindSet() then
-                                "Supplier Name." := VendorRec.Name;
+                                rec."Supplier Name." := VendorRec.Name;
 
                         end;
 
                         //Get Qty from Header 
-                        BOMHeaderRec.get("No.");
-                        Qty := BOMHeaderRec.Quantity;
+                        BOMHeaderRec.get(rec."No.");
+                        rec.Qty := BOMHeaderRec.Quantity;
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Article Name."; "Article Name.")
+                field("Article Name."; rec."Article Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Article/Construction';
@@ -94,13 +94,13 @@ page 71012695 "BOM Estimate Line List part"
                         ConstructionRec: Record Article;
                     begin
                         ConstructionRec.Reset();
-                        ConstructionRec.SetRange(Article, "Article Name.");
+                        ConstructionRec.SetRange(Article, rec."Article Name.");
                         if ConstructionRec.FindSet() then
-                            "Article No." := ConstructionRec."No.";
+                            rec."Article No." := ConstructionRec."No.";
                     end;
                 }
 
-                field("Dimension Name."; "Dimension Name.")
+                field("Dimension Name."; rec."Dimension Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension';
@@ -111,13 +111,13 @@ page 71012695 "BOM Estimate Line List part"
                         DimensionRec: Record DimensionWidth;
                     begin
                         DimensionRec.Reset();
-                        DimensionRec.SetRange("Dimension Width", "Dimension Name.");
+                        DimensionRec.SetRange("Dimension Width", rec."Dimension Name.");
                         if DimensionRec.FindSet() then
-                            "Dimension No." := DimensionRec."No.";
+                            rec."Dimension No." := DimensionRec."No.";
                     end;
                 }
 
-                field("Unit N0."; "Unit N0.")
+                field("Unit N0."; rec."Unit N0.")
                 {
                     ApplicationArea = All;
                     Caption = 'Unit';
@@ -129,7 +129,7 @@ page 71012695 "BOM Estimate Line List part"
                     end;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                     Caption = 'Type';
@@ -141,7 +141,7 @@ page 71012695 "BOM Estimate Line List part"
                     end;
                 }
 
-                field(Consumption; Consumption)
+                field(Consumption; rec.Consumption)
                 {
                     ApplicationArea = All;
 
@@ -152,7 +152,7 @@ page 71012695 "BOM Estimate Line List part"
                     end;
                 }
 
-                field(WST; WST)
+                field(WST; rec.WST)
                 {
                     ApplicationArea = All;
                     Caption = 'WST%';
@@ -165,7 +165,7 @@ page 71012695 "BOM Estimate Line List part"
                     end;
                 }
 
-                field(Rate; Rate)
+                field(Rate; rec.Rate)
                 {
                     ApplicationArea = All;
 
@@ -176,13 +176,13 @@ page 71012695 "BOM Estimate Line List part"
                     end;
                 }
 
-                field(Value; Value)
+                field(Value; rec.Value)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Supplier Name."; "Supplier Name.")
+                field("Supplier Name."; rec."Supplier Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
@@ -192,21 +192,21 @@ page 71012695 "BOM Estimate Line List part"
                         SupplierRec: Record Vendor;
                     begin
                         SupplierRec.Reset();
-                        SupplierRec.SetRange(Name, "Supplier Name.");
+                        SupplierRec.SetRange(Name, rec."Supplier Name.");
                         if SupplierRec.FindSet() then
-                            "Supplier No." := SupplierRec."No.";
+                            rec."Supplier No." := SupplierRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field(Requirment; Requirment)
+                field(Requirment; rec.Requirment)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(AjstReq; AjstReq)
+                field(AjstReq; rec.AjstReq)
                 {
                     ApplicationArea = All;
                     Caption = 'Adjust. Req.';
@@ -228,34 +228,34 @@ page 71012695 "BOM Estimate Line List part"
         UOMRec: Record "Unit of Measure";
     begin
 
-        if "Article Name." = '' then
+        if rec."Article Name." = '' then
             Error('Article is blank.');
 
-        if "Dimension Name." = '' then
+        if rec."Dimension Name." = '' then
             Error('Dimension is blank.');
 
         UOMRec.Reset();
-        UOMRec.SetRange(Code, "Unit N0.");
+        UOMRec.SetRange(Code, rec."Unit N0.");
         if UOMRec.FindSet() then
             ConvFactor := UOMRec."Converion Parameter";
 
         // if ConvFactor = 0 then
         //     Error('Conversion Factor is zero. Cannot proceed');
 
-        if Type = type::Pcs then
-            Requirment := (Consumption * Qty) + (Consumption * Qty) * WST / 100
+        if rec.Type = rec.type::Pcs then
+            rec.Requirment := (rec.Consumption * rec.Qty) + (rec.Consumption * rec.Qty) * rec.WST / 100
         else
-            if Type = type::Doz then
-                Requirment := ((Consumption * Qty) + (Consumption * Qty) * WST / 100) / 12;
+            if rec.Type = rec.type::Doz then
+                rec.Requirment := ((rec.Consumption * rec.Qty) + (rec.Consumption * rec.Qty) * rec.WST / 100) / 12;
 
         if (x = 0) and (ConvFactor <> 0) then
-            Requirment := Requirment / ConvFactor;
+            rec.Requirment := rec.Requirment / ConvFactor;
 
-        if Requirment = 0 then
-            Requirment := 1;
+        if rec.Requirment = 0 then
+            rec.Requirment := 1;
 
         //Requirment := Round(Requirment, 1);
-        Value := Requirment * Rate;
+        rec.Value := rec.Requirment * rec.Rate;
         CurrPage.Update(true);
         CalculateCost();
 
@@ -265,14 +265,14 @@ page 71012695 "BOM Estimate Line List part"
     var
     begin
 
-        case Type of
-            type::Pcs:
+        case rec.Type of
+            rec.type::Pcs:
                 begin
-                    WST := WST + ((AjstReq / Requirment) - 1) * 100;
+                    rec.WST := rec.WST + ((rec.AjstReq / rec.Requirment) - 1) * 100;
                 end;
-            type::Doz:
+            rec.type::Doz:
                 begin
-                    WST := WST + ((AjstReq / Requirment) - 1) * 100;
+                    rec.WST := rec.WST + ((rec.AjstReq / rec.Requirment) - 1) * 100;
                 end;
         end;
 
@@ -304,7 +304,7 @@ page 71012695 "BOM Estimate Line List part"
         Total := 0;
         BOMEstimateLIneRec.Reset();
         BOMEstimateLIneRec.SetCurrentKey("No.");
-        BOMEstimateLIneRec.SetRange("No.", "No.");
+        BOMEstimateLIneRec.SetRange("No.", rec."No.");
 
         IF (BOMEstimateLIneRec.FINDSET) THEN
             repeat
@@ -312,10 +312,10 @@ page 71012695 "BOM Estimate Line List part"
             until BOMEstimateLIneRec.Next() = 0;
 
 
-        BOMHeaderRec.get("No.");
+        BOMHeaderRec.get(rec."No.");
 
-        if Qty <> 0 then
-            BOMHeaderRec."Material Cost Pcs." := (Total / Qty);
+        if rec.Qty <> 0 then
+            BOMHeaderRec."Material Cost Pcs." := (Total / rec.Qty);
 
         BOMHeaderRec."Material Cost Doz." := BOMHeaderRec."Material Cost Pcs." * 12;
         BOMHeaderRec.Modify();

@@ -13,32 +13,32 @@ page 71012708 "Dependency Parameters"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Seq No';
                 }
-                field("Dependency Group"; "Dependency Group")
+                field("Dependency Group"; rec."Dependency Group")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Action Type"; "Action Type")
+                field("Action Type"; rec."Action Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Action Description"; "Action Description")
+                field("Action Description"; rec."Action Description")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Gap Days"; "Gap Days")
+                field("Gap Days"; rec."Gap Days")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Department; Department)
+                field(Department; rec.Department)
                 {
                     ApplicationArea = All;
                 }

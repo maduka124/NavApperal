@@ -13,79 +13,79 @@ page 50573 "Trim Inspection ListPart2"
         {
             repeater(General)
             {
-                field("PurchRecNo."; "PurchRecNo.")
+                field("PurchRecNo."; rec."PurchRecNo.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'GRN No';
                 }
 
-                field("Line No"; "Line No")
+                field("Line No"; rec."Line No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Main Category';
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Item';
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Color';
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Article; Article)
+                field(Article; rec.Article)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Dimension; Dimension)
+                field(Dimension; rec.Dimension)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Unit Name"; "Unit Name")
+                field("Unit Name"; rec."Unit Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Unit';
                 }
 
-                field("GRN Qty"; "GRN Qty")
+                field("GRN Qty"; rec."GRN Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Sample Qty"; "Sample Qty")
+                field("Sample Qty"; rec."Sample Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Accept; Accept)
+                field(Accept; rec.Accept)
                 {
                     ApplicationArea = All;
                     Editable = true;
@@ -93,17 +93,17 @@ page 50573 "Trim Inspection ListPart2"
                     trigger OnValidate()
                     var
                     begin
-                        Reject := "Sample Qty" - Accept;
-                        if Reject > RejectLevel then
-                            Status := Status::Fail
+                        rec.Reject := rec."Sample Qty" - rec.Accept;
+                        if rec.Reject > rec.RejectLevel then
+                            rec.Status := rec.Status::Fail
                         else
-                            Status := Status::Pass;
+                            rec.Status := rec.Status::Pass;
 
                         SetStatus();
                     end;
                 }
 
-                field(Reject; Reject)
+                field(Reject; rec.Reject)
                 {
                     ApplicationArea = All;
                     Editable = true;
@@ -111,17 +111,17 @@ page 50573 "Trim Inspection ListPart2"
                     trigger OnValidate()
                     var
                     begin
-                        Accept := "Sample Qty" - Reject;
-                        if Reject > RejectLevel then
-                            Status := Status::Fail
+                        rec.Accept := rec."Sample Qty" - rec.Reject;
+                        if rec.Reject > rec.RejectLevel then
+                            rec.Status := rec.Status::Fail
                         else
-                            Status := Status::Pass;
+                            rec.Status := rec.Status::Pass;
 
                         SetStatus();
                     end;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -140,7 +140,7 @@ page 50573 "Trim Inspection ListPart2"
         CurrPage.Update();
 
         TrimInsRec.Reset();
-        TrimInsRec.SetRange("PurchRecNo.", "PurchRecNo.");
+        TrimInsRec.SetRange("PurchRecNo.", rec."PurchRecNo.");
         Status := true;
 
         if TrimInsRec.FindSet() then begin
@@ -151,7 +151,7 @@ page 50573 "Trim Inspection ListPart2"
 
             //Update GRN 'TrimInspected' status
             PurchRec.Reset();
-            PurchRec.SetRange("No.", "PurchRecNo.");
+            PurchRec.SetRange("No.", rec."PurchRecNo.");
             PurchRec.FindSet();
 
             if Status = true then

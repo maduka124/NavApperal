@@ -10,45 +10,45 @@ page 71012792 "PI Po Item Details ListPart"
         {
             repeater(General)
             {
-                field("PI No."; "PI No.")
+                field("PI No."; rec."PI No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PI No';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
                 }
 
-                field(UOM; UOM)
+                field(UOM; rec.UOM)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Unit Price"; "Unit Price")
+                field("Unit Price"; rec."Unit Price")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Value; Value)
+                field(Value; rec.Value)
                 {
                     ApplicationArea = All;
                 }

@@ -13,50 +13,50 @@ page 71012693 "Estimate BOM"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'BOM Estimate No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
@@ -73,27 +73,27 @@ page 71012693 "Estimate BOM"
                 //     ApplicationArea = All;
                 // }
 
-                field(Quantity; Quantity)
+                field(Quantity; rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Currency No."; "Currency No.")
+                field("Currency No."; rec."Currency No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Currency';
                 }
 
-                field("Material Cost Doz."; "Material Cost Doz.")
+                field("Material Cost Doz."; rec."Material Cost Doz.")
                 {
                     ApplicationArea = All;
                 }
-                field("Material Cost Pcs."; "Material Cost Pcs.")
+                field("Material Cost Pcs."; rec."Material Cost Pcs.")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                 }
@@ -107,10 +107,10 @@ page 71012693 "Estimate BOM"
         BOMEstimateRec: Record "BOM Estimate";
         BOMLineEstRec: Record "BOM Estimate Line";
     begin
-        BOMEstimateRec.SetRange("No.", "No.");
+        BOMEstimateRec.SetRange("No.", rec."No.");
         BOMEstimateRec.DeleteAll();
 
-        BOMLineEstRec.SetRange("No.", "No.");
+        BOMLineEstRec.SetRange("No.", rec."No.");
         BOMLineEstRec.DeleteAll();
     end;
 }

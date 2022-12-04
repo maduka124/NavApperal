@@ -13,72 +13,72 @@ page 71012770 "BOM Estimate Cost (Approval)"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Estimate BOM No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("BOM No."; "BOM No.")
+                field("BOM No."; rec."BOM No.")
                 {
                     ApplicationArea = All;
                     Caption = 'BOM No';
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
                 }
 
-                field(Quantity; Quantity)
+                field(Quantity; rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Currency No."; "Currency No.")
+                field("Currency No."; rec."Currency No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Currency';
@@ -92,10 +92,10 @@ page 71012770 "BOM Estimate Cost (Approval)"
         BOMEstimateCostRec: Record "BOM Estimate Cost";
         BOMEstCostLineRec: Record "BOM Estimate Costing Line";
     begin
-        BOMEstimateCostRec.SetRange("No.", "No.");
+        BOMEstimateCostRec.SetRange("No.", rec."No.");
         BOMEstimateCostRec.DeleteAll();
 
-        BOMEstCostLineRec.SetRange("No.", "No.");
+        BOMEstCostLineRec.SetRange("No.", rec."No.");
         BOMEstCostLineRec.DeleteAll();
     end;
 }

@@ -9,20 +9,20 @@ page 71012802 "Dependency Group ListPart"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Dependency No';
                     Editable = false;
                 }
 
-                field("Dependency Group"; "Dependency Group")
+                field("Dependency Group"; rec."Dependency Group")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Selected; Selected)
+                field(Selected; rec.Selected)
                 {
                     ApplicationArea = All;
                     Editable = true;

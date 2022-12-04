@@ -11,48 +11,48 @@ page 50673 "FabricProceList"
         {
             repeater(General)
             {
-                field("FabricProceNo."; "FabricProceNo.")
+                field("FabricProceNo."; rec."FabricProceNo.")
                 {
                     ApplicationArea = all;
                     Caption = 'Fabric Proc. No';
                 }
 
-                field("Buyer Name."; "Buyer Name.")
+                field("Buyer Name."; rec."Buyer Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
 
-                field(GRN; GRN)
+                field(GRN; rec.GRN)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
                 }
 
-                field("No of Roll"; "No of Roll")
+                field("No of Roll"; rec."No of Roll")
                 {
                     ApplicationArea = All;
                     Caption = 'No of Rolls';
@@ -66,7 +66,7 @@ page 50673 "FabricProceList"
         FabricProLineRec: Record FabricProceLine;
     begin
         FabricProLineRec.reset();
-        FabricProLineRec.SetRange("FabricProceNo.", "FabricProceNo.");
+        FabricProLineRec.SetRange("FabricProceNo.", rec."FabricProceNo.");
         if FabricProLineRec.FindSet() then
             FabricProLineRec.DeleteAll();
     end;

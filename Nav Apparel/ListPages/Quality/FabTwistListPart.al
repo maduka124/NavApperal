@@ -11,76 +11,76 @@ page 50691 "FabTwistListPart"
         {
             repeater(General)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = all;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Color';
                 }
 
-                field(NoofRolls; NoofRolls)
+                field(NoofRolls; rec.NoofRolls)
                 {
                     ApplicationArea = All;
                     Caption = 'No of Rolls';
                     Editable = false;
                 }
 
-                field(RollID; RollID)
+                field(RollID; rec.RollID)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Roll ID';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Caption = 'Qty (YDS)';
                     Editable = false;
                 }
 
-                field("BW Width CM"; "BW Width CM")
+                field("BW Width CM"; rec."BW Width CM")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if "BW Width CM" > 0 then
-                            "BW Twist%" := "BW Twist CM" / "BW Width CM"
+                        if rec."BW Width CM" > 0 then
+                            rec."BW Twist%" := rec."BW Twist CM" / rec."BW Width CM"
                         else
-                            "BW Twist%" := 0;
+                            rec."BW Twist%" := 0;
                     end;
                 }
 
-                field("BW Twist CM"; "BW Twist CM")
+                field("BW Twist CM"; rec."BW Twist CM")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if "BW Width CM" > 0 then
-                            "BW Twist%" := "BW Twist CM" / "BW Width CM"
+                        if rec."BW Width CM" > 0 then
+                            rec."BW Twist%" := rec."BW Twist CM" / rec."BW Width CM"
                         else
-                            "BW Twist%" := 0;
+                            rec."BW Twist%" := 0;
                     end;
                 }
 
-                field("BW Twist%"; "BW Twist%")
+                field("BW Twist%"; rec."BW Twist%")
                 {
                     ApplicationArea = All;
                     Enabled = false;
                 }
 
-                field("AW Width CM"; "AW Width CM")
+                field("AW Width CM"; rec."AW Width CM")
                 {
                     ApplicationArea = All;
 
@@ -88,17 +88,17 @@ page 50691 "FabTwistListPart"
                     var
                     begin
 
-                        if "AW Width CM" > 0 then begin
-                            "AW Twist%" := "AW Twist CM" / "AW Width CM";
+                        if rec."AW Width CM" > 0 then begin
+                            rec."AW Twist%" := rec."AW Twist CM" / rec."AW Width CM";
                             CurrPage.Update();
                             Cal_Avg();
                         end
                         else
-                            "AW Twist%" := 0;
+                            rec."AW Twist%" := 0;
                     end;
                 }
 
-                field("AW Twist CM"; "AW Twist CM")
+                field("AW Twist CM"; rec."AW Twist CM")
                 {
                     ApplicationArea = All;
 
@@ -106,17 +106,17 @@ page 50691 "FabTwistListPart"
                     trigger OnValidate()
                     var
                     begin
-                        if "AW Width CM" > 0 then begin
-                            "AW Twist%" := "AW Twist CM" / "AW Width CM";
+                        if rec."AW Width CM" > 0 then begin
+                            rec."AW Twist%" := rec."AW Twist CM" / rec."AW Width CM";
                             CurrPage.Update();
                             Cal_Avg();
                         end
                         else
-                            "AW Twist%" := 0;
+                            rec."AW Twist%" := 0;
                     end;
                 }
 
-                field("AW Twist%"; "AW Twist%")
+                field("AW Twist%"; rec."AW Twist%")
                 {
                     ApplicationArea = All;
                     Enabled = false;
@@ -134,7 +134,7 @@ page 50691 "FabTwistListPart"
     begin
 
         FabTwistLineRec.Reset();
-        FabTwistLineRec.SetRange("FabTwistNo.", "FabTwistNo.");
+        FabTwistLineRec.SetRange("FabTwistNo.", rec."FabTwistNo.");
         FabTwistLineRec.FindSet();
 
         repeat
@@ -148,7 +148,7 @@ page 50691 "FabTwistListPart"
             TempAvg := 0;
 
         FabTwistHeadRec.Reset();
-        FabTwistHeadRec.SetRange("FabTwistNo.", "FabTwistNo.");
+        FabTwistHeadRec.SetRange("FabTwistNo.", rec."FabTwistNo.");
         FabTwistHeadRec.FindSet();
         FabTwistHeadRec.ModifyAll(Avg, TempAvg);
         CurrPage.Update();

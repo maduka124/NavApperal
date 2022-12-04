@@ -9,51 +9,51 @@ page 71012803 "Dependency Buyer Para ListPart"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Code';
                     Editable = false;
                 }
 
-                field("Dependency Group"; "Dependency Group")
+                field("Dependency Group"; rec."Dependency Group")
                 {
                     ApplicationArea = All;
                     Caption = 'Dependency';
                     Editable = false;
                 }
 
-                field("Action Description"; "Action Description")
+                field("Action Description"; rec."Action Description")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Gap Days"; "Gap Days")
+                field("Gap Days"; rec."Gap Days")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Select; Select)
+                field(Select; rec.Select)
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field("MK Critical"; "MK Critical")
+                field("MK Critical"; rec."MK Critical")
                 {
                     ApplicationArea = All;
                     Editable = true;
                 }
 
-                field("Action Type"; "Action Type")
+                field("Action Type"; rec."Action Type")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Action User"; "Action User")
+                field("Action User"; rec."Action User")
                 {
                     ApplicationArea = All;
                     Editable = true;

@@ -446,6 +446,17 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Style Transfers")
+                {
+                    RunObject = page "Style transfer List";
+                    ApplicationArea = All;
+                }
+                action("Style Transfer Approvals")
+                {
+                    RunObject = page "Style transfer Approvals";
+                    ApplicationArea = All;
+                }
+
                 action("Sales Orders1")
                 {
                     Caption = 'Sales Orders';
@@ -598,6 +609,14 @@ page 71012740 "Nav Apperal Role Center"
                         Caption = 'Production Plan Report';
                         Enabled = true;
                         RunObject = report ProductionPlanReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Style Transfer Report")
+                    {
+                        Caption = 'Style Transfer Report';
+                        Enabled = true;
+                        RunObject = report StyleTransferReport;
                         ApplicationArea = all;
                     }
 
@@ -811,11 +830,28 @@ page 71012740 "Nav Apperal Role Center"
                     RunObject = page "Department Requisition Sheet";
                     ApplicationArea = All;
                 }
+
+                action("General Item Requisitions")
+                {
+                    ApplicationArea = All;
+                    Caption = 'General Item Requisition';
+                    RunObject = page "General Issue List";
+                    RunPageView = where(Status = filter(Open | "Pending Approval"));
+                }
+
                 action("Gate Pass1")
                 {
                     Caption = 'Gate Pass';
                     RunObject = Page "Gate Pass List";
                     ApplicationArea = all;
+                }
+
+                action("Raw Material Issue")
+                {
+                    Caption = 'Raw Material Requisition';
+                    ApplicationArea = All;
+                    RunObject = page "Daily Consumption List";
+                    RunPageView = where(Status = filter(Open | "Pending Approval"));
                 }
 
                 group("Common Reports")
@@ -828,11 +864,34 @@ page 71012740 "Nav Apperal Role Center"
                         ApplicationArea = All;
                     }
                 }
+
             }
 
             group("Store")
             {
                 Caption = 'Store';
+
+                action("Approved General Issuance")
+                {
+                    ApplicationArea = All;
+                    Caption = 'General Item Requisition';
+                    RunObject = page "General Issue List";
+                    RunPageView = where(Status = filter(Approved));
+                }
+                action("Approved Raw Material Issue")
+                {
+                    Caption = 'Raw Material Requisition';
+                    ApplicationArea = All;
+                    RunObject = page "Daily Consumption List";
+                    RunPageView = where(Status = filter(Approved), "Issued UserID" = filter(''));
+                }
+
+                action("Bin Card")
+                {
+                    Caption = 'Bin Card';
+                    ApplicationArea = All;
+                    RunObject = page "Item Ledger Entries";
+                }
 
                 action("Consumption Journal")
                 {
@@ -841,17 +900,17 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Item1")
-                {
-                    Caption = 'Item';
-                    RunObject = Page "Item List";
-                    ApplicationArea = all;
-                }
-
                 action("Contract/Style Allocation")
                 {
                     Caption = 'Contract/Style Allocation';
                     RunObject = Page "StyleContract Allocations List";
+                    ApplicationArea = all;
+                }
+
+                action("Item1")
+                {
+                    Caption = 'Item';
+                    RunObject = Page "Item List";
                     ApplicationArea = all;
                 }
 
@@ -868,6 +927,14 @@ page 71012740 "Nav Apperal Role Center"
                     Caption = 'Good Receipts';
                     RunObject = Page "Posted Purchase Receipts";
                     ApplicationArea = all;
+                }
+
+                action("Posted Material Requests")
+                {
+                    Caption = 'Posted Raw Material Requisition';
+                    ApplicationArea = All;
+                    RunObject = page "Daily Consumption List";
+                    RunPageView = where(Status = filter(Approved), "Issued UserID" = filter(<> ''));
                 }
 
                 action("Pre-Production Follow Up- Store")
@@ -901,6 +968,13 @@ page 71012740 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("SS Transfers")
+                {
+                    RunObject = page "Style transfer List";
+                    RunPageView = where(Status = filter(Approved));
+                    ApplicationArea = All;
+                }
+
                 action("Transfer Orders")
                 {
                     Caption = 'Transfer Orders';
@@ -925,6 +999,14 @@ page 71012740 "Nav Apperal Role Center"
                         Caption = 'Fabric & Trims requiremts Report';
                         Enabled = true;
                         RunObject = report FabricAndTrimsRequiremts;
+                        ApplicationArea = all;
+                    }
+
+                    action("General Issue Note Report")
+                    {
+                        Caption = 'General Issue Note Report';
+                        Enabled = true;
+                        RunObject = report GeneralIssueReport;
                         ApplicationArea = all;
                     }
 

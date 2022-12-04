@@ -11,63 +11,63 @@ page 50846 "PlanningEfficiencyReportList"
         {
             repeater(General)
             {
-                field(Year; Year)
+                field(Year; rec.Year)
                 {
                     ApplicationArea = All;
                 }
 
-                field(MonthName; MonthName)
+                field(MonthName; rec.MonthName)
                 {
                     ApplicationArea = All;
                 }
 
-                field(MonthNo; MonthNo)
+                field(MonthNo; rec.MonthNo)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Factory No."; "Factory No.")
+                field("Factory No."; rec."Factory No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Day 3';
                 }
 
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Line Name"; "Line Name")
+                field("Line Name"; rec."Line Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Style No."; "Style No.")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Factory Eff."; "Factory Eff.")
+                field("Factory Eff."; rec."Factory Eff.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Line Eff."; "Line Eff.")
+                field("Line Eff."; rec."Line Eff.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Style Eff."; "Style Eff.")
+                field("Style Eff."; rec."Style Eff.")
                 {
                     ApplicationArea = All;
                 }

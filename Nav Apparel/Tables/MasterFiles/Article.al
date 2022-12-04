@@ -45,6 +45,11 @@ table 71012583 Article
         {
             Clustered = true;
         }
+
+        key(SK; "Main Category Name", Article)
+        {
+
+        }
     }
 
     fieldgroups

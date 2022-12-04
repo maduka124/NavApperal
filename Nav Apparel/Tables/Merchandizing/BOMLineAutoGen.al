@@ -1,5 +1,5 @@
 
-table 71012686 "BOM Line AutoGen"
+table 50895 "BOM Line AutoGen"
 {
     DataClassification = ToBeClassified;
 

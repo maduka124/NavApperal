@@ -9,7 +9,7 @@ page 71012731 "Style Master PO ListPart"
         {
             repeater(General)
             {
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Lot No';
@@ -23,25 +23,25 @@ page 71012731 "Style Master PO ListPart"
 
                         BOMEstCostRec.Reset();
                         BOMEstCostRec.SetCurrentKey("Style No.");
-                        BOMEstCostRec.SetRange("Style No.", "Style No.");
+                        BOMEstCostRec.SetRange("Style No.", rec."Style No.");
 
                         if BOMEstCostRec.FindSet() then begin
-                            "Unit Price" := BOMEstCostRec."FOB Pcs";
+                            rec."Unit Price" := BOMEstCostRec."FOB Pcs";
                         end;
 
                         //Get BPCD
                         StyleMasRec.Reset();
-                        StyleMasRec.SetRange("No.", "Style No.");
+                        StyleMasRec.SetRange("No.", rec."Style No.");
 
                         if StyleMasRec.FindSet() then begin
-                            BPCD := StyleMasRec.BPCD;
-                            "Style Name" := StyleMasRec."Style No.";
+                            rec.BPCD := StyleMasRec.BPCD;
+                            rec."Style Name" := StyleMasRec."Style No.";
                         end;
 
                     end;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
@@ -54,15 +54,15 @@ page 71012731 "Style Master PO ListPart"
                         CurrPage.Update();
                         SalesHeaderRec.Reset();
                         SalesHeaderRec.SetCurrentKey("Style No", Lot);
-                        SalesHeaderRec.SetRange("Style No", "Style No.");
-                        SalesHeaderRec.SetRange(Lot, "Lot No.");
+                        SalesHeaderRec.SetRange("Style No", rec."Style No.");
+                        SalesHeaderRec.SetRange(Lot, rec."Lot No.");
 
                         if SalesHeaderRec.FindSet() then
-                            SalesHeaderRec.ModifyAll("PO No", "PO No.");
+                            SalesHeaderRec.ModifyAll("PO No", rec."PO No.");
                     end;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -76,7 +76,7 @@ page 71012731 "Style Master PO ListPart"
 
                         CurrPage.Update();
                         StyleMasterPORec.Reset();
-                        StyleMasterPORec.SetRange("Style No.", "Style No.");
+                        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
                         StyleMasterPORec.FindSet();
 
                         repeat
@@ -84,40 +84,40 @@ page 71012731 "Style Master PO ListPart"
                         until StyleMasterPORec.Next() = 0;
 
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("No.", "Style No.");
+                        StyleMasterRec.SetRange("No.", rec."Style No.");
                         if StyleMasterRec.FindSet() then
                             StyleMasterRec.ModifyAll("PO Total", Tot)
 
                     end;
                 }
 
-                field(Mode; Mode)
+                field(Mode; rec.Mode)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Ship Date"; "Ship Date")
+                field("Ship Date"; rec."Ship Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field(SID; SID)
+                field(SID; rec.SID)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Unit Price"; "Unit Price")
+                field("Unit Price"; rec."Unit Price")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Confirm Date"; "Confirm Date")
+                field("Confirm Date"; rec."Confirm Date")
                 {
                     ApplicationArea = All;
                 }
@@ -133,7 +133,7 @@ page 71012731 "Style Master PO ListPart"
     begin
         //Update Po Total         
         StyleMasterPORec.Reset();
-        StyleMasterPORec.SetRange("Style No.", "Style No.");
+        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
         StyleMasterPORec.FindSet();
 
         repeat
@@ -141,7 +141,7 @@ page 71012731 "Style Master PO ListPart"
         until StyleMasterPORec.Next() = 0;
 
         StyleMasterRec.Reset();
-        StyleMasterRec.SetRange("No.", "Style No.");
+        StyleMasterRec.SetRange("No.", rec."Style No.");
         if StyleMasterRec.FindSet() then begin
             StyleMasterRec."PO Total" := Tot;
             StyleMasterRec.Modify();

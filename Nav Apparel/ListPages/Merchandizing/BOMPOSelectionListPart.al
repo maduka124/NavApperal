@@ -12,39 +12,39 @@ page 71012681 "BOM PO Selection ListPart"
         {
             repeater(General)
             {
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Lot No';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'PO No';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Mode; Mode)
+                field(Mode; rec.Mode)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Ship Date"; "Ship Date")
+                field("Ship Date"; rec."Ship Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Selection; Selection)
+                field(Selection; rec.Selection)
                 {
                     ApplicationArea = All;
                     Caption = 'Select';
@@ -115,7 +115,7 @@ page 71012681 "BOM PO Selection ListPart"
 
         Total := 0;
         BOMPOSelectionRec.Reset();
-        BOMPOSelectionRec.SetRange("BOM No.", "BOM No.");
+        BOMPOSelectionRec.SetRange("BOM No.", rec."BOM No.");
         BOMPOSelectionRec.SetRange(Selection, true);
 
         if BOMPOSelectionRec.FindSet() then begin
@@ -125,12 +125,12 @@ page 71012681 "BOM PO Selection ListPart"
         end;
 
         BOMRec.Reset();
-        BOMRec.SetRange("No", "BOM No.");
+        BOMRec.SetRange("No", rec."BOM No.");
         BOMRec.ModifyAll(Quantity, Total);
 
         //Update BOM Estimate Line Qty
         BOMLineEstimateRec.Reset();
-        BOMLineEstimateRec.SetRange("No.", "BOM No.");
+        BOMLineEstimateRec.SetRange("No.", rec."BOM No.");
         BOMLineEstimateRec.ModifyAll("GMT Qty", Total);
 
         CurrPage.Update();

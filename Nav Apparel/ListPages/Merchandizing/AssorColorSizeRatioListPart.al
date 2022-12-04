@@ -11,7 +11,7 @@ page 71012674 AssorColorSizeRatioListPart
         {
             repeater(General)
             {
-                field("Country Name"; "Country Name")
+                field("Country Name"; rec."Country Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Country';
@@ -19,7 +19,7 @@ page 71012674 AssorColorSizeRatioListPart
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Pack No"; "Pack No")
+                field("Pack No"; rec."Pack No")
                 {
                     ApplicationArea = All;
                     Caption = 'Pack No';
@@ -27,7 +27,7 @@ page 71012674 AssorColorSizeRatioListPart
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; rec."Colour Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Colour';
@@ -35,7 +35,7 @@ page 71012674 AssorColorSizeRatioListPart
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("SHID/LOT"; "SHID/LOT")
+                field("SHID/LOT"; rec."SHID/LOT")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -45,15 +45,15 @@ page 71012674 AssorColorSizeRatioListPart
                     var
                         ShadeRec: Record Shade;
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
-                        ShadeRec.get("SHID/LOT");
-                        "SHID/LOT Name" := ShadeRec.Shade;
+                        ShadeRec.get(rec."SHID/LOT");
+                        rec."SHID/LOT Name" := ShadeRec.Shade;
                     end;
                 }
 
-                field("1"; "1")
+                field("1"; rec."1")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -63,13 +63,13 @@ page 71012674 AssorColorSizeRatioListPart
                     trigger OnValidate()
                     var
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
                         CalTotal();
                     end;
                 }
-                field("2"; "2")
+                field("2"; rec."2")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -79,14 +79,14 @@ page 71012674 AssorColorSizeRatioListPart
                     trigger OnValidate()
                     var
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
                         CalTotal();
                     end;
                 }
 
-                field("3"; "3")
+                field("3"; rec."3")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -96,14 +96,14 @@ page 71012674 AssorColorSizeRatioListPart
                     trigger OnValidate()
                     var
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
                         CalTotal();
                     end;
                 }
 
-                field("4"; "4")
+                field("4"; rec."4")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -113,14 +113,14 @@ page 71012674 AssorColorSizeRatioListPart
                     trigger OnValidate()
                     var
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
                         CalTotal();
                     end;
                 }
 
-                field("5"; "5")
+                field("5"; rec."5")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -130,14 +130,14 @@ page 71012674 AssorColorSizeRatioListPart
                     trigger OnValidate()
                     var
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
                         CalTotal();
                     end;
                 }
 
-                field("6"; "6")
+                field("6"; rec."6")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -147,14 +147,14 @@ page 71012674 AssorColorSizeRatioListPart
                     trigger OnValidate()
                     var
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
                         CalTotal();
                     end;
                 }
 
-                field("7"; "7")
+                field("7"; rec."7")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -168,7 +168,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("8"; "8")
+                field("8"; rec."8")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -182,7 +182,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("9"; "9")
+                field("9"; rec."9")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -196,7 +196,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("10"; "10")
+                field("10"; rec."10")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -210,7 +210,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("11"; "11")
+                field("11"; rec."11")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -224,7 +224,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("12"; "12")
+                field("12"; rec."12")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -238,7 +238,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("13"; "13")
+                field("13"; rec."13")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -252,7 +252,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("14"; "14")
+                field("14"; rec."14")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -266,7 +266,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("15"; "15")
+                field("15"; rec."15")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -280,7 +280,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("16"; "16")
+                field("16"; rec."16")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -294,7 +294,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("17"; "17")
+                field("17"; rec."17")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -308,7 +308,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("18"; "18")
+                field("18"; rec."18")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -322,7 +322,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("19"; "19")
+                field("19"; rec."19")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -336,7 +336,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("20"; "20")
+                field("20"; rec."20")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -350,7 +350,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("21"; "21")
+                field("21"; rec."21")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -364,7 +364,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("22"; "22")
+                field("22"; rec."22")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -378,7 +378,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("23"; "23")
+                field("23"; rec."23")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -392,7 +392,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("24"; "24")
+                field("24"; rec."24")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -406,7 +406,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("25"; "25")
+                field("25"; rec."25")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -420,7 +420,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("26"; "26")
+                field("26"; rec."26")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -434,7 +434,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("27"; "27")
+                field("27"; rec."27")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -448,7 +448,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("28"; "28")
+                field("28"; rec."28")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -462,7 +462,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("29"; "29")
+                field("29"; rec."29")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -476,7 +476,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("30"; "30")
+                field("30"; rec."30")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -490,7 +490,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("31"; "31")
+                field("31"; rec."31")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -504,7 +504,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("32"; "32")
+                field("32"; rec."32")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -518,7 +518,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("33"; "33")
+                field("33"; rec."33")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -532,7 +532,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("34"; "34")
+                field("34"; rec."34")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -546,7 +546,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("35"; "35")
+                field("35"; rec."35")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -560,7 +560,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("36"; "36")
+                field("36"; rec."36")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -574,7 +574,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("37"; "37")
+                field("37"; rec."37")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -588,7 +588,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("38"; "38")
+                field("38"; rec."38")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -602,7 +602,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("39"; "39")
+                field("39"; rec."39")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -616,7 +616,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("40"; "40")
+                field("40"; rec."40")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -630,7 +630,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("41"; "41")
+                field("41"; rec."41")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -645,7 +645,7 @@ page 71012674 AssorColorSizeRatioListPart
                 }
 
 
-                field("42"; "42")
+                field("42"; rec."42")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -660,7 +660,7 @@ page 71012674 AssorColorSizeRatioListPart
                 }
 
 
-                field("43"; "43")
+                field("43"; rec."43")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -675,7 +675,7 @@ page 71012674 AssorColorSizeRatioListPart
                 }
 
 
-                field("44"; "44")
+                field("44"; rec."44")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -690,7 +690,7 @@ page 71012674 AssorColorSizeRatioListPart
                 }
 
 
-                field("45"; "45")
+                field("45"; rec."45")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -705,7 +705,7 @@ page 71012674 AssorColorSizeRatioListPart
                 }
 
 
-                field("46"; "46")
+                field("46"; rec."46")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -720,7 +720,7 @@ page 71012674 AssorColorSizeRatioListPart
                 }
 
 
-                field("47"; "47")
+                field("47"; rec."47")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -736,7 +736,7 @@ page 71012674 AssorColorSizeRatioListPart
 
 
 
-                field("48"; "48")
+                field("48"; rec."48")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -751,7 +751,7 @@ page 71012674 AssorColorSizeRatioListPart
                 }
 
 
-                field("49"; "49")
+                field("49"; rec."49")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -765,7 +765,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("50"; "50")
+                field("50"; rec."50")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -779,7 +779,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("51"; "51")
+                field("51"; rec."51")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -793,7 +793,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("52"; "52")
+                field("52"; rec."52")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -807,7 +807,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("53"; "53")
+                field("53"; rec."53")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -821,7 +821,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("54"; "54")
+                field("54"; rec."54")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -835,7 +835,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("55"; "55")
+                field("55"; rec."55")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -849,7 +849,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("56"; "56")
+                field("56"; rec."56")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -863,7 +863,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("57"; "57")
+                field("57"; rec."57")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -877,7 +877,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("58"; "58")
+                field("58"; rec."58")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -891,7 +891,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("59"; "59")
+                field("59"; rec."59")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -905,7 +905,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("60"; "60")
+                field("60"; rec."60")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -919,7 +919,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("61"; "61")
+                field("61"; rec."61")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -933,7 +933,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("62"; "62")
+                field("62"; rec."62")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -947,7 +947,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("63"; "63")
+                field("63"; rec."63")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -961,7 +961,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field("64"; "64")
+                field("64"; rec."64")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -975,7 +975,7 @@ page 71012674 AssorColorSizeRatioListPart
                     end;
                 }
 
-                field(Total; Total)
+                field(Total; rec.Total)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -1007,26 +1007,26 @@ page 71012674 AssorColorSizeRatioListPart
                 begin
 
                     StyleRec1.Reset();
-                    StyleRec1.SetRange("No.", "Style No.");
+                    StyleRec1.SetRange("No.", rec."Style No.");
                     StyleRec1.FindSet();
 
                     StyleRec.Reset();
-                    StyleRec.SetRange("Style No.", "Style No.");
-                    StyleRec.SetRange("Lot No.", "Lot No.");
+                    StyleRec.SetRange("Style No.", rec."Style No.");
+                    StyleRec.SetRange("Lot No.", rec."Lot No.");
                     StyleRec.FindLast();
 
-                    "PO No." := StyleRec."PO No.";
+                    rec."PO No." := StyleRec."PO No.";
 
                     //Color
                     AssorDetailsRec.Reset();
-                    AssorDetailsRec.SetRange("Style No.", "Style No.");
-                    AssorDetailsRec.SetRange("lot No.", "lot No.");
+                    AssorDetailsRec.SetRange("Style No.", rec."Style No.");
+                    AssorDetailsRec.SetRange("lot No.", rec."lot No.");
                     AssorDetailsRec.SetRange(Type, '1');
 
                     //Pack Country
                     AssorDetailsPackCountryRec.Reset();
-                    AssorDetailsPackCountryRec.SetRange("Style No.", "Style No.");
-                    AssorDetailsPackCountryRec.SetRange("lot No.", "lot No.");
+                    AssorDetailsPackCountryRec.SetRange("Style No.", rec."Style No.");
+                    AssorDetailsPackCountryRec.SetRange("lot No.", rec."lot No.");
                     AssorDetailsPackCountryRec.SetRange(Type, '2');
 
                     // //Size
@@ -1045,16 +1045,16 @@ page 71012674 AssorColorSizeRatioListPart
 
                     //Ratio
                     AssorColorSizeRatioNewRec.Reset();
-                    AssorColorSizeRatioNewRec.SetRange("Style No.", "Style No.");
-                    AssorColorSizeRatioNewRec.SetRange("lot No.", "lot No.");
+                    AssorColorSizeRatioNewRec.SetRange("Style No.", rec."Style No.");
+                    AssorColorSizeRatioNewRec.SetRange("lot No.", rec."lot No.");
                     AssorColorSizeRatioNewRec.deleteAll();
 
                     //Copying Colors
                     if not AssorDetailsRec.FINDSET() then
-                        Message('Cannot find color details for PO NO %1', "PO No.")
+                        Message('Cannot find color details for PO NO %1', rec."PO No.")
                     else begin
                         if not AssorDetailsPackCountryRec.FINDSET() then
-                            Message('Cannot find pack/country details for PO NO %1', "PO No.")
+                            Message('Cannot find pack/country details for PO NO %1', rec."PO No.")
                         else begin
                             LineNo := 0;
                             repeat
@@ -1068,10 +1068,10 @@ page 71012674 AssorColorSizeRatioListPart
                                     Error('Invalid Pack');
 
                                 AssorColorSizeRatioNewRec.Init();
-                                AssorColorSizeRatioNewRec."Style No." := "Style No.";
+                                AssorColorSizeRatioNewRec."Style No." := rec."Style No.";
                                 AssorColorSizeRatioNewRec."Style Name" := StyleRec1."Style No.";
-                                AssorColorSizeRatioNewRec."PO No." := "PO No.";
-                                AssorColorSizeRatioNewRec."lot No." := "lot No.";
+                                AssorColorSizeRatioNewRec."PO No." := rec."PO No.";
+                                AssorColorSizeRatioNewRec."lot No." := rec."lot No.";
                                 AssorColorSizeRatioNewRec."Line No." := LineNo;
                                 AssorColorSizeRatioNewRec."Colour No" := '*';
                                 AssorColorSizeRatioNewRec."Colour Name" := '*';
@@ -1086,8 +1086,8 @@ page 71012674 AssorColorSizeRatioListPart
 
                                 //ADD COM SIZE
                                 AssorColorSizeRatioNewRec.Reset();
-                                AssorColorSizeRatioNewRec.SetRange("Style No.", "Style No.");
-                                AssorColorSizeRatioNewRec.SetRange("lot No.", "lot No.");
+                                AssorColorSizeRatioNewRec.SetRange("Style No.", rec."Style No.");
+                                AssorColorSizeRatioNewRec.SetRange("lot No.", rec."lot No.");
                                 AssorColorSizeRatioNewRec.SetRange("Colour No", '*');
                                 AssorColorSizeRatioNewRec.SetRange("Country Code", AssorDetailsPackCountryRec."Country Code");
                                 //AssorColorSizeRatioNewRec.SetRange("Pack No", AssorDetailsPackCountryRec."Pack No");
@@ -1097,8 +1097,8 @@ page 71012674 AssorColorSizeRatioListPart
 
                                 //Size
                                 AssorDetailsInseamRec.Reset();
-                                AssorDetailsInseamRec.SetRange("Style No.", "Style No.");
-                                AssorDetailsInseamRec.SetRange("lot No.", "lot No.");
+                                AssorDetailsInseamRec.SetRange("Style No.", rec."Style No.");
+                                AssorDetailsInseamRec.SetRange("lot No.", rec."lot No.");
                                 AssorDetailsInseamRec.FindSet();
 
                                 Seq := 0;
@@ -1243,8 +1243,8 @@ page 71012674 AssorColorSizeRatioListPart
 
                             //Pack Country
                             AssorDetailsPackCountryRec.Reset();
-                            AssorDetailsPackCountryRec.SetRange("Style No.", "Style No.");
-                            AssorDetailsPackCountryRec.SetRange("lot No.", "lot No.");
+                            AssorDetailsPackCountryRec.SetRange("Style No.", rec."Style No.");
+                            AssorDetailsPackCountryRec.SetRange("lot No.", rec."lot No.");
                             AssorDetailsPackCountryRec.SetRange(Type, '2');
                             AssorDetailsPackCountryRec.FINDSET();
 
@@ -1260,10 +1260,10 @@ page 71012674 AssorColorSizeRatioListPart
                                         Error('Invalid Pack');
 
                                     AssorColorSizeRatioNewRec.Init();
-                                    AssorColorSizeRatioNewRec."Style No." := "Style No.";
+                                    AssorColorSizeRatioNewRec."Style No." := rec."Style No.";
                                     AssorColorSizeRatioNewRec."Style Name" := StyleRec1."Style No.";
-                                    AssorColorSizeRatioNewRec."PO No." := "PO No.";
-                                    AssorColorSizeRatioNewRec."lot No." := "lot No.";
+                                    AssorColorSizeRatioNewRec."PO No." := rec."PO No.";
+                                    AssorColorSizeRatioNewRec."lot No." := rec."lot No.";
                                     AssorColorSizeRatioNewRec."Line No." := LineNo;
                                     AssorColorSizeRatioNewRec."Colour No" := AssorDetailsRec."Colour No";
                                     AssorColorSizeRatioNewRec."Colour Name" := AssorDetailsRec."Colour Name";
@@ -1345,8 +1345,8 @@ page 71012674 AssorColorSizeRatioListPart
 
                                 //Color
                                 AssorDetailsRec.Reset();
-                                AssorDetailsRec.SetRange("Style No.", "Style No.");
-                                AssorDetailsRec.SetRange("lot No.", "lot No.");
+                                AssorDetailsRec.SetRange("Style No.", rec."Style No.");
+                                AssorDetailsRec.SetRange("lot No.", rec."lot No.");
                                 AssorDetailsRec.SetRange(Type, '1');
                                 AssorDetailsRec.FindSet();
                             until AssorDetailsPackCountryRec.Next() = 0;
@@ -1381,8 +1381,8 @@ page 71012674 AssorColorSizeRatioListPart
 
         CurrPage.Update();
         AssoRec.Reset();
-        AssoRec.SetRange("Style No.", "Style No.");
-        AssoRec.SetRange("lot No.", "lot No.");
+        AssoRec.SetRange("Style No.", rec."Style No.");
+        AssoRec.SetRange("lot No.", rec."lot No.");
         if AssoRec.FindSet() then begin
             repeat
                 if AssoRec."Colour Name" <> '*' then begin
@@ -1714,7 +1714,7 @@ page 71012674 AssorColorSizeRatioListPart
                         TotalLine += Number;
                     end;
 
-                    if (AssoRec."Colour Name" = "Colour Name") and (AssoRec."Country Name" = "Country Name") then
+                    if (AssoRec."Colour Name" = rec."Colour Name") and (AssoRec."Country Name" = rec."Country Name") then
                         TotalLine1 := TotalLine;
 
                     Tot := Tot + TotalLine;
@@ -1724,8 +1724,8 @@ page 71012674 AssorColorSizeRatioListPart
         end;
 
         StyleMasterPORec.Reset();
-        StyleMasterPORec.SetRange("Style No.", "Style No.");
-        StyleMasterPORec.SetRange("lot No.", "lot No.");
+        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+        StyleMasterPORec.SetRange("lot No.", rec."lot No.");
 
         if StyleMasterPORec.FindSet() then begin
             if StyleMasterPORec.Qty < Tot then begin
@@ -1733,7 +1733,7 @@ page 71012674 AssorColorSizeRatioListPart
                 exit;
             end
             else begin
-                Total := TotalLine1;
+                rec.Total := TotalLine1;
                 CurrPage.Update();
             end;
         end;
@@ -1746,15 +1746,15 @@ page 71012674 AssorColorSizeRatioListPart
         AssorColorSizeRatioPriceRec: Record AssorColorSizeRatioPrice;
     begin
         AssorColorSizeRatioViewRec.Reset();
-        AssorColorSizeRatioViewRec.SetRange("Style No.", "Style No.");
-        AssorColorSizeRatioViewRec.SetRange("lot No.", "lot No.");
-        AssorColorSizeRatioViewRec.SetRange("Line No.", "Line No.");
+        AssorColorSizeRatioViewRec.SetRange("Style No.", rec."Style No.");
+        AssorColorSizeRatioViewRec.SetRange("lot No.", rec."lot No.");
+        AssorColorSizeRatioViewRec.SetRange("Line No.", rec."Line No.");
         AssorColorSizeRatioViewRec.DeleteAll();
 
         AssorColorSizeRatioPriceRec.Reset();
-        AssorColorSizeRatioPriceRec.SetRange("Style No.", "Style No.");
-        AssorColorSizeRatioPriceRec.SetRange("lot No.", "lot No.");
-        AssorColorSizeRatioPriceRec.SetRange("Line No.", "Line No.");
+        AssorColorSizeRatioPriceRec.SetRange("Style No.", rec."Style No.");
+        AssorColorSizeRatioPriceRec.SetRange("lot No.", rec."lot No.");
+        AssorColorSizeRatioPriceRec.SetRange("Line No.", rec."Line No.");
         AssorColorSizeRatioPriceRec.DeleteAll();
     end;
 
@@ -1768,8 +1768,8 @@ page 71012674 AssorColorSizeRatioListPart
         StyleExprTxt := ChangeColor.ChangeColorAsso(Rec);
 
         AssoDetail.Reset();
-        AssoDetail.SetRange("Style No.", "Style No.");
-        AssoDetail.SetRange("Lot No.", "lot No.");
+        AssoDetail.SetRange("Style No.", rec."Style No.");
+        AssoDetail.SetRange("Lot No.", rec."lot No.");
         AssoDetail.FindSet();
         Rowcount := AssoDetail.Count;
 
@@ -2099,7 +2099,7 @@ page 71012674 AssorColorSizeRatioListPart
         end;
 
 
-        if "Colour Name" = '*' then begin
+        if rec."Colour Name" = '*' then begin
             Clear(SetEdit);
             SetEdit := false;
         end
@@ -2118,7 +2118,7 @@ page 71012674 AssorColorSizeRatioListPart
 
         //Get Po total
         StylePORec.Reset();
-        StylePORec.SetRange("Style No.", "Style No.");
+        StylePORec.SetRange("Style No.", rec."Style No.");
         if StylePORec.FindSet() then begin
             repeat
                 Total := 0;

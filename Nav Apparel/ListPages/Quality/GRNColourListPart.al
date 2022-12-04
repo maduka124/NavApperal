@@ -11,12 +11,12 @@ page 50672 GRNColourListPart
         {
             repeater(General)
             {
-                field("Colour No"; "Color No.")
+                field("Colour No"; rec."Color No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Colour Name"; "Color Name")
+                field("Colour Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Editable = false;

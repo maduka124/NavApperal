@@ -13,7 +13,7 @@ page 50516 HourlyProductionListPart
             repeater(General)
             {
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -21,20 +21,20 @@ page 50516 HourlyProductionListPart
                     Caption = 'Style';
                 }
 
-                field("Work Center Name"; "Work Center Name")
+                field("Work Center Name"; rec."Work Center Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Line';
                 }
 
-                field(Item; Item)
+                field(Item; rec.Item)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Hour 01"; "Hour 01")
+                field("Hour 01"; rec."Hour 01")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -47,7 +47,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 02"; "Hour 02")
+                field("Hour 02"; rec."Hour 02")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -59,20 +59,7 @@ page 50516 HourlyProductionListPart
                         CalTotal();
                     end;
                 }
-                field("Hour 03"; "Hour 03")
-                {
-                    ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-
-                    trigger OnValidate()
-                    var
-                    begin
-                        CalTotal();
-                    end;
-                }
-
-                field("Hour 04"; "Hour 04")
+                field("Hour 03"; rec."Hour 03")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -85,7 +72,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 05"; "Hour 05")
+                field("Hour 04"; rec."Hour 04")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -98,7 +85,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 06"; "Hour 06")
+                field("Hour 05"; rec."Hour 05")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -111,7 +98,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 07"; "Hour 07")
+                field("Hour 06"; rec."Hour 06")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -124,7 +111,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 08"; "Hour 08")
+                field("Hour 07"; rec."Hour 07")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -137,7 +124,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 09"; "Hour 09")
+                field("Hour 08"; rec."Hour 08")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -150,7 +137,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 10"; "Hour 10")
+                field("Hour 09"; rec."Hour 09")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -163,7 +150,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 11"; "Hour 11")
+                field("Hour 10"; rec."Hour 10")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -176,7 +163,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 12"; "Hour 12")
+                field("Hour 11"; rec."Hour 11")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -189,7 +176,7 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field("Hour 13"; "Hour 13")
+                field("Hour 12"; rec."Hour 12")
                 {
                     ApplicationArea = All;
                     Editable = SetEdit;
@@ -202,7 +189,20 @@ page 50516 HourlyProductionListPart
                     end;
                 }
 
-                field(Total; Total)
+                field("Hour 13"; rec."Hour 13")
+                {
+                    ApplicationArea = All;
+                    Editable = SetEdit;
+                    StyleExpr = StyleExprTxt;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        CalTotal();
+                    end;
+                }
+
+                field(Total; rec.Total)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -259,11 +259,12 @@ page 50516 HourlyProductionListPart
     begin
         //Line totals
         CurrPage.Update();
-        Total := "Hour 01" + "Hour 02" + "Hour 03" + "Hour 04" + "Hour 05" + "Hour 06" + "Hour 07" + "Hour 08" + "Hour 09" + "Hour 10" + "Hour 11" + "Hour 12" + "Hour 13";
+        rec.Total := rec."Hour 01" + rec."Hour 02" + rec."Hour 03" + rec."Hour 04" + rec."Hour 05" + rec."Hour 06" +
+        rec."Hour 07" + rec."Hour 08" + rec."Hour 09" + rec."Hour 10" + rec."Hour 11" + rec."Hour 12" + rec."Hour 13";
 
         //Sub totals
         HourlyProdLinesRec.Reset();
-        HourlyProdLinesRec.SetRange("No.", "No.");
+        HourlyProdLinesRec.SetRange("No.", rec."No.");
         HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
         if HourlyProdLinesRec.FindSet() then begin
@@ -320,7 +321,7 @@ page 50516 HourlyProductionListPart
 
             //Update PASS Pcs
             HourlyProdLines1Rec.Reset();
-            HourlyProdLines1Rec.SetRange("No.", "No.");
+            HourlyProdLines1Rec.SetRange("No.", rec."No.");
             HourlyProdLines1Rec.SetFilter("Factory No.", '=%1', '');
             HourlyProdLines1Rec.SetRange("Style Name", 'PASS PCS (Total)');
             HourlyProdLines1Rec.FindSet();
@@ -342,7 +343,7 @@ page 50516 HourlyProductionListPart
 
             //Update DEFECTS Pcs
             HourlyProdLines1Rec.Reset();
-            HourlyProdLines1Rec.SetRange("No.", "No.");
+            HourlyProdLines1Rec.SetRange("No.", rec."No.");
             HourlyProdLines1Rec.SetFilter("Factory No.", '=%1', '');
             HourlyProdLines1Rec.SetRange("Style Name", 'DEFECT PCS (Total)');
             HourlyProdLines1Rec.FindSet();
@@ -364,7 +365,7 @@ page 50516 HourlyProductionListPart
 
             //Update DHU
             HourlyProdLines1Rec.Reset();
-            HourlyProdLines1Rec.SetRange("No.", "No.");
+            HourlyProdLines1Rec.SetRange("No.", rec."No.");
             HourlyProdLines1Rec.SetFilter("Factory No.", '=%1', '');
             HourlyProdLines1Rec.SetRange("Style Name", 'DHU (Total)');
             HourlyProdLines1Rec.FindSet();
@@ -397,7 +398,7 @@ page 50516 HourlyProductionListPart
     begin
         StyleExprTxt := ChangeColor.ChangeHourlyProduction(Rec);
 
-        if "Factory No." = '' then begin
+        if rec."Factory No." = '' then begin
             Clear(SetEdit);
             SetEdit := false;
         end

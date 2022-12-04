@@ -9,7 +9,7 @@ page 71012683 "BOM Line Estimate ListPart"
         {
             repeater(General)
             {
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -20,7 +20,7 @@ page 71012683 "BOM Line Estimate ListPart"
                         MainCategoryRec: Record "Main Category";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                         if MainCategoryRec.FindSet() then begin
                             if MainCategoryRec."Inv. Posting Group Code" = '' then
                                 Error('Inventory Posting Group is not setup for this Main Category. Cannot proceed.');
@@ -28,23 +28,23 @@ page 71012683 "BOM Line Estimate ListPart"
                             if MainCategoryRec."Prod. Posting Group Code" = '' then
                                 Error('Prod. Posting Group is not setup for this Main Category. Cannot proceed.');
 
-                            "Main Category No." := MainCategoryRec."No.";
+                            rec."Main Category No." := MainCategoryRec."No.";
 
-                            "Item No." := '';
-                            "Item Name" := '';
-                            "Dimension No." := '';
-                            "Dimension Name." := '';
+                            rec."Item No." := '';
+                            rec."Item Name" := '';
+                            rec."Dimension No." := '';
+                            rec."Dimension Name." := '';
                             // "Sub Category Name" := '';
                             // "Sub Category No." := '';
-                            "Article No." := '';
-                            "Article Name." := '';
-                            "Supplier No." := '';
-                            "Supplier Name." := '';
+                            rec."Article No." := '';
+                            rec."Article Name." := '';
+                            rec."Supplier No." := '';
+                            rec."Supplier Name." := '';
                         end;
                     end;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -56,18 +56,18 @@ page 71012683 "BOM Line Estimate ListPart"
                         BOMHeaderRec: record "BOM";
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Item Name");
+                        ItemRec.SetRange(Description, rec."Item Name");
 
                         if ItemRec.FindSet() then
-                            "Item No." := ItemRec."No.";
+                            rec."Item No." := ItemRec."No.";
 
                         //Get Qty from Header 
-                        BOMHeaderRec.get("No.");
-                        Qty := BOMHeaderRec.Quantity;
+                        BOMHeaderRec.get(rec."No.");
+                        rec.Qty := BOMHeaderRec.Quantity;
                     end;
                 }
 
-                field("Article Name."; "Article Name.")
+                field("Article Name."; rec."Article Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Article';
@@ -79,14 +79,14 @@ page 71012683 "BOM Line Estimate ListPart"
                         ArticleRec: Record "Article";
                     begin
                         ArticleRec.Reset();
-                        ArticleRec.SetRange(Article, "Article Name.");
+                        ArticleRec.SetRange(Article, rec."Article Name.");
 
                         if ArticleRec.FindSet() then
-                            "Article No." := ArticleRec."No.";
+                            rec."Article No." := ArticleRec."No.";
                     end;
                 }
 
-                field("Dimension Name."; "Dimension Name.")
+                field("Dimension Name."; rec."Dimension Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension/Width';
@@ -98,14 +98,14 @@ page 71012683 "BOM Line Estimate ListPart"
                         DimensionRec: Record DimensionWidth;
                     begin
                         DimensionRec.Reset();
-                        DimensionRec.SetRange("Dimension Width", "Dimension Name.");
+                        DimensionRec.SetRange("Dimension Width", rec."Dimension Name.");
 
                         if DimensionRec.FindSet() then
-                            "Dimension No." := DimensionRec."No.";
+                            rec."Dimension No." := DimensionRec."No.";
                     end;
                 }
 
-                field("Unit N0."; "Unit N0.")
+                field("Unit N0."; rec."Unit N0.")
                 {
                     ApplicationArea = All;
                     Caption = 'Unit';
@@ -114,17 +114,17 @@ page 71012683 "BOM Line Estimate ListPart"
                     trigger OnValidate()
                     var
                     begin
-                        if "Article Name." = '' then
+                        if rec."Article Name." = '' then
                             Error('Article is blank.');
 
-                        if "Dimension Name." = '' then
+                        if rec."Dimension Name." = '' then
                             Error('Dimension is blank.');
 
                         CalculateValue(0);
                     end;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                     Caption = 'Type';
@@ -133,15 +133,15 @@ page 71012683 "BOM Line Estimate ListPart"
                     trigger OnValidate()
                     var
                     begin
-                        if "Article Name." = '' then
+                        if rec."Article Name." = '' then
                             Error('Article is blank.');
 
-                        if "Dimension Name." = '' then
+                        if rec."Dimension Name." = '' then
                             Error('Dimension is blank.');
                     end;
                 }
 
-                field("GMT Qty"; "GMT Qty")
+                field("GMT Qty"; rec."GMT Qty")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -149,15 +149,15 @@ page 71012683 "BOM Line Estimate ListPart"
                     trigger OnValidate()
                     var
                     begin
-                        if "Article Name." = '' then
+                        if rec."Article Name." = '' then
                             Error('Article is blank.');
 
-                        if "Dimension Name." = '' then
+                        if rec."Dimension Name." = '' then
                             Error('Dimension is blank.');
                     end;
                 }
 
-                field(Consumption; Consumption)
+                field(Consumption; rec.Consumption)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -169,7 +169,7 @@ page 71012683 "BOM Line Estimate ListPart"
                     end;
                 }
 
-                field(WST; WST)
+                field(WST; rec.WST)
                 {
                     ApplicationArea = All;
                     Caption = 'WST%';
@@ -182,7 +182,7 @@ page 71012683 "BOM Line Estimate ListPart"
                     end;
                 }
 
-                field(Rate; Rate)
+                field(Rate; rec.Rate)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -194,14 +194,14 @@ page 71012683 "BOM Line Estimate ListPart"
                     end;
                 }
 
-                field(Value; Value)
+                field(Value; rec.Value)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Supplier Name."; "Supplier Name.")
+                field("Supplier Name."; rec."Supplier Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
@@ -212,21 +212,21 @@ page 71012683 "BOM Line Estimate ListPart"
                         SupplierRec: Record Vendor;
                     begin
                         SupplierRec.Reset();
-                        SupplierRec.SetRange(Name, "Supplier Name.");
+                        SupplierRec.SetRange(Name, rec."Supplier Name.");
 
                         if SupplierRec.FindSet() then
-                            "Supplier No." := SupplierRec."No.";
+                            rec."Supplier No." := SupplierRec."No.";
                     end;
                 }
 
-                field(Requirment; Requirment)
+                field(Requirment; rec.Requirment)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(AjstReq; AjstReq)
+                field(AjstReq; rec.AjstReq)
                 {
                     ApplicationArea = All;
                     Caption = 'Adjust. Req.';
@@ -239,37 +239,37 @@ page 71012683 "BOM Line Estimate ListPart"
                     end;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Size Sensitive"; "Size Sensitive")
+                field("Size Sensitive"; rec."Size Sensitive")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Color Sensitive"; "Color Sensitive")
+                field("Color Sensitive"; rec."Color Sensitive")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Country Sensitive"; "Country Sensitive")
+                field("Country Sensitive"; rec."Country Sensitive")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("PO Sensitive"; "PO Sensitive")
+                field("PO Sensitive"; rec."PO Sensitive")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Reconfirm; Reconfirm)
+                field(Reconfirm; rec.Reconfirm)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -281,7 +281,7 @@ page 71012683 "BOM Line Estimate ListPart"
                     end;
                 }
 
-                field("Placement of GMT"; "Placement of GMT")
+                field("Placement of GMT"; rec."Placement of GMT")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -294,7 +294,7 @@ page 71012683 "BOM Line Estimate ListPart"
     trigger OnAfterGetRecord()
     var
     begin
-        if Reconfirm = true then
+        if rec.Reconfirm = true then
             StyleExprTxt := 'Strong'
         else
             StyleExprTxt := 'None';
@@ -304,7 +304,7 @@ page 71012683 "BOM Line Estimate ListPart"
     trigger OnAfterGetCurrRecord()
     var
     begin
-        if Reconfirm = true then
+        if rec.Reconfirm = true then
             StyleExprTxt := 'Strong'
         else
             StyleExprTxt := 'None';
@@ -316,32 +316,32 @@ page 71012683 "BOM Line Estimate ListPart"
         UOMRec: Record "Unit of Measure";
     begin
 
-        if "Article Name." = '' then
+        if rec."Article Name." = '' then
             Error('Article is blank.');
 
-        if "Dimension Name." = '' then
+        if rec."Dimension Name." = '' then
             Error('Dimension is blank.');
 
         UOMRec.Reset();
-        UOMRec.SetRange(Code, "Unit N0.");
+        UOMRec.SetRange(Code, rec."Unit N0.");
         UOMRec.FindSet();
         ConvFactor := UOMRec."Converion Parameter";
-        Value := 0;
-        Requirment := 0;
+        rec.Value := 0;
+        rec.Requirment := 0;
 
-        if Type = type::Pcs then
-            Requirment := (Consumption * Qty) + (Consumption * Qty) * WST / 100
+        if rec.Type = rec.type::Pcs then
+            rec.Requirment := (rec.Consumption * rec.Qty) + (rec.Consumption * rec.Qty) * rec.WST / 100
         else
-            if Type = type::Doz then
-                Requirment := ((Consumption * Qty) + (Consumption * Qty) * WST / 100) / 12;
+            if rec.Type = rec.type::Doz then
+                rec.Requirment := ((rec.Consumption * rec.Qty) + (rec.Consumption * rec.Qty) * rec.WST / 100) / 12;
 
         if (x = 0) and (ConvFactor <> 0) then
-            Requirment := Requirment / ConvFactor;
+            rec.Requirment := rec.Requirment / ConvFactor;
 
-        if Requirment = 0 then
-            Requirment := 1;
+        if rec.Requirment = 0 then
+            rec.Requirment := 1;
 
-        Value := Requirment * Rate;
+        rec.Value := rec.Requirment * rec.Rate;
         CurrPage.Update(true);
         // CalculateCost();
     end;
@@ -352,19 +352,19 @@ page 71012683 "BOM Line Estimate ListPart"
         y: Decimal;
     begin
 
-        case Type of
-            type::Pcs:
+        case rec.Type of
+            rec.type::Pcs:
                 begin
                     //Message(format(AjstReq / Requirment));
-                    WST := WST + ((AjstReq / Requirment) - 1) * 100;
+                    rec.WST := rec.WST + ((rec.AjstReq / rec.Requirment) - 1) * 100;
                 end;
-            type::Doz:
+            rec.type::Doz:
                 begin
                     // X := AjstReq / Requirment;
                     // Message(format(x));
                     // y := x - 1;
                     // Message(format(y));
-                    WST := WST + ((AjstReq / Requirment) - 1) * 100;
+                    rec.WST := rec.WST + ((rec.AjstReq / rec.Requirment) - 1) * 100;
                 end;
         end;
 
@@ -393,9 +393,9 @@ page 71012683 "BOM Line Estimate ListPart"
 
         //Delete existing records
         BLAutoGenNewRec.Reset();
-        BLAutoGenNewRec.SetRange("No.", "No.");
-        BLAutoGenNewRec.SetRange("Item No.", "Item No.");
-        BLAutoGenNewRec.SetRange("Placement of GMT", "Placement of GMT");
+        BLAutoGenNewRec.SetRange("No.", rec."No.");
+        BLAutoGenNewRec.SetRange("Item No.", rec."Item No.");
+        BLAutoGenNewRec.SetRange("Placement of GMT", rec."Placement of GMT");
         BLAutoGenNewRec.SetFilter("Included in PO", '=%1', true);
 
         if BLAutoGenNewRec.FindSet() then
@@ -404,16 +404,16 @@ page 71012683 "BOM Line Estimate ListPart"
 
             //Delete from AutoGen table
             BLAutoGenNewRec.Reset();
-            BLAutoGenNewRec.SetRange("No.", "No.");
-            BLAutoGenNewRec.SetRange("Item No.", "Item No.");
-            BLAutoGenNewRec.SetRange("Placement of GMT", "Placement of GMT");
+            BLAutoGenNewRec.SetRange("No.", rec."No.");
+            BLAutoGenNewRec.SetRange("Item No.", rec."Item No.");
+            BLAutoGenNewRec.SetRange("Placement of GMT", rec."Placement of GMT");
             BLAutoGenNewRec.DeleteAll();
 
             //Delete from BOM Lines(Coor/Size/Country/PO) table
             BOMLineRec.Reset();
-            BOMLineRec.SetRange("No.", "No.");
-            BOMLineRec.SetRange("Item No.", "Item No.");
-            BOMLineRec.SetRange(Placement, "Placement of GMT");
+            BOMLineRec.SetRange("No.", rec."No.");
+            BOMLineRec.SetRange("Item No.", rec."Item No.");
+            BOMLineRec.SetRange(Placement, rec."Placement of GMT");
             BOMLineRec.DeleteAll();
         end;
     end;

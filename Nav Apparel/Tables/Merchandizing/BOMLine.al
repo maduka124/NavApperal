@@ -1,5 +1,5 @@
 
-table 71012688 "BOM Line"
+table 50894 "BOM Line"
 {
     DataClassification = ToBeClassified;
 

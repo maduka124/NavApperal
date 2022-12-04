@@ -11,7 +11,7 @@ page 71012685 "BOM Line Autogen ListPart"
         {
             repeater(General)
             {
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -19,7 +19,7 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -27,7 +27,7 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Include in PO"; "Include in PO")
+                field("Include in PO";rec. "Include in PO")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -36,14 +36,14 @@ page 71012685 "BOM Line Autogen ListPart"
                     var
 
                     begin
-                        if ("Include in PO" = true) and ("Supplier No." = '') then begin
+                        if (rec."Include in PO" = true) and (rec."Supplier No." = '') then begin
                             Error('Supplier is blank. Cannot select this item.');
                             exit;
                         end;
                     end;
                 }
 
-                field("Included in PO"; "Included in PO")
+                field("Included in PO"; rec."Included in PO")
                 {
                     ApplicationArea = All;
                     Caption = 'PO Generated';
@@ -51,7 +51,7 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("GMT Color Name"; "GMT Color Name")
+                field("GMT Color Name"; rec."GMT Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Color';
@@ -59,7 +59,7 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Item Color Name"; "Item Color Name")
+                field("Item Color Name"; rec."Item Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item Color';
@@ -68,7 +68,7 @@ page 71012685 "BOM Line Autogen ListPart"
                 }
 
 
-                field("GMT Size Name"; "GMT Size Name")
+                field("GMT Size Name"; rec."GMT Size Name")
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Size';
@@ -76,14 +76,14 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("GMT Qty"; "GMT Qty")
+                field("GMT Qty"; rec."GMT Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Country Name"; "Country Name")
+                field("Country Name";rec. "Country Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Country';
@@ -91,28 +91,28 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(PO; PO)
+                field(PO; rec.PO)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Article No."; "Article No.")
+                field("Article No."; rec."Article No.")
                 {
                     ApplicationArea = All;
                     Visible = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Article Name."; "Article Name.")
+                field("Article Name."; rec."Article Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Article/Construction';
@@ -120,14 +120,14 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Dimension No."; "Dimension No.")
+                field("Dimension No.";rec. "Dimension No.")
                 {
                     ApplicationArea = All;
                     Visible = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Dimension Name."; "Dimension Name.")
+                field("Dimension Name."; rec."Dimension Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension/Width';
@@ -135,7 +135,7 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Unit N0."; "Unit N0.")
+                field("Unit N0."; rec."Unit N0.")
                 {
                     ApplicationArea = All;
                     Caption = 'Unit';
@@ -143,7 +143,7 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                     Caption = 'Type';
@@ -151,14 +151,14 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Consumption; Consumption)
+                field(Consumption; rec.Consumption)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(WST; WST)
+                field(WST; rec.WST)
                 {
                     ApplicationArea = All;
                     Caption = 'WST%';
@@ -166,28 +166,28 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Rate; Rate)
+                field(Rate;rec. Rate)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Value; Value)
+                field(Value; rec.Value)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Supplier No."; "Supplier No.")
+                field("Supplier No.";rec. "Supplier No.")
                 {
                     ApplicationArea = All;
                     Visible = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Supplier Name."; "Supplier Name.")
+                field("Supplier Name."; rec."Supplier Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
@@ -195,14 +195,14 @@ page 71012685 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Requirment; Requirment)
+                field(Requirment;rec. Requirment)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(AjstReq; AjstReq)
+                field(AjstReq;rec. AjstReq)
                 {
                     ApplicationArea = All;
                     Caption = 'Adjust. Req.';
@@ -217,7 +217,7 @@ page 71012685 "BOM Line Autogen ListPart"
                 //     StyleExpr = StyleExprTxt;
                 // }
 
-                field("Placement of GMT"; "Placement of GMT")
+                field("Placement of GMT";rec. "Placement of GMT")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -242,7 +242,7 @@ page 71012685 "BOM Line Autogen ListPart"
                 begin
 
                     BOMLineAutoGenRec.Reset();
-                    BOMLineAutoGenRec.SetRange("No.", "No.");
+                    BOMLineAutoGenRec.SetRange("No.",rec. "No.");
                     BOMLineAutoGenRec.FindSet();
 
                     repeat
@@ -266,7 +266,7 @@ page 71012685 "BOM Line Autogen ListPart"
                 begin
 
                     BOMLineAutoGenRec.Reset();
-                    BOMLineAutoGenRec.SetRange("No.", "No.");
+                    BOMLineAutoGenRec.SetRange("No.",rec. "No.");
                     BOMLineAutoGenRec.FindSet();
 
                     repeat
@@ -288,7 +288,7 @@ page 71012685 "BOM Line Autogen ListPart"
     begin
         StyleExprTxt := ChangeColor.ChangeColorAutoGen(Rec);
 
-        if "Included in PO" = true then begin
+        if rec."Included in PO" = true then begin
             Clear(SetEdit);
             SetEdit := false;
         end

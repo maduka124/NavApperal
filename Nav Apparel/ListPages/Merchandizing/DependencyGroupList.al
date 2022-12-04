@@ -14,13 +14,13 @@ page 71012705 "Dependency Group"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Dependency Group No';
                 }
 
-                field("Dependency Group"; "Dependency Group")
+                field("Dependency Group"; rec."Dependency Group")
                 {
                     ApplicationArea = All;
                     Caption = 'Dependency Group Name';

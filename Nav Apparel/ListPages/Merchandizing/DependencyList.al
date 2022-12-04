@@ -14,18 +14,18 @@ page 71012801 "Dependency"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Buyer No."; "Buyer No.")
+                field("Buyer No."; rec."Buyer No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field(Dependency; Dependency)
+                field(Dependency; rec.Dependency)
                 {
                     ApplicationArea = All;
                     Caption = 'Dependency Group Name';

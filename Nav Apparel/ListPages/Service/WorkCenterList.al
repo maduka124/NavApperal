@@ -11,19 +11,19 @@ page 50728 WorkCenterList
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Name; Name)
+                field(Name; rec.Name)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Select; Select)
+                field(Select; rec.Select)
                 {
                     ApplicationArea = All;
                 }

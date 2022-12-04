@@ -9,7 +9,7 @@ page 50563 "Fabric Inspection ListPart1"
         {
             repeater(General)
             {
-                field(Defects; Defects)
+                field(Defects; rec.Defects)
                 {
                     ApplicationArea = All;
                     Caption = 'Defect';
@@ -19,19 +19,19 @@ page 50563 "Fabric Inspection ListPart1"
                         DefectsRec: Record Defects;
                     begin
                         DefectsRec.Reset();
-                        DefectsRec.SetRange(Defects, Defects);
+                        DefectsRec.SetRange(Defects, rec.Defects);
                         if DefectsRec.FindSet() then
-                            "DefectsNo." := DefectsRec."No.";
+                            rec."DefectsNo." := DefectsRec."No.";
 
-                        "Point 1" := '0';
-                        "Point 2" := '0';
-                        "Point 3" := '0';
-                        "Point 4" := '0';
-                        "Point Total" := 0;
+                        rec."Point 1" := '0';
+                        rec."Point 2" := '0';
+                        rec."Point 3" := '0';
+                        rec."Point 4" := '0';
+                        rec."Point Total" := 0;
                     end;
                 }
 
-                field("Point 1"; "Point 1")
+                field("Point 1"; rec."Point 1")
                 {
                     ApplicationArea = All;
 
@@ -42,7 +42,7 @@ page 50563 "Fabric Inspection ListPart1"
                     end;
                 }
 
-                field("Point 2"; "Point 2")
+                field("Point 2"; rec."Point 2")
                 {
                     ApplicationArea = All;
 
@@ -53,7 +53,7 @@ page 50563 "Fabric Inspection ListPart1"
                     end;
                 }
 
-                field("Point 3"; "Point 3")
+                field("Point 3"; rec."Point 3")
                 {
                     ApplicationArea = All;
 
@@ -64,7 +64,7 @@ page 50563 "Fabric Inspection ListPart1"
                     end;
                 }
 
-                field("Point 4"; "Point 4")
+                field("Point 4"; rec."Point 4")
                 {
                     ApplicationArea = All;
 
@@ -75,7 +75,7 @@ page 50563 "Fabric Inspection ListPart1"
                     end;
                 }
 
-                field("Point Total"; "Point Total")
+                field("Point Total"; rec."Point Total")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -104,7 +104,7 @@ page 50563 "Fabric Inspection ListPart1"
     begin
 
         FabricInspecRec.Reset();
-        FabricInspecRec.SetRange("InsNo.", "InsNo.");
+        FabricInspecRec.SetRange("InsNo.", rec."InsNo.");
 
         if FabricInspecRec.FindSet() then begin
 
@@ -114,15 +114,15 @@ page 50563 "Fabric Inspection ListPart1"
             if CustRec.FindSet() then begin
 
                 CurrPage.Update();
-                Evaluate(p1, "Point 1");
-                Evaluate(p2, "Point 2");
-                Evaluate(p3, "Point 3");
-                Evaluate(p4, "Point 4");
-                "Point Total" := p1 + p2 + p3 + p4;
+                Evaluate(p1, rec."Point 1");
+                Evaluate(p2, rec."Point 2");
+                Evaluate(p3, rec."Point 3");
+                Evaluate(p4, rec."Point 4");
+                rec."Point Total" := p1 + p2 + p3 + p4;
                 CurrPage.Update();
 
                 FabricInspecLineRec.Reset();
-                FabricInspecLineRec.SetRange("InsNo.", "InsNo.");
+                FabricInspecLineRec.SetRange("InsNo.", rec."InsNo.");
 
                 if FabricInspecLineRec.FindSet() then begin
                     repeat
@@ -137,7 +137,7 @@ page 50563 "Fabric Inspection ListPart1"
                     until FabricInspecLineRec.Next() = 0;
 
                     FabricInspecRec.Reset();
-                    FabricInspecRec.SetRange("InsNo.", "InsNo.");
+                    FabricInspecRec.SetRange("InsNo.", rec."InsNo.");
                     FabricInspecRec.FindSet();
                     FabricInspecRec."1 Point (Up to 3 inches)" := Total1;
                     FabricInspecRec."1 Point" := Total1;

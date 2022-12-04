@@ -15,55 +15,55 @@ page 71012679 "BOM"
             {
                 Editable = false;
 
-                field("No."; "No")
+                field("No."; rec."No")
                 {
                     ApplicationArea = All;
                     Caption = 'BOM No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
                 }
 
-                field(Quantity; Quantity)
+                field(Quantity; rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
@@ -83,25 +83,25 @@ page 71012679 "BOM"
     begin
 
         BOMAUTOProdBOMRec.Insert();
-        BOMAUTOProdBOMRec.SetRange("No.", No);
+        BOMAUTOProdBOMRec.SetRange("No.", rec.No);
 
         if BOMAUTOProdBOMRec.FindSet() then
             Error('"Write TO MRP" process has been completed. You cannot delete the BOM.');
 
 
-        BOMPOSelectionRec.SetRange("BOM No.", "No");
+        BOMPOSelectionRec.SetRange("BOM No.", rec."No");
         BOMPOSelectionRec.DeleteAll();
 
-        BOMLineEstRec.SetRange("No.", "No");
+        BOMLineEstRec.SetRange("No.", rec."No");
         BOMLineEstRec.DeleteAll();
 
-        BOMLineRec.SetRange("No.", "No");
+        BOMLineRec.SetRange("No.", rec."No");
         BOMLineRec.DeleteAll();
 
-        BOMAUTORec.SetRange("No.", "No");
+        BOMAUTORec.SetRange("No.", rec."No");
         BOMAUTORec.DeleteAll();
 
-        BOMRec.SetRange("No", "No");
+        BOMRec.SetRange("No", rec."No");
         BOMRec.DeleteAll();
     end;
 }

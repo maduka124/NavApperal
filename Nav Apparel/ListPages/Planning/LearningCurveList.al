@@ -13,60 +13,60 @@ page 50334 "Learning Curve"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Curve No';
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Day1; Day1)
+                field(Day1; rec.Day1)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 1';
                 }
 
-                field(Day2; Day2)
+                field(Day2; rec.Day2)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 2';
                 }
 
-                field(Day3; Day3)
+                field(Day3; rec.Day3)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 3';
                 }
 
-                field(Day4; Day4)
+                field(Day4; rec.Day4)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 4';
                 }
 
-                field(Day5; Day5)
+                field(Day5; rec.Day5)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 5';
                 }
 
-                field(Day6; Day6)
+                field(Day6; rec.Day6)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 6';
                 }
 
-                field(Day7; Day7)
+                field(Day7; rec.Day7)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 7';
                 }
 
-                field(Active; Active)
+                field(Active; rec.Active)
                 {
                     ApplicationArea = All;
                 }

@@ -10,12 +10,12 @@ page 50876 "MonthList"
         {
             repeater(General)
             {
-                field("Month No"; "Month No")
+                field("Month No"; rec."Month No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Month Name"; "Month Name")
+                field("Month Name"; rec."Month Name")
                 {
                     ApplicationArea = All;
                 }

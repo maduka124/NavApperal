@@ -1,5 +1,5 @@
 
-table 71012666 AssorColorSizeRatioView
+table 50884 AssorColorSizeRatioView
 {
     DataClassification = ToBeClassified;
 

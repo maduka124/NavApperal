@@ -1,5 +1,5 @@
 
-table 71012696 "BOM Estimate Line"
+table 50893 "BOM Estimate Line"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "BOM Estimate Line List part";

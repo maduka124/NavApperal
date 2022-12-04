@@ -132,29 +132,29 @@ report 50128 MaterialRequition
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
-                with ReservationEntry do begin
-                    SetCurrentKey("Source ID", "Source Ref. No.", "Source Type", "Source Subtype");
+                //with ReservationEntry do begin
+                ReservationEntry.SetCurrentKey("Source ID", "Source Ref. No.", "Source Type", "Source Subtype");
 
-                    SetRange("Source Type", DATABASE::"Prod. Order Component");
-                    SetRange("Source ID", "Production Order"."No.");
-                    // SetRange("Source Ref. No.", "Line No.");
-                    SetRange("Source Subtype", Status);
-                    SetRange("Source Batch Name", '');
-                    // SetRange("Source Prod. Order Line", "Prod. Order Line No.");
+                ReservationEntry.SetRange(ReservationEntry."Source Type", DATABASE::"Prod. Order Component");
+                ReservationEntry.SetRange("Source ID", "Production Order"."No.");
+                // SetRange("Source Ref. No.", "Line No.");
+                ReservationEntry.SetRange("Source Subtype", Status);
+                ReservationEntry.SetRange("Source Batch Name", '');
+                // SetRange("Source Prod. Order Line", "Prod. Order Line No.");
 
-                    // if FindSet() then begin
-                    //     RemainingQtyReserved := 0;
-                    //     repeat
-                    //         if ReservationEntry2.Get("Entry No.", not Positive) then
-                    //             if (ReservationEntry2."Source Type" = DATABASE::"Prod. Order Line") and
-                    //                (ReservationEntry2."Source ID" = "Prod. Order Component"."Prod. Order No.")
-                    //             then
-                    //                 RemainingQtyReserved += ReservationEntry2."Quantity (Base)";
-                    //     until Next() = 0;
-                    //     if "Prod. Order Component"."Remaining Qty. (Base)" = RemainingQtyReserved then
-                    //         CurrReport.Skip();
-                    // end;
-                end;
+                // if FindSet() then begin
+                //     RemainingQtyReserved := 0;
+                //     repeat
+                //         if ReservationEntry2.Get("Entry No.", not Positive) then
+                //             if (ReservationEntry2."Source Type" = DATABASE::"Prod. Order Line") and
+                //                (ReservationEntry2."Source ID" = "Prod. Order Component"."Prod. Order No.")
+                //             then
+                //                 RemainingQtyReserved += ReservationEntry2."Quantity (Base)";
+                //     until Next() = 0;
+                //     if "Prod. Order Component"."Remaining Qty. (Base)" = RemainingQtyReserved then
+                //         CurrReport.Skip();
+                // end;
+                //end;
 
 
             end;

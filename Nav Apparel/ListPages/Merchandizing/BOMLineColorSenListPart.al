@@ -13,7 +13,7 @@ page 71012687 "BOM Line Color ListPart"
         {
             repeater(General)
             {
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -23,13 +23,13 @@ page 71012687 "BOM Line Color ListPart"
                         MainCategoryRec: Record "Main Category";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                         if MainCategoryRec.FindSet() then
-                            "Main Category No." := MainCategoryRec."No.";
+                            rec."Main Category No." := MainCategoryRec."No.";
                     end;
                 }
 
-                field("GMT Color Name."; "GMT Color Name.")
+                field("GMT Color Name."; rec."GMT Color Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Color ';
@@ -39,13 +39,13 @@ page 71012687 "BOM Line Color ListPart"
                         ColourRec: Record Colour;
                     begin
                         ColourRec.Reset();
-                        ColourRec.SetRange("Colour Name", "GMT Color Name.");
+                        ColourRec.SetRange("Colour Name", rec."GMT Color Name.");
                         if ColourRec.FindSet() then
-                            "GMT Color No." := ColourRec."No.";
+                            rec."GMT Color No." := ColourRec."No.";
                     end;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -55,13 +55,13 @@ page 71012687 "BOM Line Color ListPart"
                         ItemRec: Record "Item";
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Item Name");
+                        ItemRec.SetRange(Description, rec."Item Name");
                         if ItemRec.FindSet() then
-                            "Item No." := ItemRec."No.";
+                            rec."Item No." := ItemRec."No.";
                     end;
                 }
 
-                field("Construction Name."; "Construction Name.")
+                field("Construction Name."; rec."Construction Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Article/Construction';
@@ -71,13 +71,13 @@ page 71012687 "BOM Line Color ListPart"
                         ConstructionRec: Record Article;
                     begin
                         ConstructionRec.Reset();
-                        ConstructionRec.SetRange(Article, "Construction Name.");
+                        ConstructionRec.SetRange(Article, rec."Construction Name.");
                         if ConstructionRec.FindSet() then
-                            "Construction No." := ConstructionRec."No.";
+                            rec."Construction No." := ConstructionRec."No.";
                     end;
                 }
 
-                field("Dimension Name"; "Dimension Name")
+                field("Dimension Name"; rec."Dimension Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension';
@@ -87,13 +87,13 @@ page 71012687 "BOM Line Color ListPart"
                         DimensionRec: Record DimensionWidth;
                     begin
                         DimensionRec.Reset();
-                        DimensionRec.SetRange("Dimension Width", "Dimension Name");
+                        DimensionRec.SetRange("Dimension Width", rec."Dimension Name");
                         if DimensionRec.FindSet() then
-                            "Dimension No." := DimensionRec."No.";
+                            rec."Dimension No." := DimensionRec."No.";
                     end;
                 }
 
-                field("Item Color Name."; "Item Color Name.")
+                field("Item Color Name."; rec."Item Color Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Item Color';
@@ -103,20 +103,20 @@ page 71012687 "BOM Line Color ListPart"
                         ColourRec: Record Colour;
                     begin
                         ColourRec.Reset();
-                        ColourRec.SetRange("Colour Name", "item Color Name.");
+                        ColourRec.SetRange("Colour Name", rec."item Color Name.");
                         if ColourRec.FindSet() then
-                            "Item Color No." := ColourRec."No.";
+                            rec."Item Color No." := ColourRec."No.";
                     end;
 
                 }
 
-                field(Placement; Placement)
+                field(Placement; rec.Placement)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Select; Select)
+                field(Select; rec.Select)
                 {
                     ApplicationArea = All;
                 }
@@ -138,7 +138,7 @@ page 71012687 "BOM Line Color ListPart"
                     BOMLineRec: Record "BOM Line";
                 begin
                     BOMLineRec.Reset();
-                    BOMLineRec.SetRange("No.", "No.");
+                    BOMLineRec.SetRange("No.", rec."No.");
                     BOMLineRec.SetRange(Type, 1);
                     BOMLineRec.SetRange("Line No", Lineno);
                     BOMLineRec.FindSet();
@@ -156,9 +156,9 @@ page 71012687 "BOM Line Color ListPart"
     var
 
     begin
-        ColorNo := "GMT Color No.";
-        ColorName := "GMT Color Name.";
-        Lineno := "Line No";
+        ColorNo := rec."GMT Color No.";
+        ColorName := rec."GMT Color Name.";
+        Lineno := rec."Line No";
     end;
 
     var

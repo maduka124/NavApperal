@@ -1,5 +1,5 @@
 
-table 71012668 AssortmentDetailsInseam
+table 50885 AssortmentDetailsInseam
 {
     DataClassification = ToBeClassified;
 

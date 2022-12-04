@@ -12,19 +12,19 @@ page 50712 FabShadeListPart3
         {
             repeater(General)
             {
-                field(Pattern; Pattern)
+                field(Pattern; rec.Pattern)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Total Rolls"; "Total Rolls")
+                field("Total Rolls"; rec."Total Rolls")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Total YDS"; "Total YDS")
+                field("Total YDS"; rec."Total YDS")
                 {
                     ApplicationArea = All;
                     Editable = false;

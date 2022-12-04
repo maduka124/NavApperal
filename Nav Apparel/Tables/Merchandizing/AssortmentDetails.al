@@ -1,5 +1,5 @@
 
-table 71012667 AssortmentDetails
+table 50886 AssortmentDetails
 {
     DataClassification = ToBeClassified;
 

@@ -11,7 +11,7 @@ page 71012673 AssoPackCountryListPart
         {
             repeater(General)
             {
-                field("Country Name"; "Country Name")
+                field("Country Name"; rec."Country Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Country';
@@ -25,11 +25,11 @@ page 71012673 AssoPackCountryListPart
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
                         //Check for whether BOm created for the style
-                        BOMRec.SetRange("Style No.", "Style No.");
+                        BOMRec.SetRange("Style No.", rec."Style No.");
                         if BOMRec.FindSet() then begin
                             BOMAutoGenRec.Reset();
                             BOMAutoGenRec.SetRange("No.", BOMRec.No);
@@ -43,31 +43,31 @@ page 71012673 AssoPackCountryListPart
 
 
                         CountryRec.Reset();
-                        CountryRec.SetRange("Name", "Country Name");
+                        CountryRec.SetRange("Name", rec."Country Name");
                         if CountryRec.FindSet() then
-                            "Country Code" := CountryRec.Code;
+                            rec."Country Code" := CountryRec.Code;
 
                         //CurrPage.Update();
                         //Check Duplicates
                         AssoDetRec.Reset();
-                        AssoDetRec.SetRange("Style No.", "Style No.");
-                        AssoDetRec.SetRange("Country Code", "Country Code");
-                        AssoDetRec.SetRange("Lot No.", "Lot No.");
+                        AssoDetRec.SetRange("Style No.", rec."Style No.");
+                        AssoDetRec.SetRange("Country Code", rec."Country Code");
+                        AssoDetRec.SetRange("Lot No.", rec."Lot No.");
                         AssoDetRec.SetFilter(Type, '=%1', '2');
 
                         if AssoDetRec.FindSet() then
                             Error('Country already defined.');
 
                         StyleRec.Reset();
-                        StyleRec.SetRange("Style No.", "Style No.");
-                        StyleRec.SetRange("Lot No.", "Lot No.");
+                        StyleRec.SetRange("Style No.", rec."Style No.");
+                        StyleRec.SetRange("Lot No.", rec."Lot No.");
                         StyleRec.FindLast();
 
-                        "PO No." := StyleRec."PO No.";
+                        rec."PO No." := StyleRec."PO No.";
                     end;
                 }
 
-                field(Pack; Pack)
+                field(Pack; rec.Pack)
                 {
                     ApplicationArea = All;
                     //ShowMandatory = true;
@@ -78,11 +78,11 @@ page 71012673 AssoPackCountryListPart
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
                         // Check for whether BOm created for the style
-                        BOMRec.SetRange("Style No.", "Style No.");
+                        BOMRec.SetRange("Style No.", rec."Style No.");
                         if BOMRec.FindSet() then begin
                             BOMAutoGenRec.Reset();
                             BOMAutoGenRec.SetRange("No.", BOMRec.No);
@@ -95,24 +95,24 @@ page 71012673 AssoPackCountryListPart
                         end;
 
                         PackRec.Reset();
-                        PackRec.SetRange(Pack, Pack);
+                        PackRec.SetRange(Pack, rec.Pack);
                         if PackRec.FindSet() then
-                            "Pack No" := PackRec."No.";
+                            rec."Pack No" := PackRec."No.";
                     end;
                 }
 
-                field(Category; Category)
+                field(Category; rec.Category)
                 {
                     ApplicationArea = All;
                     Caption = 'Type';
                 }
 
-                field("SID/REF No"; "SID/REF No")
+                field("SID/REF No"; rec."SID/REF No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("No Pack"; "No Pack")
+                field("No Pack"; rec."No Pack")
                 {
                     ApplicationArea = All;
                 }
@@ -139,29 +139,29 @@ page 71012673 AssoPackCountryListPart
                 begin
                     //Color
                     AssorDetailsRec.Reset();
-                    AssorDetailsRec.SetRange("Style No.", "Style No.");
-                    AssorDetailsRec.SetRange("lot No.", "lot No.");
+                    AssorDetailsRec.SetRange("Style No.", rec."Style No.");
+                    AssorDetailsRec.SetRange("lot No.", rec."lot No.");
                     AssorDetailsRec.SetRange(Type, '1');
 
                     //Size
                     AssorDetailsInseamRec.Reset();
-                    AssorDetailsInseamRec.SetRange("Style No.", "Style No.");
-                    AssorDetailsInseamRec.SetRange("lot No.", "lot No.");
+                    AssorDetailsInseamRec.SetRange("Style No.", rec."Style No.");
+                    AssorDetailsInseamRec.SetRange("lot No.", rec."lot No.");
 
                     /////////////////////Copying Colors
                     PORec.Reset();
-                    PORec.SetRange("Style No.", "Style No.");
+                    PORec.SetRange("Style No.", rec."Style No.");
                     PORec.FindSet();
 
                     if not AssorDetailsRec.FINDSET() then
-                        Message('Cannot find color details for PO NO %1', "PO No.")
+                        Message('Cannot find color details for PO NO %1', rec."PO No.")
                     else begin
                         repeat
                             LineNo := 0;
-                            if "Lot No." <> PORec."Lot No." then begin
+                            if rec."Lot No." <> PORec."Lot No." then begin
                                 //Delete Existing records                                    
                                 AssorDetailsNewRec.Reset();
-                                AssorDetailsNewRec.SetRange("Style No.", "Style No.");
+                                AssorDetailsNewRec.SetRange("Style No.", rec."Style No.");
                                 AssorDetailsNewRec.SetRange("Lot No.", PORec."Lot No.");
                                 AssorDetailsNewRec.SetRange(Type, '1');
                                 AssorDetailsNewRec.DeleteAll();
@@ -170,7 +170,7 @@ page 71012673 AssoPackCountryListPart
                                     //Add new record
                                     LineNo += 10000;
                                     AssorDetailsNewRec.Init();
-                                    AssorDetailsNewRec."Style No." := "Style No.";
+                                    AssorDetailsNewRec."Style No." := rec."Style No.";
                                     AssorDetailsNewRec."PO No." := PORec."PO No.";
                                     AssorDetailsNewRec."Lot No." := PORec."Lot No.";
                                     AssorDetailsNewRec.Type := '1';
@@ -190,19 +190,19 @@ page 71012673 AssoPackCountryListPart
 
                     /////////////////////Copying Size
                     PORec.Reset();
-                    PORec.SetRange("Style No.", "Style No.");
+                    PORec.SetRange("Style No.", rec."Style No.");
                     PORec.FindSet();
 
                     if not AssorDetailsInseamRec.FINDSET() then
-                        Message('Cannot find size information for PO NO %1', "PO No.")
+                        Message('Cannot find size information for PO NO %1', rec."PO No.")
                     else begin
                         repeat
                             LineNo := 0;
 
-                            if "Lot No." <> PORec."Lot No." then begin
+                            if rec."Lot No." <> PORec."Lot No." then begin
                                 //Delete Existing records                                    
                                 AssorDetailsInseamNewRec.Reset();
-                                AssorDetailsInseamNewRec.SetRange("Style No.", "Style No.");
+                                AssorDetailsInseamNewRec.SetRange("Style No.", rec."Style No.");
                                 AssorDetailsInseamNewRec.SetRange("Lot No.", PORec."Lot No.");
                                 AssorDetailsInseamNewRec.DeleteAll();
 
@@ -210,7 +210,7 @@ page 71012673 AssoPackCountryListPart
                                     //Add new record
                                     LineNo += 10000;
                                     AssorDetailsInseamNewRec.Init();
-                                    AssorDetailsInseamNewRec."Style No." := "Style No.";
+                                    AssorDetailsInseamNewRec."Style No." := rec."Style No.";
                                     AssorDetailsInseamNewRec."Lot No." := PORec."Lot No.";
                                     AssorDetailsInseamNewRec."PO No." := PORec."PO No.";
                                     AssorDetailsInseamNewRec."Line No." := LineNo;
@@ -229,23 +229,23 @@ page 71012673 AssoPackCountryListPart
 
                     /////////////////////Copying Country
                     AssorDetailsRec.Reset();
-                    AssorDetailsRec.SetRange("Style No.", "Style No.");
-                    AssorDetailsRec.SetRange("lot No.", "lot No.");
+                    AssorDetailsRec.SetRange("Style No.", rec."Style No.");
+                    AssorDetailsRec.SetRange("lot No.", rec."lot No.");
                     AssorDetailsRec.SetRange(Type, '2');
 
                     PORec.Reset();
-                    PORec.SetRange("Style No.", "Style No.");
+                    PORec.SetRange("Style No.", rec."Style No.");
                     PORec.FindSet();
 
                     if not AssorDetailsRec.FINDSET() then
-                        Message('Cannot find country details for PO NO %1', "PO No.")
+                        Message('Cannot find country details for PO NO %1', rec."PO No.")
                     else begin
                         repeat
                             LineNo := 0;
-                            if "Lot No." <> PORec."Lot No." then begin
+                            if rec."Lot No." <> PORec."Lot No." then begin
                                 //Delete Existing records                                    
                                 AssorDetailsNewRec.Reset();
-                                AssorDetailsNewRec.SetRange("Style No.", "Style No.");
+                                AssorDetailsNewRec.SetRange("Style No.", rec."Style No.");
                                 AssorDetailsNewRec.SetRange("Lot No.", PORec."Lot No.");
                                 AssorDetailsNewRec.SetRange(Type, '2');
                                 AssorDetailsNewRec.DeleteAll();
@@ -261,7 +261,7 @@ page 71012673 AssoPackCountryListPart
                                     //Add new record
                                     LineNo += 10000;
                                     AssorDetailsNewRec.Init();
-                                    AssorDetailsNewRec."Style No." := "Style No.";
+                                    AssorDetailsNewRec."Style No." := rec."Style No.";
                                     AssorDetailsNewRec."PO No." := PORec."PO No.";
                                     AssorDetailsNewRec."Lot No." := PORec."Lot No.";
                                     AssorDetailsNewRec.Type := '2';
@@ -295,7 +295,7 @@ page 71012673 AssoPackCountryListPart
     trigger OnOpenPage()
     var
     begin
-        Type := '2';
+        rec.Type := '2';
     end;
 
 
@@ -327,17 +327,17 @@ page 71012673 AssoPackCountryListPart
     begin
 
         //Check for whether BOM created for the style
-        BOMRec.SetRange("Style No.", "Style No.");
+        BOMRec.SetRange("Style No.", rec."Style No.");
         if BOMRec.FindSet() then
             Error('Style %1 already assigned for the BOM %2 . You cannot delete Country.', Style1Rec."Style No.", BOMRec.No)
         else begin
 
             //Inform user about Country usage in other pos
             AssorColorSizeRatioRec.Reset();
-            AssorColorSizeRatioRec.SetRange("Style No.", "Style No.");
-            AssorColorSizeRatioRec.SetRange("Country Code", "Country Code");
+            AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+            AssorColorSizeRatioRec.SetRange("Country Code", rec."Country Code");
             AssorColorSizeRatioRec.SetCurrentKey("lot No.");
-            AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', "Lot No.");
+            AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', rec."Lot No.");
 
             if AssorColorSizeRatioRec.FindSet() then begin
                 repeat
@@ -350,7 +350,7 @@ page 71012673 AssoPackCountryListPart
 
             if LotTemp <> '' then begin
                 Question := Text;
-                if (Dialog.Confirm(Question, true, "Country Name", LotTemp) = true) then
+                if (Dialog.Confirm(Question, true, rec."Country Name", LotTemp) = true) then
                     Confirm := true
                 else
                     Confirm := false;
@@ -367,8 +367,8 @@ page 71012673 AssoPackCountryListPart
             //Delete Country from TAB (Other POs)
             if Confirm = true then begin
                 AssorDetailsRec.Reset();
-                AssorDetailsRec.SetRange("Style No.", "Style No.");
-                AssorDetailsRec.SetRange("Country Code", "Country Code");
+                AssorDetailsRec.SetRange("Style No.", rec."Style No.");
+                AssorDetailsRec.SetRange("Country Code", rec."Country Code");
 
                 if AssorDetailsRec.FindSet() then
                     AssorDetailsRec.DeleteAll();
@@ -377,11 +377,11 @@ page 71012673 AssoPackCountryListPart
 
             //Delete Country from size ratio TAB
             AssorColorSizeRatioRec.Reset();
-            AssorColorSizeRatioRec.SetRange("Style No.", "Style No.");
-            AssorColorSizeRatioRec.SetRange("Country Code", "Country Code");
+            AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+            AssorColorSizeRatioRec.SetRange("Country Code", rec."Country Code");
 
             if Confirm = false then
-                AssorColorSizeRatioRec.SetRange("lot No.", "Lot No.");
+                AssorColorSizeRatioRec.SetRange("lot No.", rec."Lot No.");
 
             if AssorColorSizeRatioRec.FindSet() then
                 AssorColorSizeRatioRec.DeleteAll();
@@ -389,11 +389,11 @@ page 71012673 AssoPackCountryListPart
 
             //Delete Country from Quantity breakdown TAB
             AssorColorSizeRatioView.Reset();
-            AssorColorSizeRatioView.SetRange("Style No.", "Style No.");
-            AssorColorSizeRatioView.SetRange("Country Code", "Country Code");
+            AssorColorSizeRatioView.SetRange("Style No.", rec."Style No.");
+            AssorColorSizeRatioView.SetRange("Country Code", rec."Country Code");
 
             if Confirm = false then
-                AssorColorSizeRatioView.SetRange("lot No.", "Lot No.");
+                AssorColorSizeRatioView.SetRange("lot No.", rec."Lot No.");
 
             if AssorColorSizeRatioView.FindSet() then
                 AssorColorSizeRatioView.DeleteAll();
@@ -401,11 +401,11 @@ page 71012673 AssoPackCountryListPart
 
             //Delete Country from price TAB
             AssorColorSizeRatioPriceRec.Reset();
-            AssorColorSizeRatioPriceRec.SetRange("Style No.", "Style No.");
-            AssorColorSizeRatioPriceRec.SetRange("Country Code", "Country Code");
+            AssorColorSizeRatioPriceRec.SetRange("Style No.", rec."Style No.");
+            AssorColorSizeRatioPriceRec.SetRange("Country Code", rec."Country Code");
 
             if Confirm = false then
-                AssorColorSizeRatioPriceRec.SetRange("lot No.", "Lot No.");
+                AssorColorSizeRatioPriceRec.SetRange("lot No.", rec."Lot No.");
 
             if AssorColorSizeRatioPriceRec.FindSet() then
                 AssorColorSizeRatioPriceRec.DeleteAll();

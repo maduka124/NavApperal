@@ -11,130 +11,130 @@ page 50439 SampleProdLineReceWashListPart
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Request No';
                     Editable = false;
                 }
 
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field("Group Head"; "Group Head")
+                field("Group Head"; rec."Group Head")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Buyer';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field("Sample Name"; "Sample Name")
+                field("Sample Name"; rec."Sample Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Sample';
                 }
 
-                field("Fabrication Name"; "Fabrication Name")
+                field("Fabrication Name"; rec."Fabrication Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Fabrication';
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Color';
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Comment; Comment)
+                field(Comment; rec.Comment)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan Start Date"; "Plan Start Date")
+                field("Plan Start Date"; rec."Plan Start Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan End Date"; "Plan End Date")
+                field("Plan End Date"; rec."Plan End Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Caption = 'Çomplete';
                     Editable = false;
                 }
 
-                field("Pattern Date"; "Pattern Date")
+                field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Cutting Date"; "Cutting Date")
+                field("Cutting Date"; rec."Cutting Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Sewing Date"; "Sewing Date")
+                field("Sewing Date"; rec."Sewing Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Send Wash Date"; "Send Wash Date")
+                field("Send Wash Date"; rec."Send Wash Date")
                 {
                     ApplicationArea = All;
                     //Editable = false;
                     Caption = 'Wash Send Date';
                 }
 
-                field("Wash Receiver"; "Wash Receiver")
+                field("Wash Receiver"; rec."Wash Receiver")
                 {
                     ApplicationArea = All;
                 }
@@ -169,7 +169,7 @@ page 50439 SampleProdLineReceWashListPart
                 //     end;
                 // }
 
-                field("Received Wash Date"; "Received Wash Date")
+                field("Received Wash Date"; rec."Received Wash Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Received Date';
@@ -179,7 +179,7 @@ page 50439 SampleProdLineReceWashListPart
                     //RouterlineRec: Record "Routing Line";
                     begin
 
-                        if "Wash Receiver" = '' then
+                        if rec."Wash Receiver" = '' then
                             Error('Select a wash Receiver name');
 
                         CurrPage.Update();

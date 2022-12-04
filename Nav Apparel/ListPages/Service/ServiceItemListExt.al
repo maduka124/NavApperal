@@ -4,37 +4,37 @@ pageextension 50807 ServiceItemListExt extends "Service Item List"
     {
         addafter("Customer No.")
         {
-            field(Brand; Brand)
+            field(Brand; rec.Brand)
             {
                 ApplicationArea = ALL;
             }
 
-            field(Model; Model)
+            field(Model; rec.Model)
             {
                 ApplicationArea = ALL;
             }
 
-            field("Purchase Year"; "Purchase Year")
+            field("Purchase Year"; rec."Purchase Year")
             {
                 ApplicationArea = ALL;
             }
 
-            field(Factory; Factory)
+            field(Factory; rec.Factory)
             {
                 ApplicationArea = ALL;
             }
 
-            field(Location; Location)
+            field(Location; rec.Location)
             {
                 ApplicationArea = All;
             }
 
-            field("Machine Category"; "Machine Category")
+            field("Machine Category"; rec."Machine Category")
             {
                 ApplicationArea = All;
             }
 
-            field(Ownership; Ownership)
+            field(Ownership; rec.Ownership)
             {
                 ApplicationArea = All;
             }

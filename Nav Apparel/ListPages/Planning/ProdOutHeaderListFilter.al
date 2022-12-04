@@ -14,13 +14,13 @@ page 50758 "ProdOutHeaderListFilter"
             repeater(General)
             {
                 Editable = false;
-                field("Style No."; "Style No.")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Style No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                 }

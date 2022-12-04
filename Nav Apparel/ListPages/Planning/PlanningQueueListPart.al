@@ -11,33 +11,33 @@ page 50336 "Planning Queue List"
         {
             repeater(General)
             {
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("TGTSEWFIN Date"; "TGTSEWFIN Date")
+                field("TGTSEWFIN Date"; rec."TGTSEWFIN Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Resource No"; "Resource No")
+                field("Resource No"; rec."Resource No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Start Date"; "Start Date")
+                field("Start Date"; rec."Start Date")
                 {
                     ApplicationArea = All;
                     //TableRelation = "Style Master"."No.";
                 }
             }
         }
-    }  
+    }
 }

@@ -1,4 +1,4 @@
-reportextension 50100 CalConsumption extends "Calc. Consumption"
+reportextension 50879 CalConsumption extends "Calc. Consumption"
 {
     dataset
     {

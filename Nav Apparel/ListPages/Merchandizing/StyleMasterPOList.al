@@ -10,49 +10,49 @@ page 71012797 "Style Master PO List"
         {
             repeater(General)
             {
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Lot No';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Po No';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Mode; Mode)
+                field(Mode; rec.Mode)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Ship Date"; "Ship Date")
+                field("Ship Date"; rec."Ship Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field(SID; SID)
+                field(SID; rec.SID)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Unit Price"; "Unit Price")
+                field("Unit Price"; rec."Unit Price")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Confirm Date"; "Confirm Date")
+                field("Confirm Date"; rec."Confirm Date")
                 {
                     ApplicationArea = All;
                 }

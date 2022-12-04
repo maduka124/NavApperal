@@ -13,18 +13,18 @@ page 71012773 "Sample Type"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Type No';
                 }
 
-                field("Sample Type Name"; "Sample Type Name")
+                field("Sample Type Name"; rec."Sample Type Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Lead Time"; "Lead Time")
+                field("Lead Time"; rec."Lead Time")
                 {
                     ApplicationArea = All;
                 }

@@ -12,14 +12,14 @@ page 50705 FabShadeShrinkageListPart4
         {
             repeater(General)
             {
-                field("WIDTH Shrinkage"; "WIDTH Shrinkage")
+                field("WIDTH Shrinkage"; rec."WIDTH Shrinkage")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Width Shrinkage(%)';
                 }
 
-                field("Total Rolls"; "Total Rolls")
+                field("Total Rolls"; rec."Total Rolls")
                 {
                     ApplicationArea = All;
                     Editable = false;

@@ -1,3 +1,4 @@
+
 page 50860 FacWiseProductplaningPart
 {
     PageType = ListPart;
@@ -13,58 +14,58 @@ page 50860 FacWiseProductplaningPart
             repeater(Genaral)
             {
 
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Visible = false;
                 }
 
-                field(Date; Date)
+                field(Date; Rec.Date)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Cutting Planned"; "Cutting Planned")
+                field("Cutting Planned"; Rec."Cutting Planned")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Cutting Achieved"; "Cutting Achieved")
+                field("Cutting Achieved"; Rec."Cutting Achieved")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Cutting Difference"; "Cutting Difference")
+                field("Cutting Difference"; Rec."Cutting Difference")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sewing Planned"; "Sewing Planned")
+                field("Sewing Planned"; Rec."Sewing Planned")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sewing Achieved"; "Sewing Achieved")
+                field("Sewing Achieved"; Rec."Sewing Achieved")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sewing Difference"; "Sewing Difference")
+                field("Sewing Difference"; Rec."Sewing Difference")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Finishing Planned"; "Finishing Planned")
+                field("Finishing Planned"; Rec."Finishing Planned")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Finishing Achieved"; "Finishing Achieved")
+                field("Finishing Achieved"; Rec."Finishing Achieved")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Finishing Difference"; "Finishing Difference")
+                field("Finishing Difference"; Rec."Finishing Difference")
                 {
                     ApplicationArea = All;
                 }
@@ -72,3 +73,4 @@ page 50860 FacWiseProductplaningPart
         }
     }
 }
+

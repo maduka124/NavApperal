@@ -10,7 +10,7 @@ page 71012672 AssoInSeamListPart
         {
             repeater(General)
             {
-                field("Com Size"; "Com Size")
+                field("Com Size"; rec."Com Size")
                 {
                     ApplicationArea = All;
 
@@ -22,12 +22,12 @@ page 71012672 AssoInSeamListPart
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
 
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
 
                         //Check for whether BOm created for the style
-                        BOMRec.SetRange("Style No.", "Style No.");
+                        BOMRec.SetRange("Style No.", rec."Style No.");
                         if BOMRec.FindSet() then begin
                             BOMAutoGenRec.Reset();
                             BOMAutoGenRec.SetRange("No.", BOMRec.No);
@@ -40,45 +40,45 @@ page 71012672 AssoInSeamListPart
                         end;
 
                         AssDetInseamRec.Reset();
-                        AssDetInseamRec.SetRange("Style No.", "Style No.");
-                        AssDetInseamRec.SetRange("Lot No.", "Lot No.");
-                        AssDetInseamRec.SetRange("Com Size", "Com Size");
+                        AssDetInseamRec.SetRange("Style No.", rec."Style No.");
+                        AssDetInseamRec.SetRange("Lot No.", rec."Lot No.");
+                        AssDetInseamRec.SetRange("Com Size", rec."Com Size");
 
                         if AssDetInseamRec.FindSet() then
                             Error('Com Size already defined.');
 
-                        if InSeam <> 0 then
-                            "GMT Size" := format("Com Size") + '/' + format(InSeam)
+                        if rec.InSeam <> 0 then
+                            rec."GMT Size" := format(rec."Com Size") + '/' + format(rec.InSeam)
                         else
-                            "GMT Size" := format("Com Size");
+                            rec."GMT Size" := format(rec."Com Size");
 
                         StyleRec.Reset();
-                        StyleRec.SetRange("Style No.", "Style No.");
-                        StyleRec.SetRange("Lot No.", "Lot No.");
+                        StyleRec.SetRange("Style No.", rec."Style No.");
+                        StyleRec.SetRange("Lot No.", rec."Lot No.");
                         StyleRec.FindLast();
 
-                        "PO No." := StyleRec."PO No.";
+                        rec."PO No." := StyleRec."PO No.";
                     end;
                 }
 
-                field(InSeam; InSeam)
+                field(InSeam; rec.InSeam)
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if "Lot No." = '' then
+                        if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
-                        if InSeam <> 0 then
-                            "GMT Size" := format("Com Size") + '/' + format(InSeam)
+                        if rec.InSeam <> 0 then
+                            rec."GMT Size" := format(rec."Com Size") + '/' + format(rec.InSeam)
                         else
-                            "GMT Size" := format("Com Size");
+                            rec."GMT Size" := format(rec."Com Size");
                     end;
                 }
 
-                field("GMT Size"; "GMT Size")
+                field("GMT Size"; rec."GMT Size")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -302,16 +302,16 @@ page 71012672 AssoInSeamListPart
     begin
 
         //Check for whether BOM created for the style
-        BOMRec.SetRange("Style No.", "Style No.");
+        BOMRec.SetRange("Style No.", rec."Style No.");
         if BOMRec.FindSet() then
             Error('Style %1 already assigned for the BOM %2 . You cannot delete sizes.', Style1Rec."Style No.", BOMRec.No)
         else begin
 
             ///////////Inform user about size usage in other POs
             AssorColorSizeRatioRec.Reset();
-            AssorColorSizeRatioRec.SetRange("Style No.", "Style No.");
+            AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
             AssorColorSizeRatioRec.SetCurrentKey("lot No.");
-            AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', "Lot No.");
+            AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', rec."Lot No.");
             AssorColorSizeRatioRec.SetFilter("Colour Name", '=%1', '*');
 
             if AssorColorSizeRatioRec.FindSet() then begin
@@ -319,322 +319,322 @@ page 71012672 AssoInSeamListPart
                     FOR Count := 1 TO 64 DO begin
                         case Count of
                             1:
-                                if AssorColorSizeRatioRec."1" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."1" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             2:
-                                if AssorColorSizeRatioRec."2" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."2" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             3:
-                                if AssorColorSizeRatioRec."3" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."3" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             4:
-                                if AssorColorSizeRatioRec."4" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."4" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             5:
-                                if AssorColorSizeRatioRec."5" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."5" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             6:
-                                if AssorColorSizeRatioRec."6" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."6" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             7:
-                                if AssorColorSizeRatioRec."7" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."7" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             8:
-                                if AssorColorSizeRatioRec."8" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."8" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             9:
-                                if AssorColorSizeRatioRec."9" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."9" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             10:
-                                if AssorColorSizeRatioRec."10" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."10" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             11:
-                                if AssorColorSizeRatioRec."11" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."11" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             12:
-                                if AssorColorSizeRatioRec."12" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."12" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             13:
-                                if AssorColorSizeRatioRec."13" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."13" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             14:
-                                if AssorColorSizeRatioRec."14" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."14" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             15:
-                                if AssorColorSizeRatioRec."15" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."15" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             16:
-                                if AssorColorSizeRatioRec."16" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."16" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             17:
-                                if AssorColorSizeRatioRec."17" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."17" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             18:
-                                if AssorColorSizeRatioRec."18" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."18" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             19:
-                                if AssorColorSizeRatioRec."19" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."19" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             20:
-                                if AssorColorSizeRatioRec."20" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."20" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             21:
-                                if AssorColorSizeRatioRec."21" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."21" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             22:
-                                if AssorColorSizeRatioRec."22" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."22" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             23:
-                                if AssorColorSizeRatioRec."23" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."23" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             24:
-                                if AssorColorSizeRatioRec."24" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."24" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             25:
-                                if AssorColorSizeRatioRec."25" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."25" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             26:
-                                if AssorColorSizeRatioRec."26" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."26" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             27:
-                                if AssorColorSizeRatioRec."27" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."27" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             28:
-                                if AssorColorSizeRatioRec."28" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."28" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             29:
-                                if AssorColorSizeRatioRec."29" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."29" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             30:
-                                if AssorColorSizeRatioRec."30" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."30" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             31:
-                                if AssorColorSizeRatioRec."31" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."31" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             32:
-                                if AssorColorSizeRatioRec."32" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."32" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             33:
-                                if AssorColorSizeRatioRec."33" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."33" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             34:
-                                if AssorColorSizeRatioRec."34" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."34" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             35:
-                                if AssorColorSizeRatioRec."35" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."35" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             36:
-                                if AssorColorSizeRatioRec."36" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."36" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             37:
-                                if AssorColorSizeRatioRec."37" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."37" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             38:
-                                if AssorColorSizeRatioRec."38" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."38" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             39:
-                                if AssorColorSizeRatioRec."39" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."39" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             40:
-                                if AssorColorSizeRatioRec."40" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."40" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             41:
-                                if AssorColorSizeRatioRec."41" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."41" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             42:
-                                if AssorColorSizeRatioRec."42" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."42" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             43:
-                                if AssorColorSizeRatioRec."43" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."43" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             44:
-                                if AssorColorSizeRatioRec."44" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."44" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             45:
-                                if AssorColorSizeRatioRec."45" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."45" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             46:
-                                if AssorColorSizeRatioRec."46" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."46" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             47:
-                                if AssorColorSizeRatioRec."47" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."47" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             48:
-                                if AssorColorSizeRatioRec."48" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."48" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             49:
-                                if AssorColorSizeRatioRec."49" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."49" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             50:
-                                if AssorColorSizeRatioRec."50" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."50" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             51:
-                                if AssorColorSizeRatioRec."51" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."51" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             52:
-                                if AssorColorSizeRatioRec."52" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."52" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             53:
-                                if AssorColorSizeRatioRec."53" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."53" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             54:
-                                if AssorColorSizeRatioRec."54" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."54" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             55:
-                                if AssorColorSizeRatioRec."55" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."55" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             56:
-                                if AssorColorSizeRatioRec."56" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."56" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             57:
-                                if AssorColorSizeRatioRec."57" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."57" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             58:
-                                if AssorColorSizeRatioRec."58" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."58" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             59:
-                                if AssorColorSizeRatioRec."59" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."59" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             60:
-                                if AssorColorSizeRatioRec."60" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."60" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             61:
-                                if AssorColorSizeRatioRec."61" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."61" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             62:
-                                if AssorColorSizeRatioRec."62" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."62" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             63:
-                                if AssorColorSizeRatioRec."63" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."63" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
                             64:
-                                if AssorColorSizeRatioRec."64" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."64" = rec."GMT Size" then begin
                                     LotTemp := AssorColorSizeRatioRec."Lot No.";
                                     break;
                                 end;
@@ -645,7 +645,7 @@ page 71012672 AssoInSeamListPart
 
             if LotTemp <> '' then begin
                 Question := Text;
-                if (Dialog.Confirm(Question, true, "GMT Size", LotTemp) = true) then
+                if (Dialog.Confirm(Question, true, rec."GMT Size", LotTemp) = true) then
                     Confirm := true
                 else
                     Confirm := false;
@@ -662,8 +662,8 @@ page 71012672 AssoInSeamListPart
             /////////////////Delete from size TAB (Other POs)
             if Confirm = true then begin
                 AssorDetailsRec.Reset();
-                AssorDetailsRec.SetRange("Style No.", "Style No.");
-                AssorDetailsRec.SetRange("GMT Size", "GMT Size");
+                AssorDetailsRec.SetRange("Style No.", rec."Style No.");
+                AssorDetailsRec.SetRange("GMT Size", rec."GMT Size");
 
                 if AssorDetailsRec.FindSet() then
                     AssorDetailsRec.DeleteAll();
@@ -673,11 +673,11 @@ page 71012672 AssoInSeamListPart
             ///////////////Delete size from size/ratio TAB
             //* rows
             AssorColorSizeRatioRec.Reset();
-            AssorColorSizeRatioRec.SetRange("Style No.", "Style No.");
+            AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
             AssorColorSizeRatioRec.SetFilter("Colour Name", '=%1', '*');
 
             if Confirm = false then
-                AssorColorSizeRatioRec.SetRange("lot No.", "Lot No.");
+                AssorColorSizeRatioRec.SetRange("lot No.", rec."Lot No.");
 
             if AssorColorSizeRatioRec.FindSet() then begin
                 repeat
@@ -685,385 +685,385 @@ page 71012672 AssoInSeamListPart
                     FOR Count := 1 TO 64 DO begin
                         case Count of
                             1:
-                                if AssorColorSizeRatioRec."1" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."1" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."1" := '';
                                     Col := Count;
                                     break;
                                 end;
                             2:
-                                if AssorColorSizeRatioRec."2" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."2" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."2" := '';
                                     Col := Count;
                                     break;
                                 end;
                             3:
-                                if AssorColorSizeRatioRec."3" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."3" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."3" := '';
                                     Col := Count;
                                     break;
                                 end;
                             4:
-                                if AssorColorSizeRatioRec."4" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."4" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."4" := '';
                                     Col := Count;
                                     break;
                                 end;
                             5:
-                                if AssorColorSizeRatioRec."5" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."5" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."5" := '';
                                     Col := Count;
                                     break;
                                 end;
                             6:
-                                if AssorColorSizeRatioRec."6" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."6" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."6" := '';
                                     Col := Count;
                                     break;
                                 end;
                             7:
-                                if AssorColorSizeRatioRec."7" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."7" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."7" := '';
                                     Col := Count;
                                     break;
                                 end;
                             8:
-                                if AssorColorSizeRatioRec."8" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."8" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."8" := '';
                                     Col := Count;
                                     break;
                                 end;
                             9:
-                                if AssorColorSizeRatioRec."9" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."9" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."9" := '';
                                     Col := Count;
                                     break;
                                 end;
                             10:
-                                if AssorColorSizeRatioRec."10" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."10" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."10" := '';
                                     Col := Count;
                                     break;
                                 end;
                             11:
-                                if AssorColorSizeRatioRec."11" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."11" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."11" := '';
                                     Col := Count;
                                     break;
                                 end;
                             12:
-                                if AssorColorSizeRatioRec."12" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."12" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."12" := '';
                                     Col := Count;
                                     break;
                                 end;
                             13:
-                                if AssorColorSizeRatioRec."13" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."13" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."13" := '';
                                     Col := Count;
                                     break;
                                 end;
                             14:
-                                if AssorColorSizeRatioRec."14" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."14" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."14" := '';
                                     Col := Count;
                                     break;
                                 end;
                             15:
-                                if AssorColorSizeRatioRec."15" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."15" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."15" := '';
                                     Col := Count;
                                     break;
                                 end;
                             16:
-                                if AssorColorSizeRatioRec."16" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."16" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."16" := '';
                                     Col := Count;
                                     break;
                                 end;
                             17:
-                                if AssorColorSizeRatioRec."17" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."17" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."17" := '';
                                     Col := Count;
                                     break;
                                 end;
                             18:
-                                if AssorColorSizeRatioRec."18" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."18" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."18" := '';
                                     Col := Count;
                                     break;
                                 end;
                             19:
-                                if AssorColorSizeRatioRec."19" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."19" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."19" := '';
                                     Col := Count;
                                     break;
                                 end;
                             20:
-                                if AssorColorSizeRatioRec."20" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."20" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."20" := '';
                                     Col := Count;
                                     break;
                                 end;
                             21:
-                                if AssorColorSizeRatioRec."21" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."21" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."21" := '';
                                     Col := Count;
                                     break;
                                 end;
                             22:
-                                if AssorColorSizeRatioRec."22" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."22" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."22" := '';
                                     Col := Count;
                                     break;
                                 end;
                             23:
-                                if AssorColorSizeRatioRec."23" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."23" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."23" := '';
                                     Col := Count;
                                     break;
                                 end;
                             24:
-                                if AssorColorSizeRatioRec."24" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."24" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."24" := '';
                                     Col := Count;
                                     break;
                                 end;
                             25:
-                                if AssorColorSizeRatioRec."25" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."25" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."25" := '';
                                     Col := Count;
                                     break;
                                 end;
                             26:
-                                if AssorColorSizeRatioRec."26" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."26" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."26" := '';
                                     Col := Count;
                                     break;
                                 end;
                             27:
-                                if AssorColorSizeRatioRec."27" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."27" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."27" := '';
                                     Col := Count;
                                     break;
                                 end;
                             28:
-                                if AssorColorSizeRatioRec."28" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."28" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."28" := '';
                                     Col := Count;
                                     break;
                                 end;
                             29:
-                                if AssorColorSizeRatioRec."29" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."29" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."29" := '';
                                     Col := Count;
                                     break;
                                 end;
                             30:
-                                if AssorColorSizeRatioRec."30" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."30" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."30" := '';
                                     Col := Count;
                                     break;
                                 end;
                             31:
-                                if AssorColorSizeRatioRec."31" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."31" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."31" := '';
                                     Col := Count;
                                     break;
                                 end;
                             32:
-                                if AssorColorSizeRatioRec."32" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."32" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."32" := '';
                                     Col := Count;
                                     break;
                                 end;
                             33:
-                                if AssorColorSizeRatioRec."33" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."33" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."33" := '';
                                     Col := Count;
                                     break;
                                 end;
                             34:
-                                if AssorColorSizeRatioRec."34" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."34" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."34" := '';
                                     Col := Count;
                                     break;
                                 end;
                             35:
-                                if AssorColorSizeRatioRec."35" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."35" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."35" := '';
                                     Col := Count;
                                     break;
                                 end;
                             36:
-                                if AssorColorSizeRatioRec."36" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."36" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."36" := '';
                                     Col := Count;
                                     break;
                                 end;
                             37:
-                                if AssorColorSizeRatioRec."37" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."37" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."37" := '';
                                     Col := Count;
                                     break;
                                 end;
                             38:
-                                if AssorColorSizeRatioRec."38" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."38" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."38" := '';
                                     Col := Count;
                                     break;
                                 end;
                             39:
-                                if AssorColorSizeRatioRec."39" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."39" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."39" := '';
                                     Col := Count;
                                     break;
                                 end;
                             40:
-                                if AssorColorSizeRatioRec."40" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."40" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."40" := '';
                                     Col := Count;
                                     break;
                                 end;
                             41:
-                                if AssorColorSizeRatioRec."41" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."41" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."41" := '';
                                     Col := Count;
                                     break;
                                 end;
                             42:
-                                if AssorColorSizeRatioRec."42" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."42" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."42" := '';
                                     Col := Count;
                                     break;
                                 end;
                             43:
-                                if AssorColorSizeRatioRec."43" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."43" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."43" := '';
                                     Col := Count;
                                     break;
                                 end;
                             44:
-                                if AssorColorSizeRatioRec."44" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."44" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."44" := '';
                                     Col := Count;
                                     break;
                                 end;
                             45:
-                                if AssorColorSizeRatioRec."45" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."45" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."45" := '';
                                     Col := Count;
                                     break;
                                 end;
                             46:
-                                if AssorColorSizeRatioRec."46" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."46" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."46" := '';
                                     Col := Count;
                                     break;
                                 end;
                             47:
-                                if AssorColorSizeRatioRec."47" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."47" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."47" := '';
                                     Col := Count;
                                     break;
                                 end;
                             48:
-                                if AssorColorSizeRatioRec."48" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."48" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."48" := '';
                                     Col := Count;
                                     break;
                                 end;
                             49:
-                                if AssorColorSizeRatioRec."49" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."49" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."49" := '';
                                     Col := Count;
                                     break;
                                 end;
                             50:
-                                if AssorColorSizeRatioRec."50" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."50" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."50" := '';
                                     Col := Count;
                                     break;
                                 end;
                             51:
-                                if AssorColorSizeRatioRec."51" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."51" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."51" := '';
                                     Col := Count;
                                     break;
                                 end;
                             52:
-                                if AssorColorSizeRatioRec."52" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."52" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."52" := '';
                                     Col := Count;
                                     break;
                                 end;
                             53:
-                                if AssorColorSizeRatioRec."53" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."53" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."53" := '';
                                     Col := Count;
                                     break;
                                 end;
                             54:
-                                if AssorColorSizeRatioRec."54" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."54" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."54" := '';
                                     Col := Count;
                                     break;
                                 end;
                             55:
-                                if AssorColorSizeRatioRec."55" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."55" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."55" := '';
                                     Col := Count;
                                     break;
                                 end;
                             56:
-                                if AssorColorSizeRatioRec."56" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."56" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."56" := '';
                                     Col := Count;
                                     break;
                                 end;
                             57:
-                                if AssorColorSizeRatioRec."57" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."57" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."57" := '';
                                     Col := Count;
                                     break;
                                 end;
                             58:
-                                if AssorColorSizeRatioRec."58" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."58" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."58" := '';
                                     Col := Count;
                                     break;
                                 end;
                             59:
-                                if AssorColorSizeRatioRec."59" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."59" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."59" := '';
                                     Col := Count;
                                     break;
                                 end;
                             60:
-                                if AssorColorSizeRatioRec."60" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."60" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."60" := '';
                                     Col := Count;
                                     break;
                                 end;
                             61:
-                                if AssorColorSizeRatioRec."61" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."61" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."61" := '';
                                     Col := Count;
                                     break;
                                 end;
                             62:
-                                if AssorColorSizeRatioRec."62" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."62" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."62" := '';
                                     Col := Count;
                                     break;
                                 end;
                             63:
-                                if AssorColorSizeRatioRec."63" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."63" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."63" := '';
                                     Col := Count;
                                     break;
                                 end;
                             64:
-                                if AssorColorSizeRatioRec."64" = "GMT Size" then begin
+                                if AssorColorSizeRatioRec."64" = rec."GMT Size" then begin
                                     AssorColorSizeRatioRec."64" := '';
                                     Col := Count;
                                     break;
@@ -1076,7 +1076,7 @@ page 71012672 AssoInSeamListPart
 
                     //Color rows
                     AssorColorSizeRatio1Rec.Reset();
-                    AssorColorSizeRatio1Rec.SetRange("Style No.", "Style No.");
+                    AssorColorSizeRatio1Rec.SetRange("Style No.", rec."Style No.");
                     AssorColorSizeRatio1Rec.SetFilter("Colour Name", '<>%1', '*');
                     AssorColorSizeRatio1Rec.SetRange("lot No.", AssorColorSizeRatioRec."Lot No.");
                     if AssorColorSizeRatio1Rec.FindSet() then begin
@@ -1425,11 +1425,11 @@ page 71012672 AssoInSeamListPart
             /////////////////////////Delete size from Quantity breakdown TAB
             //* rows
             AssorColorSizeRatioView.Reset();
-            AssorColorSizeRatioView.SetRange("Style No.", "Style No.");
+            AssorColorSizeRatioView.SetRange("Style No.", rec."Style No.");
             AssorColorSizeRatioView.SetFilter("Colour Name", '=%1', '*');
 
             if Confirm = false then
-                AssorColorSizeRatioView.SetRange("lot No.", "Lot No.");
+                AssorColorSizeRatioView.SetRange("lot No.", rec."Lot No.");
 
             if AssorColorSizeRatioView.FindSet() then begin
                 repeat
@@ -1437,385 +1437,385 @@ page 71012672 AssoInSeamListPart
                     FOR Count := 1 TO 64 DO begin
                         case Count of
                             1:
-                                if AssorColorSizeRatioView."1" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."1" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."1" := '';
                                     Col := Count;
                                     break;
                                 end;
                             2:
-                                if AssorColorSizeRatioView."2" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."2" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."2" := '';
                                     Col := Count;
                                     break;
                                 end;
                             3:
-                                if AssorColorSizeRatioView."3" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."3" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."3" := '';
                                     Col := Count;
                                     break;
                                 end;
                             4:
-                                if AssorColorSizeRatioView."4" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."4" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."4" := '';
                                     Col := Count;
                                     break;
                                 end;
                             5:
-                                if AssorColorSizeRatioView."5" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."5" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."5" := '';
                                     Col := Count;
                                     break;
                                 end;
                             6:
-                                if AssorColorSizeRatioView."6" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."6" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."6" := '';
                                     Col := Count;
                                     break;
                                 end;
                             7:
-                                if AssorColorSizeRatioView."7" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."7" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."7" := '';
                                     Col := Count;
                                     break;
                                 end;
                             8:
-                                if AssorColorSizeRatioView."8" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."8" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."8" := '';
                                     Col := Count;
                                     break;
                                 end;
                             9:
-                                if AssorColorSizeRatioView."9" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."9" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."9" := '';
                                     Col := Count;
                                     break;
                                 end;
                             10:
-                                if AssorColorSizeRatioView."10" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."10" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."10" := '';
                                     Col := Count;
                                     break;
                                 end;
                             11:
-                                if AssorColorSizeRatioView."11" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."11" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."11" := '';
                                     Col := Count;
                                     break;
                                 end;
                             12:
-                                if AssorColorSizeRatioView."12" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."12" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."12" := '';
                                     Col := Count;
                                     break;
                                 end;
                             13:
-                                if AssorColorSizeRatioView."13" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."13" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."13" := '';
                                     Col := Count;
                                     break;
                                 end;
                             14:
-                                if AssorColorSizeRatioView."14" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."14" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."14" := '';
                                     Col := Count;
                                     break;
                                 end;
                             15:
-                                if AssorColorSizeRatioView."15" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."15" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."15" := '';
                                     Col := Count;
                                     break;
                                 end;
                             16:
-                                if AssorColorSizeRatioView."16" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."16" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."16" := '';
                                     Col := Count;
                                     break;
                                 end;
                             17:
-                                if AssorColorSizeRatioView."17" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."17" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."17" := '';
                                     Col := Count;
                                     break;
                                 end;
                             18:
-                                if AssorColorSizeRatioView."18" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."18" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."18" := '';
                                     Col := Count;
                                     break;
                                 end;
                             19:
-                                if AssorColorSizeRatioView."19" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."19" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."19" := '';
                                     Col := Count;
                                     break;
                                 end;
                             20:
-                                if AssorColorSizeRatioView."20" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."20" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."20" := '';
                                     Col := Count;
                                     break;
                                 end;
                             21:
-                                if AssorColorSizeRatioView."21" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."21" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."21" := '';
                                     Col := Count;
                                     break;
                                 end;
                             22:
-                                if AssorColorSizeRatioView."22" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."22" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."22" := '';
                                     Col := Count;
                                     break;
                                 end;
                             23:
-                                if AssorColorSizeRatioView."23" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."23" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."23" := '';
                                     Col := Count;
                                     break;
                                 end;
                             24:
-                                if AssorColorSizeRatioView."24" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."24" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."24" := '';
                                     Col := Count;
                                     break;
                                 end;
                             25:
-                                if AssorColorSizeRatioView."25" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."25" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."25" := '';
                                     Col := Count;
                                     break;
                                 end;
                             26:
-                                if AssorColorSizeRatioView."26" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."26" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."26" := '';
                                     Col := Count;
                                     break;
                                 end;
                             27:
-                                if AssorColorSizeRatioView."27" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."27" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."27" := '';
                                     Col := Count;
                                     break;
                                 end;
                             28:
-                                if AssorColorSizeRatioView."28" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."28" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."28" := '';
                                     Col := Count;
                                     break;
                                 end;
                             29:
-                                if AssorColorSizeRatioView."29" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."29" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."29" := '';
                                     Col := Count;
                                     break;
                                 end;
                             30:
-                                if AssorColorSizeRatioView."30" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."30" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."30" := '';
                                     Col := Count;
                                     break;
                                 end;
                             31:
-                                if AssorColorSizeRatioView."31" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."31" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."31" := '';
                                     Col := Count;
                                     break;
                                 end;
                             32:
-                                if AssorColorSizeRatioView."32" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."32" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."32" := '';
                                     Col := Count;
                                     break;
                                 end;
                             33:
-                                if AssorColorSizeRatioView."33" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."33" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."33" := '';
                                     Col := Count;
                                     break;
                                 end;
                             34:
-                                if AssorColorSizeRatioView."34" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."34" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."34" := '';
                                     Col := Count;
                                     break;
                                 end;
                             35:
-                                if AssorColorSizeRatioView."35" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."35" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."35" := '';
                                     Col := Count;
                                     break;
                                 end;
                             36:
-                                if AssorColorSizeRatioView."36" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."36" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."36" := '';
                                     Col := Count;
                                     break;
                                 end;
                             37:
-                                if AssorColorSizeRatioView."37" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."37" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."37" := '';
                                     Col := Count;
                                     break;
                                 end;
                             38:
-                                if AssorColorSizeRatioView."38" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."38" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."38" := '';
                                     Col := Count;
                                     break;
                                 end;
                             39:
-                                if AssorColorSizeRatioView."39" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."39" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."39" := '';
                                     Col := Count;
                                     break;
                                 end;
                             40:
-                                if AssorColorSizeRatioView."40" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."40" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."40" := '';
                                     Col := Count;
                                     break;
                                 end;
                             41:
-                                if AssorColorSizeRatioView."41" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."41" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."41" := '';
                                     Col := Count;
                                     break;
                                 end;
                             42:
-                                if AssorColorSizeRatioView."42" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."42" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."42" := '';
                                     Col := Count;
                                     break;
                                 end;
                             43:
-                                if AssorColorSizeRatioView."43" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."43" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."43" := '';
                                     Col := Count;
                                     break;
                                 end;
                             44:
-                                if AssorColorSizeRatioView."44" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."44" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."44" := '';
                                     Col := Count;
                                     break;
                                 end;
                             45:
-                                if AssorColorSizeRatioView."45" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."45" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."45" := '';
                                     Col := Count;
                                     break;
                                 end;
                             46:
-                                if AssorColorSizeRatioView."46" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."46" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."46" := '';
                                     Col := Count;
                                     break;
                                 end;
                             47:
-                                if AssorColorSizeRatioView."47" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."47" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."47" := '';
                                     Col := Count;
                                     break;
                                 end;
                             48:
-                                if AssorColorSizeRatioView."48" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."48" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."48" := '';
                                     Col := Count;
                                     break;
                                 end;
                             49:
-                                if AssorColorSizeRatioView."49" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."49" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."49" := '';
                                     Col := Count;
                                     break;
                                 end;
                             50:
-                                if AssorColorSizeRatioView."50" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."50" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."50" := '';
                                     Col := Count;
                                     break;
                                 end;
                             51:
-                                if AssorColorSizeRatioView."51" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."51" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."51" := '';
                                     Col := Count;
                                     break;
                                 end;
                             52:
-                                if AssorColorSizeRatioView."52" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."52" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."52" := '';
                                     Col := Count;
                                     break;
                                 end;
                             53:
-                                if AssorColorSizeRatioView."53" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."53" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."53" := '';
                                     Col := Count;
                                     break;
                                 end;
                             54:
-                                if AssorColorSizeRatioView."54" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."54" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."54" := '';
                                     Col := Count;
                                     break;
                                 end;
                             55:
-                                if AssorColorSizeRatioView."55" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."55" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."55" := '';
                                     Col := Count;
                                     break;
                                 end;
                             56:
-                                if AssorColorSizeRatioView."56" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."56" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."56" := '';
                                     Col := Count;
                                     break;
                                 end;
                             57:
-                                if AssorColorSizeRatioView."57" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."57" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."57" := '';
                                     Col := Count;
                                     break;
                                 end;
                             58:
-                                if AssorColorSizeRatioView."58" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."58" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."58" := '';
                                     Col := Count;
                                     break;
                                 end;
                             59:
-                                if AssorColorSizeRatioView."59" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."59" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."59" := '';
                                     Col := Count;
                                     break;
                                 end;
                             60:
-                                if AssorColorSizeRatioView."60" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."60" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."60" := '';
                                     Col := Count;
                                     break;
                                 end;
                             61:
-                                if AssorColorSizeRatioView."61" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."61" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."61" := '';
                                     Col := Count;
                                     break;
                                 end;
                             62:
-                                if AssorColorSizeRatioView."62" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."62" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."62" := '';
                                     Col := Count;
                                     break;
                                 end;
                             63:
-                                if AssorColorSizeRatioView."63" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."63" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."63" := '';
                                     Col := Count;
                                     break;
                                 end;
                             64:
-                                if AssorColorSizeRatioView."64" = "GMT Size" then begin
+                                if AssorColorSizeRatioView."64" = rec."GMT Size" then begin
                                     AssorColorSizeRatioView."64" := '';
                                     Col := Count;
                                     break;
@@ -1828,7 +1828,7 @@ page 71012672 AssoInSeamListPart
 
                     //Color rows
                     AssorColorSizeRatio1View.Reset();
-                    AssorColorSizeRatio1View.SetRange("Style No.", "Style No.");
+                    AssorColorSizeRatio1View.SetRange("Style No.", rec."Style No.");
                     AssorColorSizeRatio1View.SetFilter("Colour Name", '<>%1', '*');
                     AssorColorSizeRatio1View.SetRange("lot No.", AssorColorSizeRatioView."Lot No.");
                     if AssorColorSizeRatio1View.FindSet() then begin
@@ -2176,394 +2176,394 @@ page 71012672 AssoInSeamListPart
 
             ///////////////Delete size from wise price TAB
             AssorColorSizeRatioPriceRec.Reset();
-            AssorColorSizeRatioPriceRec.SetRange("Style No.", "Style No.");
+            AssorColorSizeRatioPriceRec.SetRange("Style No.", rec."Style No.");
             AssorColorSizeRatioPriceRec.SetFilter("Colour Name", '=%1', '*');
 
             if Confirm = false then
-                AssorColorSizeRatioPriceRec.SetRange("lot No.", "Lot No.");
+                AssorColorSizeRatioPriceRec.SetRange("lot No.", rec."Lot No.");
 
             if AssorColorSizeRatioPriceRec.FindSet() then begin
                 repeat
                     FOR Count := 1 TO 64 DO begin
                         case Count of
                             1:
-                                if AssorColorSizeRatioPriceRec."1" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."1" = rec."GMT Size" then begin
                                     AssorColorSizeRatioPriceRec."1" := '';
                                     break;
                                 end;
                             2:
-                                if AssorColorSizeRatioPriceRec."2" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."2" = rec."GMT Size" then begin
                                     AssorColorSizeRatioPriceRec."2" := '';
                                     break;
                                 end;
                             3:
-                                if AssorColorSizeRatioPriceRec."3" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."3" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."3" := '';
                                     break;
                                 end;
                             4:
-                                if AssorColorSizeRatioPriceRec."4" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."4" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."4" := '';
                                     break;
                                 end;
                             5:
-                                if AssorColorSizeRatioPriceRec."5" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."5" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."5" := '';
                                     break;
                                 end;
                             6:
-                                if AssorColorSizeRatioPriceRec."6" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."6" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."6" := '';
                                     break;
                                 end;
                             7:
-                                if AssorColorSizeRatioPriceRec."7" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."7" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."7" := '';
                                     break;
                                 end;
                             8:
-                                if AssorColorSizeRatioPriceRec."8" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."8" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."8" := '';
                                     break;
                                 end;
                             9:
-                                if AssorColorSizeRatioPriceRec."9" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."9" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."9" := '';
                                     break;
                                 end;
                             10:
-                                if AssorColorSizeRatioPriceRec."10" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."10" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."10" := '';
                                     break;
                                 end;
                             11:
-                                if AssorColorSizeRatioPriceRec."11" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."11" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."11" := '';
                                     break;
                                 end;
                             12:
-                                if AssorColorSizeRatioPriceRec."12" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."12" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."12" := '';
                                     break;
                                 end;
                             13:
-                                if AssorColorSizeRatioPriceRec."13" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."13" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."13" := '';
                                     break;
                                 end;
                             14:
-                                if AssorColorSizeRatioPriceRec."14" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."14" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."14" := '';
                                     break;
                                 end;
                             15:
-                                if AssorColorSizeRatioPriceRec."15" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."15" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."15" := '';
                                     break;
                                 end;
                             16:
-                                if AssorColorSizeRatioPriceRec."16" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."16" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."16" := '';
                                     break;
                                 end;
                             17:
-                                if AssorColorSizeRatioPriceRec."17" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."17" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."17" := '';
                                     break;
                                 end;
                             18:
-                                if AssorColorSizeRatioPriceRec."18" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."18" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."18" := '';
                                     break;
                                 end;
                             19:
-                                if AssorColorSizeRatioPriceRec."19" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."19" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."19" := '';
                                     break;
                                 end;
                             20:
-                                if AssorColorSizeRatioPriceRec."20" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."20" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."20" := '';
                                     break;
                                 end;
                             21:
-                                if AssorColorSizeRatioPriceRec."21" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."21" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."21" := '';
                                     break;
                                 end;
                             22:
-                                if AssorColorSizeRatioPriceRec."22" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."22" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."22" := '';
                                     break;
                                 end;
                             23:
-                                if AssorColorSizeRatioPriceRec."23" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."23" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."23" := '';
                                     break;
                                 end;
                             24:
-                                if AssorColorSizeRatioPriceRec."24" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."24" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."24" := '';
                                     break;
                                 end;
                             25:
-                                if AssorColorSizeRatioPriceRec."25" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."25" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."25" := '';
                                     break;
                                 end;
                             26:
-                                if AssorColorSizeRatioPriceRec."26" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."26" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."26" := '';
                                     break;
                                 end;
                             27:
-                                if AssorColorSizeRatioPriceRec."27" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."27" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."27" := '';
                                     break;
                                 end;
                             28:
-                                if AssorColorSizeRatioPriceRec."28" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."28" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."28" := '';
                                     break;
                                 end;
                             29:
-                                if AssorColorSizeRatioPriceRec."29" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."29" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."29" := '';
                                     break;
                                 end;
                             30:
-                                if AssorColorSizeRatioPriceRec."30" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."30" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."30" := '';
                                     break;
                                 end;
                             31:
-                                if AssorColorSizeRatioPriceRec."31" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."31" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."31" := '';
                                     break;
                                 end;
                             32:
-                                if AssorColorSizeRatioPriceRec."32" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."32" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."32" := '';
                                     break;
                                 end;
                             33:
-                                if AssorColorSizeRatioPriceRec."33" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."33" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."33" := '';
                                     break;
                                 end;
                             34:
-                                if AssorColorSizeRatioPriceRec."34" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."34" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."34" := '';
                                     break;
                                 end;
                             35:
-                                if AssorColorSizeRatioPriceRec."35" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."35" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."35" := '';
                                     break;
                                 end;
                             36:
-                                if AssorColorSizeRatioPriceRec."36" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."36" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."36" := '';
                                     break;
                                 end;
                             37:
-                                if AssorColorSizeRatioPriceRec."37" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."37" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."37" := '';
                                     break;
                                 end;
                             38:
-                                if AssorColorSizeRatioPriceRec."38" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."38" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."38" := '';
                                     break;
                                 end;
                             39:
-                                if AssorColorSizeRatioPriceRec."39" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."39" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."39" := '';
                                     break;
                                 end;
                             40:
-                                if AssorColorSizeRatioPriceRec."40" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."40" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."40" := '';
                                     break;
                                 end;
                             41:
-                                if AssorColorSizeRatioPriceRec."41" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."41" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."41" := '';
                                     break;
                                 end;
                             42:
-                                if AssorColorSizeRatioPriceRec."42" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."42" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."42" := '';
                                     break;
                                 end;
                             43:
-                                if AssorColorSizeRatioPriceRec."43" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."43" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."43" := '';
                                     break;
                                 end;
                             44:
-                                if AssorColorSizeRatioPriceRec."44" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."44" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."44" := '';
                                     break;
                                 end;
                             45:
-                                if AssorColorSizeRatioPriceRec."45" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."45" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."45" := '';
                                     break;
                                 end;
                             46:
-                                if AssorColorSizeRatioPriceRec."46" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."46" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."46" := '';
                                     break;
                                 end;
                             47:
-                                if AssorColorSizeRatioPriceRec."47" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."47" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."47" := '';
                                     break;
                                 end;
                             48:
-                                if AssorColorSizeRatioPriceRec."48" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."48" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."48" := '';
                                     break;
                                 end;
                             49:
-                                if AssorColorSizeRatioPriceRec."49" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."49" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."49" := '';
                                     break;
                                 end;
                             50:
-                                if AssorColorSizeRatioPriceRec."50" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."50" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."50" := '';
                                     break;
                                 end;
                             51:
-                                if AssorColorSizeRatioPriceRec."51" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."51" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."51" := '';
                                     break;
                                 end;
                             52:
-                                if AssorColorSizeRatioPriceRec."52" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."52" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."52" := '';
                                     break;
                                 end;
                             53:
-                                if AssorColorSizeRatioPriceRec."53" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."53" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."53" := '';
                                     break;
                                 end;
                             54:
-                                if AssorColorSizeRatioPriceRec."54" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."54" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."54" := '';
                                     break;
                                 end;
                             55:
-                                if AssorColorSizeRatioPriceRec."55" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."55" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."55" := '';
                                     break;
                                 end;
                             56:
-                                if AssorColorSizeRatioPriceRec."56" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."56" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."56" := '';
                                     break;
                                 end;
                             57:
-                                if AssorColorSizeRatioPriceRec."57" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."57" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."57" := '';
                                     break;
                                 end;
                             58:
-                                if AssorColorSizeRatioPriceRec."58" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."58" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."58" := '';
                                     break;
                                 end;
                             59:
-                                if AssorColorSizeRatioPriceRec."59" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."59" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."59" := '';
                                     break;
                                 end;
                             60:
-                                if AssorColorSizeRatioPriceRec."60" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."60" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."60" := '';
                                     break;
                                 end;
                             61:
-                                if AssorColorSizeRatioPriceRec."61" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."61" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."61" := '';
                                     break;
                                 end;
                             62:
-                                if AssorColorSizeRatioPriceRec."62" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."62" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."62" := '';
                                     break;
                                 end;
                             63:
-                                if AssorColorSizeRatioPriceRec."63" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."63" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."63" := '';
                                     break;
                                 end;
                             64:
-                                if AssorColorSizeRatioPriceRec."64" = "GMT Size" then begin
+                                if AssorColorSizeRatioPriceRec."64" = rec."GMT Size" then begin
 
                                     AssorColorSizeRatioPriceRec."64" := '';
                                     break;
@@ -2595,8 +2595,8 @@ page 71012672 AssoInSeamListPart
 
         CurrPage.Update();
         AssoRec.Reset();
-        AssoRec.SetRange("Style No.", "Style No.");
-        AssoRec.SetRange("lot No.", "lot No.");
+        AssoRec.SetRange("Style No.", rec."Style No.");
+        AssoRec.SetRange("lot No.", rec."lot No.");
         AssoRec.SetFilter("Colour Name", '<>%1', '*');
         if AssoRec.FindSet() then begin
             repeat
@@ -2939,8 +2939,8 @@ page 71012672 AssoInSeamListPart
         end;
 
         StyleMasterPORec.Reset();
-        StyleMasterPORec.SetRange("Style No.", "Style No.");
-        StyleMasterPORec.SetRange("lot No.", "lot No.");
+        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+        StyleMasterPORec.SetRange("lot No.", rec."lot No.");
 
         if StyleMasterPORec.FindSet() then begin
             if StyleMasterPORec.Qty < Tot then begin

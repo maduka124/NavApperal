@@ -11,28 +11,28 @@ page 50331 "Resource List part"
         {
             repeater(General)
             {
-                field(Name; Name)
+                field(Name; rec.Name)
                 {
                     ApplicationArea = All;
                     Caption = 'Line No';
                 }
 
-                field(Carder; Carder)
+                field(Carder; rec.Carder)
                 {
                     ApplicationArea = All;
                 }
 
-                field(MO; MO)
+                field(MO; rec.MO)
                 {
                     ApplicationArea = All;
                 }
 
-                field(HP; HP)
+                field(HP; rec.HP)
                 {
                     ApplicationArea = All;
                 }
 
-                field(PlanEff; PlanEff)
+                field(PlanEff; rec.PlanEff)
                 {
                     ApplicationArea = All;
                     Caption = 'Plan Efficiency (%)';
@@ -45,7 +45,7 @@ page 50331 "Resource List part"
     var
         myInt: Integer;
     begin
-        SetFilter("No.", ResourceNo);
+        rec.SetFilter("No.", ResourceNo);
     end;
 
     var

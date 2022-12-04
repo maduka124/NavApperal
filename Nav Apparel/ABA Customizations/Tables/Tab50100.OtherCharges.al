@@ -1,4 +1,4 @@
-table 50100 "Other Charges"
+table 50880 "Other Charges"
 {
     Caption = 'Other Charges';
     DataClassification = ToBeClassified;

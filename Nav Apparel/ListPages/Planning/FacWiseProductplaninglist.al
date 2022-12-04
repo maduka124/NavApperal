@@ -1,3 +1,4 @@
+
 page 50861 FacWiseProductplaningHdrList
 {
     PageType = List;
@@ -15,22 +16,22 @@ page 50861 FacWiseProductplaningHdrList
             repeater(GroupName)
             {
 
-                field(No; No)
+                field(No; Rec.No)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; Rec."Factory Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("From Date"; "From Date")
+                field("From Date"; Rec."From Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("To Date"; "To Date")
+                field("To Date"; Rec."To Date")
                 {
                     ApplicationArea = All;
                 }
@@ -38,3 +39,4 @@ page 50861 FacWiseProductplaningHdrList
         }
     }
 }
+#pragma implicitwith restore

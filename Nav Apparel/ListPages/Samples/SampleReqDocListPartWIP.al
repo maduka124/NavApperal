@@ -10,27 +10,27 @@ page 50433 SampleReqDocListPartWIP
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'seq No';
                 }
 
-                field("Doc Type Name"; "Doc Type Name")
+                field("Doc Type Name"; rec."Doc Type Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Doc Type';
                 }
 
-                field(FileType; FileType)
+                field(FileType; rec.FileType)
                 {
                     ApplicationArea = All;
                     Caption = 'View File';
@@ -56,8 +56,8 @@ page 50433 SampleReqDocListPartWIP
     begin
 
         SampleReqDocRec.Reset();
-        SampleReqDocRec.SetRange("No.", "No.");
-        SampleReqDocRec.SetRange("Line No.", "Line No.");
+        SampleReqDocRec.SetRange("No.", rec."No.");
+        SampleReqDocRec.SetRange("Line No.", rec."Line No.");
 
         if SampleReqDocRec.FindSet() then begin
             if SampleReqDocRec.Path.HasValue then begin

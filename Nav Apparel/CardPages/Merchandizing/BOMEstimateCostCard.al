@@ -1142,7 +1142,11 @@ page 71012769 "BOM Estimate Cost Card"
                     BOMCostReviHeaderRec: Record "BOM Estimate Cost Revision";
                     BOMCostReviLineRec: Record "BOM Estima Cost Line Revision";
                     Revision: Integer;
+                    CustMangemnt: Codeunit "Customization Management";
                 begin
+
+                    CustMangemnt.InsertTemp(Rec);
+
                     rec.Status := rec.Status::Approved;
                     rec."Approved Date" := WorkDate();
                     rec."Rejected Date" := 0D;

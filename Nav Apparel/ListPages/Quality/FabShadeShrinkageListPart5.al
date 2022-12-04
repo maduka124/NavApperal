@@ -12,19 +12,19 @@ page 50708 FabShadeShrinkageListPart5
         {
             repeater(General)
             {
-                field(Pattern; Pattern)
+                field(Pattern;rec. Pattern)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Length%"; "Length%")
+                field("Length%"; rec."Length%")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("WIDTH%"; "WIDTH%")
+                field("WIDTH%"; rec."WIDTH%")
                 {
                     ApplicationArea = All;
                     Editable = false;

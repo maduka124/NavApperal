@@ -11,13 +11,13 @@ page 50677 GRNItemListPart
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Item No';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                     Caption = 'Item Description';

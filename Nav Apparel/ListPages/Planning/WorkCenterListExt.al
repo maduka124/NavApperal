@@ -4,12 +4,12 @@ pageextension 50837 WorkCenterListExt extends "Work Center List"
     {
         addafter(Name)
         {
-            field("Planning Line"; "Planning Line")
+            field("Planning Line"; rec."Planning Line")
             {
                 ApplicationArea = all;
             }
 
-            field("Linked To Service Item"; "Linked To Service Item")
+            field("Linked To Service Item"; rec."Linked To Service Item")
             {
                 ApplicationArea = all;
             }

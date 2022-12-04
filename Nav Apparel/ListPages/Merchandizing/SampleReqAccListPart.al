@@ -10,14 +10,14 @@ page 71012777 SampleReqAccListPart
         {
             repeater(General)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; rec."Line No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Seq No';
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
@@ -28,7 +28,7 @@ page 71012777 SampleReqAccListPart
                         SampleRequLineRec: Record "Sample Requsition Line";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                         if MainCategoryRec.FindSet() then begin
                             if MainCategoryRec."Inv. Posting Group Code" = '' then
                                 Error('Inventory Posting Group is not setup for this Main Category. Cannot proceed.');
@@ -36,33 +36,33 @@ page 71012777 SampleReqAccListPart
                             if MainCategoryRec."Prod. Posting Group Code" = '' then
                                 Error('Prod. Posting Group is not setup for this Main Category. Cannot proceed.');
 
-                            "Main Category No." := MainCategoryRec."No.";
-                            "Item No." := '';
-                            "Item Name" := '';
-                            "Dimension No." := '';
-                            "Dimension Name." := '';
-                            "Sub Category Name" := '';
-                            "Sub Category No." := '';
-                            "Article No." := '';
-                            "Article Name." := '';
-                            "Supplier No." := '';
-                            "Supplier Name." := '';
+                            rec."Main Category No." := MainCategoryRec."No.";
+                            rec."Item No." := '';
+                            rec."Item Name" := '';
+                            rec."Dimension No." := '';
+                            rec."Dimension Name." := '';
+                            rec."Sub Category Name" := '';
+                            rec."Sub Category No." := '';
+                            rec."Article No." := '';
+                            rec."Article Name." := '';
+                            rec."Supplier No." := '';
+                            rec."Supplier Name." := '';
                         end;
 
                         SampleRequLineRec.Reset();
-                        SampleRequLineRec.SetRange("No.", "No.");
+                        SampleRequLineRec.SetRange("No.", rec."No.");
                         if SampleRequLineRec.FindSet() then begin
-                            Qty := SampleRequLineRec.Qty;
-                            "GMT Size Name" := SampleRequLineRec.Size;
-                            "GMT Color Name" := SampleRequLineRec."Color Name";
-                            "GMT Color No." := SampleRequLineRec."Color No";
-                            "Item Color Name" := SampleRequLineRec."Color Name";
-                            "Item Color No." := SampleRequLineRec."Color No";
+                            rec.Qty := SampleRequLineRec.Qty;
+                            rec."GMT Size Name" := SampleRequLineRec.Size;
+                            rec."GMT Color Name" := SampleRequLineRec."Color Name";
+                            rec."GMT Color No." := SampleRequLineRec."Color No";
+                            rec."Item Color Name" := SampleRequLineRec."Color Name";
+                            rec."Item Color No." := SampleRequLineRec."Color No";
                         end;
                     end;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
@@ -73,28 +73,28 @@ page 71012777 SampleReqAccListPart
                         SampleRequLineRec: Record "Sample Requsition Line";
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Item Name");
+                        ItemRec.SetRange(Description, rec."Item Name");
                         if ItemRec.FindSet() then begin
-                            "Item No." := ItemRec."No.";
-                            "Unit N0." := ItemRec."Base Unit of Measure";
-                            "Sub Category Name" := ItemRec."Sub Category Name";
-                            "Sub Category No." := ItemRec."Sub Category No.";
+                            rec."Item No." := ItemRec."No.";
+                            rec."Unit N0." := ItemRec."Base Unit of Measure";
+                            rec."Sub Category Name" := ItemRec."Sub Category Name";
+                            rec."Sub Category No." := ItemRec."Sub Category No.";
                         end;
 
                         SampleRequLineRec.Reset();
-                        SampleRequLineRec.SetRange("No.", "No.");
+                        SampleRequLineRec.SetRange("No.", rec."No.");
                         if SampleRequLineRec.FindSet() then begin
-                            Qty := SampleRequLineRec.Qty;
-                            "GMT Size Name" := SampleRequLineRec.Size;
-                            "GMT Color Name" := SampleRequLineRec."Color Name";
-                            "GMT Color No." := SampleRequLineRec."Color No";
-                            "Item Color Name" := SampleRequLineRec."Color Name";
-                            "Item Color No." := SampleRequLineRec."Color No";
+                            rec.Qty := SampleRequLineRec.Qty;
+                            rec."GMT Size Name" := SampleRequLineRec.Size;
+                            rec."GMT Color Name" := SampleRequLineRec."Color Name";
+                            rec."GMT Color No." := SampleRequLineRec."Color No";
+                            rec."Item Color Name" := SampleRequLineRec."Color Name";
+                            rec."Item Color No." := SampleRequLineRec."Color No";
                         end;
                     end;
                 }
 
-                field("GMT Color Name"; "GMT Color Name")
+                field("GMT Color Name"; rec."GMT Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Color';
@@ -104,13 +104,13 @@ page 71012777 SampleReqAccListPart
                         ColorRec: Record Colour;
                     begin
                         ColorRec.Reset();
-                        ColorRec.SetRange("Colour Name", "GMT Color Name");
+                        ColorRec.SetRange("Colour Name", rec."GMT Color Name");
                         if ColorRec.FindSet() then
-                            "GMT Color No." := ColorRec."No.";
+                            rec."GMT Color No." := ColorRec."No.";
                     end;
                 }
 
-                field("Item Color Name"; "Item Color Name")
+                field("Item Color Name"; rec."Item Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item Color';
@@ -120,9 +120,9 @@ page 71012777 SampleReqAccListPart
                         ColorRec: Record Colour;
                     begin
                         ColorRec.Reset();
-                        ColorRec.SetRange("Colour Name", "Item Color Name");
+                        ColorRec.SetRange("Colour Name", rec."Item Color Name");
                         if ColorRec.FindSet() then
-                            "Item Color No." := ColorRec."No.";
+                            rec."Item Color No." := ColorRec."No.";
                     end;
                 }
 
@@ -132,7 +132,7 @@ page 71012777 SampleReqAccListPart
                 //     Caption = 'GMT Size';
                 // }
 
-                field("Article Name."; "Article Name.")
+                field("Article Name."; rec."Article Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Article/Construction';
@@ -142,14 +142,14 @@ page 71012777 SampleReqAccListPart
                         ArticleRec: Record "Article";
                     begin
                         ArticleRec.Reset();
-                        ArticleRec.SetRange(Article, "Article Name.");
+                        ArticleRec.SetRange(Article, rec."Article Name.");
 
                         if ArticleRec.FindSet() then
-                            "Article No." := ArticleRec."No.";
+                            rec."Article No." := ArticleRec."No.";
                     end;
                 }
 
-                field("Dimension Name."; "Dimension Name.")
+                field("Dimension Name."; rec."Dimension Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension/Width';
@@ -159,13 +159,13 @@ page 71012777 SampleReqAccListPart
                         DimensionRec: Record DimensionWidth;
                     begin
                         DimensionRec.Reset();
-                        DimensionRec.SetRange("Dimension Width", "Dimension Name.");
+                        DimensionRec.SetRange("Dimension Width", rec."Dimension Name.");
                         if DimensionRec.FindSet() then
-                            "Dimension No." := DimensionRec."No.";
+                            rec."Dimension No." := DimensionRec."No.";
                     end;
                 }
 
-                field("Unit N0."; "Unit N0.")
+                field("Unit N0."; rec."Unit N0.")
                 {
                     ApplicationArea = All;
                     Caption = 'Unit';
@@ -189,13 +189,13 @@ page 71012777 SampleReqAccListPart
                 //     end;
                 // }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                     Caption = 'Consumption Type';
                 }
 
-                field(Consumption; Consumption)
+                field(Consumption; rec.Consumption)
                 {
                     ApplicationArea = All;
 
@@ -206,7 +206,7 @@ page 71012777 SampleReqAccListPart
                     end;
                 }
 
-                field(WST; WST)
+                field(WST; rec.WST)
                 {
                     ApplicationArea = All;
                     Caption = 'WST%';
@@ -217,7 +217,7 @@ page 71012777 SampleReqAccListPart
                         Calculate();
                     end;
                 }
-                field(Rate; Rate)
+                field(Rate; rec.Rate)
                 {
                     ApplicationArea = All;
 
@@ -228,21 +228,21 @@ page 71012777 SampleReqAccListPart
                     end;
                 }
 
-                field(Value; Value)
+                field(Value; rec.Value)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     //StyleExpr = StyleExprTxt;
                 }
 
-                field(Requirment; Requirment)
+                field(Requirment; rec.Requirment)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     //StyleExpr = StyleExprTxt;
                 }
 
-                field(AjstReq; AjstReq)
+                field(AjstReq; rec.AjstReq)
                 {
                     ApplicationArea = All;
                     Caption = 'Adjust. Req.';
@@ -255,7 +255,7 @@ page 71012777 SampleReqAccListPart
                     end;
                 }
 
-                field("Supplier Name."; "Supplier Name.")
+                field("Supplier Name."; rec."Supplier Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
@@ -265,19 +265,19 @@ page 71012777 SampleReqAccListPart
                         SupplierRec: Record Vendor;
                     begin
                         SupplierRec.Reset();
-                        SupplierRec.SetRange(Name, "Supplier Name.");
+                        SupplierRec.SetRange(Name, rec."Supplier Name.");
 
                         if SupplierRec.FindSet() then
-                            "Supplier No." := SupplierRec."No.";
+                            rec."Supplier No." := SupplierRec."No.";
                     end;
                 }
 
-                field("Placement of GMT"; "Placement of GMT")
+                field("Placement of GMT"; rec."Placement of GMT")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                 }
@@ -292,27 +292,27 @@ page 71012777 SampleReqAccListPart
     begin
 
         UOMRec.Reset();
-        UOMRec.SetRange(Code, "Unit N0.");
+        UOMRec.SetRange(Code, rec."Unit N0.");
         UOMRec.FindSet();
         ConvFactor := UOMRec."Converion Parameter";
-        Value := 0;
-        Requirment := 0;
+        rec.Value := 0;
+        rec.Requirment := 0;
 
         //if Type = Type::Pcs then
-        Requirment := (Consumption * Qty) + (Consumption * Qty) * WST / 100;
+        rec.Requirment := (rec.Consumption * rec.Qty) + (rec.Consumption * rec.Qty) * rec.WST / 100;
         // else
         //     if Type = Type::Doz then
         //         Requirment := ((Consumption * Qty) + (Consumption * Qty) * WST / 100) / 12;
 
         if (ConvFactor <> 0) then
-            Requirment := Requirment / ConvFactor;
+            rec.Requirment := rec.Requirment / ConvFactor;
 
         //Requirment := Round(Requirment, 1);
 
-        if Requirment = 0 then
-            Requirment := 1;
+        if rec.Requirment = 0 then
+            rec.Requirment := 1;
 
-        Value := Requirment * Rate;
+        rec.Value := rec.Requirment * rec.Rate;
 
     end;
 
@@ -321,8 +321,8 @@ page 71012777 SampleReqAccListPart
     var
     begin
 
-        if Type = type::Pcs then
-            WST := WST + ((AjstReq / Requirment) - 1) * 100;
+        if rec.Type = rec.type::Pcs then
+            rec.WST := rec.WST + ((rec.AjstReq / rec.Requirment) - 1) * 100;
 
 
         // if Type = type::Pcs then
