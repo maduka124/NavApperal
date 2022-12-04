@@ -1,4 +1,4 @@
-page 71012782 "MyTask Card"
+page 50994 "MyTask Card"
 {
     PageType = Card;
     Caption = 'My Task';

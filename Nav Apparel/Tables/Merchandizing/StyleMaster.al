@@ -1,5 +1,5 @@
 
-table 71012721 "Style Master"
+table 50934 "Style Master"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Style Inquiry";

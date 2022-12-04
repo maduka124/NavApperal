@@ -1,4 +1,4 @@
-page 50604 "Ratio Creation Card"
+page 50606 "Ratio Creation Card"
 {
     PageType = Card;
     SourceTable = RatioCreation;

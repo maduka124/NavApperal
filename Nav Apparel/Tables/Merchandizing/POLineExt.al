@@ -1,4 +1,4 @@
-tableextension 71012716 "POLine Extension" extends "Purchase Line"
+tableextension 50918 "POLine Extension" extends "Purchase Line"
 {
     fields
     {

@@ -1,4 +1,4 @@
-page 71012709 "Dependency Parameters Card"
+page 50992 "Dependency Parameters Card"
 {
     PageType = Card;
     SourceTable = "Dependency Parameters";

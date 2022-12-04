@@ -1,4 +1,4 @@
-page 71012772 "Sample Request Card"
+page 50600 "Sample Request Card"
 {
     PageType = Card;
     SourceTable = "Sample Requsition Header";

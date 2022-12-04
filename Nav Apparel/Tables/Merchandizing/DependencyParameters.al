@@ -1,5 +1,5 @@
 
-table 71012707 "Dependency Parameters"
+table 50905 "Dependency Parameters"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Dependency Parameters";

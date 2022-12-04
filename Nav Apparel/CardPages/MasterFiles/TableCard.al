@@ -1,4 +1,4 @@
-page 71012653 "TableCard"
+page 50974 "TableCard"
 {
     PageType = Card;
     SourceTable = TableMaster;
@@ -10,7 +10,7 @@ page 71012653 "TableCard"
         {
             group(General)
             {
-                field("Table No.";rec. "Table No.")
+                field("Table No."; rec."Table No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Table No';
@@ -25,7 +25,7 @@ page 71012653 "TableCard"
                         TableMasterRec: Record TableMaster;
                     begin
                         TableMasterRec.Reset();
-                        TableMasterRec.SetRange("Table Name",rec. "Table Name");
+                        TableMasterRec.SetRange("Table Name", rec."Table Name");
 
                         if TableMasterRec.FindSet() then
                             Error('Table Name already exists.');

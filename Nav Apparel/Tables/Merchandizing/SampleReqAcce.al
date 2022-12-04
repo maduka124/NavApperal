@@ -1,5 +1,5 @@
 
-table 71012717 "Sample Requsition Acce"
+table 50928 "Sample Requsition Acce"
 {
     DataClassification = ToBeClassified;
 

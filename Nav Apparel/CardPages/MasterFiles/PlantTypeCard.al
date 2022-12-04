@@ -1,4 +1,4 @@
-page 71012629 "Plant Type Card"
+page 50966 "Plant Type Card"
 {
     PageType = Card;
     SourceTable = "Plant Type";

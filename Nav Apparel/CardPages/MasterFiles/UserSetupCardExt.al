@@ -1,4 +1,4 @@
-pageextension 71012743 UserSetupCardExt extends "User Setup"
+pageextension 50979 UserSetupCardExt extends "User Setup"
 {
     layout
     {

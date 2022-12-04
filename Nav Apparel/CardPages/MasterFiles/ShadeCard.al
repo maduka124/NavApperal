@@ -1,4 +1,4 @@
-page 71012638 "Shade Card"
+page 50970 "Shade Card"
 {
     PageType = Card;
     SourceTable = Shade;

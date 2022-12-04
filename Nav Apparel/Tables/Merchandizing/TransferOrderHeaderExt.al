@@ -1,4 +1,4 @@
-tableextension 71012757 TransferOrderHeaderExt extends "Transfer Header"
+tableextension 50937 TransferOrderHeaderExt extends "Transfer Header"
 {
     fields
     {

@@ -1,4 +1,4 @@
-pageextension 71012787 SalesOrderCardExt extends "Sales Order"
+pageextension 50999 SalesOrderCardExt extends "Sales Order"
 {
     layout
     {

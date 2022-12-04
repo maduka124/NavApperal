@@ -1,4 +1,4 @@
-tableextension 71012835 "PostedPurchInvoiceHeaderExt" extends "Purch. Inv. Header"
+tableextension 50919 "PostedPurchInvoiceHeaderExt" extends "Purch. Inv. Header"
 {
     fields
     {

@@ -1,5 +1,5 @@
 
-table 71012750 "Sample Type Buyer"
+table 50932 "Sample Type Buyer"
 {
     DataClassification = ToBeClassified;
     //LookupPageId = 50214;

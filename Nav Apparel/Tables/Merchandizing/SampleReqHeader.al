@@ -1,5 +1,5 @@
 
-table 71012719 "Sample Requsition Header"
+table 50930 "Sample Requsition Header"
 {
     DataClassification = ToBeClassified;
 

@@ -1,5 +1,5 @@
 
-table 71012818 "YY Type"
+table 50941 "YY Type"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "YY Type List";

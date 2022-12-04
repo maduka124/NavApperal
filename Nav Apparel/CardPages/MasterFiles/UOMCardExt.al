@@ -1,4 +1,4 @@
-pageextension 71012732 UOMCardExt extends "Units of Measure"
+pageextension 50975 UOMCardExt extends "Units of Measure"
 {
     layout
     {

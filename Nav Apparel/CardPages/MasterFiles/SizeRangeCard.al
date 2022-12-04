@@ -1,4 +1,4 @@
-page 71012641 "Size Range Card"
+page 50976 "Size Range Card"
 {
     PageType = Card;
     SourceTable = SizeRange;

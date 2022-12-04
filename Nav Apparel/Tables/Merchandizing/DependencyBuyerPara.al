@@ -1,5 +1,5 @@
 
-table 71012703 "Dependency Buyer Para"
+table 50903 "Dependency Buyer Para"
 {
     DataClassification = ToBeClassified;
 

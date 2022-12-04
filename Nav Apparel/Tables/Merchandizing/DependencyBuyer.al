@@ -1,5 +1,5 @@
 
-table 71012701 "Dependency Buyer"
+table 50902 "Dependency Buyer"
 {
     DataClassification = ToBeClassified;
     //LookupPageId = 50227;

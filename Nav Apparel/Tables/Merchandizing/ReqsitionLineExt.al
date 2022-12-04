@@ -1,4 +1,4 @@
-tableextension 71012759 "ReqLine Extension" extends "Requisition Line"
+tableextension 50925 "ReqLine Extension" extends "Requisition Line"
 {
     fields
     {

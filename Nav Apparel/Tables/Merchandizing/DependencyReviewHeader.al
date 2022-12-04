@@ -1,5 +1,5 @@
 
-table 71012794 "Dependency Review Header"
+table 50906 "Dependency Review Header"
 {
     DataClassification = ToBeClassified;
 

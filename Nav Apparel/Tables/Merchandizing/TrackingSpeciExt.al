@@ -1,4 +1,4 @@
-tableextension 71012761 "TrackingSpec" extends "Tracking Specification"
+tableextension 50936 "TrackingSpec" extends "Tracking Specification"
 {
     fields
     {

@@ -1,4 +1,4 @@
-page 71012849 "Chemical Type Card"
+page 50946 "Chemical Type Card"
 {
     PageType = Card;
     SourceTable = ChemicalType;

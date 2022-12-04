@@ -1,4 +1,4 @@
-page 71012635 "Seasons Card"
+page 50969 "Seasons Card"
 {
     PageType = Card;
     SourceTable = Seasons;

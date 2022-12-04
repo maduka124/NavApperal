@@ -1,4 +1,4 @@
-page 71012788 "PI Details Card"
+page 50996 "PI Details Card"
 {
     PageType = Card;
     SourceTable = "PI Details Header";

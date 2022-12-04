@@ -1,5 +1,5 @@
 
-table 71012718 "Sample Requsition Doc"
+table 50929 "Sample Requsition Doc"
 {
     DataClassification = ToBeClassified;
 
@@ -75,5 +75,5 @@ table 71012718 "Sample Requsition Doc"
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-   
+
 }

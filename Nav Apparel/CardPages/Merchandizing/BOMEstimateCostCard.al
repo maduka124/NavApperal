@@ -1,4 +1,4 @@
-page 71012769 "BOM Estimate Cost Card"
+page 50986 "BOM Estimate Cost Card"
 {
     PageType = Card;
     SourceTable = "BOM Estimate Cost";

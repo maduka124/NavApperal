@@ -1,4 +1,4 @@
-page 71012786 "Style Picture FactBox"
+page 50603 "Style Picture FactBox"
 {
     PageType = Cardpart;
     SourceTable = "Style Master";

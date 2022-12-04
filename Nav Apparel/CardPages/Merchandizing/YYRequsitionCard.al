@@ -1,4 +1,4 @@
-page 71012822 "YY Requsition Card"
+page 50609 "YY Requsition Card"
 {
     PageType = Card;
     SourceTable = "YY Requsition Header";

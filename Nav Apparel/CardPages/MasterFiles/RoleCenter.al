@@ -1,4 +1,4 @@
-page 71012740 "Nav Apperal Role Center"
+page 50968 "Nav Apperal Role Center"
 {
     PageType = RoleCenter;
     Caption = 'Nav Apperal Role Center';

@@ -1,4 +1,4 @@
-page 71012699 "Dependency Card"
+page 50990 "Dependency Card"
 {
     PageType = Card;
     SourceTable = Dependency;
@@ -29,7 +29,7 @@ page 71012699 "Dependency Card"
                         CustomerRec.SetRange(Name, rec."Buyer Name.");
 
                         if CustomerRec.FindSet() then
-                           rec. "Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No.";
                     end;
                 }
 

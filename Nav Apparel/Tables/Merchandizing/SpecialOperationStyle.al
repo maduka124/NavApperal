@@ -1,5 +1,5 @@
 
-table 71012725 "Special Operation Style"
+table 50933 "Special Operation Style"
 {
     DataClassification = ToBeClassified;
 

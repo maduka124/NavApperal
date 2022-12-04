@@ -1,5 +1,5 @@
 
-table 71012711 "Dependency Style Line"
+table 50909 "Dependency Style Line"
 {
     DataClassification = ToBeClassified;
 

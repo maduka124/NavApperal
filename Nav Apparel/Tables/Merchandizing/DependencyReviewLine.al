@@ -1,5 +1,5 @@
 
-table 71012795 "Dependency Review Line"
+table 50907 "Dependency Review Line"
 {
     DataClassification = ToBeClassified;
 

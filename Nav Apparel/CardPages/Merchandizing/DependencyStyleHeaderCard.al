@@ -1,4 +1,4 @@
-page 71012779 "Dependency Style Header Card"
+page 50993 "Dependency Style Header Card"
 {
     PageType = Card;
     SourceTable = "Dependency Style Header";

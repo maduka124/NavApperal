@@ -1,4 +1,4 @@
-page 71012751 "NavApp Setup Card"
+page 50964 "NavApp Setup Card"
 {
     PageType = Card;
     SourceTable = "NavApp Setup";

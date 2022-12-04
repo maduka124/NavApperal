@@ -1,5 +1,5 @@
 
-table 71012816 "YY Requsition Header"
+table 50939 "YY Requsition Header"
 {
     DataClassification = ToBeClassified;
 

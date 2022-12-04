@@ -1,4 +1,4 @@
-page 71012623 "Master Category Card"
+page 50962 "Master Category Card"
 {
     PageType = Card;
     SourceTable = "Master Category";

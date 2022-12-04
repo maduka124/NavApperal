@@ -1,4 +1,4 @@
-page 71012827 "Gate Pass Card"
+page 50942 "Gate Pass Card"
 {
     PageType = Card;
     SourceTable = "Gate Pass Header";

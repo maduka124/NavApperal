@@ -1,4 +1,4 @@
-tableextension 71012811 "PurchaseInvoiceLine Extension" extends "Purch. Inv. Line"
+tableextension 50924 "PurchaseInvoiceLine Extension" extends "Purch. Inv. Line"
 {
     fields
     {

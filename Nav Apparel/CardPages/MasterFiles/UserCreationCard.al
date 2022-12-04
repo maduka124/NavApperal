@@ -1,4 +1,4 @@
-page 71012742 "Create User Card"
+page 50978 "Create User Card"
 {
     PageType = Card;
     SourceTable = LoginDetails;

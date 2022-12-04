@@ -1,4 +1,4 @@
-page 71012647 "Stich Gmt Card"
+page 50972 "Stich Gmt Card"
 {
     PageType = Card;
     SourceTable = "Stich Gmt";

@@ -1,4 +1,4 @@
-page 71012669 "Assortment Card"
+page 50983 "Assortment Card"
 {
     PageType = Card;
     SourceTable = "Style Master";

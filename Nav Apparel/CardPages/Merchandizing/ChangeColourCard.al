@@ -1,4 +1,4 @@
-page 71012808 "Change Colour Card"
+page 50988 "Change Colour Card"
 {
     PageType = Card;
     Caption = 'Change Colour';

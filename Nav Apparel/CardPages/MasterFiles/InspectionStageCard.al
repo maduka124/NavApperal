@@ -1,4 +1,4 @@
-page 71012613 "Inspection Stage Card"
+page 50956 "Inspection Stage Card"
 {
     PageType = Card;
     SourceTable = InspectionStage;

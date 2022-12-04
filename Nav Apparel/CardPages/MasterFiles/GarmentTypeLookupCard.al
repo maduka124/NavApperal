@@ -1,4 +1,4 @@
-page 71012748 "Garment Type Lookup Card"
+page 50955 "Garment Type Lookup Card"
 {
     PageType = Card;
     SourceTable = "Garment Type";

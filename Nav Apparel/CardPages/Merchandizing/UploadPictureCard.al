@@ -1,4 +1,4 @@
-page 71012796 "Picture URL Dialog"
+page 50608 "Picture URL Dialog"
 {
     PageType = StandardDialog;
     Caption = 'Picture URL Dialog';

@@ -1,4 +1,4 @@
-page 71012585 "Article Card"
+page 50944 "Article Card"
 {
     PageType = Card;
     SourceTable = Article;

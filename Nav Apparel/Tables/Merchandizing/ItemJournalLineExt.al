@@ -1,4 +1,4 @@
-tableextension 71012762 "ItemJournalLineExt" extends "Item Journal Line"
+tableextension 50913 "ItemJournalLineExt" extends "Item Journal Line"
 {
     fields
     {

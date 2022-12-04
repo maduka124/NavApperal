@@ -1,5 +1,5 @@
 
-table 71012726 "Style Master PO"
+table 50935 "Style Master PO"
 {
     DataClassification = ToBeClassified;
     // LookupPageId = "Style Master PO List";

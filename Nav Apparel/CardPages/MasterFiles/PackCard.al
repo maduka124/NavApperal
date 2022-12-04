@@ -1,4 +1,4 @@
-page 71012626 "Pack Card"
+page 50965 "Pack Card"
 {
     PageType = Card;
     SourceTable = Pack;

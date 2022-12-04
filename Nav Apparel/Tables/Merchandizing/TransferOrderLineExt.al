@@ -1,4 +1,4 @@
-tableextension 71012758 TransferOrderLineExt extends "Transfer Line"
+tableextension 50938 TransferOrderLineExt extends "Transfer Line"
 {
     fields
     {

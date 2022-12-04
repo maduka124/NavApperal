@@ -1,4 +1,4 @@
-tableextension 71012760 "ReservationEntry" extends "Reservation Entry"
+tableextension 50926 "ReservationEntry" extends "Reservation Entry"
 {
     fields
     {

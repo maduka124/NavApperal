@@ -1,4 +1,4 @@
-page 71012601 "Department(Style) Card"
+page 50951 "Department(Style) Card"
 {
     PageType = Card;
     SourceTable = "Department Style";

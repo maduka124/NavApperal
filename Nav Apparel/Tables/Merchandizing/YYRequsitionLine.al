@@ -1,5 +1,5 @@
 
-table 71012817 "YY Requsition Line"
+table 50940 "YY Requsition Line"
 {
     DataClassification = ToBeClassified;
 

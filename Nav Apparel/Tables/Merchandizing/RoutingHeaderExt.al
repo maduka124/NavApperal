@@ -1,4 +1,4 @@
-tableextension 71012838 "RoutingHeader Extension" extends "Routing Header"
+tableextension 50927 "RoutingHeader Extension" extends "Routing Header"
 {
     fields
     {

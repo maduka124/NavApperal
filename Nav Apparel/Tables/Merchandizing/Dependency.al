@@ -1,5 +1,5 @@
 
-table 71012698 "Dependency"
+table 50901 "Dependency"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Dependency Card";

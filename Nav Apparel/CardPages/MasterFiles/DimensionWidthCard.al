@@ -1,4 +1,4 @@
-page 71012604 "Dimension Width Card"
+page 50952 "Dimension Width Card"
 {
     PageType = Card;
     SourceTable = DimensionWidth;

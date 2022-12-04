@@ -1,4 +1,4 @@
-page 71012644 "Special Operation Card"
+page 50977 "Special Operation Card"
 {
     PageType = Card;
     SourceTable = "Special Operation";

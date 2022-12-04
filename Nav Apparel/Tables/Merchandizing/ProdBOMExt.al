@@ -1,4 +1,4 @@
-tableextension 71012814 "ProdBOM Extension" extends "Production BOM Header"
+tableextension 50922 "ProdBOM Extension" extends "Production BOM Header"
 {
     fields
     {

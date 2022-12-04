@@ -1,4 +1,4 @@
-page 71012582 "AQL Card"
+page 50943 "AQL Card"
 {
     PageType = Card;
     SourceTable = AQL;

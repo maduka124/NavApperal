@@ -1,4 +1,4 @@
-page 71012680 "BOM Card"
+page 50984 "BOM Card"
 {
     PageType = Card;
     SourceTable = BOM;

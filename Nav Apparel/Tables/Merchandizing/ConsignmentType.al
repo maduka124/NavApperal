@@ -1,4 +1,4 @@
-enum 71012830 "Inventory Type"
+enum 50900 "Inventory Type"
 {
     Extensible = true;
     AssignmentCompatibility = true;

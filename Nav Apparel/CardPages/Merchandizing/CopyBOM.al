@@ -1,4 +1,4 @@
-page 71012781 "Copy BOM Card"
+page 50989 "Copy BOM Card"
 {
     PageType = Card;
     UsageCategory = Tasks;

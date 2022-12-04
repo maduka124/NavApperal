@@ -1,4 +1,4 @@
-tableextension 71012756 "GRNLine Extension" extends "Purch. Rcpt. Line"
+tableextension 50912 "GRNLine Extension" extends "Purch. Rcpt. Line"
 {
     fields
     {

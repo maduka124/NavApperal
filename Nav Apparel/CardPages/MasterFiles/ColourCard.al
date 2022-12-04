@@ -1,4 +1,4 @@
-page 71012591 "Colour Card"
+page 50947 "Colour Card"
 {
     PageType = Card;
     SourceTable = Colour;

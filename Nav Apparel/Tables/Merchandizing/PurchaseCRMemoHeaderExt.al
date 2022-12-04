@@ -1,4 +1,4 @@
-tableextension 71012834 "PurchaseCRMemoHeader Extension" extends "Purch. Cr. Memo Hdr."
+tableextension 50923 "PurchaseCRMemoHeader Extension" extends "Purch. Cr. Memo Hdr."
 {
     fields
     {

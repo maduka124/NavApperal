@@ -1,4 +1,4 @@
-pageextension 71012738 LocationCardExt extends "Location Card"
+pageextension 50958 LocationCardExt extends "Location Card"
 {
     layout
     {

@@ -1,4 +1,4 @@
-tableextension 71012715 "PO Extension" extends "Purchase Header"
+tableextension 50917 "PO Extension" extends "Purchase Header"
 {
     fields
     {

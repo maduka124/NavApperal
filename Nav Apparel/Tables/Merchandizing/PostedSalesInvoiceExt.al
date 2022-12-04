@@ -1,4 +1,4 @@
-tableextension 71012813 "PostedSales Invoice Extension" extends "Sales Invoice Header"
+tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Header"
 {
     fields
     {

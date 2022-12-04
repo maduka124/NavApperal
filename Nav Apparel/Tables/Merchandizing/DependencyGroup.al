@@ -1,5 +1,5 @@
 
-table 71012704 "Dependency Group"
+table 50904 "Dependency Group"
 {
     DataClassification = ToBeClassified;
     LookupPageId = "Dependency Group";

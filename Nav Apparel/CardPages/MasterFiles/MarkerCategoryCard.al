@@ -1,4 +1,4 @@
-page 71012620 "Marker Category Card"
+page 50961 "Marker Category Card"
 {
     PageType = Card;
     SourceTable = MarkerCategory;

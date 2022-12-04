@@ -1,5 +1,5 @@
 
-table 71012710 "Dependency Style Header"
+table 50908 "Dependency Style Header"
 {
     DataClassification = ToBeClassified;
 

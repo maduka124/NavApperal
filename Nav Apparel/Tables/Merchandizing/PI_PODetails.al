@@ -1,5 +1,5 @@
 
-table 71012713 "PI Po Details"
+table 50916 "PI Po Details"
 {
     DataClassification = ToBeClassified;
 
