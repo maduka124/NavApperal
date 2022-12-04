@@ -9,7 +9,7 @@ page 50522 "B2B LC Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
 
@@ -20,7 +20,7 @@ page 50522 "B2B LC Card"
                     end;
                 }
 
-                field(Buyer; Buyer)
+                field(Buyer; rec.Buyer)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -30,14 +30,14 @@ page 50522 "B2B LC Card"
                         CustomerRec: Record Customer;
                     begin
                         CustomerRec.Reset();
-                        CustomerRec.SetRange(Name, "Buyer");
+                        CustomerRec.SetRange(Name, rec."Buyer");
 
                         if CustomerRec.FindSet() then
-                            "Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No.";
                     end;
                 }
 
-                field("Beneficiary Name"; "Beneficiary Name")
+                field("Beneficiary Name"; rec."Beneficiary Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
@@ -47,15 +47,15 @@ page 50522 "B2B LC Card"
                         VendorRec: Record Vendor;
                     begin
                         VendorRec.Reset();
-                        VendorRec.SetRange(Name, "Beneficiary Name");
+                        VendorRec.SetRange(Name, rec."Beneficiary Name");
                         if VendorRec.FindSet() then
-                            Beneficiary := VendorRec."No.";
+                            rec.Beneficiary := VendorRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("LC/Contract No."; "LC/Contract No.")
+                field("LC/Contract No."; rec."LC/Contract No.")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -67,51 +67,51 @@ page 50522 "B2B LC Card"
                         B2BRec: Record B2BLCMaster;
                     begin
 
-                        if Beneficiary = '' then
+                        if rec.Beneficiary = '' then
                             Error('Select Beneficiary.');
 
                         PIDetMasterRec.Reset();
                         PIDetMasterRec.SetCurrentKey("Supplier No.");
-                        PIDetMasterRec.SetRange("Supplier No.", Beneficiary);
+                        PIDetMasterRec.SetRange("Supplier No.", rec.Beneficiary);
 
                         if PIDetMasterRec.FindSet() then begin
                             repeat
-                                PIDetMasterRec.B2BNo := "No.";
+                                PIDetMasterRec.B2BNo := rec."No.";
                                 PIDetMasterRec.Modify();
                             until PIDetMasterRec.Next() = 0;
                         end;
 
                         ContLCMasRec.Reset();
-                        ContLCMasRec.SetRange("Contract No", "LC/Contract No.");
+                        ContLCMasRec.SetRange("Contract No", rec."LC/Contract No.");
                         if ContLCMasRec.FindSet() then begin
-                            "LC Value" := ContLCMasRec."Contract Value";
-                            "B2B LC Limit" := (ContLCMasRec."Contract Value" * ContLCMasRec.BBLC) / 100;
+                            rec."LC Value" := ContLCMasRec."Contract Value";
+                            rec."B2B LC Limit" := (ContLCMasRec."Contract Value" * ContLCMasRec.BBLC) / 100;
                         end;
 
                         //Calculate B2B LC opened  and %
                         B2BRec.Reset();
-                        B2BRec.SetRange("LC/Contract No.", "LC/Contract No.");
+                        B2BRec.SetRange("LC/Contract No.", rec."LC/Contract No.");
 
                         if B2BRec.FindSet() then begin
                             repeat
-                                "B2B LC Opened (Value)" += B2BRec."B2B LC Value";
+                                rec."B2B LC Opened (Value)" += B2BRec."B2B LC Value";
                             until B2BRec.Next() = 0;
 
-                            "B2B LC Opened (%)" := ("B2B LC Opened (Value)" / "LC Value") * 100;
+                            rec."B2B LC Opened (%)" := (rec."B2B LC Opened (Value)" / rec."LC Value") * 100;
                         end;
 
-                        Balance := "B2B LC Limit" - "B2B LC Opened (Value)";
+                        rec.Balance := rec."B2B LC Limit" - rec."B2B LC Opened (Value)";
 
                     end;
                 }
 
-                field("B2B LC No"; "B2B LC No")
+                field("B2B LC No"; rec."B2B LC No")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field(Season; Season)
+                field(Season; rec.Season)
                 {
                     ApplicationArea = All;
 
@@ -120,88 +120,88 @@ page 50522 "B2B LC Card"
                         SeasonsRec: Record Seasons;
                     begin
                         SeasonsRec.Reset();
-                        SeasonsRec.SetRange("Season Name", "Season");
+                        SeasonsRec.SetRange("Season Name", rec."Season");
                         if SeasonsRec.FindSet() then
-                            "Season No." := SeasonsRec."No.";
+                            rec."Season No." := SeasonsRec."No.";
                     end;
                 }
 
-                field("LC Value"; "LC Value")
+                field("LC Value"; rec."LC Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("B2B LC Limit"; "B2B LC Limit")
+                field("B2B LC Limit"; rec."B2B LC Limit")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("B2B LC Opened (Value)"; "B2B LC Opened (Value)")
+                field("B2B LC Opened (Value)"; rec."B2B LC Opened (Value)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("B2B LC Opened (%)"; "B2B LC Opened (%)")
+                field("B2B LC Opened (%)"; rec."B2B LC Opened (%)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Balance; Balance)
+                field(Balance; rec.Balance)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Opening Date"; "Opening Date")
+                field("Opening Date"; rec."Opening Date")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if format("Expiry Date") <> '' then
-                            "B2B LC Duration (Days)" := "Expiry Date" - "Opening Date";
+                        if format(rec."Expiry Date") <> '' then
+                            rec."B2B LC Duration (Days)" := rec."Expiry Date" - rec."Opening Date";
                     end;
                 }
 
-                field("Last Shipment Date"; "Last Shipment Date")
+                field("Last Shipment Date"; rec."Last Shipment Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Expiry Date"; "Expiry Date")
+                field("Expiry Date"; rec."Expiry Date")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if format("Opening Date") <> '' then
-                            "B2B LC Duration (Days)" := "Expiry Date" - "Opening Date";
+                        if format(rec."Opening Date") <> '' then
+                            rec."B2B LC Duration (Days)" := rec."Expiry Date" - rec."Opening Date";
                     end;
                 }
 
-                field("B2B LC Duration (Days)"; "B2B LC Duration (Days)")
+                field("B2B LC Duration (Days)"; rec."B2B LC Duration (Days)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(AMD; AMD)
+                field(AMD; rec.AMD)
                 {
                     ApplicationArea = All;
                 }
 
-                field("AMD Date"; "AMD Date")
+                field("AMD Date"; rec."AMD Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Global Dimension Code"; "Global Dimension Code")
+                field("Global Dimension Code"; rec."Global Dimension Code")
                 {
                     ApplicationArea = All;
                     //ShowMandatory = true;
@@ -227,13 +227,13 @@ page 50522 "B2B LC Card"
 
             group("  ")
             {
-                field("B2B LC Value"; "B2B LC Value")
+                field("B2B LC Value"; rec."B2B LC Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Payment Terms (Days)"; "Payment Terms (Days)")
+                field("Payment Terms (Days)"; rec."Payment Terms (Days)")
                 {
                     ApplicationArea = All;
                     Caption = 'Payment Terms';
@@ -243,19 +243,19 @@ page 50522 "B2B LC Card"
                         PaymentTermsRec: Record "Payment Terms";
                     begin
                         PaymentTermsRec.Reset();
-                        PaymentTermsRec.SetRange(Description, "Payment Terms (Days)");
+                        PaymentTermsRec.SetRange(Description, rec."Payment Terms (Days)");
                         if PaymentTermsRec.FindSet() then
-                            "Payment Terms (Days) No." := PaymentTermsRec.Code;
+                            rec."Payment Terms (Days) No." := PaymentTermsRec.Code;
                     end;
                 }
 
-                field("Interest%"; "Interest%")
+                field("Interest%"; rec."Interest%")
                 {
                     ApplicationArea = All;
                 }
 
 
-                field(Currency; Currency)
+                field(Currency; rec.Currency)
                 {
                     ApplicationArea = All;
 
@@ -264,13 +264,13 @@ page 50522 "B2B LC Card"
                         CurrencyRec: Record Currency;
                     begin
                         CurrencyRec.Reset();
-                        CurrencyRec.SetRange(Description, Currency);
+                        CurrencyRec.SetRange(Description, rec.Currency);
                         if CurrencyRec.FindSet() then
-                            "Currency No." := CurrencyRec.Code;
+                            rec."Currency No." := CurrencyRec.Code;
                     end;
                 }
 
-                field("Issue Bank"; "Issue Bank")
+                field("Issue Bank"; rec."Issue Bank")
                 {
                     ApplicationArea = All;
 
@@ -279,13 +279,13 @@ page 50522 "B2B LC Card"
                         BankRec: Record "Bank Account";
                     begin
                         BankRec.Reset();
-                        BankRec.SetRange(Name, "Issue Bank");
+                        BankRec.SetRange(Name, rec."Issue Bank");
                         if BankRec.FindSet() then
-                            "LC Issue Bank No." := BankRec."No.";
+                            rec."LC Issue Bank No." := BankRec."No.";
                     end;
                 }
 
-                field("LC Receive Bank"; "LC Receive Bank")
+                field("LC Receive Bank"; rec."LC Receive Bank")
                 {
                     ApplicationArea = All;
 
@@ -294,28 +294,28 @@ page 50522 "B2B LC Card"
                         BankRec: Record "Bank Account";
                     begin
                         BankRec.Reset();
-                        BankRec.SetRange(Name, "LC Receive Bank");
+                        BankRec.SetRange(Name, rec."LC Receive Bank");
                         if BankRec.FindSet() then
-                            "LC Receive Bank No." := BankRec."No.";
+                            rec."LC Receive Bank No." := BankRec."No.";
                     end;
                 }
 
-                field("Tolerence (%)"; "Tolerence (%)")
+                field("Tolerence (%)"; rec."Tolerence (%)")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Bank Charges"; "Bank Charges")
+                field("Bank Charges"; rec."Bank Charges")
                 {
                     ApplicationArea = All;
                 }
 
-                field("B2B LC Status"; "B2B LC Status")
+                field("B2B LC Status"; rec."B2B LC Status")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                     MultiLine = true;
@@ -333,8 +333,8 @@ page 50522 "B2B LC Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."B2BLC Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."B2BLC Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -344,8 +344,8 @@ page 50522 "B2B LC Card"
     var
         B2BLCPIRec: Record B2BLCPI;
     begin
-        B2BLCPIRec.SetRange("B2BNo.", "No.");
-        B2BLCPIRec.SetRange("B2BNo.", "No.");
+        B2BLCPIRec.SetRange("B2BNo.", rec."No.");
+        B2BLCPIRec.SetRange("B2BNo.", rec."No.");
         B2BLCPIRec.DeleteAll();
     end;
 
@@ -364,21 +364,21 @@ page 50522 "B2B LC Card"
         // if B2BRec.FindSet() then begin
         // "LC/ContractNo" := B2BRec."LC/Contract No.";
 
-        if Beneficiary <> '' then begin
+        if rec.Beneficiary <> '' then begin
             PIDetMasterRec.Reset();
             PIDetMasterRec.SetCurrentKey("Supplier No.");
-            PIDetMasterRec.SetRange("Supplier No.", Beneficiary);
+            PIDetMasterRec.SetRange("Supplier No.", rec.Beneficiary);
 
             if PIDetMasterRec.FindSet() then begin
                 repeat
-                    PIDetMasterRec.B2BNo := "No.";
+                    PIDetMasterRec.B2BNo := rec."No.";
                     PIDetMasterRec.Modify();
                 until PIDetMasterRec.Next() = 0;
             end;
         end;
 
         B2B1Rec.Reset();
-        B2B1Rec.SetRange("LC/Contract No.", "LC/Contract No.");
+        B2B1Rec.SetRange("LC/Contract No.", rec."LC/Contract No.");
 
         if B2B1Rec.FindSet() then begin
             repeat
@@ -386,10 +386,10 @@ page 50522 "B2B LC Card"
             until B2B1Rec.Next() = 0;
         end;
 
-        "B2B LC Opened (Value)" := "Tot B2B LC Opened (Value)";
-        if "LC Value" > 0 then
-            "B2B LC Opened (%)" := ("Tot B2B LC Opened (Value)" / "LC Value") * 100;
-        Balance := "B2B LC Limit" - "Tot B2B LC Opened (Value)";
+        rec."B2B LC Opened (Value)" := "Tot B2B LC Opened (Value)";
+        if rec."LC Value" > 0 then
+            rec."B2B LC Opened (%)" := ("Tot B2B LC Opened (Value)" / rec."LC Value") * 100;
+        rec.Balance := rec."B2B LC Limit" - "Tot B2B LC Opened (Value)";
         CurrPage.Update();
         //end
     end;
@@ -400,14 +400,14 @@ page 50522 "B2B LC Card"
         PIDetMasterRec: Record "PI Details Header";
     begin
 
-        if Beneficiary <> '' then begin
+        if rec.Beneficiary <> '' then begin
             PIDetMasterRec.Reset();
             PIDetMasterRec.SetCurrentKey("Supplier No.");
-            PIDetMasterRec.SetRange("Supplier No.", Beneficiary);
+            PIDetMasterRec.SetRange("Supplier No.", rec.Beneficiary);
 
             if PIDetMasterRec.FindSet() then begin
                 repeat
-                    PIDetMasterRec.B2BNo := "No.";
+                    PIDetMasterRec.B2BNo := rec."No.";
                     PIDetMasterRec.Modify();
                 until PIDetMasterRec.Next() = 0;
             end;

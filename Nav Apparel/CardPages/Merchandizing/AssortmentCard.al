@@ -12,69 +12,69 @@ page 71012669 "Assortment Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Style No."; "Style No.")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Store';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Season';
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Brand';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Department';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Buyer';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
-                     Editable = false;
+                    Editable = false;
                 }
 
-                field("Order Qty"; "Order Qty")
+                field("Order Qty"; rec."Order Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Order Qty (Style)';
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     TableRelation = "Style Master PO"."Lot No." where("Style No." = field("No."));
@@ -87,22 +87,22 @@ page 71012669 "Assortment Card"
                         //CurrPage.SaveRecord();
                         CurrPage.Update(true);
                         StylePORec.Reset();
-                        StylePORec.SetRange("Style No.", "No.");
-                        StylePORec.SetRange("Lot No.", "Lot No.");
+                        StylePORec.SetRange("Style No.", rec."No.");
+                        StylePORec.SetRange("Lot No.", rec."Lot No.");
                         if StylePORec.FindSet() then
-                            "PO No" := StylePORec."PO No.";
+                            rec."PO No" := StylePORec."PO No.";
 
                         CurrPage.Update(true);
                     end;
                 }
 
-                field("PO No"; "PO No")
+                field("PO No"; rec."PO No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Pack No"; "Pack No")
+                field("Pack No"; rec."Pack No")
                 {
                     ApplicationArea = All;
                     Visible = false;

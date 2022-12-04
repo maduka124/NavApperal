@@ -10,13 +10,13 @@ page 71012626 "Pack Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Pack No';
                 }
 
-                field(Pack; Pack)
+                field(Pack; rec.Pack)
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012626 "Pack Card"
                         PackRec: Record Pack;
                     begin
                         PackRec.Reset();
-                        PackRec.SetRange(Pack, Pack);
+                        PackRec.SetRange(Pack, rec.Pack);
                         if PackRec.FindSet() then
                             Error('Pack already exists.');
                     end;

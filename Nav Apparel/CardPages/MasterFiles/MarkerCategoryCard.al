@@ -10,12 +10,12 @@ page 71012620 "Marker Category Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Marker Category No';
                 }
-                field("Marker Category"; "Marker Category")
+                field("Marker Category"; rec."Marker Category")
                 {
                     ApplicationArea = All;
 
@@ -24,7 +24,7 @@ page 71012620 "Marker Category Card"
                         MarkerCategoryRec: Record MarkerCategory;
                     begin
                         MarkerCategoryRec.Reset();
-                        MarkerCategoryRec.SetRange("Marker Category", "Marker Category");
+                        MarkerCategoryRec.SetRange("Marker Category", rec."Marker Category");
                         if MarkerCategoryRec.FindSet() then
                             Error('Marker Category Name already exists.');
                     end;

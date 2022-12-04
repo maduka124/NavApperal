@@ -10,13 +10,13 @@ page 71012849 "Chemical Type Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Chemical Type No';
                 }
 
-                field("Chemical Type Name"; "Chemical Type Name")
+                field("Chemical Type Name";rec. "Chemical Type Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012849 "Chemical Type Card"
                         ChemicalTypeRec: Record ChemicalType;
                     begin
                         ChemicalTypeRec.Reset();
-                        ChemicalTypeRec.SetRange("Chemical Type Name", "Chemical Type Name");
+                        ChemicalTypeRec.SetRange("Chemical Type Name", rec."Chemical Type Name");
                         if ChemicalTypeRec.FindSet() then
                             Error('Chemical Type name already exists.');
                     end;

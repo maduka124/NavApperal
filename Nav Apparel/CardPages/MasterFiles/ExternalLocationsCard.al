@@ -10,12 +10,12 @@ page 50790 "ExternalLocations Card"
         {
             group(General)
             {
-                field("Location Code"; "Location Code")
+                field("Location Code";rec. "Location Code")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Location Name"; "Location Name")
+                field("Location Name";rec. "Location Name")
                 {
                     ApplicationArea = All;
                 }

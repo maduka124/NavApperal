@@ -4,42 +4,78 @@ pageextension 71012743 UserSetupCardExt extends "User Setup"
     {
         addafter(Email)
         {
-            field("Factory Code"; "Factory Code")
+            field("Factory Code"; rec."Factory Code")
             {
                 ApplicationArea = All;
                 Caption = 'Factory';
                 ShowMandatory = true;
             }
 
-            field("Service Approval"; "Service Approval")
+            field("Service Approval"; rec."Service Approval")
             {
                 ApplicationArea = All;
             }
 
-            field("GT Pass Approval"; "GT Pass Approve")
+            field("GT Pass Approval"; rec."GT Pass Approve")
             {
                 ApplicationArea = All;
             }
 
-            field("Purchasing Approval"; "Purchasing Approval")
+            field("Purchasing Approval"; rec."Purchasing Approval")
             {
                 ApplicationArea = All;
             }
 
-            field(UserRole; UserRole)
+            field(UserRole; rec.UserRole)
             {
                 ApplicationArea = All;
                 Caption = 'User Role';
                 ShowMandatory = true;
             }
 
-            field("Global Dimension Code"; "Global Dimension Code")
+            field("Global Dimension Code"; rec."Global Dimension Code")
             {
                 ApplicationArea = All;
                 ShowMandatory = true;
             }
 
-            field("Merchandizer Head"; "Merchandizer Head")
+            field("Merchandizer Head"; rec."Merchandizer Head")
+            {
+                ApplicationArea = All;
+            }
+        }
+
+        addafter("Time Sheet Admin.")
+        {
+            field("Req. Worksheet Batch"; rec."Req. Worksheet Batch")
+            {
+                ApplicationArea = All;
+            }
+            field("Consump. Journal Qty. Approve"; rec."Consump. Journal Qty. Approve")
+            {
+                ApplicationArea = All;
+            }
+            field("Head of Department"; rec."Head of Department")
+            {
+                ApplicationArea = All;
+            }
+            field("Gen. Issueing Approve"; rec."Gen. Issueing Approve")
+            {
+                ApplicationArea = All;
+            }
+            field("Consumption Approve"; rec."Consumption Approve")
+            {
+                ApplicationArea = All;
+            }
+            field("Daily Requirement Approver"; rec."Daily Requirement Approver")
+            {
+                ApplicationArea = All;
+            }
+            field("Gen. Issueing Approver"; Rec."Gen. Issueing Approver")
+            {
+                ApplicationArea = All;
+            }
+            field("Requsting Department Name"; rec."Requsting Department Name")
             {
                 ApplicationArea = All;
             }

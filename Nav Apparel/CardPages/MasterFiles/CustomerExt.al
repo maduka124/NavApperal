@@ -5,14 +5,14 @@ pageextension 71012733 CustomerCardExt extends "Customer Card"
         addafter("Disable Search by Name")
         {
 
-            field("Fab Inspection Level"; "Fab Inspection Level")
+            field("Fab Inspection Level"; rec."Fab Inspection Level")
             {
                 ApplicationArea = All;
                 Caption = 'Fabric Inspection Level (%)';
             }
 
 
-            field("Group Id"; "Group Id")
+            field("Group Id"; rec."Group Id")
             {
                 ApplicationArea = All;
                 Caption = 'Merchandizer Group';
@@ -50,7 +50,7 @@ pageextension 71012733 CustomerCardExt extends "Customer Card"
                 begin
                     Clear(SampleList);
                     SampleList.LookupMode(true);
-                    SampleList.PassParameters("No.");
+                    SampleList.PassParameters(rec."No.");
                     SampleList.Run();
                 end;
             }

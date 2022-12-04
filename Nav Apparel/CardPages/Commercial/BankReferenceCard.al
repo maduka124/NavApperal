@@ -12,7 +12,7 @@ page 50763 "Bank Reference Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
 
@@ -23,7 +23,7 @@ page 50763 "Bank Reference Card"
                     end;
                 }
 
-                field("BankRefNo."; "BankRefNo.")
+                field("BankRefNo."; rec."BankRefNo.")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -37,40 +37,40 @@ page 50763 "Bank Reference Card"
 
                         if SalesInvRec.FindSet() then begin
                             repeat
-                                SalesInvRec.BankRefNo := "No.";
+                                SalesInvRec.BankRefNo := rec."No.";
                                 SalesInvRec.Modify();
                             until SalesInvRec.Next() = 0;
                         end;
                     end;
                 }
 
-                field("Reference Date"; "Reference Date")
+                field("Reference Date"; rec."Reference Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field(AirwayBillNo; AirwayBillNo)
+                field(AirwayBillNo; rec.AirwayBillNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Airway Bill No';
                 }
 
-                field("Airway Bill Date"; "Airway Bill Date")
+                field("Airway Bill Date"; rec."Airway Bill Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Maturity Date"; "Maturity Date")
+                field("Maturity Date"; rec."Maturity Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Total; Total)
+                field(Total; rec.Total)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -103,8 +103,8 @@ page 50763 "Bank Reference Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."BankRef Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."BankRef Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -118,7 +118,7 @@ page 50763 "Bank Reference Card"
 
         //Update sales invoice header recods
         BankRefeInvRec.Reset();
-        BankRefeInvRec.SetRange("No.", "No.");
+        BankRefeInvRec.SetRange("No.",rec."No.");
         if BankRefeInvRec.FindSet() then begin
             repeat
                 SalesInvRec.Reset();
@@ -140,11 +140,11 @@ page 50763 "Bank Reference Card"
     var
         SalesInvRec: Record "Sales Invoice Header";
     begin
-        if "No." <> '' then begin
+        if rec."No." <> '' then begin
             SalesInvRec.Reset();
             if SalesInvRec.FindSet() then begin
                 repeat
-                    SalesInvRec.BankRefNo := "No.";
+                    SalesInvRec.BankRefNo :=rec. "No.";
                     SalesInvRec.Modify();
                 until SalesInvRec.Next() = 0;
             end;

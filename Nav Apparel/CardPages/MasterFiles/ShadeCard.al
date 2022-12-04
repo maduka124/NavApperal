@@ -10,13 +10,13 @@ page 71012638 "Shade Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Shade No';
                 }
 
-                field(Shade; Shade)
+                field(Shade; rec.Shade)
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012638 "Shade Card"
                         ShadeRec: Record Shade;
                     begin
                         ShadeRec.Reset();
-                        ShadeRec.SetRange(Shade, Shade);
+                        ShadeRec.SetRange(Shade, rec.Shade);
 
                         if ShadeRec.FindSet() then
                             Error('Shade Name already exists.');

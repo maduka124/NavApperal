@@ -5,13 +5,13 @@ table 71012804 LoginDetails
 
     fields
     {
-        field(1; "No."; Integer)
+        field(1; "No."; bigInteger)
         {
             DataClassification = ToBeClassified;
             AutoIncrement = true;
         }
 
-        field(2; "UserID Secondary"; Code[20])
+        field(2; "UserID Secondary"; text[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -21,12 +21,12 @@ table 71012804 LoginDetails
             DataClassification = ToBeClassified;
         }
 
-        field(4; "SessionID"; Integer)
+        field(4; "SessionID"; bigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Pw"; Code[50])
+        field(5; "Pw"; text[50])
         {
             DataClassification = ToBeClassified;
             ExtendedDatatype = Masked;
@@ -56,39 +56,15 @@ table 71012804 LoginDetails
 
     keys
     {
-        key(PK; "UserID Secondary")
+        key(PK; "No.")
         {
             Clustered = true;
         }
     }
-
-    // fieldgroups
-    // {
-    //     fieldgroup(DropDown; "No.", Article, "Main Category Name")
-    //     {
-
-    //     }
-    // }
 
     trigger OnInsert()
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

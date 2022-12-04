@@ -16,11 +16,11 @@
   "application": "19.0.0.0",
   "idRanges": [
     {
-      "from": 50200,
+      "from": 50100,
       "to": 71013580
     }
   ],
   "contextSensitiveHelpUrl": "https://NavAppProject.com/help/",
-  "runtime": "5.5"
+  "runtime": "10.0"
 }
 

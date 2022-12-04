@@ -10,7 +10,7 @@ page 71012694 "BOM Estimate Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Estimate BOM No';
@@ -22,7 +22,7 @@ page 71012694 "BOM Estimate Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -37,39 +37,39 @@ page 71012694 "BOM Estimate Card"
 
                         //Check for duplicates
                         BOMRec.Reset();
-                        BOMRec.SetRange("Style Name", "Style Name");
+                        BOMRec.SetRange("Style Name", rec."Style Name");
                         if BOMRec.FindSet() then
                             Error('Style : %1 already used to create an Estimate BOM ', BOMRec."Style Name");
 
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                         CurrPage.Update();
 
-                        StyleMasterRec.get("Style No.");
-                        "Style Name" := StyleMasterRec."Style No.";
-                        "Store No." := StyleMasterRec."Store No.";
-                        "Brand No." := StyleMasterRec."Brand No.";
-                        "Buyer No." := StyleMasterRec."Buyer No.";
-                        "Season No." := StyleMasterRec."Season No.";
-                        "Department No." := StyleMasterRec."Department No.";
-                        "Garment Type No." := StyleMasterRec."Garment Type No.";
+                        StyleMasterRec.get(rec."Style No.");
+                        rec."Style Name" := StyleMasterRec."Style No.";
+                        rec."Store No." := StyleMasterRec."Store No.";
+                        rec."Brand No." := StyleMasterRec."Brand No.";
+                        rec."Buyer No." := StyleMasterRec."Buyer No.";
+                        rec."Season No." := StyleMasterRec."Season No.";
+                        rec."Department No." := StyleMasterRec."Department No.";
+                        rec."Garment Type No." := StyleMasterRec."Garment Type No.";
 
-                        "Store Name" := StyleMasterRec."Store Name";
-                        "Brand Name" := StyleMasterRec."Brand Name";
-                        "Buyer Name" := StyleMasterRec."Buyer Name";
-                        "Season Name" := StyleMasterRec."Season Name";
-                        "Department Name" := StyleMasterRec."Department Name";
-                        "Garment Type Name" := StyleMasterRec."Garment Type Name";
-                        Quantity := StyleMasterRec."Order Qty";
+                        rec."Store Name" := StyleMasterRec."Store Name";
+                        rec."Brand Name" := StyleMasterRec."Brand Name";
+                        rec."Buyer Name" := StyleMasterRec."Buyer Name";
+                        rec."Season Name" := StyleMasterRec."Season Name";
+                        rec."Department Name" := StyleMasterRec."Department Name";
+                        rec."Garment Type Name" := StyleMasterRec."Garment Type Name";
+                        rec.Quantity := StyleMasterRec."Order Qty";
 
-                        CustomerRec.get("Buyer No.");
-                        "Currency No." := CustomerRec."Currency Code";
+                        CustomerRec.get(rec."Buyer No.");
+                        rec."Currency No." := CustomerRec."Currency Code";
 
                         //Assigh Estimate bom no to the style. (For "Copy BOM feature" purpose only)
-                        StyleMasterRec.EstimateBOM := "No.";
+                        StyleMasterRec.EstimateBOM := rec."No.";
                         StyleMasterRec.Modify();
 
                         CurrPage.Update();
@@ -77,7 +77,7 @@ page 71012694 "BOM Estimate Card"
                     end;
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
@@ -87,13 +87,13 @@ page 71012694 "BOM Estimate Card"
                         GarmentStoreRec: Record "Garment Store";
                     begin
                         GarmentStoreRec.Reset();
-                        GarmentStoreRec.SetRange("Store Name", "Store Name");
+                        GarmentStoreRec.SetRange("Store Name", rec."Store Name");
                         if GarmentStoreRec.FindSet() then
-                            "Store No." := GarmentStoreRec."No.";
+                            rec."Store No." := GarmentStoreRec."No.";
                     end;
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
@@ -103,13 +103,13 @@ page 71012694 "BOM Estimate Card"
                         BrandRec: Record "Brand";
                     begin
                         BrandRec.Reset();
-                        BrandRec.SetRange("Brand Name", "Brand Name");
+                        BrandRec.SetRange("Brand Name", rec."Brand Name");
                         if BrandRec.FindSet() then
-                            "Brand No." := BrandRec."No.";
+                            rec."Brand No." := BrandRec."No.";
                     end;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -119,15 +119,15 @@ page 71012694 "BOM Estimate Card"
                         BuyerRec: Record Customer;
                     begin
                         BuyerRec.Reset();
-                        BuyerRec.SetRange(Name, "Buyer Name");
+                        BuyerRec.SetRange(Name, rec."Buyer Name");
                         if BuyerRec.FindSet() then begin
-                            "Buyer No." := BuyerRec."No.";
-                            "Currency No." := BuyerRec."Currency Code";
+                            rec."Buyer No." := BuyerRec."No.";
+                            rec."Currency No." := BuyerRec."Currency Code";
                         end;
                     end;
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
@@ -137,13 +137,13 @@ page 71012694 "BOM Estimate Card"
                         SeasonsRec: Record "Seasons";
                     begin
                         SeasonsRec.Reset();
-                        SeasonsRec.SetRange("Season Name", "Season Name");
+                        SeasonsRec.SetRange("Season Name", rec."Season Name");
                         if SeasonsRec.FindSet() then
-                            "Season No." := SeasonsRec."No.";
+                            rec."Season No." := SeasonsRec."No.";
                     end;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
@@ -153,13 +153,13 @@ page 71012694 "BOM Estimate Card"
                         DepartmentRec: Record "Department Style";
                     begin
                         DepartmentRec.Reset();
-                        DepartmentRec.SetRange("Department Name", "Department Name");
+                        DepartmentRec.SetRange("Department Name", rec."Department Name");
                         if DepartmentRec.FindSet() then
-                            "Department No." := DepartmentRec."No.";
+                            rec."Department No." := DepartmentRec."No.";
                     end;
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
@@ -169,9 +169,9 @@ page 71012694 "BOM Estimate Card"
                         GarmentTypeRec: Record "Garment Type";
                     begin
                         GarmentTypeRec.Reset();
-                        GarmentTypeRec.SetRange("Garment Type Description", "Garment Type Name");
+                        GarmentTypeRec.SetRange("Garment Type Description", rec."Garment Type Name");
                         if GarmentTypeRec.FindSet() then
-                            "Garment Type No." := GarmentTypeRec."No.";
+                            rec."Garment Type No." := GarmentTypeRec."No.";
                     end;
                 }
 
@@ -180,7 +180,7 @@ page 71012694 "BOM Estimate Card"
                 //     ApplicationArea = All;
                 // }
 
-                field(Quantity; Quantity)
+                field(Quantity; rec.Quantity)
                 {
                     ApplicationArea = All;
 
@@ -195,11 +195,11 @@ page 71012694 "BOM Estimate Card"
 
                         Total := 0;
                         BOMEstLineRec.Reset();
-                        BOMEstLineRec.SetRange("No.", "No.");
+                        BOMEstLineRec.SetRange("No.", rec."No.");
                         if BOMEstLineRec.FindSet() then begin
 
                             repeat
-                                BOMEstLineRec.qty := Quantity;
+                                BOMEstLineRec.qty := rec.Quantity;
 
                                 UOMRec.Reset();
                                 UOMRec.SetRange(Code, BOMEstLineRec."Unit N0.");
@@ -207,10 +207,10 @@ page 71012694 "BOM Estimate Card"
                                     ConvFactor := UOMRec."Converion Parameter";
 
                                 if BOMEstLineRec.Type = BOMEstLineRec.type::Pcs then
-                                    BOMEstLineRec.Requirment := (BOMEstLineRec.Consumption * Quantity) + (BOMEstLineRec.Consumption * Quantity) * BOMEstLineRec.WST / 100
+                                    BOMEstLineRec.Requirment := (BOMEstLineRec.Consumption * rec.Quantity) + (BOMEstLineRec.Consumption * rec.Quantity) * BOMEstLineRec.WST / 100
                                 else
                                     if BOMEstLineRec.Type = BOMEstLineRec.type::Doz then
-                                        BOMEstLineRec.Requirment := ((BOMEstLineRec.Consumption * Quantity) + (BOMEstLineRec.Consumption * Quantity) * BOMEstLineRec.WST / 100) / 12;
+                                        BOMEstLineRec.Requirment := ((BOMEstLineRec.Consumption * rec.Quantity) + (BOMEstLineRec.Consumption * rec.Quantity) * BOMEstLineRec.WST / 100) / 12;
 
                                 if (x = 0) and (ConvFactor <> 0) then
                                     BOMEstLineRec.Requirment := BOMEstLineRec.Requirment / ConvFactor;
@@ -223,28 +223,28 @@ page 71012694 "BOM Estimate Card"
 
                             until BOMEstLineRec.Next() = 0;
 
-                            if Quantity <> 0 then
-                                "Material Cost Pcs." := (Total / Quantity);
+                            if rec.Quantity <> 0 then
+                                rec."Material Cost Pcs." := (Total / rec.Quantity);
 
-                            "Material Cost Doz." := "Material Cost Pcs." * 12;
+                            rec."Material Cost Doz." := rec."Material Cost Pcs." * 12;
                             CurrPage.Update();
                         end;
                     end;
                 }
 
-                field("Currency No."; "Currency No.")
+                field("Currency No."; rec."Currency No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Currency';
                 }
 
-                field("Material Cost Doz."; "Material Cost Doz.")
+                field("Material Cost Doz."; rec."Material Cost Doz.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Material Cost Pcs."; "Material Cost Pcs.")
+                field("Material Cost Pcs."; rec."Material Cost Pcs.")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -290,13 +290,13 @@ page 71012694 "BOM Estimate Card"
                     Total: Decimal;
                 begin
 
-                    if Quantity = 0 then
+                    if rec.Quantity = 0 then
                         Error('Quantity is zero. Cannot proceed.');
 
                     Total := 0;
                     BOMEstLineRec.Reset();
                     BOMEstLineRec.SetCurrentKey("No.");
-                    BOMEstLineRec.SetRange("No.", "No.");
+                    BOMEstLineRec.SetRange("No.", rec."No.");
 
                     IF (BOMEstLineRec.FINDSET) THEN
                         repeat
@@ -340,8 +340,8 @@ page 71012694 "BOM Estimate Card"
 
                         until BOMEstLineRec.Next() = 0;
 
-                    "Material Cost Pcs." := (Total / Quantity);
-                    "Material Cost Doz." := "Material Cost Pcs." * 12;
+                    rec."Material Cost Pcs." := (Total / rec.Quantity);
+                    rec."Material Cost Doz." := rec."Material Cost Pcs." * 12;
                     CurrPage.Update();
 
                     Message('Calculation completed');
@@ -358,8 +358,8 @@ page 71012694 "BOM Estimate Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."BOM Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."BOM Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -371,14 +371,14 @@ page 71012694 "BOM Estimate Card"
         BOMLineEstRec: Record "BOM Estimate Line";
         StyleMas: Record "Style Master";
     begin
-        BOMEstimateRec.SetRange("No.", "No.");
+        BOMEstimateRec.SetRange("No.", rec."No.");
         BOMEstimateRec.DeleteAll();
 
-        BOMLineEstRec.SetRange("No.", "No.");
+        BOMLineEstRec.SetRange("No.", rec."No.");
         BOMLineEstRec.DeleteAll();
 
         StyleMas.Reset();
-        StyleMas.SetRange("No.", "Style No.");
+        StyleMas.SetRange("No.", rec."Style No.");
         StyleMas.FindSet();
         StyleMas.ModifyAll(EstimateBOM, '');
 
@@ -389,7 +389,7 @@ page 71012694 "BOM Estimate Card"
         BOMEstLineRec: Record "BOM Estimate Line";
     begin
         BOMEstLineRec.Reset();
-        BOMEstLineRec.SetRange("No.", "No.");
+        BOMEstLineRec.SetRange("No.", rec."No.");
         if BOMEstLineRec.FindSet() then begin
             repeat
                 if BOMEstLineRec."Supplier No." = '' then
@@ -399,10 +399,10 @@ page 71012694 "BOM Estimate Card"
 
         end;
 
-        if "Material Cost Doz." = 0 then
+        if rec."Material Cost Doz." = 0 then
             Error('Material Cost Doz is not calculated.');
 
-        if "Material Cost Pcs." = 0 then
+        if rec."Material Cost Pcs." = 0 then
             Error('Material Cost Pcs is not calculated.');
 
     end;

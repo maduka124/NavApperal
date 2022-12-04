@@ -10,7 +10,7 @@ page 50622 "Fabric Requisition Card"
         {
             group(General)
             {
-                field("FabReqNo."; "FabReqNo.")
+                field("FabReqNo."; rec."FabReqNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Requisition No';
@@ -22,7 +22,7 @@ page 50622 "Fabric Requisition Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -34,9 +34,9 @@ page 50622 "Fabric Requisition Card"
                         LocationRec: Record Location;
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                         //Get location
 
@@ -44,19 +44,19 @@ page 50622 "Fabric Requisition Card"
                         UserRec.SetRange("User ID", UserId);
 
                         if UserRec.FindSet() then begin
-                            "Location Code" := UserRec."Factory Code";
+                            rec."Location Code" := UserRec."Factory Code";
 
                             LocationRec.Reset();
                             LocationRec.SetRange(Code, UserRec."Factory Code");
                             if LocationRec.FindSet() then
-                                "Location Name" := LocationRec.Name;
+                                rec."Location Name" := LocationRec.Name;
                         end;
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; rec."Colour Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -70,7 +70,7 @@ page 50622 "Fabric Requisition Card"
                     begin
                         AssoDetailsRec.RESET;
                         AssoDetailsRec.SetCurrentKey("Colour No");
-                        AssoDetailsRec.SetRange("Style No.", "Style No.");
+                        AssoDetailsRec.SetRange("Style No.", rec."Style No.");
 
                         IF AssoDetailsRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -83,18 +83,18 @@ page 50622 "Fabric Requisition Card"
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
-                                "Colour No" := AssoDetailsRec."Colour No";
+                                rec."Colour No" := AssoDetailsRec."Colour No";
                                 colorRec.Reset();
-                                colorRec.SetRange("No.", "Colour No");
+                                colorRec.SetRange("No.", rec."Colour No");
                                 colorRec.FindSet();
-                                "Colour Name" := colorRec."Colour Name";
+                                rec."Colour Name" := colorRec."Colour Name";
                             end;
 
                         END;
                     END;
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; rec."Group ID")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -104,11 +104,11 @@ page 50622 "Fabric Requisition Card"
                         SewJobLine4Rec: Record SewingJobCreationLine4;
                     begin
                         SewJobLine4Rec.Reset();
-                        SewJobLine4Rec.SetRange("Style No.", "Style No.");
-                        SewJobLine4Rec.SetRange("Colour No", "Colour No");
-                        SewJobLine4Rec.SetRange("Group ID", "Group ID");
+                        SewJobLine4Rec.SetRange("Style No.", rec."Style No.");
+                        SewJobLine4Rec.SetRange("Colour No", rec."Colour No");
+                        SewJobLine4Rec.SetRange("Group ID", rec."Group ID");
                         if SewJobLine4Rec.FindSet() then
-                            "Po No." := SewJobLine4Rec."PO No."
+                            rec."Po No." := SewJobLine4Rec."PO No."
                         else
                             Error('Cannot find sewing Job details for Style/Color/Group');
 
@@ -116,13 +116,13 @@ page 50622 "Fabric Requisition Card"
                     end;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Component Group Code"; "Component Group Code")
+                field("Component Group Code"; rec."Component Group Code")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -131,12 +131,12 @@ page 50622 "Fabric Requisition Card"
                     trigger OnValidate()
                     var
                     begin
-                        "Component Group Name" := "Component Group Code";
+                        rec."Component Group Name" := rec."Component Group Code";
                         CurrPage.Update();
                     end;
                 }
 
-                field("Marker Name"; "Marker Name")
+                field("Marker Name"; rec."Marker Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -147,56 +147,56 @@ page 50622 "Fabric Requisition Card"
                         RatioCreaLineRec: Record RatioCreationLine;
                     begin
                         RatioCreaLineRec.Reset();
-                        RatioCreaLineRec.SetRange("Group ID", "Group ID");
-                        RatioCreaLineRec.SetRange("Component Group Code", "Component Group Code");
-                        RatioCreaLineRec.SetRange("Marker Name", "Marker Name");
-                        RatioCreaLineRec.SetRange("Style No.", "Style No.");
+                        RatioCreaLineRec.SetRange("Group ID", rec."Group ID");
+                        RatioCreaLineRec.SetRange("Component Group Code", rec."Component Group Code");
+                        RatioCreaLineRec.SetRange("Marker Name", rec."Marker Name");
+                        RatioCreaLineRec.SetRange("Style No.", rec."Style No.");
 
                         if RatioCreaLineRec.FindSet() then begin
 
                             if RatioCreaLineRec."UOM Code" = 'YDS' then begin
-                                "Marker Width" := RatioCreaLineRec.Width + ((RatioCreaLineRec."Width Tollarance" * 2) / 36);
-                                "Required Length" := (RatioCreaLineRec.Length + ((RatioCreaLineRec."Length Tollarance  " * 2) / 36)) * RatioCreaLineRec.Plies;
+                                rec."Marker Width" := RatioCreaLineRec.Width + ((RatioCreaLineRec."Width Tollarance" * 2) / 36);
+                                rec."Required Length" := (RatioCreaLineRec.Length + ((RatioCreaLineRec."Length Tollarance  " * 2) / 36)) * RatioCreaLineRec.Plies;
                             end
                             else
                                 if RatioCreaLineRec."UOM Code" = 'MTS' then begin
                                     begin
-                                        "Marker Width" := RatioCreaLineRec.Width + ((RatioCreaLineRec."Width Tollarance" * 2) / 100);
-                                        "Required Length" := (RatioCreaLineRec.Length + ((RatioCreaLineRec."Length Tollarance  " * 2) / 100)) * RatioCreaLineRec.Plies;
+                                        rec."Marker Width" := RatioCreaLineRec.Width + ((RatioCreaLineRec."Width Tollarance" * 2) / 100);
+                                        rec."Required Length" := (RatioCreaLineRec.Length + ((RatioCreaLineRec."Length Tollarance  " * 2) / 100)) * RatioCreaLineRec.Plies;
                                     end;
                                 end;
 
-                            "UOM Code" := RatioCreaLineRec."UOM Code";
-                            "UOM" := RatioCreaLineRec."UOM";
+                            rec."UOM Code" := RatioCreaLineRec."UOM Code";
+                            rec."UOM" := RatioCreaLineRec."UOM";
                         end
                         else begin
-                            "Marker Width" := 0;
-                            "Required Length" := 0;
-                            "UOM Code" := '';
-                            "UOM" := '';
+                            rec."Marker Width" := 0;
+                            rec."Required Length" := 0;
+                            rec."UOM Code" := '';
+                            rec."UOM" := '';
                         end;
                     end;
                 }
 
-                field("Cut No"; "Cut No")
+                field("Cut No"; rec."Cut No")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("Marker Width"; "Marker Width")
+                field("Marker Width"; rec."Marker Width")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(UOM; UOM)
+                field(UOM; rec.UOM)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Table Name"; "Table Name")
+                field("Table Name"; rec."Table Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Table No';
@@ -211,29 +211,29 @@ page 50622 "Fabric Requisition Card"
                     begin
 
                         TableMasterRec.Reset();
-                        TableMasterRec.SetRange("Table Name", "Table Name");
+                        TableMasterRec.SetRange("Table Name", rec."Table Name");
 
                         if TableMasterRec.FindSet() then begin
-                            "Table No." := TableMasterRec."Table No.";
+                            rec."Table No." := TableMasterRec."Table No.";
 
                             TableCreaLineRec.Reset();
-                            TableCreaLineRec.SetRange("Style No.", "Style No.");
-                            TableCreaLineRec.SetRange("Group ID", "Group ID");
-                            TableCreaLineRec.SetRange("Component Group", "Component Group Code");
-                            TableCreaLineRec.SetRange("Marker Name", "Marker Name");
-                            TableCreaLineRec.SetRange("Cut No", "Cut No");
+                            TableCreaLineRec.SetRange("Style No.", rec."Style No.");
+                            TableCreaLineRec.SetRange("Group ID", rec."Group ID");
+                            TableCreaLineRec.SetRange("Component Group", rec."Component Group Code");
+                            TableCreaLineRec.SetRange("Marker Name", rec."Marker Name");
+                            TableCreaLineRec.SetRange("Cut No", rec."Cut No");
 
                             if TableCreaLineRec.FindSet() then begin
 
                                 FabricReqLineRec.Reset();
-                                FabricReqLineRec.SetRange("FabReqNo.", "FabReqNo.");
+                                FabricReqLineRec.SetRange("FabReqNo.", rec."FabReqNo.");
                                 FabricReqLineRec.DeleteAll();
 
                                 repeat
 
                                     LineNo += 1;
                                     FabricReqLineRec.Init();
-                                    FabricReqLineRec."FabReqNo." := "FabReqNo.";
+                                    FabricReqLineRec."FabReqNo." := rec."FabReqNo.";
                                     FabricReqLineRec."Created Date" := Today;
                                     FabricReqLineRec."Created User" := UserId;
                                     FabricReqLineRec."Line No" := LineNo;
@@ -252,7 +252,7 @@ page 50622 "Fabric Requisition Card"
                     end;
                 }
 
-                field("Required Length"; "Required Length")
+                field("Required Length"; rec."Required Length")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -278,8 +278,8 @@ page 50622 "Fabric Requisition Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabReqNo Nos.", xRec."FabReqNo.", "FabReqNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("FabReqNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."FabReqNo Nos.", xRec."FabReqNo.", rec."FabReqNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."FabReqNo.");
             CurrPage.Update();
             EXIT(TRUE);
         END;
@@ -295,7 +295,7 @@ page 50622 "Fabric Requisition Card"
 
         //Check in the laysheet
         LaySheetRec.Reset();
-        LaySheetRec.SetRange("FabReqNo.", "FabReqNo.");
+        LaySheetRec.SetRange("FabReqNo.", rec."FabReqNo.");
 
         if LaySheetRec.FindSet() then begin
             Message('Cannot delete. Fabric Requsition No already used in the Laysheet No : %1', LaySheetRec."LaySheetNo.");
@@ -305,7 +305,7 @@ page 50622 "Fabric Requisition Card"
 
         //Check in the Role Issuing
         RoleIssueRec.Reset();
-        RoleIssueRec.SetRange("Req No.", "FabReqNo.");
+        RoleIssueRec.SetRange("Req No.", rec."FabReqNo.");
 
         if RoleIssueRec.FindSet() then begin
             Message('Cannot delete. Fabric Requsition No already used in the Role Issuing No : %1', RoleIssueRec."RoleIssuNo.");
@@ -314,7 +314,7 @@ page 50622 "Fabric Requisition Card"
 
 
         FabricRequLine.Reset();
-        FabricRequLine.SetRange("FabReqNo.", "FabReqNo.");
+        FabricRequLine.SetRange("FabReqNo.", rec."FabReqNo.");
         if FabricRequLine.FindSet() then
             FabricRequLine.DeleteAll();
     end;

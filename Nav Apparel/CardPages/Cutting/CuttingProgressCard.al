@@ -9,7 +9,7 @@ page 50662 "Cutting Progress Card"
         {
             group(General)
             {
-                field("CutProNo."; "CutProNo.")
+                field("CutProNo."; rec."CutProNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Cutting Progress No';
@@ -21,7 +21,7 @@ page 50662 "Cutting Progress Card"
                     end;
                 }
 
-                field(LaySheetNo; LaySheetNo)
+                field(LaySheetNo; rec.LaySheetNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Lay Sheet No';
@@ -39,36 +39,36 @@ page 50662 "Cutting Progress Card"
                     begin
 
                         LaySheetHeaderRec.Reset();
-                        LaySheetHeaderRec.SetRange("LaySheetNo.", LaySheetNo);
+                        LaySheetHeaderRec.SetRange("LaySheetNo.", rec.LaySheetNo);
 
                         if LaySheetHeaderRec.FindSet() then begin
-                            "FabReqNo." := LaySheetHeaderRec."FabReqNo.";
-                            "Item No" := LaySheetHeaderRec."Item No.";
-                            "Item Name" := LaySheetHeaderRec."Item Name";
-                            "Cut No." := LaySheetHeaderRec."Cut No.";
-                            "Created Date" := Today;
-                            "Created User" := UserId;
-                            "Style Name" := LaySheetHeaderRec."Style Name";
-                            "Style No." := LaySheetHeaderRec."Style No.";
-                            "PO No." := LaySheetHeaderRec."PO No.";
+                            rec."FabReqNo." := LaySheetHeaderRec."FabReqNo.";
+                            rec."Item No" := LaySheetHeaderRec."Item No.";
+                            rec."Item Name" := LaySheetHeaderRec."Item Name";
+                            rec."Cut No." := LaySheetHeaderRec."Cut No.";
+                            rec."Created Date" := Today;
+                            rec."Created User" := UserId;
+                            rec."Style Name" := LaySheetHeaderRec."Style Name";
+                            rec."Style No." := LaySheetHeaderRec."Style No.";
+                            rec."PO No." := LaySheetHeaderRec."PO No.";
                         end;
 
                         CurrPage.Update();
 
                         FabricReqRec.Reset();
-                        FabricReqRec.SetRange("FabReqNo.", "FabReqNo.");
+                        FabricReqRec.SetRange("FabReqNo.", rec."FabReqNo.");
 
                         if FabricReqRec.FindSet() then begin
 
-                            "Marker Name" := FabricReqRec."Marker Name";
-                            "UOM Code" := FabricReqRec."UOM Code";
-                            "UOM" := FabricReqRec."UOM";
+                            rec."Marker Name" := FabricReqRec."Marker Name";
+                            rec."UOM Code" := FabricReqRec."UOM Code";
+                            rec."UOM" := FabricReqRec."UOM";
 
                             LaySheetLine2Rec.Reset();
-                            LaySheetLine2Rec.SetRange("LaySheetNo.", LaySheetNo);
+                            LaySheetLine2Rec.SetRange("LaySheetNo.", rec.LaySheetNo);
 
                             if LaySheetLine2Rec.FindSet() then
-                                "Marker Length" := LaySheetLine2Rec.LayLength;
+                                rec."Marker Length" := LaySheetLine2Rec.LayLength;
 
                         end;
 
@@ -81,7 +81,7 @@ page 50662 "Cutting Progress Card"
 
                         //Get  Roll issue ID
                         RoleIssuNoteHeadRec.Reset();
-                        RoleIssuNoteHeadRec.SetRange("Req No.", "FabReqNo.");
+                        RoleIssuNoteHeadRec.SetRange("Req No.", rec."FabReqNo.");
 
                         if RoleIssuNoteHeadRec.FindSet() then begin
 
@@ -96,7 +96,7 @@ page 50662 "Cutting Progress Card"
                                     //insert cutting progress lines
                                     LineNo += 1;
                                     CuttProgLineRec.Init();
-                                    CuttProgLineRec."CutProNo." := "CutProNo.";
+                                    CuttProgLineRec."CutProNo." := rec."CutProNo.";
                                     CuttProgLineRec."Actual Plies" := 0;
                                     CuttProgLineRec.InvoiceNo := RoleIssuNoteLineRec.InvoiceNo;
                                     CuttProgLineRec."Item No" := RoleIssuNoteLineRec."Item No";
@@ -106,8 +106,8 @@ page 50662 "Cutting Progress Card"
                                     CuttProgLineRec."Line No." := LineNo;
                                     CuttProgLineRec."Location Name" := RoleIssuNoteLineRec."Location Name";
                                     CuttProgLineRec."Location No" := RoleIssuNoteLineRec."Location No";
-                                    if "Marker Length" <> 0 then
-                                        CuttProgLineRec."Planned Plies" := RoleIssuNoteLineRec."Length Act" Div "Marker Length";
+                                    if rec."Marker Length" <> 0 then
+                                        CuttProgLineRec."Planned Plies" := RoleIssuNoteLineRec."Length Act" Div rec."Marker Length";
                                     CuttProgLineRec."Role ID" := RoleIssuNoteLineRec."Role ID";
                                     CuttProgLineRec.Shade := RoleIssuNoteLineRec.Shade;
                                     CuttProgLineRec."Shade No" := RoleIssuNoteLineRec."Shade No";
@@ -126,42 +126,42 @@ page 50662 "Cutting Progress Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'PO No';
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Item';
                 }
 
-                field("Cut No."; "Cut No.")
+                field("Cut No."; rec."Cut No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Cut No';
                 }
 
-                field("Marker Name"; "Marker Name")
+                field("Marker Name"; rec."Marker Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Marker';
                 }
 
-                field("Marker Length"; "Marker Length")
+                field("Marker Length"; rec."Marker Length")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -186,7 +186,7 @@ page 50662 "Cutting Progress Card"
         CuttingProgressLineRec: Record CuttingProgressLine;
     begin
         CuttingProgressLineRec.reset();
-        CuttingProgressLineRec.SetRange("CutProNo.", "CutProNo.");
+        CuttingProgressLineRec.SetRange("CutProNo.", rec."CutProNo.");
         CuttingProgressLineRec.DeleteAll();
     end;
 
@@ -197,8 +197,8 @@ page 50662 "Cutting Progress Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."CutPro Nos.", xRec."CutProNo.", "CutProNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("CutProNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."CutPro Nos.", xRec."CutProNo.", rec."CutProNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."CutProNo.");
             EXIT(TRUE);
         END;
     end;

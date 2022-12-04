@@ -98,7 +98,7 @@ table 50872 SAH_MerchGRPWiseAvgSMV
 
     keys
     {
-        key(PK; Year, "Group Name")
+        key(PK; Year, "Group Id")
         {
             Clustered = true;
         }

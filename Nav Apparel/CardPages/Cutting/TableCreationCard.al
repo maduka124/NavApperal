@@ -10,7 +10,7 @@ page 50616 "Table Creation Card"
         {
             group(General)
             {
-                field(TableCreNo; TableCreNo)
+                field(TableCreNo; rec.TableCreNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Table Creation No';
@@ -22,13 +22,13 @@ page 50616 "Table Creation Card"
                     end;
                 }
 
-                field("Plan Date"; "Plan Date")
+                field("Plan Date"; rec."Plan Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("Table Name"; "Table Name")
+                field("Table Name"; rec."Table Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Table No';
@@ -39,9 +39,9 @@ page 50616 "Table Creation Card"
                         TableMasterRec: Record TableMaster;
                     begin
                         TableMasterRec.Reset();
-                        TableMasterRec.SetRange("Table Name", "Table Name");
+                        TableMasterRec.SetRange("Table Name", rec."Table Name");
                         if TableMasterRec.FindSet() then
-                            "Table No." := TableMasterRec."Table No.";
+                            rec."Table No." := TableMasterRec."Table No.";
                     end;
                 }
             }
@@ -65,8 +65,8 @@ page 50616 "Table Creation Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."TableCre Nos.", xRec.TableCreNo, TableCreNo) THEN BEGIN
-            NoSeriesMngment.SetSeries(TableCreNo);
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."TableCre Nos.", xRec.TableCreNo, rec.TableCreNo) THEN BEGIN
+            NoSeriesMngment.SetSeries(rec.TableCreNo);
             CurrPage.Update();
             EXIT(TRUE);
         END;
@@ -77,7 +77,7 @@ page 50616 "Table Creation Card"
     var
         TableCreLineRec: Record TableCreartionLine;
     begin
-        TableCreLineRec.SetRange("TableCreNo.", TableCreNo);
+        TableCreLineRec.SetRange("TableCreNo.", rec.TableCreNo);
         TableCreLineRec.DeleteAll();
     end;
 }

@@ -11,14 +11,14 @@ page 71012737 "Learning Curve Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Learning Curve No';
                     Editable = false;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
 
@@ -27,14 +27,14 @@ page 71012737 "Learning Curve Card"
                     begin
                         SetStatus();
                         if (LCTypeDesc = NVTypeDesc) then
-                            Active := true;
+                            rec.Active := true;
 
                         if (LCTypeDesc <> NVTypeDesc) then
-                            Active := false;
+                            rec.Active := false;
                     end;
                 }
 
-                field(Day1; Day1)
+                field(Day1; rec.Day1)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 1';
@@ -44,14 +44,14 @@ page 71012737 "Learning Curve Card"
                     begin
                         SetStatus();
                         if (LCTypeDesc = NVTypeDesc) then
-                            Active := true;
+                            rec.Active := true;
 
                         if (LCTypeDesc <> NVTypeDesc) then
-                            Active := false;
+                            rec.Active := false;
                     end;
                 }
 
-                field(Day2; Day2)
+                field(Day2; rec.Day2)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 2';
@@ -61,14 +61,14 @@ page 71012737 "Learning Curve Card"
                     begin
                         SetStatus();
                         if (LCTypeDesc = NVTypeDesc) then
-                            Active := true;
+                            rec.Active := true;
 
                         if (LCTypeDesc <> NVTypeDesc) then
-                            Active := false;
+                            rec.Active := false;
                     end;
                 }
 
-                field(Day3; Day3)
+                field(Day3; rec.Day3)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 3';
@@ -78,14 +78,14 @@ page 71012737 "Learning Curve Card"
                     begin
                         SetStatus();
                         if (LCTypeDesc = NVTypeDesc) then
-                            Active := true;
+                            rec.Active := true;
 
                         if (LCTypeDesc <> NVTypeDesc) then
-                            Active := false;
+                            rec.Active := false;
                     end;
                 }
 
-                field(Day4; Day4)
+                field(Day4; rec.Day4)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 4';
@@ -95,14 +95,14 @@ page 71012737 "Learning Curve Card"
                     begin
                         SetStatus();
                         if (LCTypeDesc = NVTypeDesc) then
-                            Active := true;
+                            rec.Active := true;
 
                         if (LCTypeDesc <> NVTypeDesc) then
-                            Active := false;
+                            rec.Active := false;
                     end;
                 }
 
-                field(Day5; Day5)
+                field(Day5; rec.Day5)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 5';
@@ -112,14 +112,14 @@ page 71012737 "Learning Curve Card"
                     begin
                         SetStatus();
                         if (LCTypeDesc = NVTypeDesc) then
-                            Active := true;
+                            rec.Active := true;
 
                         if (LCTypeDesc <> NVTypeDesc) then
-                            Active := false;
+                            rec.Active := false;
                     end;
                 }
 
-                field(Day6; Day6)
+                field(Day6; rec.Day6)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 6';
@@ -129,14 +129,14 @@ page 71012737 "Learning Curve Card"
                     begin
                         SetStatus();
                         if (LCTypeDesc = NVTypeDesc) then
-                            Active := true;
+                            rec.Active := true;
 
                         if (LCTypeDesc <> NVTypeDesc) then
-                            Active := false;
+                            rec.Active := false;
                     end;
                 }
 
-                field(Day7; Day7)
+                field(Day7; rec.Day7)
                 {
                     ApplicationArea = All;
                     Caption = 'Day 7';
@@ -146,14 +146,14 @@ page 71012737 "Learning Curve Card"
                     begin
                         SetStatus();
                         if (LCTypeDesc = NVTypeDesc) then
-                            Active := true;
+                            rec.Active := true;
 
                         if (LCTypeDesc <> NVTypeDesc) then
-                            Active := false;
+                            rec.Active := false;
                     end;
                 }
 
-                field(Active; Active)
+                field(Active; rec.Active)
                 {
                     ApplicationArea = All;
 
@@ -162,10 +162,10 @@ page 71012737 "Learning Curve Card"
                     begin
                         SetStatus();
 
-                        if (LCTypeDesc = NVTypeDesc) and (Active = false) then
+                        if (LCTypeDesc = NVTypeDesc) and (rec.Active = false) then
                             Error('learning curve cannot mark as In-Active');
 
-                        if (LCTypeDesc <> NVTypeDesc) and (Active = true) then
+                        if (LCTypeDesc <> NVTypeDesc) and (rec.Active = true) then
                             Error('learning curve cannot mark as Active');
                     end;
                 }
@@ -186,10 +186,10 @@ page 71012737 "Learning Curve Card"
         if (NavAppSetupRec."Learning Curve Type" = NavAppSetupRec."Learning Curve Type"::Hourly) then
             NVTypeDesc := 'Hourly';
 
-        if (Type = Type::"Efficiency Wise") then
+        if (rec.Type = rec.Type::"Efficiency Wise") then
             LCTypeDesc := 'Efficiency Wise';
 
-        if (Type = Type::Hourly) then
+        if (rec.Type = rec.Type::Hourly) then
             LCTypeDesc := 'Hourly';
     end;
 

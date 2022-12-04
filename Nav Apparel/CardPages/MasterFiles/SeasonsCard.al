@@ -10,13 +10,13 @@ page 71012635 "Seasons Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Season No';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012635 "Seasons Card"
                         SeasonsRec: Record Seasons;
                     begin
                         SeasonsRec.Reset();
-                        SeasonsRec.SetRange("Season Name", "Season Name");
+                        SeasonsRec.SetRange("Season Name", rec."Season Name");
 
                         if SeasonsRec.FindSet() then
                             Error('Season Name already exists.');

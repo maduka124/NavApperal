@@ -10,13 +10,13 @@ page 71012706 "Dependency Group Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Dependency Group No';
                 }
 
-                field("Dependency Group"; "Dependency Group")
+                field("Dependency Group"; rec."Dependency Group")
                 {
                     ApplicationArea = All;
                     Caption = 'Dependency Group Name';

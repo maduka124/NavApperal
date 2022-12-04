@@ -53,7 +53,7 @@ page 50371 "Prod Update Card"
         WorkCenCapacityEntryRec: Record "Calendar Entry";
         WorkCenterRec: Record "Work Center";
         LearningCurveRec: Record "Learning Curve";
-        ProdPlansDetails: Record "NavApp Prod Plans Details";        
+        ProdPlansDetails: Record "NavApp Prod Plans Details";
         JobPlaLineRec: Record "NavApp Planning Lines";
         ProdOutHeaderRec: Record ProductionOutHeader;
         StyleMasterPORec: Record "Style Master PO";

@@ -10,13 +10,13 @@ page 71012663 "Action Type Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Action Type No';
                 }
 
-                field("Action Type"; "Action Type")
+                field("Action Type"; rec."Action Type")
                 {
                     ApplicationArea = All;
                 }

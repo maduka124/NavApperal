@@ -72,6 +72,7 @@ page 71012683 "BOM Line Estimate ListPart"
                     ApplicationArea = All;
                     Caption = 'Article';
                     StyleExpr = StyleExprTxt;
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -90,6 +91,7 @@ page 71012683 "BOM Line Estimate ListPart"
                     ApplicationArea = All;
                     Caption = 'Dimension/Width';
                     StyleExpr = StyleExprTxt;
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var

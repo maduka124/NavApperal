@@ -10,7 +10,7 @@ page 50604 "Ratio Creation Card"
         {
             group(General)
             {
-                field(RatioCreNo; RatioCreNo)
+                field(RatioCreNo; rec.RatioCreNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Ratio Creation No';
@@ -22,7 +22,7 @@ page 50604 "Ratio Creation Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -33,13 +33,13 @@ page 50604 "Ratio Creation Card"
                         StyleRec: Record "Style Master";
                     begin
                         StyleRec.Reset();
-                        StyleRec.SetRange("Style No.", "Style Name");
+                        StyleRec.SetRange("Style No.", rec."Style Name");
                         if StyleRec.FindSet() then
-                            "Style No." := StyleRec."No.";
+                            rec."Style No." := StyleRec."No.";
                     end;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; rec."Colour Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -53,7 +53,7 @@ page 50604 "Ratio Creation Card"
                     begin
                         AssoDetailsRec.RESET;
                         AssoDetailsRec.SetCurrentKey("Colour No");
-                        AssoDetailsRec.SetRange("Style No.", "Style No.");
+                        AssoDetailsRec.SetRange("Style No.", rec."Style No.");
 
                         IF AssoDetailsRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -66,18 +66,18 @@ page 50604 "Ratio Creation Card"
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
-                                "Colour No" := AssoDetailsRec."Colour No";
+                                rec."Colour No" := AssoDetailsRec."Colour No";
                                 colorRec.Reset();
-                                colorRec.SetRange("No.", "Colour No");
+                                colorRec.SetRange("No.", rec."Colour No");
                                 colorRec.FindSet();
-                                "Colour Name" := colorRec."Colour Name";
+                                rec."Colour Name" := colorRec."Colour Name";
                             end;
 
                         END;
                     END;
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; rec."Group ID")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -87,29 +87,29 @@ page 50604 "Ratio Creation Card"
                         SewJobLine4Rec: Record SewingJobCreationLine4;
                     begin
                         SewJobLine4Rec.Reset();
-                        SewJobLine4Rec.SetRange("Style No.", "Style No.");
-                        SewJobLine4Rec.SetRange("Colour No", "Colour No");
-                        SewJobLine4Rec.SetRange("Group ID", "Group ID");
+                        SewJobLine4Rec.SetRange("Style No.", rec."Style No.");
+                        SewJobLine4Rec.SetRange("Colour No", rec."Colour No");
+                        SewJobLine4Rec.SetRange("Group ID", rec."Group ID");
                         if SewJobLine4Rec.FindSet() then
-                            "Po No." := SewJobLine4Rec."PO No."
+                            rec."Po No." := SewJobLine4Rec."PO No."
                         else
                             Error('Cannot find sewing Job details for Style/Color/Group');
                     end;
                 }
 
-                field("Po No."; "Po No.")
+                field("Po No."; rec."Po No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Component Group"; "Component Group")
+                field("Component Group"; rec."Component Group")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("UOM Code"; "UOM Code")
+                field("UOM Code"; rec."UOM Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Unit Of Meassure';
@@ -120,9 +120,9 @@ page 50604 "Ratio Creation Card"
                         UOMRec: Record "Unit of Measure";
                     begin
                         UOMRec.Reset();
-                        UOMRec.SetRange(Code, "UOM Code");
+                        UOMRec.SetRange(Code, rec."UOM Code");
                         UOMRec.FindSet();
-                        UOM := UOMRec.Description;
+                        rec.UOM := UOMRec.Description;
                     end;
                 }
             }
@@ -165,7 +165,7 @@ page 50604 "Ratio Creation Card"
 
                     //Get UOM
                     RatioCreRec.Reset();
-                    RatioCreRec.SetRange(RatioCreNo, RatioCreNo);
+                    RatioCreRec.SetRange(RatioCreNo, rec.RatioCreNo);
 
                     if RatioCreRec.FindSet() then begin
                         UOM := RatioCreRec.UOM;
@@ -173,16 +173,16 @@ page 50604 "Ratio Creation Card"
                     end;
 
 
-                    if ("Style Name" = '') then
+                    if (rec."Style Name" = '') then
                         Error('Invalid Style');
 
-                    if ("Colour Name" = '') then
+                    if (rec."Colour Name" = '') then
                         Error('Invalid Colour');
 
-                    if ("Group ID" = 0) then
+                    if (rec."Group ID" = 0) then
                         Error('Invalid Group');
 
-                    if ("Component Group" = '') then
+                    if (rec."Component Group" = '') then
                         Error('Invalid Component');
 
                     // //Get Max line no
@@ -196,9 +196,9 @@ page 50604 "Ratio Creation Card"
 
                     //Get selected records for the group
                     SewJobCreLine4Rec.Reset();
-                    SewJobCreLine4Rec.SetRange("Style No.", "Style No.");
-                    SewJobCreLine4Rec.SetFilter("Group ID", '=%1|=%2', "Group ID", 0);
-                    SewJobCreLine4Rec.SetFilter("Colour No", '=%1|=%2', "Colour No", '*');
+                    SewJobCreLine4Rec.SetRange("Style No.", rec."Style No.");
+                    SewJobCreLine4Rec.SetFilter("Group ID", '=%1|=%2', rec."Group ID", 0);
+                    SewJobCreLine4Rec.SetFilter("Colour No", '=%1|=%2', rec."Colour No", '*');
                     //SewJobCreLine4Rec.SetRange("Colour No", "Colour No");
                     SewJobCreLine4Rec.SetCurrentKey("Record Type");
 
@@ -208,7 +208,7 @@ page 50604 "Ratio Creation Card"
 
                             //Delete old records
                             RatioCreLineRec.Reset();
-                            RatioCreLineRec.SetRange(RatioCreNo, RatioCreNo);
+                            RatioCreLineRec.SetRange(RatioCreNo, rec.RatioCreNo);
                             if RatioCreLineRec.FindSet() then
                                 RatioCreLineRec.DeleteAll();
 
@@ -220,10 +220,10 @@ page 50604 "Ratio Creation Card"
 
                                     //Check for Header record (H)
                                     RatioCreLineRec.Reset();
-                                    RatioCreLineRec.SetRange(RatioCreNo, RatioCreNo);
+                                    RatioCreLineRec.SetRange(RatioCreNo, rec.RatioCreNo);
                                     RatioCreLineRec.SetRange("Style No.", SewJobCreLine4Rec."Style No.");
                                     //RatioCreLineRec.SetRange("Lot No.", SewJobCreLine4Rec."Lot No.");
-                                    RatioCreLineRec.SetRange("Group ID", "Group ID");
+                                    RatioCreLineRec.SetRange("Group ID", rec."Group ID");
                                     RatioCreLineRec.SetFilter("Record Type", '%1', 'H');
 
                                     if not RatioCreLineRec.FindSet() then begin
@@ -237,10 +237,10 @@ page 50604 "Ratio Creation Card"
                                         if SewJobCreLine4Rec1.FindSet() then begin
                                             LineNo += 1;
                                             RatioCreLineRec.Init();
-                                            RatioCreLineRec.RatioCreNo := RatioCreNo;
+                                            RatioCreLineRec.RatioCreNo := rec.RatioCreNo;
                                             RatioCreLineRec."Created Date" := Today;
                                             RatioCreLineRec."Created User" := UserId;
-                                            RatioCreLineRec."Group ID" := "Group ID";
+                                            RatioCreLineRec."Group ID" := rec."Group ID";
                                             RatioCreLineRec.LineNo := LineNo;
                                             // RatioCreLineRec."Lot No." := SewJobCreLine4Rec1."Lot No.";
                                             // RatioCreLineRec."PO No." := SewJobCreLine4Rec1."PO No.";
@@ -248,14 +248,14 @@ page 50604 "Ratio Creation Card"
                                             RatioCreLineRec."Record Type" := 'H';
                                             //RatioCreLineRec."Sewing Job No." := SewJobCreLine4Rec1."Sewing Job No.";
                                             //RatioCreLineRec.ShipDate := SewJobCreLine4Rec1.ShipDate;
-                                            RatioCreLineRec."Style Name" := "Style Name";
-                                            RatioCreLineRec."Style No." := "Style No.";
+                                            RatioCreLineRec."Style Name" := rec."Style Name";
+                                            RatioCreLineRec."Style No." := rec."Style No.";
                                             //RatioCreLineRec."SubLotNo." := SewJobCreLine4Rec1."SubLotNo.";
-                                            RatioCreLineRec."Component Group Code" := "Component Group";
+                                            RatioCreLineRec."Component Group Code" := rec."Component Group";
                                             RatioCreLineRec.UOM := UOM;
                                             RatioCreLineRec."UOM Code" := UOMCode;
-                                            RatioCreLineRec."Colour No" := "Colour No";
-                                            RatioCreLineRec."Colour Name" := "Colour Name";
+                                            RatioCreLineRec."Colour No" := rec."Colour No";
+                                            RatioCreLineRec."Colour Name" := rec."Colour Name";
 
                                             RatioCreLineRec."1" := SewJobCreLine4Rec1."1";
                                             RatioCreLineRec."2" := SewJobCreLine4Rec1."2";
@@ -333,10 +333,10 @@ page 50604 "Ratio Creation Card"
 
                                     //Check Total Line (H1)                  
                                     RatioCreLineRec.Reset();
-                                    RatioCreLineRec.SetRange(RatioCreNo, RatioCreNo);
+                                    RatioCreLineRec.SetRange(RatioCreNo, rec.RatioCreNo);
                                     RatioCreLineRec.SetRange("Style No.", SewJobCreLine4Rec."Style No.");
                                     //RatioCreLineRec.SetRange("Lot No.", SewJobCreLine4Rec."Lot No.");
-                                    RatioCreLineRec.SetRange("Group ID", "Group ID");
+                                    RatioCreLineRec.SetRange("Group ID", rec."Group ID");
                                     RatioCreLineRec.SetFilter("Record Type", '%1', 'H1');
 
                                     //Insert Total Line (H1)                  
@@ -344,10 +344,10 @@ page 50604 "Ratio Creation Card"
 
                                         LineNo += 1;
                                         RatioCreLineRec.Init();
-                                        RatioCreLineRec.RatioCreNo := RatioCreNo;
+                                        RatioCreLineRec.RatioCreNo := rec.RatioCreNo;
                                         RatioCreLineRec."Created Date" := Today;
                                         RatioCreLineRec."Created User" := UserId;
-                                        RatioCreLineRec."Group ID" := "Group ID";
+                                        RatioCreLineRec."Group ID" := rec."Group ID";
                                         RatioCreLineRec.LineNo := LineNo;
                                         // RatioCreLineRec."Lot No." := SewJobCreLine4Rec."Lot No.";
                                         // RatioCreLineRec."PO No." := SewJobCreLine4Rec."PO No.";
@@ -355,14 +355,14 @@ page 50604 "Ratio Creation Card"
                                         RatioCreLineRec."Record Type" := 'H1';
                                         //RatioCreLineRec."Sewing Job No." := SewJobCreLine4Rec."Sewing Job No.";
                                         //RatioCreLineRec.ShipDate := SewJobCreLine4Rec.ShipDate;
-                                        RatioCreLineRec."Style Name" := "Style Name";
-                                        RatioCreLineRec."Style No." := "Style No.";
+                                        RatioCreLineRec."Style Name" := rec."Style Name";
+                                        RatioCreLineRec."Style No." := rec."Style No.";
                                         //RatioCreLineRec."SubLotNo." := SewJobCreLine4Rec."SubLotNo.";
-                                        RatioCreLineRec."Component Group Code" := "Component Group";
+                                        RatioCreLineRec."Component Group Code" := rec."Component Group";
                                         RatioCreLineRec.UOM := UOM;
                                         RatioCreLineRec."UOM Code" := UOMCode;
-                                        RatioCreLineRec."Colour No" := "Colour No";
-                                        RatioCreLineRec."Colour Name" := "Colour Name";
+                                        RatioCreLineRec."Colour No" := rec."Colour No";
+                                        RatioCreLineRec."Colour Name" := rec."Colour Name";
                                         RatioCreLineRec."1" := SewJobCreLine4Rec."1";
                                         RatioCreLineRec."2" := SewJobCreLine4Rec."2";
                                         RatioCreLineRec."3" := SewJobCreLine4Rec."3";
@@ -892,10 +892,10 @@ page 50604 "Ratio Creation Card"
 
                                     //Check Total Line (R)                  
                                     RatioCreLineRec.Reset();
-                                    RatioCreLineRec.SetRange(RatioCreNo, RatioCreNo);
+                                    RatioCreLineRec.SetRange(RatioCreNo, rec.RatioCreNo);
                                     RatioCreLineRec.SetRange("Style No.", SewJobCreLine4Rec."Style No.");
                                     //RatioCreLineRec.SetRange("Lot No.", SewJobCreLine4Rec."Lot No.");
-                                    RatioCreLineRec.SetRange("Group ID", "Group ID");
+                                    RatioCreLineRec.SetRange("Group ID", rec."Group ID");
                                     RatioCreLineRec.SetFilter("Record Type", '%1', 'R');
 
                                     //Insert Total Line (R)                  
@@ -906,7 +906,7 @@ page 50604 "Ratio Creation Card"
                                         RatioCreLineRec.Init();
                                         RatioCreLineRec."Created Date" := Today;
                                         RatioCreLineRec."Created User" := UserId;
-                                        RatioCreLineRec."Group ID" := "Group ID";
+                                        RatioCreLineRec."Group ID" := rec."Group ID";
                                         RatioCreLineRec.LineNo := LineNo;
                                         // RatioCreLineRec."Lot No." := SewJobCreLine4Rec."Lot No.";
                                         // RatioCreLineRec."PO No." := SewJobCreLine4Rec."PO No.";
@@ -914,15 +914,15 @@ page 50604 "Ratio Creation Card"
                                         RatioCreLineRec."Record Type" := 'R';
                                         // RatioCreLineRec."Sewing Job No." := SewJobCreLine4Rec."Sewing Job No.";
                                         // RatioCreLineRec.ShipDate := SewJobCreLine4Rec.ShipDate;
-                                        RatioCreLineRec."Style Name" := "Style Name";
-                                        RatioCreLineRec."Style No." := "Style No.";
+                                        RatioCreLineRec."Style Name" := rec."Style Name";
+                                        RatioCreLineRec."Style No." := rec."Style No.";
                                         //RatioCreLineRec."SubLotNo." := SewJobCreLine4Rec."SubLotNo.";
-                                        RatioCreLineRec."Component Group Code" := "Component Group";
+                                        RatioCreLineRec."Component Group Code" := rec."Component Group";
                                         RatioCreLineRec."Marker Name" := 'R1';
                                         RatioCreLineRec.UOM := UOM;
                                         RatioCreLineRec."UOM Code" := UOMCode;
-                                        RatioCreLineRec."Colour No" := "Colour No";
-                                        RatioCreLineRec."Colour Name" := "Colour Name";
+                                        RatioCreLineRec."Colour No" := rec."Colour No";
+                                        RatioCreLineRec."Colour Name" := rec."Colour Name";
                                         RatioCreLineRec.Plies := 0;
 
                                         RatioCreLineRec."1" := '0';
@@ -1533,8 +1533,8 @@ page 50604 "Ratio Creation Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."RatioCre Nos.", xRec."RatioCreNo", "RatioCreNo") THEN BEGIN
-            NoSeriesMngment.SetSeries(RatioCreNo);
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."RatioCre Nos.", xRec."RatioCreNo", rec."RatioCreNo") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec.RatioCreNo);
             CurrPage.Update();
             EXIT(TRUE);
         END;
@@ -1550,7 +1550,7 @@ page 50604 "Ratio Creation Card"
 
         //Get Ratio lines
         RatioLineRec.Reset();
-        RatioLineRec.SetRange(RatioCreNo, RatioCreNo);
+        RatioLineRec.SetRange(RatioCreNo, rec.RatioCreNo);
         RatioLineRec.SetFilter("Record Type", '=%1', 'R');
 
         if RatioLineRec.FindSet() then begin
@@ -1586,7 +1586,7 @@ page 50604 "Ratio Creation Card"
 
         //Delete all Ratio lines
         RatioLineRec.Reset();
-        RatioLineRec.SetRange(RatioCreNo, RatioCreNo);
+        RatioLineRec.SetRange(RatioCreNo, rec.RatioCreNo);
         if RatioLineRec.FindSet() then
             RatioLineRec.DeleteAll();
     end;

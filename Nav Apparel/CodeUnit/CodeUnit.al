@@ -854,7 +854,7 @@ codeunit 71012752 NavAppCodeUnit
 
 
 
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::LogInManagement, 'OnAfterLogInStart', '', true, true)]
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"System Initialization", 'OnAfterLogin', '', true, true)]
     // local procedure LogIn()
     // var
     //     LoginRec: Page "Login Card";
@@ -863,7 +863,9 @@ codeunit 71012752 NavAppCodeUnit
     //     Clear(LoginRec);
     //     LoginRec.LookupMode(true);
     //     // MyTaskRevise.PassParameters("Style No.", "Line No.", "Buyer No.");
+
     //     LoginRec.RunModal();
+
 
     // end;
 

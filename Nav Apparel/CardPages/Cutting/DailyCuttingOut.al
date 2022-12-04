@@ -10,7 +10,7 @@ page 50351 "Daily Cutting Out Card"
         {
             group("Input/Output Style Detail")
             {
-                field("Prod Date"; "Prod Date")
+                field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Production Date';
@@ -19,11 +19,11 @@ page 50351 "Daily Cutting Out Card"
                     trigger OnValidate()
                     var
                     begin
-                        Type := Type::Cut;
+                        rec.Type := rec.Type::Cut;
                     end;
                 }
 
-                field("Resource Name"; "Resource Name")
+                field("Resource Name"; rec."Resource Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Section';
@@ -34,16 +34,16 @@ page 50351 "Daily Cutting Out Card"
                         WorkCenterRec: Record "Work Center";
                     begin
                         WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, "Resource Name");
+                        WorkCenterRec.SetRange(Name, rec."Resource Name");
 
                         if WorkCenterRec.FindSet() then
-                            "Resource No." := WorkCenterRec."No.";
+                            rec."Resource No." := WorkCenterRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -75,16 +75,16 @@ page 50351 "Daily Cutting Out Card"
                         StyleMasterRec.MARKEDONLY(TRUE);
 
                         if Page.RunModal(71012799, StyleMasterRec) = Action::LookupOK then begin
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                             StyleMasterRec.Reset();
-                            StyleMasterRec.get("Style No.");
-                            "Style Name" := StyleMasterRec."Style No.";
+                            StyleMasterRec.get(rec."Style No.");
+                            rec."Style Name" := StyleMasterRec."Style No.";
                         end;
                     end;
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -97,52 +97,52 @@ page 50351 "Daily Cutting Out Card"
                     begin
 
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style No.");
+                        StyleMasterRec.SetRange("Style No.", rec."Style No.");
 
                         if Page.RunModal(71012797, StyleMasterRec) = Action::LookupOK then begin
-                            "Lot No." := StyleMasterRec."Lot No.";
-                            "PO No" := StyleMasterRec."PO No.";
+                            rec."Lot No." := StyleMasterRec."Lot No.";
+                            rec."PO No" := StyleMasterRec."PO No.";
                         end;
 
                         GridHeader_Insert();
 
                         //Get and Set Line No
                         NavAppProdPlansDetRec.Reset();
-                        NavAppProdPlansDetRec.SetRange("Style No.", "Style No.");
+                        NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlansDetRec.SetRange("Lot No.", StyleMasterRec."Lot No.");
-                        NavAppProdPlansDetRec.SetRange(PlanDate, "Prod Date");
-                        NavAppProdPlansDetRec.SetRange("Resource No.", "Resource No.");
+                        NavAppProdPlansDetRec.SetRange(PlanDate, rec."Prod Date");
+                        NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
 
                         if NavAppProdPlansDetRec.FindSet() then
-                            "Ref Line No." := NavAppProdPlansDetRec."Line No.";
+                            rec."Ref Line No." := NavAppProdPlansDetRec."Line No.";
 
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style No.");
-                        StyleMasterRec.SetRange("Lot No.", "Lot No.");
+                        StyleMasterRec.SetRange("Style No.", rec."Style No.");
+                        StyleMasterRec.SetRange("Lot No.", rec."Lot No.");
 
                         if StyleMasterRec.FindSet() then begin
-                            "Input Qty" := StyleMasterRec."Cut In Qty";
+                            rec."Input Qty" := StyleMasterRec."Cut In Qty";
                             CurrPage.Update();
                         end;
 
                     end;
                 }
 
-                field("PO No"; "PO No")
+                field("PO No"; rec."PO No")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                     Editable = false;
                 }
 
-                field("Input Qty"; "Input Qty")
+                field("Input Qty"; rec."Input Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Bundle Guide Qty';
                 }
 
-                field("Output Qty"; "Output Qty")
+                field("Output Qty"; rec."Output Qty")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -150,7 +150,7 @@ page 50351 "Daily Cutting Out Card"
                     trigger OnValidate()
                     var
                     begin
-                        if "Input Qty" < "Output Qty" then
+                        if rec."Input Qty" < rec."Output Qty" then
                             Error('Output quantity is greater than Input quantity.');
                     end;
                 }
@@ -193,7 +193,7 @@ page 50351 "Daily Cutting Out Card"
                 var
                     CodeUnitNavapp: Codeunit NavAppCodeUnit;
                 begin
-                    CodeUnitNavapp.Update_Runtime("Style Name", "Style No.", 'CUTTING');
+                    CodeUnitNavapp.Update_Runtime(rec."Style Name", rec."Style No.", 'CUTTING');
                     Message('Cutting Runtime Updated');
                 end;
             }
@@ -204,7 +204,7 @@ page 50351 "Daily Cutting Out Card"
     trigger OnInit()
     var
     begin
-        Type := Type::Cut;
+        rec.Type := rec.Type::Cut;
     end;
 
 
@@ -214,9 +214,9 @@ page 50351 "Daily Cutting Out Card"
         LineTotal: BigInteger;
     begin
 
-        if ("Style No." <> '') and ("Lot No." <> '') then begin
+        if (rec."Style No." <> '') and (rec."Lot No." <> '') then begin
 
-            if "Input Qty" < "Output Qty" then begin
+            if rec."Input Qty" < rec."Output Qty" then begin
                 Error('Output quantity is greater than Input quantity.');
                 exit;
             end;
@@ -224,7 +224,7 @@ page 50351 "Daily Cutting Out Card"
             LineTotal := 0;
 
             ProductionOutLine.Reset();
-            ProductionOutLine.SetRange("No.", "No.");
+            ProductionOutLine.SetRange("No.", rec."No.");
 
             if ProductionOutLine.FindSet() then begin
                 repeat
@@ -232,7 +232,7 @@ page 50351 "Daily Cutting Out Card"
                         LineTotal += ProductionOutLine.Total;
                 until ProductionOutLine.Next() = 0;
 
-                if LineTotal <> "Output Qty" then begin
+                if LineTotal <> rec."Output Qty" then begin
                     Error('Output quantity should match color/size total quantity.');
                     exit;
                 end;
@@ -246,7 +246,7 @@ page 50351 "Daily Cutting Out Card"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
-        NavAppCodeUnit.Delete_Prod_Records("No.", "Style No.", "Lot No.", 'OUT', 'Cut', Type::Cut);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'OUT', 'Cut', rec.Type::Cut);
     end;
 
     procedure GridHeader_Insert()
@@ -256,30 +256,30 @@ page 50351 "Daily Cutting Out Card"
         ProductionOutLine: Record ProductionOutLine;
         LineNo: BigInteger;
     begin
-        if ("Style No." <> '') and ("Lot No." <> '') then begin
+        if (rec."Style No." <> '') and (rec."Lot No." <> '') then begin
 
             ProductionOutLine.Reset();
-            ProductionOutLine.SetRange("No.", "No.");
+            ProductionOutLine.SetRange("No.", rec."No.");
 
             if ProductionOutLine.FindLast() then
                 LineNo := ProductionOutLine."Line No.";
 
             AssoRec.Reset();
-            AssoRec.SetRange("Style No.", "Style No.");
-            AssoRec.SetRange("Lot No.", "Lot No.");
+            AssoRec.SetRange("Style No.", rec."Style No.");
+            AssoRec.SetRange("Lot No.", rec."Lot No.");
 
             if AssoRec.FindSet() then begin
                 repeat
                     //Check duplicates beforen inserting
                     ProductionOutLine.Reset();
-                    ProductionOutLine.SetRange("No.", "No.");
+                    ProductionOutLine.SetRange("No.", rec."No.");
                     ProductionOutLine.SetRange("Colour No", AssoRec."Colour No");
 
                     if not ProductionOutLine.FindSet() then begin
 
                         LineNo += 1;
                         ProductionOutLine.Init();
-                        ProductionOutLine."No." := "No.";
+                        ProductionOutLine."No." := rec."No.";
                         ProductionOutLine."Line No." := LineNo;
                         ProductionOutLine."Colour No" := AssoRec."Colour No";
                         ProductionOutLine."Colour Name" := AssoRec."Colour Name";
@@ -288,7 +288,7 @@ page 50351 "Daily Cutting Out Card"
                         ProductionOutLine."PO No." := AssoRec."PO No.";
                         ProductionOutLine."Lot No." := AssoRec."Lot No.";
                         ProductionOutLine.In_Out := 'OUT';
-                        ProductionOutLine.Type := Type;
+                        ProductionOutLine.Type := rec.Type;
                         ProductionOutLine.Total := 0;
 
                         if AssoRec."Colour No" = '*' then begin

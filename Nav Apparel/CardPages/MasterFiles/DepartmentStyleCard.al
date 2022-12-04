@@ -11,13 +11,13 @@ page 71012601 "Department(Style) Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No.";rec. "No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Department No';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name";rec. "Department Name")
                 {
                     ApplicationArea = All;
 
@@ -26,7 +26,7 @@ page 71012601 "Department(Style) Card"
                         DepartmentRec: Record "Department Style";
                     begin
                         DepartmentRec.Reset();
-                        DepartmentRec.SetRange("Department Name", "Department Name");
+                        DepartmentRec.SetRange("Department Name", rec."Department Name");
                         if DepartmentRec.FindSet() then
                             Error('Department name already exists.');
                     end;

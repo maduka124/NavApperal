@@ -32,7 +32,7 @@ pageextension 71012744 VendorCardExt extends "Vendor Card"
                 begin
                     Clear(MainCategoryList);
                     MainCategoryList.LookupMode(true);
-                    MainCategoryList.PassParameters("No.");
+                    MainCategoryList.PassParameters(rec."No.");
                     MainCategoryList.Run();
                 end;
             }

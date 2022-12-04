@@ -1,6 +1,5 @@
 pageextension 71012852 PurchaseOrderCardExt extends "Purchase Order"
 {
-
     layout
     {
         // modify(General)
@@ -48,6 +47,27 @@ pageextension 71012852 PurchaseOrderCardExt extends "Purchase Order"
             //     PurchaseorderReportRec.RunModal();
             // end;
         }
+
+        addafter(Statistics)
+        {
+            action("Upload Lot Tracking Lines")
+            {
+                Image = CopySerialNo;
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                var
+                    ExcelUpload: Codeunit "Customization Management";
+                begin
+                    if not Confirm('Do you want to upload the Serial lines?', false) then
+                        exit;
+
+                    ExcelUpload.ImportPurchaseTrackingExcel(Rec);
+                end;
+            }
+        }
+
         addafter("Request Approval")
         {
             action("Purchase Order Report")
@@ -58,7 +78,7 @@ pageextension 71012852 PurchaseOrderCardExt extends "Purchase Order"
 
                     PurchaseorderReportRec: Report PurchaseOrderReportCard;
                 begin
-                    PurchaseorderReportRec.Set_value("No.");
+                    PurchaseorderReportRec.Set_value(rec."No.");
                     PurchaseorderReportRec.RunModal();
                 end;
             }
@@ -68,7 +88,7 @@ pageextension 71012852 PurchaseOrderCardExt extends "Purchase Order"
     trigger OnAfterGetCurrRecord()
     var
     begin
-        if Status = Status::Released then
+        if rec.Status = rec.Status::Released then
             EditableGb := false
         else
             EditableGb := true;

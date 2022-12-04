@@ -14,14 +14,14 @@ page 50787 "Cue Activities 1"
                 //CueGroupLayout = Wide;
                 ShowCaption = false;
 
-                field("Gate Pass - Pending Approvals"; "Gate Pass - Pending Approvals")
+                field("Gate Pass - Pending Approvals"; rec."Gate Pass - Pending Approvals")
                 {
                     DrillDownPageID = "Gate Pass List";
                     Caption = 'Gate Pass - Pending Approvals';
                     ApplicationArea = all;
                 }
 
-                field("Dept. Purch - Pending Approv"; "Dept. Purch - Pending Approv")
+                field("Dept. Purch - Pending Approv"; rec."Dept. Purch - Pending Approv")
                 {
                     DrillDownPageID = "Department Requisition Sheet";
                     Caption = 'Dept. Purchasing - Pending Approvals';

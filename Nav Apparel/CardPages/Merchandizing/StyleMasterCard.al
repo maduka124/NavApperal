@@ -12,86 +12,86 @@ page 71012730 "Style Master Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style No';
                 }
 
-                field("Style No."; "Style No.")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style Name';
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Store';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Season';
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Brand';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Department';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Buyer';
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Garment Type';
                 }
 
-                field("Order Qty"; "Order Qty")
+                field("Order Qty"; rec."Order Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("CM Price (Doz)"; "CM Price (Doz)")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
-
-                field(SMV; SMV)
+                field("CM Price (Doz)"; rec."CM Price (Doz)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Plan Efficiency %"; "Plan Efficiency %")
+                field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(BPCD; BPCD)
+                field("Plan Efficiency %"; rec."Plan Efficiency %")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field(BPCD; rec.BPCD)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -126,7 +126,7 @@ page 71012730 "Style Master Card"
 
             group("  ")
             {
-                field("PO Total"; "PO Total")
+                field("PO Total"; rec."PO Total")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -156,22 +156,22 @@ page 71012730 "Style Master Card"
 
         rec.TestField(BPCD);
 
-        if "Order Qty" = 0 then
+        if rec."Order Qty" = 0 then
             Error('Order quantity cannot be zero.');
 
         //Update Po Total         
         StyleMasterPORec.Reset();
-        StyleMasterPORec.SetRange("Style No.", "No.");
+        StyleMasterPORec.SetRange("Style No.", rec."No.");
         StyleMasterPORec.FindSet();
 
         repeat
             Tot += StyleMasterPORec.Qty;
         until StyleMasterPORec.Next() = 0;
 
-        "PO Total" := Tot;
+        rec."PO Total" := Tot;
         CurrPage.Update();
 
-        if "Order Qty" <> "PO Total" then
+        if rec."Order Qty" <> rec."PO Total" then
             Error('Order quantity should match PO total.');
     end;
 
@@ -183,18 +183,18 @@ page 71012730 "Style Master Card"
     begin
         BOMEstimateCostRec.Reset();
         BOMEstimateCostRec.SetCurrentKey("Style No.");
-        BOMEstimateCostRec.SetRange("Style No.", "No.");
+        BOMEstimateCostRec.SetRange("Style No.", rec."No.");
 
         if BOMEstimateCostRec.FindSet() then begin
 
-            if Format("CM Price (Doz)") = '0' then
-                "CM Price (Doz)" := BOMEstimateCostRec."CM Doz";
+            if Format(rec."CM Price (Doz)") = '0' then
+                rec."CM Price (Doz)" := BOMEstimateCostRec."CM Doz";
 
             // if SMV = 0.00 then
             //     SMV := BOMEstimateCostRec.SMV;
 
-            if "Plan Efficiency %" = 0.00 then
-                "Plan Efficiency %" := BOMEstimateCostRec."Project Efficiency.";
+            if rec."Plan Efficiency %" = 0.00 then
+                rec."Plan Efficiency %" := BOMEstimateCostRec."Project Efficiency.";
 
             CurrPage.Update();
 
@@ -204,7 +204,7 @@ page 71012730 "Style Master Card"
     trigger OnDeleteRecord(): Boolean
     var
     begin
-        if Status = Status::Confirmed then
+        if rec.Status = rec.Status::Confirmed then
             Error('Style already confirmed. Cannot delete.');
     end;
 }

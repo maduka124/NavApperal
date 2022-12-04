@@ -11,13 +11,13 @@ page 71012591 "Colour Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No.";rec. "No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Colour No';
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; rec."Colour Name")
                 {
                     ApplicationArea = All;
 
@@ -26,7 +26,7 @@ page 71012591 "Colour Card"
                         ColourRec: Record Colour;
                     begin
                         ColourRec.Reset();
-                        ColourRec.SetRange("Colour Name", "Colour Name");
+                        ColourRec.SetRange("Colour Name",rec. "Colour Name");
                         if ColourRec.FindSet() then
                             Error('Colour name already exists.');
                     end;

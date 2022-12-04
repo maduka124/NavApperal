@@ -5,27 +5,27 @@ pageextension 71012839 "RoutingCard Extension" extends Routing
         addafter("Last Date Modified")
         {
 
-            field("Sample Router"; "Sample Router")
+            field("Sample Router"; rec."Sample Router")
             {
                 ApplicationArea = All;
             }
 
-            field("Bulk Router"; "Bulk Router")
+            field("Bulk Router"; rec."Bulk Router")
             {
                 ApplicationArea = All;
             }
 
-            field("Washing Router"; "Washing Router")
+            field("Washing Router"; rec."Washing Router")
             {
                 ApplicationArea = All;
             }
 
-            field("With Wash Router"; "With Wash Router")
+            field("With Wash Router"; rec."With Wash Router")
             {
                 ApplicationArea = All;
             }
 
-            field("Without Wash Router"; "Without Wash Router")
+            field("Without Wash Router"; rec."Without Wash Router")
             {
                 ApplicationArea = All;
             }

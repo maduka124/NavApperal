@@ -10,13 +10,13 @@ page 71012604 "Dimension Width Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension Width No';
                 }
 
-                field("Main Category No."; "Main Category No.")
+                field("Main Category No."; rec."Main Category No.")
                 {
                     ApplicationArea = All;
                     TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
@@ -26,18 +26,18 @@ page 71012604 "Dimension Width Card"
                     var
                         MainCategoryRec: Record "Main Category";
                     begin
-                        MainCategoryRec.get("Main Category No.");
-                        "Main Category Name" := MainCategoryRec."Main Category Name";
+                        MainCategoryRec.get(rec."Main Category No.");
+                        rec."Main Category Name" := MainCategoryRec."Main Category Name";
                     end;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Visible = false;
                 }
 
-                field("Dimension Width"; "Dimension Width")
+                field("Dimension Width"; rec."Dimension Width")
                 {
                     ApplicationArea = All;
 
@@ -46,14 +46,14 @@ page 71012604 "Dimension Width Card"
                         DimensionWidthRec: Record DimensionWidth;
                     begin
                         DimensionWidthRec.Reset();
-                        DimensionWidthRec.SetRange("Main Category No.", "Main Category No.");
-                        DimensionWidthRec.SetRange("Dimension Width", "Dimension Width");
+                        DimensionWidthRec.SetRange("Main Category No.", rec."Main Category No.");
+                        DimensionWidthRec.SetRange("Dimension Width", rec."Dimension Width");
                         if DimensionWidthRec.FindSet() then
-                            Error('Dimension Width already exists for the Main Category %1.', "Main Category Name");
+                            Error('Dimension Width already exists for the Main Category %1.', rec."Main Category Name");
                     end;
                 }
 
-                field(Length; Length)
+                field(Length; rec.Length)
                 {
                     ApplicationArea = All;
                 }

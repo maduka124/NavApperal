@@ -10,13 +10,13 @@ page 71012699 "Dependency Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Visible = false;
                 }
 
-                field("Buyer Name."; "Buyer Name.")
+                field("Buyer Name."; rec."Buyer Name.")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -26,14 +26,14 @@ page 71012699 "Dependency Card"
                         CustomerRec: Record Customer;
                     begin
                         CustomerRec.Reset();
-                        CustomerRec.SetRange(Name, "Buyer Name.");
+                        CustomerRec.SetRange(Name, rec."Buyer Name.");
 
                         if CustomerRec.FindSet() then
-                            "Buyer No." := CustomerRec."No.";
+                           rec. "Buyer No." := CustomerRec."No.";
                     end;
                 }
 
-                field(Dependency; Dependency)
+                field(Dependency; rec.Dependency)
                 {
                     ApplicationArea = All;
                     Caption = 'Dependency';
@@ -43,10 +43,10 @@ page 71012699 "Dependency Card"
                         DependencyGroupRec: Record "Dependency Group";
                     begin
                         DependencyGroupRec.Reset();
-                        DependencyGroupRec.SetRange("Dependency Group", Dependency);
+                        DependencyGroupRec.SetRange("Dependency Group", rec.Dependency);
 
                         if DependencyGroupRec.FindSet() then
-                            "Dependency No." := DependencyGroupRec."No.";
+                            rec."Dependency No." := DependencyGroupRec."No.";
                     end;
                 }
             }
@@ -89,7 +89,7 @@ page 71012699 "Dependency Card"
                 begin
                     Clear(DependencyList);
                     DependencyList.LookupMode(true);
-                    DependencyList.PassParameters("Buyer No.", "Dependency No.");
+                    DependencyList.PassParameters(rec."Buyer No.", rec."Dependency No.");
                     DependencyList.RunModal();
                     CurrPage.Update();
                 end;
@@ -107,7 +107,7 @@ page 71012699 "Dependency Card"
                 begin
                     Clear(DependencyBuyerParaList);
                     DependencyBuyerParaList.LookupMode(true);
-                    DependencyBuyerParaList.PassParameters("Buyer No.", "Dependency No.");
+                    DependencyBuyerParaList.PassParameters(rec."Buyer No.", rec."Dependency No.");
                     DependencyBuyerParaList.RunModal();
                     CurrPage.Update();
 

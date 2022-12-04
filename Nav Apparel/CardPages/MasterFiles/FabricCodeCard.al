@@ -10,7 +10,7 @@ page 50680 FabricCodeCard
         {
             group(General)
             {
-                field(FabricCode; FabricCode)
+                field(FabricCode; rec.FabricCode)
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Code';
@@ -25,11 +25,11 @@ page 50680 FabricCodeCard
                         MainCatRec.FindSet();
 
                         ArticleRec.Reset();
-                        ArticleRec.SetRange(Article, FabricCode);
+                        ArticleRec.SetRange(Article, rec.FabricCode);
                         if not ArticleRec.FindSet() then begin
                             ArticleRec.Init();
-                            ArticleRec."No." := FabricCode;
-                            ArticleRec.Article := FabricCode;
+                            ArticleRec."No." := rec.FabricCode;
+                            ArticleRec.Article := rec.FabricCode;
                             ArticleRec."Created Date" := WorkDate();
                             ArticleRec."Created User" := UserId;
                             ArticleRec."Main Category No." := MainCatRec."No.";
@@ -39,7 +39,7 @@ page 50680 FabricCodeCard
                     end;
                 }
 
-                field(Composition; Composition)
+                field(Composition; rec.Composition)
                 {
                     ApplicationArea = All;
 
@@ -48,18 +48,18 @@ page 50680 FabricCodeCard
                         FabricCodeMasterRec: Record FabricCodeMaster;
                     begin
                         FabricCodeMasterRec.Reset();
-                        FabricCodeMasterRec.SetRange(Composition, Composition);
+                        FabricCodeMasterRec.SetRange(Composition, rec.Composition);
                         if FabricCodeMasterRec.FindSet() then
                             Error('Composition already exists.');
                     end;
                 }
 
-                field(Construction; Construction)
+                field(Construction; rec.Construction)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Supplier Name"; "Supplier Name")
+                field("Supplier Name"; rec."Supplier Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
@@ -69,9 +69,9 @@ page 50680 FabricCodeCard
                         VendorRec: Record Vendor;
                     begin
                         VendorRec.Reset();
-                        VendorRec.SetRange(Name, "Supplier Name");
+                        VendorRec.SetRange(Name, rec."Supplier Name");
                         if VendorRec.FindSet() then
-                            "Supplier No." := VendorRec."No.";
+                            rec."Supplier No." := VendorRec."No.";
 
                         CurrPage.Update();
                     end;

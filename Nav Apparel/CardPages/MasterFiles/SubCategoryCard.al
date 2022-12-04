@@ -10,13 +10,13 @@ page 71012650 "Sub Category Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No.";rec. "No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sub Category No';
                 }
 
-                field("Main Category No."; "Main Category No.")
+                field("Main Category No."; rec."Main Category No.")
                 {
                     ApplicationArea = All;
                     TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
@@ -26,18 +26,18 @@ page 71012650 "Sub Category Card"
                     var
                         MainCategoryRec: Record "Main Category";
                     begin
-                        MainCategoryRec.get("Main Category No.");
-                        "Main Category Name" := MainCategoryRec."Main Category Name";
+                        MainCategoryRec.get(rec."Main Category No.");
+                       rec. "Main Category Name" := MainCategoryRec."Main Category Name";
                     end;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Sub Category Name"; "Sub Category Name")
+                field("Sub Category Name"; rec."Sub Category Name")
                 {
                     ApplicationArea = All;
 
@@ -46,7 +46,7 @@ page 71012650 "Sub Category Card"
                         SubCategoryRec: Record "Sub Category";
                     begin
                         SubCategoryRec.Reset();
-                        SubCategoryRec.SetRange("Sub Category Name", "Sub Category Name");
+                        SubCategoryRec.SetRange("Sub Category Name", rec."Sub Category Name");
 
                         if SubCategoryRec.FindSet() then
                             Error('Sub Category Name already exists.');

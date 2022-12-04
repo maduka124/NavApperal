@@ -10,13 +10,13 @@ page 71012644 "Special Operation Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Special Operation No';
                 }
 
-                field("SpecialOperation Name"; "SpecialOperation Name")
+                field("SpecialOperation Name"; rec."SpecialOperation Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012644 "Special Operation Card"
                         SpecialOperationRec: Record "Special Operation";
                     begin
                         SpecialOperationRec.Reset();
-                        SpecialOperationRec.SetRange("SpecialOperation Name", "SpecialOperation Name");
+                        SpecialOperationRec.SetRange("SpecialOperation Name", rec."SpecialOperation Name");
 
                         if SpecialOperationRec.FindSet() then
                             Error('Special Operation Name already exists.');

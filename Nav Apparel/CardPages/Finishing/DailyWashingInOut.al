@@ -10,7 +10,7 @@ page 50358 "Daily Washing In/Out Card"
         {
             group("Input/Output Style Detail")
             {
-                field("Prod Date"; "Prod Date")
+                field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Production Date';
@@ -19,11 +19,11 @@ page 50358 "Daily Washing In/Out Card"
                     trigger OnValidate()
                     var
                     begin
-                        Type := Type::Wash;
+                        rec.Type := rec.Type::Wash;
                     end;
                 }
 
-                field("Resource Name"; "Resource Name")
+                field("Resource Name"; rec."Resource Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Section';
@@ -34,16 +34,16 @@ page 50358 "Daily Washing In/Out Card"
                         WorkCenterRec: Record "Work Center";
                     begin
                         WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, "Resource Name");
+                        WorkCenterRec.SetRange(Name, rec."Resource Name");
 
                         if WorkCenterRec.FindSet() then
-                            "Resource No." := WorkCenterRec."No.";
+                            rec."Resource No." := WorkCenterRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -63,20 +63,20 @@ page 50358 "Daily Washing In/Out Card"
 
                         ProdOutHeaderRec.Reset();
                         ProdOutHeaderRec.SetFilter(Type, '=%1', 1);
-                        ProdOutHeaderRec.SetRange("Resource No.", "Resource No.");
-                        ProdOutHeaderRec.SetFilter("Prod Date", '%1..%2', "Prod Date" - 3, "Prod Date");
+                        ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
+                        ProdOutHeaderRec.SetFilter("Prod Date", '%1..%2', rec."Prod Date" - 3, rec."Prod Date");
                         ProdOutHeaderRec.FindSet();
 
                         if Page.RunModal(50758, ProdOutHeaderRec) = Action::LookupOK then begin
-                            "Style No." := ProdOutHeaderRec."Style No.";
+                            rec."Style No." := ProdOutHeaderRec."Style No.";
                             StyleMasterRec.Reset();
-                            StyleMasterRec.get("Style No.");
-                            "Style Name" := StyleMasterRec."Style No.";
+                            StyleMasterRec.get(rec."Style No.");
+                            rec."Style Name" := StyleMasterRec."Style No.";
                         end;
                     end;
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Lot No';
@@ -88,35 +88,35 @@ page 50358 "Daily Washing In/Out Card"
                         NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style No.");
+                        StyleMasterRec.SetRange("Style No.", rec."Style No.");
 
                         if Page.RunModal(71012797, StyleMasterRec) = Action::LookupOK then begin
-                            "PO No" := StyleMasterRec."PO No.";
-                            "Lot No." := StyleMasterRec."Lot No.";
+                            rec."PO No" := StyleMasterRec."PO No.";
+                            rec."Lot No." := StyleMasterRec."Lot No.";
                         end;
 
                         GridHeader_Insert();
 
                         //Get and Set Line No
                         NavAppProdPlansDetRec.Reset();
-                        NavAppProdPlansDetRec.SetRange("Style No.", "Style No.");
+                        NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlansDetRec.SetRange("Lot No.", StyleMasterRec."Lot No.");
-                        NavAppProdPlansDetRec.SetRange(PlanDate, "Prod Date");
-                        NavAppProdPlansDetRec.SetRange("Resource No.", "Resource No.");
+                        NavAppProdPlansDetRec.SetRange(PlanDate, rec."Prod Date");
+                        NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
 
                         if NavAppProdPlansDetRec.FindSet() then
-                            "Ref Line No." := NavAppProdPlansDetRec."Line No.";
+                            rec."Ref Line No." := NavAppProdPlansDetRec."Line No.";
 
 
                     end;
                 }
-                field("PO No"; "PO No")
+                field("PO No"; rec."PO No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Input Qty"; "Input Qty")
+                field("Input Qty"; rec."Input Qty")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Sent';
@@ -127,18 +127,18 @@ page 50358 "Daily Washing In/Out Card"
                     begin
                         //Check Input qty with sewing out qty
                         StyleMasterPORec.Reset();
-                        StyleMasterPORec.SetRange("Style No.", "Style No.");
-                        StyleMasterPORec.SetRange("Lot No.", "Lot No.");
+                        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+                        StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
                         StyleMasterPORec.FindSet();
 
-                        if "Input Qty" > StyleMasterPORec."Sawing Out Qty" then
+                        if rec."Input Qty" > StyleMasterPORec."Sawing Out Qty" then
                             Error('Input quantity is greater than total sewing out quantity.');
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Output Qty"; "Output Qty")
+                field("Output Qty"; rec."Output Qty")
                 {
                     ApplicationArea = All;
 
@@ -146,7 +146,7 @@ page 50358 "Daily Washing In/Out Card"
                     var
                     begin
                         //Check Input qty with out qty
-                        if "Output Qty" > "Input Qty" then
+                        if rec."Output Qty" > rec."Input Qty" then
                             Error('Output quantity is greater than the input quantity.');
                         CurrPage.Update();
                     end;
@@ -200,7 +200,7 @@ page 50358 "Daily Washing In/Out Card"
                 var
                     CodeUnitNavapp: Codeunit NavAppCodeUnit;
                 begin
-                    CodeUnitNavapp.Update_Runtime("Style Name", "Style No.", 'WASHING');
+                    CodeUnitNavapp.Update_Runtime(rec."Style Name", rec."Style No.", 'WASHING');
                     Message('Washing Runtime Updated');
                 end;
             }
@@ -211,7 +211,7 @@ page 50358 "Daily Washing In/Out Card"
     trigger OnInit()
     var
     begin
-        Type := Type::Wash;
+        rec.Type := rec.Type::Wash;
     end;
 
 
@@ -223,24 +223,24 @@ page 50358 "Daily Washing In/Out Card"
         LineTotal_Out: BigInteger;
     begin
 
-        if ("Style No." <> '') and ("Lot No." <> '') then begin
+        if (rec."Style No." <> '') and (rec."Lot No." <> '') then begin
 
             LineTotal_In := 0;
             LineTotal_Out := 0;
 
             //Check Input qty with Sawing out qty
             StyleMasterPORec.Reset();
-            StyleMasterPORec.SetRange("Style No.", "Style No.");
-            StyleMasterPORec.SetRange("Lot No.", "Lot No.");
+            StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+            StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
             StyleMasterPORec.FindSet();
 
-            if "Input Qty" > StyleMasterPORec."Sawing Out Qty" then begin
+            if rec."Input Qty" > StyleMasterPORec."Sawing Out Qty" then begin
                 Error('Input quantity is greater than sewing out total quantity.');
                 exit;
             end;
 
             //Check Input qty with output qty
-            if StyleMasterPORec."Wash In Qty" < "Output Qty" then begin
+            if StyleMasterPORec."Wash In Qty" < rec."Output Qty" then begin
                 Error('Washing output quantity is greater than washing input total quantity.');
                 exit;
             end;
@@ -248,7 +248,7 @@ page 50358 "Daily Washing In/Out Card"
 
             //Line In Qty
             ProductionOutLine.Reset();
-            ProductionOutLine.SetRange("No.", "No.");
+            ProductionOutLine.SetRange("No.", rec."No.");
             ProductionOutLine.SetRange(In_Out, 'IN');
 
             if ProductionOutLine.FindSet() then begin
@@ -258,14 +258,14 @@ page 50358 "Daily Washing In/Out Card"
                 until ProductionOutLine.Next() = 0;
             end;
 
-            if LineTotal_In <> "Input Qty" then begin
+            if LineTotal_In <> rec."Input Qty" then begin
                 Error('Input quantity should match color/size total quantity.');
                 exit;
             end;
 
             //Line Out Qty
             ProductionOutLine.Reset();
-            ProductionOutLine.SetRange("No.", "No.");
+            ProductionOutLine.SetRange("No.", rec."No.");
             ProductionOutLine.SetRange(In_Out, 'OUT');
 
             if ProductionOutLine.FindSet() then begin
@@ -275,7 +275,7 @@ page 50358 "Daily Washing In/Out Card"
                 until ProductionOutLine.Next() = 0;
             end;
 
-            if LineTotal_Out <> "Output Qty" then begin
+            if LineTotal_Out <> rec."Output Qty" then begin
                 Error('Output quantity should match color/size total quantity.');
                 exit;
             end;
@@ -289,23 +289,23 @@ page 50358 "Daily Washing In/Out Card"
         ProductionOutLine: Record ProductionOutLine;
         LineNo: BigInteger;
     begin
-        if ("Style No." <> '') and ("Lot No." <> '') then begin
+        if (rec."Style No." <> '') and (rec."Lot No." <> '') then begin
 
             ProductionOutLine.Reset();
-            ProductionOutLine.SetRange("No.", "No.");
+            ProductionOutLine.SetRange("No.", rec."No.");
 
             if ProductionOutLine.FindLast() then
                 LineNo := ProductionOutLine."Line No.";
 
             AssoRec.Reset();
-            AssoRec.SetRange("Style No.", "Style No.");
-            AssoRec.SetRange("Lot No.", "Lot No.");
+            AssoRec.SetRange("Style No.", rec."Style No.");
+            AssoRec.SetRange("Lot No.", rec."Lot No.");
 
             if AssoRec.FindSet() then begin
                 repeat
                     //Check duplicates beforen inserting
                     ProductionOutLine.Reset();
-                    ProductionOutLine.SetRange("No.", "No.");
+                    ProductionOutLine.SetRange("No.", rec."No.");
                     ProductionOutLine.SetRange("Colour No", AssoRec."Colour No");
 
                     if not ProductionOutLine.FindSet() then begin
@@ -313,11 +313,11 @@ page 50358 "Daily Washing In/Out Card"
                         //Input
                         LineNo += 1;
                         ProductionOutLine.Init();
-                        ProductionOutLine."No." := "No.";
+                        ProductionOutLine."No." := rec."No.";
                         ProductionOutLine."Line No." := LineNo;
                         ProductionOutLine."Colour No" := AssoRec."Colour No";
                         ProductionOutLine."Colour Name" := AssoRec."Colour Name";
-                        ProductionOutLine.Type := Type;
+                        ProductionOutLine.Type := rec.Type;
                         ProductionOutLine.In_Out := 'IN';
                         ProductionOutLine.Total := 0;
                         ProductionOutLine."Style No." := AssoRec."Style No.";
@@ -469,11 +469,11 @@ page 50358 "Daily Washing In/Out Card"
                         //Output
                         LineNo += 1;
                         ProductionOutLine.Init();
-                        ProductionOutLine."No." := "No.";
+                        ProductionOutLine."No." := rec."No.";
                         ProductionOutLine."Line No." := LineNo;
                         ProductionOutLine."Colour No" := AssoRec."Colour No";
                         ProductionOutLine."Colour Name" := AssoRec."Colour Name";
-                        ProductionOutLine.Type := Type;
+                        ProductionOutLine.Type := rec.Type;
                         ProductionOutLine.In_Out := 'OUT';
                         ProductionOutLine.Total := 0;
                         ProductionOutLine."Style No." := AssoRec."Style No.";
@@ -634,8 +634,8 @@ page 50358 "Daily Washing In/Out Card"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
-        NavAppCodeUnit.Delete_Prod_Records("No.", "Style No.", "lot No.", 'IN', 'Wash', Type::Wash);
-        NavAppCodeUnit.Delete_Prod_Records("No.", "Style No.", "lot No.", 'OUT', 'Wash', Type::Wash);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."lot No.", 'IN', 'Wash', rec.Type::Wash);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."lot No.", 'OUT', 'Wash', rec.Type::Wash);
     end;
 
 

@@ -10,7 +10,7 @@ page 50587 "Sewing Job Creation Card"
         {
             group(General)
             {
-                field(SJCNo; SJCNo)
+                field(SJCNo; rec.SJCNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Sewing Job Creation No';
@@ -22,7 +22,7 @@ page 50587 "Sewing Job Creation Card"
                     end;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -33,13 +33,13 @@ page 50587 "Sewing Job Creation Card"
                         BuyerRec: Record Customer;
                     begin
                         BuyerRec.Reset();
-                        BuyerRec.SetRange(Name, "Buyer Name");
+                        BuyerRec.SetRange(Name, rec."Buyer Name");
                         if BuyerRec.FindSet() then
-                            "Buyer No." := BuyerRec."No.";
+                            rec."Buyer No." := BuyerRec."No.";
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -77,15 +77,15 @@ page 50587 "Sewing Job Creation Card"
                         Codeunit1: Codeunit NavAppCodeUnit;
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
-                        Codeunit1.Generate_Line1(SJCNo, "Style No.", "Style Name");
+                        Codeunit1.Generate_Line1(rec.SJCNo, rec."Style No.", rec."Style Name");
                     end;
                 }
 
-                field(MarkerCatName; MarkerCatName)
+                field(MarkerCatName; rec.MarkerCatName)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -96,13 +96,13 @@ page 50587 "Sewing Job Creation Card"
                         MarkerCategoryRec: Record MarkerCategory;
                     begin
                         MarkerCategoryRec.Reset();
-                        MarkerCategoryRec.SetRange("Marker Category", MarkerCatName);
+                        MarkerCategoryRec.SetRange("Marker Category", rec.MarkerCatName);
                         if MarkerCategoryRec.FindSet() then
-                            MarkerCatNo := MarkerCategoryRec."No.";
+                            rec.MarkerCatNo := MarkerCategoryRec."No.";
                     end;
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; rec."Group ID")
                 {
                     ApplicationArea = All;
                 }
@@ -157,8 +157,8 @@ page 50587 "Sewing Job Creation Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."SJC Nos.", xRec."SJCNo", "SJCNo") THEN BEGIN
-            NoSeriesMngment.SetSeries(SJCNo);
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."SJC Nos.", xRec."SJCNo", rec."SJCNo") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec.SJCNo);
             CurrPage.Update();
             EXIT(TRUE);
         END;
@@ -176,18 +176,18 @@ page 50587 "Sewing Job Creation Card"
 
         //Check whether ratio created or not
         SJC4.Reset();
-        SJC4.SetRange("SJCNo.", SJCNo);
+        SJC4.SetRange("SJCNo.", rec.SJCNo);
         SJC4.SetFilter("Record Type", '=%1', 'L');
 
         if SJC4.FindSet() then begin
             repeat
                 RatioRec.Reset();
-                RatioRec.SetRange("Style No.", "Style No.");
+                RatioRec.SetRange("Style No.", rec."Style No.");
                 RatioRec.SetRange("Group ID", SJC4."Group ID");
                 RatioRec.SetRange("Colour No", SJC4."Colour No");
 
                 if RatioRec.FindSet() then begin
-                    Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', "Style Name", SJC4."Group ID", SJC4."Colour Name");
+                    Message('Cannot delete. Ratio already created for the style %1 ,Group ID %2 , Color %3 ', rec."Style Name", SJC4."Group ID", SJC4."Colour Name");
                     exit(false);
                 end;
             until SJC4.Next() = 0;
@@ -196,22 +196,22 @@ page 50587 "Sewing Job Creation Card"
 
         //Delete "DAILY LINE REQUIRMENT"
         SJC4.Reset();
-        SJC4.SetRange("SJCNo.", SJCNo);
+        SJC4.SetRange("SJCNo.", rec.SJCNo);
         if SJC4.FindSet() then
             SJC4.DeleteAll();
 
         //Delete group master record
         GroupMasterRec.Reset();
-        GroupMasterRec.SetRange("Style No.", "Style No.");
+        GroupMasterRec.SetRange("Style No.", rec."Style No.");
         if GroupMasterRec.FindSet() then
             GroupMasterRec.DeleteAll();
 
         //Delete "SUB SCHEDULING"
-        SJC3.SetRange("SJCNo.", SJCNo);
+        SJC3.SetRange("SJCNo.", rec.SJCNo);
         if SJC3.FindSet() then
             SJC3.DeleteAll();
 
-        SJC2.SetRange("SJCNo.", SJCNo);
+        SJC2.SetRange("SJCNo.", rec.SJCNo);
         if SJC2.FindSet() then
             SJC2.DeleteAll();
 

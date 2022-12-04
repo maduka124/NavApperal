@@ -10,7 +10,7 @@ page 50599 "Cut Creation Card"
         {
             group(General)
             {
-                field(CutCreNo; CutCreNo)
+                field(CutCreNo; rec.CutCreNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Cut Creation No';
@@ -22,7 +22,7 @@ page 50599 "Cut Creation Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -33,13 +33,13 @@ page 50599 "Cut Creation Card"
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
                     end;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; rec."Colour Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -53,7 +53,7 @@ page 50599 "Cut Creation Card"
                     begin
                         AssoDetailsRec.RESET;
                         AssoDetailsRec.SetCurrentKey("Colour No");
-                        AssoDetailsRec.SetRange("Style No.", "Style No.");
+                        AssoDetailsRec.SetRange("Style No.", rec."Style No.");
 
                         IF AssoDetailsRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -66,18 +66,18 @@ page 50599 "Cut Creation Card"
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
-                                "Colour No" := AssoDetailsRec."Colour No";
+                                rec."Colour No" := AssoDetailsRec."Colour No";
                                 colorRec.Reset();
-                                colorRec.SetRange("No.", "Colour No");
+                                colorRec.SetRange("No.", rec."Colour No");
                                 colorRec.FindSet();
-                                "Colour Name" := colorRec."Colour Name";
+                                rec."Colour Name" := colorRec."Colour Name";
                             end;
 
                         END;
                     END;
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; rec."Group ID")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -87,11 +87,11 @@ page 50599 "Cut Creation Card"
                         SewJobLine4Rec: Record SewingJobCreationLine4;
                     begin
                         SewJobLine4Rec.Reset();
-                        SewJobLine4Rec.SetRange("Style No.", "Style No.");
-                        SewJobLine4Rec.SetRange("Colour No", "Colour No");
-                        SewJobLine4Rec.SetRange("Group ID", "Group ID");
+                        SewJobLine4Rec.SetRange("Style No.", rec."Style No.");
+                        SewJobLine4Rec.SetRange("Colour No", rec."Colour No");
+                        SewJobLine4Rec.SetRange("Group ID", rec."Group ID");
                         if SewJobLine4Rec.FindSet() then
-                            "Po No." := SewJobLine4Rec."PO No."
+                            rec."Po No." := SewJobLine4Rec."PO No."
                         else
                             Error('Cannot find sewing Job details for Style/Color/Group');
 
@@ -99,26 +99,26 @@ page 50599 "Cut Creation Card"
                     end;
                 }
 
-                field("Po No."; "Po No.")
+                field("Po No."; rec."Po No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Component Group"; "Component Group")
+                field("Component Group"; rec."Component Group")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("Marker Name"; "Marker Name")
+                field("Marker Name"; rec."Marker Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                     Caption = 'Marker';
                 }
 
-                field("Ply Height"; "Ply Height")
+                field("Ply Height"; rec."Ply Height")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -164,32 +164,32 @@ page 50599 "Cut Creation Card"
                     Plies: Integer;
                 begin
 
-                    if ("Style Name" = '') then
+                    if (rec."Style Name" = '') then
                         Error('Invalid Style');
 
-                    if ("Group ID" = 0) then
+                    if (rec."Group ID" = 0) then
                         Error('Invalid Group');
 
-                    if ("Component Group" = '') then
+                    if (rec."Component Group" = '') then
                         Error('Invalid Component');
 
-                    if ("Marker Name" = '') then
+                    if (rec."Marker Name" = '') then
                         Error('Invalid Marker Name');
 
-                    if ("Ply Height" = 0) then
+                    if (rec."Ply Height" = 0) then
                         Error('Invalid Ply Height');
 
 
                     //Delete old records
                     CutCreationLineRec.Reset();
-                    CutCreationLineRec.SetRange("CutCreNo.", CutCreNo);
+                    CutCreationLineRec.SetRange("CutCreNo.", rec.CutCreNo);
                     if CutCreationLineRec.FindSet() then
                         CutCreationLineRec.DeleteAll();
 
 
                     //Get Max line no
                     CutCreationLineRec.Reset();
-                    CutCreationLineRec.SetRange("CutCreNo.", CutCreNo);
+                    CutCreationLineRec.SetRange("CutCreNo.", rec.CutCreNo);
 
                     if CutCreationLineRec.FindLast() then
                         LineNo := CutCreationLineRec."Line No";
@@ -197,9 +197,9 @@ page 50599 "Cut Creation Card"
 
                     //Get records for the group and component group
                     RatioCreLineRec.Reset();
-                    RatioCreLineRec.SetRange("Style No.", "Style No.");
-                    RatioCreLineRec.SetRange("Group ID", "Group ID");
-                    RatioCreLineRec.SetRange("Component Group Code", "Component Group");
+                    RatioCreLineRec.SetRange("Style No.", rec."Style No.");
+                    RatioCreLineRec.SetRange("Group ID", rec."Group ID");
+                    RatioCreLineRec.SetRange("Component Group Code", rec."Component Group");
                     RatioCreLineRec.SETFILTER("Record Type", 'H|H1');
 
                     if RatioCreLineRec.FindSet() then begin
@@ -210,10 +210,10 @@ page 50599 "Cut Creation Card"
 
                             //Insert H1 and H
                             CutCreationLineRec.Init();
-                            CutCreationLineRec."CutCreNo." := CutCreNo;
+                            CutCreationLineRec."CutCreNo." := rec.CutCreNo;
                             CutCreationLineRec."Created Date" := Today;
                             CutCreationLineRec."Created User" := UserId;
-                            CutCreationLineRec."Group ID" := "Group ID";
+                            CutCreationLineRec."Group ID" := rec."Group ID";
                             CutCreationLineRec."line No" := LineNo;
                             CutCreationLineRec."Cut No" := 0;
                             CutCreationLineRec."Lot No." := RatioCreLineRec."Lot No.";
@@ -227,7 +227,7 @@ page 50599 "Cut Creation Card"
                             CutCreationLineRec."Style No." := RatioCreLineRec."Style No.";
                             CutCreationLineRec."SubLotNo." := RatioCreLineRec."SubLotNo.";
                             CutCreationLineRec."Component Group Code" := RatioCreLineRec."Component Group Code";
-                            CutCreationLineRec."Marker Name" := "Marker Name";
+                            CutCreationLineRec."Marker Name" := rec."Marker Name";
                             CutCreationLineRec."Colour No" := RatioCreLineRec."Colour No";
                             CutCreationLineRec."Colour Name" := RatioCreLineRec."Colour Name";
 
@@ -303,10 +303,10 @@ page 50599 "Cut Creation Card"
 
                         //Get records for the selected marker
                         RatioCreLineRec.Reset();
-                        RatioCreLineRec.SetRange("Style No.", "Style No.");
-                        RatioCreLineRec.SetRange("Group ID", "Group ID");
-                        RatioCreLineRec.SetRange("Component Group Code", "Component Group");
-                        RatioCreLineRec.SETFILTER("Marker Name", "Marker Name");
+                        RatioCreLineRec.SetRange("Style No.", rec."Style No.");
+                        RatioCreLineRec.SetRange("Group ID", rec."Group ID");
+                        RatioCreLineRec.SetRange("Component Group Code", rec."Component Group");
+                        RatioCreLineRec.SETFILTER("Marker Name", rec."Marker Name");
 
                         if RatioCreLineRec.FindSet() then begin
 
@@ -314,10 +314,10 @@ page 50599 "Cut Creation Card"
                             LineNo += 1;
 
                             CutCreationLineRec.Init();
-                            CutCreationLineRec."CutCreNo." := CutCreNo;
+                            CutCreationLineRec."CutCreNo." := rec.CutCreNo;
                             CutCreationLineRec."Created Date" := Today;
                             CutCreationLineRec."Created User" := UserId;
-                            CutCreationLineRec."Group ID" := "Group ID";
+                            CutCreationLineRec."Group ID" := rec."Group ID";
                             CutCreationLineRec."line No" := LineNo;
                             CutCreationLineRec."Cut No" := 0;
                             CutCreationLineRec."Lot No." := RatioCreLineRec."Lot No.";
@@ -332,7 +332,7 @@ page 50599 "Cut Creation Card"
                             CutCreationLineRec."Style No." := RatioCreLineRec."Style No.";
                             CutCreationLineRec."SubLotNo." := RatioCreLineRec."SubLotNo.";
                             CutCreationLineRec."Component Group Code" := RatioCreLineRec."Component Group Code";
-                            CutCreationLineRec."Marker Name" := "Marker Name";
+                            CutCreationLineRec."Marker Name" := rec."Marker Name";
                             CutCreationLineRec."Colour No" := RatioCreLineRec."Colour No";
                             CutCreationLineRec."Colour Name" := RatioCreLineRec."Colour Name";
 
@@ -411,17 +411,17 @@ page 50599 "Cut Creation Card"
                         CutCreationLineRec.Reset();
                         CutCreationLineRec.SetCurrentKey("Cut No");
                         CutCreationLineRec.Ascending(true);
-                        CutCreationLineRec.SetRange("Style No.", "Style No.");
+                        CutCreationLineRec.SetRange("Style No.", rec."Style No.");
                         if CutCreationLineRec.FindLast() then begin
                             MaxCutNo := CutCreationLineRec."Cut No";
                         end;
 
 
-                        Nooftimes := Plies DIV "Ply Height";
-                        Balance := Plies MOD "Ply Height";
+                        Nooftimes := Plies DIV rec."Ply Height";
+                        Balance := Plies MOD rec."Ply Height";
 
                         CutCreationLine1Rec.Reset();
-                        CutCreationLine1Rec.SetRange("CutCreNo.", CutCreNo);
+                        CutCreationLine1Rec.SetRange("CutCreNo.", rec.CutCreNo);
                         CutCreationLine1Rec.SetRange("Record Type", 'R');
                         CutCreationLine1Rec.FindSet();
 
@@ -434,17 +434,17 @@ page 50599 "Cut Creation Card"
 
                                 //Insert Cut numbers
                                 CutCreationLineRec.Init();
-                                CutCreationLineRec."CutCreNo." := CutCreNo;
+                                CutCreationLineRec."CutCreNo." := rec.CutCreNo;
                                 CutCreationLineRec."Created Date" := Today;
                                 CutCreationLineRec."Created User" := UserId;
-                                CutCreationLineRec."Group ID" := "Group ID";
-                                CutCreationLineRec."Marker Name" := "Marker Name";
+                                CutCreationLineRec."Group ID" := rec."Group ID";
+                                CutCreationLineRec."Marker Name" := rec."Marker Name";
                                 CutCreationLineRec."line No" := LineNo;
                                 CutCreationLineRec."Cut No" := Count;
                                 CutCreationLineRec."Lot No." := CutCreationLine1Rec."Lot No.";
                                 CutCreationLineRec."PO No." := CutCreationLine1Rec."PO No.";
                                 CutCreationLineRec.qty := 0;
-                                CutCreationLineRec.Plies := "Ply Height";
+                                CutCreationLineRec.Plies := rec."Ply Height";
                                 CutCreationLineRec."Record Type" := 'R';
                                 CutCreationLineRec."Sewing Job No." := CutCreationLine1Rec."Sewing Job No.";
                                 CutCreationLineRec.ShipDate := CutCreationLine1Rec.ShipDate;
@@ -459,448 +459,448 @@ page 50599 "Cut Creation Card"
                                     Evaluate(Number1, CutCreationLine1Rec."1")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."1" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."1" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."2" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."2")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."2" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."2" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."3" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."3")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."3" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."3" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."4" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."4")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."4" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."4" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."5" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."5")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."5" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."5" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."6" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."6")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."6" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."6" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."7" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."7")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."7" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."7" := format(Number1 * rec."Ply Height");
 
                                 ///////
                                 if CutCreationLine1Rec."8" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."8")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."8" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."8" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."9" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."9")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."9" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."9" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."10" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."10")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."10" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."10" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."11" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."11")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."11" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."11" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."12" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."12")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."12" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."12" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."13" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."13")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."13" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."13" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."14" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."14")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."14" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."14" := format(Number1 * rec."Ply Height");
 
 
                                 if CutCreationLine1Rec."15" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."15")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."15" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."15" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."16" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."16")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."16" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."16" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."17" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."17")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."17" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."17" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."18" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."18")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."18" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."18" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."19" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."19")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."19" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."19" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."20" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."20")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."20" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."20" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."21" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."21")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."21" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."21" := format(Number1 * rec."Ply Height");
 
                                 ///////
                                 if CutCreationLine1Rec."22" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."22")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."22" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."22" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."23" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."23")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."23" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."23" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."24" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."24")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."24" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."24" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."25" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."25")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."25" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."25" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."26" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."26")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."26" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."26" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."27" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."27")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."27" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."27" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."28" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."28")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."28" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."28" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."29" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."29")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."29" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."29" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."30" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."30")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."30" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."30" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."31" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."31")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."31" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."31" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."32" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."32")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."32" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."32" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."33" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."33")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."33" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."33" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."34" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."34")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."34" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."34" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."35" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."35")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."35" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."35" := format(Number1 * rec."Ply Height");
 
                                 ///
                                 if CutCreationLine1Rec."36" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."36")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."36" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."36" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."37" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."37")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."37" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."37" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."38" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."38")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."38" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."38" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."39" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."39")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."39" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."39" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."40" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."40")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."40" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."40" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."41" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."41")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."41" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."41" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."42" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."42")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."42" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."42" := format(Number1 * rec."Ply Height");
 
                                 /////////////
                                 if CutCreationLine1Rec."43" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."43")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."43" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."43" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."44" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."44")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."44" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."44" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."45" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."45")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."45" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."45" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."46" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."46")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."46" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."46" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."47" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."47")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."47" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."47" := format(Number1 * rec."Ply Height");
 
                                 ////
                                 if CutCreationLine1Rec."48" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."48")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."48" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."48" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."49" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."49")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."49" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."49" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."50" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."50")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."50" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."50" := format(Number1 * rec."Ply Height");
 
                                 /////////////////
                                 if CutCreationLine1Rec."51" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."51")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."51" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."51" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."52" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."52")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."52" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."52" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."53" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."53")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."53" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."53" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."54" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."54")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."54" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."54" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."55" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."55")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."55" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."55" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."56" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."56")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."56" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."56" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."57" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."57")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."57" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."57" := format(Number1 * rec."Ply Height");
 
                                 /////////////////
                                 if CutCreationLine1Rec."58" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."58")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."58" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."58" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."59" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."59")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."59" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."59" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."60" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."60")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."60" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."60" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."61" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."61")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."61" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."61" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."62" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."62")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."62" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."62" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."63" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."63")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."63" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."63" := format(Number1 * rec."Ply Height");
 
                                 //////////
                                 if CutCreationLine1Rec."64" <> '' then
                                     Evaluate(Number1, CutCreationLine1Rec."64")
                                 else
                                     Number1 := 0;
-                                CutCreationLineRec."64" := format(Number1 * "Ply Height");
+                                CutCreationLineRec."64" := format(Number1 * rec."Ply Height");
 
                                 CutCreationLineRec.Insert();
 
@@ -913,11 +913,11 @@ page 50599 "Cut Creation Card"
 
                         //Insert Cut numbers
                         CutCreationLineRec.Init();
-                        CutCreationLineRec."CutCreNo." := CutCreNo;
+                        CutCreationLineRec."CutCreNo." := rec.CutCreNo;
                         CutCreationLineRec."Created Date" := Today;
                         CutCreationLineRec."Created User" := UserId;
-                        CutCreationLineRec."Group ID" := "Group ID";
-                        CutCreationLineRec."Marker Name" := "Marker Name";
+                        CutCreationLineRec."Group ID" := rec."Group ID";
+                        CutCreationLineRec."Marker Name" := rec."Marker Name";
                         CutCreationLineRec."line No" := LineNo;
                         CutCreationLineRec."Cut No" := Count + 1;
                         CutCreationLineRec."Lot No." := CutCreationLine1Rec."Lot No.";
@@ -1398,8 +1398,8 @@ page 50599 "Cut Creation Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."CutCre Nos.", xRec."CutCreNo", "CutCreNo") THEN BEGIN
-            NoSeriesMngment.SetSeries(CutCreNo);
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."CutCre Nos.", xRec."CutCreNo", rec."CutCreNo") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec.CutCreNo);
             CurrPage.Update();
             EXIT(TRUE);
         END;
@@ -1416,7 +1416,7 @@ page 50599 "Cut Creation Card"
 
         //Check fabric requsition
         CurCreLineRec.Reset();
-        CurCreLineRec.SetRange("CutCreNo.", CutCreNo);
+        CurCreLineRec.SetRange("CutCreNo.", rec.CutCreNo);
         CurCreLineRec.SetFilter("Cut No", '<>%1', 0);
 
         if CurCreLineRec.FindSet() then begin
@@ -1424,12 +1424,12 @@ page 50599 "Cut Creation Card"
 
                 //Check for cut creation
                 FabRec.Reset();
-                FabRec.SetRange("Marker Name", "Marker Name");
-                FabRec.SetRange("Style No.", "Style No.");
-                FabRec.SetRange("Colour No", "Colour No");
-                FabRec.SetRange("Group ID", "Group ID");
-                FabRec.SetRange("Component Group Code", "Component Group");
-                FabRec.SetRange("Marker Name", "Marker Name");
+                FabRec.SetRange("Marker Name", rec."Marker Name");
+                FabRec.SetRange("Style No.", rec."Style No.");
+                FabRec.SetRange("Colour No", rec."Colour No");
+                FabRec.SetRange("Group ID", rec."Group ID");
+                FabRec.SetRange("Component Group Code", rec."Component Group");
+                FabRec.SetRange("Marker Name", rec."Marker Name");
                 FabRec.SetRange("Cut No", CurCreLineRec."Cut No");
 
                 if FabRec.FindSet() then begin
@@ -1442,7 +1442,7 @@ page 50599 "Cut Creation Card"
 
         //Check Table creation
         CurCreLineRec.Reset();
-        CurCreLineRec.SetRange("CutCreNo.", CutCreNo);
+        CurCreLineRec.SetRange("CutCreNo.", rec.CutCreNo);
         CurCreLineRec.SetFilter("Cut No", '<>%1', 0);
 
         if CurCreLineRec.FindSet() then begin
@@ -1450,12 +1450,12 @@ page 50599 "Cut Creation Card"
 
                 //Check for cut creation
                 TableRec.Reset();
-                TableRec.SetRange("Marker Name", "Marker Name");
-                TableRec.SetRange("Style No.", "Style No.");
-                TableRec.SetRange("Colour No", "Colour No");
-                TableRec.SetRange("Group ID", "Group ID");
-                TableRec.SetRange("Component Group", "Component Group");
-                TableRec.SetRange("Marker Name", "Marker Name");
+                TableRec.SetRange("Marker Name", rec."Marker Name");
+                TableRec.SetRange("Style No.", rec."Style No.");
+                TableRec.SetRange("Colour No", rec."Colour No");
+                TableRec.SetRange("Group ID", rec."Group ID");
+                TableRec.SetRange("Component Group", rec."Component Group");
+                TableRec.SetRange("Marker Name", rec."Marker Name");
                 TableRec.SetRange("Cut No", CurCreLineRec."Cut No");
 
                 if TableRec.FindSet() then begin
@@ -1468,7 +1468,7 @@ page 50599 "Cut Creation Card"
 
         //Check LaySheet
         CurCreLineRec.Reset();
-        CurCreLineRec.SetRange("CutCreNo.", CutCreNo);
+        CurCreLineRec.SetRange("CutCreNo.", rec.CutCreNo);
         CurCreLineRec.SetFilter("Record Type", '=%1', 'R');
 
         if CurCreLineRec.FindSet() then begin
@@ -1476,11 +1476,11 @@ page 50599 "Cut Creation Card"
 
                 //Check for cut creation
                 LaySheetRec.Reset();
-                LaySheetRec.SetRange("Marker Name", "Marker Name");
-                LaySheetRec.SetRange("Style No.", "Style No.");
-                LaySheetRec.SetRange("Color No.", "Colour No");
-                LaySheetRec.SetRange("Group ID", "Group ID");
-                LaySheetRec.SetRange("Component Group Code", "Component Group");
+                LaySheetRec.SetRange("Marker Name", rec."Marker Name");
+                LaySheetRec.SetRange("Style No.", rec."Style No.");
+                LaySheetRec.SetRange("Color No.", rec."Colour No");
+                LaySheetRec.SetRange("Group ID", rec."Group ID");
+                LaySheetRec.SetRange("Component Group Code", rec."Component Group");
                 LaySheetRec.SetRange("Cut No.", CurCreLineRec."Cut No");
 
                 if LaySheetRec.FindSet() then begin
@@ -1492,7 +1492,7 @@ page 50599 "Cut Creation Card"
 
 
         CurCreLineRec.Reset();
-        CurCreLineRec.SetRange("CutCreNo.", CutCreNo);
+        CurCreLineRec.SetRange("CutCreNo.", rec.CutCreNo);
         if CurCreLineRec.FindSet() then
             CurCreLineRec.DeleteAll();
     end;

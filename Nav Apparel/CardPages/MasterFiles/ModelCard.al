@@ -10,13 +10,13 @@ page 71012846 "Model Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Model No';
                 }
 
-                field("Model Name"; "Model Name")
+                field("Model Name"; rec."Model Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012846 "Model Card"
                         ModelRec: Record Model;
                     begin
                         ModelRec.Reset();
-                        ModelRec.SetRange("Model Name", "Model Name");
+                        ModelRec.SetRange("Model Name", rec."Model Name");
                         if ModelRec.FindSet() then
                             Error('Model name already exists.');
                     end;

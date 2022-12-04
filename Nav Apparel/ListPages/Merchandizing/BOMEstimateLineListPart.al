@@ -87,6 +87,7 @@ page 71012695 "BOM Estimate Line List part"
                 {
                     ApplicationArea = All;
                     Caption = 'Article/Construction';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -103,6 +104,7 @@ page 71012695 "BOM Estimate Line List part"
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension';
+                    ShowMandatory = true;
 
                     trigger OnValidate()
                     var

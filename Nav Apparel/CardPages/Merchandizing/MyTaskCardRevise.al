@@ -34,8 +34,8 @@ page 71012793 "MyTask Revise Card"
         LineNo := LineNoPara;
         BuyerNo := BuyerNoPara;
 
-        "Style No." := StyleNo;
-        "Line No." := LineNo;
+        rec."Style No." := StyleNo;
+        rec."Line No." := LineNo;
 
     end;
 
@@ -47,9 +47,9 @@ page 71012793 "MyTask Revise Card"
         MaxNo: BigInteger;
     begin
 
-        "Style No." := StyleNo;
-        "Line No." := LineNo;
-        "Buyer No." := BuyerNo;
+        rec."Style No." := StyleNo;
+        rec."Line No." := LineNo;
+        rec."Buyer No." := BuyerNo;
         CurrPage.Update();
 
         //Check for existance

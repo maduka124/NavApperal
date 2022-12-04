@@ -10,13 +10,13 @@ page 71012623 "Master Category Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Master Category No';
                 }
 
-                field("Master Category Name"; "Master Category Name")
+                field("Master Category Name"; rec."Master Category Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012623 "Master Category Card"
                         MasterCategoryRec: Record "Master Category";
                     begin
                         MasterCategoryRec.Reset();
-                        MasterCategoryRec.SetRange("Master Category Name", "Master Category Name");
+                        MasterCategoryRec.SetRange("Master Category Name", rec."Master Category Name");
                         if MasterCategoryRec.FindSet() then
                             Error('Master Category Name already exists.');
                     end;

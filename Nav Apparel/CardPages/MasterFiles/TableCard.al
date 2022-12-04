@@ -10,13 +10,13 @@ page 71012653 "TableCard"
         {
             group(General)
             {
-                field("Table No."; "Table No.")
+                field("Table No.";rec. "Table No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Table No';
                 }
 
-                field("Table Name"; "Table Name")
+                field("Table Name"; rec."Table Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012653 "TableCard"
                         TableMasterRec: Record TableMaster;
                     begin
                         TableMasterRec.Reset();
-                        TableMasterRec.SetRange("Table Name", "Table Name");
+                        TableMasterRec.SetRange("Table Name",rec. "Table Name");
 
                         if TableMasterRec.FindSet() then
                             Error('Table Name already exists.');

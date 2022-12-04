@@ -2,9 +2,17 @@ pageextension 71012738 LocationCardExt extends "Location Card"
 {
     layout
     {
+        addlast(General)
+        {
+            field("Transfer-from Location"; rec."Transfer-from Location")
+            {
+                ApplicationArea = All;
+            }
+        }
+
         addafter("Use As In-Transit")
         {
-            field("Plant Type No."; "Plant Type No.")
+            field("Plant Type No."; rec."Plant Type No.")
             {
                 ApplicationArea = All;
                 Caption = 'Plant Type No';
@@ -14,27 +22,27 @@ pageextension 71012738 LocationCardExt extends "Location Card"
                 var
                     PlantTypeRec: Record "Plant Type";
                 begin
-                    PlantTypeRec.get("Plant Type No.");
-                    "Plant Type Name" := PlantTypeRec."Plant Type Name";
+                    PlantTypeRec.get(rec."Plant Type No.");
+                    rec."Plant Type Name" := PlantTypeRec."Plant Type Name";
                 end;
             }
 
-            field("Plant Type Name"; "Plant Type Name")
+            field("Plant Type Name"; rec."Plant Type Name")
             {
                 ApplicationArea = All;
             }
 
-            field("Sewing Unit"; "Sewing Unit")
+            field("Sewing Unit"; rec."Sewing Unit")
             {
                 ApplicationArea = All;
             }
 
-            field("Start Time"; "Start Time")
+            field("Start Time"; rec."Start Time")
             {
                 ApplicationArea = ALL;
             }
 
-            field("Finish Time"; "Finish Time")
+            field("Finish Time"; rec."Finish Time")
             {
                 ApplicationArea = ALL;
             }

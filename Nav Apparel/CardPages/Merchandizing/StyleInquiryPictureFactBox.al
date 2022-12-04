@@ -8,13 +8,13 @@ page 71012786 "Style Picture FactBox"
     {
         area(Content)
         {
-            field(Front; Front)
+            field(Front; rec.Front)
             {
                 ApplicationArea = All;
                 Caption = 'Front View';
             }
 
-            field(Back; Back)
+            field(Back; rec.Back)
             {
                 ApplicationArea = All;
                 Caption = 'Back View';
@@ -69,9 +69,9 @@ page 71012786 "Style Picture FactBox"
         if not Confirm(OverrideImageQst) then
             exit;
         if UploadIntoStream('Import', '', 'All Files (*.*)|*.*', FromFileName, PicInStream) then begin
-            Clear(Front);
-            Front.ImportStream(PicInStream, FromFileName);
-            Modify(true);
+            Clear(rec.Front);
+            rec.Front.ImportStream(PicInStream, FromFileName);
+            rec.Modify(true);
         end;
     end;
 
@@ -84,9 +84,9 @@ page 71012786 "Style Picture FactBox"
         if not Confirm(OverrideImageQst) then
             exit;
         if UploadIntoStream('Import', '', 'All Files (*.*)|*.*', FromFileName, PicInStream) then begin
-            Clear(Back);
-            Back.ImportStream(PicInStream, FromFileName);
-            Modify(true);
+            Clear(rec.Back);
+            rec.Back.ImportStream(PicInStream, FromFileName);
+            rec.Modify(true);
         end;
     end;
 

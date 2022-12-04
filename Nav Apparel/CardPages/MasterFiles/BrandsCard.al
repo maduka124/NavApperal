@@ -10,13 +10,13 @@ page 71012588 "Brand Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No.";rec. "No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand No';
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
 
@@ -25,13 +25,13 @@ page 71012588 "Brand Card"
                         BrandRec: Record Brand;
                     begin
                         BrandRec.Reset();
-                        BrandRec.SetRange("Brand Name", "Brand Name");
+                        BrandRec.SetRange("Brand Name", rec."Brand Name");
                         if BrandRec.FindSet() then
                             Error('Brand name already exists.');
                     end;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                 }

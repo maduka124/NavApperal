@@ -10,7 +10,7 @@ page 71012788 "PI Details Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Doc No';
@@ -22,7 +22,7 @@ page 71012788 "PI Details Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -32,33 +32,33 @@ page 71012788 "PI Details Card"
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then begin
 
-                            "Style No." := StyleMasterRec."No.";
-                            "Season No." := StyleMasterRec."Season No.";
-                            "Season Name" := StyleMasterRec."Season Name";
-                            "Store No." := StyleMasterRec."Store No.";
-                            "Store Name" := StyleMasterRec."Store Name";
+                            rec."Style No." := StyleMasterRec."No.";
+                            rec."Season No." := StyleMasterRec."Season No.";
+                            rec."Season Name" := StyleMasterRec."Season Name";
+                            rec."Store No." := StyleMasterRec."Store No.";
+                            rec."Store Name" := StyleMasterRec."Store Name";
                         end;
                     end;
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Season';
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Store';
                 }
 
-                field("Supplier Name"; "Supplier Name")
+                field("Supplier Name"; rec."Supplier Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
@@ -70,9 +70,9 @@ page 71012788 "PI Details Card"
                     begin
 
                         SupplierRec.Reset();
-                        SupplierRec.SetRange(Name, "Supplier Name");
+                        SupplierRec.SetRange(Name, rec."Supplier Name");
                         if SupplierRec.FindSet() then
-                            "Supplier No." := SupplierRec."No.";
+                            rec."Supplier No." := SupplierRec."No.";
 
                         PurchaseHeaderRec.Reset();
                         PurchaseHeaderRec.SetCurrentKey("Buy-from Vendor No.");
@@ -80,36 +80,36 @@ page 71012788 "PI Details Card"
 
                         if PurchaseHeaderRec.FindSet() then begin
                             repeat
-                                PurchaseHeaderRec."PI No." := "No.";
+                                PurchaseHeaderRec."PI No." := rec."No.";
                                 PurchaseHeaderRec.Modify();
                             until PurchaseHeaderRec.Next() = 0;
                         end;
                     end;
                 }
 
-                field("PI No"; "PI No")
+                field("PI No"; rec."PI No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PI Date"; "PI Date")
+                field("PI Date"; rec."PI Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PI Value"; "PI Value")
+                field("PI Value"; rec."PI Value")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if "PO Total" <> "PI Value" then
+                        if rec."PO Total" <> rec."PI Value" then
                             Error('Total PO value and PI value does not match.');
                     end;
                 }
 
-                field("Payment Mode Name"; "Payment Mode Name")
+                field("Payment Mode Name"; rec."Payment Mode Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Payment Mode';
@@ -119,18 +119,18 @@ page 71012788 "PI Details Card"
                         PaymentMethodRec: Record "Payment Method";
                     begin
                         PaymentMethodRec.Reset();
-                        PaymentMethodRec.SetRange(Description, "Payment Mode Name");
+                        PaymentMethodRec.SetRange(Description, rec."Payment Mode Name");
                         if PaymentMethodRec.FindSet() then
-                            "Payment Mode" := PaymentMethodRec.Code;
+                            rec."Payment Mode" := PaymentMethodRec.Code;
                     end;
                 }
 
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; rec."Shipment Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Currency; Currency)
+                field(Currency; rec.Currency)
                 {
                     ApplicationArea = All;
 
@@ -139,13 +139,13 @@ page 71012788 "PI Details Card"
                         CurrencyRec: Record Currency;
                     begin
                         CurrencyRec.Reset();
-                        CurrencyRec.SetRange(Description, Currency);
+                        CurrencyRec.SetRange(Description, rec.Currency);
                         if CurrencyRec.FindSet() then
-                            "Currency Code" := CurrencyRec.Code;
+                            rec."Currency Code" := CurrencyRec.Code;
                     end;
                 }
 
-                field("PO Total"; "PO Total")
+                field("PO Total"; rec."PO Total")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -187,8 +187,8 @@ page 71012788 "PI Details Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."PI Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."PI Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -199,10 +199,10 @@ page 71012788 "PI Details Card"
         PIPoDetailsRec: Record "PI Po Details";
         PIPoItemsDetailsRec: Record "PI Po Item Details";
     begin
-        PIPoDetailsRec.SetRange("PI No.", "PI No");
+        PIPoDetailsRec.SetRange("PI No.", rec."PI No");
         PIPoDetailsRec.DeleteAll();
 
-        PIPoItemsDetailsRec.SetRange("PI No.", "PI No");
+        PIPoItemsDetailsRec.SetRange("PI No.", rec."PI No");
         PIPoItemsDetailsRec.DeleteAll();
     end;
 
@@ -212,14 +212,14 @@ page 71012788 "PI Details Card"
     var
         PurchaseHeaderRec: Record "Purchase Header";
     begin
-        if "Supplier No." <> '' then begin
+        if rec."Supplier No." <> '' then begin
             PurchaseHeaderRec.Reset();
             PurchaseHeaderRec.SetCurrentKey("Buy-from Vendor No.");
-            PurchaseHeaderRec.SetRange("Buy-from Vendor No.", "Supplier No.");
+            PurchaseHeaderRec.SetRange("Buy-from Vendor No.", rec."Supplier No.");
 
             if PurchaseHeaderRec.FindSet() then begin
                 repeat
-                    PurchaseHeaderRec."PI No." := "No.";
+                    PurchaseHeaderRec."PI No." := rec."No.";
                     PurchaseHeaderRec.Modify();
                 until PurchaseHeaderRec.Next() = 0;
             end;
@@ -231,14 +231,14 @@ page 71012788 "PI Details Card"
     var
         PurchaseHeaderRec: Record "Purchase Header";
     begin
-        if "Supplier No." <> '' then begin
+        if rec."Supplier No." <> '' then begin
             PurchaseHeaderRec.Reset();
             PurchaseHeaderRec.SetCurrentKey("Buy-from Vendor No.");
-            PurchaseHeaderRec.SetRange("Buy-from Vendor No.", "Supplier No.");
+            PurchaseHeaderRec.SetRange("Buy-from Vendor No.", rec."Supplier No.");
 
             if PurchaseHeaderRec.FindSet() then begin
                 repeat
-                    PurchaseHeaderRec."PI No." := "No.";
+                    PurchaseHeaderRec."PI No." := rec."No.";
                     PurchaseHeaderRec.Modify();
                 until PurchaseHeaderRec.Next() = 0;
             end;
@@ -250,7 +250,7 @@ page 71012788 "PI Details Card"
     var
 
     begin
-        if "PO Total" <> "PI Value" then
+        if rec."PO Total" <> rec."PI Value" then
             Error('Total PO value and PI value does not match.');
 
     end;

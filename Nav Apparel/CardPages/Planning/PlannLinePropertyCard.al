@@ -14,40 +14,40 @@ page 50343 "Planning Line Property Card"
         {
             group(Properties)
             {
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                     Editable = false;
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Lot No';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'PO No';
                 }
 
-                field(Qty; Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(SMV; SMV)
+                field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(HoursPerDay; HoursPerDay)
+                field(HoursPerDay; rec.HoursPerDay)
                 {
                     ApplicationArea = All;
                     Caption = 'Working Hours Per Day';
@@ -61,7 +61,7 @@ page 50343 "Planning Line Property Card"
                     end;
                 }
 
-                field(Carder; Carder)
+                field(Carder; rec.Carder)
                 {
                     ApplicationArea = All;
                     Caption = 'Man/Machine Req.';
@@ -74,7 +74,7 @@ page 50343 "Planning Line Property Card"
                     end;
                 }
 
-                field(Eff; Eff)
+                field(Eff; rec.Eff)
                 {
                     ApplicationArea = All;
                     Caption = 'Plan Efficiency (%)';
@@ -87,28 +87,28 @@ page 50343 "Planning Line Property Card"
                     end;
                 }
 
-                field("Learning Curve No."; "Learning Curve No.")
+                field("Learning Curve No."; rec."Learning Curve No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Learning Curve';
                 }
 
-                field(Target; Target)
+                field(Target; rec.Target)
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if (Carder = 0) or (HoursPerDay = 0) then begin
+                        if (rec.Carder = 0) or (rec.HoursPerDay = 0) then begin
                             Message('Carder or HoursPerDay is zero. Cannot continue.');
                         end
                         else
-                            Eff := (Target * 100 * SMV) / (60 * Carder * HoursPerDay);
+                            rec.Eff := (rec.Target * 100 * rec.SMV) / (60 * rec.Carder * rec.HoursPerDay);
                     end;
                 }
 
-                field("TGTSEWFIN Date"; "TGTSEWFIN Date")
+                field("TGTSEWFIN Date"; rec."TGTSEWFIN Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Req. Saw. Finish Date';
@@ -176,23 +176,23 @@ page 50343 "Planning Line Property Card"
 
                     //Get Start and Finish Time
                     LocationRec.Reset();
-                    LocationRec.SetRange(code, Factory);
+                    LocationRec.SetRange(code, rec.Factory);
                     LocationRec.FindSet();
 
                     HrsPerDay := 0;
-                    dtStart := "Start Date";
-                    TImeStart := "Start Time";
+                    dtStart := rec."Start Date";
+                    TImeStart := rec."Start Time";
 
                     //Get Resorce line details
                     ResourceRec.Reset();
-                    ResourceRec.SetRange("No.", "Resource No.");
+                    ResourceRec.SetRange("No.", rec."Resource No.");
                     ResourceRec.FindSet();
 
                     //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                     repeat
 
                         ResCapacityEntryRec.Reset();
-                        ResCapacityEntryRec.SETRANGE("No.", "Resource No.");
+                        ResCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
                         ResCapacityEntryRec.SETRANGE(Date, dtStart);
 
                         if ResCapacityEntryRec.FindSet() then begin
@@ -245,7 +245,7 @@ page 50343 "Planning Line Property Card"
 
                     //Get all allocations after the start date                                   
                     JobPlaLineRec.Reset();
-                    JobPlaLineRec.SetRange("Resource No.", "Resource No.");
+                    JobPlaLineRec.SetRange("Resource No.", rec."Resource No.");
                     JobPlaLineRec.SetFilter("StartDateTime", '>=%1', CreateDateTime(dtStart, TImeStart));
                     JobPlaLineRec.SetCurrentKey(StartDateTime);
                     JobPlaLineRec.Ascending(true);
@@ -267,7 +267,7 @@ page 50343 "Planning Line Property Card"
                             repeat
 
                                 ResCapacityEntryRec.Reset();
-                                ResCapacityEntryRec.SETRANGE("No.", "Resource No.");
+                                ResCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
                                 ResCapacityEntryRec.SETRANGE(Date, dtStart);
 
                                 if ResCapacityEntryRec.FindSet() then begin
@@ -316,8 +316,8 @@ page 50343 "Planning Line Property Card"
 
                             until HrsPerDay > 0;
 
-                            if JobPlaLineRec."Style No." = "Style No." then
-                                TargetPerDay := round(((60 / SMV) * Carder * HrsPerDay * Eff) / 100, 1, '>')
+                            if JobPlaLineRec."Style No." = rec."Style No." then
+                                TargetPerDay := round(((60 / rec.SMV) * rec.Carder * HrsPerDay * rec.Eff) / 100, 1, '>')
                             else
                                 TargetPerDay := round(((60 / JobPlaLineRec.SMV) * JobPlaLineRec.Carder * HrsPerDay * JobPlaLineRec.Eff) / 100, 1, '>');
 
@@ -376,7 +376,7 @@ page 50343 "Planning Line Property Card"
                                                     repeat
 
                                                         ResCapacityEntryRec.Reset();
-                                                        ResCapacityEntryRec.SETRANGE("No.", "Resource No.");
+                                                        ResCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
                                                         ResCapacityEntryRec.SETRANGE(Date, LCurveFinishDate);
 
                                                         if ResCapacityEntryRec.FindSet() then begin
@@ -446,7 +446,7 @@ page 50343 "Planning Line Property Card"
                                 Holiday := 'NO';
 
                                 ResCapacityEntryRec.Reset();
-                                ResCapacityEntryRec.SETRANGE("No.", "Resource No.");
+                                ResCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
                                 ResCapacityEntryRec.SETRANGE(Date, TempDate);
 
                                 if ResCapacityEntryRec.FindSet() then begin
@@ -689,7 +689,7 @@ page 50343 "Planning Line Property Card"
                                 ProdPlansDetails.ProdUpdQty := 0;
                                 ProdPlansDetails."Created User" := UserId;
                                 ProdPlansDetails."Created Date" := WorkDate();
-                                ProdPlansDetails."Factory No." := Factory;
+                                ProdPlansDetails."Factory No." := rec.Factory;
                                 ProdPlansDetails.Insert();
 
                                 TempDate := TempDate + 1;
@@ -705,10 +705,10 @@ page 50343 "Planning Line Property Card"
                             if (JobPlaLineRec."Style Name" = StyleDesc) and (Counter = 1) then begin
 
                                 //Modify to the Planning line table                                
-                                JobPlaLineRec.Eff := Eff;
-                                JobPlaLineRec.Carder := Carder;
+                                JobPlaLineRec.Eff := rec.Eff;
+                                JobPlaLineRec.Carder := rec.Carder;
                                 JobPlaLineRec."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
-                                JobPlaLineRec.Target := Target;
+                                JobPlaLineRec.Target := rec.Target;
                                 JobPlaLineRec."Start Date" := dtStart;
                                 JobPlaLineRec."End Date" := TempDate;
                                 JobPlaLineRec."Start Time" := TImeStart;
@@ -729,9 +729,9 @@ page 50343 "Planning Line Property Card"
                                 if (JobPlaLineRec."Style Name" = StyleDesc) and (Counter > 1) then begin
 
                                     //Modify to the Planning line table                              
-                                    JobPlaLineRec.Target := Target;
-                                    JobPlaLineRec.Eff := Eff;
-                                    JobPlaLineRec.Carder := Carder;
+                                    JobPlaLineRec.Target := rec.Target;
+                                    JobPlaLineRec.Eff := rec.Eff;
+                                    JobPlaLineRec.Carder := rec.Carder;
                                     JobPlaLineRec."Learning Curve No." := 0;
                                     JobPlaLineRec."Start Date" := dtStart;
                                     JobPlaLineRec."End Date" := TempDate;
@@ -753,7 +753,7 @@ page 50343 "Planning Line Property Card"
                                     if (JobPlaLineRec."Style Name" <> StyleDesc) and (Counter > 1) then begin
 
                                         //Modify to the Planning line table                              
-                                        JobPlaLineRec.Target := Target;
+                                        JobPlaLineRec.Target := rec.Target;
                                         JobPlaLineRec."Start Date" := dtStart;
                                         JobPlaLineRec."End Date" := TempDate;
                                         JobPlaLineRec."Start Time" := TImeStart;
@@ -781,7 +781,7 @@ page 50343 "Planning Line Property Card"
 
                         //Update StartDateTime of all records greater than Todays date
                         JobPlaLineRec.Reset();
-                        JobPlaLineRec.SetRange("Resource No.", "Resource No.");
+                        JobPlaLineRec.SetRange("Resource No.", rec."Resource No.");
                         JobPlaLineRec.SetFilter("Start Date", '>=%1', WorkDate());
                         JobPlaLineRec.FindSet();
 
@@ -801,8 +801,8 @@ page 50343 "Planning Line Property Card"
     procedure Cal();
     var
     begin
-        if SMV <> 0 then begin
-            Target := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1, '>');
+        if rec.SMV <> 0 then begin
+            rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>');
         end
         else
             Message('SMV is zero. Cannot continue.');

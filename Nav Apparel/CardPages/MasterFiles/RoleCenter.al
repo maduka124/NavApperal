@@ -2107,7 +2107,7 @@ page 71012740 "Nav Apperal Role Center"
                 action("Create User")
                 {
                     Caption = 'Create User';
-                    RunObject = Page "Create User Card";
+                    RunObject = Page "User List";
                     ApplicationArea = all;
                 }
 

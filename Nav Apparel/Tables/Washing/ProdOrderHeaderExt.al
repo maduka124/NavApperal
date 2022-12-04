@@ -167,4 +167,10 @@ tableextension 50661 ProductionOderHeadExt extends "Production Order"
             OptionCaption = 'Bulk,Samples,Washing';
         }
     }
+
+    fieldgroups
+    {
+        addlast(DropDown; PO)
+        { }
+    }
 }

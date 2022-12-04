@@ -64,5 +64,21 @@ tableextension 50656 WashingBOMLineExt extends "Production BOM Line"
 
         // }
 
+        modify("No.")
+        {
+            trigger OnAfterValidate()
+            var
+                MainCatRec: Record "Main Category";
+            begin
+                if Type = Type::Item then begin
+                    if "Main Category Code" <> '' then begin
+                        MainCatRec.Get("Main Category Code");
+                        MainCatRec.TestField("Routing Link Code");
+                        Validate("Routing Link Code", MainCatRec."Routing Link Code");
+                    end;
+                end;
+            end;
+        }
+
     }
 }

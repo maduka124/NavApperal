@@ -10,7 +10,7 @@ page 50647 "LaySheetCard"
         {
             group(General)
             {
-                field("LaySheetNo."; "LaySheetNo.")
+                field("LaySheetNo."; rec."LaySheetNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Lay Sheet No';
@@ -36,14 +36,14 @@ page 50647 "LaySheetCard"
                             RoleIssuHeadRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(50826, RoleIssuHeadRec) = Action::LookupOK then
-                                "LaySheetNo." := RoleIssuHeadRec."RoleIssuNo.";
+                                rec."LaySheetNo." := RoleIssuHeadRec."RoleIssuNo.";
 
                         END;
                     END;
                 }
 
 
-                field("FabReqNo."; "FabReqNo.")
+                field("FabReqNo."; rec."FabReqNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Requsition No';
@@ -58,42 +58,42 @@ page 50647 "LaySheetCard"
 
                         //Get details
                         FabricRequRec.Reset();
-                        FabricRequRec.SetRange("FabReqNo.", "FabReqNo.");
+                        FabricRequRec.SetRange("FabReqNo.", rec."FabReqNo.");
 
                         if FabricRequRec.FindSet() then begin
-                            "Cut No." := FabricRequRec."Cut No";
-                            "Style No." := FabricRequRec."Style No.";
-                            "Style Name" := FabricRequRec."Style Name";
-                            "Group ID" := FabricRequRec."Group ID";
-                            Color := FabricRequRec."Colour Name";
-                            "Color No." := FabricRequRec."Colour No";
-                            "Component Group Name" := FabricRequRec."Component Group Name";
-                            "Component Group Code" := FabricRequRec."Component Group Code";
-                            "Marker Name" := FabricRequRec."Marker Name";
-                            "Po No." := FabricRequRec."PO No.";                            
+                            rec."Cut No." := FabricRequRec."Cut No";
+                            rec."Style No." := FabricRequRec."Style No.";
+                            rec."Style Name" := FabricRequRec."Style Name";
+                            rec."Group ID" := FabricRequRec."Group ID";
+                            rec.Color := FabricRequRec."Colour Name";
+                            rec."Color No." := FabricRequRec."Colour No";
+                            rec."Component Group Name" := FabricRequRec."Component Group Name";
+                            rec."Component Group Code" := FabricRequRec."Component Group Code";
+                            rec."Marker Name" := FabricRequRec."Marker Name";
+                            rec."Po No." := FabricRequRec."PO No.";
                         end;
 
                         // Get item name
                         FabricMapRec.Reset();
-                        FabricMapRec.SetRange("Style No.", "Style No.");
-                        FabricMapRec.SetRange("Colour No", "Color No.");
-                        FabricMapRec.SetRange("Component Group", "Component Group Code");
+                        FabricMapRec.SetRange("Style No.", rec."Style No.");
+                        FabricMapRec.SetRange("Colour No", rec."Color No.");
+                        FabricMapRec.SetRange("Component Group", rec."Component Group Code");
 
                         if FabricMapRec.FindSet() then
-                            "Item Name" := FabricMapRec."Item Name";
+                            rec."Item Name" := FabricMapRec."Item Name";
 
 
                         //Get plan date
                         TableRec.Reset();
-                        TableRec.SetRange("Style No.", "Style No.");
-                        TableRec.SetRange("Colour No", "Color No.");
-                        TableRec.SetRange("Component Group", "Component Group Code");
-                        TableRec.SetRange("Group ID", "Group ID");
-                        TableRec.SetRange("Marker Name", "Marker Name");
-                        TableRec.SetRange("Cut No", "Cut No.");
+                        TableRec.SetRange("Style No.", rec."Style No.");
+                        TableRec.SetRange("Colour No", rec."Color No.");
+                        TableRec.SetRange("Component Group", rec."Component Group Code");
+                        TableRec.SetRange("Group ID", rec."Group ID");
+                        TableRec.SetRange("Marker Name", rec."Marker Name");
+                        TableRec.SetRange("Cut No", rec."Cut No.");
 
                         if TableRec.FindSet() then
-                            "Plan Date" := DT2Date(TableRec."Cut Start Date/Time");
+                            rec."Plan Date" := DT2Date(TableRec."Cut Start Date/Time");
 
                         Insert_Lines1();
                         Insert_Lines2();
@@ -104,66 +104,66 @@ page 50647 "LaySheetCard"
 
                 }
 
-                field("Cut No."; "Cut No.")
+                field("Cut No."; rec."Cut No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Cut No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; rec."Group ID")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Group ID';
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Color; Color)
+                field(Color; rec.Color)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Component Group Name"; "Component Group Name")
+                field("Component Group Name"; rec."Component Group Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Component Group';
                 }
 
-                field("Marker Name"; "Marker Name")
+                field("Marker Name"; rec."Marker Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Marker';
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Item';
                 }
 
-                field("Fab Direction"; "Fab Direction")
+                field("Fab Direction"; rec."Fab Direction")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Plan Date"; "Plan Date")
+                field("Plan Date"; rec."Plan Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -250,7 +250,7 @@ page 50647 "LaySheetCard"
 
         //Check in the cutting progress
         CutProRec.Reset();
-        CutProRec.SetRange(LaySheetNo, "LaySheetNo.");
+        CutProRec.SetRange(LaySheetNo, rec."LaySheetNo.");
 
         if CutProRec.FindSet() then begin
             Message('Cannot delete. Lay Sheet No already used in the Cutting Progress No : %1', CutProRec."CutProNo.");
@@ -260,11 +260,11 @@ page 50647 "LaySheetCard"
 
         //Check in the Lay SHeet
         BundleGuideRec.Reset();
-        BundleGuideRec.SetRange("Style No.", "Style No.");
-        BundleGuideRec.SetRange("Color No", "Color No.");
-        BundleGuideRec.SetRange("Group ID", "Group ID");
-        BundleGuideRec.SetRange("Component Group", "Component Group Code");
-        BundleGuideRec.SetRange("Cut No", "Cut No.");
+        BundleGuideRec.SetRange("Style No.", rec."Style No.");
+        BundleGuideRec.SetRange("Color No", rec."Color No.");
+        BundleGuideRec.SetRange("Group ID", rec."Group ID");
+        BundleGuideRec.SetRange("Component Group", rec."Component Group Code");
+        BundleGuideRec.SetRange("Cut No", rec."Cut No.");
 
         if BundleGuideRec.FindSet() then begin
             Message('Cannot delete. Lay Sheet details already used in the Bundle Guide No : %1', BundleGuideRec."BundleGuideNo.");
@@ -273,19 +273,19 @@ page 50647 "LaySheetCard"
 
 
 
-        LaySheetLine1Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine1Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
         LaySheetLine1Rec.DeleteAll();
 
-        LaySheetLine2Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine2Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
         LaySheetLine2Rec.DeleteAll();
 
-        LaySheetLine3Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine3Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
         LaySheetLine3Rec.DeleteAll();
 
-        LaySheetLine4Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine4Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
         LaySheetLine4Rec.DeleteAll();
 
-        LaySheetLine5Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine5Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
         LaySheetLine5Rec.DeleteAll();
     end;
 
@@ -297,21 +297,21 @@ page 50647 "LaySheetCard"
 
         //Delete old records
         LaySheetLine1Rec.Reset();
-        LaySheetLine1Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine1Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
         LaySheetLine1Rec.DeleteAll();
 
         //Get Sizes
         CutCreLineRec.Reset();
-        CutCreLineRec.SetRange("Style No.", "Style No.");
-        CutCreLineRec.SetRange("Colour No", "Color No.");
-        CutCreLineRec.SetRange("Group ID", "Group ID");
-        CutCreLineRec.SetRange("Component Group Code", "Component Group Code");
+        CutCreLineRec.SetRange("Style No.", rec."Style No.");
+        CutCreLineRec.SetRange("Colour No", rec."Color No.");
+        CutCreLineRec.SetRange("Group ID", rec."Group ID");
+        CutCreLineRec.SetRange("Component Group Code", rec."Component Group Code");
         CutCreLineRec.SetRange("Record Type", 'H');
 
         if CutCreLineRec.FindSet() then begin
 
             LaySheetLine1Rec.Init();
-            LaySheetLine1Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine1Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine1Rec."Line No" := 1;
             LaySheetLine1Rec."Record Type" := 'SIZE';
             LaySheetLine1Rec."1" := CutCreLineRec."1";
@@ -389,18 +389,18 @@ page 50647 "LaySheetCard"
 
         //Get ratio
         CutCreLineRec.Reset();
-        CutCreLineRec.SetRange("Style No.", "Style No.");
-        CutCreLineRec.SetRange("Colour No", "Color No.");
-        CutCreLineRec.SetRange("Group ID", "Group ID");
-        CutCreLineRec.SetRange("Component Group Code", "Component Group Code");
+        CutCreLineRec.SetRange("Style No.", rec."Style No.");
+        CutCreLineRec.SetRange("Colour No", rec."Color No.");
+        CutCreLineRec.SetRange("Group ID", rec."Group ID");
+        CutCreLineRec.SetRange("Component Group Code", rec."Component Group Code");
         CutCreLineRec.SetRange("Record Type", 'R');
         CutCreLineRec.SetRange("Cut No", 0);
-        CutCreLineRec.SetRange("Marker Name", "Marker Name");
+        CutCreLineRec.SetRange("Marker Name", rec."Marker Name");
 
         if CutCreLineRec.FindSet() then begin
 
             LaySheetLine1Rec.Init();
-            LaySheetLine1Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine1Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine1Rec."Line No" := 2;
             LaySheetLine1Rec."Record Type" := 'RATIO';
             LaySheetLine1Rec."1" := CutCreLineRec."1";
@@ -478,20 +478,20 @@ page 50647 "LaySheetCard"
 
         //Get Quantity
         CutCreLineRec.Reset();
-        CutCreLineRec.SetRange("Style No.", "Style No.");
-        CutCreLineRec.SetRange("Colour No", "Color No.");
-        CutCreLineRec.SetRange("Group ID", "Group ID");
-        CutCreLineRec.SetRange("Component Group Code", "Component Group Code");
+        CutCreLineRec.SetRange("Style No.", rec."Style No.");
+        CutCreLineRec.SetRange("Colour No", rec."Color No.");
+        CutCreLineRec.SetRange("Group ID", rec."Group ID");
+        CutCreLineRec.SetRange("Component Group Code", rec."Component Group Code");
         CutCreLineRec.SetRange("Record Type", 'R');
-        CutCreLineRec.SetRange("Marker Name", "Marker Name");
-        CutCreLineRec.SetRange("Cut No", "Cut No.");
+        CutCreLineRec.SetRange("Marker Name", rec."Marker Name");
+        CutCreLineRec.SetRange("Cut No", rec."Cut No.");
 
         if CutCreLineRec.FindSet() then begin
 
             Evaluate(PlyHieght, CutCreLineRec."1");
 
             LaySheetLine1Rec.Init();
-            LaySheetLine1Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine1Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine1Rec."Line No" := 3;
             LaySheetLine1Rec."Record Type" := 'QTY';
             LaySheetLine1Rec."1" := CutCreLineRec."1";
@@ -577,20 +577,20 @@ page 50647 "LaySheetCard"
 
         //Delete old records
         LaySheetLine2Rec.Reset();
-        LaySheetLine2Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine2Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
         LaySheetLine2Rec.DeleteAll();
 
         LaySheetLine2Rec.Init();
-        LaySheetLine2Rec."LaySheetNo." := "LaySheetNo.";
+        LaySheetLine2Rec."LaySheetNo." := rec."LaySheetNo.";
         LaySheetLine2Rec."Line No" := 1;
 
         //Get details from Ratio Creation
         RatioCreRec.Reset();
-        RatioCreRec.SetRange("Style No.", "Style No.");
-        RatioCreRec.SetRange("Colour No", "Color No.");
-        RatioCreRec.SetRange("Group ID", "Group ID");
-        RatioCreRec.SetRange("Component Group Code", "Component Group Code");
-        RatioCreRec.SetRange("Marker Name", "Marker Name");
+        RatioCreRec.SetRange("Style No.", rec."Style No.");
+        RatioCreRec.SetRange("Colour No", rec."Color No.");
+        RatioCreRec.SetRange("Group ID", rec."Group ID");
+        RatioCreRec.SetRange("Component Group Code", rec."Component Group Code");
+        RatioCreRec.SetRange("Marker Name", rec."Marker Name");
         RatioCreRec.SetRange("Record Type", 'R');
 
         if RatioCreRec.FindSet() then begin
@@ -615,12 +615,12 @@ page 50647 "LaySheetCard"
 
         //Get details from FabricRequsitionLine
         FabReqRec.Reset();
-        FabReqRec.SetRange("Style No.", "Style No.");
-        FabReqRec.SetRange("Colour No", "Color No.");
-        FabReqRec.SetRange("Group ID", "Group ID");
-        FabReqRec.SetRange("Component Group Code", "Component Group Code");
-        FabReqRec.SetRange("Marker Name", "Marker Name");
-        FabReqRec.SetRange("Cut No", "Cut No.");
+        FabReqRec.SetRange("Style No.", rec."Style No.");
+        FabReqRec.SetRange("Colour No", rec."Color No.");
+        FabReqRec.SetRange("Group ID", rec."Group ID");
+        FabReqRec.SetRange("Component Group Code", rec."Component Group Code");
+        FabReqRec.SetRange("Marker Name", rec."Marker Name");
+        FabReqRec.SetRange("Cut No", rec."Cut No.");
 
         if FabReqRec.FindSet() then begin
             LaySheetLine2Rec."Fab. Req. For Lay" := FabReqRec."Required Length";
@@ -652,31 +652,31 @@ page 50647 "LaySheetCard"
     begin
 
         RatioHeadRec.Reset();
-        RatioHeadRec.SetRange("Style No.", "Style No.");
-        RatioHeadRec.SetRange("Colour No", "Color No.");
-        RatioHeadRec.SetRange("Component Group", "Component Group Code");
-        RatioHeadRec.SetRange("Group ID", "Group ID");
+        RatioHeadRec.SetRange("Style No.", rec."Style No.");
+        RatioHeadRec.SetRange("Colour No", rec."Color No.");
+        RatioHeadRec.SetRange("Component Group", rec."Component Group Code");
+        RatioHeadRec.SetRange("Group ID", rec."Group ID");
 
         if RatioHeadRec.FindSet() then begin
             RatioLineRec.Reset();
             RatioLineRec.SetRange(RatioCreNo, RatioHeadRec.RatioCreNo);
-            RatioLineRec.SetRange("Marker Name", "Marker Name");
+            RatioLineRec.SetRange("Marker Name", rec."Marker Name");
             RatioLineRec.FindSet();
         end;
 
 
         //Delete old records
         LaySheetLine3Rec.Reset();
-        LaySheetLine3Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine3Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
         LaySheetLine3Rec.DeleteAll();
 
         //Delete old records
         LaySheetLine4Rec.Reset();
-        LaySheetLine4Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine4Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
         LaySheetLine4Rec.DeleteAll();
 
         RoleIssHeadeRec.Reset();
-        RoleIssHeadeRec.SetRange("RoleIssuNo.", "LaySheetNo.");
+        RoleIssHeadeRec.SetRange("RoleIssuNo.", rec."LaySheetNo.");
         if RoleIssHeadeRec.FindSet() then begin
             UOM := RoleIssHeadeRec.UOM;
             UOMCode := RoleIssHeadeRec."UOM Code";
@@ -684,7 +684,7 @@ page 50647 "LaySheetCard"
 
         //Get details from FabricRequsitionLine
         RoleIssRec.Reset();
-        RoleIssRec.SetRange("RoleIssuNo.", "LaySheetNo.");
+        RoleIssRec.SetRange("RoleIssuNo.", rec."LaySheetNo.");
         RoleIssRec.SetCurrentKey("Shade No");
         RoleIssRec.SetFilter(Selected, '=%1', true);
         RoleIssRec.Ascending(true);
@@ -695,7 +695,7 @@ page 50647 "LaySheetCard"
 
                 LIneNo += 1;
                 LaySheetLine4Rec.Init();
-                LaySheetLine4Rec."LaySheetNo." := "LaySheetNo.";
+                LaySheetLine4Rec."LaySheetNo." := rec."LaySheetNo.";
                 LaySheetLine4Rec."Line No." := LIneNo;
                 LaySheetLine4Rec."Shade No" := RoleIssRec."Shade No";
                 LaySheetLine4Rec.Shade := RoleIssRec.Shade;
@@ -719,7 +719,7 @@ page 50647 "LaySheetCard"
                     TotalQty := 0;
                     LIneNo1 += 1;
                     LaySheetLine3Rec.Init();
-                    LaySheetLine3Rec."LaySheetNo." := "LaySheetNo.";
+                    LaySheetLine3Rec."LaySheetNo." := rec."LaySheetNo.";
                     LaySheetLine3Rec."LineNo." := LIneNo1;
                     LaySheetLine3Rec."Shade No" := RoleIssRec."Shade No";
                     LaySheetLine3Rec.Shade := RoleIssRec.Shade;
@@ -734,7 +734,7 @@ page 50647 "LaySheetCard"
                     TotalQty += RoleIssRec."Length Allocated";
 
                     LaySheetLine3Rec.Reset();
-                    LaySheetLine3Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+                    LaySheetLine3Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
                     LaySheetLine3Rec.SetRange("LineNo.", LIneNo1);
 
                     if LaySheetLine3Rec.FindSet() then
@@ -755,61 +755,61 @@ page 50647 "LaySheetCard"
         LaySheetLine5Rec: Record LaySheetLine5;
     begin
         LaySheetLine5Rec.Reset();
-        LaySheetLine5Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine5Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
 
         if not LaySheetLine5Rec.FindSet() then begin
 
             LaySheetLine5Rec.Init();
-            LaySheetLine5Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine5Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine5Rec.Type := 'Team';
             LaySheetLine5Rec."Created Date" := Today;
             LaySheetLine5Rec."Created User" := UserId;
             LaySheetLine5Rec.Insert();
 
             LaySheetLine5Rec.Init();
-            LaySheetLine5Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine5Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine5Rec.Type := 'Emp No1';
             LaySheetLine5Rec."Created Date" := Today;
             LaySheetLine5Rec."Created User" := UserId;
             LaySheetLine5Rec.Insert();
 
             LaySheetLine5Rec.Init();
-            LaySheetLine5Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine5Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine5Rec.Type := 'Emp No2';
             LaySheetLine5Rec."Created Date" := Today;
             LaySheetLine5Rec."Created User" := UserId;
             LaySheetLine5Rec.Insert();
 
             LaySheetLine5Rec.Init();
-            LaySheetLine5Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine5Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine5Rec.Type := 'Emp No3';
             LaySheetLine5Rec."Created Date" := Today;
             LaySheetLine5Rec."Created User" := UserId;
             LaySheetLine5Rec.Insert();
 
             LaySheetLine5Rec.Init();
-            LaySheetLine5Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine5Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine5Rec.Type := 'Emp No4';
             LaySheetLine5Rec."Created Date" := Today;
             LaySheetLine5Rec."Created User" := UserId;
             LaySheetLine5Rec.Insert();
 
             LaySheetLine5Rec.Init();
-            LaySheetLine5Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine5Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine5Rec.Type := 'Emp No5';
             LaySheetLine5Rec."Created Date" := Today;
             LaySheetLine5Rec."Created User" := UserId;
             LaySheetLine5Rec.Insert();
 
             LaySheetLine5Rec.Init();
-            LaySheetLine5Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine5Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine5Rec.Type := 'Date';
             LaySheetLine5Rec."Created Date" := Today;
             LaySheetLine5Rec."Created User" := UserId;
             LaySheetLine5Rec.Insert();
 
             LaySheetLine5Rec.Init();
-            LaySheetLine5Rec."LaySheetNo." := "LaySheetNo.";
+            LaySheetLine5Rec."LaySheetNo." := rec."LaySheetNo.";
             LaySheetLine5Rec.Type := 'Time';
             LaySheetLine5Rec."Created Date" := Today;
             LaySheetLine5Rec."Created User" := UserId;

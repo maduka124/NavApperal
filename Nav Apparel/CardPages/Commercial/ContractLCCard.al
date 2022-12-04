@@ -10,7 +10,7 @@ page 50502 "Contract/LC Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
 
@@ -21,7 +21,7 @@ page 50502 "Contract/LC Card"
                     end;
                 }
 
-                field(Buyer; Buyer)
+                field(Buyer; rec.Buyer)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -34,9 +34,9 @@ page 50502 "Contract/LC Card"
                     begin
 
                         CustomerRec.Reset();
-                        CustomerRec.SetRange(Name, Buyer);
+                        CustomerRec.SetRange(Name, rec.Buyer);
                         if CustomerRec.FindSet() then
-                            "Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No.";
 
                         StyleRec.Reset();
                         StyleRec.SetCurrentKey("Buyer No.");
@@ -44,14 +44,14 @@ page 50502 "Contract/LC Card"
 
                         if StyleRec.FindSet() then begin
                             repeat
-                                StyleRec.ContractNo := "No.";
+                                StyleRec.ContractNo := rec."No.";
                                 StyleRec.Modify();
                             until StyleRec.Next() = 0;
                         end;
                     end;
                 }
 
-                field(Season; Season)
+                field(Season; rec.Season)
                 {
                     ApplicationArea = All;
 
@@ -60,14 +60,14 @@ page 50502 "Contract/LC Card"
                         SeasonsRec: Record Seasons;
                     begin
                         SeasonsRec.Reset();
-                        SeasonsRec.SetRange("Season Name", "Season");
+                        SeasonsRec.SetRange("Season Name", rec."Season");
 
                         if SeasonsRec.FindSet() then
-                            "Season No." := SeasonsRec."No.";
+                            rec."Season No." := SeasonsRec."No.";
                     end;
                 }
 
-                field("Factory"; "Factory")
+                field("Factory"; rec."Factory")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -77,23 +77,23 @@ page 50502 "Contract/LC Card"
                         LocationRec: Record Location;
                     begin
                         LocationRec.Reset();
-                        LocationRec.SetRange(Name, "Factory");
+                        LocationRec.SetRange(Name, rec."Factory");
                         if LocationRec.FindSet() then
-                            "Factory No." := LocationRec."code";
+                            rec."Factory No." := LocationRec."code";
                     end;
                 }
 
-                field("Contract No"; "Contract No")
+                field("Contract No"; rec."Contract No")
                 {
                     ApplicationArea = All;
                 }
 
-                field(AMD; AMD)
+                field(AMD; rec.AMD)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Issue Bank"; "Issue Bank")
+                field("Issue Bank"; rec."Issue Bank")
                 {
                     ApplicationArea = All;
 
@@ -102,13 +102,13 @@ page 50502 "Contract/LC Card"
                         BankRec: Record "Bank Account";
                     begin
                         BankRec.Reset();
-                        BankRec.SetRange(Name, "Issue Bank");
+                        BankRec.SetRange(Name, rec."Issue Bank");
                         if BankRec.FindSet() then
-                            "Issue Bank No." := BankRec."No.";
+                            rec."Issue Bank No." := BankRec."No.";
                     end;
                 }
 
-                field("Receive Bank"; "Receive Bank")
+                field("Receive Bank"; rec."Receive Bank")
                 {
                     ApplicationArea = All;
 
@@ -117,13 +117,13 @@ page 50502 "Contract/LC Card"
                         BankRec: Record "Bank Account";
                     begin
                         BankRec.Reset();
-                        BankRec.SetRange(Name, "Receive Bank");
+                        BankRec.SetRange(Name, rec."Receive Bank");
                         if BankRec.FindSet() then
-                            "Receive Bank No." := BankRec."No.";
+                            rec."Receive Bank No." := BankRec."No.";
                     end;
                 }
 
-                field("Nego Bank"; "Nego Bank")
+                field("Nego Bank"; rec."Nego Bank")
                 {
                     ApplicationArea = All;
                     Caption = 'Negotiation Bank';
@@ -133,19 +133,19 @@ page 50502 "Contract/LC Card"
                         BankRec: Record "Bank Account";
                     begin
                         BankRec.Reset();
-                        BankRec.SetRange(Name, "Nego Bank");
+                        BankRec.SetRange(Name,rec. "Nego Bank");
                         if BankRec.FindSet() then
-                            "Nego Bank No." := BankRec."No.";
+                           rec. "Nego Bank No." := BankRec."No.";
                     end;
                 }
 
-                field(BBLC; BBLC)
+                field(BBLC; rec.BBLC)
                 {
                     ApplicationArea = All;
                     Caption = 'BBLC %';
                 }
 
-                field("B2B Payment Type"; "B2B Payment Type")
+                field("B2B Payment Type"; rec."B2B Payment Type")
                 {
                     ApplicationArea = All;
                     Caption = 'B2B Payment Type';
@@ -155,38 +155,38 @@ page 50502 "Contract/LC Card"
                         PaymentRec: Record "Payment Method";
                     begin
                         PaymentRec.Reset();
-                        PaymentRec.SetRange(Description, "B2B Payment Type");
+                        PaymentRec.SetRange(Description, rec."B2B Payment Type");
                         if PaymentRec.FindSet() then
-                            "B2B Payment Type No." := PaymentRec.Code;
+                            rec."B2B Payment Type No." := PaymentRec.Code;
                     end;
                 }
 
-                field("Shipment Mode"; "Shipment Mode")
+                field("Shipment Mode"; rec."Shipment Mode")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Opening Date"; "Opening Date")
+                field("Opening Date"; rec."Opening Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Amend Date"; "Amend Date")
+                field("Amend Date"; rec."Amend Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Last Shipment Date"; "Last Shipment Date")
+                field("Last Shipment Date"; rec."Last Shipment Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Expiry Date"; "Expiry Date")
+                field("Expiry Date"; rec."Expiry Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Currency; Currency)
+                field(Currency; rec.Currency)
                 {
                     ApplicationArea = All;
 
@@ -195,38 +195,38 @@ page 50502 "Contract/LC Card"
                         CurrencyRec: Record Currency;
                     begin
                         CurrencyRec.Reset();
-                        CurrencyRec.SetRange(Description, Currency);
+                        CurrencyRec.SetRange(Description,rec.Currency);
                         if CurrencyRec.FindSet() then
-                            "Currency No." := CurrencyRec.Code;
+                            rec."Currency No." := CurrencyRec.Code;
                     end;
                 }
 
-                field("UD No"; "UD No")
+                field("UD No"; rec."UD No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("UD Version"; "UD Version")
+                field("UD Version"; rec."UD Version")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Freight Value"; "Freight Value")
+                field("Freight Value"; rec."Freight Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Insurance Value"; "Insurance Value")
+                field("Insurance Value"; rec."Insurance Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Partial Shipment"; "Partial Shipment")
+                field("Partial Shipment"; rec."Partial Shipment")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Payment Terms (Days)"; "Payment Terms (Days)")
+                field("Payment Terms (Days)";rec."Payment Terms (Days)")
                 {
                     ApplicationArea = All;
 
@@ -235,18 +235,18 @@ page 50502 "Contract/LC Card"
                         PaymentTermsRec: Record "Payment Terms";
                     begin
                         PaymentTermsRec.Reset();
-                        PaymentTermsRec.SetRange(Description, "Payment Terms (Days)");
+                        PaymentTermsRec.SetRange(Description, rec."Payment Terms (Days)");
                         if PaymentTermsRec.FindSet() then
-                            "Payment Terms (Days) No." := PaymentTermsRec.Code;
+                            rec."Payment Terms (Days) No." := PaymentTermsRec.Code;
                     end;
                 }
 
-                field("Status of LC"; "Status of LC")
+                field("Status of LC"; rec."Status of LC")
                 {
                     ApplicationArea = All;
                 }
 
-                field("File No"; "File No")
+                field("File No"; rec."File No")
                 {
                     ApplicationArea = All;
                 }
@@ -271,18 +271,18 @@ page 50502 "Contract/LC Card"
 
             group("  ")
             {
-                field("Quantity (Pcs)"; "Quantity (Pcs)")
+                field("Quantity (Pcs)"; rec."Quantity (Pcs)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Contract Value"; "Contract Value")
+                field("Contract Value"; rec."Contract Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Auto Calculate Value"; "Auto Calculate Value")
+                field("Auto Calculate Value"; rec."Auto Calculate Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -308,8 +308,8 @@ page 50502 "Contract/LC Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."ContractLC Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."ContractLC Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -321,13 +321,13 @@ page 50502 "Contract/LC Card"
         "Contract/LCStyleRec": Record "Contract/LCStyle";
         "Contract CommisionRec": Record "Contract Commision";
     begin
-        "Contract/LCMasterRec".SetRange("No.", "No.");
+        "Contract/LCMasterRec".SetRange("No.", rec."No.");
         "Contract/LCMasterRec".DeleteAll();
 
-        "Contract/LCStyleRec".SetRange("No.", "No.");
+        "Contract/LCStyleRec".SetRange("No.", rec."No.");
         "Contract/LCStyleRec".DeleteAll();
 
-        "Contract CommisionRec".SetRange("No.", "No.");
+        "Contract CommisionRec".SetRange("No.",rec."No.");
         "Contract CommisionRec".DeleteAll();
     end;
 

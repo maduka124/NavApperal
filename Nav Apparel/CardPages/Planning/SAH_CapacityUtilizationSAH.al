@@ -1,8 +1,9 @@
 page 50855 CapacityUtilizationSAH
 {
     PageType = Card;
-    SourceTable = YearTable;
+    SourceTable = SAH_CapacityUtiliSAHHeader;
     Caption = 'Capacity Utilization By SAH';
+    AutoSplitKey = true;
 
     layout
     {
@@ -10,10 +11,16 @@ page 50855 CapacityUtilizationSAH
         {
             group("General")
             {
+                field(No; No)
+                {
+                    ApplicationArea = all;
+                    Editable = false;
+
+                }
+
                 field(Year; Year)
                 {
                     ApplicationArea = all;
-                    TableRelation = YearTable.Year;
                 }
             }
 
@@ -166,527 +173,527 @@ page 50855 CapacityUtilizationSAH
 
                     if Year > 0 then begin
 
-                        // /////////////////////////////Capacity Allocations
-                        // //Get max record
-                        // CapacityAlloRec.Reset();
-                        // if CapacityAlloRec.Findlast() then
-                        //     SeqNo := CapacityAlloRec."No.";
+                        /////////////////////////////Capacity Allocations
+                        //Get max record
+                        CapacityAlloRec.Reset();
+                        if CapacityAlloRec.Findlast() then
+                            SeqNo := CapacityAlloRec."No.";
 
-                        // //Check for existing records
-                        // CapacityAlloRec.Reset();
-                        // CapacityAlloRec.SetRange(Year, Year);
-                        // if not CapacityAlloRec.FindSet() then begin
+                        //Check for existing records
+                        CapacityAlloRec.Reset();
+                        CapacityAlloRec.SetRange(Year, Year);
+                        if not CapacityAlloRec.FindSet() then begin
 
-                        //     //Get all the factories
-                        //     LocationsRec.Reset();
-                        //     LocationsRec.SetFilter("Sewing Unit", '=%1', true);
-                        //     if LocationsRec.FindSet() then begin
-                        //         repeat
+                            //Get all the factories
+                            LocationsRec.Reset();
+                            LocationsRec.SetFilter("Sewing Unit", '=%1', true);
+                            if LocationsRec.FindSet() then begin
+                                repeat
 
-                        //             //Get all the lines for the above factory
-                        //             WorkCenterRec.Reset();
-                        //             WorkCenterRec.SetRange("Factory No.", LocationsRec.Code);
-                        //             if WorkCenterRec.FindSet() then begin
-                        //                 repeat
-                        //                     SeqNo += 1;
+                                    //Get all the lines for the above factory
+                                    WorkCenterRec.Reset();
+                                    WorkCenterRec.SetRange("Factory No.", LocationsRec.Code);
+                                    if WorkCenterRec.FindSet() then begin
+                                        repeat
+                                            SeqNo += 1;
 
-                        //                     //Insert lines
-                        //                     CapacityAlloRec.Init();
-                        //                     CapacityAlloRec."No." := SeqNo;
-                        //                     CapacityAlloRec.Year := Year;
-                        //                     CapacityAlloRec."Factory Code" := LocationsRec.Code;
-                        //                     CapacityAlloRec."Factory Name" := LocationsRec.Name;
-                        //                     CapacityAlloRec."Line No." := WorkCenterRec."No.";
-                        //                     CapacityAlloRec."Line Name" := WorkCenterRec.Name;
-                        //                     CapacityAlloRec."Created User" := UserId;
-                        //                     CapacityAlloRec.Insert();
+                                            //Insert lines
+                                            CapacityAlloRec.Init();
+                                            CapacityAlloRec."No." := SeqNo;
+                                            CapacityAlloRec.Year := Year;
+                                            CapacityAlloRec."Factory Code" := LocationsRec.Code;
+                                            CapacityAlloRec."Factory Name" := LocationsRec.Name;
+                                            CapacityAlloRec."Line No." := WorkCenterRec."No.";
+                                            CapacityAlloRec."Line Name" := WorkCenterRec.Name;
+                                            CapacityAlloRec."Created User" := UserId;
+                                            CapacityAlloRec.Insert();
 
-                        //                 until WorkCenterRec.Next() = 0;
-                        //             end;
+                                        until WorkCenterRec.Next() = 0;
+                                    end;
 
-                        //         until LocationsRec.Next() = 0;
-                        //     end;
-                        // end;
-
-
-                        // ///////////////////////////////Planning Efficiency                        
-                        // //Check for existing records
-                        // PlanEfficiencyRec.Reset();
-                        // PlanEfficiencyRec.SetRange(Year, Year);
-                        // if not PlanEfficiencyRec.FindSet() then begin
-                        //     //Insert lines
-                        //     PlanEfficiencyRec.Init();
-                        //     PlanEfficiencyRec.Year := Year;
-                        //     PlanEfficiencyRec."Created User" := UserId;
-                        //     PlanEfficiencyRec.Insert();
-                        // end;
+                                until LocationsRec.Next() = 0;
+                            end;
+                        end;
 
 
-                        // ////////////////////////////////////Factory Capacity                      
-                        // //Get all the factories
-                        // LocationsRec.Reset();
-                        // LocationsRec.SetFilter("Sewing Unit", '=%1', true);
-                        // if LocationsRec.FindSet() then begin
-                        //     repeat
-                        //         HoursPerDay := (LocationsRec."Finish Time" - LocationsRec."Start Time") / 3600000;
-                        //         Total1 := 0;
-                        //         Total2 := 0;
-                        //         Total3 := 0;
-                        //         Total4 := 0;
-                        //         Total5 := 0;
-                        //         Total6 := 0;
-                        //         Total7 := 0;
-                        //         Total8 := 0;
-                        //         Total9 := 0;
-                        //         Total10 := 0;
-                        //         Total11 := 0;
-                        //         Total12 := 0;
-
-                        //         //Get all the lines for the above factory
-                        //         WorkCenterRec.Reset();
-                        //         WorkCenterRec.SetRange("Factory No.", LocationsRec.Code);
-                        //         if WorkCenterRec.FindSet() then begin
-                        //             repeat
-                        //                 Carders := WorkCenterRec.Carder;
-
-                        //                 //No of days for a month
-                        //                 for i := 1 to 12 do begin
-
-                        //                     StartDate := DMY2DATE(1, i, Year);
-
-                        //                     case i of
-                        //                         1:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         2:
-                        //                             begin
-                        //                                 if Year mod 4 = 0 then
-                        //                                     FinishDate := DMY2DATE(29, i, Year)
-                        //                                 else
-                        //                                     FinishDate := DMY2DATE(28, i, Year);
-                        //                             end;
-                        //                         3:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         4:
-                        //                             FinishDate := DMY2DATE(30, i, Year);
-                        //                         5:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         6:
-                        //                             FinishDate := DMY2DATE(30, i, Year);
-                        //                         7:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         8:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         9:
-                        //                             FinishDate := DMY2DATE(30, i, Year);
-                        //                         10:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         11:
-                        //                             FinishDate := DMY2DATE(30, i, Year);
-                        //                         12:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                     end;
+                        ///////////////////////////////Planning Efficiency                        
+                        //Check for existing records
+                        PlanEfficiencyRec.Reset();
+                        PlanEfficiencyRec.SetRange(Year, Year);
+                        if not PlanEfficiencyRec.FindSet() then begin
+                            //Insert lines
+                            PlanEfficiencyRec.Init();
+                            PlanEfficiencyRec.Year := Year;
+                            PlanEfficiencyRec."Created User" := UserId;
+                            PlanEfficiencyRec.Insert();
+                        end;
 
 
-                        //                     //Get no of working days
-                        //                     CalenderRec.Reset();
-                        //                     CalenderRec.SETRANGE("No.", WorkCenterRec."No.");
-                        //                     CalenderRec.SETRANGE(Date, StartDate, FinishDate);
-                        //                     NoofDays := 0;
+                        ////////////////////////////////////Factory Capacity                      
+                        //Get all the factories
+                        LocationsRec.Reset();
+                        LocationsRec.SetFilter("Sewing Unit", '=%1', true);
+                        if LocationsRec.FindSet() then begin
+                            repeat
+                                HoursPerDay := (LocationsRec."Finish Time" - LocationsRec."Start Time") / 3600000;
+                                Total1 := 0;
+                                Total2 := 0;
+                                Total3 := 0;
+                                Total4 := 0;
+                                Total5 := 0;
+                                Total6 := 0;
+                                Total7 := 0;
+                                Total8 := 0;
+                                Total9 := 0;
+                                Total10 := 0;
+                                Total11 := 0;
+                                Total12 := 0;
 
-                        //                     if CalenderRec.FindSet() then begin
-                        //                         repeat
-                        //                             if CalenderRec."Capacity (Total)" > 0 then
-                        //                                 NoofDays += 1;
-                        //                         until CalenderRec.Next() = 0;
-                        //                     end;
+                                //Get all the lines for the above factory
+                                WorkCenterRec.Reset();
+                                WorkCenterRec.SetRange("Factory No.", LocationsRec.Code);
+                                if WorkCenterRec.FindSet() then begin
+                                    repeat
+                                        Carders := WorkCenterRec.Carder;
 
+                                        //No of days for a month
+                                        for i := 1 to 12 do begin
 
-                        //                     //Get efficiency
-                        //                     PlanEfficiencyRec.Reset();
-                        //                     PlanEfficiencyRec.SetRange(Year, Year);
-                        //                     PlanEfficiencyRec.FindSet();
+                                            StartDate := DMY2DATE(1, i, Year);
 
-                        //                     case i of
-                        //                         1:
-                        //                             begin
-                        //                                 NoofDays1 := NoofDays;
-                        //                                 Total1 += (Carders * HoursPerDay * NoofDays1 * PlanEfficiencyRec.JAN) / 100;
-                        //                             end;
-                        //                         2:
-                        //                             begin
-                        //                                 NoofDays2 := NoofDays;
-                        //                                 Total2 += (Carders * HoursPerDay * NoofDays2 * PlanEfficiencyRec.FEB) / 100;
-                        //                             end;
-                        //                         3:
-                        //                             begin
-                        //                                 NoofDays3 := NoofDays;
-                        //                                 Total3 += (Carders * HoursPerDay * NoofDays3 * PlanEfficiencyRec.MAR) / 100;
-                        //                             end;
-                        //                         4:
-                        //                             begin
-                        //                                 NoofDays4 := NoofDays;
-                        //                                 Total4 += (Carders * HoursPerDay * NoofDays4 * PlanEfficiencyRec.APR) / 100;
-                        //                             end;
-                        //                         5:
-                        //                             begin
-                        //                                 NoofDays5 := NoofDays;
-                        //                                 Total5 += (Carders * HoursPerDay * NoofDays5 * PlanEfficiencyRec.MAY) / 100;
-                        //                             end;
-                        //                         6:
-                        //                             begin
-                        //                                 NoofDays6 := NoofDays;
-                        //                                 Total6 += (Carders * HoursPerDay * NoofDays6 * PlanEfficiencyRec.JUN) / 100;
-                        //                             end;
-                        //                         7:
-                        //                             begin
-                        //                                 NoofDays7 := NoofDays;
-                        //                                 Total7 += (Carders * HoursPerDay * NoofDays7 * PlanEfficiencyRec.JUL) / 100;
-                        //                             end;
-                        //                         8:
-                        //                             begin
-                        //                                 NoofDays8 := NoofDays;
-                        //                                 Total8 += (Carders * HoursPerDay * NoofDays8 * PlanEfficiencyRec.AUG) / 100;
-                        //                             end;
-                        //                         9:
-                        //                             begin
-                        //                                 NoofDays9 := NoofDays;
-                        //                                 Total9 += (Carders * HoursPerDay * NoofDays9 * PlanEfficiencyRec.SEP) / 100;
-                        //                             end;
-                        //                         10:
-                        //                             begin
-                        //                                 NoofDays10 := NoofDays;
-                        //                                 Total10 += (Carders * HoursPerDay * NoofDays10 * PlanEfficiencyRec.OCT) / 100;
-                        //                             end;
-                        //                         11:
-                        //                             begin
-                        //                                 NoofDays11 := NoofDays;
-                        //                                 Total11 += (Carders * HoursPerDay * NoofDays11 * PlanEfficiencyRec.NOV) / 100;
-                        //                             end;
-                        //                         12:
-                        //                             begin
-                        //                                 NoofDays12 := NoofDays;
-                        //                                 Total12 += (Carders * HoursPerDay * NoofDays12 * PlanEfficiencyRec.DEC) / 100;
-                        //                             end;
-                        //                     end;
-
-                        //                 end;
-
-                        //             until WorkCenterRec.Next() = 0;
-                        //         end;
+                                            case i of
+                                                1:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                2:
+                                                    begin
+                                                        if Year mod 4 = 0 then
+                                                            FinishDate := DMY2DATE(29, i, Year)
+                                                        else
+                                                            FinishDate := DMY2DATE(28, i, Year);
+                                                    end;
+                                                3:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                4:
+                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                5:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                6:
+                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                7:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                8:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                9:
+                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                10:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                11:
+                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                12:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                            end;
 
 
-                        //         //Check for existing records
-                        //         FactoryCapacityRec.Reset();
-                        //         FactoryCapacityRec.SetRange(Year, Year);
-                        //         FactoryCapacityRec.SetRange("Factory Code", LocationsRec.Code);
-                        //         if not FactoryCapacityRec.FindSet() then begin  //insert
+                                            //Get no of working days
+                                            CalenderRec.Reset();
+                                            CalenderRec.SETRANGE("No.", WorkCenterRec."No.");
+                                            CalenderRec.SETRANGE(Date, StartDate, FinishDate);
+                                            NoofDays := 0;
 
-                        //             //Insert lines
-                        //             FactoryCapacityRec.Init();
-                        //             FactoryCapacityRec.Year := Year;
-                        //             FactoryCapacityRec."Factory Code" := LocationsRec.Code;
-                        //             FactoryCapacityRec."Factory Name" := LocationsRec.Name;
-                        //             FactoryCapacityRec.JAN := Total1;
-                        //             FactoryCapacityRec.FEB := Total2;
-                        //             FactoryCapacityRec.MAR := Total3;
-                        //             FactoryCapacityRec.APR := Total4;
-                        //             FactoryCapacityRec.MAY := Total5;
-                        //             FactoryCapacityRec.JUN := Total6;
-                        //             FactoryCapacityRec.JUL := Total7;
-                        //             FactoryCapacityRec.AUG := Total8;
-                        //             FactoryCapacityRec.SEP := Total9;
-                        //             FactoryCapacityRec.OCT := Total10;
-                        //             FactoryCapacityRec.NOV := Total11;
-                        //             FactoryCapacityRec.DEC := Total12;
-                        //             FactoryCapacityRec."Created User" := UserId;
-                        //             FactoryCapacityRec."Created Date" := WorkDate();
-                        //             FactoryCapacityRec.Insert();
-
-                        //         end
-                        //         else begin  //Modify
-                        //             FactoryCapacityRec.JAN := Total1;
-                        //             FactoryCapacityRec.FEB := Total2;
-                        //             FactoryCapacityRec.MAR := Total3;
-                        //             FactoryCapacityRec.APR := Total4;
-                        //             FactoryCapacityRec.MAY := Total5;
-                        //             FactoryCapacityRec.JUN := Total6;
-                        //             FactoryCapacityRec.JUL := Total7;
-                        //             FactoryCapacityRec.AUG := Total8;
-                        //             FactoryCapacityRec.SEP := Total9;
-                        //             FactoryCapacityRec.OCT := Total10;
-                        //             FactoryCapacityRec.NOV := Total11;
-                        //             FactoryCapacityRec.DEC := Total12;
-                        //             FactoryCapacityRec.Modify();
-                        //         end;
-
-                        //     until LocationsRec.Next() = 0;
-                        // end;
+                                            if CalenderRec.FindSet() then begin
+                                                repeat
+                                                    if CalenderRec."Capacity (Total)" > 0 then
+                                                        NoofDays += 1;
+                                                until CalenderRec.Next() = 0;
+                                            end;
 
 
-                        // //////////////////////////////////Merchand group wise allocaton
-                        // //Insert all group heads
-                        // MerchanGroupTableRec.Reset();
-                        // if MerchanGroupTableRec.FindSet() then begin
-                        //     repeat
-                        //         SAH_MerchGRPWiseAllocRec.Reset();
-                        //         SAH_MerchGRPWiseAllocRec.SetRange(Year, Year);
-                        //         SAH_MerchGRPWiseAllocRec.SetRange("Group Id", MerchanGroupTableRec."Group Id");
-                        //         if not SAH_MerchGRPWiseAllocRec.findset() then begin
+                                            //Get efficiency
+                                            PlanEfficiencyRec.Reset();
+                                            PlanEfficiencyRec.SetRange(Year, Year);
+                                            PlanEfficiencyRec.FindSet();
 
-                        //             SAH_MerchGRPWiseAllocRec.Init();
-                        //             SAH_MerchGRPWiseAllocRec."Group Id" := MerchanGroupTableRec."Group Id";
-                        //             SAH_MerchGRPWiseAllocRec."Group Head" := MerchanGroupTableRec."Group Head";
-                        //             SAH_MerchGRPWiseAllocRec."Group Name" := MerchanGroupTableRec."Group Name";
-                        //             SAH_MerchGRPWiseAllocRec.Year := Year;
-                        //             SAH_MerchGRPWiseAllocRec."Created User" := UserId;
-                        //             SAH_MerchGRPWiseAllocRec."Created Date" := WorkDate();
-                        //             SAH_MerchGRPWiseAllocRec.Insert();
-                        //         end
-                        //         else begin
-                        //             SAH_MerchGRPWiseAllocRec.JAN := 0;
-                        //             SAH_MerchGRPWiseAllocRec.FEB := 0;
-                        //             SAH_MerchGRPWiseAllocRec.MAR := 0;
-                        //             SAH_MerchGRPWiseAllocRec.APR := 0;
-                        //             SAH_MerchGRPWiseAllocRec.MAY := 0;
-                        //             SAH_MerchGRPWiseAllocRec.JUN := 0;
-                        //             SAH_MerchGRPWiseAllocRec.JUL := 0;
-                        //             SAH_MerchGRPWiseAllocRec.AUG := 0;
-                        //             SAH_MerchGRPWiseAllocRec.SEP := 0;
-                        //             SAH_MerchGRPWiseAllocRec.OCT := 0;
-                        //             SAH_MerchGRPWiseAllocRec.NOV := 0;
-                        //             SAH_MerchGRPWiseAllocRec.DEC := 0;
-                        //             SAH_MerchGRPWiseAllocRec.Modify();
-                        //         end;
+                                            case i of
+                                                1:
+                                                    begin
+                                                        NoofDays1 := NoofDays;
+                                                        Total1 += (Carders * HoursPerDay * NoofDays1 * PlanEfficiencyRec.JAN) / 100;
+                                                    end;
+                                                2:
+                                                    begin
+                                                        NoofDays2 := NoofDays;
+                                                        Total2 += (Carders * HoursPerDay * NoofDays2 * PlanEfficiencyRec.FEB) / 100;
+                                                    end;
+                                                3:
+                                                    begin
+                                                        NoofDays3 := NoofDays;
+                                                        Total3 += (Carders * HoursPerDay * NoofDays3 * PlanEfficiencyRec.MAR) / 100;
+                                                    end;
+                                                4:
+                                                    begin
+                                                        NoofDays4 := NoofDays;
+                                                        Total4 += (Carders * HoursPerDay * NoofDays4 * PlanEfficiencyRec.APR) / 100;
+                                                    end;
+                                                5:
+                                                    begin
+                                                        NoofDays5 := NoofDays;
+                                                        Total5 += (Carders * HoursPerDay * NoofDays5 * PlanEfficiencyRec.MAY) / 100;
+                                                    end;
+                                                6:
+                                                    begin
+                                                        NoofDays6 := NoofDays;
+                                                        Total6 += (Carders * HoursPerDay * NoofDays6 * PlanEfficiencyRec.JUN) / 100;
+                                                    end;
+                                                7:
+                                                    begin
+                                                        NoofDays7 := NoofDays;
+                                                        Total7 += (Carders * HoursPerDay * NoofDays7 * PlanEfficiencyRec.JUL) / 100;
+                                                    end;
+                                                8:
+                                                    begin
+                                                        NoofDays8 := NoofDays;
+                                                        Total8 += (Carders * HoursPerDay * NoofDays8 * PlanEfficiencyRec.AUG) / 100;
+                                                    end;
+                                                9:
+                                                    begin
+                                                        NoofDays9 := NoofDays;
+                                                        Total9 += (Carders * HoursPerDay * NoofDays9 * PlanEfficiencyRec.SEP) / 100;
+                                                    end;
+                                                10:
+                                                    begin
+                                                        NoofDays10 := NoofDays;
+                                                        Total10 += (Carders * HoursPerDay * NoofDays10 * PlanEfficiencyRec.OCT) / 100;
+                                                    end;
+                                                11:
+                                                    begin
+                                                        NoofDays11 := NoofDays;
+                                                        Total11 += (Carders * HoursPerDay * NoofDays11 * PlanEfficiencyRec.NOV) / 100;
+                                                    end;
+                                                12:
+                                                    begin
+                                                        NoofDays12 := NoofDays;
+                                                        Total12 += (Carders * HoursPerDay * NoofDays12 * PlanEfficiencyRec.DEC) / 100;
+                                                    end;
+                                            end;
 
-                        //     until MerchanGroupTableRec.Next() = 0;
-                        // end;
+                                        end;
 
-                        // //Get all the factories
-                        // LocationsRec.Reset();
-                        // LocationsRec.SetFilter("Sewing Unit", '=%1', true);
-                        // if LocationsRec.FindSet() then begin
-                        //     repeat
-                        //         HoursPerDay := (LocationsRec."Finish Time" - LocationsRec."Start Time") / 3600000;
-                        //         Total1 := 0;
-                        //         Total2 := 0;
-                        //         Total3 := 0;
-                        //         Total4 := 0;
-                        //         Total5 := 0;
-                        //         Total6 := 0;
-                        //         Total7 := 0;
-                        //         Total8 := 0;
-                        //         Total9 := 0;
-                        //         Total10 := 0;
-                        //         Total11 := 0;
-                        //         Total12 := 0;
-
-                        //         //Get all the lines for the above factory
-                        //         WorkCenterRec.Reset();
-                        //         WorkCenterRec.SetRange("Factory No.", LocationsRec.Code);
-                        //         if WorkCenterRec.FindSet() then begin
-                        //             repeat
-                        //                 Carders := WorkCenterRec.Carder;
-
-                        //                 //No of days for a month
-                        //                 for i := 1 to 12 do begin
-
-                        //                     StartDate := DMY2DATE(1, i, Year);
-
-                        //                     case i of
-                        //                         1:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         2:
-                        //                             begin
-                        //                                 if Year mod 4 = 0 then
-                        //                                     FinishDate := DMY2DATE(29, i, Year)
-                        //                                 else
-                        //                                     FinishDate := DMY2DATE(28, i, Year);
-                        //                             end;
-                        //                         3:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         4:
-                        //                             FinishDate := DMY2DATE(30, i, Year);
-                        //                         5:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         6:
-                        //                             FinishDate := DMY2DATE(30, i, Year);
-                        //                         7:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         8:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         9:
-                        //                             FinishDate := DMY2DATE(30, i, Year);
-                        //                         10:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                         11:
-                        //                             FinishDate := DMY2DATE(30, i, Year);
-                        //                         12:
-                        //                             FinishDate := DMY2DATE(31, i, Year);
-                        //                     end;
+                                    until WorkCenterRec.Next() = 0;
+                                end;
 
 
-                        //                     //Get no of working days
-                        //                     CalenderRec.Reset();
-                        //                     CalenderRec.SETRANGE("No.", WorkCenterRec."No.");
-                        //                     CalenderRec.SETRANGE(Date, StartDate, FinishDate);
-                        //                     NoofDays := 0;
+                                //Check for existing records
+                                FactoryCapacityRec.Reset();
+                                FactoryCapacityRec.SetRange(Year, Year);
+                                FactoryCapacityRec.SetRange("Factory Code", LocationsRec.Code);
+                                if not FactoryCapacityRec.FindSet() then begin  //insert
 
-                        //                     if CalenderRec.FindSet() then begin
-                        //                         repeat
-                        //                             if CalenderRec."Capacity (Total)" > 0 then
-                        //                                 NoofDays += 1;
-                        //                         until CalenderRec.Next() = 0;
-                        //                     end;
+                                    //Insert lines
+                                    FactoryCapacityRec.Init();
+                                    FactoryCapacityRec.Year := Year;
+                                    FactoryCapacityRec."Factory Code" := LocationsRec.Code;
+                                    FactoryCapacityRec."Factory Name" := LocationsRec.Name;
+                                    FactoryCapacityRec.JAN := Total1;
+                                    FactoryCapacityRec.FEB := Total2;
+                                    FactoryCapacityRec.MAR := Total3;
+                                    FactoryCapacityRec.APR := Total4;
+                                    FactoryCapacityRec.MAY := Total5;
+                                    FactoryCapacityRec.JUN := Total6;
+                                    FactoryCapacityRec.JUL := Total7;
+                                    FactoryCapacityRec.AUG := Total8;
+                                    FactoryCapacityRec.SEP := Total9;
+                                    FactoryCapacityRec.OCT := Total10;
+                                    FactoryCapacityRec.NOV := Total11;
+                                    FactoryCapacityRec.DEC := Total12;
+                                    FactoryCapacityRec."Created User" := UserId;
+                                    FactoryCapacityRec."Created Date" := WorkDate();
+                                    FactoryCapacityRec.Insert();
 
+                                end
+                                else begin  //Modify
+                                    FactoryCapacityRec.JAN := Total1;
+                                    FactoryCapacityRec.FEB := Total2;
+                                    FactoryCapacityRec.MAR := Total3;
+                                    FactoryCapacityRec.APR := Total4;
+                                    FactoryCapacityRec.MAY := Total5;
+                                    FactoryCapacityRec.JUN := Total6;
+                                    FactoryCapacityRec.JUL := Total7;
+                                    FactoryCapacityRec.AUG := Total8;
+                                    FactoryCapacityRec.SEP := Total9;
+                                    FactoryCapacityRec.OCT := Total10;
+                                    FactoryCapacityRec.NOV := Total11;
+                                    FactoryCapacityRec.DEC := Total12;
+                                    FactoryCapacityRec.Modify();
+                                end;
 
-                        //                     //Get efficiency
-                        //                     PlanEfficiencyRec.Reset();
-                        //                     PlanEfficiencyRec.SetRange(Year, Year);
-                        //                     PlanEfficiencyRec.FindSet();
-
-                        //                     case i of
-                        //                         1:
-                        //                             begin
-                        //                                 NoofDays1 := NoofDays;
-                        //                                 Total1 += (Carders * HoursPerDay * NoofDays1 * PlanEfficiencyRec.JAN) / 100;
-                        //                             end;
-                        //                         2:
-                        //                             begin
-                        //                                 NoofDays2 := NoofDays;
-                        //                                 Total2 += (Carders * HoursPerDay * NoofDays2 * PlanEfficiencyRec.FEB) / 100;
-                        //                             end;
-                        //                         3:
-                        //                             begin
-                        //                                 NoofDays3 := NoofDays;
-                        //                                 Total3 += (Carders * HoursPerDay * NoofDays3 * PlanEfficiencyRec.MAR) / 100;
-                        //                             end;
-                        //                         4:
-                        //                             begin
-                        //                                 NoofDays4 := NoofDays;
-                        //                                 Total4 += (Carders * HoursPerDay * NoofDays4 * PlanEfficiencyRec.APR) / 100;
-                        //                             end;
-                        //                         5:
-                        //                             begin
-                        //                                 NoofDays5 := NoofDays;
-                        //                                 Total5 += (Carders * HoursPerDay * NoofDays5 * PlanEfficiencyRec.MAY) / 100;
-                        //                             end;
-                        //                         6:
-                        //                             begin
-                        //                                 NoofDays6 := NoofDays;
-                        //                                 Total6 += (Carders * HoursPerDay * NoofDays6 * PlanEfficiencyRec.JUN) / 100;
-                        //                             end;
-                        //                         7:
-                        //                             begin
-                        //                                 NoofDays7 := NoofDays;
-                        //                                 Total7 += (Carders * HoursPerDay * NoofDays7 * PlanEfficiencyRec.JUL) / 100;
-                        //                             end;
-                        //                         8:
-                        //                             begin
-                        //                                 NoofDays8 := NoofDays;
-                        //                                 Total8 += (Carders * HoursPerDay * NoofDays8 * PlanEfficiencyRec.AUG) / 100;
-                        //                             end;
-                        //                         9:
-                        //                             begin
-                        //                                 NoofDays9 := NoofDays;
-                        //                                 Total9 += (Carders * HoursPerDay * NoofDays9 * PlanEfficiencyRec.SEP) / 100;
-                        //                             end;
-                        //                         10:
-                        //                             begin
-                        //                                 NoofDays10 := NoofDays;
-                        //                                 Total10 += (Carders * HoursPerDay * NoofDays10 * PlanEfficiencyRec.OCT) / 100;
-                        //                             end;
-                        //                         11:
-                        //                             begin
-                        //                                 NoofDays11 := NoofDays;
-                        //                                 Total11 += (Carders * HoursPerDay * NoofDays11 * PlanEfficiencyRec.NOV) / 100;
-                        //                             end;
-                        //                         12:
-                        //                             begin
-                        //                                 NoofDays12 := NoofDays;
-                        //                                 Total12 += (Carders * HoursPerDay * NoofDays12 * PlanEfficiencyRec.DEC) / 100;
-                        //                             end;
-                        //                     end;
-
-                        //                     //Check for allocated Merchand for the month/year/line/factory
-                        //                     CapacityAlloRec.Reset();
-                        //                     CapacityAlloRec.SetRange(Year, Year);
-                        //                     CapacityAlloRec.SetRange("Factory Code", LocationsRec.Code);
-                        //                     CapacityAlloRec.SetRange("Line No.", WorkCenterRec."No.");
-
-                        //                     if CapacityAlloRec.FindSet() then begin
-                        //                         case i of
-                        //                             1:
-                        //                                 MerGR := CapacityAlloRec.JAN;
-                        //                             2:
-                        //                                 MerGR := CapacityAlloRec.FEB;
-                        //                             3:
-                        //                                 MerGR := CapacityAlloRec.MAR;
-                        //                             4:
-                        //                                 MerGR := CapacityAlloRec.APR;
-                        //                             5:
-                        //                                 MerGR := CapacityAlloRec.MAY;
-                        //                             6:
-                        //                                 MerGR := CapacityAlloRec.JUN;
-                        //                             7:
-                        //                                 MerGR := CapacityAlloRec.JUL;
-                        //                             8:
-                        //                                 MerGR := CapacityAlloRec.AUG;
-                        //                             9:
-                        //                                 MerGR := CapacityAlloRec.SEP;
-                        //                             10:
-                        //                                 MerGR := CapacityAlloRec.OCT;
-                        //                             11:
-                        //                                 MerGR := CapacityAlloRec.NOV;
-                        //                             12:
-                        //                                 MerGR := CapacityAlloRec.DEC;
-                        //                         end;
-
-                        //                     end;
+                            until LocationsRec.Next() = 0;
+                        end;
 
 
-                        //                     //update merchand allocation
-                        //                     SAH_MerchGRPWiseAllocRec.Reset();
-                        //                     SAH_MerchGRPWiseAllocRec.SetRange(Year, Year);
-                        //                     SAH_MerchGRPWiseAllocRec.SetRange("Group Id", MerGR);
-                        //                     if SAH_MerchGRPWiseAllocRec.FindSet() then begin
+                        //////////////////////////////////Merchand group wise allocaton
+                        //Insert all group heads
+                        MerchanGroupTableRec.Reset();
+                        if MerchanGroupTableRec.FindSet() then begin
+                            repeat
+                                SAH_MerchGRPWiseAllocRec.Reset();
+                                SAH_MerchGRPWiseAllocRec.SetRange(Year, Year);
+                                SAH_MerchGRPWiseAllocRec.SetRange("Group Id", MerchanGroupTableRec."Group Id");
+                                if not SAH_MerchGRPWiseAllocRec.findset() then begin
 
-                        //                         case i of
-                        //                             1:
-                        //                                 SAH_MerchGRPWiseAllocRec.JAN := SAH_MerchGRPWiseAllocRec.JAN + Total1;
-                        //                             2:
-                        //                                 SAH_MerchGRPWiseAllocRec.FEB := SAH_MerchGRPWiseAllocRec.FEB + Total2;
-                        //                             3:
-                        //                                 SAH_MerchGRPWiseAllocRec.MAR := SAH_MerchGRPWiseAllocRec.MAR + Total3;
-                        //                             4:
-                        //                                 SAH_MerchGRPWiseAllocRec.APR := SAH_MerchGRPWiseAllocRec.APR + Total4;
-                        //                             5:
-                        //                                 SAH_MerchGRPWiseAllocRec.MAY := SAH_MerchGRPWiseAllocRec.MAY + Total5;
-                        //                             6:
-                        //                                 SAH_MerchGRPWiseAllocRec.JUN := SAH_MerchGRPWiseAllocRec.JUN + Total6;
-                        //                             7:
-                        //                                 SAH_MerchGRPWiseAllocRec.JUL := SAH_MerchGRPWiseAllocRec.JUL + Total7;
-                        //                             8:
-                        //                                 SAH_MerchGRPWiseAllocRec.AUG := SAH_MerchGRPWiseAllocRec.AUG + Total8;
-                        //                             9:
-                        //                                 SAH_MerchGRPWiseAllocRec.SEP := SAH_MerchGRPWiseAllocRec.SEP + Total9;
-                        //                             10:
-                        //                                 SAH_MerchGRPWiseAllocRec.OCT := SAH_MerchGRPWiseAllocRec.OCT + Total10;
-                        //                             11:
-                        //                                 SAH_MerchGRPWiseAllocRec.NOV := SAH_MerchGRPWiseAllocRec.NOV + Total11;
-                        //                             12:
-                        //                                 SAH_MerchGRPWiseAllocRec.DEC := SAH_MerchGRPWiseAllocRec.DEC + Total12;
-                        //                         end;
+                                    SAH_MerchGRPWiseAllocRec.Init();
+                                    SAH_MerchGRPWiseAllocRec."Group Id" := MerchanGroupTableRec."Group Id";
+                                    SAH_MerchGRPWiseAllocRec."Group Head" := MerchanGroupTableRec."Group Head";
+                                    SAH_MerchGRPWiseAllocRec."Group Name" := MerchanGroupTableRec."Group Name";
+                                    SAH_MerchGRPWiseAllocRec.Year := Year;
+                                    SAH_MerchGRPWiseAllocRec."Created User" := UserId;
+                                    SAH_MerchGRPWiseAllocRec."Created Date" := WorkDate();
+                                    SAH_MerchGRPWiseAllocRec.Insert();
+                                end
+                                else begin
+                                    SAH_MerchGRPWiseAllocRec.JAN := 0;
+                                    SAH_MerchGRPWiseAllocRec.FEB := 0;
+                                    SAH_MerchGRPWiseAllocRec.MAR := 0;
+                                    SAH_MerchGRPWiseAllocRec.APR := 0;
+                                    SAH_MerchGRPWiseAllocRec.MAY := 0;
+                                    SAH_MerchGRPWiseAllocRec.JUN := 0;
+                                    SAH_MerchGRPWiseAllocRec.JUL := 0;
+                                    SAH_MerchGRPWiseAllocRec.AUG := 0;
+                                    SAH_MerchGRPWiseAllocRec.SEP := 0;
+                                    SAH_MerchGRPWiseAllocRec.OCT := 0;
+                                    SAH_MerchGRPWiseAllocRec.NOV := 0;
+                                    SAH_MerchGRPWiseAllocRec.DEC := 0;
+                                    SAH_MerchGRPWiseAllocRec.Modify();
+                                end;
 
-                        //                         SAH_MerchGRPWiseAllocRec.Modify();
-                        //                     end;
+                            until MerchanGroupTableRec.Next() = 0;
+                        end;
 
-                        //                 end;
+                        //Get all the factories
+                        LocationsRec.Reset();
+                        LocationsRec.SetFilter("Sewing Unit", '=%1', true);
+                        if LocationsRec.FindSet() then begin
+                            repeat
+                                HoursPerDay := (LocationsRec."Finish Time" - LocationsRec."Start Time") / 3600000;
+                                Total1 := 0;
+                                Total2 := 0;
+                                Total3 := 0;
+                                Total4 := 0;
+                                Total5 := 0;
+                                Total6 := 0;
+                                Total7 := 0;
+                                Total8 := 0;
+                                Total9 := 0;
+                                Total10 := 0;
+                                Total11 := 0;
+                                Total12 := 0;
 
-                        //             until WorkCenterRec.Next() = 0;
-                        //         end;
+                                //Get all the lines for the above factory
+                                WorkCenterRec.Reset();
+                                WorkCenterRec.SetRange("Factory No.", LocationsRec.Code);
+                                if WorkCenterRec.FindSet() then begin
+                                    repeat
+                                        Carders := WorkCenterRec.Carder;
 
-                        //     until LocationsRec.Next() = 0;
-                        // end;
+                                        //No of days for a month
+                                        for i := 1 to 12 do begin
+
+                                            StartDate := DMY2DATE(1, i, Year);
+
+                                            case i of
+                                                1:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                2:
+                                                    begin
+                                                        if Year mod 4 = 0 then
+                                                            FinishDate := DMY2DATE(29, i, Year)
+                                                        else
+                                                            FinishDate := DMY2DATE(28, i, Year);
+                                                    end;
+                                                3:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                4:
+                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                5:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                6:
+                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                7:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                8:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                9:
+                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                10:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                11:
+                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                12:
+                                                    FinishDate := DMY2DATE(31, i, Year);
+                                            end;
+
+
+                                            //Get no of working days
+                                            CalenderRec.Reset();
+                                            CalenderRec.SETRANGE("No.", WorkCenterRec."No.");
+                                            CalenderRec.SETRANGE(Date, StartDate, FinishDate);
+                                            NoofDays := 0;
+
+                                            if CalenderRec.FindSet() then begin
+                                                repeat
+                                                    if CalenderRec."Capacity (Total)" > 0 then
+                                                        NoofDays += 1;
+                                                until CalenderRec.Next() = 0;
+                                            end;
+
+
+                                            //Get efficiency
+                                            PlanEfficiencyRec.Reset();
+                                            PlanEfficiencyRec.SetRange(Year, Year);
+                                            PlanEfficiencyRec.FindSet();
+
+                                            case i of
+                                                1:
+                                                    begin
+                                                        NoofDays1 := NoofDays;
+                                                        Total1 += (Carders * HoursPerDay * NoofDays1 * PlanEfficiencyRec.JAN) / 100;
+                                                    end;
+                                                2:
+                                                    begin
+                                                        NoofDays2 := NoofDays;
+                                                        Total2 += (Carders * HoursPerDay * NoofDays2 * PlanEfficiencyRec.FEB) / 100;
+                                                    end;
+                                                3:
+                                                    begin
+                                                        NoofDays3 := NoofDays;
+                                                        Total3 += (Carders * HoursPerDay * NoofDays3 * PlanEfficiencyRec.MAR) / 100;
+                                                    end;
+                                                4:
+                                                    begin
+                                                        NoofDays4 := NoofDays;
+                                                        Total4 += (Carders * HoursPerDay * NoofDays4 * PlanEfficiencyRec.APR) / 100;
+                                                    end;
+                                                5:
+                                                    begin
+                                                        NoofDays5 := NoofDays;
+                                                        Total5 += (Carders * HoursPerDay * NoofDays5 * PlanEfficiencyRec.MAY) / 100;
+                                                    end;
+                                                6:
+                                                    begin
+                                                        NoofDays6 := NoofDays;
+                                                        Total6 += (Carders * HoursPerDay * NoofDays6 * PlanEfficiencyRec.JUN) / 100;
+                                                    end;
+                                                7:
+                                                    begin
+                                                        NoofDays7 := NoofDays;
+                                                        Total7 += (Carders * HoursPerDay * NoofDays7 * PlanEfficiencyRec.JUL) / 100;
+                                                    end;
+                                                8:
+                                                    begin
+                                                        NoofDays8 := NoofDays;
+                                                        Total8 += (Carders * HoursPerDay * NoofDays8 * PlanEfficiencyRec.AUG) / 100;
+                                                    end;
+                                                9:
+                                                    begin
+                                                        NoofDays9 := NoofDays;
+                                                        Total9 += (Carders * HoursPerDay * NoofDays9 * PlanEfficiencyRec.SEP) / 100;
+                                                    end;
+                                                10:
+                                                    begin
+                                                        NoofDays10 := NoofDays;
+                                                        Total10 += (Carders * HoursPerDay * NoofDays10 * PlanEfficiencyRec.OCT) / 100;
+                                                    end;
+                                                11:
+                                                    begin
+                                                        NoofDays11 := NoofDays;
+                                                        Total11 += (Carders * HoursPerDay * NoofDays11 * PlanEfficiencyRec.NOV) / 100;
+                                                    end;
+                                                12:
+                                                    begin
+                                                        NoofDays12 := NoofDays;
+                                                        Total12 += (Carders * HoursPerDay * NoofDays12 * PlanEfficiencyRec.DEC) / 100;
+                                                    end;
+                                            end;
+
+                                            //Check for allocated Merchand for the month/year/line/factory
+                                            CapacityAlloRec.Reset();
+                                            CapacityAlloRec.SetRange(Year, Year);
+                                            CapacityAlloRec.SetRange("Factory Code", LocationsRec.Code);
+                                            CapacityAlloRec.SetRange("Line No.", WorkCenterRec."No.");
+
+                                            if CapacityAlloRec.FindSet() then begin
+                                                case i of
+                                                    1:
+                                                        MerGR := CapacityAlloRec.JAN;
+                                                    2:
+                                                        MerGR := CapacityAlloRec.FEB;
+                                                    3:
+                                                        MerGR := CapacityAlloRec.MAR;
+                                                    4:
+                                                        MerGR := CapacityAlloRec.APR;
+                                                    5:
+                                                        MerGR := CapacityAlloRec.MAY;
+                                                    6:
+                                                        MerGR := CapacityAlloRec.JUN;
+                                                    7:
+                                                        MerGR := CapacityAlloRec.JUL;
+                                                    8:
+                                                        MerGR := CapacityAlloRec.AUG;
+                                                    9:
+                                                        MerGR := CapacityAlloRec.SEP;
+                                                    10:
+                                                        MerGR := CapacityAlloRec.OCT;
+                                                    11:
+                                                        MerGR := CapacityAlloRec.NOV;
+                                                    12:
+                                                        MerGR := CapacityAlloRec.DEC;
+                                                end;
+
+                                            end;
+
+
+                                            //update merchand allocation
+                                            SAH_MerchGRPWiseAllocRec.Reset();
+                                            SAH_MerchGRPWiseAllocRec.SetRange(Year, Year);
+                                            SAH_MerchGRPWiseAllocRec.SetRange("Group Id", MerGR);
+                                            if SAH_MerchGRPWiseAllocRec.FindSet() then begin
+
+                                                case i of
+                                                    1:
+                                                        SAH_MerchGRPWiseAllocRec.JAN := SAH_MerchGRPWiseAllocRec.JAN + Total1;
+                                                    2:
+                                                        SAH_MerchGRPWiseAllocRec.FEB := SAH_MerchGRPWiseAllocRec.FEB + Total2;
+                                                    3:
+                                                        SAH_MerchGRPWiseAllocRec.MAR := SAH_MerchGRPWiseAllocRec.MAR + Total3;
+                                                    4:
+                                                        SAH_MerchGRPWiseAllocRec.APR := SAH_MerchGRPWiseAllocRec.APR + Total4;
+                                                    5:
+                                                        SAH_MerchGRPWiseAllocRec.MAY := SAH_MerchGRPWiseAllocRec.MAY + Total5;
+                                                    6:
+                                                        SAH_MerchGRPWiseAllocRec.JUN := SAH_MerchGRPWiseAllocRec.JUN + Total6;
+                                                    7:
+                                                        SAH_MerchGRPWiseAllocRec.JUL := SAH_MerchGRPWiseAllocRec.JUL + Total7;
+                                                    8:
+                                                        SAH_MerchGRPWiseAllocRec.AUG := SAH_MerchGRPWiseAllocRec.AUG + Total8;
+                                                    9:
+                                                        SAH_MerchGRPWiseAllocRec.SEP := SAH_MerchGRPWiseAllocRec.SEP + Total9;
+                                                    10:
+                                                        SAH_MerchGRPWiseAllocRec.OCT := SAH_MerchGRPWiseAllocRec.OCT + Total10;
+                                                    11:
+                                                        SAH_MerchGRPWiseAllocRec.NOV := SAH_MerchGRPWiseAllocRec.NOV + Total11;
+                                                    12:
+                                                        SAH_MerchGRPWiseAllocRec.DEC := SAH_MerchGRPWiseAllocRec.DEC + Total12;
+                                                end;
+
+                                                SAH_MerchGRPWiseAllocRec.Modify();
+                                            end;
+
+                                        end;
+
+                                    until WorkCenterRec.Next() = 0;
+                                end;
+
+                            until LocationsRec.Next() = 0;
+                        end;
 
 
                         /////////////////////////////////////////Merchand group wise balance/Avg SMV
@@ -785,6 +792,10 @@ page 50855 CapacityUtilizationSAH
                                                 StyleMasterPORec.SetRange("Style No.", StyleMasterRec."No.");
                                                 if StyleMasterPORec.findset() then begin
                                                     repeat
+
+                                                        if StyleMasterPORec."Ship Date" = 0D then
+                                                            Error('Ship Date is blank in style : %1', StyleMasterRec."Style No.");
+
                                                         evaluate(Month, copystr(Format(StyleMasterPORec."Ship Date"), 4, 2));
 
                                                         case Month of
@@ -997,6 +1008,54 @@ page 50855 CapacityUtilizationSAH
             }
         }
     }
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        SAH_FactoryCapacity: Record SAH_FactoryCapacity;
+        SAH_CapacityAllocation: Record SAH_CapacityAllocation;
+        SAH_MerchGRPWiseAllocation: Record SAH_MerchGRPWiseAllocation;
+        SAH_MerchGRPWiseAvgSMV: Record SAH_MerchGRPWiseAvgSMV;
+        SAH_MerchGRPWiseBalance: Record SAH_MerchGRPWiseBalance;
+        SAH_MerchGRPWiseSAHUsed: Record SAH_MerchGRPWiseSAHUsed;
+        SAH_PlanEfficiency: Record SAH_PlanEfficiency;
+
+    begin
+        SAH_FactoryCapacity.Reset();
+        SAH_FactoryCapacity.SetRange(Year, Year);
+        if SAH_FactoryCapacity.FindSet() then
+            SAH_FactoryCapacity.DeleteAll();
+
+        SAH_CapacityAllocation.Reset();
+        SAH_CapacityAllocation.SetRange(Year, Year);
+        if SAH_CapacityAllocation.FindSet() then
+            SAH_CapacityAllocation.DeleteAll();
+
+        SAH_MerchGRPWiseAllocation.Reset();
+        SAH_MerchGRPWiseAllocation.SetRange(Year, Year);
+        if SAH_MerchGRPWiseAllocation.FindSet() then
+            SAH_MerchGRPWiseAllocation.DeleteAll();
+
+        SAH_MerchGRPWiseAvgSMV.Reset();
+        SAH_MerchGRPWiseAvgSMV.SetRange(Year, Year);
+        if SAH_MerchGRPWiseAvgSMV.FindSet() then
+            SAH_MerchGRPWiseAvgSMV.DeleteAll();
+
+        SAH_MerchGRPWiseBalance.Reset();
+        SAH_MerchGRPWiseBalance.SetRange(Year, Year);
+        if SAH_MerchGRPWiseBalance.FindSet() then
+            SAH_MerchGRPWiseBalance.DeleteAll();
+
+        SAH_MerchGRPWiseSAHUsed.Reset();
+        SAH_MerchGRPWiseSAHUsed.SetRange(Year, Year);
+        if SAH_MerchGRPWiseSAHUsed.FindSet() then
+            SAH_MerchGRPWiseSAHUsed.DeleteAll();
+
+        SAH_PlanEfficiency.Reset();
+        SAH_PlanEfficiency.SetRange(Year, Year);
+        if SAH_PlanEfficiency.FindSet() then
+            SAH_PlanEfficiency.DeleteAll();
+    end;
 
 
     trigger OnOpenPage()

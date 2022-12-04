@@ -10,7 +10,7 @@ page 71012723 "Style Inquiry Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Style No';
@@ -22,7 +22,7 @@ page 71012723 "Style Inquiry Card"
                     end;
                 }
 
-                field("Style No."; "Style No.")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Style Name';
@@ -38,31 +38,31 @@ page 71012723 "Style Inquiry Card"
 
                         //Check for style rename  
                         SampleReqRec.Reset();
-                        SampleReqRec.SetFilter("Style No.", "No.");
+                        SampleReqRec.SetFilter("Style No.", rec."No.");
                         if SampleReqRec.FindSet() then
-                            Error('Style Name : %1 already usade in Sample requests. Cannot rename', "Style No.");
+                            Error('Style Name : %1 already usade in Sample requests. Cannot rename', rec."Style No.");
 
                         EstBOMRec.Reset();
-                        EstBOMRec.SetFilter("Style No.", "No.");
+                        EstBOMRec.SetFilter("Style No.", rec."No.");
                         if EstBOMRec.FindSet() then
-                            Error('Style Name : %1 already usade in Estimate BOM. Cannot rename', "Style No.");
+                            Error('Style Name : %1 already usade in Estimate BOM. Cannot rename', rec."Style No.");
 
                         NewBRRec.Reset();
-                        NewBRRec.SetFilter("Style No.", "No.");
+                        NewBRRec.SetFilter("Style No.", rec."No.");
                         if NewBRRec.FindSet() then
-                            Error('Style Name : %1 already usade in New Breakdown. Cannot rename', "Style No.");
+                            Error('Style Name : %1 already usade in New Breakdown. Cannot rename', rec."Style No.");
 
-                        if Status = Status::Confirmed then
-                            Error('Style Name : %1 already confirmed. Cannot rename', "Style No.");
+                        if rec.Status = rec.Status::Confirmed then
+                            Error('Style Name : %1 already confirmed. Cannot rename', rec."Style No.");
 
 
                         StyleMasRec.Reset();
-                        StyleMasRec.SetFilter("No.", '<>%1', "No.");
+                        StyleMasRec.SetFilter("No.", '<>%1', rec."No.");
 
                         if StyleMasRec.FindSet() then begin
                             repeat
-                                if UpperCase(StyleMasRec."Style No.") = UpperCase("Style No.") then
-                                    Error('Style Name : %1 already exists', "Style No.");
+                                if UpperCase(StyleMasRec."Style No.") = UpperCase(rec."Style No.") then
+                                    Error('Style Name : %1 already exists', rec."Style No.");
                             until StyleMasRec.Next() = 0;
                         end;
 
@@ -70,12 +70,12 @@ page 71012723 "Style Inquiry Card"
                     end;
                 }
 
-                field("Style Display Name"; "Style Display Name")
+                field("Style Display Name"; rec."Style Display Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
@@ -86,15 +86,15 @@ page 71012723 "Style Inquiry Card"
                         GarmentStoreRec: Record "Garment Store";
                     begin
                         GarmentStoreRec.Reset();
-                        GarmentStoreRec.SetRange("Store Name", "Store Name");
+                        GarmentStoreRec.SetRange("Store Name", rec."Store Name");
                         if GarmentStoreRec.FindSet() then
-                            "Store No." := GarmentStoreRec."No.";
+                            rec."Store No." := GarmentStoreRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
@@ -105,15 +105,15 @@ page 71012723 "Style Inquiry Card"
                         SeasonsRec: Record "Seasons";
                     begin
                         SeasonsRec.Reset();
-                        SeasonsRec.SetRange("Season Name", "Season Name");
+                        SeasonsRec.SetRange("Season Name", rec."Season Name");
                         if SeasonsRec.FindSet() then
-                            "Season No." := SeasonsRec."No.";
+                            rec."Season No." := SeasonsRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
@@ -124,15 +124,15 @@ page 71012723 "Style Inquiry Card"
                         BrandRec: Record "Brand";
                     begin
                         BrandRec.Reset();
-                        BrandRec.SetRange("Brand Name", "Brand Name");
+                        BrandRec.SetRange("Brand Name", rec."Brand Name");
                         if BrandRec.FindSet() then
-                            "Brand No." := BrandRec."No.";
+                            rec."Brand No." := BrandRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
@@ -143,15 +143,15 @@ page 71012723 "Style Inquiry Card"
                         DepartmentRec: Record "Department Style";
                     begin
                         DepartmentRec.Reset();
-                        DepartmentRec.SetRange("Department Name", "Department Name");
+                        DepartmentRec.SetRange("Department Name", rec."Department Name");
                         if DepartmentRec.FindSet() then
-                            "Department No." := DepartmentRec."No.";
+                            rec."Department No." := DepartmentRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -162,15 +162,15 @@ page 71012723 "Style Inquiry Card"
                         BuyerRec: Record Customer;
                     begin
                         BuyerRec.Reset();
-                        BuyerRec.SetRange("Name", "Buyer Name");
+                        BuyerRec.SetRange("Name", rec."Buyer Name");
                         if BuyerRec.FindSet() then
-                            "Buyer No." := BuyerRec."No.";
+                            rec."Buyer No." := BuyerRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
@@ -181,15 +181,15 @@ page 71012723 "Style Inquiry Card"
                         GarmentTypeRec: Record "Garment Type";
                     begin
                         GarmentTypeRec.Reset();
-                        GarmentTypeRec.SetRange("Garment Type Description", "Garment Type Name");
+                        GarmentTypeRec.SetRange("Garment Type Description", rec."Garment Type Name");
                         if GarmentTypeRec.FindSet() then
-                            "Garment Type No." := GarmentTypeRec."No.";
+                            rec."Garment Type No." := GarmentTypeRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Size Range Name"; "Size Range Name")
+                field("Size Range Name"; rec."Size Range Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Size Range';
@@ -200,42 +200,42 @@ page 71012723 "Style Inquiry Card"
                         SizeRangeRec: Record SizeRange;
                     begin
                         SizeRangeRec.Reset();
-                        SizeRangeRec.SetRange("Size Range", "Size Range Name");
+                        SizeRangeRec.SetRange("Size Range", rec."Size Range Name");
                         if SizeRangeRec.FindSet() then
-                            "Size Range No." := SizeRangeRec."No.";
+                            rec."Size Range No." := SizeRangeRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Order Qty"; "Order Qty")
+                field("Order Qty"; rec."Order Qty")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("Lead Time"; "Lead Time")
+                field("Lead Time"; rec."Lead Time")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Ship Date"; "Ship Date")
+                field("Ship Date"; rec."Ship Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field(Front; Front)
+                field(Front; rec.Front)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Back; Back)
+                field(Back; rec.Back)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -247,12 +247,12 @@ page 71012723 "Style Inquiry Card"
                 //     Editable = false;
                 // }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Production File Handover Date"; "Production File Handover Date")
+                field("Production File Handover Date"; rec."Production File Handover Date")
                 {
                     ApplicationArea = All;
                 }
@@ -298,7 +298,7 @@ page 71012723 "Style Inquiry Card"
 
                     Clear(SpecialOperationList);
                     SpecialOperationList.LookupMode(true);
-                    SpecialOperationList.PassParameters("No.");
+                    SpecialOperationList.PassParameters(rec."No.");
                     SpecialOperationList.RunModal();
                     CurrPage.Update();
                 end;
@@ -313,11 +313,11 @@ page 71012723 "Style Inquiry Card"
                 var
 
                 begin
-                    if Status = Status::Confirmed then begin
+                    if rec.Status = rec.Status::Confirmed then begin
                         Message('This Style is already confirmed');
                     end
                     else begin
-                        Status := Status::Confirmed;
+                        rec.Status := rec.Status::Confirmed;
 
                         CurrPage.Update();
                         Message('Style confirmed');
@@ -333,13 +333,13 @@ page 71012723 "Style Inquiry Card"
                 trigger OnAction()
                 var
                 begin
-                    if Status = Status::Confirmed then
+                    if rec.Status = rec.Status::Confirmed then
                         Message('This Style already confirmed')
                     else
-                        if Status = Status::Rejected then
+                        if rec.Status = rec.Status::Rejected then
                             Message('This Style already rejected')
                         else begin
-                            Status := Status::Rejected;
+                            rec.Status := rec.Status::Rejected;
                             CurrPage.Update();
                             Message('Style rejected');
                         end;
@@ -387,7 +387,7 @@ page 71012723 "Style Inquiry Card"
     trigger OnOpenPage()
     var
     begin
-        if Status = Status::Confirmed then
+        if rec.Status = rec.Status::Confirmed then
             CurrPage.Editable := false;
     end;
 
@@ -423,8 +423,8 @@ page 71012723 "Style Inquiry Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Style Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."Style Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -436,7 +436,7 @@ page 71012723 "Style Inquiry Card"
         StylePORec: Record "Style Master PO";
         SpecialOpRec: Record "Special Operation Style";
     begin
-        if Status = status::Confirmed then
+        if rec.Status = rec.status::Confirmed then
             Error('Style already confirmed. Cannot delete.')
         else begin
 
@@ -444,11 +444,11 @@ page 71012723 "Style Inquiry Card"
             // if StyleRec.FindSet() then
             //     StyleRec.DeleteAll();
 
-            SpecialOpRec.SetRange("Style No.", "No.");
+            SpecialOpRec.SetRange("Style No.", rec."No.");
             if SpecialOpRec.FindSet() then
                 SpecialOpRec.DeleteAll();
 
-            StylePORec.SetRange("Style No.", "No.");
+            StylePORec.SetRange("Style No.", rec."No.");
             if StylePORec.FindSet() then
                 StylePORec.DeleteAll();
 
@@ -460,9 +460,9 @@ page 71012723 "Style Inquiry Card"
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     var
     begin
-        if "No." <> '' then begin
+        if rec."No." <> '' then begin
             //rec.TestField("Style No.");
-            if "Style No." = '' then
+            if rec."Style No." = '' then
                 Error('Style Name cannot blank.');
 
             rec.TestField("Store Name");

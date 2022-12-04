@@ -12,7 +12,7 @@ page 50709 "DepReqSheetHeaderCard"
         {
             group(General)
             {
-                field("Req No"; "Req No")
+                field("Req No"; rec."Req No")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -23,7 +23,7 @@ page 50709 "DepReqSheetHeaderCard"
                     end;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
@@ -37,73 +37,73 @@ page 50709 "DepReqSheetHeaderCard"
                     begin
 
                         DepRec.Reset();
-                        DepRec.SetRange("Department Name", "Department Name");
+                        DepRec.SetRange("Department Name", rec."Department Name");
 
                         if DepRec.FindSet() then
-                            "Department Code" := DepRec."No.";
+                            rec."Department Code" := DepRec."No.";
 
                         userRec.Reset();
                         userRec.SetRange("User ID", UserId);
 
                         if userRec.FindSet() then begin
-                            "Factory Code" := userRec."Factory Code";
-                            "Global Dimension Code" := userRec."Global Dimension Code";
+                            rec."Factory Code" := userRec."Factory Code";
+                            rec."Global Dimension Code" := userRec."Global Dimension Code";
                         end;
 
                         locationRec.Reset();
-                        locationRec.SetRange(Code, "Factory Code");
+                        locationRec.SetRange(Code, rec."Factory Code");
 
                         if locationRec.FindSet() then
-                            "Factory Name" := locationRec.Name;
+                            rec."Factory Name" := locationRec.Name;
                     end;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';
                     Editable = false;
                 }
 
-                field("Request Date"; "Request Date")
+                field("Request Date"; rec."Request Date")
                 {
                     ApplicationArea = All;
                     Editable = EditableGb;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                     Editable = EditableGb;
                 }
 
-                field("Global Dimension Code"; "Global Dimension Code")
+                field("Global Dimension Code"; rec."Global Dimension Code")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Completely Received"; "Completely Received")
+                field("Completely Received"; rec."Completely Received")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Approved By"; "Approved By")
+                field("Approved By"; rec."Approved By")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Approved/Rejected By';
                 }
 
-                field("Approved Date"; "Approved Date")
+                field("Approved Date"; rec."Approved Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Approved/Rejected Date';
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -136,7 +136,7 @@ page 50709 "DepReqSheetHeaderCard"
                 var
                     UserRec: Record "User Setup";
                 begin
-                    if (Status = Status::New) or (Status = Status::Rejected) then begin
+                    if (rec.Status = rec.Status::New) or (rec.Status = rec.Status::Rejected) then begin
                         UserRec.Reset();
                         UserRec.SetRange("Factory Code", FactoryGB);
                         UserRec.SetFilter("Purchasing Approval", '=%1', true);
@@ -144,9 +144,9 @@ page 50709 "DepReqSheetHeaderCard"
                             Error('Approval user for factory : %1 has not setup.', FactoryGB)
                         else begin
                             //ApprovalSentToUser := UserRec."User ID";
-                            "Approved By" := '';
-                            "Approved Date" := 0D;
-                            Status := Status::"Pending Approval";
+                            rec."Approved By" := '';
+                            rec."Approved Date" := 0D;
+                            rec.Status := rec.Status::"Pending Approval";
                             CurrPage.Update();
                             Message('Sent to approval');
                         end;
@@ -172,20 +172,20 @@ page 50709 "DepReqSheetHeaderCard"
                     if not UserRec.FindSet() then
                         Message('You are not authorized to approve this request.')
                     else begin
-                        if Status = Status::New then
+                        if rec.Status = rec.Status::New then
                             Error('This request has not sent for approval.')
                         else begin
-                            if Status = Status::Approved then
+                            if rec.Status = rec.Status::Approved then
                                 Error('This request has already approved.')
                             else begin
-                                if Status = Status::Rejected then
+                                if rec.Status = rec.Status::Rejected then
                                     Error('This request has already rejeted.')
                                 else begin
-                                    if (Status = Status::"Pending Approval") then begin
+                                    if (rec.Status = rec.Status::"Pending Approval") then begin
                                         //ApprovalSentToUser := '';
-                                        Status := Status::Approved;
-                                        "Approved By" := UserId;
-                                        "Approved Date" := WorkDate();
+                                        rec.Status := rec.Status::Approved;
+                                        rec."Approved By" := UserId;
+                                        rec."Approved Date" := WorkDate();
                                         CurrPage.Update();
                                         Message('Request approved');
                                     end
@@ -214,20 +214,20 @@ page 50709 "DepReqSheetHeaderCard"
                     if not UserRec.FindSet() then
                         Message('You are not authorized to reject requests.')
                     else begin
-                        if Status = Status::New then
+                        if rec.Status = rec.Status::New then
                             Error('This request has not sent for approval.')
                         else begin
-                            if Status = Status::Approved then
+                            if rec.Status = rec.Status::Approved then
                                 Error('This request has already approved.')
                             else begin
-                                if Status = Status::Rejected then
+                                if rec.Status = rec.Status::Rejected then
                                     Error('This request has already rejected.')
                                 else begin
-                                    if (Status = Status::"Pending Approval") then begin
+                                    if (rec.Status = rec.Status::"Pending Approval") then begin
                                         //ApprovalSentToUser := '';
-                                        Status := Status::Rejected;
-                                        "Approved By" := UserId;
-                                        "Approved Date" := WorkDate();
+                                        rec.Status := rec.Status::Rejected;
+                                        rec."Approved By" := UserId;
+                                        rec."Approved Date" := WorkDate();
                                         CurrPage.Update();
                                         Message('Request rejected');
                                     end
@@ -250,8 +250,8 @@ page 50709 "DepReqSheetHeaderCard"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."DepReq No", xRec."Req No", "Req No") THEN BEGIN
-            NoSeriesMngment.SetSeries("Req No");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."DepReq No", xRec."Req No", rec."Req No") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."Req No");
             EXIT(TRUE);
         END;
     end;
@@ -262,7 +262,7 @@ page 50709 "DepReqSheetHeaderCard"
     begin
 
         DeptReqSheetLine.Reset();
-        DeptReqSheetLine.SetRange("Req No", "Req No");
+        DeptReqSheetLine.SetRange("Req No", rec."Req No");
         if DeptReqSheetLine.FindSet() then
             DeptReqSheetLine.DeleteAll();
 
@@ -273,7 +273,7 @@ page 50709 "DepReqSheetHeaderCard"
     var
         UserRec: Record "User Setup";
     begin
-        if ("Completely Received" = "Completely Received"::Yes) or (Status = Status::Approved) then
+        if (rec."Completely Received" = rec."Completely Received"::Yes) or (rec.Status = rec.Status::Approved) then
             EditableGb := false
         else
             EditableGb := true;
@@ -288,7 +288,7 @@ page 50709 "DepReqSheetHeaderCard"
     trigger OnAfterGetCurrRecord()
     var
     begin
-        if "Completely Received" = "Completely Received"::Yes then
+        if rec."Completely Received" = rec."Completely Received"::Yes then
             EditableGb := false
         else
             EditableGb := true;

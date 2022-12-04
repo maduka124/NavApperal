@@ -158,7 +158,7 @@ table 50871 SAH_MerchGRPWiseBalance
 
     keys
     {
-        key(PK; Year, "Group Name")
+        key(PK; Year, "Group Id")
         {
             Clustered = true;
         }

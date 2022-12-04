@@ -18,13 +18,11 @@ page 71012739 "Login Card"
                     var
                         LoginDetails: Record LoginDetails;
                     begin
-
                         LoginDetails.Reset();
                         LoginDetails.SetRange("UserID Secondary", UseridPara);
 
                         if not LoginDetails.FindSet() then
                             Error('Invalid User Name');
-
                     end;
                 }
 
@@ -32,24 +30,9 @@ page 71012739 "Login Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Password';
+                    ExtendedDatatype = Masked;
                 }
             }
-        }
-    }
-
-    actions
-    {
-        area(Processing)
-        {
-            // action(Save)
-            // {
-            //     ApplicationArea = All;
-
-            //     trigger OnAction()
-            //     begin
-
-            //     end;
-            // }
         }
     }
 
@@ -73,7 +56,7 @@ page 71012739 "Login Card"
             Error('Invalid User Name or Password')
         else
             if LoginDetails.Active = false then
-                Error('Inactive User Name')
+                Error('Inactive User. Cannot login.')
             else begin
 
                 //Clear if session number already exists
@@ -87,14 +70,9 @@ page 71012739 "Login Card"
                 LoginDetails.LastLoginDateTime := CurrentDateTime;
                 LoginDetails.Modify();
             end;
-
-
     end;
 
-
     var
-        UseridPara: Code[20];
-        PwPara: Code[50];
-
-
+        UseridPara: Text[20];
+        PwPara: text[50];
 }

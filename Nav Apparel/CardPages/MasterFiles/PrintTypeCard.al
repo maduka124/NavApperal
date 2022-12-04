@@ -10,13 +10,13 @@ page 71012632 "Print Type Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Print Type No';
                 }
 
-                field("Print Type Name"; "Print Type Name")
+                field("Print Type Name"; rec."Print Type Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012632 "Print Type Card"
                         PrintTypeRec: Record "Print Type";
                     begin
                         PrintTypeRec.Reset();
-                        PrintTypeRec.SetRange("Print Type Name", "Print Type Name");
+                        PrintTypeRec.SetRange("Print Type Name", rec."Print Type Name");
 
                         if PrintTypeRec.FindSet() then
                             Error('Print Type Name already exists.');

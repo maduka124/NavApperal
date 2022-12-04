@@ -10,7 +10,7 @@ page 50770 "Bank Ref Collection Card"
         {
             group(General)
             {
-                field("BankRefNo."; "BankRefNo.")
+                field("BankRefNo."; rec."BankRefNo.")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -25,21 +25,21 @@ page 50770 "Bank Ref Collection Card"
                     begin
 
                         BankRefCollLineRec.Reset();
-                        BankRefCollLineRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefCollLineRec.SetRange("BankRefNo.", rec."BankRefNo.");
 
                         if not BankRefCollLineRec.FindSet() then begin
 
                             BankRefHeaderRec.Reset();
-                            BankRefHeaderRec.SetRange("BankRefNo.", "BankRefNo.");
+                            BankRefHeaderRec.SetRange("BankRefNo.", rec."BankRefNo.");
                             BankRefHeaderRec.FindSet();
 
                             BankRefInvRec.Reset();
-                            BankRefInvRec.SetRange(BankRefNo, "BankRefNo.");
+                            BankRefInvRec.SetRange(BankRefNo, rec."BankRefNo.");
                             if BankRefInvRec.FindSet() then
                                 repeat
                                     LineNo += 1;
                                     BankRefCollLineRec.Init();
-                                    BankRefCollLineRec."BankRefNo." := "BankRefNo.";
+                                    BankRefCollLineRec."BankRefNo." := rec."BankRefNo.";
                                     BankRefCollLineRec."Airway Bill Date" := BankRefHeaderRec."Airway Bill Date";
                                     BankRefCollLineRec.AirwayBillNo := BankRefHeaderRec.AirwayBillNo;
                                     BankRefCollLineRec."Created User" := UserId;
@@ -58,7 +58,7 @@ page 50770 "Bank Ref Collection Card"
                     end;
                 }
 
-                field("Release Amount"; "Release Amount")
+                field("Release Amount"; rec."Release Amount")
                 {
                     ApplicationArea = All;
 
@@ -70,10 +70,10 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
-                        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
                             repeat
-                                BankRefeCollRec."Release Amount" := ("Release Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
+                                BankRefeCollRec."Release Amount" := (rec."Release Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
 
@@ -81,7 +81,7 @@ page 50770 "Bank Ref Collection Card"
                     end;
                 }
 
-                field("Release Date"; "Release Date")
+                field("Release Date"; rec."Release Date")
                 {
                     ApplicationArea = All;
 
@@ -90,15 +90,15 @@ page 50770 "Bank Ref Collection Card"
                         BankRefeCollRec: Record BankRefCollectionLine;
                     begin
                         BankRefeCollRec.Reset();
-                        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
-                            BankRefeCollRec.ModifyAll("Release Date", "Release Date");
+                            BankRefeCollRec.ModifyAll("Release Date", rec."Release Date");
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Exchange Rate"; "Exchange Rate")
+                field("Exchange Rate"; rec."Exchange Rate")
                 {
                     ApplicationArea = All;
 
@@ -107,15 +107,15 @@ page 50770 "Bank Ref Collection Card"
                         BankRefeCollRec: Record BankRefCollectionLine;
                     begin
                         BankRefeCollRec.Reset();
-                        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
-                            BankRefeCollRec.ModifyAll("Exchange Rate", "Exchange Rate");
+                            BankRefeCollRec.ModifyAll("Exchange Rate",rec."Exchange Rate");
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Margin A/C Amount"; "Margin A/C Amount")
+                field("Margin A/C Amount"; rec."Margin A/C Amount")
                 {
                     ApplicationArea = All;
 
@@ -127,10 +127,10 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
-                        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
                             repeat
-                                BankRefeCollRec."Margin A/C Amount" := ("Margin A/C Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
+                                BankRefeCollRec."Margin A/C Amount" := (rec."Margin A/C Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
 
@@ -138,7 +138,7 @@ page 50770 "Bank Ref Collection Card"
                     end;
                 }
 
-                field("Bank Charges"; "Bank Charges")
+                field("Bank Charges"; rec."Bank Charges")
                 {
                     ApplicationArea = All;
 
@@ -150,10 +150,10 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
-                        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
                             repeat
-                                BankRefeCollRec."Bank Charges" := ("Bank Charges" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
+                                BankRefeCollRec."Bank Charges" := (rec."Bank Charges" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
 
@@ -161,7 +161,7 @@ page 50770 "Bank Ref Collection Card"
                     end;
                 }
 
-                field(Tax; Tax)
+                field(Tax; rec.Tax)
                 {
                     ApplicationArea = All;
 
@@ -173,10 +173,10 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
-                        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
                             repeat
-                                BankRefeCollRec."Tax" := ("Tax" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
+                                BankRefeCollRec."Tax" := (rec."Tax" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
 
@@ -184,7 +184,7 @@ page 50770 "Bank Ref Collection Card"
                     end;
                 }
 
-                field("Currier Charges"; "Currier Charges")
+                field("Currier Charges"; rec."Currier Charges")
                 {
                     ApplicationArea = All;
 
@@ -196,10 +196,10 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
-                        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
                             repeat
-                                BankRefeCollRec."Currier Charges" := ("Currier Charges" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
+                                BankRefeCollRec."Currier Charges" := (rec."Currier Charges" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
 
@@ -207,7 +207,7 @@ page 50770 "Bank Ref Collection Card"
                     end;
                 }
 
-                field("FC A/C Amount"; "FC A/C Amount")
+                field("FC A/C Amount"; rec."FC A/C Amount")
                 {
                     ApplicationArea = All;
 
@@ -219,10 +219,10 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
-                        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
                             repeat
-                                BankRefeCollRec."FC A/C Amount" := ("FC A/C Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
+                                BankRefeCollRec."FC A/C Amount" := (rec."FC A/C Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
 
@@ -230,7 +230,7 @@ page 50770 "Bank Ref Collection Card"
                     end;
                 }
 
-                field("Current A/C Amount"; "Current A/C Amount")
+                field("Current A/C Amount"; rec."Current A/C Amount")
                 {
                     ApplicationArea = All;
 
@@ -242,10 +242,10 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
-                        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+                        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
                             repeat
-                                BankRefeCollRec."Current A/C Amount" := ("Current A/C Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
+                                BankRefeCollRec."Current A/C Amount" := (rec."Current A/C Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
 
@@ -271,7 +271,7 @@ page 50770 "Bank Ref Collection Card"
         BankRefeCollRec: Record BankRefCollectionLine;
     begin
         BankRefeCollRec.Reset();
-        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
         if BankRefeCollRec.FindSet() then
             BankRefeCollRec.Delete();
     end;
@@ -284,7 +284,7 @@ page 50770 "Bank Ref Collection Card"
     begin
 
         BankRefeCollRec.Reset();
-        BankRefeCollRec.SetRange("BankRefNo.", "BankRefNo.");
+        BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
         if BankRefeCollRec.FindSet() then
             repeat
                 InvoiceTotal += BankRefeCollRec."Invoice Amount";

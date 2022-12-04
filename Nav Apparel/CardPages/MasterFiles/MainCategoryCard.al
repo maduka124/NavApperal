@@ -10,7 +10,7 @@ page 71012617 "Main Category Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category No';
@@ -22,7 +22,7 @@ page 71012617 "Main Category Card"
                     end;
                 }
 
-                field("Master Category No."; "Master Category No.")
+                field("Master Category No."; rec."Master Category No.")
                 {
                     ApplicationArea = All;
                     TableRelation = "Master Category"."No.";
@@ -32,18 +32,18 @@ page 71012617 "Main Category Card"
                     var
                         MasterCategoryrec: Record "Master Category";
                     begin
-                        MasterCategoryrec.get("Master Category No.");
-                        "Master Category Name" := MasterCategoryrec."Master Category Name";
+                        MasterCategoryrec.get(rec."Master Category No.");
+                        rec."Master Category Name" := MasterCategoryrec."Master Category Name";
                     end;
                 }
 
-                field("Master Category Name"; "Master Category Name")
+                field("Master Category Name"; rec."Master Category Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
 
@@ -52,15 +52,15 @@ page 71012617 "Main Category Card"
                         MainCategoryRec: Record "Main Category";
                     begin
                         MainCategoryRec.Reset();
-                        MainCategoryRec.SetRange("Master Category No.", "Master Category No.");
-                        MainCategoryRec.SetRange("Main Category Name", "Main Category Name");
+                        MainCategoryRec.SetRange("Master Category No.", rec."Master Category No.");
+                        MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
 
                         if MainCategoryRec.FindSet() then
-                            Error('Main Category : %1 already exists for Master Category : %2', "Main Category Name", "Master Category Name");
+                            Error('Main Category : %1 already exists for Master Category : %2', rec."Main Category Name", rec."Master Category Name");
                     end;
                 }
 
-                field("Inv. Posting Group Code"; "Inv. Posting Group Code")
+                field("Inv. Posting Group Code"; rec."Inv. Posting Group Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Inv. Posting Group';
@@ -71,13 +71,13 @@ page 71012617 "Main Category Card"
                         InvPostingGroup: Record "Inventory Posting Group";
                     begin
                         InvPostingGroup.Reset();
-                        InvPostingGroup.SetRange(Code, "Inv. Posting Group Code");
+                        InvPostingGroup.SetRange(Code, rec."Inv. Posting Group Code");
                         if InvPostingGroup.FindSet() then
-                            "Inv. Posting Group Name" := InvPostingGroup.Description;
+                            rec."Inv. Posting Group Name" := InvPostingGroup.Description;
                     end;
                 }
 
-                field("Prod. Posting Group Code"; "Prod. Posting Group Code")
+                field("Prod. Posting Group Code"; rec."Prod. Posting Group Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Prod. Posting Group';
@@ -88,36 +88,36 @@ page 71012617 "Main Category Card"
                         ProdPostingGroup: Record "Gen. Product Posting Group";
                     begin
                         ProdPostingGroup.Reset();
-                        ProdPostingGroup.SetRange(Code, "Prod. Posting Group Code");
+                        ProdPostingGroup.SetRange(Code, rec."Prod. Posting Group Code");
                         if ProdPostingGroup.FindSet() then
-                            "Prod. Posting Group Name" := ProdPostingGroup.Description;
+                            rec."Prod. Posting Group Name" := ProdPostingGroup.Description;
                     end;
                 }
 
-                field("No Series"; "No Series")
+                field("No Series"; rec."No Series")
                 {
                     ApplicationArea = All;
                 }
 
-                field(DimensionOnly; DimensionOnly)
+                field(DimensionOnly; rec.DimensionOnly)
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension Only';
                 }
 
-                field(SewingJobOnly; SewingJobOnly)
+                field(SewingJobOnly; rec.SewingJobOnly)
                 {
                     ApplicationArea = All;
                     Caption = 'Sewing Job Only';
                 }
 
-                field(LOTTracking; LOTTracking)
+                field(LOTTracking; rec.LOTTracking)
                 {
                     ApplicationArea = All;
                     Caption = 'LOT Tracking';
                 }
 
-                field("Style Related"; "Style Related")
+                field("Style Related"; rec."Style Related")
                 {
                     ApplicationArea = All;
                 }
@@ -131,8 +131,8 @@ page 71012617 "Main Category Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."MainCat Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."MainCat Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             CurrPage.Update();
             EXIT(TRUE);
         END;
@@ -142,10 +142,10 @@ page 71012617 "Main Category Card"
     var
 
     begin
-        if "Inv. Posting Group Code" = '' then
+        if rec."Inv. Posting Group Code" = '' then
             Error('Inventory Posting Group is not setup for this Main Category.');
 
-        if "Prod. Posting Group Code" = '' then
+        if rec."Prod. Posting Group Code" = '' then
             Error('Product Posting Group is not setup for this Main Category.');
 
         exit;

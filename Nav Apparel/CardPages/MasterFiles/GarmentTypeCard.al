@@ -10,7 +10,7 @@ page 71012610 "Garment Type Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
 
@@ -21,7 +21,7 @@ page 71012610 "Garment Type Card"
                     end;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
 
@@ -30,7 +30,7 @@ page 71012610 "Garment Type Card"
                         GarmentType: Page "Garment Type Lookup Card";
                         GarmentTypRec: Record "Garment Type";
                     begin
-                        IF Type = Type::Set THEN begin
+                        IF rec.Type = rec.Type::Set THEN begin
                             GarmentTypRec.Reset();
                             GarmentTypRec.SetFilter(Code, '<> MIX');
 
@@ -38,33 +38,33 @@ page 71012610 "Garment Type Card"
                                 GarmentTypRec.SetRange(Selected, true);
                                 if GarmentTypRec.FindSet() then
                                     repeat
-                                        "Garment Type Description" += GarmentTypRec.Code + ',';
+                                        rec."Garment Type Description" += GarmentTypRec.Code + ',';
                                     until GarmentTypRec.Next() = 0;
                             end;
 
-                            Code := 'MIX';
+                            rec.Code := 'MIX';
                         end
                         else begin
-                            Code := '';
-                            "Garment Type Description" := '';
+                            rec.Code := '';
+                            rec."Garment Type Description" := '';
                         end;
                     end;
                 }
 
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type Code';
                     ShowMandatory = true;
                 }
 
-                field("Garment Type Description"; "Garment Type Description")
+                field("Garment Type Description"; rec."Garment Type Description")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field(Category; Category)
+                field(Category; rec.Category)
                 {
                     ApplicationArea = All;
                 }
@@ -78,8 +78,8 @@ page 71012610 "Garment Type Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Garment Type Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."Garment Type Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;

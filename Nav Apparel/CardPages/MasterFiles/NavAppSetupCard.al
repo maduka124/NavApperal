@@ -11,86 +11,86 @@ page 71012751 "NavApp Setup Card"
         {
             group("No Series")
             {
-                field("Primary Key"; "Primary Key")
+                field("Primary Key"; rec."Primary Key")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Garment Type Nos."; "Garment Type Nos.")
-                {
-                    ApplicationArea = All;
-                    TableRelation = "No. Series".Code;
-                }
-
-                field("Style Nos."; "Style Nos.")
+                field("Garment Type Nos."; rec."Garment Type Nos.")
                 {
                     ApplicationArea = All;
                     TableRelation = "No. Series".Code;
                 }
 
-                field("BOM Estimate Nos."; "BOM Nos.")
+                field("Style Nos."; rec."Style Nos.")
+                {
+                    ApplicationArea = All;
+                    TableRelation = "No. Series".Code;
+                }
+
+                field("BOM Estimate Nos."; rec."BOM Nos.")
                 {
                     ApplicationArea = All;
                     TableRelation = "No. Series".Code;
                     Caption = 'BOM Estimate Nos';
                 }
 
-                field("BOM Cost Nos."; "BOM Cost Nos.")
+                field("BOM Cost Nos."; rec."BOM Cost Nos.")
                 {
                     ApplicationArea = All;
                     TableRelation = "No. Series".Code;
                 }
 
-                field("BOM Nos."; "BOM1 Nos.")
+                field("BOM Nos."; rec."BOM1 Nos.")
                 {
                     ApplicationArea = All;
                     TableRelation = "No. Series".Code;
                     Caption = 'BOM Nos';
                 }
 
-                field("NEWOP Nos."; "NEWOP Nos.")
+                field("NEWOP Nos."; rec."NEWOP Nos.")
                 {
                     ApplicationArea = All;
                     TableRelation = "No. Series".Code;
                 }
 
-                field("NEWBR Nos."; "NEWBR Nos.")
+                field("NEWBR Nos."; rec."NEWBR Nos.")
                 {
                     ApplicationArea = All;
                     TableRelation = "No. Series".Code;
                 }
 
-                field(Routing; Routing)
+                field(Routing; rec.Routing)
                 {
                     ApplicationArea = All;
                     Caption = 'FG Routing';
                 }
 
-                field("FG Item Nos."; "FG Item Nos.")
+                field("FG Item Nos."; rec."FG Item Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bulk FG Item Nos';
                 }
 
-                field("FG SO Nos."; "FG SO Nos.")
+                field("FG SO Nos."; rec."FG SO Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bulk FG SO Nos';
                 }
 
-                field("FG ProdBOM Nos."; "FG ProdBOM Nos.")
+                field("FG ProdBOM Nos."; rec."FG ProdBOM Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bulk FG ProdBOM Nos';
                 }
 
-                field("Gen Posting Group-FG"; "Gen Posting Group-FG")
+                field("Gen Posting Group-FG"; rec."Gen Posting Group-FG")
                 {
                     ApplicationArea = All;
                     Caption = 'Bulk FG-Gen Posting Group';
                 }
 
-                field("Inventory Posting Group-FG"; "Inventory Posting Group-FG")
+                field("Inventory Posting Group-FG"; rec."Inventory Posting Group-FG")
                 {
                     ApplicationArea = All;
                     Caption = 'Bulk FG-Inv. Posting Group';
@@ -108,20 +108,20 @@ page 71012751 "NavApp Setup Card"
                 //     Caption = 'Planning Finish Time';
                 // }
 
-                field("Worksheet Template Name"; "Worksheet Template Name")
+                field("Worksheet Template Name"; rec."Worksheet Template Name")
                 {
                     ApplicationArea = All;
                     TableRelation = "Req. Wksh. Template";
                 }
 
-                field("Journal Batch Name"; "Journal Batch Name")
+                field("Journal Batch Name"; rec."Journal Batch Name")
                 {
                     ApplicationArea = All;
                     TableRelation = "Requisition Wksh. Name".Name WHERE("Worksheet Template Name" = FIELD("Worksheet Template Name"));
                 }
 
                 //RM
-                field("RM Nos."; "RM Nos.")
+                field("RM Nos."; rec."RM Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bulk RM Nos';
@@ -140,20 +140,20 @@ page 71012751 "NavApp Setup Card"
                 // }
 
                 //Samples
-                field("SAMPLE Nos."; "SAMPLE Nos.")
+                field("SAMPLE Nos."; rec."SAMPLE Nos.")
                 {
                     ApplicationArea = All;
                     TableRelation = "No. Series".Code;
                     Caption = 'Sample Req Nos.';
                 }
 
-                field("Sample SO Nos."; "Sample SO Nos.")
+                field("Sample SO Nos."; rec."Sample SO Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample SO Nos.';
                 }
 
-                field("Sample ProdBOM Nos."; "Sample ProdBOM Nos.")
+                field("Sample ProdBOM Nos."; rec."Sample ProdBOM Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample ProdBOM Nos';
@@ -171,31 +171,31 @@ page 71012751 "NavApp Setup Card"
                 //     Caption = 'Sample With Wash Route Nos.';
                 // }
 
-                field("Sample YY Nos."; "Sample YY Nos.")
+                field("Sample YY Nos."; rec."Sample YY Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample YY Nos.';
                 }
 
-                field("Sample Item Nos."; "Sample Item Nos.")
+                field("Sample Item Nos."; rec."Sample Item Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample FG Item Nos.';
                 }
 
-                field("Gen Posting Group-SM"; "Gen Posting Group-SM")
+                field("Gen Posting Group-SM"; rec."Gen Posting Group-SM")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample FG Item - Gen Posting Group';
                 }
 
-                field("Inventory Posting Group-SM"; "Inventory Posting Group-SM")
+                field("Inventory Posting Group-SM"; rec."Inventory Posting Group-SM")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample FG Item - Inv. Posting Group';
                 }
 
-                field("Sample RM Nos."; "Sample RM Nos.")
+                field("Sample RM Nos."; rec."Sample RM Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample RM Item Nos.';
@@ -213,262 +213,262 @@ page 71012751 "NavApp Setup Card"
                 //     Caption = 'Sample RM Item - Inv. Posting Group';
                 // }
 
-                field("Cutting Finished"; "Cutting Finished")
+                field("Cutting Finished"; rec."Cutting Finished")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sewing Finished"; "Sewing Finished")
+                field("Sewing Finished"; rec."Sewing Finished")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Packing Finished"; "Packing Finished")
+                field("Packing Finished"; rec."Packing Finished")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Manning Nos."; "Manning Nos.")
+                field("Manning Nos."; rec."Manning Nos.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Layout Nos."; "Layout Nos.")
+                field("Layout Nos."; rec."Layout Nos.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("PI Nos."; "PI Nos.")
+                field("PI Nos."; rec."PI Nos.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("ContractLC Nos."; "ContractLC Nos.")
+                field("ContractLC Nos."; rec."ContractLC Nos.")
                 {
                     ApplicationArea = All;
                 }
 
-                field(TaxGroupCode; TaxGroupCode)
+                field(TaxGroupCode; rec.TaxGroupCode)
                 {
                     ApplicationArea = All;
                     Caption = 'Tax Group Code';
                 }
 
-                field("B2BLC Nos."; "B2BLC Nos.")
+                field("B2BLC Nos."; rec."B2BLC Nos.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("GITLC Nos."; "GITLC Nos.")
+                field("GITLC Nos."; rec."GITLC Nos.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("GITPI Nos."; "GITPI Nos.")
+                field("GITPI Nos."; rec."GITPI Nos.")
                 {
                     ApplicationArea = All;
                 }
 
 
-                field("BankRef Nos."; "BankRef Nos.")
+                field("BankRef Nos."; rec."BankRef Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bank Ref, No';
                 }
 
-                field("Acc Nos."; "Acc Nos.")
+                field("Acc Nos."; rec."Acc Nos.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Ins Nos."; "Ins Nos.")
+                field("Ins Nos."; rec."Ins Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Inspection';
                 }
 
-                field("SJC Nos."; "SJC Nos.")
+                field("SJC Nos."; rec."SJC Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sewing Job Creation';
                 }
 
-                field("CutCre Nos."; "CutCre Nos.")
+                field("CutCre Nos."; rec."CutCre Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Cut Creation';
                 }
 
-                field("RatioCre Nos."; "RatioCre Nos.")
+                field("RatioCre Nos."; rec."RatioCre Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Ratio Creation';
                 }
 
-                field("TableCre Nos."; "TableCre Nos.")
+                field("TableCre Nos."; rec."TableCre Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Table Creation';
                 }
 
-                field("FabReqNo Nos."; "FabReqNo Nos.")
+                field("FabReqNo Nos."; rec."FabReqNo Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Requisition Creation';
                 }
 
-                field("LOTTracking Nos."; "LOTTracking Nos.")
+                field("LOTTracking Nos."; rec."LOTTracking Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'LOT Tracking Nos. (RM)';
                 }
 
-                field("LOT Tracking Code"; "LOT Tracking Code")
+                field("LOT Tracking Code"; rec."LOT Tracking Code")
                 {
                     ApplicationArea = All;
                     Caption = 'LOT Tracking Code (RM)';
                 }
 
-                field("RoleIssu Nos."; "RoleIssu Nos.")
+                field("RoleIssu Nos."; rec."RoleIssu Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Role Issuing';
                 }
 
-                field("CutPro Nos."; "CutPro Nos.")
+                field("CutPro Nos."; rec."CutPro Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Cutting Progress';
                 }
 
-                field("BundleGuide Nos."; "BundleGuide Nos.")
+                field("BundleGuide Nos."; rec."BundleGuide Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bundle Guide';
                 }
 
-                field("MainCat Nos."; "MainCat Nos.")
+                field("MainCat Nos."; rec."MainCat Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category';
                 }
 
-                field("FabricProce Nos."; "FabricProce Nos.")
+                field("FabricProce Nos."; rec."FabricProce Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Processing';
                 }
 
-                field("FabShrTest Nos."; "FabShrTest Nos.")
+                field("FabShrTest Nos."; rec."FabShrTest Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Shrinkage Test';
                 }
 
-                field("FabTwist Nos."; "FabTwist Nos.")
+                field("FabTwist Nos."; rec."FabTwist Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Twist';
                 }
 
-                field("FabShad Nos."; "FabShad Nos.")
+                field("FabShad Nos."; rec."FabShad Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Shade';
                 }
 
-                field("FabShadShri Nos."; "FabShadShri Nos.")
+                field("FabShadShri Nos."; rec."FabShadShri Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Shade/Shinkage';
                 }
 
-                field("FabMap Nos."; "FabMap Nos.")
+                field("FabMap Nos."; rec."FabMap Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Mapping';
                 }
 
-                field("Wash SO Nos."; "Wash SO Nos.")
+                field("Wash SO Nos."; rec."Wash SO Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Sales Order';
                 }
 
-                field("WS SMItem Nos."; "WS SMItem Nos.")
+                field("WS SMItem Nos."; rec."WS SMItem Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Sample Items';
                 }
 
-                field("BW Wash Quality"; "BW Wash Quality")
+                field("BW Wash Quality"; rec."BW Wash Quality")
                 {
                     ApplicationArea = All;
                     Caption = 'BW Quality Check';
                 }
 
-                field("QC AW No"; "QC AW No")
+                field("QC AW No"; rec."QC AW No")
                 {
                     ApplicationArea = All;
                     Caption = 'AW Quality Check';
                 }
 
-                field("Wash Sample Nos."; "Wash Sample Nos.")
+                field("Wash Sample Nos."; rec."Wash Sample Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Sample';
                 }
 
-                field("Wash Purchase Nos."; "Wash Purchase Nos.")
+                field("Wash Purchase Nos."; rec."Wash Purchase Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Purchase';
                 }
 
-                field("Wash GRN Nos."; "Wash GRN Nos.")
+                field("Wash GRN Nos."; rec."Wash GRN Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash GRN';
                 }
 
-                field("Wash PO Vendor"; "Wash PO Vendor")
+                field("Wash PO Vendor"; rec."Wash PO Vendor")
                 {
                     ApplicationArea = All;
                     Caption = 'Washing PO Vendor';
                 }
 
-                field("TRCBW No"; "TRCBW No")
+                field("TRCBW No"; rec."TRCBW No")
                 {
                     ApplicationArea = All;
                     Caption = 'Return To Cust. BW';
                 }
 
-                field("TRCAW No"; "TRCAW No")
+                field("TRCAW No"; rec."TRCAW No")
                 {
                     ApplicationArea = All;
                     Caption = 'Return To Cust. AW';
                 }
 
-                field("Gen Posting Group-WashSample"; "Gen Posting Group-WashSample")
+                field("Gen Posting Group-WashSample"; rec."Gen Posting Group-WashSample")
                 {
                     ApplicationArea = All;
                     Caption = 'Washing-Gen Posting Group';
                 }
 
-                field(InventoryPostingGroupWashSampl; InventoryPostingGroupWashSampl)
+                field(InventoryPostingGroupWashSampl; rec.InventoryPostingGroupWashSampl)
                 {
                     ApplicationArea = All;
                     Caption = 'Washing-Inventory Posting Group';
                 }
 
-                field("Gen Journal Template Name"; "Gen Journal Template Name")
+                field("Gen Journal Template Name"; rec."Gen Journal Template Name")
                 {
                     ApplicationArea = All;
                     TableRelation = "Gen. Journal Template";
                     Caption = 'Service Journal Template Name';
                 }
 
-                field("Gen Journal Batch Name"; "Gen Journal Batch Name")
+                field("Gen Journal Batch Name"; rec."Gen Journal Batch Name")
                 {
                     ApplicationArea = All;
                     TableRelation = "Gen. Journal Batch".Name WHERE("Journal Template Name" = FIELD("Gen Journal Template Name"));
@@ -487,7 +487,7 @@ page 71012751 "NavApp Setup Card"
                 //     TableRelation = "Item Journal Batch".Name WHERE("Journal Template Name" = FIELD("Item Journal Template Name"));
                 // }
 
-                field("Service Doc Nos."; "Service Doc Nos.")
+                field("Service Doc Nos."; rec."Service Doc Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Service Document No';
@@ -505,102 +505,102 @@ page 71012751 "NavApp Setup Card"
                 //     TableRelation = "Res. Journal Batch".Name WHERE("Journal Template Name" = FIELD("Resource Journal Template Name"));
                 // }
 
-                field("Risk Factor"; "Risk Factor")
+                field("Risk Factor"; rec."Risk Factor")
                 {
                     ApplicationArea = All;
                     Caption = 'Risk Factor (%)';
                 }
 
-                field(TAX; TAX)
+                field(TAX; rec.TAX)
                 {
                     ApplicationArea = All;
                     Caption = 'TAX (%)';
                 }
 
-                field("ABA Sourcing"; "ABA Sourcing")
+                field("ABA Sourcing"; rec."ABA Sourcing")
                 {
                     ApplicationArea = All;
                     Caption = 'Sourcing (%)';
                 }
 
-                field("Gatepass Nos."; "Gatepass Nos.")
+                field("Gatepass Nos."; rec."Gatepass Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Gate Pass No';
                 }
 
-                field("ManBudget Nos."; "ManBudget Nos.")
+                field("ManBudget Nos."; rec."ManBudget Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Man Power Budget No';
                 }
 
-                field("Pay. Gen. Jrn. Template Name"; "Pay. Gen. Jrn. Template Name")
+                field("Pay. Gen. Jrn. Template Name"; rec."Pay. Gen. Jrn. Template Name")
                 {
                     ApplicationArea = All;
                     TableRelation = "Gen. Journal Template";
                     Caption = 'Payment Journal Template Name';
                 }
 
-                field("Pay. Gen. Jrn. Batch Name"; "Pay. Gen. Jrn. Batch Name")
+                field("Pay. Gen. Jrn. Batch Name"; rec."Pay. Gen. Jrn. Batch Name")
                 {
                     ApplicationArea = All;
                     TableRelation = "Gen. Journal Batch".Name WHERE("Journal Template Name" = FIELD("Pay. Gen. Jrn. Template Name"));
                     Caption = 'Payment Journal Batch Name';
                 }
 
-                field("Account No"; "Account No")
+                field("Account No"; rec."Account No")
                 {
                     ApplicationArea = All;
                     TableRelation = "G/L Account"."No." where("Account Type" = filter(Posting));
                 }
 
-                field("Bal Account No"; "Bal Account No")
+                field("Bal Account No"; rec."Bal Account No")
                 {
                     ApplicationArea = All;
                     TableRelation = "G/L Account"."No." where("Account Type" = filter(Posting));
                 }
 
-                field("DepReq No"; "DepReq No")
+                field("DepReq No"; rec."DepReq No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Req Worksheet Template Name"; "Req Worksheet Template Name")
+                field("Req Worksheet Template Name"; rec."Req Worksheet Template Name")
                 {
                     ApplicationArea = All;
                     TableRelation = "Req. Wksh. Template";
                 }
 
-                field("Req Journal Batch Name"; "Req Journal Batch Name")
+                field("Req Journal Batch Name"; rec."Req Journal Batch Name")
                 {
                     ApplicationArea = All;
                     TableRelation = "Requisition Wksh. Name".Name WHERE("Worksheet Template Name" = FIELD("Req Worksheet Template Name"));
                 }
 
-                field("MISCITEM Nos."; "MISCITEM Nos.")
+                field("MISCITEM Nos."; rec."MISCITEM Nos.")
                 {
                     ApplicationArea = All;
                     Caption = 'Other Item Nos.';
                 }
 
-                field("Main Category Nos."; "Main Category Nos.")
+                field("Main Category Nos."; rec."Main Category Nos.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Main Category 2 Nos."; "Main Category 2 Nos.")
+                field("Main Category 2 Nos."; rec."Main Category 2 Nos.")
                 {
                     ApplicationArea = all;
                     Caption = 'Main Category 2 Nos.';
                 }
 
-                field("Poly bag Nos."; "Poly bag Nos.")
+                field("Poly bag Nos."; rec."Poly bag Nos.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Learning Curve Type"; "Learning Curve Type")
+                field("Learning Curve Type"; rec."Learning Curve Type")
                 {
                     ApplicationArea = All;
                 }

@@ -10,7 +10,7 @@ page 71012709 "Dependency Parameters Card"
         {
             group(General)
             {
-                field("Dependency Group"; "Dependency Group")
+                field("Dependency Group"; rec."Dependency Group")
                 {
                     ApplicationArea = All;
 
@@ -19,13 +19,13 @@ page 71012709 "Dependency Parameters Card"
                         DependencyGroupRec: Record "Dependency Group";
                     begin
                         DependencyGroupRec.Reset();
-                        DependencyGroupRec.SetRange("Dependency Group", "Dependency Group");
+                        DependencyGroupRec.SetRange("Dependency Group", rec."Dependency Group");
                         if DependencyGroupRec.FindSet() then
-                            "Dependency Group No." := DependencyGroupRec."No.";
+                            rec."Dependency Group No." := DependencyGroupRec."No.";
                     end;
                 }
 
-                field("Action Type"; "Action Type")
+                field("Action Type"; rec."Action Type")
                 {
                     ApplicationArea = All;
 
@@ -34,24 +34,24 @@ page 71012709 "Dependency Parameters Card"
                         ActionTypeRec: Record "Action Type";
                     begin
                         ActionTypeRec.Reset();
-                        ActionTypeRec.SetRange("Action Type", "Action Type");
+                        ActionTypeRec.SetRange("Action Type", rec."Action Type");
                         if ActionTypeRec.FindSet() then
-                            "Action Type No." := ActionTypeRec."No.";
+                            rec."Action Type No." := ActionTypeRec."No.";
                     end;
                 }
 
-                field("Action Description"; "Action Description")
+                field("Action Description"; rec."Action Description")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Gap Days"; "Gap Days")
+                field("Gap Days"; rec."Gap Days")
                 {
                     ApplicationArea = All;
                     Caption = 'Gap Days (Based on BPCD)';
                 }
 
-                field(Department; Department)
+                field(Department; rec.Department)
                 {
                     ApplicationArea = All;
                     Caption = 'Action belongs to Department';
@@ -61,9 +61,9 @@ page 71012709 "Dependency Parameters Card"
                         DepartmentRec: Record Department;
                     begin
                         DepartmentRec.Reset();
-                        DepartmentRec.SetRange("Department Name", Department);
+                        DepartmentRec.SetRange("Department Name", rec.Department);
                         if DepartmentRec.FindSet() then
-                            "Department No." := DepartmentRec."No.";
+                            rec."Department No." := DepartmentRec."No.";
                     end;
                 }
             }

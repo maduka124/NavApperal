@@ -10,13 +10,13 @@ page 71012657 "Wash Type Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Type No';
                 }
 
-                field("Wash Type Name"; "Wash Type Name")
+                field("Wash Type Name"; rec."Wash Type Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012657 "Wash Type Card"
                         WashTypeRec: Record "Wash Type";
                     begin
                         WashTypeRec.Reset();
-                        WashTypeRec.SetRange("Wash Type Name", "Wash Type Name");
+                        WashTypeRec.SetRange("Wash Type Name", rec."Wash Type Name");
 
                         if WashTypeRec.FindSet() then
                             Error('Wash Type Name already exists.');

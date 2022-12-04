@@ -10,7 +10,7 @@ page 50528 "GIT Baseon LC Card"
         {
             group(General)
             {
-                field("GITLCNo."; "GITLCNo.")
+                field("GITLCNo."; rec."GITLCNo.")
                 {
                     ApplicationArea = All;
 
@@ -21,7 +21,7 @@ page 50528 "GIT Baseon LC Card"
                     end;
                 }
 
-                field("Suppler Name"; "Suppler Name")
+                field("Suppler Name"; rec."Suppler Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -32,15 +32,15 @@ page 50528 "GIT Baseon LC Card"
                         VendorRec: Record Vendor;
                     begin
                         VendorRec.Reset();
-                        VendorRec.SetRange(Name, "Suppler Name");
+                        VendorRec.SetRange(Name, rec."Suppler Name");
                         if VendorRec.FindSet() then
-                            "Suppler No." := VendorRec."No.";
+                            rec."Suppler No." := VendorRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("B2B LC No. (System)"; "B2B LC No. (System)")
+                field("B2B LC No. (System)"; rec."B2B LC No. (System)")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -60,26 +60,26 @@ page 50528 "GIT Baseon LC Card"
 
                         //Delete old rfecords
                         GITLCItemsRec.Reset();
-                        GITLCItemsRec.SetRange("GITLCNo.", "GITLCNo.");
+                        GITLCItemsRec.SetRange("GITLCNo.", rec."GITLCNo.");
                         GITLCItemsRec.DeleteAll();
 
                         B2BLCRec.Reset();
-                        B2BLCRec.SetRange("No.", "B2B LC No. (System)");
+                        B2BLCRec.SetRange("No.", rec."B2B LC No. (System)");
 
                         if B2BLCRec.FindSet() then begin
-                            "ContractLC No" := B2BLCRec."LC/Contract No.";
-                            "B2B LC No." := B2BLCRec."B2B LC No";
-                            "B2B LC Value" := B2BLCRec."B2B LC Value";
+                            rec."ContractLC No" := B2BLCRec."LC/Contract No.";
+                            rec."B2B LC No." := B2BLCRec."B2B LC No";
+                            rec."B2B LC Value" := B2BLCRec."B2B LC Value";
 
                             //Load Items
                             B2BLCPI.Reset();
-                            B2BLCPI.SetRange("B2BNo.", "B2B LC No. (System)");
+                            B2BLCPI.SetRange("B2BNo.", rec."B2B LC No. (System)");
 
                             if B2BLCPI.FindSet() then begin
 
                                 //Get Max Lineno
                                 GITLCItemsRec.Reset();
-                                GITLCItemsRec.SetRange("GITLCNo.", "GITLCNo.");
+                                GITLCItemsRec.SetRange("GITLCNo.", rec."GITLCNo.");
 
                                 if GITLCItemsRec.FindLast() then
                                     LineNo := GITLCItemsRec."Line No";
@@ -94,7 +94,7 @@ page 50528 "GIT Baseon LC Card"
                                             LineNo += 1;
                                             //Insert to the GIT Items table
                                             GITLCItemsRec.Init();
-                                            GITLCItemsRec."GITLCNo." := "GITLCNo.";
+                                            GITLCItemsRec."GITLCNo." := rec."GITLCNo.";
                                             GITLCItemsRec."Line No" := LineNo;
                                             GITLCItemsRec."Created Date" := Today;
                                             GITLCItemsRec."Created User" := UserId;
@@ -135,136 +135,136 @@ page 50528 "GIT Baseon LC Card"
                                     end;
                                 until B2BLCPI.Next() = 0;
 
-                                "GRN Balance" := GRNTotal - ReqTotal;
+                                rec."GRN Balance" := GRNTotal - ReqTotal;
                             end;
 
                         end
                         else
-                            "ContractLC No" := '';
+                            rec."ContractLC No" := '';
                     end;
                 }
 
-                field("B2B LC No."; "B2B LC No.")
+                field("B2B LC No."; rec."B2B LC No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'B2B LC No';
                 }
 
-                field("ContractLC No"; "ContractLC No")
+                field("ContractLC No"; rec."ContractLC No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("B2B LC Value"; "B2B LC Value")
+                field("B2B LC Value"; rec."B2B LC Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Invoice No"; "Invoice No")
+                field("Invoice No"; rec."Invoice No")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("Invoice Value"; "Invoice Value")
+                field("Invoice Value"; rec."Invoice Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Invoice Date"; "Invoice Date")
+                field("Invoice Date"; rec."Invoice Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Original Doc. Recv. Date"; "Original Doc. Recv. Date")
+                field("Original Doc. Recv. Date"; rec."Original Doc. Recv. Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("B2B LC Balance"; "B2B LC Balance")
+                field("B2B LC Balance"; rec."B2B LC Balance")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Mode of Ship"; "Mode of Ship")
+                field("Mode of Ship"; rec."Mode of Ship")
                 {
                     ApplicationArea = All;
                 }
 
-                field("BL/AWB NO"; "BL/AWB NO")
+                field("BL/AWB NO"; rec."BL/AWB NO")
                 {
                     ApplicationArea = All;
                 }
 
-                field("BL Date"; "BL Date")
+                field("BL Date"; rec."BL Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Container No"; "Container No")
+                field("Container No"; rec."Container No")
                 {
                     ApplicationArea = All;
                     Caption = 'Container';
                 }
 
-                field("Carrier Name"; "Carrier Name")
+                field("Carrier Name"; rec."Carrier Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Carrier';
                 }
 
-                field(Agent; Agent)
+                field(Agent; rec.Agent)
                 {
                     ApplicationArea = All;
                 }
 
-                field("M. Vessel Name"; "M. Vessel Name")
+                field("M. Vessel Name"; rec."M. Vessel Name")
                 {
                     ApplicationArea = All;
                     Caption = 'M. Vessel';
                 }
 
-                field("M. Vessel ETD"; "M. Vessel ETD")
+                field("M. Vessel ETD"; rec."M. Vessel ETD")
                 {
                     ApplicationArea = All;
                 }
 
-                field("F. Vessel Name"; "F. Vessel Name")
+                field("F. Vessel Name"; rec."F. Vessel Name")
                 {
                     ApplicationArea = All;
                     Caption = 'F. Vessel';
                 }
 
-                field("F. Vessel ETA"; "F. Vessel ETA")
+                field("F. Vessel ETA"; rec."F. Vessel ETA")
                 {
                     ApplicationArea = All;
                 }
 
-                field("F. Vessel ETD"; "F. Vessel ETD")
+                field("F. Vessel ETD"; rec."F. Vessel ETD")
                 {
                     ApplicationArea = All;
                 }
 
-                field("N.N Docs DT"; "N.N Docs DT")
+                field("N.N Docs DT"; rec."N.N Docs DT")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Original to C&F"; "Original to C&F")
+                field("Original to C&F"; rec."Original to C&F")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Good inhouse"; "Good inhouse")
+                field("Good inhouse"; rec."Good inhouse")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Bill of entry"; "Bill of entry")
+                field("Bill of entry"; rec."Bill of entry")
                 {
                     ApplicationArea = All;
                 }
@@ -282,7 +282,7 @@ page 50528 "GIT Baseon LC Card"
 
             group("   ")
             {
-                field("GRN Balance"; "GRN Balance")
+                field("GRN Balance"; rec."GRN Balance")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -298,8 +298,8 @@ page 50528 "GIT Baseon LC Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."GITLC Nos.", xRec."GITLCNo.", "GITLCNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("GITLCNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."GITLC Nos.", xRec."GITLCNo.", rec."GITLCNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."GITLCNo.");
             EXIT(TRUE);
         END;
     end;
@@ -309,7 +309,7 @@ page 50528 "GIT Baseon LC Card"
     var
         GITBaseonLCLineRec: Record GITBaseonLCLine;
     begin
-        GITBaseonLCLineRec.SetRange("GITLCNo.", "GITLCNo.");
+        GITBaseonLCLineRec.SetRange("GITLCNo.", rec."GITLCNo.");
         GITBaseonLCLineRec.DeleteAll();
     end;
 }

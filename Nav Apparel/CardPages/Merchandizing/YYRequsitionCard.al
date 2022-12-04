@@ -10,7 +10,7 @@ page 71012822 "YY Requsition Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'YY Request No';
@@ -23,7 +23,7 @@ page 71012822 "YY Requsition Card"
                     end;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -35,15 +35,15 @@ page 71012822 "YY Requsition Card"
                         BuyerRec: Record Customer;
                     begin
                         BuyerRec.Reset();
-                        BuyerRec.SetRange("Name", "Buyer Name");
+                        BuyerRec.SetRange("Name", rec."Buyer Name");
                         if BuyerRec.FindSet() then begin
-                            "Buyer No." := BuyerRec."No.";
+                            rec."Buyer No." := BuyerRec."No.";
                             CurrPage.Update();
                         end;
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -57,23 +57,23 @@ page 71012822 "YY Requsition Card"
                     begin
 
                         StyleMasRec.Reset();
-                        StyleMasRec.SetRange("Style No.", "Style Name");
+                        StyleMasRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasRec.FindSet() then begin
-                            "Style No." := StyleMasRec."No.";
-                            "Garment Type No." := StyleMasRec."Garment Type No.";
-                            "Garment Type Name" := StyleMasRec."Garment Type Name";
+                            rec."Style No." := StyleMasRec."No.";
+                            rec."Garment Type No." := StyleMasRec."Garment Type No.";
+                            rec."Garment Type Name" := StyleMasRec."Garment Type Name";
                         end;
                     end;
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
                     Editable = false;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                     Editable = SetEdit1;
@@ -98,8 +98,8 @@ page 71012822 "YY Requsition Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Sample YY Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."Sample YY Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -110,7 +110,7 @@ page 71012822 "YY Requsition Card"
         YYReqLineRec: Record "YY Requsition Line";
     begin
         YYReqLineRec.Reset();
-        YYReqLineRec.SetRange("No.", "No.");
+        YYReqLineRec.SetRange("No.", rec."No.");
         YYReqLineRec.DeleteAll();
     end;
 

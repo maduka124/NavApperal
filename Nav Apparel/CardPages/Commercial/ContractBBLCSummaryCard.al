@@ -13,12 +13,12 @@ page 50791 "ContractBBLCSummaryCard"
         {
             group(General)
             {
-                field(Buyer; Buyer)
+                field(Buyer;rec.Buyer)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Contract No"; "Contract No")
+                field("Contract No"; rec."Contract No")
                 {
                     ApplicationArea = All;
                 }
@@ -84,7 +84,7 @@ page 50791 "ContractBBLCSummaryCard"
     begin
 
         ContLCMasRec.Reset();
-        ContLCMasRec.SetRange("Contract No", "Contract No");
+        ContLCMasRec.SetRange("Contract No", rec."Contract No");
         if ContLCMasRec.FindSet() then begin
             Amount := ContLCMasRec."Contract Value";
             "BBLC Limit" := ContLCMasRec.BBLC;
@@ -93,7 +93,7 @@ page 50791 "ContractBBLCSummaryCard"
 
         //Calculate B2B LC opened and %
         B2BRec.Reset();
-        B2BRec.SetRange("LC/Contract No.", "Contract No");
+        B2BRec.SetRange("LC/Contract No.", rec."Contract No");
 
         if B2BRec.FindSet() then begin
             repeat

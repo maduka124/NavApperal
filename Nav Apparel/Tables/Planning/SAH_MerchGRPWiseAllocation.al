@@ -98,7 +98,7 @@ table 50869 SAH_MerchGRPWiseAllocation
 
     keys
     {
-        key(PK; Year, "Group Name")
+        key(PK; Year, "Group Id")
         {
             Clustered = true;
         }

@@ -7,12 +7,12 @@ page 71012697 "BOM Picture FactBox"
     {
         area(Content)
         {
-            field(Front; Front)
+            field(Front; rec.Front)
             {
                 ApplicationArea = All;
                 Caption = 'Front';
             }
-            field(Back; Back)
+            field(Back; rec.Back)
             {
                 ApplicationArea = All;
                 Caption = 'Back';

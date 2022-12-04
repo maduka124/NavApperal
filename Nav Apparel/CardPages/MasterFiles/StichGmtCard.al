@@ -10,13 +10,13 @@ page 71012647 "Stich Gmt Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No.";rec. "No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Stich Gmt No';
                 }
 
-                field("Stich Gmt Name"; "Stich Gmt Name")
+                field("Stich Gmt Name"; rec."Stich Gmt Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012647 "Stich Gmt Card"
                         StichGmtRec: Record "Stich Gmt";
                     begin
                         StichGmtRec.Reset();
-                        StichGmtRec.SetRange("Stich Gmt Name", "Stich Gmt Name");
+                        StichGmtRec.SetRange("Stich Gmt Name",rec. "Stich Gmt Name");
 
                         if StichGmtRec.FindSet() then
                             Error('Stich Gmt Name already exists.');

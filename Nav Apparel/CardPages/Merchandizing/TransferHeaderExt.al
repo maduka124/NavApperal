@@ -2,7 +2,24 @@ pageextension 50632 TransferHeaderExt extends "Transfer Order"
 {
     layout
     {
-        // Add changes to page layout here
+        addlast(General)
+        {
+            field("Style No."; rec."Style No.")
+            {
+                ApplicationArea = All;
+                Editable = false;
+            }
+            // field("Style Name"; rec."Style Name")
+            // {
+            //     ApplicationArea = All;
+            //     Editable = false;
+            // }
+            // field(PO; rec.PO)
+            // {
+            //     ApplicationArea = All;
+            //     Editable = false;
+            // }
+        }
     }
 
     actions
@@ -23,7 +40,7 @@ pageextension 50632 TransferHeaderExt extends "Transfer Order"
                     myInt: Integer;
                     TransferHeaderReport: Report TransferOrderCardPageReport;
                 begin
-                    TransferHeaderReport.Set_Value("No.");
+                    TransferHeaderReport.Set_Value(rec."No.");
                     TransferHeaderReport.RunModal();
                 end;
             }

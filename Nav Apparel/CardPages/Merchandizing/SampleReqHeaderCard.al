@@ -10,7 +10,7 @@ page 71012772 "Sample Request Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Request No';
@@ -22,7 +22,7 @@ page 71012772 "Sample Request Card"
                     end;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -33,15 +33,15 @@ page 71012772 "Sample Request Card"
                         BuyerRec: Record Customer;
                     begin
                         BuyerRec.Reset();
-                        BuyerRec.SetRange("Name", "Buyer Name");
+                        BuyerRec.SetRange("Name", rec."Buyer Name");
                         if BuyerRec.FindSet() then begin
-                            "Buyer No." := BuyerRec."No.";
+                            rec."Buyer No." := BuyerRec."No.";
                             // CurrPage.Update();
                         end;
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -53,23 +53,23 @@ page 71012772 "Sample Request Card"
                     begin
 
                         StyleMasRec.Reset();
-                        StyleMasRec.SetRange("Style No.", "Style Name");
+                        StyleMasRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasRec.FindSet() then begin
-                            "Style No." := StyleMasRec."No.";
-                            "Garment Type No" := StyleMasRec."Garment Type No.";
-                            "Garment Type Name" := StyleMasRec."Garment Type Name";
+                            rec."Style No." := StyleMasRec."No.";
+                            rec."Garment Type No" := StyleMasRec."Garment Type No.";
+                            rec."Garment Type Name" := StyleMasRec."Garment Type Name";
                         end;
                     end;
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     Caption = 'Garment Type';
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Wash Type Name"; "Wash Type Name")
+                field("Wash Type Name"; rec."Wash Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Type';
@@ -79,13 +79,13 @@ page 71012772 "Sample Request Card"
                         WashTypeRec: Record "Wash Type";
                     begin
                         WashTypeRec.Reset();
-                        WashTypeRec.SetRange("Wash Type Name", "Wash Type Name");
+                        WashTypeRec.SetRange("Wash Type Name", rec."Wash Type Name");
                         if WashTypeRec.FindSet() then
-                            "Wash Type No." := WashTypeRec."No.";
+                            rec."Wash Type No." := WashTypeRec."No.";
                     end;
                 }
 
-                field("Wash Plant Name"; "Wash Plant Name")
+                field("Wash Plant Name"; rec."Wash Plant Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Plant';
@@ -95,13 +95,13 @@ page 71012772 "Sample Request Card"
                         LocationRec: Record Location;
                     begin
                         LocationRec.Reset();
-                        LocationRec.SetRange(Name, "Wash Plant Name");
+                        LocationRec.SetRange(Name, rec."Wash Plant Name");
                         if LocationRec.FindSet() then
-                            "Wash Plant No." := LocationRec."code";
+                            rec."Wash Plant No." := LocationRec."code";
                     end;
                 }
 
-                field("Sample Room Name"; "Sample Room Name")
+                field("Sample Room Name"; rec."Sample Room Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Room';
@@ -111,27 +111,27 @@ page 71012772 "Sample Request Card"
                         SampleRoomRec: Record "Sample Room";
                     begin
                         SampleRoomRec.Reset();
-                        SampleRoomRec.SetRange("Sample Room Name", "Sample Room Name");
+                        SampleRoomRec.SetRange("Sample Room Name", rec."Sample Room Name");
                         if SampleRoomRec.FindSet() then begin
-                            "Sample Room No." := SampleRoomRec."Sample Room No.";
-                            Validate("Global Dimension Code", SampleRoomRec."Global Dimension Code");
+                            rec."Sample Room No." := SampleRoomRec."Sample Room No.";
+                            rec.Validate("Global Dimension Code", SampleRoomRec."Global Dimension Code");
                         end;
                     end;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
                 //Done By Sachith -22/10/20
-                field("Global Dimension Code"; "Global Dimension Code")
+                field("Global Dimension Code"; rec."Global Dimension Code")
                 {
                     ApplicationArea = All;
                 }
@@ -197,16 +197,16 @@ page 71012772 "Sample Request Card"
                     ItemNotemp: Code[50];
                 begin
                     SampleRec.Reset();
-                    SampleRec.SetRange("No.", "No.");
+                    SampleRec.SetRange("No.", rec."No.");
                     if SampleRec.FindSet() then begin
                         repeat
                             if SampleRec."SalesOrder No." = '' then begin
-                                Description := 'SAMPLE' + '/' + "Style Name" + '/' + SampleRec."Fabrication Name" + '/' + SampleRec."Sample Name" + '/' + SampleRec."Color Name" + '/' + SampleRec.Size;
-                                Create_FGItem_SO(Description, SampleRec.Qty, SampleRec."Color No", SampleRec.Size, "No.", SampleRec."Line No.");
+                                Description := 'SAMPLE' + '/' + rec."Style Name" + '/' + SampleRec."Fabrication Name" + '/' + SampleRec."Sample Name" + '/' + SampleRec."Color Name" + '/' + SampleRec.Size;
+                                Create_FGItem_SO(Description, SampleRec.Qty, SampleRec."Color No", SampleRec.Size, rec."No.", SampleRec."Line No.");
 
                                 //Create Prod orders                       
                                 SalesHeaderRec.Reset();
-                                SalesHeaderRec.SetRange("Style No", "Style No.");
+                                SalesHeaderRec.SetRange("Style No", rec."Style No.");
                                 SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
                                 SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::Sample);
 
@@ -300,7 +300,7 @@ page 71012772 "Sample Request Card"
                                 // end;
 
 
-                                WriteToMRPStatus := 1;
+                                rec.WriteToMRPStatus := 1;
                                 CurrPage.SaveRecord();
                                 CurrPage.Update();
                                 Message('Completed');
@@ -321,8 +321,8 @@ page 71012772 "Sample Request Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."SAMPLE Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."SAMPLE Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -335,19 +335,19 @@ page 71012772 "Sample Request Card"
         SampleReqDocRec: Record "Sample Requsition Doc";
     begin
 
-        if WriteToMRPStatus = 1 then
+        if rec.WriteToMRPStatus = 1 then
             Error('Sample request has been posted already. You cannot delete.');
 
         SampleReqLineRec.Reset();
-        SampleReqLineRec.SetRange("No.", "No.");
+        SampleReqLineRec.SetRange("No.", rec."No.");
         SampleReqLineRec.DeleteAll();
 
         SampleReqAcceRec.Reset();
-        SampleReqAcceRec.SetRange("No.", "No.");
+        SampleReqAcceRec.SetRange("No.", rec."No.");
         SampleReqAcceRec.DeleteAll();
 
         SampleReqDocRec.Reset();
-        SampleReqDocRec.SetRange("No.", "No.");
+        SampleReqDocRec.SetRange("No.", rec."No.");
         SampleReqDocRec.DeleteAll();
 
     end;
@@ -373,7 +373,7 @@ page 71012772 "Sample Request Card"
         //Get FOB Pcs price
         FOBPcsPrice := 0;
         BOMEstimateRec.Reset();
-        BOMEstimateRec.SetRange("Style No.", "Style No.");
+        BOMEstimateRec.SetRange("Style No.", rec."Style No.");
         if BOMEstimateRec.FindSet() then
             FOBPcsPrice := BOMEstimateRec."FOB Pcs";
 
@@ -444,7 +444,7 @@ page 71012772 "Sample Request Card"
             CreateSalesOrder(NextItemNo, Qty, FOBPcsPrice, No, Lineno);
 
             //Create new Prod BOM
-            CreateProdBOM("No.", ItemDesc, NextItemNo);
+            CreateProdBOM(rec."No.", ItemDesc, NextItemNo);
 
         end
         else begin   //If old FG item 
@@ -456,13 +456,13 @@ page 71012772 "Sample Request Card"
             CreateSalesOrder(NextItemNo, Qty, FOBPcsPrice, No, Lineno);
 
             //Create new Prod BOM
-            CreateProdBOM("No.", ItemDesc, NextItemNo);
+            CreateProdBOM(rec."No.", ItemDesc, NextItemNo);
         end;
 
 
         //update router line
         SampleReqLineRec.Reset();
-        SampleReqLineRec.SetRange("No.", "No.");
+        SampleReqLineRec.SetRange("No.", rec."No.");
         SampleReqLineRec.FindSet();
         SampleReqLineRec."Routing Code" := Routing;
         SampleReqLineRec."FG Code" := NextItemNo;
@@ -488,7 +488,7 @@ page 71012772 "Sample Request Card"
 
         //Get location for the style
         StyMasterRec.Reset();
-        StyMasterRec.SetRange("No.", "Style No.");
+        StyMasterRec.SetRange("No.", rec."Style No.");
         StyMasterRec.FindSet();
 
         //Insert Header
@@ -498,13 +498,13 @@ page 71012772 "Sample Request Card"
         SalesHeaderRec."No." := NextOrderNo;
         SalesHeaderRec."Posting Date" := WorkDate();
         SalesHeaderRec."Order Date" := WorkDate();
-        SalesHeaderRec.Validate("Sell-to Customer No.", "Buyer No.");
+        SalesHeaderRec.Validate("Sell-to Customer No.", rec."Buyer No.");
         //SalesHeaderRec.Validate("Bill-to Customer No.", "Buyer No.");
         SalesHeaderRec."Document Date" := WORKDATE;
         SalesHeaderRec."Shipping No. Series" := 'S-SHPT';
         SalesHeaderRec."Posting No. Series" := 'S-INV+';
-        SalesHeaderRec."Style No" := "Style No.";
-        SalesHeaderRec."Style Name" := "Style Name";
+        SalesHeaderRec."Style No" := rec."Style No.";
+        SalesHeaderRec."Style Name" := rec."Style Name";
         SalesHeaderRec.Validate("Location Code", StyMasterRec."Factory Code");
         SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::Sample;
         SalesHeaderRec.INSERT();
@@ -793,7 +793,7 @@ page 71012772 "Sample Request Card"
 
         //Get location for the style
         StyMasterRec.Reset();
-        StyMasterRec.SetRange("No.", "Style No.");
+        StyMasterRec.SetRange("No.", rec."Style No.");
         StyMasterRec.FindSet();
 
         // if StyMasterRec."Factory Code" = '' then
@@ -813,7 +813,7 @@ page 71012772 "Sample Request Card"
         RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
         RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
         RequLineRec.SetRange("Vendor No.", Supplier);
-        RequLineRec.SetRange(StyleNo, "Style No.");
+        RequLineRec.SetRange(StyleNo, rec."Style No.");
         // RequLineRec.SetRange(Lot, Lot);
         RequLineRec.SetRange("No.", Item);
 
@@ -834,8 +834,8 @@ page 71012772 "Sample Request Card"
             RequLineRec1.Quantity := Qty;
             RequLineRec1."Direct Unit Cost" := Rate;
             RequLineRec1."Unit Cost" := Rate;
-            RequLineRec1.StyleNo := "Style No.";
-            RequLineRec1.StyleName := "Style Name";
+            RequLineRec1.StyleNo := rec."Style No.";
+            RequLineRec1.StyleName := rec."Style Name";
             // RequLineRec1.PONo := PONo;
             // RequLineRec1.Lot := Lot;
             RequLineRec1.Validate("Location Code", StyMasterRec."Factory Code");
@@ -881,7 +881,7 @@ page 71012772 "Sample Request Card"
     trigger OnOpenPage()
     var
     begin
-        if WriteToMRPStatus = 1 then
+        if rec.WriteToMRPStatus = 1 then
             CurrPage.Editable(false)
         else
             CurrPage.Editable(true);
@@ -892,7 +892,7 @@ page 71012772 "Sample Request Card"
     trigger OnAfterGetRecord()
     var
     begin
-        if WriteToMRPStatus = 1 then
+        if rec.WriteToMRPStatus = 1 then
             CurrPage.Editable(false)
         else
             CurrPage.Editable(true);

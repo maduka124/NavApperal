@@ -11,13 +11,13 @@ page 71012607 "Garment Store Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Store No';
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
 
@@ -26,15 +26,15 @@ page 71012607 "Garment Store Card"
                         GarmentStoreRec: Record "Garment Store";
                     begin
                         GarmentStoreRec.Reset();
-                        GarmentStoreRec.SetRange("Store Name", "Store Name");
-                        GarmentStoreRec.SetRange("Country No_", "Country No_");
+                        GarmentStoreRec.SetRange("Store Name", rec."Store Name");
+                        GarmentStoreRec.SetRange("Country No_", rec."Country No_");
                         if GarmentStoreRec.FindSet() then
-                            Error('Store name already exists for the country %1', Country);
+                            Error('Store name already exists for the country %1', rec.Country);
                     end;
 
                 }
 
-                field("Country No_"; "Country No_")
+                field("Country No_"; rec."Country No_")
                 {
                     ApplicationArea = All;
                     TableRelation = "Country/Region".Code;
@@ -45,19 +45,19 @@ page 71012607 "Garment Store Card"
                         countryrec: Record "Country/Region";
                         GarmentStoreRec: Record "Garment Store";
                     begin
-                        countryrec.get("Country No_");
+                        countryrec.get(rec."Country No_");
                         Name := countryrec.Name;
-                        Country := Name;
+                        rec.Country := Name;
 
                         GarmentStoreRec.Reset();
-                        GarmentStoreRec.SetRange("Store Name", "Store Name");
-                        GarmentStoreRec.SetRange("Country No_", "Country No_");
+                        GarmentStoreRec.SetRange("Store Name", rec."Store Name");
+                        GarmentStoreRec.SetRange("Country No_", rec."Country No_");
                         if GarmentStoreRec.FindSet() then
-                            Error('Store name already exists for the country %1', Country);
+                            Error('Store name already exists for the country %1', rec.Country);
                     end;
                 }
 
-                field(Country; Country)
+                field(Country; rec.Country)
                 {
                     ApplicationArea = All;
                     Editable = false;

@@ -8,7 +8,7 @@ page 71012808 "Change Colour Card"
     {
         area(Content)
         {
-            field("From Colour Name"; "From Colour Name")
+            field("From Colour Name"; rec."From Colour Name")
             {
                 ApplicationArea = All;
                 Caption = 'From Colour';
@@ -18,13 +18,13 @@ page 71012808 "Change Colour Card"
                     ColorRec: Record Colour;
                 begin
                     ColorRec.Reset();
-                    ColorRec.SetRange("Colour Name", "From Colour Name");
+                    ColorRec.SetRange("Colour Name", rec."From Colour Name");
                     if ColorRec.FindSet() then
-                        "From Colour No" := ColorRec."No.";
+                        rec."From Colour No" := ColorRec."No.";
                 end;
             }
 
-            field("To Colour Name"; "To Colour Name")
+            field("To Colour Name"; rec."To Colour Name")
             {
                 ApplicationArea = All;
                 Caption = 'To Colour';
@@ -34,9 +34,9 @@ page 71012808 "Change Colour Card"
                     ColorRec: Record Colour;
                 begin
                     ColorRec.Reset();
-                    ColorRec.SetRange("Colour Name", "To Colour Name");
+                    ColorRec.SetRange("Colour Name", rec."To Colour Name");
                     if ColorRec.FindSet() then
-                        "To Colour No" := ColorRec."No.";
+                        rec."To Colour No" := ColorRec."No.";
                 end;
             }
         }
@@ -65,24 +65,24 @@ page 71012808 "Change Colour Card"
                     Text: Label 'Quantity has been entered for the Color : %1 in LOT : %2 . Do you want to change color in all POs.?';
                 begin
 
-                    BOMRec.SetRange("Style No.", "Style No.");
+                    BOMRec.SetRange("Style No.", rec."Style No.");
                     if BOMRec.FindSet() then
                         Error('Style %1 already assigned for the BOM %2 . You cannot change colors.', Style1Rec."Style No.", BOMRec.No);
 
-                    if "From Colour Name" = '' then
+                    if rec."From Colour Name" = '' then
                         Error('Invalid From Colour');
 
-                    if "To Colour Name" = '' then
+                    if rec."To Colour Name" = '' then
                         Error('Invalid To Colour');
 
-                    if "From Colour Name" = "To Colour Name" then
+                    if rec."From Colour Name" = rec."To Colour Name" then
                         Error('You cannot put same colour');
 
                     //Check for existance
                     AssoDetRec.Reset();
-                    AssoDetRec.SetRange("Style No.", "Style No.");
-                    AssoDetRec.SetRange("Colour No", "To Colour No");
-                    AssoDetRec.SetRange("Lot No.", "Lot No.");
+                    AssoDetRec.SetRange("Style No.", rec."Style No.");
+                    AssoDetRec.SetRange("Colour No", rec."To Colour No");
+                    AssoDetRec.SetRange("Lot No.", rec."Lot No.");
                     AssoDetRec.SetFilter(Type, '=%1', '1');
 
                     if AssoDetRec.FindSet() then
@@ -91,10 +91,10 @@ page 71012808 "Change Colour Card"
 
                     //Inform user about color usage in other pos
                     AssorColorSizeRatioRec.Reset();
-                    AssorColorSizeRatioRec.SetRange("Style No.", "Style No.");
-                    AssorColorSizeRatioRec.SetRange("Colour No", "From Colour No");
+                    AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+                    AssorColorSizeRatioRec.SetRange("Colour No", rec."From Colour No");
                     AssorColorSizeRatioRec.SetCurrentKey("lot No.");
-                    AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', "Lot No.");
+                    AssorColorSizeRatioRec.SetFilter("Lot No.", '<>%1', rec."Lot No.");
 
                     if AssorColorSizeRatioRec.FindSet() then begin
                         repeat
@@ -107,7 +107,7 @@ page 71012808 "Change Colour Card"
 
                     if LotTemp <> '' then begin
                         Question := Text;
-                        if (Dialog.Confirm(Question, true, "From Colour Name", LotTemp) = true) then
+                        if (Dialog.Confirm(Question, true, rec."From Colour Name", LotTemp) = true) then
                             Confirm := true
                         else
                             Confirm := false;
@@ -123,18 +123,18 @@ page 71012808 "Change Colour Card"
 
                     //update color TAB
                     AssoDetRec.Reset();
-                    AssoDetRec.SetRange("Style No.", "Style No.");
-                    AssoDetRec.SetRange("Colour No", "From Colour No");
+                    AssoDetRec.SetRange("Style No.", rec."Style No.");
+                    AssoDetRec.SetRange("Colour No", rec."From Colour No");
 
                     if Confirm = false then
-                        AssoDetRec.SetRange("Lot No.", "Lot No.");
+                        AssoDetRec.SetRange("Lot No.", rec."Lot No.");
 
                     AssoDetRec.SetFilter(Type, '=%1', '1');
 
                     if AssoDetRec.FindSet() then begin
                         repeat
-                            AssoDetRec."Colour No" := "To Colour No";
-                            AssoDetRec."Colour Name" := "To Colour Name";
+                            AssoDetRec."Colour No" := rec."To Colour No";
+                            AssoDetRec."Colour Name" := rec."To Colour Name";
                             AssoDetRec.Modify();
                         until AssoDetRec.Next() = 0;
                     end;
@@ -143,16 +143,16 @@ page 71012808 "Change Colour Card"
                     //update Color size TAB
                     AssorColorSizeRatioRec.Reset();
                     AssorColorSizeRatioRec.Reset();
-                    AssorColorSizeRatioRec.SetRange("Style No.", "Style No.");
-                    AssorColorSizeRatioRec.SetRange("Colour No", "From Colour No");
+                    AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+                    AssorColorSizeRatioRec.SetRange("Colour No", rec."From Colour No");
 
                     if Confirm = false then
-                        AssorColorSizeRatioRec.SetRange("Lot No.", "Lot No.");
+                        AssorColorSizeRatioRec.SetRange("Lot No.", rec."Lot No.");
 
                     if AssorColorSizeRatioRec.FindSet() then begin
                         repeat
-                            AssorColorSizeRatioRec."Colour No" := "To Colour No";
-                            AssorColorSizeRatioRec."Colour Name" := "To Colour Name";
+                            AssorColorSizeRatioRec."Colour No" := rec."To Colour No";
+                            AssorColorSizeRatioRec."Colour Name" := rec."To Colour Name";
                             AssorColorSizeRatioRec.Modify();
                         until AssorColorSizeRatioRec.Next() = 0;
                     end;
@@ -161,16 +161,16 @@ page 71012808 "Change Colour Card"
                     //update Quantity breakdown TAB
                     AssorColorSizeRatioView.Reset();
                     AssorColorSizeRatioView.Reset();
-                    AssorColorSizeRatioView.SetRange("Style No.", "Style No.");
-                    AssorColorSizeRatioView.SetRange("Colour No", "From Colour No");
+                    AssorColorSizeRatioView.SetRange("Style No.", rec."Style No.");
+                    AssorColorSizeRatioView.SetRange("Colour No", rec."From Colour No");
 
                     if Confirm = false then
-                        AssorColorSizeRatioView.SetRange("Lot No.", "Lot No.");
+                        AssorColorSizeRatioView.SetRange("Lot No.", rec."Lot No.");
 
                     if AssorColorSizeRatioView.FindSet() then begin
                         repeat
-                            AssorColorSizeRatioView."Colour No" := "To Colour No";
-                            AssorColorSizeRatioView."Colour Name" := "To Colour Name";
+                            AssorColorSizeRatioView."Colour No" := rec."To Colour No";
+                            AssorColorSizeRatioView."Colour Name" := rec."To Colour Name";
                             AssorColorSizeRatioView.Modify();
                         until AssorColorSizeRatioView.Next() = 0;
                     end;
@@ -179,16 +179,16 @@ page 71012808 "Change Colour Card"
                     //update price TAB
                     AssorColorSizeRatioPriceRec.Reset();
                     AssorColorSizeRatioPriceRec.Reset();
-                    AssorColorSizeRatioPriceRec.SetRange("Style No.", "Style No.");
-                    AssorColorSizeRatioPriceRec.SetRange("Colour No", "From Colour No");
+                    AssorColorSizeRatioPriceRec.SetRange("Style No.", rec."Style No.");
+                    AssorColorSizeRatioPriceRec.SetRange("Colour No", rec."From Colour No");
 
                     if Confirm = false then
-                        AssorColorSizeRatioPriceRec.SetRange("Lot No.", "Lot No.");
+                        AssorColorSizeRatioPriceRec.SetRange("Lot No.", rec."Lot No.");
 
                     if AssorColorSizeRatioPriceRec.FindSet() then begin
                         repeat
-                            AssorColorSizeRatioPriceRec."Colour No" := "To Colour No";
-                            AssorColorSizeRatioPriceRec."Colour Name" := "To Colour Name";
+                            AssorColorSizeRatioPriceRec."Colour No" := rec."To Colour No";
+                            AssorColorSizeRatioPriceRec."Colour Name" := rec."To Colour Name";
                             AssorColorSizeRatioPriceRec.Modify();
                         until AssorColorSizeRatioPriceRec.Next() = 0;
                     end;
@@ -216,8 +216,8 @@ page 71012808 "Change Colour Card"
     trigger OnOpenPage()
     var
     begin
-        "Style No." := StyleNo;
-        "Lot No." := LotNo;
+        rec."Style No." := StyleNo;
+        rec."Lot No." := LotNo;
         CurrPage.Update();
     end;
 

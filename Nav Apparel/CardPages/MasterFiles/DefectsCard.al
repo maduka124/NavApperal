@@ -10,13 +10,13 @@ page 71012595 "Defects Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Defects No';
                 }
 
-                field(Defects; Defects)
+                field(Defects; rec.Defects)
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012595 "Defects Card"
                         DefectsRec: Record Defects;
                     begin
                         DefectsRec.Reset();
-                        DefectsRec.SetRange(Defects, Defects);
+                        DefectsRec.SetRange(Defects, rec.Defects);
                         if DefectsRec.FindSet() then
                             Error('Defects name already exists.');
                     end;

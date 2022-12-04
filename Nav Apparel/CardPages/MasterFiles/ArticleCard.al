@@ -10,13 +10,13 @@ page 71012585 "Article Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No.";rec. "No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Article No';
                 }
 
-                field("Main Category No."; "Main Category No.")
+                field("Main Category No."; rec."Main Category No.")
                 {
                     ApplicationArea = All;
                     TableRelation = "Main Category"."No." where("Main Category Name" = filter(<> 'ALL CATEGORIES'));
@@ -26,18 +26,18 @@ page 71012585 "Article Card"
                     var
                         MainCategoryRec: Record "Main Category";
                     begin
-                        MainCategoryRec.get("Main Category No.");
-                        "Main Category Name" := MainCategoryRec."Main Category Name";
+                        MainCategoryRec.get(rec."Main Category No.");
+                        rec."Main Category Name" := MainCategoryRec."Main Category Name";
                     end;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
                     Visible = false;
                 }
 
-                field(Article; Article)
+                field(Article;rec. Article)
                 {
                     ApplicationArea = All;
 
@@ -46,7 +46,7 @@ page 71012585 "Article Card"
                         ArticleRec: Record Article;
                     begin
                         ArticleRec.Reset();
-                        ArticleRec.SetRange(Article, Article);
+                        ArticleRec.SetRange(Article, rec.Article);
                         if ArticleRec.FindSet() then
                             Error('Article name already exists.');
                     end;

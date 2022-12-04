@@ -10,7 +10,7 @@ page 71012680 "BOM Card"
         {
             group(General)
             {
-                field("No"; "No")
+                field("No"; rec."No")
                 {
                     ApplicationArea = All;
                     //Editable = false;
@@ -23,7 +23,7 @@ page 71012680 "BOM Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -46,53 +46,53 @@ page 71012680 "BOM Card"
 
                         //Check for duplicates
                         BOMRec.Reset();
-                        BOMRec.SetRange("Style Name", "Style Name");
+                        BOMRec.SetRange("Style Name", rec."Style Name");
                         if BOMRec.FindSet() then
                             Error('Style : %1 already used to create a BOM', BOMRec."Style Name");
 
 
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then begin
 
                             if StyleMasterRec.AssignedContractNo = '' then
                                 Error('Style is not assigned for a Contract. Cannot proceed.');
 
-                            "Style No." := StyleMasterRec."No.";
-                            "Store No." := StyleMasterRec."Store No.";
-                            "Brand No." := StyleMasterRec."Brand No.";
-                            "Buyer No." := StyleMasterRec."Buyer No.";
-                            "Season No." := StyleMasterRec."Season No.";
-                            "Department No." := StyleMasterRec."Department No.";
-                            "Garment Type No." := StyleMasterRec."Garment Type No.";
+                            rec."Style No." := StyleMasterRec."No.";
+                            rec."Store No." := StyleMasterRec."Store No.";
+                            rec."Brand No." := StyleMasterRec."Brand No.";
+                            rec."Buyer No." := StyleMasterRec."Buyer No.";
+                            rec."Season No." := StyleMasterRec."Season No.";
+                            rec."Department No." := StyleMasterRec."Department No.";
+                            rec."Garment Type No." := StyleMasterRec."Garment Type No.";
 
-                            "Store Name" := StyleMasterRec."Store Name";
-                            "Brand Name" := StyleMasterRec."Brand Name";
-                            "Buyer Name" := StyleMasterRec."Buyer Name";
-                            "Season Name" := StyleMasterRec."Season Name";
-                            "Department Name" := StyleMasterRec."Department Name";
-                            "Garment Type Name" := StyleMasterRec."Garment Type Name";
-                            Quantity := 0;
+                            rec."Store Name" := StyleMasterRec."Store Name";
+                            rec."Brand Name" := StyleMasterRec."Brand Name";
+                            rec."Buyer Name" := StyleMasterRec."Buyer Name";
+                            rec."Season Name" := StyleMasterRec."Season Name";
+                            rec."Department Name" := StyleMasterRec."Department Name";
+                            rec."Garment Type Name" := StyleMasterRec."Garment Type Name";
+                            rec.Quantity := 0;
 
-                            CustomerRec.get("Buyer No.");
-                            "Currency No." := CustomerRec."Currency Code";
+                            CustomerRec.get(rec."Buyer No.");
+                            rec."Currency No." := CustomerRec."Currency Code";
 
                             //insert PO details
                             StyleMasterPORec.Reset();
-                            StyleMasterPORec.SetRange("Style No.", "Style No.");
+                            StyleMasterPORec.SetRange("Style No.", rec."Style No.");
 
                             if StyleMasterPORec.FindSet() then begin
 
                                 //Delete old records
                                 BOMPOSelectionRec.Reset();
-                                BOMPOSelectionRec.SetRange("BOM No.", "No");
+                                BOMPOSelectionRec.SetRange("BOM No.", rec."No");
                                 BOMPOSelectionRec.DeleteAll();
 
                                 repeat
 
                                     BOMPOSelectionNewRec.Init();
-                                    BOMPOSelectionNewRec."BOM No." := "No";
-                                    BOMPOSelectionNewRec."Style No." := "Style No.";
+                                    BOMPOSelectionNewRec."BOM No." := rec."No";
+                                    BOMPOSelectionNewRec."Style No." := rec."Style No.";
                                     BOMPOSelectionNewRec."Lot No." := StyleMasterPORec."Lot No.";
                                     BOMPOSelectionNewRec."PO No." := StyleMasterPORec."PO No.";
                                     BOMPOSelectionNewRec.Qty := StyleMasterPORec.Qty;
@@ -111,7 +111,7 @@ page 71012680 "BOM Card"
 
                             //Load BOM Estimate Items to the Grid
                             BOMEstimateRec.Reset();
-                            BOMEstimateRec.SetRange("Style No.", "Style No.");
+                            BOMEstimateRec.SetRange("Style No.", rec."Style No.");
                             BOMEstimateRec.FindSet();
 
                             BOMEstimateLineRec.Reset();
@@ -122,7 +122,7 @@ page 71012680 "BOM Card"
                             if BOMEstimateLineRec.FindSet() then begin
 
                                 BOMLineEstimateNewRec.Reset();
-                                BOMLineEstimateNewRec.SetRange("No.", "No");
+                                BOMLineEstimateNewRec.SetRange("No.", rec."No");
                                 //BOMLineEstimateNewRec.SetRange("Item No.", BOMEstimateLineRec."Item No.");
                                 BOMLineEstimateNewRec.DeleteAll();
 
@@ -132,7 +132,7 @@ page 71012680 "BOM Card"
 
                                     LineNo += 10000;
                                     BOMLineEstimateNewRec.Init();
-                                    BOMLineEstimateNewRec."No." := "No";
+                                    BOMLineEstimateNewRec."No." := rec."No";
                                     BOMLineEstimateNewRec."Item No." := BOMEstimateLineRec."Item No.";
                                     BOMLineEstimateNewRec."Item Name" := BOMEstimateLineRec."Item Name";
                                     BOMLineEstimateNewRec."Main Category No." := BOMEstimateLineRec."Main Category No.";
@@ -171,7 +171,7 @@ page 71012680 "BOM Card"
                     end;
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
@@ -181,13 +181,13 @@ page 71012680 "BOM Card"
                         GarmentStoreRec: Record "Garment Store";
                     begin
                         GarmentStoreRec.Reset();
-                        GarmentStoreRec.SetRange("Store Name", "Store Name");
+                        GarmentStoreRec.SetRange("Store Name", rec."Store Name");
                         if GarmentStoreRec.FindSet() then
-                            "Store No." := GarmentStoreRec."No.";
+                            rec."Store No." := GarmentStoreRec."No.";
                     end;
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
@@ -197,13 +197,13 @@ page 71012680 "BOM Card"
                         BrandRec: Record "Brand";
                     begin
                         BrandRec.Reset();
-                        BrandRec.SetRange("Brand Name", "Brand Name");
+                        BrandRec.SetRange("Brand Name", rec."Brand Name");
                         if BrandRec.FindSet() then
-                            "Brand No." := BrandRec."No.";
+                            rec."Brand No." := BrandRec."No.";
                     end;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -213,15 +213,15 @@ page 71012680 "BOM Card"
                         BuyerRec: Record Customer;
                     begin
                         BuyerRec.Reset();
-                        BuyerRec.SetRange(Name, "Buyer Name");
+                        BuyerRec.SetRange(Name, rec."Buyer Name");
                         if BuyerRec.FindSet() then begin
-                            "Buyer No." := BuyerRec."No.";
-                            "Currency No." := BuyerRec."Currency Code";
+                            rec."Buyer No." := BuyerRec."No.";
+                            rec."Currency No." := BuyerRec."Currency Code";
                         end;
                     end;
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
@@ -231,13 +231,13 @@ page 71012680 "BOM Card"
                         SeasonsRec: Record "Seasons";
                     begin
                         SeasonsRec.Reset();
-                        SeasonsRec.SetRange("Season Name", "Season Name");
+                        SeasonsRec.SetRange("Season Name", rec."Season Name");
                         if SeasonsRec.FindSet() then
-                            "Season No." := SeasonsRec."No.";
+                            rec."Season No." := SeasonsRec."No.";
                     end;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
@@ -247,13 +247,13 @@ page 71012680 "BOM Card"
                         DepartmentRec: Record "Department Style";
                     begin
                         DepartmentRec.Reset();
-                        DepartmentRec.SetRange("Department Name", "Department Name");
+                        DepartmentRec.SetRange("Department Name", rec."Department Name");
                         if DepartmentRec.FindSet() then
-                            "Department No." := DepartmentRec."No.";
+                            rec."Department No." := DepartmentRec."No.";
                     end;
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
@@ -263,9 +263,9 @@ page 71012680 "BOM Card"
                         GarmentTypeRec: Record "Garment Type";
                     begin
                         GarmentTypeRec.Reset();
-                        GarmentTypeRec.SetRange("Garment Type Description", "Garment Type Name");
+                        GarmentTypeRec.SetRange("Garment Type Description", rec."Garment Type Name");
                         if GarmentTypeRec.FindSet() then
-                            "Garment Type No." := GarmentTypeRec."No.";
+                            rec."Garment Type No." := GarmentTypeRec."No.";
                     end;
                 }
 
@@ -275,13 +275,13 @@ page 71012680 "BOM Card"
                 //     Editable = false;
                 // }
 
-                field(Quantity; Quantity)
+                field(Quantity; rec.Quantity)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Currency No."; "Currency No.")
+                field("Currency No."; rec."Currency No.")
                 {
                     ApplicationArea = All;
                 }
@@ -413,7 +413,7 @@ page 71012680 "BOM Card"
                 begin
 
                     BLERec.Reset();
-                    BLERec.SetRange("No.", "No");
+                    BLERec.SetRange("No.", rec."No");
                     Total := 0;
                     SubTotal := 0;
                     LineNo := 0;
@@ -422,13 +422,13 @@ page 71012680 "BOM Card"
 
                     //Delete existing records
                     BLAutoGenNewRec.Reset();
-                    BLAutoGenNewRec.SetRange("No.", "No");
+                    BLAutoGenNewRec.SetRange("No.", rec."No");
                     BLAutoGenNewRec.SetFilter("Included in PO", '=%1', false);
                     if BLAutoGenNewRec.FindSet() then
                         repeat
 
                             BLAutoGenPrBOMRec.Reset();
-                            BLAutoGenPrBOMRec.SetRange("No.", "No");
+                            BLAutoGenPrBOMRec.SetRange("No.", rec."No");
                             BLAutoGenPrBOMRec.SetRange("Line No.", BLAutoGenNewRec."Line No.");
                             BLAutoGenPrBOMRec.SetRange("Item No.", BLAutoGenNewRec."Item No.");
                             if BLAutoGenPrBOMRec.FindSet() then
@@ -473,7 +473,7 @@ page 71012680 "BOM Card"
 
                             // //Check whether already "po raised"items are there, then do not insert
                             // BLAutoGenNewRec.Reset();
-                            // BLAutoGenNewRec.SetRange("No.", "No");
+                            // BLAutoGenNewRec.SetRange("No.", rec."No");
                             // BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                             // BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
 
@@ -482,7 +482,7 @@ page 71012680 "BOM Card"
 
                             //Get Max Lineno
                             BLAutoGenNewRec.Reset();
-                            BLAutoGenNewRec.SetRange("No.", "No");
+                            BLAutoGenNewRec.SetRange("No.", rec."No");
                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                             //BLE1Rec.SetRange("Placement of GMT", BLERec."Placement of GMT");
 
@@ -495,7 +495,7 @@ page 71012680 "BOM Card"
 
                                 //Color filter
                                 BOMLine1Rec.Reset();
-                                BOMLine1Rec.SetRange("No.", "No");
+                                BOMLine1Rec.SetRange("No.", rec."No");
                                 BOMLine1Rec.SetRange(Type, 1);
                                 BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -507,7 +507,7 @@ page 71012680 "BOM Card"
 
                                         //Size filter
                                         BOMLine2Rec.Reset();
-                                        BOMLine2Rec.SetRange("No.", "No");
+                                        BOMLine2Rec.SetRange("No.", rec."No");
                                         BOMLine2Rec.SetRange(Type, 2);
                                         BOMLine2Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                         BOMLine2Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -517,7 +517,7 @@ page 71012680 "BOM Card"
                                             repeat
 
                                                 BOMPOSelecRec.Reset();
-                                                BOMPOSelecRec.SetRange("BOM No.", "No");
+                                                BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                                 BOMPOSelecRec.SetRange(Selection, true);
 
                                                 if BOMPOSelecRec.FindSet() then begin
@@ -526,7 +526,7 @@ page 71012680 "BOM Card"
 
                                                         //Item po filter
                                                         BOMLine4Rec.Reset();
-                                                        BOMLine4Rec.SetRange("No.", "No");
+                                                        BOMLine4Rec.SetRange("No.", rec."No");
                                                         BOMLine4Rec.SetRange(Type, 4);
                                                         BOMLine4Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                                         BOMLine4Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -538,7 +538,7 @@ page 71012680 "BOM Card"
 
                                                                 //Country filter
                                                                 BOMLine3Rec.Reset();
-                                                                BOMLine3Rec.SetRange("No.", "No");
+                                                                BOMLine3Rec.SetRange("No.", rec."No");
                                                                 BOMLine3Rec.SetRange(Type, 3);
                                                                 BOMLine3Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                                                 BOMLine3Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -550,7 +550,7 @@ page 71012680 "BOM Card"
 
                                                                         //Insert new line
                                                                         AssortDetailsRec.Reset();
-                                                                        AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                                         AssortDetailsRec.SetRange("Lot No.", BOMLine4Rec."lot No.");
                                                                         AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
                                                                         AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -559,7 +559,7 @@ page 71012680 "BOM Card"
 
                                                                             //Find the correct column for the GMT size
                                                                             AssortDetails1Rec.Reset();
-                                                                            AssortDetails1Rec.SetRange("Style No.", "Style No.");
+                                                                            AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
                                                                             AssortDetails1Rec.SetRange("Lot No.", BOMLine4Rec."lot No.");
                                                                             AssortDetails1Rec.SetRange("Colour No", '*');
                                                                             AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -903,7 +903,7 @@ page 71012680 "BOM Card"
 
                                                                             //Check whether already "po raised"items are there, then do not insert
                                                                             BLAutoGenNewRec.Reset();
-                                                                            BLAutoGenNewRec.SetRange("No.", "No");
+                                                                            BLAutoGenNewRec.SetRange("No.", rec."No");
                                                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                                             BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
@@ -920,7 +920,7 @@ page 71012680 "BOM Card"
                                                                                 if Total <> 0 then begin
 
                                                                                     BLAutoGenNewRec.Init();
-                                                                                    BLAutoGenNewRec."No." := "No";
+                                                                                    BLAutoGenNewRec."No." := rec."No";
                                                                                     BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                                     BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                                     BLAutoGenNewRec."Line No." := LineNo;
@@ -1012,7 +1012,7 @@ page 71012680 "BOM Card"
 
                                 //Color filter
                                 BOMLine1Rec.Reset();
-                                BOMLine1Rec.SetRange("No.", "No");
+                                BOMLine1Rec.SetRange("No.", rec."No");
                                 BOMLine1Rec.SetRange(Type, 1);
                                 BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -1024,7 +1024,7 @@ page 71012680 "BOM Card"
 
                                         //Size filter
                                         BOMLine2Rec.Reset();
-                                        BOMLine2Rec.SetRange("No.", "No");
+                                        BOMLine2Rec.SetRange("No.", rec."No");
                                         BOMLine2Rec.SetRange(Type, 2);
                                         BOMLine2Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                         BOMLine2Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -1035,7 +1035,7 @@ page 71012680 "BOM Card"
 
                                                 //PO filter
                                                 BOMPOSelecRec.Reset();
-                                                BOMPOSelecRec.SetRange("BOM No.", "No");
+                                                BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                                 BOMPOSelecRec.SetRange(Selection, true);
 
                                                 if BOMPOSelecRec.FindSet() then begin
@@ -1043,7 +1043,7 @@ page 71012680 "BOM Card"
 
                                                         //Country filter
                                                         BOMLine3Rec.Reset();
-                                                        BOMLine3Rec.SetRange("No.", "No");
+                                                        BOMLine3Rec.SetRange("No.", rec."No");
                                                         BOMLine3Rec.SetRange(Type, 3);
                                                         BOMLine3Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                                         BOMLine3Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -1055,7 +1055,7 @@ page 71012680 "BOM Card"
 
                                                                 //Insert new line
                                                                 AssortDetailsRec.Reset();
-                                                                AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                                 AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                 AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
                                                                 AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -1064,7 +1064,7 @@ page 71012680 "BOM Card"
 
                                                                     //Find the correct column for the GMT size
                                                                     AssortDetails1Rec.Reset();
-                                                                    AssortDetails1Rec.SetRange("Style No.", "Style No.");
+                                                                    AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
                                                                     AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                     AssortDetails1Rec.SetRange("Colour No", '*');
                                                                     AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -1409,7 +1409,7 @@ page 71012680 "BOM Card"
 
                                                                     //Check whether already "po raised"items are there, then do not insert
                                                                     BLAutoGenNewRec.Reset();
-                                                                    BLAutoGenNewRec.SetRange("No.", "No");
+                                                                    BLAutoGenNewRec.SetRange("No.", rec."No");
                                                                     BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                                     BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                                     BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
@@ -1426,7 +1426,7 @@ page 71012680 "BOM Card"
                                                                         if Total <> 0 then begin
 
                                                                             BLAutoGenNewRec.Init();
-                                                                            BLAutoGenNewRec."No." := "No";
+                                                                            BLAutoGenNewRec."No." := rec."No";
                                                                             BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                             BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                             BLAutoGenNewRec."Line No." := LineNo;
@@ -1512,7 +1512,7 @@ page 71012680 "BOM Card"
 
                                 //Color filter
                                 BOMLine1Rec.Reset();
-                                BOMLine1Rec.SetRange("No.", "No");
+                                BOMLine1Rec.SetRange("No.", rec."No");
                                 BOMLine1Rec.SetRange(Type, 1);
                                 BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -1524,7 +1524,7 @@ page 71012680 "BOM Card"
 
                                         //Size filter
                                         BOMLine2Rec.Reset();
-                                        BOMLine2Rec.SetRange("No.", "No");
+                                        BOMLine2Rec.SetRange("No.", rec."No");
                                         BOMLine2Rec.SetRange(Type, 2);
                                         BOMLine2Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                         BOMLine2Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -1535,7 +1535,7 @@ page 71012680 "BOM Card"
 
                                                 //PO filter
                                                 BOMPOSelecRec.Reset();
-                                                BOMPOSelecRec.SetRange("BOM No.", "No");
+                                                BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                                 BOMPOSelecRec.SetRange(Selection, true);
 
                                                 if BOMPOSelecRec.FindSet() then begin
@@ -1543,7 +1543,7 @@ page 71012680 "BOM Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                         AssortDetailsRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
                                                         AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
 
@@ -1551,7 +1551,7 @@ page 71012680 "BOM Card"
 
                                                             //Find the correct column for the GMT size
                                                             AssortDetails1Rec.Reset();
-                                                            AssortDetails1Rec.SetRange("Style No.", "Style No.");
+                                                            AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
                                                             AssortDetails1Rec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
                                                             AssortDetails1Rec.SetRange("Colour No", '*');
 
@@ -1894,7 +1894,7 @@ page 71012680 "BOM Card"
 
                                                             //Check whether already "po raised"items are there, then do not insert
                                                             BLAutoGenNewRec.Reset();
-                                                            BLAutoGenNewRec.SetRange("No.", "No");
+                                                            BLAutoGenNewRec.SetRange("No.", rec."No");
                                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                             BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
@@ -1911,7 +1911,7 @@ page 71012680 "BOM Card"
                                                                 if Total <> 0 then begin
 
                                                                     BLAutoGenNewRec.Init();
-                                                                    BLAutoGenNewRec."No." := "No";
+                                                                    BLAutoGenNewRec."No." := rec."No";
                                                                     BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                     BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                     BLAutoGenNewRec."Line No." := LineNo;
@@ -1995,7 +1995,7 @@ page 71012680 "BOM Card"
                             if BLERec."Color Sensitive" and not BLERec."Size Sensitive" and not BLERec."Country Sensitive" and not BLERec."PO Sensitive" then begin
 
                                 BOMLine1Rec.Reset();
-                                BOMLine1Rec.SetRange("No.", "No");
+                                BOMLine1Rec.SetRange("No.", rec."No");
                                 BOMLine1Rec.SetRange(Type, 1);
                                 BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -2005,14 +2005,14 @@ page 71012680 "BOM Card"
                                     repeat
 
                                         BOMPOSelecRec.Reset();
-                                        BOMPOSelecRec.SetRange("BOM No.", "No");
+                                        BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                         BOMPOSelecRec.SetRange(Selection, true);
 
                                         if BOMPOSelecRec.FindSet() then begin
                                             repeat
 
                                                 AssortDetailsRec.Reset();
-                                                AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                 AssortDetailsRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
                                                 AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
 
@@ -2029,7 +2029,7 @@ page 71012680 "BOM Card"
 
                                                     //Check whether already "po raised"items are there, then do not insert
                                                     BLAutoGenNewRec.Reset();
-                                                    BLAutoGenNewRec.SetRange("No.", "No");
+                                                    BLAutoGenNewRec.SetRange("No.", rec."No");
                                                     BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                     BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                     BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
@@ -2046,7 +2046,7 @@ page 71012680 "BOM Card"
                                                         if Total <> 0 then begin
 
                                                             BLAutoGenNewRec.Init();
-                                                            BLAutoGenNewRec."No." := "No";
+                                                            BLAutoGenNewRec."No." := rec."No";
                                                             BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                             BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                             BLAutoGenNewRec."Line No." := LineNo;
@@ -2128,7 +2128,7 @@ page 71012680 "BOM Card"
 
                                 //Size filter
                                 BOMLine2Rec.Reset();
-                                BOMLine2Rec.SetRange("No.", "No");
+                                BOMLine2Rec.SetRange("No.", rec."No");
                                 BOMLine2Rec.SetRange(Type, 2);
                                 BOMLine2Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine2Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -2139,7 +2139,7 @@ page 71012680 "BOM Card"
 
                                         //PO filter
                                         BOMPOSelecRec.Reset();
-                                        BOMPOSelecRec.SetRange("BOM No.", "No");
+                                        BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                         BOMPOSelecRec.SetRange(Selection, true);
 
                                         if BOMPOSelecRec.FindSet() then begin
@@ -2148,7 +2148,7 @@ page 71012680 "BOM Card"
 
                                                 //Insert new line
                                                 AssortDetailsRec.Reset();
-                                                AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                 AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."Lot No.");
 
                                                 if AssortDetailsRec.FindSet() then begin
@@ -2159,7 +2159,7 @@ page 71012680 "BOM Card"
 
                                                             //Find the correct column for the GMT size
                                                             AssortDetails1Rec.Reset();
-                                                            AssortDetails1Rec.SetRange("Style No.", "Style No.");
+                                                            AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
                                                             AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                             AssortDetails1Rec.SetRange("Colour No", '*');
 
@@ -2508,7 +2508,7 @@ page 71012680 "BOM Card"
 
                                                     //Check whether already "po raised"items are there, then do not insert
                                                     BLAutoGenNewRec.Reset();
-                                                    BLAutoGenNewRec.SetRange("No.", "No");
+                                                    BLAutoGenNewRec.SetRange("No.", rec."No");
                                                     BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                     BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                     BLAutoGenNewRec.SetRange("Item Color No.", BOMLine2Rec."Item Color No.");
@@ -2524,7 +2524,7 @@ page 71012680 "BOM Card"
                                                         if Total <> 0 then begin
 
                                                             BLAutoGenNewRec.Init();
-                                                            BLAutoGenNewRec."No." := "No";
+                                                            BLAutoGenNewRec."No." := rec."No";
                                                             BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                             BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                             BLAutoGenNewRec."Line No." := LineNo;
@@ -2606,7 +2606,7 @@ page 71012680 "BOM Card"
 
                                 //Size filter
                                 BOMLine2Rec.Reset();
-                                BOMLine2Rec.SetRange("No.", "No");
+                                BOMLine2Rec.SetRange("No.", rec."No");
                                 BOMLine2Rec.SetRange(Type, 2);
                                 BOMLine2Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine2Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -2617,7 +2617,7 @@ page 71012680 "BOM Card"
 
                                         //PO filter
                                         BOMPOSelecRec.Reset();
-                                        BOMPOSelecRec.SetRange("BOM No.", "No");
+                                        BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                         BOMPOSelecRec.SetRange(Selection, true);
 
                                         if BOMPOSelecRec.FindSet() then begin
@@ -2626,7 +2626,7 @@ page 71012680 "BOM Card"
 
                                                 //Country filter
                                                 BOMLine3Rec.Reset();
-                                                BOMLine3Rec.SetRange("No.", "No");
+                                                BOMLine3Rec.SetRange("No.", rec."No");
                                                 BOMLine3Rec.SetRange(Type, 3);
                                                 BOMLine3Rec.SetRange("Item No.", BOMLine2Rec."Item No.");
                                                 BOMLine3Rec.SetRange(Placement, BOMLine2Rec."Placement");
@@ -2638,7 +2638,7 @@ page 71012680 "BOM Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                         AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
 
@@ -2650,7 +2650,7 @@ page 71012680 "BOM Card"
 
                                                                     //Find the correct column for the GMT size
                                                                     AssortDetails1Rec.Reset();
-                                                                    AssortDetails1Rec.SetRange("Style No.", "Style No.");
+                                                                    AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
                                                                     AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                     AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
                                                                     AssortDetails1Rec.SetRange("Colour No", '*');
@@ -3000,7 +3000,7 @@ page 71012680 "BOM Card"
 
                                                             //Check whether already "po raised"items are there, then do not insert
                                                             BLAutoGenNewRec.Reset();
-                                                            BLAutoGenNewRec.SetRange("No.", "No");
+                                                            BLAutoGenNewRec.SetRange("No.", rec."No");
                                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                             BLAutoGenNewRec.SetRange("Item Color No.", BOMLine2Rec."Item Color No.");
@@ -3016,7 +3016,7 @@ page 71012680 "BOM Card"
                                                                 if Total <> 0 then begin
 
                                                                     BLAutoGenNewRec.Init();
-                                                                    BLAutoGenNewRec."No." := "No";
+                                                                    BLAutoGenNewRec."No." := rec."No";
                                                                     BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                     BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                     BLAutoGenNewRec."Line No." := LineNo;
@@ -3100,7 +3100,7 @@ page 71012680 "BOM Card"
 
                                 //PO filter
                                 BOMPOSelecRec.Reset();
-                                BOMPOSelecRec.SetRange("BOM No.", "No");
+                                BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                 BOMPOSelecRec.SetRange(Selection, true);
 
                                 if BOMPOSelecRec.FindSet() then begin
@@ -3109,7 +3109,7 @@ page 71012680 "BOM Card"
 
                                         //Country filter
                                         BOMLine3Rec.Reset();
-                                        BOMLine3Rec.SetRange("No.", "No");
+                                        BOMLine3Rec.SetRange("No.", rec."No");
                                         BOMLine3Rec.SetRange(Type, 3);
                                         BOMLine3Rec.SetRange("Item No.", BLERec."Item No.");
                                         BOMLine3Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -3121,7 +3121,7 @@ page 71012680 "BOM Card"
 
                                                 //Insert new line
                                                 AssortDetailsRec.Reset();
-                                                AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                 AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                 AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
 
@@ -3146,7 +3146,7 @@ page 71012680 "BOM Card"
 
                                                     //Check whether already "po raised"items are there, then do not insert
                                                     BLAutoGenNewRec.Reset();
-                                                    BLAutoGenNewRec.SetRange("No.", "No");
+                                                    BLAutoGenNewRec.SetRange("No.", rec."No");
                                                     BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                     BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                     BLAutoGenNewRec.SetRange("Item Color No.", BOMLine3Rec."Item Color No.");
@@ -3162,7 +3162,7 @@ page 71012680 "BOM Card"
                                                         if Total <> 0 then begin
 
                                                             BLAutoGenNewRec.Init();
-                                                            BLAutoGenNewRec."No." := "No";
+                                                            BLAutoGenNewRec."No." := rec."No";
                                                             BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                             BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                             BLAutoGenNewRec."Line No." := LineNo;
@@ -3245,7 +3245,7 @@ page 71012680 "BOM Card"
 
                                 //Color filter
                                 BOMLine1Rec.Reset();
-                                BOMLine1Rec.SetRange("No.", "No");
+                                BOMLine1Rec.SetRange("No.", rec."No");
                                 BOMLine1Rec.SetRange(Type, 1);
                                 BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -3257,7 +3257,7 @@ page 71012680 "BOM Card"
 
                                         //PO filter
                                         BOMPOSelecRec.Reset();
-                                        BOMPOSelecRec.SetRange("BOM No.", "No");
+                                        BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                         BOMPOSelecRec.SetRange(Selection, true);
 
                                         if BOMPOSelecRec.FindSet() then begin
@@ -3265,7 +3265,7 @@ page 71012680 "BOM Card"
 
                                                 //Country filter
                                                 BOMLine3Rec.Reset();
-                                                BOMLine3Rec.SetRange("No.", "No");
+                                                BOMLine3Rec.SetRange("No.", rec."No");
                                                 BOMLine3Rec.SetRange(Type, 3);
                                                 BOMLine3Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                                 BOMLine3Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -3277,7 +3277,7 @@ page 71012680 "BOM Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                         AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
                                                         AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -3296,7 +3296,7 @@ page 71012680 "BOM Card"
 
                                                             //Check whether already "po raised"items are there, then do not insert
                                                             BLAutoGenNewRec.Reset();
-                                                            BLAutoGenNewRec.SetRange("No.", "No");
+                                                            BLAutoGenNewRec.SetRange("No.", rec."No");
                                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                             BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
@@ -3313,7 +3313,7 @@ page 71012680 "BOM Card"
                                                                 if Total <> 0 then begin
 
                                                                     BLAutoGenNewRec.Init();
-                                                                    BLAutoGenNewRec."No." := "No";
+                                                                    BLAutoGenNewRec."No." := rec."No";
                                                                     BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                     BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                     BLAutoGenNewRec."Line No." := LineNo;
@@ -3399,7 +3399,7 @@ page 71012680 "BOM Card"
 
                                 //PO filter
                                 BOMPOSelecRec.Reset();
-                                BOMPOSelecRec.SetRange("BOM No.", "No");
+                                BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                 BOMPOSelecRec.SetRange(Selection, true);
 
                                 if BOMPOSelecRec.FindSet() then begin
@@ -3407,7 +3407,7 @@ page 71012680 "BOM Card"
 
                                         //Item po filter
                                         BOMLine4Rec.Reset();
-                                        BOMLine4Rec.SetRange("No.", "No");
+                                        BOMLine4Rec.SetRange("No.", rec."No");
                                         BOMLine4Rec.SetRange(Type, 4);
                                         BOMLine4Rec.SetRange("Item No.", BLERec."Item No.");
                                         BOMLine4Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -3418,7 +3418,7 @@ page 71012680 "BOM Card"
 
                                             //Insert new line
                                             AssortDetailsRec.Reset();
-                                            AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                            AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                             AssortDetailsRec.SetRange("lot No.", BOMLine4Rec."lot No.");
 
                                             if AssortDetailsRec.FindSet() then begin
@@ -3440,7 +3440,7 @@ page 71012680 "BOM Card"
 
                                                 //Check whether already "po raised"items are there, then do not insert
                                                 BLAutoGenNewRec.Reset();
-                                                BLAutoGenNewRec.SetRange("No.", "No");
+                                                BLAutoGenNewRec.SetRange("No.", rec."No");
                                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                 //BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
@@ -3457,7 +3457,7 @@ page 71012680 "BOM Card"
                                                     if Total <> 0 then begin
 
                                                         BLAutoGenNewRec.Init();
-                                                        BLAutoGenNewRec."No." := "No";
+                                                        BLAutoGenNewRec."No." := rec."No";
                                                         BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                         BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                         BLAutoGenNewRec."Line No." := LineNo;
@@ -3536,7 +3536,7 @@ page 71012680 "BOM Card"
 
                                 //Size filter
                                 BOMLine2Rec.Reset();
-                                BOMLine2Rec.SetRange("No.", "No");
+                                BOMLine2Rec.SetRange("No.", rec."No");
                                 BOMLine2Rec.SetRange(Type, 2);
                                 BOMLine2Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine2Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -3548,7 +3548,7 @@ page 71012680 "BOM Card"
 
                                         //PO filter
                                         BOMPOSelecRec.Reset();
-                                        BOMPOSelecRec.SetRange("BOM No.", "No");
+                                        BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                         BOMPOSelecRec.SetRange(Selection, true);
 
                                         if BOMPOSelecRec.FindSet() then begin
@@ -3557,7 +3557,7 @@ page 71012680 "BOM Card"
 
                                                 //Item po filter
                                                 BOMLine4Rec.Reset();
-                                                BOMLine4Rec.SetRange("No.", "No");
+                                                BOMLine4Rec.SetRange("No.", rec."No");
                                                 BOMLine4Rec.SetRange(Type, 4);
                                                 BOMLine4Rec.SetRange("Item No.", BOMLine2Rec."Item No.");
                                                 BOMLine4Rec.SetRange(Placement, BOMLine2Rec."Placement");
@@ -3570,7 +3570,7 @@ page 71012680 "BOM Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
 
                                                         if AssortDetailsRec.FindSet() then begin
@@ -3581,7 +3581,7 @@ page 71012680 "BOM Card"
 
                                                                     //Find the correct column for the GMT size
                                                                     AssortDetails1Rec.Reset();
-                                                                    AssortDetails1Rec.SetRange("Style No.", "Style No.");
+                                                                    AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
                                                                     AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                     AssortDetails1Rec.SetRange("Colour No", '*');
 
@@ -3930,7 +3930,7 @@ page 71012680 "BOM Card"
 
                                                             //Check whether already "po raised"items are there, then do not insert
                                                             BLAutoGenNewRec.Reset();
-                                                            BLAutoGenNewRec.SetRange("No.", "No");
+                                                            BLAutoGenNewRec.SetRange("No.", rec."No");
                                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                             BLAutoGenNewRec.SetRange("Item Color No.", BOMLine2Rec."Item Color No.");
@@ -3946,7 +3946,7 @@ page 71012680 "BOM Card"
                                                                 if Total <> 0 then begin
 
                                                                     BLAutoGenNewRec.Init();
-                                                                    BLAutoGenNewRec."No." := "No";
+                                                                    BLAutoGenNewRec."No." := rec."No";
                                                                     BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                     BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                     BLAutoGenNewRec."Line No." := LineNo;
@@ -4030,7 +4030,7 @@ page 71012680 "BOM Card"
 
                                 //color filter
                                 BOMLine1Rec.Reset();
-                                BOMLine1Rec.SetRange("No.", "No");
+                                BOMLine1Rec.SetRange("No.", rec."No");
                                 BOMLine1Rec.SetRange(Type, 1);
                                 BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -4042,7 +4042,7 @@ page 71012680 "BOM Card"
 
                                         //PO filter
                                         BOMPOSelecRec.Reset();
-                                        BOMPOSelecRec.SetRange("BOM No.", "No");
+                                        BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                         BOMPOSelecRec.SetRange(Selection, true);
 
                                         if BOMPOSelecRec.FindSet() then begin
@@ -4051,7 +4051,7 @@ page 71012680 "BOM Card"
 
                                                 //Item po filter
                                                 BOMLine4Rec.Reset();
-                                                BOMLine4Rec.SetRange("No.", "No");
+                                                BOMLine4Rec.SetRange("No.", rec."No");
                                                 BOMLine4Rec.SetRange(Type, 4);
                                                 BOMLine4Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                                 BOMLine4Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -4064,7 +4064,7 @@ page 71012680 "BOM Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                         AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
 
@@ -4091,7 +4091,7 @@ page 71012680 "BOM Card"
 
                                                         //Check whether already "po raised"items are there, then do not insert
                                                         BLAutoGenNewRec.Reset();
-                                                        BLAutoGenNewRec.SetRange("No.", "No");
+                                                        BLAutoGenNewRec.SetRange("No.", rec."No");
                                                         BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                         BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                         BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
@@ -4108,7 +4108,7 @@ page 71012680 "BOM Card"
                                                             if Total <> 0 then begin
 
                                                                 BLAutoGenNewRec.Init();
-                                                                BLAutoGenNewRec."No." := "No";
+                                                                BLAutoGenNewRec."No." := rec."No";
                                                                 BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                 BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                 BLAutoGenNewRec."Line No." := LineNo;
@@ -4191,7 +4191,7 @@ page 71012680 "BOM Card"
 
                                 //color filter
                                 BOMLine1Rec.Reset();
-                                BOMLine1Rec.SetRange("No.", "No");
+                                BOMLine1Rec.SetRange("No.", rec."No");
                                 BOMLine1Rec.SetRange(Type, 1);
                                 BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -4203,7 +4203,7 @@ page 71012680 "BOM Card"
 
                                         //Size filter
                                         BOMLine2Rec.Reset();
-                                        BOMLine2Rec.SetRange("No.", "No");
+                                        BOMLine2Rec.SetRange("No.", rec."No");
                                         BOMLine2Rec.SetRange(Type, 2);
                                         BOMLine2Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                         BOMLine2Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -4215,7 +4215,7 @@ page 71012680 "BOM Card"
 
                                                 //PO filter
                                                 BOMPOSelecRec.Reset();
-                                                BOMPOSelecRec.SetRange("BOM No.", "No");
+                                                BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                                 BOMPOSelecRec.SetRange(Selection, true);
 
                                                 if BOMPOSelecRec.FindSet() then begin
@@ -4224,7 +4224,7 @@ page 71012680 "BOM Card"
 
                                                         //Item po filter
                                                         BOMLine4Rec.Reset();
-                                                        BOMLine4Rec.SetRange("No.", "No");
+                                                        BOMLine4Rec.SetRange("No.", rec."No");
                                                         BOMLine4Rec.SetRange(Type, 4);
                                                         BOMLine4Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                                         BOMLine4Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -4237,7 +4237,7 @@ page 71012680 "BOM Card"
 
                                                                 //Insert new line
                                                                 AssortDetailsRec.Reset();
-                                                                AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                                 AssortDetailsRec.SetRange("lot No.", BOMLine4Rec."lot No.");
                                                                 AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
 
@@ -4247,7 +4247,7 @@ page 71012680 "BOM Card"
 
                                                                         //Find the correct column for the GMT size
                                                                         AssortDetails1Rec.Reset();
-                                                                        AssortDetails1Rec.SetRange("Style No.", "Style No.");
+                                                                        AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
                                                                         AssortDetails1Rec.SetRange("lot No.", BOMLine4Rec."lot No.");
                                                                         AssortDetails1Rec.SetRange("Colour No", '*');
 
@@ -4593,7 +4593,7 @@ page 71012680 "BOM Card"
 
                                                                 //Check whether already "po raised"items are there, then do not insert
                                                                 BLAutoGenNewRec.Reset();
-                                                                BLAutoGenNewRec.SetRange("No.", "No");
+                                                                BLAutoGenNewRec.SetRange("No.", rec."No");
                                                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                                 BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
@@ -4610,7 +4610,7 @@ page 71012680 "BOM Card"
                                                                     if Total <> 0 then begin
 
                                                                         BLAutoGenNewRec.Init();
-                                                                        BLAutoGenNewRec."No." := "No";
+                                                                        BLAutoGenNewRec."No." := rec."No";
                                                                         BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                         BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                         BLAutoGenNewRec."Line No." := LineNo;
@@ -4694,7 +4694,7 @@ page 71012680 "BOM Card"
 
                                 //color filter
                                 BOMLine1Rec.Reset();
-                                BOMLine1Rec.SetRange("No.", "No");
+                                BOMLine1Rec.SetRange("No.", rec."No");
                                 BOMLine1Rec.SetRange(Type, 1);
                                 BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -4706,7 +4706,7 @@ page 71012680 "BOM Card"
 
                                         //Country filter
                                         BOMLine3Rec.Reset();
-                                        BOMLine3Rec.SetRange("No.", "No");
+                                        BOMLine3Rec.SetRange("No.", rec."No");
                                         BOMLine3Rec.SetRange(Type, 3);
                                         BOMLine3Rec.SetRange("Item No.", BLERec."Item No.");
                                         BOMLine3Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -4719,7 +4719,7 @@ page 71012680 "BOM Card"
 
                                                 //PO filter
                                                 BOMPOSelecRec.Reset();
-                                                BOMPOSelecRec.SetRange("BOM No.", "No");
+                                                BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                                 BOMPOSelecRec.SetRange(Selection, true);
 
                                                 if BOMPOSelecRec.FindSet() then begin
@@ -4728,7 +4728,7 @@ page 71012680 "BOM Card"
 
                                                         //Item po filter
                                                         BOMLine4Rec.Reset();
-                                                        BOMLine4Rec.SetRange("No.", "No");
+                                                        BOMLine4Rec.SetRange("No.", rec."No");
                                                         BOMLine4Rec.SetRange(Type, 4);
                                                         BOMLine4Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
                                                         BOMLine4Rec.SetRange(Placement, BOMLine1Rec."Placement");
@@ -4741,7 +4741,7 @@ page 71012680 "BOM Card"
 
                                                                 //Insert new line
                                                                 AssortDetailsRec.Reset();
-                                                                AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                                 AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                 AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
                                                                 AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -4769,7 +4769,7 @@ page 71012680 "BOM Card"
 
                                                                 //Check whether already "po raised"items are there, then do not insert
                                                                 BLAutoGenNewRec.Reset();
-                                                                BLAutoGenNewRec.SetRange("No.", "No");
+                                                                BLAutoGenNewRec.SetRange("No.", rec."No");
                                                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                                 BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
@@ -4786,7 +4786,7 @@ page 71012680 "BOM Card"
                                                                     if Total <> 0 then begin
 
                                                                         BLAutoGenNewRec.Init();
-                                                                        BLAutoGenNewRec."No." := "No";
+                                                                        BLAutoGenNewRec."No." := rec."No";
                                                                         BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                         BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                         BLAutoGenNewRec."Line No." := LineNo;
@@ -4872,7 +4872,7 @@ page 71012680 "BOM Card"
 
                                 //Country filter
                                 BOMLine3Rec.Reset();
-                                BOMLine3Rec.SetRange("No.", "No");
+                                BOMLine3Rec.SetRange("No.", rec."No");
                                 BOMLine3Rec.SetRange(Type, 3);
                                 BOMLine3Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine3Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -4884,7 +4884,7 @@ page 71012680 "BOM Card"
 
                                         //PO filter
                                         BOMPOSelecRec.Reset();
-                                        BOMPOSelecRec.SetRange("BOM No.", "No");
+                                        BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                         BOMPOSelecRec.SetRange(Selection, true);
 
                                         if BOMPOSelecRec.FindSet() then begin
@@ -4893,7 +4893,7 @@ page 71012680 "BOM Card"
 
                                                 //Item po filter
                                                 BOMLine4Rec.Reset();
-                                                BOMLine4Rec.SetRange("No.", "No");
+                                                BOMLine4Rec.SetRange("No.", rec."No");
                                                 BOMLine4Rec.SetRange(Type, 4);
                                                 BOMLine4Rec.SetRange("Item No.", BLERec."Item No.");
                                                 BOMLine4Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -4906,7 +4906,7 @@ page 71012680 "BOM Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                         AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
 
@@ -4933,7 +4933,7 @@ page 71012680 "BOM Card"
 
                                                         //Check whether already "po raised"items are there, then do not insert
                                                         BLAutoGenNewRec.Reset();
-                                                        BLAutoGenNewRec.SetRange("No.", "No");
+                                                        BLAutoGenNewRec.SetRange("No.", rec."No");
                                                         BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                         BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                         BLAutoGenNewRec.SetRange("Item Color No.", BOMLine3Rec."Item Color No.");
@@ -4949,7 +4949,7 @@ page 71012680 "BOM Card"
                                                             if Total <> 0 then begin
 
                                                                 BLAutoGenNewRec.Init();
-                                                                BLAutoGenNewRec."No." := "No";
+                                                                BLAutoGenNewRec."No." := rec."No";
                                                                 BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                 BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                 BLAutoGenNewRec."Line No." := LineNo;
@@ -5034,7 +5034,7 @@ page 71012680 "BOM Card"
 
                                 //Size filter
                                 BOMLine2Rec.Reset();
-                                BOMLine2Rec.SetRange("No.", "No");
+                                BOMLine2Rec.SetRange("No.", rec."No");
                                 BOMLine2Rec.SetRange(Type, 2);
                                 BOMLine2Rec.SetRange("Item No.", BLERec."Item No.");
                                 BOMLine2Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -5045,7 +5045,7 @@ page 71012680 "BOM Card"
                                     repeat
                                         //Country filter
                                         BOMLine3Rec.Reset();
-                                        BOMLine3Rec.SetRange("No.", "No");
+                                        BOMLine3Rec.SetRange("No.", rec."No");
                                         BOMLine3Rec.SetRange(Type, 3);
                                         BOMLine3Rec.SetRange("Item No.", BLERec."Item No.");
                                         BOMLine3Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -5057,7 +5057,7 @@ page 71012680 "BOM Card"
 
                                                 //PO filter
                                                 BOMPOSelecRec.Reset();
-                                                BOMPOSelecRec.SetRange("BOM No.", "No");
+                                                BOMPOSelecRec.SetRange("BOM No.", rec."No");
                                                 BOMPOSelecRec.SetRange(Selection, true);
 
                                                 if BOMPOSelecRec.FindSet() then begin
@@ -5066,7 +5066,7 @@ page 71012680 "BOM Card"
 
                                                         //Item po filter
                                                         BOMLine4Rec.Reset();
-                                                        BOMLine4Rec.SetRange("No.", "No");
+                                                        BOMLine4Rec.SetRange("No.", rec."No");
                                                         BOMLine4Rec.SetRange(Type, 4);
                                                         BOMLine4Rec.SetRange("Item No.", BLERec."Item No.");
                                                         BOMLine4Rec.SetRange(Placement, BLERec."Placement of GMT");
@@ -5079,7 +5079,7 @@ page 71012680 "BOM Card"
 
                                                                 //Insert new line
                                                                 AssortDetailsRec.Reset();
-                                                                AssortDetailsRec.SetRange("Style No.", "Style No.");
+                                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
                                                                 AssortDetailsRec.SetRange("lot No.", BOMLine4Rec."lot No.");
                                                                 AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
 
@@ -5091,7 +5091,7 @@ page 71012680 "BOM Card"
 
                                                                             //Find the correct column for the GMT size
                                                                             AssortDetails1Rec.Reset();
-                                                                            AssortDetails1Rec.SetRange("Style No.", "Style No.");
+                                                                            AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
                                                                             AssortDetails1Rec.SetRange("lot No.", BOMLine4Rec."lot No.");
                                                                             AssortDetails1Rec.SetRange("Colour No", '*');
                                                                             AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -5445,7 +5445,7 @@ page 71012680 "BOM Card"
 
                                                                     //Check whether already "po raised"items are there, then do not insert
                                                                     BLAutoGenNewRec.Reset();
-                                                                    BLAutoGenNewRec.SetRange("No.", "No");
+                                                                    BLAutoGenNewRec.SetRange("No.", rec."No");
                                                                     BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
                                                                     BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
                                                                     BLAutoGenNewRec.SetRange("Item Color No.", BOMLine2Rec."Item Color No.");
@@ -5461,7 +5461,7 @@ page 71012680 "BOM Card"
                                                                         if Total <> 0 then begin
 
                                                                             BLAutoGenNewRec.Init();
-                                                                            BLAutoGenNewRec."No." := "No";
+                                                                            BLAutoGenNewRec."No." := rec."No";
                                                                             BLAutoGenNewRec."Item No." := BLERec."Item No.";
                                                                             BLAutoGenNewRec."Item Name" := BLERec."Item Name";
                                                                             BLAutoGenNewRec."Line No." := LineNo;
@@ -5600,7 +5600,7 @@ page 71012680 "BOM Card"
                 begin
 
                     BOMLineAutoGenRec.Reset();
-                    BOMLineAutoGenRec.SetRange("No.", "No");
+                    BOMLineAutoGenRec.SetRange("No.", rec."No");
                     BOMLineAutoGenRec.SetFilter("Include in PO", '=%1', true);
                     BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', false);
 
@@ -5611,7 +5611,7 @@ page 71012680 "BOM Card"
                     Description := '';
 
                     AssortDetailRec.Reset();
-                    AssortDetailRec.SetRange("Style No.", "Style No.");
+                    AssortDetailRec.SetRange("Style No.", rec."Style No.");
                     AssortDetailRec.SetFilter("Colour Name", '<>%1', '*');
 
                     if AssortDetailRec.FindSet() then begin
@@ -5628,12 +5628,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."1" <> '') and (AssortDetailRec."1" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."1";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."1";
                                                 Evaluate(Qty, AssortDetailRec."1");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."1");
                                             end;
@@ -5644,12 +5644,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."2" <> '') and (AssortDetailRec."2" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."2";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."2";
                                                 Evaluate(Qty, AssortDetailRec."2");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."2");
                                             end;
@@ -5660,12 +5660,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."3" <> '') and (AssortDetailRec."3" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."3";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."3";
                                                 Evaluate(Qty, AssortDetailRec."3");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."3");
                                             end;
@@ -5676,12 +5676,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."4" <> '') and (AssortDetailRec."4" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."4";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."4";
                                                 Evaluate(Qty, AssortDetailRec."4");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."4");
                                             end;
@@ -5692,12 +5692,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."5" <> '') and (AssortDetailRec."5" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."5";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."5";
                                                 Evaluate(Qty, AssortDetailRec."5");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."5");
                                             end;
@@ -5708,12 +5708,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."6" <> '') and (AssortDetailRec."6" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."6";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."6";
                                                 Evaluate(Qty, AssortDetailRec."6");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."6");
                                             end;
@@ -5724,12 +5724,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."7" <> '') and (AssortDetailRec."7" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."7";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."7";
                                                 Evaluate(Qty, AssortDetailRec."7");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."7");
                                             end;
@@ -5740,12 +5740,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."8" <> '') and (AssortDetailRec."8" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."8";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."8";
                                                 Evaluate(Qty, AssortDetailRec."8");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."8");
                                             end;
@@ -5756,12 +5756,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."9" <> '') and (AssortDetailRec."9" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."9";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."9";
                                                 Evaluate(Qty, AssortDetailRec."9");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."9");
                                             end;
@@ -5772,12 +5772,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."10" <> '') and (AssortDetailRec."10" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."10";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."10";
                                                 Evaluate(Qty, AssortDetailRec."10");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."10");
                                             end;
@@ -5788,12 +5788,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."11" <> '') and (AssortDetailRec."11" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."11";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."11";
                                                 Evaluate(Qty, AssortDetailRec."11");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."11");
                                             end;
@@ -5804,12 +5804,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."12" <> '') and (AssortDetailRec."12" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."12";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."12";
                                                 Evaluate(Qty, AssortDetailRec."12");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."12");
                                             end;
@@ -5820,12 +5820,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."13" <> '') and (AssortDetailRec."13" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."13";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."13";
                                                 Evaluate(Qty, AssortDetailRec."13");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."13");
                                             end;
@@ -5836,12 +5836,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."14" <> '') and (AssortDetailRec."14" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."14";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."14";
                                                 Evaluate(Qty, AssortDetailRec."14");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."14");
                                             end;
@@ -5852,12 +5852,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."15" <> '') and (AssortDetailRec."15" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."15";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."15";
                                                 Evaluate(Qty, AssortDetailRec."15");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."15");
                                             end;
@@ -5868,12 +5868,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."16" <> '') and (AssortDetailRec."16" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."16";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."16";
                                                 Evaluate(Qty, AssortDetailRec."16");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."16");
                                             end;
@@ -5884,12 +5884,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."17" <> '') and (AssortDetailRec."17" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."17";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."17";
                                                 Evaluate(Qty, AssortDetailRec."17");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."17");
                                             end;
@@ -5900,12 +5900,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."18" <> '') and (AssortDetailRec."18" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."18";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."18";
                                                 Evaluate(Qty, AssortDetailRec."18");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."18");
                                             end;
@@ -5916,12 +5916,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."19" <> '') and (AssortDetailRec."19" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetailRec."19";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetailRec."19";
                                                 Evaluate(Qty, AssortDetailRec."19");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."19");
                                             end;
@@ -5932,12 +5932,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."20" <> '') and (AssortDetailRec."20" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."20";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."20";
                                                 Evaluate(Qty, AssortDetailRec."20");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."20");
                                             end;
@@ -5948,12 +5948,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."21" <> '') and (AssortDetailRec."21" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."21";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."21";
                                                 Evaluate(Qty, AssortDetailRec."21");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."21");
                                             end;
@@ -5964,12 +5964,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."22" <> '') and (AssortDetailRec."22" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."22";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."22";
                                                 Evaluate(Qty, AssortDetailRec."22");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."22");
                                             end;
@@ -5980,12 +5980,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."23" <> '') and (AssortDetailRec."23" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."23";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."23";
                                                 Evaluate(Qty, AssortDetailRec."23");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."23");
                                             end;
@@ -5996,12 +5996,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."24" <> '') and (AssortDetailRec."24" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."24";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."24";
                                                 Evaluate(Qty, AssortDetailRec."24");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."24");
                                             end;
@@ -6012,12 +6012,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."25" <> '') and (AssortDetailRec."25" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."25";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."25";
                                                 Evaluate(Qty, AssortDetailRec."25");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."25");
                                             end;
@@ -6028,12 +6028,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."26" <> '') and (AssortDetailRec."26" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."26";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."26";
                                                 Evaluate(Qty, AssortDetailRec."26");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."26");
                                             end;
@@ -6044,12 +6044,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."27" <> '') and (AssortDetailRec."27" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."27";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."27";
                                                 Evaluate(Qty, AssortDetailRec."27");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."27");
                                             end;
@@ -6060,12 +6060,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."28" <> '') and (AssortDetailRec."28" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."28";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."28";
                                                 Evaluate(Qty, AssortDetailRec."28");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."28");
                                             end;
@@ -6076,12 +6076,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."29" <> '') and (AssortDetailRec."29" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."29";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."29";
                                                 Evaluate(Qty, AssortDetailRec."29");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."29");
                                             end;
@@ -6092,12 +6092,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."30" <> '') and (AssortDetailRec."30" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."30";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."30";
                                                 Evaluate(Qty, AssortDetailRec."30");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."30");
                                             end;
@@ -6108,12 +6108,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."31" <> '') and (AssortDetailRec."31" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."31";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."31";
                                                 Evaluate(Qty, AssortDetailRec."31");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."31");
                                             end;
@@ -6124,12 +6124,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."32" <> '') and (AssortDetailRec."32" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."32";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."32";
                                                 Evaluate(Qty, AssortDetailRec."32");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."32");
                                             end;
@@ -6140,12 +6140,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."33" <> '') and (AssortDetailRec."33" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."33";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."33";
                                                 Evaluate(Qty, AssortDetailRec."33");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."33");
                                             end;
@@ -6156,12 +6156,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."34" <> '') and (AssortDetailRec."34" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."34";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."34";
                                                 Evaluate(Qty, AssortDetailRec."34");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."34");
                                             end;
@@ -6172,12 +6172,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."35" <> '') and (AssortDetailRec."35" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."35";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."35";
                                                 Evaluate(Qty, AssortDetailRec."35");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."35");
                                             end;
@@ -6188,12 +6188,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."36" <> '') and (AssortDetailRec."36" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."36";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."36";
                                                 Evaluate(Qty, AssortDetailRec."36");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."36");
                                             end;
@@ -6204,12 +6204,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."37" <> '') and (AssortDetailRec."37" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."37";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."37";
                                                 Evaluate(Qty, AssortDetailRec."37");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."37");
                                             end;
@@ -6220,12 +6220,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."38" <> '') and (AssortDetailRec."38" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."38";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."38";
                                                 Evaluate(Qty, AssortDetailRec."38");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."38");
                                             end;
@@ -6236,12 +6236,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."39" <> '') and (AssortDetailRec."39" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."39";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."39";
                                                 Evaluate(Qty, AssortDetailRec."39");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."39");
                                             end;
@@ -6252,12 +6252,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."40" <> '') and (AssortDetailRec."40" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."40";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."40";
                                                 Evaluate(Qty, AssortDetailRec."40");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."40");
                                             end;
@@ -6268,12 +6268,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."41" <> '') and (AssortDetailRec."41" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."41";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."41";
                                                 Evaluate(Qty, AssortDetailRec."41");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."41");
                                             end;
@@ -6284,12 +6284,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."42" <> '') and (AssortDetailRec."42" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."42";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."42";
                                                 Evaluate(Qty, AssortDetailRec."42");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."42");
                                             end;
@@ -6300,12 +6300,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."43" <> '') and (AssortDetailRec."43" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."43";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."43";
                                                 Evaluate(Qty, AssortDetailRec."43");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."43");
                                             end;
@@ -6316,12 +6316,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."44" <> '') and (AssortDetailRec."44" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."44";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."44";
                                                 Evaluate(Qty, AssortDetailRec."44");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."44");
                                             end;
@@ -6332,12 +6332,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."45" <> '') and (AssortDetailRec."45" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."45";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."45";
                                                 Evaluate(Qty, AssortDetailRec."45");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."45");
                                             end;
@@ -6348,12 +6348,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."46" <> '') and (AssortDetailRec."46" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."46";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."46";
                                                 Evaluate(Qty, AssortDetailRec."46");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."46");
                                             end;
@@ -6364,12 +6364,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."47" <> '') and (AssortDetailRec."47" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."47";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."47";
                                                 Evaluate(Qty, AssortDetailRec."47");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."47");
                                             end;
@@ -6380,12 +6380,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."48" <> '') and (AssortDetailRec."48" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."48";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."48";
                                                 Evaluate(Qty, AssortDetailRec."48");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."48");
                                             end;
@@ -6396,12 +6396,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."49" <> '') and (AssortDetailRec."49" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."49";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."49";
                                                 Evaluate(Qty, AssortDetailRec."49");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."49");
                                             end;
@@ -6412,12 +6412,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."50" <> '') and (AssortDetailRec."50" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."50";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."50";
                                                 Evaluate(Qty, AssortDetailRec."50");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."50");
                                             end;
@@ -6428,12 +6428,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."51" <> '') and (AssortDetailRec."51" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."51";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."51";
                                                 Evaluate(Qty, AssortDetailRec."51");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."51");
                                             end;
@@ -6444,12 +6444,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."52" <> '') and (AssortDetailRec."52" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."52";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."52";
                                                 Evaluate(Qty, AssortDetailRec."52");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."52");
                                             end;
@@ -6460,12 +6460,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."53" <> '') and (AssortDetailRec."53" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."53";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."53";
                                                 Evaluate(Qty, AssortDetailRec."53");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."53");
                                             end;
@@ -6476,12 +6476,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."54" <> '') and (AssortDetailRec."54" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."54";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."54";
                                                 Evaluate(Qty, AssortDetailRec."54");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."54");
                                             end;
@@ -6492,12 +6492,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."55" <> '') and (AssortDetailRec."55" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."55";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."55";
                                                 Evaluate(Qty, AssortDetailRec."55");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."55");
                                             end;
@@ -6508,12 +6508,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."56" <> '') and (AssortDetailRec."56" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."56";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."56";
                                                 Evaluate(Qty, AssortDetailRec."56");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."56");
                                             end;
@@ -6524,12 +6524,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."57" <> '') and (AssortDetailRec."57" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."57";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."57";
                                                 Evaluate(Qty, AssortDetailRec."57");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."57");
                                             end;
@@ -6540,12 +6540,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."58" <> '') and (AssortDetailRec."58" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."58";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."58";
                                                 Evaluate(Qty, AssortDetailRec."58");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."58");
                                             end;
@@ -6556,12 +6556,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."59" <> '') and (AssortDetailRec."59" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."59";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."59";
                                                 Evaluate(Qty, AssortDetailRec."59");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."59");
                                             end;
@@ -6572,12 +6572,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."60" <> '') and (AssortDetailRec."60" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."60";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."60";
                                                 Evaluate(Qty, AssortDetailRec."60");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."60");
                                             end;
@@ -6588,12 +6588,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."61" <> '') and (AssortDetailRec."61" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."61";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."61";
                                                 Evaluate(Qty, AssortDetailRec."61");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."61");
                                             end;
@@ -6604,12 +6604,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."62" <> '') and (AssortDetailRec."62" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."62";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."62";
                                                 Evaluate(Qty, AssortDetailRec."62");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."62");
                                             end;
@@ -6620,12 +6620,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."63" <> '') and (AssortDetailRec."63" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."63";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."63";
                                                 Evaluate(Qty, AssortDetailRec."63");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."63");
                                             end;
@@ -6636,12 +6636,12 @@ page 71012680 "BOM Card"
                                         if (AssortDetailRec."64" <> '') and (AssortDetailRec."64" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", "Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
                                             if AssortDetail1Rec.FindSet() then begin
-                                                Description := "Style Name" + '/' + "Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."64";
+                                                Description := rec."Style Name" + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."64";
                                                 Evaluate(Qty, AssortDetailRec."64");
                                                 CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."64");
                                             end;
@@ -6657,7 +6657,7 @@ page 71012680 "BOM Card"
                         //Create Prod orders                       
                         SalesHeaderRec.Reset();
                         SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
-                        SalesHeaderRec.SetRange("Style No", "Style No.");
+                        SalesHeaderRec.SetRange("Style No", rec."Style No.");
                         SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::FG);
                         if SalesHeaderRec.FindSet() then begin
 
@@ -6797,7 +6797,7 @@ page 71012680 "BOM Card"
 
                     //Step 1 : Check Purchase invoice Reversal (credit note)
                     PoPurchInvLRec.Reset();
-                    PoPurchInvLRec.SetRange(StyleNo, "Style No.");
+                    PoPurchInvLRec.SetRange(StyleNo, rec."Style No.");
                     PoPurchInvLRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
 
                     if PoPurchInvLRec.FindSet() then begin
@@ -6821,7 +6821,7 @@ page 71012680 "BOM Card"
 
                     //Step 2 : Check GRN /GRN Reversal
                     PoPurchReceRec.Reset();
-                    PoPurchReceRec.SetRange(StyleNo, "Style No.");
+                    PoPurchReceRec.SetRange(StyleNo, rec."Style No.");
                     PoPurchReceRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
 
                     if PoPurchReceRec.FindSet() then begin
@@ -6837,7 +6837,7 @@ page 71012680 "BOM Card"
 
                     //Step 3 : Delete PO
                     PurchLineRec.Reset();
-                    PurchLineRec.SetRange(StyleNo, "Style No.");
+                    PurchLineRec.SetRange(StyleNo, rec."Style No.");
                     PurchLineRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
                     PurchLineRec.SetCurrentKey("Document No.");
                     PurchLineRec.Ascending(true);
@@ -6870,7 +6870,7 @@ page 71012680 "BOM Card"
                     RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
                     RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
                     RequLineRec.SetFilter(EntryType, '=%1', RequLineRec.EntryType::FG);
-                    RequLineRec.SetRange(StyleNo, "Style No.");
+                    RequLineRec.SetRange(StyleNo, rec."Style No.");
 
                     if RequLineRec.FindSet() then
                         RequLineRec.DeleteAll();
@@ -6879,7 +6879,7 @@ page 71012680 "BOM Card"
 
                     //Step 5 : Check Sales invoice Reversal (credit note)
                     SalesInvHeRec.Reset();
-                    SalesInvHeRec.SetRange("Style No", "Style No.");
+                    SalesInvHeRec.SetRange("Style No", rec."Style No.");
                     SalesInvHeRec.SetFilter(EntryType, '=%1', SalesInvHeRec.EntryType::FG);
                     if SalesInvHeRec.FindSet() then
                         repeat begin
@@ -6902,7 +6902,7 @@ page 71012680 "BOM Card"
 
                     //Step 6 : Check shipment /shipment Reversal
                     SalesShipHeRec.Reset();
-                    SalesShipHeRec.SetRange("Style No", "Style No.");
+                    SalesShipHeRec.SetRange("Style No", rec."Style No.");
                     SalesShipHeRec.SetFilter(EntryType, '=%1', SalesShipHeRec.EntryType::FG);
                     SalesShipHeRec.SetCurrentKey("No.");
 
@@ -6929,7 +6929,7 @@ page 71012680 "BOM Card"
 
                     //Step 9 : Delete SO header/line
                     SalesOrderHRec.Reset();
-                    SalesOrderHRec.SetRange("Style No", "Style No.");
+                    SalesOrderHRec.SetRange("Style No", rec."Style No.");
                     SalesOrderHRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
 
                     if SalesOrderHRec.FindSet() then begin
@@ -6965,7 +6965,7 @@ page 71012680 "BOM Card"
 
                     //Step 10 : remove SO
                     AssoRec.Reset();
-                    AssoRec.SetRange("Style No.", "Style No.");
+                    AssoRec.SetRange("Style No.", rec."Style No.");
                     if AssoRec.FindSet() then
                         AssoRec.ModifyAll(SalesOrderNo, '');
 
@@ -6973,7 +6973,7 @@ page 71012680 "BOM Card"
 
                     //Step 11 : Set status to release
                     BOMLineAutoGenPRBOMRec.Reset();
-                    BOMLineAutoGenPRBOMRec.SetRange("No.", No);
+                    BOMLineAutoGenPRBOMRec.SetRange("No.", rec.No);
                     if BOMLineAutoGenPRBOMRec.FindSet() then
                         repeat begin
                             if BOMLineAutoGenPRBOMRec."Production BOM No." <> '' then begin
@@ -6993,7 +6993,7 @@ page 71012680 "BOM Card"
                     //Step 12 : Delete BOM details
                     //BOM Line
                     BOMLineAutoGenPRBOMRec.Reset();
-                    BOMLineAutoGenPRBOMRec.SetRange("No.", No);
+                    BOMLineAutoGenPRBOMRec.SetRange("No.", rec.No);
                     if BOMLineAutoGenPRBOMRec.FindSet() then
                         repeat begin
                             if BOMLineAutoGenPRBOMRec."Production BOM No." <> '' then begin
@@ -7009,7 +7009,7 @@ page 71012680 "BOM Card"
 
                     //BOM Header
                     BOMLineAutoGenPRBOMRec.Reset();
-                    BOMLineAutoGenPRBOMRec.SetRange("No.", No);
+                    BOMLineAutoGenPRBOMRec.SetRange("No.", rec.No);
                     if BOMLineAutoGenPRBOMRec.FindSet() then
                         repeat begin
                             if BOMLineAutoGenPRBOMRec."Production BOM No." <> '' then begin
@@ -7035,7 +7035,7 @@ page 71012680 "BOM Card"
 
 
                     BOMLineAutoGenRec.Reset();
-                    BOMLineAutoGenRec.SetRange("No.", No);
+                    BOMLineAutoGenRec.SetRange("No.", rec.No);
                     if BOMLineAutoGenRec.FindSet() then begin
                         repeat
                             BOMLineAutoGenRec."Include in PO" := false;
@@ -7058,8 +7058,8 @@ page 71012680 "BOM Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."BOM1 Nos.", xRec."No", "No") THEN BEGIN
-            NoSeriesMngment.SetSeries("No");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."BOM1 Nos.", xRec."No", rec."No") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No");
             CurrPage.Update();
             EXIT(TRUE);
         END;
@@ -7076,24 +7076,24 @@ page 71012680 "BOM Card"
     begin
 
         BOMAUTOProdBOMRec.Reset();
-        BOMAUTOProdBOMRec.SetRange("No.", No);
+        BOMAUTOProdBOMRec.SetRange("No.", rec.No);
 
         if BOMAUTOProdBOMRec.FindSet() then
             Error('"Write TO MRP" process has been completed. You cannot delete the BOM.');
 
-        BOMPOSelectionRec.SetRange("BOM No.", "No");
+        BOMPOSelectionRec.SetRange("BOM No.", rec."No");
         BOMPOSelectionRec.DeleteAll();
 
-        BOMLineEstRec.SetRange("No.", "No");
+        BOMLineEstRec.SetRange("No.", rec."No");
         BOMLineEstRec.DeleteAll();
 
-        BOMLineRec.SetRange("No.", "No");
+        BOMLineRec.SetRange("No.", rec."No");
         BOMLineRec.DeleteAll();
 
-        BOMAUTORec.SetRange("No.", "No");
+        BOMAUTORec.SetRange("No.", rec."No");
         BOMAUTORec.DeleteAll();
 
-        BOMRec.SetRange("No", "No");
+        BOMRec.SetRange("No", rec."No");
         BOMRec.DeleteAll();
     end;
 
@@ -7109,13 +7109,13 @@ page 71012680 "BOM Card"
 
         //Delete old records        
         BOMLineColorRec.Reset();
-        BOMLineColorRec.SetRange("No.", "No");
+        BOMLineColorRec.SetRange("No.", rec."No");
         BOMLineColorRec.SetRange(Type, 1);
         BOMLineColorRec.DeleteAll();
 
         //Get Max Lineno
         BOMLineColorRec.Reset();
-        BOMLineColorRec.SetRange("No.", "No");
+        BOMLineColorRec.SetRange("No.", rec."No");
         BOMLineColorRec.SetRange(Type, 1);
 
         if BOMLineColorRec.FindLast() then
@@ -7123,14 +7123,14 @@ page 71012680 "BOM Card"
 
         //Get Selected colors from BOM
         BOMLIneEstimateRec.Reset();
-        BOMLIneEstimateRec.SetRange("No.", "No");
+        BOMLIneEstimateRec.SetRange("No.", rec."No");
         BOMLIneEstimateRec.SetRange("Color Sensitive", true);
 
         if BOMLIneEstimateRec.FindSet() then begin
             repeat
 
                 BOMLInePORec.Reset();//
-                BOMLInePORec.SetRange("BOM No.", "No");//
+                BOMLInePORec.SetRange("BOM No.", rec."No");//
                 BOMLInePORec.SetRange(Selection, true);//
 
                 if BOMLInePORec.FindSet() then begin  //
@@ -7138,7 +7138,7 @@ page 71012680 "BOM Card"
                     repeat //
                            //Get Style Colors
                         BOMAssortRec.Reset();
-                        BOMAssortRec.SetRange("Style No.", "Style No.");
+                        BOMAssortRec.SetRange("Style No.", rec."Style No.");
                         BOMAssortRec.SetRange(Type, '1');
                         BOMAssortRec.SetRange("lot No.", BOMLInePORec."lot No."); //
                         BOMAssortRec.SetCurrentKey("Style No.", "lot No.", "Colour No");  //
@@ -7146,7 +7146,7 @@ page 71012680 "BOM Card"
 
                         //Check whether Item already existed in the color sensivity table
                         BOMLineColorRec.Reset();
-                        BOMLineColorRec.SetRange("No.", "No");
+                        BOMLineColorRec.SetRange("No.", rec."No");
                         BOMLineColorRec.SetRange(Type, 1);
                         BOMLineColorRec.SetRange("Item No.", BOMLIneEstimateRec."Item No.");
                         BOMLineColorRec.SetRange("GMT Color No.", BOMAssortRec."Colour No");
@@ -7161,7 +7161,7 @@ page 71012680 "BOM Card"
 
                                     LineNo += 10000;
                                     BOMLineColorNewRec.Init();
-                                    BOMLineColorNewRec."No." := "No";
+                                    BOMLineColorNewRec."No." := rec."No";
                                     BOMLineColorNewRec.Type := 1;
                                     BOMLineColorNewRec."Line No" := LineNo;
                                     BOMLineColorNewRec."Item No." := BOMLIneEstimateRec."Item No.";
@@ -7204,14 +7204,14 @@ page 71012680 "BOM Card"
 
         //Delete old records        
         BOMLineSizeRec.Reset();
-        BOMLineSizeRec.SetRange("No.", "No");
+        BOMLineSizeRec.SetRange("No.", rec."No");
         BOMLineSizeRec.SetRange(Type, 2);
         BOMLineSizeRec.DeleteAll();
 
 
         //Get Max Lineno
         BOMLineSizeRec.Reset();
-        BOMLineSizeRec.SetRange("No.", "No");
+        BOMLineSizeRec.SetRange("No.", rec."No");
         BOMLineSizeRec.SetRange(Type, 2);
 
         if BOMLineSizeRec.FindLast() then
@@ -7219,7 +7219,7 @@ page 71012680 "BOM Card"
 
         //Get Selected sizes from BOM
         BOMLIneEstimateRec.Reset();
-        BOMLIneEstimateRec.SetRange("No.", "No");
+        BOMLIneEstimateRec.SetRange("No.", rec."No");
         BOMLIneEstimateRec.SetRange("size Sensitive", true);
 
 
@@ -7227,7 +7227,7 @@ page 71012680 "BOM Card"
             repeat
 
                 BOMLInePORec.Reset();
-                BOMLInePORec.SetRange("BOM No.", "No");
+                BOMLInePORec.SetRange("BOM No.", rec."No");
                 BOMLInePORec.SetRange(Selection, true);
 
                 if BOMLInePORec.FindSet() then begin
@@ -7235,14 +7235,14 @@ page 71012680 "BOM Card"
                     repeat
                         //Get Style Sizes
                         BOMAssortRec.Reset();
-                        BOMAssortRec.SetRange("Style No.", "Style No.");
+                        BOMAssortRec.SetRange("Style No.", rec."Style No.");
                         BOMAssortRec.SetRange("lot No.", BOMLInePORec."lot No.");
                         BOMAssortRec.SetCurrentKey("Style No.", "lot No.", "GMT Size");
                         BOMAssortRec.FindSet();
 
                         //Check whether Item already existed in the size sensivity table
                         BOMLineSizeRec.Reset();
-                        BOMLineSizeRec.SetRange("No.", "No");
+                        BOMLineSizeRec.SetRange("No.", rec."No");
                         BOMLineSizeRec.SetRange(Type, 2);
                         BOMLineSizeRec.SetRange("Item No.", BOMLIneEstimateRec."Item No.");
                         BOMLineSizeRec.SetRange("GMR Size Name", BOMAssortRec."GMT Size");
@@ -7258,7 +7258,7 @@ page 71012680 "BOM Card"
 
                                         LineNo += 10000;
                                         BOMLineSizeNewRec.Init();
-                                        BOMLineSizeNewRec."No." := "No";
+                                        BOMLineSizeNewRec."No." := rec."No";
                                         BOMLineSizeNewRec.Type := 2;
                                         BOMLineSizeNewRec."Line No" := LineNo;
                                         BOMLineSizeNewRec."Item No." := BOMLIneEstimateRec."Item No.";
@@ -7301,13 +7301,13 @@ page 71012680 "BOM Card"
 
         //Delete old records        
         BOMLineCountryRec.Reset();
-        BOMLineCountryRec.SetRange("No.", "No");
+        BOMLineCountryRec.SetRange("No.", rec."No");
         BOMLineCountryRec.SetRange(Type, 3);
         BOMLineCountryRec.DeleteAll();
 
         //Get Max Lineno
         BOMLineCountryRec.Reset();
-        BOMLineCountryRec.SetRange("No.", "No");
+        BOMLineCountryRec.SetRange("No.", rec."No");
         BOMLineCountryRec.SetRange(Type, 3);
 
         if BOMLineCountryRec.FindLast() then
@@ -7315,7 +7315,7 @@ page 71012680 "BOM Card"
 
         //Get Selected country from BOM
         BOMLIneEstimateRec.Reset();
-        BOMLIneEstimateRec.SetRange("No.", "No");
+        BOMLIneEstimateRec.SetRange("No.", rec."No");
         BOMLIneEstimateRec.SetRange("Country Sensitive", true);
 
 
@@ -7323,7 +7323,7 @@ page 71012680 "BOM Card"
             repeat
 
                 BOMLInePORec.Reset();//
-                BOMLInePORec.SetRange("BOM No.", "No");//
+                BOMLInePORec.SetRange("BOM No.", rec."No");//
                 BOMLInePORec.SetRange(Selection, true);//
 
                 if BOMLInePORec.FindSet() then begin  //
@@ -7331,7 +7331,7 @@ page 71012680 "BOM Card"
                     repeat //    
                            //Get Style country
                         BOMAssortRec.Reset();
-                        BOMAssortRec.SetRange("Style No.", "Style No.");
+                        BOMAssortRec.SetRange("Style No.", rec."Style No.");
                         BOMAssortRec.SetRange(Type, '2');
                         BOMAssortRec.SetRange("lot No.", BOMLInePORec."lot No."); //
                         BOMAssortRec.SetCurrentKey("Style No.", "lot No.", "Country Code");  //     
@@ -7339,7 +7339,7 @@ page 71012680 "BOM Card"
 
                         //Check whether Item already existed in the country sensitivity table
                         BOMLineCountryRec.Reset();
-                        BOMLineCountryRec.SetRange("No.", "No");
+                        BOMLineCountryRec.SetRange("No.", rec."No");
                         BOMLineCountryRec.SetRange(Type, 3);
                         BOMLineCountryRec.SetRange("Item No.", BOMLIneEstimateRec."Item No.");
                         BOMLineCountryRec.SetRange("Country Code", BOMAssortRec."Country Code");
@@ -7354,7 +7354,7 @@ page 71012680 "BOM Card"
                                     //Message(Format(BOMAssortRec."Colour No"));
                                     LineNo += 10000;
                                     BOMLineCountryNewRec.Init();
-                                    BOMLineCountryNewRec."No." := "No";
+                                    BOMLineCountryNewRec."No." := rec."No";
                                     BOMLineCountryNewRec.Type := 3;
                                     BOMLineCountryNewRec."Line No" := LineNo;
                                     BOMLineCountryNewRec."Item No." := BOMLIneEstimateRec."Item No.";
@@ -7391,13 +7391,13 @@ page 71012680 "BOM Card"
 
         //Delete old records        
         BOMLineItemPORec.Reset();
-        BOMLineItemPORec.SetRange("No.", "No");
+        BOMLineItemPORec.SetRange("No.", rec."No");
         BOMLineItemPORec.SetRange(Type, 4);
         BOMLineItemPORec.DeleteAll();
 
         //Get Max Lineno
         BOMLineItemPORec.Reset();
-        BOMLineItemPORec.SetRange("No.", "No");
+        BOMLineItemPORec.SetRange("No.", rec."No");
         BOMLineItemPORec.SetRange(Type, 4);
 
         if BOMLineItemPORec.FindLast() then
@@ -7405,14 +7405,14 @@ page 71012680 "BOM Card"
 
         //Get Selected PO from BOM
         BOMLIneEstimateRec.Reset();
-        BOMLIneEstimateRec.SetRange("No.", "No");
+        BOMLIneEstimateRec.SetRange("No.", rec."No");
         BOMLIneEstimateRec.SetRange("PO Sensitive", true);
 
 
         if BOMLIneEstimateRec.FindSet() then begin
             repeat
                 BOMLInePORec.Reset();//
-                BOMLInePORec.SetRange("BOM No.", "No");//
+                BOMLInePORec.SetRange("BOM No.", rec."No");//
                 BOMLInePORec.SetRange(Selection, true);//
 
                 if BOMLInePORec.FindSet() then begin  //
@@ -7420,14 +7420,14 @@ page 71012680 "BOM Card"
                     repeat //    
                            //Get Style country
                         StyleMasterPORec.Reset();
-                        StyleMasterPORec.SetRange("Style No.", "Style No.");
+                        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
                         StyleMasterPORec.SetRange("lot No.", BOMLInePORec."lot No."); //
                         StyleMasterPORec.SetCurrentKey("Style No.", "lot No.");  //     
                         StyleMasterPORec.FindSet();
 
                         //Check whether Item already existed in the country sensitivity table
                         BOMLineItemPORec.Reset();
-                        BOMLineItemPORec.SetRange("No.", "No");
+                        BOMLineItemPORec.SetRange("No.", rec."No");
                         BOMLineItemPORec.SetRange(Type, 4);
                         BOMLineItemPORec.SetRange("Item No.", BOMLIneEstimateRec."Item No.");
                         BOMLineItemPORec.SetRange("lot No.", StyleMasterPORec."lot No.");
@@ -7437,7 +7437,7 @@ page 71012680 "BOM Card"
                             repeat
                                 LineNo += 10000;
                                 BOMLineItemPONewRec.Init();
-                                BOMLineItemPONewRec."No." := "No";
+                                BOMLineItemPONewRec."No." := rec."No";
                                 BOMLineItemPONewRec.Type := 4;
                                 BOMLineItemPONewRec."Line No" := LineNo;
                                 BOMLineItemPONewRec."Item No." := BOMLIneEstimateRec."Item No.";
@@ -7482,7 +7482,7 @@ page 71012680 "BOM Card"
         //Get FOB Pcs price
         FOBPcsPrice := 0;
         BOMEstimateRec.Reset();
-        BOMEstimateRec.SetRange("Style No.", "Style No.");
+        BOMEstimateRec.SetRange("Style No.", rec."Style No.");
         BOMEstimateRec.FindSet();
         FOBPcsPrice := BOMEstimateRec."FOB Pcs";
 
@@ -7650,7 +7650,7 @@ page 71012680 "BOM Card"
 
         //Get location for the style
         StyMasterRec.Reset();
-        StyMasterRec.SetRange("No.", "Style No.");
+        StyMasterRec.SetRange("No.", rec."Style No.");
         StyMasterRec.FindSet();
 
         if StyMasterRec."Factory Code" = '' then
@@ -7658,14 +7658,14 @@ page 71012680 "BOM Card"
 
         //Get ship date
         StyMasterPORec.Reset();
-        StyMasterPORec.SetRange("Style No.", "Style No.");
+        StyMasterPORec.SetRange("Style No.", rec."Style No.");
         StyMasterPORec.SetRange("Lot No.", Lot);
         StyMasterPORec.FindSet();
 
         //if SalesHeaderGenerated = false then begin
 
         AssoRec.Reset();
-        AssoRec.SetRange("Style No.", "Style No.");
+        AssoRec.SetRange("Style No.", rec."Style No.");
         AssoRec.SetRange("Lot No.", Lot);
         AssoRec.SetFilter("Colour Name", '<>%1', '*');
 
@@ -7716,14 +7716,14 @@ page 71012680 "BOM Card"
                 SalesHeaderRec."Posting Date" := WorkDate();
                 SalesHeaderRec."Requested Delivery Date" := StyMasterPORec."Ship Date";
                 SalesHeaderRec."Order Date" := WorkDate();
-                SalesHeaderRec.Validate("Sell-to Customer No.", "Buyer No.");
+                SalesHeaderRec.Validate("Sell-to Customer No.", rec."Buyer No.");
                 //SalesHeaderRec.Validate("Bill-to Customer No.", "Buyer No.");                
                 SalesHeaderRec."Document Date" := WORKDATE;
                 SalesHeaderRec."Due Date" := StyMasterPORec."Ship Date";
                 SalesHeaderRec."Shipping No. Series" := 'S-SHPT';
                 SalesHeaderRec."Posting No. Series" := 'S-INV+';
-                SalesHeaderRec."Style No" := "Style No.";
-                SalesHeaderRec."Style Name" := "Style Name";
+                SalesHeaderRec."Style No" := rec."Style No.";
+                SalesHeaderRec."Style Name" := rec."Style Name";
                 SalesHeaderRec."PO No" := StyMasterPORec."PO No.";
                 SalesHeaderRec.Validate("Location Code", StyMasterRec."Factory Code");
                 SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::FG;
@@ -7808,8 +7808,8 @@ page 71012680 "BOM Card"
             ProdBOMHeaderRec."Creation Date" := WorkDate();
             ProdBOMHeaderRec."Last Date Modified" := WorkDate();
             ProdBOMHeaderRec."No. Series" := 'PRODBOM';
-            ProdBOMHeaderRec."Style No." := "Style No.";
-            ProdBOMHeaderRec."Style Name" := "Style Name";
+            ProdBOMHeaderRec."Style No." := rec."Style No.";
+            ProdBOMHeaderRec."Style Name" := rec."Style Name";
             ProdBOMHeaderRec.Lot := Lot;
             ProdBOMHeaderRec.EntryType := ProdBOMHeaderRec.EntryType::FG;
             ProdBOMHeaderRec."BOM Type" := ProdBOMHeaderRec."BOM Type"::"Bulk";
@@ -7828,7 +7828,7 @@ page 71012680 "BOM Card"
         AutoGenRec.Reset();
         AutoGenRec.SetCurrentKey("Main Category No.", "Item No.", "GMT Color No.", "GMT Size Name", "Lot No.");
         AutoGenRec.Ascending(true);
-        AutoGenRec.SetRange("No.", "No");
+        AutoGenRec.SetRange("No.", rec."No");
         AutoGenRec.SetRange("Lot No.", lot);
         AutoGenRec.SetRange("GMT Color No.", Color);
         //AutoGenRec.SetRange("GMT Size Name", Size);
@@ -7840,7 +7840,7 @@ page 71012680 "BOM Card"
                 if (AutoGenRec."Include in PO" = true) or (AutoGenRec."Included in PO" = true) then begin
 
                     BOMLineEstimateRec.Reset();
-                    BOMLineEstimateRec.SetRange("No.", "No");
+                    BOMLineEstimateRec.SetRange("No.", rec."No");
                     BOMLineEstimateRec.SetRange("Item No.", AutoGenRec."Item No.");
                     BOMLineEstimateRec.SetRange("Placement of GMT", AutoGenRec."Placement of GMT");
 
@@ -8069,7 +8069,7 @@ page 71012680 "BOM Card"
 
                                 //insert Autogen prod bom table
                                 AutoGenPrBOMRec.Init();
-                                AutoGenPrBOMRec."No." := "No";
+                                AutoGenPrBOMRec."No." := rec."No";
                                 AutoGenPrBOMRec."Item No." := AutoGenRec."Item No.";
                                 AutoGenPrBOMRec."Line No." := AutoGenRec."Line No.";
                                 AutoGenPrBOMRec."Created User" := UserId;
@@ -8141,7 +8141,7 @@ page 71012680 "BOM Card"
         AutoGenRec.Reset();
         AutoGenRec.SetCurrentKey("Main Category No.", "Item No.", "GMT Color No.", "GMT Size Name", "Lot No.");
         AutoGenRec.Ascending(true);
-        AutoGenRec.SetRange("No.", "No");
+        AutoGenRec.SetRange("No.", rec."No");
         AutoGenRec.SetRange("Lot No.", lot);
         AutoGenRec.SetRange("GMT Color No.", Color);
         //AutoGenRec.SetRange("GMT Size Name", Size);
@@ -8153,7 +8153,7 @@ page 71012680 "BOM Card"
                 if (AutoGenRec."Include in PO" = true) and (AutoGenRec."Included in PO" = false) then begin
 
                     BOMLineEstimateRec.Reset();
-                    BOMLineEstimateRec.SetRange("No.", "No");
+                    BOMLineEstimateRec.SetRange("No.", rec."No");
                     BOMLineEstimateRec.SetRange("Item No.", AutoGenRec."Item No.");
                     BOMLineEstimateRec.SetRange("Placement of GMT", AutoGenRec."Placement of GMT");
 
@@ -8420,7 +8420,7 @@ page 71012680 "BOM Card"
 
                                 //insert Autogen prod bom table
                                 AutoGenPrBOMRec.Init();
-                                AutoGenPrBOMRec."No." := "No";
+                                AutoGenPrBOMRec."No." := rec."No";
                                 AutoGenPrBOMRec."Item No." := AutoGenRec."Item No.";
                                 AutoGenPrBOMRec."Line No." := AutoGenRec."Line No.";
                                 AutoGenPrBOMRec."Created User" := UserId;
@@ -8472,7 +8472,7 @@ page 71012680 "BOM Card"
 
         //Get location for the style
         StyMasterRec.Reset();
-        StyMasterRec.SetRange("No.", "Style No.");
+        StyMasterRec.SetRange("No.", rec."Style No.");
         StyMasterRec.FindSet();
 
         if StyMasterRec."Factory Code" = '' then
@@ -8493,7 +8493,7 @@ page 71012680 "BOM Card"
         RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Worksheet Template Name");
         RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Journal Batch Name");
         RequLineRec.SetRange("Vendor No.", Supplier);
-        RequLineRec.SetRange(StyleNo, "Style No.");
+        RequLineRec.SetRange(StyleNo, rec."Style No.");
         RequLineRec.SetRange(Lot, Lot);
         RequLineRec.SetRange("No.", Item);
 
@@ -8507,8 +8507,8 @@ page 71012680 "BOM Card"
             RequLineRec1."Main Category" := MainCat;
             RequLineRec1.Type := RequLineRec.Type::Item;
             RequLineRec1.Validate("No.", Item);
-            RequLineRec1."Buyer No." := "Buyer No.";
-            RequLineRec1."Buyer Name" := "Buyer Name";
+            RequLineRec1."Buyer No." := rec."Buyer No.";
+            RequLineRec1."Buyer Name" := rec."Buyer Name";
             RequLineRec1.Validate("Vendor No.", Supplier);
             RequLineRec1."Action Message" := RequLineRec."Action Message"::New;
             RequLineRec1."Accept Action Message" := false;
@@ -8516,8 +8516,8 @@ page 71012680 "BOM Card"
             RequLineRec1.Quantity := Qty;
             RequLineRec1."Direct Unit Cost" := Rate;
             RequLineRec1."Unit Cost" := Rate;
-            RequLineRec1.StyleNo := "Style No.";
-            RequLineRec1.StyleName := "Style Name";
+            RequLineRec1.StyleNo := rec."Style No.";
+            RequLineRec1.StyleName := rec."Style Name";
             RequLineRec1.PONo := PONo;
             RequLineRec1.Lot := Lot;
             RequLineRec1.Validate("Location Code", StyMasterRec."Factory Code");

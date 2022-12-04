@@ -10,7 +10,7 @@ page 50532 "GIT Baseon PI Card"
         {
             group(General)
             {
-                field("GITPINo."; "GITPINo.")
+                field("GITPINo."; rec."GITPINo.")
                 {
                     ApplicationArea = All;
                     Caption = 'GIT PI No';
@@ -22,7 +22,7 @@ page 50532 "GIT Baseon PI Card"
                     end;
                 }
 
-                field("Suppler Name"; "Suppler Name")
+                field("Suppler Name"; rec."Suppler Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Suppler';
@@ -33,9 +33,9 @@ page 50532 "GIT Baseon PI Card"
                         PIDetMasterRec: Record "PI Details Header";
                     begin
                         VendorRec.Reset();
-                        VendorRec.SetRange(Name, "Suppler Name");
+                        VendorRec.SetRange(Name, rec."Suppler Name");
                         if VendorRec.FindSet() then
-                            "Suppler No." := VendorRec."No.";
+                            rec."Suppler No." := VendorRec."No.";
 
 
                         PIDetMasterRec.Reset();
@@ -46,7 +46,7 @@ page 50532 "GIT Baseon PI Card"
 
                         if PIDetMasterRec.FindSet() then begin
                             repeat
-                                PIDetMasterRec.GITPINo := "GITPINo.";
+                                PIDetMasterRec.GITPINo := rec."GITPINo.";
                                 PIDetMasterRec.Modify();
                             until PIDetMasterRec.Next() = 0;
                         end;
@@ -74,102 +74,102 @@ page 50532 "GIT Baseon PI Card"
 
             group("   ")
             {
-                field("Invoice No"; "Invoice No")
+                field("Invoice No"; rec."Invoice No")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("Invoice Value"; "Invoice Value")
+                field("Invoice Value"; rec."Invoice Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Invoice Date"; "Invoice Date")
+                field("Invoice Date"; rec."Invoice Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Original Doc. Recv. Date"; "Original Doc. Recv. Date")
+                field("Original Doc. Recv. Date"; rec."Original Doc. Recv. Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Mode of Ship"; "Mode of Ship")
+                field("Mode of Ship"; rec."Mode of Ship")
                 {
                     ApplicationArea = All;
                 }
 
-                field("BL/AWB NO"; "BL/AWB NO")
+                field("BL/AWB NO"; rec."BL/AWB NO")
                 {
                     ApplicationArea = All;
                 }
 
-                field("BL Date"; "BL Date")
+                field("BL Date"; rec."BL Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Container No"; "Container No")
+                field("Container No"; rec."Container No")
                 {
                     ApplicationArea = All;
                     Caption = 'Container';
                 }
 
-                field("Carrier Name"; "Carrier Name")
+                field("Carrier Name"; rec."Carrier Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Carrier';
                 }
 
-                field(Agent; Agent)
+                field(Agent; rec.Agent)
                 {
                     ApplicationArea = All;
                 }
 
-                field("M. Vessel Name"; "M. Vessel Name")
+                field("M. Vessel Name"; rec."M. Vessel Name")
                 {
                     ApplicationArea = All;
                     Caption = 'M. Vessel';
                 }
 
-                field("M. Vessel ETD"; "M. Vessel ETD")
+                field("M. Vessel ETD"; rec."M. Vessel ETD")
                 {
                     ApplicationArea = All;
                 }
 
-                field("F. Vessel Name"; "F. Vessel Name")
+                field("F. Vessel Name"; rec."F. Vessel Name")
                 {
                     ApplicationArea = All;
                     Caption = 'F. Vessel';
                 }
 
-                field("F. Vessel ETA"; "F. Vessel ETA")
+                field("F. Vessel ETA"; rec."F. Vessel ETA")
                 {
                     ApplicationArea = All;
                 }
 
-                field("F. Vessel ETD"; "F. Vessel ETD")
+                field("F. Vessel ETD"; rec."F. Vessel ETD")
                 {
                     ApplicationArea = All;
                 }
 
-                field("N.N Docs DT"; "N.N Docs DT")
+                field("N.N Docs DT"; rec."N.N Docs DT")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Original to C&F"; "Original to C&F")
+                field("Original to C&F"; rec."Original to C&F")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Good inhouse"; "Good inhouse")
+                field("Good inhouse"; rec."Good inhouse")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Bill of entry"; "Bill of entry")
+                field("Bill of entry"; rec."Bill of entry")
                 {
                     ApplicationArea = All;
                 }
@@ -187,7 +187,7 @@ page 50532 "GIT Baseon PI Card"
 
             group("    ")
             {
-                field("GRN Balance"; "GRN Balance")
+                field("GRN Balance"; rec."GRN Balance")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -203,8 +203,8 @@ page 50532 "GIT Baseon PI Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."GITPI Nos.", xRec."GITPINo.", "GITPINo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("GITPINo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."GITPI Nos.", xRec."GITPINo.", rec."GITPINo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."GITPINo.");
             EXIT(TRUE);
         END;
     end;
@@ -216,11 +216,11 @@ page 50532 "GIT Baseon PI Card"
         GITPIPIRec: Record GITPIPI;
     begin
         GITBaseonPILineRec.Reset();
-        GITBaseonPILineRec.SetRange("GITPINo.", "GITPINo.");
+        GITBaseonPILineRec.SetRange("GITPINo.", rec."GITPINo.");
         GITBaseonPILineRec.DeleteAll();
 
         GITPIPIRec.Reset();
-        GITPIPIRec.SetRange("GITPINo.", "GITPINo.");
+        GITPIPIRec.SetRange("GITPINo.", rec."GITPINo.");
         GITPIPIRec.DeleteAll();
     end;
 }

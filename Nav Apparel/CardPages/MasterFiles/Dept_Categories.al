@@ -10,7 +10,7 @@ page 50808 "Dept_Categories Card"
         {
             group(General)
             {
-                field("Department Name"; "Department Name")
+                field("Department Name";rec. "Department Name")
                 {
                     ApplicationArea = All;
 
@@ -25,12 +25,12 @@ page 50808 "Dept_Categories Card"
                     end;
                 }
 
-                field("Category No."; "Category No.")
+                field("Category No."; rec."Category No.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Category Name"; "Category Name")
+                field("Category Name"; rec."Category Name")
                 {
                     ApplicationArea = All;
                 }

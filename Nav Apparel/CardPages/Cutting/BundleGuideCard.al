@@ -10,7 +10,7 @@ page 50665 "Bundle Guide Card"
         {
             group(General)
             {
-                field("BundleGuideNo."; "BundleGuideNo.")
+                field("BundleGuideNo."; rec."BundleGuideNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Bundle Guide No';
@@ -22,7 +22,7 @@ page 50665 "Bundle Guide Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
@@ -32,15 +32,15 @@ page 50665 "Bundle Guide Card"
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
@@ -53,7 +53,7 @@ page 50665 "Bundle Guide Card"
                     begin
                         AssoDetailsRec.RESET;
                         AssoDetailsRec.SetCurrentKey("Colour No");
-                        AssoDetailsRec.SetRange("Style No.", "Style No.");
+                        AssoDetailsRec.SetRange("Style No.", rec."Style No.");
 
                         IF AssoDetailsRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -66,15 +66,15 @@ page 50665 "Bundle Guide Card"
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
-                                "Color No" := AssoDetailsRec."Colour No";
-                                "Color Name" := AssoDetailsRec."Colour Name";
+                                rec."Color No" := AssoDetailsRec."Colour No";
+                                rec."Color Name" := AssoDetailsRec."Colour Name";
                             end;
 
                         END;
                     END;
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; rec."Group ID")
                 {
                     ApplicationArea = All;
 
@@ -83,11 +83,11 @@ page 50665 "Bundle Guide Card"
                         SewJobLine4Rec: Record SewingJobCreationLine4;
                     begin
                         SewJobLine4Rec.Reset();
-                        SewJobLine4Rec.SetRange("Style No.", "Style No.");
-                        SewJobLine4Rec.SetRange("Colour No", "Color No");
-                        SewJobLine4Rec.SetRange("Group ID", "Group ID");
+                        SewJobLine4Rec.SetRange("Style No.", rec."Style No.");
+                        SewJobLine4Rec.SetRange("Colour No", rec."Color No");
+                        SewJobLine4Rec.SetRange("Group ID", rec."Group ID");
                         if SewJobLine4Rec.FindSet() then
-                            "Po No." := SewJobLine4Rec."PO No."
+                            rec."Po No." := SewJobLine4Rec."PO No."
                         else
                             Error('Cannot find sewing job details for Style/Color/Group');
 
@@ -95,29 +95,29 @@ page 50665 "Bundle Guide Card"
                     end;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'PO No';
                 }
 
-                field("Component Group"; "Component Group")
+                field("Component Group"; rec."Component Group")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Cut No"; "Cut No")
+                field("Cut No"; rec."Cut No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Bundle Rule"; "Bundle Rule")
+                field("Bundle Rule"; rec."Bundle Rule")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Bundle Method"; "Bundle Method")
+                field("Bundle Method"; rec."Bundle Method")
                 {
                     ApplicationArea = All;
                 }
@@ -176,37 +176,37 @@ page 50665 "Bundle Guide Card"
                     i := 1;
                     TempQty := 0;
 
-                    if "Style Name" = '' then
+                    if rec."Style Name" = '' then
                         Error('Invalid Style');
 
-                    if "Color Name" = '' then
+                    if rec."Color Name" = '' then
                         Error('Invalid Color');
 
-                    if "Group ID" = 0 then
+                    if rec."Group ID" = 0 then
                         Error('Invalid Group ID');
 
-                    if "Component Group" = '' then
+                    if rec."Component Group" = '' then
                         Error('Invalid Component Group');
 
-                    if "Cut No" = 0 then
+                    if rec."Cut No" = 0 then
                         Error('Invalid Cut No');
 
-                    if "Bundle Rule" = 0 then
+                    if rec."Bundle Rule" = 0 then
                         Error('Invalid Bundle Rule');
 
 
                     //Delete old records
                     BundleGuideLineRec.Reset();
-                    BundleGuideLineRec.SetRange("BundleGuideNo.", "BundleGuideNo.");
+                    BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
                     if BundleGuideLineRec.FindSet() then
                         BundleGuideLineRec.DeleteAll();
 
 
                     //Get Sewing jOb no
                     SewJobRec.Reset();
-                    SewJobRec.SetRange("Style No.", "Style No.");
-                    SewJobRec.SetRange("Colour No", "Color No");
-                    SewJobRec.SetRange("Group ID", "Group ID");
+                    SewJobRec.SetRange("Style No.", rec."Style No.");
+                    SewJobRec.SetRange("Colour No", rec."Color No");
+                    SewJobRec.SetRange("Group ID", rec."Group ID");
                     SewJobRec.SetFilter("Record Type", '%1', 'L');
                     SewJobRec.FindSet();
 
@@ -222,10 +222,10 @@ page 50665 "Bundle Guide Card"
 
 
                     CutCreLineRec.Reset();
-                    CutCreLineRec.SetRange("Style No.", "Style No.");
-                    CutCreLineRec.SetRange("Colour No", "Color No");
-                    CutCreLineRec.SetRange("Group ID", "Group ID");
-                    CutCreLineRec.SetRange("Component Group Code", "Component Group");
+                    CutCreLineRec.SetRange("Style No.", rec."Style No.");
+                    CutCreLineRec.SetRange("Colour No", rec."Color No");
+                    CutCreLineRec.SetRange("Group ID", rec."Group ID");
+                    CutCreLineRec.SetRange("Component Group Code", rec."Component Group");
                     //CutCreLineRec.SetFilter("Cut No", '=%1', 0);
                     CutCreLineRec.SetFilter("Record Type", '=%1', 'H');
 
@@ -236,10 +236,10 @@ page 50665 "Bundle Guide Card"
 
                     //Get Sizes
                     CutCreLineRec.Reset();
-                    CutCreLineRec.SetRange("Style No.", "Style No.");
-                    CutCreLineRec.SetRange("Colour No", "Color No");
-                    CutCreLineRec.SetRange("Group ID", "Group ID");
-                    CutCreLineRec.SetRange("Component Group Code", "Component Group");
+                    CutCreLineRec.SetRange("Style No.", rec."Style No.");
+                    CutCreLineRec.SetRange("Colour No", rec."Color No");
+                    CutCreLineRec.SetRange("Group ID", rec."Group ID");
+                    CutCreLineRec.SetRange("Component Group Code", rec."Component Group");
                     //CutCreLineRec.SetFilter("Cut No", '=%1', 0);
                     CutCreLineRec.SetFilter("Record Type", '=%1', 'H');
 
@@ -249,10 +249,10 @@ page 50665 "Bundle Guide Card"
 
                     //Get ratio
                     CutCreLine1Rec.Reset();
-                    CutCreLine1Rec.SetRange("Style No.", "Style No.");
-                    CutCreLine1Rec.SetRange("Colour No", "Color No");
-                    CutCreLine1Rec.SetRange("Group ID", "Group ID");
-                    CutCreLine1Rec.SetRange("Component Group Code", "Component Group");
+                    CutCreLine1Rec.SetRange("Style No.", rec."Style No.");
+                    CutCreLine1Rec.SetRange("Colour No", rec."Color No");
+                    CutCreLine1Rec.SetRange("Group ID", rec."Group ID");
+                    CutCreLine1Rec.SetRange("Component Group Code", rec."Component Group");
                     CutCreLine1Rec.SetFilter("Cut No", '=%1', 0);
                     CutCreLine1Rec.SetFilter("Record Type", '=%1', 'R');
 
@@ -261,10 +261,10 @@ page 50665 "Bundle Guide Card"
 
 
                     CutCreRec.Reset();
-                    CutCreRec.SetRange("Style No.", "Style No.");
-                    CutCreRec.SetRange("Colour No", "Color No");
-                    CutCreRec.SetRange("Group ID", "Group ID");
-                    CutCreRec.SetRange("Component Group", "Component Group");
+                    CutCreRec.SetRange("Style No.", rec."Style No.");
+                    CutCreRec.SetRange("Colour No", rec."Color No");
+                    CutCreRec.SetRange("Group ID", rec."Group ID");
+                    CutCreRec.SetRange("Component Group", rec."Component Group");
 
                     if not CutCreRec.FindSet() then
                         Error('Cannot get no of plies')
@@ -272,7 +272,7 @@ page 50665 "Bundle Guide Card"
                         Plies := CutCreRec."Ply Height";
 
 
-                    if "Bundle Method" = "Bundle Method"::Normal then begin
+                    if rec."Bundle Method" = rec."Bundle Method"::Normal then begin
 
                         for i := 1 To 64 do begin
 
@@ -648,35 +648,35 @@ page 50665 "Bundle Guide Card"
                                         //insert
                                         LineNo += 1;
                                         BundleNo += 1;
-                                        StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + "Bundle Rule");
+                                        StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + rec."Bundle Rule");
 
-                                        if TempQty + "Bundle Rule" < Plies then begin
+                                        if TempQty + rec."Bundle Rule" < Plies then begin
 
-                                            BundleQty := "Bundle Rule";
+                                            BundleQty := rec."Bundle Rule";
                                             BundleGuideLineRec.Init();
                                             BundleGuideLineRec."Bundle No" := BundleNo;
-                                            BundleGuideLineRec."BundleGuideNo." := "BundleGuideNo.";
-                                            BundleGuideLineRec."Color Name" := "Color Name";
-                                            BundleGuideLineRec."Color No" := "Color No";
+                                            BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                            BundleGuideLineRec."Color Name" := rec."Color Name";
+                                            BundleGuideLineRec."Color No" := rec."Color No";
                                             BundleGuideLineRec."Created Date" := Today;
                                             BundleGuideLineRec."Created User" := UserId;
-                                            BundleGuideLineRec."Cut No" := "Cut No";
+                                            BundleGuideLineRec."Cut No" := rec."Cut No";
                                             BundleGuideLineRec."Line No" := LineNo;
                                             BundleGuideLineRec.Qty := BundleQty;
                                             BundleGuideLineRec.Size := Size + '-' + Size1;
                                             BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
                                             BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                            BundleGuideLineRec."Bundle Method" := "Bundle Method"::Normal;
+                                            BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
                                             BundleGuideLineRec."Role ID" := '';
-                                            BundleGuideLineRec."Style No" := "Style No.";
-                                            BundleGuideLineRec."Style Name" := "Style Name";
+                                            BundleGuideLineRec."Style No" := rec."Style No.";
+                                            BundleGuideLineRec."Style Name" := rec."Style Name";
 
                                             TempLot := SewJobRec."Sewing Job No.";
                                             TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
                                             BundleGuideLineRec.Lot := TempLot;
 
                                             StyleMasPoRec.Reset();
-                                            StyleMasPoRec.SetRange("Style No.", "Style No.");
+                                            StyleMasPoRec.SetRange("Style No.", rec."Style No.");
                                             StyleMasPoRec.SetRange("Lot No.", TempLot);
                                             if not StyleMasPoRec.FindSet() then
                                                 Error('Cannot find Sewing job no.');
@@ -688,25 +688,25 @@ page 50665 "Bundle Guide Card"
                                         else begin
                                             BundleQty := Plies - TempQty;
 
-                                            if Plies - TempQty > "Bundle Rule" / 2 then begin
+                                            if Plies - TempQty > rec."Bundle Rule" / 2 then begin
 
                                                 BundleQty := Plies - TempQty;
                                                 StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
 
                                                 BundleGuideLineRec.Init();
                                                 BundleGuideLineRec."Bundle No" := BundleNo;
-                                                BundleGuideLineRec."BundleGuideNo." := "BundleGuideNo.";
-                                                BundleGuideLineRec."Color Name" := "Color Name";
-                                                BundleGuideLineRec."Color No" := "Color No";
+                                                BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                BundleGuideLineRec."Color Name" := rec."Color Name";
+                                                BundleGuideLineRec."Color No" := rec."Color No";
                                                 BundleGuideLineRec."Created Date" := Today;
                                                 BundleGuideLineRec."Created User" := UserId;
-                                                BundleGuideLineRec."Cut No" := "Cut No";
+                                                BundleGuideLineRec."Cut No" := rec."Cut No";
                                                 BundleGuideLineRec."Line No" := LineNo;
                                                 BundleGuideLineRec.Qty := BundleQty;
                                                 BundleGuideLineRec.Size := Size + '-' + Size1;
                                                 BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
                                                 BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                BundleGuideLineRec."Bundle Method" := "Bundle Method"::Normal;
+                                                BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
                                                 BundleGuideLineRec."Role ID" := '';
 
                                                 TempLot := SewJobRec."Sewing Job No.";
@@ -714,7 +714,7 @@ page 50665 "Bundle Guide Card"
                                                 BundleGuideLineRec.Lot := TempLot;
 
                                                 StyleMasPoRec.Reset();
-                                                StyleMasPoRec.SetRange("Style No.", "Style No.");
+                                                StyleMasPoRec.SetRange("Style No.", rec."Style No.");
                                                 StyleMasPoRec.SetRange("Lot No.", TempLot);
                                                 if not StyleMasPoRec.FindSet() then
                                                     Error('Cannot find Sewing job no.');
@@ -728,11 +728,11 @@ page 50665 "Bundle Guide Card"
                                             else begin
 
                                                 BundleQty := Plies - TempQty;
-                                                StickerSeq := Format(TempQty - "Bundle Rule" + 1) + '-' + Format(TempQty + BundleQty);
+                                                StickerSeq := Format(TempQty - rec."Bundle Rule" + 1) + '-' + Format(TempQty + BundleQty);
 
                                                 //modify previous entry
                                                 BundleGuideLineRec.Reset();
-                                                BundleGuideLineRec.SetRange("BundleGuideNo.", "BundleGuideNo.");
+                                                BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
                                                 BundleGuideLineRec.SetRange("Line No", LineNo - 1);
                                                 BundleGuideLineRec.FindSet();
                                                 BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
@@ -753,14 +753,14 @@ page 50665 "Bundle Guide Card"
 
                     end
                     else begin
-                        if "Bundle Method" = "Bundle Method"::"Roll Wise" then begin
+                        if rec."Bundle Method" = rec."Bundle Method"::"Roll Wise" then begin
 
                             LaySheetRec.Reset();
-                            LaySheetRec.SetRange("Style No.", "Style No.");
-                            LaySheetRec.SetRange("Color No.", "Color No");
-                            LaySheetRec.SetRange("Group ID", "Group ID");
-                            LaySheetRec.SetRange("Component Group Code", "Component Group");
-                            LaySheetRec.SetRange("Cut No.", "Cut No");
+                            LaySheetRec.SetRange("Style No.", rec."Style No.");
+                            LaySheetRec.SetRange("Color No.", rec."Color No");
+                            LaySheetRec.SetRange("Group ID", rec."Group ID");
+                            LaySheetRec.SetRange("Component Group Code", rec."Component Group");
+                            LaySheetRec.SetRange("Cut No.", rec."Cut No");
 
                             if not LaySheetRec.FindSet() then
                                 Error('Cannot find matching Laysheet');
@@ -1155,10 +1155,10 @@ page 50665 "Bundle Guide Card"
                                                     LineNo += 1;
                                                     BundleNo += 1;
 
-                                                    if CutProgLineRec."Actual Plies" <= "Bundle Rule" then
+                                                    if CutProgLineRec."Actual Plies" <= rec."Bundle Rule" then
                                                         BundleQty := CutProgLineRec."Actual Plies"
                                                     else
-                                                        BundleQty := "Bundle Rule";
+                                                        BundleQty := rec."Bundle Rule";
 
                                                     StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
 
@@ -1167,18 +1167,18 @@ page 50665 "Bundle Guide Card"
                                                         //BundleQty := "Bundle Rule";
                                                         BundleGuideLineRec.Init();
                                                         BundleGuideLineRec."Bundle No" := BundleNo;
-                                                        BundleGuideLineRec."BundleGuideNo." := "BundleGuideNo.";
-                                                        BundleGuideLineRec."Color Name" := "Color Name";
-                                                        BundleGuideLineRec."Color No" := "Color No";
+                                                        BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                        BundleGuideLineRec."Color Name" := rec."Color Name";
+                                                        BundleGuideLineRec."Color No" := rec."Color No";
                                                         BundleGuideLineRec."Created Date" := Today;
                                                         BundleGuideLineRec."Created User" := UserId;
-                                                        BundleGuideLineRec."Cut No" := "Cut No";
+                                                        BundleGuideLineRec."Cut No" := rec."Cut No";
                                                         BundleGuideLineRec."Line No" := LineNo;
                                                         BundleGuideLineRec.Qty := BundleQty;
                                                         BundleGuideLineRec.Size := Size + '-' + Size1;
                                                         BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
                                                         BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                        BundleGuideLineRec."Bundle Method" := "Bundle Method"::Normal;
+                                                        BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
                                                         BundleGuideLineRec."Role ID" := CutProgLineRec."Role ID";
                                                         BundleGuideLineRec."Shade Name" := CutProgLineRec.Shade;
                                                         BundleGuideLineRec."Shade No" := CutProgLineRec."Shade No";
@@ -1188,7 +1188,7 @@ page 50665 "Bundle Guide Card"
                                                         BundleGuideLineRec.Lot := TempLot;
 
                                                         StyleMasPoRec.Reset();
-                                                        StyleMasPoRec.SetRange("Style No.", "Style No.");
+                                                        StyleMasPoRec.SetRange("Style No.", rec."Style No.");
                                                         StyleMasPoRec.SetRange("Lot No.", TempLot);
                                                         if not StyleMasPoRec.FindSet() then
                                                             Error('Cannot find Sewing job no.');
@@ -1203,25 +1203,25 @@ page 50665 "Bundle Guide Card"
                                                     else begin
                                                         BundleQty := CutProgLineRec."Actual Plies" - TempQty;
 
-                                                        if CutProgLineRec."Actual Plies" - TempQty > "Bundle Rule" / 2 then begin
+                                                        if CutProgLineRec."Actual Plies" - TempQty > rec."Bundle Rule" / 2 then begin
 
                                                             BundleQty := CutProgLineRec."Actual Plies" - TempQty;
                                                             StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
 
                                                             BundleGuideLineRec.Init();
                                                             BundleGuideLineRec."Bundle No" := BundleNo;
-                                                            BundleGuideLineRec."BundleGuideNo." := "BundleGuideNo.";
-                                                            BundleGuideLineRec."Color Name" := "Color Name";
-                                                            BundleGuideLineRec."Color No" := "Color No";
+                                                            BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                            BundleGuideLineRec."Color Name" := rec."Color Name";
+                                                            BundleGuideLineRec."Color No" := rec."Color No";
                                                             BundleGuideLineRec."Created Date" := Today;
                                                             BundleGuideLineRec."Created User" := UserId;
-                                                            BundleGuideLineRec."Cut No" := "Cut No";
+                                                            BundleGuideLineRec."Cut No" := rec."Cut No";
                                                             BundleGuideLineRec."Line No" := LineNo;
                                                             BundleGuideLineRec.Qty := BundleQty;
                                                             BundleGuideLineRec.Size := Size + '-' + Size1;
                                                             BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
                                                             BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                            BundleGuideLineRec."Bundle Method" := "Bundle Method"::Normal;
+                                                            BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
                                                             BundleGuideLineRec."Role ID" := CutProgLineRec."Role ID";
                                                             BundleGuideLineRec."Shade Name" := CutProgLineRec.Shade;
                                                             BundleGuideLineRec."Shade No" := CutProgLineRec."Shade No";
@@ -1231,7 +1231,7 @@ page 50665 "Bundle Guide Card"
                                                             BundleGuideLineRec.Lot := TempLot;
 
                                                             StyleMasPoRec.Reset();
-                                                            StyleMasPoRec.SetRange("Style No.", "Style No.");
+                                                            StyleMasPoRec.SetRange("Style No.", rec."Style No.");
                                                             StyleMasPoRec.SetRange("Lot No.", TempLot);
                                                             if not StyleMasPoRec.FindSet() then
                                                                 Error('Cannot find Sewing job no.');
@@ -1250,7 +1250,7 @@ page 50665 "Bundle Guide Card"
 
                                                             //modify previous entry
                                                             BundleGuideLineRec.Reset();
-                                                            BundleGuideLineRec.SetRange("BundleGuideNo.", "BundleGuideNo.");
+                                                            BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
                                                             BundleGuideLineRec.SetRange("Line No", LineNo - 1);
                                                             BundleGuideLineRec.FindSet();
                                                             BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
@@ -1282,7 +1282,7 @@ page 50665 "Bundle Guide Card"
                     //Calculate total for a style/po and update style master cut in qty
                     BundleGuideLineRec.Reset();
                     BundleGuideLineRec.SetCurrentKey("Style No", Lot);
-                    BundleGuideLineRec.SetRange("BundleGuideNo.", "BundleGuideNo.");
+                    BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
 
                     if BundleGuideLineRec.FindSet() then begin
                         repeat
@@ -1380,7 +1380,7 @@ page 50665 "Bundle Guide Card"
         BundleGuideLineRec: Record BundleGuideLine;
     begin
         BundleGuideLineRec.reset();
-        BundleGuideLineRec.SetRange("BundleGuideNo.", "BundleGuideNo.");
+        BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
         BundleGuideLineRec.DeleteAll();
     end;
 
@@ -1391,8 +1391,8 @@ page 50665 "Bundle Guide Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."BundleGuide Nos.", xRec."BundleGuideNo.", "BundleGuideNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("BundleGuideNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."BundleGuide Nos.", xRec."BundleGuideNo.", rec."BundleGuideNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."BundleGuideNo.");
             EXIT(TRUE);
         END;
     end;

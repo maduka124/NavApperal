@@ -9,14 +9,14 @@ page 71012748 "Garment Type Lookup Card"
         {
             repeater(General)
             {
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type Code';
                     Editable = false;
                 }
 
-                field(Selected; Selected)
+                field(Selected; rec.Selected)
                 {
                     ApplicationArea = All;
                     Editable = true;

@@ -21,26 +21,26 @@ page 50542 "Acceptance Card"
                     end;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        "Acceptance S/N" := format("Acceptance S/N 2").PadLeft(7 - strlen(format("Acceptance S/N 2")), '0');
+                        rec."Acceptance S/N" := format(rec."Acceptance S/N 2").PadLeft(7 - strlen(format(rec."Acceptance S/N 2")), '0');
 
-                        if Type = Type::"TT or Cash" then begin
+                        if rec.Type = rec.Type::"TT or Cash" then begin
                             VisibleVar := false;
-                            "B2BLC No" := '';
-                            "B2BLC No (System)" := '';
+                            rec."B2BLC No" := '';
+                            rec."B2BLC No (System)" := '';
                         end
                         else
                             VisibleVar := true;
                     end;
                 }
 
-                field("Suppler Name"; "Suppler Name")
+                field("Suppler Name"; rec."Suppler Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -53,16 +53,16 @@ page 50542 "Acceptance Card"
                         GITBaseonPIRec: Record GITBaseonPI;
                     begin
 
-                        "Acceptance S/N" := format("Acceptance S/N 2").PadLeft(7 - strlen(format("Acceptance S/N 2")), '0');
+                        rec."Acceptance S/N" := format(rec."Acceptance S/N 2").PadLeft(7 - strlen(format(rec."Acceptance S/N 2")), '0');
 
                         VendorRec.Reset();
-                        VendorRec.SetRange(Name, "Suppler Name");
+                        VendorRec.SetRange(Name, rec."Suppler Name");
                         if VendorRec.FindSet() then
-                            "Suppler No." := VendorRec."No.";
+                            rec."Suppler No." := VendorRec."No.";
 
                         CurrPage.Update();
 
-                        if (Type = Type::"TT or Cash") and ("Suppler No." <> '') then begin
+                        if (rec.Type = rec.Type::"TT or Cash") and (rec."Suppler No." <> '') then begin
 
                             //Delete old records
                             AcceptanceInv1Rec.Reset();
@@ -70,7 +70,7 @@ page 50542 "Acceptance Card"
 
                             //Get invoices for the selected supplier
                             GITBaseonPIRec.Reset();
-                            GITBaseonPIRec.SetRange("Suppler No.", "Suppler No.");
+                            GITBaseonPIRec.SetRange("Suppler No.", rec."Suppler No.");
                             GITBaseonPIRec.SetFilter(AssignedAccNo, '=%1', '');
 
                             if GITBaseonPIRec.FindSet() then begin
@@ -78,8 +78,8 @@ page 50542 "Acceptance Card"
 
                                     //insert invoices for the TT
                                     AcceptanceInv1Rec.Init();
-                                    AcceptanceInv1Rec.Type := Type::"TT or Cash";
-                                    AcceptanceInv1Rec."AccNo." := "AccNo.";
+                                    AcceptanceInv1Rec.Type := rec.Type::"TT or Cash";
+                                    AcceptanceInv1Rec."AccNo." := rec."AccNo.";
                                     AcceptanceInv1Rec."Created Date" := Today;
                                     AcceptanceInv1Rec."Created User" := UserId;
                                     AcceptanceInv1Rec."Inv Date" := GITBaseonPIRec."Invoice Date";
@@ -97,7 +97,7 @@ page 50542 "Acceptance Card"
                     end;
                 }
 
-                field("B2BLC No (System)"; "B2BLC No (System)")
+                field("B2BLC No (System)"; rec."B2BLC No (System)")
                 {
                     ApplicationArea = All;
                     Editable = VisibleVar;
@@ -110,17 +110,17 @@ page 50542 "Acceptance Card"
                         B2BLCMasRce: Record B2BLCMaster;
                     begin
 
-                        "Acceptance S/N" := format("Acceptance S/N 2").PadLeft(7 - strlen(format("Acceptance S/N 2")), '0');
+                        rec."Acceptance S/N" := format(rec."Acceptance S/N 2").PadLeft(7 - strlen(format(rec."Acceptance S/N 2")), '0');
 
-                        if (Type = Type::"Based On B2B LC") and ("B2BLC No (System)" <> '') then begin
+                        if (rec.Type = rec.Type::"Based On B2B LC") and (rec."B2BLC No (System)" <> '') then begin
 
                             //Get B2B LC No
                             B2BLCMasRce.Reset();
-                            B2BLCMasRce.SetRange("No.", "B2BLC No (System)");
+                            B2BLCMasRce.SetRange("No.", rec."B2BLC No (System)");
                             if B2BLCMasRce.FindSet() then begin
-                                "B2BLC No" := B2BLCMasRce."B2B LC No";
-                                "LC Issue Bank" := B2BLCMasRce."Issue Bank";
-                                "LC Issue Bank No." := B2BLCMasRce."LC Issue Bank No.";
+                                rec."B2BLC No" := B2BLCMasRce."B2B LC No";
+                                rec."LC Issue Bank" := B2BLCMasRce."Issue Bank";
+                                rec."LC Issue Bank No." := B2BLCMasRce."LC Issue Bank No.";
                             end;
 
                             //Delete old records
@@ -129,7 +129,7 @@ page 50542 "Acceptance Card"
 
                             //Get invoices for the selected 'B2B LC No'
                             GITBaseonLCRec.Reset();
-                            GITBaseonLCRec.SetRange("B2B LC No. (System)", "B2BLC No (System)");
+                            GITBaseonLCRec.SetRange("B2B LC No. (System)", rec."B2BLC No (System)");
                             GITBaseonLCRec.SetFilter(AssignedAccNo, '=%1', '');
 
                             if GITBaseonLCRec.FindSet() then begin
@@ -137,10 +137,10 @@ page 50542 "Acceptance Card"
 
                                     //insert invoices for the TT
                                     AcceptanceInv1Rec.Init();
-                                    AcceptanceInv1Rec.Type := Type::"Based On B2B LC";
+                                    AcceptanceInv1Rec.Type := rec.Type::"Based On B2B LC";
                                     AcceptanceInv1Rec."B2BLC No." := GITBaseonLCRec."B2B LC No.";
                                     AcceptanceInv1Rec."B2BLC No. (System)" := GITBaseonLCRec."B2B LC No. (System)";
-                                    AcceptanceInv1Rec."AccNo." := "AccNo.";
+                                    AcceptanceInv1Rec."AccNo." := rec."AccNo.";
                                     AcceptanceInv1Rec."Created Date" := Today;
                                     AcceptanceInv1Rec."Created User" := UserId;
                                     AcceptanceInv1Rec."Inv Date" := GITBaseonLCRec."Invoice Date";
@@ -158,14 +158,14 @@ page 50542 "Acceptance Card"
                     end;
                 }
 
-                field("B2BLC No"; "B2BLC No")
+                field("B2BLC No"; rec."B2BLC No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     //Editable = VisibleVar;
                 }
 
-                field("LC Issue Bank"; "LC Issue Bank")
+                field("LC Issue Bank"; rec."LC Issue Bank")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -201,28 +201,28 @@ page 50542 "Acceptance Card"
 
             group("   ")
             {
-                field("Accept Date"; "Accept Date")
+                field("Accept Date"; rec."Accept Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Accept Value"; "Accept Value")
+                field("Accept Value"; rec."Accept Value")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Acceptance S/N"; "Acceptance S/N")
+                field("Acceptance S/N"; rec."Acceptance S/N")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Maturity Date"; "Maturity Date")
+                field("Maturity Date"; rec."Maturity Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Payment Mode"; "Payment Mode")
+                field("Payment Mode"; rec."Payment Mode")
                 {
                     ApplicationArea = All;
                 }
@@ -248,8 +248,8 @@ page 50542 "Acceptance Card"
                 trigger OnAction()
                 var
                 begin
-                    Approved := true;
-                    ApproveDate := Today;
+                    rec.Approved := true;
+                    rec.ApproveDate := Today;
                     CurrPage.Update();
                 end;
             }
@@ -266,25 +266,25 @@ page 50542 "Acceptance Card"
         GITBaseonPIRec: Record GITBaseonPI;
     begin
         AcceptanceLineRec.reset();
-        AcceptanceLineRec.SetRange("AccNo.", "AccNo.");
+        AcceptanceLineRec.SetRange("AccNo.", rec."AccNo.");
         AcceptanceLineRec.DeleteAll();
 
         AcceptanceInv1Rec.reset();
-        AcceptanceInv1Rec.SetRange("AccNo.", "AccNo.");
+        AcceptanceInv1Rec.SetRange("AccNo.", rec."AccNo.");
         AcceptanceInv1Rec.DeleteAll();
 
         AcceptanceInv2Rec.reset();
-        AcceptanceInv2Rec.SetRange("AccNo.", "AccNo.");
+        AcceptanceInv2Rec.SetRange("AccNo.", rec."AccNo.");
         AcceptanceInv2Rec.DeleteAll();
 
 
         GITBaseonLCRec.reset();
-        GITBaseonLCRec.SetRange(AssignedAccNo, "AccNo.");
+        GITBaseonLCRec.SetRange(AssignedAccNo, rec."AccNo.");
         if GITBaseonLCRec.FindSet() then
             GITBaseonLCRec.ModifyAll(AssignedAccNo, '');
 
         GITBaseonPIRec.reset();
-        GITBaseonPIRec.SetRange(AssignedAccNo, "AccNo.");
+        GITBaseonPIRec.SetRange(AssignedAccNo, rec."AccNo.");
         if GITBaseonPIRec.FindSet() then
             GITBaseonPIRec.ModifyAll(AssignedAccNo, '');
 
@@ -297,8 +297,8 @@ page 50542 "Acceptance Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Acc Nos.", xRec."AccNo.", "AccNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("AccNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."Acc Nos.", xRec."AccNo.", rec."AccNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."AccNo.");
             EXIT(TRUE);
         END;
     end;
@@ -308,7 +308,7 @@ page 50542 "Acceptance Card"
     var
     begin
         //  "Acceptance S/N" := PADSTR('', 3 - strlen(format("Acceptance S/N 2")), '0') + format("Acceptance S/N 2");
-        "Acceptance S/N" := format("Acceptance S/N 2").PadLeft(7 - strlen(format("Acceptance S/N 2")), '0');
+        rec."Acceptance S/N" := format(rec."Acceptance S/N 2").PadLeft(7 - strlen(format(rec."Acceptance S/N 2")), '0');
         CurrPage.Update();
     end;
 

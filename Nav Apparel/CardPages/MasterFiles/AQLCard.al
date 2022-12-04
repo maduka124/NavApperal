@@ -10,22 +10,22 @@ page 71012582 "AQL Card"
         {
             group(General)
             {
-                field("From Qty"; "From Qty")
+                field("From Qty"; rec."From Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("To Qty"; "To Qty")
+                field("To Qty";rec. "To Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("SMPL Qty"; "SMPL Qty")
+                field("SMPL Qty";rec. "SMPL Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Reject Qty"; "Reject Qty")
+                field("Reject Qty"; rec."Reject Qty")
                 {
                     ApplicationArea = All;
                 }

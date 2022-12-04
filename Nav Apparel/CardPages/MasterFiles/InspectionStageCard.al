@@ -10,13 +10,13 @@ page 71012613 "Inspection Stage Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Inspection Stage No';
                 }
 
-                field("Inspection Stage"; "Inspection Stage")
+                field("Inspection Stage"; rec."Inspection Stage")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012613 "Inspection Stage Card"
                         InspectionStageRec: Record InspectionStage;
                     begin
                         InspectionStageRec.Reset();
-                        InspectionStageRec.SetRange("Inspection Stage", "Inspection Stage");
+                        InspectionStageRec.SetRange("Inspection Stage", rec."Inspection Stage");
                         if InspectionStageRec.FindSet() then
                             Error('Inspection Stage already exists.');
                     end;

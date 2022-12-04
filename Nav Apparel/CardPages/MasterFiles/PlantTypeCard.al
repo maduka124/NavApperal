@@ -10,13 +10,13 @@ page 71012629 "Plant Type Card"
         {
             group(General)
             {
-                field("Plant Type No."; "Plant Type No.")
+                field("Plant Type No."; rec."Plant Type No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Plant Type No';
                 }
 
-                field("Plant Type Name"; "Plant Type Name")
+                field("Plant Type Name"; rec."Plant Type Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012629 "Plant Type Card"
                         PlantTypeRec: Record "Plant Type";
                     begin
                         PlantTypeRec.Reset();
-                        PlantTypeRec.SetRange("Plant Type Name", "Plant Type Name");
+                        PlantTypeRec.SetRange("Plant Type Name", rec."Plant Type Name");
                         if PlantTypeRec.FindSet() then
                             Error('Plant Type Name already exists.');
                     end;

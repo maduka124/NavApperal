@@ -10,7 +10,7 @@ page 71012769 "BOM Estimate Cost Card"
         {
             group(General)
             {
-                field("No."; "No.")   //This is Cost Sheet No
+                field("No."; rec."No.")   //This is Cost Sheet No
                 {
                     ApplicationArea = All;
                     Caption = 'Cost Sheet No';
@@ -22,7 +22,7 @@ page 71012769 "BOM Estimate Cost Card"
                     end;
                 }
 
-                field("BOM No."; "BOM No.")
+                field("BOM No."; rec."BOM No.")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -38,40 +38,40 @@ page 71012769 "BOM Estimate Cost Card"
                         CostPlanParaLineRec: Record CostingPlanningParaLine;
                     begin
 
-                        if "FOB Pcs" = 0 then
-                            "FOB Pcs" := 1;
+                        if rec."FOB Pcs" = 0 then
+                            rec."FOB Pcs" := 1;
 
                         //Check for duplicates
                         BOMEstCostRec.Reset();
-                        BOMEstCostRec.SetRange("BOM No.", "BOM No.");
+                        BOMEstCostRec.SetRange("BOM No.", rec."BOM No.");
                         if BOMEstCostRec.FindSet() then
                             Error('Estimate BOM : %1 already used to create a Estimate Cost Sheet', BOMEstCostRec."BOM No.");
 
                         NavAppSetup.Get('0001');
-                        "Risk factor %" := NavAppSetup."Risk Factor";
-                        "TAX %" := NavAppSetup.TAX;
-                        "ABA Sourcing %" := NavAppSetup."ABA Sourcing";
+                        rec."Risk factor %" := NavAppSetup."Risk Factor";
+                        rec."TAX %" := NavAppSetup.TAX;
+                        rec."ABA Sourcing %" := NavAppSetup."ABA Sourcing";
 
-                        BOMRec.get("BOM No.");
-                        "Style No." := BOMRec."Style No.";
-                        "Style Name" := BOMRec."Style Name";
-                        "Store No." := BOMRec."Store No.";
-                        "Brand No." := BOMRec."Brand No.";
-                        "Buyer No." := BOMRec."Buyer No.";
-                        "Season No." := BOMRec."Season No.";
-                        "Department No." := BOMRec."Department No.";
-                        "Garment Type No." := BOMRec."Garment Type No.";
+                        BOMRec.get(rec."BOM No.");
+                        rec."Style No." := BOMRec."Style No.";
+                        rec."Style Name" := BOMRec."Style Name";
+                        rec."Store No." := BOMRec."Store No.";
+                        rec."Brand No." := BOMRec."Brand No.";
+                        rec."Buyer No." := BOMRec."Buyer No.";
+                        rec."Season No." := BOMRec."Season No.";
+                        rec."Department No." := BOMRec."Department No.";
+                        rec."Garment Type No." := BOMRec."Garment Type No.";
 
-                        "Store Name" := BOMRec."Store Name";
-                        "Brand Name" := BOMRec."Brand Name";
-                        "Buyer Name" := BOMRec."Buyer Name";
-                        "Season Name" := BOMRec."Season Name";
-                        "Department Name" := BOMRec."Department Name";
-                        "Garment Type Name" := BOMRec."Garment Type Name";
-                        Quantity := BOMRec.Quantity;
+                        rec."Store Name" := BOMRec."Store Name";
+                        rec."Brand Name" := BOMRec."Brand Name";
+                        rec."Buyer Name" := BOMRec."Buyer Name";
+                        rec."Season Name" := BOMRec."Season Name";
+                        rec."Department Name" := BOMRec."Department Name";
+                        rec."Garment Type Name" := BOMRec."Garment Type Name";
+                        rec.Quantity := BOMRec.Quantity;
 
-                        CustomerRec.get("Buyer No.");
-                        "Currency No." := CustomerRec."Currency Code";
+                        CustomerRec.get(rec."Buyer No.");
+                        rec."Currency No." := CustomerRec."Currency Code";
 
                         LoadCategoryDetails();
                         CalRawMat();
@@ -84,16 +84,16 @@ page 71012769 "BOM Estimate Cost Card"
                         if StyleRec.CostingSMV = 0 then
                             Error('Costing SMV is zero')
                         else begin
-                            SMV := StyleRec.CostingSMV;
+                            rec.SMV := StyleRec.CostingSMV;
 
                             //Get Project efficiency                          
                             CostPlanParaLineRec.Reset();
-                            CostPlanParaLineRec.SetFilter("From SMV", '<=%1', SMV);
-                            CostPlanParaLineRec.SetFilter("To SMV", '>=%1', SMV);
-                            CostPlanParaLineRec.SetFilter("From Qty", '<=%1', Quantity);
-                            CostPlanParaLineRec.SetFilter("To Qty", '>=%1', Quantity);
+                            CostPlanParaLineRec.SetFilter("From SMV", '<=%1', rec.SMV);
+                            CostPlanParaLineRec.SetFilter("To SMV", '>=%1', rec.SMV);
+                            CostPlanParaLineRec.SetFilter("From Qty", '<=%1', rec.Quantity);
+                            CostPlanParaLineRec.SetFilter("To Qty", '>=%1', rec.Quantity);
                             if CostPlanParaLineRec.FindSet() then
-                                "Project Efficiency." := CostPlanParaLineRec."Costing Eff%"
+                                rec."Project Efficiency." := CostPlanParaLineRec."Costing Eff%"
                             else
                                 Error('Project efficiency is not setup in the Costing/Planning Parameter');
                         end;
@@ -104,14 +104,14 @@ page 71012769 "BOM Estimate Cost Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Style';
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
@@ -122,13 +122,13 @@ page 71012769 "BOM Estimate Cost Card"
                         GarmentStoreRec: Record "Garment Store";
                     begin
                         GarmentStoreRec.Reset();
-                        GarmentStoreRec.SetRange("Store Name", "Store Name");
+                        GarmentStoreRec.SetRange("Store Name", rec."Store Name");
                         if GarmentStoreRec.FindSet() then
-                            "Store No." := GarmentStoreRec."No.";
+                            rec."Store No." := GarmentStoreRec."No.";
                     end;
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
@@ -139,13 +139,13 @@ page 71012769 "BOM Estimate Cost Card"
                         BrandRec: Record "Brand";
                     begin
                         BrandRec.Reset();
-                        BrandRec.SetRange("Brand Name", "Brand Name");
+                        BrandRec.SetRange("Brand Name", rec."Brand Name");
                         if BrandRec.FindSet() then
-                            "Brand No." := BrandRec."No.";
+                            rec."Brand No." := BrandRec."No.";
                     end;
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
@@ -156,15 +156,15 @@ page 71012769 "BOM Estimate Cost Card"
                         BuyerRec: Record Customer;
                     begin
                         BuyerRec.Reset();
-                        BuyerRec.SetRange(Name, "Buyer Name");
+                        BuyerRec.SetRange(Name, rec."Buyer Name");
                         if BuyerRec.FindSet() then begin
-                            "Buyer No." := BuyerRec."No.";
-                            "Currency No." := BuyerRec."Currency Code";
+                            rec."Buyer No." := BuyerRec."No.";
+                            rec."Currency No." := BuyerRec."Currency Code";
                         end;
                     end;
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
@@ -175,13 +175,13 @@ page 71012769 "BOM Estimate Cost Card"
                         SeasonsRec: Record "Seasons";
                     begin
                         SeasonsRec.Reset();
-                        SeasonsRec.SetRange("Season Name", "Season Name");
+                        SeasonsRec.SetRange("Season Name", rec."Season Name");
                         if SeasonsRec.FindSet() then
-                            "Season No." := SeasonsRec."No.";
+                            rec."Season No." := SeasonsRec."No.";
                     end;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
@@ -192,14 +192,14 @@ page 71012769 "BOM Estimate Cost Card"
                         DepartmentRec: Record "Department Style";
                     begin
                         DepartmentRec.Reset();
-                        DepartmentRec.SetRange("Department Name", "Department Name");
+                        DepartmentRec.SetRange("Department Name", rec."Department Name");
                         if DepartmentRec.FindSet() then
-                            "Department No." := DepartmentRec."No.";
+                            rec."Department No." := DepartmentRec."No.";
                     end;
 
                 }
 
-                field("Garment Type Name"; "Garment Type Name")
+                field("Garment Type Name"; rec."Garment Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
@@ -210,19 +210,19 @@ page 71012769 "BOM Estimate Cost Card"
                         GarmentTypeRec: Record "Garment Type";
                     begin
                         GarmentTypeRec.Reset();
-                        GarmentTypeRec.SetRange("Garment Type Description", "Garment Type Name");
+                        GarmentTypeRec.SetRange("Garment Type Description", rec."Garment Type Name");
                         if GarmentTypeRec.FindSet() then
-                            "Garment Type No." := GarmentTypeRec."No.";
+                            rec."Garment Type No." := GarmentTypeRec."No.";
                     end;
                 }
 
-                field(Quantity; Quantity)
+                field(Quantity; rec.Quantity)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Currency No."; "Currency No.")
+                field("Currency No."; rec."Currency No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Currency';
@@ -242,7 +242,7 @@ page 71012769 "BOM Estimate Cost Card"
 
             group("Cost")
             {
-                field("Raw Material (Dz.)"; "Raw Material (Dz.)")
+                field("Raw Material (Dz.)"; rec."Raw Material (Dz.)")
                 {
                     ApplicationArea = All;
 
@@ -250,25 +250,25 @@ page 71012769 "BOM Estimate Cost Card"
                     var
 
                     begin
-                        "Sub Total (Dz.) Dz." := "Raw Material (Dz.)" + "Embroidery (Dz.)" + "Printing (Dz.)" + "Washing (Dz.)" + "Others (Dz.)";
-                        "Sub Total (Dz.) Pcs" := "Sub Total (Dz.) Dz." / 12;
-                        "Sub Total (Dz.) Total" := "Sub Total (Dz.) Pcs" * Quantity;
+                        rec."Sub Total (Dz.) Dz." := rec."Raw Material (Dz.)" + rec."Embroidery (Dz.)" + rec."Printing (Dz.)" + rec."Washing (Dz.)" + rec."Others (Dz.)";
+                        rec."Sub Total (Dz.) Pcs" := rec."Sub Total (Dz.) Dz." / 12;
+                        rec."Sub Total (Dz.) Total" := rec."Sub Total (Dz.) Pcs" * rec.Quantity;
 
-                        "Gross CM With Commission Dz." := "FOB Dz." - "Sub Total (Dz.) Dz." - "Commission Dz." - "Deferred Payment Dz.";
-                        "Gross CM With Commission Pcs" := "Gross CM With Commission Dz." / 12;
+                        rec."Gross CM With Commission Dz." := rec."FOB Dz." - rec."Sub Total (Dz.) Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
+                        rec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Dz." / 12;
 
-                        if "FOB Pcs" = 0 then
-                            "Gross CM With Commission %" := 0
+                        if rec."FOB Pcs" = 0 then
+                            rec."Gross CM With Commission %" := 0
                         else
-                            "Gross CM With Commission %" := ("Gross CM With Commission Pcs" / "FOB Pcs") * 100;
+                            rec."Gross CM With Commission %" := (rec."Gross CM With Commission Pcs" / rec."FOB Pcs") * 100;
 
-                        "Gross CM With Commission Total" := "Gross CM With Commission Pcs" * Quantity;
+                        rec."Gross CM With Commission Total" := rec."Gross CM With Commission Pcs" * rec.Quantity;
 
                         CalTotalCost();
                     end;
                 }
 
-                field("Embroidery (Dz.)"; "Embroidery (Dz.)")
+                field("Embroidery (Dz.)"; rec."Embroidery (Dz.)")
                 {
                     ApplicationArea = All;
 
@@ -276,25 +276,25 @@ page 71012769 "BOM Estimate Cost Card"
                     var
 
                     begin
-                        "Sub Total (Dz.) Dz." := "Raw Material (Dz.)" + "Embroidery (Dz.)" + "Printing (Dz.)" + "Washing (Dz.)" + "Others (Dz.)";
-                        "Sub Total (Dz.) Pcs" := "Sub Total (Dz.) Dz." / 12;
-                        "Sub Total (Dz.) Total" := "Sub Total (Dz.) Pcs" * Quantity;
+                        rec."Sub Total (Dz.) Dz." := rec."Raw Material (Dz.)" + rec."Embroidery (Dz.)" + rec."Printing (Dz.)" + rec."Washing (Dz.)" + rec."Others (Dz.)";
+                        rec."Sub Total (Dz.) Pcs" := rec."Sub Total (Dz.) Dz." / 12;
+                        rec."Sub Total (Dz.) Total" := rec."Sub Total (Dz.) Pcs" * rec.Quantity;
 
-                        "Gross CM With Commission Dz." := "FOB Dz." - "Sub Total (Dz.) Dz." - "Commission Dz." - "Deferred Payment Dz.";
-                        "Gross CM With Commission Pcs" := "Gross CM With Commission Dz." / 12;
+                        rec."Gross CM With Commission Dz." := rec."FOB Dz." - rec."Sub Total (Dz.) Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
+                        rec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Dz." / 12;
 
-                        if "FOB Pcs" = 0 then
-                            "Gross CM With Commission %" := 0
+                        if rec."FOB Pcs" = 0 then
+                            rec."Gross CM With Commission %" := 0
                         else
-                            "Gross CM With Commission %" := ("Gross CM With Commission Pcs" / "FOB Pcs") * 100;
+                            rec."Gross CM With Commission %" := (rec."Gross CM With Commission Pcs" / rec."FOB Pcs") * 100;
 
-                        "Gross CM With Commission Total" := "Gross CM With Commission Pcs" * Quantity;
+                        rec."Gross CM With Commission Total" := rec."Gross CM With Commission Pcs" * rec.Quantity;
 
                         CalTotalCost();
                     end;
                 }
 
-                field("Printing (Dz.)"; "Printing (Dz.)")
+                field("Printing (Dz.)"; rec."Printing (Dz.)")
                 {
                     ApplicationArea = All;
 
@@ -302,26 +302,26 @@ page 71012769 "BOM Estimate Cost Card"
                     var
 
                     begin
-                        "Sub Total (Dz.) Dz." := "Raw Material (Dz.)" + "Embroidery (Dz.)" + "Printing (Dz.)" + "Washing (Dz.)" + "Others (Dz.)";
-                        "Sub Total (Dz.) Pcs" := "Sub Total (Dz.) Dz." / 12;
-                        "Sub Total (Dz.) Total" := "Sub Total (Dz.) Pcs" * Quantity;
+                        rec."Sub Total (Dz.) Dz." := rec."Raw Material (Dz.)" + rec."Embroidery (Dz.)" + rec."Printing (Dz.)" + rec."Washing (Dz.)" + rec."Others (Dz.)";
+                        rec."Sub Total (Dz.) Pcs" := rec."Sub Total (Dz.) Dz." / 12;
+                        rec."Sub Total (Dz.) Total" := rec."Sub Total (Dz.) Pcs" * rec.Quantity;
 
-                        "Gross CM With Commission Dz." := "FOB Dz." - "Sub Total (Dz.) Dz." - "Commission Dz." - "Deferred Payment Dz.";
-                        "Gross CM With Commission Pcs" := "Gross CM With Commission Dz." / 12;
+                        rec."Gross CM With Commission Dz." := rec."FOB Dz." - rec."Sub Total (Dz.) Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
+                        rec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Dz." / 12;
 
-                        if "FOB Pcs" = 0 then
-                            "Gross CM With Commission %" := 0
+                        if rec."FOB Pcs" = 0 then
+                            rec."Gross CM With Commission %" := 0
                         else
-                            "Gross CM With Commission %" := ("Gross CM With Commission Pcs" / "FOB Pcs") * 100;
+                            rec."Gross CM With Commission %" := (rec."Gross CM With Commission Pcs" / rec."FOB Pcs") * 100;
 
 
-                        "Gross CM With Commission Total" := "Gross CM With Commission Pcs" * Quantity;
+                        rec."Gross CM With Commission Total" := rec."Gross CM With Commission Pcs" * rec.Quantity;
 
                         CalTotalCost();
                     end;
                 }
 
-                field("Washing (Dz.)"; "Washing (Dz.)")
+                field("Washing (Dz.)"; rec."Washing (Dz.)")
                 {
                     ApplicationArea = All;
 
@@ -329,25 +329,25 @@ page 71012769 "BOM Estimate Cost Card"
                     var
 
                     begin
-                        "Sub Total (Dz.) Dz." := "Raw Material (Dz.)" + "Embroidery (Dz.)" + "Printing (Dz.)" + "Washing (Dz.)" + "Others (Dz.)";
-                        "Sub Total (Dz.) Pcs" := "Sub Total (Dz.) Dz." / 12;
-                        "Sub Total (Dz.) Total" := "Sub Total (Dz.) Pcs" * Quantity;
+                        rec."Sub Total (Dz.) Dz." := rec."Raw Material (Dz.)" + rec."Embroidery (Dz.)" + rec."Printing (Dz.)" + rec."Washing (Dz.)" + rec."Others (Dz.)";
+                        rec."Sub Total (Dz.) Pcs" := rec."Sub Total (Dz.) Dz." / 12;
+                        rec."Sub Total (Dz.) Total" := rec."Sub Total (Dz.) Pcs" * rec.Quantity;
 
-                        "Gross CM With Commission Dz." := "FOB Dz." - "Sub Total (Dz.) Dz." - "Commission Dz." - "Deferred Payment Dz.";
-                        "Gross CM With Commission Pcs" := "Gross CM With Commission Dz." / 12;
+                        rec."Gross CM With Commission Dz." := rec."FOB Dz." - rec."Sub Total (Dz.) Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
+                        rec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Dz." / 12;
 
-                        if "FOB Pcs" = 0 then
-                            "Gross CM With Commission %" := 0
+                        if rec."FOB Pcs" = 0 then
+                            rec."Gross CM With Commission %" := 0
                         else
-                            "Gross CM With Commission %" := ("Gross CM With Commission Pcs" / "FOB Pcs") * 100;
+                            rec."Gross CM With Commission %" := (rec."Gross CM With Commission Pcs" / rec."FOB Pcs") * 100;
 
-                        "Gross CM With Commission Total" := "Gross CM With Commission Pcs" * Quantity;
+                        rec."Gross CM With Commission Total" := rec."Gross CM With Commission Pcs" * rec.Quantity;
 
                         CalTotalCost();
                     end;
                 }
 
-                field("Others (Dz.)"; "Others (Dz.)")
+                field("Others (Dz.)"; rec."Others (Dz.)")
                 {
                     ApplicationArea = All;
 
@@ -355,31 +355,31 @@ page 71012769 "BOM Estimate Cost Card"
                     var
 
                     begin
-                        "Sub Total (Dz.) Dz." := "Raw Material (Dz.)" + "Embroidery (Dz.)" + "Printing (Dz.)" + "Washing (Dz.)" + "Others (Dz.)";
-                        "Sub Total (Dz.) Pcs" := "Sub Total (Dz.) Dz." / 12;
-                        "Sub Total (Dz.) Total" := "Sub Total (Dz.) Pcs" * Quantity;
+                        rec."Sub Total (Dz.) Dz." := rec."Raw Material (Dz.)" + rec."Embroidery (Dz.)" + rec."Printing (Dz.)" + rec."Washing (Dz.)" + rec."Others (Dz.)";
+                        rec."Sub Total (Dz.) Pcs" := rec."Sub Total (Dz.) Dz." / 12;
+                        rec."Sub Total (Dz.) Total" := rec."Sub Total (Dz.) Pcs" * rec.Quantity;
 
-                        "Gross CM With Commission Dz." := "FOB Dz." - "Sub Total (Dz.) Dz." - "Commission Dz." - "Deferred Payment Dz.";
-                        "Gross CM With Commission Pcs" := "Gross CM With Commission Dz." / 12;
+                        rec."Gross CM With Commission Dz." := rec."FOB Dz." - rec."Sub Total (Dz.) Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
+                        rec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Dz." / 12;
 
-                        if "FOB Pcs" = 0 then
-                            "Gross CM With Commission %" := 0
+                        if rec."FOB Pcs" = 0 then
+                            rec."Gross CM With Commission %" := 0
                         else
-                            "Gross CM With Commission %" := ("Gross CM With Commission Pcs" / "FOB Pcs") * 100;
+                            rec."Gross CM With Commission %" := (rec."Gross CM With Commission Pcs" / rec."FOB Pcs") * 100;
 
-                        "Gross CM With Commission Total" := "Gross CM With Commission Pcs" * Quantity;
+                        rec."Gross CM With Commission Total" := rec."Gross CM With Commission Pcs" * rec.Quantity;
 
                         CalTotalCost();
                     end;
                 }
 
-                field(Rate; Rate)
+                field(Rate; rec.Rate)
                 {
                     ApplicationArea = All;
                     Visible = false;
                 }
 
-                field("Stich Gmt Name"; "Stich Gmt Name")
+                field("Stich Gmt Name"; rec."Stich Gmt Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Stich Gmt';
@@ -390,14 +390,14 @@ page 71012769 "BOM Estimate Cost Card"
                     begin
 
                         StRec.Reset();
-                        StRec.SetRange("Stich Gmt Name", "Stich Gmt Name");
+                        StRec.SetRange("Stich Gmt Name", rec."Stich Gmt Name");
                         if StRec.FindSet() then
-                            "Stich Gmt" := StRec."No.";
+                            rec."Stich Gmt" := StRec."No.";
 
                     end;
                 }
 
-                field("Print Type Name"; "Print Type Name")
+                field("Print Type Name"; rec."Print Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Print Type';
@@ -408,14 +408,14 @@ page 71012769 "BOM Estimate Cost Card"
                     begin
 
                         PTRec.Reset();
-                        PTRec.SetRange("Print Type Name", "Print Type Name");
+                        PTRec.SetRange("Print Type Name", rec."Print Type Name");
                         if PTRec.FindSet() then
-                            "Print Type" := PTRec."No.";
+                            rec."Print Type" := PTRec."No.";
 
                     end;
                 }
 
-                field("Wash Type Name"; "Wash Type Name")
+                field("Wash Type Name"; rec."Wash Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Type';
@@ -426,9 +426,9 @@ page 71012769 "BOM Estimate Cost Card"
                     begin
 
                         WTRec.Reset();
-                        WTRec.SetRange("Wash Type Name", "Wash Type Name");
+                        WTRec.SetRange("Wash Type Name", rec."Wash Type Name");
                         if WTRec.FindSet() then
-                            "Wash Type" := WTRec."No.";
+                            rec."Wash Type" := WTRec."No.";
 
                     end;
                 }
@@ -437,7 +437,7 @@ page 71012769 "BOM Estimate Cost Card"
 
             group("CM Calculation")
             {
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';
@@ -450,26 +450,26 @@ page 71012769 "BOM Estimate Cost Card"
                         LineNo: Integer;
                     begin
                         Locationrec.Reset();
-                        Locationrec.SetRange(Name, "Factory Name");
+                        Locationrec.SetRange(Name, rec."Factory Name");
                         if Locationrec.FindSet() then
-                            "Factory Code" := Locationrec.Code;
+                            rec."Factory Code" := Locationrec.Code;
 
                         //Get Max line no
                         FacCPMRec.Reset();
                         FacCPMRec.SetRange("Factory Code", Locationrec.Code);
 
                         if FacCPMRec.FindLast() then begin
-                            CPM := FacCPMRec.CPM;
+                            rec.CPM := FacCPMRec.CPM;
                             CurrPage.Update();
                             CalMFGCost();
                             CalTotalCost();
 
                             //Update Allocated factory in style master
                             StyleRec.Reset();
-                            StyleRec.SetRange("No.", "Style No.");
+                            StyleRec.SetRange("No.", rec."Style No.");
                             if StyleRec.FindSet() then begin
                                 StyleRec."Factory Code" := Locationrec.Code;
-                                StyleRec."Factory Name" := "Factory Name";
+                                StyleRec."Factory Name" := rec."Factory Name";
                                 StyleRec.Modify();
                             end
                             else
@@ -477,13 +477,13 @@ page 71012769 "BOM Estimate Cost Card"
 
                         end
                         else
-                            Error('CPM is not setup for the factory : %1', "Factory Name");
+                            Error('CPM is not setup for the factory : %1', rec."Factory Name");
 
                         CurrPage.Update();
                     end;
                 }
 
-                field(SMV; SMV)
+                field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -496,7 +496,7 @@ page 71012769 "BOM Estimate Cost Card"
                     end;
                 }
 
-                field(CPM; CPM)
+                field(CPM; rec.CPM)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -509,7 +509,7 @@ page 71012769 "BOM Estimate Cost Card"
                     end;
                 }
 
-                field("Project Efficiency."; "Project Efficiency.")
+                field("Project Efficiency."; rec."Project Efficiency.")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -522,7 +522,7 @@ page 71012769 "BOM Estimate Cost Card"
                     end;
                 }
 
-                field(EPM; EPM)   //Margin
+                field(EPM; rec.EPM)   //Margin
                 {
                     ApplicationArea = All;
 
@@ -535,13 +535,13 @@ page 71012769 "BOM Estimate Cost Card"
                 }
 
 
-                field("CM Doz"; "CM Doz")
+                field("CM Doz"; rec."CM Doz")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -556,28 +556,28 @@ page 71012769 "BOM Estimate Cost Card"
                     GridLayout = Rows;
                     group("Sub Total (Dz.)")
                     {
-                        field("Sub Total (Dz.)%"; "Sub Total (Dz.)%")
+                        field("Sub Total (Dz.)%"; rec."Sub Total (Dz.)%")
                         {
                             ApplicationArea = All;
                             Caption = '%';
                             Editable = false;
                         }
 
-                        field("Sub Total (Dz.) Pcs"; "Sub Total (Dz.) Pcs")
+                        field("Sub Total (Dz.) Pcs"; rec."Sub Total (Dz.) Pcs")
                         {
                             ApplicationArea = All;
                             Caption = 'Pcs';
                             Editable = false;
                         }
 
-                        field("Sub Total (Dz.) Dz."; "Sub Total (Dz.) Dz.")
+                        field("Sub Total (Dz.) Dz."; rec."Sub Total (Dz.) Dz.")
                         {
                             ApplicationArea = All;
                             Caption = 'Dz.';
                             Editable = false;
                         }
 
-                        field("Sub Total (Dz.) Total"; "Sub Total (Dz.) Total")
+                        field("Sub Total (Dz.) Total"; rec."Sub Total (Dz.) Total")
                         {
                             ApplicationArea = All;
                             Caption = 'Total';
@@ -586,14 +586,14 @@ page 71012769 "BOM Estimate Cost Card"
                     }
                     group("FOB")
                     {
-                        field("FOB %"; "FOB %")
+                        field("FOB %"; rec."FOB %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("FOB Pcs"; "FOB Pcs")
+                        field("FOB Pcs"; rec."FOB Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -607,14 +607,14 @@ page 71012769 "BOM Estimate Cost Card"
                             end;
                         }
 
-                        field("FOB Dz."; "FOB Dz.")
+                        field("FOB Dz."; rec."FOB Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("FOB Total"; "FOB Total")
+                        field("FOB Total"; rec."FOB Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -624,28 +624,28 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Gross CM With Commission ")
                     {
-                        field("Gross CM With Commission %"; "Gross CM With Commission %")
+                        field("Gross CM With Commission %"; rec."Gross CM With Commission %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Gross CM With Commission Pcs"; "Gross CM With Commission Pcs")
+                        field("Gross CM With Commission Pcs"; rec."Gross CM With Commission Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Gross CM With Commission Dz."; "Gross CM With Commission Dz.")
+                        field("Gross CM With Commission Dz."; rec."Gross CM With Commission Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Gross CM With Commission Total"; "Gross CM With Commission Total")
+                        field("Gross CM With Commission Total"; rec."Gross CM With Commission Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -655,21 +655,21 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("MFG Cost")
                     {
-                        field("MFG Cost %"; "MFG Cost %")
+                        field("MFG Cost %"; rec."MFG Cost %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("MFG Cost Pcs"; "MFG Cost Pcs")
+                        field("MFG Cost Pcs"; rec."MFG Cost Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("MFG Cost Dz."; "MFG Cost Dz.")
+                        field("MFG Cost Dz."; rec."MFG Cost Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -679,11 +679,11 @@ page 71012769 "BOM Estimate Cost Card"
                             var
 
                             begin
-                                "MFG Cost Pcs" := "MFG Cost Dz." / 12;
-                                "MFG Cost Total" := "MFG Cost Pcs" * Quantity;
+                                rec."MFG Cost Pcs" := rec."MFG Cost Dz." / 12;
+                                rec."MFG Cost Total" := rec."MFG Cost Pcs" * rec.Quantity;
 
-                                if "FOB Pcs" <> 0 then
-                                    "MFG Cost %" := ("MFG Cost Pcs" * 100 / "FOB Pcs");
+                                if rec."FOB Pcs" <> 0 then
+                                    rec."MFG Cost %" := (rec."MFG Cost Pcs" * 100 / rec."FOB Pcs");
 
                                 // "Commercial Pcs" := ("Commercial %" * "FOB Pcs") / 100;
                                 // "Commercial Dz." := "Commercial Pcs" * 12;
@@ -693,7 +693,7 @@ page 71012769 "BOM Estimate Cost Card"
                             end;
                         }
 
-                        field("MFG Cost Total"; "MFG Cost Total")
+                        field("MFG Cost Total"; rec."MFG Cost Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -704,7 +704,7 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Overhead")
                     {
-                        field("Overhead %"; "Overhead %")
+                        field("Overhead %"; rec."Overhead %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -714,33 +714,33 @@ page 71012769 "BOM Estimate Cost Card"
                             var
 
                             begin
-                                "Overhead Pcs" := ("Overhead %" * "FOB Pcs") / 100;
-                                "Overhead Dz." := "Overhead Pcs" * 12;
-                                "Overhead Total" := "Overhead Pcs" * Quantity;
+                                rec."Overhead Pcs" := (rec."Overhead %" * rec."FOB Pcs") / 100;
+                                rec."Overhead Dz." := rec."Overhead Pcs" * 12;
+                                rec."Overhead Total" := rec."Overhead Pcs" * rec.Quantity;
 
-                                "Deferred Payment Pcs" := ("Deferred Payment %" * "Overhead Pcs") / 100;
-                                "Deferred Payment Dz." := "Deferred Payment Pcs" * 12;
-                                "Deferred Payment Total" := "Deferred Payment Pcs" * Quantity;
+                                rec."Deferred Payment Pcs" := (rec."Deferred Payment %" * rec."Overhead Pcs") / 100;
+                                rec."Deferred Payment Dz." := rec."Deferred Payment Pcs" * 12;
+                                rec."Deferred Payment Total" := rec."Deferred Payment Pcs" * rec.Quantity;
 
                                 CalTotalCost();
                             end;
                         }
 
-                        field("Overhead Pcs"; "Overhead Pcs")
+                        field("Overhead Pcs"; rec."Overhead Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Overhead Dz."; "Overhead Dz.")
+                        field("Overhead Dz."; rec."Overhead Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Overhead Total"; "Overhead Total")
+                        field("Overhead Total"; rec."Overhead Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -750,7 +750,7 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Commission")
                     {
-                        field("Commission %"; "Commission %")
+                        field("Commission %"; rec."Commission %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -759,34 +759,34 @@ page 71012769 "BOM Estimate Cost Card"
                             trigger OnValidate()
                             var
                             begin
-                                "Commission Pcs" := ("Commission %" * "FOB Pcs") / 100;
-                                "Commission Dz." := "Commission Pcs" * 12;
-                                "Commission Total" := "Commission Pcs" * Quantity;
+                                rec."Commission Pcs" := (rec."Commission %" * rec."FOB Pcs") / 100;
+                                rec."Commission Dz." := rec."Commission Pcs" * 12;
+                                rec."Commission Total" := rec."Commission Pcs" * rec.Quantity;
 
-                                "Gross CM With Commission Dz." := "FOB Dz." - "Sub Total (Dz.) Dz." - "Commission Dz." - "Deferred Payment Dz.";
-                                "Gross CM With Commission Pcs" := "Gross CM With Commission Dz." / 12;
-                                "Gross CM With Commission %" := ("Gross CM With Commission Pcs" / "FOB Pcs") * 100;
-                                "Gross CM With Commission Total" := "Gross CM With Commission Pcs" * Quantity;
+                                rec."Gross CM With Commission Dz." := rec."FOB Dz." - rec."Sub Total (Dz.) Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
+                                rec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Dz." / 12;
+                                rec."Gross CM With Commission %" := (rec."Gross CM With Commission Pcs" / rec."FOB Pcs") * 100;
+                                rec."Gross CM With Commission Total" := rec."Gross CM With Commission Pcs" * rec.Quantity;
 
                                 CalTotalCost();
                             end;
                         }
 
-                        field("Commission Pcs"; "Commission Pcs")
+                        field("Commission Pcs"; rec."Commission Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Commission Dz."; "Commission Dz.")
+                        field("Commission Dz."; rec."Commission Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Commission Total"; "Commission Total")
+                        field("Commission Total"; rec."Commission Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -796,7 +796,7 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Commercial Cost")
                     {
-                        field("Commercial %"; "Commercial %")
+                        field("Commercial %"; rec."Commercial %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -805,29 +805,29 @@ page 71012769 "BOM Estimate Cost Card"
                             trigger OnValidate()
                             var
                             begin
-                                "Commercial Pcs" := ("Commercial %" * "FOB Pcs") / 100;
-                                "Commercial Dz." := "Commercial Pcs" * 12;
-                                "Commercial Total" := "Commercial Pcs" * Quantity;
+                                rec."Commercial Pcs" := (rec."Commercial %" * rec."FOB Pcs") / 100;
+                                rec."Commercial Dz." := rec."Commercial Pcs" * 12;
+                                rec."Commercial Total" := rec."Commercial Pcs" * rec.Quantity;
 
                                 CalTotalCost();
                             end;
                         }
 
-                        field("Commercial Pcs"; "Commercial Pcs")
+                        field("Commercial Pcs"; rec."Commercial Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Commercial Dz."; "Commercial Dz.")
+                        field("Commercial Dz."; rec."Commercial Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Commercial Total"; "Commercial Total")
+                        field("Commercial Total"; rec."Commercial Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -837,7 +837,7 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Deferred Payment")
                     {
-                        field("Deferred Payment %"; "Deferred Payment %")
+                        field("Deferred Payment %"; rec."Deferred Payment %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -847,29 +847,29 @@ page 71012769 "BOM Estimate Cost Card"
                             var
 
                             begin
-                                "Deferred Payment Pcs" := ("Deferred Payment %" * "FOB Pcs") / 100;
-                                "Deferred Payment Dz." := "Deferred Payment Pcs" * 12;
-                                "Deferred Payment Total" := "Deferred Payment Pcs" * Quantity;
+                                rec."Deferred Payment Pcs" := (rec."Deferred Payment %" * rec."FOB Pcs") / 100;
+                                rec."Deferred Payment Dz." := rec."Deferred Payment Pcs" * 12;
+                                rec."Deferred Payment Total" := rec."Deferred Payment Pcs" * rec.Quantity;
 
                                 CalTotalCost();
                             end;
                         }
 
-                        field("Deferred Payment Pcs"; "Deferred Payment Pcs")
+                        field("Deferred Payment Pcs"; rec."Deferred Payment Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Deferred Payment Dz."; "Deferred Payment Dz.")
+                        field("Deferred Payment Dz."; rec."Deferred Payment Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Deferred Payment Total"; "Deferred Payment Total")
+                        field("Deferred Payment Total"; rec."Deferred Payment Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -879,7 +879,7 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Risk Factor")
                     {
-                        field("Risk factor %"; "Risk factor %")
+                        field("Risk factor %"; rec."Risk factor %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -897,21 +897,21 @@ page 71012769 "BOM Estimate Cost Card"
                             // end;
                         }
 
-                        field("Risk factor Pcs"; "Risk factor Pcs")
+                        field("Risk factor Pcs"; rec."Risk factor Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Risk factor Dz."; "Risk factor Dz.")
+                        field("Risk factor Dz."; rec."Risk factor Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Risk factor Total"; "Risk factor Total")
+                        field("Risk factor Total"; rec."Risk factor Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -921,7 +921,7 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("TAX")
                     {
-                        field("TAX %"; "TAX %")
+                        field("TAX %"; rec."TAX %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -939,21 +939,21 @@ page 71012769 "BOM Estimate Cost Card"
                             // end;
                         }
 
-                        field("TAX Pcs"; "TAX Pcs")
+                        field("TAX Pcs"; rec."TAX Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("TAX Dz."; "TAX Dz.")
+                        field("TAX Dz."; rec."TAX Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("TAX Total"; "TAX Total")
+                        field("TAX Total"; rec."TAX Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -963,7 +963,7 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Sourcing")
                     {
-                        field("Sourcing %"; "ABA Sourcing %")
+                        field("Sourcing %"; rec."ABA Sourcing %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -981,21 +981,21 @@ page 71012769 "BOM Estimate Cost Card"
                             // end;
                         }
 
-                        field("ABA Sourcing Pcs"; "ABA Sourcing Pcs")
+                        field("ABA Sourcing Pcs"; rec."ABA Sourcing Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("ABA Sourcing Dz."; "ABA Sourcing Dz.")
+                        field("ABA Sourcing Dz."; rec."ABA Sourcing Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("ABA Sourcing Total"; "ABA Sourcing Total")
+                        field("ABA Sourcing Total"; rec."ABA Sourcing Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -1005,28 +1005,28 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Total Cost")
                     {
-                        field("Total Cost %"; "Total Cost %")
+                        field("Total Cost %"; rec."Total Cost %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Total Cost Pcs"; "Total Cost Pcs")
+                        field("Total Cost Pcs"; rec."Total Cost Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Total Cost Dz."; "Total Cost Dz.")
+                        field("Total Cost Dz."; rec."Total Cost Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Total Cost Total"; "Total Cost Total")
+                        field("Total Cost Total"; rec."Total Cost Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -1037,7 +1037,7 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Profit Margin")
                     {
-                        field("Profit Margin %"; "Profit Margin %")
+                        field("Profit Margin %"; rec."Profit Margin %")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -1050,30 +1050,30 @@ page 71012769 "BOM Estimate Cost Card"
                                 Total3: Decimal;
                                 Total4: Decimal;
                             begin
-                                Total1 := "Commission %" + "Overhead %" + "Profit Margin %" + "Deferred Payment %" + "Commercial %" + "Risk factor %" + "ABA Sourcing %" + "TAX %";
+                                Total1 := rec."Commission %" + rec."Overhead %" + rec."Profit Margin %" + rec."Deferred Payment %" + rec."Commercial %" + rec."Risk factor %" + rec."ABA Sourcing %" + rec."TAX %";
                                 Total2 := Total1 / (100 - Total1);
-                                Total3 := "Sub Total (Dz.) Pcs" + "MFG Cost Pcs";
+                                Total3 := rec."Sub Total (Dz.) Pcs" + rec."MFG Cost Pcs";
                                 Total4 := Total2 * Total3;
-                                "FOB Pcs" := Total3 + Total4;
+                                rec."FOB Pcs" := Total3 + Total4;
                                 FOB_Change();
                             end;
                         }
 
-                        field("Profit Margin Pcs"; "Profit Margin Pcs")
+                        field("Profit Margin Pcs"; rec."Profit Margin Pcs")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Profit Margin Dz."; "Profit Margin Dz.")
+                        field("Profit Margin Dz."; rec."Profit Margin Dz.")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field("Profit Margin Total"; "Profit Margin Total")
+                        field("Profit Margin Total"; rec."Profit Margin Total")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -1084,7 +1084,7 @@ page 71012769 "BOM Estimate Cost Card"
 
                     group("Gross CM Less Commission ")
                     {
-                        field("Gross CM Less Commission"; "Gross CM Less Commission")
+                        field("Gross CM Less Commission"; rec."Gross CM Less Commission")
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -1119,11 +1119,11 @@ page 71012769 "BOM Estimate Cost Card"
                 trigger OnAction()
                 var
                 begin
-                    if Status = Status::Approved then begin
+                    if rec.Status = rec.Status::Approved then begin
                         Message('This BOM Costing is already approved');
                     end
                     else begin
-                        Status := Status::"Pending Approval";
+                        rec.Status := rec.Status::"Pending Approval";
                         CurrPage.Update();
                         Message('BOM Costing sent to approvel');
                     end;
@@ -1143,14 +1143,14 @@ page 71012769 "BOM Estimate Cost Card"
                     BOMCostReviLineRec: Record "BOM Estima Cost Line Revision";
                     Revision: Integer;
                 begin
-                    Status := Status::Approved;
-                    "Approved Date" := WorkDate();
-                    "Rejected Date" := 0D;
+                    rec.Status := rec.Status::Approved;
+                    rec."Approved Date" := WorkDate();
+                    rec."Rejected Date" := 0D;
                     CurrPage.Update();
 
                     //Get max revision no
                     BOMCostReviHeaderRec.Reset();
-                    BOMCostReviHeaderRec.SetRange("No.", "No.");
+                    BOMCostReviHeaderRec.SetRange("No.", rec."No.");
 
                     if not BOMCostReviHeaderRec.FindSet() then
                         Revision := 1
@@ -1159,111 +1159,111 @@ page 71012769 "BOM Estimate Cost Card"
 
                     //Write to Revision table
                     BOMCostReviHeaderRec.Init();
-                    BOMCostReviHeaderRec."No." := "No.";
+                    BOMCostReviHeaderRec."No." := rec."No.";
                     BOMCostReviHeaderRec.Revision := Revision;
-                    BOMCostReviHeaderRec."ABA Sourcing %" := "ABA Sourcing %";
-                    BOMCostReviHeaderRec."ABA Sourcing Dz." := "ABA Sourcing Dz.";
-                    BOMCostReviHeaderRec."ABA Sourcing Pcs" := "ABA Sourcing Pcs";
-                    BOMCostReviHeaderRec."ABA Sourcing Total" := "ABA Sourcing Total";
-                    BOMCostReviHeaderRec."BOM No." := "BOM No.";
-                    BOMCostReviHeaderRec."Brand Name" := "Brand Name";
-                    BOMCostReviHeaderRec."Brand No." := "Brand No.";
-                    BOMCostReviHeaderRec."Buyer Name" := "Buyer Name";
-                    BOMCostReviHeaderRec."Buyer No." := "Buyer No.";
-                    BOMCostReviHeaderRec."CM Doz" := "CM Doz";
-                    BOMCostReviHeaderRec."Commercial %" := "Commercial %";
-                    BOMCostReviHeaderRec."Commercial Dz." := "Commercial Dz.";
-                    BOMCostReviHeaderRec."Commercial Pcs" := "Commercial Pcs";
-                    BOMCostReviHeaderRec."Commercial Total" := "Commercial Total";
-                    BOMCostReviHeaderRec."Commission %" := "Commission %";
-                    BOMCostReviHeaderRec."Commission Dz." := "Commission Dz.";
-                    BOMCostReviHeaderRec."Commercial Pcs" := "Commission Pcs";
-                    BOMCostReviHeaderRec."Commercial Total" := "Commission Total";
-                    BOMCostReviHeaderRec.CPM := CPM;
-                    BOMCostReviHeaderRec."Created Date" := "Created Date";
-                    BOMCostReviHeaderRec."Created User" := "Created User";
-                    BOMCostReviHeaderRec."Currency No." := "Currency No.";
-                    BOMCostReviHeaderRec."Deferred Payment %" := "Deferred Payment %";
-                    BOMCostReviHeaderRec."Deferred Payment Dz." := "Deferred Payment Dz.";
-                    BOMCostReviHeaderRec."Deferred Payment Pcs" := "Deferred Payment Pcs";
-                    BOMCostReviHeaderRec."Deferred Payment Total" := "Deferred Payment Total";
-                    BOMCostReviHeaderRec."Department Name" := "Department Name";
-                    BOMCostReviHeaderRec."Department No." := "Department No.";
-                    BOMCostReviHeaderRec."Embroidery (Dz.)" := "Embroidery (Dz.)";
-                    BOMCostReviHeaderRec.EPM := EPM;
-                    BOMCostReviHeaderRec."Factory Code" := "Factory Code";
-                    BOMCostReviHeaderRec."Factory Name" := "Factory Name";
-                    BOMCostReviHeaderRec."FOB %" := "FOB %";
-                    BOMCostReviHeaderRec."FOB Dz." := "FOB Dz.";
-                    BOMCostReviHeaderRec."FOB Pcs" := "FOB Pcs";
-                    BOMCostReviHeaderRec."FOB Total" := "FOB Total";
-                    BOMCostReviHeaderRec."Garment Type Name" := "Garment Type Name";
-                    BOMCostReviHeaderRec."Garment Type No." := "Garment Type No.";
-                    BOMCostReviHeaderRec."Gross CM Less Commission" := "Gross CM Less Commission";
-                    BOMCostReviHeaderRec."Gross CM With Commission %" := "Gross CM With Commission %";
-                    BOMCostReviHeaderRec."Gross CM With Commission Dz." := "Gross CM With Commission Dz.";
-                    BOMCostReviHeaderRec."Gross CM With Commission Pcs" := "Gross CM With Commission Pcs";
-                    BOMCostReviHeaderRec."Gross CM With Commission Total" := "Gross CM With Commission Total";
-                    BOMCostReviHeaderRec."MFG Cost %" := "MFG Cost %";
-                    BOMCostReviHeaderRec."MFG Cost Dz." := "MFG Cost Dz.";
-                    BOMCostReviHeaderRec."MFG Cost Pcs" := "MFG Cost Pcs";
-                    BOMCostReviHeaderRec."MFG Cost Total" := "MFG Cost Total";
-                    BOMCostReviHeaderRec."Others (Dz.)" := "Others (Dz.)";
-                    BOMCostReviHeaderRec."Overhead %" := "Overhead %";
-                    BOMCostReviHeaderRec."Overhead Dz." := "Overhead Dz.";
-                    BOMCostReviHeaderRec."Overhead Pcs" := "Overhead Pcs";
-                    BOMCostReviHeaderRec."Overhead Total" := "Overhead Total";
-                    BOMCostReviHeaderRec."Print Type" := "Print Type";
-                    BOMCostReviHeaderRec."Print Type Name" := "Print Type Name";
-                    BOMCostReviHeaderRec."Printing (Dz.)" := "Printing (Dz.)";
-                    BOMCostReviHeaderRec."Profit Margin %" := "Profit Margin %";
-                    BOMCostReviHeaderRec."Profit Margin Dz." := "Profit Margin Dz.";
-                    BOMCostReviHeaderRec."Profit Margin Pcs" := "Profit Margin Pcs";
-                    BOMCostReviHeaderRec."Profit Margin Total" := "Profit Margin Total";
-                    BOMCostReviHeaderRec."Project Efficiency." := "Project Efficiency.";
-                    BOMCostReviHeaderRec.Quantity := Quantity;
-                    BOMCostReviHeaderRec.Rate := Rate;
-                    BOMCostReviHeaderRec."Raw Material (Dz.)" := "Raw Material (Dz.)";
+                    BOMCostReviHeaderRec."ABA Sourcing %" := rec."ABA Sourcing %";
+                    BOMCostReviHeaderRec."ABA Sourcing Dz." := rec."ABA Sourcing Dz.";
+                    BOMCostReviHeaderRec."ABA Sourcing Pcs" := rec."ABA Sourcing Pcs";
+                    BOMCostReviHeaderRec."ABA Sourcing Total" := rec."ABA Sourcing Total";
+                    BOMCostReviHeaderRec."BOM No." := rec."BOM No.";
+                    BOMCostReviHeaderRec."Brand Name" := rec."Brand Name";
+                    BOMCostReviHeaderRec."Brand No." := rec."Brand No.";
+                    BOMCostReviHeaderRec."Buyer Name" := rec."Buyer Name";
+                    BOMCostReviHeaderRec."Buyer No." := rec."Buyer No.";
+                    BOMCostReviHeaderRec."CM Doz" := rec."CM Doz";
+                    BOMCostReviHeaderRec."Commercial %" := rec."Commercial %";
+                    BOMCostReviHeaderRec."Commercial Dz." := rec."Commercial Dz.";
+                    BOMCostReviHeaderRec."Commercial Pcs" := rec."Commercial Pcs";
+                    BOMCostReviHeaderRec."Commercial Total" := rec."Commercial Total";
+                    BOMCostReviHeaderRec."Commission %" := rec."Commission %";
+                    BOMCostReviHeaderRec."Commission Dz." := rec."Commission Dz.";
+                    BOMCostReviHeaderRec."Commercial Pcs" := rec."Commission Pcs";
+                    BOMCostReviHeaderRec."Commercial Total" := rec."Commission Total";
+                    BOMCostReviHeaderRec.CPM := rec.CPM;
+                    BOMCostReviHeaderRec."Created Date" := rec."Created Date";
+                    BOMCostReviHeaderRec."Created User" := rec."Created User";
+                    BOMCostReviHeaderRec."Currency No." := rec."Currency No.";
+                    BOMCostReviHeaderRec."Deferred Payment %" := rec."Deferred Payment %";
+                    BOMCostReviHeaderRec."Deferred Payment Dz." := rec."Deferred Payment Dz.";
+                    BOMCostReviHeaderRec."Deferred Payment Pcs" := rec."Deferred Payment Pcs";
+                    BOMCostReviHeaderRec."Deferred Payment Total" := rec."Deferred Payment Total";
+                    BOMCostReviHeaderRec."Department Name" := rec."Department Name";
+                    BOMCostReviHeaderRec."Department No." := rec."Department No.";
+                    BOMCostReviHeaderRec."Embroidery (Dz.)" := rec."Embroidery (Dz.)";
+                    BOMCostReviHeaderRec.EPM := rec.EPM;
+                    BOMCostReviHeaderRec."Factory Code" := rec."Factory Code";
+                    BOMCostReviHeaderRec."Factory Name" := rec."Factory Name";
+                    BOMCostReviHeaderRec."FOB %" := rec."FOB %";
+                    BOMCostReviHeaderRec."FOB Dz." := rec."FOB Dz.";
+                    BOMCostReviHeaderRec."FOB Pcs" := rec."FOB Pcs";
+                    BOMCostReviHeaderRec."FOB Total" := rec."FOB Total";
+                    BOMCostReviHeaderRec."Garment Type Name" := rec."Garment Type Name";
+                    BOMCostReviHeaderRec."Garment Type No." := rec."Garment Type No.";
+                    BOMCostReviHeaderRec."Gross CM Less Commission" := rec."Gross CM Less Commission";
+                    BOMCostReviHeaderRec."Gross CM With Commission %" := rec."Gross CM With Commission %";
+                    BOMCostReviHeaderRec."Gross CM With Commission Dz." := rec."Gross CM With Commission Dz.";
+                    BOMCostReviHeaderRec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Pcs";
+                    BOMCostReviHeaderRec."Gross CM With Commission Total" := rec."Gross CM With Commission Total";
+                    BOMCostReviHeaderRec."MFG Cost %" := rec."MFG Cost %";
+                    BOMCostReviHeaderRec."MFG Cost Dz." := rec."MFG Cost Dz.";
+                    BOMCostReviHeaderRec."MFG Cost Pcs" := rec."MFG Cost Pcs";
+                    BOMCostReviHeaderRec."MFG Cost Total" := rec."MFG Cost Total";
+                    BOMCostReviHeaderRec."Others (Dz.)" := rec."Others (Dz.)";
+                    BOMCostReviHeaderRec."Overhead %" := rec."Overhead %";
+                    BOMCostReviHeaderRec."Overhead Dz." := rec."Overhead Dz.";
+                    BOMCostReviHeaderRec."Overhead Pcs" := rec."Overhead Pcs";
+                    BOMCostReviHeaderRec."Overhead Total" := rec."Overhead Total";
+                    BOMCostReviHeaderRec."Print Type" := rec."Print Type";
+                    BOMCostReviHeaderRec."Print Type Name" := rec."Print Type Name";
+                    BOMCostReviHeaderRec."Printing (Dz.)" := rec."Printing (Dz.)";
+                    BOMCostReviHeaderRec."Profit Margin %" := rec."Profit Margin %";
+                    BOMCostReviHeaderRec."Profit Margin Dz." := rec."Profit Margin Dz.";
+                    BOMCostReviHeaderRec."Profit Margin Pcs" := rec."Profit Margin Pcs";
+                    BOMCostReviHeaderRec."Profit Margin Total" := rec."Profit Margin Total";
+                    BOMCostReviHeaderRec."Project Efficiency." := rec."Project Efficiency.";
+                    BOMCostReviHeaderRec.Quantity := rec.Quantity;
+                    BOMCostReviHeaderRec.Rate := rec.Rate;
+                    BOMCostReviHeaderRec."Raw Material (Dz.)" := rec."Raw Material (Dz.)";
                     BOMCostReviHeaderRec."Revised Date" := WorkDate();
-                    BOMCostReviHeaderRec."Risk factor %" := "Risk factor %";
-                    BOMCostReviHeaderRec."Risk factor Dz." := "Risk factor Dz.";
-                    BOMCostReviHeaderRec."Risk factor Pcs" := "Risk factor Pcs";
-                    BOMCostReviHeaderRec."Risk factor Total" := "Risk factor Total";
-                    BOMCostReviHeaderRec."Season Name" := "Season Name";
-                    BOMCostReviHeaderRec."Season No." := "Season No.";
-                    BOMCostReviHeaderRec.SMV := SMV;
-                    BOMCostReviHeaderRec.Status := Status;
-                    BOMCostReviHeaderRec."Stich Gmt" := "Stich Gmt";
-                    BOMCostReviHeaderRec."Stich Gmt Name" := "Stich Gmt Name";
-                    BOMCostReviHeaderRec."Store Name" := "Store Name";
-                    BOMCostReviHeaderRec."Store No." := "Store No.";
-                    BOMCostReviHeaderRec."Style Name" := "Style Name";
-                    BOMCostReviHeaderRec."Style No." := "Style No.";
-                    BOMCostReviHeaderRec."Sub Total (Dz.) Dz." := "Sub Total (Dz.) Dz.";
-                    BOMCostReviHeaderRec."Sub Total (Dz.) Pcs" := "Sub Total (Dz.) Pcs";
-                    BOMCostReviHeaderRec."Sub Total (Dz.) Total" := "Sub Total (Dz.) Total";
-                    BOMCostReviHeaderRec."Sub Total (Dz.)%" := "Sub Total (Dz.)%";
-                    BOMCostReviHeaderRec."TAX %" := "TAX %";
-                    BOMCostReviHeaderRec."TAX Dz." := "TAX Dz.";
-                    BOMCostReviHeaderRec."TAX Pcs" := "TAX Pcs";
-                    BOMCostReviHeaderRec."TAX Total" := "TAX Total";
-                    BOMCostReviHeaderRec."Total Cost %" := "Total Cost %";
-                    BOMCostReviHeaderRec."Total Cost Dz." := "Total Cost Dz.";
-                    BOMCostReviHeaderRec."Total Cost Pcs" := "Total Cost Pcs";
-                    BOMCostReviHeaderRec."Total Cost Total" := "Total Cost Total";
-                    BOMCostReviHeaderRec."Wash Type" := "Wash Type";
-                    BOMCostReviHeaderRec."Wash Type Name" := "Wash Type Name";
-                    BOMCostReviHeaderRec."Washing (Dz.)" := "Washing (Dz.)";
+                    BOMCostReviHeaderRec."Risk factor %" := rec."Risk factor %";
+                    BOMCostReviHeaderRec."Risk factor Dz." := rec."Risk factor Dz.";
+                    BOMCostReviHeaderRec."Risk factor Pcs" := rec."Risk factor Pcs";
+                    BOMCostReviHeaderRec."Risk factor Total" := rec."Risk factor Total";
+                    BOMCostReviHeaderRec."Season Name" := rec."Season Name";
+                    BOMCostReviHeaderRec."Season No." := rec."Season No.";
+                    BOMCostReviHeaderRec.SMV := rec.SMV;
+                    BOMCostReviHeaderRec.Status := rec.Status;
+                    BOMCostReviHeaderRec."Stich Gmt" := rec."Stich Gmt";
+                    BOMCostReviHeaderRec."Stich Gmt Name" := rec."Stich Gmt Name";
+                    BOMCostReviHeaderRec."Store Name" := rec."Store Name";
+                    BOMCostReviHeaderRec."Store No." := rec."Store No.";
+                    BOMCostReviHeaderRec."Style Name" := rec."Style Name";
+                    BOMCostReviHeaderRec."Style No." := rec."Style No.";
+                    BOMCostReviHeaderRec."Sub Total (Dz.) Dz." := rec."Sub Total (Dz.) Dz.";
+                    BOMCostReviHeaderRec."Sub Total (Dz.) Pcs" := rec."Sub Total (Dz.) Pcs";
+                    BOMCostReviHeaderRec."Sub Total (Dz.) Total" := rec."Sub Total (Dz.) Total";
+                    BOMCostReviHeaderRec."Sub Total (Dz.)%" := rec."Sub Total (Dz.)%";
+                    BOMCostReviHeaderRec."TAX %" := rec."TAX %";
+                    BOMCostReviHeaderRec."TAX Dz." := rec."TAX Dz.";
+                    BOMCostReviHeaderRec."TAX Pcs" := rec."TAX Pcs";
+                    BOMCostReviHeaderRec."TAX Total" := rec."TAX Total";
+                    BOMCostReviHeaderRec."Total Cost %" := rec."Total Cost %";
+                    BOMCostReviHeaderRec."Total Cost Dz." := rec."Total Cost Dz.";
+                    BOMCostReviHeaderRec."Total Cost Pcs" := rec."Total Cost Pcs";
+                    BOMCostReviHeaderRec."Total Cost Total" := rec."Total Cost Total";
+                    BOMCostReviHeaderRec."Wash Type" := rec."Wash Type";
+                    BOMCostReviHeaderRec."Wash Type Name" := rec."Wash Type Name";
+                    BOMCostReviHeaderRec."Washing (Dz.)" := rec."Washing (Dz.)";
                     BOMCostReviHeaderRec.Insert();
 
                     //Write to line table
                     BOMCostLineRec.Reset();
-                    BOMCostLineRec.SetRange("No.", "No.");
+                    BOMCostLineRec.SetRange("No.", rec."No.");
 
                     if BOMCostLineRec.FindSet() then begin
                         repeat
                             BOMCostReviLineRec.Init();
-                            BOMCostReviLineRec."No." := "No.";
+                            BOMCostReviLineRec."No." := rec."No.";
                             BOMCostReviLineRec.Revision := Revision;
                             BOMCostReviLineRec."BOM No." := BOMCostLineRec."BOM No.";
                             BOMCostReviLineRec."Created User" := BOMCostLineRec."Created User";
@@ -1288,9 +1288,9 @@ page 71012769 "BOM Estimate Cost Card"
                 trigger OnAction()
                 var
                 begin
-                    Status := Status::Rejected;
-                    "Rejected Date" := WorkDate();
-                    "Approved Date" := 0D;
+                    rec.Status := rec.Status::Rejected;
+                    rec."Rejected Date" := WorkDate();
+                    rec."Approved Date" := 0D;
                     CurrPage.Update();
                     Message('BOM Costing Rejected');
                 end;
@@ -1304,8 +1304,8 @@ page 71012769 "BOM Estimate Cost Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."BOM Cost Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."BOM Cost Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -1319,14 +1319,14 @@ page 71012769 "BOM Estimate Cost Card"
 
         BOMEstCostLineRec.Reset();
         BOMEstCostLineRec.SetCurrentKey("No.", "BOM No.");
-        BOMEstCostLineRec.SetRange("No.", "No.");
-        BOMEstCostLineRec.SetRange("BOM No.", "BOM No.");
+        BOMEstCostLineRec.SetRange("No.", rec."No.");
+        BOMEstCostLineRec.SetRange("BOM No.", rec."BOM No.");
 
         IF (BOMEstCostLineRec.FINDSET) THEN begin
             repeat
 
                 RawMaterialCost += BOMEstCostLineRec."Doz Cost";
-                "Raw Material (Dz.)" := RawMaterialCost;
+                rec."Raw Material (Dz.)" := RawMaterialCost;
 
             until BOMEstCostLineRec.Next() = 0;
         end;
@@ -1343,12 +1343,12 @@ page 71012769 "BOM Estimate Cost Card"
         Value: Decimal;
     begin
 
-        BOMEstimateCostLineRec.SetRange("No.", "No.");
+        BOMEstimateCostLineRec.SetRange("No.", rec."No.");
         BOMEstimateCostLineRec.DeleteAll();
 
         BOMEstimateLineRec.reset;
         BOMEstimateLineRec.SetCurrentKey("Master Category No.");
-        BOMEstimateLineRec.SetRange("No.", "BOM No.");
+        BOMEstimateLineRec.SetRange("No.", rec."BOM No.");
         BOMEstimateLineRec.FindSet();
 
         repeat
@@ -1367,12 +1367,12 @@ page 71012769 "BOM Estimate Cost Card"
                 end
                 else begin
                     BOMEstimateCostLineRec.Init();
-                    BOMEstimateCostLineRec."No." := "No.";
+                    BOMEstimateCostLineRec."No." := rec."No.";
                     BOMEstimateCostLineRec."Master Category No." := "MasterCategoryNo.";
                     BOMEstimateCostLineRec."Master Category Name" := "MasterCategoryName.";
                     BOMEstimateCostLineRec."BOM No." := BOMEstimateLineRec."No.";
                     BOMEstimateCostLineRec.Value := Value;
-                    BOMEstimateCostLineRec."Doz Cost" := (Value / Quantity) * 12;
+                    BOMEstimateCostLineRec."Doz Cost" := (Value / rec.Quantity) * 12;
                     BOMEstimateCostLineRec.Insert();
                     Value := 0;
 
@@ -1386,12 +1386,12 @@ page 71012769 "BOM Estimate Cost Card"
         until BOMEstimateLineRec.Next() = 0;
 
         BOMEstimateCostLineRec.Init();
-        BOMEstimateCostLineRec."No." := "No.";
+        BOMEstimateCostLineRec."No." := rec."No.";
         BOMEstimateCostLineRec."Master Category No." := "MasterCategoryNo.";
         BOMEstimateCostLineRec."Master Category Name" := "MasterCategoryName.";
-        BOMEstimateCostLineRec."BOM No." := "BOM No.";
+        BOMEstimateCostLineRec."BOM No." := rec."BOM No.";
         BOMEstimateCostLineRec.Value := Value;
-        BOMEstimateCostLineRec."Doz Cost" := (Value / Quantity) * 12;
+        BOMEstimateCostLineRec."Doz Cost" := (Value / rec.Quantity) * 12;
         BOMEstimateCostLineRec.Insert();
 
     end;
@@ -1400,13 +1400,13 @@ page 71012769 "BOM Estimate Cost Card"
     var
 
     begin
-        "CM Doz" := ((smv + (100 - "Project Efficiency.") / 100 * SMV) * CPM + ((SMV + (100 - "Project Efficiency.") / 100 * SMV) * CPM) * EPM / 100) * 12;
-        "MFG Cost Dz." := "CM Doz";
-        "MFG Cost Pcs" := "MFG Cost Dz." / 12;
-        "MFG Cost Total" := "MFG Cost Pcs" * Quantity;
+        rec."CM Doz" := ((rec.smv + (100 - rec."Project Efficiency.") / 100 * rec.SMV) * rec.CPM + ((rec.SMV + (100 - rec."Project Efficiency.") / 100 * rec.SMV) * rec.CPM) * rec.EPM / 100) * 12;
+        rec."MFG Cost Dz." := rec."CM Doz";
+        rec."MFG Cost Pcs" := rec."MFG Cost Dz." / 12;
+        rec."MFG Cost Total" := rec."MFG Cost Pcs" * rec.Quantity;
 
-        if "FOB Pcs" <> 0 then
-            "MFG Cost %" := ("MFG Cost Pcs" * 100 / "FOB Pcs");
+        if rec."FOB Pcs" <> 0 then
+            rec."MFG Cost %" := (rec."MFG Cost Pcs" * 100 / rec."FOB Pcs");
 
         // "Commercial Pcs" := ("Commercial %" * "FOB Pcs") / 100;
         // "Commercial Dz." := "Commercial Pcs" * 12;
@@ -1417,10 +1417,10 @@ page 71012769 "BOM Estimate Cost Card"
     procedure CalTotalCost()
     var
     begin
-        "Total Cost Dz." := "Sub Total (Dz.) Dz." + "MFG Cost Dz." + "Overhead Dz." + "Commission Dz." + "Commercial Dz." + "Deferred Payment Dz." + "TAX Dz." + "ABA Sourcing Dz." + "Risk factor Dz.";
-        "Total Cost Pcs" := "Total Cost Dz." / 12;
-        "Total Cost Total" := "Total Cost Pcs" * Quantity;
-        "Total Cost %" := ("Total Cost Pcs" * 100) / "FOB Pcs";
+        rec."Total Cost Dz." := rec."Sub Total (Dz.) Dz." + rec."MFG Cost Dz." + rec."Overhead Dz." + rec."Commission Dz." + rec."Commercial Dz." + rec."Deferred Payment Dz." + rec."TAX Dz." + rec."ABA Sourcing Dz." + rec."Risk factor Dz.";
+        rec."Total Cost Pcs" := rec."Total Cost Dz." / 12;
+        rec."Total Cost Total" := rec."Total Cost Pcs" * rec.Quantity;
+        rec."Total Cost %" := (rec."Total Cost Pcs" * 100) / rec."FOB Pcs";
 
         CalProfitMargin();
     end;
@@ -1428,12 +1428,12 @@ page 71012769 "BOM Estimate Cost Card"
     procedure CalProfitMargin()
     var
     begin
-        "Profit Margin Pcs" := "FOB Pcs" - "Total Cost Pcs";
-        "Profit Margin Dz." := "Profit Margin Pcs" * 12;
-        "Profit Margin Total" := "Profit Margin Pcs" * Quantity;
-        "Profit Margin %" := ("Profit Margin Pcs" * 100) / "FOB Pcs";
+        rec."Profit Margin Pcs" := rec."FOB Pcs" - rec."Total Cost Pcs";
+        rec."Profit Margin Dz." := rec."Profit Margin Pcs" * 12;
+        rec."Profit Margin Total" := rec."Profit Margin Pcs" * rec.Quantity;
+        rec."Profit Margin %" := (rec."Profit Margin Pcs" * 100) / rec."FOB Pcs";
 
-        "Gross CM Less Commission" := "Gross CM With Commission Dz." - "Commission Dz." - "Deferred Payment Dz.";
+        rec."Gross CM Less Commission" := rec."Gross CM With Commission Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
     end;
 
 
@@ -1441,96 +1441,96 @@ page 71012769 "BOM Estimate Cost Card"
     var
     begin
 
-        if "FOB Pcs" <> 0 then begin
-            "FOB Dz." := "FOB Pcs" * 12;
-            "FOB %" := 100;
-            "FOB Total" := "FOB Pcs" * Quantity;
+        if rec."FOB Pcs" <> 0 then begin
+            rec."FOB Dz." := rec."FOB Pcs" * 12;
+            rec."FOB %" := 100;
+            rec."FOB Total" := rec."FOB Pcs" * rec.Quantity;
 
-            "Sub Total (Dz.)%" := ("Sub Total (Dz.) Pcs" * 100) / "FOB Pcs";
-            "Gross CM With Commission Dz." := "FOB Dz." - "Sub Total (Dz.) Dz." - "Commission Dz." - "Deferred Payment Dz.";
-            "Gross CM With Commission Pcs" := "Gross CM With Commission Dz." / 12;
-            "Gross CM With Commission %" := ("Gross CM With Commission Pcs" / "FOB Pcs") * 100;
-            "Gross CM With Commission Total" := "Gross CM With Commission Pcs" * Quantity;
+            rec."Sub Total (Dz.)%" := (rec."Sub Total (Dz.) Pcs" * 100) / rec."FOB Pcs";
+            rec."Gross CM With Commission Dz." := rec."FOB Dz." - rec."Sub Total (Dz.) Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
+            rec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Dz." / 12;
+            rec."Gross CM With Commission %" := (rec."Gross CM With Commission Pcs" / rec."FOB Pcs") * 100;
+            rec."Gross CM With Commission Total" := rec."Gross CM With Commission Pcs" * rec.Quantity;
 
-            "MFG Cost %" := ("MFG Cost Pcs" * 100 / "FOB Pcs");
+            rec."MFG Cost %" := (rec."MFG Cost Pcs" * 100 / rec."FOB Pcs");
 
-            "Overhead Pcs" := ("Overhead %" * "FOB Pcs") / 100;
-            "Overhead Dz." := "Overhead Pcs" * 12;
-            "Overhead Total" := "Overhead Pcs" * Quantity;
+            rec."Overhead Pcs" := (rec."Overhead %" * rec."FOB Pcs") / 100;
+            rec."Overhead Dz." := rec."Overhead Pcs" * 12;
+            rec."Overhead Total" := rec."Overhead Pcs" * rec.Quantity;
 
-            "Commission Pcs" := ("Commission %" * "FOB Pcs") / 100;
-            "Commission Dz." := "Commission Pcs" * 12;
-            "Commission Total" := "Commission Pcs" * Quantity;
+            rec."Commission Pcs" := (rec."Commission %" * rec."FOB Pcs") / 100;
+            rec."Commission Dz." := rec."Commission Pcs" * 12;
+            rec."Commission Total" := rec."Commission Pcs" * rec.Quantity;
 
-            "Commercial Pcs" := ("Commercial %" * "FOB Pcs") / 100;
-            "Commercial Dz." := "Commercial Pcs" * 12;
-            "Commercial Total" := "Commercial Pcs" * Quantity;
+            rec."Commercial Pcs" := (rec."Commercial %" * rec."FOB Pcs") / 100;
+            rec."Commercial Dz." := rec."Commercial Pcs" * 12;
+            rec."Commercial Total" := rec."Commercial Pcs" * rec.Quantity;
 
-            "Deferred Payment Pcs" := ("Deferred Payment %" * "FOB Pcs") / 100;
-            "Deferred Payment Dz." := "Deferred Payment Pcs" * 12;
-            "Deferred Payment Total" := "Deferred Payment Pcs" * Quantity;
+            rec."Deferred Payment Pcs" := (rec."Deferred Payment %" * rec."FOB Pcs") / 100;
+            rec."Deferred Payment Dz." := rec."Deferred Payment Pcs" * 12;
+            rec."Deferred Payment Total" := rec."Deferred Payment Pcs" * rec.Quantity;
 
-            "Risk factor Pcs" := ("Risk factor %" * "FOB Pcs") / 100;
-            "Risk factor Dz." := "Risk factor Pcs" * 12;
-            "Risk factor Total" := "Risk factor Pcs" * Quantity;
+            rec."Risk factor Pcs" := (rec."Risk factor %" * rec."FOB Pcs") / 100;
+            rec."Risk factor Dz." := rec."Risk factor Pcs" * 12;
+            rec."Risk factor Total" := rec."Risk factor Pcs" * rec.Quantity;
 
-            "TAX Pcs" := ("TAX %" * "FOB Pcs") / 100;
-            "TAX Dz." := "TAX Pcs" * 12;
-            "TAX Total" := "TAX Pcs" * Quantity;
+            rec."TAX Pcs" := (rec."TAX %" * rec."FOB Pcs") / 100;
+            rec."TAX Dz." := rec."TAX Pcs" * 12;
+            rec."TAX Total" := rec."TAX Pcs" * rec.Quantity;
 
-            "ABA Sourcing Pcs" := ("ABA Sourcing %" * "FOB Pcs") / 100;
-            "ABA Sourcing Dz." := "ABA Sourcing Pcs" * 12;
-            "ABA Sourcing Total" := "ABA Sourcing Pcs" * Quantity;
+            rec."ABA Sourcing Pcs" := (rec."ABA Sourcing %" * rec."FOB Pcs") / 100;
+            rec."ABA Sourcing Dz." := rec."ABA Sourcing Pcs" * 12;
+            rec."ABA Sourcing Total" := rec."ABA Sourcing Pcs" * rec.Quantity;
 
-            if "FOB Pcs" <> 0 then
-                "Total Cost %" := ("Total Cost Pcs" * 100 / "FOB Pcs");
+            if rec."FOB Pcs" <> 0 then
+                rec."Total Cost %" := (rec."Total Cost Pcs" * 100 / rec."FOB Pcs");
 
             CalTotalCost();
 
             //Running for the second time
-            "FOB Dz." := "FOB Pcs" * 12;
-            "FOB %" := 100;
-            "FOB Total" := "FOB Pcs" * Quantity;
+            rec."FOB Dz." := rec."FOB Pcs" * 12;
+            rec."FOB %" := 100;
+            rec."FOB Total" := rec."FOB Pcs" * rec.Quantity;
 
-            "Sub Total (Dz.)%" := ("Sub Total (Dz.) Pcs" * 100) / "FOB Pcs";
-            "Gross CM With Commission Dz." := "FOB Dz." - "Sub Total (Dz.) Dz." - "Commission Dz." - "Deferred Payment Dz.";
-            "Gross CM With Commission Pcs" := "Gross CM With Commission Dz." / 12;
-            "Gross CM With Commission %" := ("Gross CM With Commission Pcs" / "FOB Pcs") * 100;
-            "Gross CM With Commission Total" := "Gross CM With Commission Pcs" * Quantity;
+            rec."Sub Total (Dz.)%" := (rec."Sub Total (Dz.) Pcs" * 100) / rec."FOB Pcs";
+            rec."Gross CM With Commission Dz." := rec."FOB Dz." - rec."Sub Total (Dz.) Dz." - rec."Commission Dz." - rec."Deferred Payment Dz.";
+            rec."Gross CM With Commission Pcs" := rec."Gross CM With Commission Dz." / 12;
+            rec."Gross CM With Commission %" := (rec."Gross CM With Commission Pcs" / rec."FOB Pcs") * 100;
+            rec."Gross CM With Commission Total" := rec."Gross CM With Commission Pcs" * rec.Quantity;
 
-            "MFG Cost %" := ("MFG Cost Pcs" * 100 / "FOB Pcs");
+            rec."MFG Cost %" := (rec."MFG Cost Pcs" * 100 / rec."FOB Pcs");
 
-            "Overhead Pcs" := ("Overhead %" * "FOB Pcs") / 100;
-            "Overhead Dz." := "Overhead Pcs" * 12;
-            "Overhead Total" := "Overhead Pcs" * Quantity;
+            rec."Overhead Pcs" := (rec."Overhead %" * rec."FOB Pcs") / 100;
+            rec."Overhead Dz." := rec."Overhead Pcs" * 12;
+            rec."Overhead Total" := rec."Overhead Pcs" * rec.Quantity;
 
-            "Commission Pcs" := ("Commission %" * "FOB Pcs") / 100;
-            "Commission Dz." := "Commission Pcs" * 12;
-            "Commission Total" := "Commission Pcs" * Quantity;
+            rec."Commission Pcs" := (rec."Commission %" * rec."FOB Pcs") / 100;
+            rec."Commission Dz." := rec."Commission Pcs" * 12;
+            rec."Commission Total" := rec."Commission Pcs" * rec.Quantity;
 
-            "Commercial Pcs" := ("Commercial %" * "FOB Pcs") / 100;
-            "Commercial Dz." := "Commercial Pcs" * 12;
-            "Commercial Total" := "Commercial Pcs" * Quantity;
+            rec."Commercial Pcs" := (rec."Commercial %" * rec."FOB Pcs") / 100;
+            rec."Commercial Dz." := rec."Commercial Pcs" * 12;
+            rec."Commercial Total" := rec."Commercial Pcs" * rec.Quantity;
 
-            "Deferred Payment Pcs" := ("Deferred Payment %" * "FOB Pcs") / 100;
-            "Deferred Payment Dz." := "Deferred Payment Pcs" * 12;
-            "Deferred Payment Total" := "Deferred Payment Pcs" * Quantity;
+            rec."Deferred Payment Pcs" := (rec."Deferred Payment %" * rec."FOB Pcs") / 100;
+            rec."Deferred Payment Dz." := rec."Deferred Payment Pcs" * 12;
+            rec."Deferred Payment Total" := rec."Deferred Payment Pcs" * rec.Quantity;
 
-            "Risk factor Pcs" := ("Risk factor %" * "FOB Pcs") / 100;
-            "Risk factor Dz." := "Risk factor Pcs" * 12;
-            "Risk factor Total" := "Risk factor Pcs" * Quantity;
+            rec."Risk factor Pcs" := (rec."Risk factor %" * rec."FOB Pcs") / 100;
+            rec."Risk factor Dz." := rec."Risk factor Pcs" * 12;
+            rec."Risk factor Total" := rec."Risk factor Pcs" * rec.Quantity;
 
-            "TAX Pcs" := ("TAX %" * "FOB Pcs") / 100;
-            "TAX Dz." := "TAX Pcs" * 12;
-            "TAX Total" := "TAX Pcs" * Quantity;
+            rec."TAX Pcs" := (rec."TAX %" * rec."FOB Pcs") / 100;
+            rec."TAX Dz." := rec."TAX Pcs" * 12;
+            rec."TAX Total" := rec."TAX Pcs" * rec.Quantity;
 
-            "ABA Sourcing Pcs" := ("ABA Sourcing %" * "FOB Pcs") / 100;
-            "ABA Sourcing Dz." := "ABA Sourcing Pcs" * 12;
-            "ABA Sourcing Total" := "ABA Sourcing Pcs" * Quantity;
+            rec."ABA Sourcing Pcs" := (rec."ABA Sourcing %" * rec."FOB Pcs") / 100;
+            rec."ABA Sourcing Dz." := rec."ABA Sourcing Pcs" * 12;
+            rec."ABA Sourcing Total" := rec."ABA Sourcing Pcs" * rec.Quantity;
 
 
-            if "FOB Pcs" <> 0 then
-                "Total Cost %" := ("Total Cost Pcs" * 100 / "FOB Pcs");
+            if rec."FOB Pcs" <> 0 then
+                rec."Total Cost %" := (rec."Total Cost Pcs" * 100 / rec."FOB Pcs");
 
             CalTotalCost();
 
@@ -1544,10 +1544,10 @@ page 71012769 "BOM Estimate Cost Card"
         BOMEstimateCostRec: Record "BOM Estimate Cost";
         BOMEstCostLineRec: Record "BOM Estimate Costing Line";
     begin
-        BOMEstimateCostRec.SetRange("No.", "No.");
+        BOMEstimateCostRec.SetRange("No.", rec."No.");
         BOMEstimateCostRec.DeleteAll();
 
-        BOMEstCostLineRec.SetRange("No.", "No.");
+        BOMEstCostLineRec.SetRange("No.", rec."No.");
         BOMEstCostLineRec.DeleteAll();
     end;
 
@@ -1557,12 +1557,12 @@ page 71012769 "BOM Estimate Cost Card"
         NavAppSetup: Record "NavApp Setup";
     begin
         NavAppSetup.Get('0001');
-        "Risk factor %" := NavAppSetup."Risk Factor";
-        "TAX %" := NavAppSetup.TAX;
-        "ABA Sourcing %" := NavAppSetup."ABA Sourcing";
+        rec."Risk factor %" := NavAppSetup."Risk Factor";
+        rec."TAX %" := NavAppSetup.TAX;
+        rec."ABA Sourcing %" := NavAppSetup."ABA Sourcing";
 
-        if "FOB Pcs" = 0 then
-            "FOB Pcs" := 1;
+        if rec."FOB Pcs" = 0 then
+            rec."FOB Pcs" := 1;
 
         CurrPage.Update();
     end;

@@ -28,6 +28,13 @@ tableextension 71012615 "Location Extension" extends Location
             DataClassification = ToBeClassified;
         }
 
+        field(50100; "Transfer-from Location"; Code[20])
+        {
+            Caption = 'Transfer-from Location';
+            DataClassification = ToBeClassified;
+            TableRelation = Location;
+        }
+
     }
 
     trigger OnBeforeDelete()

@@ -12,17 +12,17 @@ page 50847 MerchandizingGroupCard
         {
             group(General)
             {
-                field("Group Id"; "Group Id")
+                field("Group Id"; rec."Group Id")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Group Name"; "Group Name")
+                field("Group Name"; rec."Group Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Group Head"; "Group Head")
+                field("Group Head"; rec."Group Head")
                 {
                     ApplicationArea = All;
                 }
