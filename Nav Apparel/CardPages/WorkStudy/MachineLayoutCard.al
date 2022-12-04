@@ -10,7 +10,7 @@ page 50481 "Machine Layout Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Layout No';
@@ -22,7 +22,7 @@ page 50481 "Machine Layout Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -44,13 +44,13 @@ page 50481 "Machine Layout Card"
 
                         //Delete old records
                         MachineLayoutLineRec.Reset();
-                        MachineLayoutLineRec.SetRange("No.", "No.");
+                        MachineLayoutLineRec.SetRange("No.", rec."No.");
                         MachineLayoutLineRec.DeleteAll();
 
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                         //Load Line Items
                         ManLevelRec.Reset();
@@ -68,7 +68,7 @@ page 50481 "Machine Layout Card"
                                 //Get max line no
                                 LineNo := 0;
                                 MachineLayoutLineRec.Reset();
-                                MachineLayoutLineRec.SetRange("No.", "No.");
+                                MachineLayoutLineRec.SetRange("No.", rec."No.");
 
                                 if MachineLayoutLineRec.FindLast() then
                                     LineNo := MachineLayoutLineRec."Line No.";
@@ -79,7 +79,7 @@ page 50481 "Machine Layout Card"
 
                                         LineNo += 1;
                                         MachineLayoutLineRec.Init();
-                                        MachineLayoutLineRec."No." := "No.";
+                                        MachineLayoutLineRec."No." := rec."No.";
                                         MachineLayoutLineRec."Line No." := LineNo;
                                         MachineLayoutLineRec.Code := ManLevelLineRec.Code;
                                         MachineLayoutLineRec.Description := ManLevelLineRec.Description;
@@ -116,7 +116,7 @@ page 50481 "Machine Layout Card"
 
                                             LineNo += 1;
                                             MachineLayoutLineRec.Init();
-                                            MachineLayoutLineRec."No." := "No.";
+                                            MachineLayoutLineRec."No." := rec."No.";
                                             MachineLayoutLineRec."Line No." := LineNo;
                                             MachineLayoutLineRec.Code := ManLevelLineRec.Code;
                                             MachineLayoutLineRec.Description := ManLevelLineRec.Description;
@@ -149,7 +149,7 @@ page 50481 "Machine Layout Card"
                                             //Balance Minutes
                                             LineNo += 1;
                                             MachineLayoutLineRec.Init();
-                                            MachineLayoutLineRec."No." := "No.";
+                                            MachineLayoutLineRec."No." := rec."No.";
                                             MachineLayoutLineRec."Line No." := LineNo;
                                             MachineLayoutLineRec.Code := ManLevelLineRec.Code;
                                             MachineLayoutLineRec.Description := ManLevelLineRec.Description;
@@ -181,17 +181,17 @@ page 50481 "Machine Layout Card"
 
                                 until ManLevelLineRec.Next = 0;
 
-                                "Expected Target" := ManLevelRec."Expected Target";
-                                "Expected Eff" := ManLevelRec.Eff;
-                                "Garment Type" := StyleMasterRec."Garment Type Name";
-                                "Garment Type No." := StyleMasterRec."Garment Type No.";
+                                rec."Expected Target" := ManLevelRec."Expected Target";
+                                rec."Expected Eff" := ManLevelRec.Eff;
+                                rec."Garment Type" := StyleMasterRec."Garment Type Name";
+                                rec."Garment Type No." := StyleMasterRec."Garment Type No.";
 
                             end;
                         end;
                     end;
                 }
 
-                field("Work Center Name"; "Work Center Name")
+                field("Work Center Name"; rec."Work Center Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Line';
@@ -202,29 +202,29 @@ page 50481 "Machine Layout Card"
                         WorkCenterRec: Record "Work Center";
                     begin
                         WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, "Work Center Name");
+                        WorkCenterRec.SetRange(Name, rec."Work Center Name");
                         IF WorkCenterRec.FindSet() THEN
-                            "Line No." := WorkCenterRec."No.";
+                            rec."Line No." := WorkCenterRec."No.";
                     end;
                 }
-                field("Expected Eff"; "Expected Eff")
+                field("Expected Eff"; rec."Expected Eff")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Expected Target"; "Expected Target")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
-
-                field("Garment Type"; "Garment Type")
+                field("Expected Target"; rec."Expected Target")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("No of Workstation"; "No of Workstation")
+                field("Garment Type"; rec."Garment Type")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("No of Workstation"; rec."No of Workstation")
                 {
                     ApplicationArea = All;
 
@@ -236,14 +236,14 @@ page 50481 "Machine Layout Card"
                         PKey: BigInteger;
                     begin
 
-                        if "No of Workstation" <> 0 then begin
+                        if rec."No of Workstation" <> 0 then begin
 
                             MachineLayoutRec.Reset();
-                            MachineLayoutRec.SetRange("No.", "No.");
+                            MachineLayoutRec.SetRange("No.", rec."No.");
 
                             if not MachineLayoutRec.FindSet() then begin
 
-                                for count := 1 to "No of Workstation" DIV 2 do begin
+                                for count := 1 to rec."No of Workstation" DIV 2 do begin
 
                                     for count1 := 1 to 3 do begin
                                         //Type 1 
@@ -251,7 +251,7 @@ page 50481 "Machine Layout Card"
                                         MachineLayoutRec.Init();
                                         MachineLayoutRec.PKey := PKey;
                                         MachineLayoutRec.Type := 1;
-                                        MachineLayoutRec."No." := "No.";
+                                        MachineLayoutRec."No." := rec."No.";
                                         MachineLayoutRec."WP No." := count;
                                         MachineLayoutRec.Insert();
                                     end;
@@ -264,7 +264,7 @@ page 50481 "Machine Layout Card"
                                         MachineLayoutRec.Init();
                                         MachineLayoutRec.PKey := PKey;
                                         MachineLayoutRec.Type := 2;
-                                        MachineLayoutRec."No." := "No.";
+                                        MachineLayoutRec."No." := rec."No.";
                                         MachineLayoutRec."WP No." := count;
                                         MachineLayoutRec.Insert();
                                     end;
@@ -318,8 +318,8 @@ page 50481 "Machine Layout Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Layout Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."Layout Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             CurrPage.Update();
             EXIT(TRUE);
         END;
@@ -333,11 +333,11 @@ page 50481 "Machine Layout Card"
     begin
 
         MachineLayoutineRec.Reset();
-        MachineLayoutineRec.SetRange("No.", "No.");
+        MachineLayoutineRec.SetRange("No.", rec."No.");
         MachineLayoutineRec.DeleteAll();
 
         MachineLayout1Rec.Reset();
-        MachineLayout1Rec.SetRange("No.", "No.");
+        MachineLayout1Rec.SetRange("No.", rec."No.");
         MachineLayout1Rec.DeleteAll();
 
     end;

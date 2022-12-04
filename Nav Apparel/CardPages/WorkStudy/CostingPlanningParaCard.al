@@ -10,7 +10,7 @@ page 50780 "Costing Planning Para Card"
         {
             group(General)
             {
-                field(No; No)
+                field(No; rec.No)
                 {
                     ShowMandatory = true;
                     ApplicationArea = All;
@@ -81,7 +81,7 @@ page 50780 "Costing Planning Para Card"
         CostPlannParaHeadRec: Record CostingPlanningParaHeader;
     begin
         CostPlannParaHeadRec.Reset();
-        CostPlannParaHeadRec.SetFilter("No", '<>%1', "No");
+        CostPlannParaHeadRec.SetFilter("No", '<>%1', rec."No");
         if CostPlannParaHeadRec.FindSet() then
             exit(CostPlannParaHeadRec.Count)
         else

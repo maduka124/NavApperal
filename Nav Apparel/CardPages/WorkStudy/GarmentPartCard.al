@@ -10,19 +10,19 @@ page 50444 "Garment Part Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Part No';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("Item Type Name"; "Item Type Name")
+                field("Item Type Name"; rec."Item Type Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -33,14 +33,14 @@ page 50444 "Garment Part Card"
                         ItemRec: Record "Item Type";
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange("Item Type Name", "Item Type Name");
+                        ItemRec.SetRange("Item Type Name", rec."Item Type Name");
                         if ItemRec.FindSet() then
-                            "Item Type No." := ItemRec."No.";
+                            rec."Item Type No." := ItemRec."No.";
                     end;
 
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -51,9 +51,9 @@ page 50444 "Garment Part Card"
                         DepartmentRec: Record "Department";
                     begin
                         DepartmentRec.Reset();
-                        DepartmentRec.SetRange("Department Name", "Department Name");
+                        DepartmentRec.SetRange("Department Name", rec."Department Name");
                         if DepartmentRec.FindSet() then
-                            "Department No" := DepartmentRec."No.";
+                            rec."Department No" := DepartmentRec."No.";
                     end;
                 }
             }

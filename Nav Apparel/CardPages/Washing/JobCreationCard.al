@@ -11,96 +11,96 @@ page 50721 "Job Creation Card"
         {
             group(Request)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Req. No';
                     Enabled = false;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                     Enabled = false;
                 }
 
-                field(Buyer; Buyer)
+                field(Buyer; rec.Buyer)
                 {
                     ApplicationArea = All;
                     Enabled = false;
                 }
 
-                field("Buyer No"; "Buyer No")
+                field("Buyer No"; rec."Buyer No")
                 {
                     ApplicationArea = All;
                     Visible = false;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                     Enabled = false;
                 }
 
-                field("Color Name"; "Color Name")
+                field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
                     Enabled = false;
                 }
 
-                field("Req Qty BW QC Pass"; "Req Qty BW QC Pass")
+                field("Req Qty BW QC Pass"; rec."Req Qty BW QC Pass")
                 {
                     ApplicationArea = All;
                     Enabled = false;
                     Caption = 'Req. Qty (BW QC Pass)';
                 }
 
-                field("Gament Type"; "Gament Type")
+                field("Gament Type"; rec."Gament Type")
                 {
                     ApplicationArea = All;
                     Enabled = false;
                 }
 
-                field(SampleType; SampleType)
+                field(SampleType; rec.SampleType)
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Type';
                     Enabled = false;
                 }
 
-                field("Wash Type"; "Wash Type")
+                field("Wash Type"; rec."Wash Type")
                 {
                     ApplicationArea = All;
                     Enabled = false;
                 }
 
-                field(Size; Size)
+                field(Size; rec.Size)
                 {
                     ApplicationArea = All;
                     Enabled = false;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                     Enabled = false;
                 }
 
-                field("BW QC Date"; "BW QC Date")
+                field("BW QC Date"; rec."BW QC Date")
                 {
                     ApplicationArea = All;
                     Enabled = false;
                 }
 
-                field("Split Status"; "Split Status")
+                field("Split Status"; rec."Split Status")
                 {
                     ApplicationArea = All;
                     Enabled = false;
                 }
 
-                field(RemarkLine; RemarkLine)
+                field(RemarkLine; rec.RemarkLine)
                 {
                     ApplicationArea = All;
                     Caption = 'Remarks';
@@ -118,7 +118,7 @@ page 50721 "Job Creation Card"
                 }
             }
 
-            field("Total Split Qty"; "Total Split Qty")
+            field("Total Split Qty"; rec."Total Split Qty")
             {
                 ApplicationArea = All;
             }
@@ -147,13 +147,13 @@ page 50721 "Job Creation Card"
                     CodeUnitNavApp: Codeunit NavAppCodeUnit;
                 begin
 
-                    if "Split Status" = "Split Status"::Yes then
+                    if rec."Split Status" = rec."Split Status"::Yes then
                         Error('This job creation already posted.');
 
                     Quantity := 0;
                     JobcreationRec.Reset();
-                    JobcreationRec.SetRange(No, "No.");
-                    JobcreationRec.SetRange("Line No", "Line no.");
+                    JobcreationRec.SetRange(No, rec."No.");
+                    JobcreationRec.SetRange("Line No", rec."Line no.");
 
                     if JobcreationRec.FindSet() then begin
 
@@ -164,8 +164,8 @@ page 50721 "Job Creation Card"
                         if Quantity <> JobcreationRec."Order Qty" then
                             error('Total split quantity must Be equal to requested quantity.');
 
-                        if "Split Status" = "Split Status"::No then begin
-                            "Split Status" := "Split Status"::Yes;
+                        if rec."Split Status" = rec."Split Status"::No then begin
+                            rec."Split Status" := rec."Split Status"::Yes;
 
                             //Create Sample Items
                             Generate_Sample_Items();
@@ -174,12 +174,12 @@ page 50721 "Job Creation Card"
                             Generate_SO();
 
                             //Create Purchase Order (For GRN of received items)
-                            Generate_PO("Style No.", "Style Name");
+                            Generate_PO(rec."Style No.", rec."Style Name");
 
                             //Create Prod orders                       
                             SalesHeaderRec.Reset();
                             SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
-                            SalesHeaderRec.SetRange("Style No", "Style No.");
+                            SalesHeaderRec.SetRange("Style No", rec."Style No.");
                             SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::Washing);
 
                             if SalesHeaderRec.FindSet() then begin
@@ -190,15 +190,15 @@ page 50721 "Job Creation Card"
 
                                     //get split no of the So
                                     inTermeDiateTable.Reset();
-                                    inTermeDiateTable.SetRange(No, "No.");
-                                    inTermeDiateTable.SetRange("Line No", "Line no.");
+                                    inTermeDiateTable.SetRange(No, rec."No.");
+                                    inTermeDiateTable.SetRange("Line No", rec."Line no.");
                                     inTermeDiateTable.SetRange("SO No", SalesHeaderRec."No.");
 
                                     if inTermeDiateTable.FindSet() then begin
 
                                         JobcreationRec.Reset();
-                                        JobcreationRec.SetRange(No, "No.");
-                                        JobcreationRec.SetRange("Line No", "Line no.");
+                                        JobcreationRec.SetRange(No, rec."No.");
+                                        JobcreationRec.SetRange("Line No", rec."Line no.");
                                         JobcreationRec.SetRange("Split No", inTermeDiateTable."Split No");
 
                                         if JobcreationRec.FindSet() then begin
@@ -233,19 +233,19 @@ page 50721 "Job Creation Card"
         itemNo: Code[20];
     begin
         IntermediateTableRec.Reset();
-        IntermediateTableRec.SetRange(No, "No.");
-        IntermediateTableRec.SetRange("Line No", "Line no.");
+        IntermediateTableRec.SetRange(No, rec."No.");
+        IntermediateTableRec.SetRange("Line No", rec."Line no.");
 
         if IntermediateTableRec.FindSet() then begin
             repeat
-                Description := 'Sample_Item' + '/' + "Style Name" + '/' + "Color Name" + '/' + Size + '/' + IntermediateTableRec."Wash Type";
-                itemNo := CreateItem(Description, "Color Code", "Unite Price");
+                Description := 'Sample_Item' + '/' + rec."Style Name" + '/' + rec."Color Name" + '/' + rec.Size + '/' + IntermediateTableRec."Wash Type";
+                itemNo := CreateItem(Description, rec."Color Code", rec."Unite Price");
                 IntermediateTableRec."FG No" := itemNo;
                 IntermediateTableRec."FG Item Name" := Description;
 
                 IntermediateTableRec.Modify();
             until IntermediateTableRec.Next() = 0;
-            "FG Status" := "FG Status"::Yes;
+            rec."FG Status" := rec."FG Status"::Yes;
         end;
     end;
 
@@ -323,16 +323,16 @@ page 50721 "Job Creation Card"
     begin
 
         StyleMasterPo.Reset();
-        StyleMasterPo.SetRange("Style No.", "Style No.");
-        StyleMasterPo.SetRange("PO No.", "Style_PO No");
+        StyleMasterPo.SetRange("Style No.", rec."Style No.");
+        StyleMasterPo.SetRange("PO No.", rec."Style_PO No");
 
         if StyleMasterPo.FindSet() then
             LotNo := StyleMasterPo."Lot No.";
 
 
         IntermediateTableRec.Reset();
-        IntermediateTableRec.SetRange(No, "No.");
-        IntermediateTableRec.SetRange("Line No", "Line no.");
+        IntermediateTableRec.SetRange(No, rec."No.");
+        IntermediateTableRec.SetRange("Line No", rec."Line no.");
 
         if IntermediateTableRec.FindSet() then begin
             //HeaderRenaretor := 0;
@@ -348,19 +348,19 @@ page 50721 "Job Creation Card"
                 SalesHeaderRec.Init();
                 SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
                 SalesHeaderRec."No." := "SO No";
-                SalesHeaderRec.Validate("Sell-to Customer No.", "Buyer No");
+                SalesHeaderRec.Validate("Sell-to Customer No.", rec."Buyer No");
                 SalesHeaderRec."Document Date" := WorkDate();
                 SalesHeaderRec."Posting Date" := WorkDate();
                 SalesHeaderRec."Order Date" := WorkDate();
                 SalesHeaderRec."Shipping No. Series" := 'S-SHPT';
                 SalesHeaderRec."Posting No. Series" := 'S-INV+';
-                SalesHeaderRec."Style No" := "Style No.";
-                SalesHeaderRec."Style Name" := "Style Name";
-                SalesHeaderRec."PO No" := "Style_PO No";
+                SalesHeaderRec."Style No" := rec."Style No.";
+                SalesHeaderRec."Style Name" := rec."Style Name";
+                SalesHeaderRec."PO No" := rec."Style_PO No";
                 SalesHeaderRec.Lot := LotNo;
                 SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::Washing;
                 SalesHeaderRec.Status := SalesHeaderRec.Status::Open;
-                SalesHeaderRec."Requested Delivery Date" := "Req Date";
+                SalesHeaderRec."Requested Delivery Date" := rec."Req Date";
                 SalesHeaderRec.INSERT();
                 //HeaderRenaretor := 1;
                 //end;
@@ -387,7 +387,7 @@ page 50721 "Job Creation Card"
             until IntermediateTableRec.Next() = 0;
 
             //update SO status in request line
-            "SO Satatus" := "SO Satatus"::Yes;
+            rec."SO Satatus" := rec."SO Satatus"::Yes;
         end;
     end;
 
@@ -407,8 +407,8 @@ page 50721 "Job Creation Card"
     begin
 
         IntermediateTableRec.Reset();
-        IntermediateTableRec.SetRange(No, "No.");
-        IntermediateTableRec.SetRange("Line No", "Line no.");
+        IntermediateTableRec.SetRange(No, rec."No.");
+        IntermediateTableRec.SetRange("Line No", rec."Line no.");
 
         if IntermediateTableRec.FindSet() then begin
             HeaderGenerated := 0;
@@ -428,9 +428,9 @@ page 50721 "Job Creation Card"
                         PurchaseHeader.Validate("Buy-from Vendor No.");
                         //PurchaseHeader.Validate("Buy-from Address", PurchaseHeader."Buy-from Address");
                         //PurchaseHeader."Buy-from Vendor Name" := 'CoolWood Technologies';
-                        PurchaseHeader."Order Date" := "Req Date";
+                        PurchaseHeader."Order Date" := rec."Req Date";
                         PurchaseHeader."Document Type" := PurchaseHeader."Document Type"::Order;
-                        PurchaseHeader."Document Date" := "Req Date";
+                        PurchaseHeader."Document Date" := rec."Req Date";
                         PurchaseHeader."Posting Date" := WorkDate();
                         PurchaseHeader.receive := true;
                         HeaderGenerated := 1;
@@ -451,7 +451,7 @@ page 50721 "Job Creation Card"
                     PurchaseLine."Buy-from Vendor No." := NavAppSetupRec."Wash PO Vendor";
                     PurchaseLine.Validate("Buy-from Vendor No.");
                     PurchaseLine.Validate(Quantity, IntermediateTableRec."Split Qty");
-                    purchaseline.Validate("Location Code", "Location Code");
+                    purchaseline.Validate("Location Code", rec."Location Code");
                     // PurchaseLine."Quantity Received" := "Req Qty BW QC Pass";
                     // PurchaseLine."Qty. to Invoice" := "Req Qty BW QC Pass";
                     PurchaseLine.Insert();
@@ -471,7 +471,7 @@ page 50721 "Job Creation Card"
                 PurchPostCodeunit.Run(PurchaseHeader);
             end;
 
-            "PO Satatus" := "PO Satatus"::Yes;
+            rec."PO Satatus" := rec."PO Satatus"::Yes;
         end;
     end;
 
@@ -481,24 +481,24 @@ page 50721 "Job Creation Card"
         JobcreationRec: Record JobCreationLine;
         Inter1Rec: Record IntermediateTable;
     begin
-        if "Split Status" = "Split Status"::Yes then
+        if rec."Split Status" = rec."Split Status"::Yes then
             Error('This job creation already posted. Cannot delete.');
 
         JobcreationRec.Reset();
-        JobcreationRec.SetRange(No, "No.");
-        JobcreationRec.SetRange("Line No", "Line no.");
+        JobcreationRec.SetRange(No, rec."No.");
+        JobcreationRec.SetRange("Line No", rec."Line no.");
 
         if JobcreationRec.FindSet() then
             JobcreationRec.DeleteAll();
 
         if JobcreationRec.FindSet() then begin
             JobcreationRec.Delete();
-            "Total Split Qty" := "Total Split Qty" - JobcreationRec.QTY;
+            rec."Total Split Qty" := rec."Total Split Qty" - JobcreationRec.QTY;
         end;
 
         Inter1Rec.Reset();
-        Inter1Rec.SetRange(No, "No.");
-        Inter1Rec.SetRange("Line No", "Line no.");
+        Inter1Rec.SetRange(No, rec."No.");
+        Inter1Rec.SetRange("Line No", rec."Line no.");
 
         if Inter1Rec.FindSet() then
             Inter1Rec.DeleteAll();
@@ -509,8 +509,8 @@ page 50721 "Job Creation Card"
         jobcreationLine: Record JobCreationLine;
     begin
         jobcreationLine.Reset();
-        jobcreationLine.SetRange(No, "No.");
-        jobcreationLine.SetRange("Line No", "Line no.");
+        jobcreationLine.SetRange(No, rec."No.");
+        jobcreationLine.SetRange("Line No", rec."Line no.");
 
         if jobcreationLine.FindSet() then
             repeat

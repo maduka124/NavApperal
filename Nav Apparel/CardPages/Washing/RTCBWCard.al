@@ -12,7 +12,7 @@ page 50679 RTCBWCard
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     Caption = 'Document No';
                     ApplicationArea = All;
@@ -25,7 +25,7 @@ page 50679 RTCBWCard
                     end;
                 }
 
-                field("Req No"; "Req No")
+                field("Req No"; rec."Req No")
                 {
                     ApplicationArea = All;
 
@@ -34,37 +34,37 @@ page 50679 RTCBWCard
                         SampleReqLine: Record "Washing Sample Requsition Line";
                     begin
                         SampleReqLine.Reset();
-                        SampleReqLine.SetRange("No.", "Req No");
+                        SampleReqLine.SetRange("No.", rec."Req No");
 
                         if SampleReqLine.FindSet() then begin
 
                             if SampleReqLine."Req Qty BW QC Fail" = 0 then
                                 Error('Before wash quality checking has not been performed for this request.');
 
-                            "Req Line" := SampleReqLine."Line no.";
-                            "CusTomer Code" := SampleReqLine."Buyer No";
-                            "CusTomer Name" := SampleReqLine."Buyer";
-                            "Req Date" := SampleReqLine."Req Date";
+                            rec."Req Line" := SampleReqLine."Line no.";
+                            rec."CusTomer Code" := SampleReqLine."Buyer No";
+                            rec."CusTomer Name" := SampleReqLine."Buyer";
+                            rec."Req Date" := SampleReqLine."Req Date";
                         end;
 
                         CurrPage.Update();
                     end;
                 }
 
-                field("CusTomer Name"; "CusTomer Name")
+                field("CusTomer Name"; rec."CusTomer Name")
                 {
                     Caption = 'Customer';
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Gate Pass"; "Gate Pass")
+                field("Gate Pass"; rec."Gate Pass")
                 {
                     Caption = 'Gate Pass';
                     ApplicationArea = All;
@@ -100,7 +100,7 @@ page 50679 RTCBWCard
                     QtyRet: Integer;
                 begin
                     Samplereqline.Reset();
-                    Samplereqline.SetRange("No.", "Req No");
+                    Samplereqline.SetRange("No.", rec."Req No");
 
                     if Samplereqline.FindSet() then begin
 
@@ -108,7 +108,7 @@ page 50679 RTCBWCard
                         QtyRet := Samplereqline."Return Qty (BW)";
 
                         ReturnTocustomerLine.Reset();
-                        ReturnTocustomerLine.SetRange("No.", "No.");
+                        ReturnTocustomerLine.SetRange("No.", rec."No.");
 
                         if ReturnTocustomerLine.FindSet() then begin
                             if QtyFail < (QtyRet + ReturnTocustomerLine.Qty) then
@@ -134,8 +134,8 @@ page 50679 RTCBWCard
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."TRCBW No", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."TRCBW No", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -147,14 +147,14 @@ page 50679 RTCBWCard
         Samplereqline: Record "Washing Sample Requsition Line";
     begin
         Samplereqline.Reset();
-        Samplereqline.SetRange("No.", "Req No");
+        Samplereqline.SetRange("No.", rec."Req No");
 
         if Samplereqline.FindSet() then
             if Samplereqline."Return Qty (BW)" > 0 then
                 Error('Returned quantity updated. Cannot delete.');
 
         RTCBWLineRec.Reset();
-        RTCBWLineRec.SetRange("No.", "No.");
+        RTCBWLineRec.SetRange("No.", rec."No.");
         if RTCBWLineRec.FindSet() then
             RTCBWLineRec.DeleteAll();
     end;

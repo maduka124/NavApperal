@@ -10,13 +10,13 @@ page 50447 "Machine Category Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Machine Category No';
                 }
 
-                field("Machine Category"; "Machine Category")
+                field("Machine Category"; rec."Machine Category")
                 {
                     ApplicationArea = All;
                 }

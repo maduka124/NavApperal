@@ -10,7 +10,7 @@ page 50776 "Factory CPM Card"
         {
             group(General)
             {
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ShowMandatory = true;
                     ApplicationArea = All;
@@ -23,9 +23,9 @@ page 50776 "Factory CPM Card"
                         LineNo: Integer;
                     begin
                         Locationrec.Reset();
-                        Locationrec.SetRange(Name, "Factory Name");
+                        Locationrec.SetRange(Name, rec."Factory Name");
                         if Locationrec.FindSet() then
-                            "Factory Code" := Locationrec.Code;
+                            rec."Factory Code" := Locationrec.Code;
 
                         //Get Max line no
                         FacCPMRec.Reset();
@@ -34,12 +34,12 @@ page 50776 "Factory CPM Card"
                         if FacCPMRec.FindLast() then
                             LineNo := FacCPMRec."Line No";
 
-                        "Line No" := LineNo + 1;
+                        rec."Line No" := LineNo + 1;
                         CurrPage.Update();
                     end;
                 }
 
-                field(CPM; CPM)
+                field(CPM; rec.CPM)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -51,10 +51,10 @@ page 50776 "Factory CPM Card"
     trigger OnClosePage()
     var
     begin
-        if ("Factory Name" <> '') and (CPM = 0) then
+        if (rec."Factory Name" <> '') and (rec.CPM = 0) then
             Error('CPM is blank.');
 
-        if ("Factory Name" = '') and (CPM > 0) then
+        if (rec."Factory Name" = '') and (rec.CPM > 0) then
             Error('Factory is blank.');
     end;
 }

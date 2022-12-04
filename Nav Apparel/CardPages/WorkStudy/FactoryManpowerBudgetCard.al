@@ -10,7 +10,7 @@ page 50815 "Factory Manpower Budget Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
 
@@ -21,7 +21,7 @@ page 50815 "Factory Manpower Budget Card"
                     end;
                 }
 
-                field(Date; Date)
+                field(Date; rec.Date)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -35,12 +35,12 @@ page 50815 "Factory Manpower Budget Card"
                         userRec.SetRange("User ID", UserId);
 
                         if userRec.FindSet() then begin
-                            "Factory Code" := userRec."Factory Code";
+                            rec."Factory Code" := userRec."Factory Code";
 
                             Locationrec.Reset();
-                            Locationrec.SetRange(code, "Factory Code");
+                            Locationrec.SetRange(code, rec."Factory Code");
                             if Locationrec.FindSet() then
-                                "Factory Name" := Locationrec.Name
+                                rec."Factory Name" := Locationrec.Name
                             else
                                 Error('Cannot find factory details');
 
@@ -52,7 +52,7 @@ page 50815 "Factory Manpower Budget Card"
                     end;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ShowMandatory = true;
                     ApplicationArea = All;
@@ -64,9 +64,9 @@ page 50815 "Factory Manpower Budget Card"
                         Locationrec: Record Location;
                     begin
                         Locationrec.Reset();
-                        Locationrec.SetRange(Name, "Factory Name");
+                        Locationrec.SetRange(Name, rec."Factory Name");
                         if Locationrec.FindSet() then
-                            "Factory Code" := Locationrec.Code;
+                            rec."Factory Code" := Locationrec.Code;
 
                         GenerateLines();
                     end;
@@ -91,8 +91,8 @@ page 50815 "Factory Manpower Budget Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."ManBudget Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."ManBudget Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -115,25 +115,25 @@ page 50815 "Factory Manpower Budget Card"
         GrandTotal2: BigInteger;
     begin
 
-        if ("Factory Name" <> '') and (Date <> 0D) then begin
+        if (rec."Factory Name" <> '') and (rec.Date <> 0D) then begin
 
             ManpowBudLineRec.Reset();
-            ManpowBudLineRec.SetRange("No.", "No.");
+            ManpowBudLineRec.SetRange("No.", rec."No.");
             if not ManpowBudLineRec.FindSet() then begin
 
                 Dept_desigRec.Reset();
                 Dept_desigRec.SetCurrentKey(No);
                 Dept_desigRec.Ascending(true);
-                Dept_desigRec.SetRange("Factory Code", "Factory Code");
+                Dept_desigRec.SetRange("Factory Code", rec."Factory Code");
                 if Dept_desigRec.FindSet() then begin
 
                     //Insert Grand total line
                     LineNo += 1;
                     ManpowBudLine1Rec.Init();
-                    ManpowBudLine1Rec."No." := "No.";
-                    ManpowBudLine1Rec."Factory Code" := "Factory Code";
-                    ManpowBudLine1Rec."Factory Name" := "Factory Name";
-                    ManpowBudLine1Rec.Date := Date;
+                    ManpowBudLine1Rec."No." := rec."No.";
+                    ManpowBudLine1Rec."Factory Code" := rec."Factory Code";
+                    ManpowBudLine1Rec."Factory Name" := rec."Factory Name";
+                    ManpowBudLine1Rec.Date := rec.Date;
                     ManpowBudLine1Rec.LineNo := LineNo;
                     ManpowBudLine1Rec."Department Code" := '';
                     ManpowBudLine1Rec."Department Name" := 'Grand Total (RMG)';
@@ -148,10 +148,10 @@ page 50815 "Factory Manpower Budget Card"
                             //Insert sub total line (Department total)
                             LineNo += 1;
                             ManpowBudLineRec.Init();
-                            ManpowBudLineRec."No." := "No.";
-                            ManpowBudLineRec."Factory Code" := "Factory Code";
-                            ManpowBudLineRec."Factory Name" := "Factory Name";
-                            ManpowBudLineRec.Date := Date;
+                            ManpowBudLineRec."No." := rec."No.";
+                            ManpowBudLineRec."Factory Code" := rec."Factory Code";
+                            ManpowBudLineRec."Factory Name" := rec."Factory Name";
+                            ManpowBudLineRec.Date := rec.Date;
                             ManpowBudLineRec.LineNo := LineNo;
                             ManpowBudLineRec."Department Code" := DeptTempCode;
                             ManpowBudLineRec."Department Name" := DeptTempName + ' (Sub Total)';
@@ -162,10 +162,10 @@ page 50815 "Factory Manpower Budget Card"
 
                         LineNo += 1;
                         ManpowBudLineRec.Init();
-                        ManpowBudLineRec."No." := "No.";
-                        ManpowBudLineRec."Factory Code" := "Factory Code";
-                        ManpowBudLineRec."Factory Name" := "Factory Name";
-                        ManpowBudLineRec.Date := Date;
+                        ManpowBudLineRec."No." := rec."No.";
+                        ManpowBudLineRec."Factory Code" := rec."Factory Code";
+                        ManpowBudLineRec."Factory Name" := rec."Factory Name";
+                        ManpowBudLineRec.Date := rec.Date;
                         ManpowBudLineRec.LineNo := LineNo;
                         ManpowBudLineRec."Department Code" := Dept_desigRec."Department No.";
                         ManpowBudLineRec."Department Name" := Dept_desigRec."Department Name";
@@ -185,10 +185,10 @@ page 50815 "Factory Manpower Budget Card"
                     //Insert sub total line of last Department
                     LineNo += 1;
                     ManpowBudLineRec.Init();
-                    ManpowBudLineRec."No." := "No.";
-                    ManpowBudLineRec."Factory Code" := "Factory Code";
-                    ManpowBudLineRec."Factory Name" := "Factory Name";
-                    ManpowBudLineRec.Date := Date;
+                    ManpowBudLineRec."No." := rec."No.";
+                    ManpowBudLineRec."Factory Code" := rec."Factory Code";
+                    ManpowBudLineRec."Factory Name" := rec."Factory Name";
+                    ManpowBudLineRec.Date := rec.Date;
                     ManpowBudLineRec.LineNo := LineNo;
                     ManpowBudLineRec."Department Code" := DeptTempCode;
                     ManpowBudLineRec."Department Name" := DeptTempName;
@@ -200,10 +200,10 @@ page 50815 "Factory Manpower Budget Card"
                     //Insert Grand total line
                     LineNo += 1;
                     ManpowBudLineRec.Init();
-                    ManpowBudLineRec."No." := "No.";
-                    ManpowBudLineRec."Factory Code" := "Factory Code";
-                    ManpowBudLineRec."Factory Name" := "Factory Name";
-                    ManpowBudLineRec.Date := Date;
+                    ManpowBudLineRec."No." := rec."No.";
+                    ManpowBudLineRec."Factory Code" := rec."Factory Code";
+                    ManpowBudLineRec."Factory Name" := rec."Factory Name";
+                    ManpowBudLineRec.Date := rec.Date;
                     ManpowBudLineRec.LineNo := LineNo;
                     ManpowBudLineRec."Department Code" := '';
                     ManpowBudLineRec."Department Name" := 'Grand Total (RMG)';
@@ -225,7 +225,7 @@ page 50815 "Factory Manpower Budget Card"
                 ManpowBudSummaryRec.DeleteAll();
 
             ManpowBudLineRec.Reset();
-            ManpowBudLineRec.SetRange("No.", "No.");
+            ManpowBudLineRec.SetRange("No.", rec."No.");
             if ManpowBudLineRec.FindSet() then begin
                 repeat
 
@@ -326,9 +326,9 @@ page 50815 "Factory Manpower Budget Card"
                 ManpowBudSummaryRec.Init();
                 ManpowBudSummaryRec."No." := ManpowBudLineRec."No.";
                 ManpowBudSummaryRec."Category Name" := 'Total Manpower';
-                ManpowBudSummaryRec."Factory Name" := "Factory Name";
-                ManpowBudSummaryRec."Factory Code" := "Factory Code";
-                ManpowBudSummaryRec.Date := Date;
+                ManpowBudSummaryRec."Factory Name" := rec."Factory Name";
+                ManpowBudSummaryRec."Factory Code" := rec."Factory Code";
+                ManpowBudSummaryRec.Date := rec.Date;
                 ManpowBudSummaryRec.LineNo := LineNo1;
                 ManpowBudSummaryRec."Act Budget" := GrandTotal1;
                 ManpowBudSummaryRec."Final Budget with Absenteesm" := GrandTotal2;
@@ -341,9 +341,9 @@ page 50815 "Factory Manpower Budget Card"
                     ManpowBudSummaryRec.Init();
                     ManpowBudSummaryRec."No." := ManpowBudLineRec."No.";
                     ManpowBudSummaryRec."Category Name" := 'MMR';
-                    ManpowBudSummaryRec."Factory Name" := "Factory Name";
-                    ManpowBudSummaryRec."Factory Code" := "Factory Code";
-                    ManpowBudSummaryRec.Date := Date;
+                    ManpowBudSummaryRec."Factory Name" := rec."Factory Name";
+                    ManpowBudSummaryRec."Factory Code" := rec."Factory Code";
+                    ManpowBudSummaryRec.Date := rec.Date;
                     ManpowBudSummaryRec.LineNo := LineNo1;
                     ManpowBudSummaryRec."Act Budget" := GrandTotal1 / Total1;
                     ManpowBudSummaryRec."Final Budget with Absenteesm" := GrandTotal2 / Total2;
@@ -361,7 +361,7 @@ page 50815 "Factory Manpower Budget Card"
         ManpowBudLineRec: Record FactoryManpowerBudgetLine;
     begin
         ManpowBudLineRec.Reset();
-        ManpowBudLineRec.SetRange("No.", "No.");
+        ManpowBudLineRec.SetRange("No.", rec."No.");
         if ManpowBudLineRec.FindSet() then begin
             ManpowBudLineRec.DeleteAll();
         end;
@@ -383,7 +383,7 @@ page 50815 "Factory Manpower Budget Card"
                 total := 0;
                 //get total of the department
                 ManpowBudLineRec.Reset();
-                ManpowBudLineRec.SetRange("No.", "No.");
+                ManpowBudLineRec.SetRange("No.", rec."No.");
                 ManpowBudLineRec.SetRange("Department Code", DeptRec."No.");
                 ManpowBudLineRec.SetFilter(Type, '=%1', 0);
 
@@ -395,7 +395,7 @@ page 50815 "Factory Manpower Budget Card"
 
                 //Update sub total of the department
                 ManpowBudLineRec.Reset();
-                ManpowBudLineRec.SetRange("No.", "No.");
+                ManpowBudLineRec.SetRange("No.", rec."No.");
                 ManpowBudLineRec.SetRange("Department Code", DeptRec."No.");
                 ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
@@ -407,7 +407,7 @@ page 50815 "Factory Manpower Budget Card"
 
                 //get total of the "Final Budget with Absenteesm"
                 ManpowBudLineRec.Reset();
-                ManpowBudLineRec.SetRange("No.", "No.");
+                ManpowBudLineRec.SetRange("No.", rec."No.");
                 ManpowBudLineRec.SetRange("Department Code", DeptRec."No.");
                 ManpowBudLineRec.SetFilter(Type, '=%1', 0);
 
@@ -419,7 +419,7 @@ page 50815 "Factory Manpower Budget Card"
 
                 //Update sub total of the "Final Budget with Absenteesm"
                 ManpowBudLineRec.Reset();
-                ManpowBudLineRec.SetRange("No.", "No.");
+                ManpowBudLineRec.SetRange("No.", rec."No.");
                 ManpowBudLineRec.SetRange("Department Code", DeptRec."No.");
                 ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
@@ -448,7 +448,7 @@ page 50815 "Factory Manpower Budget Card"
     begin
         //Get sub totals
         ManpowBudLineRec.Reset();
-        ManpowBudLineRec.SetRange("No.", "No.");
+        ManpowBudLineRec.SetRange("No.", rec."No.");
         ManpowBudLineRec.SetFilter(Type, '=%1', 1);
 
         if ManpowBudLineRec.FindSet() then begin
@@ -465,7 +465,7 @@ page 50815 "Factory Manpower Budget Card"
 
         //Update grand total
         ManpowBudLineRec.Reset();
-        ManpowBudLineRec.SetRange("No.", "No.");
+        ManpowBudLineRec.SetRange("No.", rec."No.");
         ManpowBudLineRec.SetFilter(Type, '=%1', 2);
 
         if ManpowBudLineRec.FindSet() then begin

@@ -10,7 +10,7 @@ page 50456 "New Operation Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
 
@@ -21,7 +21,7 @@ page 50456 "New Operation Card"
                     end;
                 }
 
-                field("Item Type Name"; "Item Type Name")
+                field("Item Type Name"; rec."Item Type Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -32,15 +32,15 @@ page 50456 "New Operation Card"
                         ItemRec: Record "Item Type";
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange("Item Type Name", "Item Type Name");
+                        ItemRec.SetRange("Item Type Name", rec."Item Type Name");
                         if ItemRec.FindSet() then
-                            "Item Type No." := ItemRec."No.";
+                            rec."Item Type No." := ItemRec."No.";
 
                         GenCode();
                     end;
                 }
 
-                field("Garment Part Name"; "Garment Part Name")
+                field("Garment Part Name"; rec."Garment Part Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -51,55 +51,55 @@ page 50456 "New Operation Card"
                         GarmentPartRec: Record GarmentPart;
                     begin
                         GarmentPartRec.Reset();
-                        GarmentPartRec.SetRange(Description, "Garment Part Name");
+                        GarmentPartRec.SetRange(Description, rec."Garment Part Name");
                         if GarmentPartRec.FindSet() then
-                            "Garment Part No." := GarmentPartRec."No.";
+                            rec."Garment Part No." := GarmentPartRec."No.";
 
                         GenCode();
                     end;
                 }
 
-                field(Code; Code)
+                field(Code; rec.Code)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field(SMV; SMV)
+                field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        if SMV <> 0 then
-                            "Target Per Hour" := 60 / SMV;
+                        if rec.SMV <> 0 then
+                            rec."Target Per Hour" := 60 / rec.SMV;
                     end;
                 }
 
-                field("Target Per Hour"; "Target Per Hour")
+                field("Target Per Hour"; rec."Target Per Hour")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Seam Length"; "Seam Length")
+                field("Seam Length"; rec."Seam Length")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Grade; Grade)
+                field(Grade; rec.Grade)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -110,13 +110,13 @@ page 50456 "New Operation Card"
                         DepartmentRec: Record "Department";
                     begin
                         DepartmentRec.Reset();
-                        DepartmentRec.SetRange("Department Name", "Department Name");
+                        DepartmentRec.SetRange("Department Name", rec."Department Name");
                         if DepartmentRec.FindSet() then
-                            "Department No." := DepartmentRec."No."
+                            rec."Department No." := DepartmentRec."No."
                     end;
                 }
-               
-                field("Machine Name"; "Machine Name")
+
+                field("Machine Name"; rec."Machine Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -127,9 +127,9 @@ page 50456 "New Operation Card"
                         MachineRec: Record "Machine Master";
                     begin
                         MachineRec.Reset();
-                        MachineRec.SetRange("Machine Description", "Machine Name");
+                        MachineRec.SetRange("Machine Description", rec."Machine Name");
                         if MachineRec.FindSet() then
-                            "Machine No." := MachineRec."Machine No.";
+                            rec."Machine No." := MachineRec."Machine No.";
                     end;
                 }
             }
@@ -142,26 +142,26 @@ page 50456 "New Operation Card"
         Temp: BigInteger;
     begin
 
-        Code2 := 0;
+        rec.Code2 := 0;
         Temp := 0;
-        Code1 := '';
+        rec.Code1 := '';
 
-        if "Item Type No." <> '' then
-            Code1 := "Item Type Name".Substring(1, 2);
+        if rec."Item Type No." <> '' then
+            rec.Code1 := rec."Item Type Name".Substring(1, 2);
 
-        if "Garment Part Name" <> '' then
-            Code1 := Code1 + "Garment Part Name".Substring(1, 2);
+        if rec."Garment Part Name" <> '' then
+            rec.Code1 := rec.Code1 + rec."Garment Part Name".Substring(1, 2);
 
-        if ("Item Type No." <> '') and ("Garment Part Name" <> '') then begin
+        if (rec."Item Type No." <> '') and (rec."Garment Part Name" <> '') then begin
 
             NewOperationRec.Reset();
-            NewOperationRec.SetRange(Code1, Code1);
+            NewOperationRec.SetRange(Code1, rec.Code1);
 
             if NewOperationRec.FindLast() then
                 temp := NewOperationRec.Code2;
 
-            Code2 := temp + 1;
-            Code := code1 + format(Code2);
+            rec.Code2 := temp + 1;
+            rec.Code := rec.code1 + format(rec.Code2);
             CurrPage.Update();
 
         end;
@@ -175,8 +175,8 @@ page 50456 "New Operation Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."NEWOP Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."NEWOP Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;

@@ -10,7 +10,7 @@ page 50459 "New Breakdown Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
 
@@ -21,7 +21,7 @@ page 50459 "New Breakdown Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -32,42 +32,42 @@ page 50459 "New Breakdown Card"
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then begin
-                            "Style No." := StyleMasterRec."No.";
-                            "Buyer No." := StyleMasterRec."Buyer No.";
-                            "Season No." := StyleMasterRec."Season No.";
-                            "Garment Type No." := StyleMasterRec."Garment Type No.";
-                            "Buyer Name" := StyleMasterRec."Buyer Name";
-                            "Season Name" := StyleMasterRec."Season Name";
-                            "Garment Type Name" := StyleMasterRec."Garment Type Name";
+                            rec."Style No." := StyleMasterRec."No.";
+                            rec."Buyer No." := StyleMasterRec."Buyer No.";
+                            rec."Season No." := StyleMasterRec."Season No.";
+                            rec."Garment Type No." := StyleMasterRec."Garment Type No.";
+                            rec."Buyer Name" := StyleMasterRec."Buyer Name";
+                            rec."Season Name" := StyleMasterRec."Season Name";
+                            rec."Garment Type Name" := StyleMasterRec."Garment Type Name";
                         end;
                         //Set_Status();
-                        "Style Stage" := 'COSTING';
+                        rec."Style Stage" := 'COSTING';
                     end;
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Season';
                 }
 
-                field("Buyer Name"; "Buyer Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Buyer';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
 
-                field("Item Type Name"; "Item Type Name")
+                field("Item Type Name"; rec."Item Type Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -78,13 +78,13 @@ page 50459 "New Breakdown Card"
                         ItemRec: Record "Item Type";
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange("Item Type Name", "Item Type Name");
+                        ItemRec.SetRange("Item Type Name", rec."Item Type Name");
                         if ItemRec.FindSet() then
-                            "Item Type No." := ItemRec."No.";
+                            rec."Item Type No." := ItemRec."No.";
                     end;
                 }
 
-                field("Garment Part Name"; "Garment Part Name")
+                field("Garment Part Name"; rec."Garment Part Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -99,17 +99,17 @@ page 50459 "New Breakdown Card"
                     begin
 
                         GarmentPartRec.Reset();
-                        GarmentPartRec.SetRange(Description, "Garment Part Name");
+                        GarmentPartRec.SetRange(Description, rec."Garment Part Name");
                         if GarmentPartRec.FindSet() then
-                            "Garment Part No." := GarmentPartRec."No.";
+                            rec."Garment Part No." := GarmentPartRec."No.";
 
                         //delete list table
                         NewBrOpLine.Reset();
-                        NewBrOpLine.SetRange("NewBRNo.", "No.");
+                        NewBrOpLine.SetRange("NewBRNo.", rec."No.");
                         NewBrOpLine.DeleteAll();
 
                         NewOpLine.Reset();
-                        NewOpLine.SetRange("Item Type No.", "Item Type No.");
+                        NewOpLine.SetRange("Item Type No.", rec."Item Type No.");
                         NewOpLine.SetRange("Garment Part No.", GarmentPartRec."No.");
 
                         if NewOpLine.FindSet() then begin
@@ -119,13 +119,13 @@ page 50459 "New Breakdown Card"
                                 //Get max line no
                                 LineNo := 0;
                                 NewBrOpLine.Reset();
-                                NewBrOpLine.SetRange("NewBRNo.", "No.");
+                                NewBrOpLine.SetRange("NewBRNo.", rec."No.");
 
                                 if NewBrOpLine.FindLast() then
                                     LineNo := NewBrOpLine."LineNo.";
 
                                 NewBrOpLine.Init();
-                                NewBrOpLine."NewBRNo." := "No.";
+                                NewBrOpLine."NewBRNo." := rec."No.";
                                 NewBrOpLine."LineNo." := LineNo + 1;
                                 NewBrOpLine."Item Type No." := NewOpLine."Item Type No.";
                                 NewBrOpLine."Item Type Name" := NewOpLine."Item Type Name";
@@ -150,26 +150,26 @@ page 50459 "New Breakdown Card"
 
                 }
 
-                field("Style Stage"; "Style Stage")
+                field("Style Stage"; rec."Style Stage")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Total SMV"; "Total SMV")
+                field("Total SMV"; rec."Total SMV")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Machine; Machine)
+                field(Machine; rec.Machine)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Machine SMV';
                 }
 
-                field(Manual; Manual)
+                field(Manual; rec.Manual)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -216,8 +216,8 @@ page 50459 "New Breakdown Card"
                 begin
 
                     NewBreakOpLine2Rec.Reset();
-                    NewBreakOpLine2Rec.SetRange("No.", "No.");
-                    NewBreakOpLine2Rec.SetRange(Description, "Garment Part Name");
+                    NewBreakOpLine2Rec.SetRange("No.", rec."No.");
+                    NewBreakOpLine2Rec.SetRange(Description, rec."Garment Part Name");
                     NewBreakOpLine2Rec.SetFilter(LineType, '=%1', 'H');
 
                     if not NewBreakOpLine2Rec.FindSet() then begin
@@ -225,16 +225,16 @@ page 50459 "New Breakdown Card"
                         //Get max line no
                         LineNo := 0;
                         NewBreakOpLine2Rec.Reset();
-                        NewBreakOpLine2Rec.SetRange("No.", "No.");
+                        NewBreakOpLine2Rec.SetRange("No.", rec."No.");
 
                         if NewBreakOpLine2Rec.FindLast() then
                             LineNo := NewBreakOpLine2Rec."Line No.";
 
                         NewBreakOpLine2Rec.Init();
-                        NewBreakOpLine2Rec."No." := "No.";
+                        NewBreakOpLine2Rec."No." := rec."No.";
                         NewBreakOpLine2Rec."Line No." := LineNo + 1;
                         NewBreakOpLine2Rec."Line Position" := LineNo + 1;
-                        NewBreakOpLine2Rec.Description := "Garment Part Name";
+                        NewBreakOpLine2Rec.Description := rec."Garment Part Name";
                         NewBreakOpLine2Rec.LineType := 'H';
                         NewBreakOpLine2Rec.Barcode := NewBreakOpLine2Rec.Barcode::No;
                         NewBreakOpLine2Rec.Insert();
@@ -271,8 +271,8 @@ page 50459 "New Breakdown Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."NEWBR Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."NEWBR Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -286,21 +286,21 @@ page 50459 "New Breakdown Card"
     begin
 
         if StyleNoGB <> '' then begin
-            "No." := NoSeriesManagementCode.GetNextNo('NEWBR Nos', WorkDate(), true);
+            rec."No." := NoSeriesManagementCode.GetNextNo('NEWBR Nos', WorkDate(), true);
 
             StyleMasterRec.Reset();
             StyleMasterRec.SetRange("No.", StyleNoGB);
 
             if StyleMasterRec.FindSet() then begin
-                "Style No." := StyleNoGB;
-                "Style Name" := StyleMasterRec."Style No.";
-                "Buyer No." := StyleMasterRec."Buyer No.";
-                "Season No." := StyleMasterRec."Season No.";
-                "Garment Type No." := StyleMasterRec."Garment Type No.";
-                "Buyer Name" := StyleMasterRec."Buyer Name";
-                "Season Name" := StyleMasterRec."Season Name";
-                "Garment Type Name" := StyleMasterRec."Garment Type Name";
-                "Style Stage" := 'COSTING';
+                rec."Style No." := StyleNoGB;
+                rec."Style Name" := StyleMasterRec."Style No.";
+                rec."Buyer No." := StyleMasterRec."Buyer No.";
+                rec."Season No." := StyleMasterRec."Season No.";
+                rec."Garment Type No." := StyleMasterRec."Garment Type No.";
+                rec."Buyer Name" := StyleMasterRec."Buyer Name";
+                rec."Season Name" := StyleMasterRec."Season Name";
+                rec."Garment Type Name" := StyleMasterRec."Garment Type Name";
+                rec."Style Stage" := 'COSTING';
             end;
 
             CurrPage.Update();
@@ -335,19 +335,19 @@ page 50459 "New Breakdown Card"
     begin
         //Style Stage 
         ProductionOutLineRec.Reset();
-        ProductionOutLineRec.SetRange("Style No.", "Style No.");
+        ProductionOutLineRec.SetRange("Style No.", rec."Style No.");
 
         if ProductionOutLineRec.FindSet() then
-            "Style Stage" := 'PRODUCTION'
+            rec."Style Stage" := 'PRODUCTION'
         else begin
 
             NavAppPlanningLinesRec.Reset();
-            NavAppPlanningLinesRec.SetRange("Style No.", "Style No.");
+            NavAppPlanningLinesRec.SetRange("Style No.", rec."Style No.");
 
             if NavAppPlanningLinesRec.FindSet() then
-                "Style Stage" := 'PLANNING'
+                rec."Style Stage" := 'PLANNING'
             else
-                "Style Stage" := 'COSTING';
+                rec."Style Stage" := 'COSTING';
         end;
 
         CurrPage.Update();
@@ -367,11 +367,11 @@ page 50459 "New Breakdown Card"
         NewBrOpLine2Rec: Record "New Breakdown Op Line2";
     begin
         NewBrOpLine1Rec.Reset();
-        NewBrOpLine1Rec.SetRange("NewBRNo.", "No.");
+        NewBrOpLine1Rec.SetRange("NewBRNo.", rec."No.");
         NewBrOpLine1Rec.DeleteAll();
 
         NewBrOpLine2Rec.Reset();
-        NewBrOpLine2Rec.SetRange("No.", "No.");
+        NewBrOpLine2Rec.SetRange("No.", rec."No.");
         NewBrOpLine2Rec.DeleteAll();
     end;
 

@@ -10,7 +10,7 @@ page 50453 "Machine Master Card"
         {
             group(General)
             {
-                field("Machine No."; "Machine No.")
+                field("Machine No."; rec."Machine No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Machine No';
@@ -18,19 +18,19 @@ page 50453 "Machine Master Card"
                     trigger OnValidate()
                     var
                     begin
-                        "Machine Description" := "Machine No.";
+                        rec."Machine Description" := rec."Machine No.";
                         CurrPage.Update();
                     end;
                 }
 
-                field("Machine Description"; "Machine Description")
+                field("Machine Description"; rec."Machine Description")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                     Editable = false;
                 }
 
-                field("Machine Category Name"; "Machine Category Name")
+                field("Machine Category Name"; rec."Machine Category Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -41,13 +41,13 @@ page 50453 "Machine Master Card"
                         MachineCateRec: Record "Machine Category";
                     begin
                         MachineCateRec.Reset();
-                        MachineCateRec.SetRange("Machine Category", "Machine Category Name");
+                        MachineCateRec.SetRange("Machine Category", rec."Machine Category Name");
                         if MachineCateRec.FindSet() then
-                            "Machine Category" := MachineCateRec."No.";
+                            rec."Machine Category" := MachineCateRec."No.";
                     end;
                 }
 
-                field("Needle Type Name"; "Needle Type Name")
+                field("Needle Type Name"; rec."Needle Type Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -58,13 +58,13 @@ page 50453 "Machine Master Card"
                         NeedleTypeRec: Record NeedleType;
                     begin
                         NeedleTypeRec.Reset();
-                        NeedleTypeRec.SetRange("Needle Description", "Needle Type Name");
+                        NeedleTypeRec.SetRange("Needle Description", rec."Needle Type Name");
                         if NeedleTypeRec.FindSet() then
-                            "Needle Type No." := NeedleTypeRec."No.";
+                            rec."Needle Type No." := NeedleTypeRec."No.";
                     end;
                 }
 
-                field("Machine Type"; "Machine Type")
+                field("Machine Type"; rec."Machine Type")
                 {
                     ApplicationArea = All;
                 }

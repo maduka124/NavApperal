@@ -10,7 +10,7 @@ page 50475 "Maning Level Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Maning No';
@@ -22,7 +22,7 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -41,21 +41,21 @@ page 50475 "Maning Level Card"
 
                         //Delete old records
                         ManingLevelsLineRec.Reset();
-                        ManingLevelsLineRec.SetRange("No.", "No.");
+                        ManingLevelsLineRec.SetRange("No.", rec."No.");
                         ManingLevelsLineRec.DeleteAll();
 
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            rec."Style No." := StyleMasterRec."No.";
 
                         NewBR.Reset();
                         NewBR.SetRange("Style No.", StyleMasterRec."No.");
                         NewBR.FindSet();
 
-                        "Total SMV" := NewBR."Total SMV";
-                        "Sewing SMV" := newbr.Machine;
-                        "Manual SMV" := NewBR.Manual;
+                        rec."Total SMV" := NewBR."Total SMV";
+                        rec."Sewing SMV" := newbr.Machine;
+                        rec."Manual SMV" := NewBR.Manual;
 
 
                         //Load Line Items
@@ -75,7 +75,7 @@ page 50475 "Maning Level Card"
                                 //Get max line no
                                 LineNo := 0;
                                 ManingLevelsLineRec.Reset();
-                                ManingLevelsLineRec.SetRange("No.", "No.");
+                                ManingLevelsLineRec.SetRange("No.", rec."No.");
 
                                 if ManingLevelsLineRec.FindLast() then
                                     LineNo := ManingLevelsLineRec."Line No.";
@@ -84,7 +84,7 @@ page 50475 "Maning Level Card"
 
                                     LineNo += 1;
                                     ManingLevelsLineRec.Init();
-                                    ManingLevelsLineRec."No." := "No.";
+                                    ManingLevelsLineRec."No." := rec."No.";
                                     ManingLevelsLineRec."Line No." := LineNo;
                                     ManingLevelsLineRec.Code := NewBrOpLineRec.Code;
                                     ManingLevelsLineRec.Description := NewBrOpLineRec.Description;
@@ -110,7 +110,7 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field("Work Center Name"; "Work Center Name")
+                field("Work Center Name"; rec."Work Center Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Line';
@@ -121,13 +121,13 @@ page 50475 "Maning Level Card"
                         WorkCenterRec: Record "Work Center";
                     begin
                         WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, "Work Center Name");
+                        WorkCenterRec.SetRange(Name, rec."Work Center Name");
                         IF WorkCenterRec.FindSet() THEN
-                            "Line No." := WorkCenterRec."No.";
+                            rec."Line No." := WorkCenterRec."No.";
                     end;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
 
@@ -138,7 +138,7 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field(Val; Val)
+                field(Val; rec.Val)
                 {
                     ApplicationArea = All;
 
@@ -149,7 +149,7 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field(Eff; Eff)
+                field(Eff; rec.Eff)
                 {
                     ApplicationArea = All;
                     Caption = 'Expected Eff %';
@@ -161,17 +161,17 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field("Total SMV"; "Total SMV")
+                field("Total SMV"; rec."Total SMV")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Sewing SMV"; "Sewing SMV")
+                field("Sewing SMV"; rec."Sewing SMV")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Manual SMV"; "Manual SMV")
+                field("Manual SMV"; rec."Manual SMV")
                 {
                     ApplicationArea = All;
                 }
@@ -196,17 +196,17 @@ page 50475 "Maning Level Card"
 
             group("Hourly Figures")
             {
-                field(BPT; BPT)
+                field(BPT; rec.BPT)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Mac Operator"; "Mac Operator")
+                field("Mac Operator"; rec."Mac Operator")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Expected Target"; "Expected Target")
+                field("Expected Target"; rec."Expected Target")
                 {
                     ApplicationArea = All;
                 }
@@ -220,28 +220,28 @@ page 50475 "Maning Level Card"
                     GridLayout = Rows;
                     group("Machine operator")
                     {
-                        field(MOTheo; MOTheo)
+                        field(MOTheo; rec.MOTheo)
                         {
                             ApplicationArea = All;
                             Caption = 'Theoretical';
                             Editable = false;
                         }
 
-                        field(MOAct; MOAct)
+                        field(MOAct; rec.MOAct)
                         {
                             ApplicationArea = All;
                             Caption = 'Actual';
                             Editable = false;
                         }
 
-                        field(MODiff; MODiff)
+                        field(MODiff; rec.MODiff)
                         {
                             ApplicationArea = All;
                             Caption = 'Difference';
                             Editable = false;
                         }
 
-                        field(MOBil; MOBil)
+                        field(MOBil; rec.MOBil)
                         {
                             ApplicationArea = All;
                             Caption = 'BL%';
@@ -251,28 +251,28 @@ page 50475 "Maning Level Card"
 
                     group("Helper")
                     {
-                        field(HPTheo; HPTheo)
+                        field(HPTheo; rec.HPTheo)
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field(HPAct; HPAct)
+                        field(HPAct; rec.HPAct)
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field(HPODiff; HPODiff)
+                        field(HPODiff; rec.HPODiff)
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
                             Editable = false;
                         }
 
-                        field(HPBil; HPBil)
+                        field(HPBil; rec.HPBil)
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
@@ -307,8 +307,8 @@ page 50475 "Maning Level Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."Manning Nos.", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."Manning Nos.", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             CurrPage.Update();
             EXIT(TRUE);
         END;
@@ -325,18 +325,18 @@ page 50475 "Maning Level Card"
     begin
 
         //Calculate BPT
-        if Type = Type::"Based on Machine Operator" then begin
-            if Val <> 0 then
-                BPT := "Sewing SMV" / Val
+        if rec.Type = rec.Type::"Based on Machine Operator" then begin
+            if rec.Val <> 0 then
+                rec.BPT := rec."Sewing SMV" / rec.Val
             else
-                BPT := 0;
+                rec.BPT := 0;
         end
         else begin
-            if Type = Type::"Based on Output" then begin
-                if Val <> 0 then
-                    BPT := (60 / Val) / 100 * Eff
+            if rec.Type = rec.Type::"Based on Output" then begin
+                if rec.Val <> 0 then
+                    rec.BPT := (60 / rec.Val) / 100 * rec.Eff
                 else
-                    BPT := 0;
+                    rec.BPT := 0;
             end;
         end;
 
@@ -345,17 +345,17 @@ page 50475 "Maning Level Card"
 
         //Calculate Line values
         ManingLevelsLineRec.Reset();
-        ManingLevelsLineRec.SetRange("No.", "No.");
+        ManingLevelsLineRec.SetRange("No.", rec."No.");
 
         if ManingLevelsLineRec.FindSet() then begin
             repeat
 
                 //Calculate ""Theo MO" / "Theo HP"
-                if BPT <> 0 then begin
-                    ManingLevelsLineRec."Theo MO" := ManingLevelsLineRec."SMV Machine" / BPT;
-                    TheoMOTotal += ManingLevelsLineRec."SMV Machine" / BPT;
-                    ManingLevelsLineRec."Theo HP" := ManingLevelsLineRec."SMV Manual" / BPT;
-                    TheoHPTotal += ManingLevelsLineRec."SMV Manual" / BPT
+                if rec.BPT <> 0 then begin
+                    ManingLevelsLineRec."Theo MO" := ManingLevelsLineRec."SMV Machine" / rec.BPT;
+                    TheoMOTotal += ManingLevelsLineRec."SMV Machine" / rec.BPT;
+                    ManingLevelsLineRec."Theo HP" := ManingLevelsLineRec."SMV Manual" / rec.BPT;
+                    TheoHPTotal += ManingLevelsLineRec."SMV Manual" / rec.BPT
                 end
                 else begin
                     ManingLevelsLineRec."Theo MO" := 0;
@@ -368,35 +368,35 @@ page 50475 "Maning Level Card"
         end;
 
         //Calculate Hourly figures
-        if Type = Type::"Based on Machine Operator" then begin
-            if BPT <> 0 then
-                "Mac Operator" := 60 / BPT
+        if rec.Type = rec.Type::"Based on Machine Operator" then begin
+            if rec.BPT <> 0 then
+                rec."Mac Operator" := 60 / rec.BPT
             else
-                "Mac Operator" := 0;
+                rec."Mac Operator" := 0;
 
             CurrPage.Update();
 
-            if Eff <> 0 then
-                "Expected Target" := "Mac Operator" / Eff
+            if rec.Eff <> 0 then
+                rec."Expected Target" := rec."Mac Operator" / rec.Eff
             else
-                "Expected Target" := 0;
+                rec."Expected Target" := 0;
         end
         else begin
-            if Type = Type::"Based on Output" then begin
-                "Mac Operator" := TheoMOTotal;
-                "Expected Target" := Val;
+            if rec.Type = rec.Type::"Based on Output" then begin
+                rec."Mac Operator" := TheoMOTotal;
+                rec."Expected Target" := rec.Val;
             end;
         end;
 
         CurrPage.Update();
 
         //Sewing dept vvalues
-        MOTheo := TheoMOTotal;
-        HPTheo := TheoHPTotal;
+        rec.MOTheo := TheoMOTotal;
+        rec.HPTheo := TheoHPTotal;
 
         //Calculate Actual values
         ManingLevelsLineRec.Reset();
-        ManingLevelsLineRec.SetRange("No.", "No.");
+        ManingLevelsLineRec.SetRange("No.", rec."No.");
 
         if ManingLevelsLineRec.FindSet() then begin
             repeat
@@ -405,20 +405,20 @@ page 50475 "Maning Level Card"
             until ManingLevelsLineRec.Next() = 0;
         end;
 
-        MOAct := ActMOTotal;
-        HPAct := ActHPTotal;
-        MODiff := ActMOTotal - TheoMOTotal;
-        HPODiff := ActHPTotal - TheoHPTotal;
+        rec.MOAct := ActMOTotal;
+        rec.HPAct := ActHPTotal;
+        rec.MODiff := ActMOTotal - TheoMOTotal;
+        rec.HPODiff := ActHPTotal - TheoHPTotal;
 
         if TheoMOTotal <> 0 then
-            MOBil := ((ActMOTotal - TheoMOTotal) / TheoMOTotal) / 100
+            rec.MOBil := ((ActMOTotal - TheoMOTotal) / TheoMOTotal) / 100
         else
-            MOBil := 0;
+            rec.MOBil := 0;
 
         if TheoHPTotal <> 0 then
-            HPBil := ((ActHPTotal - TheoHPTotal) / TheoHPTotal) / 100
+            rec.HPBil := ((ActHPTotal - TheoHPTotal) / TheoHPTotal) / 100
         else
-            HPBil := 0;
+            rec.HPBil := 0;
 
         CurrPage.Update();
 
@@ -431,7 +431,7 @@ page 50475 "Maning Level Card"
     begin
 
         ManingLevelsLineRec.Reset();
-        ManingLevelsLineRec.SetRange("No.", "No.");
+        ManingLevelsLineRec.SetRange("No.", rec."No.");
         ManingLevelsLineRec.DeleteAll();
 
     end;

@@ -10,13 +10,13 @@ page 71012735 "Folder Detail Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Folder Detail No';
                 }
 
-                field("Folder Name"; "Folder Name")
+                field("Folder Name"; rec."Folder Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 71012735 "Folder Detail Card"
                         FolderDetailRec: Record "Folder Detail";
                     begin
                         FolderDetailRec.Reset();
-                        FolderDetailRec.SetRange("Folder Name", "Folder Name");
+                        FolderDetailRec.SetRange("Folder Name", rec."Folder Name");
                         if FolderDetailRec.FindSet() then
                             Error('Folder Name already exists.');
                     end;

@@ -4,19 +4,18 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
     {
         addafter("Last Date Modified")
         {
-            field("Prod Order Type"; "Prod Order Type")
+            field("Prod Order Type"; rec."Prod Order Type")
             {
                 ApplicationArea = all;
                 Caption = 'Prod. Order Type';
             }
         }
 
-
         addafter(General)
         {
             group("Washing")
             {
-                field(Buyer; Buyer)
+                field(Buyer; rec.Buyer)
                 {
                     ApplicationArea = All;
 
@@ -25,13 +24,13 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
                         CustomerRec: Record Customer;
                     begin
                         CustomerRec.Reset();
-                        CustomerRec.SetRange(Name, Buyer);
+                        CustomerRec.SetRange(Name, rec.Buyer);
                         if CustomerRec.FindSet() then
-                            BuyerCode := CustomerRec."No.";
+                            rec.BuyerCode := CustomerRec."No.";
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
 
@@ -44,9 +43,9 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
                     begin
 
                         StyleRec.Reset();
-                        StyleRec.SetRange("Style No.", "Style Name");
+                        StyleRec.SetRange("Style No.", rec."Style Name");
                         if StyleRec.FindSet() then
-                            "Style No." := StyleRec."No.";
+                            rec."Style No." := StyleRec."No.";
 
 
                         CurrPage.Update();
@@ -79,12 +78,12 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
                     end;
                 }
 
-                field(PO; PO)
+                field(PO; rec.PO)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Color; Color)
+                field(Color; rec.Color)
                 {
                     ApplicationArea = All;
 
@@ -93,14 +92,14 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
                         StyleColorRec: Record StyleColor;
                     begin
                         StyleColorRec.Reset();
-                        StyleColorRec.SetRange(Color, Color);
+                        StyleColorRec.SetRange(Color, rec.Color);
                         if StyleColorRec.FindSet() then
-                            ColorCode := StyleColorRec."Color No.";
+                            rec.ColorCode := StyleColorRec."Color No.";
 
                     end;
                 }
 
-                field("Wash Type"; "Wash Type")
+                field("Wash Type"; rec."Wash Type")
                 {
                     ApplicationArea = All;
 
@@ -109,18 +108,18 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
                         WashTypeRec: Record "Wash Type";
                     begin
                         WashTypeRec.Reset();
-                        WashTypeRec.SetRange("Wash Type Name", "Wash Type");
+                        WashTypeRec.SetRange("Wash Type Name", rec."Wash Type");
                         if WashTypeRec.FindSet() then
-                            "Wash Type Code" := WashTypeRec."No.";
+                            rec."Wash Type Code" := WashTypeRec."No.";
                     end;
                 }
 
-                field(Fabric; Fabric)
+                field(Fabric; rec.Fabric)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Gament Type"; "Gament Type")
+                field("Gament Type"; rec."Gament Type")
                 {
                     ApplicationArea = All;
 
@@ -129,33 +128,33 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
                         GarmentypeRec: Record "Garment Type";
                     begin
                         GarmentypeRec.Reset();
-                        GarmentypeRec.SetRange("Garment Type Description", "Gament Type");
+                        GarmentypeRec.SetRange("Garment Type Description", rec."Gament Type");
                         if GarmentypeRec.FindSet() then
-                            "Gament Type Code" := GarmentypeRec."No.";
+                            rec."Gament Type Code" := GarmentypeRec."No.";
                     end;
                 }
 
-                field("Sample/Bulk"; "Sample/Bulk")
+                field("Sample/Bulk"; rec."Sample/Bulk")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Hydro Extractor (Minutes)"; "Hydro Extractor (Minutes)")
+                field("Hydro Extractor (Minutes)"; rec."Hydro Extractor (Minutes)")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Hot Dryer (Temp 'C)"; "Hot Dryer (Temp 'C)")
+                field("Hot Dryer (Temp 'C)"; rec."Hot Dryer (Temp 'C)")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Cool Dry"; "Cool Dry")
+                field("Cool Dry"; rec."Cool Dry")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Machine Type"; "Machine Type")
+                field("Machine Type"; rec."Machine Type")
                 {
                     ApplicationArea = All;
 
@@ -164,29 +163,29 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
                         WashingMachineTypeRec: Record WashingMachineType;
                     begin
                         WashingMachineTypeRec.Reset();
-                        WashingMachineTypeRec.SetRange(Description, "Machine Type");
+                        WashingMachineTypeRec.SetRange(Description, rec."Machine Type");
                         if WashingMachineTypeRec.FindSet() then
-                            "Machine Type Code" := WashingMachineTypeRec.code;
+                            rec."Machine Type Code" := WashingMachineTypeRec.code;
                     end;
                 }
 
-                field("Load Weight (Kg)"; "Load Weight (Kg)")
+                field("Load Weight (Kg)"; rec."Load Weight (Kg)")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Piece Weight (g)"; "Piece Weight (g)")
+                field("Piece Weight (g)"; rec."Piece Weight (g)")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Remarks Job Card"; "Remarks Job Card")
+                field("Remarks Job Card"; rec."Remarks Job Card")
                 {
                     ApplicationArea = All;
                     Caption = 'Remark';
                 }
 
-                field("Total Water Ltrs:"; "Total Water Ltrs:")
+                field("Total Water Ltrs:"; rec."Total Water Ltrs:")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -209,11 +208,42 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
                     // end;
                 }
 
-                field("Process Time:"; "Process Time:")
+                field("Process Time:"; rec."Process Time:")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
+            }
+        }
+    }
+
+    actions
+    {
+        addafter("Change &Status")
+        {
+            action("Washing orders")
+            {
+                Image = ViewDetails;
+                ApplicationArea = All;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                trigger OnAction()
+                var
+                    SalesHedd: Record "Sales Header";
+                    WashSalesHedd: Record "Sales Header";
+                begin
+                    if not SalesHedd.get(SalesHedd."Document Type"::Order, rec."Source No.") then
+                        Error('Sales Order not found for %1', rec."No.");
+
+                    if SalesHedd."PO No" = '' then
+                        Error('PO no must have a value');
+
+                    WashSalesHedd.Reset();
+                    WashSalesHedd.SetRange("PO No", SalesHedd."PO No");
+                    WashSalesHedd.SetFilter("No.", '%1', 'WSH*');
+                    Page.Run(9305, WashSalesHedd);
+                end;
             }
         }
     }
@@ -237,22 +267,22 @@ pageextension 50662 ProductionOrderExt extends "Firm Planned Prod. Order"
         TotalTime: Decimal;
     begin
         if NoGb <> '' then begin
-            "No." := NoGb;
+            rec."No." := NoGb;
             Editable := EditableGb;
-            Status := Status::"Firm Planned";
+            rec.Status := rec.Status::"Firm Planned";
         end;
 
         ProdLne.Reset();
-        ProdLne.SetRange("Prod. Order No.", "No.");
-        ProdLne.SetRange(Status, Status);
+        ProdLne.SetRange("Prod. Order No.", rec."No.");
+        ProdLne.SetRange(Status, rec.Status);
         if ProdLne.FindSet() then
             repeat
                 TotalWaterLtrs += ProdLne.Water;
                 TotalTime += ProdLne."Time(Min)";
             until ProdLne.Next() = 0;
 
-        "Total Water Ltrs:" := TotalWaterLtrs;
-        "Process Time:" := TotalTime;
+        rec."Total Water Ltrs:" := TotalWaterLtrs;
+        rec."Process Time:" := TotalTime;
         CurrPage.Update();
 
     end;

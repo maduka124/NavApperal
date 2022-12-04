@@ -10,13 +10,13 @@ page 50462 "Item Type Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Item Type No';
                 }
 
-                field("Item Type Name"; "Item Type Name")
+                field("Item Type Name"; rec."Item Type Name")
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 50462 "Item Type Card"
                         ItemTypeRec: Record "Item Type";
                     begin
                         ItemTypeRec.Reset();
-                        ItemTypeRec.SetRange("Item Type Name", "Item Type Name");
+                        ItemTypeRec.SetRange("Item Type Name", rec."Item Type Name");
                         if ItemTypeRec.FindSet() then
                             Error('Item Type Name already exists.');
                     end;

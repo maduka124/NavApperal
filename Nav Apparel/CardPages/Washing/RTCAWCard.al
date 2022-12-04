@@ -12,7 +12,7 @@ page 50682 RTCAWCard
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Document No';
@@ -43,7 +43,7 @@ page 50682 RTCAWCard
                     end;
                 }
 
-                field("JoB Card No"; "JoB Card No")
+                field("JoB Card No"; rec."JoB Card No")
                 {
                     ApplicationArea = All;
                     Editable = Not J;
@@ -54,21 +54,21 @@ page 50682 RTCAWCard
                     begin
 
                         jobcreaationRec.Reset();
-                        jobcreaationRec.SetRange("Job Card (Prod Order)", "JoB Card No");
+                        jobcreaationRec.SetRange("Job Card (Prod Order)", rec."JoB Card No");
 
                         if jobcreaationRec.FindSet() then begin
-                            CustomerCode := jobcreaationRec.BuyerCode;
-                            CustomerName := jobcreaationRec.BuyerName;
-                            "Req Date" := jobcreaationRec."Req Date";
-                            "Line No" := jobcreaationRec."Line No";
-                            "Slipt No" := jobcreaationRec."Split No";
-                            "Req No" := jobcreaationRec.No;
+                            rec.CustomerCode := jobcreaationRec.BuyerCode;
+                            rec.CustomerName := jobcreaationRec.BuyerName;
+                            rec."Req Date" := jobcreaationRec."Req Date";
+                            rec."Line No" := jobcreaationRec."Line No";
+                            rec."Slipt No" := jobcreaationRec."Split No";
+                            rec."Req No" := jobcreaationRec.No;
                             CurrPage.Update();
                         end;
                     end;
                 }
 
-                field("Req No"; "Req No")
+                field("Req No"; rec."Req No")
                 {
                     ApplicationArea = all;
                     Editable = J;
@@ -78,13 +78,13 @@ page 50682 RTCAWCard
                         jobcreaationRec: Record JobCreationLine;
                     begin
                         jobcreaationRec.Reset();
-                        jobcreaationRec.SetRange(No, "Req No");
+                        jobcreaationRec.SetRange(No, rec."Req No");
 
                         if jobcreaationRec.FindSet() then begin
-                            CustomerCode := jobcreaationRec.BuyerCode;
-                            CustomerName := jobcreaationRec.BuyerName;
-                            "Req Date" := jobcreaationRec."Req Date";
-                            "Line No" := jobcreaationRec."Line No";
+                            rec.CustomerCode := jobcreaationRec.BuyerCode;
+                            rec.CustomerName := jobcreaationRec.BuyerName;
+                            rec."Req Date" := jobcreaationRec."Req Date";
+                            rec."Line No" := jobcreaationRec."Line No";
                             //"Slipt No" := jobcreaationRec."Split No";
                             //"Req No" := jobcreaationRec.No;
 
@@ -97,25 +97,25 @@ page 50682 RTCAWCard
                     end;
                 }
 
-                field(CustomerName; CustomerName)
+                field(CustomerName; rec.CustomerName)
                 {
                     ApplicationArea = all;
                     Editable = false;
                     Caption = 'Customer';
                 }
 
-                field("Req Date"; "Req Date")
+                field("Req Date"; rec."Req Date")
                 {
                     ApplicationArea = all;
                     Editable = false;
                 }
 
-                field("Gate Pass No"; "Gate Pass No")
+                field("Gate Pass No"; rec."Gate Pass No")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     Caption = 'Status';
                     ApplicationArea = all;
@@ -168,12 +168,12 @@ page 50682 RTCAWCard
                     lacation: Code[20];
                 begin
 
-                    if "Req No" = '' then
+                    if rec."Req No" = '' then
                         Error('Invalid request No');
 
                     RTCAWHeaderRec.Reset();
-                    RTCAWHeaderRec.SetRange("No.", "No.");
-                    RTCAWHeaderRec.SetRange("Line No", "Line No");
+                    RTCAWHeaderRec.SetRange("No.", rec."No.");
+                    RTCAWHeaderRec.SetRange("Line No", rec."Line No");
                     RTCAWHeaderRec.SetFilter(Status, '=%1', RTCAWHeaderRec."Status"::Pending);
 
                     if RTCAWHeaderRec.FindSet() then begin
@@ -181,13 +181,13 @@ page 50682 RTCAWCard
                         if Lot = false then begin  //Return only a Job Card
 
                             RTCAWLineRec.Reset();
-                            RTCAWLineRec.SetRange("No.", "No.");
-                            RTCAWLineRec.SetRange("Header Line No ", "Line No");
+                            RTCAWLineRec.SetRange("No.", rec."No.");
+                            RTCAWLineRec.SetRange("Header Line No ", rec."Line No");
 
                             if RTCAWLineRec.FindSet() then begin
                                 repeat
                                     interMediRec.Reset();
-                                    interMediRec.SetRange(No, "Req No");
+                                    interMediRec.SetRange(No, rec."Req No");
                                     interMediRec.SetRange("Line No", RTCAWLineRec."Header Line No ");
                                     interMediRec.SetRange("Split No", RTCAWLineRec."Split No");
 
@@ -200,8 +200,8 @@ page 50682 RTCAWCard
                                         interMediRec.Modify();
 
                                         sampleReqline.Reset();
-                                        sampleReqline.SetRange("No.", "Req No");
-                                        sampleReqline.SetRange("Line no.", "Line No");
+                                        sampleReqline.SetRange("No.", rec."Req No");
+                                        sampleReqline.SetRange("Line no.", rec."Line No");
 
                                         if sampleReqline.FindSet() then begin
                                             sampleReqline."Return Qty (AW)" += RTCAWLineRec.Qty;
@@ -214,7 +214,7 @@ page 50682 RTCAWCard
                                             EntryNo := ItemLedgerEntry."Entry No.";
 
                                         SampleReqHeader.Reset();
-                                        SampleReqHeader.SetRange("No.", "Req No");
+                                        SampleReqHeader.SetRange("No.", rec."Req No");
                                         if SampleReqHeader.FindSet() then
                                             lacation := SampleReqHeader."Wash Plant No.";
 
@@ -224,8 +224,8 @@ page 50682 RTCAWCard
                                         ItemLedgerEntry."Posting Date" := WorkDate();
                                         ItemLedgerEntry."Entry Type" := ItemLedgerEntry."Entry Type"::Transfer;
                                         ItemLedgerEntry."Document Type" := ItemLedgerEntry."Document Type"::"Direct Transfer";
-                                        ItemLedgerEntry."Document Date" := "Req Date";
-                                        ItemLedgerEntry."Document No." := "No.";
+                                        ItemLedgerEntry."Document Date" := rec."Req Date";
+                                        ItemLedgerEntry."Document No." := rec."No.";
                                         ItemLedgerEntry."Entry No." := EntryNo + 1;
                                         ItemLedgerEntry."Location Code" := lacation;
                                         ItemLedgerEntry.Validate("Item No.", interMediRec."FG No");
@@ -263,8 +263,8 @@ page 50682 RTCAWCard
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."RTC AW No", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."RTC AW No", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -275,13 +275,13 @@ page 50682 RTCAWCard
         RTCAWLineRec: Record RTCAWLine;
     begin
 
-        if status = Status::Posted then
+        if rec.status = rec.Status::Posted then
             Error('Entry already posted. Cannot delete.');
 
         RTCAWLineRec.Reset();
-        RTCAWLineRec.SetRange("No.", "No.");
+        RTCAWLineRec.SetRange("No.", rec."No.");
         if RTCAWLineRec.FindSet() then
-            if status = Status::Posted then
+            if rec.status = rec.Status::Posted then
                 Error('Entry already posted. Cannot delete.');
         RTCAWLineRec.DeleteAll();
 
@@ -290,7 +290,7 @@ page 50682 RTCAWCard
     trigger OnOpenPage()
     var
     begin
-        if Status = Status::Posted then
+        if rec.Status = rec.Status::Posted then
             CurrPage.Editable(false)
         else
             CurrPage.Editable(true);

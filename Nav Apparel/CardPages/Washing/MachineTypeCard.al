@@ -12,13 +12,13 @@ page 50652 WashingMachineTypeCard
         {
             group(General)
             {
-                field(code; code)
+                field(code; rec.code)
                 {
                     ApplicationArea = All;
                     Caption = 'Code';
                 }
 
-                field(Description; Description)
+                field(Description; rec.Description)
                 {
                     ApplicationArea = All;
                 }
