@@ -11,35 +11,35 @@ page 50570 "Trim Inspection Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'GRN No';
                     Editable = false;
                 }
 
-                field("Document Date"; "Document Date")
+                field("Document Date"; rec."Document Date")
                 {
                     ApplicationArea = All;
                     Caption = 'GRN Date';
                     Editable = false;
                 }
 
-                field("Buy-from Vendor Name"; "Buy-from Vendor Name")
+                field("Buy-from Vendor Name"; rec."Buy-from Vendor Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';
                     Editable = false;
                 }
 
-                field("Order No."; "Order No.")
+                field("Order No."; rec."Order No.")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                     Editable = false;
                 }
 
-                field("Trim Inspected"; "Trim Inspected")
+                field("Trim Inspected"; rec."Trim Inspected")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -78,12 +78,12 @@ page 50570 "Trim Inspection Card"
     begin
 
         TrimInsRec.Reset();
-        TrimInsRec.SetRange("PurchRecNo.", "No.");
+        TrimInsRec.SetRange("PurchRecNo.", rec."No.");
 
         if not TrimInsRec.FindSet() then begin
 
             PurchLineRec.Reset();
-            PurchLineRec.SetRange("Document No.", "No.");
+            PurchLineRec.SetRange("Document No.", rec."No.");
 
             if PurchLineRec.FindSet() then begin
 
@@ -138,7 +138,7 @@ page 50570 "Trim Inspection Card"
 
 
                                 TrimInsRec.Init();
-                                TrimInsRec."PurchRecNo." := "No.";
+                                TrimInsRec."PurchRecNo." := rec."No.";
                                 TrimInsRec."Line No" := LineNo;
                                 TrimInsRec.StyleName := PurchLineRec.StyleName;
                                 TrimInsRec.StyleNo := PurchLineRec.StyleNo;

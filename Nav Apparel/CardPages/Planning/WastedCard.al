@@ -10,17 +10,17 @@ page 71012745 "Wastage Card"
         {
             group(General)
             {
-                field("Start Qty"; "Start Qty")
+                field("Start Qty"; rec."Start Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Finish Qty"; "Finish Qty")
+                field("Finish Qty"; rec."Finish Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Percentage; Percentage)
+                field(Percentage; rec.Percentage)
                 {
                     ApplicationArea = All;
                 }

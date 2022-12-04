@@ -4,13 +4,13 @@ pageextension 50736 MachineCardExt extends "Machine Center Card"
     {
         addafter("Last Date Modified")
         {
-            field("ASSERT NO"; "ASSERT NO")
+            field("ASSERT NO"; rec."ASSERT NO")
             {
                 ApplicationArea = All;
                 Caption = 'Assert No';
             }
 
-            field("BRAND Desc"; "BRAND Desc")
+            field("BRAND Desc"; rec."BRAND Desc")
             {
                 ApplicationArea = All;
                 Caption = 'Brand';
@@ -20,42 +20,42 @@ pageextension 50736 MachineCardExt extends "Machine Center Card"
                     BrandRec: Record Brand;
                 begin
                     BrandRec.Reset();
-                    BrandRec.SetRange("Brand Name", "BRAND Desc");
+                    BrandRec.SetRange("Brand Name", rec."BRAND Desc");
                     if BrandRec.FindSet() then
-                        "BRAND Code" := BrandRec."No.";
+                        rec."BRAND Code" := BrandRec."No.";
                 end;
             }
 
-            field(MODEL; MODEL)
+            field(MODEL; rec.MODEL)
             {
                 ApplicationArea = All;
                 Caption = 'Model';
             }
 
-            field("MACHINE CATEGORY"; "MACHINE CATEGORY")
+            field("MACHINE CATEGORY"; rec."MACHINE CATEGORY")
             {
                 ApplicationArea = All;
                 Caption = 'Machine Category';
             }
 
-            field("Head /Serial No"; "Head /Serial No")
+            field("Head /Serial No"; rec."Head /Serial No")
             {
                 ApplicationArea = All;
             }
 
-            field("MOTOR NO"; "MOTOR NO")
+            field("MOTOR NO"; rec."MOTOR NO")
             {
                 ApplicationArea = All;
                 Caption = 'Motor No';
             }
 
-            field("PURCHASE YEAR"; "PURCHASE YEAR")
+            field("PURCHASE YEAR"; rec."PURCHASE YEAR")
             {
                 ApplicationArea = All;
                 Caption = 'Purchased Year';
             }
 
-            field(SUPPLIER; SUPPLIER)
+            field(SUPPLIER; rec.SUPPLIER)
             {
                 ApplicationArea = All;
                 Caption = 'Supplier';
@@ -65,19 +65,19 @@ pageextension 50736 MachineCardExt extends "Machine Center Card"
                     VendorRec: Record Vendor;
                 begin
                     VendorRec.Reset();
-                    VendorRec.SetRange(Name, SUPPLIER);
+                    VendorRec.SetRange(Name, rec.SUPPLIER);
                     if VendorRec.FindSet() then
-                        "SUPPLIER CODE" := VendorRec."No.";
+                        rec."SUPPLIER CODE" := VendorRec."No.";
                 end;
             }
 
-            field("SERVICE PERIOD"; "SERVICE PERIOD")
+            field("SERVICE PERIOD"; rec."SERVICE PERIOD")
             {
                 ApplicationArea = All;
                 Caption = 'Service Period';
             }
 
-            field("OWNER SHIP"; "OWNER SHIP")
+            field("OWNER SHIP"; rec."OWNER SHIP")
             {
                 ApplicationArea = All;
                 Caption = 'Ownnership';

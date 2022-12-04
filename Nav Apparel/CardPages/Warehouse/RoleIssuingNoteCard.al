@@ -10,7 +10,7 @@ page 50635 "Roll Issuing Note Card"
         {
             group(General)
             {
-                field("RoleIssuNo."; "RoleIssuNo.")
+                field("RoleIssuNo."; rec."RoleIssuNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Roll Issuing No';
@@ -22,7 +22,7 @@ page 50635 "Roll Issuing Note Card"
                     end;
                 }
 
-                field("Req No."; "Req No.")
+                field("Req No."; rec."Req No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Requsition No';
@@ -37,21 +37,21 @@ page 50635 "Roll Issuing Note Card"
                         DocNo: Text[50];
                     begin
                         FabricReqRec.Reset();
-                        FabricReqRec.SetRange("FabReqNo.", "Req No.");
+                        FabricReqRec.SetRange("FabReqNo.", rec."Req No.");
 
                         if FabricReqRec.FindSet() then begin
-                            "Style No." := FabricReqRec."Style No.";
-                            "Style Name" := FabricReqRec."Style Name";
-                            "Colour No" := FabricReqRec."Colour No";
-                            "Colour Name" := FabricReqRec."Colour Name";
-                            UOM := FabricReqRec.UOM;
-                            "UOM Code" := FabricReqRec."UOM Code";
-                            "Required Width" := FabricReqRec."Marker Width";
-                            "Required Length" := FabricReqRec."Required Length";
-                            "GRN Filter User ID" := UserId;
-                            "GRN No" := '';
-                            "Po No." := FabricReqRec."PO No.";
-                            "Group ID" := FabricReqRec."Group ID";
+                            rec."Style No." := FabricReqRec."Style No.";
+                            rec."Style Name" := FabricReqRec."Style Name";
+                            rec."Colour No" := FabricReqRec."Colour No";
+                            rec."Colour Name" := FabricReqRec."Colour Name";
+                            rec.UOM := FabricReqRec.UOM;
+                            rec."UOM Code" := FabricReqRec."UOM Code";
+                            rec."Required Width" := FabricReqRec."Marker Width";
+                            rec."Required Length" := FabricReqRec."Required Length";
+                            rec."GRN Filter User ID" := UserId;
+                            rec."GRN No" := '';
+                            rec."Po No." := FabricReqRec."PO No.";
+                            rec."Group ID" := FabricReqRec."Group ID";
 
 
                             //Load GRN for the style
@@ -64,7 +64,7 @@ page 50635 "Roll Issuing Note Card"
                             //Get GRN for the style
                             GRNListRec.Reset();
                             GRNListRec.SetCurrentKey("Document No.");
-                            GRNListRec.SetRange("StyleNo", "Style No.");
+                            GRNListRec.SetRange("StyleNo", rec."Style No.");
 
                             if GRNListRec.FindSet() then begin
                                 repeat
@@ -93,32 +93,32 @@ page 50635 "Roll Issuing Note Card"
                     end;
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; rec."Colour Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Colour';
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; rec."Group ID")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("GRN No"; "GRN No")
+                field("GRN No"; rec."GRN No")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -130,18 +130,18 @@ page 50635 "Roll Issuing Note Card"
                         LocRec: Record Location;
                     begin
                         GRNLineRec.Reset();
-                        GRNLineRec.SetRange("Document No.", "GRN No");
+                        GRNLineRec.SetRange("Document No.", rec."GRN No");
                         GRNLineRec.SetFilter(Type, '%1', GRNLineRec.Type::Item);
                         if GRNLineRec.FindSet() then begin
-                            "Location Code" := GRNLineRec."Location Code";
+                            rec."Location Code" := GRNLineRec."Location Code";
                             LocRec.Reset();
                             LocRec.Get(GRNLineRec."Location Code");
-                            "Location Name" := LocRec.Name;
+                            rec."Location Name" := LocRec.Name;
                         end;
                     end;
                 }
 
-                field("Item Name"; "Item Name")
+                field("Item Name"; rec."Item Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -152,11 +152,11 @@ page 50635 "Roll Issuing Note Card"
                         ItemRec: Record item;
                     begin
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, "Item Name");
+                        ItemRec.SetRange(Description, rec."Item Name");
                         if ItemRec.FindSet() then begin
-                            "Item No" := ItemRec."No.";
+                            rec."Item No" := ItemRec."No.";
                             ItemRec.CalcFields(Inventory);
-                            OnHandQty := ItemRec.Inventory;
+                            rec.OnHandQty := ItemRec.Inventory;
                         end;
 
                         Generate_Role_Details();
@@ -164,30 +164,30 @@ page 50635 "Roll Issuing Note Card"
                     end;
                 }
 
-                field(OnHandQty; OnHandQty)
+                field(OnHandQty; rec.OnHandQty)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'On Hand Qty';
                 }
 
-                field(UOM; UOM)
+                field(UOM; rec.UOM)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Required Width"; "Required Width")
+                field("Required Width"; rec."Required Width")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Required Length"; "Required Length")
+                field("Required Length"; rec."Required Length")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Selected Qty"; "Selected Qty")
+                field("Selected Qty"; rec."Selected Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -215,7 +215,7 @@ page 50635 "Roll Issuing Note Card"
     begin
         //Check in the laysheet
         LaySheetRec.Reset();
-        LaySheetRec.SetRange("LaySheetNo.", "RoleIssuNo.");
+        LaySheetRec.SetRange("LaySheetNo.", rec."RoleIssuNo.");
 
         if LaySheetRec.FindSet() then begin
             Message('Cannot delete. Role Issue No already used in the Laysheet No : %1', LaySheetRec."LaySheetNo.");
@@ -223,7 +223,7 @@ page 50635 "Roll Issuing Note Card"
         end;
 
         RoleIssuingNoteLineRec.reset();
-        RoleIssuingNoteLineRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
+        RoleIssuingNoteLineRec.SetRange("RoleIssuNo.", rec."RoleIssuNo.");
         RoleIssuingNoteLineRec.DeleteAll();
     end;
 
@@ -234,8 +234,8 @@ page 50635 "Roll Issuing Note Card"
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."RoleIssu Nos.", xRec."RoleIssuNo.", "RoleIssuNo.") THEN BEGIN
-            NoSeriesMngment.SetSeries("RoleIssuNo.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."RoleIssu Nos.", xRec."RoleIssuNo.", rec."RoleIssuNo.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."RoleIssuNo.");
             EXIT(TRUE);
         END;
     end;
@@ -250,15 +250,15 @@ page 50635 "Roll Issuing Note Card"
 
         //Delete old records
         RoleIssuLineRec.Reset();
-        RoleIssuLineRec.SetRange("RoleIssuNo.", "RoleIssuNo.");
+        RoleIssuLineRec.SetRange("RoleIssuNo.", rec."RoleIssuNo.");
         if RoleIssuLineRec.FindSet() then
             RoleIssuLineRec.DeleteAll();
 
         FabricProceHeaderRec.Reset();
-        FabricProceHeaderRec.SetRange("Style No.", "Style No.");
-        FabricProceHeaderRec.SetRange(GRN, "GRN No");
-        FabricProceHeaderRec.SetRange("Color No", "Colour No");
-        FabricProceHeaderRec.SetRange("Item No", "Item No");
+        FabricProceHeaderRec.SetRange("Style No.", rec."Style No.");
+        FabricProceHeaderRec.SetRange(GRN, rec."GRN No");
+        FabricProceHeaderRec.SetRange("Color No", rec."Colour No");
+        FabricProceHeaderRec.SetRange("Item No", rec."Item No");
         FabricProceHeaderRec.FindSet();
 
         FabricProceLineRec.Reset();
@@ -270,11 +270,11 @@ page 50635 "Roll Issuing Note Card"
 
                 Lineno += 1;
                 RoleIssuLineRec.Init();
-                RoleIssuLineRec."RoleIssuNo." := "RoleIssuNo.";
+                RoleIssuLineRec."RoleIssuNo." := rec."RoleIssuNo.";
                 RoleIssuLineRec."Line No." := Lineno;
-                RoleIssuLineRec."Location No" := "Location Code";
-                RoleIssuLineRec."Location Name" := "Location Name";
-                RoleIssuLineRec."Item No" := "Item No";
+                RoleIssuLineRec."Location No" := rec."Location Code";
+                RoleIssuLineRec."Location Name" := rec."Location Name";
+                RoleIssuLineRec."Item No" := rec."Item No";
                 RoleIssuLineRec."Length Act" := FabricProceLineRec."Act. Legth";
                 RoleIssuLineRec."Length Tag" := FabricProceLineRec.YDS;
                 RoleIssuLineRec."Length Allocated" := FabricProceLineRec."Act. Legth";

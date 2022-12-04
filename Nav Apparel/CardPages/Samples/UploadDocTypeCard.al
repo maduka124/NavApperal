@@ -10,13 +10,13 @@ page 50417 "Upload Document Type Card"
         {
             group(General)
             {
-                field("Doc No."; "Doc No.")
+                field("Doc No."; rec."Doc No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Document Type No';
                 }
 
-                field("Doc Name"; "Doc Name")
+                field("Doc Name"; rec."Doc Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Document Type';

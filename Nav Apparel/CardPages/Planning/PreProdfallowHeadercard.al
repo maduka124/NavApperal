@@ -10,7 +10,7 @@ page 50835 PreProductionfollowup
         {
             group(General)
             {
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     Caption = 'Factory';
                     ApplicationArea = All;
@@ -30,8 +30,8 @@ page 50835 PreProductionfollowup
                         LocationRec.SetFilter("Sewing Unit", '=%1', true);
 
                         if Page.RunModal(50517, LocationRec) = Action::LookupOK then begin
-                            "Factory Code" := LocationRec.Code;
-                            "Factory Name" := LocationRec.Name;
+                            rec."Factory Code" := LocationRec.Code;
+                            rec."Factory Name" := LocationRec.Name;
                             LoadData();
                         end;
 
@@ -79,11 +79,11 @@ page 50835 PreProductionfollowup
         MaxNo: BigInteger;
     begin
         locationRec.Reset();
-        locationRec.SetRange(Code, "Factory Code");
+        locationRec.SetRange(Code, rec."Factory Code");
         locationRec.FindSet();
 
         NavPlaningLineRec.Reset();
-        NavPlaningLineRec.SetRange(Factory, "Factory Code");
+        NavPlaningLineRec.SetRange(Factory, rec."Factory Code");
         NavPlaningLineRec.SetCurrentKey("Style No.");
         NavPlaningLineRec.Ascending(true);
 
@@ -97,7 +97,7 @@ page 50835 PreProductionfollowup
 
                 //Get min date (start date)
                 NavPlaningLine2Rec.Reset();
-                NavPlaningLine2Rec.SetRange(Factory, "Factory Code");
+                NavPlaningLine2Rec.SetRange(Factory, rec."Factory Code");
                 NavPlaningLine2Rec.SetRange("Style No.", StyleMasterRec."No.");
                 NavPlaningLine2Rec.SetCurrentKey("Start Date");
                 NavPlaningLine2Rec.Ascending(true);
@@ -107,7 +107,7 @@ page 50835 PreProductionfollowup
 
                 //Get max date (finish date)
                 NavPlaningLine2Rec.Reset();
-                NavPlaningLine2Rec.SetRange(Factory, "Factory Code");
+                NavPlaningLine2Rec.SetRange(Factory, rec."Factory Code");
                 NavPlaningLine2Rec.SetRange("Style No.", StyleMasterRec."No.");
                 NavPlaningLine2Rec.SetCurrentKey("End Date");
                 NavPlaningLine2Rec.Ascending(false);
@@ -118,7 +118,7 @@ page 50835 PreProductionfollowup
                 //Get max line no for the factory and style
                 MaxNo := 0;
                 PreProductionFallowline1.Reset();
-                PreProductionFallowline1.SetRange("Factory Code", "Factory Code");
+                PreProductionFallowline1.SetRange("Factory Code", rec."Factory Code");
                 PreProductionFallowline1.SetRange("Style No", NavPlaningLineRec."Style No.");
                 if PreProductionFallowline1.FindLast() then
                     MaxNo := PreProductionFallowline1."Line No";
@@ -126,14 +126,14 @@ page 50835 PreProductionfollowup
                 MaxNo += 1;
 
                 PreProductionFallowline.Reset();
-                PreProductionFallowline.SetRange("Factory Code", "Factory Code");
+                PreProductionFallowline.SetRange("Factory Code", rec."Factory Code");
                 PreProductionFallowline.SetRange("Style No", NavPlaningLineRec."Style No.");
 
                 if not PreProductionFallowline.FindSet() then begin
                     PreProductionFallowline.Init();
                     PreProductionFallowline."Line No" := MaxNo;
-                    PreProductionFallowline."Factory Name" := "Factory Name";
-                    PreProductionFallowline."Factory Code" := "Factory Code";
+                    PreProductionFallowline."Factory Name" := rec."Factory Name";
+                    PreProductionFallowline."Factory Code" := rec."Factory Code";
                     PreProductionFallowline.Buyer := StyleMasterRec."Buyer Name";
                     PreProductionFallowline."Buyer No" := StyleMasterRec."Buyer No.";
                     PreProductionFallowline.Style := StyleMasterRec."Style No.";

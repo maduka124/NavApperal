@@ -12,14 +12,14 @@ page 50515 "Hourly Production Card"
         {
             group(General)
             {
-                field("Prod Date"; "Prod Date")
+                field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
                     Editable = true;
                     ShowMandatory = true;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -39,14 +39,14 @@ page 50515 "Hourly Production Card"
                         LocationRec.SetRange("code", Users."Factory Code");
 
                         if Page.RunModal(50517, LocationRec) = Action::LookupOK then begin
-                            "Factory No." := LocationRec.Code;
-                            "Factory Name" := LocationRec.Name;
+                            rec."Factory No." := LocationRec.Code;
+                            rec."Factory Name" := LocationRec.Name;
                         end;
 
                     end;
                 }
 
-                field(Type; Type)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
                 }
@@ -86,21 +86,21 @@ page 50515 "Hourly Production Card"
                     CurrPage.Update();
                     //Get max lineno
                     HourlyProdLines1Rec.Reset();
-                    HourlyProdLines1Rec.SetRange("No.", "No.");
+                    HourlyProdLines1Rec.SetRange("No.", rec."No.");
 
                     if HourlyProdLines1Rec.FindLast() then
                         LineNo := HourlyProdLines1Rec."Line No.";
 
                     HourlyProdLinesRec.Reset();
-                    HourlyProdLinesRec.SetRange("Prod Date", "Prod Date");
-                    HourlyProdLinesRec.SetRange("Factory No.", "Factory No.");
-                    HourlyProdLinesRec.SetRange(Type, Type);
+                    HourlyProdLinesRec.SetRange("Prod Date", rec."Prod Date");
+                    HourlyProdLinesRec.SetRange("Factory No.", rec."Factory No.");
+                    HourlyProdLinesRec.SetRange(Type, rec.Type);
 
                     if not HourlyProdLinesRec.FindSet() then begin
 
                         NavAppProdPlanLinesRec.Reset();
-                        NavAppProdPlanLinesRec.SetRange("PlanDate", "Prod Date");
-                        NavAppProdPlanLinesRec.SetRange("Factory No.", "Factory No.");
+                        NavAppProdPlanLinesRec.SetRange("PlanDate", rec."Prod Date");
+                        NavAppProdPlanLinesRec.SetRange("Factory No.", rec."Factory No.");
                         NavAppProdPlanLinesRec.SetCurrentKey("Style No.");
                         NavAppProdPlanLinesRec.Ascending(true);
 
@@ -116,7 +116,7 @@ page 50515 "Hourly Production Card"
 
                                     LineNo += 1;
                                     HourlyProdLinesRec.Init();
-                                    HourlyProdLinesRec."No." := "No.";
+                                    HourlyProdLinesRec."No." := rec."No.";
                                     HourlyProdLinesRec."Line No." := LineNo;
                                     HourlyProdLinesRec."Style Name" := NavAppProdPlanLinesRec."Style Name";
                                     HourlyProdLinesRec.Insert();
@@ -127,11 +127,11 @@ page 50515 "Hourly Production Card"
                                 LineNo += 1;
 
                                 HourlyProdLinesRec.Init();
-                                HourlyProdLinesRec."No." := "No.";
+                                HourlyProdLinesRec."No." := rec."No.";
                                 HourlyProdLinesRec."Line No." := LineNo;
-                                HourlyProdLinesRec."Factory No." := "Factory No.";
-                                HourlyProdLinesRec."Prod Date" := "Prod Date";
-                                HourlyProdLinesRec.Type := Type;
+                                HourlyProdLinesRec."Factory No." := rec."Factory No.";
+                                HourlyProdLinesRec."Prod Date" := rec."Prod Date";
+                                HourlyProdLinesRec.Type := rec.Type;
                                 HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
                                 HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
                                 HourlyProdLinesRec.Item := 'PASS PCS';
@@ -140,11 +140,11 @@ page 50515 "Hourly Production Card"
                                 LineNo += 1;
 
                                 HourlyProdLinesRec.Init();
-                                HourlyProdLinesRec."No." := "No.";
+                                HourlyProdLinesRec."No." := rec."No.";
                                 HourlyProdLinesRec."Line No." := LineNo;
-                                HourlyProdLinesRec."Factory No." := "Factory No.";
-                                HourlyProdLinesRec."Prod Date" := "Prod Date";
-                                HourlyProdLinesRec.Type := Type;
+                                HourlyProdLinesRec."Factory No." := rec."Factory No.";
+                                HourlyProdLinesRec."Prod Date" := rec."Prod Date";
+                                HourlyProdLinesRec.Type := rec.Type;
                                 HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
                                 HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
                                 HourlyProdLinesRec.Item := 'DEFECT PCS';
@@ -153,11 +153,11 @@ page 50515 "Hourly Production Card"
                                 LineNo += 1;
 
                                 HourlyProdLinesRec.Init();
-                                HourlyProdLinesRec."No." := "No.";
+                                HourlyProdLinesRec."No." := rec."No.";
                                 HourlyProdLinesRec."Line No." := LineNo;
-                                HourlyProdLinesRec."Factory No." := "Factory No.";
-                                HourlyProdLinesRec."Prod Date" := "Prod Date";
-                                HourlyProdLinesRec.Type := Type;
+                                HourlyProdLinesRec."Factory No." := rec."Factory No.";
+                                HourlyProdLinesRec."Prod Date" := rec."Prod Date";
+                                HourlyProdLinesRec.Type := rec.Type;
                                 HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
                                 HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
                                 HourlyProdLinesRec.Item := 'DHU';
@@ -168,21 +168,21 @@ page 50515 "Hourly Production Card"
                             //Add Sub totals
                             LineNo += 1;
                             HourlyProdLinesRec.Init();
-                            HourlyProdLinesRec."No." := "No.";
+                            HourlyProdLinesRec."No." := rec."No.";
                             HourlyProdLinesRec."Line No." := LineNo;
                             HourlyProdLinesRec."Style Name" := 'PASS PCS (Total)';
                             HourlyProdLinesRec.Insert();
 
                             LineNo += 1;
                             HourlyProdLinesRec.Init();
-                            HourlyProdLinesRec."No." := "No.";
+                            HourlyProdLinesRec."No." := rec."No.";
                             HourlyProdLinesRec."Line No." := LineNo;
                             HourlyProdLinesRec."Style Name" := 'DEFECT PCS (Total)';
                             HourlyProdLinesRec.Insert();
 
                             LineNo += 1;
                             HourlyProdLinesRec.Init();
-                            HourlyProdLinesRec."No." := "No.";
+                            HourlyProdLinesRec."No." := rec."No.";
                             HourlyProdLinesRec."Line No." := LineNo;
                             HourlyProdLinesRec."Style Name" := 'DHU (Total)';
                             HourlyProdLinesRec.Insert();
@@ -204,7 +204,7 @@ page 50515 "Hourly Production Card"
     var
         HourlyProdLinesRec: Record "Hourly Production Lines";
     begin
-        HourlyProdLinesRec.SetRange("No.", "No.");
+        HourlyProdLinesRec.SetRange("No.", rec."No.");
         HourlyProdLinesRec.DeleteAll();
     end;
 }

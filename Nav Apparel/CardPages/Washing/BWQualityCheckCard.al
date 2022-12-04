@@ -12,7 +12,7 @@ page 50754 BWQualityCheck
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'BW Quality Check No';
@@ -25,7 +25,7 @@ page 50754 BWQualityCheck
                     end;
                 }
 
-                field("Sample Req No"; "Sample Req No")
+                field("Sample Req No"; rec."Sample Req No")
                 {
                     ApplicationArea = All;
 
@@ -35,26 +35,26 @@ page 50754 BWQualityCheck
                     begin
 
                         WashingSampleReqLine.Reset();
-                        WashingSampleReqLine.SetRange("No.", "Sample Req No");
+                        WashingSampleReqLine.SetRange("No.", rec."Sample Req No");
 
                         if WashingSampleReqLine.Findset() then begin
                             if WashingSampleReqLine."Split Status" = WashingSampleReqLine."Split Status"::Yes then
                                 Error('Sample request has been split. You cannot perform BW Quality Check.');
 
-                            "Line No" := WashingSampleReqLine."Line no.";
-                            "BW QC Date" := WorkDate();
+                            rec."Line No" := WashingSampleReqLine."Line no.";
+                            rec."BW QC Date" := WorkDate();
                             CurrPage.Update();
                         end;
                     end;
                 }
 
-                field("BW QC Date"; "BW QC Date")
+                field("BW QC Date"; rec."BW QC Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Status; Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -83,7 +83,7 @@ page 50754 BWQualityCheck
 
             group("BW Quality Result")
             {
-                field("Pass Qty"; "Pass Qty")
+                field("Pass Qty"; rec."Pass Qty")
                 {
                     ApplicationArea = All;
 
@@ -94,18 +94,18 @@ page 50754 BWQualityCheck
                         WashsamplereqlineRec: Record "Washing Sample Requsition Line";
                     begin
                         WashsamplereqlineRec.Reset();
-                        WashsamplereqlineRec.SetRange("No.", "Sample Req No");
-                        WashsamplereqlineRec.SetRange("Line no.", "Line No");
+                        WashsamplereqlineRec.SetRange("No.", rec."Sample Req No");
+                        WashsamplereqlineRec.SetRange("Line no.", rec."Line No");
 
                         if WashsamplereqlineRec.FindSet() then begin
-                            if WashsamplereqlineRec."Req Qty" < "Pass Qty" then
+                            if WashsamplereqlineRec."Req Qty" < rec."Pass Qty" then
                                 Error('Pass quantity must be less then or equal to Req qty');
 
-                            if WashsamplereqlineRec."Req Qty" >= "Pass Qty" then begin
-                                "Fail Qty" := WashsamplereqlineRec."Req Qty" - "Pass Qty";
+                            if WashsamplereqlineRec."Req Qty" >= rec."Pass Qty" then begin
+                                rec."Fail Qty" := WashsamplereqlineRec."Req Qty" - rec."Pass Qty";
 
-                                "Total Pass Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + "Pass Qty";
-                                "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + "Fail Qty";
+                                "Total Pass Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + rec."Pass Qty";
+                                "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + rec."Fail Qty";
 
                                 if WashsamplereqlineRec."Req Qty" < "Total Pass Qty" then
                                     Error('Total Pass Qty should be less than or equal to Req qty');
@@ -119,13 +119,13 @@ page 50754 BWQualityCheck
                     end;
                 }
 
-                field("Fail Qty"; "Fail Qty")
+                field("Fail Qty"; rec."Fail Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Remarks; Remarks)
+                field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = all;
                     Caption = 'Comment';
@@ -152,12 +152,12 @@ page 50754 BWQualityCheck
                     "Total Fail Qty": Integer;
                 begin
 
-                    if Status = Status::Posted then
+                    if rec.Status = rec.Status::Posted then
                         Error('Entry already posted.');
 
                     WashsamplereqlineRec.Reset();
-                    WashsamplereqlineRec.SetRange("No.", "Sample Req No");
-                    WashsamplereqlineRec.SetRange("Line no.", "Line No");
+                    WashsamplereqlineRec.SetRange("No.", rec."Sample Req No");
+                    WashsamplereqlineRec.SetRange("Line no.", rec."Line No");
 
                     if WashsamplereqlineRec.FindSet() then begin
 
@@ -174,11 +174,11 @@ page 50754 BWQualityCheck
                         //         Error('Total defects quantity should be less than sample requested qty.');
                         // end;
 
-                        "Total Pass Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + "Pass Qty";
-                        "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + "Fail Qty";
+                        "Total Pass Qty" := WashsamplereqlineRec."Req Qty BW QC Pass" + rec."Pass Qty";
+                        "Total Fail Qty" := WashsamplereqlineRec."Req Qty BW QC Fail" + rec."Fail Qty";
 
-                        WashsamplereqlineRec."Req Qty BW QC Pass" := "Pass Qty" + WashsamplereqlineRec."Req Qty BW QC Pass";
-                        WashsamplereqlineRec."Req Qty BW QC Fail" := "Fail Qty" + WashsamplereqlineRec."Req Qty BW QC Fail";
+                        WashsamplereqlineRec."Req Qty BW QC Pass" := rec."Pass Qty" + WashsamplereqlineRec."Req Qty BW QC Pass";
+                        WashsamplereqlineRec."Req Qty BW QC Fail" := rec."Fail Qty" + WashsamplereqlineRec."Req Qty BW QC Fail";
 
                         if WashsamplereqlineRec."Req Qty" < "Total Pass Qty" then
                             Error('Total Pass Qty should be less than or equal to Req qty');
@@ -186,10 +186,10 @@ page 50754 BWQualityCheck
                         if WashsamplereqlineRec."Req Qty" < "Total Fail Qty" then
                             Error('Total Fail Qty should be less than or equal to Req qty');
 
-                        WashsamplereqlineRec."BW QC Date" := "BW QC Date";
+                        WashsamplereqlineRec."BW QC Date" := rec."BW QC Date";
                         WashsamplereqlineRec.Modify();
 
-                        Status := Status::Posted;
+                        rec.Status := rec.Status::Posted;
                         CurrPage.Editable(false);
                         CurrPage.Update();
 
@@ -208,8 +208,8 @@ page 50754 BWQualityCheck
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
         NavAppSetup.Get('0001');
-        IF NoSeriesMngment.SelectSeries(NavAppSetup."BW Wash Quality", xRec."No.", "No.") THEN BEGIN
-            NoSeriesMngment.SetSeries("No.");
+        IF NoSeriesMngment.SelectSeries(NavAppSetup."BW Wash Quality", xRec."No.", rec."No.") THEN BEGIN
+            NoSeriesMngment.SetSeries(rec."No.");
             EXIT(TRUE);
         END;
     end;
@@ -220,11 +220,11 @@ page 50754 BWQualityCheck
         BWQualityCheckLineRec: Record BWQualityLine2;
     begin
 
-        if Status = Status::Posted then
+        if rec.Status = rec.Status::Posted then
             Error('Entry already posted. Cannot delete.');
 
         BWQualityCheckLineRec.Reset();
-        BWQualityCheckLineRec.SetRange("No", "No.");
+        BWQualityCheckLineRec.SetRange("No", rec."No.");
         if BWQualityCheckLineRec.FindSet() then
             BWQualityCheckLineRec.DeleteAll();
 
@@ -234,7 +234,7 @@ page 50754 BWQualityCheck
     var
 
     begin
-        if Status = Status::Posted then
+        if rec.Status = rec.Status::Posted then
             CurrPage.Editable(false)
         else
             CurrPage.Editable(true);

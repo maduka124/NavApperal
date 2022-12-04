@@ -10,7 +10,7 @@ page 50355 "Daily Sewing In/Out Card"
         {
             group(General)
             {
-                field("Prod Date"; "Prod Date")
+                field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Production Date';
@@ -19,11 +19,11 @@ page 50355 "Daily Sewing In/Out Card"
                     trigger OnValidate()
                     var
                     begin
-                        Type := Type::Saw;
+                        rec.Type := rec.Type::Saw;
                     end;
                 }
 
-                field("Resource Name"; "Resource Name")
+                field("Resource Name"; rec."Resource Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Section';
@@ -34,10 +34,10 @@ page 50355 "Daily Sewing In/Out Card"
                         WorkCenterRec: Record "Work Center";
                     begin
                         WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, "Resource Name");
+                        WorkCenterRec.SetRange(Name, rec."Resource Name");
 
                         if WorkCenterRec.FindSet() then
-                            "Resource No." := WorkCenterRec."No.";
+                            rec."Resource No." := WorkCenterRec."No.";
 
                         CurrPage.Update();
                     end;
@@ -46,7 +46,7 @@ page 50355 "Daily Sewing In/Out Card"
 
             group("Input Style Detail")
             {
-                field("Style Name"; "Style Name")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Input Style';
@@ -67,21 +67,21 @@ page 50355 "Daily Sewing In/Out Card"
 
                         NavProdDetRec.Reset();
                         NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
-                        NavProdDetRec.SetRange("Resource No.", "Resource No.");
-                        NavProdDetRec.SetFilter(PlanDate, '%1..%2', "Prod Date", "Prod Date" + 3);
+                        NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
+                        NavProdDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
                         if not NavProdDetRec.FindSet() then
                             Error('Cannot find planning details');
 
                         if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
-                            "Style No." := NavProdDetRec."Style No.";
+                            rec."Style No." := NavProdDetRec."Style No.";
                             StyleMasterRec.Reset();
-                            StyleMasterRec.get("Style No.");
-                            "Style Name" := StyleMasterRec."Style No.";
+                            StyleMasterRec.get(rec."Style No.");
+                            rec."Style Name" := StyleMasterRec."Style No.";
                         end;
                     end;
                 }
 
-                field("Lot No."; "Lot No.")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Input Lot No';
@@ -102,40 +102,40 @@ page 50355 "Daily Sewing In/Out Card"
 
                         NavAppProdPlansDetRec.Reset();
                         NavAppProdPlansDetRec.SetRange("Factory No.", Users."Factory Code");
-                        NavAppProdPlansDetRec.SetRange("Resource No.", "Resource No.");
-                        NavAppProdPlansDetRec.SetRange("Style No.", "Style No.");
-                        NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', "Prod Date");
+                        NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
+                        NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
+                        NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', rec."Prod Date");
                         if not NavAppProdPlansDetRec.FindSet() then
                             Error('Cannot find planning details');
 
                         if Page.RunModal(50519, NavAppProdPlansDetRec) = Action::LookupOK then begin
-                            "PO No" := NavAppProdPlansDetRec."PO No.";
-                            "Lot No." := NavAppProdPlansDetRec."lot No.";
+                            rec."PO No" := NavAppProdPlansDetRec."PO No.";
+                            rec."Lot No." := NavAppProdPlansDetRec."lot No.";
                         end;
 
                         GridHeader_Insert();
 
                         //Get and Set Line No
                         NavAppProdPlansDetRec.Reset();
-                        NavAppProdPlansDetRec.SetRange("Style No.", "Style No.");
-                        NavAppProdPlansDetRec.SetRange("Lot No.", "Lot No.");
-                        NavAppProdPlansDetRec.SetRange(PlanDate, "Prod Date");
-                        NavAppProdPlansDetRec.SetRange("Resource No.", "Resource No.");
+                        NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
+                        NavAppProdPlansDetRec.SetRange("Lot No.", rec."Lot No.");
+                        NavAppProdPlansDetRec.SetRange(PlanDate, rec."Prod Date");
+                        NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
 
                         if NavAppProdPlansDetRec.FindSet() then
-                            "Ref Line No." := NavAppProdPlansDetRec."Line No.";
+                            rec."Ref Line No." := NavAppProdPlansDetRec."Line No.";
 
                     end;
                 }
 
-                field("PO No"; "PO No")
+                field("PO No"; rec."PO No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Input PO No';
                 }
 
-                field("Input Qty"; "Input Qty")
+                field("Input Qty"; rec."Input Qty")
                 {
                     ApplicationArea = All;
 
@@ -146,11 +146,11 @@ page 50355 "Daily Sewing In/Out Card"
 
                         //Check Input qty with cutting qty
                         StyleMasterPORec.Reset();
-                        StyleMasterPORec.SetRange("Style No.", "Style No.");
-                        StyleMasterPORec.SetRange("Lot No.", "Lot No.");
+                        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+                        StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
                         StyleMasterPORec.FindSet();
 
-                        if "Input Qty" > StyleMasterPORec."Cut Out Qty" then
+                        if rec."Input Qty" > StyleMasterPORec."Cut Out Qty" then
                             Error('Input quantity is greater than total cut quantity.');
 
                         CurrPage.Update();
@@ -181,7 +181,7 @@ page 50355 "Daily Sewing In/Out Card"
 
             group("Output Style Detail")
             {
-                field("Out Style Name"; "Out Style Name")
+                field("Out Style Name"; rec."Out Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Output Style Name';
@@ -202,29 +202,29 @@ page 50355 "Daily Sewing In/Out Card"
 
                         NavProdDetRec.Reset();
                         NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
-                        NavProdDetRec.SetRange("Resource No.", "Resource No.");
-                        NavProdDetRec.SetFilter(PlanDate, '=%1', "Prod Date");
+                        NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
+                        NavProdDetRec.SetFilter(PlanDate, '=%1', rec."Prod Date");
                         if NavProdDetRec.FindSet() then
                             Error('Cannot find planning details');
 
                         if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
-                            "Out Style No." := NavProdDetRec."Style No.";
+                            rec."Out Style No." := NavProdDetRec."Style No.";
 
                             StyleMasterRec.Reset();
-                            StyleMasterRec.get("Out Style No.");
-                            "Out Style Name" := StyleMasterRec."Style No.";
+                            StyleMasterRec.get(rec."Out Style No.");
+                            rec."Out Style Name" := StyleMasterRec."Style No.";
                         end;
                     end;
                 }
 
-                field("Out Style No."; "Out Style No.")
+                field("Out Style No."; rec."Out Style No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Output Style No';
                     Editable = false;
                 }
 
-                field("Out Lot No."; "Out Lot No.")
+                field("Out Lot No."; rec."Out Lot No.")
                 {
                     ApplicationArea = All;
 
@@ -243,40 +243,40 @@ page 50355 "Daily Sewing In/Out Card"
 
                         NavAppProdPlansDetRec.Reset();
                         NavAppProdPlansDetRec.SetRange("Factory No.", Users."Factory Code");
-                        NavAppProdPlansDetRec.SetRange("Resource No.", "Resource No.");
-                        NavAppProdPlansDetRec.SetRange("Style No.", "Style No.");
-                        NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', "Prod Date");
+                        NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
+                        NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
+                        NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', rec."Prod Date");
                         if NavAppProdPlansDetRec.FindSet() then
                             Error('Cannot find planning details');
 
                         if Page.RunModal(50519, NavAppProdPlansDetRec) = Action::LookupOK then begin
-                            "OUT PO No" := NavAppProdPlansDetRec."PO No.";
-                            "Out Lot No." := NavAppProdPlansDetRec."lot No.";
+                            rec."OUT PO No" := NavAppProdPlansDetRec."PO No.";
+                            rec."Out Lot No." := NavAppProdPlansDetRec."lot No.";
                         end;
 
                         GridHeader_Insert();
 
                         //Get and Set Line No
                         NavAppProdPlansDetRec.Reset();
-                        NavAppProdPlansDetRec.SetRange("Style No.", "Out Style No.");
-                        NavAppProdPlansDetRec.SetRange("Lot No.", "Out Lot No.");
-                        NavAppProdPlansDetRec.SetRange(PlanDate, "Prod Date");
-                        NavAppProdPlansDetRec.SetRange("Resource No.", "Resource No.");
+                        NavAppProdPlansDetRec.SetRange("Style No.", rec."Out Style No.");
+                        NavAppProdPlansDetRec.SetRange("Lot No.", rec."Out Lot No.");
+                        NavAppProdPlansDetRec.SetRange(PlanDate, rec."Prod Date");
+                        NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
 
                         if NavAppProdPlansDetRec.FindSet() then
-                            "Ref Line No." := NavAppProdPlansDetRec."Line No.";
+                            rec."Ref Line No." := NavAppProdPlansDetRec."Line No.";
 
                     end;
                 }
 
-                field("OUT PO No"; "OUT PO No")
+                field("OUT PO No"; rec."OUT PO No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Out PO No';
                 }
 
-                field("Output Qty"; "Output Qty")
+                field("Output Qty"; rec."Output Qty")
                 {
                     ApplicationArea = All;
 
@@ -284,7 +284,7 @@ page 50355 "Daily Sewing In/Out Card"
                     var
                     begin
                         //Check Input qty with cutting qty
-                        if "Output Qty" > "Input Qty" then
+                        if rec."Output Qty" > rec."Input Qty" then
                             Error('Output quantity is greater than the input quantity.');
                         CurrPage.Update();
                     end;
@@ -329,7 +329,7 @@ page 50355 "Daily Sewing In/Out Card"
                 var
                     CodeUnitNavapp: Codeunit NavAppCodeUnit;
                 begin
-                    CodeUnitNavapp.Update_Runtime("Out Style Name", "Out Style No.", 'SEWING');
+                    CodeUnitNavapp.Update_Runtime(rec."Out Style Name", rec."Out Style No.", 'SEWING');
                     Message('Sewing Runtime Updated');
                 end;
             }
@@ -346,35 +346,35 @@ page 50355 "Daily Sewing In/Out Card"
         LineTotal_Out: BigInteger;
     begin
 
-        if ("Style No." <> '') and ("Lot No." <> '') then begin
+        if (rec."Style No." <> '') and (rec."Lot No." <> '') then begin
 
             LineTotal_In := 0;
             LineTotal_Out := 0;
 
             //Check Input qty with cutting qty
             StyleMasterPORec.Reset();
-            StyleMasterPORec.SetRange("Style No.", "Style No.");
-            StyleMasterPORec.SetRange("Lot No.", "Lot No.");
+            StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+            StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
             if StyleMasterPORec.FindSet() then begin
 
-                if "Input Qty" > StyleMasterPORec."Cut Out Qty" then begin
+                if rec."Input Qty" > StyleMasterPORec."Cut Out Qty" then begin
                     Error('Input quantity is greater than total cut quantity.');
                     exit;
                 end;
 
                 //Check Input qty with output qty
-                if StyleMasterPORec."Sawing In Qty" < "Output Qty" then begin
+                if StyleMasterPORec."Sawing In Qty" < rec."Output Qty" then begin
                     Error('Sewing output total quantity is greater than sewing input total quantity.');
                     exit;
                 end;
             end
             else
-                Error('Cannot find Style : %1', "Style Name");
+                Error('Cannot find Style : %1', rec."Style Name");
 
 
             //Line In Qty
             ProductionOutLine.Reset();
-            ProductionOutLine.SetRange("No.", "No.");
+            ProductionOutLine.SetRange("No.", rec."No.");
             ProductionOutLine.SetRange(In_Out, 'IN');
 
             if ProductionOutLine.FindSet() then begin
@@ -384,14 +384,14 @@ page 50355 "Daily Sewing In/Out Card"
                 until ProductionOutLine.Next() = 0;
             end;
 
-            if LineTotal_In <> "Input Qty" then begin
+            if LineTotal_In <> rec."Input Qty" then begin
                 Error('Input quantity should match color/size total quantity.');
                 exit;
             end;
 
             //Line Out Qty
             ProductionOutLine.Reset();
-            ProductionOutLine.SetRange("No.", "No.");
+            ProductionOutLine.SetRange("No.", rec."No.");
             ProductionOutLine.SetRange(In_Out, 'OUT');
 
             if ProductionOutLine.FindSet() then begin
@@ -401,7 +401,7 @@ page 50355 "Daily Sewing In/Out Card"
                 until ProductionOutLine.Next() = 0;
             end;
 
-            if LineTotal_Out <> "Output Qty" then begin
+            if LineTotal_Out <> rec."Output Qty" then begin
                 Error('Output quantity should match color/size total quantity.');
                 exit;
             end;
@@ -416,23 +416,23 @@ page 50355 "Daily Sewing In/Out Card"
         ProductionOutLine: Record ProductionOutLine;
         LineNo: BigInteger;
     begin
-        if ("Style No." <> '') and ("Lot No." <> '') then begin
+        if (rec."Style No." <> '') and (rec."Lot No." <> '') then begin
 
             ProductionOutLine.Reset();
-            ProductionOutLine.SetRange("No.", "No.");
+            ProductionOutLine.SetRange("No.", rec."No.");
 
             if ProductionOutLine.FindLast() then
                 LineNo := ProductionOutLine."Line No.";
 
             AssoRec.Reset();
-            AssoRec.SetRange("Style No.", "Style No.");
-            AssoRec.SetRange("Lot No.", "Lot No.");
+            AssoRec.SetRange("Style No.", rec."Style No.");
+            AssoRec.SetRange("Lot No.", rec."Lot No.");
 
             if AssoRec.FindSet() then begin
                 repeat
                     //Check duplicates beforen inserting
                     ProductionOutLine.Reset();
-                    ProductionOutLine.SetRange("No.", "No.");
+                    ProductionOutLine.SetRange("No.", rec."No.");
                     ProductionOutLine.SetRange("Colour No", AssoRec."Colour No");
 
                     if not ProductionOutLine.FindSet() then begin
@@ -440,11 +440,11 @@ page 50355 "Daily Sewing In/Out Card"
                         //Input
                         LineNo += 1;
                         ProductionOutLine.Init();
-                        ProductionOutLine."No." := "No.";
+                        ProductionOutLine."No." := rec."No.";
                         ProductionOutLine."Line No." := LineNo;
                         ProductionOutLine."Colour No" := AssoRec."Colour No";
                         ProductionOutLine."Colour Name" := AssoRec."Colour Name";
-                        ProductionOutLine.Type := Type;
+                        ProductionOutLine.Type := rec.Type;
                         ProductionOutLine.In_Out := 'IN';
                         ProductionOutLine.Total := 0;
                         ProductionOutLine."Style Name" := AssoRec."Style Name";
@@ -596,11 +596,11 @@ page 50355 "Daily Sewing In/Out Card"
                         //Output
                         LineNo += 1;
                         ProductionOutLine.Init();
-                        ProductionOutLine."No." := "No.";
+                        ProductionOutLine."No." := rec."No.";
                         ProductionOutLine."Line No." := LineNo;
                         ProductionOutLine."Colour No" := AssoRec."Colour No";
                         ProductionOutLine."Colour Name" := AssoRec."Colour Name";
-                        ProductionOutLine.Type := Type;
+                        ProductionOutLine.Type := rec.Type;
                         ProductionOutLine.In_Out := 'OUT';
                         ProductionOutLine.Total := 0;
                         ProductionOutLine."Style No." := AssoRec."Style No.";
@@ -760,8 +760,8 @@ page 50355 "Daily Sewing In/Out Card"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
-        NavAppCodeUnit.Delete_Prod_Records("No.", "Style No.", "Lot No.", 'IN', 'Saw', Type::Saw);
-        NavAppCodeUnit.Delete_Prod_Records("No.", "Style No.", "Lot No.", 'OUT', 'Saw', Type::Saw);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'IN', 'Saw', rec.Type::Saw);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'OUT', 'Saw', rec.Type::Saw);
     end;
 
 }

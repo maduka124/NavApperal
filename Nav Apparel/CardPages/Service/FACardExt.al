@@ -4,27 +4,27 @@ pageextension 50733 FACardExt extends "Fixed Asset Card"
     {
         addafter("Last Date Modified")
         {
-            field("Machine category"; "Machine category")
+            field("Machine category"; rec."Machine category")
             {
                 ApplicationArea = All;
             }
 
-            field("Model number"; "Model number")
+            field("Model number"; rec."Model number")
             {
                 ApplicationArea = All;
             }
 
-            field("RPM/Machine type"; "RPM/Machine type")
+            field("RPM/Machine type"; rec."RPM/Machine type")
             {
                 ApplicationArea = All;
             }
 
-            field("Motor number"; "Motor number")
+            field("Motor number"; rec."Motor number")
             {
                 ApplicationArea = All;
             }
 
-            field("Features "; "Features ")
+            field("Features "; rec."Features ")
             {
                 ApplicationArea = All;
             }

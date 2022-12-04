@@ -10,13 +10,13 @@ page 71012774 "Sample Type Card"
         {
             group(General)
             {
-                field("No."; "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample Type No';
                 }
 
-                field("Sample Type Name"; "Sample Type Name")
+                field("Sample Type Name"; rec."Sample Type Name")
                 {
                     ApplicationArea = All;
 
@@ -25,13 +25,13 @@ page 71012774 "Sample Type Card"
                         SampleTypeRec: Record "Sample Type";
                     begin
                         SampleTypeRec.Reset();
-                        SampleTypeRec.SetRange("Sample Type Name", "Sample Type Name");
+                        SampleTypeRec.SetRange("Sample Type Name", rec."Sample Type Name");
                         if SampleTypeRec.FindSet() then
                             Error('Sample Type already exists.');
                     end;
                 }
 
-                field("Lead Time"; "Lead Time")
+                field("Lead Time"; rec."Lead Time")
                 {
                     ApplicationArea = All;
                 }

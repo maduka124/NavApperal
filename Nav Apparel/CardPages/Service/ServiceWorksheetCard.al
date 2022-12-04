@@ -96,7 +96,7 @@ page 50726 "Service Worksheet Card"
                         NextNo := ServiceWrokRec."No.";
 
                     NextNo += 1;
-                    "No." := NextNo;
+                    rec."No." := NextNo;
 
                     //Get All selected Work stations
                     WorkCenRec.Reset();
@@ -220,7 +220,7 @@ page 50726 "Service Worksheet Card"
 
                     //get all the eligible records
                     ServiceWrokRec.Reset();
-                    ServiceWrokRec.SetRange("No.", "No.");
+                    ServiceWrokRec.SetRange("No.", rec."No.");
                     ServiceWrokRec.SetFilter(Approval, '=%1', true);
 
                     if ServiceWrokRec.FindSet() then begin

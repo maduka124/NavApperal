@@ -11,14 +11,14 @@ page 50855 CapacityUtilizationSAH
         {
             group("General")
             {
-                field(No; No)
+                field(No; rec.No)
                 {
                     ApplicationArea = all;
                     Editable = false;
 
                 }
 
-                field(Year; Year)
+                field(Year; rec.Year)
                 {
                     ApplicationArea = all;
                 }
@@ -171,7 +171,7 @@ page 50855 CapacityUtilizationSAH
                     Month: Integer;
                 begin
 
-                    if Year > 0 then begin
+                    if rec.Year > 0 then begin
 
                         /////////////////////////////Capacity Allocations
                         //Get max record
@@ -181,7 +181,7 @@ page 50855 CapacityUtilizationSAH
 
                         //Check for existing records
                         CapacityAlloRec.Reset();
-                        CapacityAlloRec.SetRange(Year, Year);
+                        CapacityAlloRec.SetRange(Year, rec.Year);
                         if not CapacityAlloRec.FindSet() then begin
 
                             //Get all the factories
@@ -200,7 +200,7 @@ page 50855 CapacityUtilizationSAH
                                             //Insert lines
                                             CapacityAlloRec.Init();
                                             CapacityAlloRec."No." := SeqNo;
-                                            CapacityAlloRec.Year := Year;
+                                            CapacityAlloRec.Year := rec.Year;
                                             CapacityAlloRec."Factory Code" := LocationsRec.Code;
                                             CapacityAlloRec."Factory Name" := LocationsRec.Name;
                                             CapacityAlloRec."Line No." := WorkCenterRec."No.";
@@ -219,11 +219,11 @@ page 50855 CapacityUtilizationSAH
                         ///////////////////////////////Planning Efficiency                        
                         //Check for existing records
                         PlanEfficiencyRec.Reset();
-                        PlanEfficiencyRec.SetRange(Year, Year);
+                        PlanEfficiencyRec.SetRange(Year, rec.Year);
                         if not PlanEfficiencyRec.FindSet() then begin
                             //Insert lines
                             PlanEfficiencyRec.Init();
-                            PlanEfficiencyRec.Year := Year;
+                            PlanEfficiencyRec.Year := rec.Year;
                             PlanEfficiencyRec."Created User" := UserId;
                             PlanEfficiencyRec.Insert();
                         end;
@@ -259,38 +259,38 @@ page 50855 CapacityUtilizationSAH
                                         //No of days for a month
                                         for i := 1 to 12 do begin
 
-                                            StartDate := DMY2DATE(1, i, Year);
+                                            StartDate := DMY2DATE(1, i, rec.Year);
 
                                             case i of
                                                 1:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 2:
                                                     begin
-                                                        if Year mod 4 = 0 then
-                                                            FinishDate := DMY2DATE(29, i, Year)
+                                                        if rec.Year mod 4 = 0 then
+                                                            FinishDate := DMY2DATE(29, i, rec.Year)
                                                         else
-                                                            FinishDate := DMY2DATE(28, i, Year);
+                                                            FinishDate := DMY2DATE(28, i, rec.Year);
                                                     end;
                                                 3:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 4:
-                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                    FinishDate := DMY2DATE(30, i, rec.Year);
                                                 5:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 6:
-                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                    FinishDate := DMY2DATE(30, i, rec.Year);
                                                 7:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 8:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 9:
-                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                    FinishDate := DMY2DATE(30, i, rec.Year);
                                                 10:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 11:
-                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                    FinishDate := DMY2DATE(30, i, rec.Year);
                                                 12:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                             end;
 
 
@@ -310,7 +310,7 @@ page 50855 CapacityUtilizationSAH
 
                                             //Get efficiency
                                             PlanEfficiencyRec.Reset();
-                                            PlanEfficiencyRec.SetRange(Year, Year);
+                                            PlanEfficiencyRec.SetRange(Year, rec.Year);
                                             PlanEfficiencyRec.FindSet();
 
                                             case i of
@@ -384,13 +384,13 @@ page 50855 CapacityUtilizationSAH
 
                                 //Check for existing records
                                 FactoryCapacityRec.Reset();
-                                FactoryCapacityRec.SetRange(Year, Year);
+                                FactoryCapacityRec.SetRange(Year, rec.Year);
                                 FactoryCapacityRec.SetRange("Factory Code", LocationsRec.Code);
                                 if not FactoryCapacityRec.FindSet() then begin  //insert
 
                                     //Insert lines
                                     FactoryCapacityRec.Init();
-                                    FactoryCapacityRec.Year := Year;
+                                    FactoryCapacityRec.Year := rec.Year;
                                     FactoryCapacityRec."Factory Code" := LocationsRec.Code;
                                     FactoryCapacityRec."Factory Name" := LocationsRec.Name;
                                     FactoryCapacityRec.JAN := Total1;
@@ -436,7 +436,7 @@ page 50855 CapacityUtilizationSAH
                         if MerchanGroupTableRec.FindSet() then begin
                             repeat
                                 SAH_MerchGRPWiseAllocRec.Reset();
-                                SAH_MerchGRPWiseAllocRec.SetRange(Year, Year);
+                                SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
                                 SAH_MerchGRPWiseAllocRec.SetRange("Group Id", MerchanGroupTableRec."Group Id");
                                 if not SAH_MerchGRPWiseAllocRec.findset() then begin
 
@@ -444,7 +444,7 @@ page 50855 CapacityUtilizationSAH
                                     SAH_MerchGRPWiseAllocRec."Group Id" := MerchanGroupTableRec."Group Id";
                                     SAH_MerchGRPWiseAllocRec."Group Head" := MerchanGroupTableRec."Group Head";
                                     SAH_MerchGRPWiseAllocRec."Group Name" := MerchanGroupTableRec."Group Name";
-                                    SAH_MerchGRPWiseAllocRec.Year := Year;
+                                    SAH_MerchGRPWiseAllocRec.Year := rec.Year;
                                     SAH_MerchGRPWiseAllocRec."Created User" := UserId;
                                     SAH_MerchGRPWiseAllocRec."Created Date" := WorkDate();
                                     SAH_MerchGRPWiseAllocRec.Insert();
@@ -497,38 +497,38 @@ page 50855 CapacityUtilizationSAH
                                         //No of days for a month
                                         for i := 1 to 12 do begin
 
-                                            StartDate := DMY2DATE(1, i, Year);
+                                            StartDate := DMY2DATE(1, i, rec.Year);
 
                                             case i of
                                                 1:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 2:
                                                     begin
-                                                        if Year mod 4 = 0 then
-                                                            FinishDate := DMY2DATE(29, i, Year)
+                                                        if rec.Year mod 4 = 0 then
+                                                            FinishDate := DMY2DATE(29, i, rec.Year)
                                                         else
-                                                            FinishDate := DMY2DATE(28, i, Year);
+                                                            FinishDate := DMY2DATE(28, i, rec.Year);
                                                     end;
                                                 3:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 4:
-                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                    FinishDate := DMY2DATE(30, i, rec.Year);
                                                 5:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 6:
-                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                    FinishDate := DMY2DATE(30, i, rec.Year);
                                                 7:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 8:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 9:
-                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                    FinishDate := DMY2DATE(30, i, rec.Year);
                                                 10:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                                 11:
-                                                    FinishDate := DMY2DATE(30, i, Year);
+                                                    FinishDate := DMY2DATE(30, i, rec.Year);
                                                 12:
-                                                    FinishDate := DMY2DATE(31, i, Year);
+                                                    FinishDate := DMY2DATE(31, i, rec.Year);
                                             end;
 
 
@@ -548,7 +548,7 @@ page 50855 CapacityUtilizationSAH
 
                                             //Get efficiency
                                             PlanEfficiencyRec.Reset();
-                                            PlanEfficiencyRec.SetRange(Year, Year);
+                                            PlanEfficiencyRec.SetRange(Year, rec.Year);
                                             PlanEfficiencyRec.FindSet();
 
                                             case i of
@@ -616,7 +616,7 @@ page 50855 CapacityUtilizationSAH
 
                                             //Check for allocated Merchand for the month/year/line/factory
                                             CapacityAlloRec.Reset();
-                                            CapacityAlloRec.SetRange(Year, Year);
+                                            CapacityAlloRec.SetRange(Year, rec.Year);
                                             CapacityAlloRec.SetRange("Factory Code", LocationsRec.Code);
                                             CapacityAlloRec.SetRange("Line No.", WorkCenterRec."No.");
 
@@ -653,7 +653,7 @@ page 50855 CapacityUtilizationSAH
 
                                             //update merchand allocation
                                             SAH_MerchGRPWiseAllocRec.Reset();
-                                            SAH_MerchGRPWiseAllocRec.SetRange(Year, Year);
+                                            SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
                                             SAH_MerchGRPWiseAllocRec.SetRange("Group Id", MerGR);
                                             if SAH_MerchGRPWiseAllocRec.FindSet() then begin
 
@@ -699,18 +699,18 @@ page 50855 CapacityUtilizationSAH
                         /////////////////////////////////////////Merchand group wise balance/Avg SMV
                         /// Delete old records
                         SAH_MerchGRPWiseBalRec.Reset();
-                        SAH_MerchGRPWiseBalRec.SetRange(Year, Year);
+                        SAH_MerchGRPWiseBalRec.SetRange(Year, rec.Year);
                         if SAH_MerchGRPWiseBalRec.FindSet() then
                             SAH_MerchGRPWiseBalRec.DeleteAll();
 
                         SAH_MerchGRPWiseAvgSMVRec.Reset();
-                        SAH_MerchGRPWiseAvgSMVRec.SetRange(Year, Year);
+                        SAH_MerchGRPWiseAvgSMVRec.SetRange(Year, rec.Year);
                         if SAH_MerchGRPWiseAvgSMVRec.FindSet() then
                             SAH_MerchGRPWiseAvgSMVRec.DeleteAll();
 
                         ///Get allocations list
                         SAH_MerchGRPWiseAllocRec.Reset();
-                        SAH_MerchGRPWiseAllocRec.SetRange(Year, Year);
+                        SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
                         if SAH_MerchGRPWiseAllocRec.findset() then begin
                             repeat
 
@@ -719,7 +719,7 @@ page 50855 CapacityUtilizationSAH
                                 SAH_MerchGRPWiseBalRec."Group Id" := SAH_MerchGRPWiseAllocRec."Group Id";
                                 SAH_MerchGRPWiseBalRec."Group Head" := SAH_MerchGRPWiseAllocRec."Group Head";
                                 SAH_MerchGRPWiseBalRec."Group Name" := SAH_MerchGRPWiseAllocRec."Group Name";
-                                SAH_MerchGRPWiseBalRec.Year := year;
+                                SAH_MerchGRPWiseBalRec.Year := rec.Year;
                                 SAH_MerchGRPWiseBalRec.JAN := SAH_MerchGRPWiseAllocRec.JAN;
                                 SAH_MerchGRPWiseBalRec.FEB := SAH_MerchGRPWiseAllocRec.FEB;
                                 SAH_MerchGRPWiseBalRec.MAR := SAH_MerchGRPWiseAllocRec.MAR;
@@ -883,7 +883,7 @@ page 50855 CapacityUtilizationSAH
 
                                     //modift balance table
                                     SAH_MerchGRPWiseBalRec.Reset();
-                                    SAH_MerchGRPWiseBalRec.SetRange(Year, Year);
+                                    SAH_MerchGRPWiseBalRec.SetRange(Year, rec.Year);
                                     SAH_MerchGRPWiseBalRec.SetRange("Group Id", SAH_MerchGRPWiseAllocRec."Group Id");
                                     SAH_MerchGRPWiseBalRec.FindSet();
                                     SAH_MerchGRPWiseBalRec.JAN := SAH_MerchGRPWiseBalRec.JAN - Total1;
@@ -977,7 +977,7 @@ page 50855 CapacityUtilizationSAH
                                     SAH_MerchGRPWiseAvgSMVRec."Group Id" := SAH_MerchGRPWiseAllocRec."Group Id";
                                     SAH_MerchGRPWiseAvgSMVRec."Group Head" := SAH_MerchGRPWiseAllocRec."Group Head";
                                     SAH_MerchGRPWiseAvgSMVRec."Group Name" := SAH_MerchGRPWiseAllocRec."Group Name";
-                                    SAH_MerchGRPWiseAvgSMVRec.Year := year;
+                                    SAH_MerchGRPWiseAvgSMVRec.Year := rec.Year;
                                     SAH_MerchGRPWiseAvgSMVRec.JAN := TotalAvgSMV1;
                                     SAH_MerchGRPWiseAvgSMVRec.FEB := TotalAvgSMV2;
                                     SAH_MerchGRPWiseAvgSMVRec.MAR := TotalAvgSMV3;
@@ -1022,37 +1022,37 @@ page 50855 CapacityUtilizationSAH
 
     begin
         SAH_FactoryCapacity.Reset();
-        SAH_FactoryCapacity.SetRange(Year, Year);
+        SAH_FactoryCapacity.SetRange(Year, rec.Year);
         if SAH_FactoryCapacity.FindSet() then
             SAH_FactoryCapacity.DeleteAll();
 
         SAH_CapacityAllocation.Reset();
-        SAH_CapacityAllocation.SetRange(Year, Year);
+        SAH_CapacityAllocation.SetRange(Year, rec.Year);
         if SAH_CapacityAllocation.FindSet() then
             SAH_CapacityAllocation.DeleteAll();
 
         SAH_MerchGRPWiseAllocation.Reset();
-        SAH_MerchGRPWiseAllocation.SetRange(Year, Year);
+        SAH_MerchGRPWiseAllocation.SetRange(Year, rec.Year);
         if SAH_MerchGRPWiseAllocation.FindSet() then
             SAH_MerchGRPWiseAllocation.DeleteAll();
 
         SAH_MerchGRPWiseAvgSMV.Reset();
-        SAH_MerchGRPWiseAvgSMV.SetRange(Year, Year);
+        SAH_MerchGRPWiseAvgSMV.SetRange(Year, rec.Year);
         if SAH_MerchGRPWiseAvgSMV.FindSet() then
             SAH_MerchGRPWiseAvgSMV.DeleteAll();
 
         SAH_MerchGRPWiseBalance.Reset();
-        SAH_MerchGRPWiseBalance.SetRange(Year, Year);
+        SAH_MerchGRPWiseBalance.SetRange(Year, rec.Year);
         if SAH_MerchGRPWiseBalance.FindSet() then
             SAH_MerchGRPWiseBalance.DeleteAll();
 
         SAH_MerchGRPWiseSAHUsed.Reset();
-        SAH_MerchGRPWiseSAHUsed.SetRange(Year, Year);
+        SAH_MerchGRPWiseSAHUsed.SetRange(Year, rec.Year);
         if SAH_MerchGRPWiseSAHUsed.FindSet() then
             SAH_MerchGRPWiseSAHUsed.DeleteAll();
 
         SAH_PlanEfficiency.Reset();
-        SAH_PlanEfficiency.SetRange(Year, Year);
+        SAH_PlanEfficiency.SetRange(Year, rec.Year);
         if SAH_PlanEfficiency.FindSet() then
             SAH_PlanEfficiency.DeleteAll();
     end;

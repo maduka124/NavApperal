@@ -13,7 +13,7 @@ page 50851 PreProductionfollowupStore
         {
             group(General)
             {
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     Caption = 'Factory';
                     ApplicationArea = All;
@@ -33,8 +33,8 @@ page 50851 PreProductionfollowupStore
                         LocationRec.SetFilter("Sewing Unit", '=%1', true);
 
                         if Page.RunModal(50517, LocationRec) = Action::LookupOK then begin
-                            "Factory Code" := LocationRec.Code;
-                            "Factory Name" := LocationRec.Name;
+                            rec."Factory Code" := LocationRec.Code;
+                            rec."Factory Name" := LocationRec.Name;
                             //LoadData();
                         end;
 

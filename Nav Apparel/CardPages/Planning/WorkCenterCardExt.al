@@ -4,7 +4,7 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
     {
         addafter("Last Date Modified")
         {
-            field("Linked To Service Item"; "Linked To Service Item")
+            field("Linked To Service Item"; rec."Linked To Service Item")
             {
                 ApplicationArea = All;
             }
@@ -14,12 +14,12 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
         {
             group("Planning")
             {
-                field("Planning Line"; "Planning Line")
+                field("Planning Line"; rec."Planning Line")
                 {
                     ApplicationArea = All;
                 }
 
-                field(MO; MO)
+                field(MO; rec.MO)
                 {
                     ApplicationArea = All;
                     Caption = 'Machine Operators';
@@ -27,11 +27,11 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
                     trigger OnValidate()
                     var
                     begin
-                        "Carder" := MO + HP;
+                        rec."Carder" := rec.MO + rec.HP;
                     end;
                 }
 
-                field(HP; HP)
+                field(HP; rec.HP)
                 {
                     ApplicationArea = All;
                     Caption = 'Helpers';
@@ -39,24 +39,24 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
                     trigger OnValidate()
                     var
                     begin
-                        "Carder" := MO + HP;
+                        rec."Carder" := rec.MO + rec.HP;
                     end;
                 }
 
-                field(Carder; Carder)
+                field(Carder; rec.Carder)
                 {
                     ApplicationArea = All;
                     Caption = 'Total Carders';
                     Editable = false;
                 }
 
-                field(PlanEff; PlanEff)
+                field(PlanEff; rec.PlanEff)
                 {
                     ApplicationArea = All;
                     Caption = 'Plan Efficiency (%)';
                 }
 
-                field("Department No"; "Department No")
+                field("Department No"; rec."Department No")
                 {
                     ApplicationArea = All;
                     TableRelation = "Department"."No.";
@@ -65,24 +65,24 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
                     var
                         DepartmentRec: Record Department;
                     begin
-                        DepartmentRec.get("Department No");
-                        "Department Name" := DepartmentRec."Department Name";
+                        DepartmentRec.get(rec."Department No");
+                        rec."Department Name" := DepartmentRec."Department Name";
                     end;
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Supervisor Name"; "Supervisor Name")
+                field("Supervisor Name"; rec."Supervisor Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Supervisor';
                 }
 
-                field("Factory No."; "Factory No.")
+                field("Factory No."; rec."Factory No.")
                 {
                     ApplicationArea = All;
                     TableRelation = Location.Code;
@@ -91,19 +91,19 @@ pageextension 50330 WorkCenterExt extends "Work Center Card"
                     var
                         LocationRec: Record Location;
                     begin
-                        LocationRec.get("Factory No.");
-                        "Factory Name" := LocationRec.Name;
+                        LocationRec.get(rec."Factory No.");
+                        rec."Factory Name" := LocationRec.Name;
                     end;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Factory';
                     Editable = false;
                 }
 
-                field(Floor; Floor)
+                field(Floor; rec.Floor)
                 {
                     ApplicationArea = All;
                 }
