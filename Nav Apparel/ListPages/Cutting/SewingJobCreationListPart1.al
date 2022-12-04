@@ -36,14 +36,14 @@ page 50588 "Sewing Job Creation ListPart1"
                     Caption = 'Country';
                 }
 
-                field(ShipDate; ShipDate)
+                field(ShipDate; Rec.ShipDate)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Caption = 'Ship Date';
                 }
 
-                field(Qty; Qty)
+                field(Qty; Rec.Qty)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -51,7 +51,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Caption = 'Order Qty';
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; Rec."Colour Name")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -59,14 +59,14 @@ page 50588 "Sewing Job Creation ListPart1"
                     Caption = 'Colour';
                 }
 
-                field("1"; "1")
+                field("1"; Rec."1")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = false;
                     Visible = SetVisible1;
                 }
-                field("2"; "2")
+                field("2"; Rec."2")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -74,7 +74,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible2;
                 }
 
-                field("3"; "3")
+                field("3"; Rec."3")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -82,7 +82,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible3;
                 }
 
-                field("4"; "4")
+                field("4"; Rec."4")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -90,7 +90,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible4;
                 }
 
-                field("5"; "5")
+                field("5"; Rec."5")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -98,7 +98,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible5;
                 }
 
-                field("6"; "6")
+                field("6"; Rec."6")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -106,7 +106,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible6;
                 }
 
-                field("7"; "7")
+                field("7"; Rec."7")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -114,7 +114,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible7;
                 }
 
-                field("8"; "8")
+                field("8"; Rec."8")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -122,7 +122,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible8;
                 }
 
-                field("9"; "9")
+                field("9"; Rec."9")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -130,7 +130,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible9;
                 }
 
-                field("10"; "10")
+                field("10"; Rec."10")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -138,7 +138,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible10;
                 }
 
-                field("11"; "11")
+                field("11"; Rec."11")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -146,7 +146,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible11;
                 }
 
-                field("12"; "12")
+                field("12"; Rec."12")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -154,7 +154,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible12;
                 }
 
-                field("13"; "13")
+                field("13"; Rec."13")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -162,7 +162,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible13;
                 }
 
-                field("14"; "14")
+                field("14"; Rec."14")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -170,7 +170,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible14;
                 }
 
-                field("15"; "15")
+                field("15"; Rec."15")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -178,7 +178,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible15;
                 }
 
-                field("16"; "16")
+                field("16"; Rec."16")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -186,7 +186,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible16;
                 }
 
-                field("17"; "17")
+                field("17"; Rec."17")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -194,7 +194,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible17;
                 }
 
-                field("18"; "18")
+                field("18"; Rec."18")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -202,7 +202,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible18;
                 }
 
-                field("19"; "19")
+                field("19"; Rec."19")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -210,7 +210,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible19;
                 }
 
-                field("20"; "20")
+                field("20"; Rec."20")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -218,7 +218,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible20;
                 }
 
-                field("21"; "21")
+                field("21"; Rec."21")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -226,7 +226,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible21;
                 }
 
-                field("22"; "22")
+                field("22"; Rec."22")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -234,7 +234,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible22;
                 }
 
-                field("23"; "23")
+                field("23"; Rec."23")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -242,7 +242,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible23;
                 }
 
-                field("24"; "24")
+                field("24"; Rec."24")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -250,7 +250,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible24;
                 }
 
-                field("25"; "25")
+                field("25"; Rec."25")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -258,7 +258,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible25;
                 }
 
-                field("26"; "26")
+                field("26"; Rec."26")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -266,7 +266,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible26;
                 }
 
-                field("27"; "27")
+                field("27"; Rec."27")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -274,7 +274,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible27;
                 }
 
-                field("28"; "28")
+                field("28"; Rec."28")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -282,7 +282,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible28;
                 }
 
-                field("29"; "29")
+                field("29"; Rec."29")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -290,7 +290,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible29;
                 }
 
-                field("30"; "30")
+                field("30"; Rec."30")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -298,7 +298,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible30;
                 }
 
-                field("31"; "31")
+                field("31"; Rec."31")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -306,7 +306,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible31;
                 }
 
-                field("32"; "32")
+                field("32"; Rec."32")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -314,7 +314,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible32;
                 }
 
-                field("33"; "33")
+                field("33"; Rec."33")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -322,7 +322,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible33;
                 }
 
-                field("34"; "34")
+                field("34"; Rec."34")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -330,7 +330,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible34;
                 }
 
-                field("35"; "35")
+                field("35"; Rec."35")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -338,7 +338,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible35;
                 }
 
-                field("36"; "36")
+                field("36"; Rec."36")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -346,7 +346,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible36;
                 }
 
-                field("37"; "37")
+                field("37"; Rec."37")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -354,7 +354,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible37;
                 }
 
-                field("38"; "38")
+                field("38"; Rec."38")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -362,7 +362,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible38;
                 }
 
-                field("39"; "39")
+                field("39"; Rec."39")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -370,7 +370,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible39;
                 }
 
-                field("40"; "40")
+                field("40"; Rec."40")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -378,7 +378,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible40;
                 }
 
-                field("41"; "41")
+                field("41"; Rec."41")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -387,7 +387,7 @@ page 50588 "Sewing Job Creation ListPart1"
                 }
 
 
-                field("42"; "42")
+                field("42"; Rec."42")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -396,7 +396,7 @@ page 50588 "Sewing Job Creation ListPart1"
                 }
 
 
-                field("43"; "43")
+                field("43"; Rec."43")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -405,7 +405,7 @@ page 50588 "Sewing Job Creation ListPart1"
                 }
 
 
-                field("44"; "44")
+                field("44"; Rec."44")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -414,7 +414,7 @@ page 50588 "Sewing Job Creation ListPart1"
                 }
 
 
-                field("45"; "45")
+                field("45"; Rec."45")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -423,7 +423,7 @@ page 50588 "Sewing Job Creation ListPart1"
                 }
 
 
-                field("46"; "46")
+                field("46"; Rec."46")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -432,7 +432,7 @@ page 50588 "Sewing Job Creation ListPart1"
                 }
 
 
-                field("47"; "47")
+                field("47"; Rec."47")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -440,7 +440,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible47;
                 }
 
-                field("48"; "48")
+                field("48"; Rec."48")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -448,7 +448,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible48;
                 }
 
-                field("49"; "49")
+                field("49"; Rec."49")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -456,7 +456,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible49;
                 }
 
-                field("50"; "50")
+                field("50"; Rec."50")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -464,7 +464,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible50;
                 }
 
-                field("51"; "51")
+                field("51"; Rec."51")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -472,7 +472,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible51;
                 }
 
-                field("52"; "52")
+                field("52"; Rec."52")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -480,7 +480,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible52;
                 }
 
-                field("53"; "53")
+                field("53"; Rec."53")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -488,7 +488,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible53;
                 }
 
-                field("54"; "54")
+                field("54"; Rec."54")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -496,7 +496,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible54;
                 }
 
-                field("55"; "55")
+                field("55"; Rec."55")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -504,7 +504,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible55;
                 }
 
-                field("56"; "56")
+                field("56"; Rec."56")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -512,7 +512,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible56;
                 }
 
-                field("57"; "57")
+                field("57"; Rec."57")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -520,7 +520,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible57;
                 }
 
-                field("58"; "58")
+                field("58"; Rec."58")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -528,7 +528,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible58;
                 }
 
-                field("59"; "59")
+                field("59"; Rec."59")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -536,7 +536,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible59;
                 }
 
-                field("60"; "60")
+                field("60"; Rec."60")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -544,7 +544,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible60;
                 }
 
-                field("61"; "61")
+                field("61"; Rec."61")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -552,7 +552,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible61;
                 }
 
-                field("62"; "62")
+                field("62"; Rec."62")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -560,7 +560,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible62;
                 }
 
-                field("63"; "63")
+                field("63"; Rec."63")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -568,7 +568,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible63;
                 }
 
-                field("64"; "64")
+                field("64"; Rec."64")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -576,7 +576,7 @@ page 50588 "Sewing Job Creation ListPart1"
                     Visible = SetVisible64;
                 }
 
-                field(Total; Total)
+                field(Total; Rec.Total)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -597,13 +597,13 @@ page 50588 "Sewing Job Creation ListPart1"
         StyleExprTxt := ChangeColor.ChangeColorAsso(Rec);
 
         StyleMasPoRec.Reset();
-        StyleMasPoRec.SetRange("Style No.", "Style No.");
+        StyleMasPoRec.SetRange("Style No.", Rec."Style No.");
         StyleMasPoRec.FindSet();
 
         repeat
 
             AssoDetail.Reset();
-            AssoDetail.SetRange("Style No.", "Style No.");
+            AssoDetail.SetRange("Style No.", Rec."Style No.");
             AssoDetail.SetRange("Lot No.", StyleMasPoRec."lot No.");
 
             if AssoDetail.FindSet() then begin
@@ -942,7 +942,7 @@ page 50588 "Sewing Job Creation ListPart1"
             end;
         end;
 
-        if "Colour Name" = '*' then begin
+        if Rec."Colour Name" = '*' then begin
             Clear(SetEdit);
             SetEdit := false;
         end

@@ -10,7 +10,7 @@ page 50617 "Table Creation Line ListPart"
         {
             repeater(General)
             {
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -21,14 +21,14 @@ page 50617 "Table Creation Line ListPart"
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", "Style Name");
+                        StyleMasterRec.SetRange("Style No.", Rec."Style Name");
                         if StyleMasterRec.FindSet() then
-                            "Style No." := StyleMasterRec."No.";
+                            Rec."Style No." := StyleMasterRec."No.";
 
                     end;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; Rec."Colour Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Colour';
@@ -41,7 +41,7 @@ page 50617 "Table Creation Line ListPart"
                     begin
                         AssoDetailsRec.RESET;
                         AssoDetailsRec.SetCurrentKey("Colour No");
-                        AssoDetailsRec.SetRange("Style No.", "Style No.");
+                        AssoDetailsRec.SetRange("Style No.", Rec."Style No.");
 
                         IF AssoDetailsRec.FINDFIRST THEN BEGIN
                             REPEAT
@@ -54,11 +54,11 @@ page 50617 "Table Creation Line ListPart"
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
                             if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
-                                "Colour No" := AssoDetailsRec."Colour No";
+                                Rec."Colour No" := AssoDetailsRec."Colour No";
                                 colorRec.Reset();
-                                colorRec.SetRange("No.", "Colour No");
+                                colorRec.SetRange("No.", Rec."Colour No");
                                 colorRec.FindSet();
-                                "Colour Name" := colorRec."Colour Name";
+                                Rec."Colour Name" := colorRec."Colour Name";
                             end;
 
                         END;
@@ -66,7 +66,7 @@ page 50617 "Table Creation Line ListPart"
 
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; Rec."Group ID")
                 {
                     ApplicationArea = All;
 
@@ -75,11 +75,11 @@ page 50617 "Table Creation Line ListPart"
                         SewJobLine4Rec: Record SewingJobCreationLine4;
                     begin
                         SewJobLine4Rec.Reset();
-                        SewJobLine4Rec.SetRange("Style No.", "Style No.");
-                        SewJobLine4Rec.SetRange("Colour No", "Colour No");
-                        SewJobLine4Rec.SetRange("Group ID", "Group ID");
+                        SewJobLine4Rec.SetRange("Style No.", Rec."Style No.");
+                        SewJobLine4Rec.SetRange("Colour No", Rec."Colour No");
+                        SewJobLine4Rec.SetRange("Group ID", Rec."Group ID");
                         if SewJobLine4Rec.FindSet() then
-                            "Po No." := SewJobLine4Rec."PO No."
+                            Rec."Po No." := SewJobLine4Rec."PO No."
                         else
                             Error('Cannot find sewing Job details for Style/Color/Group');
 
@@ -87,29 +87,29 @@ page 50617 "Table Creation Line ListPart"
                     end;
                 }
 
-                field("PO No."; "PO No.")
+                field("PO No."; Rec."PO No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Component Group"; "Component Group")
+                field("Component Group"; Rec."Component Group")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Marker Name"; "Marker Name")
+                field("Marker Name"; Rec."Marker Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Marker';
                 }
 
-                field("Cut No"; "Cut No")
+                field("Cut No"; Rec."Cut No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Layering Start Date/Time"; "Layering Start Date/Time")
+                field("Layering Start Date/Time"; Rec."Layering Start Date/Time")
                 {
                     ApplicationArea = All;
 
@@ -119,13 +119,13 @@ page 50617 "Table Creation Line ListPart"
                         LayEndTime: DateTime;
                     begin
 
-                        if format("Layering Start Date/Time") = '' then
+                        if format(Rec."Layering Start Date/Time") = '' then
                             Error('Enter " Layering Start  Date/Time"');
 
-                        if format("Layering End Date/Time") <> '' then begin
+                        if format(Rec."Layering End Date/Time") <> '' then begin
 
-                            LayStartTime := "Layering Start Date/Time";
-                            LayEndTime := "Layering End Date/Time";
+                            LayStartTime := Rec."Layering Start Date/Time";
+                            LayEndTime := Rec."Layering End Date/Time";
 
                             if LayStartTime > LayEndTime then
                                 Error('Invalid time');
@@ -135,7 +135,7 @@ page 50617 "Table Creation Line ListPart"
                     end;
                 }
 
-                field("Layering End Date/Time"; "Layering End Date/Time")
+                field("Layering End Date/Time"; Rec."Layering End Date/Time")
                 {
                     ApplicationArea = All;
 
@@ -145,14 +145,14 @@ page 50617 "Table Creation Line ListPart"
                         LayEndTime: DateTime;
                     begin
 
-                        if format("Layering Start Date/Time") = '' then
+                        if format(Rec."Layering Start Date/Time") = '' then
                             Error('Enter "Layering Start Date/Time"');
 
-                        if format("Layering End Date/Time") = '' then
+                        if format(Rec."Layering End Date/Time") = '' then
                             Error('Enter "Layering End Date/Time"');
 
-                        LayStartTime := "Layering Start Date/Time";
-                        LayEndTime := "Layering End Date/Time";
+                        LayStartTime := Rec."Layering Start Date/Time";
+                        LayEndTime := Rec."Layering End Date/Time";
 
                         if LayStartTime > LayEndTime then
                             Error('Invalid time');
@@ -160,7 +160,7 @@ page 50617 "Table Creation Line ListPart"
                     end;
                 }
 
-                field("Cut Start Date/Time"; "Cut Start Date/Time")
+                field("Cut Start Date/Time"; Rec."Cut Start Date/Time")
                 {
                     ApplicationArea = All;
 
@@ -170,13 +170,13 @@ page 50617 "Table Creation Line ListPart"
                         CutEndTime: DateTime;
                     begin
 
-                        if format("Cut Start Date/Time") = '' then
+                        if format(Rec."Cut Start Date/Time") = '' then
                             Error('Enter "Cut Start Date/Time"');
 
-                        if format("Cut End Date/Time") <> '' then begin
+                        if format(Rec."Cut End Date/Time") <> '' then begin
 
-                            CutStartTime := "Cut Start Date/Time";
-                            CutEndTime := "Cut End Date/Time";
+                            CutStartTime := Rec."Cut Start Date/Time";
+                            CutEndTime := Rec."Cut End Date/Time";
 
                             if CutStartTime > CutEndTime then
                                 Error('Invalid time');
@@ -186,7 +186,7 @@ page 50617 "Table Creation Line ListPart"
                     end;
                 }
 
-                field("Cut End Date/Time"; "Cut End Date/Time")
+                field("Cut End Date/Time"; Rec."Cut End Date/Time")
                 {
                     ApplicationArea = All;
 
@@ -196,14 +196,14 @@ page 50617 "Table Creation Line ListPart"
                         CutEndTime: DateTime;
                     begin
 
-                        if format("Cut Start Date/Time") = '' then
+                        if format(Rec."Cut Start Date/Time") = '' then
                             Error('Enter "Plan Cut Start Time"');
 
-                        if format("Cut End Date/Time") = '' then
+                        if format(Rec."Cut End Date/Time") = '' then
                             Error('Enter "Cut End Date/Time"');
 
-                        CutStartTime := "Cut Start Date/Time";
-                        CutEndTime := "Cut End Date/Time";
+                        CutStartTime := Rec."Cut Start Date/Time";
+                        CutEndTime := Rec."Cut End Date/Time";
 
                         if CutStartTime > CutEndTime then
                             Error('Invalid time');
