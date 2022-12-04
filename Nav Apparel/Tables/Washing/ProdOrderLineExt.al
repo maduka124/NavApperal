@@ -2,14 +2,14 @@ tableextension 50665 ProductionOderLineExt extends "Prod. Order Line"
 {
     fields
     {
-        field(5001; Step; text[50])
+        field(50001; Step; text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = WashingStep.Description;
             ValidateTableRelation = false;
         }
 
-        field(5002; Water; Decimal)
+        field(50002; Water; Decimal)
         {
             DataClassification = ToBeClassified;
 
@@ -29,22 +29,22 @@ tableextension 50665 ProductionOderLineExt extends "Prod. Order Line"
             end;
         }
 
-        field(5006; Temp; Decimal)
+        field(50006; Temp; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5003; Ph; Decimal)
+        field(50003; Ph; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5004; Instruction; Text[100])
+        field(50004; Instruction; Text[100])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5005; "Time(Min)"; Decimal)
+        field(50005; "Time(Min)"; Decimal)
         {
             DataClassification = ToBeClassified;
 
@@ -63,7 +63,7 @@ tableextension 50665 ProductionOderLineExt extends "Prod. Order Line"
             end;
         }
 
-        field(5008; "Step Code"; code[50])
+        field(50008; "Step Code"; code[50])
         {
             DataClassification = ToBeClassified;
         }

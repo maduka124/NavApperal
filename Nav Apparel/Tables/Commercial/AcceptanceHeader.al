@@ -5,116 +5,116 @@ table 50540 AcceptanceHeader
 
     fields
     {
-        field(1; "AccNo."; Code[20])
+        field(50001; "AccNo."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Suppler No."; Code[20])
+        field(50002; "Suppler No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Suppler Name"; text[50])
+        field(50003; "Suppler Name"; text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = Vendor.Name;
             ValidateTableRelation = false;
         }
 
-        field(4; "B2BLC No"; Code[20])
+        field(50004; "B2BLC No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "B2BLC No (System)"; Code[20])
+        field(50005; "B2BLC No (System)"; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = B2BLCMaster."No." where(Beneficiary = field("Suppler No."));
         }
 
-        field(6; "Accept Date"; Date)
+        field(50006; "Accept Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(7; "Accept Value"; Decimal)
+        field(50007; "Accept Value"; Decimal)
         {
             DataClassification = ToBeClassified;
             InitValue = 0;
         }
 
-        field(8; "Acceptance S/N"; Code[20])
+        field(50008; "Acceptance S/N"; Code[20])
         {
             DataClassification = ToBeClassified;
 
         }
 
-        field(9; "Maturity Date"; Date)
+        field(50009; "Maturity Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "Payment Mode"; code[20])
+        field(50010; "Payment Mode"; code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Payment Method".Code;
         }
 
-        field(11; "Created User"; Code[50])
+        field(50011; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "Created Date"; Date)
+        field(50012; "Created Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(13; "Type"; Option)
+        field(50013; "Type"; Option)
         {
             DataClassification = ToBeClassified;
             OptionMembers = "Based On B2B LC","TT or Cash";
             OptionCaption = 'Based On B2B LC,TT or Cash';
         }
 
-        field(14; "Approved"; Boolean)
+        field(50014; "Approved"; Boolean)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(15; "Paid"; Boolean)
+        field(50015; "Paid"; Boolean)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(16; "PaidDate"; Date)
+        field(50016; "PaidDate"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(17; "ApproveDate"; Date)
+        field(50017; "ApproveDate"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(18; "LC Issue Bank No."; Code[20])
+        field(50018; "LC Issue Bank No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(19; "LC Issue Bank"; Text[50])
+        field(50019; "LC Issue Bank"; Text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(20; "Acceptance S/N 2"; BigInteger)
+        field(50020; "Acceptance S/N 2"; BigInteger)
         {
             DataClassification = ToBeClassified;
             AutoIncrement = true;
         }
 
-        field(21; "Bank Amount"; Decimal)
+        field(50021; "Bank Amount"; Decimal)
         {
             DataClassification = ToBeClassified;
         }

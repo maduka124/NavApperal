@@ -2,39 +2,39 @@ tableextension 51141 "User Setup Extension" extends "User Setup"
 {
     fields
     {
-        field(71012581; "Factory Code"; Code[20])
+        field(50001; "Factory Code"; Code[20])
         {
             TableRelation = Location.Code;
         }
 
-        field(71012582; "Service Approval"; Boolean)
+        field(50002; "Service Approval"; Boolean)
         {
 
         }
 
-        field(71012583; "GT Pass Approve"; Boolean)
+        field(50003; "GT Pass Approve"; Boolean)
         {
 
         }
 
-        field(71012584; "UserRole"; Text[50])
+        field(50004; "UserRole"; Text[50])
         {
 
         }
 
-        field(71012585; "Global Dimension Code"; Code[20])
+        field(50005; "Global Dimension Code"; Code[20])
         {
             DataClassification = ToBeClassified;
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
         }
 
-        field(71012586; "Purchasing Approval"; Boolean)
+        field(50006; "Purchasing Approval"; Boolean)
         {
 
         }
 
-        field(71012587; "Merchandizer Head"; Boolean)
+        field(50007; "Merchandizer Head"; Boolean)
         {
             DataClassification = ToBeClassified;
         }

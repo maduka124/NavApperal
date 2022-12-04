@@ -5,110 +5,110 @@ table 50548 AcceptanceLine
 
     fields
     {
-        field(1; "AccNo."; Code[20])
+        field(50001; "AccNo."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Line No"; BigInteger)
+        field(50002; "Line No"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "PI No"; Code[50])
+        field(50003; "PI No"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(4; "Inv No"; text[50])
+        field(50004; "Inv No"; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Item No."; code[20])
+        field(50005; "Item No."; code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Item Name"; text[200])
+        field(50006; "Item Name"; text[200])
         {
             DataClassification = ToBeClassified;
             TableRelation = Item.Description;
             ValidateTableRelation = false;
         }
 
-        field(7; "Unit No."; code[20])
+        field(50007; "Unit No."; code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(8; "Unit Name"; text[50])
+        field(50008; "Unit Name"; text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Unit of Measure".Code;
             ValidateTableRelation = false;
         }
 
-        field(9; "Color"; Code[50])
+        field(50009; "Color"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
 
-        field(10; "Size"; Code[50])
+        field(50010; "Size"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
 
-        field(11; "Article "; Code[50])
+        field(50011; "Article "; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "Dimension"; Code[50])
+        field(50012; "Dimension"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(13; "Qty"; Decimal)
+        field(50013; "Qty"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(14; "Unit Price"; Decimal)
-        {
-            DataClassification = ToBeClassified;
-            InitValue = 0;
-            DecimalPlaces = 4 :;
-        }
-
-        field(15; "Total Value"; Decimal)
+        field(50014; "Unit Price"; Decimal)
         {
             DataClassification = ToBeClassified;
             InitValue = 0;
             DecimalPlaces = 4 :;
         }
 
-        field(16; "GRN Qty"; Decimal)
-        {
-            DataClassification = ToBeClassified;
-            InitValue = 0;
-        }
-
-        field(17; "Rec. Value"; Decimal)
+        field(50015; "Total Value"; Decimal)
         {
             DataClassification = ToBeClassified;
             InitValue = 0;
             DecimalPlaces = 4 :;
         }
 
-        field(18; "Created User"; Code[50])
+        field(50016; "GRN Qty"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(50017; "Rec. Value"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+            DecimalPlaces = 4 :;
+        }
+
+        field(50018; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(19; "Created Date"; Date)
+        field(50019; "Created Date"; Date)
         {
             DataClassification = ToBeClassified;
         }

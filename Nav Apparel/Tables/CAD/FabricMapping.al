@@ -2,69 +2,70 @@
 table 50624 FabricMapping
 {
     DataClassification = ToBeClassified;
+   
 
     fields
     {
-        field(1; "No"; Code[20])
+        field(50001; "No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Style No."; text[50])
+        field(50002; "Style No."; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Style Name"; text[50])
+        field(50003; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Style Master"."Style No.";
             ValidateTableRelation = false;
         }
 
-        field(4; "Colour No"; code[50])
+        field(50004; "Colour No"; code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Colour Name"; text[50])
+        field(50005; "Colour Name"; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Component Group"; Code[50])
+        field(50006; "Component Group"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(7; "Item No."; Code[20])
+        field(50007; "Item No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(8; "Item Name"; Text[200])
+        field(50008; "Item Name"; Text[200])
         {
             DataClassification = ToBeClassified;
             // TableRelation = Item.Description;
             // ValidateTableRelation = false;
         }
 
-        field(9; "Created User"; Code[50])
+        field(50009; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "Created Date"; Date)
+        field(50010; "Created Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(11; "Main Category No."; Code[20])
+        field(50011; "Main Category No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "Main Category Name"; text[50])
+        field(50012; "Main Category Name"; text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Main Category"."Main Category Name" where(SewingJobOnly = filter(1), "Main Category Name" = filter(<> 'ALL CATEGORIES'), "Style Related" = filter(1));

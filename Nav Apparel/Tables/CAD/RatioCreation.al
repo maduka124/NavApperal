@@ -5,30 +5,30 @@ table 50603 RatioCreation
 
     fields
     {
-        field(1; "RatioCreNo"; Code[20])
+        field(50001; "RatioCreNo"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Style No."; text[50])
+        field(50002; "Style No."; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Style Name"; text[50])
+        field(50003; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Style Master"."Style No.";
             ValidateTableRelation = false;
         }
 
-        field(4; "Group ID"; BigInteger)
+        field(50004; "Group ID"; BigInteger)
         {
             DataClassification = ToBeClassified;
             TableRelation = GroupMaster."Group ID" where("Style No." = field("Style No."));
         }
 
-        field(5; "Component Group"; Code[50])
+        field(50005; "Component Group"; Code[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = FabricMapping."Component Group" where("Style No." = field("Style No."), "Colour No" = field("Colour No"));
@@ -36,33 +36,33 @@ table 50603 RatioCreation
             ValidateTableRelation = false;
         }
 
-        field(9; "Created User"; Code[50])
+        field(50006; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "Created Date"; Date)
+        field(50007; "Created Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(11; "Colour No"; code[50])
+        field(50008; "Colour No"; code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "Colour Name"; text[50])
+        field(50009; "Colour Name"; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(13; "UOM Code"; code[20])
+        field(50010; "UOM Code"; code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Unit of Measure".Code;
         }
 
-        field(14; UOM; Text[50])
+        field(50011; UOM; Text[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -72,7 +72,7 @@ table 50603 RatioCreation
         //     DataClassification = ToBeClassified;
         // }
 
-        field(16; "Po No."; Code[20])
+        field(50012; "Po No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }

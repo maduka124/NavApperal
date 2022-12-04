@@ -360,18 +360,6 @@ report 51077 SizeColourwiseQuantity
                 }
             }
         }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-
-                }
-
-            }
-        }
     }
 
 

@@ -2,7 +2,7 @@ tableextension 50928 "SalesCRMemoHeader Extension" extends "Sales Cr.Memo Header
 {
     fields
     {
-        field(71012589; "LC/Contract No."; Code[20])
+        field(50001; "LC/Contract No."; Code[20])
         {
         }
     }

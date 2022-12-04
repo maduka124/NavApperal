@@ -10,7 +10,7 @@ tableextension 50569 "GRN Extension" extends "Purch. Rcpt. Header"
         {
         }
 
-        field(71012589; "LC/Contract No."; Code[20])
+        field(50406; "LC/Contract No."; Code[20])
         {
         }
     }

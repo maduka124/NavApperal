@@ -5,64 +5,64 @@ table 50546 "AcceptanceInv1"
 
     fields
     {
-        field(1; "B2BLC No."; Code[20])
+        field(50001; "B2BLC No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; "B2BLC No. (System)"; Code[20])
+        field(50002; "B2BLC No. (System)"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Type"; Option)
+        field(50003; "Type"; Option)
         {
             DataClassification = ToBeClassified;
             OptionMembers = "Based On B2B LC","TT or Cash";
             OptionCaption = 'Based On B2B LC,TT or Cash';
         }
 
-        field(4; "Inv No."; Code[20])
+        field(50004; "Inv No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Inv Value"; Decimal)
+        field(50005; "Inv Value"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Inv Date"; Date)
+        field(50006; "Inv Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(7; "Created User"; Code[50])
+        field(50007; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(8; "Created Date"; Date)
+        field(50008; "Created Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(9; "Select"; Boolean)
+        field(50009; "Select"; Boolean)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "AccNo."; Code[20])
+        field(50010; "AccNo."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(11; "AssignedAccNo."; Code[20])
+        field(50011; "AssignedAccNo."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "GITNo."; Code[20])
+        field(50012; "GITNo."; Code[20])
         {
             DataClassification = ToBeClassified;
         }

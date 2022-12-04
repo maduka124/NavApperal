@@ -2,87 +2,87 @@ tableextension 50922 "ProdBOM Extension" extends "Production BOM Header"
 {
     fields
     {
-        field(71012581; "EntryType"; Option)
+        field(50001; "EntryType"; Option)
         {
             OptionCaption = 'FG,Sample,Washing';
             OptionMembers = FG,Sample,Washing;
         }
 
-        field(71012582; "Wash Type"; code[20])
+        field(50002; "Wash Type"; code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Wash Type"."Wash Type Name";
             ValidateTableRelation = false;
         }
 
-        field(71012583; "Wash Type No"; Code[20])
+        field(50003; "Wash Type No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012584; "Machine Type"; Text[50])
+        field(50004; "Machine Type"; Text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = WashingMachineType.Description;
             ValidateTableRelation = false;
         }
 
-        field(71012585; "Lot Size (Kg)"; Decimal)
+        field(50005; "Lot Size (Kg)"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012586; "Bulk/Sample"; Option)
+        field(50006; "Bulk/Sample"; Option)
         {
             DataClassification = ToBeClassified;
             OptionMembers = "Bulk","Sample";
             OptionCaption = 'Bulk,Sample';
         }
 
-        field(71012587; "BOM Type"; Option)
+        field(50007; "BOM Type"; Option)
         {
             DataClassification = ToBeClassified;
             OptionMembers = "Bulk","Samples","Washing";
             OptionCaption = 'Bulk,Samples,Washing';
         }
 
-        field(71012588; "Style Name"; Text[50])
+        field(50008; "Style Name"; Text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Style Master"."Style No.";
             ValidateTableRelation = false;
         }
 
-        field(71012589; "Style No."; Code[20])
+        field(50009; "Style No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012590; "Lot"; Code[20])
+        field(50010; "Lot"; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Style Master PO"."Lot No." where("Style No." = field("Style No."));
             ValidateTableRelation = false;
         }
 
-        field(71012592; "Color"; Code[20])
+        field(50011; "Color"; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = Colour."Colour Name";
             ValidateTableRelation = false;
         }
 
-        field(71012593; "ColorCode"; Code[20])
+        field(50012; "ColorCode"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012594; "Editeble"; Boolean)
+        field(50013; "Editeble"; Boolean)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012595; "Machine Type Code"; Code[20])
+        field(50014; "Machine Type Code"; Code[20])
         {
             DataClassification = ToBeClassified;
         }

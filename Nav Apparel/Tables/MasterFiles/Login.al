@@ -5,13 +5,13 @@ table 51100 LoginDetails
 
     fields
     {
-        field(1; "No."; bigInteger)
+        field(1; "No."; Integer)
         {
             DataClassification = ToBeClassified;
             AutoIncrement = true;
         }
 
-        field(2; "UserID Secondary"; text[50])
+        field(2; "UserID Secondary"; code[20])
         {
             DataClassification = ToBeClassified;
         }
@@ -21,12 +21,12 @@ table 51100 LoginDetails
             DataClassification = ToBeClassified;
         }
 
-        field(4; "SessionID"; bigInteger)
+        field(4; "SessionID"; Integer)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Pw"; text[50])
+        field(5; "Pw"; code[50])
         {
             DataClassification = ToBeClassified;
             ExtendedDatatype = Masked;
@@ -56,7 +56,7 @@ table 51100 LoginDetails
 
     keys
     {
-        key(PK; "No.")
+        key(PK; "UserID Secondary")
         {
             Clustered = true;
         }

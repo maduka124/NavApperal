@@ -2,24 +2,24 @@ tableextension 50937 TransferOrderHeaderExt extends "Transfer Header"
 {
     fields
     {
-        field(71012581; "Style No."; text[50])
+        field(50001; "Style No."; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012582; "Style Name"; text[50])
+        field(50002; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012583; PO; Code[20])
+        field(50003; PO; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Style Master PO"."PO No." where("Style No." = field("Style No."));
             ValidateTableRelation = false;
         }
 
-        field(71012584; "Created User"; Code[50])
+        field(50004; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
         }

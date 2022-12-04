@@ -2,94 +2,94 @@ tableextension 50925 "ReqLine Extension" extends "Requisition Line"
 {
     fields
     {
-        field(71012581; "StyleNo"; Code[20])
+        field(50001; "StyleNo"; Code[20])
         {
         }
 
-        field(71012582; "StyleName"; Text[50])
+        field(50002; "StyleName"; Text[50])
         {
         }
 
-        field(71012583; "PONo"; code[20])
+        field(50003; "PONo"; code[20])
         {
         }
 
-        field(71012584; "Lot"; Text[50])
+        field(50004; "Lot"; Text[50])
         {
         }
 
-        field(71012585; "Color No."; Code[50])
+        field(50005; "Color No."; Code[50])
         {
         }
 
-        field(71012586; "Color Name"; Text[50])
+        field(50006; "Color Name"; Text[50])
         {
         }
 
-        field(71012587; "EntryType"; Option)
+        field(50007; "EntryType"; Option)
         {
             OptionCaption = 'FG,Sample,"Central Purchasing"';
             OptionMembers = FG,Sample,"Central Purchasing";
         }
 
-        field(71012588; "Main Category"; Text[50])
+        field(50008; "Main Category"; Text[50])
         {
             TableRelation = "Main Category"."Main Category Name";
             ValidateTableRelation = false;
         }
 
-        field(71012589; "Department Code"; code[20])
+        field(50009; "Department Code"; code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012590; "Department Name"; text[50])
+        field(50010; "Department Name"; text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = Department."Department Name";
             ValidateTableRelation = false;
         }
 
-        field(71012591; "CP Req Code"; code[20])
+        field(50011; "CP Req Code"; code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012592; "CP Line"; BigInteger)
+        field(50012; "CP Line"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012593; "Global Dimension Code"; Code[20])
+        field(50013; "Global Dimension Code"; Code[20])
         {
             DataClassification = ToBeClassified;
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
         }
 
-        field(71012594; "Buyer No."; Code[20])
+        field(50014; "Buyer No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012595; "Buyer Name"; text[50])
+        field(50015; "Buyer Name"; text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = Customer.Name;
             ValidateTableRelation = false;
         }
 
-        field(50100; "Purchase Order Nos."; Code[20])
+        field(50016; "Purchase Order Nos."; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
-        field(50101; "Created User Name"; Text[50])
+        field(50017; "Created User Name"; Text[50])
         {
             DataClassification = ToBeClassified;
             Editable = false;
         }
-        field(50102; "Modified User Name"; Text[50])
+        field(50018; "Modified User Name"; Text[50])
         {
             DataClassification = ToBeClassified;
             Editable = false;

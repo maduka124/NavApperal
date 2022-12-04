@@ -2,11 +2,11 @@ tableextension 51090 "Customer Extension" extends Customer
 {
     fields
     {
-        field(71012581; "Fab Inspection Level"; Decimal)
+        field(50001; "Fab Inspection Level"; Decimal)
         {
         }
 
-        field(71012582; "Group Id"; Code[20])
+        field(50002; "Group Id"; Code[20])
         {
             TableRelation = MerchandizingGroupTable."Group Id";
         }

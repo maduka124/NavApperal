@@ -5,376 +5,376 @@ table 50595 RatioCreationLine
 
     fields
     {
-        field(1; "Group ID"; BigInteger)
+        field(50001; "Group ID"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Style No."; Code[20])
+        field(50002; "Style No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Style Name"; Text[50])
+        field(50003; "Style Name"; Text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(4; "Lot No."; Code[20])
+        field(50004; "Lot No."; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Style Master PO"."Lot No." where("Style No." = field("Style No."));
         }
 
-        field(5; "SubLotNo."; Code[20])
+        field(50005; "SubLotNo."; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = SewingJobCreationLine3."SubLotNo." where("Style No." = field("Style No."), "Lot No." = field("Lot No."));
             ValidateTableRelation = false;
         }
 
-        field(6; "Sewing Job No."; Code[20])
+        field(50006; "Sewing Job No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(7; "PO No."; Code[20])
+        field(50007; "PO No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(8; "1"; Text[20])
+        field(50008; "1"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(9; "2"; Text[20])
+        field(50009; "2"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "3"; Text[20])
+        field(50010; "3"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(11; "4"; Text[20])
+        field(50011; "4"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "5"; Text[20])
+        field(50012; "5"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(13; "6"; Text[20])
+        field(50013; "6"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(14; "7"; Text[20])
+        field(50014; "7"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(15; "8"; Text[20])
+        field(50015; "8"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(16; "9"; Text[20])
+        field(50016; "9"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(17; "10"; Text[20])
+        field(50017; "10"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(18; "11"; Text[20])
+        field(50018; "11"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(19; "12"; Text[20])
+        field(50019; "12"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(20; "13"; Text[20])
+        field(50020; "13"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(21; "14"; Text[20])
+        field(50021; "14"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(22; "15"; Text[20])
+        field(50022; "15"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(23; "16"; Text[20])
+        field(50023; "16"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(24; "17"; Text[20])
+        field(50024; "17"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(25; "18"; Text[20])
+        field(50025; "18"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(26; "19"; Text[20])
+        field(50026; "19"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(27; "20"; Text[20])
+        field(50027; "20"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(28; "21"; Text[20])
+        field(50028; "21"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(29; "22"; Text[20])
+        field(50029; "22"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(30; "23"; Text[20])
+        field(50030; "23"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(31; "24"; Text[20])
+        field(50031; "24"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(32; "25"; Text[20])
+        field(50032; "25"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(33; "26"; Text[20])
+        field(50033; "26"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(34; "27"; Text[20])
+        field(50034; "27"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(35; "28"; Text[20])
+        field(50035; "28"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(36; "29"; Text[20])
+        field(50036; "29"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(37; "30"; Text[20])
+        field(50037; "30"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(38; "31"; Text[20])
+        field(50038; "31"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(39; "32"; Text[20])
+        field(50039; "32"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(40; "33"; Text[20])
+        field(50040; "33"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(41; "34"; Text[20])
+        field(50041; "34"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(42; "35"; Text[20])
+        field(50042; "35"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(43; "36"; Text[20])
+        field(50043; "36"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(44; "37"; Text[20])
+        field(50044; "37"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(45; "38"; Text[20])
+        field(50045; "38"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(46; "39"; Text[20])
+        field(50046; "39"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(47; "40"; Text[20])
+        field(50047; "40"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(48; "41"; Text[20])
+        field(50048; "41"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(49; "42"; Text[20])
+        field(50049; "42"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(50; "43"; Text[20])
+        field(50050; "43"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(51; "44"; Text[20])
+        field(50051; "44"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(52; "45"; Text[20])
+        field(50052; "45"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(53; "46"; Text[20])
+        field(50053; "46"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(54; "47"; Text[20])
+        field(50054; "47"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(55; "48"; Text[20])
+        field(50055; "48"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(56; "49"; Text[20])
+        field(50056; "49"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(57; "50"; Text[20])
+        field(50057; "50"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(58; "51"; Text[20])
+        field(50058; "51"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(59; "52"; Text[20])
+        field(50059; "52"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(60; "53"; Text[20])
+        field(50060; "53"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(61; "54"; Text[20])
+        field(50061; "54"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(62; "55"; Text[20])
+        field(50062; "55"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(63; "56"; Text[20])
+        field(50063; "56"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(64; "57"; Text[20])
+        field(50064; "57"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(65; "58"; Text[20])
+        field(50065; "58"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(66; "59"; Text[20])
+        field(50066; "59"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(67; "60"; Text[20])
+        field(50067; "60"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(68; "61"; Text[20])
+        field(50068; "61"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(69; "62"; Text[20])
+        field(50069; "62"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(70; "63"; Text[20])
+        field(50070; "63"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(71; "64"; Text[20])
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(72; "Created User"; Code[50])
+        field(50071; "64"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(73; "Created Date"; Date)
+        field(50072; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(74; "Color Total"; Decimal)
+        field(50073; "Created Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(75; "Qty"; Decimal)
+        field(50074; "Color Total"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(76; "ShipDate"; Date)
+        field(50075; "Qty"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(77; "Colour No"; Code[20])
+        field(50076; "ShipDate"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50077; "Colour No"; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = AssorColorSizeRatio."Colour No"
@@ -383,90 +383,90 @@ table 50595 RatioCreationLine
             ValidateTableRelation = false;
         }
 
-        field(78; "Colour Name"; text[50])
+        field(50078; "Colour Name"; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(79; "Record Type"; code[20])
+        field(50079; "Record Type"; code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(80; "LineNo"; BigInteger)
+        field(50080; "LineNo"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(81; "Marker Name"; code[20])
+        field(50081; "Marker Name"; code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(82; "Plies"; Integer)
-        {
-            DataClassification = ToBeClassified;
-            InitValue = 0;
-        }
-
-        field(83; "Ref"; Integer)
+        field(50082; "Plies"; Integer)
         {
             DataClassification = ToBeClassified;
             InitValue = 0;
         }
 
-        field(84; "Length"; Decimal)
+        field(50083; "Ref"; Integer)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+
+        field(50084; "Length"; Decimal)
         {
             DataClassification = ToBeClassified;
             InitValue = 0.00;
         }
 
-        field(85; "Length Tollarance  "; Decimal)
+        field(50085; "Length Tollarance  "; Decimal)
         {
             DataClassification = ToBeClassified;
             InitValue = 0.00;
         }
 
-        field(86; "Width"; Decimal)
+        field(50086; "Width"; Decimal)
         {
             DataClassification = ToBeClassified;
             InitValue = 0.00;
         }
 
-        field(87; "Width Tollarance"; Decimal)
+        field(50087; "Width Tollarance"; Decimal)
         {
             DataClassification = ToBeClassified;
             InitValue = 0.00;
         }
 
-        field(88; "UOM Code"; code[20])
+        field(50088; "UOM Code"; code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Unit of Measure".Code;
         }
 
-        field(89; UOM; Text[50])
+        field(50089; UOM; Text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(90; "Efficiency"; Decimal)
+        field(50090; "Efficiency"; Decimal)
         {
             DataClassification = ToBeClassified;
             InitValue = 0.00;
         }
 
-        field(91; "RatioCreNo"; Code[20])
+        field(50091; "RatioCreNo"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(92; "Component Group Code"; Code[50])
+        field(50092; "Component Group Code"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(93; "Pattern Version"; Code[50])
+        field(50093; "Pattern Version"; Code[50])
         {
             DataClassification = ToBeClassified;
         }

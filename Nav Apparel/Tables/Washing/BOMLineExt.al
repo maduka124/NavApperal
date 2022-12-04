@@ -2,39 +2,39 @@ tableextension 50656 WashingBOMLineExt extends "Production BOM Line"
 {
     fields
     {
-        field(46; Step; Text[100])
+        field(50001; Step; Text[100])
         {
             DataClassification = ToBeClassified;
             TableRelation = "WashingStep".Description;
             ValidateTableRelation = false;
         }
 
-        field(47; "Water(L)"; Decimal)
+        field(50002; "Water(L)"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(48; "Temperature"; Decimal)
+        field(50003; "Temperature"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(49; Time; Decimal)
+        field(50004; Time; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(50; "Weight(Kg)"; Decimal)
+        field(50005; "Weight(Kg)"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(60; "Remark"; Text[100])
+        field(50006; "Remark"; Text[100])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(61; "Main Category Code"; code[50])
+        field(50007; "Main Category Code"; code[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Main Category"."No.";
@@ -50,7 +50,7 @@ tableextension 50656 WashingBOMLineExt extends "Production BOM Line"
             end;
         }
 
-        field(62; "Main Category Name"; text[100])
+        field(50008; "Main Category Name"; text[100])
         {
             DataClassification = ToBeClassified;
         }

@@ -2,33 +2,33 @@ tableextension 51099 "Location Extension" extends Location
 {
     fields
     {
-        field(71012581; "Plant Type No."; Code[20])
+        field(50001; "Plant Type No."; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Plant Type"."Plant Type No.";
         }
 
-        field(71012582; "Plant Type Name"; text[50])
+        field(50002; "Plant Type Name"; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012583; "Sewing Unit"; Boolean)
+        field(50003; "Sewing Unit"; Boolean)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012584; "Start Time"; Time)
+        field(50004; "Start Time"; Time)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(71012585; "Finish Time"; Time)
+        field(50005; "Finish Time"; Time)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(50100; "Transfer-from Location"; Code[20])
+        field(50006; "Transfer-from Location"; Code[20])
         {
             Caption = 'Transfer-from Location';
             DataClassification = ToBeClassified;
