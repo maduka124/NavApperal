@@ -14,59 +14,59 @@ page 50646 "Lay Sheet List"
         {
             repeater(General)
             {
-                field("LaySheetNo."; "LaySheetNo.")
+                field("LaySheetNo."; Rec."LaySheetNo.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Lay Sheet No';                   
+                    Caption = 'Lay Sheet No';
                 }
 
-                field("FabReqNo."; "FabReqNo.")
+                field("FabReqNo."; Rec."FabReqNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fab. Req. No';
                 }
 
-                field("Plan Date"; "Plan Date")
+                field("Plan Date"; Rec."Plan Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Cut No."; "Cut No.")
+                field("Cut No."; Rec."Cut No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Cut No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; Rec."Group ID")
                 {
                     ApplicationArea = All;
                     Caption = 'Sew. Job Group';
                 }
 
-                field(Color; Color)
+                field(Color; Rec.Color)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Component Group Name"; "Component Group Name")
+                field("Component Group Name"; Rec."Component Group Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Component Group';
                 }
 
-                field("Marker Name"; "Marker Name")
+                field("Marker Name"; Rec."Marker Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Marker';
                 }
 
-                field("Fab Direction"; "Fab Direction")
+                field("Fab Direction"; Rec."Fab Direction")
                 {
                     ApplicationArea = All;
                 }
@@ -89,7 +89,7 @@ page 50646 "Lay Sheet List"
 
         //Check in the cutting progress
         CutProRec.Reset();
-        CutProRec.SetRange(LaySheetNo, "LaySheetNo.");
+        CutProRec.SetRange(LaySheetNo, Rec."LaySheetNo.");
 
         if CutProRec.FindSet() then begin
             Message('Cannot delete. Lay Sheet No already used in the Cutting Progress No : %1', CutProRec."CutProNo.");
@@ -99,11 +99,11 @@ page 50646 "Lay Sheet List"
 
         //Check in the Lay SHeet
         BundleGuideRec.Reset();
-        BundleGuideRec.SetRange("Style No.", "Style No.");
-        BundleGuideRec.SetRange("Color No", "Color No.");
-        BundleGuideRec.SetRange("Group ID", "Group ID");
-        BundleGuideRec.SetRange("Component Group", "Component Group Code");
-        BundleGuideRec.SetRange("Cut No", "Cut No.");
+        BundleGuideRec.SetRange("Style No.", Rec."Style No.");
+        BundleGuideRec.SetRange("Color No", Rec."Color No.");
+        BundleGuideRec.SetRange("Group ID", Rec."Group ID");
+        BundleGuideRec.SetRange("Component Group", Rec."Component Group Code");
+        BundleGuideRec.SetRange("Cut No", Rec."Cut No.");
 
         if BundleGuideRec.FindSet() then begin
             Message('Cannot delete. Lay Sheet details already used in the Bundle Guide No : %1', BundleGuideRec."BundleGuideNo.");
@@ -112,19 +112,19 @@ page 50646 "Lay Sheet List"
 
 
 
-        LaySheetLine1Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine1Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
         LaySheetLine1Rec.DeleteAll();
 
-        LaySheetLine2Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine2Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
         LaySheetLine2Rec.DeleteAll();
 
-        LaySheetLine3Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine3Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
         LaySheetLine3Rec.DeleteAll();
 
-        LaySheetLine4Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine4Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
         LaySheetLine4Rec.DeleteAll();
 
-        LaySheetLine5Rec.SetRange("LaySheetNo.", "LaySheetNo.");
+        LaySheetLine5Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
         LaySheetLine5Rec.DeleteAll();
     end;
 

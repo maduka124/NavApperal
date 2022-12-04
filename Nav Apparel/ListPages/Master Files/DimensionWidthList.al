@@ -13,22 +13,22 @@ page 71012603 "Dimension Width"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Dimension Width No';
                 }
 
-                field("Dimension Width"; "Dimension Width")
+                field("Dimension Width"; Rec."Dimension Width")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
                 }
-                field(Length; Length)
+                field(Length; Rec.Length)
                 {
                     ApplicationArea = All;
                 }

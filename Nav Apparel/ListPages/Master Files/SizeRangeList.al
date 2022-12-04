@@ -13,13 +13,13 @@ page 71012640 SizeRange
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Size Range No';
                 }
 
-                field("Size Range"; "Size Range")
+                field("Size Range"; Rec."Size Range")
                 {
                     ApplicationArea = All;
                 }

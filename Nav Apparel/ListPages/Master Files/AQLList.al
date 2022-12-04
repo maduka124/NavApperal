@@ -14,22 +14,22 @@ page 71012581 "AQL"
         {
             repeater(General)
             {
-                field("From Qty"; "From Qty")
+                field("From Qty"; Rec."From Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("To Qty"; "To Qty")
+                field("To Qty"; Rec."To Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("SMPL Qty"; "SMPL Qty")
+                field("SMPL Qty"; Rec."SMPL Qty")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Reject Qty"; "Reject Qty")
+                field("Reject Qty"; Rec."Reject Qty")
                 {
                     ApplicationArea = All;
                 }

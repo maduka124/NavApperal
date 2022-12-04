@@ -13,18 +13,18 @@ page 71012649 "Sub Category"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = '"Sub Category No';
                 }
 
-                field("Sub Category Name"; "Sub Category Name")
+                field("Sub Category Name"; Rec."Sub Category Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
                 }

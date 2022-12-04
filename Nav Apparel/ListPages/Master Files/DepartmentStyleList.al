@@ -13,13 +13,13 @@ page 71012600 "Department (Style)"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Department No';
                 }
 
-                field("Department Name"; "Department Name")
+                field("Department Name"; Rec."Department Name")
                 {
                     ApplicationArea = All;
                 }

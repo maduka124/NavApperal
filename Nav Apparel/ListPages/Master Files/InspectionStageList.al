@@ -14,13 +14,13 @@ page 71012612 "Inspection Stage List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Inspection Stage No';
                 }
 
-                field("Inspection Stage"; "Inspection Stage")
+                field("Inspection Stage"; Rec."Inspection Stage")
                 {
                     ApplicationArea = All;
                 }

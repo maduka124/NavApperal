@@ -12,59 +12,59 @@ page 50651 "Lay Sheet Line2"
         {
             repeater(General)
             {
-                field("Pattern Version"; "Pattern Version")
+                field("Pattern Version"; Rec."Pattern Version")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("No of Plies"; "No of Plies")
+                field("No of Plies"; Rec."No of Plies")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(LayLength; LayLength)
+                field(LayLength; Rec.LayLength)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Lay Length';
                 }
 
-                field("Cutting Wastage"; "Cutting Wastage")
+                field("Cutting Wastage"; Rec."Cutting Wastage")
                 {
                     ApplicationArea = All;
                     Caption = 'Cutting Wastage (%)';
                 }
 
-                field("Fab. Req. For Lay"; "Fab. Req. For Lay")
+                field("Fab. Req. For Lay"; Rec."Fab. Req. For Lay")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Act. Width"; "Act. Width")
+                field("Act. Width"; Rec."Act. Width")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Revised Marker Length"; "Revised Marker Length")
+                field("Revised Marker Length"; Rec."Revised Marker Length")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Revised Tot. Fab. Req."; "Revised Tot. Fab. Req.")
+                field("Revised Tot. Fab. Req."; Rec."Revised Tot. Fab. Req.")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Issued Qty(Meters)"; "Issued Qty(Meters)")
+                field("Issued Qty(Meters)"; Rec."Issued Qty(Meters)")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Retuned Qty(Meters)"; "Retuned Qty(Meters)")
+                field("Retuned Qty(Meters)"; Rec."Retuned Qty(Meters)")
                 {
                     ApplicationArea = All;
                 }

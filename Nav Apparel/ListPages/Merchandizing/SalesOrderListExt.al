@@ -4,18 +4,18 @@ pageextension 71012798 SalesOrderListExt extends "Sales Order List"
     {
         addlast(Control1)
         {
-            field("Style Name"; "Style Name")
+            field("Style Name"; Rec."Style Name")
             {
                 ApplicationArea = ALL;
                 Caption = 'Style';
             }
 
-            field("PO No"; "PO No")
+            field("PO No"; Rec."PO No")
             {
                 ApplicationArea = ALL;
             }
 
-            field(Lot; Lot)
+            field(Lot; Rec.Lot)
             {
                 ApplicationArea = ALL;
             }

@@ -12,7 +12,7 @@ page 50810 "Dept_CategoriesList1"
         {
             repeater(General)
             {
-                field("Category No."; "Category No.")
+                field("Category No."; Rec."Category No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Category No';
@@ -20,19 +20,19 @@ page 50810 "Dept_CategoriesList1"
                     trigger OnValidate()
                     var
                     begin
-                        "Department No." := DepartmentNoGB;
-                        "Department Name" := DepartmentNameGB;
+                        Rec."Department No." := DepartmentNoGB;
+                        Rec."Department Name" := DepartmentNameGB;
                         // "Factory Code" := FactoryNoGB;
                         // "Factory Name" := FactoryNameGB;
                     end;
                 }
 
-                field("Category Name"; "Category Name")
+                field("Category Name"; Rec."Category Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Factory Name"; "Factory Name")
+                field("Factory Name"; Rec."Factory Name")
                 {
                     ApplicationArea = All;
 
@@ -41,35 +41,35 @@ page 50810 "Dept_CategoriesList1"
                         LocationRec: Record Location;
                     begin
                         LocationRec.Reset();
-                        LocationRec.SetRange(name, "Factory Name");
+                        LocationRec.SetRange(name, Rec."Factory Name");
                         if LocationRec.FindSet() then
-                            "Factory Code" := LocationRec.Code;
+                            Rec."Factory Code" := LocationRec.Code;
                     end;
                 }
 
-                field("Act Budget"; "Act Budget")
+                field("Act Budget"; Rec."Act Budget")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        "Final Budget with Absenteesm" := round("Act Budget" * "Absent%", 1);
+                        Rec."Final Budget with Absenteesm" := round(Rec."Act Budget" * Rec."Absent%", 1);
                     end;
                 }
 
-                field("Absent%"; "Absent%")
+                field("Absent%"; Rec."Absent%")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
-                        "Final Budget with Absenteesm" := round("Act Budget" * "Absent%", 1);
+                        Rec."Final Budget with Absenteesm" := round(Rec."Act Budget" * Rec."Absent%", 1);
                     end;
                 }
 
-                field("Final Budget with Absenteesm"; "Final Budget with Absenteesm")
+                field("Final Budget with Absenteesm"; Rec."Final Budget with Absenteesm")
                 {
                     ApplicationArea = All;
                 }
@@ -145,7 +145,7 @@ page 50810 "Dept_CategoriesList1"
     trigger OnOpenPage()
     var
     begin
-        SetFilter("Department No.", DepartmentNoGB);
+        Rec.SetFilter("Department No.", DepartmentNoGB);
         //SetFilter("Factory Code", FactoryNoGB);
     end;
 

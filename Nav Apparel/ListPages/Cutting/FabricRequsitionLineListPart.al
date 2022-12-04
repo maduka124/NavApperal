@@ -12,13 +12,13 @@ page 50623 "FabricRequisitionLineListPart"
         {
             repeater(General)
             {
-                field("Layering Start Date/Time"; "Layering Start Date/Time")
+                field("Layering Start Date/Time"; Rec."Layering Start Date/Time")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Cut Start Date/Time"; "Cut Start Date/Time")
+                field("Cut Start Date/Time"; Rec."Cut Start Date/Time")
                 {
                     ApplicationArea = All;
                     Editable = false;

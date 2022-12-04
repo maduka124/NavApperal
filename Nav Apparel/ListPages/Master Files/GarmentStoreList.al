@@ -13,18 +13,18 @@ page 71012606 "Garment Store"
         {
             repeater(general)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Store No';
                 }
 
-                field("Store Name"; "Store Name")
+                field("Store Name"; Rec."Store Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Country"; Country)
+                field("Country"; Rec.Country)
                 {
                     ApplicationArea = All;
                 }

@@ -13,13 +13,13 @@ page 71012643 "Special Operation"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Special Operation No';
                 }
 
-                field("SpecialOperation Name"; "SpecialOperation Name")
+                field("SpecialOperation Name"; Rec."SpecialOperation Name")
                 {
                     ApplicationArea = All;
                 }

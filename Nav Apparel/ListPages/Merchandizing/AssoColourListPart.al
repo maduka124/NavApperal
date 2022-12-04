@@ -12,12 +12,12 @@ page 71012677 AssoColourListPart
         {
             repeater(General)
             {
-                field("Colour No"; "Colour No")
+                field("Colour No"; Rec."Colour No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; Rec."Colour Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -29,6 +29,6 @@ page 71012677 AssoColourListPart
     trigger OnOpenPage()
     var
     begin
-        Type := '1';
+        Rec.Type := '1';
     end;
 }

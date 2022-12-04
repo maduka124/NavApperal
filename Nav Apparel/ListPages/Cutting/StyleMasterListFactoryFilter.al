@@ -12,13 +12,13 @@ page 71012799 "Style Master Filter"
             {
                 Editable = false;
 
-                field("Style No."; "Style No.")
+                field("Style No."; Rec."Style No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Order Qty"; "Order Qty")
+                field("Order Qty"; Rec."Order Qty")
                 {
                     ApplicationArea = All;
                 }

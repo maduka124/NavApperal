@@ -14,57 +14,57 @@ page 50621 "FabricRequisitionList"
         {
             repeater(General)
             {
-                field(FabReqNo; "FabReqNo.")
+                field(FabReqNo; Rec."FabReqNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabric Requsition No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
 
-                field("Colour Name"; "Colour Name")
+                field("Colour Name"; Rec."Colour Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Colour';
                 }
 
-                field("Group ID"; "Group ID")
+                field("Group ID"; Rec."Group ID")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Component Group Code"; "Component Group Code")
+                field("Component Group Code"; Rec."Component Group Code")
                 {
                     ApplicationArea = All;
                     Caption = 'Component Group';
                 }
 
-                field("Marker Name"; "Marker Name")
+                field("Marker Name"; Rec."Marker Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Marker';
                 }
 
-                field("Cut No"; "Cut No")
+                field("Cut No"; Rec."Cut No")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Marker Width"; "Marker Width")
+                field("Marker Width"; Rec."Marker Width")
                 {
                     ApplicationArea = All;
                 }
 
-                field(UOM; UOM)
+                field(UOM; Rec.UOM)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Required Length"; "Required Length")
+                field("Required Length"; Rec."Required Length")
                 {
                     ApplicationArea = All;
                 }
@@ -82,7 +82,7 @@ page 50621 "FabricRequisitionList"
 
         //Check in the laysheet
         LaySheetRec.Reset();
-        LaySheetRec.SetRange("FabReqNo.", "FabReqNo.");
+        LaySheetRec.SetRange("FabReqNo.", Rec."FabReqNo.");
 
         if LaySheetRec.FindSet() then begin
             Message('Cannot delete. Fabric Requsition No already used in the Laysheet No : %1', LaySheetRec."LaySheetNo.");
@@ -92,7 +92,7 @@ page 50621 "FabricRequisitionList"
 
         //Check in the Role Issuing
         RoleIssueRec.Reset();
-        RoleIssueRec.SetRange("Req No.", "FabReqNo.");
+        RoleIssueRec.SetRange("Req No.", Rec."FabReqNo.");
 
         if RoleIssueRec.FindSet() then begin
             Message('Cannot delete. Fabric Requsition No already used in the Role Issuing No : %1', RoleIssueRec."RoleIssuNo.");
@@ -101,7 +101,7 @@ page 50621 "FabricRequisitionList"
 
 
         FabricRequLine.Reset();
-        FabricRequLine.SetRange("FabReqNo.", "FabReqNo.");
+        FabricRequLine.SetRange("FabReqNo.", Rec."FabReqNo.");
         if FabricRequLine.FindSet() then
             FabricRequLine.DeleteAll();
     end;

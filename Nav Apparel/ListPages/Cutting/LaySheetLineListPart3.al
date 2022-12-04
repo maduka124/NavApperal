@@ -12,19 +12,18 @@ page 50653 "Lay Sheet Line3"
         {
             repeater(General)
             {
-                field(Shade; Shade)
+                field(Shade; Rec.Shade)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Shade Wise Total Fab (Meters)"; "Shade Wise Total Fab (Meters)")
+                field("Shade Wise Total Fab (Meters)"; Rec."Shade Wise Total Fab (Meters)")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
-
-                field("No of Plies From Shade"; "No of Plies From Shade")
+                field("No of Plies From Shade"; Rec."No of Plies From Shade")
                 {
                     ApplicationArea = All;
                     Editable = false;

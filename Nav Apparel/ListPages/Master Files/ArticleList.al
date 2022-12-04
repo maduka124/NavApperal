@@ -15,18 +15,18 @@ page 71012584 Article
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Article No';
                 }
 
-                field(Article; Article)
+                field(Article; Rec.Article)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Main Category Name"; "Main Category Name")
+                field("Main Category Name"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
                 }

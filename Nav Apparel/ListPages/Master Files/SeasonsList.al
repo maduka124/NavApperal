@@ -13,13 +13,13 @@ page 71012634 "Seasons List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Season No';
                 }
 
-                field("Season Name"; "Season Name")
+                field("Season Name"; Rec."Season Name")
                 {
                     ApplicationArea = All;
                 }

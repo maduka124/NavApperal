@@ -11,20 +11,20 @@ page 50826 RoleIssueLookupList
         {
             repeater(General)
             {
-                field("RoleIssuNo."; "RoleIssuNo.")
+                field("RoleIssuNo."; Rec."RoleIssuNo.")
                 {
                     ApplicationArea = All;
                     Caption = 'Roll Issue No';
                 }
 
-                field("Req No."; "Req No.")
+                field("Req No."; Rec."Req No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Fab Req No';
                 }
 
-                field("Style Name"; "Style Name")
+                field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;

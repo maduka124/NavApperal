@@ -13,13 +13,13 @@ page 71012656 "Wash Type"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Wash Type No';
                 }
 
-                field("Wash Type Name"; "Wash Type Name")
+                field("Wash Type Name"; Rec."Wash Type Name")
                 {
                     ApplicationArea = All;
                 }

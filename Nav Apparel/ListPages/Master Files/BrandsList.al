@@ -13,18 +13,18 @@ page 71012587 Brand
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Brand No';
                 }
 
-                field("Brand Name"; "Brand Name")
+                field("Brand Name"; Rec."Brand Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }

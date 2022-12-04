@@ -12,48 +12,48 @@ page 50657 "Lay Sheet Line5"
         {
             repeater(General)
             {
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Docket; Docket)
+                field(Docket; Rec.Docket)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Marker; Marker)
+                field(Marker; Rec.Marker)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Issuing; Issuing)
+                field(Issuing; Rec.Issuing)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Laying; Laying)
+                field(Laying; Rec.Laying)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Cutting; Cutting)
+                field(Cutting; Rec.Cutting)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Return; Return)
+                field(Return; Rec.Return)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Bundling; Bundling)
+                field(Bundling; Rec.Bundling)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Dispatch; Dispatch)
+                field(Dispatch; Rec.Dispatch)
                 {
                     ApplicationArea = All;
                 }

@@ -14,18 +14,18 @@ page 50615 "Table Creation"
         {
             repeater(General)
             {
-                field(TableCreNo; TableCreNo)
+                field(TableCreNo; Rec.TableCreNo)
                 {
                     ApplicationArea = All;
                     Caption = 'Table Creation No';
                 }
 
-                field("Plan Date"; "Plan Date")
+                field("Plan Date"; Rec."Plan Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Table Name"; "Table Name")
+                field("Table Name"; Rec."Table Name")
                 {
                     ApplicationArea = All;
                 }
@@ -38,7 +38,7 @@ page 50615 "Table Creation"
     var
         TableCreLineRec: Record TableCreartionLine;
     begin
-        TableCreLineRec.SetRange("TableCreNo.", TableCreNo);
+        TableCreLineRec.SetRange("TableCreNo.", Rec.TableCreNo);
         TableCreLineRec.DeleteAll();
     end;
 }

@@ -13,13 +13,13 @@ page 71012848 ChemicalTypeList
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Chemical Type No';
                 }
 
-                field("Chemical Type Name"; "Chemical Type Name")
+                field("Chemical Type Name"; Rec."Chemical Type Name")
                 {
                     ApplicationArea = All;
                 }

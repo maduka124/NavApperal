@@ -12,17 +12,17 @@ page 50798 "Workers List"
         {
             repeater(General)
             {
-                field("Worker Name"; "Worker Name")
+                field("Worker Name"; Rec."Worker Name")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Worker Type"; "Worker Type")
+                field("Worker Type"; Rec."Worker Type")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                 }

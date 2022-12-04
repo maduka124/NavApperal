@@ -11,23 +11,23 @@ page 50681 "FabricCodeList"
         {
             repeater(General)
             {
-                field(FabricCode; FabricCode)
+                field(FabricCode; Rec.FabricCode)
                 {
                     ApplicationArea = all;
                     Caption = 'Fabric Code';
                 }
 
-                field(Composition; Composition)
+                field(Composition; Rec.Composition)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Construction; Construction)
+                field(Construction; Rec.Construction)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Supplier Name"; "Supplier Name")
+                field("Supplier Name"; Rec."Supplier Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier';

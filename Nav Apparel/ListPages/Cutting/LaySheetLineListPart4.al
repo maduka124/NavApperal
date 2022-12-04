@@ -12,77 +12,77 @@ page 50655 "Lay Sheet Line4"
         {
             repeater(General)
             {
-                field(Shade; Shade)
+                field(Shade; Rec.Shade)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field(Batch; Batch)
+                field(Batch; Rec.Batch)
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Role ID"; "Role ID")
+                field("Role ID"; Rec."Role ID")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Roll ID';
                 }
 
-                field("Ticket Length"; "Ticket Length")
+                field("Ticket Length"; Rec."Ticket Length")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Allocated Qty"; "Allocated Qty")
+                field("Allocated Qty"; Rec."Allocated Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Planned Plies"; "Planned Plies")
+                field("Planned Plies"; Rec."Planned Plies")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Actual Plies"; "Actual Plies")
+                field("Actual Plies"; Rec."Actual Plies")
                 {
                     ApplicationArea = All;
                 }
 
-                field(Damages; Damages)
+                field(Damages; Rec.Damages)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Joints; Joints)
+                field(Joints; Rec.Joints)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Ends; Ends)
+                field(Ends; Rec.Ends)
                 {
                     ApplicationArea = All;
                 }
 
-                field("Shortage +"; "Shortage +")
+                field("Shortage +"; Rec."Shortage +")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Shortage -"; "Shortage -")
+                field("Shortage -"; Rec."Shortage -")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Binding Length"; "Binding Length")
+                field("Binding Length"; Rec."Binding Length")
                 {
                     ApplicationArea = All;
                 }
-                field(Comments; Comments)
+                field(Comments; Rec.Comments)
                 {
                     ApplicationArea = All;
                 }

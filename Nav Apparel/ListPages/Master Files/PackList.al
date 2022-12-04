@@ -13,13 +13,13 @@ page 71012625 "Pack List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Pack No';
                 }
 
-                field(Pack; Pack)
+                field(Pack; Rec.Pack)
                 {
                     ApplicationArea = All;
                 }

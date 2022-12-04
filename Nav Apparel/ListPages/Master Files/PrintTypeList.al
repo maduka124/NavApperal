@@ -13,13 +13,13 @@ page 71012631 "Print Type List"
         {
             repeater(General)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Print Type No';
                 }
 
-                field("Print Type Name"; "Print Type Name")
+                field("Print Type Name"; Rec."Print Type Name")
                 {
                     ApplicationArea = All;
                 }
