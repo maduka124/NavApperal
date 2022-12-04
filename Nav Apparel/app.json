@@ -1,8 +1,8 @@
 {
   "id": "774ebb95-d92c-4582-af87-1af18d4033c1",
-  "name": "Nav Apparel",
-  "publisher": "SoftServe Solution",
-  "version": "1.0.0.39",
+  "name": "Navi Apparel",
+  "publisher": "SoftServe Pvt Ltd",
+  "version": "1.0.0.40",
   "brief": "",
   "description": "",
   "privacyStatement": "",
@@ -17,7 +17,7 @@
   "idRanges": [
     {
       "from": 50100,
-      "to": 71013580
+      "to": 60000
     }
   ],
   "contextSensitiveHelpUrl": "https://NavAppProject.com/help/",
