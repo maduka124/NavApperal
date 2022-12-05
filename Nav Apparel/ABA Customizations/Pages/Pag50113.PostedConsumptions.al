@@ -4,6 +4,7 @@ page 50113 "Posted Consumptions"
     PageType = ListPart;
     SourceTable = "Item Ledger Entry";
     ApplicationArea = Suite;
+    UsageCategory = Lists;
     SourceTableView = where("Entry Type" = filter(Consumption));
     Editable = false;
     layout

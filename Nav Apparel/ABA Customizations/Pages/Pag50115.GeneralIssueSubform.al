@@ -1,6 +1,7 @@
 page 50115 "General Issue Subform"
 {
     ApplicationArea = Suite;
+    UsageCategory = Lists;
     Caption = 'General Issue Subform';
     PageType = ListPart;
     SourceTable = "General Issue Line";

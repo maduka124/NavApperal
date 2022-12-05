@@ -809,125 +809,125 @@ page 50110 "Gen. Issue Item Journal"
                 }
             }
         }
-        area(Promoted)
-        {
-            group(Category_Process)
-            {
-                Caption = 'Process', Comment = 'Generated from the PromotedActionCategories property index 1.';
+//         area(Promoted)
+//         {
+//             group(Category_Process)
+//             {
+//                 Caption = 'Process', Comment = 'Generated from the PromotedActionCategories property index 1.';
 
-                group(Category_Category5)
-                {
-                    Caption = 'Posting';
-                    ShowAs = SplitButton;
+//                 group(Category_Category5)
+//                 {
+//                     Caption = 'Posting';
+//                     //ShowAs = SplitButton;
 
-                    actionref(Post_Promoted; Post)
-                    {
-                    }
-                    actionref("Post and &Print_Promoted"; "Post and &Print")
-                    {
-                    }
-                }
-                actionref("&Calculate Warehouse Adjustment_Promoted"; "&Calculate Warehouse Adjustment")
-                {
-                }
-                actionref("&Print_Promoted"; "&Print")
-                {
-                }
-                actionref("&Get Standard Journals_Promoted"; "&Get Standard Journals")
-                {
-                }
-                actionref("&Recalculate Unit Amount_Promoted"; "&Recalculate Unit Amount")
-                {
-                }
-                actionref("E&xplode BOM_Promoted"; "E&xplode BOM")
-                {
-                }
-            }
-            group(Category_Category6)
-            {
-                Caption = 'Line', Comment = 'Generated from the PromotedActionCategories property index 5.';
+//                     // actionref(Post_Promoted; Post)
+//                     // {
+//                     // }
+//                     // actionref("Post and &Print_Promoted"; "Post and &Print")
+//                     // {
+//                     // }
+//                 }
+//                 // actionref("&Calculate Warehouse Adjustment_Promoted"; "&Calculate Warehouse Adjustment")
+//                 // {
+//                 // }
+//                 // actionref("&Print_Promoted"; "&Print")
+//                 // {
+//                 // }
+//                 // actionref("&Get Standard Journals_Promoted"; "&Get Standard Journals")
+//                 // {
+//                 // }
+//                 // actionref("&Recalculate Unit Amount_Promoted"; "&Recalculate Unit Amount")
+//                 // {
+//                 // }
+//                 // actionref("E&xplode BOM_Promoted"; "E&xplode BOM")
+//                 // {
+//                 // }
+//             }
+//             group(Category_Category6)
+//             {
+//                 Caption = 'Line', Comment = 'Generated from the PromotedActionCategories property index 5.';
 
-                actionref(ItemTrackingLines_Promoted; ItemTrackingLines)
-                {
-                }
-                actionref(Dimensions_Promoted; Dimensions)
-                {
-                }
-                group("Category_Item Availability by")
-                {
-                    Caption = 'Item Availability by';
+//                 // actionref(ItemTrackingLines_Promoted; ItemTrackingLines)
+//                 // {
+//                 // }
+//                 // actionref(Dimensions_Promoted; Dimensions)
+//                 // {
+//                 // }
+//                 group("Category_Item Availability by")
+//                 {
+//                     Caption = 'Item Availability by';
 
-                    actionref(Location_Promoted; Location)
-                    {
-                    }
-                    actionref(Variant_Promoted; Variant)
-                    {
-                    }
-                    actionref(Event_Promoted; "Event")
-                    {
-                    }
-                    actionref(Period_Promoted; Period)
-                    {
-                    }
-                    actionref("BOM Level_Promoted"; "BOM Level")
-                    {
-                    }
-                    actionref(Lot_Promoted; Lot)
-                    {
-                    }
-                }
-#if not CLEAN21
-                actionref("Bin Contents_Promoted"; "Bin Contents")
-                {
-                    Visible = false;
-                    ObsoleteState = Pending;
-                    ObsoleteReason = 'Action is being demoted based on overall low usage.';
-                    ObsoleteTag = '21.0';
-                }
-#endif
-            }
-            group(Category_Category7)
-            {
-                Caption = 'Item', Comment = 'Generated from the PromotedActionCategories property index 6.';
+//                     // actionref(Location_Promoted; Location)
+//                     // {
+//                     // }
+//                     // actionref(Variant_Promoted; Variant)
+//                     // {
+//                     // }
+//                     // actionref(Event_Promoted; "Event")
+//                     // {
+//                     // }
+//                     // actionref(Period_Promoted; Period)
+//                     // {
+//                     // }
+//                     // actionref("BOM Level_Promoted"; "BOM Level")
+//                     // {
+//                     // }
+//                     // actionref(Lot_Promoted; Lot)
+//                     // {
+//                     // }
+//                 }
+// #if not CLEAN21
+//                 // actionref("Bin Contents_Promoted"; "Bin Contents")
+//                 // {
+//                 //     Visible = false;
+//                 //     ObsoleteState = Pending;
+//                 //     ObsoleteReason = 'Action is being demoted based on overall low usage.';
+//                 //     ObsoleteTag = '21.0';
+//                 // }
+// #endif
+//             }
+//             group(Category_Category7)
+//             {
+//                 Caption = 'Item', Comment = 'Generated from the PromotedActionCategories property index 6.';
 
-#if not CLEAN21
-                actionref(Card_Promoted; Card)
-                {
-                    Visible = false;
-                    ObsoleteState = Pending;
-                    ObsoleteReason = 'Action is being demoted based on overall low usage.';
-                    ObsoleteTag = '21.0';
-                }
-#endif
-#if not CLEAN21
-                actionref("Ledger E&ntries_Promoted"; "Ledger E&ntries")
-                {
-                    Visible = false;
-                    ObsoleteState = Pending;
-                    ObsoleteReason = 'Action is being demoted based on overall low usage.';
-                    ObsoleteTag = '21.0';
-                }
-#endif
-            }
-            group(Category_Category4)
-            {
-                Caption = 'Page', Comment = 'Generated from the PromotedActionCategories property index 3.';
+// #if not CLEAN21
+//                 // actionref(Card_Promoted; Card)
+//                 // {
+//                 //     Visible = false;
+//                 //     ObsoleteState = Pending;
+//                 //     ObsoleteReason = 'Action is being demoted based on overall low usage.';
+//                 //     ObsoleteTag = '21.0';
+//                 // }
+// #endif
+// #if not CLEAN21
+//                 // actionref("Ledger E&ntries_Promoted"; "Ledger E&ntries")
+//                 // {
+//                 //     Visible = false;
+//                 //     ObsoleteState = Pending;
+//                 //     ObsoleteReason = 'Action is being demoted based on overall low usage.';
+//                 //     ObsoleteTag = '21.0';
+//                 // }
+// #endif
+//             }
+//             group(Category_Category4)
+//             {
+//                 Caption = 'Page', Comment = 'Generated from the PromotedActionCategories property index 3.';
 
-                actionref(EditInExcel_Promoted; EditInExcel)
-                {
-                }
-                actionref(ShowLinesWithErrors_Promoted; ShowLinesWithErrors)
-                {
-                }
-                actionref(ShowAllLines_Promoted; ShowAllLines)
-                {
-                }
-            }
-            group(Category_Report)
-            {
-                Caption = 'Report', Comment = 'Generated from the PromotedActionCategories property index 2.';
-            }
-        }
+//                 // actionref(EditInExcel_Promoted; EditInExcel)
+//                 // {
+//                 // }
+//                 // actionref(ShowLinesWithErrors_Promoted; ShowLinesWithErrors)
+//                 // {
+//                 // }
+//                 // actionref(ShowAllLines_Promoted; ShowAllLines)
+//                 // {
+//                 // }
+//             }
+//             group(Category_Report)
+//             {
+//                 Caption = 'Report', Comment = 'Generated from the PromotedActionCategories property index 2.';
+//             }
+//         }
     }
 
     trigger OnAfterGetCurrRecord()

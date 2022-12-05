@@ -7,6 +7,7 @@ page 50111 "Daily Requirement"
     InsertAllowed = false;
     ModifyAllowed = false;
     ApplicationArea = Suite;
+    UsageCategory = Lists;
     LinksAllowed = false;
     layout
     {
