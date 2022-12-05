@@ -854,20 +854,20 @@ codeunit 50618 NavAppCodeUnit
 
 
 
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"System Initialization", 'OnAfterLogin', '', true, true)]
-    // local procedure LogIn()
-    // var
-    //     LoginRec: Page "Login Card";
-    // begin
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"System Initialization", 'OnAfterLogin', '', true, true)]
+    local procedure LogIn()
+    var
+        LoginRec: Page "Login Card";
+    begin
 
-    //     Clear(LoginRec);
-    //     LoginRec.LookupMode(true);
-    //     // MyTaskRevise.PassParameters("Style No.", "Line No.", "Buyer No.");
+        Clear(LoginRec);
+        LoginRec.LookupMode(true);
+        // MyTaskRevise.PassParameters("Style No.", "Line No.", "Buyer No.");
 
-    //     LoginRec.RunModal();
+        LoginRec.Run();
 
 
-    // end;
+    end;
 
 
     procedure CreateProdOrder(PassSoNo: Code[20]; OrderType: Text[20]) ProOrderNo: Code[20]
