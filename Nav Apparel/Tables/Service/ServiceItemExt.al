@@ -25,7 +25,9 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
 
         field(50005; "Brand"; Text[100])
         {
-
+            DataClassification = ToBeClassified;
+            TableRelation = Brand."Brand Name";
+            ValidateTableRelation = false;
         }
 
         field(50006; "Purchase Year"; Date)
@@ -35,7 +37,9 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
 
         field(50007; "Model"; Text[100])
         {
-
+            DataClassification = ToBeClassified;
+            TableRelation = Model."Model Name";
+            ValidateTableRelation = false;
         }
 
         field(50008; "Factory"; Text[100])
@@ -80,6 +84,16 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
             DataClassification = ToBeClassified;
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
+        }
+
+        field(50017; "Asset Number"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50018; "Motor Number"; Code[20])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 }

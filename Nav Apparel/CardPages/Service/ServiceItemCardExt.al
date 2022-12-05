@@ -118,5 +118,17 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                 ApplicationArea = All;
             }
         }
+        addafter("Global Dimension Code")
+        {
+            field("Asset Number"; Rec."Asset Number")
+            {
+                ApplicationArea = All;
+            }
+
+            field("Motor Number"; Rec."Motor Number")
+            {
+                ApplicationArea = All;
+            }
+        }
     }
 }
