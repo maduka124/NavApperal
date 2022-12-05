@@ -38,5 +38,18 @@ page 50861 FacWiseProductplaningHdrList
             }
         }
     }
+    trigger OnDeleteRecord(): Boolean
+    var
+        FacWiseProdPlanLineRec: Record FacWiseProductplaningLineTable;
+    begin
+
+        FacWiseProdPlanLineRec.Reset();
+        FacWiseProdPlanLineRec.SetRange("No.", Rec.No);
+
+        if FacWiseProdPlanLineRec.FindSet() then
+            FacWiseProdPlanLineRec.DeleteAll();
+
+    end;
 }
+
 #pragma implicitwith restore
