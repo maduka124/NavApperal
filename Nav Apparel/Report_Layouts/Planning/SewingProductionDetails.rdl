@@ -2460,9 +2460,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="TotalOuput">
           <DataField>TotalOuput</DataField>
         </Field>
-        <Field Name="OutPutStartDate">
-          <DataField>OutPutStartDate</DataField>
-        </Field>
         <Field Name="OutputComDate">
           <DataField>OutputComDate</DataField>
         </Field>
@@ -2471,9 +2468,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="stDate">
           <DataField>stDate</DataField>
-        </Field>
-        <Field Name="TodayOutput">
-          <DataField>TodayOutput</DataField>
         </Field>
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
@@ -2486,6 +2480,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="OrderQy">
           <DataField>OrderQy</DataField>
+        </Field>
+        <Field Name="TodayOutput">
+          <DataField>TodayOutput</DataField>
+        </Field>
+        <Field Name="OutPutStartDate">
+          <DataField>OutPutStartDate</DataField>
         </Field>
       </Fields>
       <Query>

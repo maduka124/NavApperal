@@ -1572,9 +1572,9 @@ page 50968 "Nav Apperal Role Center"
             {
                 Caption = 'Service Mgt';
 
-                action("Service Items")
+                action("Service Machine Master")
                 {
-                    Caption = 'Service Items';
+                    Caption = 'Service Machine Master';
                     RunObject = Page "Service Item List";
                     ApplicationArea = all;
                 }
@@ -1591,6 +1591,13 @@ page 50968 "Nav Apperal Role Center"
                     Caption = 'Service Worksheet';
                     RunObject = Page "Service Worksheet Card";
                     ApplicationArea = all;
+                }
+
+                action("Gate Pass")
+                {
+                    Caption = 'Gate Pass';
+                    RunObject = page "Gate Pass List";
+                    ApplicationArea = All;
                 }
             }
 
