@@ -12,29 +12,33 @@ tableextension 50795 "Component Line Extension" extends "Prod. Order Component"
             DataClassification = ToBeClassified;
             TableRelation = "Item Category";
         }
+
         field(50003; "Invent. Posting Group"; Code[20])
         {
             Caption = 'Inventory Posting Group';
             DataClassification = ToBeClassified;
             TableRelation = "Inventory Posting Group";
         }
+
         field(50004; "Transfer Order Created"; Boolean)
         {
             DataClassification = ToBeClassified;
             // Editable = false;
         }
+
         modify("Item No.")
         {
             trigger OnAfterValidate()
             var
                 ItemRec: Record Item;
             begin
-                if "Item No." <> '' then
-                    ItemRec.Get("Item No.");
-                "Item Cat. Code" := ItemRec."Item Category Code";
-                "Invent. Posting Group" := ItemRec."Inventory Posting Group";
+                // if "Item No." <> '' then
+                //     ItemRec.Get("Item No.");
+                // "Item Cat. Code" := ItemRec."Item Category Code";
+                // "Invent. Posting Group" := ItemRec."Inventory Posting Group";
             end;
         }
+
     }
 }
 

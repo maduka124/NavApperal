@@ -93,7 +93,7 @@ table 51096 "Garment Type"
         StyleRec.Reset();
         StyleRec.SetRange("Garment Type No.", "No.");
         if StyleRec.FindSet() then
-            Error('Garment Type : %1 already used in operations. Cannot delete.', "Garment Type Description");
+            Error('Garment Type : %1 already used in style. Cannot delete.', StyleRec."Style No.");
     end;
 
     trigger OnRename()

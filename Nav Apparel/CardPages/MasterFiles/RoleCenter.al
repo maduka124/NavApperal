@@ -40,9 +40,12 @@ page 50968 "Nav Apperal Role Center"
 
                 action("Article")
                 {
+
                     Caption = 'Article';
                     RunObject = Page Article;
                     ApplicationArea = all;
+
+
                 }
 
                 action("AQL")

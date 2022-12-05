@@ -1,4 +1,4 @@
-codeunit 50878 "Customization Management"
+codeunit 50100 "Customization Management"
 {
     procedure MergePlanningLines(TempCode: Code[10]; BatchName: code[10])
     var
@@ -498,6 +498,17 @@ codeunit 50878 "Customization Management"
             GenIssueHeddRec."Issued UserID" := UserId;
             GenIssueHeddRec.Modify();
         end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, 99000773, 'OnAfterTransferBOMComponent', '', true, true)]
+    local procedure UpdateBomLine(var ProdOrderLine: Record "Prod. Order Line"; var ProductionBOMLine: Record "Production BOM Line"; var ProdOrderComponent: Record "Prod. Order Component"; LineQtyPerUOM: Decimal; ItemQtyPerUOM: Decimal)
+    var
+        ItemRec: Record Item;
+    begin
+        if ProdOrderComponent."Item No." <> '' then
+            ItemRec.Get(ProdOrderComponent."Item No.");
+        ProdOrderComponent."Item Cat. Code" := ItemRec."Item Category Code";
+        ProdOrderComponent."Invent. Posting Group" := ItemRec."Inventory Posting Group";
     end;
 
     procedure ImportPurchaseTrackingExcel(PurchHedd: Record "Purchase Header")
