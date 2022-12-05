@@ -84,12 +84,14 @@ report 50852 SewingProductionDetails
                 end;
 
                 ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
                 ProductionHeaderRec.SetRange("Style No.", "Style No.");
                 ProductionHeaderRec.SetRange("PO No", "PO No.");
                 if ProductionHeaderRec.FindFirst() then begin
                     OutPutStartDate := ProductionHeaderRec."Prod Date";
                     TodayOutput := ProductionHeaderRec."Output Qty";
                 end;
+
 
                 WorkcenterRec.Reset();
                 WorkcenterRec.SetRange("No.", "Resource No.");
