@@ -3,7 +3,7 @@ page 50978 "Create User Card"
     PageType = Card;
     SourceTable = LoginDetails;
     Caption = 'User Creation';
-    AutoSplitKey = true;
+    //AutoSplitKey = true;
 
     layout
     {
@@ -11,11 +11,11 @@ page 50978 "Create User Card"
         {
             group(General)
             {
-                field("No."; rec."No.")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
+                // field("No."; rec."No.")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                // }
 
                 field("UserID Secondary"; rec."UserID Secondary")
                 {
