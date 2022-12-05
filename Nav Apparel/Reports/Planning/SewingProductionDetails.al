@@ -30,16 +30,16 @@ report 50852 SewingProductionDetails
             { }
             column(TotalOuput; TotalOuput)
             { }
-            column(OutPutStartDate; OutPutStartDate)
-            { }
+            // column(OutPutStartDate; OutPutStartDate)
+            // { }
             column(OutputComDate; OutputComDate)
             { }
             column(ShipDate; ShipDate)
             { }
             column(stDate; stDate)
             { }
-            column(TodayOutput; TodayOutput)
-            { }
+            // column(TodayOutput; TodayOutput)
+            // { }
             column(CompLogo; comRec.Picture)
             { }
             column(Style; Style)
@@ -49,6 +49,17 @@ report 50852 SewingProductionDetails
             column(OrderQy; OrderQy)
             { }
 
+            dataitem(ProductionOutHeader; ProductionOutHeader)
+            {
+                DataItemLinkReference = "NavApp Prod Plans Details";
+                DataItemLink = "PO No" = field("PO No.");
+                DataItemTableView = sorting("No.");
+
+                column(TodayOutput; "Output Qty")
+                { }
+                column(OutPutStartDate; "Prod Date")
+                { }
+            }
             trigger OnAfterGetRecord()
 
             begin
@@ -83,14 +94,14 @@ report 50852 SewingProductionDetails
                     OrderQy := StylePoRec.Qty;
                 end;
 
-                ProductionHeaderRec.Reset();
-                // ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
-                // ProductionHeaderRec.SetRange("Style No.", "Style No.");
-                ProductionHeaderRec.SetRange("PO No", "PO No.");
-                if ProductionHeaderRec.FindFirst() then begin
-                    OutPutStartDate := ProductionHeaderRec."Prod Date";
-                    TodayOutput := ProductionHeaderRec."Output Qty";
-                end;
+                // ProductionHeaderRec.Reset();
+                // // ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                // // ProductionHeaderRec.SetRange("Style No.", "Style No.");
+                // ProductionHeaderRec.SetRange("PO No", "PO No.");
+                // if ProductionHeaderRec.FindFirst() then begin
+                //     OutPutStartDate := ProductionHeaderRec."Prod Date";
+                //     TodayOutput := ProductionHeaderRec."Output Qty";
+                // end;
 
 
                 WorkcenterRec.Reset();
