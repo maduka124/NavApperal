@@ -796,6 +796,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report SewingProductionDetails;
                         ApplicationArea = all;
                     }
+                    action("Daily Production Report")
+                    {
+                        Caption = 'Daily Production Report';
+                        Enabled = true;
+                        RunObject = report DailyProductionReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 

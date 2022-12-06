@@ -128,7 +128,6 @@ page 50627 "Gate Pass List"
         }
     }
 
-
     trigger OnDeleteRecord(): Boolean
     var
         GatePassLineRec: Record "Gate Pass Line";
@@ -141,7 +140,29 @@ page 50627 "Gate Pass List"
     trigger OnOpenPage()
     var
         UserRec: Record "User Setup";
+        LoginRec: Page "Login Card";
+        LoginSessionsRec: Record LoginSessions;
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            // LoginSessionsRec.Reset();
+            // LoginSessionsRec.SetRange(SessionID, SessionId());
+            // if LoginSessionsRec.FindSet() then
+            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end
+        else begin   //logged in
+            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end;
+
+
         UserRec.Reset();
         UserRec.SetRange("User ID", UserId);
         if UserRec.FindSet() then
