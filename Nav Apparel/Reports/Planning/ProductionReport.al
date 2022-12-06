@@ -36,7 +36,7 @@ report 50865 DailyProductionReport
             { }
             column(PlanDt; InputDate)
             { }
-            column(ActualPlanDt; OutPutStartDate)
+            column(ActualPlanDt; ActualPlanDT)
             { }
             column(MC; MC)
             { }
@@ -80,9 +80,16 @@ report 50865 DailyProductionReport
             { }
             column(variance; variance)
             { }
+            column(HoursPerDay; HoursPerDay)
+            { }
             // column(GarmentType; GarmentType)
             // { }
 
+            trigger OnPreDataItem()
+
+            begin
+                SetRange(PlanDate, FilterDate);
+            end;
 
             trigger OnAfterGetRecord()
 
@@ -134,6 +141,7 @@ report 50865 DailyProductionReport
                 ProductionHeaderRec.SetRange("PO No", "PO No.");
                 ProductionHeaderRec.SetRange("Ref Line No.", "Line No.");
                 if ProductionHeaderRec.FindFirst() then begin
+                    ActualPlanDT := ProductionHeaderRec."Prod Date";
                     OutPutStartDate := ProductionHeaderRec."Prod Date";
                     InputQtyToday := ProductionHeaderRec."Input Qty";
                     OutputQty := ProductionHeaderRec."Output Qty";
@@ -167,11 +175,12 @@ report 50865 DailyProductionReport
             {
                 group(GroupName)
                 {
-                    // field(Name; SourceExpression)
-                    // {
-                    //     ApplicationArea = All;
+                    field(FilterDate; FilterDate)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Production Date';
 
-                    // }
+                    }
                 }
             }
         }
@@ -192,6 +201,8 @@ report 50865 DailyProductionReport
 
 
     var
+        FilterDate: Date;
+        ActualPlanDT: Date;
         variance: Decimal;
         TodayOutput: BigInteger;
         comRec: Record "Company Information";
