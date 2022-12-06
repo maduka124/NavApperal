@@ -33,4 +33,21 @@ page 50625 Article
             }
         }
     }
+
+    trigger OnAfterGetCurrRecord()
+    var
+        LoginRec: Page "Login Card";
+        LoginDetailsRec: Record LoginDetails;
+    begin
+
+        LoginDetailsRec.Reset();
+        LoginDetailsRec.SetRange(SessionID, SessionId());
+
+        if not LoginDetailsRec.FindSet() then begin
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+        end;
+
+    end;
 }

@@ -859,16 +859,10 @@ codeunit 50618 NavAppCodeUnit
     // var
     //     LoginRec: Page "Login Card";
     // begin
-
     //     Clear(LoginRec);
     //     LoginRec.LookupMode(true);
     //     LoginRec.Run();
-
     // end;
-
-
-
-
 
 
     procedure CreateProdOrder(PassSoNo: Code[20]; OrderType: Text[20]) ProOrderNo: Code[20]
