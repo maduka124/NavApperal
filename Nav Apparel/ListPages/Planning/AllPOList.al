@@ -217,7 +217,29 @@ page 50489 "All PO List"
     var
         TempQuery: Query StyleMaster_StyleMasterPO_Q;
         TempRec: Record StyleMaster_StyleMasterPO_T;
+        LoginRec: Page "Login Card";
+        LoginSessionsRec: Record LoginSessions;
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            // LoginSessionsRec.Reset();
+            // LoginSessionsRec.SetRange(SessionID, SessionId());
+            // if LoginSessionsRec.FindSet() then
+            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end
+        else begin   //logged in
+            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end;
+
+
 
         //Delete old records
         TempRec.Reset();

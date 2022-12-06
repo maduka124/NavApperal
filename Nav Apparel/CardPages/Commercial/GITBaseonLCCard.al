@@ -30,11 +30,31 @@ page 50528 "GIT Baseon LC Card"
                     trigger OnValidate()
                     var
                         VendorRec: Record Vendor;
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
                         VendorRec.Reset();
                         VendorRec.SetRange(Name, rec."Suppler Name");
                         if VendorRec.FindSet() then
                             rec."Suppler No." := VendorRec."No.";
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
 
                         CurrPage.Update();
                     end;

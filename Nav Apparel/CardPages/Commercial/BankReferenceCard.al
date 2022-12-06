@@ -32,6 +32,8 @@ page 50763 "Bank Reference Card"
                     trigger OnValidate()
                     var
                         SalesInvRec: Record "Sales Invoice Header";
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
                         SalesInvRec.Reset();
 
@@ -41,6 +43,25 @@ page 50763 "Bank Reference Card"
                                 SalesInvRec.Modify();
                             until SalesInvRec.Next() = 0;
                         end;
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
+
                     end;
                 }
 
@@ -118,7 +139,7 @@ page 50763 "Bank Reference Card"
 
         //Update sales invoice header recods
         BankRefeInvRec.Reset();
-        BankRefeInvRec.SetRange("No.",rec."No.");
+        BankRefeInvRec.SetRange("No.", rec."No.");
         if BankRefeInvRec.FindSet() then begin
             repeat
                 SalesInvRec.Reset();
@@ -144,7 +165,7 @@ page 50763 "Bank Reference Card"
             SalesInvRec.Reset();
             if SalesInvRec.FindSet() then begin
                 repeat
-                    SalesInvRec.BankRefNo :=rec. "No.";
+                    SalesInvRec.BankRefNo := rec."No.";
                     SalesInvRec.Modify();
                 until SalesInvRec.Next() = 0;
             end;

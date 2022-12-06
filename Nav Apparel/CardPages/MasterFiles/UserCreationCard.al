@@ -37,6 +37,7 @@ page 50978 "Create User Card"
                 field("User Name"; rec."User Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Full Name';
                 }
 
                 field(Pw; rec.Pw)

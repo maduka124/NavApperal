@@ -118,6 +118,12 @@ table 50540 AcceptanceHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50022; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

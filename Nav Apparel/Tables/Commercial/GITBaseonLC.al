@@ -168,6 +168,11 @@ table 50526 "GITBaseonLC"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(32; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

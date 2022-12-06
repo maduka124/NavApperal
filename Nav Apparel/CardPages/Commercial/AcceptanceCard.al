@@ -27,6 +27,8 @@ page 50542 "Acceptance Card"
 
                     trigger OnValidate()
                     var
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
                         rec."Acceptance S/N" := format(rec."Acceptance S/N 2").PadLeft(7 - strlen(format(rec."Acceptance S/N 2")), '0');
 
@@ -37,6 +39,25 @@ page 50542 "Acceptance Card"
                         end
                         else
                             VisibleVar := true;
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
+
                     end;
                 }
 

@@ -66,6 +66,11 @@ table 50767 BankRefCollectionHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(13; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

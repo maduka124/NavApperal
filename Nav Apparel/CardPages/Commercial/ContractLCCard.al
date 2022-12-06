@@ -29,7 +29,8 @@ page 50502 "Contract/LC Card"
                     trigger OnValidate()
                     var
                         CustomerRec: Record Customer;
-
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                         "StyleRec": Record "Style Master";
                     begin
 
@@ -47,6 +48,24 @@ page 50502 "Contract/LC Card"
                                 StyleRec.ContractNo := rec."No.";
                                 StyleRec.Modify();
                             until StyleRec.Next() = 0;
+                        end;
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
                     end;
                 }
@@ -133,9 +152,9 @@ page 50502 "Contract/LC Card"
                         BankRec: Record "Bank Account";
                     begin
                         BankRec.Reset();
-                        BankRec.SetRange(Name,rec. "Nego Bank");
+                        BankRec.SetRange(Name, rec."Nego Bank");
                         if BankRec.FindSet() then
-                           rec. "Nego Bank No." := BankRec."No.";
+                            rec."Nego Bank No." := BankRec."No.";
                     end;
                 }
 
@@ -195,7 +214,7 @@ page 50502 "Contract/LC Card"
                         CurrencyRec: Record Currency;
                     begin
                         CurrencyRec.Reset();
-                        CurrencyRec.SetRange(Description,rec.Currency);
+                        CurrencyRec.SetRange(Description, rec.Currency);
                         if CurrencyRec.FindSet() then
                             rec."Currency No." := CurrencyRec.Code;
                     end;
@@ -226,7 +245,7 @@ page 50502 "Contract/LC Card"
                     ApplicationArea = All;
                 }
 
-                field("Payment Terms (Days)";rec."Payment Terms (Days)")
+                field("Payment Terms (Days)"; rec."Payment Terms (Days)")
                 {
                     ApplicationArea = All;
 
@@ -327,7 +346,7 @@ page 50502 "Contract/LC Card"
         "Contract/LCStyleRec".SetRange("No.", rec."No.");
         "Contract/LCStyleRec".DeleteAll();
 
-        "Contract CommisionRec".SetRange("No.",rec."No.");
+        "Contract CommisionRec".SetRange("No.", rec."No.");
         "Contract CommisionRec".DeleteAll();
     end;
 

@@ -228,6 +228,12 @@ table 50501 "Contract/LCMaster"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(42; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

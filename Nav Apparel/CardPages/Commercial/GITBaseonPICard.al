@@ -31,6 +31,8 @@ page 50532 "GIT Baseon PI Card"
                     var
                         VendorRec: Record Vendor;
                         PIDetMasterRec: Record "PI Details Header";
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
                         VendorRec.Reset();
                         VendorRec.SetRange(Name, rec."Suppler Name");
@@ -49,6 +51,25 @@ page 50532 "GIT Baseon PI Card"
                                 PIDetMasterRec.GITPINo := rec."GITPINo.";
                                 PIDetMasterRec.Modify();
                             until PIDetMasterRec.Next() = 0;
+                        end;
+
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
                     end;

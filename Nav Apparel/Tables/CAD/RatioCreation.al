@@ -76,6 +76,12 @@ table 50603 RatioCreation
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50013; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

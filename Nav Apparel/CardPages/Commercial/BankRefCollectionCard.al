@@ -22,6 +22,8 @@ page 50770 "Bank Ref Collection Card"
                         BankRefHeaderRec: Record BankReferenceHeader;
                         BankRefInvRec: Record BankReferenceInvoice;
                         LineNo: Integer;
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
 
                         BankRefCollLineRec.Reset();
@@ -52,6 +54,24 @@ page 50770 "Bank Ref Collection Card"
                                     BankRefCollLineRec."Reference Date" := BankRefHeaderRec."Reference Date";
                                     BankRefCollLineRec.Insert();
                                 until BankRefInvRec.Next() = 0;
+                        end;
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
                         CurrPage.Update();
@@ -109,7 +129,7 @@ page 50770 "Bank Ref Collection Card"
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         if BankRefeCollRec.FindSet() then
-                            BankRefeCollRec.ModifyAll("Exchange Rate",rec."Exchange Rate");
+                            BankRefeCollRec.ModifyAll("Exchange Rate", rec."Exchange Rate");
 
                         CurrPage.Update();
                     end;
