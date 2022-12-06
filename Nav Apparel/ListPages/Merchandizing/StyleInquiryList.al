@@ -136,20 +136,27 @@ page 51066 "Style Inquiry"
 
     trigger OnOpenPage()
     var
-        LoginDetails: Record LoginDetails;
+        LoginRec: Page "Login Card";
+        LoginSessionsRec: Record LoginSessions;
     begin
 
-        // LoginDetails.Reset();
-        // LoginDetails.SetRange(SessionID, SessionId());
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
 
-        // if LoginDetails.FindSet() then begin
-        //     SetFilter(LoggedBy, LoginDetails.UserID);
-        // end
-        // else begin
-        //     Message(format(SessionId()));
-        //     Error('Invalid SessionID');
-        // end;
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
 
+            // LoginSessionsRec.Reset();
+            // LoginSessionsRec.SetRange(SessionID, SessionId());
+            // if LoginSessionsRec.FindSet() then
+            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end
+        else begin   //logged in
+            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end;
 
     end;
 

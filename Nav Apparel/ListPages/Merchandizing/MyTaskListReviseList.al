@@ -57,13 +57,11 @@ page 51051 "My Task Revise"
     }
 
     procedure Recursive(GapDays: Integer; StyleNo: code[20]; BuyerNo: Code[20]; No: BigInteger)
-
     var
         DependencyReviewLineRec: Record "Dependency Review Line";
         DependencyBuyer: Record "Dependency Buyer";
         DependencyGroupNo: code[20];
     // GapDays: Integer;
-
     begin
         //Get dependency for the selected action
         DependencyReviewLineRec.Reset();
@@ -108,8 +106,31 @@ page 51051 "My Task Revise"
 
 
     trigger OnOpenPage()
+    var
+        LoginRec: Page "Login Card";
+        LoginSessionsRec: Record LoginSessions;
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            // LoginSessionsRec.Reset();
+            // LoginSessionsRec.SetRange(SessionID, SessionId());
+            // if LoginSessionsRec.FindSet() then
+            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end
+        else begin   //logged in
+            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end;
+
         rec.SetRange("Action User", UserId);
+
     end;
 
 

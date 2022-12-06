@@ -31,4 +31,5 @@ page 51014 AssoColourListPart
     begin
         Rec.Type := '1';
     end;
+
 }

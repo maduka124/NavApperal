@@ -28,10 +28,10 @@ page 51011 "User List"
                     ApplicationArea = All;
                 }
 
-                field(SessionID; Rec.SessionID)
-                {
-                    ApplicationArea = All;
-                }
+                // field(SessionID; Rec.SessionID)
+                // {
+                //     ApplicationArea = All;
+                // }
 
                 field(LastLoginDateTime; Rec.LastLoginDateTime)
                 {
