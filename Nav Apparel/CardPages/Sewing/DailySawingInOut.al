@@ -31,7 +31,7 @@ page 50355 "Daily Sewing In/Out Card"
 
                     trigger OnValidate()
                     var
-                        WorkCenterRec: Record "Work Center";
+                        WorkCenterRec: Record "Work Center";//not filterd to curent user factory
                     begin
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");
@@ -54,7 +54,7 @@ page 50355 "Daily Sewing In/Out Card"
                     trigger OnLookup(var text: Text): Boolean
                     var
                         StyleMasterRec: Record "Style Master";
-                        NavProdDetRec: Record "NavApp Prod Plans Details";
+                        NavProdDetRec: Record "NavApp Prod Plans Details";//not navapplanning line
                         Users: Record "User Setup";
                         Factory: Code[20];
                     begin
