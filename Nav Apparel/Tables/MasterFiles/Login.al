@@ -11,7 +11,7 @@ table 51100 LoginDetails
             AutoIncrement = true;
         }
 
-        field(2; "UserID Secondary"; code[20])
+        field(2; "Secondary UserID"; code[20])
         {
             DataClassification = ToBeClassified;
         }
@@ -56,7 +56,7 @@ table 51100 LoginDetails
 
     keys
     {
-        key(PK; "UserID Secondary")
+        key(PK; "Secondary UserID")
         {
             Clustered = true;
         }

@@ -10,7 +10,7 @@ page 50944 "Article Card"
         {
             group(General)
             {
-                field("No.";rec. "No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Article No';
@@ -25,9 +25,30 @@ page 50944 "Article Card"
                     trigger OnValidate()
                     var
                         MainCategoryRec: Record "Main Category";
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
                         MainCategoryRec.get(rec."Main Category No.");
                         rec."Main Category Name" := MainCategoryRec."Main Category Name";
+
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
                     end;
                 }
 
@@ -37,7 +58,7 @@ page 50944 "Article Card"
                     Visible = false;
                 }
 
-                field(Article;rec. Article)
+                field(Article; rec.Article)
                 {
                     ApplicationArea = All;
 

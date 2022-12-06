@@ -25,4 +25,5 @@ pageextension 50640 LocationListExt extends "Location List"
             }
         }
     }
+
 }

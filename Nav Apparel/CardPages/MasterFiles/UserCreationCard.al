@@ -17,7 +17,7 @@ page 50978 "Create User Card"
                 //     Editable = false;
                 // }
 
-                field("UserID Secondary"; rec."UserID Secondary")
+                field("Secondary UserID"; rec."Secondary UserID")
                 {
                     ApplicationArea = All;
                     Caption = 'Secondary User ID';
@@ -27,7 +27,7 @@ page 50978 "Create User Card"
                         LoginDetailsRec: Record LoginDetails;
                     begin
                         LoginDetailsRec.Reset();
-                        LoginDetailsRec.SetRange("UserID Secondary", rec."UserID Secondary");
+                        LoginDetailsRec.SetRange("Secondary UserID", rec."Secondary UserID");
 
                         if LoginDetailsRec.FindSet() then
                             Error('Secondary User ID already exists.');

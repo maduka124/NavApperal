@@ -37,6 +37,11 @@ table 51083 Article
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012587; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -48,7 +53,6 @@ table 51083 Article
 
         key(SK; "Main Category Name", Article)
         {
-
         }
     }
 
@@ -56,7 +60,6 @@ table 51083 Article
     {
         fieldgroup(DropDown; "No.", Article, "Main Category Name")
         {
-
         }
     }
 
@@ -66,27 +69,14 @@ table 51083 Article
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
     trigger OnDelete()
     var
         BOMEstLineRec: Record "BOM Estimate Line";
     begin
-
         //Check for Exsistance
         BOMEstLineRec.Reset();
         BOMEstLineRec.SetRange("Article No.", "No.");
         if BOMEstLineRec.FindSet() then
             Error('Article : %1 already used in operations. Cannot delete.', Article);
-
     end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }
