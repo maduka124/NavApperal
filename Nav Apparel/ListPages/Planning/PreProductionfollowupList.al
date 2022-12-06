@@ -38,4 +38,16 @@ page 50839 "PreProductionfollowupList"
         if UserSetupRec.FindSet() then
             rec.SetFilter("Factory Code", UserSetupRec."Factory Code");
     end;
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        PreProductionFollowUplineRec: Record PreProductionFollowUpline;
+    begin
+
+        PreProductionFollowUplineRec.Reset();
+        PreProductionFollowUplineRec.SetRange("Line No", Rec."No.");
+
+        if PreProductionFollowUplineRec.FindSet() then
+            PreProductionFollowUplineRec.DeleteAll();
+    end;
 }

@@ -69,4 +69,16 @@ table 50859 FacWiseProductplaningLineTable
         }
     }
 
+    trigger OnDelete()
+    var
+        PreProductionFollowUplineRec: Record PreProductionFollowUpline;
+    begin
+
+        PreProductionFollowUplineRec.Reset();
+        PreProductionFollowUplineRec.SetRange("Line No", Rec."No.");
+
+        if PreProductionFollowUplineRec.FindSet() then
+            PreProductionFollowUplineRec.DeleteAll();
+    end;
+
 }

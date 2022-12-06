@@ -154,4 +154,17 @@ page 50835 PreProductionfollowup
         end
     end;
 
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        PreProductionFollowUplineRec: Record PreProductionFollowUpline;
+    begin
+
+        PreProductionFollowUplineRec.Reset();
+        PreProductionFollowUplineRec.SetRange("Line No", Rec."No.");
+
+        if PreProductionFollowUplineRec.FindSet() then
+            PreProductionFollowUplineRec.DeleteAll();
+    end;
+
 }
