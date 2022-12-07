@@ -316,6 +316,11 @@ table 50934 "Style Master"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012637; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
