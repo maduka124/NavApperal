@@ -99,6 +99,11 @@ table 50692 "FabShadeHeader"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(19; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

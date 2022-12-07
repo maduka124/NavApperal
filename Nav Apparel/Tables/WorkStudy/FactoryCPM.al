@@ -39,6 +39,11 @@ table 50774 "Factory CPM"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(7; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

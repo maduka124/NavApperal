@@ -60,6 +60,11 @@ table 50939 "YY Requsition Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012591; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -81,5 +86,5 @@ table 50939 "YY Requsition Header"
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-  
+
 }

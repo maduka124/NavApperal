@@ -26,6 +26,11 @@ table 50448 NeedleType
         {
             DataClassification = ToBeClassified;
         }
+
+        field(7; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -15,6 +15,11 @@ table 50877 SAH_CapacityUtiliSAHHeader
             DataClassification = ToBeClassified;
             TableRelation = YearTable.Year;
         }
+
+        field(3; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

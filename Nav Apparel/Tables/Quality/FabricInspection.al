@@ -216,6 +216,11 @@ table 50553 FabricInspection
             DataClassification = ToBeClassified;
         }
 
+        field(39; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
         // field(39; "Length Wise Colour Shading No"; Boolean)
         // {
         //     DataClassification = ToBeClassified;

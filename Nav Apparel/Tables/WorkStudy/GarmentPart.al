@@ -50,6 +50,11 @@ table 50442 GarmentPart
         {
             DataClassification = ToBeClassified;
         }
+
+        field(9; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

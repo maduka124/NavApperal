@@ -26,6 +26,11 @@ table 50906 "Dependency Review Header"
             DataClassification = ToBeClassified;
         }
 
+        field(5; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

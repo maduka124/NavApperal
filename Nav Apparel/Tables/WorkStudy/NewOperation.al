@@ -121,6 +121,11 @@ table 50454 "New Operation"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(22; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -45,6 +45,11 @@ table 50899 "Change Colour"
             DataClassification = ToBeClassified;
         }
 
+        field(71012588; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

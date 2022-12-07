@@ -327,6 +327,11 @@ table 50705 "Washing Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(68; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

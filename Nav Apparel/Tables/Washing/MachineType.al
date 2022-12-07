@@ -25,6 +25,11 @@ table 50651 WashingMachineType
         {
             DataClassification = ToBeClassified;
         }
+
+        field(5; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

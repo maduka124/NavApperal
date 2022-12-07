@@ -34,6 +34,11 @@ table 50368 Wastage
         {
             DataClassification = ToBeClassified;
         }
+
+        field(7; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 
@@ -41,6 +46,6 @@ table 50368 Wastage
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;   
+    end;
 
 }

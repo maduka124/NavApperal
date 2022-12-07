@@ -111,6 +111,11 @@ table 50697 FabShadeBandShriHeader
             TableRelation = FabShadeBandShriLine1.Shade;
             ValidateTableRelation = false;
         }
+
+        field(21; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

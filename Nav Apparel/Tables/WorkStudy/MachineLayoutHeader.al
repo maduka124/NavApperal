@@ -71,6 +71,11 @@ table 50478 "Machine Layout Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(13; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

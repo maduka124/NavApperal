@@ -82,6 +82,11 @@ table 50686 AWQualityCheckHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(18; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

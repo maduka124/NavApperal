@@ -147,6 +147,11 @@ table 50342 "NavApp Planning Lines"
             DataClassification = ToBeClassified;
         }
 
+        field(29; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

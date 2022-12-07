@@ -46,6 +46,11 @@ table 50901 "Dependency"
             TableRelation = Customer.Name;
             ValidateTableRelation = false;
         }
+
+        field(71012588; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

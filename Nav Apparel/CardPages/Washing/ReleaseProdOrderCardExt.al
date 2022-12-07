@@ -260,6 +260,8 @@ pageextension 50801 ReleaseProductionOrder extends "Released Production Order"
                     ApplicationArea = All;
                     Editable = false;
                 }
+
+
             }
         }
     }

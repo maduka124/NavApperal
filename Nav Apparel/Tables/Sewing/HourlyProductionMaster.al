@@ -34,6 +34,11 @@ table 50513 "Hourly Production Master"
             OptionMembers = Sewing,Finishing;
             OptionCaption = 'Sewing,Finishing';
         }
+
+        field(6; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

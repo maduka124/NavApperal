@@ -115,6 +115,11 @@ table 50457 "New Breakdown"
             DataClassification = ToBeClassified;
             InitValue = 0;
         }
+
+        field(22; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 

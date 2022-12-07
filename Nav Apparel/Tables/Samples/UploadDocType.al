@@ -27,6 +27,11 @@ table 50412 "Upload Document Type"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(6; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
