@@ -30,6 +30,25 @@ page 50953 "Garment Store Card"
                         GarmentStoreRec.SetRange("Country No_", rec."Country No_");
                         if GarmentStoreRec.FindSet() then
                             Error('Store name already exists for the country %1', rec.Country);
+
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
                     end;
 
                 }

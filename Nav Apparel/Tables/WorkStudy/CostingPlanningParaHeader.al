@@ -21,6 +21,11 @@ table 50779 "CostingPlanningParaHeader"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(4; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
