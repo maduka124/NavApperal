@@ -30,11 +30,31 @@ page 50665 "Bundle Guide Card"
                     trigger OnValidate()
                     var
                         StyleMasterRec: Record "Style Master";
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style Name");
                         if StyleMasterRec.FindSet() then
                             rec."Style No." := StyleMasterRec."No.";
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
 
                         CurrPage.Update();
                     end;

@@ -42,7 +42,6 @@ page 50656 "LaySheetCard"
                     END;
                 }
 
-
                 field("FabReqNo."; rec."FabReqNo.")
                 {
                     ApplicationArea = All;
@@ -54,7 +53,28 @@ page 50656 "LaySheetCard"
                         FabricRequRec: Record FabricRequsition;
                         FabricMapRec: Record FabricMapping;
                         TableRec: Record TableCreartionLine;
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
+
 
                         //Get details
                         FabricRequRec.Reset();

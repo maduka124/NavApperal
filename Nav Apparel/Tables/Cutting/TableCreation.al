@@ -38,6 +38,11 @@ table 50611 TableCreation
         {
             DataClassification = ToBeClassified;
         }
+
+        field(20; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -48,14 +53,6 @@ table 50611 TableCreation
         }
     }
 
-    // fieldgroups
-    // {
-    //     fieldgroup(DropDown; "No", "Style No.", "Style Name")
-    //     {
-
-    //     }
-    // }
-
     trigger OnInsert()
     var
         NavAppSetup: Record "NavApp Setup";
@@ -63,27 +60,9 @@ table 50611 TableCreation
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("TableCre Nos.");
-
         TableCreNo := NoSeriesMngment.GetNextNo(NavAppSetup."TableCre Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }

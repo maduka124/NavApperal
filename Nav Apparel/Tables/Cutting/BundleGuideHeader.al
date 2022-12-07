@@ -80,6 +80,11 @@ table 50664 BundleGuideHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(14; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

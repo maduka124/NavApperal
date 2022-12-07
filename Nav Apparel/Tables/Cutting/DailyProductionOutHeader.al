@@ -108,6 +108,11 @@ table 50349 ProductionOutHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(20; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -34,6 +34,8 @@ page 50709 "DepReqSheetHeaderCard"
                         DepRec: Record Department;
                         userRec: Record "User Setup";
                         locationRec: Record Location;
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
 
                         DepRec.Reset();
@@ -55,6 +57,25 @@ page 50709 "DepReqSheetHeaderCard"
 
                         if locationRec.FindSet() then
                             rec."Factory Name" := locationRec.Name;
+
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
                     end;
                 }
 

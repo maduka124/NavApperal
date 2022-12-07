@@ -75,6 +75,11 @@ table 50600 CutCreation
         {
             DataClassification = ToBeClassified;
         }
+
+        field(14; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

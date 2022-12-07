@@ -116,6 +116,11 @@ table 51080 "Gate Pass Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012604; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -62,6 +62,12 @@ table 50585 SewingJobCreation
             TableRelation = SewingJobCreationLine4."Group ID" where("SJCNo." = field(SJCNo), "Group ID" = filter(<> 0));
             ValidateTableRelation = false;
         }
+
+        field(11; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

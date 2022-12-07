@@ -36,7 +36,29 @@ page 50662 "Cutting Progress Card"
                         LaySheetLine2Rec: Record LaySheetLine2;
                         CuttProgLineRec: Record CuttingProgressLine;
                         LineNo: Integer;
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
+
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
+
 
                         LaySheetHeaderRec.Reset();
                         LaySheetHeaderRec.SetRange("LaySheetNo.", rec.LaySheetNo);

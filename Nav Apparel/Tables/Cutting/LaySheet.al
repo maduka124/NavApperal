@@ -143,6 +143,11 @@ table 50645 LaySheetHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(28; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

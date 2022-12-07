@@ -12,7 +12,7 @@ page 50371 "Prod Update Card"
                 field(ProdDate; ProdDate)
                 {
                     ApplicationArea = All;
-                    Caption = 'Production Date';
+                    Caption = 'Production Date';                    
                 }
             }
         }

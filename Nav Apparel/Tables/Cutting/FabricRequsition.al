@@ -122,6 +122,11 @@ table 50619 FabricRequsition
         {
             DataClassification = ToBeClassified;
         }
+
+        field(24; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
