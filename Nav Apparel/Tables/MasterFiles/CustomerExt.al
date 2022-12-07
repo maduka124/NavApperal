@@ -10,6 +10,11 @@ tableextension 51090 "Customer Extension" extends Customer
         {
             TableRelation = MerchandizingGroupTable."Group Id";
         }
+
+        field(50003; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     trigger OnBeforeDelete()

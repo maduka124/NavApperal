@@ -42,6 +42,11 @@ table 51094 DimensionWidth
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012588; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

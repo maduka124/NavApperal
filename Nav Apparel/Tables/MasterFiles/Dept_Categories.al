@@ -75,6 +75,11 @@ table 50809 "Dept_Categories"
             TableRelation = Location.Name;
             ValidateTableRelation = false;
         }
+
+         field(71012594; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

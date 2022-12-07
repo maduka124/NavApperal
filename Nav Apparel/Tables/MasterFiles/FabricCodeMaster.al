@@ -41,6 +41,12 @@ table 50679 FabricCodeMaster
         {
             DataClassification = ToBeClassified;
         }
+
+        field(8; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

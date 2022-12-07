@@ -36,6 +36,11 @@ table 51092 "Department"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012587; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
