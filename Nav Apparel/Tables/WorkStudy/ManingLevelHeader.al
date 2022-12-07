@@ -154,6 +154,11 @@ table 50473 "Maning Level"
             TableRelation = "Work Center".Name;
             ValidateTableRelation = false;
         }
+
+        field(26; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

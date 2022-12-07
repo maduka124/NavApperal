@@ -88,6 +88,11 @@ table 50670 "FabricProceHeader"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(16; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -123,6 +123,11 @@ table 50636 RoleIssuingNoteHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(23; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

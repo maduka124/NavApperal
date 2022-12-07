@@ -67,6 +67,11 @@ table 50333 "Learning Curve"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012585; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

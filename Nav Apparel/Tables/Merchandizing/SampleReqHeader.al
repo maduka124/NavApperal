@@ -130,6 +130,11 @@ table 50930 "Sample Requsition Header"
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
         }
+
+        field(71012603; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

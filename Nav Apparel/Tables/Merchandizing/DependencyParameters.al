@@ -86,6 +86,11 @@ table 50905 "Dependency Parameters"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012595; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

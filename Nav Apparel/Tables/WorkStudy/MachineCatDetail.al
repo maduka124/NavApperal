@@ -26,6 +26,11 @@ table 50445 "Machine Category"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(5; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

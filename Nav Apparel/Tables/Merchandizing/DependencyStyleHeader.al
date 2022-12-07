@@ -90,6 +90,11 @@ table 50908 "Dependency Style Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012598; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -149,6 +149,11 @@ table 50888 "BOM Estimate"
             OptionMembers = Open,"Pending Approval",Approved,Rejected;
             OptionCaption = 'Open,"Pending Approval",Approved,Rejected';
         }
+
+        field(71012606; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -132,6 +132,11 @@ table 50887 "BOM"
             TableRelation = "Style Master"."Style No." where(Type = filter(Costing));
             ValidateTableRelation = false;
         }
+
+        field(71012603; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

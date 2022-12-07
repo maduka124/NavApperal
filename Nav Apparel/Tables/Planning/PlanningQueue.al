@@ -144,6 +144,11 @@ table 50332 "Planning Queue"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(26; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

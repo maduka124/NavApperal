@@ -182,6 +182,11 @@ table 50741 "Washing Sample Header"
             DataClassification = ToBeClassified;
             TableRelation = "Sample Requsition Header"."No." where("Style No." = field("Style No."));
         }
+
+        field(38; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

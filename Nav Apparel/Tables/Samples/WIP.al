@@ -14,6 +14,11 @@ table 50432 "WIP"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(3; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 }

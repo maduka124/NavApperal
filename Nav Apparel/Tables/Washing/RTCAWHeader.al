@@ -75,6 +75,11 @@ table 50681 RTCAWHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(14; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

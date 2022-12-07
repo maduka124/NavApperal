@@ -139,6 +139,11 @@ table 51079 "PI Details Header"
             DataClassification = ToBeClassified;
             InitValue = 0;
         }
+
+        field(71012606; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 

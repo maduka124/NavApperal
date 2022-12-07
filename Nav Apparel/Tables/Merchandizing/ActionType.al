@@ -38,6 +38,11 @@ table 50881 "Action Type"
         //     Subtype = Bitmap;
         // }
 
+        field(71012586; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

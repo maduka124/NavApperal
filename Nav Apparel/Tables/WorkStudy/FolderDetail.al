@@ -26,6 +26,11 @@ table 50468 "Folder Detail"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(5; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

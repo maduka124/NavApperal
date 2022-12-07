@@ -42,6 +42,11 @@ table 51137 "Sample Type"
             DataClassification = ToBeClassified;
         }
 
+        field(71012588; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

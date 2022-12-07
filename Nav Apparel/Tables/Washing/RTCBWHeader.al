@@ -52,6 +52,11 @@ table 50678 RTCBWHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(10; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

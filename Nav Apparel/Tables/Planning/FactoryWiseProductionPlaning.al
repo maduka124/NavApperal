@@ -32,6 +32,11 @@ table 50858 FactWiseProductPlaningHdrtbale
         {
             DataClassification = ToBeClassified;
         }
+
+        field(6; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
