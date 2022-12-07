@@ -26,13 +26,13 @@ page 50440 "Sample Status List"
                     Caption = 'Style';
                 }
 
-                field("Sample Name";rec. "Sample Name")
+                field("Sample Name"; rec."Sample Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Sample';
                 }
 
-                field("Fabrication Name";rec. "Fabrication Name")
+                field("Fabrication Name"; rec."Fabrication Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Fabrication';
@@ -49,12 +49,12 @@ page 50440 "Sample Status List"
                     ApplicationArea = All;
                 }
 
-                field(Qty;rec. Qty)
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                 }
 
-                field(Status;rec. Status)
+                field(Status; rec.Status)
                 {
                     ApplicationArea = All;
                     Caption = 'Complete';
@@ -85,7 +85,7 @@ page 50440 "Sample Status List"
                     ApplicationArea = All;
                 }
 
-                field("Plan Start Date";rec. "Plan Start Date")
+                field("Plan Start Date"; rec."Plan Start Date")
                 {
                     ApplicationArea = All;
                 }
@@ -99,4 +99,30 @@ page 50440 "Sample Status List"
             }
         }
     }
+
+    trigger OnOpenPage()
+    var
+        LoginRec: Page "Login Card";
+        LoginSessionsRec: Record LoginSessions;
+    begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            // LoginSessionsRec.Reset();
+            // LoginSessionsRec.SetRange(SessionID, SessionId());
+            // if LoginSessionsRec.FindSet() then
+            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end
+        else begin   //logged in
+            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end;
+
+    end;
 }
