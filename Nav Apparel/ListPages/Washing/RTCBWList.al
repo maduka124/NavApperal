@@ -39,6 +39,32 @@ page 50746 RTCBWList
         }
     }
 
+    trigger OnOpenPage()
+    var
+        LoginRec: Page "Login Card";
+        LoginSessionsRec: Record LoginSessions;
+    begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            // LoginSessionsRec.Reset();
+            // LoginSessionsRec.SetRange(SessionID, SessionId());
+            // if LoginSessionsRec.FindSet() then
+            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end
+        else begin   //logged in
+            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+        end;
+
+    end;
+
 
     trigger OnDeleteRecord(): Boolean
     var
@@ -46,7 +72,7 @@ page 50746 RTCBWList
         Samplereqline: Record "Washing Sample Requsition Line";
     begin
         Samplereqline.Reset();
-        Samplereqline.SetRange("No.",rec. "Req No");
+        Samplereqline.SetRange("No.", rec."Req No");
 
         if Samplereqline.FindSet() then
             if Samplereqline."Return Qty (BW)" > 0 then
