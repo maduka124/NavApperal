@@ -101,6 +101,12 @@ table 51101 "Main Category"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50102; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

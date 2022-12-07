@@ -26,6 +26,11 @@ table 51104 Model
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012585; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

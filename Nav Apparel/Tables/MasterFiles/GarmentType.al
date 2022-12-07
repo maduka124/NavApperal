@@ -48,6 +48,11 @@ table 51096 "Garment Type"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012589; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

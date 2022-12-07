@@ -26,6 +26,11 @@ table 51128 "Print Type"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012585; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

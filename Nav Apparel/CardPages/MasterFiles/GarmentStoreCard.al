@@ -24,6 +24,8 @@ page 50953 "Garment Store Card"
                     trigger OnValidate()
                     var
                         GarmentStoreRec: Record "Garment Store";
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
                         GarmentStoreRec.Reset();
                         GarmentStoreRec.SetRange("Store Name", rec."Store Name");
