@@ -40,15 +40,12 @@ table 51082 AQL
         {
             DataClassification = ToBeClassified;
         }
-    }
 
-    // keys
-    // {
-    //     key(PK; "No.")
-    //     {
-    //         Clustered = true;
-    //     }
-    // }
+        field(71012587; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+    }
 
     fieldgroups
     {

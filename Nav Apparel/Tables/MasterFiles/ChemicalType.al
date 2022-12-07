@@ -26,6 +26,11 @@ table 51087 ChemicalType
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012585; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

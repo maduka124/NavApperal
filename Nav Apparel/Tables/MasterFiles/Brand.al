@@ -33,6 +33,11 @@ table 51085 Brand
             OptionMembers = "Merchandiser","Other";
             OptionCaption = 'Merchandiser,Other';
         }
+
+        field(71012586; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
