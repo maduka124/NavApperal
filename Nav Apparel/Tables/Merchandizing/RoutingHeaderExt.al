@@ -21,6 +21,11 @@ tableextension 50927 "RoutingHeader Extension" extends "Routing Header"
         field(50005; "Without Wash Router"; Boolean)
         {
         }
+
+        field(50006; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

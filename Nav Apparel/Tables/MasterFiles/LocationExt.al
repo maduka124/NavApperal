@@ -35,6 +35,11 @@ tableextension 51099 "Location Extension" extends Location
             TableRelation = Location;
         }
 
+        field(50007; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     trigger OnBeforeDelete()

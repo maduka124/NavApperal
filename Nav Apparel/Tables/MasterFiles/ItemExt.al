@@ -129,6 +129,11 @@ tableextension 51098 "Item Extension" extends Item
         {
         }
 
+        field(50014; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
         // field(71012594; "Type of Machine"; Code[100])
         // {
         // }

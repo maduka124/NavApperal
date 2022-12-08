@@ -6,6 +6,11 @@ tableextension 51136 "UOM Extension" extends "Unit of Measure"
         {
             InitValue = 1;
         }
+
+        field(50002; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

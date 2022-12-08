@@ -59,14 +59,6 @@ pageextension 50639 ItemListExt extends "Item List"
             Clear(LoginRec);
             LoginRec.LookupMode(true);
             LoginRec.RunModal();
-
-            // LoginSessionsRec.Reset();
-            // LoginSessionsRec.SetRange(SessionID, SessionId());
-            // if LoginSessionsRec.FindSet() then
-            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-        end
-        else begin   //logged in
-            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
 
     end;

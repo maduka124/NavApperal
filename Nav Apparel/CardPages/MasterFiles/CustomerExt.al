@@ -32,7 +32,7 @@ pageextension 50948 CustomerCardExt extends "Customer Card"
             }
         }
 
-        // modify(Name)
+        // modify("No.")
         // {
         //     trigger OnAfterValidate()
         //     var
@@ -48,13 +48,13 @@ pageextension 50948 CustomerCardExt extends "Customer Card"
         //             LoginRec.LookupMode(true);
         //             LoginRec.RunModal();
 
-        //             LoginSessionsRec.Reset();
-        //             LoginSessionsRec.SetRange(SessionID, SessionId());
-        //             if LoginSessionsRec.FindSet() then
-        //                 rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+        //             // LoginSessionsRec.Reset();
+        //             // LoginSessionsRec.SetRange(SessionID, SessionId());
+        //             // LoginSessionsRec.FindSet();
+        //             //   rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
         //         end
         //         else begin   //logged in
-        //             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+        //             //rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
         //         end;
         //     end;
         // }

@@ -18,6 +18,11 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
         {
         }
 
+        field(50407; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 }
 
