@@ -10,6 +10,7 @@ report 50865 DailyProductionReport
     {
         dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
         {
+            DataItemTableView = sorting("No.");
             column(ResourceName; ResourceName)
             { }
             column(PO_No_; "PO No.")
@@ -175,6 +176,7 @@ report 50865 DailyProductionReport
             {
                 group(GroupName)
                 {
+                    Caption = 'Filter By';
                     field(FilterDate; FilterDate)
                     {
                         ApplicationArea = All;
