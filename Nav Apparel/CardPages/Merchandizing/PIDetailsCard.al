@@ -29,6 +29,8 @@ page 50996 "PI Details Card"
 
                     trigger OnValidate()
                     var
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                         StyleMasterRec: Record "Style Master";
                     begin
                         StyleMasterRec.Reset();
@@ -40,6 +42,25 @@ page 50996 "PI Details Card"
                             rec."Season Name" := StyleMasterRec."Season Name";
                             rec."Store No." := StyleMasterRec."Store No.";
                             rec."Store Name" := StyleMasterRec."Store Name";
+                        end;
+
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
                     end;
                 }

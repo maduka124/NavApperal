@@ -25,6 +25,8 @@ page 50862 FacWiseProductplaningHdrCard
                     trigger OnValidate()
                     var
                         LocationRec: Record Location;
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
 
                         LocationRec.Reset();
@@ -32,6 +34,25 @@ page 50862 FacWiseProductplaningHdrCard
 
                         if LocationRec.FindSet() then
                             rec."Factory Code" := LocationRec.Code;
+
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
                     end;
                 }
 
