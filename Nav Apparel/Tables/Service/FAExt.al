@@ -25,6 +25,12 @@ tableextension 50734 "FA Extension" extends "Fixed Asset"
 
         }
 
+        field(50006; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
 
     }
 }

@@ -23,6 +23,11 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
             OptionCaption = 'FG,Sample,Washing';
             OptionMembers = FG,Sample,Washing;
         }
+
+        field(50006; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

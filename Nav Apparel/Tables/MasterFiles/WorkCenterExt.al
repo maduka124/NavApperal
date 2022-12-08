@@ -53,6 +53,11 @@ tableextension 51142 "Work Center Extension" extends "Work Center"
         field(50013; "Linked To Service Item"; Boolean)
         {
         }
+
+        field(50014; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

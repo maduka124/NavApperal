@@ -33,8 +33,6 @@ page 50600 "Sample Request Card"
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                         BuyerRec: Record Customer;
-                        LoginSessionsRec: Record LoginSessions;
-                        LoginRec: Page "Login Card";
                     begin
                         BuyerRec.Reset();
                         BuyerRec.SetRange("Name", rec."Buyer Name");

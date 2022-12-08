@@ -23,6 +23,11 @@ tableextension 50937 TransferOrderHeaderExt extends "Transfer Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50005; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     trigger OnAfterInsert()
