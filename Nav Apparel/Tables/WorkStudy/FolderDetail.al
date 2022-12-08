@@ -55,12 +55,6 @@ table 50468 "Folder Detail"
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
-
     trigger OnDelete()
     var
         NewBreakRec: Record "New Breakdown Op Line2";
@@ -73,10 +67,4 @@ table 50468 "Folder Detail"
             Error('Folder : %1 already used in operations. Cannot delete.', "Folder Name");
 
     end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

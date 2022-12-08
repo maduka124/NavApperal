@@ -152,19 +152,4 @@ table 50457 "New Breakdown"
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."NEWBR Nos.", Today, true);
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

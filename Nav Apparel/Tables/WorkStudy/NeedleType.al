@@ -55,11 +55,6 @@ table 50448 NeedleType
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
     trigger OnDelete()
     var
         MachineRec: Record "Machine Master";
@@ -70,11 +65,6 @@ table 50448 NeedleType
         MachineRec.SetRange("Needle Type No.", "No.");
         if MachineRec.FindSet() then
             Error('Needle Type : %1 already used in Machine Master. Cannot delete.', "Needle Description");
-
-    end;
-
-    trigger OnRename()
-    begin
 
     end;
 

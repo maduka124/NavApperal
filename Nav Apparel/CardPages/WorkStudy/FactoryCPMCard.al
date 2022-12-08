@@ -21,7 +21,29 @@ page 50776 "Factory CPM Card"
                         Locationrec: Record Location;
                         FacCPMRec: Record "Factory CPM";
                         LineNo: Integer;
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
+
+
                         Locationrec.Reset();
                         Locationrec.SetRange(Name, rec."Factory Name");
                         if Locationrec.FindSet() then
@@ -43,6 +65,7 @@ page 50776 "Factory CPM Card"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
                 }
             }
         }
