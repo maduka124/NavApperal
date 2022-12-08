@@ -30,6 +30,8 @@ page 50600 "Sample Request Card"
 
                     trigger OnValidate()
                     var
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                         BuyerRec: Record Customer;
                     begin
                         BuyerRec.Reset();

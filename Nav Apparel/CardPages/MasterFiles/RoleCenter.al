@@ -1064,6 +1064,12 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report "Phys. Inventory List";
                         ApplicationArea = All;
                     }
+                    action("Detail GRN Report")
+                    {
+                        Enabled = true;
+                        RunObject = report DetailGRNReport;
+                        ApplicationArea = All;
+                    }
                 }
             }
 
