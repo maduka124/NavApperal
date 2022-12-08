@@ -191,19 +191,4 @@ table 50473 "Maning Level"
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

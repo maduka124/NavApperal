@@ -55,11 +55,6 @@ table 50460 "Item Type"
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
     trigger OnDelete()
     var
         GarmentPartRec: Record GarmentPart;
@@ -70,11 +65,6 @@ table 50460 "Item Type"
         GarmentPartRec.SetRange("Item Type No.", "No.");
         if GarmentPartRec.FindSet() then
             Error('Item Type : %1 already used in Garment Parts. Cannot delete.', "Item Type Name");
-
-    end;
-
-    trigger OnRename()
-    begin
 
     end;
 

@@ -86,10 +86,6 @@ table 50451 "Machine Master"
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
 
     trigger OnDelete()
     var
@@ -108,11 +104,6 @@ table 50451 "Machine Master"
         NewOpRec.SetRange("Machine No.", "Machine No.");
         if NewOpRec.FindSet() then
             Error('Machine : %1 already used in New Operations. Cannot delete.', "Machine Description");
-
-    end;
-
-    trigger OnRename()
-    begin
 
     end;
 

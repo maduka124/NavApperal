@@ -21,7 +21,19 @@ page 50471 "Copy Breakdown Card"
                     trigger OnValidate()
                     var
                         StyleMasterRec: Record "Style Master";
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+                        end;
+
                         StyleMasterRec.get(SourceStyle);
                         SourceStyleName := StyleMasterRec."Style No.";
                     end;
@@ -80,7 +92,24 @@ page 50471 "Copy Breakdown Card"
                     StyleRec: Record "Style Master";
                     NextBRNO: Code[20];
                     LineNo: Integer;
+                    LoginSessionsRec: Record LoginSessions;
+                    LoginRec: Page "Login Card";
                 begin
+
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    if not LoginSessionsRec.FindSet() then begin  //not logged in
+                        Clear(LoginRec);
+                        LoginRec.LookupMode(true);
+                        LoginRec.RunModal();
+
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        LoginSessionsRec.FindSet();
+                    end;
+
 
                     if SourceStyle = '' then begin
                         Error('Source style cannot be empty');
@@ -133,6 +162,7 @@ page 50471 "Copy Breakdown Card"
                             NewBrRec1."Total SMV" := NewBrRec."Total SMV";
                             NewBrRec1.Machine := NewBrRec.Machine;
                             NewBrRec1.Manual := NewBrRec.Manual;
+                            NewBrRec1."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                             NewBrRec1.Insert();
 
 

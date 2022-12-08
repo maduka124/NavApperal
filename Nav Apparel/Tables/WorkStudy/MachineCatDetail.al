@@ -55,10 +55,6 @@ table 50445 "Machine Category"
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
 
     trigger OnDelete()
     var
@@ -70,11 +66,6 @@ table 50445 "Machine Category"
         MacRec.SetRange("Machine Category", "No.");
         if MacRec.FindSet() then
             Error('Machine Category : %1 already used in Machine Master. Cannot delete.', "Machine Category");
-
-    end;
-
-    trigger OnRename()
-    begin
 
     end;
 

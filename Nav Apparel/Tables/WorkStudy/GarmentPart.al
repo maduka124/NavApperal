@@ -79,11 +79,6 @@ table 50442 GarmentPart
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
     trigger OnDelete()
     var
         NewBreakRec: Record "New Breakdown";
@@ -101,11 +96,6 @@ table 50442 GarmentPart
         NewOpRec.SetRange("Garment Part No.", "No.");
         if NewOpRec.FindSet() then
             Error('Garment Part : %1 already used in New Operation. Cannot delete.', Description);
-
-    end;
-
-    trigger OnRename()
-    begin
 
     end;
 
