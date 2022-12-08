@@ -34,6 +34,7 @@ pageextension 50804 FinishedProdOrderLine extends "Finished Prod. Order Lines"
                 ApplicationArea = All;
             }
         }
+
     }
 
     actions
@@ -76,5 +77,5 @@ pageextension 50804 FinishedProdOrderLine extends "Finished Prod. Order Lines"
             }
         }
     }
-
+   
 }

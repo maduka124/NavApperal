@@ -166,6 +166,12 @@ tableextension 50661 ProductionOderHeadExt extends "Production Order"
             OptionMembers = "Bulk","Samples","Washing";
             OptionCaption = 'Bulk,Samples,Washing';
         }
+
+        field(50027; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     fieldgroups

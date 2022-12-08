@@ -54,7 +54,7 @@ pageextension 50803 ReleasedProdOrderLine extends "Released Prod. Order Lines"
                 begin
                     ProdLne.Reset();
                     ProdLne.SetRange("Prod. Order No.", rec."Prod. Order No.");
-                    ProdLne.SetRange(Status,rec. Status);
+                    ProdLne.SetRange(Status, rec.Status);
                     if ProdLne.FindSet() then
                         repeat
                             TotalWaterLtrs += ProdLne.Water;
@@ -76,4 +76,5 @@ pageextension 50803 ReleasedProdOrderLine extends "Released Prod. Order Lines"
             }
         }
     }
+
 }

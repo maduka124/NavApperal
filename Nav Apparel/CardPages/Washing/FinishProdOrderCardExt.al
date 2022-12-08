@@ -22,7 +22,28 @@ pageextension 50802 FinishProdOrderExt extends "Finished Production Order"
                 trigger OnValidate()
                 var
                     CustomerRec: Record Customer;
+                    LoginSessionsRec: Record LoginSessions;
+                    LoginRec: Page "Login Card";
                 begin
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    if not LoginSessionsRec.FindSet() then begin  //not logged in
+                        Clear(LoginRec);
+                        LoginRec.LookupMode(true);
+                        LoginRec.RunModal();
+
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        LoginSessionsRec.FindSet();
+                        rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    end
+                    else begin   //logged in
+                        rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    end;
+
+
                     CustomerRec.Reset();
                     CustomerRec.SetRange(Name, rec.Buyer);
                     if CustomerRec.FindSet() then

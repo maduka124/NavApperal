@@ -95,6 +95,11 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50019; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

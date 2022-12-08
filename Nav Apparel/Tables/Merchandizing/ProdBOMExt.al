@@ -86,6 +86,12 @@ tableextension 50922 "ProdBOM Extension" extends "Production BOM Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50015; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 }
 

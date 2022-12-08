@@ -55,6 +55,11 @@ tableextension 50736 "Machine Extension" extends "Machine Center"
         field(50012; "OWNER SHIP"; Code[20])
         {
         }
+
+        field(50013; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     // trigger OnBeforeDelete()
