@@ -31,6 +31,8 @@ page 50600 "Sample Request Card"
                     trigger OnValidate()
                     var
                         BuyerRec: Record Customer;
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
                         BuyerRec.Reset();
                         BuyerRec.SetRange("Name", rec."Buyer Name");

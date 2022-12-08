@@ -130,19 +130,4 @@ table 50349 ProductionOutHeader
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }
