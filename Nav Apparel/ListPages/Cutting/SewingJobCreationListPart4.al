@@ -327,6 +327,18 @@ page 50594 "Sewing Job Creation ListPart4"
                                     if Rec."Lot No." = '' then
                                         Error('LotNo is blank');
 
+                                    SJC4.Reset();
+                                    SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                                    SJC4.SetRange("Style No.", Rec."Style No.");
+                                    SJC4.SetRange("Lot No.", Rec."Lot No.");
+                                    SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
+                                    SJC4.SetRange("Resource No.", Rec."Resource No.");
+
+                                    if SJC4.FindSet() then begin
+                                        SJC4.DeleteAll();
+                                        CurrPage.Update();
+                                    end;
+
 
                                     SJC4.Reset();
                                     SJC4.SetRange("SJCNo.", Rec."SJCNo.");
