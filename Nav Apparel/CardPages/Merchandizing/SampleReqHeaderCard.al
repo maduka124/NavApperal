@@ -588,10 +588,26 @@ page 50600 "Sample Request Card"
         Description: Text[500];
         NextItemNo: Code[20];
         ItemUinitRec: Record "Item Unit of Measure";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
         UOMRec: Record "Unit of Measure";
         ConvFactor: Decimal;
         ConsumptionTot: Decimal;
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
 
         //Get Worksheet line no
         NavAppSetupRec.Reset();
@@ -610,6 +626,7 @@ page 50600 "Sample Request Card"
         ProdBOMHeaderRec."No. Series" := 'SMPRODBOM';
         ProdBOMHeaderRec.EntryType := ProdBOMHeaderRec.EntryType::Sample;
         ProdBOMHeaderRec."BOM Type" := ProdBOMHeaderRec."BOM Type"::Samples;
+        ProdBOMHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
         ProdBOMHeaderRec.Insert(true);
 
         //Update Prod BOm No in item master

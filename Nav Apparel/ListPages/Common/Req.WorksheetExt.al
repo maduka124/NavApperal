@@ -73,7 +73,24 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                     RequLineRec1: Record "Requisition Line";
                     ReqLineNo: BigInteger;
                     NavAppSetupRec: Record "NavApp Setup";
+                    LoginSessionsRec: Record LoginSessions;
+                    LoginRec: Page "Login Card";
                 begin
+
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    if not LoginSessionsRec.FindSet() then begin  //not logged in
+                        Clear(LoginRec);
+                        LoginRec.LookupMode(true);
+                        LoginRec.RunModal();
+
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        LoginSessionsRec.FindSet();
+                    end;
+
 
                     NavAppSetupRec.Reset();
                     NavAppSetupRec.FindSet();
@@ -130,6 +147,7 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                                         RequLineRec1.EntryType := RequLineRec1.EntryType::"Central Purchasing";
                                         RequLineRec1."CP Req Code" := DeptReqLineRec."Req No";
                                         RequLineRec1."CP Line" := DeptReqLineRec."Line No";
+                                        RequLineRec1."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                                         RequLineRec1.Insert();
                                     end;
                                 end;

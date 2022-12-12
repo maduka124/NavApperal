@@ -40,7 +40,25 @@ page 51040 "Dependency Group ListPart"
     var
         DependencyBuyerRec: Record "Dependency Buyer";
         DependencyRec: Record "Dependency Group";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
+
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
 
         //if CloseAction = Action::OK then begin
         DependencyBuyerRec.SetRange("Buyer No.", BuyerNo);
@@ -55,6 +73,7 @@ page 51040 "Dependency Group ListPart"
                 DependencyBuyerRec."Dependency No." := DependencyRec."No.";
                 DependencyBuyerRec.Dependency := DependencyRec."Dependency Group";
                 DependencyBuyerRec."Created User" := UserId;
+                DependencyBuyerRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                 DependencyBuyerRec.Insert();
             end;
         UNTIL DependencyRec.NEXT <= 0;

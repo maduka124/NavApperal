@@ -878,11 +878,29 @@ codeunit 50618 NavAppCodeUnit
         SalesHedd: Record "Sales Header";
         NoserMangement: Codeunit NoSeriesManagement;
         StyleRec: Record "Style Master";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     //Window: Dialog;
     //TextCon1: TextConst ENU = 'Creating Production Order ####1';
 
     begin
         //Window.Open(TextCon1);
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
+
         ManufacSetup.Get();
         ManufacSetup.TestField("Firm Planned Order Nos.");
         SalesHedd.get(SalesHedd."Document Type"::Order, PassSoNo);
@@ -891,7 +909,9 @@ codeunit 50618 NavAppCodeUnit
         ProdOrder.Init();
         ProdOrder.Status := ProdOrder.Status::"Firm Planned";
         ProdOrder."No." := NoserMangement.GetNextNo(ManufacSetup."Firm Planned Order Nos.", WorkDate(), true);
+        ProdOrder."Secondary UserID" := LoginSessionsRec."Secondary UserID";
         ProdOrder.Insert(true);
+
         // Window.Update(1, ProdOrder."No.");
         // Sleep(100);
         ProdOrder.Validate("Source Type", ProdOrder."Source Type"::"Sales Header");

@@ -118,12 +118,29 @@ page 50489 "All PO List"
         PlanningQueueNewRec: Record "Planning Queue";
         StyleMasterRec: Record "Style Master";
         StyleMasterPONewRec: Record "Style Master PO";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
         Waistage: Decimal;
         QtyWithWaistage: Decimal;
         QueueNo: Decimal;
         x: Decimal;
         Temp: Decimal;
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
 
         //if CloseAction = Action::OK then begin
 
@@ -191,6 +208,7 @@ page 50489 "All PO List"
                         PlanningQueueNewRec.Front := StyleMasterRec.Front;
                         PlanningQueueNewRec.Back := StyleMasterRec.Back;
                         PlanningQueueNewRec."User ID" := UserId;
+                        PlanningQueueNewRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         PlanningQueueNewRec.Insert();
 
 

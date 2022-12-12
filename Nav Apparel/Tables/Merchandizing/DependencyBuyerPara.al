@@ -100,6 +100,11 @@ table 50903 "Dependency Buyer Para"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012598; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

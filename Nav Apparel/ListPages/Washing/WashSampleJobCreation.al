@@ -199,8 +199,25 @@ page 50711 "Wash Sample Job Creationdd"
                 var
                     washsampleJobcreate: Record "Wash Sample Job Creation";
                     WashSampleReqDataRec: Record "Washing Sample Requsition Line";
+                    LoginSessionsRec: Record LoginSessions;
+                    LoginRec: Page "Login Card";
                     MaxLineNo: Integer;
                 begin
+
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    if not LoginSessionsRec.FindSet() then begin  //not logged in
+                        Clear(LoginRec);
+                        LoginRec.LookupMode(true);
+                        LoginRec.RunModal();
+
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        LoginSessionsRec.FindSet();
+                    end;
+
 
                     //Get max line
                     washsampleJobcreate.Reset();
@@ -237,6 +254,7 @@ page 50711 "Wash Sample Job Creationdd"
                         washsampleJobcreate." Req Qty" := WashSampleReqDataRec."Req Qty";
                         washsampleJobcreate."REC Qty" := WashSampleReqDataRec."REC Qty";
                         washsampleJobcreate."GRN No" := WashSampleReqDataRec."GRN No";
+                        washsampleJobcreate."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         washsampleJobcreate.Insert()
 
                     end;

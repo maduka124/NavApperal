@@ -7818,6 +7818,8 @@ page 50984 "BOM Card"
         MainCateRec: Record "Main Category";
         NavAppSetupRec: Record "NavApp Setup";
         ItemUinitRec: Record "Item Unit of Measure";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
         LineNo: Integer;
         ItemMasterRec: Record item;
         Description: Text[500];
@@ -7828,6 +7830,21 @@ page 50984 "BOM Card"
         ConvFactor: Decimal;
         ConsumptionTot: Decimal;
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
 
         //Get Worksheet line no
         NavAppSetupRec.Reset();
@@ -7858,6 +7875,7 @@ page 50984 "BOM Card"
             ProdBOMHeaderRec.Lot := Lot;
             ProdBOMHeaderRec.EntryType := ProdBOMHeaderRec.EntryType::FG;
             ProdBOMHeaderRec."BOM Type" := ProdBOMHeaderRec."BOM Type"::"Bulk";
+            ProdBOMHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
             ProdBOMHeaderRec.Insert(true);
             HeaderGenerated := true;
 

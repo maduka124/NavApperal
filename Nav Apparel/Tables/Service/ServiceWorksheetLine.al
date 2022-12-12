@@ -75,6 +75,12 @@ table 50729 "ServiceWorksheet"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(15; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

@@ -255,8 +255,26 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
         Window: Dialog;
         GrpItemNo: Code[20];
         CheckTransLine: Record "Transfer Line";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
         TotQty: Decimal;
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
+
         Window.Open('Transfer Order ###1###');
         InvSetup.Get();
         InvSetup.TestField("Transfer Order Nos.");
@@ -303,6 +321,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
             TransHedd."Style No." := PassItemJnalRec."Style No.";
             TransHedd."Style Name" := PassItemJnalRec."Style Name";
             TransHedd."Style No." := PassItemJnalRec."Style No.";
+            TransHedd."Secondary UserID" := LoginSessionsRec."Secondary UserID";
             TransHedd.Insert(true);
             Window.Update(1, TransHedd."No.");
 

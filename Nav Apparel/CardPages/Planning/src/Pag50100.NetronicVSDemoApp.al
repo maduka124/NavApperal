@@ -361,6 +361,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     LCurveFinishTime: Time;
                     LcurveTemp: Decimal;
                     Holiday: code[10];
+                    LoginSessionsRec: Record LoginSessions;
+                    LoginRec: Page "Login Card";
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -937,6 +939,20 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 TempDate := TempDate - 1;
 
 
+                            //Check whether user logged in or not
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                            if not LoginSessionsRec.FindSet() then begin  //not logged in
+                                Clear(LoginRec);
+                                LoginRec.LookupMode(true);
+                                LoginRec.RunModal();
+
+                                LoginSessionsRec.Reset();
+                                LoginSessionsRec.SetRange(SessionID, SessionId());
+                                LoginSessionsRec.FindSet();
+                            end;
+
                             //Insert to the Planning line table
                             JobPlaLineRec.Init();
                             JobPlaLineRec."Style No." := PlanningQueueeRec."Style No.";
@@ -969,6 +985,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
                             JobPlaLineRec.Qty := PlanningQueueeRec.Qty;
                             JobPlaLineRec.Factory := PlanningQueueeRec.Factory;
+                            JobPlaLineRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                             JobPlaLineRec.Insert();
                             IsInserted := true;
 
@@ -2549,6 +2566,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     AccessoriesStatusReport: Report AccessoriesStatusReport;
                     TnAStyleMerchanReport: Report TnAStyleMerchandizing;
                     ProPicFactBoxPlan: Page "Property Picture FactBox Plan";
+                    LoginSessionsRec: Record LoginSessions;
+                    LoginRec: Page "Login Card";
                     STY: Code[20];
                     PO: Code[20];
                     LOT: Code[20];
@@ -2792,6 +2811,21 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 Error('You cannot cut at the end of line.');
 
 
+                            //Check whether user logged in or not
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                            if not LoginSessionsRec.FindSet() then begin  //not logged in
+                                Clear(LoginRec);
+                                LoginRec.LookupMode(true);
+                                LoginRec.RunModal();
+
+                                LoginSessionsRec.Reset();
+                                LoginSessionsRec.SetRange(SessionID, SessionId());
+                                LoginSessionsRec.FindSet();
+                            end;
+
+
                             //Add remaining qty to the Queue
                             PlanningQueueRec.Init();
                             PlanningQueueRec."Queue No." := QueueNo + 1;
@@ -2812,6 +2846,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanningQueueRec."User ID" := UserId;
                             PlanningQueueRec.Factory := PlanningLinesRec.Factory;
                             PlanningQueueRec.Target := PlanningLinesRec.Target;
+                            PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                             PlanningQueueRec.Insert();
 
 
@@ -2873,6 +2908,22 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             QTY := Round(QTY, 1);
 
+
+                            //Check whether user logged in or not
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                            if not LoginSessionsRec.FindSet() then begin  //not logged in
+                                Clear(LoginRec);
+                                LoginRec.LookupMode(true);
+                                LoginRec.RunModal();
+
+                                LoginSessionsRec.Reset();
+                                LoginSessionsRec.SetRange(SessionID, SessionId());
+                                LoginSessionsRec.FindSet();
+                            end;
+
+
                             //Get Max QueueNo
                             PlanningQueueRec.Reset();
 
@@ -2899,6 +2950,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanningQueueRec.Factory := PlanningLinesRec.Factory;
                             PlanningQueueRec."User ID" := UserId;
                             PlanningQueueRec.Target := PlanningLinesRec.Target;
+                            PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                             PlanningQueueRec.Insert();
 
 
@@ -3352,6 +3404,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         StyleMasterRec: Record "Style Master";
         StyleMasterPONewRec: Record "Style Master PO";
         CostPlanParaLineRec: Record CostingPlanningParaLine;
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
         Waistage: Decimal;
         QtyWithWaistage: Decimal;
         QueueNo: Decimal;
@@ -3411,6 +3465,20 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                     if StyleMasterPORec.Qty > x then begin
 
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            LoginSessionsRec.FindSet();
+                        end;
+
                         //Get plan efficiency                          
                         CostPlanParaLineRec.Reset();
                         CostPlanParaLineRec.SetFilter("From SMV", '<=%1', StyleMasterRec.SMV);
@@ -3434,6 +3502,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         PlanningQueueNewRec."Resource No" := '';
                         PlanningQueueNewRec.Front := StyleMasterRec.Front;
                         PlanningQueueNewRec.Back := StyleMasterRec.Back;
+                        PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
 
                         if CostPlanParaLineRec.FindSet() then
                             PlanningQueueNewRec.Eff := CostPlanParaLineRec."Planning Eff%";
