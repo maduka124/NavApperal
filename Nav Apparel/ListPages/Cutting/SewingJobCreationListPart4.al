@@ -319,7 +319,7 @@ page 50594 "Sewing Job Creation ListPart4"
 
                                 if colorRec.FindSet() then begin
                                     Rec."Colour No" := colorRec."No.";
-                                    CurrPage.Update();
+                                    //CurrPage.Update();
 
                                     if Rec."SubLotNo." = '' then
                                         Error('SubLotNo is blank');
@@ -327,18 +327,16 @@ page 50594 "Sewing Job Creation ListPart4"
                                     if Rec."Lot No." = '' then
                                         Error('LotNo is blank');
 
-                                    SJC4.Reset();
-                                    SJC4.SetRange("SJCNo.", Rec."SJCNo.");
-                                    SJC4.SetRange("Style No.", Rec."Style No.");
-                                    SJC4.SetRange("Lot No.", Rec."Lot No.");
-                                    SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
-                                    SJC4.SetRange("Resource No.", Rec."Resource No.");
+                                    // SJC4.Reset();
+                                    // SJC4.SetRange("SJCNo.", Rec."SJCNo.");
+                                    // SJC4.SetRange("Style No.", Rec."Style No.");
+                                    // SJC4.SetRange("Lot No.", Rec."Lot No.");
+                                    // SJC4.SetRange("SubLotNo.", Rec."SubLotNo.");
+                                    // SJC4.SetRange("Resource No.", Rec."Resource No.");
+                                    // if SJC4.FindSet() then
+                                    //     SJC4.DeleteAll();
 
-                                    if SJC4.FindSet() then begin
-                                        SJC4.DeleteAll();
-                                        CurrPage.Update();
-                                    end;
-
+                                    CurrPage.SaveRecord();
 
                                     SJC4.Reset();
                                     SJC4.SetRange("SJCNo.", Rec."SJCNo.");
@@ -353,7 +351,7 @@ page 50594 "Sewing Job Creation ListPart4"
                                     else
                                         Rec."Record Type" := 'L';
 
-                                    CurrPage.Update();
+                                    CurrPage.SaveRecord();
 
 
                                     //Fill Header sizes                               
@@ -824,7 +822,7 @@ page 50594 "Sewing Job Creation ListPart4"
                                         Rec."Color Total" := ColorTotal;
                                     end;
 
-                                    CurrPage.Update();
+                                    CurrPage.SaveRecord();
 
 
                                     //Get Max target qty / Plan date
@@ -1919,7 +1917,7 @@ page 50594 "Sewing Job Creation ListPart4"
                                     SJC4."Sewing Job No." := Rec."SubLotNo." + '-' + format(Count + 1);
                                     SJC4."Lot No." := Rec."Lot No.";
                                     SJC4."SubLotNo." := Rec."SubLotNo.";
-                                    SJC4.LineNo := Rec.LineNo;
+                                    SJC4.LineNo := LineNo;
                                     SJC4."PO No." := Rec."PO No.";
                                     SJC4."Created Date" := Today;
                                     SJC4."Created User" := UserId;
