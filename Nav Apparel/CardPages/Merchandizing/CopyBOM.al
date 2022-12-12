@@ -138,11 +138,8 @@ page 50989 "Copy BOM Card"
 
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-                        LoginSessionsRec.FindSet();
-                        //rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        LoginSessionsRec.FindSet();                        
                     end;
-
-
 
                     NavAppSetupRec.Reset();
                     NavAppSetupRec.FindSet();

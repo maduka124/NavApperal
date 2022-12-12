@@ -502,7 +502,23 @@ page 50600 "Sample Request Card"
         StyMasterRec: Record "Style Master";
         SampleRec: Record "Sample Requsition Line";
         NextOrderNo: Code[20];
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
 
         //Get Worksheet line no
         NavAppSetupRec.Reset();
@@ -529,6 +545,7 @@ page 50600 "Sample Request Card"
         SalesHeaderRec."Style Name" := rec."Style Name";
         SalesHeaderRec.Validate("Location Code", StyMasterRec."Factory Code");
         SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::Sample;
+        SalesHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
         SalesHeaderRec.INSERT();
 
         //Insert Line
@@ -807,7 +824,23 @@ page 50600 "Sample Request Card"
         ReqLineNo: Integer;
         ItemRec: Record Item;
         NextLotNo: Code[20];
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
 
         //Get Worksheet line no
         NavAppSetupRec.Reset();
@@ -863,6 +896,7 @@ page 50600 "Sample Request Card"
             RequLineRec1.Validate("Location Code", StyMasterRec."Factory Code");
             RequLineRec1.Validate("Shortcut Dimension 1 Code", StyMasterRec."Global Dimension Code");
             RequLineRec1.EntryType := RequLineRec1.EntryType::Sample;
+            RequLineRec1."Secondary UserID" := LoginSessionsRec."Secondary UserID";
             RequLineRec1.Insert();
 
 

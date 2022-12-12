@@ -22,24 +22,6 @@ page 50680 FabricCodeCard
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
-                        MainCatRec.Reset();
-                        MainCatRec.SetRange("Main Category Name", 'FABRIC');
-                        MainCatRec.FindSet();
-
-                        ArticleRec.Reset();
-                        ArticleRec.SetRange(Article, rec.FabricCode);
-                        if not ArticleRec.FindSet() then begin
-                            ArticleRec.Init();
-                            ArticleRec."No." := rec.FabricCode;
-                            ArticleRec.Article := rec.FabricCode;
-                            ArticleRec."Created Date" := WorkDate();
-                            ArticleRec."Created User" := UserId;
-                            ArticleRec."Main Category No." := MainCatRec."No.";
-                            ArticleRec."Main Category Name" := 'FABRIC';
-                            ArticleRec.Insert();
-                        end;
-
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -57,6 +39,26 @@ page 50680 FabricCodeCard
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
+
+
+                        MainCatRec.Reset();
+                        MainCatRec.SetRange("Main Category Name", 'FABRIC');
+                        MainCatRec.FindSet();
+
+                        ArticleRec.Reset();
+                        ArticleRec.SetRange(Article, rec.FabricCode);
+                        if not ArticleRec.FindSet() then begin
+                            ArticleRec.Init();
+                            ArticleRec."No." := rec.FabricCode;
+                            ArticleRec.Article := rec.FabricCode;
+                            ArticleRec."Created Date" := WorkDate();
+                            ArticleRec."Created User" := UserId;
+                            ArticleRec."Main Category No." := MainCatRec."No.";
+                            ArticleRec."Main Category Name" := 'FABRIC';
+                            ArticleRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                            ArticleRec.Insert();
+                        end;
+
                     end;
                 }
 

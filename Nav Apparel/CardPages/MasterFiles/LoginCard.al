@@ -102,7 +102,7 @@ page 50959 "Login Card"
 
                 end
                 else
-                    Error('Invalid session ID. Close the browser and login again.');
+                    Error('Invalid Session ID. Close the browser and login again.');
 
             end;
     end;

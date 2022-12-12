@@ -144,33 +144,35 @@ page 50456 "New Operation Card"
                     NewOperationRec: Record "New Operation";
                     NewOperation2Rec: Record "New Operation";
                     Temp: BigInteger;
-
+                    Code1: code[20];
                 begin
 
                     NewOperation2Rec.Reset();
                     if NewOperation2Rec.FindSet() then begin
                         repeat
 
-                            NewOperation2Rec.Code2 := 0;
                             Temp := 0;
-                            NewOperation2Rec.Code1 := '';
+                            Code1 := '';
 
                             if NewOperation2Rec."Item Type No." <> '' then
-                                NewOperation2Rec.Code1 := NewOperation2Rec."Item Type Name".Substring(1, 2);
+                                Code1 := NewOperation2Rec."Item Type Name".Substring(1, 2);
 
                             if NewOperation2Rec."Garment Part Name" <> '' then
-                                NewOperation2Rec.Code1 := NewOperation2Rec.Code1 + NewOperation2Rec."Garment Part Name".Substring(1, 2);
+                                Code1 := Code1 + NewOperation2Rec."Garment Part Name".Substring(1, 2);
 
                             if (NewOperation2Rec."Item Type No." <> '') and (NewOperation2Rec."Garment Part Name" <> '') then begin
 
                                 NewOperationRec.Reset();
-                                NewOperationRec.SetRange(Code1, NewOperation2Rec.Code1);
+                                NewOperationRec.SetRange(Code1, Code1);
 
                                 if NewOperationRec.FindLast() then
-                                    temp := NewOperationRec.Code2;
+                                    Temp := NewOperationRec.Code2;
 
-                                NewOperation2Rec.Code2 := temp + 1;
-                                NewOperation2Rec.Code := NewOperation2Rec.Code1 + format(NewOperation2Rec.Code2);
+                                Temp := Temp + 1;
+
+                                NewOperation2Rec.Code1 := Code1;
+                                NewOperation2Rec.Code2 := Temp;
+                                NewOperation2Rec.Code := Code1 + format(Temp);
                                 NewOperation2Rec.Modify();
                             end;
 

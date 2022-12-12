@@ -559,6 +559,12 @@ table 50892 "BOM Estimate Cost Revision"
         {
             DataClassification = ToBeClassified;
         }
+
+
+        field(71012676; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

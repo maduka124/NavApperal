@@ -1165,7 +1165,23 @@ page 50986 "BOM Estimate Cost Card"
                     Revision: Integer;
                     CustMangemnt: Codeunit "Customization Management";
                     StyleMasterRec: Record "Style Master";
+                    LoginSessionsRec: Record LoginSessions;
+                    LoginRec: Page "Login Card";
                 begin
+
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    if not LoginSessionsRec.FindSet() then begin  //not logged in
+                        Clear(LoginRec);
+                        LoginRec.LookupMode(true);
+                        LoginRec.RunModal();
+
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        LoginSessionsRec.FindSet();
+                    end;
 
                     CustMangemnt.InsertTemp(Rec);
 
@@ -1280,6 +1296,7 @@ page 50986 "BOM Estimate Cost Card"
                     BOMCostReviHeaderRec."Wash Type" := rec."Wash Type";
                     BOMCostReviHeaderRec."Wash Type Name" := rec."Wash Type Name";
                     BOMCostReviHeaderRec."Washing (Dz.)" := rec."Washing (Dz.)";
+                    BOMCostReviHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                     BOMCostReviHeaderRec.Insert();
 
                     //Write to line table
