@@ -31,6 +31,11 @@ tableextension 50924 "PurchaseInvoiceLine Extension" extends "Purch. Inv. Line"
             OptionCaption = 'FG,Sample,Washing';
             OptionMembers = FG,Sample,Washing;
         }
+
+        field(50008; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

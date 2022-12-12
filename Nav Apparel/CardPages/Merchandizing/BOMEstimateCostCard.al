@@ -91,8 +91,8 @@ page 50986 "BOM Estimate Cost Card"
                         rec."Garment Type Name" := BOMRec."Garment Type Name";
                         rec.Quantity := BOMRec.Quantity;
 
-                        CustomerRec.get(rec."Buyer No.");
-                        rec."Currency No." := CustomerRec."Currency Code";
+                        //CustomerRec.get(rec."Buyer No.");
+                        rec."Currency No." := BOMRec."Currency No.";
 
                         LoadCategoryDetails();
                         CalRawMat();
@@ -1164,6 +1164,7 @@ page 50986 "BOM Estimate Cost Card"
                     BOMCostReviLineRec: Record "BOM Estima Cost Line Revision";
                     Revision: Integer;
                     CustMangemnt: Codeunit "Customization Management";
+                    StyleMasterRec: Record "Style Master";
                 begin
 
                     CustMangemnt.InsertTemp(Rec);
@@ -1300,6 +1301,12 @@ page 50986 "BOM Estimate Cost Card"
                             BOMCostReviLineRec.Insert();
                         until BOMCostLineRec.Next() = 0;
                     end;
+
+                    //Update style status confirmed. 
+                    StyleMasterRec.Reset();
+                    StyleMasterRec.Get(rec."Style No.");
+                    StyleMasterRec.Status := StyleMasterRec.Status::Confirmed;
+                    StyleMasterRec.Modify();
 
                     Message('BOM Costing Approved');
                 end;

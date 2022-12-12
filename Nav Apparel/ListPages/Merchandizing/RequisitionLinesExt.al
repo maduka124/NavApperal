@@ -79,13 +79,14 @@ pageextension 51057 RequisitionLinesExt extends "Planning Worksheet"
                     ReqRec: Record "Requisition Line";
                 begin
                     ReqRec.Reset();
-                    //ReqRec.SetRange("No.", "No.");
-                    ReqRec.FindSet();
+                    ReqRec.SetRange(StyleName, Rec.StyleName);
 
-                    repeat
-                        ReqRec."Accept Action Message" := true;
-                        ReqRec.Modify();
-                    until ReqRec.Next() = 0;
+                    if ReqRec.FindSet() then begin
+                        repeat
+                            ReqRec."Accept Action Message" := true;
+                            ReqRec.Modify();
+                        until ReqRec.Next() = 0;
+                    end;
 
                     CurrPage.Update();
                 end;

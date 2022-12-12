@@ -111,6 +111,11 @@ tableextension 50925 "ReqLine Extension" extends "Requisition Line"
                 end;
             end;
         }
+
+        field(50019; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     // trigger OnAfterDelete()

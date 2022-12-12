@@ -49,6 +49,11 @@ tableextension 50918 "POLine Extension" extends "Purchase Line"
             TableRelation = Customer.Name;
             ValidateTableRelation = false;
         }
+
+        field(50011; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

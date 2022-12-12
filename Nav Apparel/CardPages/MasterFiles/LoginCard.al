@@ -19,7 +19,7 @@ page 50959 "Login Card"
                         LoginDetails: Record LoginDetails;
                     begin
                         LoginDetails.Reset();
-                        LoginDetails.SetRange("Secondary UserID", UseridPara);
+                        LoginDetails.SetRange("UserID Secondary", UseridPara);
 
                         if not LoginDetails.FindSet() then
                             Error('Invalid User Name');
@@ -49,7 +49,7 @@ page 50959 "Login Card"
             Error('Invalid Password');
 
         LoginDetails.Reset();
-        LoginDetails.SetRange("Secondary UserID", UseridPara);
+        LoginDetails.SetRange("UserID Secondary", UseridPara);
         LoginDetails.SetRange(Pw, PwPara);
 
         if not LoginDetails.FindSet() then
@@ -94,7 +94,7 @@ page 50959 "Login Card"
 
                     //Update last login time of the user
                     LoginDetails.Reset();
-                    LoginDetails.SetRange("Secondary UserID", UseridPara);
+                    LoginDetails.SetRange("UserID Secondary", UseridPara);
                     if LoginDetails.FindSet() then begin
                         LoginDetails.LastLoginDateTime := CurrentDateTime;
                         LoginSessionDetails.Modify();

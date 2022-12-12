@@ -19,5 +19,10 @@ tableextension 50832 TransShipHedd extends "Transfer Shipment Header"
             TableRelation = "Style Master"."No.";
         }
 
+        field(50103; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 }

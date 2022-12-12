@@ -39,6 +39,11 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
             DataClassification = ToBeClassified;
         }
 
+        field(50009; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 }
 

@@ -95,8 +95,8 @@ page 50984 "BOM Card"
                             rec."Garment Type Name" := StyleMasterRec."Garment Type Name";
                             rec.Quantity := 0;
 
-                            CustomerRec.get(rec."Buyer No.");
-                            rec."Currency No." := CustomerRec."Currency Code";
+                            ///CustomerRec.get(rec."Buyer No.");
+                            //rec."Currency No." := CustomerRec."Currency Code";
 
                             //insert PO details
                             StyleMasterPORec.Reset();
@@ -134,6 +134,8 @@ page 50984 "BOM Card"
                             BOMEstimateRec.Reset();
                             BOMEstimateRec.SetRange("Style No.", rec."Style No.");
                             BOMEstimateRec.FindSet();
+
+                            rec."Currency No." := BOMEstimateRec."Currency No.";
 
                             BOMEstimateLineRec.Reset();
                             BOMEstimateLineRec.SetRange("No.", BOMEstimateRec."No.");
@@ -5640,9 +5642,12 @@ page 50984 "BOM Card"
 
                             StatusGB := 0;
 
+                            // Message(AssortDetailRec."Colour Name");
+                            // Message(AssortDetailRec."lot No.");
+
+
                             FOR Count := 1 TO 64 DO begin
                                 Qty := 0;
-                                //StatusGB := 0;
 
                                 case Count of
                                     1:
@@ -6670,6 +6675,8 @@ page 50984 "BOM Card"
                                             break;
                                         end;
                                 end;
+
+                                StatusGB := 1;
                             end;
 
                         until AssortDetailRec.Next() = 0;
@@ -7869,7 +7876,7 @@ page 50984 "BOM Card"
 
                         if BOMLineEstimateRec.Reconfirm = false then begin
 
-                            if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
+                            if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
 
                                 //Get Dimenion only status
                                 MainCateRec.Reset();

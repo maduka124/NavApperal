@@ -7,13 +7,13 @@ table 51082 AQL
 
     fields
     {
-        field(71012581; "From Qty"; Decimal)
+        field(71012581; "From Qty"; BigInteger)
         {
             DataClassification = ToBeClassified;
             InitValue = 0;
         }
 
-        field(71012582; "To Qty"; Decimal)
+        field(71012582; "To Qty"; BigInteger)
         {
             DataClassification = ToBeClassified;
             InitValue = 0;

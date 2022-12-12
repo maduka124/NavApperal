@@ -17,7 +17,7 @@ page 51011 "User List"
                     ApplicationArea = All;
                 }
 
-                field("UserID Secondary"; Rec."Secondary UserID")
+                field("UserID Secondary"; Rec."UserID Secondary")
                 {
                     ApplicationArea = All;
                     Caption = 'Secondary UserID';

@@ -76,6 +76,7 @@ codeunit 50822 NavAppCodeUnit2
         ProductionOrder."Style No." := SalesOrderRec."Style No";
         ProductionOrder.PO := SalesOrderRec."PO No";
         ProductionOrder.validate(BuyerCode, SalesOrderRec."Sell-to Customer No.");
+        ProductionOrder."Secondary UserID" := SalesOrderRec."Secondary UserID";
     end;
 
 
