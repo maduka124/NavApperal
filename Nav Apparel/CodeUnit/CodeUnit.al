@@ -312,6 +312,7 @@ codeunit 50618 NavAppCodeUnit
         "Contract/LCMasterRec".SetRange("No.", ContractNoPara);
         "Contract/LCMasterRec".FindSet();
         "Contract/LCMasterRec"."Auto Calculate Value" := AutoValue;
+        "Contract/LCMasterRec"."Contract Value" := AutoValue;
         "Contract/LCMasterRec"."Quantity (Pcs)" := TotalQty;
         "Contract/LCMasterRec".Modify();
 
