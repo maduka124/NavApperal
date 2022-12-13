@@ -24,6 +24,16 @@ table 50838 PreProductionFollowUpHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(5; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(6; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

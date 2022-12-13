@@ -8,6 +8,10 @@ pageextension 50104 DimValueList extends "Dimension Values"
             {
                 ApplicationArea = All;
             }
+            field("Receiving No. Series"; rec."Receiving No. Series")
+            {
+                ApplicationArea = All;
+            }
             field("No. Series - Invoicing"; rec."No. Series - Invoicing")
             {
                 ApplicationArea = All;

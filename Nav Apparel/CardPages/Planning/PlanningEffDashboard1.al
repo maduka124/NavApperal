@@ -149,6 +149,8 @@ page 50844 "Planning Efficiency Dashboard1"
                         PlanEffDash1Rec."Line No." := NavProdPlanRec."Resource No.";
                         PlanEffDash1Rec."Line Name" := WorkCenterRec.Name;
                         PlanEffDash1Rec."Style Eff." := StyleEff;
+                        PlanEffDash1Rec."Created Date" := WorkDate();
+                        PlanEffDash1Rec."Created User" := UserId;
                         PlanEffDash1Rec.Insert();
                     end
                     else begin
@@ -212,6 +214,8 @@ page 50844 "Planning Efficiency Dashboard1"
                         PlanEffDash1Rec."Line No." := NavProdPlanRec."Resource No.";
                         PlanEffDash1Rec."Line Name" := WorkCenterRec.Name;
                         PlanEffDash1Rec."Style Eff." := StyleEff;
+                        PlanEffDash1Rec."Created Date" := WorkDate();
+                        PlanEffDash1Rec."Created User" := UserId;
                         PlanEffDash1Rec.Insert();
                     end
                     else begin
@@ -301,6 +305,8 @@ page 50844 "Planning Efficiency Dashboard1"
                         PlanEffDash1Rec."Line No." := NavProdPlanRec."Resource No.";
                         PlanEffDash1Rec."Line Name" := WorkCenterRec.Name;
                         PlanEffDash1Rec."Line Eff." := LineEff;
+                        PlanEffDash1Rec."Created Date" := WorkDate();
+                        PlanEffDash1Rec."Created User" := UserId;
                         PlanEffDash1Rec.Insert();
                     end
                     else
@@ -361,6 +367,8 @@ page 50844 "Planning Efficiency Dashboard1"
                         PlanEffDash1Rec."Line No." := NavProdPlanRec."Resource No.";
                         PlanEffDash1Rec."Line Name" := WorkCenterRec.Name;
                         PlanEffDash1Rec."Line Eff." := LineEff;
+                        PlanEffDash1Rec."Created Date" := WorkDate();
+                        PlanEffDash1Rec."Created User" := UserId;
                         PlanEffDash1Rec.Insert();
                     end
                     else
@@ -447,6 +455,8 @@ page 50844 "Planning Efficiency Dashboard1"
                         PlanEffDash1Rec."Line No." := NavProdPlanRec."Resource No.";
                         PlanEffDash1Rec."Line Name" := WorkCenterRec.Name;
                         PlanEffDash1Rec."Factory Eff." := FacEff;
+                        PlanEffDash1Rec."Created Date" := WorkDate();
+                        PlanEffDash1Rec."Created User" := UserId;
                         PlanEffDash1Rec.Insert();
                     end
                     else
@@ -506,6 +516,8 @@ page 50844 "Planning Efficiency Dashboard1"
                         PlanEffDash1Rec."Line No." := NavProdPlanRec."Resource No.";
                         PlanEffDash1Rec."Line Name" := WorkCenterRec.Name;
                         PlanEffDash1Rec."Factory Eff." := FacEff;
+                        PlanEffDash1Rec."Created Date" := WorkDate();
+                        PlanEffDash1Rec."Created User" := UserId;
                         PlanEffDash1Rec.Insert();
                     end
                     else

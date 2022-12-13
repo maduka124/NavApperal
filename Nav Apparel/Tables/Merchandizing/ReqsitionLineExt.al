@@ -94,6 +94,11 @@ tableextension 50925 "ReqLine Extension" extends "Requisition Line"
             DataClassification = ToBeClassified;
             Editable = false;
         }
+        field(50019; "Receiving Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
         modify("Shortcut Dimension 1 Code")
         {
             trigger OnAfterValidate()
@@ -106,13 +111,15 @@ tableextension 50925 "ReqLine Extension" extends "Requisition Line"
                         GenLedSetup.Get();
                         DimValues.Get(GenLedSetup."Shortcut Dimension 1 Code", "Shortcut Dimension 1 Code");
                         DimValues.TestField("No. Series - PO");
+                        DimValues.TestField("Receiving No. Series");
                         "Purchase Order Nos." := DimValues."No. Series - PO";
+                        "Receiving Nos." := DimValues."Receiving No. Series";
                     end;
                 end;
             end;
         }
 
-        field(50019; "Secondary UserID"; Code[20])
+        field(50020; "Secondary UserID"; Code[20])
         {
             DataClassification = ToBeClassified;
         }

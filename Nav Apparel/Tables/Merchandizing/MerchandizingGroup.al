@@ -24,6 +24,17 @@ table 50847 MerchandizingGroupTable
         {
             DataClassification = ToBeClassified;
         }
+
+        field(5; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(6; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
@@ -41,4 +52,10 @@ table 50847 MerchandizingGroupTable
 
         }
     }
+
+    trigger OnInsert()
+    begin
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
+    end;
 }

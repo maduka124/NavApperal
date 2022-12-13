@@ -87,7 +87,7 @@ page 50361 "Daily Printing In/Out Card"
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Factory Code", Users."Factory Code");
 
-                        if Page.RunModal(71012799, StyleMasterRec) = Action::LookupOK then begin
+                        if Page.RunModal(50623, StyleMasterRec) = Action::LookupOK then begin
                             rec."Style No." := StyleMasterRec."No.";
 
                             StyleMasterRec.Reset();
@@ -112,7 +112,7 @@ page 50361 "Daily Printing In/Out Card"
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style No.");
 
-                        if Page.RunModal(71012797, StyleMasterRec) = Action::LookupOK then begin
+                        if Page.RunModal(51068, StyleMasterRec) = Action::LookupOK then begin
                             rec."PO No" := StyleMasterRec."PO No.";
                             rec."Lot No." := StyleMasterRec."Lot No.";
                         end;

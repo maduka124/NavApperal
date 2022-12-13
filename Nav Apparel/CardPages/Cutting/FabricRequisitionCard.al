@@ -33,7 +33,7 @@ page 50622 "Fabric Requisition Card"
                         UserRec: Record "User Setup";
                         LocationRec: Record Location;
                         LoginSessionsRec: Record LoginSessions;
-                        LoginRec: Page "Login Card";    
+                        LoginRec: Page "Login Card";
                     begin
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style Name");
@@ -102,7 +102,7 @@ page 50622 "Fabric Requisition Card"
                             UNTIL AssoDetailsRec.NEXT = 0;
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
-                            if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
+                            if Page.RunModal(51014, AssoDetailsRec) = Action::LookupOK then begin
                                 rec."Colour No" := AssoDetailsRec."Colour No";
                                 colorRec.Reset();
                                 colorRec.SetRange("No.", rec."Colour No");

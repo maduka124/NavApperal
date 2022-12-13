@@ -86,7 +86,7 @@ page 50599 "Cut Creation Card"
                             UNTIL AssoDetailsRec.NEXT = 0;
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
-                            if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
+                            if Page.RunModal(51014, AssoDetailsRec) = Action::LookupOK then begin
                                 rec."Colour No" := AssoDetailsRec."Colour No";
                                 colorRec.Reset();
                                 colorRec.SetRange("No.", rec."Colour No");

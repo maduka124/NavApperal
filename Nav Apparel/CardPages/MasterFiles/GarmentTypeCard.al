@@ -36,7 +36,7 @@ page 50954 "Garment Type Card"
                             GarmentTypRec.Reset();
                             GarmentTypRec.SetFilter(Code, '<> MIX');
 
-                            if Page.RunModal(71012748, GarmentTypRec) = Action::LookupOK then begin
+                            if Page.RunModal(50955, GarmentTypRec) = Action::LookupOK then begin
                                 GarmentTypRec.SetRange(Selected, true);
                                 if GarmentTypRec.FindSet() then
                                     repeat

@@ -67,6 +67,8 @@ page 51053 "PI Po Details ListPart 1"
                             PIPODetailsRec."PO No." := PurchaseHeaderRec."No.";
                             PurchaseHeaderRec.CalcFields("Amount Including VAT");
                             PIPODetailsRec."PO Value" := PurchaseHeaderRec."Amount Including VAT";
+                            PIPODetailsRec."Created Date" := WorkDate();
+                            PIPODetailsRec."Created User" := UserId;
                             PIPODetailsRec.Insert();
 
                             //Update Purchase order pi no

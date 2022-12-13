@@ -39,6 +39,16 @@ table 50513 "Hourly Production Master"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(7; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(8; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -48,5 +58,12 @@ table 50513 "Hourly Production Master"
             Clustered = true;
         }
     }
+
+
+    trigger OnInsert()
+    begin
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
+    end;
 
 }

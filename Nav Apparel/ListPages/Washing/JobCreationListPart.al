@@ -118,6 +118,8 @@ page 50722 JobcreationPageListPart
                             InterRec."Split Qty" := rec.QTY;
                             InterRec."Wash Type" := rec."wash Type";
                             InterRec."Unite Price" := rec."Unite Price";
+                            InterRec."Created Date" := WorkDate();
+                            InterRec."Created User" := UserId;
                             InterRec.Insert();
                         end
                         else begin

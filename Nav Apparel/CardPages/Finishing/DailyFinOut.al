@@ -112,7 +112,7 @@ page 50364 "Daily Finishing Out Card"
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style No.");
 
-                        if Page.RunModal(71012797, StyleMasterRec) = Action::LookupOK then begin
+                        if Page.RunModal(51068, StyleMasterRec) = Action::LookupOK then begin
                             rec."PO No" := StyleMasterRec."PO No.";
                             rec."Lot No." := StyleMasterRec."Lot No.";
                         end;

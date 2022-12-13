@@ -85,7 +85,7 @@ page 50665 "Bundle Guide Card"
                             UNTIL AssoDetailsRec.NEXT = 0;
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
-                            if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
+                            if Page.RunModal(51014, AssoDetailsRec) = Action::LookupOK then begin
                                 rec."Color No" := AssoDetailsRec."Colour No";
                                 rec."Color Name" := AssoDetailsRec."Colour Name";
                             end;

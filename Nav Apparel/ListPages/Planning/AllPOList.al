@@ -209,6 +209,8 @@ page 50489 "All PO List"
                         PlanningQueueNewRec.Back := StyleMasterRec.Back;
                         PlanningQueueNewRec."User ID" := UserId;
                         PlanningQueueNewRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        PlanningQueueNewRec."Created Date" := WorkDate();
+                        PlanningQueueNewRec."Created User" := UserId;
                         PlanningQueueNewRec.Insert();
 
 
