@@ -64,6 +64,16 @@ table 50843 PlanEffDashboardReportTable
         {
             DataClassification = ToBeClassified;
         }
+
+        field(13; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(14; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -73,4 +83,10 @@ table 50843 PlanEffDashboardReportTable
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    begin
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
+    end;
 }

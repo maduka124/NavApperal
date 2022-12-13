@@ -95,7 +95,7 @@ page 50351 "Daily Cutting Out Card"
                             until StyleMasterRec.Next() = 0;
                         StyleMasterRec.MARKEDONLY(TRUE);
 
-                        if Page.RunModal(71012799, StyleMasterRec) = Action::LookupOK then begin
+                        if Page.RunModal(50623, StyleMasterRec) = Action::LookupOK then begin
                             rec."Style No." := StyleMasterRec."No.";
 
                             StyleMasterRec.Reset();
@@ -120,7 +120,7 @@ page 50351 "Daily Cutting Out Card"
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style No.");
 
-                        if Page.RunModal(71012797, StyleMasterRec) = Action::LookupOK then begin
+                        if Page.RunModal(51068, StyleMasterRec) = Action::LookupOK then begin
                             rec."Lot No." := StyleMasterRec."Lot No.";
                             rec."PO No" := StyleMasterRec."PO No.";
                         end;

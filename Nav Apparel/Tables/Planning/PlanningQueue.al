@@ -149,6 +149,16 @@ table 50332 "Planning Queue"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(27; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(28; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -158,4 +168,10 @@ table 50332 "Planning Queue"
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    begin
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
+    end;
 }

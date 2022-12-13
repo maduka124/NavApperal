@@ -37,6 +37,16 @@ table 50858 FactWiseProductPlaningHdrtbale
         {
             DataClassification = ToBeClassified;
         }
+
+        field(7; "Created User"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(8; "Created Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -46,4 +56,11 @@ table 50858 FactWiseProductPlaningHdrtbale
             Clustered = true;
         }
     }
+
+
+    trigger OnInsert()
+    begin
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
+    end;
 }

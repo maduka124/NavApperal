@@ -53,26 +53,8 @@ table 50916 "PI Po Details"
     }
 
     trigger OnInsert()
-
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

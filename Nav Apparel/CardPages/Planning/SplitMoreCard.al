@@ -135,6 +135,8 @@ page 50338 "Split More Card"
                                 PlanningQueueRec."Planned Date" := WorkDate();
                                 PlanningQueueRec."User ID" := UserId;
                                 PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                                PlanningQueueRec."Created Date" := WorkDate();
+                                PlanningQueueRec."Created User" := UserId;
                                 PlanningQueueRec.Insert();
 
                                 z := (y + x);

@@ -26,12 +26,8 @@ page 51011 "User List"
                 field("User Name"; Rec."User Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Ful Name';
                 }
-
-                // field(SessionID; Rec.SessionID)
-                // {
-                //     ApplicationArea = All;
-                // }
 
                 field(LastLoginDateTime; Rec.LastLoginDateTime)
                 {
@@ -47,5 +43,15 @@ page 51011 "User List"
         }
     }
 
-
+    trigger OnAfterGetRecord()
+    var
+        LoginSessionRec: Record LoginSessions;
+    begin
+        LoginSessionRec.Reset();
+        LoginSessionRec.SetRange("Secondary UserID", rec."UserID Secondary");
+        LoginSessionRec.SetCurrentKey("Created DateTime");
+        LoginSessionRec.Ascending(true);
+        if LoginSessionRec.FindLast() then
+            rec.LastLoginDateTime := LoginSessionRec."Created DateTime";
+    end;
 }

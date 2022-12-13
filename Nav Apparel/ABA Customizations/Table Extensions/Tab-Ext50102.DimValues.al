@@ -20,5 +20,10 @@ tableextension 50102 DimValues extends "Dimension Value"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+        field(50103; "Receiving No. Series"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 }

@@ -239,7 +239,7 @@ tableextension 50913 "ItemJournalLineExt" extends "Item Journal Line"
                         UserSetup.Get(UserId);
                         if UserSetup."Global Dimension Code" <> ItemJnalBatch."Shortcut Dimension 1 Code" then
                             Error('You do not have permission to use this batch');
-                        Rec.Validate("Gen. Prod. Posting Group", ItemJnalBatch."gen. Prod. Posting Group");
+                        // Rec.Validate("Gen. Prod. Posting Group", ItemJnalBatch."gen. Prod. Posting Group");
                         if ItemJnalBatch."Location Code" <> '' then
                             Rec.Validate("Location Code", ItemJnalBatch."Location Code");
                         if ItemJnalBatch."Shortcut Dimension 1 Code" <> '' then

@@ -274,6 +274,8 @@ page 50481 "Machine Layout Card"
                                         MachineLayoutRec.Type := 1;
                                         MachineLayoutRec."No." := rec."No.";
                                         MachineLayoutRec."WP No." := count;
+                                        MachineLayoutRec."Created Date" := WorkDate();
+                                        MachineLayoutRec."Created User" := UserId;
                                         MachineLayoutRec.Insert();
                                     end;
 
@@ -287,6 +289,8 @@ page 50481 "Machine Layout Card"
                                         MachineLayoutRec.Type := 2;
                                         MachineLayoutRec."No." := rec."No.";
                                         MachineLayoutRec."WP No." := count;
+                                        MachineLayoutRec."Created Date" := WorkDate();
+                                        MachineLayoutRec."Created User" := UserId;
                                         MachineLayoutRec.Insert();
                                     end;
                                 end;

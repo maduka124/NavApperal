@@ -62,7 +62,7 @@ reportextension 50879 CalConsumption extends "Calc. Consumption"
 
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Buyer Name", BuyerFilter);
-                        if Page.RunModal(71012729, StyleMasterRec) = Action::LookupOK then
+                        if Page.RunModal(51067, StyleMasterRec) = Action::LookupOK then
                             StyleFilter := StyleMasterRec."Style No.";
                     end;
                 }

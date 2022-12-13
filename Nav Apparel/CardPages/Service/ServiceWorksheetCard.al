@@ -172,6 +172,7 @@ page 50726 "Service Worksheet Card"
                                         ServiceWrokRec.Approval := false;
                                         ServiceWrokRec."Created User" := UserId;
                                         ServiceWrokRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                                        ServiceWrokRec."Created Date" := WorkDate();                                
                                         ServiceWrokRec.Insert();
 
                                     end

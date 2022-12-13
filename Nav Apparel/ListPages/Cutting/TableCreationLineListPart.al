@@ -53,7 +53,7 @@ page 50617 "Table Creation Line ListPart"
                             UNTIL AssoDetailsRec.NEXT = 0;
                             AssoDetailsRec.MARKEDONLY(TRUE);
 
-                            if Page.RunModal(71012677, AssoDetailsRec) = Action::LookupOK then begin
+                            if Page.RunModal(51014, AssoDetailsRec) = Action::LookupOK then begin
                                 Rec."Colour No" := AssoDetailsRec."Colour No";
                                 colorRec.Reset();
                                 colorRec.SetRange("No.", Rec."Colour No");

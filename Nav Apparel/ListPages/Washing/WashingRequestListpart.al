@@ -157,7 +157,7 @@ page 50751 WashingSampleListpart
                         StyleColorRec.Reset();
                         StyleColorRec.SetRange("User ID", UserId);
                         if StyleColorRec.FindSet() then begin
-                            if Page.RunModal(71012840, StyleColorRec) = Action::LookupOK then begin
+                            if Page.RunModal(51065, StyleColorRec) = Action::LookupOK then begin
                                 rec."Color Code" := StyleColorRec."Color No.";
                                 rec."Color Name" := StyleColorRec.Color;
                             end;
@@ -165,7 +165,7 @@ page 50751 WashingSampleListpart
                         else begin
                             ColorRec.Reset();
                             ColorRec.FindSet();
-                            if Page.RunModal(71012841, ColorRec) = Action::LookupOK then begin
+                            if Page.RunModal(51036, ColorRec) = Action::LookupOK then begin
                                 rec."Color Code" := ColorRec."No.";
                                 rec."Color Name" := ColorRec."Colour Name";
                             end;

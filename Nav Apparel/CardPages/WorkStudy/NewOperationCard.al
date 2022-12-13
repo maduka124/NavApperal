@@ -136,50 +136,50 @@ page 50456 "New Operation Card"
     {
         area(Processing)
         {
-            action(Generate)
-            {
-                ApplicationArea = all;
-                trigger OnAction()
-                var
-                    NewOperationRec: Record "New Operation";
-                    NewOperation2Rec: Record "New Operation";
-                    Temp: BigInteger;
-                    Code1: code[20];
-                begin
+            // action(Generate)
+            // {
+            //     ApplicationArea = all;
+            //     trigger OnAction()
+            //     var
+            //         NewOperationRec: Record "New Operation";
+            //         NewOperation2Rec: Record "New Operation";
+            //         Temp: BigInteger;
+            //         Code1: code[20];
+            //     begin
 
-                    NewOperation2Rec.Reset();
-                    if NewOperation2Rec.FindSet() then begin
-                        repeat
+            //         NewOperation2Rec.Reset();
+            //         if NewOperation2Rec.FindSet() then begin
+            //             repeat
 
-                            Temp := 0;
-                            Code1 := '';
+            //                 Temp := 0;
+            //                 Code1 := '';
 
-                            if NewOperation2Rec."Item Type No." <> '' then
-                                Code1 := NewOperation2Rec."Item Type Name".Substring(1, 2);
+            //                 if NewOperation2Rec."Item Type No." <> '' then
+            //                     Code1 := NewOperation2Rec."Item Type Name".Substring(1, 2);
 
-                            if NewOperation2Rec."Garment Part Name" <> '' then
-                                Code1 := Code1 + NewOperation2Rec."Garment Part Name".Substring(1, 2);
+            //                 if NewOperation2Rec."Garment Part Name" <> '' then
+            //                     Code1 := Code1 + NewOperation2Rec."Garment Part Name".Substring(1, 2);
 
-                            if (NewOperation2Rec."Item Type No." <> '') and (NewOperation2Rec."Garment Part Name" <> '') then begin
+            //                 if (NewOperation2Rec."Item Type No." <> '') and (NewOperation2Rec."Garment Part Name" <> '') then begin
 
-                                NewOperationRec.Reset();
-                                NewOperationRec.SetRange(Code1, Code1);
+            //                     NewOperationRec.Reset();
+            //                     NewOperationRec.SetRange(Code1, Code1);
 
-                                if NewOperationRec.FindLast() then
-                                    Temp := NewOperationRec.Code2;
+            //                     if NewOperationRec.FindLast() then
+            //                         Temp := NewOperationRec.Code2;
 
-                                Temp := Temp + 1;
+            //                     Temp := Temp + 1;
 
-                                NewOperation2Rec.Code1 := Code1;
-                                NewOperation2Rec.Code2 := Temp;
-                                NewOperation2Rec.Code := Code1 + format(Temp);
-                                NewOperation2Rec.Modify();
-                            end;
+            //                     NewOperation2Rec.Code1 := Code1;
+            //                     NewOperation2Rec.Code2 := Temp;
+            //                     NewOperation2Rec.Code := Code1 + format(Temp);
+            //                     NewOperation2Rec.Modify();
+            //                 end;
 
-                        until NewOperation2Rec.Next() = 0;
-                    end;
-                end;
-            }
+            //             until NewOperation2Rec.Next() = 0;
+            //         end;
+            //     end;
+            // }
         }
     }
 

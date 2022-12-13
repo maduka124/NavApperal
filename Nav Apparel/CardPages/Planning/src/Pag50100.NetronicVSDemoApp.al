@@ -2847,6 +2847,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanningQueueRec.Factory := PlanningLinesRec.Factory;
                             PlanningQueueRec.Target := PlanningLinesRec.Target;
                             PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                            PlanningQueueRec."Created Date" := WorkDate();
+                            PlanningQueueRec."Created User" := UserId;
                             PlanningQueueRec.Insert();
 
 
@@ -2951,6 +2953,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanningQueueRec."User ID" := UserId;
                             PlanningQueueRec.Target := PlanningLinesRec.Target;
                             PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                            PlanningQueueRec."Created Date" := WorkDate();
+                            PlanningQueueRec."Created User" := UserId;
                             PlanningQueueRec.Insert();
 
 
@@ -3502,7 +3506,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         PlanningQueueNewRec."Resource No" := '';
                         PlanningQueueNewRec.Front := StyleMasterRec.Front;
                         PlanningQueueNewRec.Back := StyleMasterRec.Back;
-                        PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        PlanningQueueNewRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        PlanningQueueNewRec."Created Date" := WorkDate();
+                        PlanningQueueNewRec."Created User" := UserId;
 
                         if CostPlanParaLineRec.FindSet() then
                             PlanningQueueNewRec.Eff := CostPlanParaLineRec."Planning Eff%";
