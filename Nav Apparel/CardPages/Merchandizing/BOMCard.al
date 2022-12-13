@@ -8599,6 +8599,7 @@ page 50984 "BOM Card"
             RequLineRec1.StyleName := rec."Style Name";
             RequLineRec1.PONo := PONo;
             RequLineRec1.Lot := Lot;
+            RequLineRec1.Validate("Global Dimension Code", StyMasterRec."Global Dimension Code");
             RequLineRec1.Validate("Location Code", StyMasterRec."Factory Code");
             RequLineRec1.Validate("Shortcut Dimension 1 Code", StyMasterRec."Global Dimension Code");
             RequLineRec1.EntryType := RequLineRec1.EntryType::FG;

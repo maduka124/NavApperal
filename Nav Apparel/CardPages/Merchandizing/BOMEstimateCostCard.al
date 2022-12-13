@@ -468,12 +468,21 @@ page 50986 "BOM Estimate Cost Card"
                         Locationrec: Record Location;
                         FacCPMRec: Record "Factory CPM";
                         StyleRec: Record "Style Master";
+                        DimenstionsRec: Record "Default Dimension";
                         LineNo: Integer;
+                        GlobalDimenstion: Code[20];
                     begin
                         Locationrec.Reset();
                         Locationrec.SetRange(Name, rec."Factory Name");
                         if Locationrec.FindSet() then
                             rec."Factory Code" := Locationrec.Code;
+
+                        //Get default dimension
+                        DimenstionsRec.Reset();
+                        DimenstionsRec.SetRange("No.", Locationrec.Code);
+                        if DimenstionsRec.FindSet() then
+                            GlobalDimenstion := DimenstionsRec."Dimension Value Code";
+
 
                         //Get Max line no
                         FacCPMRec.Reset();
@@ -491,6 +500,7 @@ page 50986 "BOM Estimate Cost Card"
                             if StyleRec.FindSet() then begin
                                 StyleRec."Factory Code" := Locationrec.Code;
                                 StyleRec."Factory Name" := rec."Factory Name";
+                                StyleRec."Global Dimension Code" := GlobalDimenstion;
                                 StyleRec.Modify();
                             end
                             else
