@@ -49,6 +49,11 @@ tableextension 50912 "GRNLine Extension" extends "Purch. Rcpt. Line"
             TableRelation = Customer.Name;
             ValidateTableRelation = false;
         }
+
+        field(50011; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

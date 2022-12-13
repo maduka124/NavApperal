@@ -316,11 +316,27 @@ page 50721 "Job Creation Card"
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         IntermediateTableRec: Record IntermediateTable;
         StyleMasterPo: Record "Style Master PO";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
         HeaderRenaretor: Integer;
         "SO No": Code[20];
         LineNo: Integer;
         LotNo: Code[20];
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
 
         StyleMasterPo.Reset();
         StyleMasterPo.SetRange("Style No.", rec."Style No.");
@@ -361,6 +377,7 @@ page 50721 "Job Creation Card"
                 SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::Washing;
                 SalesHeaderRec.Status := SalesHeaderRec.Status::Open;
                 SalesHeaderRec."Requested Delivery Date" := rec."Req Date";
+                SalesHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                 SalesHeaderRec.INSERT();
                 //HeaderRenaretor := 1;
                 //end;
@@ -404,7 +421,23 @@ page 50721 "Job Creation Card"
         PurchaseHeader2: Record "Purchase Header";
         PurchPostCodeunit: Codeunit "Purch.-Post";
         NavappRec: Record "NavApp Setup";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
 
         IntermediateTableRec.Reset();
         IntermediateTableRec.SetRange(No, rec."No.");
@@ -434,6 +467,7 @@ page 50721 "Job Creation Card"
                         PurchaseHeader."Posting Date" := WorkDate();
                         PurchaseHeader.receive := true;
                         HeaderGenerated := 1;
+                        PurchaseHeader."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         PurchaseHeader.Insert();
                     end;
 

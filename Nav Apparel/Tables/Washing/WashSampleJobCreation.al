@@ -169,6 +169,10 @@ table 50707 "Wash Sample Job Creation"
             DataClassification = ToBeClassified;
         }
 
+        field(35; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -65,10 +65,6 @@ page 50613 "Split Card"
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
                         LoginSessionsRec.FindSet();
-                        // rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                    end
-                    else begin   //logged in
-                        //rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                     end;
 
 

@@ -42,6 +42,11 @@ table 50902 "Dependency Buyer"
             DataClassification = ToBeClassified;
         }
 
+        field(71012588; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

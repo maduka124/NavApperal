@@ -27,6 +27,11 @@ tableextension 50921 "PostedSales Shipment Extension" extends "Sales Shipment He
         field(50006; "LC/Contract No."; Code[20])
         {
         }
+
+        field(50007; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

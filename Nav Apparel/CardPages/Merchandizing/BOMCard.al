@@ -95,8 +95,8 @@ page 50984 "BOM Card"
                             rec."Garment Type Name" := StyleMasterRec."Garment Type Name";
                             rec.Quantity := 0;
 
-                            CustomerRec.get(rec."Buyer No.");
-                            rec."Currency No." := CustomerRec."Currency Code";
+                            ///CustomerRec.get(rec."Buyer No.");
+                            //rec."Currency No." := CustomerRec."Currency Code";
 
                             //insert PO details
                             StyleMasterPORec.Reset();
@@ -134,6 +134,8 @@ page 50984 "BOM Card"
                             BOMEstimateRec.Reset();
                             BOMEstimateRec.SetRange("Style No.", rec."Style No.");
                             BOMEstimateRec.FindSet();
+
+                            rec."Currency No." := BOMEstimateRec."Currency No.";
 
                             BOMEstimateLineRec.Reset();
                             BOMEstimateLineRec.SetRange("No.", BOMEstimateRec."No.");
@@ -5640,9 +5642,12 @@ page 50984 "BOM Card"
 
                             StatusGB := 0;
 
+                            // Message(AssortDetailRec."Colour Name");
+                            // Message(AssortDetailRec."lot No.");
+
+
                             FOR Count := 1 TO 64 DO begin
                                 Qty := 0;
-                                //StatusGB := 0;
 
                                 case Count of
                                     1:
@@ -6670,6 +6675,8 @@ page 50984 "BOM Card"
                                             break;
                                         end;
                                 end;
+
+                                StatusGB := 1;
                             end;
 
                         until AssortDetailRec.Next() = 0;
@@ -7663,6 +7670,8 @@ page 50984 "BOM Card"
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         StyMasterPORec: Record "Style Master PO";
         StyMasterRec: Record "Style Master";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
 
         //Get Worksheet line no
@@ -7728,6 +7737,20 @@ page 50984 "BOM Card"
             end
             else begin  //create new sales order
 
+                //Check whether user logged in or not
+                LoginSessionsRec.Reset();
+                LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                if not LoginSessionsRec.FindSet() then begin  //not logged in
+                    Clear(LoginRec);
+                    LoginRec.LookupMode(true);
+                    LoginRec.RunModal();
+
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+                    LoginSessionsRec.FindSet();
+                end;
+
                 //Insert Header
                 NextOrderNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."FG SO Nos.", Today(), true);
                 LineNo := 10;
@@ -7749,6 +7772,7 @@ page 50984 "BOM Card"
                 SalesHeaderRec.Validate("Location Code", StyMasterRec."Factory Code");
                 SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::FG;
                 SalesHeaderRec.Lot := Lot;
+                SalesHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                 SalesHeaderRec.INSERT();
 
                 //Insert Line
@@ -7794,6 +7818,8 @@ page 50984 "BOM Card"
         MainCateRec: Record "Main Category";
         NavAppSetupRec: Record "NavApp Setup";
         ItemUinitRec: Record "Item Unit of Measure";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
         LineNo: Integer;
         ItemMasterRec: Record item;
         Description: Text[500];
@@ -7804,6 +7830,21 @@ page 50984 "BOM Card"
         ConvFactor: Decimal;
         ConsumptionTot: Decimal;
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
 
         //Get Worksheet line no
         NavAppSetupRec.Reset();
@@ -7834,6 +7875,7 @@ page 50984 "BOM Card"
             ProdBOMHeaderRec.Lot := Lot;
             ProdBOMHeaderRec.EntryType := ProdBOMHeaderRec.EntryType::FG;
             ProdBOMHeaderRec."BOM Type" := ProdBOMHeaderRec."BOM Type"::"Bulk";
+            ProdBOMHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
             ProdBOMHeaderRec.Insert(true);
             HeaderGenerated := true;
 
@@ -7869,7 +7911,7 @@ page 50984 "BOM Card"
 
                         if BOMLineEstimateRec.Reconfirm = false then begin
 
-                            if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
+                            if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
 
                                 //Get Dimenion only status
                                 MainCateRec.Reset();
@@ -8485,6 +8527,8 @@ page 50984 "BOM Card"
         ReqLineNo: Integer;
         ItemRec: Record Item;
         NextLotNo: Code[20];
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
 
         //Get Worksheet line no
@@ -8520,6 +8564,20 @@ page 50984 "BOM Card"
 
         if not RequLineRec.FindSet() then begin    //Not existing items
 
+            //Check whether user logged in or not
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+
+            if not LoginSessionsRec.FindSet() then begin  //not logged in
+                Clear(LoginRec);
+                LoginRec.LookupMode(true);
+                LoginRec.RunModal();
+
+                LoginSessionsRec.Reset();
+                LoginSessionsRec.SetRange(SessionID, SessionId());
+                LoginSessionsRec.FindSet();
+            end;
+
             ReqLineNo += 100;
             RequLineRec1.Init();
             RequLineRec1."Worksheet Template Name" := NavAppSetupRec."Worksheet Template Name";
@@ -8544,6 +8602,7 @@ page 50984 "BOM Card"
             RequLineRec1.Validate("Location Code", StyMasterRec."Factory Code");
             RequLineRec1.Validate("Shortcut Dimension 1 Code", StyMasterRec."Global Dimension Code");
             RequLineRec1.EntryType := RequLineRec1.EntryType::FG;
+            RequLineRec1."Secondary UserID" := LoginSessionsRec."Secondary UserID";
             RequLineRec1.Insert();
 
 

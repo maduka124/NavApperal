@@ -121,8 +121,8 @@ page 50570 "Trim Inspection Card"
 
                                 //Get AQL details
                                 AQLRec.Reset();
-                                AQLRec.SetFilter("From Qty", '<=%1', PurchLineRec.Quantity);
-                                AQLRec.SetFilter("To Qty", '>=%1', PurchLineRec.Quantity);
+                                AQLRec.SetFilter("From Qty", '<=%1', round(PurchLineRec.Quantity, 1));
+                                AQLRec.SetFilter("To Qty", '>=%1', round(PurchLineRec.Quantity, 1));
 
                                 if AQLRec.FindSet() then begin
                                     SqmpleQty := AQLRec."SMPL Qty";

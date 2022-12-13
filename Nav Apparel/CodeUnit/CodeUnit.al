@@ -770,6 +770,7 @@ codeunit 50618 NavAppCodeUnit
         PurchOrderLine."CP Req No" := ReqLine."CP Req Code";
         PurchOrderLine."Buyer Name" := ReqLine."Buyer Name";
         PurchOrderLine."Buyer No." := ReqLine."Buyer No.";
+        // PurchOrderLine."Secondary UserID" := ReqLine."Secondary UserID";
     end;
 
 
@@ -795,6 +796,7 @@ codeunit 50618 NavAppCodeUnit
         PurchRcptLine."CP Req No" := PurchLine."CP Req No";
         PurchRcptLine."Buyer Name" := PurchLine."Buyer Name";
         PurchRcptLine."Buyer No." := PurchLine."Buyer No.";
+        // PurchRcptLine."Secondary UserID" := PurchLine."Secondary UserID";
     end;
 
 
@@ -807,6 +809,7 @@ codeunit 50618 NavAppCodeUnit
         PurchInvLine.PONo := PurchaseLine.PONo;
         PurchInvLine.Lot := PurchaseLine.Lot;
         PurchInvLine.EntryType := PurchaseLine.EntryType;
+        // PurchInvLine."Secondary UserID" := PurchaseLine."Secondary UserID";
     end;
 
 
@@ -819,6 +822,7 @@ codeunit 50618 NavAppCodeUnit
         SalesShptHeader."PO No" := SalesHeader."PO No";
         SalesShptHeader.Lot := SalesHeader.Lot;
         SalesShptHeader.EntryType := SalesHeader.EntryType;
+        SalesShptHeader."Secondary UserID" := SalesHeader."Secondary UserID";
     end;
 
 
@@ -831,6 +835,7 @@ codeunit 50618 NavAppCodeUnit
         SalesInvHeader."PO No" := SalesHeader."PO No";
         SalesInvHeader.Lot := SalesHeader.Lot;
         SalesInvHeader.EntryType := SalesHeader.EntryType;
+        SalesInvHeader."Secondary UserID" := SalesHeader."Secondary UserID";
 
     end;
 
@@ -873,11 +878,29 @@ codeunit 50618 NavAppCodeUnit
         SalesHedd: Record "Sales Header";
         NoserMangement: Codeunit NoSeriesManagement;
         StyleRec: Record "Style Master";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     //Window: Dialog;
     //TextCon1: TextConst ENU = 'Creating Production Order ####1';
 
     begin
         //Window.Open(TextCon1);
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
+
         ManufacSetup.Get();
         ManufacSetup.TestField("Firm Planned Order Nos.");
         SalesHedd.get(SalesHedd."Document Type"::Order, PassSoNo);
@@ -886,7 +909,9 @@ codeunit 50618 NavAppCodeUnit
         ProdOrder.Init();
         ProdOrder.Status := ProdOrder.Status::"Firm Planned";
         ProdOrder."No." := NoserMangement.GetNextNo(ManufacSetup."Firm Planned Order Nos.", WorkDate(), true);
+        ProdOrder."Secondary UserID" := LoginSessionsRec."Secondary UserID";
         ProdOrder.Insert(true);
+
         // Window.Update(1, ProdOrder."No.");
         // Sleep(100);
         ProdOrder.Validate("Source Type", ProdOrder."Source Type"::"Sales Header");
@@ -1053,6 +1078,7 @@ codeunit 50618 NavAppCodeUnit
         TransferReceiptHeader."Style No." := TransferHeader."Style No.";
         TransferReceiptHeader."Style Name" := TransferHeader."Style Name";
         TransferReceiptHeader.PO := TransferHeader.PO;
+        TransferReceiptHeader."Secondary UserID" := TransferHeader."Secondary UserID";
     end;
 
     [EventSubscriber(ObjectType::Table, 5744, 'OnAfterCopyFromTransferHeader', '', true, true)]
@@ -1061,6 +1087,7 @@ codeunit 50618 NavAppCodeUnit
         TransferShipmentHeader."Style No." := TransferHeader."Style No.";
         TransferShipmentHeader."Style Name" := TransferHeader."Style Name";
         TransferShipmentHeader.PO := TransferHeader.PO;
+        TransferShipmentHeader."Secondary UserID" := TransferHeader."Secondary UserID";
     end;
 
 

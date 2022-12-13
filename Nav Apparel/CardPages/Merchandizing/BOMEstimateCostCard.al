@@ -91,8 +91,8 @@ page 50986 "BOM Estimate Cost Card"
                         rec."Garment Type Name" := BOMRec."Garment Type Name";
                         rec.Quantity := BOMRec.Quantity;
 
-                        CustomerRec.get(rec."Buyer No.");
-                        rec."Currency No." := CustomerRec."Currency Code";
+                        //CustomerRec.get(rec."Buyer No.");
+                        rec."Currency No." := BOMRec."Currency No.";
 
                         LoadCategoryDetails();
                         CalRawMat();
@@ -1164,7 +1164,24 @@ page 50986 "BOM Estimate Cost Card"
                     BOMCostReviLineRec: Record "BOM Estima Cost Line Revision";
                     Revision: Integer;
                     CustMangemnt: Codeunit "Customization Management";
+                    StyleMasterRec: Record "Style Master";
+                    LoginSessionsRec: Record LoginSessions;
+                    LoginRec: Page "Login Card";
                 begin
+
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    if not LoginSessionsRec.FindSet() then begin  //not logged in
+                        Clear(LoginRec);
+                        LoginRec.LookupMode(true);
+                        LoginRec.RunModal();
+
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        LoginSessionsRec.FindSet();
+                    end;
 
                     CustMangemnt.InsertTemp(Rec);
 
@@ -1279,6 +1296,7 @@ page 50986 "BOM Estimate Cost Card"
                     BOMCostReviHeaderRec."Wash Type" := rec."Wash Type";
                     BOMCostReviHeaderRec."Wash Type Name" := rec."Wash Type Name";
                     BOMCostReviHeaderRec."Washing (Dz.)" := rec."Washing (Dz.)";
+                    BOMCostReviHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                     BOMCostReviHeaderRec.Insert();
 
                     //Write to line table
@@ -1300,6 +1318,12 @@ page 50986 "BOM Estimate Cost Card"
                             BOMCostReviLineRec.Insert();
                         until BOMCostLineRec.Next() = 0;
                     end;
+
+                    //Update style status confirmed. 
+                    StyleMasterRec.Reset();
+                    StyleMasterRec.Get(rec."Style No.");
+                    StyleMasterRec.Status := StyleMasterRec.Status::Confirmed;
+                    StyleMasterRec.Modify();
 
                     Message('BOM Costing Approved');
                 end;

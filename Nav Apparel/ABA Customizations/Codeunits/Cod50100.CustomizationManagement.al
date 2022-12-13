@@ -4,6 +4,8 @@ codeunit 50100 "Customization Management"
     var
         OldReqLines: Record "Requisition Line";
         NewReqLines: Record "Requisition Line";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
         OldLineCount: Integer;
         NewLineCount: Integer;
         NewQty: Decimal;
@@ -11,6 +13,22 @@ codeunit 50100 "Customization Management"
         ShowMsg: Boolean;
         Inx: Integer;
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
+
         Window.Open('Processing data... @1@@@@@@@@@@');
         OldLineCount := 0;
         NewLineCount := 0;
@@ -51,6 +69,7 @@ codeunit 50100 "Customization Management"
                 NewReqLines."Journal Batch Name" := BatchName;
                 NewReqLines."Line No." := Inx;
                 NewReqLines.TransferFields(OldReqLines, false);
+                NewReqLines."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                 NewReqLines.Insert(true);
             end
             else begin
@@ -276,6 +295,8 @@ codeunit 50100 "Customization Management"
         GenLedSetup: Record "General Ledger Setup";
         PurchPaySetup: Record "Purchases & Payables Setup";
         NosMangemnt: Codeunit NoSeriesManagement;
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
         Inx: Integer;
         Inx2: Integer;
         Window: Dialog;
@@ -284,6 +305,21 @@ codeunit 50100 "Customization Management"
     begin
         Inx := 0;
         MsgShow := false;
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
 
         Window.Open(TextCon2);
 
@@ -339,6 +375,7 @@ codeunit 50100 "Customization Management"
                 PurchHedd."Document Type" := PurchHedd."Document Type"::Invoice;
                 PurchHedd."No." := NosMangemnt.GetNextNo(PurchPaySetup."Invoice Nos.", WorkDate(), true);
                 PurchHedd.Validate("Buy-from Vendor No.", OtherChargesRec."Vendor No.");
+                PurchHedd."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                 PurchHedd.Insert(true);
 
                 PurchLine.Init();

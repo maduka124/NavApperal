@@ -304,7 +304,24 @@ page 50459 "New Breakdown Card"
         StyleRec: Record "Style Master";
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         StyleMasterRec: Record "Style Master";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
 
         if StyleNoGB <> '' then begin
             rec."No." := NoSeriesManagementCode.GetNextNo('NEWBR Nos', WorkDate(), true);
@@ -322,6 +339,7 @@ page 50459 "New Breakdown Card"
                 rec."Season Name" := StyleMasterRec."Season Name";
                 rec."Garment Type Name" := StyleMasterRec."Garment Type Name";
                 rec."Style Stage" := 'COSTING';
+                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
             end;
 
             CurrPage.Update();

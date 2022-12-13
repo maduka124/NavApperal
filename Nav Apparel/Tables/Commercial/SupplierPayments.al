@@ -79,6 +79,12 @@ table 50552 SupplierPayments
             DataClassification = ToBeClassified;
         }
 
+        field(16; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
     }
 
     keys

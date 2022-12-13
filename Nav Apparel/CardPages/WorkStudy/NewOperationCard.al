@@ -30,35 +30,11 @@ page 50456 "New Operation Card"
                     trigger OnValidate()
                     var
                         ItemRec: Record "Item Type";
-                        LoginSessionsRec: Record LoginSessions;
-                        LoginRec: Page "Login Card";
                     begin
-
-                        //Check whether user logged in or not
-                        LoginSessionsRec.Reset();
-                        LoginSessionsRec.SetRange(SessionID, SessionId());
-
-                        if not LoginSessionsRec.FindSet() then begin  //not logged in
-                            Clear(LoginRec);
-                            LoginRec.LookupMode(true);
-                            LoginRec.RunModal();
-
-                            LoginSessionsRec.Reset();
-                            LoginSessionsRec.SetRange(SessionID, SessionId());
-                            if LoginSessionsRec.FindSet() then
-                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                        end
-                        else begin   //logged in
-                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                        end;
-
-
                         ItemRec.Reset();
                         ItemRec.SetRange("Item Type Name", rec."Item Type Name");
                         if ItemRec.FindSet() then
                             rec."Item Type No." := ItemRec."No.";
-
-                        GenCode();
                     end;
                 }
 
@@ -76,8 +52,6 @@ page 50456 "New Operation Card"
                         GarmentPartRec.SetRange(Description, rec."Garment Part Name");
                         if GarmentPartRec.FindSet() then
                             rec."Garment Part No." := GarmentPartRec."No.";
-
-                        GenCode();
                     end;
                 }
 
@@ -158,37 +132,56 @@ page 50456 "New Operation Card"
         }
     }
 
-    procedure GenCode()
-    var
-        NewOperationRec: Record "New Operation";
-        Temp: BigInteger;
-    begin
+    actions
+    {
+        area(Processing)
+        {
+            action(Generate)
+            {
+                ApplicationArea = all;
+                trigger OnAction()
+                var
+                    NewOperationRec: Record "New Operation";
+                    NewOperation2Rec: Record "New Operation";
+                    Temp: BigInteger;
+                    Code1: code[20];
+                begin
 
-        rec.Code2 := 0;
-        Temp := 0;
-        rec.Code1 := '';
+                    NewOperation2Rec.Reset();
+                    if NewOperation2Rec.FindSet() then begin
+                        repeat
 
-        if rec."Item Type No." <> '' then
-            rec.Code1 := rec."Item Type Name".Substring(1, 2);
+                            Temp := 0;
+                            Code1 := '';
 
-        if rec."Garment Part Name" <> '' then
-            rec.Code1 := rec.Code1 + rec."Garment Part Name".Substring(1, 2);
+                            if NewOperation2Rec."Item Type No." <> '' then
+                                Code1 := NewOperation2Rec."Item Type Name".Substring(1, 2);
 
-        if (rec."Item Type No." <> '') and (rec."Garment Part Name" <> '') then begin
+                            if NewOperation2Rec."Garment Part Name" <> '' then
+                                Code1 := Code1 + NewOperation2Rec."Garment Part Name".Substring(1, 2);
 
-            NewOperationRec.Reset();
-            NewOperationRec.SetRange(Code1, rec.Code1);
+                            if (NewOperation2Rec."Item Type No." <> '') and (NewOperation2Rec."Garment Part Name" <> '') then begin
 
-            if NewOperationRec.FindLast() then
-                temp := NewOperationRec.Code2;
+                                NewOperationRec.Reset();
+                                NewOperationRec.SetRange(Code1, Code1);
 
-            rec.Code2 := temp + 1;
-            rec.Code := rec.code1 + format(rec.Code2);
-            CurrPage.Update();
+                                if NewOperationRec.FindLast() then
+                                    Temp := NewOperationRec.Code2;
 
-        end;
+                                Temp := Temp + 1;
 
-    end;
+                                NewOperation2Rec.Code1 := Code1;
+                                NewOperation2Rec.Code2 := Temp;
+                                NewOperation2Rec.Code := Code1 + format(Temp);
+                                NewOperation2Rec.Modify();
+                            end;
+
+                        until NewOperation2Rec.Next() = 0;
+                    end;
+                end;
+            }
+        }
+    }
 
 
     procedure AssistEdit(): Boolean

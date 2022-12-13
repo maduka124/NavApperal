@@ -18,5 +18,10 @@ tableextension 50830 TransferRecHedExt extends "Transfer Receipt Header"
             DataClassification = ToBeClassified;
             TableRelation = "Style Master"."No.";
         }
+
+        field(50103; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }

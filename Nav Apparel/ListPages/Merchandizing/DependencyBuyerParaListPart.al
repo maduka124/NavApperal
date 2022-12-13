@@ -73,7 +73,23 @@ page 51038 "Dependency Buyer Para ListPart"
         DependencyRec: Record "Dependency Parameters";
         BuyerRec: Record Customer;
         LineNo: BigInteger;
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
     begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
 
         //Get buyer name
         BuyerRec.Reset();
@@ -112,6 +128,7 @@ page 51038 "Dependency Buyer Para ListPart"
                 DependencyBuyerParaRec."Action User" := DependencyRec."Action User";
                 DependencyBuyerParaRec."Created User" := UserId;
                 DependencyBuyerParaRec."Created Date" := WorkDate();
+                DependencyBuyerParaRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                 DependencyBuyerParaRec.Insert();
             end;
         UNTIL DependencyRec.NEXT <= 0;

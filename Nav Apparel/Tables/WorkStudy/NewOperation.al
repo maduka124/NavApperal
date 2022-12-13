@@ -32,7 +32,7 @@ table 50454 "New Operation"
         field(5; "Garment Part Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = GarmentPart.Description;
+            TableRelation = GarmentPart.Description where("Item Type No." = field("Item Type No."));
             ValidateTableRelation = false;
         }
 

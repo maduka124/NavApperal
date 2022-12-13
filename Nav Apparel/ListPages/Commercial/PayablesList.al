@@ -122,8 +122,25 @@ page 50549 "Payable Chart - Approved"
                     GenJournalRec: Record "Gen. Journal Line";
                     NavAppSetupRec: Record "NavApp Setup";
                     B2BLCRec: Record B2BLCMaster;
+                    LoginSessionsRec: Record LoginSessions;
+                    LoginRec: Page "Login Card";
                     LineNo: BigInteger;
                 begin
+
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    if not LoginSessionsRec.FindSet() then begin  //not logged in
+                        Clear(LoginRec);
+                        LoginRec.LookupMode(true);
+                        LoginRec.RunModal();
+
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        LoginSessionsRec.FindSet();
+                    end;
+
 
                     if Rec."Bank Amount" = 0 then
                         Error('Bank amount is blank.');
@@ -408,6 +425,7 @@ page 50549 "Payable Chart - Approved"
                                 end;
                         end;
 
+                        SuppPayRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         SuppPayRec.Insert();
                     end;
 
