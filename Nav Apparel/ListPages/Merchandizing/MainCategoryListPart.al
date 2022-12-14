@@ -2,6 +2,8 @@ page 51047 "Main Category List part"
 {
     PageType = ListPart;
     SourceTable = "Main Category";
+    DeleteAllowed = false;
+    InsertAllowed = false;
 
     layout
     {
@@ -13,11 +15,13 @@ page 51047 "Main Category List part"
                 {
                     ApplicationArea = All;
                     Caption = 'Main Category No';
+                    Editable = false;
                 }
 
                 field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Selected; rec.Selected)
@@ -33,7 +37,6 @@ page 51047 "Main Category List part"
 
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean;
-
     var
         MainCategoryVendorRec: Record "Main Category Vendor";
         MainCategoryRec: Record "Main Category";
@@ -66,7 +69,6 @@ page 51047 "Main Category List part"
 
     procedure PassParameters(VendorNoPara: Text);
     var
-
     begin
         VendorNo := VendorNoPara;
 

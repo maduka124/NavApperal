@@ -60,7 +60,9 @@ page 51025 "BOM Estimate Line List part"
                         ItemRec.Reset();
                         ItemRec.SetRange(Description, rec."Item Name");
                         if ItemRec.FindSet() then
-                            rec."Item No." := ItemRec."No.";
+                            rec."Item No." := ItemRec."No."
+                        else
+                            Error('Invalid Item.');
 
                         CurrPage.Update();
 
@@ -194,7 +196,9 @@ page 51025 "BOM Estimate Line List part"
                         SupplierRec.Reset();
                         SupplierRec.SetRange(Name, rec."Supplier Name.");
                         if SupplierRec.FindSet() then
-                            rec."Supplier No." := SupplierRec."No.";
+                            rec."Supplier No." := SupplierRec."No."
+                        else
+                            Error('Invalid Supplier Name');
 
                         CurrPage.Update();
                     end;

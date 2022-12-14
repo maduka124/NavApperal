@@ -215,7 +215,9 @@ page 51031 "BOM Line Estimate ListPart"
                         SupplierRec.SetRange(Name, rec."Supplier Name.");
 
                         if SupplierRec.FindSet() then
-                            rec."Supplier No." := SupplierRec."No.";
+                            rec."Supplier No." := SupplierRec."No."
+                        else
+                            Error('Invalid Supplier Name');
                     end;
                 }
 

@@ -7900,6 +7900,13 @@ page 50984 "BOM Card"
 
             repeat
 
+                if AutoGenRec."Article Name." = '-' then
+                    Error('Invalid Article : %1', AutoGenRec."Article Name.");
+
+                if AutoGenRec."Dimension Name." = '-' then
+                    Error('Invalid Dimension : %1', AutoGenRec."Dimension Name.");
+
+
                 if (AutoGenRec."Include in PO" = true) or (AutoGenRec."Included in PO" = true) then begin
 
                     BOMLineEstimateRec.Reset();

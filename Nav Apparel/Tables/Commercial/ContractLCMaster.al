@@ -190,8 +190,8 @@ table 50501 "Contract/LCMaster"
         field(34; "Status of LC"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionCaption = 'Complete,Active,Cancel';
-            OptionMembers = Complete,Active,Cancel;
+            OptionCaption = 'Active,Cancel,Complete';
+            OptionMembers = Active,Cancel,Complete;
         }
 
         field(35; "File No"; Text[50])
@@ -259,18 +259,11 @@ table 50501 "Contract/LCMaster"
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("ContractLC Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."BOM1 Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
 
-
-    trigger OnModify()
-    begin
-
-    end;
 
     trigger OnDelete()
     var
@@ -282,11 +275,6 @@ table 50501 "Contract/LCMaster"
         B2BLCMasterRec.SetRange("LC/Contract No.", "Contract No");
         if B2BLCMasterRec.FindSet() then
             Error('LC/Contract : %1 already used in B2B LC. Cannot delete.', "Contract No");
-
-    end;
-
-    trigger OnRename()
-    begin
 
     end;
 

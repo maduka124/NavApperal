@@ -89,8 +89,13 @@ page 50983 "Assortment Card"
                         StylePORec.Reset();
                         StylePORec.SetRange("Style No.", rec."No.");
                         StylePORec.SetRange("Lot No.", rec."Lot No.");
-                        if StylePORec.FindSet() then
+
+                        if StylePORec.FindSet() then begin
                             rec."PO No" := StylePORec."PO No.";
+                            POTotal := StylePORec.Qty;
+                        end
+                        else
+                            POTotal := 0;
 
                         CurrPage.Update(true);
                     end;
@@ -100,6 +105,13 @@ page 50983 "Assortment Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field(POTotal; POTotal)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'PO Total';
                 }
 
                 field("Pack No"; rec."Pack No")
@@ -196,5 +208,8 @@ page 50983 "Assortment Card"
     begin
         CurrPage.Update();
     end;
+
+    var
+        POTotal: BigInteger;
 
 }
