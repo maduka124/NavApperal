@@ -1,9 +1,11 @@
-page 51159 WorkCenters
+page 51159 WorkCentersList
 {
     PageType = List;
     SourceTable = "Work Center";
-    Caption = 'Work Center';
-    //SourceTableView = sorting("Style No.", "Lot No.") order(descending);
+    Caption = 'Work Centers';
+    InsertAllowed = false;
+    ModifyAllowed = false;
+    DeleteAllowed = false;
 
     layout
     {
@@ -11,19 +13,14 @@ page 51159 WorkCenters
         {
             repeater(General)
             {
-
                 field("No."; Rec."No.")
                 {
-                    ApplicationArea = Manufacturing;
-                    ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
+                    ApplicationArea = all;
                 }
                 field(Name; Rec.Name)
                 {
-                    ApplicationArea = Manufacturing;
-                    ToolTip = 'Specifies the name of the work center.';
+                    ApplicationArea = all;
                 }
-
-
             }
         }
     }

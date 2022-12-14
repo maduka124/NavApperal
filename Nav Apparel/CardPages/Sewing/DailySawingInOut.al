@@ -55,24 +55,18 @@ page 50355 "Daily Sewing In/Out Card"
                         UserSetupRec: Record "User Setup";
                         WorkCentrRec: Record "Work Center";
                     begin
+                        //Mihiranga 2022/12/14
                         UserSetupRec.Get(UserId);
                         WorkCentrRec.Reset();
                         WorkCentrRec.SetRange("Factory No.", UserSetupRec."Factory Code");
+                        WorkCentrRec.FindSet();
+
                         if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
-                            Rec."Resource Name" := WorkCentrRec.Name;
                             Rec."Resource No." := WorkCentrRec."No.";
+                            rec."Resource Name" := WorkCentrRec.Name;
                         end;
-                        
-//Mihiranga 2022/12/14
-
-
                     end;
-
-
-
                 }
-
-
             }
 
             group("Input Style Detail")
