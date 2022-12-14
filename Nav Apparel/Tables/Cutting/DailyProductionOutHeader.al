@@ -27,6 +27,10 @@ table 50349 ProductionOutHeader
         field(4; "Resource No."; Code[20])
         {
             DataClassification = ToBeClassified;
+
+            
+            // TableRelation = "Work Center"."No." where()
+
         }
 
         field(5; "Resource Name"; text[50])

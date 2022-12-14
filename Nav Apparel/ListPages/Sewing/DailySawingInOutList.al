@@ -4,7 +4,8 @@ page 50356 "Daily Sewing In/Out"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = ProductionOutHeader;
-    SourceTableView = sorting("No.") order(descending) where(Type = filter('Saw'));
+    SourceTableView = sorting("No.") order(descending) where(Type = filter('Saw')) ;
+   
     CardPageId = "Daily Sewing In/Out Card";
 
     layout
