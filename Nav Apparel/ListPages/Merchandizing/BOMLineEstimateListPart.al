@@ -50,17 +50,34 @@ page 51031 "BOM Line Estimate ListPart"
                     Caption = 'Item';
                     StyleExpr = StyleExprTxt;
 
-                    trigger OnValidate()
+                    // trigger OnValidate()
+                    // var
+                    //     ItemRec: Record "Item";
+                    //     BOMHeaderRec: record "BOM";
+                    // begin
+                    //     ItemRec.Reset();
+                    //     ItemRec.SetRange(Description, rec."Item Name");
+
+                    //     if ItemRec.FindSet() then
+                    //         rec."Item No." := ItemRec."No.";
+
+                    //     //Get Qty from Header 
+                    //     BOMHeaderRec.get(rec."No.");
+                    //     rec.Qty := BOMHeaderRec.Quantity;
+                    // end;
+
+                    trigger OnLookup(var texts: text): Boolean
                     var
-                        ItemRec: Record "Item";
                         BOMHeaderRec: record "BOM";
+                        ItemRec: Record "Item";
                     begin
+                        //Mihiranga 2022/12/14
                         ItemRec.Reset();
-                        ItemRec.SetRange(Description, rec."Item Name");
-
-                        if ItemRec.FindSet() then
-                            rec."Item No." := ItemRec."No.";
-
+                        ItemRec.SetRange("Main Category No.", Rec."Main Category No.");
+                        ItemRec.FindSet();
+                        if Page.RunModal(51161, ItemRec) = Action::LookupOK then begin
+                            Rec."Item Name" := ItemRec.Description;
+                        end;
                         //Get Qty from Header 
                         BOMHeaderRec.get(rec."No.");
                         rec.Qty := BOMHeaderRec.Quantity;
