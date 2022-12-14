@@ -50,23 +50,6 @@ page 51031 "BOM Line Estimate ListPart"
                     Caption = 'Item';
                     StyleExpr = StyleExprTxt;
 
-                    // trigger OnValidate()
-                    // var
-                    //     ItemRec: Record "Item";
-                    //     BOMHeaderRec: record "BOM";
-                    // begin
-                    //     ItemRec.Reset();
-                    //     ItemRec.SetRange(Description, rec."Item Name");
-
-                    //     if ItemRec.FindSet() then
-                    //         rec."Item No." := ItemRec."No.";
-
-                    //     //Get Qty from Header 
-                    //     BOMHeaderRec.get(rec."No.");
-                    //     rec.Qty := BOMHeaderRec.Quantity;
-                    // end;
-
-
                     //Mihiranga 2022/12/14
                     trigger OnLookup(var texts: text): Boolean
                     var
@@ -85,6 +68,21 @@ page 51031 "BOM Line Estimate ListPart"
                         //Get Qty from Header 
                         BOMHeaderRec.get(rec."No.");
                         rec.Qty := BOMHeaderRec.Quantity;
+
+                    end;
+
+
+                    trigger OnValidate()
+                    var
+                        ItemRec: Record "Item";
+                    begin
+                        ItemRec.Reset();
+                        ItemRec.SetRange(Description, rec."Item Name");
+
+                        if ItemRec.FindSet() then
+                            rec."Item No." := ItemRec."No."
+                        else
+                            Error('Invalid item name');
                     end;
                 }
 
