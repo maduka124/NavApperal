@@ -109,12 +109,12 @@ table 50934 "Style Master"
         field(71012598; "Lead Time"; Decimal)
         {
             DataClassification = ToBeClassified;
-            trigger OnValidate()
-            var
-                myInt: Integer;
-            begin
-                "Ship Date" := Today + "Lead Time";
-            end;
+            // trigger OnValidate()
+            // var
+            //     myInt: Integer;
+            // begin
+            //     "Ship Date" := Today + "Lead Time";
+            // end;
         }
 
         field(71012599; "Ship Date"; Date)
@@ -303,8 +303,8 @@ table 50934 "Style Master"
         field(71012634; Type; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Sample,Costing;
-            OptionCaption = 'Sample,Costing';
+            OptionMembers = Costing,Sample;
+            OptionCaption = 'Costing,Sample';
         }
 
         field(71012635; "Production File Handover Date"; Date)

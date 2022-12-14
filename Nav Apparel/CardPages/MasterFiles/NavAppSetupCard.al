@@ -523,6 +523,11 @@ page 50964 "NavApp Setup Card"
                     Caption = 'Sourcing (%)';
                 }
 
+                field("Comm. Cost percentage"; rec."Comm. Cost percentage")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Gatepass Nos."; rec."Gatepass Nos.")
                 {
                     ApplicationArea = All;

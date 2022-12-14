@@ -20,6 +20,7 @@ table 50897 "BOM Line Estimate"
             DataClassification = ToBeClassified;
             TableRelation = Item.Description where("Main Category No." = field("Main Category No."), "EstimateBOM Item" = filter(true));
             ValidateTableRelation = false;
+            
         }
 
         field(71012584; "Main Category No."; Code[20])

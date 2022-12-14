@@ -599,6 +599,11 @@ table 51139 "NavApp Setup"
             OptionMembers = Hourly,"Efficiency Wise";
             OptionCaption = 'Hourly,Efficiency Wise';
         }
+
+        field(71012685; "Comm. Cost percentage"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -88,6 +88,8 @@ page 50602 "Style Inquiry Card"
                             until StyleMasRec.Next() = 0;
                         end;
 
+                        rec."Style Display Name" := rec."Style No.";
+
                         CurrPage.Update();
                     end;
                 }
@@ -236,15 +238,27 @@ page 50602 "Style Inquiry Card"
                     ShowMandatory = true;
                 }
 
-                field("Lead Time"; rec."Lead Time")
-                {
-                    ApplicationArea = All;
-                }
-
                 field("Ship Date"; rec."Ship Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        rec."Lead Time" := rec."Ship Date" - Today;
+                    end;
+                }
+
+                field("Lead Time"; rec."Lead Time")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        rec."Ship Date" := Today + rec."Lead Time";
+                    end;
                 }
 
                 field(Front; rec.Front)

@@ -13,6 +13,7 @@ page 50959 "Login Card"
                 {
                     ApplicationArea = All;
                     Caption = 'User Name';
+                    //QuickEntry = true;
 
                     trigger OnValidate()
                     var
@@ -106,6 +107,8 @@ page 50959 "Login Card"
 
             end;
     end;
+
+
 
     var
         UseridPara: Text[20];

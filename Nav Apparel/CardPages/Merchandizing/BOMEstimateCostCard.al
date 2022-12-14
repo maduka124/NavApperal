@@ -72,6 +72,7 @@ page 50986 "BOM Estimate Cost Card"
                         rec."Risk factor %" := NavAppSetup."Risk Factor";
                         rec."TAX %" := NavAppSetup.TAX;
                         rec."ABA Sourcing %" := NavAppSetup."ABA Sourcing";
+                        rec."Commercial %" := NavAppSetup."Comm. Cost percentage";
 
                         BOMRec.get(rec."BOM No.");
                         rec."Style No." := BOMRec."Style No.";
@@ -831,6 +832,7 @@ page 50986 "BOM Estimate Cost Card"
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
+                            Editable = false;
                             StyleExpr = 'StrongAccent';
 
                             trigger OnValidate()
@@ -1229,8 +1231,8 @@ page 50986 "BOM Estimate Cost Card"
                     BOMCostReviHeaderRec."Commercial Total" := rec."Commercial Total";
                     BOMCostReviHeaderRec."Commission %" := rec."Commission %";
                     BOMCostReviHeaderRec."Commission Dz." := rec."Commission Dz.";
-                    BOMCostReviHeaderRec."Commercial Pcs" := rec."Commission Pcs";
-                    BOMCostReviHeaderRec."Commercial Total" := rec."Commission Total";
+                    BOMCostReviHeaderRec."Commission Pcs" := rec."Commission Pcs";
+                    BOMCostReviHeaderRec."Commission Total" := rec."Commission Total";
                     BOMCostReviHeaderRec.CPM := rec.CPM;
                     BOMCostReviHeaderRec."Created Date" := rec."Created Date";
                     BOMCostReviHeaderRec."Created User" := rec."Created User";
@@ -1619,6 +1621,7 @@ page 50986 "BOM Estimate Cost Card"
         rec."Risk factor %" := NavAppSetup."Risk Factor";
         rec."TAX %" := NavAppSetup.TAX;
         rec."ABA Sourcing %" := NavAppSetup."ABA Sourcing";
+        rec."Commercial %" := NavAppSetup."Comm. Cost percentage";
 
         if rec."FOB Pcs" = 0 then
             rec."FOB Pcs" := 1;
