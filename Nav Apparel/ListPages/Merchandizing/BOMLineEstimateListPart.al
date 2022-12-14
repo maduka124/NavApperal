@@ -66,18 +66,22 @@ page 51031 "BOM Line Estimate ListPart"
                     //     rec.Qty := BOMHeaderRec.Quantity;
                     // end;
 
+
+                    //Mihiranga 2022/12/14
                     trigger OnLookup(var texts: text): Boolean
                     var
                         BOMHeaderRec: record "BOM";
                         ItemRec: Record "Item";
                     begin
-                        //Mihiranga 2022/12/14
                         ItemRec.Reset();
                         ItemRec.SetRange("Main Category No.", Rec."Main Category No.");
+                        ItemRec.SetFilter("EstimateBOM Item", '=%1', true);
                         ItemRec.FindSet();
                         if Page.RunModal(51161, ItemRec) = Action::LookupOK then begin
                             Rec."Item Name" := ItemRec.Description;
+                            Rec."Item No." := ItemRec."No.";
                         end;
+
                         //Get Qty from Header 
                         BOMHeaderRec.get(rec."No.");
                         rec.Qty := BOMHeaderRec.Quantity;
