@@ -813,7 +813,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(1);
                     end;
                 }
                 field("2"; Rec."2")
@@ -826,7 +826,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(2);
                     end;
                 }
 
@@ -840,7 +840,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(3);
                     end;
                 }
 
@@ -854,7 +854,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(4);
                     end;
                 }
 
@@ -868,7 +868,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(5);
                     end;
                 }
 
@@ -882,7 +882,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(6);
                     end;
                 }
 
@@ -896,7 +896,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(7);
                     end;
                 }
 
@@ -910,7 +910,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(8);
                     end;
                 }
 
@@ -924,7 +924,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(9);
                     end;
                 }
 
@@ -938,7 +938,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(10);
                     end;
                 }
 
@@ -952,7 +952,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(11);
                     end;
                 }
 
@@ -966,7 +966,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(12);
                     end;
                 }
 
@@ -980,7 +980,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(13);
                     end;
                 }
 
@@ -994,7 +994,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(14);
                     end;
                 }
 
@@ -1008,7 +1008,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(15);
                     end;
                 }
 
@@ -1022,7 +1022,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(16);
                     end;
                 }
 
@@ -1036,7 +1036,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(17);
                     end;
                 }
 
@@ -1050,7 +1050,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(18);
                     end;
                 }
 
@@ -1064,7 +1064,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(19);
                     end;
                 }
 
@@ -1078,7 +1078,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(20);
                     end;
                 }
 
@@ -1092,7 +1092,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(21);
                     end;
                 }
 
@@ -1106,7 +1106,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(22);
                     end;
                 }
 
@@ -1120,7 +1120,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(23);
                     end;
                 }
 
@@ -1134,7 +1134,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(24);
                     end;
                 }
 
@@ -1148,7 +1148,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(25);
                     end;
                 }
 
@@ -1162,7 +1162,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(26);
                     end;
                 }
 
@@ -1176,7 +1176,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(27);
                     end;
                 }
 
@@ -1190,7 +1190,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(28);
                     end;
                 }
 
@@ -1204,7 +1204,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(29);
                     end;
                 }
 
@@ -1218,7 +1218,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(30);
                     end;
                 }
 
@@ -1232,7 +1232,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(31);
                     end;
                 }
 
@@ -1246,7 +1246,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(32);
                     end;
                 }
 
@@ -1260,7 +1260,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(33);
                     end;
                 }
 
@@ -1274,7 +1274,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(34);
                     end;
                 }
 
@@ -1288,7 +1288,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(35);
                     end;
                 }
 
@@ -1302,7 +1302,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(36);
                     end;
                 }
 
@@ -1316,7 +1316,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(37);
                     end;
                 }
 
@@ -1330,7 +1330,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(38);
                     end;
                 }
 
@@ -1344,7 +1344,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(39);
                     end;
                 }
 
@@ -1358,7 +1358,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(40);
                     end;
                 }
 
@@ -1372,7 +1372,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(41);
                     end;
                 }
 
@@ -1387,7 +1387,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(42);
                     end;
                 }
 
@@ -1402,7 +1402,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(43);
                     end;
                 }
 
@@ -1417,7 +1417,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(44);
                     end;
                 }
 
@@ -1432,7 +1432,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(45);
                     end;
                 }
 
@@ -1447,7 +1447,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(46);
                     end;
                 }
 
@@ -1462,7 +1462,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(47);
                     end;
                 }
 
@@ -1476,7 +1476,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(48);
                     end;
                 }
 
@@ -1490,7 +1490,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(49);
                     end;
                 }
 
@@ -1504,7 +1504,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(50);
                     end;
                 }
 
@@ -1518,7 +1518,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(51);
                     end;
                 }
 
@@ -1532,7 +1532,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(52);
                     end;
                 }
 
@@ -1546,7 +1546,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(53);
                     end;
                 }
 
@@ -1560,7 +1560,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(54);
                     end;
                 }
 
@@ -1574,7 +1574,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(55);
                     end;
                 }
 
@@ -1588,7 +1588,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(56);
                     end;
                 }
 
@@ -1602,7 +1602,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(57);
                     end;
                 }
 
@@ -1616,7 +1616,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(58);
                     end;
                 }
 
@@ -1630,7 +1630,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(59);
                     end;
                 }
 
@@ -1644,7 +1644,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(60);
                     end;
                 }
 
@@ -1658,7 +1658,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(61);
                     end;
                 }
 
@@ -1672,7 +1672,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(62);
                     end;
                 }
 
@@ -1686,7 +1686,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(63);
                     end;
                 }
 
@@ -1700,7 +1700,7 @@ page 50591 "Sewing Job Creation ListPart3"
                     trigger OnValidate()
                     var
                     begin
-                        CalTotal();
+                        CalTotal(64);
                     end;
                 }
 
@@ -2438,7 +2438,7 @@ page 50591 "Sewing Job Creation ListPart3"
 
     end;
 
-    procedure CalTotal()
+    procedure CalTotal(SizeNo: Integer)
     var
         Count: Integer;
         Number: Integer;
@@ -2446,8 +2446,308 @@ page 50591 "Sewing Job Creation ListPart3"
         SJC3: Record SewingJobCreationLine3;
         MainColorTotal: Decimal;
         ColorTotalLines: Decimal;
+        HiTotal: Decimal;
+        LTotal: Decimal;
+        LSUMTotal: Decimal;
     begin
         if Rec."Colour Name" <> '*' then begin
+
+            HiTotal := 0;
+            LTotal := 0;
+            LSUMTotal := 0;
+            CurrPage.Update();
+
+            //Get Hi size total
+            SJC3.Reset();
+            SJC3.SetRange("SJCNo.", Rec."SJCNo.");
+            SJC3.SetRange("Style No.", Rec."Style No.");
+            SJC3.SetRange("Lot No.", Rec."Lot No.");
+            SJC3.SetRange("Colour No", Rec."Colour No");
+            SJC3.SetRange("Resource No.", Rec."Resource No.");
+            SJC3.SetFilter("Record Type", '=%1', 'H1');
+            if SJC3.FindSet() then begin
+
+                case SizeNo of
+                    1:
+                        Evaluate(HiTotal, SJC3."1");
+                    2:
+                        Evaluate(HiTotal, SJC3."2");
+                    3:
+                        Evaluate(HiTotal, SJC3."3");
+                    4:
+                        Evaluate(HiTotal, SJC3."4");
+                    5:
+                        Evaluate(HiTotal, SJC3."5");
+                    6:
+                        Evaluate(HiTotal, SJC3."6");
+                    7:
+                        Evaluate(HiTotal, SJC3."7");
+                    8:
+                        Evaluate(HiTotal, SJC3."8");
+                    9:
+                        Evaluate(HiTotal, SJC3."9");
+                    10:
+                        Evaluate(HiTotal, SJC3."10");
+                    11:
+                        Evaluate(HiTotal, SJC3."11");
+                    12:
+                        Evaluate(HiTotal, SJC3."12");
+                    13:
+                        Evaluate(HiTotal, SJC3."13");
+                    14:
+                        Evaluate(HiTotal, SJC3."14");
+                    15:
+                        Evaluate(HiTotal, SJC3."15");
+                    16:
+                        Evaluate(HiTotal, SJC3."16");
+                    17:
+                        Evaluate(HiTotal, SJC3."17");
+                    18:
+                        Evaluate(HiTotal, SJC3."18");
+                    19:
+                        Evaluate(HiTotal, SJC3."19");
+                    20:
+                        Evaluate(HiTotal, SJC3."20");
+                    21:
+                        Evaluate(HiTotal, SJC3."21");
+                    22:
+                        Evaluate(HiTotal, SJC3."22");
+                    23:
+                        Evaluate(HiTotal, SJC3."23");
+                    24:
+                        Evaluate(HiTotal, SJC3."24");
+                    25:
+                        Evaluate(HiTotal, SJC3."25");
+                    26:
+                        Evaluate(HiTotal, SJC3."26");
+                    27:
+                        Evaluate(HiTotal, SJC3."27");
+                    28:
+                        Evaluate(HiTotal, SJC3."28");
+                    29:
+                        Evaluate(HiTotal, SJC3."29");
+                    30:
+                        Evaluate(HiTotal, SJC3."30");
+                    31:
+                        Evaluate(HiTotal, SJC3."31");
+                    32:
+                        Evaluate(HiTotal, SJC3."32");
+                    33:
+                        Evaluate(HiTotal, SJC3."33");
+                    34:
+                        Evaluate(HiTotal, SJC3."34");
+                    35:
+                        Evaluate(HiTotal, SJC3."35");
+                    36:
+                        Evaluate(HiTotal, SJC3."36");
+                    37:
+                        Evaluate(HiTotal, SJC3."37");
+                    38:
+                        Evaluate(HiTotal, SJC3."38");
+                    39:
+                        Evaluate(HiTotal, SJC3."39");
+                    40:
+                        Evaluate(HiTotal, SJC3."40");
+                    41:
+                        Evaluate(HiTotal, SJC3."41");
+                    42:
+                        Evaluate(HiTotal, SJC3."42");
+                    43:
+                        Evaluate(HiTotal, SJC3."43");
+                    44:
+                        Evaluate(HiTotal, SJC3."44");
+                    45:
+                        Evaluate(HiTotal, SJC3."45");
+                    46:
+                        Evaluate(HiTotal, SJC3."46");
+                    47:
+                        Evaluate(HiTotal, SJC3."47");
+                    48:
+                        Evaluate(HiTotal, SJC3."48");
+                    49:
+                        Evaluate(HiTotal, SJC3."49");
+                    50:
+                        Evaluate(HiTotal, SJC3."50");
+                    51:
+                        Evaluate(HiTotal, SJC3."51");
+                    52:
+                        Evaluate(HiTotal, SJC3."52");
+                    53:
+                        Evaluate(HiTotal, SJC3."53");
+                    54:
+                        Evaluate(HiTotal, SJC3."54");
+                    55:
+                        Evaluate(HiTotal, SJC3."55");
+                    56:
+                        Evaluate(HiTotal, SJC3."56");
+                    57:
+                        Evaluate(HiTotal, SJC3."57");
+                    58:
+                        Evaluate(HiTotal, SJC3."58");
+                    59:
+                        Evaluate(HiTotal, SJC3."59");
+                    60:
+                        Evaluate(HiTotal, SJC3."60");
+                    61:
+                        Evaluate(HiTotal, SJC3."61");
+                    62:
+                        Evaluate(HiTotal, SJC3."62");
+                    63:
+                        Evaluate(HiTotal, SJC3."63");
+                    64:
+                        Evaluate(HiTotal, SJC3."64");
+                end;
+
+            end;
+
+            //Get L records size total
+            SJC3.SetRange("SJCNo.", Rec."SJCNo.");
+            SJC3.SetRange("Style No.", Rec."Style No.");
+            SJC3.SetRange("Lot No.", Rec."Lot No.");
+            SJC3.SetRange("Colour No", Rec."Colour No");
+            SJC3.SetRange("Resource No.", Rec."Resource No.");
+            SJC3.SetFilter("Record Type", '=%1', 'L');
+            if SJC3.FindSet() then begin
+                repeat
+                    case SizeNo of
+                        1:
+                            Evaluate(LTotal, SJC3."1");
+                        2:
+                            Evaluate(LTotal, SJC3."2");
+                        3:
+                            Evaluate(LTotal, SJC3."3");
+                        4:
+                            Evaluate(LTotal, SJC3."4");
+                        5:
+                            Evaluate(LTotal, SJC3."5");
+                        6:
+                            Evaluate(LTotal, SJC3."6");
+                        7:
+                            Evaluate(LTotal, SJC3."7");
+                        8:
+                            Evaluate(LTotal, SJC3."8");
+                        9:
+                            Evaluate(LTotal, SJC3."9");
+                        10:
+                            Evaluate(LTotal, SJC3."10");
+                        11:
+                            Evaluate(LTotal, SJC3."11");
+                        12:
+                            Evaluate(LTotal, SJC3."12");
+                        13:
+                            Evaluate(LTotal, SJC3."13");
+                        14:
+                            Evaluate(LTotal, SJC3."14");
+                        15:
+                            Evaluate(LTotal, SJC3."15");
+                        16:
+                            Evaluate(LTotal, SJC3."16");
+                        17:
+                            Evaluate(LTotal, SJC3."17");
+                        18:
+                            Evaluate(LTotal, SJC3."18");
+                        19:
+                            Evaluate(LTotal, SJC3."19");
+                        20:
+                            Evaluate(LTotal, SJC3."20");
+                        21:
+                            Evaluate(LTotal, SJC3."21");
+                        22:
+                            Evaluate(LTotal, SJC3."22");
+                        23:
+                            Evaluate(LTotal, SJC3."23");
+                        24:
+                            Evaluate(LTotal, SJC3."24");
+                        25:
+                            Evaluate(LTotal, SJC3."25");
+                        26:
+                            Evaluate(LTotal, SJC3."26");
+                        27:
+                            Evaluate(LTotal, SJC3."27");
+                        28:
+                            Evaluate(LTotal, SJC3."28");
+                        29:
+                            Evaluate(LTotal, SJC3."29");
+                        30:
+                            Evaluate(LTotal, SJC3."30");
+                        31:
+                            Evaluate(LTotal, SJC3."31");
+                        32:
+                            Evaluate(LTotal, SJC3."32");
+                        33:
+                            Evaluate(LTotal, SJC3."33");
+                        34:
+                            Evaluate(LTotal, SJC3."34");
+                        35:
+                            Evaluate(LTotal, SJC3."35");
+                        36:
+                            Evaluate(LTotal, SJC3."36");
+                        37:
+                            Evaluate(LTotal, SJC3."37");
+                        38:
+                            Evaluate(LTotal, SJC3."38");
+                        39:
+                            Evaluate(LTotal, SJC3."39");
+                        40:
+                            Evaluate(LTotal, SJC3."40");
+                        41:
+                            Evaluate(LTotal, SJC3."41");
+                        42:
+                            Evaluate(LTotal, SJC3."42");
+                        43:
+                            Evaluate(LTotal, SJC3."43");
+                        44:
+                            Evaluate(LTotal, SJC3."44");
+                        45:
+                            Evaluate(LTotal, SJC3."45");
+                        46:
+                            Evaluate(LTotal, SJC3."46");
+                        47:
+                            Evaluate(LTotal, SJC3."47");
+                        48:
+                            Evaluate(LTotal, SJC3."48");
+                        49:
+                            Evaluate(LTotal, SJC3."49");
+                        50:
+                            Evaluate(LTotal, SJC3."50");
+                        51:
+                            Evaluate(LTotal, SJC3."51");
+                        52:
+                            Evaluate(LTotal, SJC3."52");
+                        53:
+                            Evaluate(LTotal, SJC3."53");
+                        54:
+                            Evaluate(LTotal, SJC3."54");
+                        55:
+                            Evaluate(LTotal, SJC3."55");
+                        56:
+                            Evaluate(LTotal, SJC3."56");
+                        57:
+                            Evaluate(LTotal, SJC3."57");
+                        58:
+                            Evaluate(LTotal, SJC3."58");
+                        59:
+                            Evaluate(LTotal, SJC3."59");
+                        60:
+                            Evaluate(LTotal, SJC3."60");
+                        61:
+                            Evaluate(LTotal, SJC3."61");
+                        62:
+                            Evaluate(LTotal, SJC3."62");
+                        63:
+                            Evaluate(LTotal, SJC3."63");
+                        64:
+                            Evaluate(LTotal, SJC3."64");
+                    end;
+
+                    LSUMTotal += LTotal;
+                until SJC3.Next() = 0;
+            end;
+
+            if LSUMTotal > HiTotal then
+                Error('Total of size quantity : %1 is greter than header total : %2', LSUMTotal, HiTotal);
+
+
             for Count := 1 To 64 do begin
                 case Count of
                     1:
