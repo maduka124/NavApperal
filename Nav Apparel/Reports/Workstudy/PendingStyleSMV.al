@@ -115,7 +115,6 @@ report 50640 PendingStyleSMV
         FactoryCode: Code[20];
         UserReC: Record "User Setup";
         vis1: Boolean;
-        vis2: Boolean;
         ABC: Text[20];
 
 }

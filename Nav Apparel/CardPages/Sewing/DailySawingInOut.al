@@ -50,19 +50,29 @@ page 50355 "Daily Sewing In/Out Card"
                     Caption = 'Section';
                     ShowMandatory = true;
 
-                    trigger OnValidate()
+                    trigger OnLookup(var texts: text): Boolean
                     var
-                        WorkCenterRec: Record "Work Center";//not filterd to curent user factory
+                        UserSetupRec: Record "User Setup";
+                        WorkCentrRec: Record "Work Center";
                     begin
-                        WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, rec."Resource Name");
+                        UserSetupRec.Get(UserId);
+                        WorkCentrRec.Reset();
+                        WorkCentrRec.SetRange("Factory No.", UserSetupRec."Factory Code");
+                        if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
+                            Rec."Resource Name" := WorkCentrRec.Name;
+                            Rec."Resource No." := WorkCentrRec."No.";
+                        end;
+                        
+//Mihiranga 2022/12/14
 
-                        if WorkCenterRec.FindSet() then
-                            rec."Resource No." := WorkCenterRec."No.";
 
-                        CurrPage.Update();
                     end;
+
+
+
                 }
+
+
             }
 
             group("Input Style Detail")
@@ -784,5 +794,8 @@ page 50355 "Daily Sewing In/Out Card"
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'IN', 'Saw', rec.Type::Saw);
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'OUT', 'Saw', rec.Type::Saw);
     end;
+
+    var
+        UserSetupRec: Record "User Setup";
 
 }
