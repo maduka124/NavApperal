@@ -1,8 +1,7 @@
 page 50794 "ContractBBLC Summary ListPart2"
 {
     PageType = ListPart;
-    SourceTable = "Purchase Header";
-    SourceTableView = sorting("Buy-from Vendor No.") where("Assigned PI No." = filter(''));
+    SourceTable = AwaitingPOs;
     DeleteAllowed = false;
     InsertAllowed = false;
 
@@ -18,10 +17,9 @@ page 50794 "ContractBBLC Summary ListPart2"
                     Caption = 'Supplier';
                 }
 
-                field("No."; Rec."No.")
+                field("PO No"; Rec."PO No")
                 {
                     ApplicationArea = All;
-                    Caption = 'PO No';
                 }
 
                 field("Amount Including VAT"; Rec."Amount Including VAT")
