@@ -281,39 +281,42 @@ page 50635 "Roll Issuing Note Card"
         FabricProceHeaderRec.SetRange(GRN, rec."GRN No");
         FabricProceHeaderRec.SetRange("Color No", rec."Colour No");
         FabricProceHeaderRec.SetRange("Item No", rec."Item No");
-        FabricProceHeaderRec.FindSet();
+        if FabricProceHeaderRec.FindSet() then begin
 
-        FabricProceLineRec.Reset();
-        FabricProceLineRec.SetRange("FabricProceNo.", FabricProceHeaderRec."FabricProceNo.");
+            FabricProceLineRec.Reset();
+            FabricProceLineRec.SetRange("FabricProceNo.", FabricProceHeaderRec."FabricProceNo.");
 
-        if FabricProceLineRec.FindSet() then begin
+            if FabricProceLineRec.FindSet() then begin
 
-            repeat
+                repeat
 
-                Lineno += 1;
-                RoleIssuLineRec.Init();
-                RoleIssuLineRec."RoleIssuNo." := rec."RoleIssuNo.";
-                RoleIssuLineRec."Line No." := Lineno;
-                RoleIssuLineRec."Location No" := rec."Location Code";
-                RoleIssuLineRec."Location Name" := rec."Location Name";
-                RoleIssuLineRec."Item No" := rec."Item No";
-                RoleIssuLineRec."Length Act" := FabricProceLineRec."Act. Legth";
-                RoleIssuLineRec."Length Tag" := FabricProceLineRec.YDS;
-                RoleIssuLineRec."Length Allocated" := FabricProceLineRec."Act. Legth";
-                RoleIssuLineRec."Width Act" := FabricProceLineRec."Act. Width";
-                RoleIssuLineRec."Width Tag" := FabricProceLineRec.Width;
-                RoleIssuLineRec."Role ID" := FabricProceLineRec."Roll No";
-                RoleIssuLineRec."Shade No" := FabricProceLineRec."Shade No";
-                RoleIssuLineRec.Shade := FabricProceLineRec.Shade;
-                RoleIssuLineRec."PTTN GRP" := FabricProceLineRec."PTTN GRP";
-                //RoleIssuLineRec.InvoiceNo := FabricProceLineRec.InvoiceNo;
-                //RoleIssuLineRec."Supplier Batch No." := FabricProceLineRec.;
-                //RoleIssuLineRec. := FabricProceLineRec.Qty;
-                RoleIssuLineRec.Insert();
+                    Lineno += 1;
+                    RoleIssuLineRec.Init();
+                    RoleIssuLineRec."RoleIssuNo." := rec."RoleIssuNo.";
+                    RoleIssuLineRec."Line No." := Lineno;
+                    RoleIssuLineRec."Location No" := rec."Location Code";
+                    RoleIssuLineRec."Location Name" := rec."Location Name";
+                    RoleIssuLineRec."Item No" := rec."Item No";
+                    RoleIssuLineRec."Length Act" := FabricProceLineRec."Act. Legth";
+                    RoleIssuLineRec."Length Tag" := FabricProceLineRec.YDS;
+                    RoleIssuLineRec."Length Allocated" := FabricProceLineRec."Act. Legth";
+                    RoleIssuLineRec."Width Act" := FabricProceLineRec."Act. Width";
+                    RoleIssuLineRec."Width Tag" := FabricProceLineRec.Width;
+                    RoleIssuLineRec."Role ID" := FabricProceLineRec."Roll No";
+                    RoleIssuLineRec."Shade No" := FabricProceLineRec."Shade No";
+                    RoleIssuLineRec.Shade := FabricProceLineRec.Shade;
+                    RoleIssuLineRec."PTTN GRP" := FabricProceLineRec."PTTN GRP";
+                    //RoleIssuLineRec.InvoiceNo := FabricProceLineRec.InvoiceNo;
+                    //RoleIssuLineRec."Supplier Batch No." := FabricProceLineRec.;
+                    //RoleIssuLineRec. := FabricProceLineRec.Qty;
+                    RoleIssuLineRec.Insert();
 
-            until FabricProceLineRec.Next() = 0;
+                until FabricProceLineRec.Next() = 0;
 
-        end;
+            end;
+        end
+        else
+            Error('Cannot find Fabric Processing details.');
 
     end;
 }

@@ -107,6 +107,7 @@ page 50986 "BOM Estimate Cost Card"
                             Error('Costing SMV is zero')
                         else begin
                             rec.SMV := StyleRec.CostingSMV;
+                            rec.Type := StyleRec.Type;
 
                             //Get Project efficiency                          
                             CostPlanParaLineRec.Reset();
@@ -248,6 +249,12 @@ page 50986 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Currency';
+                    Editable = false;
+                }
+
+                field(Type; rec.Type)
+                {
+                    ApplicationArea = All;
                     Editable = false;
                 }
             }
