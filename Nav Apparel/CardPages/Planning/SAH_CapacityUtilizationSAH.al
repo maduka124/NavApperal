@@ -517,6 +517,18 @@ page 50855 CapacityUtilizationSAH
                                 WorkCenterRec.SetRange("Factory No.", LocationsRec.Code);
                                 if WorkCenterRec.FindSet() then begin
                                     repeat
+                                        Total1 := 0;
+                                        Total2 := 0;
+                                        Total3 := 0;
+                                        Total4 := 0;
+                                        Total5 := 0;
+                                        Total6 := 0;
+                                        Total7 := 0;
+                                        Total8 := 0;
+                                        Total9 := 0;
+                                        Total10 := 0;
+                                        Total11 := 0;
+                                        Total12 := 0;
                                         Carders := WorkCenterRec.Carder;
 
                                         //No of days for a month
