@@ -51,6 +51,45 @@ page 51025 "BOM Estimate Line List part"
                     ApplicationArea = All;
                     Caption = 'Item';
 
+                    trigger OnLookup(var texts: text): Boolean
+                    var
+                        BOMHeaderRec: record "BOM";
+                        ItemRec: Record "Item";
+                        VendorRec: Record Vendor;
+                    begin
+                        ItemRec.Reset();
+                        ItemRec.SetRange("Main Category No.", Rec."Main Category No.");
+                        ItemRec.SetFilter("EstimateBOM Item", '=%1', true);
+                        ItemRec.FindSet();
+                        if Page.RunModal(51161, ItemRec) = Action::LookupOK then begin
+                            Rec."Item Name" := ItemRec.Description;
+                            Rec."Item No." := ItemRec."No.";
+                        end;
+
+                        ItemRec.Reset();
+                        ItemRec.SetRange(Description, rec."Item Name");
+                        ItemRec.FindSet();
+
+                        if ItemRec."Vendor No." <> '' then begin
+
+                            rec."Supplier No." := ItemRec."Vendor No.";
+                            VendorRec.Reset();
+                            VendorRec.SetRange("No.", ItemRec."Vendor No.");
+
+                            if VendorRec.FindSet() then
+                                rec."Supplier Name." := VendorRec.Name;
+
+                        end;
+
+                        //Get Qty from Header 
+                        BOMHeaderRec.get(rec."No.");
+                        rec.Qty := BOMHeaderRec.Quantity;
+                        CurrPage.Update();
+
+                    end;
+
+
+
                     trigger OnValidate()
                     var
                         ItemRec: Record "Item";

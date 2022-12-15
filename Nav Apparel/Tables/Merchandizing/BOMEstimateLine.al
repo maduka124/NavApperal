@@ -20,8 +20,8 @@ table 50893 "BOM Estimate Line"
         field(71012583; "Item Name"; Text[200])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Item.Description where("Main Category No." = field("Main Category No."), "EstimateBOM Item" = const(true));
-            ValidateTableRelation = false;
+            // TableRelation = Item.Description where("Main Category No." = field("Main Category No."), "EstimateBOM Item" = const(true));
+            // ValidateTableRelation = false;
         }
 
         field(71012584; "Main Category No."; Code[20])
