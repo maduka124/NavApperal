@@ -562,6 +562,13 @@ table 50889 "BOM Estimate Cost"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012677; Type; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = Costing,Sample,Online;
+            OptionCaption = 'Costing,Sample,Online';
+        }
     }
 
     keys

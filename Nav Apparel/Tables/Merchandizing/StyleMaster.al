@@ -303,8 +303,8 @@ table 50934 "Style Master"
         field(71012634; Type; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Costing,Sample;
-            OptionCaption = 'Costing,Sample';
+            OptionMembers = Costing,Sample,Online;
+            OptionCaption = 'Costing,Sample,Online';
         }
 
         field(71012635; "Production File Handover Date"; Date)

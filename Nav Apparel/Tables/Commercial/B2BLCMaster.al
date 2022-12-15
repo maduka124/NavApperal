@@ -34,7 +34,7 @@ table 50520 "B2BLCMaster"
             ValidateTableRelation = false;
         }
 
-        field(6; "LC/Contract No."; Code[20])
+        field(6; "LC/Contract No."; Text[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No."), "Status of LC" = filter(Active));

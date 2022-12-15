@@ -308,12 +308,12 @@ page 50502 "Contract/LC Card"
                 }
             }
 
-            group("   ")
+            group("Contract Commision")
             {
                 part("Contract Commision ListPart"; "Contract Commision ListPart")
                 {
                     ApplicationArea = All;
-                    Caption = 'Contract Commision';
+                    Caption = ' ';
                     SubPageLink = "No." = FIELD("No.");
                 }
             }

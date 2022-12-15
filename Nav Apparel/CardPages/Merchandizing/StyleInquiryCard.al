@@ -286,6 +286,33 @@ page 50602 "Style Inquiry Card"
                 field(Type; rec.Type)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec.Type = rec.Type::Online then begin
+                            EditableGB := true;
+                            rec.SMV := 0;
+                            rec.CostingSMV := 0;
+                        end
+                        else begin
+                            EditableGB := false;
+                            rec.SMV := 0;
+                            rec.CostingSMV := 0;
+                        end;
+                    end;
+                }
+
+                field(SMV; rec.SMV)
+                {
+                    ApplicationArea = All;
+                    Editable = EditableGB;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        rec.CostingSMV := rec.SMV;
+                    end;
                 }
 
                 field("Production File Handover Date"; rec."Production File Handover Date")
@@ -512,5 +539,9 @@ page 50602 "Style Inquiry Card"
             rec.TestField("Ship Date");
         end;
     end;
+
+
+    var
+        EditableGB: Boolean;
 
 }

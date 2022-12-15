@@ -99,6 +99,8 @@ report 50613 EstimateCostSheetReport
             { }
             column(Status; Status)
             { }
+            column(Type; Type)
+            { }
 
             dataitem("BOM Estimate Costing Line"; "BOM Estimate Costing Line")
             {
