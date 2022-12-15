@@ -34,7 +34,6 @@ page 50361 "Daily Printing In/Out Card"
                         WorkCenterRec: Record "Work Center";
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
-
                     begin
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");
@@ -59,7 +58,6 @@ page 50361 "Daily Printing In/Out Card"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
-
 
                         CurrPage.Update();
                     end;
