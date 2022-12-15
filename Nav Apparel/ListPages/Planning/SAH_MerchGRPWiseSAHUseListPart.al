@@ -46,6 +46,11 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
                     ApplicationArea = All;
                 }
 
+                field("Group Id"; rec."Group Id")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Allocated Lines"; rec."Allocated Lines")
                 {
                     ApplicationArea = All;

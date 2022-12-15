@@ -181,7 +181,6 @@ page 50835 PreProductionfollowup
     var
         PreProductionFollowUplineRec: Record PreProductionFollowUpline;
     begin
-
         PreProductionFollowUplineRec.Reset();
         PreProductionFollowUplineRec.SetRange("Line No", Rec."No.");
 

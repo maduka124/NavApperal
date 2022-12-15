@@ -65,7 +65,6 @@ page 50839 "PreProductionfollowupList"
     var
         PreProductionFollowUplineRec: Record PreProductionFollowUpline;
     begin
-
         PreProductionFollowUplineRec.Reset();
         PreProductionFollowUplineRec.SetRange("Line No", Rec."No.");
 

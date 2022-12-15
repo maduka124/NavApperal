@@ -70,13 +70,11 @@ page 50861 FacWiseProductplaningHdrList
     var
         FacWiseProdPlanLineRec: Record FacWiseProductplaningLineTable;
     begin
-
         FacWiseProdPlanLineRec.Reset();
         FacWiseProdPlanLineRec.SetRange("No.", Rec.No);
 
         if FacWiseProdPlanLineRec.FindSet() then
             FacWiseProdPlanLineRec.DeleteAll();
-
     end;
 }
 

@@ -19,6 +19,11 @@ page 50873 SAH_MerchGRPWiseAlloListPart
                     ApplicationArea = All;
                 }
 
+                field("Group Id"; rec."Group Id")
+                {
+                    ApplicationArea = All;
+                }
+
                 field(JAN; rec.JAN)
                 {
                     ApplicationArea = All;
