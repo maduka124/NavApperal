@@ -58,6 +58,7 @@ page 50355 "Daily Sewing In/Out Card"
                         //Mihiranga 2022/12/14
                         UserSetupRec.Get(UserId);
                         WorkCentrRec.Reset();
+                        WorkCentrRec.SetFilter(WorkCentrRec."Planning Line", '=%1', true);
                         WorkCentrRec.SetRange("Factory No.", UserSetupRec."Factory Code");
                         WorkCentrRec.FindSet();
 
