@@ -64,6 +64,7 @@ page 50364 "Daily Finishing Out Card"
                     // end;
 
 
+                    //Mihiranga 2022/12/15
                     trigger OnLookup(var texts: text): Boolean
                     var
                         UserSetupRec: Record "User Setup";
@@ -71,12 +72,10 @@ page 50364 "Daily Finishing Out Card"
                         LoginRec: Page "Login Card";
                         LoginSessionsRec: Record LoginSessions;
                     begin
-
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-                        //Mihiranga 2022/12/15
+
                         UserSetupRec.Get(UserId);
                         WorkCentrRec.Reset();
                         WorkCentrRec.SetFilter(WorkCentrRec."Planning Line", '=%1', true);
