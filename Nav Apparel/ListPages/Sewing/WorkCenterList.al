@@ -20,6 +20,7 @@ page 51159 WorkCentersList
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = all;
+                    Caption = 'Work Center Name';
                 }
             }
         }
