@@ -29,23 +29,62 @@ page 50351 "Daily Cutting Out Card"
                     Caption = 'Section';
                     ShowMandatory = true;
 
-                    trigger OnValidate()
+                    // trigger OnValidate()
+                    // var
+                    //     WorkCenterRec: Record "Work Center";
+                    //     LoginSessionsRec: Record LoginSessions;
+                    //     LoginRec: Page "Login Card";
+                    // begin
+                    //     WorkCenterRec.Reset();
+                    //     WorkCenterRec.SetRange(Name, rec."Resource Name");
+
+                    //     if WorkCenterRec.FindSet() then
+                    //         rec."Resource No." := WorkCenterRec."No.";
+
+
+                    //     //Check whether user logged in or not
+                    //     LoginSessionsRec.Reset();
+                    //     LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    //     if not LoginSessionsRec.FindSet() then begin  //not logged in
+                    //         Clear(LoginRec);
+                    //         LoginRec.LookupMode(true);
+                    //         LoginRec.RunModal();
+
+                    //         LoginSessionsRec.Reset();
+                    //         LoginSessionsRec.SetRange(SessionID, SessionId());
+                    //         if LoginSessionsRec.FindSet() then
+                    //             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    //     end
+                    //     else begin   //logged in
+                    //         rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    //     end;
+
+                    //     CurrPage.Update();
+                    // end;
+
+                    //Mihiranga 2022/12/15
+                    trigger OnLookup(var texts: text): Boolean
                     var
-                        WorkCenterRec: Record "Work Center";
-                        LoginSessionsRec: Record LoginSessions;
+                        UserSetupRec: Record "User Setup";
+                        WorkCentrRec: Record "Work Center";
                         LoginRec: Page "Login Card";
+                        LoginSessionsRec: Record LoginSessions;
                     begin
-                        WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, rec."Resource Name");
-
-                        if WorkCenterRec.FindSet() then
-                            rec."Resource No." := WorkCenterRec."No.";
-
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
 
+                        UserSetupRec.Get(UserId);
+                        WorkCentrRec.Reset();
+                        WorkCentrRec.SetFilter(WorkCentrRec."Planning Line", '=%1', true);
+                        WorkCentrRec.SetRange("Factory No.", UserSetupRec."Factory Code");
+                        WorkCentrRec.FindSet();
+
+                        if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
+                            Rec."Resource No." := WorkCentrRec."No.";
+                            rec."Resource Name" := WorkCentrRec.Name;
+                        end;
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -60,8 +99,24 @@ page 50351 "Daily Cutting Out Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
+
                         CurrPage.Update();
                     end;
+
+                    trigger OnValidate()
+                    var
+                        WorkCenterRec: Record "Work Center";
+
+                    begin
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, rec."Resource Name");
+
+                        if WorkCenterRec.FindSet() then
+                            rec."Resource No." := WorkCenterRec."No."
+                        else
+                            Error('Invalid Work Station');
+                    end;
+
                 }
 
                 field("Style Name"; rec."Style Name")
