@@ -81,13 +81,16 @@ page 50427 "Sample Request Header ListPart"
             {
                 ApplicationArea = All;
                 Image = GetOrder;
-                Scope = Repeater;
-                Promoted = true;
+                // Scope = Repeater;
+                // Promoted = true;
 
                 trigger OnAction()
                 var
                     WIP: Record wip;
                 begin
+                    if rec."No." = '' then
+                        Error('Select a record.');
+
                     wip.Reset();
                     wip.FindSet();
                     wip.ModifyAll("Req No.", rec."No.");

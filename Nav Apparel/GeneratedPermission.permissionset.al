@@ -965,5 +965,9 @@ permissionset 50100 GeneratedPermission
         query StyleMaster_StyleMasterPO_Q=X,
         tabledata LoginSessions=RIMD,
         table LoginSessions=X,
-        report DetailGRNReport=X;
+        report DetailGRNReport=X,
+        tabledata AwaitingPOs=RIMD,
+        table AwaitingPOs=X,
+        page ItemList=X,
+        page WorkCentersList=X;
 }

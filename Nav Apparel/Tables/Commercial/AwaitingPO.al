@@ -34,7 +34,7 @@ table 51160 AwaitingPOs
             DataClassification = ToBeClassified;
         }
 
-        field(7; "Buy-from Vendor Name"; Text[100])
+        field(7; "Buy-from Vendor Name"; Text[200])
         {
             DataClassification = ToBeClassified;
         }

@@ -75,7 +75,7 @@ page 50522 "B2B LC Card"
                     end;
                 }
 
-                field("LC/Contract No."; rec."LC/Contract No.")
+                field(LCContractNo; rec.LCContractNo)
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -86,6 +86,8 @@ page 50522 "B2B LC Card"
                         PIDetMasterRec: Record "PI Details Header";
                         B2BRec: Record B2BLCMaster;
                     begin
+
+                        rec."LC/Contract No." := rec.LCContractNo;
 
                         if rec.Beneficiary = '' then
                             Error('Select Beneficiary.');
@@ -102,7 +104,7 @@ page 50522 "B2B LC Card"
                         end;
 
                         ContLCMasRec.Reset();
-                        ContLCMasRec.SetRange("Contract No", rec."LC/Contract No.");
+                        ContLCMasRec.SetRange("Contract No", rec.LCContractNo);
                         if ContLCMasRec.FindSet() then begin
                             rec."LC Value" := ContLCMasRec."Contract Value";
                             rec."B2B LC Limit" := (ContLCMasRec."Contract Value" * ContLCMasRec.BBLC) / 100;
@@ -123,6 +125,14 @@ page 50522 "B2B LC Card"
                         rec.Balance := rec."B2B LC Limit" - rec."B2B LC Opened (Value)";
 
                     end;
+                }
+
+
+                field("LC/Contract No."; rec."LC/Contract No.")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                    Visible = false;
                 }
 
                 field("B2B LC No"; rec."B2B LC No")
@@ -462,4 +472,6 @@ page 50522 "B2B LC Card"
             // CurrPage.Update();
         end;
     end;
+
+
 }

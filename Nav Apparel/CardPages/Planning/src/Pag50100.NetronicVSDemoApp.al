@@ -2971,14 +2971,16 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             //Delete Planning line
                             PlanningLinesRec.Reset();
                             PlanningLinesRec.SetRange("Line No.", LineNo);
-                            PlanningLinesRec.Delete();
+                            if PlanningLinesRec.FindSet() then
+                                PlanningLinesRec.Delete();
 
                             //Delete remaining line from the Prod Plan Det table
                             ProdPlanDetRec.Reset();
                             ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
                             ProdPlanDetRec.SetRange("Line No.", LineNo);
                             ProdPlanDetRec.SetRange(ProdUpd, 0);
-                            ProdPlanDetRec.DeleteAll();
+                            if ProdPlanDetRec.FindSet() then
+                                ProdPlanDetRec.DeleteAll();
 
                         end;
 
@@ -3129,6 +3131,13 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         Clear(PlanHistoryListPage);
                         PlanHistoryListPage.LookupMode(true);
                         PlanHistoryListPage.RunModal();
+                        LoadData();
+                        SetconVSControlAddInSettings();
+
+                        // if PlanHistoryListPage.RunModal() = Action::LookupOK then begin
+                        //     LoadData();
+                        //     SetconVSControlAddInSettings();
+                        // end;
                     end;
                 }
 

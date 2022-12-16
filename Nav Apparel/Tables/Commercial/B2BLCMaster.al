@@ -34,7 +34,7 @@ table 50520 "B2BLCMaster"
             ValidateTableRelation = false;
         }
 
-        field(6; "LC/Contract No."; Text[20])
+        field(6; "LC/Contract No."; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No."), "Status of LC" = filter(Active));
@@ -224,6 +224,13 @@ table 50520 "B2BLCMaster"
         field(38; "Secondary UserID"; Code[20])
         {
             DataClassification = ToBeClassified;
+        }
+
+        field(39; LCContractNo; Text[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No."), "Status of LC" = filter(Active));
+            ValidateTableRelation = false;
         }
 
     }

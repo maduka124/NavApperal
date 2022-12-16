@@ -214,9 +214,9 @@ page 50466 "New Breakdown Op Listpart2"
                 Caption = 'Move Up';
                 ApplicationArea = All;
                 Image = MoveUp;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
+                // Promoted = true;
+                // PromotedCategory = Process;
+                // PromotedIsBig = true;
                 ToolTip = 'Move current line up.';
 
                 trigger OnAction()
@@ -231,9 +231,9 @@ page 50466 "New Breakdown Op Listpart2"
                 Caption = 'Move Down';
                 ApplicationArea = All;
                 Image = MoveDown;
-                Promoted = true;
-                PromotedCategory = Process;
-                PromotedIsBig = true;
+                // Promoted = true;
+                // PromotedCategory = Process;
+                // PromotedIsBig = true;
                 ToolTip = 'Move current line down.';
 
                 trigger OnAction()
@@ -246,7 +246,6 @@ page 50466 "New Breakdown Op Listpart2"
 
     trigger OnAfterGetRecord()
     var
-
     begin
         StyleExprTxt := ChangeColor.ChangeColor(Rec);
     end;
