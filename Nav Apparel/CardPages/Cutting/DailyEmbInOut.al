@@ -105,6 +105,20 @@ page 50360 "Daily Embroidary In/Out Card"
 
                         CurrPage.Update();
                     end;
+
+                    trigger OnValidate()
+                    var
+                        WorkCenterRec: Record "Work Center";
+
+                    begin
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, rec."Resource Name");
+
+                        if WorkCenterRec.FindSet() then
+                            rec."Resource No." := WorkCenterRec."No."
+                        else
+                            Error('Invalid Section');
+                    end;
                 }
 
                 field("Style Name"; rec."Style Name")
