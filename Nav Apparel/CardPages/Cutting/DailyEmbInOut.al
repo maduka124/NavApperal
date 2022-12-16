@@ -117,7 +117,7 @@ page 50360 "Daily Embroidary In/Out Card"
                         if WorkCenterRec.FindSet() then
                             rec."Resource No." := WorkCenterRec."No."
                         else
-                            Error('Invalid Work Station');
+                            Error('Invalid Section');
                     end;
                 }
 

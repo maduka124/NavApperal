@@ -114,7 +114,7 @@ page 50351 "Daily Cutting Out Card"
                         if WorkCenterRec.FindSet() then
                             rec."Resource No." := WorkCenterRec."No."
                         else
-                            Error('Invalid Work Station');
+                            Error('Invalid Section');
                     end;
 
                 }
