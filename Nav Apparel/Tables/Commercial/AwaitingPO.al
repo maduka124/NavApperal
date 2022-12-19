@@ -16,7 +16,9 @@ table 51160 AwaitingPOs
 
         field(3; "Amount Including VAT"; Decimal)
         {
-            DataClassification = ToBeClassified;
+            AutoFormatType = 1;
+            CalcFormula = Sum("Purchase Line"."Amount Including VAT" WHERE("Document No." = FIELD("PO No")));
+            FieldClass = FlowField;
         }
 
         field(4; "Document Date"; Date)
