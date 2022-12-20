@@ -127,23 +127,23 @@ page 50607 "Style Master Card"
                 // }
             }
 
-            group(" ")
+            group("Special Operations")
             {
                 part("SpecialOperationStyle Listpart"; "SpecialOperationStyle Listpart")
                 {
                     ApplicationArea = All;
-                    Caption = 'Special Operations';
+                    Caption = ' ';
                     SubPageLink = "Style No." = FIELD("No.");
                     Editable = false;
                 }
             }
 
-            group("")
+            group("Order Details")
             {
                 part("Style Master PO ListPart"; "Style Master PO ListPart")
                 {
                     ApplicationArea = All;
-                    Caption = 'Order Details';
+                    Caption = ' ';
                     SubPageLink = "Style No." = FIELD("No.");
                 }
             }

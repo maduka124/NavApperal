@@ -72,15 +72,17 @@ page 50364 "Daily Finishing Out Card"
                         LoginRec: Page "Login Card";
                         LoginSessionsRec: Record LoginSessions;
                     begin
-                        //Check whether user logged in or not
-                        LoginSessionsRec.Reset();
-                        LoginSessionsRec.SetRange(SessionID, SessionId());
 
                         UserSetupRec.Get(UserId);
                         WorkCentrRec.Reset();
                         WorkCentrRec.SetFilter(WorkCentrRec."Planning Line", '=%1', true);
                         WorkCentrRec.SetRange("Factory No.", UserSetupRec."Factory Code");
                         WorkCentrRec.FindSet();
+
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
 
                         if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
                             Rec."Resource No." := WorkCentrRec."No.";
@@ -100,14 +102,13 @@ page 50364 "Daily Finishing Out Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
-
                         CurrPage.Update();
                     end;
+
 
                     trigger OnValidate()
                     var
                         WorkCenterRec: Record "Work Center";
-
                     begin
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");

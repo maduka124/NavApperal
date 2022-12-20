@@ -68,10 +68,10 @@ page 50355 "Daily Sewing In/Out Card"
                         end;
                     end;
 
-                              trigger OnValidate()
+
+                    trigger OnValidate()
                     var
                         WorkCenterRec: Record "Work Center";
-
                     begin
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");

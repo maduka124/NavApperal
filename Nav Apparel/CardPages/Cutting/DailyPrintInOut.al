@@ -70,9 +70,6 @@ page 50361 "Daily Printing In/Out Card"
                         LoginRec: Page "Login Card";
                         LoginSessionsRec: Record LoginSessions;
                     begin
-                        //Check whether user logged in or not
-                        LoginSessionsRec.Reset();
-                        LoginSessionsRec.SetRange(SessionID, SessionId());
 
                         UserSetupRec.Get(UserId);
                         WorkCentrRec.Reset();
@@ -84,6 +81,12 @@ page 50361 "Daily Printing In/Out Card"
                             Rec."Resource No." := WorkCentrRec."No.";
                             rec."Resource Name" := WorkCentrRec.Name;
                         end;
+
+
+                        //Check whether user logged in or not
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
                         if not LoginSessionsRec.FindSet() then begin  //not logged in
                             Clear(LoginRec);
                             LoginRec.LookupMode(true);
@@ -102,10 +105,10 @@ page 50361 "Daily Printing In/Out Card"
                         CurrPage.Update();
                     end;
 
+
                     trigger OnValidate()
                     var
                         WorkCenterRec: Record "Work Center";
-
                     begin
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");

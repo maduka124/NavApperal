@@ -2,7 +2,7 @@ page 51159 WorkCentersList
 {
     PageType = List;
     SourceTable = "Work Center";
-    Caption = 'Work Centers';
+    Caption = 'Sections';
     InsertAllowed = false;
     ModifyAllowed = false;
     DeleteAllowed = false;
@@ -16,11 +16,12 @@ page 51159 WorkCentersList
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = all;
+                    Caption = 'Section No';
                 }
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = all;
-                    Caption = 'Work Center Name';
+                    Caption = 'Section Name';
                 }
             }
         }

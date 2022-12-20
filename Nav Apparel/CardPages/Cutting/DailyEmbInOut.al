@@ -106,10 +106,10 @@ page 50360 "Daily Embroidary In/Out Card"
                         CurrPage.Update();
                     end;
 
+
                     trigger OnValidate()
                     var
                         WorkCenterRec: Record "Work Center";
-
                     begin
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");
