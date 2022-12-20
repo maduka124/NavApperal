@@ -145,7 +145,7 @@ page 50791 "ContractBBLCSummaryCard"
                         end;
 
                         PurchaseHeadeaerRec.Reset();
-                        PurchaseHeadeaerRec.SetRange("No.", AwaitingPOsRec."PO No");
+                        PurchaseHeadeaerRec.SetRange("No.", PurchaselineRec."Document No.");
                         PurchaseHeadeaerRec.SetFilter("Assigned PI No.", '%1', '');
 
                         if PurchaseHeadeaerRec.FindSet() then begin
