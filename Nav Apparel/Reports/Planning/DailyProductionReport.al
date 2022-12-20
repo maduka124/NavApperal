@@ -13,7 +13,7 @@ report 50865 DailyProductionReport
             DataItemTableView = sorting("No.");
             column(ResourceName; ResourceName)
             { }
-            column(PO_No_; "PO No.")
+            column(PO_No_; PoNo)
             { }
             column(BuyerName; BuyerName)
             { }
@@ -89,7 +89,8 @@ report 50865 DailyProductionReport
             trigger OnPreDataItem()
 
             begin
-                SetRange(PlanDate, FilterDate);
+                // SetRange(PlanDate, FilterDate);
+                // SetRange("Factory No.", FactortFilter);
             end;
 
             trigger OnAfterGetRecord()
@@ -133,6 +134,7 @@ report 50865 DailyProductionReport
                 StylePoRec.SetRange("PO No.", "PO No.");
                 if StylePoRec.FindFirst() then begin
                     // TotalOuput := StylePoRec."Sawing Out Qty";
+                    PoNo := StylePoRec."PO No.";
                     ShipDate := StylePoRec."Ship Date";
                     OrderQy := StylePoRec.Qty;
                 end;
@@ -183,6 +185,13 @@ report 50865 DailyProductionReport
                         Caption = 'Production Date';
 
                     }
+                    field(FactortFilter; FactortFilter)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Factory';
+                        TableRelation = Location.Code;
+
+                    }
                 }
             }
         }
@@ -203,6 +212,8 @@ report 50865 DailyProductionReport
 
 
     var
+        PoNo: Code[20];
+        FactortFilter: Code[20];
         FilterDate: Date;
         ActualPlanDT: Date;
         variance: Decimal;
