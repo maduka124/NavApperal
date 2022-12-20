@@ -7766,9 +7766,6 @@ End Function
         <Field Name="ResourceName">
           <DataField>ResourceName</DataField>
         </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
         <Field Name="BuyerName">
           <DataField>BuyerName</DataField>
         </Field>
@@ -7796,14 +7793,8 @@ End Function
         <Field Name="TodayTargetFormat">
           <DataField>TodayTargetFormat</DataField>
         </Field>
-        <Field Name="OrderQy">
-          <DataField>OrderQy</DataField>
-        </Field>
         <Field Name="PlanQty">
           <DataField>PlanQty</DataField>
-        </Field>
-        <Field Name="ShipDate">
-          <DataField>ShipDate</DataField>
         </Field>
         <Field Name="PlanDt">
           <DataField>PlanDt</DataField>
@@ -7882,6 +7873,15 @@ End Function
         </Field>
         <Field Name="HoursPerDayFormat">
           <DataField>HoursPerDayFormat</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+        <Field Name="ShipDate">
+          <DataField>ShipDate</DataField>
+        </Field>
+        <Field Name="OrderQy">
+          <DataField>OrderQy</DataField>
         </Field>
       </Fields>
       <Query>

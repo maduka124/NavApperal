@@ -13,8 +13,8 @@ report 50865 DailyProductionReport
             DataItemTableView = sorting("No.");
             column(ResourceName; ResourceName)
             { }
-            column(PO_No_; PoNo)
-            { }
+            // column(PO_No_; PoNo)
+            // { }
             column(BuyerName; BuyerName)
             { }
             column(Style; Style)
@@ -29,12 +29,12 @@ report 50865 DailyProductionReport
             { }
             column(TodayTarget; Qty)
             { }
-            column(OrderQy; OrderQy)
-            { }
+            // column(OrderQy; OrderQy)
+            // { }
             column(PlanQty; PlanQty)
             { }
-            column(ShipDate; ShipDate)
-            { }
+            // column(ShipDate; ShipDate)
+            // { }
             column(PlanDt; InputDate)
             { }
             column(ActualPlanDt; ActualPlanDT)
@@ -85,12 +85,25 @@ report 50865 DailyProductionReport
             { }
             // column(GarmentType; GarmentType)
             // { }
+            dataitem("Style Master PO"; "Style Master PO")
+            {
+                DataItemLinkReference = "NavApp Prod Plans Details";
+                DataItemLink = "Style No." = field("Style No.");
+                DataItemTableView = sorting("Style No.", "Lot No.");
 
+                column(PO_No_; "PO No.")
+                { }
+                column(ShipDate; "Ship Date")
+                { }
+                column(OrderQy; Qty)
+                { }
+
+            }
             trigger OnPreDataItem()
 
             begin
-                // SetRange(PlanDate, FilterDate);
-                // SetRange("Factory No.", FactortFilter);
+                SetRange(PlanDate, FilterDate);
+                SetRange("Factory No.", FactortFilter);
             end;
 
             trigger OnAfterGetRecord()
@@ -131,7 +144,7 @@ report 50865 DailyProductionReport
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Style No.");
                 StylePoRec.SetRange("Lot No.", "Lot No.");
-                StylePoRec.SetRange("PO No.", "PO No.");
+                // StylePoRec.SetRange("PO No.", "PO No.");
                 if StylePoRec.FindFirst() then begin
                     // TotalOuput := StylePoRec."Sawing Out Qty";
                     PoNo := StylePoRec."PO No.";
