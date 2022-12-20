@@ -716,6 +716,19 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                group("Capacity By Pcs")
+                {
+                    Caption = 'Capacity By Pcs';
+
+                    group("Buyer Wise Order Booking")
+                    {
+                        Caption = 'Buyer Wise Order Booking';
+
+
+                    }
+                }
+
+
                 group("Planning Reports")
                 {
                     Caption = 'Planning Reports';
@@ -2247,6 +2260,6 @@ profile NAVAPP
 {
     ProfileDescription = 'Nav Apperal Profile';
     RoleCenter = "Nav Apperal Role Center";
-    Caption = 'NAVAPP profile';
+    Caption = 'NAVAPP Profile Admin';
 }
 
