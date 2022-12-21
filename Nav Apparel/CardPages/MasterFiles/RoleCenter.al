@@ -720,14 +720,13 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Capacity By Pcs';
 
-                    group("Buyer Wise Order Booking")
+                    action("Buyer Wise Order Booking")
                     {
                         Caption = 'Buyer Wise Order Booking';
-
-
+                        RunObject = Page BuyerWiseOrderBookingList;
+                        ApplicationArea = all;
                     }
                 }
-
 
                 group("Planning Reports")
                 {

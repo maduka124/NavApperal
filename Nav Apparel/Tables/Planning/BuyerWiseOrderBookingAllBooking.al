@@ -1,5 +1,5 @@
 
-table 51163 BuyerWiseOdrBooking_OdrBooking
+table 51163 BuyerWiseOdrBookingAllBook
 {
     DataClassification = ToBeClassified;
 
@@ -15,90 +15,86 @@ table 51163 BuyerWiseOdrBooking_OdrBooking
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Factory Code"; Code[20])
+        field(3; "Buyer Name"; Text[100])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(4; "Factory Name"; Text[100])
+        field(4; "Buyer Code"; code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Buyer Name"; Text[50])
+        field(5; "JAN"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(6; "FEB"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(23; "Buyer Code"; code[50])
+        field(7; "MAR"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(7; "JAN"; Decimal)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(8; "FEB"; Decimal)
+        field(8; "APR"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(9; "MAR"; Decimal)
+        field(9; "MAY"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "APR"; Decimal)
+        field(10; "JUN"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(11; "MAY"; Decimal)
+        field(11; "JUL"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "JUN"; Decimal)
-        {
-            DataClassification = ToBeClassified;
-        }
-        field(13; "JUL"; Decimal)
+        field(12; "AUG"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(14; "AUG"; Decimal)
+        field(13; "SEP"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(15; "SEP"; Decimal)
+        field(14; "OCT"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(16; "OCT"; Decimal)
+        field(15; "NOV"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(17; "NOV"; Decimal)
+        field(16; "DEC"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(18; "DEC"; Decimal)
+        field(17; "Total"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(19; "Created User"; Code[50])
+        field(18; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(20; "Created Date"; Date)
+        field(19; "Created Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
@@ -106,7 +102,7 @@ table 51163 BuyerWiseOdrBooking_OdrBooking
 
     keys
     {
-        key(PK; "No.")
+        key(PK; "No.", "Buyer Name")
         {
             Clustered = true;
         }
@@ -114,7 +110,7 @@ table 51163 BuyerWiseOdrBooking_OdrBooking
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", Year, "Factory Name")
+        fieldgroup(DropDown; "No.", Year, "Buyer Name")
         {
 
         }

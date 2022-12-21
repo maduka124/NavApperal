@@ -31,7 +31,7 @@ table 51160 AwaitingPOs
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Style Name"; Text[50])
+        field(6; "Style Name"; Text[100])
         {
             DataClassification = ToBeClassified;
         }
