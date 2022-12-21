@@ -128,35 +128,31 @@ page 50791 "ContractBBLCSummaryCard"
                 if PurchaselineRec.FindSet() then begin
                     repeat
 
-                        AwaitingPOsRec.Reset();
-                        AwaitingPOsRec.SetRange("Contract No", Rec."Contract No");
-                        AwaitingPOsRec.SetRange("Style No", ContractStyleRec."Style No.");
-                        AwaitingPOsRec.SetRange("PO No", PurchaselineRec."Document No.");
-
-                        if not AwaitingPOsRec.FindSet() then begin
-                            AwaitingPOsRec.Init();
-                            AwaitingPOsRec."Contract No" := Rec."Contract No";
-                            AwaitingPOsRec."No." := Rec."No.";
-                            AwaitingPOsRec."Style Name" := ContractStyleRec."Style Name";
-                            AwaitingPOsRec."Style No" := ContractStyleRec."Style No.";
-                            AwaitingPOsRec."PO No" := PurchaselineRec."Document No.";
-                            AwaitingPOsRec.Insert();
-                            CurrPage.Update();
-                        end;
-
                         PurchaseHeadeaerRec.Reset();
                         PurchaseHeadeaerRec.SetRange("No.", PurchaselineRec."Document No.");
                         PurchaseHeadeaerRec.SetFilter("Assigned PI No.", '%1', '');
 
                         if PurchaseHeadeaerRec.FindSet() then begin
 
-                            AwaitingPOsRec."Amount Including VAT" := PurchaseHeadeaerRec."Amount Including VAT";
-                            AwaitingPOsRec."Buy-from Vendor Name" := PurchaseHeadeaerRec."Buy-from Vendor Name";
-                            AwaitingPOsRec."Document Date" := PurchaseHeadeaerRec."Document Date";
-                            AwaitingPOsRec."No." := PurchaseHeadeaerRec."Buy-from Vendor No.";
-                            AwaitingPOsRec.Modify();
-                            CurrPage.Update();
+                            AwaitingPOsRec.Reset();
+                            AwaitingPOsRec.SetRange("Contract No", Rec."Contract No");
+                            AwaitingPOsRec.SetRange("Style No", ContractStyleRec."Style No.");
+                            AwaitingPOsRec.SetRange("PO No", PurchaselineRec."Document No.");
 
+                            if not AwaitingPOsRec.FindSet() then begin
+                                AwaitingPOsRec.Init();
+                                AwaitingPOsRec."Contract No" := Rec."Contract No";
+                                AwaitingPOsRec."No." := Rec."No.";
+                                AwaitingPOsRec."Style Name" := ContractStyleRec."Style Name";
+                                AwaitingPOsRec."Style No" := ContractStyleRec."Style No.";
+                                AwaitingPOsRec."PO No" := PurchaselineRec."Document No.";
+                                AwaitingPOsRec."Amount Including VAT" := PurchaseHeadeaerRec."Amount Including VAT";
+                                AwaitingPOsRec."Buy-from Vendor Name" := PurchaseHeadeaerRec."Buy-from Vendor Name";
+                                AwaitingPOsRec."Document Date" := PurchaseHeadeaerRec."Document Date";
+                                AwaitingPOsRec."Buy-from Vendor No" := PurchaseHeadeaerRec."Buy-from Vendor No.";
+                                AwaitingPOsRec.Insert();
+                                CurrPage.Update();
+                            end;
                         end;
                     until PurchaselineRec.Next() = 0;
                 end;

@@ -46,6 +46,11 @@ table 51160 AwaitingPOs
             DataClassification = ToBeClassified;
         }
 
+        field(9; "Buy-from Vendor No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

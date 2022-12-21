@@ -26,23 +26,23 @@
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Calibri</FontFamily>
-                      <FontSize>24pt</FontSize>
+                      <FontSize>14pt</FontSize>
                       <FontWeight>Bold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
+                      <TextDecoration>None</TextDecoration>
                       <Color>#000000</Color>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.38271cm</Top>
-            <Left>16.71463cm</Left>
-            <Height>1.19062cm</Height>
-            <Width>15.28938cm</Width>
+            <Top>1.37049cm</Top>
+            <Left>0cm</Left>
+            <Height>0.8691cm</Height>
+            <Width>8.72771cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -415,6 +415,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -426,7 +427,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OrderQy.Value</Value>
+                                  <Value>=Sum(Fields!OrderQy.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -483,7 +484,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PlanQty.Value</Value>
+                                  <Value>=Sum(Fields!PlanQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2117,7 +2118,7 @@
                                               </TextRun>
                                             </TextRuns>
                                             <Style>
-                                              <TextAlign>Center</TextAlign>
+                                              <TextAlign>Left</TextAlign>
                                             </Style>
                                           </Paragraph>
                                         </Paragraphs>
@@ -3086,7 +3087,6 @@
                                           <PaddingBottom>2pt</PaddingBottom>
                                         </Style>
                                       </Textbox>
-                                      <rd:Selected>true</rd:Selected>
                                     </CellContents>
                                   </TablixCell>
                                   <TablixCell>
@@ -3927,14 +3927,14 @@
                                 <TablixCells>
                                   <TablixCell>
                                     <CellContents>
-                                      <Textbox Name="Line_No_">
+                                      <Textbox Name="ResourceName">
                                         <CanGrow>true</CanGrow>
                                         <KeepTogether>true</KeepTogether>
                                         <Paragraphs>
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Fields!Line_No_.Value</Value>
+                                                <Value>=Fields!ResourceName.Value</Value>
                                                 <Style>
                                                   <FontFamily>Calibri</FontFamily>
                                                   <FontSize>9pt</FontSize>
@@ -3946,7 +3946,7 @@
                                             </Style>
                                           </Paragraph>
                                         </Paragraphs>
-                                        <rd:DefaultName>Line_No_</rd:DefaultName>
+                                        <rd:DefaultName>ResourceName</rd:DefaultName>
                                         <Style>
                                           <Border>
                                             <Style>Solid</Style>
@@ -5708,6 +5708,7 @@
                                                 <Style>
                                                   <FontFamily>Calibri</FontFamily>
                                                   <FontSize>9pt</FontSize>
+                                                  <Format>n1</Format>
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
@@ -5764,6 +5765,7 @@
                                                 <Style>
                                                   <FontFamily>Calibri</FontFamily>
                                                   <FontSize>9pt</FontSize>
+                                                  <Format>n0</Format>
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
@@ -5820,10 +5822,13 @@
                                                 <Style>
                                                   <FontFamily>Calibri</FontFamily>
                                                   <FontSize>9pt</FontSize>
+                                                  <Format>n0</Format>
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>variance</rd:DefaultName>
@@ -6843,7 +6848,12 @@
                       <KeepWithGroup>After</KeepWithGroup>
                     </TablixMember>
                     <TablixMember>
-                      <Group Name="Details1" />
+                      <Group Name="Details1">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!ShipDate.Value</GroupExpression>
+                          <GroupExpression>=Fields!PO_No_.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
                     </TablixMember>
                     <TablixMember>
                       <KeepWithGroup>Before</KeepWithGroup>
@@ -7489,8 +7499,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>0.3175cm</Top>
-            <Left>7.23465cm</Left>
+            <Top>1.19184cm</Top>
+            <Left>32.50236cm</Left>
             <Height>1.68683cm</Height>
             <Width>8.45063cm</Width>
             <ZIndex>4</ZIndex>
@@ -7503,6 +7513,46 @@
               </Border>
             </Style>
           </Tablix>
+          <Textbox Name="Textbox3">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>DAILY PRODUCTION REPORT</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>24pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>Underline</TextDecoration>
+                      <Color>#000000</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>0.47972cm</Top>
+            <Left>16.67473cm</Left>
+            <Height>1.19062cm</Height>
+            <Width>15.28938cm</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <Height>12.59118cm</Height>
         <Style />
@@ -7716,9 +7766,6 @@ End Function
         <Field Name="ResourceName">
           <DataField>ResourceName</DataField>
         </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
         <Field Name="BuyerName">
           <DataField>BuyerName</DataField>
         </Field>
@@ -7746,14 +7793,8 @@ End Function
         <Field Name="TodayTargetFormat">
           <DataField>TodayTargetFormat</DataField>
         </Field>
-        <Field Name="OrderQy">
-          <DataField>OrderQy</DataField>
-        </Field>
         <Field Name="PlanQty">
           <DataField>PlanQty</DataField>
-        </Field>
-        <Field Name="ShipDate">
-          <DataField>ShipDate</DataField>
         </Field>
         <Field Name="PlanDt">
           <DataField>PlanDt</DataField>
@@ -7832,6 +7873,15 @@ End Function
         </Field>
         <Field Name="HoursPerDayFormat">
           <DataField>HoursPerDayFormat</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+        <Field Name="ShipDate">
+          <DataField>ShipDate</DataField>
+        </Field>
+        <Field Name="OrderQy">
+          <DataField>OrderQy</DataField>
         </Field>
       </Fields>
       <Query>
