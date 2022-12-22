@@ -131,7 +131,7 @@ page 50366 "Daily Shipping Out Card"
                     trigger OnLookup(var text: Text): Boolean
                     var
                         StyleMasterRec: Record "Style Master";
-                        ProdOutHeaderRec: Record "ProductionOutHeader";
+                        ProdOutHeaderRec: Record ProductionOutHeader;
                         Users: Record "User Setup";
                         Factory: Code[20];
                     begin

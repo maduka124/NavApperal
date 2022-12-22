@@ -1,5 +1,5 @@
 
-table 51163 BuyerWiseOdrBookingAllBook
+table 51170 BuyerWiseOrderBookinBalatoShip
 {
     DataClassification = ToBeClassified;
 

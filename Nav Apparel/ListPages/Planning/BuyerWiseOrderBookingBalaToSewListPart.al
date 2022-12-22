@@ -1,7 +1,7 @@
-page 51166 "BuyeWisOdrBook-AllBookListPart"
+page 51169 "BuyWisOdrBoo-BalTosewListPart"
 {
     PageType = ListPart;
-    SourceTable = BuyerWiseOdrBookingAllBook;
+    SourceTable = BuyerWiseOrderBookinBalatoSew;
     SourceTableView = sorting("Buyer Name") order(ascending);
     Caption = ' ';
     DeleteAllowed = false;

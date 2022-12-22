@@ -274,7 +274,7 @@ page 50602 "Style Inquiry Card"
                 field(Status; rec.Status)
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    //Editable = false;
                 }
                 // field("Item No"; "Item No")
                 // {

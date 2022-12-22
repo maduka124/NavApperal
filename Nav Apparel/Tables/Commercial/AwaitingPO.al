@@ -26,15 +26,15 @@ table 51160 AwaitingPOs
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Style No"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
+        // field(5; "Style No"; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
 
-        field(6; "Style Name"; Text[100])
-        {
-            DataClassification = ToBeClassified;
-        }
+        // field(6; "Style Name"; Text[100])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
 
         field(7; "Buy-from Vendor Name"; Text[200])
         {
@@ -55,7 +55,7 @@ table 51160 AwaitingPOs
 
     keys
     {
-        key(Pk1; "Contract No", "PO No", "Style No")
+        key(Pk1; "Contract No", "PO No")
         {
             Clustered = true;
         }

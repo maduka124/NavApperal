@@ -54,22 +54,22 @@ page 50791 "ContractBBLCSummaryCard"
                 }
             }
 
-            group(" ")
+            group("B2B LC Details")
             {
                 part("Contract BBLC Summary ListPart1"; "ContractBBLC Summary ListPart1")
                 {
                     ApplicationArea = All;
-                    Caption = 'B2BLC Details';
+                    Caption = ' ';
                     SubPageLink = "LC/Contract No." = FIELD("Contract No");
                 }
             }
 
-            group("  ")
+            group("Awaiting POs")
             {
                 part("Contract BBLC Summary ListPart2"; "ContractBBLC Summary ListPart2")
                 {
                     ApplicationArea = All;
-                    Caption = 'Awaiting POs';
+                    Caption = ' ';
                     SubPageLink = "Contract No" = field("Contract No");
                 }
             }
@@ -130,21 +130,22 @@ page 50791 "ContractBBLCSummaryCard"
 
                         PurchaseHeadeaerRec.Reset();
                         PurchaseHeadeaerRec.SetRange("No.", PurchaselineRec."Document No.");
+                        PurchaseHeadeaerRec.SetRange("Document Type", PurchaseHeadeaerRec."Document Type"::Order);
                         PurchaseHeadeaerRec.SetFilter("Assigned PI No.", '%1', '');
 
                         if PurchaseHeadeaerRec.FindSet() then begin
 
                             AwaitingPOsRec.Reset();
                             AwaitingPOsRec.SetRange("Contract No", Rec."Contract No");
-                            AwaitingPOsRec.SetRange("Style No", ContractStyleRec."Style No.");
+                            //AwaitingPOsRec.SetRange("Style No", ContractStyleRec."Style No.");
                             AwaitingPOsRec.SetRange("PO No", PurchaselineRec."Document No.");
 
                             if not AwaitingPOsRec.FindSet() then begin
                                 AwaitingPOsRec.Init();
                                 AwaitingPOsRec."Contract No" := Rec."Contract No";
                                 AwaitingPOsRec."No." := Rec."No.";
-                                AwaitingPOsRec."Style Name" := ContractStyleRec."Style Name";
-                                AwaitingPOsRec."Style No" := ContractStyleRec."Style No.";
+                                // AwaitingPOsRec."Style Name" := ContractStyleRec."Style Name";
+                                // AwaitingPOsRec."Style No" := ContractStyleRec."Style No.";
                                 AwaitingPOsRec."PO No" := PurchaselineRec."Document No.";
                                 AwaitingPOsRec."Amount Including VAT" := PurchaseHeadeaerRec."Amount Including VAT";
                                 AwaitingPOsRec."Buy-from Vendor Name" := PurchaseHeadeaerRec."Buy-from Vendor Name";
