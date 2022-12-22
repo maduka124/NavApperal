@@ -36,4 +36,34 @@ page 51167 BuyerWiseOrderBookingList
             LoginRec.RunModal();
         end;
     end;
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        BuyerWiseOdrBookingAllBookRec: Record BuyerWiseOdrBookingAllBook;
+        BuyerWiseOdrBookinBalatoSewRec: Record BuyerWiseOrderBookinBalatoSew;
+        BuyerWiseOdrBookinBalatoShipRec: Record BuyerWiseOrderBookinBalatoShip;
+        BuyerWiseOrderBookinGRWiseBookRec: Record BuyerWiseOrderBookinGRWiseBook;
+
+    begin
+        BuyerWiseOdrBookingAllBookRec.Reset();
+        BuyerWiseOdrBookingAllBookRec.SetRange(Year, rec.Year);
+        if BuyerWiseOdrBookingAllBookRec.FindSet() then
+            BuyerWiseOdrBookingAllBookRec.DeleteAll();
+
+        BuyerWiseOdrBookinBalatoSewRec.Reset();
+        BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, rec.Year);
+        if BuyerWiseOdrBookinBalatoSewRec.FindSet() then
+            BuyerWiseOdrBookinBalatoSewRec.DeleteAll();
+
+        BuyerWiseOdrBookinBalatoShipRec.Reset();
+        BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
+        if BuyerWiseOdrBookinBalatoShipRec.FindSet() then
+            BuyerWiseOdrBookinBalatoShipRec.DeleteAll();
+
+        BuyerWiseOrderBookinGRWiseBookRec.Reset();
+        BuyerWiseOrderBookinGRWiseBookRec.SetRange(Year, rec.Year);
+        if BuyerWiseOrderBookinGRWiseBookRec.FindSet() then
+            BuyerWiseOrderBookinGRWiseBookRec.DeleteAll();
+    end;
 }

@@ -176,86 +176,87 @@ page 51165 "BuyerWiseOrderBooking"
                                     //Get buyer Name/Code
                                     StyleMasterRec.Reset();
                                     StyleMasterRec.SetRange("No.", StyleMasterPORec."Style No.");
-                                    StyleMasterRec.FindSet();
+                                    if StyleMasterRec.FindSet() then begin
 
-                                    //Check for existing records
-                                    BuyWisOdrBookAllBookRec.Reset();
-                                    BuyWisOdrBookAllBookRec.SetRange(Year, rec.Year);
-                                    BuyWisOdrBookAllBookRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
-                                    if not BuyWisOdrBookAllBookRec.FindSet() then begin  //insert
+                                        //Check for existing records
+                                        BuyWisOdrBookAllBookRec.Reset();
+                                        BuyWisOdrBookAllBookRec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBookRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
+                                        if not BuyWisOdrBookAllBookRec.FindSet() then begin  //insert
 
-                                        SeqNo += 1;
-                                        //Insert new line
-                                        BuyWisOdrBookAllBookRec.Init();
-                                        BuyWisOdrBookAllBookRec."No." := SeqNo;
-                                        BuyWisOdrBookAllBookRec.Year := rec.Year;
-                                        BuyWisOdrBookAllBookRec."Buyer Code" := StyleMasterRec."Buyer No.";
-                                        BuyWisOdrBookAllBookRec."Buyer Name" := StyleMasterRec."Buyer Name";
+                                            SeqNo += 1;
+                                            //Insert new line
+                                            BuyWisOdrBookAllBookRec.Init();
+                                            BuyWisOdrBookAllBookRec."No." := SeqNo;
+                                            BuyWisOdrBookAllBookRec.Year := rec.Year;
+                                            BuyWisOdrBookAllBookRec."Buyer Code" := StyleMasterRec."Buyer No.";
+                                            BuyWisOdrBookAllBookRec."Buyer Name" := StyleMasterRec."Buyer Name";
 
-                                        case i of
-                                            1:
-                                                BuyWisOdrBookAllBookRec.JAN := StyleMasterPORec.Qty;
-                                            2:
-                                                BuyWisOdrBookAllBookRec.FEB := StyleMasterPORec.Qty;
-                                            3:
-                                                BuyWisOdrBookAllBookRec.MAR := StyleMasterPORec.Qty;
-                                            4:
-                                                BuyWisOdrBookAllBookRec.APR := StyleMasterPORec.Qty;
-                                            5:
-                                                BuyWisOdrBookAllBookRec.MAY := StyleMasterPORec.Qty;
-                                            6:
-                                                BuyWisOdrBookAllBookRec.JUN := StyleMasterPORec.Qty;
-                                            7:
-                                                BuyWisOdrBookAllBookRec.JUL := StyleMasterPORec.Qty;
-                                            8:
-                                                BuyWisOdrBookAllBookRec.AUG := StyleMasterPORec.Qty;
-                                            9:
-                                                BuyWisOdrBookAllBookRec.SEP := StyleMasterPORec.Qty;
-                                            10:
-                                                BuyWisOdrBookAllBookRec.OCT := StyleMasterPORec.Qty;
-                                            11:
-                                                BuyWisOdrBookAllBookRec.NOV := StyleMasterPORec.Qty;
-                                            12:
-                                                BuyWisOdrBookAllBookRec.DEC := StyleMasterPORec.Qty;
+                                            case i of
+                                                1:
+                                                    BuyWisOdrBookAllBookRec.JAN := StyleMasterPORec.Qty;
+                                                2:
+                                                    BuyWisOdrBookAllBookRec.FEB := StyleMasterPORec.Qty;
+                                                3:
+                                                    BuyWisOdrBookAllBookRec.MAR := StyleMasterPORec.Qty;
+                                                4:
+                                                    BuyWisOdrBookAllBookRec.APR := StyleMasterPORec.Qty;
+                                                5:
+                                                    BuyWisOdrBookAllBookRec.MAY := StyleMasterPORec.Qty;
+                                                6:
+                                                    BuyWisOdrBookAllBookRec.JUN := StyleMasterPORec.Qty;
+                                                7:
+                                                    BuyWisOdrBookAllBookRec.JUL := StyleMasterPORec.Qty;
+                                                8:
+                                                    BuyWisOdrBookAllBookRec.AUG := StyleMasterPORec.Qty;
+                                                9:
+                                                    BuyWisOdrBookAllBookRec.SEP := StyleMasterPORec.Qty;
+                                                10:
+                                                    BuyWisOdrBookAllBookRec.OCT := StyleMasterPORec.Qty;
+                                                11:
+                                                    BuyWisOdrBookAllBookRec.NOV := StyleMasterPORec.Qty;
+                                                12:
+                                                    BuyWisOdrBookAllBookRec.DEC := StyleMasterPORec.Qty;
+                                            end;
+
+                                            BuyWisOdrBookAllBookRec."Created User" := UserId;
+                                            BuyWisOdrBookAllBookRec."Created Date" := WorkDate();
+                                            BuyWisOdrBookAllBookRec.Total := StyleMasterPORec.Qty;
+                                            BuyWisOdrBookAllBookRec.Insert();
+
+                                        end
+                                        else begin  //Modify
+
+                                            case i of
+                                                1:
+                                                    BuyWisOdrBookAllBookRec.JAN := BuyWisOdrBookAllBookRec.JAN + StyleMasterPORec.Qty;
+                                                2:
+                                                    BuyWisOdrBookAllBookRec.FEB := BuyWisOdrBookAllBookRec.FEB + StyleMasterPORec.Qty;
+                                                3:
+                                                    BuyWisOdrBookAllBookRec.MAR := BuyWisOdrBookAllBookRec.MAR + StyleMasterPORec.Qty;
+                                                4:
+                                                    BuyWisOdrBookAllBookRec.APR := BuyWisOdrBookAllBookRec.APR + StyleMasterPORec.Qty;
+                                                5:
+                                                    BuyWisOdrBookAllBookRec.MAY := BuyWisOdrBookAllBookRec.MAY + StyleMasterPORec.Qty;
+                                                6:
+                                                    BuyWisOdrBookAllBookRec.JUN := BuyWisOdrBookAllBookRec.JUN + StyleMasterPORec.Qty;
+                                                7:
+                                                    BuyWisOdrBookAllBookRec.JUL := BuyWisOdrBookAllBookRec.JUL + StyleMasterPORec.Qty;
+                                                8:
+                                                    BuyWisOdrBookAllBookRec.AUG := BuyWisOdrBookAllBookRec.AUG + StyleMasterPORec.Qty;
+                                                9:
+                                                    BuyWisOdrBookAllBookRec.SEP := BuyWisOdrBookAllBookRec.SEP + StyleMasterPORec.Qty;
+                                                10:
+                                                    BuyWisOdrBookAllBookRec.OCT := BuyWisOdrBookAllBookRec.OCT + StyleMasterPORec.Qty;
+                                                11:
+                                                    BuyWisOdrBookAllBookRec.NOV := BuyWisOdrBookAllBookRec.NOV + StyleMasterPORec.Qty;
+                                                12:
+                                                    BuyWisOdrBookAllBookRec.DEC := BuyWisOdrBookAllBookRec.DEC + StyleMasterPORec.Qty;
+                                            end;
+
+                                            BuyWisOdrBookAllBookRec.Total := BuyWisOdrBookAllBookRec.Total + StyleMasterPORec.Qty;
+                                            BuyWisOdrBookAllBookRec.Modify();
                                         end;
-
-                                        BuyWisOdrBookAllBookRec."Created User" := UserId;
-                                        BuyWisOdrBookAllBookRec."Created Date" := WorkDate();
-                                        BuyWisOdrBookAllBookRec.Total := StyleMasterPORec.Qty;
-                                        BuyWisOdrBookAllBookRec.Insert();
-
-                                    end
-                                    else begin  //Modify
-
-                                        case i of
-                                            1:
-                                                BuyWisOdrBookAllBookRec.JAN := BuyWisOdrBookAllBookRec.JAN + StyleMasterPORec.Qty;
-                                            2:
-                                                BuyWisOdrBookAllBookRec.FEB := BuyWisOdrBookAllBookRec.FEB + StyleMasterPORec.Qty;
-                                            3:
-                                                BuyWisOdrBookAllBookRec.MAR := BuyWisOdrBookAllBookRec.MAR + StyleMasterPORec.Qty;
-                                            4:
-                                                BuyWisOdrBookAllBookRec.APR := BuyWisOdrBookAllBookRec.APR + StyleMasterPORec.Qty;
-                                            5:
-                                                BuyWisOdrBookAllBookRec.MAY := BuyWisOdrBookAllBookRec.MAY + StyleMasterPORec.Qty;
-                                            6:
-                                                BuyWisOdrBookAllBookRec.JUN := BuyWisOdrBookAllBookRec.JUN + StyleMasterPORec.Qty;
-                                            7:
-                                                BuyWisOdrBookAllBookRec.JUL := BuyWisOdrBookAllBookRec.JUL + StyleMasterPORec.Qty;
-                                            8:
-                                                BuyWisOdrBookAllBookRec.AUG := BuyWisOdrBookAllBookRec.AUG + StyleMasterPORec.Qty;
-                                            9:
-                                                BuyWisOdrBookAllBookRec.SEP := BuyWisOdrBookAllBookRec.SEP + StyleMasterPORec.Qty;
-                                            10:
-                                                BuyWisOdrBookAllBookRec.OCT := BuyWisOdrBookAllBookRec.OCT + StyleMasterPORec.Qty;
-                                            11:
-                                                BuyWisOdrBookAllBookRec.NOV := BuyWisOdrBookAllBookRec.NOV + StyleMasterPORec.Qty;
-                                            12:
-                                                BuyWisOdrBookAllBookRec.DEC := BuyWisOdrBookAllBookRec.DEC + StyleMasterPORec.Qty;
-                                        end;
-
-                                        BuyWisOdrBookAllBookRec.Total := BuyWisOdrBookAllBookRec.Total + StyleMasterPORec.Qty;
-                                        BuyWisOdrBookAllBookRec.Modify();
                                     end;
 
                                 until StyleMasterPORec.Next() = 0;
@@ -353,44 +354,45 @@ page 51165 "BuyerWiseOrderBooking"
 
                                     StyleMasterRec.Reset();
                                     StyleMasterRec.SetRange("No.", ProductionOutHeaderRec."Style No.");
-                                    StyleMasterRec.FindSet();
+                                    if StyleMasterRec.FindSet() then begin
 
-                                    //Check existance
-                                    BuyerWiseOdrBookinBalatoSewRec.Reset();
-                                    BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, rec.Year);
-                                    BuyerWiseOdrBookinBalatoSewRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
-                                    if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
+                                        //Check existance
+                                        BuyerWiseOdrBookinBalatoSewRec.Reset();
+                                        BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, rec.Year);
+                                        BuyerWiseOdrBookinBalatoSewRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
+                                        if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
 
-                                        case i of
-                                            1:
-                                                BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
-                                            2:
-                                                BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
-                                            3:
-                                                BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
-                                            4:
-                                                BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
-                                            5:
-                                                BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
-                                            6:
-                                                BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
-                                            7:
-                                                BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
-                                            8:
-                                                BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
-                                            9:
-                                                BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
-                                            10:
-                                                BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
-                                            11:
-                                                BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
-                                            12:
-                                                BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
+                                            case i of
+                                                1:
+                                                    BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
+                                                2:
+                                                    BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
+                                                3:
+                                                    BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
+                                                4:
+                                                    BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
+                                                5:
+                                                    BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
+                                                6:
+                                                    BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
+                                                7:
+                                                    BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
+                                                8:
+                                                    BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
+                                                9:
+                                                    BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
+                                                10:
+                                                    BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
+                                                11:
+                                                    BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
+                                                12:
+                                                    BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
+                                            end;
+
+                                            BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
+                                            BuyerWiseOdrBookinBalatoSewRec.Modify();
+
                                         end;
-
-                                        BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
-                                        BuyerWiseOdrBookinBalatoSewRec.Modify();
-
                                     end;
 
                                 until ProductionOutHeaderRec.Next() = 0;
@@ -489,50 +491,52 @@ page 51165 "BuyerWiseOrderBooking"
 
                                     StyleMasterRec.Reset();
                                     StyleMasterRec.SetRange("No.", ProductionOutHeaderRec."Style No.");
-                                    StyleMasterRec.FindSet();
+                                    if StyleMasterRec.FindSet() then begin
 
-                                    //Check existance
-                                    BuyerWiseOdrBookinBalatoShipRec.Reset();
-                                    BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
-                                    BuyerWiseOdrBookinBalatoShipRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
-                                    if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
+                                        //Check existance
+                                        BuyerWiseOdrBookinBalatoShipRec.Reset();
+                                        BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
+                                        BuyerWiseOdrBookinBalatoShipRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
+                                        if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
 
-                                        case i of
-                                            1:
-                                                BuyerWiseOdrBookinBalatoShipRec.JAN := BuyerWiseOdrBookinBalatoShipRec.JAN - ProductionOutHeaderRec."Output Qty";
-                                            2:
-                                                BuyerWiseOdrBookinBalatoShipRec.FEB := BuyerWiseOdrBookinBalatoShipRec.FEB - ProductionOutHeaderRec."Output Qty";
-                                            3:
-                                                BuyerWiseOdrBookinBalatoShipRec.MAR := BuyerWiseOdrBookinBalatoShipRec.MAR - ProductionOutHeaderRec."Output Qty";
-                                            4:
-                                                BuyerWiseOdrBookinBalatoShipRec.APR := BuyerWiseOdrBookinBalatoShipRec.APR - ProductionOutHeaderRec."Output Qty";
-                                            5:
-                                                BuyerWiseOdrBookinBalatoShipRec.MAY := BuyerWiseOdrBookinBalatoShipRec.MAY - ProductionOutHeaderRec."Output Qty";
-                                            6:
-                                                BuyerWiseOdrBookinBalatoShipRec.JUN := BuyerWiseOdrBookinBalatoShipRec.JUN - ProductionOutHeaderRec."Output Qty";
-                                            7:
-                                                BuyerWiseOdrBookinBalatoShipRec.JUL := BuyerWiseOdrBookinBalatoShipRec.JUL - ProductionOutHeaderRec."Output Qty";
-                                            8:
-                                                BuyerWiseOdrBookinBalatoShipRec.AUG := BuyerWiseOdrBookinBalatoShipRec.AUG - ProductionOutHeaderRec."Output Qty";
-                                            9:
-                                                BuyerWiseOdrBookinBalatoShipRec.SEP := BuyerWiseOdrBookinBalatoShipRec.SEP - ProductionOutHeaderRec."Output Qty";
-                                            10:
-                                                BuyerWiseOdrBookinBalatoShipRec.OCT := BuyerWiseOdrBookinBalatoShipRec.OCT - ProductionOutHeaderRec."Output Qty";
-                                            11:
-                                                BuyerWiseOdrBookinBalatoShipRec.NOV := BuyerWiseOdrBookinBalatoShipRec.NOV - ProductionOutHeaderRec."Output Qty";
-                                            12:
-                                                BuyerWiseOdrBookinBalatoShipRec.DEC := BuyerWiseOdrBookinBalatoShipRec.DEC - ProductionOutHeaderRec."Output Qty";
+                                            case i of
+                                                1:
+                                                    BuyerWiseOdrBookinBalatoShipRec.JAN := BuyerWiseOdrBookinBalatoShipRec.JAN - ProductionOutHeaderRec."Output Qty";
+                                                2:
+                                                    BuyerWiseOdrBookinBalatoShipRec.FEB := BuyerWiseOdrBookinBalatoShipRec.FEB - ProductionOutHeaderRec."Output Qty";
+                                                3:
+                                                    BuyerWiseOdrBookinBalatoShipRec.MAR := BuyerWiseOdrBookinBalatoShipRec.MAR - ProductionOutHeaderRec."Output Qty";
+                                                4:
+                                                    BuyerWiseOdrBookinBalatoShipRec.APR := BuyerWiseOdrBookinBalatoShipRec.APR - ProductionOutHeaderRec."Output Qty";
+                                                5:
+                                                    BuyerWiseOdrBookinBalatoShipRec.MAY := BuyerWiseOdrBookinBalatoShipRec.MAY - ProductionOutHeaderRec."Output Qty";
+                                                6:
+                                                    BuyerWiseOdrBookinBalatoShipRec.JUN := BuyerWiseOdrBookinBalatoShipRec.JUN - ProductionOutHeaderRec."Output Qty";
+                                                7:
+                                                    BuyerWiseOdrBookinBalatoShipRec.JUL := BuyerWiseOdrBookinBalatoShipRec.JUL - ProductionOutHeaderRec."Output Qty";
+                                                8:
+                                                    BuyerWiseOdrBookinBalatoShipRec.AUG := BuyerWiseOdrBookinBalatoShipRec.AUG - ProductionOutHeaderRec."Output Qty";
+                                                9:
+                                                    BuyerWiseOdrBookinBalatoShipRec.SEP := BuyerWiseOdrBookinBalatoShipRec.SEP - ProductionOutHeaderRec."Output Qty";
+                                                10:
+                                                    BuyerWiseOdrBookinBalatoShipRec.OCT := BuyerWiseOdrBookinBalatoShipRec.OCT - ProductionOutHeaderRec."Output Qty";
+                                                11:
+                                                    BuyerWiseOdrBookinBalatoShipRec.NOV := BuyerWiseOdrBookinBalatoShipRec.NOV - ProductionOutHeaderRec."Output Qty";
+                                                12:
+                                                    BuyerWiseOdrBookinBalatoShipRec.DEC := BuyerWiseOdrBookinBalatoShipRec.DEC - ProductionOutHeaderRec."Output Qty";
+                                            end;
+
+                                            BuyerWiseOdrBookinBalatoShipRec.Total := BuyerWiseOdrBookinBalatoShipRec.Total - ProductionOutHeaderRec."Output Qty";
+                                            BuyerWiseOdrBookinBalatoShipRec.Modify();
+
                                         end;
-
-                                        BuyerWiseOdrBookinBalatoShipRec.Total := BuyerWiseOdrBookinBalatoShipRec.Total - ProductionOutHeaderRec."Output Qty";
-                                        BuyerWiseOdrBookinBalatoShipRec.Modify();
-
                                     end;
 
                                 until ProductionOutHeaderRec.Next() = 0;
                             end;
 
                         end;
+
 
 
 
@@ -648,86 +652,87 @@ page 51165 "BuyerWiseOrderBooking"
                                     //Get buyer for the style
                                     StyleMasterRec.Reset();
                                     StyleMasterRec.SetRange("No.", StyleMasterPORec."Style No.");
-                                    StyleMasterRec.FindSet();
+                                    if StyleMasterRec.FindSet() then begin
 
-                                    //Get merchnadizer group for the buyer
-                                    CustomerRec.Reset();
-                                    CustomerRec.SetRange("No.", StyleMasterRec."Buyer No.");
-                                    CustomerRec.FindSet();
+                                        //Get merchnadizer group for the buyer
+                                        CustomerRec.Reset();
+                                        CustomerRec.SetRange("No.", StyleMasterRec."Buyer No.");
+                                        CustomerRec.FindSet();
 
-                                    //Check existance
-                                    BuyerWiseOdrBookinGRWiseBookRec.Reset();
-                                    BuyerWiseOdrBookinGRWiseBookRec.SetRange(Year, rec.Year);
-                                    BuyerWiseOdrBookinGRWiseBookRec.SetRange("Group Id", CustomerRec."Group Id");
-                                    if BuyerWiseOdrBookinGRWiseBookRec.FindSet() then begin
+                                        //Check existance
+                                        BuyerWiseOdrBookinGRWiseBookRec.Reset();
+                                        BuyerWiseOdrBookinGRWiseBookRec.SetRange(Year, rec.Year);
+                                        BuyerWiseOdrBookinGRWiseBookRec.SetRange("Group Id", CustomerRec."Group Id");
+                                        if BuyerWiseOdrBookinGRWiseBookRec.FindSet() then begin
 
-                                        case i of
-                                            1:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.JAN := BuyerWiseOdrBookinGRWiseBookRec.JAN + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            2:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.FEB := BuyerWiseOdrBookinGRWiseBookRec.FEB + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB := BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            3:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.MAR := BuyerWiseOdrBookinGRWiseBookRec.MAR + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            4:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.APR := BuyerWiseOdrBookinGRWiseBookRec.APR + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.APR_FOB := BuyerWiseOdrBookinGRWiseBookRec.APR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            5:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.MAY := BuyerWiseOdrBookinGRWiseBookRec.MAY + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            6:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.JUN := BuyerWiseOdrBookinGRWiseBookRec.JUN + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            7:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.JUL := BuyerWiseOdrBookinGRWiseBookRec.JUL + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            8:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.AUG := BuyerWiseOdrBookinGRWiseBookRec.AUG + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB := BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            9:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.SEP := BuyerWiseOdrBookinGRWiseBookRec.SEP + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB := BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            10:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.OCT := BuyerWiseOdrBookinGRWiseBookRec.OCT + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB := BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            11:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.NOV := BuyerWiseOdrBookinGRWiseBookRec.NOV + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB := BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
-                                            12:
-                                                begin
-                                                    BuyerWiseOdrBookinGRWiseBookRec.DEC := BuyerWiseOdrBookinGRWiseBookRec.DEC + StyleMasterPORec."Qty";
-                                                    BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB := BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                end;
+                                            case i of
+                                                1:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.JAN := BuyerWiseOdrBookinGRWiseBookRec.JAN + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                2:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.FEB := BuyerWiseOdrBookinGRWiseBookRec.FEB + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB := BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                3:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.MAR := BuyerWiseOdrBookinGRWiseBookRec.MAR + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                4:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.APR := BuyerWiseOdrBookinGRWiseBookRec.APR + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.APR_FOB := BuyerWiseOdrBookinGRWiseBookRec.APR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                5:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.MAY := BuyerWiseOdrBookinGRWiseBookRec.MAY + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                6:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.JUN := BuyerWiseOdrBookinGRWiseBookRec.JUN + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                7:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.JUL := BuyerWiseOdrBookinGRWiseBookRec.JUL + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                8:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.AUG := BuyerWiseOdrBookinGRWiseBookRec.AUG + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB := BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                9:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.SEP := BuyerWiseOdrBookinGRWiseBookRec.SEP + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB := BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                10:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.OCT := BuyerWiseOdrBookinGRWiseBookRec.OCT + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB := BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                11:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.NOV := BuyerWiseOdrBookinGRWiseBookRec.NOV + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB := BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                                12:
+                                                    begin
+                                                        BuyerWiseOdrBookinGRWiseBookRec.DEC := BuyerWiseOdrBookinGRWiseBookRec.DEC + StyleMasterPORec."Qty";
+                                                        BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB := BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                    end;
+                                            end;
+
+                                            BuyerWiseOdrBookinGRWiseBookRec.Total := BuyerWiseOdrBookinGRWiseBookRec.Total + StyleMasterPORec."Qty";
+                                            BuyerWiseOdrBookinGRWiseBookRec.Total_FOB := BuyerWiseOdrBookinGRWiseBookRec.Total_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                            BuyerWiseOdrBookinGRWiseBookRec.Modify();
+
                                         end;
-
-                                        BuyerWiseOdrBookinGRWiseBookRec.Total := BuyerWiseOdrBookinGRWiseBookRec.Total + StyleMasterPORec."Qty";
-                                        BuyerWiseOdrBookinGRWiseBookRec.Total_FOB := BuyerWiseOdrBookinGRWiseBookRec.Total_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                        BuyerWiseOdrBookinGRWiseBookRec.Modify();
-
                                     end;
 
                                 until StyleMasterPORec.Next() = 0;
@@ -752,6 +757,7 @@ page 51165 "BuyerWiseOrderBooking"
         BuyerWiseOdrBookingAllBookRec: Record BuyerWiseOdrBookingAllBook;
         BuyerWiseOdrBookinBalatoSewRec: Record BuyerWiseOrderBookinBalatoSew;
         BuyerWiseOdrBookinBalatoShipRec: Record BuyerWiseOrderBookinBalatoShip;
+        BuyerWiseOrderBookinGRWiseBookRec: Record BuyerWiseOrderBookinGRWiseBook;
 
     begin
         BuyerWiseOdrBookingAllBookRec.Reset();
@@ -768,6 +774,11 @@ page 51165 "BuyerWiseOrderBooking"
         BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
         if BuyerWiseOdrBookinBalatoShipRec.FindSet() then
             BuyerWiseOdrBookinBalatoShipRec.DeleteAll();
+
+        BuyerWiseOrderBookinGRWiseBookRec.Reset();
+        BuyerWiseOrderBookinGRWiseBookRec.SetRange(Year, rec.Year);
+        if BuyerWiseOrderBookinGRWiseBookRec.FindSet() then
+            BuyerWiseOrderBookinGRWiseBookRec.DeleteAll();
     end;
 
 

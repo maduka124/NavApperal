@@ -1,5 +1,5 @@
 
-table 51174 BuyerWiseOrderBookinGRWiseBook
+table 51172 BuyerWiseOrderBookinGRWiseBook
 {
     DataClassification = ToBeClassified;
 
