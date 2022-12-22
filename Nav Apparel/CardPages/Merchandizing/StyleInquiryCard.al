@@ -274,8 +274,9 @@ page 50602 "Style Inquiry Card"
                 field(Status; rec.Status)
                 {
                     ApplicationArea = All;
-                    //Editable = false;
+                    //Editable = false;                
                 }
+
                 // field("Item No"; "Item No")
                 // {
                 //     ApplicationArea = All;
@@ -450,8 +451,8 @@ page 50602 "Style Inquiry Card"
     trigger OnOpenPage()
     var
     begin
-        if rec.Status = rec.Status::Confirmed then
-            CurrPage.Editable := false;
+        // if rec.Status = rec.Status::Confirmed then
+        //     CurrPage.Editable := false;
     end;
 
 
