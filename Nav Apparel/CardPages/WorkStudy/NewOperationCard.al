@@ -52,6 +52,8 @@ page 50456 "New Operation Card"
                         GarmentPartRec.SetRange(Description, rec."Garment Part Name");
                         if GarmentPartRec.FindSet() then
                             rec."Garment Part No." := GarmentPartRec."No.";
+
+                        GenCode();
                     end;
                 }
 
@@ -182,6 +184,36 @@ page 50456 "New Operation Card"
             // }
         }
     }
+
+    procedure GenCode()
+    var
+        NewOperationRec: Record "New Operation";
+        Temp: BigInteger;
+    begin
+        rec.Code2 := 0;
+        Temp := 0;
+        rec.Code1 := '';
+
+        if rec."Item Type No." <> '' then
+            rec.Code1 := rec."Item Type Name".Substring(1, 2);
+
+        if rec."Garment Part Name" <> '' then
+            rec.Code1 := rec.Code1 + rec."Garment Part Name".Substring(1, 2);
+
+        if (rec."Item Type No." <> '') and (rec."Garment Part Name" <> '') then begin
+
+            NewOperationRec.Reset();
+            NewOperationRec.SetRange(Code1, rec.Code1);
+
+            if NewOperationRec.FindLast() then
+                temp := NewOperationRec.Code2;
+
+            rec.Code2 := temp + 1;
+            rec.Code := rec.code1 + format(rec.Code2);
+            CurrPage.Update();
+
+        end;
+    end;
 
 
     procedure AssistEdit(): Boolean
