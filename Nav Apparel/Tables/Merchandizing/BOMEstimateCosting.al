@@ -569,6 +569,11 @@ table 50889 "BOM Estimate Cost"
             OptionMembers = Costing,Sample,Online;
             OptionCaption = 'Costing,Sample,Online';
         }
+
+        field(71012678; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -592,30 +597,20 @@ table 50889 "BOM Estimate Cost"
     var
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
+        UserSetupRec: Record "User Setup";
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("BOM Cost Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."BOM Cost Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
 
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
 
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
+        if UserSetupRec.FindSet() then begin
+            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+        end;
     end;
 
 }

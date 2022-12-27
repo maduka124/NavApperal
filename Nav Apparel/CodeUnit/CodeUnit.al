@@ -205,6 +205,35 @@ codeunit 50618 NavAppCodeUnit
             exit('strongaccent');
     end;
 
+    procedure ChangeColorBooking1(OpList: Record BuyerWiseOdrBookingAllBook): Text[50]
+    var
+    begin
+        if OpList.Type = 'T' then
+            exit('StrongAccent');
+    end;
+
+    procedure ChangeColorBooking3(OpList: Record BuyerWiseOrderBookinBalatoShip): Text[50]
+
+    begin
+        if OpList.Type = 'T' then
+            exit('StrongAccent');
+    end;
+
+    procedure ChangeColorBooking2(OpList: Record BuyerWiseOrderBookinBalatoSew): Text[50]
+
+    begin
+        if OpList.Type = 'T' then
+            exit('StrongAccent');
+    end;
+
+
+    procedure ChangeColorBooking4(OpList: Record BuyerWiseOrderBookinGRWiseBook): Text[50]
+
+    begin
+        if OpList.Type = 'T' then
+            exit('StrongAccent');
+    end;
+
     procedure Update_PI_PO_Items(PINo: Code[20])
     var
         PIPoItemDetailsRec: Record "PI Po Item Details";

@@ -9,21 +9,21 @@ page 50994 "MyTask Card"
     {
         area(Content)
         {
-            group(" ")
+            group("Pending Tasks")
             {
                 part(MyTask1; "My Task Pending")
                 {
                     ApplicationArea = All;
-                    Caption = 'Pending Tasks';
+                    Caption = ' ';
                 }
             }
 
-            group("  ")
+            group("Completed Tasks")
             {
                 part(MyTask2; "My Task Completed")
                 {
                     ApplicationArea = All;
-                    Caption = 'Completed Tasks';
+                    Caption = ' ';
                 }
             }
         }

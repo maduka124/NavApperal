@@ -137,6 +137,11 @@ table 50887 "BOM"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012604; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -159,12 +164,21 @@ table 50887 "BOM"
     var
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
+        UserSetupRec: Record "User Setup";
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("BOM1 Nos.");
         "No" := NoSeriesMngment.GetNextNo(NavAppSetup."BOM1 Nos.", Today, true);
         "Created Date" := WorkDate();
         "Created User" := UserId;
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+
+        if UserSetupRec.FindSet() then begin
+            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+        end;
+
     end;
 
 }

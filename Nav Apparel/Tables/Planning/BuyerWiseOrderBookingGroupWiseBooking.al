@@ -177,6 +177,11 @@ table 51172 BuyerWiseOrderBookinGRWiseBook
         {
             DataClassification = ToBeClassified;
         }
+
+        field(36; "Type"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

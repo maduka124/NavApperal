@@ -98,6 +98,11 @@ table 51170 BuyerWiseOrderBookinBalatoShip
         {
             DataClassification = ToBeClassified;
         }
+
+        field(20; "Type"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

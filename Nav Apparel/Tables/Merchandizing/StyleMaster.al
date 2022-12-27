@@ -321,6 +321,11 @@ table 50934 "Style Master"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012638; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -346,6 +351,7 @@ table 50934 "Style Master"
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
         LoginDetails: Record LoginDetails;
+        LocationRec: Record Location;
     begin
 
         // //Assign logged user
@@ -357,11 +363,21 @@ table 50934 "Style Master"
         // else
         //     Error('Invalid SessionID');
 
+
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
 
-        if UserSetupRec.FindSet() then
+        if UserSetupRec.FindSet() then begin
+            LocationRec.Reset();
+            LocationRec.SetRange(Code, UserSetupRec."Factory Code");
+            if not LocationRec.FindSet() then
+                Error('Cannot find factory details.');
+
+            "Factory Code" := UserSetupRec."Factory Code";
+            "Factory Name" := LocationRec.Name;
             "Global Dimension Code" := UserSetupRec."Global Dimension Code";
+            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+        end;
 
         UserRec.Reset();
         UserRec.Get(UserSecurityId());

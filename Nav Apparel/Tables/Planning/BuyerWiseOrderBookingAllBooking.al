@@ -98,6 +98,11 @@ table 51163 BuyerWiseOdrBookingAllBook
         {
             DataClassification = ToBeClassified;
         }
+
+        field(20; "Type"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -8536,7 +8536,17 @@ page 50984 "BOM Card"
         NextLotNo: Code[20];
         LoginSessionsRec: Record LoginSessions;
         LoginRec: Page "Login Card";
+        UserSetupRec: Record "User Setup";
     begin
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+
+        if not UserSetupRec.FindSet() then
+            Error('Cannot find user setup details');
+
+        if UserSetupRec."Merchandizer Group Name" = '' then
+            Error('Merchandizer Group Name not setup for the user.');
 
         //Get Worksheet line no
         NavAppSetupRec.Reset();
@@ -8611,6 +8621,7 @@ page 50984 "BOM Card"
             RequLineRec1.Validate("Shortcut Dimension 1 Code", StyMasterRec."Global Dimension Code");
             RequLineRec1.EntryType := RequLineRec1.EntryType::FG;
             RequLineRec1."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+            RequLineRec1."Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
             RequLineRec1.Insert();
 
 

@@ -22,7 +22,7 @@ page 50794 "ContractBBLC Summary ListPart2"
                     ApplicationArea = All;
                 }
 
-                field("Amount Including VAT"; Rec."Amount Including VAT")
+                field("Amount Including VAT"; Rec."Amount Including VAT1")
                 {
                     ApplicationArea = All;
                     Caption = 'Amount';

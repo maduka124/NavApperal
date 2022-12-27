@@ -123,6 +123,11 @@ tableextension 50925 "ReqLine Extension" extends "Requisition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50021; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     // trigger OnAfterDelete()

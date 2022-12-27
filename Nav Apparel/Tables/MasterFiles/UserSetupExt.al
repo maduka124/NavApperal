@@ -78,6 +78,13 @@ tableextension 51141 "User Setup Extension" extends "User Setup"
             DataClassification = ToBeClassified;
             TableRelation = "User Setup";
         }
+
+        field(50108; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = MerchandizingGroupTable."Group Name";
+            ValidateTableRelation = false;
+        }
     }
 }
 

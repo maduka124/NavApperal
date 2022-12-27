@@ -1333,6 +1333,7 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Costing And Planning Parameters';
                     RunObject = page "Costing Planning Para Card";
+                    
                     ApplicationArea = all;
                 }
 

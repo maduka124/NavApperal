@@ -1,5 +1,5 @@
 
-table 51168 BuyerWiseOrderBookinBalatoSew
+table 51176 BuyerWiseOdrBookingAllBookPBi
 {
     DataClassification = ToBeClassified;
 
@@ -98,11 +98,6 @@ table 51168 BuyerWiseOrderBookinBalatoSew
         {
             DataClassification = ToBeClassified;
         }
-
-        field(20; "Type"; Code[20])
-        {
-            DataClassification = ToBeClassified;
-        }
     }
 
     keys
@@ -133,3 +128,5 @@ table 51168 BuyerWiseOrderBookinBalatoSew
     end;
 
 }
+
+

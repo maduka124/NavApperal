@@ -95,6 +95,11 @@ table 50908 "Dependency Style Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012599; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -108,26 +113,17 @@ table 50908 "Dependency Style Header"
 
     trigger OnInsert()
     var
-
+        UserSetupRec: Record "User Setup";
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
 
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
 
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
+        if UserSetupRec.FindSet() then begin
+            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+        end;
     end;
 
 }

@@ -137,17 +137,17 @@ page 50791 "ContractBBLCSummaryCard"
 
                             AwaitingPOsRec.Reset();
                             AwaitingPOsRec.SetRange("Contract No", Rec."Contract No");
-                            //AwaitingPOsRec.SetRange("Style No", ContractStyleRec."Style No.");
+                            AwaitingPOsRec.SetRange("Style No", 'A');
                             AwaitingPOsRec.SetRange("PO No", PurchaselineRec."Document No.");
 
                             if not AwaitingPOsRec.FindSet() then begin
                                 AwaitingPOsRec.Init();
                                 AwaitingPOsRec."Contract No" := Rec."Contract No";
                                 AwaitingPOsRec."No." := Rec."No.";
-                                // AwaitingPOsRec."Style Name" := ContractStyleRec."Style Name";
-                                // AwaitingPOsRec."Style No" := ContractStyleRec."Style No.";
+                                AwaitingPOsRec."Style Name" := 'A';
+                                AwaitingPOsRec."Style No" := 'A';
                                 AwaitingPOsRec."PO No" := PurchaselineRec."Document No.";
-                                AwaitingPOsRec."Amount Including VAT" := PurchaseHeadeaerRec."Amount Including VAT";
+                                AwaitingPOsRec."Amount Including VAT1" := PurchaseHeadeaerRec."Amount Including VAT";
                                 AwaitingPOsRec."Buy-from Vendor Name" := PurchaseHeadeaerRec."Buy-from Vendor Name";
                                 AwaitingPOsRec."Document Date" := PurchaseHeadeaerRec."Document Date";
                                 AwaitingPOsRec."Buy-from Vendor No" := PurchaseHeadeaerRec."Buy-from Vendor No.";

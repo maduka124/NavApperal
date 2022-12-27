@@ -15,6 +15,7 @@ page 50847 MerchandizingGroupCard
                 field("Group Id"; rec."Group Id")
                 {
                     ApplicationArea = All;
+                    Editable = Editbale;
 
                     trigger OnValidate()
                     var
@@ -45,6 +46,7 @@ page 50847 MerchandizingGroupCard
                 field("Group Name"; rec."Group Name")
                 {
                     ApplicationArea = All;
+                    Editable = Editbale;
                 }
 
                 field("Group Head"; rec."Group Head")
@@ -54,4 +56,18 @@ page 50847 MerchandizingGroupCard
             }
         }
     }
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+    begin
+        if rec."Group Id" <> '' then
+            Editbale := false
+        else
+            Editbale := true;
+    end;
+
+
+    var
+        Editbale: Boolean;
 }

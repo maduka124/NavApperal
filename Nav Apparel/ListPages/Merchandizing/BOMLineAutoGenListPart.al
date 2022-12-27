@@ -27,7 +27,7 @@ page 51028 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Include in PO";rec. "Include in PO")
+                field("Include in PO"; rec."Include in PO")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
@@ -83,7 +83,7 @@ page 51028 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Country Name";rec. "Country Name")
+                field("Country Name"; rec."Country Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Country';
@@ -120,7 +120,7 @@ page 51028 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Dimension No.";rec. "Dimension No.")
+                field("Dimension No."; rec."Dimension No.")
                 {
                     ApplicationArea = All;
                     Visible = false;
@@ -166,7 +166,7 @@ page 51028 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Rate;rec. Rate)
+                field(Rate; rec.Rate)
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -180,7 +180,7 @@ page 51028 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Supplier No.";rec. "Supplier No.")
+                field("Supplier No."; rec."Supplier No.")
                 {
                     ApplicationArea = All;
                     Visible = false;
@@ -195,14 +195,14 @@ page 51028 "BOM Line Autogen ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(Requirment;rec. Requirment)
+                field(Requirment; rec.Requirment)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field(AjstReq;rec. AjstReq)
+                field(AjstReq; rec.AjstReq)
                 {
                     ApplicationArea = All;
                     Caption = 'Adjust. Req.';
@@ -217,7 +217,7 @@ page 51028 "BOM Line Autogen ListPart"
                 //     StyleExpr = StyleExprTxt;
                 // }
 
-                field("Placement of GMT";rec. "Placement of GMT")
+                field("Placement of GMT"; rec."Placement of GMT")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -242,7 +242,7 @@ page 51028 "BOM Line Autogen ListPart"
                 begin
 
                     BOMLineAutoGenRec.Reset();
-                    BOMLineAutoGenRec.SetRange("No.",rec. "No.");
+                    BOMLineAutoGenRec.SetRange("No.", rec."No.");
                     BOMLineAutoGenRec.FindSet();
 
                     repeat
@@ -266,7 +266,7 @@ page 51028 "BOM Line Autogen ListPart"
                 begin
 
                     BOMLineAutoGenRec.Reset();
-                    BOMLineAutoGenRec.SetRange("No.",rec. "No.");
+                    BOMLineAutoGenRec.SetRange("No.", rec."No.");
                     BOMLineAutoGenRec.FindSet();
 
                     repeat

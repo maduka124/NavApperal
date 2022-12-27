@@ -51,6 +51,11 @@ table 50901 "Dependency"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012589; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -61,33 +66,19 @@ table 50901 "Dependency"
         }
     }
 
-    // fieldgroups
-    // {
-    //     fieldgroup(DropDown; "No.", "Action Type")
-    //     {
-
-    //     }
-    // }
 
     trigger OnInsert()
+    var
+        UserSetupRec: Record "User Setup";
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
 
-    trigger OnModify()
-    begin
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
 
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
+        if UserSetupRec.FindSet() then
+            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
     end;
 
 }

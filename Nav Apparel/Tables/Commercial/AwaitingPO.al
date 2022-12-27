@@ -16,9 +16,8 @@ table 51160 AwaitingPOs
 
         field(3; "Amount Including VAT"; Decimal)
         {
-            AutoFormatType = 1;
-            CalcFormula = Sum("Purchase Line"."Amount Including VAT" WHERE("Document No." = FIELD("PO No")));
-            FieldClass = FlowField;
+            DataClassification = ToBeClassified;
+            //Not using
         }
 
         field(4; "Document Date"; Date)
@@ -51,11 +50,18 @@ table 51160 AwaitingPOs
             DataClassification = ToBeClassified;
         }
 
+        field(10; "Amount Including VAT1"; Decimal)
+        {
+            AutoFormatType = 1;
+            CalcFormula = Sum("Purchase Line"."Amount Including VAT" WHERE("Document No." = FIELD("PO No")));
+            FieldClass = FlowField;
+        }
+
     }
 
     keys
     {
-        key(Pk1; "Contract No", "PO No")
+        key(PK; "Contract No", "PO No", "Style No")
         {
             Clustered = true;
         }
