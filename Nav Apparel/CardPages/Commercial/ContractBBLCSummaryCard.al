@@ -54,7 +54,7 @@ page 50791 "ContractBBLCSummaryCard"
                 }
             }
 
-            group("B2B LC Details")
+            group("BBLC Summary")
             {
                 part("Contract BBLC Summary ListPart1"; "ContractBBLC Summary ListPart1")
                 {
@@ -64,7 +64,16 @@ page 50791 "ContractBBLCSummaryCard"
                 }
             }
 
-            group("Awaiting POs")
+            group("Awaiting PI For BBLC")
+            {
+                part(AwaitingPifrB2BLC; AwaitingPiforB2BLC)
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                }
+            }
+
+            group("Awaiting POs For PI")
             {
                 part("Contract BBLC Summary ListPart2"; "ContractBBLC Summary ListPart2")
                 {
@@ -141,6 +150,7 @@ page 50791 "ContractBBLCSummaryCard"
                             AwaitingPOsRec.SetRange("PO No", PurchaselineRec."Document No.");
 
                             if not AwaitingPOsRec.FindSet() then begin
+
                                 AwaitingPOsRec.Init();
                                 AwaitingPOsRec."Contract No" := Rec."Contract No";
                                 AwaitingPOsRec."No." := Rec."No.";
@@ -153,6 +163,7 @@ page 50791 "ContractBBLCSummaryCard"
                                 AwaitingPOsRec."Buy-from Vendor No" := PurchaseHeadeaerRec."Buy-from Vendor No.";
                                 AwaitingPOsRec.Insert();
                                 CurrPage.Update();
+
                             end;
                         end;
                     until PurchaselineRec.Next() = 0;

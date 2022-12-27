@@ -43,18 +43,6 @@ page 50628 "Gate Pass ListPart"
                             if FAClassRec.FindSet() then
                                 Rec."Main Category Code" := FAClassRec."code";
                         end;
-
-                        if (rec."Inventory Type" = rec."Inventory Type"::"Service Machine") then begin
-                            GatepassLineRec.Reset();
-                            GatepassLineRec.SetRange("Main Category Name", rec."Main Category Name");
-                            if ServiceItemRec.FindSet() then
-                                Rec."Main Category Code" := rec."Main Category Name";
-
-                            ServiceItemRec.Reset();
-                            ServiceItemRec.SetRange("Service Item Group Code", Rec."Main Category Name");
-                            if ServiceItemRec.FindSet() then
-                                rec."UOM Code" := ServiceItemRec."Unit of Measure Code";
-                        end;
                     end;
                 }
 
@@ -91,10 +79,17 @@ page 50628 "Gate Pass ListPart"
                         end;
 
                         if (Rec."Inventory Type" = rec."Inventory Type"::"Service Machine") then begin
-                            UOMRec.Reset();
-                            UOMRec.SetRange(Code, Rec."UOM Code");
-                            if UOMRec.FindSet() then
-                                rec.UOM := UOMRec.Description;
+
+                            ServiceItemRec.Reset();
+                            ServiceItemRec.SetRange(Description, Rec.Description);
+                            if ServiceItemRec.FindSet() then
+                                Rec.Description := ServiceItemRec.Description;
+                            Rec."Item No." := ServiceItemRec."Item No.";
+
+                            ItemRec.Reset();
+                            ItemRec.SetRange("No.", Rec."Item No.");
+                            if ItemRec.FindSet() then
+                                rec.UOM := ItemRec."Base Unit of Measure";
                         end;
                         CurrPage.Update();
                     end;

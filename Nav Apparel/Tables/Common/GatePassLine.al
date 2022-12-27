@@ -30,9 +30,10 @@ table 51081 "Gate Pass Line"
             else
             if ("Inventory Type" = CONST("Fixed Assets")) "Fixed Asset".Description where("FA Class Code" = field("Main Category Code"))
             else
-            if ("Inventory Type" = const("Service Machine")) "Service Item"."Item Description" where("Service Item Group Code" = field("Main Category Code"));
+            if ("Inventory Type" = const("Service Machine")) "Service Item".Description;
 
             ValidateTableRelation = false;
+
         }
 
         field(71012585; Qty; Decimal)
@@ -73,9 +74,7 @@ table 51081 "Gate Pass Line"
             TableRelation =
             if ("Inventory Type" = CONST("Inventory")) "Main Category"."Main Category Name"
             else
-            if ("Inventory Type" = CONST("Fixed Assets")) "FA Class".Name
-            else
-            if ("Inventory Type" = const("Service Machine")) "Service Item Group".Code;
+            if ("Inventory Type" = CONST("Fixed Assets")) "FA Class".Name;
 
             ValidateTableRelation = false;
         }
