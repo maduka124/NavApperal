@@ -3,9 +3,10 @@ report 50785 GatePassReport
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Gate Pass Report';
-    DefaultLayout = RDLC;
+
     RDLCLayout = 'Report_Layouts/Common/GatePassReport.rdl';
 
+    DefaultLayout = RDLC;
     dataset
     {
         dataitem("Gate Pass Header"; "Gate Pass Header")
@@ -57,14 +58,21 @@ report 50785 GatePassReport
                 column(UOM; UOM)
                 { }
                 column(LineRemarks; Remarks)
-                { }              
+                { }
             }
 
             trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
-            end;           
+            end;
+
+            trigger OnPreDataItem()
+            var
+                myInt: Integer;
+            begin
+                SetRange("No.", FilterNoGB);
+            end;
         }
     }
 

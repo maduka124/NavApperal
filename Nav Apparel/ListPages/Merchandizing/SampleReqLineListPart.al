@@ -125,7 +125,18 @@ page 51062 SampleReqLineListPart
 
                     trigger OnValidate()
                     var
+                        SampleReqLine: Record "Sample Requsition Line";
                     begin
+
+                        //Done by Sachith 22/12/27
+                        SampleReqLine.Reset();
+                        SampleReqLine.SetRange("No.", Rec."No.");
+
+                        if SampleReqLine.FindSet() then begin
+                            if rec."Req Date" < WorkDate() then
+                                Error('Invalid date');
+                        end;
+
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
                     end;
