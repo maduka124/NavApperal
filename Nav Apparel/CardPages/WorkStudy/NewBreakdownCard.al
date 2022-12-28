@@ -218,8 +218,18 @@ page 50459 "New Breakdown Card"
                 }
             }
         }
-    }
 
+        area(FactBoxes)
+        {
+            part(NewBreackdownFactBox; NewBreackdownFactBox)
+            {
+                ApplicationArea = All;
+                Caption = ' Picture';
+                SubPageLink = "No." = FIELD("Style No.");
+                Editable = false;
+            }
+        }
+    }
 
     actions
     {

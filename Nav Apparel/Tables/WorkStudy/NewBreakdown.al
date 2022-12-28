@@ -120,6 +120,16 @@ table 50457 "New Breakdown"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(23; "Front"; Media)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(24; "Back"; Media)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 
