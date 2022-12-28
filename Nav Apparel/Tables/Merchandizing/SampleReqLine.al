@@ -97,8 +97,8 @@ table 50931 "Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
 
-            OptionCaption = 'Yes,No,Reject';
-            OptionMembers = Yes,No,Reject;
+            OptionCaption = 'No,Yes,Reject';
+            OptionMembers = No,Yes,Reject;
         }
 
         field(71012598; "Complete Qty"; Integer)

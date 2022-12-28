@@ -411,236 +411,239 @@ page 50602 "Style Inquiry Card"
                 end;
             }
 
-            action(ABCD)
-            {
-                Image = "8ball";
-                ApplicationArea = All;
+            // action(ABCD)
+            // {
+            //     Image = "8ball";
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    Customer: Record Customer;
-                    merchand: Record MerchandizingGroupTable;
-                    stymaster: Record "Style Master";
-                    dependency: Record Dependency;
-                    bom: Record BOM;
-                    lcmaster: Record "Contract/LCMaster";
-                    bomestimate: Record "BOM Estimate";
-                    estcosting: Record "BOM Estimate Cost";
-                    reqworksheet: Record "Requisition Line";
-                    samplereq: Record "Sample Requsition Header";
-                    depestyheader: Record "Dependency Style Header";
-                    yyreq: Record "YY Requsition Header";
-                begin
+            //     trigger OnAction()
+            //     var
+            //         Customer: Record Customer;
+            //         merchand: Record MerchandizingGroupTable;
+            //         stymaster: Record "Style Master";
+            //         dependency: Record Dependency;
+            //         bom: Record BOM;
+            //         lcmaster: Record "Contract/LCMaster";
+            //         bomestimate: Record "BOM Estimate";
+            //         estcosting: Record "BOM Estimate Cost";
+            //         reqworksheet: Record "Requisition Line";
+            //         samplereq: Record "Sample Requsition Header";
+            //         depestyheader: Record "Dependency Style Header";
+            //         yyreq: Record "YY Requsition Header";
+            //     begin
 
-                    stymaster.Reset();
-                    stymaster.SetFilter("Merchandizer Group Name", '=%1', '');
-                    stymaster.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", stymaster."Buyer No.");
-                        if Customer.FindSet() then begin
+            //         stymaster.Reset();
+            //         stymaster.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         stymaster.FindSet();
+            //         repeat
+            //             Customer.Reset();
+            //             Customer.SetRange("No.", stymaster."Buyer No.");
+            //             if Customer.FindSet() then begin
 
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
+            //                 merchand.Reset();
+            //                 merchand.SetRange("Group Id", Customer."Group Id");
+            //                 if merchand.FindSet() then begin
 
-                                stymaster."Merchandizer Group Name" := merchand."Group Name";
-                                stymaster.Modify();
-                            end;
-                        end;
-                    until stymaster.Next() = 0;
-
-
-                    ///////////////
-                    dependency.Reset();
-                    dependency.SetFilter("Merchandizer Group Name", '=%1', '');
-                    dependency.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", dependency."Buyer No.");
-                        if Customer.FindSet() then begin
-
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
-
-                                dependency."Merchandizer Group Name" := merchand."Group Name";
-                                dependency.Modify();
-                            end;
-                        end;
-                    until dependency.Next() = 0;
+            //                     stymaster."Merchandizer Group Name" := merchand."Group Name";
+            //                     stymaster.Modify();
+            //                 end;
+            //             end;
+            //         until stymaster.Next() = 0;
 
 
+            //         ///////////////
+            //         dependency.Reset();
+            //         dependency.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         if dependency.FindSet() then begin
+            //             repeat
+            //                 Customer.Reset();
+            //                 Customer.SetRange("No.", dependency."Buyer No.");
+            //                 if Customer.FindSet() then begin
 
-                    ///////////////
-                    bom.Reset();
-                    bom.SetFilter("Merchandizer Group Name", '=%1', '');
-                    bom.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", bom."Buyer No.");
-                        if Customer.FindSet() then begin
+            //                     merchand.Reset();
+            //                     merchand.SetRange("Group Id", Customer."Group Id");
+            //                     if merchand.FindSet() then begin
 
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
-
-                                bom."Merchandizer Group Name" := merchand."Group Name";
-                                bom.Modify();
-                            end;
-                        end;
-                    until bom.Next() = 0;
-
-
-                    ///////////////
-                    lcmaster.Reset();
-                    lcmaster.SetFilter("Merchandizer Group Name", '=%1', '');
-                    lcmaster.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", lcmaster."Buyer No.");
-                        if Customer.FindSet() then begin
-
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
-
-                                lcmaster."Merchandizer Group Name" := merchand."Group Name";
-                                lcmaster.Modify();
-                            end;
-                        end;
-                    until lcmaster.Next() = 0;
+            //                         dependency."Merchandizer Group Name" := merchand."Group Name";
+            //                         dependency.Modify();
+            //                     end;
+            //                 end;
+            //             until dependency.Next() = 0;
+            //         end;
 
 
 
-                    ///////////////
-                    bomestimate.Reset();
-                    bomestimate.SetFilter("Merchandizer Group Name", '=%1', '');
-                    bomestimate.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", bomestimate."Buyer No.");
-                        if Customer.FindSet() then begin
+            //         ///////////////
+            //         bom.Reset();
+            //         bom.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         if bom.FindSet() then begin
+            //             repeat
+            //                 Customer.Reset();
+            //                 Customer.SetRange("No.", bom."Buyer No.");
+            //                 if Customer.FindSet() then begin
 
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
+            //                     merchand.Reset();
+            //                     merchand.SetRange("Group Id", Customer."Group Id");
+            //                     if merchand.FindSet() then begin
 
-                                bomestimate."Merchandizer Group Name" := merchand."Group Name";
-                                bomestimate.Modify();
-                            end;
-                        end;
-                    until bomestimate.Next() = 0;
-
-
-
-                    ///////////////
-                    estcosting.Reset();
-                    estcosting.SetFilter("Merchandizer Group Name", '=%1', '');
-                    estcosting.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", estcosting."Buyer No.");
-                        if Customer.FindSet() then begin
-
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
-
-                                estcosting."Merchandizer Group Name" := merchand."Group Name";
-                                estcosting.Modify();
-                            end;
-                        end;
-                    until estcosting.Next() = 0;
+            //                         bom."Merchandizer Group Name" := merchand."Group Name";
+            //                         bom.Modify();
+            //                     end;
+            //                 end;
+            //             until bom.Next() = 0;
+            //         end;
 
 
+            //         ///////////////
+            //         lcmaster.Reset();
+            //         lcmaster.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         if lcmaster.FindSet() then begin
+            //             repeat
+            //                 Customer.Reset();
+            //                 Customer.SetRange("No.", lcmaster."Buyer No.");
+            //                 if Customer.FindSet() then begin
 
-                    ///////////////
-                    reqworksheet.Reset();
-                    reqworksheet.SetFilter("Merchandizer Group Name", '=%1', '');
-                    reqworksheet.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", reqworksheet."Buyer No.");
-                        if Customer.FindSet() then begin
+            //                     merchand.Reset();
+            //                     merchand.SetRange("Group Id", Customer."Group Id");
+            //                     if merchand.FindSet() then begin
 
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
-
-                                reqworksheet."Merchandizer Group Name" := merchand."Group Name";
-                                reqworksheet.Modify();
-                            end;
-                        end;
-                    until reqworksheet.Next() = 0;
-
-
-
-                    ///////////////
-                    samplereq.Reset();
-                    samplereq.SetFilter("Merchandizer Group Name", '=%1', '');
-                    samplereq.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", samplereq."Buyer No.");
-                        if Customer.FindSet() then begin
-
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
-
-                                samplereq."Merchandizer Group Name" := merchand."Group Name";
-                                samplereq.Modify();
-                            end;
-                        end;
-                    until samplereq.Next() = 0;
+            //                         lcmaster."Merchandizer Group Name" := merchand."Group Name";
+            //                         lcmaster.Modify();
+            //                     end;
+            //                 end;
+            //             until lcmaster.Next() = 0;
+            //         end;
 
 
+            //         ///////////////
+            //         bomestimate.Reset();
+            //         bomestimate.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         if bomestimate.FindSet() then begin
+            //             repeat
+            //                 Customer.Reset();
+            //                 Customer.SetRange("No.", bomestimate."Buyer No.");
+            //                 if Customer.FindSet() then begin
 
-                    ///////////////
-                    depestyheader.Reset();
-                    depestyheader.SetFilter("Merchandizer Group Name", '=%1', '');
-                    depestyheader.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", depestyheader."Buyer No.");
-                        if Customer.FindSet() then begin
+            //                     merchand.Reset();
+            //                     merchand.SetRange("Group Id", Customer."Group Id");
+            //                     if merchand.FindSet() then begin
 
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
-
-                                depestyheader."Merchandizer Group Name" := merchand."Group Name";
-                                depestyheader.Modify();
-                            end;
-                        end;
-                    until depestyheader.Next() = 0;
+            //                         bomestimate."Merchandizer Group Name" := merchand."Group Name";
+            //                         bomestimate.Modify();
+            //                     end;
+            //                 end;
+            //             until bomestimate.Next() = 0;
+            //         end;
 
 
+            //         ///////////////
+            //         estcosting.Reset();
+            //         estcosting.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         if estcosting.FindSet() then begin
+            //             repeat
+            //                 Customer.Reset();
+            //                 Customer.SetRange("No.", estcosting."Buyer No.");
+            //                 if Customer.FindSet() then begin
 
-                    ///////////////
-                    yyreq.Reset();
-                    yyreq.SetFilter("Merchandizer Group Name", '=%1', '');
-                    yyreq.FindSet();
-                    repeat
-                        Customer.Reset();
-                        Customer.SetRange("No.", yyreq."Buyer No.");
-                        if Customer.FindSet() then begin
+            //                     merchand.Reset();
+            //                     merchand.SetRange("Group Id", Customer."Group Id");
+            //                     if merchand.FindSet() then begin
 
-                            merchand.Reset();
-                            merchand.SetRange("Group Id", Customer."Group Id");
-                            if merchand.FindSet() then begin
+            //                         estcosting."Merchandizer Group Name" := merchand."Group Name";
+            //                         estcosting.Modify();
+            //                     end;
+            //                 end;
+            //             until estcosting.Next() = 0;
+            //         end;
 
-                                yyreq."Merchandizer Group Name" := merchand."Group Name";
-                                yyreq.Modify();
-                            end;
-                        end;
-                    until yyreq.Next() = 0;
 
-                    Message('Completed');
+            //         ///////////////
+            //         reqworksheet.Reset();
+            //         reqworksheet.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         if reqworksheet.FindSet() then begin
+            //             repeat
+            //                 Customer.Reset();
+            //                 Customer.SetRange("No.", reqworksheet."Buyer No.");
+            //                 if Customer.FindSet() then begin
 
-                end;
-            }
+            //                     merchand.Reset();
+            //                     merchand.SetRange("Group Id", Customer."Group Id");
+            //                     if merchand.FindSet() then begin
+
+            //                         reqworksheet."Merchandizer Group Name" := merchand."Group Name";
+            //                         reqworksheet.Modify();
+            //                     end;
+            //                 end;
+            //             until reqworksheet.Next() = 0;
+            //         end;
+
+
+            //         ///////////////
+            //         samplereq.Reset();
+            //         samplereq.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         if samplereq.FindSet() then begin
+            //             repeat
+            //                 Customer.Reset();
+            //                 Customer.SetRange("No.", samplereq."Buyer No.");
+            //                 if Customer.FindSet() then begin
+
+            //                     merchand.Reset();
+            //                     merchand.SetRange("Group Id", Customer."Group Id");
+            //                     if merchand.FindSet() then begin
+
+            //                         samplereq."Merchandizer Group Name" := merchand."Group Name";
+            //                         samplereq.Modify();
+            //                     end;
+            //                 end;
+            //             until samplereq.Next() = 0;
+            //         end;
+
+
+            //         ///////////////
+            //         depestyheader.Reset();
+            //         depestyheader.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         if depestyheader.FindSet() then begin
+            //             repeat
+            //                 Customer.Reset();
+            //                 Customer.SetRange("No.", depestyheader."Buyer No.");
+            //                 if Customer.FindSet() then begin
+
+            //                     merchand.Reset();
+            //                     merchand.SetRange("Group Id", Customer."Group Id");
+            //                     if merchand.FindSet() then begin
+
+            //                         depestyheader."Merchandizer Group Name" := merchand."Group Name";
+            //                         depestyheader.Modify();
+            //                     end;
+            //                 end;
+            //             until depestyheader.Next() = 0;
+            //         end;
+
+
+            //         ///////////////
+            //         yyreq.Reset();
+            //         yyreq.SetFilter("Merchandizer Group Name", '=%1', '');
+            //         if yyreq.FindSet() then begin
+            //             repeat
+            //                 Customer.Reset();
+            //                 Customer.SetRange("No.", yyreq."Buyer No.");
+            //                 if Customer.FindSet() then begin
+
+            //                     merchand.Reset();
+            //                     merchand.SetRange("Group Id", Customer."Group Id");
+            //                     if merchand.FindSet() then begin
+
+            //                         yyreq."Merchandizer Group Name" := merchand."Group Name";
+            //                         yyreq.Modify();
+            //                     end;
+            //                 end;
+            //             until yyreq.Next() = 0;
+            //         end;
+
+            //         Message('Completed');
+
+            //     end;
+            // }
 
             // action(ImportPictureFrontURL)
             // {

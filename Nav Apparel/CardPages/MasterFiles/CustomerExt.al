@@ -16,6 +16,16 @@ pageextension 50948 CustomerCardExt extends "Customer Card"
             {
                 ApplicationArea = All;
                 Caption = 'Merchandizer Group';
+
+                trigger OnValidate()
+                var
+                    MerchGRRec: Record MerchandizingGroupTable;
+                begin
+                    MerchGRRec.Reset();
+                    MerchGRRec.SetRange("Group Id", rec."Group Id");
+                    MerchGRRec.FindSet();
+                    rec."Group Name" := MerchGRRec."Group Name";
+                end;
             }
         }
 

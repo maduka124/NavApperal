@@ -15,6 +15,11 @@ tableextension 51090 "Customer Extension" extends Customer
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50004; "Group Name"; Text[200])
+        {
+            TableRelation = MerchandizingGroupTable."Group Name";
+        }
     }
 
     trigger OnBeforeDelete()

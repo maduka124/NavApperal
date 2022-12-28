@@ -75,7 +75,7 @@ tableextension 50108 GenLedSetup extends "General Ledger Setup"
             DataClassification = ToBeClassified;
             TableRelation = "Gen. Journal Batch".Name where("Journal Template Name" = field("Bank Charge Template"));
         }
-        field(50113; "Material Cost G/L"; Code[10])
+        field(50113; "Material Cost G/L"; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "G/L Account" where(Blocked = filter(false), "Account Type" = filter(Posting));

@@ -71,6 +71,13 @@ page 50431 SampleReqLineListPartWIP
                 field("Plan Start Date"; rec."Plan Start Date")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec."Plan Start Date" < WorkDate() then
+                            Error('Start date should be greater than todays date');
+                    end;
                 }
 
                 field("Plan End Date"; rec."Plan End Date")
@@ -81,7 +88,7 @@ page 50431 SampleReqLineListPartWIP
                     var
                     begin
                         if rec."Plan Start Date" > rec."Plan End Date" then
-                            Error('Start date is greater than end date');
+                            Error('End date should be greater than Start date');
 
                     end;
                 }

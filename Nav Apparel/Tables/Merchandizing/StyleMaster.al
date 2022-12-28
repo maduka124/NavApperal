@@ -68,7 +68,7 @@ table 50934 "Style Master"
         field(71012591; "Buyer Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Customer.Name;
+            TableRelation = Customer.Name where("Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
 

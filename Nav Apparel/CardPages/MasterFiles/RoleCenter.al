@@ -497,6 +497,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Sample Status List1")
+                {
+                    Caption = 'Sample Status List';
+                    RunObject = Page "Sample Status List";
+                    ApplicationArea = all;
+                }
+
                 action("T & A Style")
                 {
                     Caption = 'T & A Style';
@@ -1333,7 +1340,7 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Costing And Planning Parameters';
                     RunObject = page "Costing Planning Para Card";
-                    
+
                     ApplicationArea = all;
                 }
 
