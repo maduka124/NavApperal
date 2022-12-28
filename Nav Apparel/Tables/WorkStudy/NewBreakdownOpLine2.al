@@ -123,6 +123,11 @@ table 50465 "New Breakdown Op Line2"
         {
             DataClassification = CustomerContent;
         }
+
+        field(23; "RefGPartName"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -130,6 +135,11 @@ table 50465 "New Breakdown Op Line2"
         key(PK; "No.", "Line No.")
         {
             Clustered = true;
+        }
+
+        key(SK; "Line Position")
+        {
+
         }
     }
 
@@ -141,22 +151,6 @@ table 50465 "New Breakdown Op Line2"
         "Created User" := UserId;
         // "Line Position" := FindLastLinePosition() + 1;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 
     // procedure FindLastLinePosition(): Integer
     // var

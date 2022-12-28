@@ -3,6 +3,7 @@ page 50466 "New Breakdown Op Listpart2"
     PageType = ListPart;
     SourceTable = "New Breakdown Op Line2";
     AutoSplitKey = true;
+    SourceTableView = sorting("Line Position");
 
     layout
     {
@@ -112,6 +113,19 @@ page 50466 "New Breakdown Op Listpart2"
     {
         area(Processing)
         {
+
+            action("Refersh")
+            {
+                Caption = 'Refresh';
+                ApplicationArea = All;
+                Image = Refresh;
+
+                trigger OnAction()
+                begin
+                    CurrPage.Update();
+                end;
+            }
+
             action("Caculate SMV")
             {
                 ApplicationArea = All;

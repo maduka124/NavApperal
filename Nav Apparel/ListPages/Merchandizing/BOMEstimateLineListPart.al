@@ -53,7 +53,7 @@ page 51025 "BOM Estimate Line List part"
 
                     trigger OnLookup(var texts: text): Boolean
                     var
-                        BOMHeaderRec: record "BOM";
+                        BOMHeaderRec: record "BOM Estimate";
                         ItemRec: Record "Item";
                         VendorRec: Record Vendor;
                     begin
@@ -82,7 +82,7 @@ page 51025 "BOM Estimate Line List part"
 
                             //Get Qty from Header 
                             BOMHeaderRec.Reset();
-                            BOMHeaderRec.SetRange(No, rec."No.");
+                            BOMHeaderRec.SetRange("No.", rec."No.");
                             if BOMHeaderRec.FindSet() then
                                 rec.Qty := BOMHeaderRec.Quantity;
 

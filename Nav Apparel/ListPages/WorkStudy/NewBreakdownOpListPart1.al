@@ -9,7 +9,6 @@ page 50464 "New Breakdown Op Listpart1"
         {
             repeater(General)
             {
-
                 field(Code; rec.Code)
                 {
                     ApplicationArea = All;
@@ -98,13 +97,15 @@ page 50464 "New Breakdown Op Listpart1"
                 Image = Line;
 
                 trigger OnAction();
-
                 var
                     NewBreakOpLine1Rec: Record "New Breakdown Op Line1";
+                    Listpart2: page "New Breakdown Op Listpart2";
                     NewBreakOpLine2Rec: Record "New Breakdown Op Line2";
                     MachineRec: Record "Machine Master";
+                    NewBrRec: Record "New Breakdown";
                     LineNo: Integer;
                     Code1: Code[20];
+                    Count1: Integer;
                 begin
 
                     CurrPage.Update();
@@ -112,6 +113,10 @@ page 50464 "New Breakdown Op Listpart1"
                     NewBreakOpLine1Rec.SetRange("NewBRNo.", rec."NewBRNo.");
 
                     if NewBreakOpLine1Rec.FindSet() then begin
+
+                        NewBrRec.Reset();
+                        NewBrRec.SetRange("No.", NewBreakOpLine1Rec."NewBRNo.");
+                        NewBrRec.FindSet();
 
                         repeat
 
@@ -157,11 +162,27 @@ page 50464 "New Breakdown Op Listpart1"
                                     NewBreakOpLine2Rec.LineType := 'L';
                                     NewBreakOpLine2Rec.MachineType := format(MachineRec."Machine Type");
                                     NewBreakOpLine2Rec."Created User" := UserId;
+                                    NewBreakOpLine2Rec.RefGPartName := NewBrRec."Garment Part Name";
                                     NewBreakOpLine2Rec.Insert();
 
                                 end;
                             end;
                         until NewBreakOpLine1Rec.Next = 0;
+
+
+                        //Rearrange
+                        Count1 := 0;
+                        NewBreakOpLine2Rec.Reset();
+                        NewBreakOpLine2Rec.SetCurrentKey(RefGPartName, "Line Position");
+                        NewBreakOpLine2Rec.SetRange("No.", rec."NewBRNo.");
+                        if NewBreakOpLine2Rec.FindSet() then begin
+                            repeat
+                                Count1 += 1;
+                                NewBreakOpLine2Rec."Line Position" := Count1;
+                                NewBreakOpLine2Rec.Modify();
+                            until NewBreakOpLine2Rec.Next() = 0;
+                        end;
+
                     end;
 
                 end;
@@ -171,7 +192,6 @@ page 50464 "New Breakdown Op Listpart1"
 
     trigger OnAfterGetCurrRecord()
     var
-
     begin
         CurrentNo := rec."NewBRNo.";
     end;
@@ -179,7 +199,6 @@ page 50464 "New Breakdown Op Listpart1"
 
     trigger OnAfterGetRecord()
     var
-
     begin
         rec."Upload Video" := 'Upload Video File.....';
         rec."Download Video" := 'Download/View Video File.....';
@@ -218,7 +237,7 @@ page 50464 "New Breakdown Op Listpart1"
         DownloadFromStream(PicInStream, 'Download', '', '', Filename);
     end;
 
-    var
 
+    var
         CurrentNo: Code[20];
 }
