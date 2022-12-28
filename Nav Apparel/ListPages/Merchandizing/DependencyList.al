@@ -56,10 +56,12 @@ page 51041 "Dependency"
         UserSetupRec.SetRange("User ID", UserId);
 
         if UserSetupRec.FindSet() then begin
-            if UserSetupRec."Merchandizer Group Name" = '' then
-                Error('Merchandiser Group Name has not set up for the user : %1', UserId)
-            else
-                rec.SetFilter("Merchandizer Group Name", '=%1', UserSetupRec."Merchandizer Group Name")
+            if UserSetupRec."Merchandizer All Group" = false then begin
+                if UserSetupRec."Merchandizer Group Name" = '' then
+                    Error('Merchandiser Group Name has not set up for the user : %1', UserId)
+                else
+                    rec.SetFilter("Merchandizer Group Name", '=%1', UserSetupRec."Merchandizer Group Name");
+            end
         end
         else
             Error('Cannot find user details in user setup table');
@@ -74,10 +76,12 @@ page 51041 "Dependency"
         UserSetupRec.SetRange("User ID", UserId);
 
         if UserSetupRec.FindSet() then begin
-            if rec."Merchandizer Group Name" <> '' then begin
-                if rec."Merchandizer Group Name" <> UserSetupRec."Merchandizer Group Name" then
-                    Error('You are not authorized to view other Merchandiser Group information.');
-            end;
+            if UserSetupRec."Merchandizer All Group" = false then begin
+                if rec."Merchandizer Group Name" <> '' then begin
+                    if rec."Merchandizer Group Name" <> UserSetupRec."Merchandizer Group Name" then
+                        Error('You are not authorized to view other Merchandiser Group information.');
+                END;
+            END;
         end;
     end;
 }

@@ -368,13 +368,13 @@ table 50934 "Style Master"
         UserSetupRec.SetRange("User ID", UserId);
 
         if UserSetupRec.FindSet() then begin
-            LocationRec.Reset();
-            LocationRec.SetRange(Code, UserSetupRec."Factory Code");
-            if not LocationRec.FindSet() then
-                Error('Cannot find factory details.');
+            //LocationRec.Reset();
+            //LocationRec.SetRange(Code, UserSetupRec."Factory Code");
+            //if not LocationRec.FindSet() then
+            //    Error('Cannot find factory details.');
 
-            "Factory Code" := UserSetupRec."Factory Code";
-            "Factory Name" := LocationRec.Name;
+            // "Factory Code" := UserSetupRec."Factory Code";
+            // "Factory Name" := LocationRec.Name;
             "Global Dimension Code" := UserSetupRec."Global Dimension Code";
             "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
         end;

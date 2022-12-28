@@ -50,6 +50,19 @@ pageextension 50979 UserSetupCardExt extends "User Setup"
                 ApplicationArea = All;
                 Caption = 'Merchandiser Group Name';
             }
+
+            field("Merchandizer All Group"; rec."Merchandizer All Group")
+            {
+                ApplicationArea = All;
+                Caption = 'Merchandiser All Group';
+
+                trigger OnValidate()
+                var
+                begin
+                    if rec."Merchandizer All Group" = true then
+                        rec."Merchandizer Group Name" := '';
+                end;
+            }
         }
 
         addafter("Time Sheet Admin.")
