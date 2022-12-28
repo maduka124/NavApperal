@@ -131,7 +131,7 @@ page 50267 "BOM Estimate Cost"
 
         if UserSetupRec.FindSet() then begin
             if UserSetupRec."Merchandizer Group Name" = '' then
-                Error('Merchandizer Group Name has not set up for the user : %1', UserId)
+                Error('Merchandiser Group Name has not set up for the user : %1', UserId)
             else
                 rec.SetFilter("Merchandizer Group Name", '=%1', UserSetupRec."Merchandizer Group Name")
         end
@@ -152,7 +152,7 @@ page 50267 "BOM Estimate Cost"
         if UserSetupRec.FindSet() then begin
             if rec."Merchandizer Group Name" <> '' then begin
                 if rec."Merchandizer Group Name" <> UserSetupRec."Merchandizer Group Name" then
-                    Error('You are not authorized to view other Merchandizer Group information.');
+                    Error('You are not authorized to view other Merchandiser Group information.');
             END;
         end;
     end;

@@ -41,12 +41,14 @@ pageextension 50979 UserSetupCardExt extends "User Setup"
 
             field("Merchandizer Head"; rec."Merchandizer Head")
             {
+                Caption = 'Merchandiser Head';
                 ApplicationArea = All;
             }
 
             field("Merchandizer Group Name"; rec."Merchandizer Group Name")
             {
                 ApplicationArea = All;
+                Caption = 'Merchandiser Group Name';
             }
         }
 

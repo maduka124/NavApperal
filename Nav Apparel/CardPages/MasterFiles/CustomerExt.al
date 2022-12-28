@@ -15,7 +15,7 @@ pageextension 50948 CustomerCardExt extends "Customer Card"
             field("Group Id"; rec."Group Id")
             {
                 ApplicationArea = All;
-                Caption = 'Merchandizer Group';
+                Caption = 'Merchandiser Group';
 
                 trigger OnValidate()
                 var
