@@ -4,7 +4,7 @@ page 50847 MerchandizingGroupCard
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = MerchandizingGroupTable;
-    Caption = 'Merchandizing Group';
+    Caption = 'Merchandising Group';
 
     layout
     {

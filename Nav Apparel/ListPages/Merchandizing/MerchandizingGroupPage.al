@@ -5,6 +5,7 @@ page 50848 MerchandizingGroupPage
     UsageCategory = Lists;
     SourceTable = MerchandizingGroupTable;
     CardPageId = MerchandizingGroupCard;
+    Caption = 'Merchandising Group';
 
     layout
     {

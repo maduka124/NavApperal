@@ -333,7 +333,7 @@ page 50968 "Nav Apperal Role Center"
             //Merchandizing Group
             group("Merchandizing Group")
             {
-                Caption = 'Merchandizing';
+                Caption = 'Merchandising';
                 Image = Marketing;
 
                 action("Action Type")
@@ -416,7 +416,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("MerchandizingGroup")
                 {
-                    Caption = 'Merchandizing Group';
+                    Caption = 'Merchandising Group';
                     RunObject = Page MerchandizingGroupPage;
                     ApplicationArea = all;
                 }
@@ -541,7 +541,7 @@ page 50968 "Nav Apperal Role Center"
 
                 group("Merchandizing Reports")
                 {
-                    Caption = 'Merchandizing Reports';
+                    Caption = 'Merchandising Reports';
 
                     action("Accessory Status")
                     {

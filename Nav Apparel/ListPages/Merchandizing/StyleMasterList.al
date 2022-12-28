@@ -118,7 +118,7 @@ page 51067 "Style Master"
 
         if UserSetupRec.FindSet() then begin
             if UserSetupRec."Merchandizer Group Name" = '' then
-                Error('Merchandizer Group Name has not set up for the user : %1', UserId)
+                Error('Merchandiser Group Name has not set up for the user : %1', UserId)
             else
                 rec.SetFilter("Merchandizer Group Name", '=%1', UserSetupRec."Merchandizer Group Name")
         end

@@ -8546,7 +8546,7 @@ page 50984 "BOM Card"
             Error('Cannot find user setup details');
 
         if UserSetupRec."Merchandizer Group Name" = '' then
-            Error('Merchandizer Group Name not setup for the user.');
+            Error('Merchandiser Group Name not setup for the user.');
 
         //Get Worksheet line no
         NavAppSetupRec.Reset();
