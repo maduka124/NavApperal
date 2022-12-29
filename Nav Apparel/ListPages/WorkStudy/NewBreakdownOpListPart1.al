@@ -12,7 +12,7 @@ page 50464 "New Breakdown Op Listpart1"
                 field(Code; rec.Code)
                 {
                     ApplicationArea = All;
-                    Editable = false;
+
                 }
 
                 field(Description; rec.Description)
@@ -166,7 +166,11 @@ page 50464 "New Breakdown Op Listpart1"
                                     NewBreakOpLine2Rec.Insert();
 
                                 end;
+                                NewBreakOpLine1Rec.Select := false;
+                                NewBreakOpLine1Rec.Modify();
+                                CurrPage.Update();
                             end;
+
                         until NewBreakOpLine1Rec.Next = 0;
 
 
