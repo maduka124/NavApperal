@@ -1653,6 +1653,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("ContractLC1")
+                {
+                    Caption = 'Contract LC Master';
+                    RunObject = Page "Contract/LC List";
+                    ApplicationArea = all;
+                }
+
                 action("Bank Reference List")
                 {
                     Caption = 'Export Bank Reference List';

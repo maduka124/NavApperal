@@ -10,6 +10,8 @@ page 50985 "BOM Estimate Card"
         {
             group(General)
             {
+                Editable = EditableGB;
+
                 field("No."; rec."No.")
                 {
                     ApplicationArea = All;
@@ -274,6 +276,8 @@ page 50985 "BOM Estimate Card"
 
             group(" ")
             {
+                Editable = EditableGB;
+
                 part("BOM Estimate Line List part"; "BOM Estimate Line List part")
                 {
                     ApplicationArea = All;
@@ -428,4 +432,35 @@ page 50985 "BOM Estimate Card"
 
     end;
 
+
+    trigger OnOpenPage()
+    var
+        EstCostRec: Record "BOM Estimate Cost";
+    begin
+        EditableGB := true;
+        EstCostRec.Reset();
+        EstCostRec.SetRange("BOM No.", rec."No.");
+        if EstCostRec.FindSet() then begin
+            if EstCostRec.Status = EstCostRec.Status::Approved then
+                EditableGB := false;
+        end;
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        EstCostRec: Record "BOM Estimate Cost";
+    begin
+        EditableGB := true;
+        EstCostRec.Reset();
+        EstCostRec.SetRange("BOM No.", rec."No.");
+        if EstCostRec.FindSet() then begin
+            if EstCostRec.Status = EstCostRec.Status::Approved then
+                EditableGB := false;
+        end;
+    end;
+
+
+    var
+        EditableGB: Boolean;
 }
