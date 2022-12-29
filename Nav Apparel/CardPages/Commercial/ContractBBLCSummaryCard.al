@@ -47,6 +47,12 @@ page 50791 "ContractBBLCSummaryCard"
                     Editable = false;
                 }
 
+                field("BBLC Balance"; "BBLC BALANCE")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field("B2B LC Opened (%)"; "BBLC OPENED %")
                 {
                     ApplicationArea = All;
@@ -116,6 +122,8 @@ page 50791 "ContractBBLCSummaryCard"
             "BBLC OPENED %" := ("BBLC Opened" / "Amount") * 100;
         end;
 
+        "BBLC BALANCE" := "BBLC AMOUNT" - "BBLC OPENED";
+
         //Done By Sachith 14/12/22
         //Delete Old Records
         AwaitingPOsRec.Reset();
@@ -178,4 +186,5 @@ page 50791 "ContractBBLCSummaryCard"
         "BBLC AMOUNT": Decimal;
         "BBLC OPENED": Decimal;
         "BBLC OPENED %": decimal;
+        "BBLC BALANCE": Decimal;
 }

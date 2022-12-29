@@ -238,7 +238,6 @@ table 50501 "Contract/LCMaster"
         {
             DataClassification = ToBeClassified;
         }
-
     }
 
     keys

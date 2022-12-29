@@ -162,6 +162,7 @@ page 50502 "Contract/LC Card"
                 {
                     ApplicationArea = All;
                     Caption = 'BBLC %';
+                    Editable = false;
                 }
 
                 field("B2B Payment Type"; rec."B2B Payment Type")

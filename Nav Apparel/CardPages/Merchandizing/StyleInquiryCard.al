@@ -246,7 +246,10 @@ page 50602 "Style Inquiry Card"
                     trigger OnValidate()
                     var
                     begin
-                        rec."Lead Time" := rec."Ship Date" - Today;
+                        if rec."Ship Date" < WorkDate() then
+                            Error('Ship Date should be greater than todays date');
+
+                        rec."Lead Time" := rec."Ship Date" - WorkDate();
                     end;
                 }
 
@@ -257,7 +260,7 @@ page 50602 "Style Inquiry Card"
                     trigger OnValidate()
                     var
                     begin
-                        rec."Ship Date" := Today + rec."Lead Time";
+                        rec."Ship Date" := WorkDate() + rec."Lead Time";
                     end;
                 }
 
@@ -319,6 +322,16 @@ page 50602 "Style Inquiry Card"
                 field("Production File Handover Date"; rec."Production File Handover Date")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec."Production File Handover Date" < WorkDate() then
+                            Error('Production File Handover Date should be greater than todays date');
+
+                        if rec."Production File Handover Date" > rec."Ship Date" then
+                            Error('Production File Handover Date should be less than Ship date');
+                    end;
                 }
             }
 

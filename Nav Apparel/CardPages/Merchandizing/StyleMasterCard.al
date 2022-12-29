@@ -119,6 +119,13 @@ page 50607 "Style Master Card"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec.BPCD < WorkDate() then
+                            Error('BPCD should be greater than todays date');
+                    end;
                 }
 
                 // field("LC No/Contract"; "LC No/Contract")

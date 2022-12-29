@@ -609,6 +609,11 @@ page 50964 "NavApp Setup Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("BPCD To Ship Date"; rec."BPCD To Ship Date")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

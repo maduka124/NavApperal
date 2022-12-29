@@ -53,8 +53,8 @@ table 50935 "Style Master PO"
         field(71012589; "Status"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Confirm,Project,"Project Confirm";
-            OptionCaption = 'Confirm,Project,"Project Confirm"';
+            OptionMembers = Confirm,Projection,"Projection Confirm";
+            OptionCaption = 'Confirm,Projection,Projection Confirm';
         }
 
         field(71012590; "Confirm Date"; Date)
@@ -232,7 +232,7 @@ table 50935 "Style Master PO"
         "Created User" := UserId;
     end;
 
-   
+
     // trigger OnDelete()
     // var
     //     StyleMasterRec: Record "Style Master";
@@ -255,5 +255,5 @@ table 50935 "Style Master PO"
 
     // end;
 
-   
+
 }

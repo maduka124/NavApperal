@@ -100,6 +100,24 @@ page 51069 "Style Master PO ListPart"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                        NavappRec: Record "NavApp Setup";
+                        StyleMasRec: Record "Style Master";
+                    begin
+                        NavappRec.Reset();
+                        NavappRec.FindSet();
+
+                        StyleMasRec.Reset();
+                        StyleMasRec.SetRange("No.", rec."Style No.");
+                        if StyleMasRec.FindSet() then begin
+                            if (rec."Ship Date" <> 0D) and (StyleMasRec.BPCD <> 0D) then begin
+                                if rec."Ship Date" < (StyleMasRec.BPCD + NavappRec."BPCD To Ship Date") then
+                                    Error('There should be %1 days gap between BPCD and Ship Date', NavappRec."BPCD To Ship Date");
+                            end;
+                        end
+                    end;
                 }
 
                 field(SID; rec.SID)
@@ -120,6 +138,21 @@ page 51069 "Style Master PO ListPart"
                 field("Confirm Date"; rec."Confirm Date")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec."Confirm Date" <> 0D then begin
+                            if (rec.Status = rec.Status::Confirm) and (rec."Confirm Date" > WorkDate()) then
+                                Error('Confirm date cannot be a future date.');
+
+                            if (rec.Status = rec.Status::"Projection Confirm") and (rec."Confirm Date" > WorkDate()) then
+                                Error('Confirm date cannot be a future date.');
+
+                            if (rec.Status = rec.Status::Projection) and (rec."Confirm Date" < WorkDate()) then
+                                Error('Confirm date cannot be old date.');
+                        end
+                    end;
                 }
             }
         }

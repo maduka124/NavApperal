@@ -539,6 +539,7 @@ page 50986 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Visible = false;
 
                     trigger OnValidate()
                     var
@@ -1316,6 +1317,7 @@ page 50986 "BOM Estimate Cost Card"
                     BOMCostReviHeaderRec."Wash Type Name" := rec."Wash Type Name";
                     BOMCostReviHeaderRec."Washing (Dz.)" := rec."Washing (Dz.)";
                     BOMCostReviHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    BOMCostReviHeaderRec."Merchandizer Group Name" := rec."Merchandizer Group Name";
                     BOMCostReviHeaderRec.Insert();
 
                     //Write to line table

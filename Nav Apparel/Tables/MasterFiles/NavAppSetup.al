@@ -604,6 +604,11 @@ table 51139 "NavApp Setup"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012686; "BPCD To Ship Date"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

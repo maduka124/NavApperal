@@ -565,6 +565,11 @@ table 50892 "BOM Estimate Cost Revision"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012677; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
