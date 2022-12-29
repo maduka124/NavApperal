@@ -69,6 +69,8 @@ report 50642 PurchaseOrderReportCard
                 { }
                 column(Description; Description)
                 { }
+                column(DisplayStyleName; DisplayStyleName)
+                { }
                 // column(MainCategory; MainCategory)
                 // { }
                 dataitem(Item; Item)
@@ -118,6 +120,7 @@ report 50642 PurchaseOrderReportCard
                         Buyer := StyleRec."Buyer Name";
                         Season := StyleRec."Season Name";
                         Style := StyleRec."Style No.";
+                        DisplayStyleName := StyleRec."Style Display Name";
                     end;
                 end;
 
@@ -211,6 +214,7 @@ report 50642 PurchaseOrderReportCard
     // }
 
     var
+        DisplayStyleName: Text[100];
         PriceFilter: Boolean;
         PriceVisibility: Integer;
         DimentionValueRec: Record "Dimension Value";

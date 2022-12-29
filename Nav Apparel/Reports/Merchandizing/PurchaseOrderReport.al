@@ -69,7 +69,7 @@ report 50650 PurchaseOrderReport
                 { }
                 column(Description; Description)
                 { }
-                column(Display_Style_Name; "Display Style Name")
+                column(DisplayStyleName; DisplayStyleName)
                 { }
                 // column(MainCategory; MainCategory)
                 // { }
@@ -118,7 +118,7 @@ report 50650 PurchaseOrderReport
                         Buyer := StyleRec."Buyer Name";
                         Season := StyleRec."Season Name";
                         Style := StyleRec."Style No.";
-                        "Display Style Name" := StyleRec."Style Display Name";
+                        DisplayStyleName := StyleRec."Style Display Name";
                     end;
                 end;
 
@@ -221,7 +221,7 @@ report 50650 PurchaseOrderReport
         Season: Text[50];
         Buyer: Text[50];
         Style: Text[50];
-        "Display Style Name": Text[100];
+        DisplayStyleName: Text[100];
         PaymentsRec: Record "Payment Terms";
         TermDes: Text[100];
         FilterNo: Code[30];
