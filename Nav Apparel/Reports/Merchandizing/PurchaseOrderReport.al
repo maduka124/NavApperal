@@ -71,8 +71,11 @@ report 50650 PurchaseOrderReport
                 { }
                 column(DisplayStyleName; DisplayStyleName)
                 { }
+                column(Address; Address)
+                { }
                 // column(MainCategory; MainCategory)
                 // { }
+
                 dataitem(Item; Item)
                 {
                     DataItemLinkReference = "Purchase Line";
@@ -138,6 +141,28 @@ report 50650 PurchaseOrderReport
                 if DimentionValueRec.FindFirst() then begin
                     LocationName := DimentionValueRec.Name;
                 end;
+
+                //Get Address
+                LocationRec.Reset();
+                LocationRec.SetRange(Code, "Shortcut Dimension 1 Code");
+                if LocationRec.FindSet() then begin
+                    if LocationRec.Address <> '' then
+                        Address := Address + LocationRec.Address + ', ';
+
+                    if LocationRec."Address 2" <> '' then
+                        Address := Address + LocationRec."Address 2" + ', ';
+
+                    if LocationRec."Post Code" <> '' then
+                        Address := Address + LocationRec."Post Code" + ', ';
+
+                    if LocationRec.City <> '' then
+                        Address := Address + LocationRec.City + ', ';
+
+                    if LocationRec.County <> '' then
+                        Address := Address + LocationRec.County;
+
+                end;
+
             end;
 
             trigger OnPreDataItem()
@@ -217,6 +242,8 @@ report 50650 PurchaseOrderReport
         DimenshionWidthNo: Text[100];
         ItemRec: Record Item;
         comrec: Record "Company Information";
+        LocationRec: Record Location;
+        Address: Text[500];
         StyleRec: Record "Style Master";
         Season: Text[50];
         Buyer: Text[50];

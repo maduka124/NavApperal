@@ -105,6 +105,9 @@
         <Field Name="DisplayStyleName">
           <DataField>DisplayStyleName</DataField>
         </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+        </Field>
         <Field Name="MainCategory">
           <DataField>MainCategory</DataField>
         </Field>
@@ -933,7 +936,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2039,11 +2041,26 @@
                         <TextAlign>Left</TextAlign>
                       </Style>
                     </Paragraph>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=Fields!Address.Value</Value>
+                          <Style>
+                            <FontFamily>Calibri</FontFamily>
+                            <FontSize>12pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
                   </Paragraphs>
                   <rd:DefaultName>Textbox30</rd:DefaultName>
                   <Top>2.17771cm</Top>
                   <Left>0.22705cm</Left>
-                  <Height>1.35995cm</Height>
+                  <Height>1.64923cm</Height>
                   <Width>10.3011cm</Width>
                   <ZIndex>4</ZIndex>
                   <Style>
