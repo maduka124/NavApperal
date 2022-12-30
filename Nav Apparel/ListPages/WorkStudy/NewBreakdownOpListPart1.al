@@ -3,6 +3,7 @@ page 50464 "New Breakdown Op Listpart1"
     PageType = ListPart;
     SourceTable = "New Breakdown Op Line1";
 
+
     layout
     {
         area(Content)
