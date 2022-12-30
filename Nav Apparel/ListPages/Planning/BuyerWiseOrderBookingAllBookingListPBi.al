@@ -27,6 +27,12 @@ page 51177 "BuyeWisOdrBook-AllBookListPBi"
                     Caption = 'Buyer';
                 }
 
+                field("Buyer Code"; rec."Buyer Code")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Buyer';
+                }
+
                 field(Value; rec.Value)
                 {
                     ApplicationArea = All;
