@@ -1,7 +1,7 @@
 report 50642 PurchaseOrderReportCard
 {
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = All;
+    // ApplicationArea = All;
     Caption = 'Purchase Order Report';
     RDLCLayout = 'Report_Layouts/Merchandizing/PurchaseOrderReport.rdl';
     DefaultLayout = RDLC;
