@@ -2,7 +2,7 @@ page 50502 "Contract/LC Card"
 {
     PageType = Card;
     SourceTable = "Contract/LCMaster";
-    Caption = 'Contract LC Master';
+    Caption = 'Contract/Master LC';
 
     layout
     {

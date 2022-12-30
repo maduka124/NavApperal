@@ -527,7 +527,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("ContractLC")
                 {
-                    Caption = 'Contract LC Master';
+                    Caption = 'Contract/Master LC';
                     RunObject = Page "Contract/LC List";
                     ApplicationArea = all;
                 }
@@ -1655,7 +1655,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("ContractLC1")
                 {
-                    Caption = 'Contract LC Master';
+                    Caption = 'Contract/Master LC';
                     RunObject = Page "Contract/LC List";
                     ApplicationArea = all;
                 }
