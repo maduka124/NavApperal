@@ -289,7 +289,7 @@ page 50502 "Contract/LC Card"
                 }
             }
 
-            group("  ")
+            group("Total Value/Pcs")
             {
                 field("Quantity (Pcs)"; rec."Quantity (Pcs)")
                 {

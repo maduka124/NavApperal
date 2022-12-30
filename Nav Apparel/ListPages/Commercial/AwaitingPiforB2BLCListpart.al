@@ -1,8 +1,7 @@
 page 51180 AwaitingPiforB2BLC
 {
     PageType = ListPart;
-    SourceTable = "PI Details Header";
-    SourceTableView = where(AssignedB2BNo = filter(''));
+    SourceTable = AwaitingPIs;
     InsertAllowed = false;
     DeleteAllowed = false;
 
