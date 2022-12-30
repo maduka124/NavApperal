@@ -47,6 +47,8 @@ report 50642 PurchaseOrderReportCard
             { }
             column(PriceVisibility; PriceVisibility)
             { }
+            column(Vendor_Order_No_; "Vendor Order No.")
+            { }
 
 
             dataitem("Purchase Line"; "Purchase Line")
