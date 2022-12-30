@@ -138,7 +138,7 @@ page 50989 "Copy BOM Card"
 
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
-                        LoginSessionsRec.FindSet();                        
+                        LoginSessionsRec.FindSet();
                     end;
 
                     NavAppSetupRec.Reset();
@@ -210,7 +210,7 @@ page 50989 "Copy BOM Card"
                         BOMEstNewRec."Style Name" := DestinationStyleName;
                         BOMEstNewRec."Style No." := DestinationStyle;
                         BOMEstNewRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-
+                        BOMEstNewRec."Merchandizer Group Name" := StyleRec."Merchandizer Group Name";
                         BOMEstNewRec.Insert();
 
                         //Line Records

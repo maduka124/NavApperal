@@ -11,6 +11,12 @@ page 51025 "BOM Estimate Line List part"
         {
             repeater(General)
             {
+                // field("Line No."; rec."Line No.")
+                // {
+                //     ApplicationArea = all;
+                // }
+
+
                 field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
@@ -42,6 +48,7 @@ page 51025 "BOM Estimate Line List part"
                             rec."Article Name." := '';
                             rec."Supplier No." := '';
                             rec."Supplier Name." := '';
+                            CurrPage.Update();
                         end;
                     end;
                 }
@@ -72,6 +79,7 @@ page 51025 "BOM Estimate Line List part"
                             ItemRec.FindSet();
 
                             if ItemRec."Vendor No." <> '' then begin
+
                                 rec."Supplier No." := ItemRec."Vendor No.";
                                 VendorRec.Reset();
                                 VendorRec.SetRange("No.", ItemRec."Vendor No.");
@@ -80,52 +88,54 @@ page 51025 "BOM Estimate Line List part"
                                     rec."Supplier Name." := VendorRec.Name;
                             end;
 
+                            rec."Unit N0." := ItemRec."Base Unit of Measure";
+
                             //Get Qty from Header 
                             BOMHeaderRec.Reset();
                             BOMHeaderRec.SetRange("No.", rec."No.");
                             if BOMHeaderRec.FindSet() then
                                 rec.Qty := BOMHeaderRec.Quantity;
 
-                            CurrPage.Update();
+                            //CurrPage.Update();
 
                         end;
                     end;
 
 
-                    trigger OnValidate()
-                    var
-                        ItemRec: Record "Item";
-                        BOMHeaderRec: record "BOM Estimate";
-                        VendorRec: Record Vendor;
-                    begin
-                        ItemRec.Reset();
-                        ItemRec.SetRange(Description, rec."Item Name");
-                        if ItemRec.FindSet() then
-                            rec."Item No." := ItemRec."No."
-                        else
-                            Error('Invalid Item.');
+                    // trigger OnValidate()
+                    // var
+                    //     ItemRec: Record "Item";
+                    //     BOMHeaderRec: record "BOM Estimate";
+                    //     VendorRec: Record Vendor;
+                    // begin
+                    //     ItemRec.Reset();
+                    //     ItemRec.SetRange(Description, rec."Item Name");
+                    //     if ItemRec.FindSet() then
+                    //         rec."Item No." := ItemRec."No."
+                    //     else
+                    //         Error('Invalid Item.');
 
-                        CurrPage.Update();
+                    //     CurrPage.Update();
 
-                        if ItemRec."Vendor No." <> '' then begin
+                    //     if ItemRec."Vendor No." <> '' then begin
 
-                            rec."Supplier No." := ItemRec."Vendor No.";
-                            VendorRec.Reset();
-                            VendorRec.SetRange("No.", ItemRec."Vendor No.");
+                    //         rec."Supplier No." := ItemRec."Vendor No.";
+                    //         VendorRec.Reset();
+                    //         VendorRec.SetRange("No.", ItemRec."Vendor No.");
 
-                            if VendorRec.FindSet() then
-                                rec."Supplier Name." := VendorRec.Name;
+                    //         if VendorRec.FindSet() then
+                    //             rec."Supplier Name." := VendorRec.Name;
 
-                        end;
+                    //     end;
 
-                        //Get Qty from Header 
-                        BOMHeaderRec.Reset();
-                        BOMHeaderRec.SetRange("No.", rec."No.");
-                        if BOMHeaderRec.FindSet() then
-                            rec.Qty := BOMHeaderRec.Quantity;
+                    //     //Get Qty from Header 
+                    //     BOMHeaderRec.Reset();
+                    //     BOMHeaderRec.SetRange("No.", rec."No.");
+                    //     if BOMHeaderRec.FindSet() then
+                    //         rec.Qty := BOMHeaderRec.Quantity;
 
-                        CurrPage.Update();
-                    end;
+                    //     CurrPage.Update();
+                    // end;
                 }
 
                 field("Article Name."; rec."Article Name.")
