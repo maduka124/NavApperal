@@ -124,8 +124,6 @@ report 50613 EstimateCostSheetReport
                     NotFab := 0;
                     ConsumptionNot := 0;
 
-
-
                     if "Master Category Name" = 'FABRIC' then begin
                         TotFab := "Doz Cost";
                         Consumption1 := "Doz Cost" / 12;
@@ -137,12 +135,48 @@ report 50613 EstimateCostSheetReport
                     end;
                 end;
 
-
-
-
             }
-            trigger OnAfterGetRecord()
 
+            dataitem("BOM Estimate Line"; "BOM Estimate Line")
+            {
+                DataItemLinkReference = "BOM Estimate Cost";
+                DataItemLink = "No." = field("BOM No.");
+                DataItemTableView = sorting("No.", "Line No.");
+
+                column(Main_Category_Name; "Main Category Name")
+                { }
+                column(Item_Name; "Item Name")
+                { }
+                column(Article_Name_; "Article Name.")
+                { }
+                column(Dimension_Name_; "Dimension Name.")
+                { }
+                column(Unit_N0_; "Unit N0.")
+                { }
+                column(Type1; Type)
+                { }
+                column(Qty; Qty)
+                { }
+                column(Consumption1; Consumption)
+                { }
+                column(WST; WST)
+                { }
+                column(Rate; Rate)
+                { }
+                column(Value; Value)
+                { }
+                column(Requirment; Requirment)
+                { }
+
+                trigger OnAfterGetRecord()
+
+                begin
+
+                end;
+            }
+
+
+            trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -150,7 +184,6 @@ report 50613 EstimateCostSheetReport
 
             trigger OnPreDataItem()
             var
-
             begin
                 SetRange("No.", BomNo);
             end;
@@ -172,28 +205,12 @@ report 50613 EstimateCostSheetReport
                         ApplicationArea = All;
                         Caption = 'Cost Sheet No';
                         TableRelation = "BOM Estimate Cost"."No.";
-
-
                     }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
     }
     var
-        myInt: Integer;
-        // styleRec: Record "Style Master";
         BomAutoRec: Record "BOM Line AutoGen";
         TotFab: Decimal;
         NotFab: Decimal;

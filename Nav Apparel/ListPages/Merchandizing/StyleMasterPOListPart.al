@@ -197,6 +197,7 @@ page 51069 "Style Master PO ListPart"
     begin
         rec.TestField("Lot No.");
         rec.TestField(Qty);
+        rec.TestField(BPCD);
         rec.TestField("Ship Date");
         rec.TestField("PO No.");
     end;
