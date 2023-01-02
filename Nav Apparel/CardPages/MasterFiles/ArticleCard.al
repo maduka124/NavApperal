@@ -55,7 +55,7 @@ page 50944 "Article Card"
                 field("Main Category Name"; rec."Main Category Name")
                 {
                     ApplicationArea = All;
-                    Visible = false;
+                    //Visible = false;
                 }
 
                 field(Article; rec.Article)
@@ -75,4 +75,34 @@ page 50944 "Article Card"
             }
         }
     }
+
+    //actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action("Correct data")
+    //         {
+    //             ApplicationArea = All;
+    //             Image = Calculate;
+
+    //             trigger OnAction()
+    //             var
+    //                 MianCat: Record "Main Category";
+    //                 article: Record Article;
+    //             begin
+    //                 article.Reset();
+    //                 article.FindSet();
+
+    //                 repeat
+    //                     MianCat.Reset();
+    //                     MianCat.SetRange("No.", article."Main Category No.");
+    //                     MianCat.FindSet();
+
+    //                     article."Main Category Name" := MianCat."Main Category Name";
+    //                     article.Modify();
+    //                 until article.Next() = 0;
+    //             end;
+    //         }
+    //     }
+    // }
 }
