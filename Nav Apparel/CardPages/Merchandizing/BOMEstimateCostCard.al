@@ -10,6 +10,7 @@ page 50986 "BOM Estimate Cost Card"
         {
             group(General)
             {
+                Editable = EditableGB;
                 field("No."; rec."No.")   //This is Cost Sheet No
                 {
                     ApplicationArea = All;
@@ -257,10 +258,20 @@ page 50986 "BOM Estimate Cost Card"
                     ApplicationArea = All;
                     Editable = false;
                 }
+
+
+                field(ApprovalStatus; ApprovalStatus)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = '';
+                }
             }
 
             group("Base on BOM")
             {
+                Editable = EditableGB;
+
                 part("BOM EstimateCost Line Listpart"; "BOM EstimateCost Line Listpart")
                 {
                     ApplicationArea = All;
@@ -271,6 +282,8 @@ page 50986 "BOM Estimate Cost Card"
 
             group("Cost")
             {
+                Editable = EditableGB;
+
                 field("Raw Material (Dz.)"; rec."Raw Material (Dz.)")
                 {
                     ApplicationArea = All;
@@ -466,6 +479,8 @@ page 50986 "BOM Estimate Cost Card"
 
             group("CM Calculation")
             {
+                Editable = EditableGB;
+
                 field("Factory Name"; rec."Factory Name")
                 {
                     ApplicationArea = All;
@@ -591,6 +606,8 @@ page 50986 "BOM Estimate Cost Card"
 
             group("  ")
             {
+                Editable = EditableGB;
+
                 grid("")
                 {
                     GridLayout = Rows;
@@ -1208,6 +1225,7 @@ page 50986 "BOM Estimate Cost Card"
                     rec.Status := rec.Status::Approved;
                     rec."Approved Date" := WorkDate();
                     rec."Rejected Date" := 0D;
+                    rec."Approved UserID" := UserId;
                     CurrPage.Update();
 
                     //Get max revision no
@@ -1344,6 +1362,7 @@ page 50986 "BOM Estimate Cost Card"
                     StyleMasterRec.Reset();
                     StyleMasterRec.Get(rec."Style No.");
                     StyleMasterRec.Status := StyleMasterRec.Status::Confirmed;
+                    StyleMasterRec.PlanningSMV := StyleMasterRec.CostingSMV;
                     StyleMasterRec.Modify();
 
                     Message('BOM Costing Approved');
@@ -1361,6 +1380,7 @@ page 50986 "BOM Estimate Cost Card"
                     rec.Status := rec.Status::Rejected;
                     rec."Rejected Date" := WorkDate();
                     rec."Approved Date" := 0D;
+                    rec."Approved UserID" := '';
                     CurrPage.Update();
                     Message('BOM Costing Rejected');
                 end;
@@ -1635,7 +1655,36 @@ page 50986 "BOM Estimate Cost Card"
         if rec."FOB Pcs" = 0 then
             rec."FOB Pcs" := 1;
 
+        if rec.Status = rec.Status::Approved then begin
+            ApprovalStatus := 'Costing is approved by ' + rec."Approved UserID" + ' on ' + format(rec."Approved Date") + '.';
+            EditableGB := false;
+        end
+        else begin
+            ApprovalStatus := '';
+            EditableGB := true;
+        end;
+
         CurrPage.Update();
     end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+    begin
+        if rec.Status = rec.Status::Approved then begin
+            ApprovalStatus := 'Costing is approved by ' + rec."Approved UserID" + ' on ' + format(rec."Approved Date") + '.';
+            EditableGB := false;
+        end
+        else begin
+            ApprovalStatus := '';
+            EditableGB := true;
+        end;
+
+    end;
+
+
+    var
+        ApprovalStatus: Text[200];
+        EditableGB: Boolean;
 
 }

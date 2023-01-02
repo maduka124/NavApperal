@@ -63,7 +63,7 @@ page 50570 "Trim Inspection Card"
         TrimInsRec: Record TrimInspectionLine;
         PurchRec: Record "Purch. Rcpt. Header";
         PurchLineRec: Record "Purch. Rcpt. Line";
-        StyleMasRec: Record "Style Master";
+        StyleMasPORec: Record "Style Master PO";
         LineNo: Integer;
         ItemMasRec: Record Item;
         ArticleRec: Record Article;
@@ -129,12 +129,14 @@ page 50570 "Trim Inspection Card"
                                     RejectLevel := AQLRec."Reject Qty";
                                 end;
 
-                                //Get Style BPCD
-                                StyleMasRec.Reset();
-                                StyleMasRec.SetRange("No.", PurchLineRec.StyleNo);
+                                //Get minimum Style po BPCD
+                                StyleMasPORec.Reset();
+                                StyleMasPORec.SetCurrentKey(BPCD);
+                                StyleMasPORec.Ascending(true);
+                                StyleMasPORec.SetRange("Style No.", PurchLineRec.StyleNo);
 
-                                if StyleMasRec.FindSet() then
-                                    BPCD := StyleMasRec.BPCD;
+                                if StyleMasPORec.FindFirst() then
+                                    BPCD := StyleMasPORec.BPCD;
 
 
                                 TrimInsRec.Init();

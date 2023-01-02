@@ -227,7 +227,7 @@ page 50665 "Bundle Guide Card"
                     SewJobRec.SetRange("Style No.", rec."Style No.");
                     SewJobRec.SetRange("Colour No", rec."Color No");
                     SewJobRec.SetRange("Group ID", rec."Group ID");
-                    SewJobRec.SetFilter("Record Type", '%1', 'L');
+                    SewJobRec.SetFilter("Record Type", '=%1', 'L');
                     if SewJobRec.FindSet() then begin
 
 

@@ -574,6 +574,11 @@ table 50889 "BOM Estimate Cost"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012679; "Approved UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -994,5 +994,10 @@ permissionset 50100 GeneratedPermission
         codeunit "CodeUnitJobQueue-AllBooking"=X,
         page AwaitingPiforB2BLC=X,
         page "BuyeWisOdrBook-AllBookListPBi"=X,
-        page BuyWisOdrBookAllBookDashBoard=X;
+        page BuyWisOdrBookAllBookDashBoard=X,
+        tabledata AwaitingPIs=RIMD,
+        table AwaitingPIs=X,
+        page CountryListPBi=X,
+        page CustomerListPBi=X,
+        page NewBreackdownFactBox=X;
 }

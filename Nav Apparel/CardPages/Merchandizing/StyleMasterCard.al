@@ -115,18 +115,18 @@ page 50607 "Style Master Card"
                     Editable = false;
                 }
 
-                field(BPCD; rec.BPCD)
-                {
-                    ApplicationArea = All;
-                    ShowMandatory = true;
+                // field(BPCD; rec.BPCD)
+                // {
+                //     ApplicationArea = All;
+                //     ShowMandatory = true;
 
-                    trigger OnValidate()
-                    var
-                    begin
-                        if rec.BPCD < WorkDate() then
-                            Error('BPCD should be greater than todays date');
-                    end;
-                }
+                //     trigger OnValidate()
+                //     var
+                //     begin
+                //         if rec.BPCD < WorkDate() then
+                //             Error('BPCD should be greater than todays date');
+                //     end;
+                // }
 
                 // field("LC No/Contract"; "LC No/Contract")
                 // {
@@ -185,7 +185,7 @@ page 50607 "Style Master Card"
         Tot: BigInteger;
     begin
 
-        rec.TestField(BPCD);
+        //rec.TestField(BPCD);
 
         if rec."Order Qty" = 0 then
             Error('Order quantity cannot be zero.');
@@ -197,6 +197,7 @@ page 50607 "Style Master Card"
 
         repeat
             Tot += StyleMasterPORec.Qty;
+            StyleMasterPORec.TestField(BPCD);
         until StyleMasterPORec.Next() = 0;
 
         rec."PO Total" := Tot;

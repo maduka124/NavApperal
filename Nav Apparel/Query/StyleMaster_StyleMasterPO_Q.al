@@ -20,9 +20,6 @@ query 50772 "StyleMaster_StyleMasterPO_Q"
             {
                 Caption = 'Style Name';
             }
-            column(BPCD; BPCD)
-            {
-            }
             column(SMV; SMV)
             {
             }
@@ -66,6 +63,9 @@ query 50772 "StyleMaster_StyleMasterPO_Q"
                 {
                 }
                 column(PlannedStatus; PlannedStatus)
+                {
+                }
+                column(BPCD; BPCD)
                 {
                 }
             }

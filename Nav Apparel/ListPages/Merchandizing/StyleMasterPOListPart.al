@@ -34,7 +34,7 @@ page 51069 "Style Master PO ListPart"
                         StyleMasRec.SetRange("No.", rec."Style No.");
 
                         if StyleMasRec.FindSet() then begin
-                            rec.BPCD := StyleMasRec.BPCD;
+                            //rec.BPCD := StyleMasRec.BPCD;
                             rec."Style Name" := StyleMasRec."Style No.";
                         end;
 
@@ -96,6 +96,19 @@ page 51069 "Style Master PO ListPart"
                     ApplicationArea = All;
                 }
 
+                field(BPCD; rec.BPCD)
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec.BPCD < WorkDate() then
+                            Error('BPCD should be greater than todays date');
+                    end;
+                }
+
                 field("Ship Date"; rec."Ship Date")
                 {
                     ApplicationArea = All;
@@ -109,14 +122,11 @@ page 51069 "Style Master PO ListPart"
                         NavappRec.Reset();
                         NavappRec.FindSet();
 
-                        StyleMasRec.Reset();
-                        StyleMasRec.SetRange("No.", rec."Style No.");
-                        if StyleMasRec.FindSet() then begin
-                            if (rec."Ship Date" <> 0D) and (StyleMasRec.BPCD <> 0D) then begin
-                                if rec."Ship Date" < (StyleMasRec.BPCD + NavappRec."BPCD To Ship Date") then
-                                    Error('There should be %1 days gap between BPCD and Ship Date', NavappRec."BPCD To Ship Date");
-                            end;
-                        end
+                        if (rec."Ship Date" <> 0D) and (rec.BPCD <> 0D) then begin
+                            if rec."Ship Date" < (rec.BPCD + NavappRec."BPCD To Ship Date") then
+                                Error('There should be %1 days gap between BPCD and Ship Date', NavappRec."BPCD To Ship Date");
+                        end;
+
                     end;
                 }
 

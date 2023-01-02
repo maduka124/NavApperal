@@ -153,7 +153,7 @@ page 50791 "ContractBBLCSummaryCard"
                         PurchaseHeadeaerRec.Reset();
                         PurchaseHeadeaerRec.SetRange("No.", PurchaselineRec."Document No.");
                         PurchaseHeadeaerRec.SetRange("Document Type", PurchaseHeadeaerRec."Document Type"::Order);
-                        PurchaseHeadeaerRec.SetFilter("Assigned PI No.", '%1', '');
+                        PurchaseHeadeaerRec.SetFilter("Assigned PI No.", '=%1', '');
 
                         if PurchaseHeadeaerRec.FindSet() then begin
 
@@ -175,7 +175,7 @@ page 50791 "ContractBBLCSummaryCard"
                                 AwaitingPOsRec."Document Date" := PurchaseHeadeaerRec."Document Date";
                                 AwaitingPOsRec."Buy-from Vendor No" := PurchaseHeadeaerRec."Buy-from Vendor No.";
                                 AwaitingPOsRec.Insert();
-                                CurrPage.Update();
+                                //CurrPage.Update();
 
                             end;
                         end;
@@ -185,6 +185,103 @@ page 50791 "ContractBBLCSummaryCard"
         end;
 
         Get_AwaitingPIs_BBLC();
+        CurrPage.Update();
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        "ContLCMasRec": Record "Contract/LCMaster";
+        B2BRec: Record B2BLCMaster;
+        AwaitingPOsRec: Record AwaitingPOs;
+        AwaitingPOs2Rec: Record AwaitingPOs;
+        PurchaseHeadeaerRec: Record "Purchase Header";
+        PurchaselineRec: Record "Purchase Line";
+        ContractStyleRec: Record "Contract/LCStyle";
+    begin
+
+        ContLCMasRec.Reset();
+        ContLCMasRec.SetRange("Contract No", rec."Contract No");
+        if ContLCMasRec.FindSet() then begin
+            Amount := ContLCMasRec."Contract Value";
+            "BBLC Limit" := ContLCMasRec.BBLC;
+            "BBLC AMOUNT" := (ContLCMasRec."Contract Value" * ContLCMasRec.BBLC) / 100;
+        end;
+
+        //Calculate B2B LC opened and %
+        B2BRec.Reset();
+        B2BRec.SetRange("LC/Contract No.", rec."Contract No");
+
+        if B2BRec.FindSet() then begin
+            repeat
+                "BBLC Opened" += B2BRec."B2B LC Value";
+            until B2BRec.Next() = 0;
+
+            if "Amount" > 0 then
+                "BBLC OPENED %" := ("BBLC Opened" / "Amount") * 100
+            else
+                "BBLC OPENED %" := 0;
+
+        end;
+
+        "BBLC BALANCE" := "BBLC AMOUNT" - "BBLC OPENED";
+
+        //Done By Sachith 14/12/22
+        //Delete Old Records
+        AwaitingPOsRec.Reset();
+        AwaitingPOsRec.SetRange("Contract No", Rec."Contract No");
+
+        if AwaitingPOsRec.FindSet() then
+            AwaitingPOsRec.DeleteAll();
+
+        ContractStyleRec.Reset();
+        ContractStyleRec.SetRange("No.", Rec."No.");
+
+        if ContractStyleRec.FindSet() then begin
+            repeat
+
+                PurchaselineRec.Reset();
+                PurchaselineRec.SetRange(StyleNo, ContractStyleRec."Style No.");
+
+                if PurchaselineRec.FindSet() then begin
+                    repeat
+
+                        PurchaseHeadeaerRec.Reset();
+                        PurchaseHeadeaerRec.SetRange("No.", PurchaselineRec."Document No.");
+                        PurchaseHeadeaerRec.SetRange("Document Type", PurchaseHeadeaerRec."Document Type"::Order);
+                        PurchaseHeadeaerRec.SetFilter("Assigned PI No.", '=%1', '');
+
+                        if PurchaseHeadeaerRec.FindSet() then begin
+
+                            AwaitingPOsRec.Reset();
+                            AwaitingPOsRec.SetRange("Contract No", Rec."Contract No");
+                            AwaitingPOsRec.SetRange("Style No", 'A');
+                            AwaitingPOsRec.SetRange("PO No", PurchaselineRec."Document No.");
+
+                            if not AwaitingPOsRec.FindSet() then begin
+
+                                AwaitingPOsRec.Init();
+                                AwaitingPOsRec."Contract No" := Rec."Contract No";
+                                AwaitingPOsRec."No." := Rec."No.";
+                                AwaitingPOsRec."Style Name" := 'A';
+                                AwaitingPOsRec."Style No" := 'A';
+                                AwaitingPOsRec."PO No" := PurchaselineRec."Document No.";
+                                AwaitingPOsRec."Amount Including VAT1" := PurchaseHeadeaerRec."Amount Including VAT";
+                                AwaitingPOsRec."Buy-from Vendor Name" := PurchaseHeadeaerRec."Buy-from Vendor Name";
+                                AwaitingPOsRec."Document Date" := PurchaseHeadeaerRec."Document Date";
+                                AwaitingPOsRec."Buy-from Vendor No" := PurchaseHeadeaerRec."Buy-from Vendor No.";
+                                AwaitingPOsRec.Insert();
+                                //CurrPage.Update();
+
+                            end;
+                        end;
+                    until PurchaselineRec.Next() = 0;
+                end;
+            until ContractStyleRec.Next() = 0;
+        end;
+
+        Get_AwaitingPIs_BBLC();
+        //CurrPage.Update();
     end;
 
 
@@ -240,7 +337,6 @@ page 50791 "ContractBBLCSummaryCard"
                                     AwaitingPIsRec."Supplier Name" := PIDetailsRec."Supplier Name";
                                     AwaitingPIsRec."Supplier No" := PIDetailsRec."Supplier No.";
                                     AwaitingPIsRec.Insert();
-                                    CurrPage.Update();
 
                                 end;
 
