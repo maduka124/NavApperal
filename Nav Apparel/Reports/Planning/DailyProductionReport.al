@@ -43,6 +43,8 @@ report 50865 DailyProductionReport
                 { }
                 column(Style_Name; "Style Name")
                 { }
+                column(Factory_No_1; "Factory No.")
+                { }
 
                 // trigger OnAfterGetRecord()
                 // var
