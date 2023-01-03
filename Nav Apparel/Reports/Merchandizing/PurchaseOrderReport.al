@@ -77,6 +77,7 @@ report 50650 PurchaseOrderReport
                 { }
                 // column(MainCategory; MainCategory)
                 // { }
+                
 
                 dataitem(Item; Item)
                 {
