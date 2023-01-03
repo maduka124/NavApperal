@@ -28,6 +28,11 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50007; "Merchandizer Group Name"; Text[200])
+        {
+           
+        }
     }
 }
 

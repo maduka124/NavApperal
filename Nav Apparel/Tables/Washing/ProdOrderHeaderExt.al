@@ -172,6 +172,11 @@ tableextension 50661 ProductionOderHeadExt extends "Production Order"
             DataClassification = ToBeClassified;
         }
 
+        field(50028; "Merchandizer Group Name"; Text[200])
+        {
+
+        }
+
     }
 
     fieldgroups

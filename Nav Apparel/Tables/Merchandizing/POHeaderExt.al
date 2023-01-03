@@ -23,6 +23,11 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
             DataClassification = ToBeClassified;
         }
 
+        field(50408; "Merchandizer Group Name"; Text[200])
+        {
+
+        }
+
     }
 }
 

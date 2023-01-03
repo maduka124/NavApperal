@@ -92,6 +92,10 @@ tableextension 50922 "ProdBOM Extension" extends "Production BOM Header"
             DataClassification = ToBeClassified;
         }
 
+        field(50016; "Merchandizer Group Name"; Text[200])
+        {
+           
+        }
     }
 }
 
