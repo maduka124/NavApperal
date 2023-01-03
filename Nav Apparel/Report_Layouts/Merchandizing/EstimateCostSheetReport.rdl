@@ -10163,7 +10163,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                   <Width>2.43417cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.59153cm</Width>
+                  <Width>5.43185cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.57206cm</Width>
@@ -10175,7 +10175,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                   <Width>2.43247cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.80729cm</Width>
+                  <Width>5.48978cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.5cm</Width>
@@ -10451,9 +10451,9 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
               </TablixMembers>
             </TablixRowHierarchy>
             <Top>26.58745cm</Top>
-            <Left>0.635cm</Left>
+            <Left>0.95251cm</Left>
             <Height>0.58208cm</Height>
-            <Width>26.48335cm</Width>
+            <Width>26.00616cm</Width>
             <ZIndex>8</ZIndex>
             <Style>
               <Border>
