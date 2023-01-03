@@ -25,8 +25,8 @@ report 51073 DeliveryInfoProductReport
             { }
             column(Created_User; "Created User")
             { }
-            column(BPCD; BPCD)
-            { }
+            // column(BPCD; BPCD)
+            // { }
             column(CompLogo; comRec.Picture)
             { }
             column(stDate; stDate)
@@ -54,6 +54,8 @@ report 51073 DeliveryInfoProductReport
                 column(Created_Date; "Created Date")
                 { }
                 column(Confirm_Date; "Confirm Date")
+                { }
+                column(BPCD; BPCD)
                 { }
 
 

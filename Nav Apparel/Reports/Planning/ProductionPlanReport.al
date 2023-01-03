@@ -19,7 +19,7 @@ report 50621 ProductionPlanReport
             { }
             column(Order_Qty; PoQty)
             { }
-            column(BPCD; BPCD)
+            column(BPCD; BPCDPo)
             { }
             column(Start_Date; stDate)
             { }
@@ -79,6 +79,7 @@ report 50621 ProductionPlanReport
 
                     if StyleMasterPoRec.FindFirst() then begin
                         shDate := StyleMasterPoRec."Ship Date";
+                        BPCDPo := StyleMasterPoRec.BPCD;
                     end;
 
                     NavRec.Reset();
@@ -172,6 +173,7 @@ report 50621 ProductionPlanReport
 
 
     var
+        BPCDPo: Date;
         myInt: Integer;
         StyleMasterPoRec: Record "Style Master PO";
         stDate: Date;

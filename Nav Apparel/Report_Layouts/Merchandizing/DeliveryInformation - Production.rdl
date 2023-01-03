@@ -2380,9 +2380,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Created_User">
           <DataField>Created_User</DataField>
         </Field>
-        <Field Name="BPCD">
-          <DataField>BPCD</DataField>
-        </Field>
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
         </Field>
@@ -2421,6 +2418,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Confirm_Date">
           <DataField>Confirm_Date</DataField>
+        </Field>
+        <Field Name="BPCD">
+          <DataField>BPCD</DataField>
         </Field>
       </Fields>
       <Query>
