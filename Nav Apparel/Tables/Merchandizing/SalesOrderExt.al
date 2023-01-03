@@ -31,9 +31,21 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
 
         field(50007; "Merchandizer Group Name"; Text[200])
         {
-           
+
         }
     }
+
+
+    trigger OnInsert()
+    var
+        UserSetupRec: Record "User Setup";
+    begin
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if UserSetupRec.FindSet() then
+            rec."Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+    end;
 }
 
 

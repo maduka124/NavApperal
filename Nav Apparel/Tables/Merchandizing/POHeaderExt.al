@@ -29,5 +29,17 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
         }
 
     }
+
+
+    trigger OnInsert()
+    var
+        UserSetupRec: Record "User Setup";
+    begin
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if UserSetupRec.FindSet() then
+            rec."Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+    end;
 }
 

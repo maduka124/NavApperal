@@ -94,9 +94,21 @@ tableextension 50922 "ProdBOM Extension" extends "Production BOM Header"
 
         field(50016; "Merchandizer Group Name"; Text[200])
         {
-           
+
         }
     }
+
+
+    trigger OnInsert()
+    var
+        UserSetupRec: Record "User Setup";
+    begin
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if UserSetupRec.FindSet() then
+            rec."Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+    end;
 }
 
 

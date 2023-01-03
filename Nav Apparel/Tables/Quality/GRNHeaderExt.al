@@ -18,5 +18,17 @@ tableextension 50569 "GRN Extension" extends "Purch. Rcpt. Header"
         {
         }
     }
+
+
+    trigger OnInsert()
+    var
+        UserSetupRec: Record "User Setup";
+    begin
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+        if UserSetupRec.FindSet() then
+            rec."Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+    end;
 }
 
