@@ -10281,7 +10281,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
-                              <Style>Dashed</Style>
+                              <Style>Dotted</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -10350,7 +10350,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
-                              <Style>Dashed</Style>
+                              <Style>Dotted</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -10419,7 +10419,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
-                              <Style>Dashed</Style>
+                              <Style>Dotted</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <PaddingLeft>2pt</PaddingLeft>
