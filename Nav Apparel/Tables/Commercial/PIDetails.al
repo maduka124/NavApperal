@@ -18,7 +18,7 @@ table 51079 "PI Details Header"
         field(71012583; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No.";
+            TableRelation = "Style Master"."Style No." where("Merchandizer Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
 
@@ -144,6 +144,11 @@ table 51079 "PI Details Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012607; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
 
@@ -158,20 +163,22 @@ table 51079 "PI Details Header"
 
     trigger OnInsert()
     var
-        UserRec: Record User;
+        UserSetupRec: Record "User Setup";
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
-        UserRec.Reset();
-        UserRec.Get(UserSecurityId());
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
-
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("NEWBR Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."PI Nos.", Today, true);
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+
+        if UserSetupRec.FindSet() then begin
+            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+        end;
     end;
 
 }

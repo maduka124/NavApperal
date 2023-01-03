@@ -15,7 +15,7 @@ table 50889 "BOM Estimate Cost"
         field(71012582; "BOM No."; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "BOM Estimate"."No.";
+            TableRelation = "BOM Estimate"."No." where("Merchandizer Group Name" = field("Merchandizer Group Name"));
         }
 
         field(71012583; "Style No."; text[50])

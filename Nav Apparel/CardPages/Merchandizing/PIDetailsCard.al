@@ -173,7 +173,7 @@ page 50996 "PI Details Card"
                 }
             }
 
-            group(" ")
+            group("PO Details")
             {
                 part("PI Po Details ListPart 1"; "PI Po Details ListPart 1")
                 {
@@ -190,12 +190,12 @@ page 50996 "PI Details Card"
                 }
             }
 
-            group("  ")
+            group("PI Item Details")
             {
                 part("PI Po Item Details ListPart"; "PI Po Item Details ListPart")
                 {
                     ApplicationArea = All;
-                    Caption = 'PI Item Details';
+                    Caption = ' ';
                     SubPageLink = "PI No." = FIELD("No.");
                 }
             }
@@ -269,11 +269,9 @@ page 50996 "PI Details Card"
 
     trigger OnClosePage()
     var
-
     begin
         if rec."PO Total" <> rec."PI Value" then
             Error('Total PO value and PI value does not match.');
-
     end;
 
 }
