@@ -49,7 +49,7 @@ table 50887 "BOM"
         field(71012588; "Buyer Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Customer.Name;
+            TableRelation = Customer.Name where("Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
 
@@ -129,7 +129,7 @@ table 50887 "BOM"
         field(71012602; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No." where(Type = filter(Costing));
+            TableRelation = "Style Master"."Style No." where(Type = filter(Costing), "Merchandizer Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
 

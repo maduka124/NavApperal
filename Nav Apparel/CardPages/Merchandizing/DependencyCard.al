@@ -16,6 +16,23 @@ page 50990 "Dependency Card"
                     Visible = false;
                 }
 
+                field(Dependency; rec.Dependency)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Dependency';
+
+                    trigger OnValidate()
+                    var
+                        DependencyGroupRec: Record "Dependency Group";
+                    begin
+                        DependencyGroupRec.Reset();
+                        DependencyGroupRec.SetRange("Dependency Group", rec.Dependency);
+
+                        if DependencyGroupRec.FindSet() then
+                            rec."Dependency No." := DependencyGroupRec."No.";
+                    end;
+                }
+
                 field("Buyer Name."; rec."Buyer Name.")
                 {
                     ApplicationArea = All;
@@ -52,23 +69,6 @@ page 50990 "Dependency Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
-                    end;
-                }
-
-                field(Dependency; rec.Dependency)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Dependency';
-
-                    trigger OnValidate()
-                    var
-                        DependencyGroupRec: Record "Dependency Group";
-                    begin
-                        DependencyGroupRec.Reset();
-                        DependencyGroupRec.SetRange("Dependency Group", rec.Dependency);
-
-                        if DependencyGroupRec.FindSet() then
-                            rec."Dependency No." := DependencyGroupRec."No.";
                     end;
                 }
             }
