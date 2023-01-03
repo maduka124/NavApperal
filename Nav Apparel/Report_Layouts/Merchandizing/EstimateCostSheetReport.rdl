@@ -249,6 +249,27 @@
         <Field Name="Type">
           <DataField>Type</DataField>
         </Field>
+        <Field Name="SMV">
+          <DataField>SMV</DataField>
+        </Field>
+        <Field Name="SMVFormat">
+          <DataField>SMVFormat</DataField>
+        </Field>
+        <Field Name="EPM">
+          <DataField>EPM</DataField>
+        </Field>
+        <Field Name="EPMFormat">
+          <DataField>EPMFormat</DataField>
+        </Field>
+        <Field Name="Currency_No_">
+          <DataField>Currency_No_</DataField>
+        </Field>
+        <Field Name="Project_Efficiency_">
+          <DataField>Project_Efficiency_</DataField>
+        </Field>
+        <Field Name="Project_Efficiency_Format">
+          <DataField>Project_Efficiency_Format</DataField>
+        </Field>
         <Field Name="TotFab">
           <DataField>TotFab</DataField>
         </Field>
@@ -291,9 +312,6 @@
         <Field Name="Type1">
           <DataField>Type1</DataField>
         </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
         <Field Name="Consumption1">
           <DataField>Consumption1</DataField>
         </Field>
@@ -324,6 +342,9 @@
         <Field Name="RequirmentFormat">
           <DataField>RequirmentFormat</DataField>
         </Field>
+        <Field Name="Supplier_Name_">
+          <DataField>Supplier_Name_</DataField>
+        </Field>
       </Fields>
     </DataSet>
   </DataSets>
@@ -335,7 +356,7 @@
             <Source>Embedded</Source>
             <Value>ID41</Value>
             <Sizing>FitProportional</Sizing>
-            <Top>9.62181cm</Top>
+            <Top>11.52681cm</Top>
             <Left>4.75383cm</Left>
             <Height>6.6cm</Height>
             <Width>11.14884cm</Width>
@@ -901,7 +922,220 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox25">
+                        <Textbox Name="SMV">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>SMV</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>SMV</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="SMV2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!SMV.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>SMV</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox23">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Currency</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox23</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Currency_No_">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Currency_No_.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Currency_No_</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox37">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>EPM</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox37</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="EPM">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!EPM.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>EPM</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox61">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -920,7 +1154,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox25</rd:DefaultName>
+                          <rd:DefaultName>Textbox61</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -935,7 +1169,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox27">
+                        <Textbox Name="Textbox64">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -953,7 +1187,75 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox27</rd:DefaultName>
+                          <rd:DefaultName>Textbox64</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox73">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Project Efficiency</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox73</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Project_Efficiency_">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Project_Efficiency_.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Project_Efficiency_</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -984,12 +1286,14 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>2.73885cm</Top>
             <Left>0.9525cm</Left>
-            <Height>2.35562cm</Height>
+            <Height>3.55562cm</Height>
             <Width>26.00618cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -8502,7 +8806,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>5.36035cm</Top>
+            <Top>7.26535cm</Top>
             <Left>0.9525cm</Left>
             <Height>15.66146cm</Height>
             <Width>26.00617cm</Width>
@@ -8730,7 +9034,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>21.49687cm</Top>
+            <Top>23.40187cm</Top>
             <Left>0.9525cm</Left>
             <Height>1.2985cm</Height>
             <Width>6.29789cm</Width>
@@ -8745,19 +9049,19 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.76119cm</Width>
+                  <Width>2.49237cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.13023cm</Width>
+                  <Width>4.63195cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.94138cm</Width>
+                  <Width>1.6452cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.85105cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.83886cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1.6341cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.5009cm</Width>
@@ -8766,19 +9070,19 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                   <Width>1.41927cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.25145cm</Width>
+                  <Width>1.80017cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.35712cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.4205cm</Width>
+                  <Width>1.15592cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.611cm</Width>
+                  <Width>2.27583cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.14017cm</Width>
+                  <Width>2.03752cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -8896,6 +9200,42 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox179">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Supplier</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox179</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox78">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -8916,42 +9256,6 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox46</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </Border>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox142">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Qty</Value>
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox56</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -9309,11 +9613,47 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Article_Name_</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.25pt</Width>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <rd:Selected>true</rd:Selected>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Supplier_Name_">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Supplier_Name_.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Supplier_Name_</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -9349,42 +9689,6 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Dimension_Name_</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </Border>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Qty2">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Qty.Value</Value>
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <Format>n0</Format>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Qty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -9651,6 +9955,103 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                     </TablixCell>
                   </TablixCells>
                 </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox34">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Grand Total</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox34</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </Border>
+                            <RightBorder>
+                              <Style>None</Style>
+                            </RightBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>10</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Value3">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Value.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>n2</Format>
+                                    <Color>Maroon</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Value</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </Border>
+                            <LeftBorder>
+                              <Style>None</Style>
+                            </LeftBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
@@ -9680,12 +10081,16 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                     <Hidden>=Fields!Main_Category_Name.Value=""</Hidden>
                   </Visibility>
                 </TablixMember>
+                <TablixMember>
+                  <KeepWithGroup>Before</KeepWithGroup>
+                </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>27.3812cm</Top>
+            <DataSetName>DataSet_Result</DataSetName>
+            <Top>31.1912cm</Top>
             <Left>0.95251cm</Left>
-            <Height>1.32292cm</Height>
-            <Width>26.00617cm</Width>
+            <Height>1.92292cm</Height>
+            <Width>26.00616cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -9714,8 +10119,199 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
               </RightBorder>
             </Style>
           </Tablix>
+          <Textbox Name="Textbox46">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Estimate Bill of Materials</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>18pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>Underline</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox8</rd:DefaultName>
+            <Top>28.76758cm</Top>
+            <Left>9.27392cm</Left>
+            <Height>1.19062cm</Height>
+            <Width>9.78959cm</Width>
+            <ZIndex>7</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox36">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Approved By : </Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox31</rd:DefaultName>
+            <Top>25.89156cm</Top>
+            <Left>0.635cm</Left>
+            <Height>0.6985cm</Height>
+            <Width>2.43417cm</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox56">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Merchandizer</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox31</rd:DefaultName>
+            <Top>25.89156cm</Top>
+            <Left>8.63891cm</Left>
+            <Height>0.6985cm</Height>
+            <Width>2.43417cm</Width>
+            <ZIndex>9</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <TopBorder>
+                <Color>Black</Color>
+                <Style>Dashed</Style>
+                <Width>1pt</Width>
+              </TopBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox87">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Manager</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox31</rd:DefaultName>
+            <Top>25.89156cm</Top>
+            <Left>16.2208cm</Left>
+            <Height>0.6985cm</Height>
+            <Width>2.43417cm</Width>
+            <ZIndex>10</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <TopBorder>
+                <Color>Black</Color>
+                <Style>Dashed</Style>
+                <Width>1pt</Width>
+              </TopBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox142">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Chairman</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox31</rd:DefaultName>
+            <Top>25.89156cm</Top>
+            <Left>24.5245cm</Left>
+            <Height>0.6985cm</Height>
+            <Width>2.43417cm</Width>
+            <ZIndex>11</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <TopBorder>
+                <Color>Black</Color>
+                <Style>Dashed</Style>
+                <Width>1pt</Width>
+              </TopBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>29.02162cm</Height>
+        <Height>33.21995cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -9725,8 +10321,9 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
       <Width>27.74875cm</Width>
       <Page>
         <PageFooter>
-          <Height>3.38667cm</Height>
+          <Height>1.19063cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Textbox Name="Textbox70">
               <CanGrow>true</CanGrow>
@@ -9751,7 +10348,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox70</rd:DefaultName>
-              <Top>2.25073cm</Top>
+              <Top>0.02823cm</Top>
               <Left>0cm</Left>
               <Height>1.03188cm</Height>
               <Width>8.001cm</Width>
@@ -9789,7 +10386,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox71</rd:DefaultName>
-              <Top>2.25073cm</Top>
+              <Top>0.02823cm</Top>
               <Left>12.4346cm</Left>
               <Height>0.97896cm</Height>
               <Width>6.37646cm</Width>
@@ -9839,7 +10436,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox72</rd:DefaultName>
-              <Top>2.25073cm</Top>
+              <Top>0.02823cm</Top>
               <Left>25.18332cm</Left>
               <Height>1.03188cm</Height>
               <Width>2.21625cm</Width>
@@ -9848,159 +10445,6 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                 <Border>
                   <Style>None</Style>
                 </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox31">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Approved By : </Value>
-                      <Style>
-                        <FontFamily>Calibri</FontFamily>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox31</rd:DefaultName>
-              <Top>0.5742cm</Top>
-              <Left>0.635cm</Left>
-              <Height>0.6985cm</Height>
-              <Width>2.43417cm</Width>
-              <ZIndex>3</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox43">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Merchandizer</Value>
-                      <Style>
-                        <FontFamily>Calibri</FontFamily>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox31</rd:DefaultName>
-              <Top>0.5742cm</Top>
-              <Left>8.63892cm</Left>
-              <Height>0.6985cm</Height>
-              <Width>2.43417cm</Width>
-              <ZIndex>4</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <TopBorder>
-                  <Color>Black</Color>
-                  <Style>Dashed</Style>
-                  <Width>1pt</Width>
-                </TopBorder>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox48">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Manager</Value>
-                      <Style>
-                        <FontFamily>Calibri</FontFamily>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox31</rd:DefaultName>
-              <Top>0.5742cm</Top>
-              <Left>16.22081cm</Left>
-              <Height>0.6985cm</Height>
-              <Width>2.43417cm</Width>
-              <ZIndex>5</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <TopBorder>
-                  <Color>Black</Color>
-                  <Style>Dashed</Style>
-                  <Width>1pt</Width>
-                </TopBorder>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox53">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Chairman</Value>
-                      <Style>
-                        <FontFamily>Calibri</FontFamily>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox31</rd:DefaultName>
-              <Top>0.5742cm</Top>
-              <Left>24.52451cm</Left>
-              <Height>0.6985cm</Height>
-              <Width>2.43417cm</Width>
-              <ZIndex>6</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <TopBorder>
-                  <Color>Black</Color>
-                  <Style>Dashed</Style>
-                  <Width>1pt</Width>
-                </TopBorder>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -10016,7 +10460,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
         </PageFooter>
         <PageHeight>31cm</PageHeight>
         <PageWidth>29.7cm</PageWidth>
-        <LeftMargin>0.8cm</LeftMargin>
+        <LeftMargin>0.9cm</LeftMargin>
         <RightMargin>0.5cm</RightMargin>
         <TopMargin>0.6cm</TopMargin>
         <BottomMargin>0.5cm</BottomMargin>
