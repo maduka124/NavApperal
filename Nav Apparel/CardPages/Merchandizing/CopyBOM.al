@@ -14,22 +14,47 @@ page 50989 "Copy BOM Card"
                 field(SourceStyle; SourceStyle)
                 {
                     ApplicationArea = All;
-                    TableRelation = "Style Master"."No." where(EstimateBOM = filter(<> ''));
+                    //TableRelation = "Style Master"."No." where(EstimateBOM = filter(<> ''), "Merchandizer Group Name" = filter(gr));
                     ShowMandatory = true;
                     Caption = 'Source Style No';
 
-                    trigger OnValidate()
+                    trigger OnLookup(var text: Text): Boolean
                     var
                         StyleMasterRec: Record "Style Master";
+                        Users: Record "User Setup";
                     begin
+
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("No.", SourceStyle);
+                        StyleMasterRec.SetRange("Merchandizer Group Name", "Mercha Group Name");
                         StyleMasterRec.SetFilter(EstimateBOM, '<>%1', '');
 
-                        StyleMasterRec.FindSet();
-                        SourceStyleName := StyleMasterRec."Style No.";
+                        if StyleMasterRec.Findset() then begin
+                            repeat
+                                StyleMasterRec.Mark(true);
+                            until StyleMasterRec.Next() = 0;
+                        end;
 
+                        StyleMasterRec.MARKEDONLY(TRUE);
+
+                        if Page.RunModal(51185, StyleMasterRec) = Action::LookupOK then begin
+                            SourceStyle := StyleMasterRec."No.";
+                            SourceStyleName := StyleMasterRec."Style No.";
+                        end;
                     end;
+
+
+                    // trigger OnValidate()
+                    // var
+                    //     StyleMasterRec: Record "Style Master";
+                    // begin
+                    //     StyleMasterRec.Reset();
+                    //     StyleMasterRec.SetRange("No.", SourceStyle);
+                    //     StyleMasterRec.SetFilter(EstimateBOM, '<>%1', '');
+
+                    //     StyleMasterRec.FindSet();
+                    //     SourceStyleName := StyleMasterRec."Style No.";
+
+                    // end;
                 }
 
                 field(SourceStyleName; SourceStyleName)
@@ -43,19 +68,31 @@ page 50989 "Copy BOM Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Target Style No';
-                    TableRelation = "Style Master"."No." where(EstimateBOM = filter(''));
+                    //TableRelation = "Style Master"."No." where(EstimateBOM = filter(''));
                     ShowMandatory = true;
 
-                    trigger OnValidate()
+                    trigger OnLookup(var text: Text): Boolean
                     var
                         StyleMasterRec: Record "Style Master";
+                        Users: Record "User Setup";
                     begin
+
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("No.", DestinationStyle);
+                        StyleMasterRec.SetRange("Merchandizer Group Name", "Mercha Group Name");
                         StyleMasterRec.SetFilter(EstimateBOM, '=%1', '');
 
-                        StyleMasterRec.FindSet();
-                        DestinationStyleName := StyleMasterRec."Style No.";
+                        if StyleMasterRec.Findset() then begin
+                            repeat
+                                StyleMasterRec.Mark(true);
+                            until StyleMasterRec.Next() = 0;
+                        end;
+
+                        StyleMasterRec.MARKEDONLY(TRUE);
+
+                        if Page.RunModal(51185, StyleMasterRec) = Action::LookupOK then begin
+                            DestinationStyle := StyleMasterRec."No.";
+                            DestinationStyleName := StyleMasterRec."Style No.";
+                        end;
                     end;
                 }
 
@@ -314,5 +351,17 @@ page 50989 "Copy BOM Card"
         MainCategory: code[20];
         MainCategoryName: Text[50];
         SpecialOption: option "With Consumption","Without Consumption";
+        "Mercha Group Name": text[50];
+
+
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+        UserRec.Reset();
+        UserRec.SetRange("User ID", UserId);
+        if UserRec.FindSet() then
+            "Mercha Group Name" := UserRec."Merchandizer Group Name";
+    end;
 
 }

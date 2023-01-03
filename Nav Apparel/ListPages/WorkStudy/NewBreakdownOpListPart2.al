@@ -139,7 +139,7 @@ page 50466 "New Breakdown Op Listpart2"
                     SMV: Decimal;
                     MachineTotal: Decimal;
                     HelperTotal: Decimal;
-                    Status: Text[50];
+                    Status: code[50];
                     Style: code[20];
                 begin
 

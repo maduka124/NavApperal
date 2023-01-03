@@ -104,6 +104,7 @@ page 50985 "BOM Estimate Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -120,6 +121,7 @@ page 50985 "BOM Estimate Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -136,6 +138,7 @@ page 50985 "BOM Estimate Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -154,6 +157,7 @@ page 50985 "BOM Estimate Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -170,6 +174,7 @@ page 50985 "BOM Estimate Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -186,6 +191,7 @@ page 50985 "BOM Estimate Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -206,6 +212,7 @@ page 50985 "BOM Estimate Card"
                 field(Quantity; rec.Quantity)
                 {
                     ApplicationArea = All;
+
 
                     trigger OnValidate()
                     var

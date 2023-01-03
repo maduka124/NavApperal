@@ -116,4 +116,19 @@ page 50458 "New Breakdown"
         NewBrOpLine2Rec.DeleteAll();
 
     end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        StyleMasRec: Record "Style Master";
+    begin
+        StyleMasRec.Reset();
+        StyleMasRec.SetRange("No.", rec."Style No.");
+        StyleMasRec.FindSet();
+        rec.CostingSMV := StyleMasRec.CostingSMV;
+        rec.PlanningSMV := StyleMasRec.PlanningSMV;
+        rec.ProductionSMV := StyleMasRec.ProductionSMV;
+        CurrPage.SaveRecord();
+    end;
+
 }
