@@ -51,6 +51,7 @@ report 50642 PurchaseOrderReportCard
             { }
 
 
+
             dataitem("Purchase Line"; "Purchase Line")
             {
                 DataItemLinkReference = "Purchase Header";
