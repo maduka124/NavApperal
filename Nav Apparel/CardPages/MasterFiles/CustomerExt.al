@@ -91,6 +91,34 @@ pageextension 50948 CustomerCardExt extends "Customer Card"
                     SampleList.Run();
                 end;
             }
+
+            action("ABCD")
+            {
+                Caption = 'Group name';
+                Image = Production;
+                ApplicationArea = All;
+
+                trigger OnAction();
+                var
+                    MerchGroupPage: Record MerchandizingGroupTable;
+                    cust: Record Customer;
+                begin
+                    cust.Reset();
+                    cust.FindSet();
+
+                    repeat
+
+                        MerchGroupPage.Reset();
+                        MerchGroupPage.SetRange("Group Id", cust."Group Id");
+                        if MerchGroupPage.FindSet() then begin
+                            cust."Group Name" := MerchGroupPage."Group Name";
+                            cust.Modify();
+
+                        end;
+                    until cust.Next() = 0;
+
+                end;
+            }
         }
     }
 
