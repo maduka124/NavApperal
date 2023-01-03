@@ -48,6 +48,24 @@ page 50458 "New Breakdown"
                     Caption = 'Garment Type';
                 }
 
+                field("CostingSMV"; rec.CostingSMV)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Costing SMV';
+                }
+
+                field("ProductionSMV"; rec.ProductionSMV)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Production SMV';
+                }
+
+                field("PlanningSMV"; rec.PlanningSMV)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Planning SMV';
+                }
+
                 field("Total SMV"; rec."Total SMV")
                 {
                     ApplicationArea = All;

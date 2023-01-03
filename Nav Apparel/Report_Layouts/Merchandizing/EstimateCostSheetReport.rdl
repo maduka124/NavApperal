@@ -74,16 +74,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.10361cm</Width>
+                  <Width>2.5241cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>8.131cm</Width>
+                  <Width>10.52099cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.97034cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>8.7747cm</Width>
+                  <Width>8.99075cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -671,10 +671,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>2.76531cm</Top>
-            <Left>1.06272cm</Left>
+            <Top>2.73885cm</Top>
+            <Left>0.9525cm</Left>
             <Height>2.35562cm</Height>
-            <Width>22.97965cm</Width>
+            <Width>26.00618cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -686,25 +686,25 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.63007cm</Width>
+                  <Width>6.59075cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.5967cm</Width>
+                  <Width>2.17878cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.48708cm</Width>
+                  <Width>3.42855cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.23542cm</Width>
+                  <Width>3.60858cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.12958cm</Width>
+                  <Width>3.37312cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.31673cm</Width>
+                  <Width>3.70202cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.37922cm</Width>
+                  <Width>3.12437cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -8189,7 +8189,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
             <Top>5.36035cm</Top>
             <Left>0.9525cm</Left>
             <Height>15.66146cm</Height>
-            <Width>17.7748cm</Width>
+            <Width>26.00618cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -9700,7 +9700,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
         </PageFooter>
         <PageHeight>31cm</PageHeight>
         <PageWidth>29.7cm</PageWidth>
-        <LeftMargin>0.5cm</LeftMargin>
+        <LeftMargin>0.8cm</LeftMargin>
         <RightMargin>0.5cm</RightMargin>
         <TopMargin>0.6cm</TopMargin>
         <BottomMargin>0.5cm</BottomMargin>
