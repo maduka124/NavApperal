@@ -11,6 +11,322 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Season_Name">
+          <DataField>Season_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Garment_Type_Name">
+          <DataField>Garment_Type_Name</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Created_Date">
+          <DataField>Created_Date</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="Embroidery__Dz__">
+          <DataField>Embroidery__Dz__</DataField>
+        </Field>
+        <Field Name="Embroidery__Dz__Format">
+          <DataField>Embroidery__Dz__Format</DataField>
+        </Field>
+        <Field Name="Printing__Dz__">
+          <DataField>Printing__Dz__</DataField>
+        </Field>
+        <Field Name="Printing__Dz__Format">
+          <DataField>Printing__Dz__Format</DataField>
+        </Field>
+        <Field Name="Washing__Dz__">
+          <DataField>Washing__Dz__</DataField>
+        </Field>
+        <Field Name="Washing__Dz__Format">
+          <DataField>Washing__Dz__Format</DataField>
+        </Field>
+        <Field Name="Others__Dz__">
+          <DataField>Others__Dz__</DataField>
+        </Field>
+        <Field Name="Others__Dz__Format">
+          <DataField>Others__Dz__Format</DataField>
+        </Field>
+        <Field Name="FOB__">
+          <DataField>FOB__</DataField>
+        </Field>
+        <Field Name="FOB__Format">
+          <DataField>FOB__Format</DataField>
+        </Field>
+        <Field Name="FOB_Dz_">
+          <DataField>FOB_Dz_</DataField>
+        </Field>
+        <Field Name="FOB_Dz_Format">
+          <DataField>FOB_Dz_Format</DataField>
+        </Field>
+        <Field Name="FOB_Pcs">
+          <DataField>FOB_Pcs</DataField>
+        </Field>
+        <Field Name="FOB_PcsFormat">
+          <DataField>FOB_PcsFormat</DataField>
+        </Field>
+        <Field Name="FOB_Total">
+          <DataField>FOB_Total</DataField>
+        </Field>
+        <Field Name="FOB_TotalFormat">
+          <DataField>FOB_TotalFormat</DataField>
+        </Field>
+        <Field Name="MFG_Cost_Dz_">
+          <DataField>MFG_Cost_Dz_</DataField>
+        </Field>
+        <Field Name="MFG_Cost_Dz_Format">
+          <DataField>MFG_Cost_Dz_Format</DataField>
+        </Field>
+        <Field Name="MFG_Cost_Pcs">
+          <DataField>MFG_Cost_Pcs</DataField>
+        </Field>
+        <Field Name="MFG_Cost_PcsFormat">
+          <DataField>MFG_Cost_PcsFormat</DataField>
+        </Field>
+        <Field Name="Overhead_Dz_">
+          <DataField>Overhead_Dz_</DataField>
+        </Field>
+        <Field Name="Overhead_Dz_Format">
+          <DataField>Overhead_Dz_Format</DataField>
+        </Field>
+        <Field Name="Overhead_Pcs">
+          <DataField>Overhead_Pcs</DataField>
+        </Field>
+        <Field Name="Overhead_PcsFormat">
+          <DataField>Overhead_PcsFormat</DataField>
+        </Field>
+        <Field Name="Commercial_Dz_">
+          <DataField>Commercial_Dz_</DataField>
+        </Field>
+        <Field Name="Commercial_Dz_Format">
+          <DataField>Commercial_Dz_Format</DataField>
+        </Field>
+        <Field Name="Commercial_Pcs">
+          <DataField>Commercial_Pcs</DataField>
+        </Field>
+        <Field Name="Commercial_PcsFormat">
+          <DataField>Commercial_PcsFormat</DataField>
+        </Field>
+        <Field Name="Deferred_Payment_Dz_">
+          <DataField>Deferred_Payment_Dz_</DataField>
+        </Field>
+        <Field Name="Deferred_Payment_Dz_Format">
+          <DataField>Deferred_Payment_Dz_Format</DataField>
+        </Field>
+        <Field Name="Deferred_Payment_Pcs">
+          <DataField>Deferred_Payment_Pcs</DataField>
+        </Field>
+        <Field Name="Deferred_Payment_PcsFormat">
+          <DataField>Deferred_Payment_PcsFormat</DataField>
+        </Field>
+        <Field Name="Total_Cost_Pcs">
+          <DataField>Total_Cost_Pcs</DataField>
+        </Field>
+        <Field Name="Total_Cost_PcsFormat">
+          <DataField>Total_Cost_PcsFormat</DataField>
+        </Field>
+        <Field Name="Commission_Dz_">
+          <DataField>Commission_Dz_</DataField>
+        </Field>
+        <Field Name="Commission_Dz_Format">
+          <DataField>Commission_Dz_Format</DataField>
+        </Field>
+        <Field Name="Commission_Pcs">
+          <DataField>Commission_Pcs</DataField>
+        </Field>
+        <Field Name="Commission_PcsFormat">
+          <DataField>Commission_PcsFormat</DataField>
+        </Field>
+        <Field Name="Profit_Margin_Pcs">
+          <DataField>Profit_Margin_Pcs</DataField>
+        </Field>
+        <Field Name="Profit_Margin_PcsFormat">
+          <DataField>Profit_Margin_PcsFormat</DataField>
+        </Field>
+        <Field Name="Overhead__">
+          <DataField>Overhead__</DataField>
+        </Field>
+        <Field Name="Overhead__Format">
+          <DataField>Overhead__Format</DataField>
+        </Field>
+        <Field Name="MFG_Cost__">
+          <DataField>MFG_Cost__</DataField>
+        </Field>
+        <Field Name="MFG_Cost__Format">
+          <DataField>MFG_Cost__Format</DataField>
+        </Field>
+        <Field Name="Commission__">
+          <DataField>Commission__</DataField>
+        </Field>
+        <Field Name="Commission__Format">
+          <DataField>Commission__Format</DataField>
+        </Field>
+        <Field Name="Commercial__">
+          <DataField>Commercial__</DataField>
+        </Field>
+        <Field Name="Commercial__Format">
+          <DataField>Commercial__Format</DataField>
+        </Field>
+        <Field Name="Deferred_Payment__">
+          <DataField>Deferred_Payment__</DataField>
+        </Field>
+        <Field Name="Deferred_Payment__Format">
+          <DataField>Deferred_Payment__Format</DataField>
+        </Field>
+        <Field Name="Risk_factor__">
+          <DataField>Risk_factor__</DataField>
+        </Field>
+        <Field Name="Risk_factor__Format">
+          <DataField>Risk_factor__Format</DataField>
+        </Field>
+        <Field Name="Risk_factor__Pcs">
+          <DataField>Risk_factor__Pcs</DataField>
+        </Field>
+        <Field Name="Risk_factor__PcsFormat">
+          <DataField>Risk_factor__PcsFormat</DataField>
+        </Field>
+        <Field Name="Risk_factor_Dz_">
+          <DataField>Risk_factor_Dz_</DataField>
+        </Field>
+        <Field Name="Risk_factor_Dz_Format">
+          <DataField>Risk_factor_Dz_Format</DataField>
+        </Field>
+        <Field Name="TAX__">
+          <DataField>TAX__</DataField>
+        </Field>
+        <Field Name="TAX__Format">
+          <DataField>TAX__Format</DataField>
+        </Field>
+        <Field Name="TAX__Pcs">
+          <DataField>TAX__Pcs</DataField>
+        </Field>
+        <Field Name="TAX__PcsFormat">
+          <DataField>TAX__PcsFormat</DataField>
+        </Field>
+        <Field Name="TAX_Dz_">
+          <DataField>TAX_Dz_</DataField>
+        </Field>
+        <Field Name="TAX_Dz_Format">
+          <DataField>TAX_Dz_Format</DataField>
+        </Field>
+        <Field Name="ABA_Sourcing__">
+          <DataField>ABA_Sourcing__</DataField>
+        </Field>
+        <Field Name="ABA_Sourcing__Format">
+          <DataField>ABA_Sourcing__Format</DataField>
+        </Field>
+        <Field Name="ABA_Sourcing__Pcs">
+          <DataField>ABA_Sourcing__Pcs</DataField>
+        </Field>
+        <Field Name="ABA_Sourcing__PcsFormat">
+          <DataField>ABA_Sourcing__PcsFormat</DataField>
+        </Field>
+        <Field Name="ABA_Sourcing_Dz_">
+          <DataField>ABA_Sourcing_Dz_</DataField>
+        </Field>
+        <Field Name="ABA_Sourcing_Dz_Format">
+          <DataField>ABA_Sourcing_Dz_Format</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+        </Field>
+        <Field Name="TotFab">
+          <DataField>TotFab</DataField>
+        </Field>
+        <Field Name="TotFabFormat">
+          <DataField>TotFabFormat</DataField>
+        </Field>
+        <Field Name="NotFab">
+          <DataField>NotFab</DataField>
+        </Field>
+        <Field Name="NotFabFormat">
+          <DataField>NotFabFormat</DataField>
+        </Field>
+        <Field Name="Consumption">
+          <DataField>Consumption</DataField>
+        </Field>
+        <Field Name="ConsumptionFormat">
+          <DataField>ConsumptionFormat</DataField>
+        </Field>
+        <Field Name="ConsumptionNot">
+          <DataField>ConsumptionNot</DataField>
+        </Field>
+        <Field Name="ConsumptionNotFormat">
+          <DataField>ConsumptionNotFormat</DataField>
+        </Field>
+        <Field Name="Main_Category_Name">
+          <DataField>Main_Category_Name</DataField>
+        </Field>
+        <Field Name="Item_Name">
+          <DataField>Item_Name</DataField>
+        </Field>
+        <Field Name="Article_Name_">
+          <DataField>Article_Name_</DataField>
+        </Field>
+        <Field Name="Dimension_Name_">
+          <DataField>Dimension_Name_</DataField>
+        </Field>
+        <Field Name="Unit_N0_">
+          <DataField>Unit_N0_</DataField>
+        </Field>
+        <Field Name="Type1">
+          <DataField>Type1</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="Consumption1">
+          <DataField>Consumption1</DataField>
+        </Field>
+        <Field Name="Consumption1Format">
+          <DataField>Consumption1Format</DataField>
+        </Field>
+        <Field Name="WST">
+          <DataField>WST</DataField>
+        </Field>
+        <Field Name="WSTFormat">
+          <DataField>WSTFormat</DataField>
+        </Field>
+        <Field Name="Rate">
+          <DataField>Rate</DataField>
+        </Field>
+        <Field Name="RateFormat">
+          <DataField>RateFormat</DataField>
+        </Field>
+        <Field Name="Value">
+          <DataField>Value</DataField>
+        </Field>
+        <Field Name="ValueFormat">
+          <DataField>ValueFormat</DataField>
+        </Field>
+        <Field Name="Requirment">
+          <DataField>Requirment</DataField>
+        </Field>
+        <Field Name="RequirmentFormat">
+          <DataField>RequirmentFormat</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -8189,7 +8505,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
             <Top>5.36035cm</Top>
             <Left>0.9525cm</Left>
             <Height>15.66146cm</Height>
-            <Width>26.00618cm</Width>
+            <Width>26.00617cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -8435,10 +8751,10 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                   <Width>5.13023cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.05785cm</Width>
+                  <Width>2.94138cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.7318cm</Width>
+                  <Width>1.83886cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.6341cm</Width>
@@ -8447,13 +8763,13 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                   <Width>1.5009cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.52633cm</Width>
+                  <Width>1.41927cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.95385cm</Width>
+                  <Width>2.25145cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.61112cm</Width>
+                  <Width>1.35712cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.4205cm</Width>
@@ -8478,7 +8794,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Main Cat.</Value>
+                                  <Value>Main Category</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -8486,7 +8802,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8514,7 +8830,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Item</Value>
+                                  <Value>Item Description</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -8523,7 +8839,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8559,7 +8875,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8595,7 +8911,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8631,7 +8947,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8667,7 +8983,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8703,7 +9019,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8731,7 +9047,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Consump.</Value>
+                                  <Value>Consumption</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -8739,7 +9055,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8775,7 +9091,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8811,7 +9127,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8847,7 +9163,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -8883,7 +9199,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -9064,7 +9380,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -9099,7 +9415,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -9134,7 +9450,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -9170,7 +9486,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -9206,7 +9522,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -9242,7 +9558,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -9278,7 +9594,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -9314,7 +9630,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -9367,9 +9683,9 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
               </TablixMembers>
             </TablixRowHierarchy>
             <Top>27.3812cm</Top>
-            <Left>0.9525cm</Left>
+            <Left>0.95251cm</Left>
             <Height>1.32292cm</Height>
-            <Width>26.07904cm</Width>
+            <Width>26.00617cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -9709,6 +10025,12 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -11163,320 +11485,4 @@ QAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRR
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Season_Name">
-          <DataField>Season_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Garment_Type_Name">
-          <DataField>Garment_Type_Name</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Created_Date">
-          <DataField>Created_Date</DataField>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-        </Field>
-        <Field Name="Embroidery__Dz__">
-          <DataField>Embroidery__Dz__</DataField>
-        </Field>
-        <Field Name="Embroidery__Dz__Format">
-          <DataField>Embroidery__Dz__Format</DataField>
-        </Field>
-        <Field Name="Printing__Dz__">
-          <DataField>Printing__Dz__</DataField>
-        </Field>
-        <Field Name="Printing__Dz__Format">
-          <DataField>Printing__Dz__Format</DataField>
-        </Field>
-        <Field Name="Washing__Dz__">
-          <DataField>Washing__Dz__</DataField>
-        </Field>
-        <Field Name="Washing__Dz__Format">
-          <DataField>Washing__Dz__Format</DataField>
-        </Field>
-        <Field Name="Others__Dz__">
-          <DataField>Others__Dz__</DataField>
-        </Field>
-        <Field Name="Others__Dz__Format">
-          <DataField>Others__Dz__Format</DataField>
-        </Field>
-        <Field Name="FOB__">
-          <DataField>FOB__</DataField>
-        </Field>
-        <Field Name="FOB__Format">
-          <DataField>FOB__Format</DataField>
-        </Field>
-        <Field Name="FOB_Dz_">
-          <DataField>FOB_Dz_</DataField>
-        </Field>
-        <Field Name="FOB_Dz_Format">
-          <DataField>FOB_Dz_Format</DataField>
-        </Field>
-        <Field Name="FOB_Pcs">
-          <DataField>FOB_Pcs</DataField>
-        </Field>
-        <Field Name="FOB_PcsFormat">
-          <DataField>FOB_PcsFormat</DataField>
-        </Field>
-        <Field Name="FOB_Total">
-          <DataField>FOB_Total</DataField>
-        </Field>
-        <Field Name="FOB_TotalFormat">
-          <DataField>FOB_TotalFormat</DataField>
-        </Field>
-        <Field Name="MFG_Cost_Dz_">
-          <DataField>MFG_Cost_Dz_</DataField>
-        </Field>
-        <Field Name="MFG_Cost_Dz_Format">
-          <DataField>MFG_Cost_Dz_Format</DataField>
-        </Field>
-        <Field Name="MFG_Cost_Pcs">
-          <DataField>MFG_Cost_Pcs</DataField>
-        </Field>
-        <Field Name="MFG_Cost_PcsFormat">
-          <DataField>MFG_Cost_PcsFormat</DataField>
-        </Field>
-        <Field Name="Overhead_Dz_">
-          <DataField>Overhead_Dz_</DataField>
-        </Field>
-        <Field Name="Overhead_Dz_Format">
-          <DataField>Overhead_Dz_Format</DataField>
-        </Field>
-        <Field Name="Overhead_Pcs">
-          <DataField>Overhead_Pcs</DataField>
-        </Field>
-        <Field Name="Overhead_PcsFormat">
-          <DataField>Overhead_PcsFormat</DataField>
-        </Field>
-        <Field Name="Commercial_Dz_">
-          <DataField>Commercial_Dz_</DataField>
-        </Field>
-        <Field Name="Commercial_Dz_Format">
-          <DataField>Commercial_Dz_Format</DataField>
-        </Field>
-        <Field Name="Commercial_Pcs">
-          <DataField>Commercial_Pcs</DataField>
-        </Field>
-        <Field Name="Commercial_PcsFormat">
-          <DataField>Commercial_PcsFormat</DataField>
-        </Field>
-        <Field Name="Deferred_Payment_Dz_">
-          <DataField>Deferred_Payment_Dz_</DataField>
-        </Field>
-        <Field Name="Deferred_Payment_Dz_Format">
-          <DataField>Deferred_Payment_Dz_Format</DataField>
-        </Field>
-        <Field Name="Deferred_Payment_Pcs">
-          <DataField>Deferred_Payment_Pcs</DataField>
-        </Field>
-        <Field Name="Deferred_Payment_PcsFormat">
-          <DataField>Deferred_Payment_PcsFormat</DataField>
-        </Field>
-        <Field Name="Total_Cost_Pcs">
-          <DataField>Total_Cost_Pcs</DataField>
-        </Field>
-        <Field Name="Total_Cost_PcsFormat">
-          <DataField>Total_Cost_PcsFormat</DataField>
-        </Field>
-        <Field Name="Commission_Dz_">
-          <DataField>Commission_Dz_</DataField>
-        </Field>
-        <Field Name="Commission_Dz_Format">
-          <DataField>Commission_Dz_Format</DataField>
-        </Field>
-        <Field Name="Commission_Pcs">
-          <DataField>Commission_Pcs</DataField>
-        </Field>
-        <Field Name="Commission_PcsFormat">
-          <DataField>Commission_PcsFormat</DataField>
-        </Field>
-        <Field Name="Profit_Margin_Pcs">
-          <DataField>Profit_Margin_Pcs</DataField>
-        </Field>
-        <Field Name="Profit_Margin_PcsFormat">
-          <DataField>Profit_Margin_PcsFormat</DataField>
-        </Field>
-        <Field Name="Overhead__">
-          <DataField>Overhead__</DataField>
-        </Field>
-        <Field Name="Overhead__Format">
-          <DataField>Overhead__Format</DataField>
-        </Field>
-        <Field Name="MFG_Cost__">
-          <DataField>MFG_Cost__</DataField>
-        </Field>
-        <Field Name="MFG_Cost__Format">
-          <DataField>MFG_Cost__Format</DataField>
-        </Field>
-        <Field Name="Commission__">
-          <DataField>Commission__</DataField>
-        </Field>
-        <Field Name="Commission__Format">
-          <DataField>Commission__Format</DataField>
-        </Field>
-        <Field Name="Commercial__">
-          <DataField>Commercial__</DataField>
-        </Field>
-        <Field Name="Commercial__Format">
-          <DataField>Commercial__Format</DataField>
-        </Field>
-        <Field Name="Deferred_Payment__">
-          <DataField>Deferred_Payment__</DataField>
-        </Field>
-        <Field Name="Deferred_Payment__Format">
-          <DataField>Deferred_Payment__Format</DataField>
-        </Field>
-        <Field Name="Risk_factor__">
-          <DataField>Risk_factor__</DataField>
-        </Field>
-        <Field Name="Risk_factor__Format">
-          <DataField>Risk_factor__Format</DataField>
-        </Field>
-        <Field Name="Risk_factor__Pcs">
-          <DataField>Risk_factor__Pcs</DataField>
-        </Field>
-        <Field Name="Risk_factor__PcsFormat">
-          <DataField>Risk_factor__PcsFormat</DataField>
-        </Field>
-        <Field Name="Risk_factor_Dz_">
-          <DataField>Risk_factor_Dz_</DataField>
-        </Field>
-        <Field Name="Risk_factor_Dz_Format">
-          <DataField>Risk_factor_Dz_Format</DataField>
-        </Field>
-        <Field Name="TAX__">
-          <DataField>TAX__</DataField>
-        </Field>
-        <Field Name="TAX__Format">
-          <DataField>TAX__Format</DataField>
-        </Field>
-        <Field Name="TAX__Pcs">
-          <DataField>TAX__Pcs</DataField>
-        </Field>
-        <Field Name="TAX__PcsFormat">
-          <DataField>TAX__PcsFormat</DataField>
-        </Field>
-        <Field Name="TAX_Dz_">
-          <DataField>TAX_Dz_</DataField>
-        </Field>
-        <Field Name="TAX_Dz_Format">
-          <DataField>TAX_Dz_Format</DataField>
-        </Field>
-        <Field Name="ABA_Sourcing__">
-          <DataField>ABA_Sourcing__</DataField>
-        </Field>
-        <Field Name="ABA_Sourcing__Format">
-          <DataField>ABA_Sourcing__Format</DataField>
-        </Field>
-        <Field Name="ABA_Sourcing__Pcs">
-          <DataField>ABA_Sourcing__Pcs</DataField>
-        </Field>
-        <Field Name="ABA_Sourcing__PcsFormat">
-          <DataField>ABA_Sourcing__PcsFormat</DataField>
-        </Field>
-        <Field Name="ABA_Sourcing_Dz_">
-          <DataField>ABA_Sourcing_Dz_</DataField>
-        </Field>
-        <Field Name="ABA_Sourcing_Dz_Format">
-          <DataField>ABA_Sourcing_Dz_Format</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-        </Field>
-        <Field Name="Type">
-          <DataField>Type</DataField>
-        </Field>
-        <Field Name="TotFab">
-          <DataField>TotFab</DataField>
-        </Field>
-        <Field Name="TotFabFormat">
-          <DataField>TotFabFormat</DataField>
-        </Field>
-        <Field Name="NotFab">
-          <DataField>NotFab</DataField>
-        </Field>
-        <Field Name="NotFabFormat">
-          <DataField>NotFabFormat</DataField>
-        </Field>
-        <Field Name="Consumption">
-          <DataField>Consumption</DataField>
-        </Field>
-        <Field Name="ConsumptionFormat">
-          <DataField>ConsumptionFormat</DataField>
-        </Field>
-        <Field Name="ConsumptionNot">
-          <DataField>ConsumptionNot</DataField>
-        </Field>
-        <Field Name="ConsumptionNotFormat">
-          <DataField>ConsumptionNotFormat</DataField>
-        </Field>
-        <Field Name="Main_Category_Name">
-          <DataField>Main_Category_Name</DataField>
-        </Field>
-        <Field Name="Item_Name">
-          <DataField>Item_Name</DataField>
-        </Field>
-        <Field Name="Article_Name_">
-          <DataField>Article_Name_</DataField>
-        </Field>
-        <Field Name="Dimension_Name_">
-          <DataField>Dimension_Name_</DataField>
-        </Field>
-        <Field Name="Unit_N0_">
-          <DataField>Unit_N0_</DataField>
-        </Field>
-        <Field Name="Type1">
-          <DataField>Type1</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="Consumption1">
-          <DataField>Consumption1</DataField>
-        </Field>
-        <Field Name="Consumption1Format">
-          <DataField>Consumption1Format</DataField>
-        </Field>
-        <Field Name="WST">
-          <DataField>WST</DataField>
-        </Field>
-        <Field Name="WSTFormat">
-          <DataField>WSTFormat</DataField>
-        </Field>
-        <Field Name="Rate">
-          <DataField>Rate</DataField>
-        </Field>
-        <Field Name="RateFormat">
-          <DataField>RateFormat</DataField>
-        </Field>
-        <Field Name="Value">
-          <DataField>Value</DataField>
-        </Field>
-        <Field Name="ValueFormat">
-          <DataField>ValueFormat</DataField>
-        </Field>
-        <Field Name="Requirment">
-          <DataField>Requirment</DataField>
-        </Field>
-        <Field Name="RequirmentFormat">
-          <DataField>RequirmentFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
