@@ -139,7 +139,8 @@ table 50888 "BOM Estimate"
         field(71012604; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No." where(Type = filter(Costing));
+            //TableRelation = "Style Master"."Style No." where(Type = filter(Costing));
+            TableRelation = "Style Master"."Style No." where(Type = filter(Costing), "Merchandizer Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
 
