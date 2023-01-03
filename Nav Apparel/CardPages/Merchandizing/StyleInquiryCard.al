@@ -454,7 +454,7 @@ page 50602 "Style Inquiry Card"
                         stymaster.SetRange("No.", PiDetRec."Style No.");
                         if stymaster.FindSet() then begin
 
-                            PiDetRec."Merchandizer Group Name" := merchand."Group Name";
+                            PiDetRec."Merchandizer Group Name" := stymaster."Merchandizer Group Name";
                             PiDetRec.Modify();
 
                         end;
