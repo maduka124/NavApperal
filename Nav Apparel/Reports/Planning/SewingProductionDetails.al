@@ -49,16 +49,31 @@ report 50852 SewingProductionDetails
             column(OrderQy; OrderQy)
             { }
 
+
             dataitem(ProductionOutHeader; ProductionOutHeader)
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
-                DataItemLink = "PO No" = field("PO No.");
+                DataItemLink = "PO No" = field("PO No."),"Prod Date"= field(PlanDate);
                 DataItemTableView = sorting("No.");
 
                 column(TodayOutput; "Output Qty")
                 { }
                 column(OutPutStartDate; "Prod Date")
                 { }
+                // column(TodayOutput; TodayOutput)
+                // { }
+                // column(OutPutStartDate; OutPutStartDate)
+                // { }
+                // trigger OnAfterGetRecord()
+                // var
+                //     myInt: Integer;
+                // begin
+                //     if Type = Type::Saw then begin
+                //         OutPutStartDate := "Prod Date";
+                //         TodayOutput := "Output Qty";
+                //     end;
+
+                // end;
             }
             trigger OnAfterGetRecord()
 
@@ -95,12 +110,15 @@ report 50852 SewingProductionDetails
                 end;
 
                 // ProductionHeaderRec.Reset();
-                // // ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
-                // // ProductionHeaderRec.SetRange("Style No.", "Style No.");
+                // ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                // ProductionHeaderRec.SetRange("Style No.", "Style No.");
                 // ProductionHeaderRec.SetRange("PO No", "PO No.");
                 // if ProductionHeaderRec.FindFirst() then begin
-                //     OutPutStartDate := ProductionHeaderRec."Prod Date";
-                //     TodayOutput := ProductionHeaderRec."Output Qty";
+                //     if ProductionHeaderRec.Type = ProductionHeaderRec.Type::Saw then begin
+                //         OutPutStartDate := ProductionHeaderRec."Prod Date";
+                //         TodayOutput := ProductionHeaderRec."Output Qty";
+                //     end;
+
                 // end;
 
 
