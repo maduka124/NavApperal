@@ -130,6 +130,21 @@ table 50457 "New Breakdown"
         {
             DataClassification = ToBeClassified;
         }
+        field(25; "CostingSMV"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+        field(26; "ProductionSMV"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
+        field(27; "PlanningSMV"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
     }
 
 
