@@ -32,6 +32,8 @@ page 50502 "Contract/LC Card"
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                         "StyleRec": Record "Style Master";
+                        UsersRec: Record "User Setup";
+                        LocationRec: Record Location;
                     begin
 
                         CustomerRec.Reset();
@@ -67,6 +69,22 @@ page 50502 "Contract/LC Card"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
+
+                        //Done By Sachith 03/01/23
+                        //Get user location
+                        UsersRec.Reset();
+                        UsersRec.SetRange("User ID", UserId());
+                        UsersRec.FindSet();
+
+                        if UsersRec.FindSet() then begin
+                            rec."Factory No." := UsersRec."Factory Code";
+                            Rec."Global Dimension Code" := UsersRec."Global Dimension Code";
+                        end;
+
+                        LocationRec.Reset();
+                        LocationRec.SetRange(Code, rec."Factory No.");
+                        if LocationRec.FindSet() then
+                            rec.Factory := LocationRec.Name;
                     end;
                 }
 
@@ -105,6 +123,7 @@ page 50502 "Contract/LC Card"
                 field("Contract No"; rec."Contract No")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
                 }
 
                 field(AMD; rec.AMD)
@@ -270,6 +289,12 @@ page 50502 "Contract/LC Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Global Dimension Code"; Rec."Global Dimension Code")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                }
             }
 
             group(" ")
@@ -349,6 +374,19 @@ page 50502 "Contract/LC Card"
 
         "Contract CommisionRec".SetRange("No.", rec."No.");
         "Contract CommisionRec".DeleteAll();
+    end;
+
+    //Done By Sachith 03/01/23
+    trigger OnQueryClosePage(CloseAction: Action): Boolean
+    var
+    begin
+        if rec."No." <> '' then begin
+
+            rec.TestField(Buyer);
+            rec.TestField("Contract No");
+            Rec.TestField(Factory);
+            Rec.TestField("Global Dimension Code");
+        end;
     end;
 
 

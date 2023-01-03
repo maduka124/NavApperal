@@ -101,6 +101,14 @@ report 50613 EstimateCostSheetReport
             { }
             column(Type; Type)
             { }
+            column(SMV; SMV)
+            { }
+            column(EPM; EPM)
+            { }
+            column(Currency_No_; "Currency No.")
+            { }
+            column(Project_Efficiency_; "Project Efficiency.")
+            { }
 
             dataitem("BOM Estimate Costing Line"; "BOM Estimate Costing Line")
             {
@@ -155,8 +163,8 @@ report 50613 EstimateCostSheetReport
                 { }
                 column(Type1; Type)
                 { }
-                column(Qty; Qty)
-                { }
+                // column(Qty; Qty)
+                // { }
                 column(Consumption1; Consumption)
                 { }
                 column(WST; WST)
@@ -166,6 +174,8 @@ report 50613 EstimateCostSheetReport
                 column(Value; Value)
                 { }
                 column(Requirment; Requirment)
+                { }
+                column(Supplier_Name_; "Supplier Name.")
                 { }
 
                 trigger OnAfterGetRecord()
