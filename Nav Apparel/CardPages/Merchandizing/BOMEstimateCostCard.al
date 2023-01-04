@@ -554,7 +554,6 @@ page 50986 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Visible = false;
 
                     trigger OnValidate()
                     var
@@ -580,6 +579,7 @@ page 50986 "BOM Estimate Cost Card"
                 field(EPM; rec.EPM)   //Margin
                 {
                     ApplicationArea = All;
+                    Visible = false;
 
                     trigger OnValidate()
                     var
