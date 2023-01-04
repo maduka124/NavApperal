@@ -134,7 +134,7 @@ page 51062 SampleReqLineListPart
 
                         if SampleReqLine.FindSet() then begin
                             if rec."Req Date" < WorkDate() then
-                                Error('Invalid date');
+                                Error('Req. Date should be greater than todays date.');
                         end;
 
                         if Get_Count() = 1 then

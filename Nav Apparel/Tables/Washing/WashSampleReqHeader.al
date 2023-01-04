@@ -187,6 +187,11 @@ table 50741 "Washing Sample Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(39; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -209,15 +214,22 @@ table 50741 "Washing Sample Header"
     var
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
+        UserSetupRec: Record "User Setup";
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("Wash Sample Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."Wash Sample Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+
+        if UserSetupRec.FindSet() then
+            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+
     end;
+
 
     trigger OnDelete()
     var
