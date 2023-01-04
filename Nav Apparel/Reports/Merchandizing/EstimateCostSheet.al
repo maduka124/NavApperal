@@ -105,9 +105,15 @@ report 50613 EstimateCostSheetReport
             { }
             column(EPM; EPM)
             { }
+            column(CPM; CPM)
+            { }
             column(Currency_No_; "Currency No.")
             { }
             column(Project_Efficiency_; "Project Efficiency.")
+            { }
+            column(Brand_Name; "Brand Name")
+            { }
+            column(visible; visible)
             { }
 
             dataitem("BOM Estimate Costing Line"; "BOM Estimate Costing Line")
@@ -190,7 +196,15 @@ report 50613 EstimateCostSheetReport
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                visible := '';
+                if Type = Type::Online then
+                    visible := 'Online Cost sheet'
+                else
+                    visible := 'Estimate Cost Sheet';
+
             end;
+
 
             trigger OnPreDataItem()
             var
@@ -221,6 +235,7 @@ report 50613 EstimateCostSheetReport
         }
     }
     var
+        visible: Text[200];
         BomAutoRec: Record "BOM Line AutoGen";
         TotFab: Decimal;
         NotFab: Decimal;
