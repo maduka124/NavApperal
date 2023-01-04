@@ -293,8 +293,6 @@ report 50865 DailyProductionReport
                         ApplicationArea = All;
                         Caption = 'Factory';
                         TableRelation = Location.Code where("Sewing Unit" = filter(true));
-
-
                     }
                 }
             }

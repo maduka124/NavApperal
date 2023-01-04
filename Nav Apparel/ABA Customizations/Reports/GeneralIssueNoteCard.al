@@ -44,6 +44,11 @@ report 50125 GeneralIssueReportCard
 
             }
 
+            trigger OnPreDataItem()
+
+            begin
+                SetRange("No.", GenIssueNo);
+            end;
 
             trigger OnAfterGetRecord()
 
