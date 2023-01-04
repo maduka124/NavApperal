@@ -50,7 +50,22 @@ page 50945 "Brand Card"
                         end;
                     end;
                 }
+                field("Buyer Name"; rec."Buyer Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Buyer';
 
+                    trigger OnValidate()
+                    var
+                        BuyerRec: Record Customer;
+                    begin
+                        BuyerRec.Reset();
+                        BuyerRec.SetRange(Name, rec."Buyer Name");
+                        if BuyerRec.FindSet() then begin
+                            rec."Buyer No." := BuyerRec."No.";
+                        end;
+                    end;
+                }
                 field(Type; rec.Type)
                 {
                     ApplicationArea = All;
