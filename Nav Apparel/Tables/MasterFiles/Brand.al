@@ -38,6 +38,18 @@ table 51085 Brand
         {
             DataClassification = ToBeClassified;
         }
+        field(71012587; "Buyer No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012588; "Buyer Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Customer.Name;
+            ValidateTableRelation = false;
+        }
+
     }
 
     keys

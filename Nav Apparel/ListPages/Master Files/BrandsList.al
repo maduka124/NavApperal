@@ -23,6 +23,11 @@ page 50630 Brand
                 {
                     ApplicationArea = All;
                 }
+                field("Buyer Name"; rec."Buyer Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Buyer';
+                }
 
                 field(Type; Rec.Type)
                 {
