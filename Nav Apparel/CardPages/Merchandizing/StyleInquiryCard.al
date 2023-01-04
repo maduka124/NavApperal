@@ -137,6 +137,25 @@ page 50602 "Style Inquiry Card"
                     end;
                 }
 
+                field("Buyer Name"; rec."Buyer Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Buyer';
+                    ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                        BuyerRec: Record Customer;
+                    begin
+                        BuyerRec.Reset();
+                        BuyerRec.SetRange("Name", rec."Buyer Name");
+                        if BuyerRec.FindSet() then
+                            rec."Buyer No." := BuyerRec."No.";
+
+                        CurrPage.Update();
+                    end;
+                }
+
                 field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
@@ -145,14 +164,23 @@ page 50602 "Style Inquiry Card"
 
                     trigger OnValidate()
                     var
-                        BrandRec: Record "Brand";
-                    begin
-                        BrandRec.Reset();
-                        BrandRec.SetRange("Brand Name", rec."Brand Name");
-                        if BrandRec.FindSet() then
-                            rec."Brand No." := BrandRec."No.";
 
-                        CurrPage.Update();
+                        CustomerRec: Record Customer;
+                        BrandRec: Record Brand;
+
+                    begin
+                        // BrandRec.Reset();
+                        // BrandRec.SetRange("Brand Name", rec."Brand Name");
+                        // BrandRec.SetRange("Buyer Name", CustomerRec.Name);
+                        // if BrandRec.FindSet() then
+                        //     rec."Brand No." := BrandRec."No.";
+                        // CurrPage.Update();
+
+                        BrandRec.Reset();
+                        BrandRec.SetRange("Buyer Name", Rec."Buyer Name");
+                        if BrandRec.FindSet() then
+                            Rec."Brand Name" := BrandRec."Brand Name";
+
                     end;
                 }
 
@@ -175,24 +203,7 @@ page 50602 "Style Inquiry Card"
                     end;
                 }
 
-                field("Buyer Name"; rec."Buyer Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Buyer';
-                    ShowMandatory = true;
 
-                    trigger OnValidate()
-                    var
-                        BuyerRec: Record Customer;
-                    begin
-                        BuyerRec.Reset();
-                        BuyerRec.SetRange("Name", rec."Buyer Name");
-                        if BuyerRec.FindSet() then
-                            rec."Buyer No." := BuyerRec."No.";
-
-                        CurrPage.Update();
-                    end;
-                }
 
                 field("Garment Type Name"; rec."Garment Type Name")
                 {
