@@ -176,10 +176,10 @@ page 50602 "Style Inquiry Card"
                         //     rec."Brand No." := BrandRec."No.";
                         // CurrPage.Update();
 
-                        BrandRec.Reset();
-                        BrandRec.SetRange("Buyer Name", Rec."Buyer Name");
-                        if BrandRec.FindSet() then
-                            Rec."Brand Name" := BrandRec."Brand Name";
+                        // BrandRec.Reset();
+                        // BrandRec.SetRange("Buyer Name", Rec."Buyer Name");
+                        // if BrandRec.FindSet() then
+                        //     Rec."Brand Name" := BrandRec."Brand Name";
 
                     end;
                 }
