@@ -446,6 +446,8 @@ page 50602 "Style Inquiry Card"
                     yyreq: Record "YY Requsition Header";
                     PiDetRec: Record "PI Details Header";
                     WashReq: Record "Washing Sample Header";
+                    POHeaderRec: Record "Purchase Header";
+                    POLineRec: Record "Purchase Line";
                 begin
 
                     WashReq.Reset();
@@ -461,6 +463,30 @@ page 50602 "Style Inquiry Card"
 
                             end;
                         until WashReq.Next() = 0;
+                    end;
+
+
+                    POHeaderRec.Reset();
+                    POHeaderRec.SetFilter("Merchandizer Group Name", '=%1', '');
+                    if POHeaderRec.FindSet() then begin
+                        repeat
+
+                            POLineRec.Reset();
+                            POLineRec.SetRange("Document No.", POHeaderRec."No.");
+                            POLineRec.SetFilter("Document Type", '=%1', POLineRec."Document Type"::Order);
+                            if POLineRec.FindFirst() then begin
+
+                                stymaster.Reset();
+                                stymaster.SetRange("No.", POLineRec.StyleNo);
+                                if stymaster.FindSet() then begin
+
+                                    POHeaderRec."Merchandizer Group Name" := stymaster."Merchandizer Group Name";
+                                    POHeaderRec.Modify();
+
+                                end;
+
+                            end;
+                        until POHeaderRec.Next() = 0;
                     end;
 
 
