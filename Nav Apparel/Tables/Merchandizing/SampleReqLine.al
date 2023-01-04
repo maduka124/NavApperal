@@ -296,6 +296,11 @@ table 50931 "Sample Requsition Line"
             ValidateTableRelation = false;
         }
 
+        field(71012633; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
+
 
         // field(71012624; "Wash Send Hours"; Decimal)//For sample production purpose
         // {
@@ -346,6 +351,7 @@ table 50931 "Sample Requsition Line"
         SampleReqRec: Record "Sample Requsition Header";
         CustomerRec: Record Customer;
         StyleRec: Record "Style Master";
+        UserSetupRec: Record "User Setup";
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
@@ -367,6 +373,12 @@ table 50931 "Sample Requsition Line"
 
         "Style No." := SampleReqRec."Style No.";
         "Style Name" := StyleRec."Style No.";
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+
+        if UserSetupRec.FindSet() then
+            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
 
     end;
 

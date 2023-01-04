@@ -15,9 +15,12 @@ page 50993 "Dependency Style Header Card"
                     ApplicationArea = All;
                     Caption = 'Style';
 
-                    trigger OnValidate()
+                    trigger OnLookup(var text: Text): Boolean
                     var
                         StyleMasterRec: Record "Style Master";
+                        UserRec: Record "User Setup";
+                        "Mercha Group Name": Text[50];
+
                         StyleMasterPORec: Record "Style Master PO";
                         DependencyStyleLineRec: Record "Dependency Style Line";
                         DependencyBuyerParaRec: Record "Dependency Buyer Para";
@@ -44,94 +47,115 @@ page 50993 "Dependency Style Header Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
+                        UserRec.Reset();
+                        UserRec.SetRange("User ID", UserId);
+                        if UserRec.FindSet() then
+                            "Mercha Group Name" := UserRec."Merchandizer Group Name";
 
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", rec."Style Name.");
+                        StyleMasterRec.SetRange("Merchandizer Group Name", "Mercha Group Name");
 
-                        if StyleMasterRec.FindSet() then begin
-                            rec."No." := StyleMasterRec."No.";
-
-                            rec."Store No." := StyleMasterRec."Store No.";
-                            rec."Brand No." := StyleMasterRec."Brand No.";
-                            rec."Buyer No." := StyleMasterRec."Buyer No.";
-                            rec."Season No." := StyleMasterRec."Season No.";
-                            rec."Department No." := StyleMasterRec."Department No.";
-                            rec."Store Name" := StyleMasterRec."Store Name";
-                            rec."Brand Name" := StyleMasterRec."Brand Name";
-                            rec."Buyer Name" := StyleMasterRec."Buyer Name";
-                            rec."Season Name" := StyleMasterRec."Season Name";
-                            rec."Department Name" := StyleMasterRec."Department Name";
-
-                            //Get min Xfactory date
-                            StyleMasterPORec.Reset();
-                            StyleMasterPORec.SetRange("Style No.", StyleMasterRec."No.");
-                            StyleMasterPORec.SetCurrentKey("Ship Date");
-                            StyleMasterPORec.Ascending(true);
-
-                            if StyleMasterPORec.FindSet() then
-                                rec."Min X-Fac Date" := StyleMasterPORec."Ship Date";
-
-                            //Get total PO qty
-                            StyleMasterPORec.Reset();
-                            StyleMasterPORec.SetRange("Style No.", StyleMasterRec."No.");
-
-                            if StyleMasterPORec.FindSet() then begin
-                                repeat
-                                    rec.Quantity += StyleMasterPORec.Qty;
-                                until StyleMasterPORec.Next() = 0;
-                            end;
-
-
-                            //Get Max line no
-                            MaxLineNo := 0;
-                            DependencyStyleLineRec.Reset();
-                            DependencyStyleLineRec.SetRange("Buyer No.", rec."Buyer No.");
-
-                            if DependencyStyleLineRec.FindLast() then
-                                MaxLineNo := DependencyStyleLineRec."Line No.";
-
-
-                            //Fill Parameter Lines
-                            DependencyStyleLineRec.Reset();
-                            DependencyStyleLineRec.SetRange("Style No.", StyleMasterRec."No.");
-
-                            if not DependencyStyleLineRec.FindSet() then begin
-
-                                DependencyBuyerParaRec.Reset();
-                                DependencyBuyerParaRec.SetRange("Buyer No.", rec."Buyer No.");
-
-                                if DependencyBuyerParaRec.FindSet() then begin
-                                    repeat
-                                        MaxLineNo += 1;
-                                        DependencyStyleLineRec.Init();
-                                        DependencyStyleLineRec."Style No." := StyleMasterRec."No.";
-                                        DependencyStyleLineRec."Line No." := MaxLineNo;
-                                        DependencyStyleLineRec."Buyer No." := DependencyBuyerParaRec."Buyer No.";
-                                        DependencyStyleLineRec."Buyer Name" := DependencyBuyerParaRec."Buyer Name";
-                                        DependencyStyleLineRec."Garment Type No" := StyleMasterRec."Garment Type No.";
-                                        DependencyStyleLineRec."Garment Type Name" := StyleMasterRec."Garment Type Name";
-                                        DependencyStyleLineRec.Qty := rec.Quantity;
-                                        DependencyStyleLineRec."Department No." := StyleMasterRec."Department No.";
-                                        DependencyStyleLineRec.Department := StyleMasterRec."Department Name";
-                                        DependencyStyleLineRec."Dependency Group No." := DependencyBuyerParaRec."Dependency Group No.";
-                                        DependencyStyleLineRec."Dependency Group" := DependencyBuyerParaRec."Dependency Group";
-                                        DependencyStyleLineRec."Action Type No." := DependencyBuyerParaRec."Action Type No.";
-                                        DependencyStyleLineRec."Action Type" := DependencyBuyerParaRec."Action Type";
-                                        DependencyStyleLineRec."Action Description" := DependencyBuyerParaRec."Action Description";
-                                        DependencyStyleLineRec."Gap Days" := DependencyBuyerParaRec."Gap Days";
-                                        DependencyStyleLineRec.Select := DependencyBuyerParaRec.Select;
-                                        DependencyStyleLineRec."MK Critical" := DependencyBuyerParaRec."MK Critical";
-                                        DependencyStyleLineRec."Action User" := DependencyBuyerParaRec."Action User";
-                                        DependencyStyleLineRec."Created User" := DependencyBuyerParaRec."Created User";
-                                        DependencyStyleLineRec.BPCD := rec.BPCD;
-                                        DependencyStyleLineRec."Main Dependency No." := DependencyBuyerParaRec."Main Dependency No.";
-                                        DependencyStyleLineRec.Insert();
-                                    until DependencyBuyerParaRec.Next() = 0;
-                                end;
-
-                            end;
+                        if StyleMasterRec.Findset() then begin
+                            repeat
+                                StyleMasterRec.Mark(true);
+                            until StyleMasterRec.Next() = 0;
                         end;
 
+                        StyleMasterRec.MARKEDONLY(TRUE);
+
+                        if Page.RunModal(51185, StyleMasterRec) = Action::LookupOK then begin
+                            rec."No." := StyleMasterRec."No.";
+                            rec."Style Name." := StyleMasterRec."Style No.";
+
+                            StyleMasterRec.Reset();
+                            StyleMasterRec.SetRange("Style No.", rec."Style Name.");
+
+                            if StyleMasterRec.FindSet() then begin
+                                rec."No." := StyleMasterRec."No.";
+
+                                rec."Store No." := StyleMasterRec."Store No.";
+                                rec."Brand No." := StyleMasterRec."Brand No.";
+                                rec."Buyer No." := StyleMasterRec."Buyer No.";
+                                rec."Season No." := StyleMasterRec."Season No.";
+                                rec."Department No." := StyleMasterRec."Department No.";
+                                rec."Store Name" := StyleMasterRec."Store Name";
+                                rec."Brand Name" := StyleMasterRec."Brand Name";
+                                rec."Buyer Name" := StyleMasterRec."Buyer Name";
+                                rec."Season Name" := StyleMasterRec."Season Name";
+                                rec."Department Name" := StyleMasterRec."Department Name";
+
+                                //Get min Xfactory date
+                                StyleMasterPORec.Reset();
+                                StyleMasterPORec.SetRange("Style No.", StyleMasterRec."No.");
+                                StyleMasterPORec.SetCurrentKey("Ship Date");
+                                StyleMasterPORec.Ascending(true);
+
+                                if StyleMasterPORec.FindSet() then
+                                    rec."Min X-Fac Date" := StyleMasterPORec."Ship Date";
+
+                                //Get total PO qty
+                                StyleMasterPORec.Reset();
+                                StyleMasterPORec.SetRange("Style No.", StyleMasterRec."No.");
+
+                                if StyleMasterPORec.FindSet() then begin
+                                    repeat
+                                        rec.Quantity += StyleMasterPORec.Qty;
+                                    until StyleMasterPORec.Next() = 0;
+                                end;
+
+
+                                //Get Max line no
+                                MaxLineNo := 0;
+                                DependencyStyleLineRec.Reset();
+                                DependencyStyleLineRec.SetRange("Buyer No.", rec."Buyer No.");
+
+                                if DependencyStyleLineRec.FindLast() then
+                                    MaxLineNo := DependencyStyleLineRec."Line No.";
+
+
+                                //Fill Parameter Lines
+                                DependencyStyleLineRec.Reset();
+                                DependencyStyleLineRec.SetRange("Style No.", StyleMasterRec."No.");
+
+                                if not DependencyStyleLineRec.FindSet() then begin
+
+                                    DependencyBuyerParaRec.Reset();
+                                    DependencyBuyerParaRec.SetRange("Buyer No.", rec."Buyer No.");
+
+                                    if DependencyBuyerParaRec.FindSet() then begin
+                                        repeat
+                                            MaxLineNo += 1;
+                                            DependencyStyleLineRec.Init();
+                                            DependencyStyleLineRec."Style No." := StyleMasterRec."No.";
+                                            DependencyStyleLineRec."Line No." := MaxLineNo;
+                                            DependencyStyleLineRec."Buyer No." := DependencyBuyerParaRec."Buyer No.";
+                                            DependencyStyleLineRec."Buyer Name" := DependencyBuyerParaRec."Buyer Name";
+                                            DependencyStyleLineRec."Garment Type No" := StyleMasterRec."Garment Type No.";
+                                            DependencyStyleLineRec."Garment Type Name" := StyleMasterRec."Garment Type Name";
+                                            DependencyStyleLineRec.Qty := rec.Quantity;
+                                            DependencyStyleLineRec."Department No." := StyleMasterRec."Department No.";
+                                            DependencyStyleLineRec.Department := StyleMasterRec."Department Name";
+                                            DependencyStyleLineRec."Dependency Group No." := DependencyBuyerParaRec."Dependency Group No.";
+                                            DependencyStyleLineRec."Dependency Group" := DependencyBuyerParaRec."Dependency Group";
+                                            DependencyStyleLineRec."Action Type No." := DependencyBuyerParaRec."Action Type No.";
+                                            DependencyStyleLineRec."Action Type" := DependencyBuyerParaRec."Action Type";
+                                            DependencyStyleLineRec."Action Description" := DependencyBuyerParaRec."Action Description";
+                                            DependencyStyleLineRec."Gap Days" := DependencyBuyerParaRec."Gap Days";
+                                            DependencyStyleLineRec.Select := DependencyBuyerParaRec.Select;
+                                            DependencyStyleLineRec."MK Critical" := DependencyBuyerParaRec."MK Critical";
+                                            DependencyStyleLineRec."Action User" := DependencyBuyerParaRec."Action User";
+                                            DependencyStyleLineRec."Created User" := DependencyBuyerParaRec."Created User";
+                                            DependencyStyleLineRec.BPCD := rec.BPCD;
+                                            DependencyStyleLineRec."Main Dependency No." := DependencyBuyerParaRec."Main Dependency No.";
+                                            DependencyStyleLineRec.Insert();
+                                        until DependencyBuyerParaRec.Next() = 0;
+                                    end;
+
+                                end;
+                            end;
+
+
+                        end;
                     end;
                 }
 

@@ -104,6 +104,7 @@ page 50440 "Sample Status List"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserSetupRec: Record "User Setup";
     begin
 
         //Check whether user logged in or not
@@ -123,6 +124,21 @@ page 50440 "Sample Status List"
         else begin   //logged in
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
+
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+
+        if UserSetupRec.FindSet() then begin
+            if UserSetupRec."Merchandizer All Group" = false then begin
+                if UserSetupRec."Merchandizer Group Name" = '' then
+                    Error('Merchandiser Group Name has not set up for the user : %1', UserId)
+                else
+                    rec.SetFilter("Merchandizer Group Name", '=%1', UserSetupRec."Merchandizer Group Name");
+            end
+        end
+        else
+            Error('Cannot find user details in user setup table');
 
     end;
 }

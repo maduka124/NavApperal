@@ -303,7 +303,7 @@ page 50502 "Contract/LC Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Available Styles';
-                    SubPageLink = "ContractNo" = FIELD("No."), "Buyer No." = field("Buyer No.");
+                    SubPageLink = "ContractNo" = FIELD("No."), "Buyer No." = field("Buyer No."), "Merchandizer Group Name" = field("Merchandizer Group Name");
                 }
 
                 part("StyleMasterContract ListPart 2"; "StyleMasterContract ListPart 2")

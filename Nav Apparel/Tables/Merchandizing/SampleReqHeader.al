@@ -18,7 +18,7 @@ table 50930 "Sample Requsition Header"
         field(71012583; "Buyer Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Customer.Name;
+            TableRelation = Customer.Name where("Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
 
@@ -30,7 +30,7 @@ table 50930 "Sample Requsition Header"
         field(71012585; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer No."));
+            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer No."), "Merchandizer Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
 

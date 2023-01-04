@@ -13,8 +13,8 @@ table 50908 "Dependency Style Header"
         field(71012582; "Style Name."; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No.";
-            ValidateTableRelation = false;
+            // TableRelation = "Style Master"."Style No." where("Merchandizer Group Name" = field("Merchandizer Group Name"));
+            // ValidateTableRelation = false;
         }
 
         field(71012583; "Store No."; Code[20])

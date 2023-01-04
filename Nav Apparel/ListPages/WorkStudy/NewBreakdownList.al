@@ -128,7 +128,7 @@ page 50458 "New Breakdown"
         rec.CostingSMV := StyleMasRec.CostingSMV;
         rec.PlanningSMV := StyleMasRec.PlanningSMV;
         rec.ProductionSMV := StyleMasRec.ProductionSMV;
-        CurrPage.SaveRecord();
+        //CurrPage.SaveRecord();
     end;
 
 }
