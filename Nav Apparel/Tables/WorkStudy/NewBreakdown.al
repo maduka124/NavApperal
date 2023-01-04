@@ -142,7 +142,7 @@ table 50457 "New Breakdown"
             DataClassification = ToBeClassified;
             InitValue = 0;
         }
-        
+
         field(27; "PlanningSMV"; Decimal)
         {
             DataClassification = ToBeClassified;
@@ -156,6 +156,13 @@ table 50457 "New Breakdown"
         key(PK; "No.")
         {
             Clustered = true;
+        }
+    }
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", "Style No.", "Style Name")
+        {
+
         }
     }
 

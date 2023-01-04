@@ -10,7 +10,8 @@ report 50615 StyleAnalysis
     {
         dataitem("New Breakdown"; "New Breakdown")
         {
-            DataItemTableView = sorting("No.");
+            // DataItemTableView = sorting("No.");
+            RequestFilterFields = "No.";
             column(Style_Name; "Style Name")
             { }
             column(Description; Description)
@@ -104,7 +105,7 @@ report 50615 StyleAnalysis
             trigger OnPreDataItem()
 
             begin
-                SetRange("Style No.", StyleFilter);
+                // SetRange("Style No.", StyleFilter);
             end;
 
             trigger OnAfterGetRecord()
@@ -124,14 +125,14 @@ report 50615 StyleAnalysis
             {
                 group(GroupName)
                 {
-                    Caption = 'Filter By';
-                    field(StyleFilter; StyleFilter)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Style';
-                        TableRelation = "Style Master"."No.";
+                    // Caption = 'Filter By';
+                    // field(StyleFilter; StyleFilter)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'Style';
+                    //     TableRelation = "Style Master"."No.";
 
-                    }
+                    // }
                 }
             }
         }
