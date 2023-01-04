@@ -436,41 +436,44 @@ page 50549 "Payable Chart - Approved"
 
                     B2BLCRec.Reset();
                     B2BLCRec.SetRange("B2B LC No", Rec."B2BLC No");
-                    B2BLCRec.FindSet();
+                    if B2BLCRec.FindSet() then begin
 
-                    //Insert into Payment journal
-                    //Get max line no
-                    GenJournalRec.Reset();
-                    GenJournalRec.SetRange("Journal Template Name", NavAppSetupRec."Pay. Gen. Jrn. Template Name");
-                    GenJournalRec.SetRange("Journal Batch Name", NavAppSetupRec."Pay. Gen. Jrn. Batch Name");
+                        //Insert into Payment journal
+                        //Get max line no
+                        GenJournalRec.Reset();
+                        GenJournalRec.SetRange("Journal Template Name", NavAppSetupRec."Pay. Gen. Jrn. Template Name");
+                        GenJournalRec.SetRange("Journal Batch Name", NavAppSetupRec."Pay. Gen. Jrn. Batch Name");
 
-                    if GenJournalRec.FindLast() then
-                        LineNo := GenJournalRec."Line No.";
+                        if GenJournalRec.FindLast() then
+                            LineNo := GenJournalRec."Line No.";
 
 
-                    LineNo += 100;
-                    GenJournalRec.Init();
-                    GenJournalRec."Journal Template Name" := NavAppSetupRec."Pay. Gen. Jrn. Template Name";
-                    GenJournalRec."Journal Batch Name" := NavAppSetupRec."Pay. Gen. Jrn. Batch Name";
-                    GenJournalRec."Line No." := LineNo;
-                    GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::Customer);
-                    //GenJournalRec.Validate("Account No.", NavAppSetupRec."Account No");
-                    GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
-                    //GenJournalRec.Validate("Bal. Account No.", NavAppSetupRec."Bal Account No");
-                    GenJournalRec."Document Type" := GenJournalRec."Document Type"::Payment;
-                    GenJournalRec."Document No." := Rec."AccNo.";
-                    GenJournalRec."Document Date" := WorkDate();
-                    GenJournalRec.Validate(Amount, Rec."Bank Amount");
-                    GenJournalRec."Posting Date" := WorkDate();
-                    GenJournalRec.Description := 'Acceptance for B2B LC :' + Rec."B2BLC No";
-                    GenJournalRec."Expiration Date" := Rec."Maturity Date";
-                    GenJournalRec."Source Code" := 'PAYMENTJNL';
-                    GenJournalRec."LC/Contract No." := B2BLCRec."LC/Contract No.";
-                    GenJournalRec.Insert();
+                        LineNo += 100;
+                        GenJournalRec.Init();
+                        GenJournalRec."Journal Template Name" := NavAppSetupRec."Pay. Gen. Jrn. Template Name";
+                        GenJournalRec."Journal Batch Name" := NavAppSetupRec."Pay. Gen. Jrn. Batch Name";
+                        GenJournalRec."Line No." := LineNo;
+                        GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::Customer);
+                        //GenJournalRec.Validate("Account No.", NavAppSetupRec."Account No");
+                        GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
+                        //GenJournalRec.Validate("Bal. Account No.", NavAppSetupRec."Bal Account No");
+                        GenJournalRec."Document Type" := GenJournalRec."Document Type"::Payment;
+                        GenJournalRec."Document No." := Rec."AccNo.";
+                        GenJournalRec."Document Date" := WorkDate();
+                        GenJournalRec.Validate(Amount, Rec."Bank Amount");
+                        GenJournalRec."Posting Date" := WorkDate();
+                        GenJournalRec.Description := 'Acceptance for B2B LC :' + Rec."B2BLC No";
+                        GenJournalRec."Expiration Date" := Rec."Maturity Date";
+                        GenJournalRec."Source Code" := 'PAYMENTJNL';
+                        GenJournalRec."LC/Contract No." := B2BLCRec."LC/Contract No.";
+                        GenJournalRec.Insert();
 
-                    CurrPage.Update();
-                    PayJrnlPage.Run();
+                        CurrPage.Update();
+                        PayJrnlPage.Run();
 
+                    end
+                    else
+                        Error('Cannot find B2B details.');
                 end;
             }
 
