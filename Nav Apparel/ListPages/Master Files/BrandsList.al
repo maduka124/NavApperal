@@ -27,6 +27,18 @@ page 50630 Brand
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
+
+                    trigger OnValidate()
+                    var
+                        CustomerRec: Record Customer;
+                    begin
+                        CustomerRec.Reset();
+                        CustomerRec.SetRange(Name, Rec."Buyer Name");
+
+                        if CustomerRec.FindSet() then
+                            Rec."Buyer No." := CustomerRec."No.";
+
+                    end;
                 }
 
                 field(Type; Rec.Type)

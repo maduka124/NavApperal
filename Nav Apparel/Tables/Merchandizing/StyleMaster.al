@@ -44,7 +44,7 @@ table 50934 "Style Master"
         field(71012587; "Brand Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Brand."Brand Name";
+            TableRelation = Brand."Brand Name" where("Buyer Name" = field("Buyer Name"));
             ValidateTableRelation = false;
         }
 
