@@ -124,10 +124,12 @@ page 50458 "New Breakdown"
     begin
         StyleMasRec.Reset();
         StyleMasRec.SetRange("No.", rec."Style No.");
-        StyleMasRec.FindSet();
-        rec.CostingSMV := StyleMasRec.CostingSMV;
-        rec.PlanningSMV := StyleMasRec.PlanningSMV;
-        rec.ProductionSMV := StyleMasRec.ProductionSMV;
+
+        if StyleMasRec.FindSet() then begin
+            rec.CostingSMV := StyleMasRec.CostingSMV;
+            rec.PlanningSMV := StyleMasRec.PlanningSMV;
+            rec.ProductionSMV := StyleMasRec.ProductionSMV;
+        end;
         //CurrPage.SaveRecord();
     end;
 

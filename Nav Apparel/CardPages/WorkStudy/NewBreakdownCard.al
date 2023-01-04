@@ -32,6 +32,7 @@ page 50459 "New Breakdown Card"
                         StyleMasterRec: Record "Style Master";
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        NewBRRec: Record "New Breakdown";
                     begin
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -50,6 +51,12 @@ page 50459 "New Breakdown Card"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
+
+                        //Check for duplicates
+                        NewBRRec.Reset();
+                        NewBRRec.SetRange("Style Name", rec."Style Name");
+                        if NewBRRec.FindSet() then
+                            Error('Style : %1 already used to create a New Breakdown', rec."Style Name");
 
 
                         StyleMasterRec.Reset();

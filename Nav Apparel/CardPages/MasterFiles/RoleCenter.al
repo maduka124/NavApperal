@@ -514,7 +514,7 @@ page 50968 "Nav Apperal Role Center"
                 action("Washing Requisition")
                 {
                     Caption = ' Washing Requisition';
-                    RunObject = Page WashingSampleHistry;
+                    RunObject = Page WashingSampleHistryMerchand;
                     ApplicationArea = all;
                 }
 
