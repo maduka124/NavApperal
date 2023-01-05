@@ -105,16 +105,46 @@ page 50431 SampleReqLineListPartWIP
 
                     trigger OnValidate()
                     var
+                        SampleReqLineRec: Record "Sample Requsition Line";
                     begin
+
+                        SampleReqLineRec.Reset();
+                        SampleReqLineRec.SetRange("No.", Rec."No.");
+
+                        if SampleReqLineRec.FindSet() then begin
+                            if Rec."Complete Qty" > Rec.Qty then
+                                Error('Cpmplete qty should be leass than req qty');
+
+                            if Rec."Complete Qty" + Rec."Reject Qty" > Rec.Qty then
+                                Error('Complete qty and reject qty total should be less than req Qty');
+                        end;
+
                         if (rec.Status = rec.Status::Yes) and (rec."Complete Qty" = 0) then
                             Error('Enter complate qty');
-
                     end;
                 }
 
                 field("Reject Qty"; rec."Reject Qty")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        SampleReqLineRec: Record "Sample Requsition Line";
+                    begin
+
+                        SampleReqLineRec.Reset();
+                        SampleReqLineRec.SetRange("No.", Rec."No.");
+
+                        if SampleReqLineRec.FindSet() then begin
+
+                            if Rec."Reject Qty" > Rec.Qty then
+                                Error('Reject qty Should be less than req qty');
+
+                            if Rec."Complete Qty" + Rec."Reject Qty" > Rec.Qty then
+                                Error('Complete qty and reject qty total should be less than req qty');
+                        end;
+                    end;
                 }
 
                 field("Reject Comment"; rec."Reject Comment")

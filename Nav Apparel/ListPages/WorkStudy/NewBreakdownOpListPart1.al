@@ -83,6 +83,38 @@ page 50464 "New Breakdown Op Listpart1"
                 field(Select; rec.Select)
                 {
                     ApplicationArea = All;
+
+                    //Done By Sachith
+                    trigger OnValidate()
+                    var
+                        NewBreackDwnOP1Rec: Record "New Breakdown Op Line1";
+                        Max: Integer;
+                    begin
+
+                        CurrPage.Update();
+
+                        NewBreackDwnOP1Rec.Reset();
+                        NewBreackDwnOP1Rec.SetRange("NewBRNo.", Rec."NewBRNo.");
+                        NewBreackDwnOP1Rec.SetCurrentKey("Selected Seq");
+                        NewBreackDwnOP1Rec.Ascending(true);
+
+                        if NewBreackDwnOP1Rec.FindLast() then
+                            Max := NewBreackDwnOP1Rec."Selected Seq";
+
+                        if Rec.Select = true then
+                            Rec."Selected Seq" := Max + 1;
+
+                        if Rec.Select = false then
+                            Rec."Selected Seq" := 0;
+
+                        CurrPage.Update();
+
+                    end;
+                }
+
+                field("Selected Seq"; Rec."Selected Seq")
+                {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -112,6 +144,8 @@ page 50464 "New Breakdown Op Listpart1"
                     CurrPage.Update();
                     NewBreakOpLine1Rec.Reset();
                     NewBreakOpLine1Rec.SetRange("NewBRNo.", rec."NewBRNo.");
+                    NewBreakOpLine1Rec.SetCurrentKey("Selected Seq");
+                    NewBreakOpLine1Rec.Ascending(true);
 
                     if NewBreakOpLine1Rec.FindSet() then begin
 
@@ -168,6 +202,7 @@ page 50464 "New Breakdown Op Listpart1"
 
                                 end;
                                 NewBreakOpLine1Rec.Select := false;
+                                NewBreakOpLine1Rec."Selected Seq" := 0;
                                 NewBreakOpLine1Rec.Modify();
                                 CurrPage.Update();
                             end;
