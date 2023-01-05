@@ -5,6 +5,14 @@ tableextension 50910 "Gen. Jnl. Extension" extends "Gen. Journal Line"
         field(50001; "LC/Contract No."; Code[20])
         {
         }
+
+        field(50002; "SupplierNo"; Code[20])
+        {
+        }
+
+        field(50003; "SupplierName"; Text[200])
+        {
+        }
     }
 }
 
