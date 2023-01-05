@@ -399,16 +399,24 @@ page 50602 "Style Inquiry Card"
 
                 trigger OnAction()
                 var
-
+                    EstimatecostRec: Record "BOM Estimate Cost";
                 begin
                     if rec.Status = rec.Status::Confirmed then begin
                         Message('This Style is already confirmed');
                     end
                     else begin
-                        rec.Status := rec.Status::Confirmed;
 
-                        CurrPage.Update();
-                        Message('Style confirmed');
+                        EstimatecostRec.Reset();
+                        EstimatecostRec.SetRange("Style No.", Rec."No.");
+
+                        if EstimatecostRec.FindSet() then
+                            if EstimatecostRec.Status = EstimatecostRec.Status::Approved then begin
+                                rec.Status := rec.Status::Confirmed;
+                                CurrPage.Update();
+                                Message('Style confirmed');
+                            end
+                            else
+                                Error('Estimate costing not approved');
                     end;
                 end;
             }

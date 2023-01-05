@@ -119,6 +119,11 @@ table 50467 "New Breakdown Op Line1"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(22; "Selected Seq"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
