@@ -406,7 +406,7 @@ page 50602 "Style Inquiry Card"
                         EstimatecostRec.Reset();
                         EstimatecostRec.SetRange("Style No.", Rec."No.");
 
-                        if EstimatecostRec.FindSet() then
+                        if EstimatecostRec.FindSet() then begin
                             if EstimatecostRec.Status = EstimatecostRec.Status::Approved then begin
                                 rec.Status := rec.Status::Confirmed;
                                 CurrPage.Update();
@@ -414,6 +414,9 @@ page 50602 "Style Inquiry Card"
                             end
                             else
                                 Error('Estimate costing not approved');
+                        end
+                        else
+                            Error('Estimate costing not done for the Style : %1', rec."Style No.");
                     end;
                 end;
             }
