@@ -113,7 +113,7 @@ page 50431 SampleReqLineListPartWIP
 
                         if SampleReqLineRec.FindSet() then begin
                             if Rec."Complete Qty" > Rec.Qty then
-                                Error('Cpmplete qty should be leass than req qty');
+                                Error('Complete qty should be leass than req qty');
 
                             if Rec."Complete Qty" + Rec."Reject Qty" > Rec.Qty then
                                 Error('Complete qty and reject qty total should be less than req Qty');
