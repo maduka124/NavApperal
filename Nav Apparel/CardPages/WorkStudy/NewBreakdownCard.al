@@ -139,6 +139,8 @@ page 50459 "New Breakdown Card"
                         NewOpLine.Reset();
                         NewOpLine.SetRange("Item Type No.", rec."Item Type No.");
                         NewOpLine.SetRange("Garment Part No.", GarmentPartRec."No.");
+                        NewOpLine.SetCurrentKey(Description);
+                        NewOpLine.Ascending(true);
 
                         if NewOpLine.FindSet() then begin
 

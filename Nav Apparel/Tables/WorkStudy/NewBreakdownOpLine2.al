@@ -141,6 +141,11 @@ table 50465 "New Breakdown Op Line2"
         {
 
         }
+
+        key(SK1; RefGPartName, "Line Position")
+        {
+
+        }
     }
 
 

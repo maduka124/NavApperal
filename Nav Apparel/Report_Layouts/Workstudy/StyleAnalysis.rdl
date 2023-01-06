@@ -11,6 +11,106 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Created_User">
+          <DataField>Created_User</DataField>
+        </Field>
+        <Field Name="Created_Date">
+          <DataField>Created_Date</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Item_Type_Name">
+          <DataField>Item_Type_Name</DataField>
+        </Field>
+        <Field Name="Machine">
+          <DataField>Machine</DataField>
+        </Field>
+        <Field Name="MachineFormat">
+          <DataField>MachineFormat</DataField>
+        </Field>
+        <Field Name="Manual">
+          <DataField>Manual</DataField>
+        </Field>
+        <Field Name="ManualFormat">
+          <DataField>ManualFormat</DataField>
+        </Field>
+        <Field Name="Total_SMV">
+          <DataField>Total_SMV</DataField>
+        </Field>
+        <Field Name="Total_SMVFormat">
+          <DataField>Total_SMVFormat</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+        </Field>
+        <Field Name="Code">
+          <DataField>Code</DataField>
+        </Field>
+        <Field Name="DescriptionLine">
+          <DataField>DescriptionLine</DataField>
+        </Field>
+        <Field Name="Machine_Name">
+          <DataField>Machine_Name</DataField>
+        </Field>
+        <Field Name="SMV">
+          <DataField>SMV</DataField>
+        </Field>
+        <Field Name="SMVFormat">
+          <DataField>SMVFormat</DataField>
+        </Field>
+        <Field Name="Target_Per_Hour">
+          <DataField>Target_Per_Hour</DataField>
+        </Field>
+        <Field Name="Target_Per_HourFormat">
+          <DataField>Target_Per_HourFormat</DataField>
+        </Field>
+        <Field Name="color">
+          <DataField>color</DataField>
+        </Field>
+        <Field Name="LineType">
+          <DataField>LineType</DataField>
+        </Field>
+        <Field Name="Department_Name">
+          <DataField>Department_Name</DataField>
+        </Field>
+        <Field Name="Garment_Part_Name">
+          <DataField>Garment_Part_Name</DataField>
+        </Field>
+        <Field Name="ManualLine">
+          <DataField>ManualLine</DataField>
+        </Field>
+        <Field Name="ManualLineFormat">
+          <DataField>ManualLineFormat</DataField>
+        </Field>
+        <Field Name="Auto">
+          <DataField>Auto</DataField>
+        </Field>
+        <Field Name="AutoFormat">
+          <DataField>AutoFormat</DataField>
+        </Field>
+        <Field Name="RefGPartName">
+          <DataField>RefGPartName</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -641,10 +741,10 @@
                   <Width>1.30528cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.61205cm</Width>
+                  <Width>2.02938cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.50894cm</Width>
+                  <Width>9.09161cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.56622cm</Width>
@@ -1069,21 +1169,14 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Garment_Part_Name">
+                        <Textbox Name="RefGPartName1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve">                    </Value>
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Fields!Garment_Part_Name.Value</Value>
+                                  <Value>=Fields!RefGPartName.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1095,7 +1188,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Garment_Part_Name</rd:DefaultName>
+                          <rd:DefaultName>RefGPartName1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1676,28 +1769,38 @@
                       <Visibility>
                         <Hidden>=Fields!Department_Name.Value=""</Hidden>
                       </Visibility>
-                      <KeepWithGroup>After</KeepWithGroup>
                     </TablixMember>
                     <TablixMember>
-                      <Visibility>
-                        <Hidden>=Fields!Garment_Part_Name.Value=""</Hidden>
-                      </Visibility>
-                      <KeepWithGroup>After</KeepWithGroup>
-                    </TablixMember>
-                    <TablixMember>
-                      <Group Name="Details" />
+                      <Group Name="RefGPartName">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!RefGPartName.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!Department_Name.Value</Value>
-                          <Direction>Descending</Direction>
+                          <Value>=Fields!RefGPartName.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixMembers>
-                        <TablixMember />
+                        <TablixMember>
+                          <KeepWithGroup>After</KeepWithGroup>
+                        </TablixMember>
+                        <TablixMember>
+                          <Group Name="Details" />
+                          <SortExpressions>
+                            <SortExpression>
+                              <Value>=Fields!Department_Name.Value</Value>
+                              <Direction>Descending</Direction>
+                            </SortExpression>
+                          </SortExpressions>
+                          <TablixMembers>
+                            <TablixMember />
+                          </TablixMembers>
+                          <Visibility>
+                            <Hidden>=Fields!Code.Value=""</Hidden>
+                          </Visibility>
+                        </TablixMember>
                       </TablixMembers>
-                      <Visibility>
-                        <Hidden>=Fields!Code.Value=""</Hidden>
-                      </Visibility>
                     </TablixMember>
                   </TablixMembers>
                 </TablixMember>
@@ -2488,7 +2591,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>19.86516cm</Width>
+      <Width>22.36515cm</Width>
       <Page>
         <PageFooter>
           <Height>1.32292cm</Height>
@@ -2639,6 +2742,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2690,101 +2799,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Created_User">
-          <DataField>Created_User</DataField>
-        </Field>
-        <Field Name="Created_Date">
-          <DataField>Created_Date</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Item_Type_Name">
-          <DataField>Item_Type_Name</DataField>
-        </Field>
-        <Field Name="Machine">
-          <DataField>Machine</DataField>
-        </Field>
-        <Field Name="MachineFormat">
-          <DataField>MachineFormat</DataField>
-        </Field>
-        <Field Name="Manual">
-          <DataField>Manual</DataField>
-        </Field>
-        <Field Name="ManualFormat">
-          <DataField>ManualFormat</DataField>
-        </Field>
-        <Field Name="Total_SMV">
-          <DataField>Total_SMV</DataField>
-        </Field>
-        <Field Name="Total_SMVFormat">
-          <DataField>Total_SMVFormat</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Line_No_">
-          <DataField>Line_No_</DataField>
-        </Field>
-        <Field Name="Code">
-          <DataField>Code</DataField>
-        </Field>
-        <Field Name="DescriptionLine">
-          <DataField>DescriptionLine</DataField>
-        </Field>
-        <Field Name="Machine_Name">
-          <DataField>Machine_Name</DataField>
-        </Field>
-        <Field Name="SMV">
-          <DataField>SMV</DataField>
-        </Field>
-        <Field Name="SMVFormat">
-          <DataField>SMVFormat</DataField>
-        </Field>
-        <Field Name="Target_Per_Hour">
-          <DataField>Target_Per_Hour</DataField>
-        </Field>
-        <Field Name="Target_Per_HourFormat">
-          <DataField>Target_Per_HourFormat</DataField>
-        </Field>
-        <Field Name="color">
-          <DataField>color</DataField>
-        </Field>
-        <Field Name="LineType">
-          <DataField>LineType</DataField>
-        </Field>
-        <Field Name="Department_Name">
-          <DataField>Department_Name</DataField>
-        </Field>
-        <Field Name="Garment_Part_Name">
-          <DataField>Garment_Part_Name</DataField>
-        </Field>
-        <Field Name="ManualLine">
-          <DataField>ManualLine</DataField>
-        </Field>
-        <Field Name="ManualLineFormat">
-          <DataField>ManualLineFormat</DataField>
-        </Field>
-        <Field Name="Auto">
-          <DataField>Auto</DataField>
-        </Field>
-        <Field Name="AutoFormat">
-          <DataField>AutoFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

@@ -39,7 +39,8 @@ report 50615 StyleAnalysis
             {
                 DataItemLinkReference = "New Breakdown";
                 DataItemLink = "No." = field("No.");
-                DataItemTableView = sorting("No.");
+                DataItemTableView = sorting("Line Position");
+
                 column(Line_No_; "Line No.")
                 { }
                 column(Code; Code)
@@ -63,6 +64,8 @@ report 50615 StyleAnalysis
                 column(ManualLine; Manual)
                 { }
                 column(Auto; Auto)
+                { }
+                column(RefGPartName; RefGPartName)
                 { }
 
                 trigger OnAfterGetRecord()
@@ -121,36 +124,9 @@ report 50615 StyleAnalysis
     {
         layout
         {
-            area(Content)
-            {
-                group(GroupName)
-                {
-                    // Caption = 'Filter By';
-                    // field(StyleFilter; StyleFilter)
-                    // {
-                    //     ApplicationArea = All;
-                    //     Caption = 'Style';
-                    //     TableRelation = "Style Master"."No.";
 
-                    // }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
         }
     }
-
-
 
     var
         color: Text;

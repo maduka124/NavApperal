@@ -3,7 +3,7 @@ page 50466 "New Breakdown Op Listpart2"
     PageType = ListPart;
     SourceTable = "New Breakdown Op Line2";
     AutoSplitKey = true;
-    SourceTableView = sorting("Line Position");
+    SourceTableView = sorting(RefGPartName, "Line Position") order(ascending);
 
     layout
     {
@@ -267,7 +267,7 @@ page 50466 "New Breakdown Op Listpart2"
 
     trigger OnOpenPage()
     begin
-        Rec.SetCurrentKey("Line Position");
+        Rec.SetCurrentKey(RefGPartName, "Line Position");
         Rec.Ascending(true);
     end;
 
