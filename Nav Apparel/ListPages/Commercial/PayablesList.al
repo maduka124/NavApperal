@@ -447,26 +447,25 @@ page 50549 "Payable Chart - Approved"
                         if GenJournalRec.FindLast() then
                             LineNo := GenJournalRec."Line No.";
 
-
                         LineNo += 100;
                         GenJournalRec.Init();
                         GenJournalRec."Journal Template Name" := NavAppSetupRec."Pay. Gen. Jrn. Template Name";
                         GenJournalRec."Journal Batch Name" := NavAppSetupRec."Pay. Gen. Jrn. Batch Name";
                         GenJournalRec."Line No." := LineNo;
-                        GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::Customer);
-                        GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
-                        //GenJournalRec.Validate("Account No.", NavAppSetupRec."Account No");
-                        //GenJournalRec.Validate("Bal. Account No.", NavAppSetupRec."Bal Account No");
+                        GenJournalRec."LC/Contract No." := B2BLCRec."LC/Contract No.";
+                        GenJournalRec."B2BLC No" := Rec."B2BLC No";
                         GenJournalRec."Document Type" := GenJournalRec."Document Type"::Payment;
                         GenJournalRec."Document No." := Rec."AccNo.";
                         GenJournalRec."Document Date" := WorkDate();
-                        GenJournalRec.Validate(Amount, Rec."Bank Amount");
                         GenJournalRec."Posting Date" := WorkDate();
                         GenJournalRec.Description := 'Acceptance : ' + rec."AccNo." + ' for B2B LC : ' + Rec."B2BLC No";
+                        GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::Vendor);
+                        GenJournalRec.Validate("Account No.", rec."Suppler No.");
+                        GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
+                        GenJournalRec.Validate("Bal. Account No.", rec."LC Issue Bank No.");
+                        GenJournalRec.Validate(Amount, Rec."Bank Amount");
                         GenJournalRec."Expiration Date" := Rec."Maturity Date";
                         GenJournalRec."Source Code" := 'PAYMENTJNL';
-                        GenJournalRec."LC/Contract No." := B2BLCRec."LC/Contract No.";
-                        GenJournalRec."B2BLC No" := Rec."B2BLC No";
                         GenJournalRec.SupplierNo := Rec."Suppler No.";
                         GenJournalRec.SupplierName := Rec."Suppler Name";
                         GenJournalRec.Insert();

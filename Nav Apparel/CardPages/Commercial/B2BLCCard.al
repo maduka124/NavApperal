@@ -35,7 +35,9 @@ page 50522 "B2B LC Card"
                         CustomerRec.SetRange(Name, rec."Buyer");
 
                         if CustomerRec.FindSet() then
-                            rec."Buyer No." := CustomerRec."No.";
+                            rec."Buyer No." := CustomerRec."No."
+                        else
+                            Error('Invalid Buyer');
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -69,7 +71,9 @@ page 50522 "B2B LC Card"
                         VendorRec.Reset();
                         VendorRec.SetRange(Name, rec."Beneficiary Name");
                         if VendorRec.FindSet() then
-                            rec.Beneficiary := VendorRec."No.";
+                            rec.Beneficiary := VendorRec."No."
+                        else
+                            Error('Invalid Beneficiary');
 
                         CurrPage.Update();
                     end;
@@ -152,7 +156,9 @@ page 50522 "B2B LC Card"
                         SeasonsRec.Reset();
                         SeasonsRec.SetRange("Season Name", rec."Season");
                         if SeasonsRec.FindSet() then
-                            rec."Season No." := SeasonsRec."No.";
+                            rec."Season No." := SeasonsRec."No."
+                        else
+                            Error('Invalid Season');
                     end;
                 }
 
@@ -255,7 +261,7 @@ page 50522 "B2B LC Card"
                 }
             }
 
-            group("  ")
+            group("Bank Details")
             {
                 field("B2B LC Value"; rec."B2B LC Value")
                 {
@@ -311,7 +317,9 @@ page 50522 "B2B LC Card"
                         BankRec.Reset();
                         BankRec.SetRange(Name, rec."Issue Bank");
                         if BankRec.FindSet() then
-                            rec."LC Issue Bank No." := BankRec."No.";
+                            rec."LC Issue Bank No." := BankRec."No."
+                        else
+                            Error('Invalid Issue Bank');
                     end;
                 }
 
@@ -326,7 +334,9 @@ page 50522 "B2B LC Card"
                         BankRec.Reset();
                         BankRec.SetRange(Name, rec."LC Receive Bank");
                         if BankRec.FindSet() then
-                            rec."LC Receive Bank No." := BankRec."No.";
+                            rec."LC Receive Bank No." := BankRec."No."
+                        else
+                            Error('Invalid Receive Bank');
                     end;
                 }
 

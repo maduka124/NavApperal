@@ -1111,6 +1111,7 @@ codeunit 50618 NavAppCodeUnit
         TransferReceiptHeader."Secondary UserID" := TransferHeader."Secondary UserID";
     end;
 
+
     [EventSubscriber(ObjectType::Table, 5744, 'OnAfterCopyFromTransferHeader', '', true, true)]
     local procedure UpdateShipRec(var TransferShipmentHeader: Record "Transfer Shipment Header"; TransferHeader: Record "Transfer Header")
     begin
