@@ -797,154 +797,156 @@ page 51165 "BuyerWiseOrderBooking"
                                         //Get merchnadizer group for the buyer
                                         CustomerRec.Reset();
                                         CustomerRec.SetRange("No.", StyleMasterRec."Buyer No.");
-                                        CustomerRec.FindSet();
+                                        if CustomerRec.FindSet() then begin
 
-                                        //Check existance
-                                        BuyerWiseOdrBookinGRWiseBookRec.Reset();
-                                        BuyerWiseOdrBookinGRWiseBookRec.SetRange(Year, rec.Year);
-                                        BuyerWiseOdrBookinGRWiseBookRec.SetRange("Group Id", CustomerRec."Group Id");
-                                        if BuyerWiseOdrBookinGRWiseBookRec.FindSet() then begin
+                                            //Check existance
+                                            BuyerWiseOdrBookinGRWiseBookRec.Reset();
+                                            BuyerWiseOdrBookinGRWiseBookRec.SetRange(Year, rec.Year);
+                                            BuyerWiseOdrBookinGRWiseBookRec.SetRange("Group Id", CustomerRec."Group Id");
+                                            if BuyerWiseOdrBookinGRWiseBookRec.FindSet() then begin
 
-                                            case i of
-                                                1:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JAN := BuyerWiseOdrBookinGRWiseBookRec.JAN + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                2:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.FEB := BuyerWiseOdrBookinGRWiseBookRec.FEB + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB := BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                3:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.MAR := BuyerWiseOdrBookinGRWiseBookRec.MAR + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                4:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.APR := BuyerWiseOdrBookinGRWiseBookRec.APR + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.APR_FOB := BuyerWiseOdrBookinGRWiseBookRec.APR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                5:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.MAY := BuyerWiseOdrBookinGRWiseBookRec.MAY + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                6:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JUN := BuyerWiseOdrBookinGRWiseBookRec.JUN + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                7:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JUL := BuyerWiseOdrBookinGRWiseBookRec.JUL + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                8:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.AUG := BuyerWiseOdrBookinGRWiseBookRec.AUG + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB := BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                9:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.SEP := BuyerWiseOdrBookinGRWiseBookRec.SEP + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB := BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                10:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.OCT := BuyerWiseOdrBookinGRWiseBookRec.OCT + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB := BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                11:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.NOV := BuyerWiseOdrBookinGRWiseBookRec.NOV + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB := BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                12:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.DEC := BuyerWiseOdrBookinGRWiseBookRec.DEC + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB := BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
+                                                case i of
+                                                    1:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JAN := BuyerWiseOdrBookinGRWiseBookRec.JAN + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    2:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.FEB := BuyerWiseOdrBookinGRWiseBookRec.FEB + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB := BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    3:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.MAR := BuyerWiseOdrBookinGRWiseBookRec.MAR + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    4:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.APR := BuyerWiseOdrBookinGRWiseBookRec.APR + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.APR_FOB := BuyerWiseOdrBookinGRWiseBookRec.APR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    5:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.MAY := BuyerWiseOdrBookinGRWiseBookRec.MAY + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    6:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JUN := BuyerWiseOdrBookinGRWiseBookRec.JUN + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    7:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JUL := BuyerWiseOdrBookinGRWiseBookRec.JUL + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    8:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.AUG := BuyerWiseOdrBookinGRWiseBookRec.AUG + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB := BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    9:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.SEP := BuyerWiseOdrBookinGRWiseBookRec.SEP + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB := BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    10:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.OCT := BuyerWiseOdrBookinGRWiseBookRec.OCT + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB := BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    11:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.NOV := BuyerWiseOdrBookinGRWiseBookRec.NOV + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB := BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    12:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.DEC := BuyerWiseOdrBookinGRWiseBookRec.DEC + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB := BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                end;
+
+                                                BuyerWiseOdrBookinGRWiseBookRec.Total := BuyerWiseOdrBookinGRWiseBookRec.Total + StyleMasterPORec."Qty";
+                                                BuyerWiseOdrBookinGRWiseBookRec.Total_FOB := BuyerWiseOdrBookinGRWiseBookRec.Total_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                BuyerWiseOdrBookinGRWiseBookRec.Modify();
+
                                             end;
 
-                                            BuyerWiseOdrBookinGRWiseBookRec.Total := BuyerWiseOdrBookinGRWiseBookRec.Total + StyleMasterPORec."Qty";
-                                            BuyerWiseOdrBookinGRWiseBookRec.Total_FOB := BuyerWiseOdrBookinGRWiseBookRec.Total_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                            BuyerWiseOdrBookinGRWiseBookRec.Modify();
+                                            //Update Grand total
+                                            BuyerWiseOdrBookinGRWiseBookRec.Reset();
+                                            BuyerWiseOdrBookinGRWiseBookRec.SetRange(Year, rec.Year);
+                                            BuyerWiseOdrBookinGRWiseBookRec.SetFilter(Type, '=%1', 'T');
+                                            if BuyerWiseOdrBookinGRWiseBookRec.FindSet() then begin
+                                                case i of
+                                                    1:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JAN := BuyerWiseOdrBookinGRWiseBookRec.JAN + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    2:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.FEB := BuyerWiseOdrBookinGRWiseBookRec.FEB + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB := BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    3:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.MAR := BuyerWiseOdrBookinGRWiseBookRec.MAR + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    4:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.APR := BuyerWiseOdrBookinGRWiseBookRec.APR + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.APR_FOB := BuyerWiseOdrBookinGRWiseBookRec.APR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    5:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.MAY := BuyerWiseOdrBookinGRWiseBookRec.MAY + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    6:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JUN := BuyerWiseOdrBookinGRWiseBookRec.JUN + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    7:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JUL := BuyerWiseOdrBookinGRWiseBookRec.JUL + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    8:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.AUG := BuyerWiseOdrBookinGRWiseBookRec.AUG + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB := BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    9:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.SEP := BuyerWiseOdrBookinGRWiseBookRec.SEP + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB := BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    10:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.OCT := BuyerWiseOdrBookinGRWiseBookRec.OCT + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB := BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    11:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.NOV := BuyerWiseOdrBookinGRWiseBookRec.NOV + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB := BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                    12:
+                                                        begin
+                                                            BuyerWiseOdrBookinGRWiseBookRec.DEC := BuyerWiseOdrBookinGRWiseBookRec.DEC + StyleMasterPORec."Qty";
+                                                            BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB := BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                        end;
+                                                end;
 
-                                        end;
-
-                                        //Update Grand total
-                                        BuyerWiseOdrBookinGRWiseBookRec.Reset();
-                                        BuyerWiseOdrBookinGRWiseBookRec.SetRange(Year, rec.Year);
-                                        BuyerWiseOdrBookinGRWiseBookRec.SetFilter(Type, '=%1', 'T');
-                                        if BuyerWiseOdrBookinGRWiseBookRec.FindSet() then begin
-                                            case i of
-                                                1:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JAN := BuyerWiseOdrBookinGRWiseBookRec.JAN + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JAN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                2:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.FEB := BuyerWiseOdrBookinGRWiseBookRec.FEB + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB := BuyerWiseOdrBookinGRWiseBookRec.FEB_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                3:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.MAR := BuyerWiseOdrBookinGRWiseBookRec.MAR + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                4:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.APR := BuyerWiseOdrBookinGRWiseBookRec.APR + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.APR_FOB := BuyerWiseOdrBookinGRWiseBookRec.APR_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                5:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.MAY := BuyerWiseOdrBookinGRWiseBookRec.MAY + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB := BuyerWiseOdrBookinGRWiseBookRec.MAY_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                6:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JUN := BuyerWiseOdrBookinGRWiseBookRec.JUN + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUN_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                7:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JUL := BuyerWiseOdrBookinGRWiseBookRec.JUL + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB := BuyerWiseOdrBookinGRWiseBookRec.JUL_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                8:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.AUG := BuyerWiseOdrBookinGRWiseBookRec.AUG + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB := BuyerWiseOdrBookinGRWiseBookRec.AUG_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                9:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.SEP := BuyerWiseOdrBookinGRWiseBookRec.SEP + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB := BuyerWiseOdrBookinGRWiseBookRec.SEP_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                10:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.OCT := BuyerWiseOdrBookinGRWiseBookRec.OCT + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB := BuyerWiseOdrBookinGRWiseBookRec.OCT_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                11:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.NOV := BuyerWiseOdrBookinGRWiseBookRec.NOV + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB := BuyerWiseOdrBookinGRWiseBookRec.NOV_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
-                                                12:
-                                                    begin
-                                                        BuyerWiseOdrBookinGRWiseBookRec.DEC := BuyerWiseOdrBookinGRWiseBookRec.DEC + StyleMasterPORec."Qty";
-                                                        BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB := BuyerWiseOdrBookinGRWiseBookRec.DEC_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                                    end;
+                                                BuyerWiseOdrBookinGRWiseBookRec.Total := BuyerWiseOdrBookinGRWiseBookRec.Total + StyleMasterPORec."Qty";
+                                                BuyerWiseOdrBookinGRWiseBookRec.Total_FOB := BuyerWiseOdrBookinGRWiseBookRec.Total_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
+                                                BuyerWiseOdrBookinGRWiseBookRec.Modify();
                                             end;
 
-                                            BuyerWiseOdrBookinGRWiseBookRec.Total := BuyerWiseOdrBookinGRWiseBookRec.Total + StyleMasterPORec."Qty";
-                                            BuyerWiseOdrBookinGRWiseBookRec.Total_FOB := BuyerWiseOdrBookinGRWiseBookRec.Total_FOB + (StyleMasterPORec."Qty" * StyleMasterPORec."Unit Price");
-                                            BuyerWiseOdrBookinGRWiseBookRec.Modify();
                                         end;
 
                                     end;

@@ -454,20 +454,21 @@ page 50549 "Payable Chart - Approved"
                         GenJournalRec."Journal Batch Name" := NavAppSetupRec."Pay. Gen. Jrn. Batch Name";
                         GenJournalRec."Line No." := LineNo;
                         GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::Customer);
-                        //GenJournalRec.Validate("Account No.", NavAppSetupRec."Account No");
                         GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
+                        //GenJournalRec.Validate("Account No.", NavAppSetupRec."Account No");
                         //GenJournalRec.Validate("Bal. Account No.", NavAppSetupRec."Bal Account No");
                         GenJournalRec."Document Type" := GenJournalRec."Document Type"::Payment;
                         GenJournalRec."Document No." := Rec."AccNo.";
                         GenJournalRec."Document Date" := WorkDate();
                         GenJournalRec.Validate(Amount, Rec."Bank Amount");
                         GenJournalRec."Posting Date" := WorkDate();
-                        GenJournalRec.Description := 'Acceptance for B2B LC :' + Rec."B2BLC No";
+                        GenJournalRec.Description := 'Acceptance : ' + rec."AccNo." + ' for B2B LC : ' + Rec."B2BLC No";
                         GenJournalRec."Expiration Date" := Rec."Maturity Date";
                         GenJournalRec."Source Code" := 'PAYMENTJNL';
                         GenJournalRec."LC/Contract No." := B2BLCRec."LC/Contract No.";
-                        GenJournalRec.SupplierNo := rec."Suppler No.";
-                        GenJournalRec.SupplierName := rec."Suppler Name";
+                        GenJournalRec."B2BLC No" := Rec."B2BLC No";
+                        GenJournalRec.SupplierNo := Rec."Suppler No.";
+                        GenJournalRec.SupplierName := Rec."Suppler Name";
                         GenJournalRec.Insert();
 
                         CurrPage.Update();

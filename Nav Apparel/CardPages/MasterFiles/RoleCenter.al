@@ -350,6 +350,18 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                group("Capacity By Pcs")
+                {
+                    Caption = 'Capacity By Pcs';
+
+                    action("Buyer Wise Order Booking")
+                    {
+                        Caption = 'Buyer Wise Order Booking';
+                        RunObject = Page BuyerWiseOrderBookingList;
+                        ApplicationArea = all;
+                    }
+                }
+
                 action("Buyer T & A")
                 {
                     Caption = 'Buyer T & A';
@@ -721,18 +733,6 @@ page 50968 "Nav Apperal Role Center"
                     Caption = 'Work Center';
                     RunObject = Page "Work Center List";
                     ApplicationArea = all;
-                }
-
-                group("Capacity By Pcs")
-                {
-                    Caption = 'Capacity By Pcs';
-
-                    action("Buyer Wise Order Booking")
-                    {
-                        Caption = 'Buyer Wise Order Booking';
-                        RunObject = Page BuyerWiseOrderBookingList;
-                        ApplicationArea = all;
-                    }
                 }
 
                 group("Planning Reports")

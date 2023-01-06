@@ -112,7 +112,9 @@ page 50602 "Style Inquiry Card"
                         GarmentStoreRec.Reset();
                         GarmentStoreRec.SetRange("Store Name", rec."Store Name");
                         if GarmentStoreRec.FindSet() then
-                            rec."Store No." := GarmentStoreRec."No.";
+                            rec."Store No." := GarmentStoreRec."No."
+                        else
+                            Error('Invalid Store Name');
 
                         CurrPage.Update();
                     end;
@@ -131,7 +133,9 @@ page 50602 "Style Inquiry Card"
                         SeasonsRec.Reset();
                         SeasonsRec.SetRange("Season Name", rec."Season Name");
                         if SeasonsRec.FindSet() then
-                            rec."Season No." := SeasonsRec."No.";
+                            rec."Season No." := SeasonsRec."No."
+                        else
+                            Error('Invalid Season Name');
 
                         CurrPage.Update();
                     end;
@@ -150,7 +154,9 @@ page 50602 "Style Inquiry Card"
                         BuyerRec.Reset();
                         BuyerRec.SetRange("Name", rec."Buyer Name");
                         if BuyerRec.FindSet() then
-                            rec."Buyer No." := BuyerRec."No.";
+                            rec."Buyer No." := BuyerRec."No."
+                        else
+                            Error('Invalid Buyer Name');
 
                         CurrPage.Update();
                     end;
@@ -169,7 +175,9 @@ page 50602 "Style Inquiry Card"
                         BrandRec.Reset();
                         BrandRec.SetRange("Brand Name", rec."Brand Name");
                         if BrandRec.FindSet() then
-                            rec."Brand No." := BrandRec."No.";
+                            rec."Brand No." := BrandRec."No."
+                        else
+                            Error('Invalid Brand Name');
 
                         CurrPage.Update();
 
@@ -194,7 +202,9 @@ page 50602 "Style Inquiry Card"
                         DepartmentRec.Reset();
                         DepartmentRec.SetRange("Department Name", rec."Department Name");
                         if DepartmentRec.FindSet() then
-                            rec."Department No." := DepartmentRec."No.";
+                            rec."Department No." := DepartmentRec."No."
+                        else
+                            Error('Invalid Department Name');
 
                         CurrPage.Update();
                     end;
@@ -215,7 +225,9 @@ page 50602 "Style Inquiry Card"
                         GarmentTypeRec.Reset();
                         GarmentTypeRec.SetRange("Garment Type Description", rec."Garment Type Name");
                         if GarmentTypeRec.FindSet() then
-                            rec."Garment Type No." := GarmentTypeRec."No.";
+                            rec."Garment Type No." := GarmentTypeRec."No."
+                        else
+                            Error('Invalid Garment Type');
 
                         CurrPage.Update();
                     end;
@@ -234,7 +246,9 @@ page 50602 "Style Inquiry Card"
                         SizeRangeRec.Reset();
                         SizeRangeRec.SetRange("Size Range", rec."Size Range Name");
                         if SizeRangeRec.FindSet() then
-                            rec."Size Range No." := SizeRangeRec."No.";
+                            rec."Size Range No." := SizeRangeRec."No."
+                        else
+                            Error('Invalid Size Range');
 
                         CurrPage.Update();
                     end;

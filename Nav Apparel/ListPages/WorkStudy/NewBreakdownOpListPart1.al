@@ -13,6 +13,7 @@ page 50464 "New Breakdown Op Listpart1"
                 field(Code; rec.Code)
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Select; rec.Select)
@@ -45,6 +46,12 @@ page 50464 "New Breakdown Op Listpart1"
                         CurrPage.Update();
 
                     end;
+                }
+
+                field("Order of Selection"; rec."Selected Seq")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Description; rec.Description)
@@ -109,11 +116,6 @@ page 50464 "New Breakdown Op Listpart1"
                     begin
                         DownloadFile();
                     end;
-                }
-
-                field("Selected Seq"; Rec."Selected Seq")
-                {
-                    ApplicationArea = All;
                 }
             }
         }

@@ -13,6 +13,10 @@ tableextension 50910 "Gen. Jnl. Extension" extends "Gen. Journal Line"
         field(50003; "SupplierName"; Text[200])
         {
         }
+
+        field(50004; "B2BLC No"; Code[20])
+        {
+        }
     }
 }
 
