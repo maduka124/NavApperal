@@ -28,6 +28,10 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
 
         }
 
+        field(50409; "Workflow User Group"; code[20])
+        {
+            TableRelation = "Workflow User Group".Code;
+        }
     }
 
 

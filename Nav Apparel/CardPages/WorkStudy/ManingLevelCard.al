@@ -205,7 +205,7 @@ page 50475 "Maning Level Card"
                 }
             }
 
-            group("  ")
+            group("Maning Levels")
             {
                 part("Maning Levels Listpart"; "Maning Levels Listpart")
                 {
@@ -234,7 +234,7 @@ page 50475 "Maning Level Card"
             }
 
 
-            group(" ")
+            group("Total")
             {
                 grid("Sewing Dept")
                 {
@@ -305,22 +305,22 @@ page 50475 "Maning Level Card"
         }
     }
 
-    actions
-    {
-        area(Processing)
-        {
-            action(Calculate)
-            {
-                ApplicationArea = All;
-                Image = Calculate;
+    // actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action(Calculate)
+    //         {
+    //             ApplicationArea = All;
+    //             Image = Calculate;
 
-                trigger OnAction()
-                begin
+    //             trigger OnAction()
+    //             begin
 
-                end;
-            }
-        }
-    }
+    //             end;
+    //         }
+    //     }
+    // }
 
     procedure AssistEdit(): Boolean
     var
@@ -442,7 +442,6 @@ page 50475 "Maning Level Card"
             rec.HPBil := 0;
 
         CurrPage.Update();
-
     end;
 
 
@@ -450,11 +449,9 @@ page 50475 "Maning Level Card"
     var
         ManingLevelsLineRec: Record "Maning Levels Line";
     begin
-
         ManingLevelsLineRec.Reset();
         ManingLevelsLineRec.SetRange("No.", rec."No.");
         ManingLevelsLineRec.DeleteAll();
-
     end;
 
 }

@@ -57,10 +57,13 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
             end;
         }
 
-        // modify(General)
-        // {
-        //     Editable = EditableGB;
-        // }
+        addlast(General)
+        {
+            field("Workflow User Group"; rec."Workflow User Group")
+            {
+                ApplicationArea = all;
+            }
+        }
 
         // modify("Invoice Details")
         // {

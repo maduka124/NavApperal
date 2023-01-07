@@ -11,16 +11,28 @@ page 50784 "Maning Levels Listpart1"
         {
             repeater(General)
             {
-                field("Resource  No."; rec."Resource No.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Planned Lines No';
-                }
+                // field("Resource  No."; rec."Resource No.")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Planned Lines No';
+                // }
 
                 field("Resource Name"; rec."Resource Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Planned Line Name';
+                    Caption = 'Planned Line';
+                }
+
+                field(Carder; rec.Carder)
+                {
+                    ApplicationArea = All;
+                    Caption = 'No of Machines';
+                }
+
+                field(Eff; rec.Eff)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Planned Eff.';
                 }
             }
         }
