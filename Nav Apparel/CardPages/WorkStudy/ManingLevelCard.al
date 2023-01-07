@@ -75,7 +75,7 @@ page 50475 "Maning Level Card"
                         NewBR.FindSet();
 
                         rec."Total SMV" := NewBR."Total SMV";
-                        rec."Sewing SMV" := newbr.Machine;
+                        rec."Sewing SMV" := NewBR.Machine;
                         rec."Manual SMV" := NewBR.Manual;
 
 
@@ -113,6 +113,7 @@ page 50475 "Maning Level Card"
                                     ManingLevelsLineRec."Machine Name" := NewBrOpLineRec."Machine Name";
                                     ManingLevelsLineRec."Department No." := NewBrOpLineRec."Department No.";
                                     ManingLevelsLineRec."Department Name" := NewBrOpLineRec."Department Name";
+                                    ManingLevelsLineRec.RefGPartName := NewBrOpLineRec.RefGPartName;
 
                                     if NewBrOpLineRec.MachineType = 'Machine' then
                                         ManingLevelsLineRec."SMV Machine" := NewBrOpLineRec.SMV;
@@ -225,6 +226,7 @@ page 50475 "Maning Level Card"
                 field("Mac Operator"; rec."Mac Operator")
                 {
                     ApplicationArea = All;
+                    Caption = 'Machine Operators';
                 }
 
                 field("Expected Target"; rec."Expected Target")
@@ -362,7 +364,6 @@ page 50475 "Maning Level Card"
         end;
 
         CurrPage.Update();
-
 
         //Calculate Line values
         ManingLevelsLineRec.Reset();

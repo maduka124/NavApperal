@@ -101,6 +101,11 @@ table 50477 "Maning Levels Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(20; "RefGPartName"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

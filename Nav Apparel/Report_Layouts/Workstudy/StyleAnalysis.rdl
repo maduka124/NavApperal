@@ -1010,6 +1010,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
+                                  <Value>Department : </Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
                                   <Value>=Fields!Department_Name.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
@@ -1073,6 +1080,13 @@
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
+                                <TextRun>
+                                  <Value>Garment Part : </Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
                                 <TextRun>
                                   <Value>=Fields!RefGPartName.Value</Value>
                                   <Style>

@@ -49,12 +49,14 @@ report 50614 ManningLevelsReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+
+
             dataitem("Maning Levels Line"; "Maning Levels Line")
             {
                 DataItemLinkReference = "Maning Level";
                 DataItemLink = "No." = field("No.");
+                DataItemTableView = sorting("No.", "Line No.");
 
-                DataItemTableView = sorting("No.");
                 column(Line_No_Line; "Line No.")
                 { }
                 column(Code; Code)
@@ -86,22 +88,18 @@ report 50614 ManningLevelsReport
 
                 trigger OnAfterGetRecord()
                 var
-
                 begin
                     styleRec.Get("Maning Level"."Style No.");
-
                 end;
             }
-            trigger OnPreDataItem()
 
+            trigger OnPreDataItem()
             begin
                 SetRange("Style No.", StyleFilter);
                 SetRange("Line No.", LineFilter);
-
             end;
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -124,37 +122,20 @@ report 50614 ManningLevelsReport
                         ApplicationArea = All;
                         Caption = 'Style';
                         TableRelation = "Style Master"."No.";
-
                     }
+
                     field(LineFilter; LineFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Line';
                         TableRelation = "Work Center"."No.";
-                        
                     }
-                }
-            }
-
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
     }
 
-
-
     var
-        myInt: Integer;
         styleRec: Record "Style Master";
         StyleFilter: Text[50];
         comRec: Record "Company Information";

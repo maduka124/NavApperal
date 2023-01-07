@@ -23,6 +23,13 @@ page 50476 "Maning Levels Listpart"
                     Caption = 'Op Code';
                 }
 
+                field("RefGPartName"; rec.RefGPartName)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Garment Part';
+                }
+
                 field(Description; rec.Description)
                 {
                     ApplicationArea = All;
