@@ -1653,7 +1653,7 @@
                       </Group>
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!RefGPartName.Value</Value>
+                          <Value>=Fields!GPart_Position.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                       <TablixMembers>
@@ -1664,7 +1664,7 @@
                           <Group Name="Details" />
                           <SortExpressions>
                             <SortExpression>
-                              <Value>=Fields!Department_Name.Value</Value>
+                              <Value>=Fields!Line_Position.Value</Value>
                               <Direction>Descending</Direction>
                             </SortExpression>
                           </SortExpressions>
@@ -2766,6 +2766,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="RefGPartName">
           <DataField>RefGPartName</DataField>
+        </Field>
+        <Field Name="Line_Position">
+          <DataField>Line_Position</DataField>
+        </Field>
+        <Field Name="GPart_Position">
+          <DataField>GPart_Position</DataField>
         </Field>
       </Fields>
       <Query>

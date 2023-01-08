@@ -67,6 +67,10 @@ report 50615 StyleAnalysis
                 { }
                 column(RefGPartName; RefGPartName)
                 { }
+                column(Line_Position; "Line Position")
+                { }
+                column(GPart_Position; "GPart Position")
+                { }
 
                 trigger OnAfterGetRecord()
 

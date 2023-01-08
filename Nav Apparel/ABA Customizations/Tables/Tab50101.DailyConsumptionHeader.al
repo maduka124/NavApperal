@@ -14,7 +14,9 @@ table 50101 "Daily Consumption Header"
         {
             Caption = 'Prod. Order No.';
             DataClassification = ToBeClassified;
-            TableRelation = "Production Order"."No." where(Status = filter(Released), PO = field(PO), BuyerCode = field("Buyer Code"), "Style Name" = field("Style No."));
+            // TableRelation = "Production Order"."No." where(Status = filter(Released), PO = field(PO), BuyerCode = field("Buyer Code"), "Style Name" = field("Style No."));
+            TableRelation = "Production Order"."No." where(Status = filter(Released), PO = field(PO), BuyerCode = field("Buyer Code"), "Style Name" = field("Style Name"));
+
 
             trigger OnValidate()
             var
@@ -130,7 +132,8 @@ table 50101 "Daily Consumption Header"
         field(11; PO; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Production Order".PO where(Status = filter(Released), BuyerCode = field("Buyer Code"), "Style Name" = field("Style No."));
+            // TableRelation = "Production Order".PO where(Status = filter(Released), BuyerCode = field("Buyer Code"), "Style Name" = field("Style No."));
+            TableRelation = "Production Order".PO where(Status = filter(Released), BuyerCode = field("Buyer Code"), "Style Name" = field("Style Name"));
             ValidateTableRelation = false;
 
             trigger OnValidate()
@@ -140,7 +143,8 @@ table 50101 "Daily Consumption Header"
                 ProdOrder.Reset();
                 ProdOrder.SetRange(Status, ProdOrder.Status::Released);
                 ProdOrder.SetRange(BuyerCode, "Buyer Code");
-                ProdOrder.SetRange("Style Name", "Style No.");
+                // ProdOrder.SetRange("Style Name", "Style No.");
+                ProdOrder.SetRange("Style Name", "Style Name");
                 ProdOrder.SetRange(PO, PO);
                 if not ProdOrder.FindFirst() then
                     Error('There is no Production order');
@@ -189,7 +193,8 @@ table 50101 "Daily Consumption Header"
                 ProdOrder.Reset();
                 ProdOrder.SetRange(Status, ProdOrder.Status::Released);
                 ProdOrder.SetRange(BuyerCode, "Buyer Code");
-                ProdOrder.SetRange("Style Name", "Style No.");
+                // ProdOrder.SetRange("Style Name", "Style No.");
+                ProdOrder.SetRange("Style Name", "Style Name");
                 ProdOrder.SetRange(PO, PO);
                 if not ProdOrder.FindFirst() then
                     Error('There is no Production order');
@@ -295,7 +300,8 @@ table 50101 "Daily Consumption Header"
                 ProdOrder.Reset();
                 ProdOrder.SetRange(Status, ProdOrder.Status::Released);
                 ProdOrder.SetRange(BuyerCode, "Buyer Code");
-                ProdOrder.SetRange("Style Name", "Style No.");
+                // ProdOrder.SetRange("Style Name", "Style No.");
+                ProdOrder.SetRange("Style Name", "Style Name");
                 ProdOrder.SetRange(PO, PO);
                 if ProdOrder.FindFirst() then begin
                     ProdOrdComp.Reset();
@@ -323,7 +329,16 @@ table 50101 "Daily Consumption Header"
             DataClassification = ToBeClassified;
             Editable = false;
         }
+
+        field(27; "Style Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Style Name';
+            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"));
+            ValidateTableRelation = false;
+        }
     }
+
     keys
     {
         key(PK; "No.")
@@ -331,6 +346,7 @@ table 50101 "Daily Consumption Header"
             Clustered = true;
         }
     }
+
     trigger OnInsert()
     var
         ManufacSetup: Record "Manufacturing Setup";

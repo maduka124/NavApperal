@@ -41,6 +41,18 @@ page 50102 "Daily Consumption Card"
                 field("Style No."; Rec."Style No.")
                 {
                     ApplicationArea = All;
+                    Visible = false;
+                }
+
+                field("Style Name"; Rec."Style Name")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        rec."Style No." := rec."Style Name";
+                    end;
                 }
                 field(PO; Rec.PO)
                 {
