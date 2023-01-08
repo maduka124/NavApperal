@@ -130,6 +130,7 @@ report 50614 ManningLevelsReport
                         ApplicationArea = All;
                         Caption = 'Line';
                         TableRelation = "Work Center"."No.";
+                        //TableRelation = "NavApp Planning Lines"."Resource Name" where("Style No." = filter(StyleFilter));
                     }
                 }
             }

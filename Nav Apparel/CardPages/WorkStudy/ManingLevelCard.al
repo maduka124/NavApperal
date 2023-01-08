@@ -22,6 +22,11 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
+                field("Manual SMV"; rec."Manual SMV")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
@@ -134,6 +139,11 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
+                field("Total SMV"; rec."Total SMV")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Work Center Name"; rec."Work Center Name")
                 {
                     ApplicationArea = All;
@@ -143,15 +153,26 @@ page 50475 "Maning Level Card"
                     trigger OnValidate()
                     var
                         WorkCenterRec: Record "Work Center";
+                        NavAppPlanLineRec: Record "NavApp Planning Lines";
                     begin
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Work Center Name");
                         IF WorkCenterRec.FindSet() THEN
                             rec."Line No." := WorkCenterRec."No.";
+
+                        //Get Eff and no of machines                     
+                        NavAppPlanLineRec.Reset();
+                        NavAppPlanLineRec.SetRange("Style No.", rec."Style No.");
+                        NavAppPlanLineRec.SetRange("Resource No.", rec."Line No.");
+
+                        if NavAppPlanLineRec.FindLast() then begin
+                            rec.Eff := NavAppPlanLineRec.Eff;
+                            rec.Val := NavAppPlanLineRec.Carder;
+                        end;
                     end;
                 }
 
-                field(Type; rec.Type)
+                field(Val; rec.Val)
                 {
                     ApplicationArea = All;
 
@@ -162,7 +183,7 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field(Val; rec.Val)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
 
@@ -185,20 +206,12 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field("Total SMV"; rec."Total SMV")
-                {
-                    ApplicationArea = All;
-                }
-
                 field("Sewing SMV"; rec."Sewing SMV")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Manual SMV"; rec."Manual SMV")
-                {
-                    ApplicationArea = All;
-                }
+
 
                 part("Maning Levels Listpart1"; "Maning Levels Listpart1")
                 {

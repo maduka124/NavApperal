@@ -22,6 +22,7 @@ page 50989 "Copy BOM Card"
                     var
                         StyleMasterRec: Record "Style Master";
                         Users: Record "User Setup";
+                        NewBrRec: Record "New Breakdown";
                     begin
 
                         StyleMasterRec.Reset();
@@ -30,7 +31,12 @@ page 50989 "Copy BOM Card"
 
                         if StyleMasterRec.Findset() then begin
                             repeat
-                                StyleMasterRec.Mark(true);
+                                NewBrRec.Reset();
+                                NewBrRec.SetRange("Style No.", StyleMasterRec."No.");
+
+                                if NewBrRec.Findset() then
+                                    StyleMasterRec.Mark(true);
+
                             until StyleMasterRec.Next() = 0;
                         end;
 

@@ -151,7 +151,7 @@ table 50473 "Maning Level"
         field(25; "Work Center Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Work Center".Name;
+            TableRelation = "NavApp Planning Lines"."Resource Name" where("Style No." = field("Style No."));
             ValidateTableRelation = false;
         }
 
@@ -184,9 +184,7 @@ table 50473 "Maning Level"
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("Manning Nos.");
-
         "No." := NoSeriesMngment.GetNextNo(NavAppSetup."Manning Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
