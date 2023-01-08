@@ -38,32 +38,21 @@ report 50633 AccessoriesStatusReport
                 { }
                 column(PO_No; OrderNO)
                 { }
-                
-                column(Size_Range_Name; SizeRange)
-                { }
-                column(ItemDes; Descrip)
-                { }
-                column(Unit; UOM)
-                { }
-                column(Colour; color)
-                { }
-                column(Article;ArticleVariable)
-                { }
                 dataitem(Item; Item)
                 {
                     DataItemLinkReference = "Purch. Rcpt. Line";
                     DataItemLink = "No." = field("No.");
                     DataItemTableView = sorting("No.");
-                    // column(Size_Range_Name; "Size Range No.")
-                    // { }
-                    // column(ItemDes; Description)
-                    // { }
-                    // column(Unit; "Base Unit of Measure")
-                    // { }
-                    // column(Colour; "Color Name")
-                    // { }
-                    // column(Article; Article)
-                    // { }
+                    column(Size_Range_Name; "Size Range No.")
+                    { }
+                    column(ItemDes; Description)
+                    { }
+                    column(Unit; "Base Unit of Measure")
+                    { }
+                    column(Colour; "Color Name")
+                    { }
+                    column(Article; Article)
+                    { }
 
                     trigger OnAfterGetRecord()
                     begin
@@ -85,10 +74,10 @@ report 50633 AccessoriesStatusReport
                         if DimenRec.FindFirst() then begin
                             Dimension := DimenRec."Dimension Width";
                         end;
-                        // ArticleRec.SetRange("No.", "Article No.");
-                        // if ArticleRec.FindFirst() then begin
-                        //     ArticleVariable := ArticleRec.Article;
-                        // end;
+                        ArticleRec.SetRange("No.", "Article No.");
+                        if ArticleRec.FindFirst() then begin
+                            Article := ArticleRec.Article;
+                        end;
 
                     end;
 
@@ -98,16 +87,6 @@ report 50633 AccessoriesStatusReport
                 trigger OnAfterGetRecord()
 
                 begin
-                    ItemRec.Reset();
-                    ItemRec.SetRange("No.", "No.");
-                    if ItemRec.FindFirst() then begin
-                        SizeRange := ItemRec."Size Range No.";
-                        Descrip := ItemRec.Description;
-                        UOM := ItemRec."Base Unit of Measure";
-                        color := ItemRec."Color Name";
-                        ArticleVariable := ItemRec.Article;
-
-                    end;
 
                     PurchaseArchiveRec.SetRange("Document No.", "Order No.");
                     PurchaseArchiveRec.SetRange("No.", "No.");
@@ -168,12 +147,6 @@ report 50633 AccessoriesStatusReport
 
 
     var
-        SizeRange: Code[20];
-        Descrip: Text[200];
-        UOM: Code[10];
-        color: Text[50];
-        ArticleVariable: Text[100];
-        ItemRec: Record Item;
         EditableGB: Boolean;
         DimenRec: Record DimensionWidth;
         Dimension: Text[200];
