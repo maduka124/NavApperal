@@ -85,7 +85,8 @@ report 50614 ManningLevelsReport
                 { }
                 column(Target_Per_Hour; "Target Per Hour")
                 { }
-
+                column(RefGPartName; RefGPartName)
+                { }
                 trigger OnAfterGetRecord()
                 var
                 begin
