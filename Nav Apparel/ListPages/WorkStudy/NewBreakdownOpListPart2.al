@@ -3,7 +3,7 @@ page 50466 "New Breakdown Op Listpart2"
     PageType = ListPart;
     SourceTable = "New Breakdown Op Line2";
     AutoSplitKey = true;
-    SourceTableView = sorting(RefGPartName, "Line Position") order(ascending);
+    SourceTableView = sorting("GPart Position", "Line Position") order(ascending);
 
     layout
     {
@@ -16,7 +16,7 @@ page 50466 "New Breakdown Op Listpart2"
                     ApplicationArea = All;
                     Editable = false;
                     StyleExpr = StyleExprTxt;
-                    Caption = 'Seq No1';
+                    Caption = 'Seq No';
                 }
 
                 // field("Line No."; Rec."Line No.")
@@ -267,7 +267,7 @@ page 50466 "New Breakdown Op Listpart2"
 
     trigger OnOpenPage()
     begin
-        Rec.SetCurrentKey(RefGPartName, "Line Position");
+        Rec.SetCurrentKey("GPart Position", "Line Position");
         Rec.Ascending(true);
     end;
 

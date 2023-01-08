@@ -141,6 +141,7 @@ page 50464 "New Breakdown Op Listpart1"
                     LineNo: Integer;
                     Code1: Code[20];
                     Count1: Integer;
+                    "GPart Position1": Integer;
                 begin
 
                     CurrPage.Update();
@@ -158,6 +159,15 @@ page 50464 "New Breakdown Op Listpart1"
                         repeat
 
                             if NewBreakOpLine1Rec.Select = true then begin
+
+                                NewBreakOpLine2Rec.Reset();
+                                NewBreakOpLine2Rec.SetRange("No.", NewBreakOpLine1Rec."NewBRNo.");
+                                NewBreakOpLine2Rec.SetRange(RefGPartName, NewBreakOpLine1Rec."Garment Part Name");
+
+                                if NewBreakOpLine2Rec.FindSet() then
+                                    "GPart Position1" := NewBreakOpLine2Rec."GPart Position"
+                                else
+                                    Error('Please insert Header.');
 
                                 NewBreakOpLine2Rec.Reset();
                                 NewBreakOpLine2Rec.SetRange("No.", NewBreakOpLine1Rec."NewBRNo.");
@@ -182,6 +192,7 @@ page 50464 "New Breakdown Op Listpart1"
                                     NewBreakOpLine2Rec."No." := NewBreakOpLine1Rec."NewBRNo.";
                                     NewBreakOpLine2Rec."Line No." := LineNo + 1;
                                     NewBreakOpLine2Rec."Line Position" := LineNo + 1;
+                                    NewBreakOpLine2Rec."GPart Position" := "GPart Position1";
                                     NewBreakOpLine2Rec."Item Type No." := NewBreakOpLine1Rec."Item Type No.";
                                     NewBreakOpLine2Rec."Item Type Name" := NewBreakOpLine1Rec."Item Type Name";
                                     NewBreakOpLine2Rec."Garment Part No." := NewBreakOpLine1Rec."Garment Part No.";

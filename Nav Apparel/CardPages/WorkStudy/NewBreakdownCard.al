@@ -253,7 +253,26 @@ page 50459 "New Breakdown Card"
                 var
                     NewBreakOpLine2Rec: Record "New Breakdown Op Line2";
                     LineNo: Integer;
+                    "GPart Position1": Integer;
                 begin
+
+                    NewBreakOpLine2Rec.Reset();
+                    NewBreakOpLine2Rec.SetRange("No.", rec."No.");
+                    NewBreakOpLine2Rec.SetRange(RefGPartName, rec."Garment Part Name");
+
+                    if NewBreakOpLine2Rec.FindSet() then
+                        "GPart Position1" := NewBreakOpLine2Rec."GPart Position"
+                    else begin
+                        NewBreakOpLine2Rec.Reset();
+                        NewBreakOpLine2Rec.SetRange("No.", rec."No.");
+
+                        if NewBreakOpLine2Rec.FindLast() then
+                            "GPart Position1" := NewBreakOpLine2Rec."GPart Position" + 1
+                        else
+                            "GPart Position1" := 1;
+                    end;
+
+
 
                     NewBreakOpLine2Rec.Reset();
                     NewBreakOpLine2Rec.SetRange("No.", rec."No.");
@@ -272,6 +291,7 @@ page 50459 "New Breakdown Card"
 
                         NewBreakOpLine2Rec.Init();
                         NewBreakOpLine2Rec."No." := rec."No.";
+                        NewBreakOpLine2Rec."GPart Position" := "GPart Position1";
                         NewBreakOpLine2Rec."Line No." := LineNo + 1;
                         NewBreakOpLine2Rec."Line Position" := LineNo + 1;
                         NewBreakOpLine2Rec.Description := rec."Garment Part Name";

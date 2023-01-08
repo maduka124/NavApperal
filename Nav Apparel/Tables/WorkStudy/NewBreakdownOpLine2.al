@@ -128,6 +128,12 @@ table 50465 "New Breakdown Op Line2"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(24; "GPart Position"; Integer)
+        {
+            DataClassification = CustomerContent;
+        }
+
     }
 
     keys
@@ -139,12 +145,10 @@ table 50465 "New Breakdown Op Line2"
 
         key(SK; "Line Position")
         {
-
         }
 
-        key(SK1; RefGPartName, "Line Position")
+        key(SK1; "GPart Position", "Line Position")
         {
-
         }
     }
 
