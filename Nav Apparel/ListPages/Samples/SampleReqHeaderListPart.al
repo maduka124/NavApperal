@@ -64,6 +64,11 @@ page 50427 "Sample Request Header ListPart"
                     Editable = false;
                 }
 
+                field("Merchandizer Group Name"; rec."Merchandizer Group Name")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Group HD"; rec."Group HD")
                 {
                     ApplicationArea = All;

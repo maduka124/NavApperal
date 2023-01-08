@@ -121,7 +121,8 @@ page 50116 "General Issue List"
                                 ItemJnalRec."Line No." := Inx;
                                 ItemJnalRec.Insert(true);
                                 ItemJnalRec.Validate("Posting Date", rec."Document Date");
-                                ItemJnalRec."Document No." := NosManagement.GetNextNo(ItemJnalBatch."No. Series", Today, true);
+                                ItemJnalRec."Document No." := rec."No.";
+                                //ItemJnalRec."Document No." := NosManagement.GetNextNo(ItemJnalBatch."No. Series", Today, true);
                                 ItemJnalRec.Validate("Item No.", GenIssueLine."Item Code");
                                 ItemJnalRec."Main Category Name" := GenIssueLine."Main Category Name";
                                 ItemJnalRec."Line Approved" := true;

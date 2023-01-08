@@ -276,13 +276,13 @@ table 50101 "Daily Consumption Header"
                 if "Main Category" <> '' then begin
                     MainCatRec.Get("Main Category");
                     "Main Category Name" := MainCatRec."Main Category Name";
-                    ItemJnalBatch.Reset();
-                    ItemJnalBatch.SetRange("Journal Template Name", "Journal Template Name");
-                    ItemJnalBatch.SetRange("Inventory Posting Group", MainCatRec."Inv. Posting Group Code");
-                    if ItemJnalBatch.Count > 1 then
-                        Error('More than one batches found');
-                    if ItemJnalBatch.FindFirst() then
-                        Rec."Journal Batch Name" := ItemJnalBatch.Name;
+                    // ItemJnalBatch.Reset();
+                    // ItemJnalBatch.SetRange("Journal Template Name", "Journal Template Name");
+                    // ItemJnalBatch.SetRange("Inventory Posting Group", MainCatRec."Inv. Posting Group Code");
+                    // if ItemJnalBatch.Count > 1 then
+                    //     Error('More than one batches found');
+                    // if ItemJnalBatch.FindFirst() then
+                    //     Rec."Journal Batch Name" := ItemJnalBatch.Name;
                 end;
 
             end;
@@ -363,6 +363,7 @@ table 50101 "Daily Consumption Header"
             ItemJnaltempRec.SetRange(Type, ItemJnaltempRec.Type::Consumption);
             ItemJnaltempRec.FindFirst();
             "Journal Template Name" := ItemJnaltempRec.Name;
+            "Journal Batch Name" := 'DEFAULT';
             "Created UserID" := UserId;
         end;
     end;

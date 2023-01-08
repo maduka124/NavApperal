@@ -14,6 +14,12 @@ page 50440 "Sample Status List"
         {
             repeater(General)
             {
+                field("No"; rec."No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Sample Req. No';
+                }
+
                 field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
@@ -75,6 +81,11 @@ page 50440 "Sample Status List"
                     ApplicationArea = All;
                 }
 
+                field("Merchandizer Group Name"; rec."Merchandizer Group Name")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Created User"; rec."Created User")
                 {
                     ApplicationArea = All;
@@ -94,8 +105,6 @@ page 50440 "Sample Status List"
                 {
                     ApplicationArea = All;
                 }
-
-
             }
         }
     }

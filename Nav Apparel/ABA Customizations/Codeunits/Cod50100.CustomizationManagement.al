@@ -560,11 +560,11 @@ codeunit 50100 "Customization Management"
         //Function to Get the last line number in Job Journal
 
         //LineNo := FindLineNo();
-        ReservEntry.Reset();
-        ReservEntry.SetCurrentKey("Entry No.");
-        ReservEntry.SetRange("Source ID", PurchHedd."No.");
-        if ReservEntry.FindFirst() then
-            Error('Reservation entry already exists');
+        // ReservEntry.Reset();
+        // ReservEntry.SetCurrentKey("Entry No.");
+        // ReservEntry.SetRange("Source ID", PurchHedd."No.");
+        // if ReservEntry.FindFirst() then
+        //     Error('Reservation entry already exists');
 
         for RowNo := 2 to Rows do begin
             begin
