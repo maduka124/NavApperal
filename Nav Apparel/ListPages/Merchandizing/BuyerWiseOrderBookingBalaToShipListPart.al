@@ -2,7 +2,7 @@ page 51171 "BuyWisOdrBoo-BalToShipListPart"
 {
     PageType = ListPart;
     SourceTable = BuyerWiseOrderBookinBalatoShip;
-    SourceTableView = sorting("Buyer Name") order(ascending);
+    SourceTableView = sorting("No.", "Buyer Name") order(ascending);
     Caption = ' ';
     DeleteAllowed = false;
     InsertAllowed = false;

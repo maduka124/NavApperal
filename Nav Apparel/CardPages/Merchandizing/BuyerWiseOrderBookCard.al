@@ -332,6 +332,8 @@ page 51165 "BuyerWiseOrderBooking"
 
                         //Insert all bookings
                         BuyWisOdrBookAllBookRec.Reset();
+                        BuyWisOdrBookAllBookRec.SetCurrentKey("No.", "Buyer Name");
+                        BuyWisOdrBookAllBookRec.Ascending(false);
                         BuyWisOdrBookAllBookRec.SetRange(Year, rec.Year);
                         //BuyWisOdrBookAllBookRec.SetFilter(Type, '=%1', 'L');
                         if BuyWisOdrBookAllBookRec.FindSet() then begin
@@ -508,6 +510,8 @@ page 51165 "BuyerWiseOrderBooking"
 
                         //Insert all bookings
                         BuyWisOdrBookAllBookRec.Reset();
+                        BuyWisOdrBookAllBookRec.SetCurrentKey("No.", "Buyer Name");
+                        BuyWisOdrBookAllBookRec.Ascending(false);
                         BuyWisOdrBookAllBookRec.SetRange(Year, rec.Year);
                         if BuyWisOdrBookAllBookRec.FindSet() then begin
                             repeat
