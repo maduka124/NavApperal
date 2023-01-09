@@ -1671,7 +1671,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Qty.Value</Value>
+                                  <Value>=Sum(Fields!Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1717,7 +1717,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!GRNQty.Value</Value>
+                                  <Value>=Sum(Fields!GRNQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1763,7 +1763,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Qty.Value-Fields!GRNQty.Value</Value>
+                                  <Value>=Sum(Fields!Qty.Value-Fields!GRNQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1809,7 +1809,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!IssueQty.Value</Value>
+                                  <Value>=Sum(Fields!IssueQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1855,7 +1855,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!GRNQty.Value-Fields!IssueQty.Value</Value>
+                                  <Value>=Sum(Fields!GRNQty.Value-Fields!IssueQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1910,7 +1910,11 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Details" />
+                  <Group Name="Details">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!ItemDes.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
                   <Visibility>
                     <Hidden>=Fields!ItemDes.Value=""</Hidden>
                   </Visibility>
