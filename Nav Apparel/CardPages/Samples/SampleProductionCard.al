@@ -18,6 +18,15 @@ page 50434 "Sample Production"
                 }
             }
 
+            group("Pattern/Cutting")
+            {
+                part("SampleProdLinePattCuttListPart"; "SampleProdLinePattCuttListPart")
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                }
+            }
+
             group("Cutting")
             {
                 part("SampleProdLineCutListPart"; SampleProdLineCutListPart)

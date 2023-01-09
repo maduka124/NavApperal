@@ -1,9 +1,9 @@
-page 50436 SampleProdLineCutListPart
+page 51193 SampleProdLinePattCuttListPart
 {
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Pattern/Cutting Date" = filter(<> ''), "Cutting Date" = filter(''));
+    SourceTableView = where("Pattern Date" = filter(<> ''), "Pattern/Cutting Date" = filter(''));
 
     layout
     {
@@ -102,6 +102,19 @@ page 50436 SampleProdLineCutListPart
                     Editable = false;
                 }
 
+                field("Pattern Maker"; rec."Pattern Maker")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Pattern Hours"; rec."Pattern Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Production Minutes';
+                    Editable = false;
+                }
+
                 field(Status; rec.Status)
                 {
                     ApplicationArea = All;
@@ -115,73 +128,14 @@ page 50436 SampleProdLineCutListPart
                     Editable = false;
                 }
 
-                field(Cutter; rec.Cutter)
+                field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
                 {
                     ApplicationArea = All;
-                }
-
-                field("Cuting Hours"; rec."Cuting Hours")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Cuting Minutes';
 
                     trigger OnValidate()
                     var
-                        WorkCenterRec: Record "Work Center";
-                        RouterRec: Record "Routing Header";
                     begin
-                        if rec."Cuting Hours" < 0 then
-                            Error('Cuting Minutes is less than zero.');
-
-                        //Asign Work center
-                        WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, 'SM-CUTTING');
-
-                        if WorkCenterRec.FindSet() then begin
-                            rec."Cut Work center Code" := WorkCenterRec."No.";
-                            rec."Cut Work center Name" := WorkCenterRec.Name;
-                        end;
-
-                        //Get Sample Router Name
-                        RouterRec.Reset();
-                        RouterRec.SetFilter("Sample Router", '=%1', true);
-
-                        if RouterRec.FindSet() then
-                            rec."Routing Code" := RouterRec."No.";
-
                         CurrPage.Update();
-                    end;
-                }
-
-                field("Cutting Date"; rec."Cutting Date")
-                {
-                    ApplicationArea = All;
-
-                    trigger OnValidate()
-                    var
-                        RouterlineRec: Record "Routing Line";
-                    begin
-                        if rec.Cutter = '' then
-                            Error('Select a cutter name');
-
-                        if rec."Cuting Hours" = 0 then
-                            Error('Cuting Minutes is zero');
-
-                        if rec."Cut Work center Name" = '' then
-                            Error('Select a Router/Work Center');
-
-                        if format(rec."Cutting Date") <> '' then begin
-                            RouterlineRec.Reset();
-                            RouterlineRec.SetRange("Routing No.", rec."Routing Code");
-                            RouterlineRec.SetRange("No.", rec."Cut Work center Code");
-                            if RouterlineRec.FindSet() then begin
-                                RouterlineRec."Run Time" := rec."Cuting Hours";
-                                RouterlineRec.Modify();
-                                CurrPage.Update();
-                            end
-                            else
-                                Error('Cannot find Routing details');
-                        end;
                     end;
                 }
             }

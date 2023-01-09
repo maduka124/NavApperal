@@ -335,6 +335,11 @@ table 50931 "Sample Requsition Line"
         //     TableRelation = "Routing Line".Description where("Routing No." = filter('WASH RECEIVE'));
         //     ValidateTableRelation = false;
         // }
+
+        field(71012634; "Pattern/Cutting Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
