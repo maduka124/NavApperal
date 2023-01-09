@@ -158,6 +158,7 @@ page 50475 "Maning Level Card"
                         if NavAppPlanLineRec.FindLast() then begin
                             rec.Eff := NavAppPlanLineRec.Eff;
                             rec.Val := NavAppPlanLineRec.Carder;
+                            Cal_Values();
                         end;
                     end;
                 }
@@ -249,6 +250,7 @@ page 50475 "Maning Level Card"
                 field("% Of Target "; Rec."% Of Target ")
                 {
                     ApplicationArea = All;
+                    Caption = '100% Target';
                 }
 
                 field("Expected Target"; rec."Expected Target")
@@ -369,20 +371,35 @@ page 50475 "Maning Level Card"
         ActHPTotal: Decimal;
     begin
 
-        //Calculate BPT
+        //Calculate BPT and 100% of target
         if rec.Type = rec.Type::"Based on Machine Operator" then begin
+
             if rec.Val <> 0 then
                 rec.BPT := rec."Sewing SMV" / rec.Val
             else
                 rec.BPT := 0;
+
+            if rec.BPT <> 0 then
+                rec."% Of Target " := 60 / rec.BPT
+            else
+                rec."% Of Target " := 0;
+
+            if rec.BPT <> 0 then
+                rec."Expected Target" := ((60 / rec.BPT) * rec.Eff) / 100
+            else
+                rec."Expected Target" := 0;
+
         end
         else begin
-            if rec.Type = rec.Type::"Based on Output" then begin
-                if rec.Val <> 0 then
-                    rec.BPT := (60 / rec.Val) / 100 * rec.Eff
-                else
-                    rec.BPT := 0;
-            end;
+
+            if rec.Val <> 0 then
+                rec.BPT := (60 / rec.Val) / 100 * rec.Eff
+            else
+                rec.BPT := 0;
+
+            rec."% Of Target " := rec.Val;
+            rec."Expected Target" := (rec.Val * rec.Eff) / 100;
+
         end;
 
         CurrPage.Update();
@@ -411,26 +428,12 @@ page 50475 "Maning Level Card"
             until ManingLevelsLineRec.Next() = 0;
         end;
 
-        //Calculate Hourly figures
-        if rec.Type = rec.Type::"Based on Machine Operator" then begin
-            if rec.BPT <> 0 then
-                rec."Mac Operator" := 60 / rec.BPT
-            else
-                rec."Mac Operator" := 0;
 
-            CurrPage.Update();
+        if rec.Type = rec.Type::"Based on Machine Operator" then
+            rec."Mac Operator" := TheoMOTotal
+        else
+            rec."Mac Operator" := TheoMOTotal;
 
-            if rec.Eff <> 0 then
-                rec."Expected Target" := rec."Mac Operator" / rec.Eff
-            else
-                rec."Expected Target" := 0;
-        end
-        else begin
-            if rec.Type = rec.Type::"Based on Output" then begin
-                rec."Mac Operator" := TheoMOTotal;
-                rec."Expected Target" := rec.Val;
-            end;
-        end;
 
         CurrPage.Update();
 
