@@ -38,12 +38,20 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
     trigger OnInsert()
     var
         UserSetupRec: Record "User Setup";
+        WorkflowUserGroupRec: Record "Workflow User Group";
     begin
 
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
-        if UserSetupRec.FindSet() then
+        if UserSetupRec.FindSet() then begin
             rec."Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+
+            WorkflowUserGroupRec.Reset();
+            WorkflowUserGroupRec.SetRange(Code, UserSetupRec."Merchandizer Group Name");
+
+            if WorkflowUserGroupRec.FindSet() then
+                "Workflow User Group" := WorkflowUserGroupRec.Code;
+        end;
     end;
 }
 

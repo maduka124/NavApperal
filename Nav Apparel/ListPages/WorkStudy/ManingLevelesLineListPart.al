@@ -130,6 +130,7 @@ page 50476 "Maning Levels Listpart"
                     ManingLevelRec: Record "Maning Level";
                     ActMOTotal: Decimal;
                     ActHPTotal: Decimal;
+
                 begin
 
                     //Calculate Actual values
