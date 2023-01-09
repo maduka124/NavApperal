@@ -1595,26 +1595,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1694,7 +1674,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!FOB_Pcs.Value*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!FOB_Pcs.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2068,6 +2048,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2134,7 +2115,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Consumption.Value*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!Consumption.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -2573,7 +2554,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Sum(Fields!ConsumptionNot.Value))*Fields!Quantity.Value</Value>
+                                  <Value>=(Sum(Round(Fields!ConsumptionNot.Value,3)))*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -3015,7 +2996,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value))*Fields!Quantity.Value</Value>
+                                  <Value>=Round((Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value)),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -3454,7 +3435,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Printing__Dz__.Value / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round((Fields!Printing__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -3892,7 +3873,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Embroidery__Dz__.Value / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round((Fields!Embroidery__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.000;(#,0.000)</Format>
@@ -4330,7 +4311,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Washing__Dz__.Value / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round((Fields!Washing__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.000;(#,0.000)</Format>
@@ -4768,7 +4749,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Others__Dz__.Value / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round((Fields!Others__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.000;(#,0.000)</Format>
@@ -5210,7 +5191,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round((Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -5654,7 +5635,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value) + Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round((Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value) + Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -6098,7 +6079,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!FOB_Pcs.Value - (Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value) + Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12))*Fields!Quantity.Value</Value>
+                                  <Value>=Round((Fields!FOB_Pcs.Value - (Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value) + Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12)),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -6538,7 +6519,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!MFG_Cost_Pcs.Value)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!MFG_Cost_Pcs.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -6977,7 +6958,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Overhead_Pcs.Value)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!Overhead_Pcs.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -7420,7 +7401,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Commercial_Pcs.Value)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!Commercial_Pcs.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -7859,7 +7840,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Deferred_Payment_Pcs.Value)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!Deferred_Payment_Pcs.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -8298,7 +8279,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Risk_factor__Pcs.Value)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!Risk_factor__Pcs.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -8737,7 +8718,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!TAX__Pcs.Value)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!TAX__Pcs.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -9176,7 +9157,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!ABA_Sourcing__Pcs.Value)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!ABA_Sourcing__Pcs.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -9612,7 +9593,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Quantity.Value*0.000</Value>
+                                  <Value>=Round(Fields!Quantity.Value,3)*0.000</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -10055,7 +10036,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!MFG_Cost_Pcs.Value + Fields!Overhead_Pcs.Value + Fields!Commercial_Pcs.Value + Fields!Deferred_Payment_Pcs.Value + Fields!Risk_factor__Pcs.Value + Fields!TAX__Pcs.Value + Fields!ABA_Sourcing__Pcs.Value)*Fields!Quantity.Value</Value>
+                                  <Value>=Round((Fields!MFG_Cost_Pcs.Value + Fields!Overhead_Pcs.Value + Fields!Commercial_Pcs.Value + Fields!Deferred_Payment_Pcs.Value + Fields!Risk_factor__Pcs.Value + Fields!TAX__Pcs.Value + Fields!ABA_Sourcing__Pcs.Value),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -10502,7 +10483,7 @@ Fields!ABA_Sourcing_Dz_.Value)/12</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=((Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value + Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value) / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(((Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value + Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value) / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -10953,7 +10934,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=((Fields!FOB_Dz_.Value - (Sum(Fields!TotFab.Value) + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value) - (Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value)) / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(((Fields!FOB_Dz_.Value - (Sum(Fields!TotFab.Value) + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value) - (Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value)) / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -11393,7 +11374,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Commission_Pcs.Value*Fields!Quantity.Value</Value>
+                                  <Value>=Round(Fields!Commission_Pcs.Value,3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n3</Format>
@@ -11495,7 +11476,6 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -11836,7 +11816,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=((Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value + Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value + Fields!Commission_Dz_.Value) / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(((Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value + Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value + Fields!Commission_Dz_.Value) / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -12091,7 +12071,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=((((Fields!FOB_Dz_.Value - (Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value)) - (Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value)) - Fields!Commission_Dz_.Value) / 12)*Fields!Quantity.Value</Value>
+                                  <Value>=Round(((((Fields!FOB_Dz_.Value - (Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value)) - (Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value)) - Fields!Commission_Dz_.Value) / 12),3)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -12172,7 +12152,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
             <Top>7.26535cm</Top>
             <Left>0.9525cm</Left>
             <Height>15.66146cm</Height>
-            <Width>26.00617cm</Width>
+            <Width>26.00618cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>

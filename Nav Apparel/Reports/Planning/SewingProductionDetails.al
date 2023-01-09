@@ -53,7 +53,7 @@ report 50852 SewingProductionDetails
             dataitem(ProductionOutHeader; ProductionOutHeader)
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
-                DataItemLink = "PO No" = field("PO No."), "Resource No." = field("Resource No.");
+                DataItemLink = "PO No" = field("PO No.");
                 DataItemTableView = sorting("No.");
 
                 column(TodayOutput; "Output Qty")
@@ -74,6 +74,7 @@ report 50852 SewingProductionDetails
                 //     end;
 
                 // end;
+             
             }
             trigger OnAfterGetRecord()
 
