@@ -190,22 +190,24 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
                     CalConsump.RunModal();
                 end;
             }
-            // action("Create Transfer Order")
-            // {
-            //     Image = TransferOrder;
-            //     Promoted = true;
-            //     ApplicationArea = Manufacturing;
-            //     PromotedCategory = Category5;
-            //     trigger OnAction()
-            //     var
-            //         CustMangemnt: Codeunit "Customization Management";
-            //         ItemJnal: Record "Item Journal Line";
-            //     begin
-            //         if not Confirm('Do you want to create the Transfer order?', false) then
-            //             exit;
-            //         CreateTransOrder();
-            //     end;
-            // }
+
+            action("Create Transfer Order")
+            {
+                Image = TransferOrder;
+                Promoted = true;
+                ApplicationArea = Manufacturing;
+                PromotedCategory = Category5;
+                trigger OnAction()
+                var
+                    CustMangemnt: Codeunit "Customization Management";
+                    ItemJnal: Record "Item Journal Line";
+                begin
+                    if not Confirm('Do you want to create the Transfer order?', false) then
+                        exit;
+                    CreateTransOrder();
+                end;
+            }
+
             // action("Calculate Daily Consumption")
             // {
             //     Image = CalculateInventory;
