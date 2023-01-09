@@ -22,11 +22,6 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field("Manual SMV"; rec."Manual SMV")
-                {
-                    ApplicationArea = All;
-                }
-
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
@@ -139,11 +134,6 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field("Total SMV"; rec."Total SMV")
-                {
-                    ApplicationArea = All;
-                }
-
                 field("Work Center Name"; rec."Work Center Name")
                 {
                     ApplicationArea = All;
@@ -172,7 +162,7 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field(Val; rec.Val)
+                field(Type; rec.Type)
                 {
                     ApplicationArea = All;
 
@@ -183,7 +173,22 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field(Type; rec.Type)
+                field("Sewing SMV"; rec."Sewing SMV")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Manual SMV"; rec."Manual SMV")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Total SMV"; rec."Total SMV")
+                {
+                    ApplicationArea = All;
+                }
+
+                field(Val; rec.Val)
                 {
                     ApplicationArea = All;
 
@@ -206,17 +211,14 @@ page 50475 "Maning Level Card"
                     end;
                 }
 
-                field("Sewing SMV"; rec."Sewing SMV")
-                {
-                    ApplicationArea = All;
-                }
+            }
 
-
-
+            group("Planned Lines")
+            {
                 part("Maning Levels Listpart1"; "Maning Levels Listpart1")
                 {
                     ApplicationArea = All;
-                    Caption = 'Planned Lines';
+                    Caption = ' ';
                     SubPageLink = "Style No." = field("Style No.");
                 }
             }
@@ -242,6 +244,11 @@ page 50475 "Maning Level Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Machine Operators';
+                }
+
+                field("% Of Target "; Rec."% Of Target ")
+                {
+                    ApplicationArea = All;
                 }
 
                 field("Expected Target"; rec."Expected Target")
