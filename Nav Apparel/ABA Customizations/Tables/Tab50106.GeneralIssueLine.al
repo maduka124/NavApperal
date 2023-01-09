@@ -71,6 +71,12 @@ table 50106 "General Issue Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        //Added by Maduka on 9/1/2023
+        field(10; "Quantity In Stock"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
     keys
     {

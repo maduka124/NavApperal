@@ -68,7 +68,7 @@ table 50105 "General Issue Header"
         field(13; "Issued UserID"; Code[50])
         {
             DataClassification = ToBeClassified;
-        }
+        }       
     }
     keys
     {
