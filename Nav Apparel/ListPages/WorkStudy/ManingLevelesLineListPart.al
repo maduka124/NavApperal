@@ -119,7 +119,7 @@ page 50476 "Maning Levels Listpart"
     {
         area(Processing)
         {
-            action("Caculate Maning Levels")
+            action("Calculate Maning Levels")
             {
                 ApplicationArea = All;
                 Image = Calculate;
