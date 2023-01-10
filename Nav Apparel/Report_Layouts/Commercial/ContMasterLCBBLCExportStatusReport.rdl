@@ -11,6 +11,124 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="BBLC">
+          <DataField>BBLC</DataField>
+        </Field>
+        <Field Name="BBLCFormat">
+          <DataField>BBLCFormat</DataField>
+        </Field>
+        <Field Name="Quantity__Pcs_">
+          <DataField>Quantity__Pcs_</DataField>
+        </Field>
+        <Field Name="Quantity__Pcs_Format">
+          <DataField>Quantity__Pcs_Format</DataField>
+        </Field>
+        <Field Name="Contract_Value">
+          <DataField>Contract_Value</DataField>
+        </Field>
+        <Field Name="Contract_ValueFormat">
+          <DataField>Contract_ValueFormat</DataField>
+        </Field>
+        <Field Name="Currency">
+          <DataField>Currency</DataField>
+        </Field>
+        <Field Name="BuyerFilter">
+          <DataField>BuyerFilter</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="B2B_LC_No">
+          <DataField>B2B_LC_No</DataField>
+        </Field>
+        <Field Name="Opening_Date">
+          <DataField>Opening_Date</DataField>
+        </Field>
+        <Field Name="Expiry_Date">
+          <DataField>Expiry_Date</DataField>
+        </Field>
+        <Field Name="LC_Value">
+          <DataField>LC_Value</DataField>
+        </Field>
+        <Field Name="LC_ValueFormat">
+          <DataField>LC_ValueFormat</DataField>
+        </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="LC_Contract_No_">
+          <DataField>LC_Contract_No_</DataField>
+        </Field>
+        <Field Name="B2B_LC_Value">
+          <DataField>B2B_LC_Value</DataField>
+        </Field>
+        <Field Name="B2B_LC_ValueFormat">
+          <DataField>B2B_LC_ValueFormat</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="UniPrice">
+          <DataField>UniPrice</DataField>
+        </Field>
+        <Field Name="UniPriceFormat">
+          <DataField>UniPriceFormat</DataField>
+        </Field>
+        <Field Name="tot">
+          <DataField>tot</DataField>
+        </Field>
+        <Field Name="totFormat">
+          <DataField>totFormat</DataField>
+        </Field>
+        <Field Name="Margin_A_C_Amount">
+          <DataField>Margin_A_C_Amount</DataField>
+        </Field>
+        <Field Name="Margin_A_C_AmountFormat">
+          <DataField>Margin_A_C_AmountFormat</DataField>
+        </Field>
+        <Field Name="Invoice_No">
+          <DataField>Invoice_No</DataField>
+        </Field>
+        <Field Name="Invoice_Amount">
+          <DataField>Invoice_Amount</DataField>
+        </Field>
+        <Field Name="Invoice_AmountFormat">
+          <DataField>Invoice_AmountFormat</DataField>
+        </Field>
+        <Field Name="BankRefNo_">
+          <DataField>BankRefNo_</DataField>
+        </Field>
+        <Field Name="Release_Amount">
+          <DataField>Release_Amount</DataField>
+        </Field>
+        <Field Name="Release_AmountFormat">
+          <DataField>Release_AmountFormat</DataField>
+        </Field>
+        <Field Name="FC_A_C_Amount">
+          <DataField>FC_A_C_Amount</DataField>
+        </Field>
+        <Field Name="FC_A_C_AmountFormat">
+          <DataField>FC_A_C_AmountFormat</DataField>
+        </Field>
+        <Field Name="Current_A_C_Amount">
+          <DataField>Current_A_C_Amount</DataField>
+        </Field>
+        <Field Name="Current_A_C_AmountFormat">
+          <DataField>Current_A_C_AmountFormat</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2050,9 +2168,9 @@
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -2094,9 +2212,9 @@
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -2138,9 +2256,9 @@
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -2182,9 +2300,9 @@
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -2228,9 +2346,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -2284,9 +2402,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -2340,9 +2458,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -4023,6 +4141,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -4074,122 +4198,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="BBLC">
-          <DataField>BBLC</DataField>
-        </Field>
-        <Field Name="BBLCFormat">
-          <DataField>BBLCFormat</DataField>
-        </Field>
-        <Field Name="Quantity__Pcs_">
-          <DataField>Quantity__Pcs_</DataField>
-        </Field>
-        <Field Name="Quantity__Pcs_Format">
-          <DataField>Quantity__Pcs_Format</DataField>
-        </Field>
-        <Field Name="Contract_Value">
-          <DataField>Contract_Value</DataField>
-        </Field>
-        <Field Name="Contract_ValueFormat">
-          <DataField>Contract_ValueFormat</DataField>
-        </Field>
-        <Field Name="Currency">
-          <DataField>Currency</DataField>
-        </Field>
-        <Field Name="BuyerFilter">
-          <DataField>BuyerFilter</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="B2B_LC_No">
-          <DataField>B2B_LC_No</DataField>
-        </Field>
-        <Field Name="Opening_Date">
-          <DataField>Opening_Date</DataField>
-        </Field>
-        <Field Name="Expiry_Date">
-          <DataField>Expiry_Date</DataField>
-        </Field>
-        <Field Name="LC_Value">
-          <DataField>LC_Value</DataField>
-        </Field>
-        <Field Name="LC_ValueFormat">
-          <DataField>LC_ValueFormat</DataField>
-        </Field>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="LC_Contract_No_">
-          <DataField>LC_Contract_No_</DataField>
-        </Field>
-        <Field Name="B2B_LC_Value">
-          <DataField>B2B_LC_Value</DataField>
-        </Field>
-        <Field Name="B2B_LC_ValueFormat">
-          <DataField>B2B_LC_ValueFormat</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="UniPrice">
-          <DataField>UniPrice</DataField>
-        </Field>
-        <Field Name="UniPriceFormat">
-          <DataField>UniPriceFormat</DataField>
-        </Field>
-        <Field Name="tot">
-          <DataField>tot</DataField>
-        </Field>
-        <Field Name="totFormat">
-          <DataField>totFormat</DataField>
-        </Field>
-        <Field Name="Margin_A_C_Amount">
-          <DataField>Margin_A_C_Amount</DataField>
-        </Field>
-        <Field Name="Margin_A_C_AmountFormat">
-          <DataField>Margin_A_C_AmountFormat</DataField>
-        </Field>
-        <Field Name="Invoice_No">
-          <DataField>Invoice_No</DataField>
-        </Field>
-        <Field Name="Invoice_Amount">
-          <DataField>Invoice_Amount</DataField>
-        </Field>
-        <Field Name="Invoice_AmountFormat">
-          <DataField>Invoice_AmountFormat</DataField>
-        </Field>
-        <Field Name="BankRefNo_">
-          <DataField>BankRefNo_</DataField>
-        </Field>
-        <Field Name="Release_Amount">
-          <DataField>Release_Amount</DataField>
-        </Field>
-        <Field Name="Release_AmountFormat">
-          <DataField>Release_AmountFormat</DataField>
-        </Field>
-        <Field Name="FC_A_C_Amount">
-          <DataField>FC_A_C_Amount</DataField>
-        </Field>
-        <Field Name="FC_A_C_AmountFormat">
-          <DataField>FC_A_C_AmountFormat</DataField>
-        </Field>
-        <Field Name="Current_A_C_Amount">
-          <DataField>Current_A_C_Amount</DataField>
-        </Field>
-        <Field Name="Current_A_C_AmountFormat">
-          <DataField>Current_A_C_AmountFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
