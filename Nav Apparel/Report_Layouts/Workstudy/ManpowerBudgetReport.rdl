@@ -11,6 +11,73 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+        </Field>
+        <Field Name="Department_Name">
+          <DataField>Department_Name</DataField>
+        </Field>
+        <Field Name="Category_Name">
+          <DataField>Category_Name</DataField>
+        </Field>
+        <Field Name="Act_Budget">
+          <DataField>Act_Budget</DataField>
+        </Field>
+        <Field Name="Final_Budget_with_Absenteesm">
+          <DataField>Final_Budget_with_Absenteesm</DataField>
+        </Field>
+        <Field Name="Current_onrall">
+          <DataField>Current_onrall</DataField>
+        </Field>
+        <Field Name="Absent">
+          <DataField>Absent</DataField>
+        </Field>
+        <Field Name="Leave">
+          <DataField>Leave</DataField>
+        </Field>
+        <Field Name="Net_Present">
+          <DataField>Net_Present</DataField>
+        </Field>
+        <Field Name="Excess_Short">
+          <DataField>Excess_Short</DataField>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+        </Field>
+        <Field Name="Type">
+          <DataField>Type</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="CategoryNameSummary">
+          <DataField>CategoryNameSummary</DataField>
+        </Field>
+        <Field Name="ActBudgetSummary">
+          <DataField>ActBudgetSummary</DataField>
+        </Field>
+        <Field Name="ActBudgetSummaryFormat">
+          <DataField>ActBudgetSummaryFormat</DataField>
+        </Field>
+        <Field Name="FinalBudgetSummary">
+          <DataField>FinalBudgetSummary</DataField>
+        </Field>
+        <Field Name="FinalBudgetSummaryFormat">
+          <DataField>FinalBudgetSummaryFormat</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -300,9 +367,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -356,9 +423,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -412,9 +479,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -468,9 +535,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -524,9 +591,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -580,9 +647,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -636,9 +703,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -692,9 +759,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -748,9 +815,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1330,29 +1397,28 @@
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
-                <Color>Maroon</Color>
                 <Style>Solid</Style>
-                <Width>1.5pt</Width>
+                <Width>0.5pt</Width>
               </Border>
               <TopBorder>
-                <Color>Maroon</Color>
+                <Color>Black</Color>
                 <Style>Solid</Style>
-                <Width>1.5pt</Width>
+                <Width>0.5pt</Width>
               </TopBorder>
               <BottomBorder>
-                <Color>Maroon</Color>
+                <Color>Black</Color>
                 <Style>Solid</Style>
-                <Width>1.5pt</Width>
+                <Width>0.5pt</Width>
               </BottomBorder>
               <LeftBorder>
-                <Color>Maroon</Color>
+                <Color>Black</Color>
                 <Style>Solid</Style>
-                <Width>1.5pt</Width>
+                <Width>0.5pt</Width>
               </LeftBorder>
               <RightBorder>
-                <Color>Maroon</Color>
+                <Color>Black</Color>
                 <Style>Solid</Style>
-                <Width>1.5pt</Width>
+                <Width>0.5pt</Width>
               </RightBorder>
             </Style>
           </Line>
@@ -1957,6 +2023,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2008,71 +2080,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
-        <Field Name="Date">
-          <DataField>Date</DataField>
-        </Field>
-        <Field Name="Department_Name">
-          <DataField>Department_Name</DataField>
-        </Field>
-        <Field Name="Category_Name">
-          <DataField>Category_Name</DataField>
-        </Field>
-        <Field Name="Act_Budget">
-          <DataField>Act_Budget</DataField>
-        </Field>
-        <Field Name="Final_Budget_with_Absenteesm">
-          <DataField>Final_Budget_with_Absenteesm</DataField>
-        </Field>
-        <Field Name="Current_onrall">
-          <DataField>Current_onrall</DataField>
-        </Field>
-        <Field Name="Absent">
-          <DataField>Absent</DataField>
-        </Field>
-        <Field Name="Leave">
-          <DataField>Leave</DataField>
-        </Field>
-        <Field Name="Net_Present">
-          <DataField>Net_Present</DataField>
-        </Field>
-        <Field Name="Excess_Short">
-          <DataField>Excess_Short</DataField>
-        </Field>
-        <Field Name="Remarks">
-          <DataField>Remarks</DataField>
-        </Field>
-        <Field Name="Type">
-          <DataField>Type</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="CategoryNameSummary">
-          <DataField>CategoryNameSummary</DataField>
-        </Field>
-        <Field Name="ActBudgetSummary">
-          <DataField>ActBudgetSummary</DataField>
-        </Field>
-        <Field Name="ActBudgetSummaryFormat">
-          <DataField>ActBudgetSummaryFormat</DataField>
-        </Field>
-        <Field Name="FinalBudgetSummary">
-          <DataField>FinalBudgetSummary</DataField>
-        </Field>
-        <Field Name="FinalBudgetSummaryFormat">
-          <DataField>FinalBudgetSummaryFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
