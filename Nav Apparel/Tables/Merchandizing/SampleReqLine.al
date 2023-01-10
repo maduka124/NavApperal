@@ -350,6 +350,42 @@ table 50931 "Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012637; "Pattern Cuting Hours"; Decimal)//For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012638; "Pattern Cutter"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('PATTERN CUTTER'), Status = filter(Active));
+            ValidateTableRelation = false;
+        }
+
+        field(71012639; "QC Hours"; Decimal)//For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012640; "Quality Checker"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('QUALITY CHECKER'), Status = filter(Active));
+            ValidateTableRelation = false;
+        }
+
+        field(71012641; "QC Finish Hours"; Decimal)//For sample production purpose
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012642; "Quality Finish Checker"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Workers."Worker Name" where("Worker Type" = const('QUALITY FINISH CHECKER'), Status = filter(Active));
+            ValidateTableRelation = false;
+        }
     }
 
     keys

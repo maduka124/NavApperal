@@ -153,14 +153,38 @@ page 51196 SampleProdLineQCFinishListPart
                     Editable = false;
                 }
 
+                field("Quality Finish Checker"; rec."Quality Finish Checker")
+                {
+                    ApplicationArea = All;
+                    Caption = 'QC Finish Operator';
+                }
+
+                field("QC Finish Hours"; rec."QC Finish Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Production Minutes';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec."QC Finish Hours" < 0 then
+                            Error('QC Finish Minutes is less than zero.');
+                    end;
+                }
+
                 field("QC/Finishing Date"; rec."QC/Finishing Date")
                 {
-                    Caption = 'QC Finishing Date';
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                     begin
+                        if rec."Quality Finish Checker" = '' then
+                            Error('Select a QC Finish Operator');
+
+                        if rec."QC Finish Hours" = 0 then
+                            Error('QC Finish Minutes is zero');
+
                         CurrPage.Update();
                     end;
                 }

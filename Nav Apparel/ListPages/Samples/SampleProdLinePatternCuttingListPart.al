@@ -102,23 +102,28 @@ page 51193 SampleProdLinePattCuttListPart
                     Editable = false;
                 }
 
-                field("Pattern Maker"; rec."Pattern Maker")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
-
-                field("Pattern Hours"; rec."Pattern Hours")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Production Minutes';
-                    Editable = false;
-                }
-
                 field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field("Pattern Cutter"; rec."Pattern Cutter")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Pattern Cuting Hours"; rec."Pattern Cuting Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Production Minutes';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec."Pattern Cuting Hours" < 0 then
+                            Error('Pattern Cutting Minutes is less than zero.');
+                    end;
                 }
 
                 field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
@@ -129,6 +134,12 @@ page 51193 SampleProdLinePattCuttListPart
                     trigger OnValidate()
                     var
                     begin
+                        if rec."Pattern Cutter" = '' then
+                            Error('Select a Pattern Cutter');
+
+                        if rec."Pattern Cuting Hours" = 0 then
+                            Error('Pattern Cutting Minutes is zero');
+
                         CurrPage.Update();
                     end;
                 }

@@ -127,6 +127,25 @@ page 51195 SampleProdLineQCListPart
                     Editable = false;
                 }
 
+                field("Quality Checker"; rec."Quality Checker")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Quality Operator';
+                }
+
+                field("QC Hours"; rec."QC Hours")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Production Minutes';
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec."QC Hours" < 0 then
+                            Error('QC Minutes is less than zero.');
+                    end;
+                }
+
                 field("QC Date"; rec."QC Date")
                 {
                     ApplicationArea = All;
@@ -134,6 +153,12 @@ page 51195 SampleProdLineQCListPart
                     trigger OnValidate()
                     var
                     begin
+                        if rec."Quality Checker" = '' then
+                            Error('Select a Quality Operator');
+
+                        if rec."QC Hours" = 0 then
+                            Error('QC Minutes is zero');
+
                         CurrPage.Update();
                     end;
                 }
