@@ -11,76 +11,6 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Wash_Plant_Name">
-          <DataField>Wash_Plant_Name</DataField>
-        </Field>
-        <Field Name="Wash_Type_Name">
-          <DataField>Wash_Type_Name</DataField>
-        </Field>
-        <Field Name="Created_Date">
-          <DataField>Created_Date</DataField>
-        </Field>
-        <Field Name="Created_User">
-          <DataField>Created_User</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Sample_Name">
-          <DataField>Sample_Name</DataField>
-        </Field>
-        <Field Name="Color_Name">
-          <DataField>Color_Name</DataField>
-        </Field>
-        <Field Name="Size">
-          <DataField>Size</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="Req_Date">
-          <DataField>Req_Date</DataField>
-        </Field>
-        <Field Name="Comment">
-          <DataField>Comment</DataField>
-        </Field>
-        <Field Name="Fabrication_Name">
-          <DataField>Fabrication_Name</DataField>
-        </Field>
-        <Field Name="Requirment">
-          <DataField>Requirment</DataField>
-        </Field>
-        <Field Name="RequirmentFormat">
-          <DataField>RequirmentFormat</DataField>
-        </Field>
-        <Field Name="AcceRemarks">
-          <DataField>AcceRemarks</DataField>
-        </Field>
-        <Field Name="MainCategoryName">
-          <DataField>MainCategoryName</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -3788,12 +3718,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3845,4 +3769,74 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Wash_Plant_Name">
+          <DataField>Wash_Plant_Name</DataField>
+        </Field>
+        <Field Name="Wash_Type_Name">
+          <DataField>Wash_Type_Name</DataField>
+        </Field>
+        <Field Name="Created_Date">
+          <DataField>Created_Date</DataField>
+        </Field>
+        <Field Name="Created_User">
+          <DataField>Created_User</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Sample_Name">
+          <DataField>Sample_Name</DataField>
+        </Field>
+        <Field Name="Color_Name">
+          <DataField>Color_Name</DataField>
+        </Field>
+        <Field Name="Size">
+          <DataField>Size</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="Req_Date">
+          <DataField>Req_Date</DataField>
+        </Field>
+        <Field Name="Comment">
+          <DataField>Comment</DataField>
+        </Field>
+        <Field Name="Fabrication_Name">
+          <DataField>Fabrication_Name</DataField>
+        </Field>
+        <Field Name="Requirment">
+          <DataField>Requirment</DataField>
+        </Field>
+        <Field Name="RequirmentFormat">
+          <DataField>RequirmentFormat</DataField>
+        </Field>
+        <Field Name="AcceRemarks">
+          <DataField>AcceRemarks</DataField>
+        </Field>
+        <Field Name="MainCategoryName">
+          <DataField>MainCategoryName</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

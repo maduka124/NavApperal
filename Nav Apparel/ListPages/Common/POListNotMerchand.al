@@ -915,7 +915,7 @@ page 51198 "PO List Not Merchand"
         else
             Error('Cannot find user details in user setup table');
 
-        rec.SetFilter(EntryType, '<>%1&<>%2', rec.EntryType::FG, rec.EntryType::Sample);
+        rec.SetFilter(EntryType, '=%1|=%2', rec.EntryType::"Central Purchasing", rec.EntryType::Washing);
     end;
 
     var
