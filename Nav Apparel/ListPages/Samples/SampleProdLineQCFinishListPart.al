@@ -155,7 +155,8 @@ page 51196 SampleProdLineQCFinishListPart
 
                 field("QC/Finishing Date"; rec."QC/Finishing Date")
                 {
-                    Caption = 'QC Finishing';
+                    Caption = 'QC Finishing Date';
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     var

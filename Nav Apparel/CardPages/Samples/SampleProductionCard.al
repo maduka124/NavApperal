@@ -90,7 +90,7 @@ page 50434 "Sample Production"
                 part("SampleProdLineQCFinishListPart"; SampleProdLineQCFinishListPart)
                 {
                     ApplicationArea = All;
-                    Caption = 'Quality';
+                    Caption = ' ';
                 }
             }
         }

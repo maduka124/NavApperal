@@ -124,7 +124,7 @@ page 51193 SampleProdLinePattCuttListPart
                 field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
                 {
                     ApplicationArea = All;
-                    Caption = 'Pattern Cutting';
+                    Caption = 'Pattern Cutting Date';
 
                     trigger OnValidate()
                     var
