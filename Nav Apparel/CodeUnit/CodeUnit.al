@@ -801,6 +801,9 @@ codeunit 50618 NavAppCodeUnit
         PurchOrderLine."Buyer Name" := ReqLine."Buyer Name";
         PurchOrderLine."Buyer No." := ReqLine."Buyer No.";
         // PurchOrderLine."Secondary UserID" := ReqLine."Secondary UserID";
+
+        PurchOrderHeader.EntryType := ReqLine.EntryType;
+
     end;
 
 
