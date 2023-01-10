@@ -102,17 +102,17 @@ page 50436 SampleProdLineCutListPart
                     Editable = false;
                 }
 
-                field(Status; rec.Status)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Çomplete';
-                    Editable = false;
-                }
-
                 field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Pattern Cutting Date';
                 }
 
                 field(Cutter; rec.Cutter)
@@ -183,6 +183,13 @@ page 50436 SampleProdLineCutListPart
                                 Error('Cannot find Routing details');
                         end;
                     end;
+                }
+
+                field(Status; rec.Status)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Çomplete';
+                    Editable = false;
                 }
             }
         }

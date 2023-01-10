@@ -340,6 +340,16 @@ table 50931 "Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012635; "QC Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012636; "QC/Finishing Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

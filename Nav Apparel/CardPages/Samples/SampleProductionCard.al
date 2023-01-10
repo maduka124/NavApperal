@@ -20,6 +20,8 @@ page 50434 "Sample Production"
 
             group("Pattern/Cutting")
             {
+                Caption = 'Pattern Cutting';
+
                 part("SampleProdLinePattCuttListPart"; "SampleProdLinePattCuttListPart")
                 {
                     ApplicationArea = All;
@@ -27,7 +29,7 @@ page 50434 "Sample Production"
                 }
             }
 
-            group("Cutting")
+            group("Fabric Cutting")
             {
                 part("SampleProdLineCutListPart"; SampleProdLineCutListPart)
                 {
@@ -45,7 +47,16 @@ page 50434 "Sample Production"
                 }
             }
 
-            group("Send Wash")
+            group("Quality")
+            {
+                part("SampleProdLineQCListPart"; SampleProdLineQCListPart)
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                }
+            }
+
+            group("Send To Merchandiser For Washing")
             {
                 part(SampleProdLineSendWashListPart; SampleProdLineSendWashListPart)
                 {
@@ -54,7 +65,7 @@ page 50434 "Sample Production"
                 }
             }
 
-            group("Receive Wash")
+            group("Receive Wash From Merchandiser")
             {
                 part(SampleProdLineReceWashListPart; SampleProdLineReceWashListPart)
                 {
@@ -69,6 +80,17 @@ page 50434 "Sample Production"
                 {
                     ApplicationArea = All;
                     Caption = ' ';
+                }
+            }
+
+            group("Quality1")
+            {
+                Caption = 'Quality Finishing';
+
+                part("SampleProdLineQCFinishListPart"; SampleProdLineQCFinishListPart)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Quality';
                 }
             }
         }

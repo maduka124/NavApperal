@@ -115,6 +115,13 @@ page 50800 SampleProdLineFinishListPart
                     Editable = false;
                 }
 
+                field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Pattern Cutting Date';
+                }
+
                 field("Cutting Date"; rec."Cutting Date")
                 {
                     ApplicationArea = All;
@@ -122,6 +129,12 @@ page 50800 SampleProdLineFinishListPart
                 }
 
                 field("Sewing Date"; rec."Sewing Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("QC Date"; rec."QC Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -177,7 +190,6 @@ page 50800 SampleProdLineFinishListPart
 
                     end;
                 }
-
 
                 field("Finishing Date"; rec."Finishing Date")
                 {

@@ -3,7 +3,7 @@ page 50438 SampleProdLineSendWashListPart
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Sewing Date" = filter(<> ''), "Send Wash Date" = filter(''));
+    SourceTableView = where("QC Date" = filter(<> ''), "Send Wash Date" = filter(''));
 
     layout
     {
@@ -102,17 +102,17 @@ page 50438 SampleProdLineSendWashListPart
                     Editable = false;
                 }
 
-                field(Status; rec.Status)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Çomplete';
-                    Editable = false;
-                }
-
                 field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Pattern Cutting Date';
                 }
 
                 field("Cutting Date"; rec."Cutting Date")
@@ -122,6 +122,12 @@ page 50438 SampleProdLineSendWashListPart
                 }
 
                 field("Sewing Date"; rec."Sewing Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("QC Date"; rec."QC Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -196,6 +202,13 @@ page 50438 SampleProdLineSendWashListPart
                         //         Error('Cannot find Routing details');
                         // end;
                     end;
+                }
+
+                field(Status; rec.Status)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Çomplete';
+                    Editable = false;
                 }
             }
         }

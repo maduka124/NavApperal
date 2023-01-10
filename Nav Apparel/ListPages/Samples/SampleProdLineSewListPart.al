@@ -102,17 +102,17 @@ page 50437 SampleProdLineSewListPart
                     Editable = false;
                 }
 
-                field(Status; rec.Status)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Çomplete';
-                    Editable = false;
-                }
-
                 field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Pattern Cutting Date';
                 }
 
                 field("Cutting Date"; rec."Cutting Date")
@@ -158,7 +158,6 @@ page 50437 SampleProdLineSewListPart
                     end;
                 }
 
-
                 field("Sewing Date"; rec."Sewing Date")
                 {
                     ApplicationArea = All;
@@ -189,6 +188,13 @@ page 50437 SampleProdLineSewListPart
                                 Error('Cannot find Routing details');
                         end;
                     end;
+                }
+
+                field(Status; rec.Status)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Çomplete';
+                    Editable = false;
                 }
             }
         }

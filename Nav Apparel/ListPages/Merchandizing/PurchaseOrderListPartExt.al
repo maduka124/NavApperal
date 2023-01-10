@@ -2,6 +2,13 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
 {
     layout
     {
+        movefirst(Control1; "Line No.")
+
+        modify("Line No.")
+        {
+            Visible = true;
+        }
+
         modify("No.")
         {
             Editable = EditableGB;

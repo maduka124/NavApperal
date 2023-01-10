@@ -1,9 +1,9 @@
-page 50435 SampleProdLinePatternListPart
+page 51196 SampleProdLineQCFinishListPart
 {
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Pattern Date" = filter(''));
+    SourceTableView = where("Finishing Date" = filter(<> ''), "QC/Finishing Date" = filter(''));
 
     layout
     {
@@ -102,73 +102,65 @@ page 50435 SampleProdLinePatternListPart
                     Editable = false;
                 }
 
-                field("Pattern Maker"; rec."Pattern Maker")
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Pattern Hours"; rec."Pattern Hours")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Production Minutes';
-
-                    trigger OnValidate()
-                    var
-                        WorkCenterRec: Record "Work Center";
-                        RouterRec: Record "Routing Header";
-                    begin
-                        if rec."Pattern Hours" < 0 then
-                            Error('Pattern Minutes is less than zero.');
-
-                        //Asign Work center
-                        WorkCenterRec.Reset();
-                        WorkCenterRec.SetRange(Name, 'SM-PATTERN');
-
-                        if WorkCenterRec.FindSet() then begin
-                            rec."Pattern Work center Code" := WorkCenterRec."No.";
-                            rec."Pattern Work center Name" := WorkCenterRec.Name;
-                        end;
-
-                        //Get Sample Router Name
-                        RouterRec.Reset();
-                        RouterRec.SetFilter("Sample Router", '=%1', true);
-
-                        if RouterRec.FindSet() then
-                            rec."Routing Code" := RouterRec."No.";
-
-                        CurrPage.Update();
-                    end;
-                }
-
                 field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Pattern Cutting Date';
+                }
+
+                field("Cutting Date"; rec."Cutting Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Sewing Date"; rec."Sewing Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("QC Date"; rec."QC Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Send Wash Date"; rec."Send Wash Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Wash Send Date';
+                }
+
+                field("Received Wash Date"; rec."Received Wash Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Wash Received Date';
+                }
+
+                field("Finishing Date"; rec."Finishing Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("QC/Finishing Date"; rec."QC/Finishing Date")
+                {
+                    Caption = 'QC Finishing';
 
                     trigger OnValidate()
                     var
-                        RouterlineRec: Record "Routing Line";
                     begin
-                        if rec."Pattern Maker" = '' then
-                            Error('Select a Pattern Maker');
-
-                        if rec."Pattern Hours" = 0 then
-                            Error('Pattern Minutes is zero');
-
-                        if rec."Pattern Work center Name" = '' then
-                            Error('Select a Router/Work Center');
-
-                        if format(rec."Pattern Date") <> '' then begin
-                            RouterlineRec.Reset();
-                            RouterlineRec.SetRange("Routing No.", rec."Routing Code");
-                            RouterlineRec.SetRange("No.", rec."Pattern Work center Code");
-                            if RouterlineRec.FindSet() then begin
-                                RouterlineRec."Run Time" := rec."Pattern Hours";
-                                RouterlineRec.Modify();
-                                CurrPage.Update();
-                            end
-                            else
-                                Error('Cannot find Routing details');
-                        end;
+                        CurrPage.Update();
                     end;
                 }
 

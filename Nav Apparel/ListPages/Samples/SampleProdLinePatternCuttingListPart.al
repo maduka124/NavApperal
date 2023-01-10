@@ -115,13 +115,6 @@ page 51193 SampleProdLinePattCuttListPart
                     Editable = false;
                 }
 
-                field(Status; rec.Status)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Çomplete';
-                    Editable = false;
-                }
-
                 field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
@@ -131,12 +124,20 @@ page 51193 SampleProdLinePattCuttListPart
                 field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
                 {
                     ApplicationArea = All;
+                    Caption = 'Pattern Cutting';
 
                     trigger OnValidate()
                     var
                     begin
                         CurrPage.Update();
                     end;
+                }
+
+                field(Status; rec.Status)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Çomplete';
+                    Editable = false;
                 }
             }
         }

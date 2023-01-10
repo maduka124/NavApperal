@@ -102,17 +102,17 @@ page 50439 SampleProdLineReceWashListPart
                     Editable = false;
                 }
 
-                field(Status; rec.Status)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Çomplete';
-                    Editable = false;
-                }
-
                 field("Pattern Date"; rec."Pattern Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field("Pattern/Cutting Date"; rec."Pattern/Cutting Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Pattern Cutting Date';
                 }
 
                 field("Cutting Date"; rec."Cutting Date")
@@ -127,10 +127,16 @@ page 50439 SampleProdLineReceWashListPart
                     Editable = false;
                 }
 
+                field("QC Date"; rec."QC Date")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field("Send Wash Date"; rec."Send Wash Date")
                 {
                     ApplicationArea = All;
-                    //Editable = false;
+                    Editable = false;
                     Caption = 'Wash Send Date';
                 }
 
@@ -203,6 +209,13 @@ page 50439 SampleProdLineReceWashListPart
                         //         Error('Cannot find Routing details');
                         // end;
                     end;
+                }
+
+                field(Status; rec.Status)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Çomplete';
+                    Editable = false;
                 }
             }
         }
