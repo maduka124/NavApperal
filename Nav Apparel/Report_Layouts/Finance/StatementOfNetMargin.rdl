@@ -11,6 +11,88 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="Unit_Price">
+          <DataField>Unit_Price</DataField>
+        </Field>
+        <Field Name="Unit_PriceFormat">
+          <DataField>Unit_PriceFormat</DataField>
+        </Field>
+        <Field Name="TotalValue">
+          <DataField>TotalValue</DataField>
+        </Field>
+        <Field Name="TotalValueFormat">
+          <DataField>TotalValueFormat</DataField>
+        </Field>
+        <Field Name="stDate">
+          <DataField>stDate</DataField>
+        </Field>
+        <Field Name="endDate">
+          <DataField>endDate</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Washing__Dz__">
+          <DataField>Washing__Dz__</DataField>
+        </Field>
+        <Field Name="Washing__Dz__Format">
+          <DataField>Washing__Dz__Format</DataField>
+        </Field>
+        <Field Name="Raw_Material__Dz__">
+          <DataField>Raw_Material__Dz__</DataField>
+        </Field>
+        <Field Name="Raw_Material__Dz__Format">
+          <DataField>Raw_Material__Dz__Format</DataField>
+        </Field>
+        <Field Name="Commercial_Pcs">
+          <DataField>Commercial_Pcs</DataField>
+        </Field>
+        <Field Name="Commercial_PcsFormat">
+          <DataField>Commercial_PcsFormat</DataField>
+        </Field>
+        <Field Name="Profit_Margin_Pcs">
+          <DataField>Profit_Margin_Pcs</DataField>
+        </Field>
+        <Field Name="Profit_Margin_PcsFormat">
+          <DataField>Profit_Margin_PcsFormat</DataField>
+        </Field>
+        <Field Name="Commission_Pcs">
+          <DataField>Commission_Pcs</DataField>
+        </Field>
+        <Field Name="Commission_PcsFormat">
+          <DataField>Commission_PcsFormat</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="TOT">
+          <DataField>TOT</DataField>
+        </Field>
+        <Field Name="TOTFormat">
+          <DataField>TOTFormat</DataField>
+        </Field>
+        <Field Name="buyer">
+          <DataField>buyer</DataField>
+        </Field>
+        <Field Name="Vendor">
+          <DataField>Vendor</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -455,9 +537,9 @@ VALUE</Value>
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -500,9 +582,9 @@ VALUE</Value>
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -545,9 +627,9 @@ VALUE</Value>
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -590,9 +672,9 @@ VALUE</Value>
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -635,9 +717,9 @@ VALUE</Value>
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -680,9 +762,9 @@ VALUE</Value>
                               <Style>None</Style>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -727,9 +809,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -784,9 +866,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -841,9 +923,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -898,9 +980,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -955,9 +1037,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1012,9 +1094,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1069,9 +1151,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1126,9 +1208,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1183,9 +1265,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1240,9 +1322,9 @@ VALUE</Value>
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1.5pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -3559,6 +3641,12 @@ VALUE</Value>
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3610,86 +3698,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="Unit_Price">
-          <DataField>Unit_Price</DataField>
-        </Field>
-        <Field Name="Unit_PriceFormat">
-          <DataField>Unit_PriceFormat</DataField>
-        </Field>
-        <Field Name="TotalValue">
-          <DataField>TotalValue</DataField>
-        </Field>
-        <Field Name="TotalValueFormat">
-          <DataField>TotalValueFormat</DataField>
-        </Field>
-        <Field Name="stDate">
-          <DataField>stDate</DataField>
-        </Field>
-        <Field Name="endDate">
-          <DataField>endDate</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Washing__Dz__">
-          <DataField>Washing__Dz__</DataField>
-        </Field>
-        <Field Name="Washing__Dz__Format">
-          <DataField>Washing__Dz__Format</DataField>
-        </Field>
-        <Field Name="Raw_Material__Dz__">
-          <DataField>Raw_Material__Dz__</DataField>
-        </Field>
-        <Field Name="Raw_Material__Dz__Format">
-          <DataField>Raw_Material__Dz__Format</DataField>
-        </Field>
-        <Field Name="Commercial_Pcs">
-          <DataField>Commercial_Pcs</DataField>
-        </Field>
-        <Field Name="Commercial_PcsFormat">
-          <DataField>Commercial_PcsFormat</DataField>
-        </Field>
-        <Field Name="Profit_Margin_Pcs">
-          <DataField>Profit_Margin_Pcs</DataField>
-        </Field>
-        <Field Name="Profit_Margin_PcsFormat">
-          <DataField>Profit_Margin_PcsFormat</DataField>
-        </Field>
-        <Field Name="Commission_Pcs">
-          <DataField>Commission_Pcs</DataField>
-        </Field>
-        <Field Name="Commission_PcsFormat">
-          <DataField>Commission_PcsFormat</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="TOT">
-          <DataField>TOT</DataField>
-        </Field>
-        <Field Name="TOTFormat">
-          <DataField>TOTFormat</DataField>
-        </Field>
-        <Field Name="buyer">
-          <DataField>buyer</DataField>
-        </Field>
-        <Field Name="Vendor">
-          <DataField>Vendor</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
