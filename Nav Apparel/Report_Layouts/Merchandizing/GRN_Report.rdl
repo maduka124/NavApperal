@@ -11,6 +11,67 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="GRN_No">
+          <DataField>GRN_No</DataField>
+        </Field>
+        <Field Name="Pay_to_Name">
+          <DataField>Pay_to_Name</DataField>
+        </Field>
+        <Field Name="Pay_to_Address">
+          <DataField>Pay_to_Address</DataField>
+        </Field>
+        <Field Name="Posting_Date">
+          <DataField>Posting_Date</DataField>
+        </Field>
+        <Field Name="Document_Date">
+          <DataField>Document_Date</DataField>
+        </Field>
+        <Field Name="country">
+          <DataField>country</DataField>
+        </Field>
+        <Field Name="PONo">
+          <DataField>PONo</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Order_No_">
+          <DataField>Order_No_</DataField>
+        </Field>
+        <Field Name="ItemNo">
+          <DataField>ItemNo</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Location_Code">
+          <DataField>Location_Code</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="QuantityFormat">
+          <DataField>QuantityFormat</DataField>
+        </Field>
+        <Field Name="Unit_of_Measure">
+          <DataField>Unit_of_Measure</DataField>
+        </Field>
+        <Field Name="StyleName">
+          <DataField>StyleName</DataField>
+        </Field>
+        <Field Name="Lot">
+          <DataField>Lot</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1183,7 +1244,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Width>0.5pt</Width>
@@ -1232,9 +1295,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <RightBorder>
                               <Color>Black</Color>
@@ -1284,9 +1347,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <RightBorder>
                               <Color>Black</Color>
@@ -1334,9 +1397,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <RightBorder>
                               <Color>Black</Color>
@@ -1384,9 +1447,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <RightBorder>
                               <Color>Maroon</Color>
@@ -1434,9 +1497,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <RightBorder>
                               <Color>Black</Color>
@@ -1484,9 +1547,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <RightBorder>
                               <Color>Black</Color>
@@ -1534,9 +1597,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <RightBorder>
                               <Color>Black</Color>
@@ -2792,6 +2855,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2843,65 +2912,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="GRN_No">
-          <DataField>GRN_No</DataField>
-        </Field>
-        <Field Name="Pay_to_Name">
-          <DataField>Pay_to_Name</DataField>
-        </Field>
-        <Field Name="Pay_to_Address">
-          <DataField>Pay_to_Address</DataField>
-        </Field>
-        <Field Name="Posting_Date">
-          <DataField>Posting_Date</DataField>
-        </Field>
-        <Field Name="Document_Date">
-          <DataField>Document_Date</DataField>
-        </Field>
-        <Field Name="country">
-          <DataField>country</DataField>
-        </Field>
-        <Field Name="PONo">
-          <DataField>PONo</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Order_No_">
-          <DataField>Order_No_</DataField>
-        </Field>
-        <Field Name="ItemNo">
-          <DataField>ItemNo</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Location_Code">
-          <DataField>Location_Code</DataField>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-        </Field>
-        <Field Name="QuantityFormat">
-          <DataField>QuantityFormat</DataField>
-        </Field>
-        <Field Name="Unit_of_Measure">
-          <DataField>Unit_of_Measure</DataField>
-        </Field>
-        <Field Name="StyleName">
-          <DataField>StyleName</DataField>
-        </Field>
-        <Field Name="Lot">
-          <DataField>Lot</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

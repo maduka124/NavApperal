@@ -11,6 +11,82 @@
       <rd:DataSourceID>2b40ab60-1088-4ff7-9b3e-90f13b2697a9</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Colour_Name">
+          <DataField>Colour_Name</DataField>
+        </Field>
+        <Field Name="Group_ID">
+          <DataField>Group_ID</DataField>
+        </Field>
+        <Field Name="Component_Group_Code">
+          <DataField>Component_Group_Code</DataField>
+        </Field>
+        <Field Name="Marker_Name">
+          <DataField>Marker_Name</DataField>
+        </Field>
+        <Field Name="Cut_No">
+          <DataField>Cut_No</DataField>
+        </Field>
+        <Field Name="Marker_Width">
+          <DataField>Marker_Width</DataField>
+        </Field>
+        <Field Name="Marker_WidthFormat">
+          <DataField>Marker_WidthFormat</DataField>
+        </Field>
+        <Field Name="UOM">
+          <DataField>UOM</DataField>
+        </Field>
+        <Field Name="Table_No_">
+          <DataField>Table_No_</DataField>
+        </Field>
+        <Field Name="Required_Length">
+          <DataField>Required_Length</DataField>
+        </Field>
+        <Field Name="Required_LengthFormat">
+          <DataField>Required_LengthFormat</DataField>
+        </Field>
+        <Field Name="FabReqNo_">
+          <DataField>FabReqNo_</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Location_Name">
+          <DataField>Location_Name</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+        <Field Name="Layering_Start_Date_Time">
+          <DataField>Layering_Start_Date_Time</DataField>
+        </Field>
+        <Field Name="Cut_Start_Date_Time">
+          <DataField>Cut_Start_Date_Time</DataField>
+        </Field>
+        <Field Name="ItemName">
+          <DataField>ItemName</DataField>
+        </Field>
+        <Field Name="Item_No_">
+          <DataField>Item_No_</DataField>
+        </Field>
+        <Field Name="Item_Name">
+          <DataField>Item_Name</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -106,9 +182,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -161,9 +237,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -216,9 +292,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -271,9 +347,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1791,6 +1867,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1842,80 +1924,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Colour_Name">
-          <DataField>Colour_Name</DataField>
-        </Field>
-        <Field Name="Group_ID">
-          <DataField>Group_ID</DataField>
-        </Field>
-        <Field Name="Component_Group_Code">
-          <DataField>Component_Group_Code</DataField>
-        </Field>
-        <Field Name="Marker_Name">
-          <DataField>Marker_Name</DataField>
-        </Field>
-        <Field Name="Cut_No">
-          <DataField>Cut_No</DataField>
-        </Field>
-        <Field Name="Marker_Width">
-          <DataField>Marker_Width</DataField>
-        </Field>
-        <Field Name="Marker_WidthFormat">
-          <DataField>Marker_WidthFormat</DataField>
-        </Field>
-        <Field Name="UOM">
-          <DataField>UOM</DataField>
-        </Field>
-        <Field Name="Table_No_">
-          <DataField>Table_No_</DataField>
-        </Field>
-        <Field Name="Required_Length">
-          <DataField>Required_Length</DataField>
-        </Field>
-        <Field Name="Required_LengthFormat">
-          <DataField>Required_LengthFormat</DataField>
-        </Field>
-        <Field Name="FabReqNo_">
-          <DataField>FabReqNo_</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Location_Name">
-          <DataField>Location_Name</DataField>
-        </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
-        <Field Name="Layering_Start_Date_Time">
-          <DataField>Layering_Start_Date_Time</DataField>
-        </Field>
-        <Field Name="Cut_Start_Date_Time">
-          <DataField>Cut_Start_Date_Time</DataField>
-        </Field>
-        <Field Name="ItemName">
-          <DataField>ItemName</DataField>
-        </Field>
-        <Field Name="Item_No_">
-          <DataField>Item_No_</DataField>
-        </Field>
-        <Field Name="Item_Name">
-          <DataField>Item_Name</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

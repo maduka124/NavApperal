@@ -11,6 +11,46 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="FactoryName">
+          <DataField>FactoryName</DataField>
+        </Field>
+        <Field Name="BuyerN">
+          <DataField>BuyerN</DataField>
+        </Field>
+        <Field Name="StyleN">
+          <DataField>StyleN</DataField>
+        </Field>
+        <Field Name="GarmentType">
+          <DataField>GarmentType</DataField>
+        </Field>
+        <Field Name="OrderQty">
+          <DataField>OrderQty</DataField>
+        </Field>
+        <Field Name="ShipDate">
+          <DataField>ShipDate</DataField>
+        </Field>
+        <Field Name="CreateDate">
+          <DataField>CreateDate</DataField>
+        </Field>
+        <Field Name="MerchantName">
+          <DataField>MerchantName</DataField>
+        </Field>
+        <Field Name="Season">
+          <DataField>Season</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -248,9 +288,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -304,9 +344,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -360,9 +400,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -416,9 +456,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -472,9 +512,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -528,9 +568,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -584,9 +624,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -640,9 +680,9 @@
                               <Width>0.5pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Maroon</Color>
+                              <Color>Black</Color>
                               <Style>Solid</Style>
-                              <Width>1pt</Width>
+                              <Width>0.5pt</Width>
                             </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
@@ -1325,6 +1365,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1376,44 +1422,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="FactoryName">
-          <DataField>FactoryName</DataField>
-        </Field>
-        <Field Name="BuyerN">
-          <DataField>BuyerN</DataField>
-        </Field>
-        <Field Name="StyleN">
-          <DataField>StyleN</DataField>
-        </Field>
-        <Field Name="GarmentType">
-          <DataField>GarmentType</DataField>
-        </Field>
-        <Field Name="OrderQty">
-          <DataField>OrderQty</DataField>
-        </Field>
-        <Field Name="ShipDate">
-          <DataField>ShipDate</DataField>
-        </Field>
-        <Field Name="CreateDate">
-          <DataField>CreateDate</DataField>
-        </Field>
-        <Field Name="MerchantName">
-          <DataField>MerchantName</DataField>
-        </Field>
-        <Field Name="Season">
-          <DataField>Season</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
