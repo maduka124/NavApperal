@@ -177,7 +177,7 @@ table 50473 "Maning Level"
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", "Line No.")
+        fieldgroup(DropDown; "No.", "Line No.", "Style Name")
         {
 
         }

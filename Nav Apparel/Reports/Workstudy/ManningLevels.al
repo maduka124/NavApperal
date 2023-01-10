@@ -10,7 +10,8 @@ report 50614 ManningLevelsReport
     {
         dataitem("Maning Level"; "Maning Level")
         {
-            DataItemTableView = sorting("No.");
+            // DataItemTableView = sorting("No.");
+            RequestFilterFields = "No.";
             column(Style_Name; "Style Name")
             { }
             column(Line_No_; "Line No.")
@@ -96,8 +97,8 @@ report 50614 ManningLevelsReport
 
             trigger OnPreDataItem()
             begin
-                SetRange("Style No.", StyleFilter);
-                SetRange("Line No.", LineFilter);
+                // SetRange("Style No.", StyleFilter);
+                // SetRange("Line No.", LineFilter);
             end;
 
             trigger OnAfterGetRecord()
@@ -115,24 +116,34 @@ report 50614 ManningLevelsReport
         {
             area(Content)
             {
-                group(GroupName)
-                {
-                    Caption = 'Filter By';
-                    field(StyleFilter; StyleFilter)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Style';
-                        TableRelation = "Style Master"."No.";
-                    }
+//                 group(GroupName)
+//                 {
+//                     Caption = 'Filter By';
+//                     field(StyleFilter; StyleFilter)
+//                     {
+//                         ApplicationArea = All;
+//                         Caption = 'Style';
+//                         TableRelation = "Style Master"."No.";
 
-                    field(LineFilter; LineFilter)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Line';
-                        TableRelation = "Work Center"."No.";
-                        //TableRelation = "NavApp Planning Lines"."Resource Name" where("Style No." = filter(StyleFilter));
-                    }
-                }
+//                     }
+
+//                     field(LineFilter; LineFilter)
+//                     {
+//                         ApplicationArea = All;
+//                         Caption = 'Line';
+//                         TableRelation = "Work Center"."No.";
+//                         //TableRelation = "NavApp Planning Lines"."Resource Name" where("Style No." = filter(StyleFilter));
+//                         trigger OnValidate()
+//                         var
+//                             styleRec: Record "Style Master";
+//                         begin
+//                             styleRec.Reset();
+//                             styleRec.SetRange("No.", "Maning Level"."Style No.");
+//                             if styleRec.FindSet() then 
+// ;
+//                         end;
+//                     }
+//                 }
             }
         }
     }
