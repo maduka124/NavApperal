@@ -609,6 +609,12 @@ table 51139 "NavApp Setup"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012687; "CP PO Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 
     keys

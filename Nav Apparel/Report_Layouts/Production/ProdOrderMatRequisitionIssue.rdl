@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="ProdOrderCompDueDateCapt">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ProdOrderCompDueDateCapt</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ProdOrderCompDueDateCapt</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SourceNo_ProdOrderCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>SourceNo_ProdOrderCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>SourceNo_ProdOrderCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Qty_ProdOrderCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Qty_ProdOrderCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Qty_ProdOrderCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ItemNo_ProdOrderCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ItemNo_ProdOrderCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ItemNo_ProdOrderCompCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Desc_ProdOrderCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Desc_ProdOrderCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Desc_ProdOrderCompCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Qtyper_ProdOrderCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Qtyper_ProdOrderCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Qtyper_ProdOrderCompCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="UOMCode_ProdOrderCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>UOMCode_ProdOrderCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>UOMCode_ProdOrderCompCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LocationCode_ProdOrderCompCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>LocationCode_ProdOrderCompCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>LocationCode_ProdOrderCompCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="TodayFormatted">
+          <DataField>TodayFormatted</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ProdOrderTableCaptionFilter">
+          <DataField>ProdOrderTableCaptionFilter</DataField>
+        </Field>
+        <Field Name="No_ProdOrder">
+          <DataField>No_ProdOrder</DataField>
+        </Field>
+        <Field Name="Desc_ProdOrder">
+          <DataField>Desc_ProdOrder</DataField>
+        </Field>
+        <Field Name="SourceNo_ProdOrder">
+          <DataField>SourceNo_ProdOrder</DataField>
+        </Field>
+        <Field Name="Status_ProdOrder">
+          <DataField>Status_ProdOrder</DataField>
+        </Field>
+        <Field Name="Qty_ProdOrder">
+          <DataField>Qty_ProdOrder</DataField>
+        </Field>
+        <Field Name="Qty_ProdOrderFormat">
+          <DataField>Qty_ProdOrderFormat</DataField>
+        </Field>
+        <Field Name="Filter_ProdOrder">
+          <DataField>Filter_ProdOrder</DataField>
+        </Field>
+        <Field Name="ProdOrderMaterialRqstnCapt">
+          <DataField>ProdOrderMaterialRqstnCapt</DataField>
+        </Field>
+        <Field Name="CurrReportPageNoCapt">
+          <DataField>CurrReportPageNoCapt</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="Shortcut_Dimension_1_Code">
+          <DataField>Shortcut_Dimension_1_Code</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="PoNo">
+          <DataField>PoNo</DataField>
+        </Field>
+        <Field Name="ItemNo_ProdOrderComp">
+          <DataField>ItemNo_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Desc_ProdOrderComp">
+          <DataField>Desc_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Qtyper_ProdOrderComp">
+          <DataField>Qtyper_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Qtyper_ProdOrderCompFormat">
+          <DataField>Qtyper_ProdOrderCompFormat</DataField>
+        </Field>
+        <Field Name="UOMCode_ProdOrderComp">
+          <DataField>UOMCode_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="LocationCode_ProdOrderComp">
+          <DataField>LocationCode_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Size">
+          <DataField>Size</DataField>
+        </Field>
+        <Field Name="Mat_Issue_No">
+          <DataField>Mat_Issue_No</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

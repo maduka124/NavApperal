@@ -77,6 +77,12 @@ table 50106 "General Issue Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        //Added by Maduka on 11/1/2023
+        field(11; Select; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
     keys
     {

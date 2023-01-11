@@ -12,7 +12,7 @@ table 51134 "Sub Category"
             DataClassification = ToBeClassified;
         }
 
-        field(71012582; "Sub Category Name"; text[50])
+        field(71012582; "Sub Category Name"; text[250])
         {
             DataClassification = ToBeClassified;
         }

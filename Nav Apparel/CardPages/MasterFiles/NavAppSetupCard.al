@@ -614,6 +614,12 @@ page 50964 "NavApp Setup Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("CP PO Nos."; rec."CP PO Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Central Purchasig No';
+                }
             }
         }
     }
