@@ -91,6 +91,7 @@ page 51060 SampleReqAccListPart
                             rec."Item Color Name" := SampleRequLineRec."Color Name";
                             rec."Item Color No." := SampleRequLineRec."Color No";
                         end;
+                        //Remark();
                     end;
                 }
 
@@ -107,6 +108,7 @@ page 51060 SampleReqAccListPart
                         ColorRec.SetRange("Colour Name", rec."GMT Color Name");
                         if ColorRec.FindSet() then
                             rec."GMT Color No." := ColorRec."No.";
+                        //Remark();
                     end;
                 }
 
@@ -123,6 +125,7 @@ page 51060 SampleReqAccListPart
                         ColorRec.SetRange("Colour Name", rec."Item Color Name");
                         if ColorRec.FindSet() then
                             rec."Item Color No." := ColorRec."No.";
+                        //Remark();
                     end;
                 }
 
@@ -146,6 +149,7 @@ page 51060 SampleReqAccListPart
 
                         if ArticleRec.FindSet() then
                             rec."Article No." := ArticleRec."No.";
+                        //Remark();
                     end;
                 }
 
@@ -162,6 +166,7 @@ page 51060 SampleReqAccListPart
                         DimensionRec.SetRange("Dimension Width", rec."Dimension Name.");
                         if DimensionRec.FindSet() then
                             rec."Dimension No." := DimensionRec."No.";
+                        //Remark();
                     end;
                 }
 
@@ -342,4 +347,46 @@ page 51060 SampleReqAccListPart
         Calculate();
     end;
 
+    // procedure Remark()
+    // var
+    //     SampleReqAcRec: Record "Sample Requsition Acce";
+    // begin
+
+    //     SampleReqAcRec.Reset();
+    //     SampleReqAcRec.SetRange("Line No.", Rec."Line No.");
+
+    //     if SampleReqAcRec.FindSet() then begin
+    //         if Rec."Item Name" <> '' then begin
+    //             Rec.Remarks := Rec."Item Name" + '/';
+    //             SampleReqAcRec.Modify();
+    //             CurrPage.Update();
+    //         end;
+
+    //         if Rec."GMT Color Name" <> '' then begin
+    //             Rec.Remarks := Rec."GMT Color Name";
+    //             SampleReqAcRec.Modify();
+    //             CurrPage.Update();
+    //         end;
+
+    //         if Rec."Item Color Name" <> '' then begin
+
+    //             Rec.Remarks := Rec."Item Name" + '/' + Rec."GMT Color Name" + '/' + Rec."Item Color Name";
+    //             SampleReqAcRec.Modify();
+    //             CurrPage.Update();
+    //         end;
+
+    //         if Rec."Article Name." <> '' then begin
+    //             Rec.Remarks := Rec."Item Name" + '/' + Rec."GMT Color Name" + '/' + Rec."Item Color Name" + '/' + Rec."Article Name.";
+    //             SampleReqAcRec.Modify();
+    //             CurrPage.Update();
+    //         end;
+
+    //         if Rec."Dimension Name." <> '' then begin
+    //             Rec.Remarks := Rec."Item Name" + '/' + Rec."GMT Color Name" + '/' + Rec."Item Color Name" + '/' + Rec."Article Name." + '/' + Rec."Dimension Name.";
+    //             SampleReqAcRec.Modify();
+    //             CurrPage.Update();
+    //         end;
+
+    //     end;
+    // end;
 }

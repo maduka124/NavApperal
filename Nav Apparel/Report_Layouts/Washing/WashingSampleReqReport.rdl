@@ -11,112 +11,6 @@
       <rd:DataSourceID>6d2633e0-73d9-464e-ab3b-e89b48c7fb45</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Sample_Bulk">
-          <DataField>Sample_Bulk</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Sample_Req__No">
-          <DataField>Sample_Req__No</DataField>
-        </Field>
-        <Field Name="Request_From">
-          <DataField>Request_From</DataField>
-        </Field>
-        <Field Name="Garment_Type_Name">
-          <DataField>Garment_Type_Name</DataField>
-        </Field>
-        <Field Name="Wash_Plant_Name">
-          <DataField>Wash_Plant_Name</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
-        <Field Name="Req_Date">
-          <DataField>Req_Date</DataField>
-        </Field>
-        <Field Name="Comment">
-          <DataField>Comment</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="SampleType">
-          <DataField>SampleType</DataField>
-        </Field>
-        <Field Name="Wash_Type">
-          <DataField>Wash_Type</DataField>
-        </Field>
-        <Field Name="Fabric_Description">
-          <DataField>Fabric_Description</DataField>
-        </Field>
-        <Field Name="Color_Name">
-          <DataField>Color_Name</DataField>
-        </Field>
-        <Field Name="Size">
-          <DataField>Size</DataField>
-        </Field>
-        <Field Name="Req_Qty">
-          <DataField>Req_Qty</DataField>
-        </Field>
-        <Field Name="Unite_Price">
-          <DataField>Unite_Price</DataField>
-        </Field>
-        <Field Name="Unite_PriceFormat">
-          <DataField>Unite_PriceFormat</DataField>
-        </Field>
-        <Field Name="Value">
-          <DataField>Value</DataField>
-        </Field>
-        <Field Name="ValueFormat">
-          <DataField>ValueFormat</DataField>
-        </Field>
-        <Field Name="Req_Qty_BW_QC_Fail">
-          <DataField>Req_Qty_BW_QC_Fail</DataField>
-        </Field>
-        <Field Name="Req_Qty_BW_QC_Pass">
-          <DataField>Req_Qty_BW_QC_Pass</DataField>
-        </Field>
-        <Field Name="Return_Qty__BW_">
-          <DataField>Return_Qty__BW_</DataField>
-        </Field>
-        <Field Name="QC_Date__AW_">
-          <DataField>QC_Date__AW_</DataField>
-        </Field>
-        <Field Name="QC_Pass_Qty__AW_">
-          <DataField>QC_Pass_Qty__AW_</DataField>
-        </Field>
-        <Field Name="QC_Fail_Qty__AW_">
-          <DataField>QC_Fail_Qty__AW_</DataField>
-        </Field>
-        <Field Name="Return_Qty__AW_">
-          <DataField>Return_Qty__AW_</DataField>
-        </Field>
-        <Field Name="Dispatch_Qty">
-          <DataField>Dispatch_Qty</DataField>
-        </Field>
-        <Field Name="RemarkLine">
-          <DataField>RemarkLine</DataField>
-        </Field>
-        <Field Name="BW_QC_Date">
-          <DataField>BW_QC_Date</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2966,12 +2860,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3011,4 +2899,110 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Sample_Bulk">
+          <DataField>Sample_Bulk</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Sample_Req__No">
+          <DataField>Sample_Req__No</DataField>
+        </Field>
+        <Field Name="Request_From">
+          <DataField>Request_From</DataField>
+        </Field>
+        <Field Name="Garment_Type_Name">
+          <DataField>Garment_Type_Name</DataField>
+        </Field>
+        <Field Name="Wash_Plant_Name">
+          <DataField>Wash_Plant_Name</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
+        </Field>
+        <Field Name="Req_Date">
+          <DataField>Req_Date</DataField>
+        </Field>
+        <Field Name="Comment">
+          <DataField>Comment</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="SampleType">
+          <DataField>SampleType</DataField>
+        </Field>
+        <Field Name="Wash_Type">
+          <DataField>Wash_Type</DataField>
+        </Field>
+        <Field Name="Fabric_Description">
+          <DataField>Fabric_Description</DataField>
+        </Field>
+        <Field Name="Color_Name">
+          <DataField>Color_Name</DataField>
+        </Field>
+        <Field Name="Size">
+          <DataField>Size</DataField>
+        </Field>
+        <Field Name="Req_Qty">
+          <DataField>Req_Qty</DataField>
+        </Field>
+        <Field Name="Unite_Price">
+          <DataField>Unite_Price</DataField>
+        </Field>
+        <Field Name="Unite_PriceFormat">
+          <DataField>Unite_PriceFormat</DataField>
+        </Field>
+        <Field Name="Value">
+          <DataField>Value</DataField>
+        </Field>
+        <Field Name="ValueFormat">
+          <DataField>ValueFormat</DataField>
+        </Field>
+        <Field Name="Req_Qty_BW_QC_Fail">
+          <DataField>Req_Qty_BW_QC_Fail</DataField>
+        </Field>
+        <Field Name="Req_Qty_BW_QC_Pass">
+          <DataField>Req_Qty_BW_QC_Pass</DataField>
+        </Field>
+        <Field Name="Return_Qty__BW_">
+          <DataField>Return_Qty__BW_</DataField>
+        </Field>
+        <Field Name="QC_Date__AW_">
+          <DataField>QC_Date__AW_</DataField>
+        </Field>
+        <Field Name="QC_Pass_Qty__AW_">
+          <DataField>QC_Pass_Qty__AW_</DataField>
+        </Field>
+        <Field Name="QC_Fail_Qty__AW_">
+          <DataField>QC_Fail_Qty__AW_</DataField>
+        </Field>
+        <Field Name="Return_Qty__AW_">
+          <DataField>Return_Qty__AW_</DataField>
+        </Field>
+        <Field Name="Dispatch_Qty">
+          <DataField>Dispatch_Qty</DataField>
+        </Field>
+        <Field Name="RemarkLine">
+          <DataField>RemarkLine</DataField>
+        </Field>
+        <Field Name="BW_QC_Date">
+          <DataField>BW_QC_Date</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

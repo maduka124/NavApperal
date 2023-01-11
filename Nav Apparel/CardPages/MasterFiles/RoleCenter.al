@@ -457,7 +457,7 @@ page 50968 "Nav Apperal Role Center"
                 action("Purchase Orders1")
                 {
                     Caption = 'Purchase Orders';
-                    RunObject = Page "Purchase Order List";
+                    RunObject = Page "PO List Merchand";
                     ApplicationArea = all;
                 }
 
@@ -874,6 +874,14 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Gate Pass List";
                     ApplicationArea = all;
                 }
+
+                action("Purchase Orders2")
+                {
+                    Caption = 'Purchase Orders';
+                    RunObject = Page "PO List Not Merchand";
+                    ApplicationArea = all;
+                }
+
 
                 action("Raw Material Issue")
                 {

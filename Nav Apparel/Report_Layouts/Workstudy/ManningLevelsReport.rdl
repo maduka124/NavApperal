@@ -11,175 +11,6 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Line_No_">
-          <DataField>Line_No_</DataField>
-        </Field>
-        <Field Name="Created_Date">
-          <DataField>Created_Date</DataField>
-        </Field>
-        <Field Name="Created_User">
-          <DataField>Created_User</DataField>
-        </Field>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="Garment_Type_Name">
-          <DataField>Garment_Type_Name</DataField>
-        </Field>
-        <Field Name="BPT">
-          <DataField>BPT</DataField>
-        </Field>
-        <Field Name="BPTFormat">
-          <DataField>BPTFormat</DataField>
-        </Field>
-        <Field Name="Eff">
-          <DataField>Eff</DataField>
-        </Field>
-        <Field Name="EffFormat">
-          <DataField>EffFormat</DataField>
-        </Field>
-        <Field Name="Expected_Target">
-          <DataField>Expected_Target</DataField>
-        </Field>
-        <Field Name="Expected_TargetFormat">
-          <DataField>Expected_TargetFormat</DataField>
-        </Field>
-        <Field Name="MOTheo">
-          <DataField>MOTheo</DataField>
-        </Field>
-        <Field Name="MOTheoFormat">
-          <DataField>MOTheoFormat</DataField>
-        </Field>
-        <Field Name="MOAct">
-          <DataField>MOAct</DataField>
-        </Field>
-        <Field Name="MOActFormat">
-          <DataField>MOActFormat</DataField>
-        </Field>
-        <Field Name="MODiff">
-          <DataField>MODiff</DataField>
-        </Field>
-        <Field Name="MODiffFormat">
-          <DataField>MODiffFormat</DataField>
-        </Field>
-        <Field Name="MOBil">
-          <DataField>MOBil</DataField>
-        </Field>
-        <Field Name="MOBilFormat">
-          <DataField>MOBilFormat</DataField>
-        </Field>
-        <Field Name="HPTheo">
-          <DataField>HPTheo</DataField>
-        </Field>
-        <Field Name="HPTheoFormat">
-          <DataField>HPTheoFormat</DataField>
-        </Field>
-        <Field Name="HPAct">
-          <DataField>HPAct</DataField>
-        </Field>
-        <Field Name="HPActFormat">
-          <DataField>HPActFormat</DataField>
-        </Field>
-        <Field Name="HPODiff">
-          <DataField>HPODiff</DataField>
-        </Field>
-        <Field Name="HPODiffFormat">
-          <DataField>HPODiffFormat</DataField>
-        </Field>
-        <Field Name="HPBil">
-          <DataField>HPBil</DataField>
-        </Field>
-        <Field Name="HPBilFormat">
-          <DataField>HPBilFormat</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Line_No_Line">
-          <DataField>Line_No_Line</DataField>
-        </Field>
-        <Field Name="Code">
-          <DataField>Code</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Machine_Name">
-          <DataField>Machine_Name</DataField>
-        </Field>
-        <Field Name="Department_Name">
-          <DataField>Department_Name</DataField>
-        </Field>
-        <Field Name="SMV_Machine">
-          <DataField>SMV_Machine</DataField>
-        </Field>
-        <Field Name="SMV_MachineFormat">
-          <DataField>SMV_MachineFormat</DataField>
-        </Field>
-        <Field Name="SMV_Manual">
-          <DataField>SMV_Manual</DataField>
-        </Field>
-        <Field Name="SMV_ManualFormat">
-          <DataField>SMV_ManualFormat</DataField>
-        </Field>
-        <Field Name="Theo_MO">
-          <DataField>Theo_MO</DataField>
-        </Field>
-        <Field Name="Theo_MOFormat">
-          <DataField>Theo_MOFormat</DataField>
-        </Field>
-        <Field Name="Theo_HP">
-          <DataField>Theo_HP</DataField>
-        </Field>
-        <Field Name="Theo_HPFormat">
-          <DataField>Theo_HPFormat</DataField>
-        </Field>
-        <Field Name="Act_MO">
-          <DataField>Act_MO</DataField>
-        </Field>
-        <Field Name="Act_MOFormat">
-          <DataField>Act_MOFormat</DataField>
-        </Field>
-        <Field Name="Act_HP">
-          <DataField>Act_HP</DataField>
-        </Field>
-        <Field Name="Act_HPFormat">
-          <DataField>Act_HPFormat</DataField>
-        </Field>
-        <Field Name="Act_MC">
-          <DataField>Act_MC</DataField>
-        </Field>
-        <Field Name="Act_MCFormat">
-          <DataField>Act_MCFormat</DataField>
-        </Field>
-        <Field Name="Comments">
-          <DataField>Comments</DataField>
-        </Field>
-        <Field Name="Target_Per_Hour">
-          <DataField>Target_Per_Hour</DataField>
-        </Field>
-        <Field Name="Target_Per_HourFormat">
-          <DataField>Target_Per_HourFormat</DataField>
-        </Field>
-        <Field Name="RefGPartName">
-          <DataField>RefGPartName</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -5395,12 +5226,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -5452,4 +5277,173 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+        </Field>
+        <Field Name="Created_Date">
+          <DataField>Created_Date</DataField>
+        </Field>
+        <Field Name="Created_User">
+          <DataField>Created_User</DataField>
+        </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="Garment_Type_Name">
+          <DataField>Garment_Type_Name</DataField>
+        </Field>
+        <Field Name="BPT">
+          <DataField>BPT</DataField>
+        </Field>
+        <Field Name="BPTFormat">
+          <DataField>BPTFormat</DataField>
+        </Field>
+        <Field Name="Eff">
+          <DataField>Eff</DataField>
+        </Field>
+        <Field Name="EffFormat">
+          <DataField>EffFormat</DataField>
+        </Field>
+        <Field Name="Expected_Target">
+          <DataField>Expected_Target</DataField>
+        </Field>
+        <Field Name="Expected_TargetFormat">
+          <DataField>Expected_TargetFormat</DataField>
+        </Field>
+        <Field Name="MOTheo">
+          <DataField>MOTheo</DataField>
+        </Field>
+        <Field Name="MOTheoFormat">
+          <DataField>MOTheoFormat</DataField>
+        </Field>
+        <Field Name="MOAct">
+          <DataField>MOAct</DataField>
+        </Field>
+        <Field Name="MOActFormat">
+          <DataField>MOActFormat</DataField>
+        </Field>
+        <Field Name="MODiff">
+          <DataField>MODiff</DataField>
+        </Field>
+        <Field Name="MODiffFormat">
+          <DataField>MODiffFormat</DataField>
+        </Field>
+        <Field Name="MOBil">
+          <DataField>MOBil</DataField>
+        </Field>
+        <Field Name="MOBilFormat">
+          <DataField>MOBilFormat</DataField>
+        </Field>
+        <Field Name="HPTheo">
+          <DataField>HPTheo</DataField>
+        </Field>
+        <Field Name="HPTheoFormat">
+          <DataField>HPTheoFormat</DataField>
+        </Field>
+        <Field Name="HPAct">
+          <DataField>HPAct</DataField>
+        </Field>
+        <Field Name="HPActFormat">
+          <DataField>HPActFormat</DataField>
+        </Field>
+        <Field Name="HPODiff">
+          <DataField>HPODiff</DataField>
+        </Field>
+        <Field Name="HPODiffFormat">
+          <DataField>HPODiffFormat</DataField>
+        </Field>
+        <Field Name="HPBil">
+          <DataField>HPBil</DataField>
+        </Field>
+        <Field Name="HPBilFormat">
+          <DataField>HPBilFormat</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Line_No_Line">
+          <DataField>Line_No_Line</DataField>
+        </Field>
+        <Field Name="Code">
+          <DataField>Code</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Machine_Name">
+          <DataField>Machine_Name</DataField>
+        </Field>
+        <Field Name="Department_Name">
+          <DataField>Department_Name</DataField>
+        </Field>
+        <Field Name="SMV_Machine">
+          <DataField>SMV_Machine</DataField>
+        </Field>
+        <Field Name="SMV_MachineFormat">
+          <DataField>SMV_MachineFormat</DataField>
+        </Field>
+        <Field Name="SMV_Manual">
+          <DataField>SMV_Manual</DataField>
+        </Field>
+        <Field Name="SMV_ManualFormat">
+          <DataField>SMV_ManualFormat</DataField>
+        </Field>
+        <Field Name="Theo_MO">
+          <DataField>Theo_MO</DataField>
+        </Field>
+        <Field Name="Theo_MOFormat">
+          <DataField>Theo_MOFormat</DataField>
+        </Field>
+        <Field Name="Theo_HP">
+          <DataField>Theo_HP</DataField>
+        </Field>
+        <Field Name="Theo_HPFormat">
+          <DataField>Theo_HPFormat</DataField>
+        </Field>
+        <Field Name="Act_MO">
+          <DataField>Act_MO</DataField>
+        </Field>
+        <Field Name="Act_MOFormat">
+          <DataField>Act_MOFormat</DataField>
+        </Field>
+        <Field Name="Act_HP">
+          <DataField>Act_HP</DataField>
+        </Field>
+        <Field Name="Act_HPFormat">
+          <DataField>Act_HPFormat</DataField>
+        </Field>
+        <Field Name="Act_MC">
+          <DataField>Act_MC</DataField>
+        </Field>
+        <Field Name="Act_MCFormat">
+          <DataField>Act_MCFormat</DataField>
+        </Field>
+        <Field Name="Comments">
+          <DataField>Comments</DataField>
+        </Field>
+        <Field Name="Target_Per_Hour">
+          <DataField>Target_Per_Hour</DataField>
+        </Field>
+        <Field Name="Target_Per_HourFormat">
+          <DataField>Target_Per_HourFormat</DataField>
+        </Field>
+        <Field Name="RefGPartName">
+          <DataField>RefGPartName</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

@@ -32,6 +32,12 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
         {
             TableRelation = "Workflow User Group".Code;
         }
+
+        field(50410; "EntryType"; Option)
+        {
+            OptionCaption = 'FG,Sample,Washing,"Central Purchasing"';
+            OptionMembers = FG,Sample,Washing,"Central Purchasing";
+        }
     }
 
 
