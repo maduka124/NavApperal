@@ -1,9 +1,9 @@
 report 51199 MaterialIssueRequition
 {
-    RDLCLayout = 'Report_Layouts/Production/ProdOrderMatRequisitionIssue.rdl';
+    RDLCLayout = 'Report_Layouts/Warehouse/MatRequisitionIssue.rdl';
     DefaultLayout = RDLC;
     // ApplicationArea = Manufacturing;
-    Caption = 'Material Requisition Report';
+    Caption = 'Material Requisition Issue Report';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
 
