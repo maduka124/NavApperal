@@ -231,7 +231,7 @@ table 50895 "BOM Line AutoGen"
             TableRelation = "Sub Category"."No.";
         }
 
-        field(71012624; "Sub Category Name"; text[50])
+        field(71012624; "Sub Category Name"; text[250])
         {
             DataClassification = ToBeClassified;
         }

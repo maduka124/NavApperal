@@ -43,6 +43,7 @@ page 50638 "Roll Issuing Note ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Roll ID';
+                    Editable = false;
 
                     // trigger OnValidate()
                     // var
@@ -82,6 +83,7 @@ page 50638 "Roll Issuing Note ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Supplier Batch No';
+                    Editable = false;
                 }
 
                 field(Shade; rec.Shade)
@@ -100,12 +102,14 @@ page 50638 "Roll Issuing Note ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Tag Length';
+                    Editable = false;
                 }
 
                 field("Length Act"; rec."Length Act")
                 {
                     ApplicationArea = All;
                     Caption = 'Act Length';
+                    Editable = false;
                 }
 
                 field("Length Allocated"; rec."Length Allocated")
@@ -118,12 +122,14 @@ page 50638 "Roll Issuing Note ListPart"
                 {
                     ApplicationArea = All;
                     Caption = 'Tag Width';
+                    Editable = false;
                 }
 
                 field("Width Act"; rec."Width Act")
                 {
                     ApplicationArea = All;
                     Caption = 'Act Width';
+                    Editable = false;
                 }
 
                 field(Selected; rec.Selected)

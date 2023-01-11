@@ -6,7 +6,7 @@ tableextension 51098 "Item Extension" extends Item
         {
         }
 
-        field(50002; "Sub Category Name"; Text[50])
+        field(50002; "Sub Category Name"; Text[250])
         {
             TableRelation = "Sub Category"."Sub Category Name" where("Main Category No." = field("Main Category No."));
             ValidateTableRelation = false;

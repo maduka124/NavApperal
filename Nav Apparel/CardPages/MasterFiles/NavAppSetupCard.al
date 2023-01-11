@@ -571,17 +571,17 @@ page 50964 "NavApp Setup Card"
                     ApplicationArea = All;
                 }
 
-                field("Req Worksheet Template Name"; rec."Req Worksheet Template Name")
-                {
-                    ApplicationArea = All;
-                    TableRelation = "Req. Wksh. Template";
-                }
+                // field("Req Worksheet Template Name"; rec."Req Worksheet Template Name")
+                // {
+                //     ApplicationArea = All;
+                //     TableRelation = "Req. Wksh. Template";
+                // }
 
-                field("Req Journal Batch Name"; rec."Req Journal Batch Name")
-                {
-                    ApplicationArea = All;
-                    TableRelation = "Requisition Wksh. Name".Name WHERE("Worksheet Template Name" = FIELD("Req Worksheet Template Name"));
-                }
+                // field("Req Journal Batch Name"; rec."Req Journal Batch Name")
+                // {
+                //     ApplicationArea = All;
+                //     TableRelation = "Requisition Wksh. Name".Name WHERE("Worksheet Template Name" = FIELD("Req Worksheet Template Name"));
+                // }
 
                 field("MISCITEM Nos."; rec."MISCITEM Nos.")
                 {

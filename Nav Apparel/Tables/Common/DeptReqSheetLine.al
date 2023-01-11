@@ -225,7 +225,7 @@ table 50820 DeptReqSheetLine
             DataClassification = ToBeClassified;
         }
 
-        field(33; "Sub Category Name"; Text[50])
+        field(33; "Sub Category Name"; Text[250])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Sub Category"."Sub Category Name" where("Main Category No." = field("Main Category No."));

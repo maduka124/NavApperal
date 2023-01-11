@@ -97,8 +97,11 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
 
                     //Get max line no
                     RequLineRec.Reset();
-                    RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
-                    RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                    RequLineRec.SetRange("Worksheet Template Name", rec."Worksheet Template Name");
+                    RequLineRec.SetRange("Journal Batch Name", rec."Journal Batch Name");
+
+                    // RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
+                    // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
 
                     if RequLineRec.FindLast() then
                         ReqLineNo := RequLineRec."Line No.";
@@ -120,8 +123,10 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                                 if DeptReqHeaderRec.Status = DeptReqHeaderRec.Status::Approved then begin
                                     RequLineRec.Reset();
                                     RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
-                                    RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
-                                    RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                                    // RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
+                                    // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                                    RequLineRec.SetRange("Worksheet Template Name", rec."Worksheet Template Name");
+                                    RequLineRec.SetRange("Journal Batch Name", rec."Journal Batch Name");
                                     RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
                                     RequLineRec.SetRange("No.", DeptReqLineRec."Item No");
                                     RequLineRec.SetRange("CP Req Code", DeptReqLineRec."Req No");
@@ -130,8 +135,10 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
 
                                         ReqLineNo += 1;
                                         RequLineRec1.Init();
-                                        RequLineRec1."Worksheet Template Name" := NavAppSetupRec."Req Worksheet Template Name";
-                                        RequLineRec1."Journal Batch Name" := NavAppSetupRec."Req Journal Batch Name";
+                                        // RequLineRec1."Worksheet Template Name" := NavAppSetupRec."Req Worksheet Template Name";
+                                        // RequLineRec1."Journal Batch Name" := NavAppSetupRec."Req Journal Batch Name";
+                                        RequLineRec1."Worksheet Template Name" := rec."Worksheet Template Name";
+                                        RequLineRec1."Journal Batch Name" := rec."Journal Batch Name";
                                         RequLineRec1."Line No." := ReqLineNo;
                                         RequLineRec1.Type := RequLineRec.Type::Item;
                                         RequLineRec1.Validate("No.", DeptReqLineRec."Item No");
@@ -194,8 +201,10 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
 
                 RequLineRec.Reset();
                 RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
-                RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
-                RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                RequLineRec.SetRange("Worksheet Template Name", rec."Worksheet Template Name");
+                RequLineRec.SetRange("Journal Batch Name", rec."Journal Batch Name");
+                //  RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
+                // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
                 RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
                 RequLineRec.SetFilter("Accept Action Message", '=%1', true);
 
@@ -227,8 +236,10 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
 
                 RequLineRec.Reset();
                 RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
-                RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
-                RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                // RequLineRec.SetRange("Worksheet Template Name", NavAppSetupRec."Req Worksheet Template Name");
+                // RequLineRec.SetRange("Journal Batch Name", NavAppSetupRec."Req Journal Batch Name");
+                RequLineRec.SetRange("Worksheet Template Name", rec."Worksheet Template Name");
+                RequLineRec.SetRange("Journal Batch Name", rec."Journal Batch Name");
                 RequLineRec.SetFilter(Type, '=%1', RequLineRec.Type::Item);
                 RequLineRec.SetFilter("Accept Action Message", '=%1', true);
 
