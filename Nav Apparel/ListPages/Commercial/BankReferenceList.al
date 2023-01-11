@@ -32,6 +32,13 @@ page 50766 "Bank Reference List"
                     ApplicationArea = All;
                 }
 
+                //Done By Sachith 10/01/23
+                field("Buyer Name"; Rec."Buyer Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Buyer';
+                }
+
                 field(AirwayBillNo; Rec.AirwayBillNo)
                 {
                     ApplicationArea = All;

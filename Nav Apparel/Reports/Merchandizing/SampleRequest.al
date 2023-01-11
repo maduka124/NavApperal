@@ -61,6 +61,24 @@ report 50639 SampleRequest
                 { }
                 column(MainCategoryName; "Main Category Name")
                 { }
+
+                column(Item_Name; "Item Name")
+                { }
+
+                column(Item_Color_Name; "Item Color Name")
+                { }
+
+                column(Article_Name_; "Article Name.")
+                { }
+
+                column(Consumption; Consumption)
+                { }
+
+                column(Placement_of_GMT; "Placement of GMT")
+                { }
+
+                column(WST; WST)
+                { }
             }
 
             trigger OnPreDataItem()
