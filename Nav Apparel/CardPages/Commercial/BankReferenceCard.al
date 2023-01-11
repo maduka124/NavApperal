@@ -76,6 +76,25 @@ page 50763 "Bank Reference Card"
                     Caption = 'Airway Bill No';
                 }
 
+                //Done By Sachith 10/01/23
+                field("Buyer Name"; Rec."Buyer Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Buyer';
+
+                    trigger OnValidate()
+                    var
+                        CustomerRec: Record Customer;
+                    begin
+
+                        CustomerRec.Reset();
+                        CustomerRec.SetRange(Name, Rec."Buyer Name");
+
+                        if CustomerRec.FindSet() then
+                            Rec."Buyer No" := CustomerRec."No.";
+                    end;
+                }
+
                 field("Airway Bill Date"; rec."Airway Bill Date")
                 {
                     ApplicationArea = All;
@@ -104,7 +123,7 @@ page 50763 "Bank Reference Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Available Invoices';
-                    SubPageLink = BankRefNo = FIELD("No.");
+                    SubPageLink = BankRefNo = FIELD("No."), "Sell-to Customer No." = field("Buyer No");
                 }
 
                 part("Bank Ref Invoice ListPart2"; "Bank Ref Invoice ListPart2")

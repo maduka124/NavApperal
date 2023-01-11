@@ -59,6 +59,18 @@ table 50761 BankReferenceHeader
         {
             DataClassification = ToBeClassified;
         }
+        //Done By Sachith 10/01/23
+        field(12; "Buyer No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(13; "Buyer Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Customer.Name;
+            ValidateTableRelation = false;
+        }
     }
 
     keys
