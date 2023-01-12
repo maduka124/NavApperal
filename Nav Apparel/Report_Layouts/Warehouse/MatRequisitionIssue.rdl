@@ -11,6 +11,91 @@
       <rd:DataSourceID>19469799-b2b4-487d-a9f7-b13072566965</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="TodayFormatted">
+          <DataField>TodayFormatted</DataField>
+        </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+        </Field>
+        <Field Name="ProdOrderTableCaptionFilter">
+          <DataField>ProdOrderTableCaptionFilter</DataField>
+        </Field>
+        <Field Name="No_ProdOrder">
+          <DataField>No_ProdOrder</DataField>
+        </Field>
+        <Field Name="Desc_ProdOrder">
+          <DataField>Desc_ProdOrder</DataField>
+        </Field>
+        <Field Name="SourceNo_ProdOrder">
+          <DataField>SourceNo_ProdOrder</DataField>
+        </Field>
+        <Field Name="Status_ProdOrder">
+          <DataField>Status_ProdOrder</DataField>
+        </Field>
+        <Field Name="Qty_ProdOrder">
+          <DataField>Qty_ProdOrder</DataField>
+        </Field>
+        <Field Name="Qty_ProdOrderFormat">
+          <DataField>Qty_ProdOrderFormat</DataField>
+        </Field>
+        <Field Name="Filter_ProdOrder">
+          <DataField>Filter_ProdOrder</DataField>
+        </Field>
+        <Field Name="ProdOrderMaterialRqstnCapt">
+          <DataField>ProdOrderMaterialRqstnCapt</DataField>
+        </Field>
+        <Field Name="CurrReportPageNoCapt">
+          <DataField>CurrReportPageNoCapt</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="Shortcut_Dimension_1_Code">
+          <DataField>Shortcut_Dimension_1_Code</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="PoNo">
+          <DataField>PoNo</DataField>
+        </Field>
+        <Field Name="ItemNo_ProdOrderComp">
+          <DataField>ItemNo_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Desc_ProdOrderComp">
+          <DataField>Desc_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Qtyper_ProdOrderComp">
+          <DataField>Qtyper_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Qtyper_ProdOrderCompFormat">
+          <DataField>Qtyper_ProdOrderCompFormat</DataField>
+        </Field>
+        <Field Name="UOMCode_ProdOrderComp">
+          <DataField>UOMCode_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="LocationCode_ProdOrderComp">
+          <DataField>LocationCode_ProdOrderComp</DataField>
+        </Field>
+        <Field Name="Size">
+          <DataField>Size</DataField>
+        </Field>
+        <Field Name="Mat_Issue_No">
+          <DataField>Mat_Issue_No</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2744,7 +2829,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>PROD. ORDER - MATERIAL ISSUE REQUISITION</Value>
+                    <Value>PROD. ORDER - MATERIAL ISSUE</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>18pt</FontSize>
@@ -3093,89 +3178,4 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>f4355aed-d23a-4dff-a00b-d826a436da84</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="TodayFormatted">
-          <DataField>TodayFormatted</DataField>
-        </Field>
-        <Field Name="CompanyName">
-          <DataField>CompanyName</DataField>
-        </Field>
-        <Field Name="ProdOrderTableCaptionFilter">
-          <DataField>ProdOrderTableCaptionFilter</DataField>
-        </Field>
-        <Field Name="No_ProdOrder">
-          <DataField>No_ProdOrder</DataField>
-        </Field>
-        <Field Name="Desc_ProdOrder">
-          <DataField>Desc_ProdOrder</DataField>
-        </Field>
-        <Field Name="SourceNo_ProdOrder">
-          <DataField>SourceNo_ProdOrder</DataField>
-        </Field>
-        <Field Name="Status_ProdOrder">
-          <DataField>Status_ProdOrder</DataField>
-        </Field>
-        <Field Name="Qty_ProdOrder">
-          <DataField>Qty_ProdOrder</DataField>
-        </Field>
-        <Field Name="Qty_ProdOrderFormat">
-          <DataField>Qty_ProdOrderFormat</DataField>
-        </Field>
-        <Field Name="Filter_ProdOrder">
-          <DataField>Filter_ProdOrder</DataField>
-        </Field>
-        <Field Name="ProdOrderMaterialRqstnCapt">
-          <DataField>ProdOrderMaterialRqstnCapt</DataField>
-        </Field>
-        <Field Name="CurrReportPageNoCapt">
-          <DataField>CurrReportPageNoCapt</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="Shortcut_Dimension_1_Code">
-          <DataField>Shortcut_Dimension_1_Code</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="PoNo">
-          <DataField>PoNo</DataField>
-        </Field>
-        <Field Name="ItemNo_ProdOrderComp">
-          <DataField>ItemNo_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="Desc_ProdOrderComp">
-          <DataField>Desc_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="Qtyper_ProdOrderComp">
-          <DataField>Qtyper_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="Qtyper_ProdOrderCompFormat">
-          <DataField>Qtyper_ProdOrderCompFormat</DataField>
-        </Field>
-        <Field Name="UOMCode_ProdOrderComp">
-          <DataField>UOMCode_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="LocationCode_ProdOrderComp">
-          <DataField>LocationCode_ProdOrderComp</DataField>
-        </Field>
-        <Field Name="Size">
-          <DataField>Size</DataField>
-        </Field>
-        <Field Name="Mat_Issue_No">
-          <DataField>Mat_Issue_No</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

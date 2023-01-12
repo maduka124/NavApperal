@@ -1097,6 +1097,12 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report DetailGRNReport;
                         ApplicationArea = All;
                     }
+                    action("Material Issue Report")
+                    {
+                        Enabled = true;
+                        RunObject = report MaterialIssueRequition;
+                        ApplicationArea = All;
+                    }
                 }
             }
 
