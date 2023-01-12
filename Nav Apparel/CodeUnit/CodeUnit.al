@@ -789,7 +789,8 @@ codeunit 50618 NavAppCodeUnit
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnBeforePurchOrderLineInsert', '', true, true)]
     local procedure UpdatePOLine(VAR PurchOrderHeader: Record "Purchase Header"; VAR PurchOrderLine: Record "Purchase Line"; VAR ReqLine: Record "Requisition Line"; CommitIsSuppressed: Boolean)
-
+    var
+        PurchOrderHeader1: Record "Purchase Header";
     begin
         PurchOrderLine.StyleNo := ReqLine.StyleNo;
         PurchOrderLine.StyleName := ReqLine.StyleName;
@@ -802,7 +803,13 @@ codeunit 50618 NavAppCodeUnit
         PurchOrderLine."Buyer No." := ReqLine."Buyer No.";
         // PurchOrderLine."Secondary UserID" := ReqLine."Secondary UserID";
 
-        PurchOrderHeader.EntryType := ReqLine.EntryType;
+        PurchOrderHeader1.Reset();
+        PurchOrderHeader1.SetRange("Document Type", PurchOrderHeader1."Document Type"::Order);
+        PurchOrderHeader1.SetRange("No.", PurchOrderLine."Document No.");
+        if PurchOrderHeader1.FindSet() then begin
+            PurchOrderHeader1.EntryType := ReqLine.EntryType;
+            PurchOrderHeader1.Modify();
+        end;
 
     end;
 

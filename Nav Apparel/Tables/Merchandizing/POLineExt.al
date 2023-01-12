@@ -30,7 +30,7 @@ tableextension 50918 "POLine Extension" extends "Purchase Line"
 
         field(50007; "EntryType"; Option)
         {
-            OptionCaption = 'FG,Sample,Washing,"Central Purchasing"';
+            OptionCaption = 'FG,Sample,Washing,Central Purchasing';
             OptionMembers = FG,Sample,Washing,"Central Purchasing";
         }
 

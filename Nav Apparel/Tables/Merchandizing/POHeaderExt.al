@@ -35,7 +35,7 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
 
         field(50410; "EntryType"; Option)
         {
-            OptionCaption = 'FG,Sample,Washing,"Central Purchasing"';
+            OptionCaption = 'FG,Sample,Washing,Central Purchasing';
             OptionMembers = FG,Sample,Washing,"Central Purchasing";
         }
     }

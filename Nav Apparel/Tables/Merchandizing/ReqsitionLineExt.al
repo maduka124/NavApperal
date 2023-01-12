@@ -28,8 +28,8 @@ tableextension 50925 "ReqLine Extension" extends "Requisition Line"
 
         field(50007; "EntryType"; Option)
         {
-            OptionCaption = 'FG,Sample,"Central Purchasing"';
-            OptionMembers = FG,Sample,"Central Purchasing";
+            OptionCaption = 'FG,Sample,Washing,Central Purchasing';
+            OptionMembers = FG,Sample,Washing,"Central Purchasing";
         }
 
         field(50008; "Main Category"; Text[50])
