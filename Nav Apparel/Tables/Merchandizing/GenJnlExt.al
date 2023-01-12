@@ -25,6 +25,10 @@ tableextension 50910 "Gen. Jnl. Extension" extends "Gen. Journal Line"
         field(50006; "BankRefNo"; Code[50])
         {
         }
+
+        field(50007; "AccNo."; Code[20])
+        {
+        }
     }
 }
 

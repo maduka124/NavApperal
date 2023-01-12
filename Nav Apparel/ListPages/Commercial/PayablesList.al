@@ -454,6 +454,7 @@ page 50549 "Payable Chart - Approved"
                         GenJournalRec."Line No." := LineNo;
                         GenJournalRec."LC/Contract No." := B2BLCRec."LC/Contract No.";
                         GenJournalRec."B2BLC No" := Rec."B2BLC No";
+                        GenJournalRec."AccNo." := Rec."AccNo.";
                         GenJournalRec."Document Type" := GenJournalRec."Document Type"::Payment;
                         GenJournalRec."Document No." := Rec."AccNo.";
                         GenJournalRec."Document Date" := WorkDate();

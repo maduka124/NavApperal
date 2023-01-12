@@ -343,7 +343,7 @@ page 50770 "Bank Ref Collection Card"
 
                     BankRefCollecLine.Reset();
                     BankRefCollecLine.SetRange("BankRefNo.", rec."BankRefNo.");
-                    BankRefCollecLine.SetFilter("Transferred To Cash Receipt", '=%1', false);
+                    //BankRefCollecLine.SetFilter("Transferred To Cash Receipt", '=%1', false);
 
                     if BankRefCollecLine.Findset() then
                         repeat

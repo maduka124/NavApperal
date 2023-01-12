@@ -89,6 +89,7 @@ codeunit 50822 NavAppCodeUnit2
         SuppPayRec: Record SupplierPayments;
         NavAppSetupRec: Record "NavApp Setup";
         AcceptHeaderRec: Record AcceptanceHeader;
+        BankRefCollecLine: Record BankRefCollectionLine;
         LoginSessionsRec: Record LoginSessions;
         TempValue1: Decimal;
         TempValue2: Decimal;
@@ -97,299 +98,316 @@ codeunit 50822 NavAppCodeUnit2
         NavAppSetupRec.Reset();
         NavAppSetupRec.FindSet();
 
-        //Update status 
-        AcceptHeaderRec.Reset();
-        AcceptHeaderRec.SetRange("AccNo.", GenJournalLine."Document No.");
-        if AcceptHeaderRec.FindSet() then begin
-            AcceptHeaderRec.Paid := true;
-            AcceptHeaderRec.PaidDate := WorkDate();
-            AcceptHeaderRec.Modify();
+        if GenJournalLine."AccNo." <> '' then begin
 
-            evaluate(Y, copystr(Format(WorkDate), 1, 2));
-            Y := Y + 2000;
-            evaluate(M, copystr(Format(WorkDate), 4, 2));
+            //Update status 
+            AcceptHeaderRec.Reset();
+            AcceptHeaderRec.SetRange("AccNo.", GenJournalLine."Document No.");
+            if AcceptHeaderRec.FindSet() then begin
+                AcceptHeaderRec.Paid := true;
+                AcceptHeaderRec.PaidDate := WorkDate();
+                AcceptHeaderRec.Modify();
 
-            SuppPayRec.Reset();
-            SuppPayRec.SetRange("Suppler No.", GenJournalLine.SupplierNo);
-            SuppPayRec.SetRange(Year, Y);
+                evaluate(Y, copystr(Format(WorkDate), 1, 2));
+                Y := Y + 2000;
+                evaluate(M, copystr(Format(WorkDate), 4, 2));
 
-            if SuppPayRec.FindSet() then begin
+                SuppPayRec.Reset();
+                SuppPayRec.SetRange("Suppler No.", GenJournalLine.SupplierNo);
+                SuppPayRec.SetRange(Year, Y);
 
-                case M of
-                    1:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.January);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    2:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.February);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    3:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.March);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    4:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.April);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    5:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.May);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    6:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.June);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    7:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.July);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    8:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.August);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    9:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.September);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    10:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.October);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    11:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.November);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
-                    12:
-                        begin
-                            Evaluate(TempValue1, SuppPayRec.December);
-                            TempValue2 := TempValue1 + GenJournalLine."Amount";
-                            SuppPayRec.January := format(TempValue2);
-                        end;
+                if SuppPayRec.FindSet() then begin
+
+                    case M of
+                        1:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.January);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        2:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.February);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        3:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.March);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        4:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.April);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        5:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.May);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        6:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.June);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        7:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.July);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        8:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.August);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        9:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.September);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        10:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.October);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        11:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.November);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                        12:
+                            begin
+                                Evaluate(TempValue1, SuppPayRec.December);
+                                TempValue2 := TempValue1 + GenJournalLine."Amount";
+                                SuppPayRec.January := format(TempValue2);
+                            end;
+                    end;
+
+                    SuppPayRec.Modify();
+
+                end
+                else begin
+                    SuppPayRec.Init();
+                    SuppPayRec."Suppler No." := GenJournalLine.SupplierNo;
+                    SuppPayRec."Suppler Name" := GenJournalLine.SupplierName;
+                    SuppPayRec.Year := Y;
+
+                    case M of
+                        1:
+                            begin
+                                SuppPayRec.January := format(GenJournalLine."Amount");
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        2:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := format(GenJournalLine."Amount");
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        3:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := format(GenJournalLine."Amount");
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        4:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := format(GenJournalLine."Amount");
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        5:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := format(GenJournalLine."Amount");
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        6:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := format(GenJournalLine."Amount");
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        7:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := format(GenJournalLine."Amount");
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        8:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := format(GenJournalLine."Amount");
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        9:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := format(GenJournalLine."Amount");
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        10:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := format(GenJournalLine."Amount");
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := '0';
+                            end;
+                        11:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := format(GenJournalLine."Amount");
+                                SuppPayRec.December := '0';
+                            end;
+                        12:
+                            begin
+                                SuppPayRec.January := '0';
+                                SuppPayRec.February := '0';
+                                SuppPayRec.March := '0';
+                                SuppPayRec.April := '0';
+                                SuppPayRec.May := '0';
+                                SuppPayRec.June := '0';
+                                SuppPayRec.July := '0';
+                                SuppPayRec.August := '0';
+                                SuppPayRec.September := '0';
+                                SuppPayRec.October := '0';
+                                SuppPayRec.November := '0';
+                                SuppPayRec.December := format(GenJournalLine."Amount");
+                            end;
+                    end;
+
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+                    if LoginSessionsRec.FindSet() then
+                        SuppPayRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+
+                    SuppPayRec.Insert();
                 end;
-
-                SuppPayRec.Modify();
-
-            end
-            else begin
-                SuppPayRec.Init();
-                SuppPayRec."Suppler No." := GenJournalLine.SupplierNo;
-                SuppPayRec."Suppler Name" := GenJournalLine.SupplierName;
-                SuppPayRec.Year := Y;
-
-                case M of
-                    1:
-                        begin
-                            SuppPayRec.January := format(GenJournalLine."Amount");
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    2:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := format(GenJournalLine."Amount");
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    3:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := format(GenJournalLine."Amount");
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    4:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := format(GenJournalLine."Amount");
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    5:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := format(GenJournalLine."Amount");
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    6:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := format(GenJournalLine."Amount");
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    7:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := format(GenJournalLine."Amount");
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    8:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := format(GenJournalLine."Amount");
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    9:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := format(GenJournalLine."Amount");
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    10:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := format(GenJournalLine."Amount");
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := '0';
-                        end;
-                    11:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := format(GenJournalLine."Amount");
-                            SuppPayRec.December := '0';
-                        end;
-                    12:
-                        begin
-                            SuppPayRec.January := '0';
-                            SuppPayRec.February := '0';
-                            SuppPayRec.March := '0';
-                            SuppPayRec.April := '0';
-                            SuppPayRec.May := '0';
-                            SuppPayRec.June := '0';
-                            SuppPayRec.July := '0';
-                            SuppPayRec.August := '0';
-                            SuppPayRec.September := '0';
-                            SuppPayRec.October := '0';
-                            SuppPayRec.November := '0';
-                            SuppPayRec.December := format(GenJournalLine."Amount");
-                        end;
-                end;
-
-                //Check whether user logged in or not
-                LoginSessionsRec.Reset();
-                LoginSessionsRec.SetRange(SessionID, SessionId());
-                if LoginSessionsRec.FindSet() then
-                    SuppPayRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-
-                SuppPayRec.Insert();
             end;
+
+        end;
+
+        if GenJournalLine."Invoice No" <> '' then begin
+
+            BankRefCollecLine.Reset();
+            BankRefCollecLine.SetRange("Invoice No", GenJournalLine."Invoice No");
+            BankRefCollecLine.SetRange("BankRefNo.", GenJournalLine.BankRefNo);
+
+            if BankRefCollecLine.Findset() then begin
+                BankRefCollecLine."Payment Posted" := true;
+                BankRefCollecLine.Modify();
+            end;
+
         end;
 
     end;
@@ -412,6 +430,17 @@ codeunit 50822 NavAppCodeUnit2
         BankAccountLedgerEntry."LC/Contract No." := GenJournalLine."LC/Contract No.";
         BankAccountLedgerEntry."B2BLC No" := GenJournalLine."B2BLC No";
         BankAccountLedgerEntry."AccNo." := GenJournalLine."Document No.";
+        BankAccountLedgerEntry."BankRefNo" := GenJournalLine.BankRefNo;
+        BankAccountLedgerEntry."Invoice No" := GenJournalLine."Invoice No";
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnPostCustOnAfterInitCustLedgEntry', '', false, false)]
+    local procedure OnPostCustOnAfterInitCustLedgEntry(var GenJournalLine: Record "Gen. Journal Line"; var CustLedgEntry: Record "Cust. Ledger Entry"; Cust: Record Customer; CustPostingGr: Record "Customer Posting Group")
+    var
+    begin
+        CustLedgEntry."BankRefNo" := GenJournalLine."BankRefNo";
+        CustLedgEntry."Invoice No" := GenJournalLine."Invoice No";
     end;
 
 
