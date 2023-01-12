@@ -89,6 +89,9 @@ page 50769 "Bank Ref Collection List"
     var
         BankRefeCollRec: Record BankRefCollectionLine;
     begin
+        if rec."Cash Rece. Updated" then
+            Error('Cash Receipt Journal updated for this Bank Ref. Cannot delete.');
+
         BankRefeCollRec.Reset();
         BankRefeCollRec.SetRange("BankRefNo.", Rec."BankRefNo.");
         if BankRefeCollRec.FindSet() then

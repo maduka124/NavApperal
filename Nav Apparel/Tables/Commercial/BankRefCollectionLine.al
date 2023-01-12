@@ -104,6 +104,16 @@ table 50768 BankRefCollectionLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(21; "Transferred To Cash Receipt"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(22; "Payment Posted"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

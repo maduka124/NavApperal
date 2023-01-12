@@ -100,6 +100,18 @@ page 50771 "Bank Ref Collection ListPart"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Transferred To Cash Receipt"; rec."Transferred To Cash Receipt")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Payment Posted"; rec."Payment Posted")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
             }
         }
     }

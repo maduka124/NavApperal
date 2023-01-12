@@ -71,6 +71,40 @@ table 50767 BankRefCollectionHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(14; "Cash Receipt Bank No"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(15; "Cash Receipt Bank Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(16; "Cash Receipt Bank Account No"; Text[30])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Bank Account"."Bank Account No.";
+            ValidateTableRelation = false;
+        }
+
+        field(17; "Journal Template"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Gen. Journal Template"."Name";
+        }
+
+        field(18; "Journal Batch"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Gen. Journal Batch".Name where("Journal Template Name" = field("Journal Template"));
+        }
+
+        field(19; "Cash Rece. Updated"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -70,7 +70,7 @@ table 50761 BankReferenceHeader
             DataClassification = ToBeClassified;
             TableRelation = Customer.Name;
             ValidateTableRelation = false;
-        }
+        }     
     }
 
     keys

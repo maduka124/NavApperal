@@ -93,8 +93,15 @@ page 50766 "Bank Reference List"
     trigger OnDeleteRecord(): Boolean
     var
         BankRefeInvRec: Record BankReferenceInvoice;
+        BankRefCollHeaderRec: Record BankRefCollectionHeader;
         SalesInvRec: Record "Sales Invoice Header";
     begin
+
+        BankRefCollHeaderRec.Reset();
+        BankRefCollHeaderRec.SetRange("BankRefNo.", rec."BankRefNo.");
+        if BankRefCollHeaderRec.FindSet() then
+            Error('Bank Reference : %1 already used in Bank Reference Collection %2. Cannot delete.', rec."BankRefNo.", BankRefCollHeaderRec."BankRefNo.");
+
 
         //Update sales invoice header recods
         BankRefeInvRec.Reset();

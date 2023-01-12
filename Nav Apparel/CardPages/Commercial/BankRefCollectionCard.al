@@ -272,16 +272,130 @@ page 50770 "Bank Ref Collection Card"
                         CurrPage.Update();
                     end;
                 }
+
+                field("Journal Template"; rec."Journal Template")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Journal Batch"; rec."Journal Batch")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Cash Receipt Bank Account No"; rec."Cash Receipt Bank Account No")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Cash Receipt Bank Account';
+
+                    trigger OnValidate()
+                    var
+                        BankAccountRec: Record "Bank Account";
+                    begin
+                        BankAccountRec.Reset();
+                        BankAccountRec.SetRange("Bank Account No.", rec."Cash Receipt Bank Account No");
+                        if BankAccountRec.FindSet() then begin
+                            rec."Cash Receipt Bank Name" := BankAccountRec.Name;
+                            rec."Cash Receipt Bank No" := BankAccountRec."No.";
+                        end;
+                    end;
+                }
+
             }
 
-            group(" ")
+            group("Invoices")
             {
                 part("Bank Ref Collection ListPart"; "Bank Ref Collection ListPart")
                 {
                     ApplicationArea = All;
-                    Caption = 'Invoices';
+                    Caption = ' ';
                     SubPageLink = "BankRefNo." = FIELD("BankRefNo.");
                 }
+            }
+        }
+    }
+
+    actions
+    {
+        area(Processing)
+        {
+            action("Transfer to cash receipt journal")
+            {
+                ApplicationArea = all;
+                Image = CashReceiptJournal;
+
+                trigger OnAction()
+                var
+                    CashRcptJrnl: Page "Cash Receipt Journal";
+                    GenJournalRec: Record "Gen. Journal Line";
+                    BankRefCollecLine: Record BankRefCollectionLine;
+                    SalesInvHeaderRec: Record "Sales Invoice Header";
+                    CustledgerEntryrec: Record "Cust. Ledger Entry";
+                    LineNo: BigInteger;
+                begin
+                    //Get max line no
+                    GenJournalRec.Reset();
+                    GenJournalRec.SetRange("Journal Template Name", rec."Journal Template");
+                    GenJournalRec.SetRange("Journal Batch Name", rec."Journal Batch");
+
+                    if GenJournalRec.FindLast() then
+                        LineNo := GenJournalRec."Line No.";
+
+                    BankRefCollecLine.Reset();
+                    BankRefCollecLine.SetRange("BankRefNo.", rec."BankRefNo.");
+                    BankRefCollecLine.SetFilter("Transferred To Cash Receipt", '=%1', false);
+
+                    if BankRefCollecLine.Findset() then
+                        repeat
+
+                            LineNo += 100;
+                            GenJournalRec.Init();
+                            GenJournalRec."Journal Template Name" := rec."Journal Template";
+                            GenJournalRec."Journal Batch Name" := rec."Journal Batch";
+                            GenJournalRec."Line No." := LineNo;
+                            GenJournalRec."Invoice No" := BankRefCollecLine."Invoice No";
+                            GenJournalRec."BankRefNo" := BankRefCollecLine."BankRefNo.";
+                            GenJournalRec.Validate("Document Type", GenJournalRec."Document Type"::Payment);
+                            GenJournalRec.Validate("Document No.", BankRefCollecLine."Invoice No");
+                            GenJournalRec."Document Date" := BankRefCollecLine."Invoice Date";
+                            GenJournalRec."Posting Date" := WorkDate();
+                            GenJournalRec.Description := 'Bank Ref : ' + rec."BankRefNo." + ' for Invoice : ' + BankRefCollecLine."Invoice No";
+                            GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::Customer);
+
+                            SalesInvHeaderRec.Reset();
+                            SalesInvHeaderRec.SetRange("No.", BankRefCollecLine."Invoice No");
+
+                            if SalesInvHeaderRec.Findset() then
+                                GenJournalRec.Validate("Account No.", SalesInvHeaderRec."Sell-to Customer No.");
+
+                            GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
+                            GenJournalRec.Validate("Bal. Account No.", rec."Cash Receipt Bank No");
+                            GenJournalRec.Validate(Amount, BankRefCollecLine."Release Amount" * -1);
+                            GenJournalRec."Expiration Date" := WorkDate();
+                            GenJournalRec."Source Code" := 'CASHRECJNL';
+                            GenJournalRec.Insert();
+
+                            //Update relase amount in custledger entry
+                            CustledgerEntryrec.Reset();
+                            CustledgerEntryrec.SetRange("Document Type", CustledgerEntryrec."Document Type"::Invoice);
+                            CustledgerEntryrec.SetRange("Document No.", BankRefCollecLine."Invoice No");
+                            CustledgerEntryrec.SetRange("Customer No.", SalesInvHeaderRec."Sell-to Customer No.");
+
+                            if CustledgerEntryrec.Findset() then begin
+                                CustledgerEntryrec.Validate("Amount to Apply", BankRefCollecLine."Release Amount");
+                                CustledgerEntryrec.Modify();
+                            end;
+
+                            rec."Cash Rece. Updated" := true;
+                            BankRefCollecLine."Transferred To Cash Receipt" := true;
+                            BankRefCollecLine.Modify();
+
+                        until BankRefCollecLine.Next() = 0;
+
+                    CurrPage.Update();
+                    CashRcptJrnl.Run();
+
+                end;
             }
         }
     }
@@ -290,6 +404,9 @@ page 50770 "Bank Ref Collection Card"
     var
         BankRefeCollRec: Record BankRefCollectionLine;
     begin
+        if rec."Cash Rece. Updated" then
+            Error('Cash Receipt Journal updated for this Bank Ref. Cannot delete.');
+
         BankRefeCollRec.Reset();
         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
         if BankRefeCollRec.FindSet() then
@@ -302,7 +419,6 @@ page 50770 "Bank Ref Collection Card"
         BankRefeCollRec: Record BankRefCollectionLine;
         InvoiceTotal: Decimal;
     begin
-
         BankRefeCollRec.Reset();
         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
         if BankRefeCollRec.FindSet() then

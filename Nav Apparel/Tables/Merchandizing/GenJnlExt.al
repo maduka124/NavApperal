@@ -17,6 +17,14 @@ tableextension 50910 "Gen. Jnl. Extension" extends "Gen. Journal Line"
         field(50004; "B2BLC No"; Code[20])
         {
         }
+
+        field(50005; "Invoice No"; Code[50])
+        {
+        }
+
+        field(50006; "BankRefNo"; Code[50])
+        {
+        }
     }
 }
 

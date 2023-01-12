@@ -117,7 +117,7 @@ page 50763 "Bank Reference Card"
                 }
             }
 
-            group(" ")
+            group("Invoice Details")
             {
                 part("Bank Ref Invoice ListPart1"; "Bank Ref Invoice ListPart1")
                 {
@@ -153,8 +153,14 @@ page 50763 "Bank Reference Card"
     trigger OnDeleteRecord(): Boolean
     var
         BankRefeInvRec: Record BankReferenceInvoice;
+        BankRefCollHeaderRec: Record BankRefCollectionHeader;
         SalesInvRec: Record "Sales Invoice Header";
     begin
+
+        BankRefCollHeaderRec.Reset();
+        BankRefCollHeaderRec.SetRange("BankRefNo.", rec."BankRefNo.");
+        if BankRefCollHeaderRec.FindSet() then
+            Error('Bank Reference : %1 already used in Bank Reference Collection %2. Cannot delete.', rec."BankRefNo.", BankRefCollHeaderRec."BankRefNo.");
 
         //Update sales invoice header recods
         BankRefeInvRec.Reset();
