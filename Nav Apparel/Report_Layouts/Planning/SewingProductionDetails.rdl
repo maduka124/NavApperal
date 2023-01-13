@@ -2051,26 +2051,12 @@
               <TablixMembers>
                 <TablixMember />
                 <TablixMember>
-                  <Group Name="Factory">
-                    <GroupExpressions>
-                      <GroupExpression>=Fields!Factory_No_.Value</GroupExpression>
-                    </GroupExpressions>
-                  </Group>
-                  <SortExpressions>
-                    <SortExpression>
-                      <Value>=Fields!Resource_No_.Value</Value>
-                    </SortExpression>
-                  </SortExpressions>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Details" />
                   <TablixMembers>
-                    <TablixMember>
-                      <KeepWithGroup>After</KeepWithGroup>
-                    </TablixMember>
-                    <TablixMember>
-                      <Group Name="Details" />
-                      <TablixMembers>
-                        <TablixMember />
-                      </TablixMembers>
-                    </TablixMember>
+                    <TablixMember />
                   </TablixMembers>
                 </TablixMember>
                 <TablixMember>
@@ -2430,17 +2416,14 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
+        <Field Name="TodayOutput">
+          <DataField>TodayOutput</DataField>
+        </Field>
+        <Field Name="OutPutStartDate">
+          <DataField>OutPutStartDate</DataField>
         </Field>
         <Field Name="Resource_No_">
           <DataField>Resource_No_</DataField>
-        </Field>
-        <Field Name="BuyerName">
-          <DataField>BuyerName</DataField>
-        </Field>
-        <Field Name="Factory_No_">
-          <DataField>Factory_No_</DataField>
         </Field>
         <Field Name="PO_No_">
           <DataField>PO_No_</DataField>
@@ -2450,6 +2433,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="TodayTargetFormat">
           <DataField>TodayTargetFormat</DataField>
+        </Field>
+        <Field Name="BuyerName">
+          <DataField>BuyerName</DataField>
         </Field>
         <Field Name="PlanQty">
           <DataField>PlanQty</DataField>
@@ -2481,11 +2467,8 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="OrderQy">
           <DataField>OrderQy</DataField>
         </Field>
-        <Field Name="TodayOutput">
-          <DataField>TodayOutput</DataField>
-        </Field>
-        <Field Name="OutPutStartDate">
-          <DataField>OutPutStartDate</DataField>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
         </Field>
       </Fields>
       <Query>

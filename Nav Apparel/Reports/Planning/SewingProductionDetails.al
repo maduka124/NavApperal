@@ -9,20 +9,20 @@ report 50852 SewingProductionDetails
 
     dataset
     {
-        dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
+        dataitem(ProductionOutHeader; ProductionOutHeader)
         {
-            DataItemTableView = sorting("No.");
-            column(Style_No_; "Style No.")
+            DataItemTableView = where(Type = filter('Saw'));
+            column(TodayOutput; "Output Qty")
             { }
-            column(Resource_No_; ResourceName)
+            column(OutPutStartDate; "Prod Date")
+            { }
+            column(Resource_No_; "Resource Name")
+            { }
+            column(PO_No_; "PO No")
+            { }
+            column(TodayTarget; Quantity)
             { }
             column(BuyerName; BuyerName)
-            { }
-            column(Factory_No_; "Factory No.")
-            { }
-            column(PO_No_; "PO No.")
-            { }
-            column(TodayTarget; Qty)
             { }
             column(PlanQty; PlanQty)
             { }
@@ -30,118 +30,74 @@ report 50852 SewingProductionDetails
             { }
             column(TotalOuput; TotalOuput)
             { }
-            // column(OutPutStartDate; OutPutStartDate)
-            // { }
             column(OutputComDate; OutputComDate)
             { }
             column(ShipDate; ShipDate)
             { }
             column(stDate; stDate)
             { }
-            // column(TodayOutput; TodayOutput)
-            // { }
             column(CompLogo; comRec.Picture)
             { }
-            column(Style; Style)
+            column(Style; "Out Style Name")
             { }
             column(Factory; Factory)
             { }
             column(OrderQy; OrderQy)
             { }
+            column(Style_No_; "Out Style No.")
+            { }
 
+            trigger OnPreDataItem()
 
-            dataitem(ProductionOutHeader; ProductionOutHeader)
-            {
-                DataItemLinkReference = "NavApp Prod Plans Details";
-                DataItemLink = "PO No" = field("PO No.");
-                DataItemTableView = sorting("No.");
+            begin
+                SetRange("Prod Date", stDate);
+            end;
 
-                column(TodayOutput; "Output Qty")
-                { }
-                column(OutPutStartDate; "Prod Date")
-                { }
-                // column(TodayOutput; TodayOutput)
-                // { }
-                // column(OutPutStartDate; OutPutStartDate)
-                // { }
-                // trigger OnAfterGetRecord()
-                // var
-                //     myInt: Integer;
-                // begin
-                //     if Type = Type::Saw then begin
-                //         OutPutStartDate := "Prod Date";
-                //         TodayOutput := "Output Qty";
-                //     end;
-
-                // end;
-
-
-                trigger OnPreDataItem()
-
-                begin
-                    SetRange("Prod Date", stDate);
-                end;
-
-            }
             trigger OnAfterGetRecord()
 
             begin
-                comRec.Get;
-                comRec.CalcFields(Picture);
+
+                NavAppProdRec.Reset();
+                NavAppProdRec.SetRange("Style No.", "Out Style No.");
+                NavAppProdRec.SetRange(PlanDate, "Prod Date");
+                if NavAppProdRec.FindFirst() then begin
+                    Quantity := NavAppProdRec.Qty;
+                end;
+
+                StylePoRec.Reset();
+                StylePoRec.SetRange("Style No.", "Out Style No.");
+                StylePoRec.SetRange("PO No.", "PO No");
+                if StylePoRec.FindFirst() then begin
+                    TotalOuput += StylePoRec."Sawing Out Qty";
+                    ShipDate := StylePoRec."Ship Date";
+                    OrderQy := StylePoRec.Qty;
+                end;
 
                 StyleRec.Reset();
-                StyleRec.SetRange("No.", "Style No.");
+                StyleRec.SetRange("No.", "Out Style No.");
                 if StyleRec.FindFirst() then begin
                     BuyerName := StyleRec."Buyer Name";
                     Style := StyleRec."Style No.";
                     Factory := StyleRec."Factory Name";
                 end;
 
+                comRec.Get;
+                comRec.CalcFields(Picture);
+
+
                 NavLinesRec.Reset();
-                NavLinesRec.SetRange("Style No.", "Style No.");
-                NavLinesRec.SetRange("PO No.", "PO No.");
-                NavLinesRec.SetRange("Line No.", "Line No.");
+                NavLinesRec.SetRange("Style No.", "Out Style No.");
+                // NavLinesRec.SetRange("Resource No.", "Resource No.");
+                // NavLinesRec.SetRange("PO No.", "PO No");
+                // NavLinesRec.SetRange("Line No.", "Line No.");
                 if NavLinesRec.FindFirst() then begin
                     PlanQty := NavLinesRec.Qty;
                     InputDate := NavLinesRec.StartDateTime;
                     OutputComDate := NavLinesRec.FinishDateTime;
+                    ResourceName := NavLinesRec."Resource Name";
                 end;
 
-                StylePoRec.Reset();
-                StylePoRec.SetRange("Style No.", "Style No.");
-                StylePoRec.SetRange("Lot No.", "Lot No.");
-                StylePoRec.SetRange("PO No.", "PO No.");
-                if StylePoRec.FindFirst() then begin
-                    TotalOuput := StylePoRec."Sawing Out Qty";
-                    ShipDate := StylePoRec."Ship Date";
-                    OrderQy := StylePoRec.Qty;
-                end;
-
-                // ProductionHeaderRec.Reset();
-                // ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
-                // ProductionHeaderRec.SetRange("Style No.", "Style No.");
-                // ProductionHeaderRec.SetRange("PO No", "PO No.");
-                // if ProductionHeaderRec.FindFirst() then begin
-                //     if ProductionHeaderRec.Type = ProductionHeaderRec.Type::Saw then begin
-                //         OutPutStartDate := ProductionHeaderRec."Prod Date";
-                //         TodayOutput := ProductionHeaderRec."Output Qty";
-                //     end;
-
-                // end;
-
-
-                WorkcenterRec.Reset();
-                WorkcenterRec.SetRange("No.", "Resource No.");
-                if WorkcenterRec.FindFirst() then begin
-                    ResourceName := WorkcenterRec.Name;
-                end;
             end;
-
-            // trigger OnPreDataItem()
-
-            // begin
-            //     SetRange(PlanDate, stDate);
-            // end;
         }
     }
 
@@ -171,6 +127,10 @@ report 50852 SewingProductionDetails
 
 
     var
+
+
+        Quantity: Decimal;
+        NavAppProdRec: Record "NavApp Prod Plans Details";
         ResourceName: Text[100];
         WorkcenterRec: Record "Work Center";
         OrderQy: BigInteger;
