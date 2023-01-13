@@ -30,6 +30,10 @@ report 50639 SampleRequest
             column(No_; "No.")
             { }
 
+            // Done By Sachith on on 13/01/23
+            column(Brand_Name; "Brand Name")
+            { }
+
             dataitem("Sample Requsition Line"; "Sample Requsition Line")
             {
                 DataItemLinkReference = "Sample Requsition Header";

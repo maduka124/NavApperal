@@ -474,6 +474,141 @@
                     </TablixCell>
                   </TablixCells>
                 </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox18">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>BRAND</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox18</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Brand_Name">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Brand_Name.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Brand_Name</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox21">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox21</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox22">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox22</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
@@ -489,12 +624,13 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>1.79599cm</Top>
             <Left>0.04974cm</Left>
-            <Height>1.91175cm</Height>
+            <Height>2.51175cm</Height>
             <Width>27.59574cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -1497,8 +1633,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>4.15078cm</Top>
-            <Left>0cm</Left>
+            <Top>4.82812cm</Top>
+            <Left>0.00004cm</Left>
             <Height>2.43824cm</Height>
             <Width>28.50579cm</Width>
             <ZIndex>2</ZIndex>
@@ -2414,7 +2550,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>9.39628cm</Top>
+            <Top>9.71378cm</Top>
             <Left>0.04974cm</Left>
             <Height>2.66374cm</Height>
             <Width>28.50583cm</Width>
@@ -2444,7 +2580,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox82</rd:DefaultName>
-            <Top>12.42283cm</Top>
+            <Top>12.74033cm</Top>
             <Left>0cm</Left>
             <Height>0.6cm</Height>
             <Width>4.445cm</Width>
@@ -2478,7 +2614,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox82</rd:DefaultName>
-            <Top>13.91727cm</Top>
+            <Top>14.55227cm</Top>
             <Left>0.05126cm</Left>
             <Height>0.6cm</Height>
             <Width>4.445cm</Width>
@@ -2511,7 +2647,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.67469cm</Height>
+                  <Height>0.53358cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2676,7 +2812,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.64823cm</Height>
+                  <Height>0.50712cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2865,7 +3001,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>1.65833cm</Height>
+                  <Height>1.51722cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3080,9 +3216,9 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>15.12566cm</Top>
-            <Left>0.04974cm</Left>
-            <Height>2.98125cm</Height>
+            <Top>15.61249cm</Top>
+            <Left>0cm</Left>
+            <Height>2.55792cm</Height>
             <Width>28.45609cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
@@ -4014,7 +4150,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>7.12185cm</Top>
+            <Top>7.77802cm</Top>
             <Left>0cm</Left>
             <Height>1.47108cm</Height>
             <Width>28.50583cm</Width>
@@ -4047,13 +4183,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>18.2833cm</Height>
+        <Height>18.51613cm</Height>
         <Style />
       </Body>
-      <Width>28.55557cm</Width>
+      <Width>28.57674cm</Width>
       <Page>
         <PageFooter>
-          <Height>1.51342cm</Height>
+          <Height>1.61044cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -4080,7 +4216,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox70</rd:DefaultName>
-              <Top>0.17639cm</Top>
+              <Top>0.49389cm</Top>
               <Left>0.04974cm</Left>
               <Height>1.03188cm</Height>
               <Width>7.72584cm</Width>
@@ -4118,7 +4254,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox71</rd:DefaultName>
-              <Top>0.22931cm</Top>
+              <Top>0.54681cm</Top>
               <Left>12.82912cm</Left>
               <Height>0.97896cm</Height>
               <Width>6.37646cm</Width>
@@ -4168,7 +4304,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox72</rd:DefaultName>
-              <Top>0.17639cm</Top>
+              <Top>0.49389cm</Top>
               <Left>26.1414cm</Left>
               <Height>1.03188cm</Height>
               <Width>2.21625cm</Width>
@@ -4194,8 +4330,8 @@
         <PageWidth>29.7cm</PageWidth>
         <LeftMargin>0.6cm</LeftMargin>
         <RightMargin>0.5cm</RightMargin>
-        <TopMargin>0cm</TopMargin>
-        <BottomMargin>1cm</BottomMargin>
+        <TopMargin>0.5cm</TopMargin>
+        <BottomMargin>0.5cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
         <Style />
       </Page>
@@ -4281,6 +4417,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
+        </Field>
+        <Field Name="Brand_Name">
+          <DataField>Brand_Name</DataField>
         </Field>
         <Field Name="Sample_Name">
           <DataField>Sample_Name</DataField>
