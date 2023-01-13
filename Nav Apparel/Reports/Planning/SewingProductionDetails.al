@@ -74,7 +74,14 @@ report 50852 SewingProductionDetails
                 //     end;
 
                 // end;
-             
+
+
+                trigger OnPreDataItem()
+
+                begin
+                    SetRange("Prod Date", stDate);
+                end;
+
             }
             trigger OnAfterGetRecord()
 
@@ -130,11 +137,11 @@ report 50852 SewingProductionDetails
                 end;
             end;
 
-            trigger OnPreDataItem()
+            // trigger OnPreDataItem()
 
-            begin
-                SetRange(PlanDate, stDate);
-            end;
+            // begin
+            //     SetRange(PlanDate, stDate);
+            // end;
         }
     }
 
