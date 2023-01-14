@@ -140,6 +140,17 @@ table 50930 "Sample Requsition Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done By Sachith on 13/01/23
+        field(71012605; "Brand Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012606; "Brand No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

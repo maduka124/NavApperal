@@ -81,6 +81,9 @@ page 50600 "Sample Request Card"
                             rec."Style No." := StyleMasRec."No.";
                             rec."Garment Type No" := StyleMasRec."Garment Type No.";
                             rec."Garment Type Name" := StyleMasRec."Garment Type Name";
+                            //Done By sachith on 13/01/23
+                            Rec."Brand Name" := StyleMasRec."Brand Name";
+                            Rec."Brand No" := StyleMasRec."Brand No.";
                         end;
                     end;
                 }
