@@ -615,6 +615,16 @@ table 51139 "NavApp Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+
+        field(71012688; "Bank Ref. Template Name"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012689; "Bank Ref. Template Name1"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

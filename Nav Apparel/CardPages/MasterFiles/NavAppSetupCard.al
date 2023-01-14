@@ -111,12 +111,14 @@ page 50964 "NavApp Setup Card"
                 field("Worksheet Template Name"; rec."Worksheet Template Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Req. Wksh. Template Name';
                     TableRelation = "Req. Wksh. Template";
                 }
 
                 field("Journal Batch Name"; rec."Journal Batch Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Req. Wksh. Batch Name';
                     TableRelation = "Requisition Wksh. Name".Name WHERE("Worksheet Template Name" = FIELD("Worksheet Template Name"));
                 }
 
@@ -543,7 +545,7 @@ page 50964 "NavApp Setup Card"
                 field("Pay. Gen. Jrn. Template Name"; rec."Pay. Gen. Jrn. Template Name")
                 {
                     ApplicationArea = All;
-                    TableRelation = "Gen. Journal Template";
+                    TableRelation = "Gen. Journal Template" where(Type = const(Payments));
                     Caption = 'Payment Journal Template Name';
                 }
 
@@ -619,6 +621,20 @@ page 50964 "NavApp Setup Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Central Purchasig No';
+                }
+
+                field("Bank Ref. Template Name"; rec."Bank Ref. Template Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Bank Re. Cash Receipts Template';
+                    TableRelation = "Gen. Journal Template" where(Type = const("Cash Receipts"));
+                }
+
+                field("Bank Ref. Template Name1"; rec."Bank Ref. Template Name1")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Bank Ref. Gen. Journal Template';
+                    TableRelation = "Gen. Journal Template" where(Type = const(General));
                 }
             }
         }

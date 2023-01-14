@@ -90,6 +90,7 @@ codeunit 50822 NavAppCodeUnit2
         NavAppSetupRec: Record "NavApp Setup";
         AcceptHeaderRec: Record AcceptanceHeader;
         BankRefCollecLine: Record BankRefCollectionLine;
+        BankRefDistributionRec: Record BankRefDistribution;
         LoginSessionsRec: Record LoginSessions;
         TempValue1: Decimal;
         TempValue2: Decimal;
@@ -397,7 +398,8 @@ codeunit 50822 NavAppCodeUnit2
 
         end;
 
-        if GenJournalLine."Invoice No" <> '' then begin
+        //Cash receipt
+        if (GenJournalLine."Invoice No" <> '') and (GenJournalLine.BankRefNo <> '') then begin
 
             BankRefCollecLine.Reset();
             BankRefCollecLine.SetRange("Invoice No", GenJournalLine."Invoice No");
@@ -406,6 +408,20 @@ codeunit 50822 NavAppCodeUnit2
             if BankRefCollecLine.Findset() then begin
                 BankRefCollecLine."Payment Posted" := true;
                 BankRefCollecLine.Modify();
+            end;
+
+        end;
+
+        //Collection distribution
+        if (GenJournalLine."Invoice No" = '') and (GenJournalLine.BankRefNo <> '') then begin
+
+            BankRefDistributionRec.Reset();
+            BankRefDistributionRec.SetRange("BankRefNo.", GenJournalLine.BankRefNo);
+            BankRefDistributionRec.SetRange("Debit Bank Account No", GenJournalLine."Account No.");
+
+            if BankRefDistributionRec.Findset() then begin
+                BankRefDistributionRec."Payment Posted" := true;
+                BankRefDistributionRec.Modify();
             end;
 
         end;

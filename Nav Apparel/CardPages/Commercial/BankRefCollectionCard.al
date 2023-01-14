@@ -273,11 +273,6 @@ page 50770 "Bank Ref Collection Card"
                     end;
                 }
 
-                field("Journal Template"; rec."Journal Template")
-                {
-                    ApplicationArea = All;
-                }
-
                 field("Journal Batch"; rec."Journal Batch")
                 {
                     ApplicationArea = All;
@@ -312,6 +307,17 @@ page 50770 "Bank Ref Collection Card"
                     SubPageLink = "BankRefNo." = FIELD("BankRefNo.");
                 }
             }
+
+
+            group("Collection Distribution")
+            {
+                part("Bank Ref Colle Dist ListPart"; "Bank Ref Colle Dist ListPart")
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                    SubPageLink = "BankRefNo." = FIELD("BankRefNo.");
+                }
+            }
         }
     }
 
@@ -331,11 +337,15 @@ page 50770 "Bank Ref Collection Card"
                     BankRefCollecLine: Record BankRefCollectionLine;
                     SalesInvHeaderRec: Record "Sales Invoice Header";
                     CustledgerEntryrec: Record "Cust. Ledger Entry";
+                    NavAppSetuprec: Record "NavApp Setup";
                     LineNo: BigInteger;
                 begin
+                    NavAppSetuprec.Reset();
+                    NavAppSetuprec.FindSet();
+
                     //Get max line no
                     GenJournalRec.Reset();
-                    GenJournalRec.SetRange("Journal Template Name", rec."Journal Template");
+                    GenJournalRec.SetRange("Journal Template Name", NavAppSetuprec."Bank Ref. Template Name");
                     GenJournalRec.SetRange("Journal Batch Name", rec."Journal Batch");
 
                     if GenJournalRec.FindLast() then
@@ -350,7 +360,7 @@ page 50770 "Bank Ref Collection Card"
 
                             LineNo += 100;
                             GenJournalRec.Init();
-                            GenJournalRec."Journal Template Name" := rec."Journal Template";
+                            GenJournalRec."Journal Template Name" := NavAppSetuprec."Bank Ref. Template Name";
                             GenJournalRec."Journal Batch Name" := rec."Journal Batch";
                             GenJournalRec."Line No." := LineNo;
                             GenJournalRec."Invoice No" := BankRefCollecLine."Invoice No";
@@ -394,6 +404,81 @@ page 50770 "Bank Ref Collection Card"
 
                     CurrPage.Update();
                     CashRcptJrnl.Run();
+
+                end;
+            }
+
+            action("Transfer to general journal")
+            {
+                ApplicationArea = all;
+                Image = GeneralLedger;
+
+                trigger OnAction()
+                var
+                    GenJrnl: Page "General Journal";
+                    GenJournalRec: Record "Gen. Journal Line";
+                    BankRefDistributionRec: Record BankRefDistribution;
+                    CustledgerEntryrec: Record "Cust. Ledger Entry";
+                    NavAppSetuprec: Record "NavApp Setup";
+                    LineNo: BigInteger;
+                begin
+                    NavAppSetuprec.Reset();
+                    NavAppSetuprec.FindSet();
+
+                    //Get max line no
+                    GenJournalRec.Reset();
+                    GenJournalRec.SetRange("Journal Template Name", NavAppSetuprec."Bank Ref. Template Name1");
+                    GenJournalRec.SetRange("Journal Batch Name", rec."Journal Batch");
+
+                    if GenJournalRec.FindLast() then
+                        LineNo := GenJournalRec."Line No.";
+
+                    BankRefDistributionRec.Reset();
+                    BankRefDistributionRec.SetRange("BankRefNo.", rec."BankRefNo.");
+                    //BankRefDistributionRec.SetFilter("Transferred To Gen. Jrnl.", '=%1', false);
+
+                    if BankRefDistributionRec.Findset() then
+                        repeat
+
+                            LineNo += 100;
+                            GenJournalRec.Init();
+                            GenJournalRec."Journal Template Name" := NavAppSetuprec."Bank Ref. Template Name1";
+                            GenJournalRec."Journal Batch Name" := rec."Journal Batch";
+                            GenJournalRec."Line No." := LineNo;
+                            GenJournalRec."BankRefNo" := BankRefDistributionRec."BankRefNo.";
+                            GenJournalRec.Validate("Document Type", GenJournalRec."Document Type"::Payment);
+                            GenJournalRec.Validate("Document No.", BankRefDistributionRec."BankRefNo.");
+                            GenJournalRec."Document Date" := WorkDate();
+                            GenJournalRec."Posting Date" := WorkDate();
+                            GenJournalRec.Description := 'Bank Ref : ' + rec."BankRefNo.";
+                            GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::"Bank Account");
+                            GenJournalRec.Validate("Account No.", BankRefDistributionRec."Debit Bank Account No");
+                            GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
+                            GenJournalRec.Validate("Bal. Account No.", BankRefDistributionRec."Credit Bank Account No");
+                            GenJournalRec.Validate(Amount, BankRefDistributionRec."Credit Amount" * -1);
+                            GenJournalRec."Expiration Date" := WorkDate();
+                            GenJournalRec."Source Code" := 'ge';
+                            GenJournalRec.Insert();
+
+                            // //Update relase amount in custledger entry
+                            // CustledgerEntryrec.Reset();
+                            // CustledgerEntryrec.SetRange("Document Type", CustledgerEntryrec."Document Type"::Invoice);
+                            // CustledgerEntryrec.SetRange("Document No.", BankRefDistributionRec."Invoice No");
+                            // CustledgerEntryrec.SetRange("Customer No.", SalesInvHeaderRec."Sell-to Customer No.");
+
+                            // if CustledgerEntryrec.Findset() then begin
+                            //     CustledgerEntryrec.Validate("Amount to Apply", BankRefDistributionRec."Release Amount");
+                            //     CustledgerEntryrec.Modify();
+                            // end;
+
+                            //rec."Cash Rece. Updated" := true;
+                            BankRefDistributionRec."Transferred To Gen. Jrnl." := true;
+                            BankRefDistributionRec.Modify();
+
+                        until BankRefDistributionRec.Next() = 0;
+
+                    CurrPage.Update();
+                    GenJrnl.Run();
 
                 end;
             }
