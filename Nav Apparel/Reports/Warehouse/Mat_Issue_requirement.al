@@ -98,6 +98,8 @@ report 51199 MaterialIssueRequition
                 { }
                 column(Mat_Issue_No; "Daily Consumption Doc. No.")
                 { }
+                column(Request_Qty; "Request Qty")
+                { }
 
                 trigger OnPreDataItem()
 

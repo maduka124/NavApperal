@@ -197,6 +197,11 @@ tableextension 50913 "ItemJournalLineExt" extends "Item Journal Line"
         {
             DataClassification = ToBeClassified;
         }
+        //Mihiranga 2023/01/13
+            field(50118; "Request Qty";Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
         modify(Quantity)
         {
             trigger OnBeforeValidate()

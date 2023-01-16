@@ -24,6 +24,7 @@ page 50102 "Daily Consumption Card"
                 {
                     ApplicationArea = All;
                     Visible = false;
+
                 }
                 field("Department Name"; rec."Department Name")
                 {
@@ -285,7 +286,11 @@ page 50102 "Daily Consumption Card"
                     Text001: Label 'Prod. Order No.   #1##########\';
                     Text002: Label 'Item No.          #2##########\';
                     Text003: Label 'Quantity          #3##########';
+
                 begin
+
+
+
                     Inx1 := 0;
                     Window.Open(Text000 +
                                     Text001 +
@@ -355,6 +360,8 @@ page 50102 "Daily Consumption Card"
                                         ItemJnalRec.Validate(Quantity, (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption"));
                                     Window.Update(3, ItemJnalRec.Quantity);
                                     ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
+                                    //Mihiranga 2022/01/16
+                                    ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
                                     ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
                                     ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
                                     ItemJnalRec.Description := ProdOrdComp.Description;
