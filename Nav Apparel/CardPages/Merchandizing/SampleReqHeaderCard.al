@@ -337,6 +337,64 @@ page 50600 "Sample Request Card"
                     end;
                 end;
             }
+
+
+            action("Update Brand Name")
+            {
+                Image = "8ball";
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    stymaster: Record "Style Master";
+                    samplereq: Record "Sample Requsition Header";
+                begin
+                    samplereq.Reset();
+                    if samplereq.FindSet() then begin
+                        repeat
+
+                            stymaster.Reset();
+                            stymaster.SetRange("No.", samplereq."Style No.");
+                            if stymaster.Findset() then begin
+
+                                samplereq."Brand Name" := stymaster."Brand Name";
+                                samplereq."Brand No" := stymaster."Brand No.";
+                                samplereq.Modify();
+
+                            end;
+                        until samplereq.Next() = 0;
+                    end;
+
+                end;
+            }
+
+            // action("Update Article")
+            // {
+            //     Image = "8ball";
+            //     ApplicationArea = All;
+
+            //     trigger OnAction()
+            //     var
+            //         mnaincat: Record "Main Category";
+            //         Article: Record article;
+            //     begin
+            //         Article.Reset();
+            //         if Article.FindSet() then begin
+            //             repeat
+
+            //                 mnaincat.Reset();
+            //                 mnaincat.SetRange("Main Category Name", Article."Main Category Name");
+            //                 if mnaincat.Findset() then begin
+
+            //                     Article."Main Category No." := mnaincat."No.";
+            //                     Article.Modify();
+
+            //                 end;
+            //             until Article.Next() = 0;
+            //         end;
+
+            //     end;
+            // }
         }
     }
 

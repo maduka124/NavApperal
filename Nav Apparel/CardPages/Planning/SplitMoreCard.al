@@ -266,7 +266,7 @@ page 50338 "Split More Card"
         Carder: Integer;
         Target: BigInteger;
         Factory: Code[20];
-        HoursPerDay: Integer;
+        HoursPerDay: Decimal;
 
 
     trigger OnOpenPage()

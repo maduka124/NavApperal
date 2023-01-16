@@ -132,7 +132,7 @@ page 50613 "Split Card"
         Carder: Integer;
         Target: BigInteger;
         Factory: Code[20];
-        HoursPerDay: Integer;
+        HoursPerDay: Decimal;
 
 
     trigger OnOpenPage()
