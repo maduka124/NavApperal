@@ -42,7 +42,13 @@ page 50111 "Daily Requirement"
                 field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
                 }
+                //Mihiranga 2023/01/13
+                field("Request Qty"; Rec."Request Qty")
+                {
+                    Visible = false;
+                }
             }
         }
     }
 }
+
