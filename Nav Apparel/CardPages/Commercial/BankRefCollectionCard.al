@@ -446,30 +446,17 @@ page 50770 "Bank Ref Collection Card"
                             GenJournalRec."Journal Batch Name" := rec."Journal Batch";
                             GenJournalRec."Line No." := LineNo;
                             GenJournalRec."BankRefNo" := BankRefDistributionRec."BankRefNo.";
-                            GenJournalRec.Validate("Document Type", GenJournalRec."Document Type"::Payment);
                             GenJournalRec.Validate("Document No.", BankRefDistributionRec."BankRefNo.");
                             GenJournalRec."Document Date" := WorkDate();
-                            GenJournalRec."Posting Date" := WorkDate();
+                            GenJournalRec."Posting Date" := BankRefDistributionRec."Posting Date";
                             GenJournalRec.Description := 'Bank Ref : ' + rec."BankRefNo.";
                             GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::"Bank Account");
                             GenJournalRec.Validate("Account No.", BankRefDistributionRec."Debit Bank Account No");
                             GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
                             GenJournalRec.Validate("Bal. Account No.", BankRefDistributionRec."Credit Bank Account No");
                             GenJournalRec.Validate(Amount, BankRefDistributionRec."Credit Amount" * -1);
-                            GenJournalRec."Expiration Date" := WorkDate();
-                            GenJournalRec."Source Code" := 'ge';
+                            GenJournalRec."Expiration Date" := WorkDate() + 20;
                             GenJournalRec.Insert();
-
-                            // //Update relase amount in custledger entry
-                            // CustledgerEntryrec.Reset();
-                            // CustledgerEntryrec.SetRange("Document Type", CustledgerEntryrec."Document Type"::Invoice);
-                            // CustledgerEntryrec.SetRange("Document No.", BankRefDistributionRec."Invoice No");
-                            // CustledgerEntryrec.SetRange("Customer No.", SalesInvHeaderRec."Sell-to Customer No.");
-
-                            // if CustledgerEntryrec.Findset() then begin
-                            //     CustledgerEntryrec.Validate("Amount to Apply", BankRefDistributionRec."Release Amount");
-                            //     CustledgerEntryrec.Modify();
-                            // end;
 
                             //rec."Cash Rece. Updated" := true;
                             BankRefDistributionRec."Transferred To Gen. Jrnl." := true;

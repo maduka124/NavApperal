@@ -417,7 +417,7 @@ codeunit 50822 NavAppCodeUnit2
 
             BankRefDistributionRec.Reset();
             BankRefDistributionRec.SetRange("BankRefNo.", GenJournalLine.BankRefNo);
-            BankRefDistributionRec.SetRange("Debit Bank Account No", GenJournalLine."Account No.");
+            //BankRefDistributionRec.SetRange("Debit Bank Account No", GenJournalLine."Account No.");
 
             if BankRefDistributionRec.Findset() then begin
                 BankRefDistributionRec."Payment Posted" := true;
