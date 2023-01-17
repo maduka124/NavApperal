@@ -81,12 +81,26 @@ page 51206 "UD List"
     end;
 
 
-    // trigger OnDeleteRecord(): Boolean
-    // var
-    //     B2BLCPIRec: Record B2BLCPI;
-    // begin
-    //     B2BLCPIRec.SetRange("B2BNo.", Rec."No.");
-    //     B2BLCPIRec.SetRange("B2BNo.", Rec."No.");
-    //     B2BLCPIRec.DeleteAll();
-    // end;
+    trigger OnDeleteRecord(): Boolean
+    var
+        UDBBLcInfoRec: Record UDBBLcInformation;
+        UDStyPOInfoRec: Record UDStylePOinformation;
+        UDPIInfoRec: Record UDPIinformationLine;
+    begin
+
+        UDBBLcInfoRec.Reset();
+        UDBBLcInfoRec.SetRange("No.", rec."No.");
+        if UDBBLcInfoRec.FindSet() then
+            UDBBLcInfoRec.DeleteAll();
+
+        UDStyPOInfoRec.Reset();
+        UDStyPOInfoRec.SetRange("No.", rec."No.");
+        if UDStyPOInfoRec.FindSet() then
+            UDStyPOInfoRec.DeleteAll();
+
+        UDPIInfoRec.Reset();
+        UDPIInfoRec.SetRange("No.", rec."No.");
+        if UDPIInfoRec.FindSet() then
+            UDPIInfoRec.DeleteAll();
+    end;
 }

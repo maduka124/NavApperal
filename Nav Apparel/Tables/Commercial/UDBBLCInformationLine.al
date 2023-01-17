@@ -24,7 +24,7 @@ table 50209 UDBBLcInformation
             DataClassification = ToBeClassified;
         }
 
-        field(5; BBLC; Decimal)
+        field(5; BBLC; Text[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -54,12 +54,17 @@ table 50209 UDBBLcInformation
             DataClassification = ToBeClassified;
         }
 
-        field(11; "Payment Mode"; Text[50])
+        field(11; "Payment Mode No"; code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; UD; Boolean)
+        field(12; "Payment Mode"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(13; UD; Boolean)
         {
             DataClassification = ToBeClassified;
         }

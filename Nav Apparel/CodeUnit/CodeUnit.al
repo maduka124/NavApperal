@@ -234,6 +234,21 @@ codeunit 50618 NavAppCodeUnit
             exit('StrongAccent');
     end;
 
+
+    procedure ChangeColorUDStylePOInfo(OpList: Record UDStylePOinformation): Text[50]
+    var
+    begin
+        if OpList."Style Name" = 'Total' then
+            exit('strongaccent');
+    end;
+
+    procedure ChangeColorUDPIInfo(OpList: Record UDPIinformationLine): Text[50]
+    var
+    begin
+        if OpList.Supplier = 'Total' then
+            exit('strongaccent');
+    end;
+
     procedure Update_PI_PO_Items(PINo: Code[20])
     var
         PIPoItemDetailsRec: Record "PI Po Item Details";

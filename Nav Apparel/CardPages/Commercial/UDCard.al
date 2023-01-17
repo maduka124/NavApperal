@@ -105,6 +105,12 @@ page 51207 "UD Card"
                         //Load Style_PO details for the contract
                         Load_Style_PO_Detail();
 
+                        //Load BBLC details for the contract
+                        Load_BBLC_Detail();
+
+                        //Load PI details for the contract
+                        Load_PI_Detail();
+
                     end;
 
                 }
@@ -144,25 +150,25 @@ page 51207 "UD Card"
                 }
             }
 
-            // group("BBL LC Information")
-            // {
-            //     part("BBL LC Infor ListPart"; "BBL LC Infor ListPart")
-            //     {
-            //         ApplicationArea = All;
-            //         Caption = ' ';
-            //         SubPageLink = "No." = FIELD("No.");
-            //     }
-            // }
+            group("BBL LC Information")
+            {
+                part("BBL LC Infor ListPart"; "BBL LC Infor ListPart")
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                    SubPageLink = "No." = FIELD("No.");
+                }
+            }
 
-            // group("PI Information")
-            // {
-            //     part("PI Infor ListPart"; "PI Infor ListPart")
-            //     {
-            //         ApplicationArea = All;
-            //         Caption = ' ';
-            //         SubPageLink = "No." = FIELD("No.");
-            //     }
-            // }
+            group("PI Information")
+            {
+                part("PI Infor ListPart"; "PI Infor ListPart")
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                    SubPageLink = "No." = FIELD("No.");
+                }
+            }
         }
     }
 
@@ -174,6 +180,10 @@ page 51207 "UD Card"
         StyleMasterRec: Record "Style Master";
         StyleMasterPORec: Record "Style Master PO";
         LineNo: Integer;
+        TotOrderQty: BigInteger;
+        TotValue: Decimal;
+        TotShipQty: BigInteger;
+        TotShipValue: Decimal;
     begin
 
         //Delete old details
@@ -215,27 +225,183 @@ page 51207 "UD Card"
                             UDStylePOinfoRec."Unit Price" := StyleMasterPORec."Unit Price";
                             UDStylePOinfoRec.Values := StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
                             UDStylePOinfoRec.Insert();
+
+                            TotOrderQty += StyleMasterPORec.Qty;
+                            TotShipQty += StyleMasterPORec."Shipped Qty";
+                            TotValue += StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
+                            TotShipValue += StyleMasterPORec."Shipped Qty" * StyleMasterPORec."Unit Price";
+
                         until StyleMasterPORec.Next() = 0;
                     end;
 
                 until "Contract/LCStyleRec".Next() = 0;
+
+                UDStylePOinfoRec.Init();
+                UDStylePOinfoRec."No." := rec."No.";
+                UDStylePOinfoRec."Line No" := LineNo + 1;
+                UDStylePOinfoRec."Order Qty" := TotOrderQty;
+                UDStylePOinfoRec."Ship Qty" := TotShipQty;
+                UDStylePOinfoRec."Ship Values" := TotShipValue;
+                UDStylePOinfoRec."Style Name" := 'Total';
+                UDStylePOinfoRec.Values := TotValue;
+                UDStylePOinfoRec.Insert();
+
             end;
 
         end;
     end;
 
-    // trigger OnDeleteRecord(): Boolean
-    // var
-    //     BankRefeCollRec: Record BankRefCollectionLine;
-    // begin
-    //     if rec."Cash Rece. Updated" then
-    //         Error('Cash Receipt Journal updated for this Bank Ref. Cannot delete.');
 
-    //     BankRefeCollRec.Reset();
-    //     BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
-    //     if BankRefeCollRec.FindSet() then
-    //         BankRefeCollRec.Delete();
-    // end;
+    procedure Load_BBLC_Detail()
+    var
+        UDBBLcInfoRec: Record UDBBLcInformation;
+        B2BLCMasterRec: Record B2BLCMaster;
+        LineNo: Integer;
+    begin
+
+        //Delete old details
+        UDBBLcInfoRec.Reset();
+        UDBBLcInfoRec.SetRange("No.", rec."No.");
+        if UDBBLcInfoRec.FindSet() then
+            UDBBLcInfoRec.DeleteAll();
+
+        //GetB2BLC for the contract
+        B2BLCMasterRec.Reset();
+        B2BLCMasterRec.SetRange("LC/Contract No.", rec."LC/Contract No.");
+
+        if B2BLCMasterRec.FindSet() then begin
+            repeat
+
+                LineNo += 1;
+                //Insert po
+                UDBBLcInfoRec.Init();
+                UDBBLcInfoRec."No." := rec."No.";
+                UDBBLcInfoRec."Line No" := LineNo;
+                UDBBLcInfoRec.BBLC := B2BLCMasterRec."B2B LC No";
+                UDBBLcInfoRec."Expice Date" := B2BLCMasterRec."Expiry Date";
+                UDBBLcInfoRec."Issue Bank" := B2BLCMasterRec."Issue Bank";
+                UDBBLcInfoRec."Issue Bank No" := B2BLCMasterRec."LC Issue Bank No.";
+                UDBBLcInfoRec."LC Amount" := B2BLCMasterRec."LC Value";
+                UDBBLcInfoRec."Open Date" := B2BLCMasterRec."Opening Date";
+                UDBBLcInfoRec."Payment Mode No" := B2BLCMasterRec."Payment Terms (Days) No.";
+                UDBBLcInfoRec."Payment Mode" := B2BLCMasterRec."Payment Terms (Days)";
+                UDBBLcInfoRec."Supplier Name" := B2BLCMasterRec."Beneficiary Name";
+                UDBBLcInfoRec."Supplier No" := B2BLCMasterRec.Beneficiary;
+                UDBBLcInfoRec.Insert();
+
+            until B2BLCMasterRec.Next() = 0;
+        end;
+
+    end;
+
+
+    procedure Load_PI_Detail()
+    var
+        UDPIInfoRec: Record UDPIinformationLine;
+        B2BLCMasterRec: Record B2BLCMaster;
+        PIHeaderRec: Record "PI Details Header";
+        PIItemsRec: Record "PI Po Item Details";
+        B2BLCPIRec: Record B2BLCPI;
+        LineNo: Integer;
+        TotOrderQty: BigInteger;
+        TotValue: Decimal;
+    begin
+
+        //Delete old details
+        UDPIInfoRec.Reset();
+        UDPIInfoRec.SetRange("No.", rec."No.");
+        if UDPIInfoRec.FindSet() then
+            UDPIInfoRec.DeleteAll();
+
+        //Get B2BLC for the contract
+        B2BLCMasterRec.Reset();
+        B2BLCMasterRec.SetRange("LC/Contract No.", rec."LC/Contract No.");
+
+        if B2BLCMasterRec.FindSet() then begin
+            repeat
+
+                B2BLCPIRec.Reset();
+                B2BLCPIRec.SetRange("B2BNo.", B2BLCMasterRec."No.");
+
+                if B2BLCPIRec.FindSet() then begin
+                    repeat
+
+                        PIHeaderRec.Reset();
+                        PIHeaderRec.SetRange("No.", B2BLCPIRec."PI No.");
+
+                        if PIHeaderRec.FindSet() then begin
+
+                            PIItemsRec.Reset();
+                            PIItemsRec.SetRange("PI No.", PIHeaderRec."No.");
+
+                            if PIItemsRec.FindSet() then begin
+
+                                repeat
+
+                                    LineNo += 1;
+
+                                    UDPIInfoRec.Init();
+                                    UDPIInfoRec."No." := rec."No.";
+                                    UDPIInfoRec."Line No" := LineNo;
+                                    UDPIInfoRec."Item Code" := PIItemsRec."Item No.";
+                                    UDPIInfoRec."Item Description" := PIItemsRec."Item Name";
+                                    UDPIInfoRec."Main Category" := PIItemsRec."Main Category Name";
+                                    UDPIInfoRec."Main Category No" := PIItemsRec."Main Category No.";
+                                    UDPIInfoRec."Order Qty" := PIItemsRec.Qty;
+                                    UDPIInfoRec."Supplier" := PIHeaderRec."Supplier Name";
+                                    UDPIInfoRec."Suplier No" := PIHeaderRec."Supplier No.";
+                                    UDPIInfoRec."Unit Price" := PIItemsRec."Unit Price";
+                                    UDPIInfoRec.Value := PIItemsRec.Value;
+                                    UDPIInfoRec.Insert();
+
+                                    TotOrderQty += PIItemsRec.Qty;
+                                    TotValue += PIItemsRec.Value;
+
+                                until PIItemsRec.Next() = 0;
+                            end;
+
+                        end;
+
+                    until B2BLCPIRec.Next() = 0;
+                end;
+
+            until B2BLCMasterRec.Next() = 0;
+
+            UDPIInfoRec.Init();
+            UDPIInfoRec."No." := rec."No.";
+            UDPIInfoRec."Line No" := LineNo + 1;
+            UDPIInfoRec."Order Qty" := TotOrderQty;
+            UDPIInfoRec."Supplier" := 'Total';
+            UDPIInfoRec.Value := TotValue;
+            UDPIInfoRec.Insert();
+
+        end;
+
+    end;
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        UDBBLcInfoRec: Record UDBBLcInformation;
+        UDStyPOInfoRec: Record UDStylePOinformation;
+        UDPIInfoRec: Record UDPIinformationLine;
+    begin
+
+        UDBBLcInfoRec.Reset();
+        UDBBLcInfoRec.SetRange("No.", rec."No.");
+        if UDBBLcInfoRec.FindSet() then
+            UDBBLcInfoRec.DeleteAll();
+
+        UDStyPOInfoRec.Reset();
+        UDStyPOInfoRec.SetRange("No.", rec."No.");
+        if UDStyPOInfoRec.FindSet() then
+            UDStyPOInfoRec.DeleteAll();
+
+        UDPIInfoRec.Reset();
+        UDPIInfoRec.SetRange("No.", rec."No.");
+        if UDPIInfoRec.FindSet() then
+            UDPIInfoRec.DeleteAll();
+    end;
 
 
     procedure AssistEdit(): Boolean

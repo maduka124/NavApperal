@@ -1014,5 +1014,18 @@ permissionset 50100 GeneratedPermission
         page SampleProdLineQCListPart=X,
         page "Style Master Lookup"=X,
         page WashingSampleHistryMerchand=X,
-        page WashingSampleRequestMerchCard=X;
+        page WashingSampleRequestMerchCard=X,
+        tabledata UDBBLcInformation=RIMD,
+        tabledata UDHeader=RIMD,
+        tabledata UDPIinformationLine=RIMD,
+        tabledata UDStylePOinformation=RIMD,
+        table UDBBLcInformation=X,
+        table UDHeader=X,
+        table UDPIinformationLine=X,
+        table UDStylePOinformation=X,
+        page "BBL LC Infor ListPart"=X,
+        page "PI Infor ListPart"=X,
+        page "Style PO Info ListPart"=X,
+        page "UD Card"=X,
+        page "UD List"=X;
 }

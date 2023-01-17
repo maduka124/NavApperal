@@ -1,60 +1,60 @@
-table 50210 PIinformationLine
+table 51210 UDPIinformationLine
 {
     DataClassification = ToBeClassified;
 
     fields
     {
-        field(8; No; Code[20])
+        field(1; "No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(9; "Line No"; BigInteger)
+        field(2; "Line No"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(1; Supplier; Text[50])
+        field(3; "Suplier No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "Suplier No"; Code[20])
+        field(4; Supplier; Text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Main Category"; Text[50])
+        field(5; "Main Category No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(11; "Main Category No"; Code[20])
+        field(6; "Main Category"; Text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Item Code"; Code[20])
+        field(7; "Item Code"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(4; "Item Discription"; Text[100])
+        field(8; "Item Description"; Text[200])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Order Qty"; BigInteger)
+        field(9; "Order Qty"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Unit Price"; Decimal)
+        field(10; "Unit Price"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(7; Vlues; BigInteger)
+        field(11; Value; Decimal)
         {
             DataClassification = ToBeClassified;
         }
@@ -62,7 +62,7 @@ table 50210 PIinformationLine
 
     keys
     {
-        key(PK1; No, "Line No")
+        key(PK1; "No.", "Line No")
         {
             Clustered = true;
         }
