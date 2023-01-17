@@ -3,18 +3,38 @@ report 51200 LayingReport
 
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-
+    Caption = 'Laying and Fabric Usage Report';
     RDLCLayout = 'Report_Layouts/Cutting/LayingFabricReport.rdl';
     DefaultLayout = RDLC;
 
 
     dataset
     {
-        dataitem("Purch. Inv. Header"; "Purch. Inv. Header")
+        dataitem(LaySheetHeader; LaySheetHeader)
         {
-            column(No_; "No.")
+            column(LaySheetNo_; "LaySheetNo.")
             { }
+
+            column(Style_Name; "Style Name")
+            { }
+
+            column(CompLogo; comRec.Picture)
+            { }
+
+            trigger OnPreDataItem()
+
+            begin
+                SetRange("LaySheetNo.", LaySheetNo);
+            end;
+
+            trigger OnAfterGetRecord()
+
+            begin
+                comRec.Get;
+                comRec.CalcFields(Picture);
+            end;
         }
+
     }
 
     requestpage
@@ -23,13 +43,15 @@ report 51200 LayingReport
         {
             area(Content)
             {
-                group(GroupName)
+                group("Laying and Fabric Usage Report")
                 {
-                    // field(Name; SourceExpression)
-                    // {
-                    //     ApplicationArea = All;
-
-                    // }
+                    Caption = 'Filter By';
+                    field(LaySheetNo; LaySheetNo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Lay Sheet Number';
+                        TableRelation = LaySheetHeader."LaySheetNo.";
+                    }
                 }
             }
         }
@@ -47,4 +69,7 @@ report 51200 LayingReport
         }
     }
 
+    var
+        LaySheetNo: Code[20];
+        comRec: Record "Company Information";
 }
