@@ -4,7 +4,7 @@ page 50771 "Bank Ref Collection ListPart"
     SourceTable = BankRefCollectionLine;
     DeleteAllowed = false;
     InsertAllowed = false;
-    ModifyAllowed = false;
+    //ModifyAllowed = false;
     SourceTableView = sorting("BankRefNo.") order(descending);
 
     layout
@@ -104,7 +104,7 @@ page 50771 "Bank Ref Collection ListPart"
                 field("Transferred To Cash Receipt"; rec."Transferred To Cash Receipt")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    //Editable = false;
                 }
 
                 field("Payment Posted"; rec."Payment Posted")

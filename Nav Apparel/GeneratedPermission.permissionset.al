@@ -999,5 +999,20 @@ permissionset 50100 GeneratedPermission
         table AwaitingPIs=X,
         page CountryListPBi=X,
         page CustomerListPBi=X,
-        page NewBreackdownFactBox=X;
+        page NewBreackdownFactBox=X,
+        tabledata BankRefDistribution=RIMD,
+        table BankRefDistribution=X,
+        report LayingReport=X,
+        report MaterialIssueRequition=X,
+        page "Bank Ref Colle Dist ListPart"=X,
+        page "Customer List Lookup"=X,
+        page "PO List Merchand"=X,
+        page "PO List Not Merchand"=X,
+        page "Sample Request Lookup"=X,
+        page SampleProdLinePattCuttListPart=X,
+        page SampleProdLineQCFinishListPart=X,
+        page SampleProdLineQCListPart=X,
+        page "Style Master Lookup"=X,
+        page WashingSampleHistryMerchand=X,
+        page WashingSampleRequestMerchCard=X;
 }

@@ -346,14 +346,14 @@ page 50770 "Bank Ref Collection Card"
                     //Get max line no
                     GenJournalRec.Reset();
                     GenJournalRec.SetRange("Journal Template Name", NavAppSetuprec."Bank Ref. Template Name");
-                    GenJournalRec.SetRange("Journal Batch Name", rec."Journal Batch");
+                    GenJournalRec.SetRange("Journal Batch Name", NavAppSetuprec."Cash Rec. Batch Name");
 
                     if GenJournalRec.FindLast() then
                         LineNo := GenJournalRec."Line No.";
 
                     BankRefCollecLine.Reset();
                     BankRefCollecLine.SetRange("BankRefNo.", rec."BankRefNo.");
-                    //BankRefCollecLine.SetFilter("Transferred To Cash Receipt", '=%1', false);
+                    BankRefCollecLine.SetFilter("Transferred To Cash Receipt", '=%1', false);
 
                     if BankRefCollecLine.Findset() then
                         repeat
@@ -361,7 +361,7 @@ page 50770 "Bank Ref Collection Card"
                             LineNo += 100;
                             GenJournalRec.Init();
                             GenJournalRec."Journal Template Name" := NavAppSetuprec."Bank Ref. Template Name";
-                            GenJournalRec."Journal Batch Name" := rec."Journal Batch";
+                            GenJournalRec."Journal Batch Name" := NavAppSetuprec."Cash Rec. Batch Name";
                             GenJournalRec."Line No." := LineNo;
                             GenJournalRec."Invoice No" := BankRefCollecLine."Invoice No";
                             GenJournalRec."BankRefNo" := BankRefCollecLine."BankRefNo.";
@@ -403,7 +403,8 @@ page 50770 "Bank Ref Collection Card"
                         until BankRefCollecLine.Next() = 0;
 
                     CurrPage.Update();
-                    CashRcptJrnl.Run();
+                    Message('Completed');
+                    //CashRcptJrnl.Run();
 
                 end;
             }
@@ -428,14 +429,14 @@ page 50770 "Bank Ref Collection Card"
                     //Get max line no
                     GenJournalRec.Reset();
                     GenJournalRec.SetRange("Journal Template Name", NavAppSetuprec."Bank Ref. Template Name1");
-                    GenJournalRec.SetRange("Journal Batch Name", rec."Journal Batch");
+                    GenJournalRec.SetRange("Journal Batch Name", NavAppSetuprec."Gen. Jrnl. Batch Name");
 
                     if GenJournalRec.FindLast() then
                         LineNo := GenJournalRec."Line No.";
 
                     BankRefDistributionRec.Reset();
                     BankRefDistributionRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                    //BankRefDistributionRec.SetFilter("Transferred To Gen. Jrnl.", '=%1', false);
+                    BankRefDistributionRec.SetFilter("Transferred To Gen. Jrnl.", '=%1', false);
 
                     if BankRefDistributionRec.Findset() then
                         repeat
@@ -443,7 +444,7 @@ page 50770 "Bank Ref Collection Card"
                             LineNo += 100;
                             GenJournalRec.Init();
                             GenJournalRec."Journal Template Name" := NavAppSetuprec."Bank Ref. Template Name1";
-                            GenJournalRec."Journal Batch Name" := rec."Journal Batch";
+                            GenJournalRec."Journal Batch Name" := NavAppSetuprec."Gen. Jrnl. Batch Name";
                             GenJournalRec."Line No." := LineNo;
                             GenJournalRec."BankRefNo" := BankRefDistributionRec."BankRefNo.";
                             GenJournalRec.Validate("Document No.", BankRefDistributionRec."BankRefNo.");
@@ -465,7 +466,8 @@ page 50770 "Bank Ref Collection Card"
                         until BankRefDistributionRec.Next() = 0;
 
                     CurrPage.Update();
-                    GenJrnl.Run();
+                    Message('Completed');
+                    //GenJrnl.Run();
 
                 end;
             }

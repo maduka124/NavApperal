@@ -2,6 +2,7 @@ page 51204 "Bank Ref Colle Dist ListPart"
 {
     PageType = ListPart;
     SourceTable = BankRefDistribution;
+    AutoSplitKey = true;
 
     layout
     {
@@ -60,6 +61,18 @@ page 51204 "Bank Ref Colle Dist ListPart"
                 field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
+                }
+
+                field("Transferred To Gen. Jrnl."; rec."Transferred To Gen. Jrnl.")
+                {
+                    ApplicationArea = All;
+                    //Editable = false;
+                }
+
+                field("Payment Posted"; rec."Payment Posted")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
             }
         }

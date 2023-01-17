@@ -625,6 +625,21 @@ table 51139 "NavApp Setup"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012690; "Cash Rec. Batch Name"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012691; "Gen. Jrnl. Batch Name"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012692; "UD Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

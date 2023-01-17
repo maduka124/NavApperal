@@ -149,10 +149,10 @@ table 50454 "New Operation"
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
     begin
-        NavAppSetup.Get('0001');
-        NavAppSetup.TestField("NEWOP Nos.");
+        // NavAppSetup.Get('0001');
+        // NavAppSetup.TestField("NEWOP Nos.");
 
-        "No." := NoSeriesMngment.GetNextNo(NavAppSetup."NEWOP Nos.", Today, true);
+        // "No." := NoSeriesMngment.GetNextNo(NavAppSetup."NEWOP Nos.", Today, true);
 
         "Created Date" := WorkDate();
         "Created User" := UserId;

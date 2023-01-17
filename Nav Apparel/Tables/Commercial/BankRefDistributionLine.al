@@ -33,7 +33,7 @@ table 51203 BankRefDistribution
         field(6; "Debit Bank Account No"; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Bank Account"."Bank Account No.";
+            TableRelation = "Bank Account"."No.";
             ValidateTableRelation = false;
         }
 
@@ -45,7 +45,7 @@ table 51203 BankRefDistribution
         field(8; "Credit Bank Account No"; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Bank Account"."Bank Account No.";
+            TableRelation = "Bank Account"."No.";
             ValidateTableRelation = false;
         }
 

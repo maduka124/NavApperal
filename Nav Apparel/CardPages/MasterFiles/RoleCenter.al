@@ -1730,6 +1730,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Utilization Declaration (UD)")
+                {
+                    Caption = 'Utilization Declaration (UD) List';
+                    RunObject = Page "UD List";
+                    ApplicationArea = all;
+                }
+
                 group("Commercial Reports")
                 {
                     Caption = 'Commercial Reports';
