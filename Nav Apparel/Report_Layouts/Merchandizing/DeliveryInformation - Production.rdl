@@ -1892,6 +1892,9 @@
                     </TablixMember>
                     <TablixMember />
                   </TablixMembers>
+                  <Visibility>
+                    <Hidden>=Fields!Buyer_Name.Value=""</Hidden>
+                  </Visibility>
                 </TablixMember>
                 <TablixMember />
                 <TablixMember />
