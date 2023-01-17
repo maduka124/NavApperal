@@ -20,67 +20,6 @@ page 51207 "UD Card"
                         IF AssistEdit THEN
                             CurrPage.UPDATE;
                     end;
-
-                    // trigger OnValidate()
-                    // var
-                    //     BankRefCollLineRec: Record BankRefCollectionLine;
-                    //     BankRefHeaderRec: Record BankReferenceHeader;
-                    //     BankRefInvRec: Record BankReferenceInvoice;
-                    //     LineNo: Integer;
-                    //     LoginSessionsRec: Record LoginSessions;
-                    //     LoginRec: Page "Login Card";
-                    // begin
-
-                    //     BankRefCollLineRec.Reset();
-                    //     BankRefCollLineRec.SetRange("BankRefNo.", rec."BankRefNo.");
-
-                    //     if not BankRefCollLineRec.FindSet() then begin
-
-                    //         BankRefHeaderRec.Reset();
-                    //         BankRefHeaderRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                    //         BankRefHeaderRec.FindSet();
-
-                    //         BankRefInvRec.Reset();
-                    //         BankRefInvRec.SetRange(BankRefNo, rec."BankRefNo.");
-                    //         if BankRefInvRec.FindSet() then
-                    //             repeat
-                    //                 LineNo += 1;
-                    //                 BankRefCollLineRec.Init();
-                    //                 BankRefCollLineRec."BankRefNo." := rec."BankRefNo.";
-                    //                 BankRefCollLineRec."Airway Bill Date" := BankRefHeaderRec."Airway Bill Date";
-                    //                 BankRefCollLineRec.AirwayBillNo := BankRefHeaderRec.AirwayBillNo;
-                    //                 BankRefCollLineRec."Created User" := UserId;
-                    //                 BankRefCollLineRec."Created Date" := WorkDate();
-                    //                 BankRefCollLineRec."Invoice Amount" := BankRefInvRec."Ship Value";
-                    //                 BankRefCollLineRec."Invoice Date" := BankRefInvRec."Invoice Date";
-                    //                 BankRefCollLineRec."Invoice No" := BankRefInvRec."Invoice No";
-                    //                 BankRefCollLineRec."LineNo." := LineNo;
-                    //                 BankRefCollLineRec."Maturity Date" := BankRefHeaderRec."Maturity Date";
-                    //                 BankRefCollLineRec."Reference Date" := BankRefHeaderRec."Reference Date";
-                    //                 BankRefCollLineRec.Insert();
-                    //             until BankRefInvRec.Next() = 0;
-                    //     end;
-
-                    //     //Check whether user logged in or not
-                    //     LoginSessionsRec.Reset();
-                    //     LoginSessionsRec.SetRange(SessionID, SessionId());
-
-                    //     if not LoginSessionsRec.FindSet() then begin  //not logged in
-                    //         Clear(LoginRec);
-                    //         LoginRec.LookupMode(true);
-                    //         LoginRec.RunModal();
-
-                    //         LoginSessionsRec.Reset();
-                    //         LoginSessionsRec.SetRange(SessionID, SessionId());
-                    //         if LoginSessionsRec.FindSet() then
-                    //             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                    //     end
-                    //     else begin   //logged in
-                    //         rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                    //     end;
-
-                    //     CurrPage.Update();
-                    // end;
                 }
 
                 field(Buyer; rec.Buyer)
@@ -124,21 +63,19 @@ page 51207 "UD Card"
 
                     trigger OnValidate()
                     var
-                        "ContLCMasRec": Record "Contract/LCMaster";
+                        ContLCMasRec: Record "Contract/LCMaster";
                         B2BRec: Record B2BLCMaster;
                         "B2B LC Opened (Value)": Decimal;
-                        "StyleMasterRec": Record "Style Master";
-
-
                         "Contract/LCStyleRec": Record "Contract/LCStyle";
-                        StyleMasterPORFec: Record "Style Master PO";
                         TotalQty: BigInteger;
-                        AutoValue: Decimal;
                     begin
                         ContLCMasRec.Reset();
                         ContLCMasRec.SetRange("Contract No", rec."LC/Contract No.");
-                        if ContLCMasRec.FindSet() then
+                        if ContLCMasRec.FindSet() then begin
                             rec."Value" := ContLCMasRec."Contract Value";
+                            rec.Factory := ContLCMasRec.Factory;
+                            rec."Factory No." := ContLCMasRec."Factory No.";
+                        end;
 
                         //Calculate B2B LC opened  and %
                         B2BRec.Reset();
@@ -149,7 +86,8 @@ page 51207 "UD Card"
                                 "B2B LC Opened (Value)" += B2BRec."B2B LC Value";
                             until B2BRec.Next() = 0;
 
-                            rec."B2BLC%" := ("B2B LC Opened (Value)" / rec."Value") * 100;
+                            if rec."Value" > 0 then
+                                rec."B2BLC%" := ("B2B LC Opened (Value)" / rec."Value") * 100;
                         end;
 
                         //Get total order qty
@@ -166,6 +104,12 @@ page 51207 "UD Card"
 
                     end;
 
+                }
+
+                field(Factory; rec.Factory)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Qantity; rec.Qantity)
@@ -187,33 +131,33 @@ page 51207 "UD Card"
                 }
             }
 
-            // group("Invoices")
+            // group("Style PO Information")
             // {
-            //     part("Bank Ref Collection ListPart"; "Bank Ref Collection ListPart")
+            //     part("Style PO Infor ListPart"; "Style PO Infor ListPart")
             //     {
             //         ApplicationArea = All;
             //         Caption = ' ';
-            //         SubPageLink = "BankRefNo." = FIELD("BankRefNo.");
+            //         SubPageLink = "No." = FIELD("No.");
             //     }
             // }
 
-            // group("Collection Distribution")
+            // group("BBL LC Information")
             // {
-            //     part("Bank Ref Colle Dist ListPart"; "Bank Ref Colle Dist ListPart")
+            //     part("BBL LC Infor ListPart"; "BBL LC Infor ListPart")
             //     {
             //         ApplicationArea = All;
             //         Caption = ' ';
-            //         SubPageLink = "BankRefNo." = FIELD("BankRefNo.");
+            //         SubPageLink = "No." = FIELD("No.");
             //     }
             // }
 
-            // group("Collection Distribution")
+            // group("PI Information")
             // {
-            //     part("Bank Ref Colle Dist ListPart"; "Bank Ref Colle Dist ListPart")
+            //     part("PI Infor ListPart"; "PI Infor ListPart")
             //     {
             //         ApplicationArea = All;
             //         Caption = ' ';
-            //         SubPageLink = "BankRefNo." = FIELD("BankRefNo.");
+            //         SubPageLink = "No." = FIELD("No.");
             //     }
             // }
         }
