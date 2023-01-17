@@ -22,6 +22,7 @@ report 50125 GeneralIssueReportCard
             column(No_; "No.")
             { }
 
+
             dataitem("General Issue Line"; "General Issue Line")
             {
                 DataItemLinkReference = "General Issue Header";
@@ -43,6 +44,14 @@ report 50125 GeneralIssueReportCard
                 { }
 
             }
+            dataitem("Item Ledger Entry"; "Item Ledger Entry")
+            {
+                DataItemLinkReference = "General Issue Header";
+                DataItemLink = "Document No." = field("No.");
+                DataItemTableView = sorting("Entry No.");
+                column(ItemLeQuantity; Quantity)
+                { }
+            }
 
             trigger OnPreDataItem()
 
@@ -61,6 +70,12 @@ report 50125 GeneralIssueReportCard
                 if ItemJournalBatchRec.FindFirst() then begin
                     BuCode := ItemJournalBatchRec."Shortcut Dimension 1 Code";
                 end;
+
+                // ItemLedgRec.Reset();
+                // ItemLedgRec.SetRange("Document No.", "No.");
+                // if ItemLedgRec.FindFirst() then begin
+                //     ItemLeQuantity := ItemLedgRec.Quantity;
+                // end;
             end;
         }
     }
@@ -93,6 +108,8 @@ report 50125 GeneralIssueReportCard
     end;
 
     var
+        ItemLeQuantity: Decimal;
+        ItemLedgRec: Record "Item Ledger Entry";
         BuCode: Code[20];
         GenIssueNo: Code[20];
         comRec: Record "Company Information";
