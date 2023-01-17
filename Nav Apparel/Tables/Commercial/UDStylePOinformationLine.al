@@ -4,7 +4,7 @@ table 50208 UDStylePOinformation
 
     fields
     {
-        field(1; No; Code[20])
+        field(1; "No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
@@ -43,7 +43,7 @@ table 50208 UDStylePOinformation
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Values"; BigInteger)
+        field(6; "Values"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
@@ -53,7 +53,7 @@ table 50208 UDStylePOinformation
             DataClassification = ToBeClassified;
         }
 
-        field(8; "Ship Values"; BigInteger)
+        field(8; "Ship Values"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
@@ -62,7 +62,7 @@ table 50208 UDStylePOinformation
 
     keys
     {
-        key(PK1; No, "Line No")
+        key(PK1; "No.", "Line No")
         {
             Clustered = true;
         }

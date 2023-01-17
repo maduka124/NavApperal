@@ -876,6 +876,7 @@ codeunit 50618 NavAppCodeUnit
         SalesInvHeader.Lot := SalesHeader.Lot;
         SalesInvHeader.EntryType := SalesHeader.EntryType;
         SalesInvHeader."Secondary UserID" := SalesHeader."Secondary UserID";
+        SalesInvHeader."Merchandizer Group Name" := SalesHeader."Merchandizer Group Name";
 
     end;
 

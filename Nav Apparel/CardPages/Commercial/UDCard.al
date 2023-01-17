@@ -102,6 +102,9 @@ page 51207 "UD Card"
 
                         rec.Qantity := TotalQty;
 
+                        //Load Style_PO details for the contract
+                        Load_Style_PO_Detail();
+
                     end;
 
                 }
@@ -131,15 +134,15 @@ page 51207 "UD Card"
                 }
             }
 
-            // group("Style PO Information")
-            // {
-            //     part("Style PO Infor ListPart"; "Style PO Infor ListPart")
-            //     {
-            //         ApplicationArea = All;
-            //         Caption = ' ';
-            //         SubPageLink = "No." = FIELD("No.");
-            //     }
-            // }
+            group("Style PO Information")
+            {
+                part("Style PO Info ListPart"; "Style PO Info ListPart")
+                {
+                    ApplicationArea = All;
+                    Caption = ' ';
+                    SubPageLink = "No." = FIELD("No.");
+                }
+            }
 
             // group("BBL LC Information")
             // {
@@ -163,158 +166,63 @@ page 51207 "UD Card"
         }
     }
 
-    // actions
-    // {
-    //     area(Processing)
-    //     {
-    //         action("Transfer to cash receipt journal")
-    //         {
-    //             ApplicationArea = all;
-    //             Image = CashReceiptJournal;
+    procedure Load_Style_PO_Detail()
+    var
+        UDStylePOinfoRec: Record UDStylePOinformation;
+        ContLCMasRec: Record "Contract/LCMaster";
+        "Contract/LCStyleRec": Record "Contract/LCStyle";
+        StyleMasterRec: Record "Style Master";
+        StyleMasterPORec: Record "Style Master PO";
+        LineNo: Integer;
+    begin
 
-    //             trigger OnAction()
-    //             var
-    //                 CashRcptJrnl: Page "Cash Receipt Journal";
-    //                 GenJournalRec: Record "Gen. Journal Line";
-    //                 BankRefCollecLine: Record BankRefCollectionLine;
-    //                 SalesInvHeaderRec: Record "Sales Invoice Header";
-    //                 CustledgerEntryrec: Record "Cust. Ledger Entry";
-    //                 NavAppSetuprec: Record "NavApp Setup";
-    //                 LineNo: BigInteger;
-    //             begin
-    //                 NavAppSetuprec.Reset();
-    //                 NavAppSetuprec.FindSet();
+        //Delete old details
+        UDStylePOinfoRec.Reset();
+        UDStylePOinfoRec.SetRange("No.", rec."No.");
+        if UDStylePOinfoRec.FindSet() then
+            UDStylePOinfoRec.DeleteAll();
 
-    //                 //Get max line no
-    //                 GenJournalRec.Reset();
-    //                 GenJournalRec.SetRange("Journal Template Name", NavAppSetuprec."Bank Ref. Template Name");
-    //                 GenJournalRec.SetRange("Journal Batch Name", NavAppSetuprec."Cash Rec. Batch Name");
+        //Check the contract
+        ContLCMasRec.Reset();
+        ContLCMasRec.SetRange("Contract No", rec."LC/Contract No.");
+        if ContLCMasRec.FindSet() then begin
 
-    //                 if GenJournalRec.FindLast() then
-    //                     LineNo := GenJournalRec."Line No.";
+            //get styles for the contract
+            "Contract/LCStyleRec".Reset();
+            "Contract/LCStyleRec".SetRange("No.", ContLCMasRec."No.");
 
-    //                 BankRefCollecLine.Reset();
-    //                 BankRefCollecLine.SetRange("BankRefNo.", rec."BankRefNo.");
-    //                 BankRefCollecLine.SetFilter("Transferred To Cash Receipt", '=%1', false);
+            if "Contract/LCStyleRec".FindSet() then begin
+                repeat
 
-    //                 if BankRefCollecLine.Findset() then
-    //                     repeat
+                    //Get PO details for the style
+                    StyleMasterPORec.Reset();
+                    StyleMasterPORec.SetRange("Style No.", "Contract/LCStyleRec"."Style No.");
 
-    //                         LineNo += 100;
-    //                         GenJournalRec.Init();
-    //                         GenJournalRec."Journal Template Name" := NavAppSetuprec."Bank Ref. Template Name";
-    //                         GenJournalRec."Journal Batch Name" := NavAppSetuprec."Cash Rec. Batch Name";
-    //                         GenJournalRec."Line No." := LineNo;
-    //                         GenJournalRec."Invoice No" := BankRefCollecLine."Invoice No";
-    //                         GenJournalRec."BankRefNo" := BankRefCollecLine."BankRefNo.";
-    //                         GenJournalRec.Validate("Document Type", GenJournalRec."Document Type"::Payment);
-    //                         GenJournalRec.Validate("Document No.", BankRefCollecLine."Invoice No");
-    //                         GenJournalRec."Document Date" := BankRefCollecLine."Invoice Date";
-    //                         GenJournalRec."Posting Date" := WorkDate();
-    //                         GenJournalRec.Description := 'Bank Ref : ' + rec."BankRefNo." + ' for Invoice : ' + BankRefCollecLine."Invoice No";
-    //                         GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::Customer);
+                    if StyleMasterPORec.FindSet() then begin
+                        repeat
+                            LineNo += 1;
+                            //Insert po
+                            UDStylePOinfoRec.Init();
+                            UDStylePOinfoRec."No." := rec."No.";
+                            UDStylePOinfoRec."Line No" := LineNo;
+                            UDStylePOinfoRec."Order Qty" := StyleMasterPORec.Qty;
+                            UDStylePOinfoRec."PO No" := StyleMasterPORec."PO No.";
+                            UDStylePOinfoRec."Ship Date" := StyleMasterPORec."Ship Date";
+                            UDStylePOinfoRec."Ship Qty" := StyleMasterPORec."Shipped Qty";
+                            UDStylePOinfoRec."Ship Values" := StyleMasterPORec."Shipped Qty" * StyleMasterPORec."Unit Price";
+                            UDStylePOinfoRec."Style Name" := StyleMasterPORec."Style Name";
+                            UDStylePOinfoRec."Style No" := StyleMasterPORec."Style No.";
+                            UDStylePOinfoRec."Unit Price" := StyleMasterPORec."Unit Price";
+                            UDStylePOinfoRec.Values := StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
+                            UDStylePOinfoRec.Insert();
+                        until StyleMasterPORec.Next() = 0;
+                    end;
 
-    //                         SalesInvHeaderRec.Reset();
-    //                         SalesInvHeaderRec.SetRange("No.", BankRefCollecLine."Invoice No");
+                until "Contract/LCStyleRec".Next() = 0;
+            end;
 
-    //                         if SalesInvHeaderRec.Findset() then
-    //                             GenJournalRec.Validate("Account No.", SalesInvHeaderRec."Sell-to Customer No.");
-
-    //                         GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
-    //                         GenJournalRec.Validate("Bal. Account No.", rec."Cash Receipt Bank No");
-    //                         GenJournalRec.Validate(Amount, BankRefCollecLine."Release Amount" * -1);
-    //                         GenJournalRec."Expiration Date" := WorkDate();
-    //                         GenJournalRec."Source Code" := 'CASHRECJNL';
-    //                         GenJournalRec.Insert();
-
-    //                         //Update relase amount in custledger entry
-    //                         CustledgerEntryrec.Reset();
-    //                         CustledgerEntryrec.SetRange("Document Type", CustledgerEntryrec."Document Type"::Invoice);
-    //                         CustledgerEntryrec.SetRange("Document No.", BankRefCollecLine."Invoice No");
-    //                         CustledgerEntryrec.SetRange("Customer No.", SalesInvHeaderRec."Sell-to Customer No.");
-
-    //                         if CustledgerEntryrec.Findset() then begin
-    //                             CustledgerEntryrec.Validate("Amount to Apply", BankRefCollecLine."Release Amount");
-    //                             CustledgerEntryrec.Modify();
-    //                         end;
-
-    //                         rec."Cash Rece. Updated" := true;
-    //                         BankRefCollecLine."Transferred To Cash Receipt" := true;
-    //                         BankRefCollecLine.Modify();
-
-    //                     until BankRefCollecLine.Next() = 0;
-
-    //                 CurrPage.Update();
-    //                 Message('Completed');
-    //                 //CashRcptJrnl.Run();
-
-    //             end;
-    //         }
-
-    //         action("Transfer to general journal")
-    //         {
-    //             ApplicationArea = all;
-    //             Image = GeneralLedger;
-
-    //             trigger OnAction()
-    //             var
-    //                 GenJrnl: Page "General Journal";
-    //                 GenJournalRec: Record "Gen. Journal Line";
-    //                 BankRefDistributionRec: Record BankRefDistribution;
-    //                 CustledgerEntryrec: Record "Cust. Ledger Entry";
-    //                 NavAppSetuprec: Record "NavApp Setup";
-    //                 LineNo: BigInteger;
-    //             begin
-    //                 NavAppSetuprec.Reset();
-    //                 NavAppSetuprec.FindSet();
-
-    //                 //Get max line no
-    //                 GenJournalRec.Reset();
-    //                 GenJournalRec.SetRange("Journal Template Name", NavAppSetuprec."Bank Ref. Template Name1");
-    //                 GenJournalRec.SetRange("Journal Batch Name", NavAppSetuprec."Gen. Jrnl. Batch Name");
-
-    //                 if GenJournalRec.FindLast() then
-    //                     LineNo := GenJournalRec."Line No.";
-
-    //                 BankRefDistributionRec.Reset();
-    //                 BankRefDistributionRec.SetRange("BankRefNo.", rec."BankRefNo.");
-    //                 BankRefDistributionRec.SetFilter("Transferred To Gen. Jrnl.", '=%1', false);
-
-    //                 if BankRefDistributionRec.Findset() then
-    //                     repeat
-
-    //                         LineNo += 100;
-    //                         GenJournalRec.Init();
-    //                         GenJournalRec."Journal Template Name" := NavAppSetuprec."Bank Ref. Template Name1";
-    //                         GenJournalRec."Journal Batch Name" := NavAppSetuprec."Gen. Jrnl. Batch Name";
-    //                         GenJournalRec."Line No." := LineNo;
-    //                         GenJournalRec."BankRefNo" := BankRefDistributionRec."BankRefNo.";
-    //                         GenJournalRec.Validate("Document No.", BankRefDistributionRec."BankRefNo.");
-    //                         GenJournalRec."Document Date" := WorkDate();
-    //                         GenJournalRec."Posting Date" := BankRefDistributionRec."Posting Date";
-    //                         GenJournalRec.Description := 'Bank Ref : ' + rec."BankRefNo.";
-    //                         GenJournalRec.Validate("Account Type", GenJournalRec."Account Type"::"Bank Account");
-    //                         GenJournalRec.Validate("Account No.", BankRefDistributionRec."Debit Bank Account No");
-    //                         GenJournalRec.Validate("Bal. Account Type", GenJournalRec."Bal. Account Type"::"Bank Account");
-    //                         GenJournalRec.Validate("Bal. Account No.", BankRefDistributionRec."Credit Bank Account No");
-    //                         GenJournalRec.Validate(Amount, BankRefDistributionRec."Credit Amount" * -1);
-    //                         GenJournalRec."Expiration Date" := WorkDate() + 20;
-    //                         GenJournalRec.Insert();
-
-    //                         //rec."Cash Rece. Updated" := true;
-    //                         BankRefDistributionRec."Transferred To Gen. Jrnl." := true;
-    //                         BankRefDistributionRec.Modify();
-
-    //                     until BankRefDistributionRec.Next() = 0;
-
-    //                 CurrPage.Update();
-    //                 Message('Completed');
-    //                 //GenJrnl.Run();
-
-    //             end;
-    //         }
-    //     }
-    // }
+        end;
+    end;
 
     // trigger OnDeleteRecord(): Boolean
     // var

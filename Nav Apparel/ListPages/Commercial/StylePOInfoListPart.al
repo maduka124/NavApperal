@@ -1,7 +1,9 @@
 page 51211 "Style PO Info ListPart"
 {
     PageType = ListPart;
-    SourceTable =;
+    SourceTable = UDStylePOinformation;
+    Editable = false;
+
 
     layout
     {
@@ -9,39 +11,19 @@ page 51211 "Style PO Info ListPart"
         {
             repeater(General)
             {
-                field("Lot No."; rec."Lot No.")
+                field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Lot No';
+                    Caption = 'Style';
                 }
 
-                field("PO No."; rec."PO No.")
+                field("PO NO"; rec."PO No")
                 {
                     ApplicationArea = All;
                     Caption = 'PO No';
                 }
 
-                field(Qty; rec.Qty)
-                {
-                    ApplicationArea = All;
-                }
-
-                field(Mode; rec.Mode)
-                {
-                    ApplicationArea = All;
-                }
-
-                field(BPCD; rec.BPCD)
-                {
-                    ApplicationArea = All;
-                }
-
-                field("Ship Date"; rec."Ship Date")
-                {
-                    ApplicationArea = All;
-                }
-
-                field(SID; rec.SID)
+                field("Order Qty"; rec."Order Qty")
                 {
                     ApplicationArea = All;
                 }
@@ -51,14 +33,26 @@ page 51211 "Style PO Info ListPart"
                     ApplicationArea = All;
                 }
 
-                field(Status; rec.Status)
+                field("Ship Date"; rec."Ship Date")
                 {
                     ApplicationArea = All;
                 }
 
-                field("Confirm Date"; rec."Confirm Date")
+                field(Values; rec.Values)
                 {
                     ApplicationArea = All;
+                    Caption = 'Value';
+                }
+
+                field("Ship Qty"; rec."Ship Qty")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Ship Values"; rec."Ship Values")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Ship Value';
                 }
             }
         }

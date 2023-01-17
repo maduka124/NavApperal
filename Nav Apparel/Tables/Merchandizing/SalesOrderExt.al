@@ -24,15 +24,43 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
             OptionMembers = FG,Sample,Washing;
         }
 
-        field(50006; "Secondary UserID"; Code[20])
+
+        //Newly added by maduka on 17/1/2023
+        field(50006; "BankRefNo"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(50007; "Merchandizer Group Name"; Text[200])
+        field(50007; "AssignedBankRefNo"; Code[50])
         {
-
+            DataClassification = ToBeClassified;
         }
+
+        field(50008; "Select"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50009; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50010; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
+        // field(50006; "Secondary UserID"; Code[20])
+        // {
+        //     DataClassification = ToBeClassified;
+        // }
+
+        // field(50007; "Merchandizer Group Name"; Text[200])
+        // {
+
+        // }
     }
 
 

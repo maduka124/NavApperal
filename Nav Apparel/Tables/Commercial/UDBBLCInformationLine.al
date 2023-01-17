@@ -4,62 +4,62 @@ table 50209 UDBBLcInformation
 
     fields
     {
-        field(11; No; Code[20])
+        field(1; "No."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(12; "Line No"; BigInteger)
+        field(2; "Line No"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(1; "Issue Bank"; Text[50])
+        field(3; "Issue Bank No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(9; "Issue Bank No"; Code[20])
+        field(4; "Issue Bank"; Text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(2; BBLC; Integer)
+        field(5; BBLC; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Supplier Name"; Text[200])
+        field(6; "Supplier No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(10; "Supplier No"; Code[20])
+        field(7; "Supplier Name"; Text[200])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(4; "LC Amount"; BigInteger)
+        field(8; "LC Amount"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Open Date"; Date)
+        field(9; "Open Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Expice Date"; Date)
+        field(10; "Expice Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(7; "Payment Mode"; Text[50])
+        field(11; "Payment Mode"; Text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(8; UD; Boolean)
+        field(12; UD; Boolean)
         {
             DataClassification = ToBeClassified;
         }
@@ -67,7 +67,7 @@ table 50209 UDBBLcInformation
 
     keys
     {
-        key(PK1; No, "Line No")
+        key(PK1; "No.", "Line No")
         {
             Clustered = true;
         }

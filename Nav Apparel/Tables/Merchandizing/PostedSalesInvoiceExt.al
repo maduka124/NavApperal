@@ -44,6 +44,12 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
             DataClassification = ToBeClassified;
         }
 
+        //Done by maduka on 17/1/2023
+        field(50010; "Merchandizer Group Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 }
 
