@@ -24,6 +24,7 @@ page 50770 "Bank Ref Collection Card"
                         LineNo: Integer;
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        NavAppSetup: Record "NavApp Setup";
                     begin
 
                         BankRefCollLineRec.Reset();
@@ -54,6 +55,14 @@ page 50770 "Bank Ref Collection Card"
                                     BankRefCollLineRec."Reference Date" := BankRefHeaderRec."Reference Date";
                                     BankRefCollLineRec.Insert();
                                 until BankRefInvRec.Next() = 0;
+
+                            //Assign template 
+                            NavAppSetup.Reset();
+                            if NavAppSetup.FindSet() then begin
+                                rec."Bank Ref. Template Name" := NavAppSetup."Bank Ref. Template Name";
+                                rec."Bank Ref. Template Name1" := NavAppSetup."Bank Ref. Template Name1";
+                            end;
+
                         end;
 
                         //Check whether user logged in or not
@@ -276,6 +285,13 @@ page 50770 "Bank Ref Collection Card"
                 field("Journal Batch"; rec."Journal Batch")
                 {
                     ApplicationArea = All;
+                    Caption = 'Gen. Jrnl. Batch Name';
+                }
+
+                field("Cash Rec. Journal Batch"; rec."Cash Rec. Journal Batch")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Cash Rece. Batch Name';
                 }
 
                 field("Cash Receipt Bank Account No"; rec."Cash Receipt Bank Account No")
@@ -295,7 +311,6 @@ page 50770 "Bank Ref Collection Card"
                         end;
                     end;
                 }
-
             }
 
             group("Invoices")
@@ -337,16 +352,16 @@ page 50770 "Bank Ref Collection Card"
                     BankRefCollecLine: Record BankRefCollectionLine;
                     SalesInvHeaderRec: Record "Sales Invoice Header";
                     CustledgerEntryrec: Record "Cust. Ledger Entry";
-                    NavAppSetuprec: Record "NavApp Setup";
+                    //NavAppSetuprec: Record "NavApp Setup";
                     LineNo: BigInteger;
                 begin
-                    NavAppSetuprec.Reset();
-                    NavAppSetuprec.FindSet();
+                    // NavAppSetuprec.Reset();
+                    // NavAppSetuprec.FindSet();
 
                     //Get max line no
                     GenJournalRec.Reset();
-                    GenJournalRec.SetRange("Journal Template Name", NavAppSetuprec."Bank Ref. Template Name");
-                    GenJournalRec.SetRange("Journal Batch Name", NavAppSetuprec."Cash Rec. Batch Name");
+                    GenJournalRec.SetRange("Journal Template Name", rec."Bank Ref. Template Name");
+                    GenJournalRec.SetRange("Journal Batch Name", rec."Cash Rec. Journal Batch");
 
                     if GenJournalRec.FindLast() then
                         LineNo := GenJournalRec."Line No.";
@@ -360,8 +375,8 @@ page 50770 "Bank Ref Collection Card"
 
                             LineNo += 100;
                             GenJournalRec.Init();
-                            GenJournalRec."Journal Template Name" := NavAppSetuprec."Bank Ref. Template Name";
-                            GenJournalRec."Journal Batch Name" := NavAppSetuprec."Cash Rec. Batch Name";
+                            GenJournalRec."Journal Template Name" := rec."Bank Ref. Template Name";
+                            GenJournalRec."Journal Batch Name" := rec."Cash Rec. Journal Batch";
                             GenJournalRec."Line No." := LineNo;
                             GenJournalRec."Invoice No" := BankRefCollecLine."Invoice No";
                             GenJournalRec."BankRefNo" := BankRefCollecLine."BankRefNo.";
@@ -420,16 +435,16 @@ page 50770 "Bank Ref Collection Card"
                     GenJournalRec: Record "Gen. Journal Line";
                     BankRefDistributionRec: Record BankRefDistribution;
                     CustledgerEntryrec: Record "Cust. Ledger Entry";
-                    NavAppSetuprec: Record "NavApp Setup";
+                    //NavAppSetuprec: Record "NavApp Setup";
                     LineNo: BigInteger;
                 begin
-                    NavAppSetuprec.Reset();
-                    NavAppSetuprec.FindSet();
+                    // NavAppSetuprec.Reset();
+                    // NavAppSetuprec.FindSet();
 
                     //Get max line no
                     GenJournalRec.Reset();
-                    GenJournalRec.SetRange("Journal Template Name", NavAppSetuprec."Bank Ref. Template Name1");
-                    GenJournalRec.SetRange("Journal Batch Name", NavAppSetuprec."Gen. Jrnl. Batch Name");
+                    GenJournalRec.SetRange("Journal Template Name", rec."Bank Ref. Template Name1");
+                    GenJournalRec.SetRange("Journal Batch Name", rec."Journal Batch");
 
                     if GenJournalRec.FindLast() then
                         LineNo := GenJournalRec."Line No.";
@@ -443,8 +458,8 @@ page 50770 "Bank Ref Collection Card"
 
                             LineNo += 100;
                             GenJournalRec.Init();
-                            GenJournalRec."Journal Template Name" := NavAppSetuprec."Bank Ref. Template Name1";
-                            GenJournalRec."Journal Batch Name" := NavAppSetuprec."Gen. Jrnl. Batch Name";
+                            GenJournalRec."Journal Template Name" := rec."Bank Ref. Template Name1";
+                            GenJournalRec."Journal Batch Name" := rec."Journal Batch";
                             GenJournalRec."Line No." := LineNo;
                             GenJournalRec."BankRefNo" := BankRefDistributionRec."BankRefNo.";
                             GenJournalRec.Validate("Document No.", BankRefDistributionRec."BankRefNo.");

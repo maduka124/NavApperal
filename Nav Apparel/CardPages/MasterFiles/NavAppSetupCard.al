@@ -637,20 +637,6 @@ page 50964 "NavApp Setup Card"
                     TableRelation = "Gen. Journal Template" where(Type = const(General));
                 }
 
-                field("Cash Rec. Batch Name"; rec."Cash Rec. Batch Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Cash Rece. Batch Name';
-                    TableRelation = "Gen. Journal Batch".Name WHERE("Journal Template Name" = FIELD("Bank Ref. Template Name"));
-                }
-
-                field("Gen. Jrnl. Batch Name"; rec."Gen. Jrnl. Batch Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Gen. Jrnl. Batch Name';
-                    TableRelation = "Gen. Journal Batch".Name WHERE("Journal Template Name" = FIELD("Bank Ref. Template Name1"));
-                }
-
                 field("UD Nos."; rec."UD Nos.")
                 {
                     ApplicationArea = All;

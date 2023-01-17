@@ -98,14 +98,34 @@ table 50767 BankRefCollectionHeader
         field(18; "Journal Batch"; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Gen. Journal Batch".Name where("Journal Template Name" = field("Journal Template"));
+            TableRelation = "Gen. Journal Batch".Name WHERE("Journal Template Name" = FIELD("Bank Ref. Template Name1"));
         }
 
         field(19; "Cash Rece. Updated"; Boolean)
         {
             DataClassification = ToBeClassified;
         }
+
+        field(20; "Cash Rec. Journal Batch"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Gen. Journal Batch".Name WHERE("Journal Template Name" = FIELD("Bank Ref. Template Name"));
+        }
+
+        field(21; "Bank Ref. Template Name"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            //Cash receipt
+        }
+
+        field(22; "Bank Ref. Template Name1"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            //general journal
+        }
+
     }
+
 
     keys
     {
