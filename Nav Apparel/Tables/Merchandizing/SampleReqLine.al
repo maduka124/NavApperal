@@ -386,6 +386,18 @@ table 50931 "Sample Requsition Line"
             TableRelation = Workers."Worker Name" where("Worker Type" = const('QUALITY FINISH CHECKER'), Status = filter(Active));
             ValidateTableRelation = false;
         }
+
+        // Done By Sachith On 18/01/23
+        field(71012643; "Garment Type"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        // Done By Sachith On 18/01/23
+        field(71012644; "Garment Type No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

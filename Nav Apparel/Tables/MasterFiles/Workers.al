@@ -16,6 +16,9 @@ table 50797 Workers
         field(2; "Worker Type"; Code[50])
         {
             DataClassification = ToBeClassified;
+            // Done By Sachith On 18/01/23
+            TableRelation = UserRoles.Description;
+            ValidateTableRelation = false;
         }
 
         field(3; "Worker Name"; text[50])
@@ -40,7 +43,27 @@ table 50797 Workers
             DataClassification = ToBeClassified;
         }
 
-         field(7; "Secondary UserID"; Code[20])
+        field(7; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        // Done By Sachith on 18/01/23
+        field(8; "Department Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Department."Department Name";
+            ValidateTableRelation = false;
+        }
+
+        // Done By Sachith on 18/01/23
+        field(9; "Department No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        // Done By Sachith on 18/01/23
+        field(10; "User Role Code"; Code[20])
         {
             DataClassification = ToBeClassified;
         }

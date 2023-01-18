@@ -46,9 +46,41 @@ page 50799 "Workers Card"
                     end;
                 }
 
+                //Done By Sachith On 18/01/23
+                field("Department Name"; Rec."Department Name")
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        DepartmentRec: Record Department;
+                    begin
+
+                        DepartmentRec.Reset();
+                        DepartmentRec.SetRange("Department Name", rec."Department Name");
+
+                        if DepartmentRec.FindSet() then
+                            Rec."Department No" := DepartmentRec."No.";
+                    end;
+                }
+
                 field("Worker Type"; rec."Worker Type")
                 {
                     ApplicationArea = All;
+
+                    //Done By Sachith On 18/01/23
+                    trigger OnValidate()
+                    var
+                        UserRoleRec: Record UserRoles;
+                    begin
+
+                        UserRoleRec.Reset();
+                        UserRoleRec.SetRange(Description, Rec."Worker Type");
+
+                        if UserRoleRec.FindSet() then
+                            Rec."User Role Code" := UserRoleRec.Code;
+
+                    end;
                 }
 
                 field(Status; rec.Status)

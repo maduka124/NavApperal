@@ -2264,6 +2264,14 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                // Done By Sachith On 16/01/23
+                action("User Roles")
+                {
+                    Caption = 'User Role';
+                    RunObject = Page "Users Role List";
+                    ApplicationArea = all;
+                }
+
                 action("Nav Apperal Setup")
                 {
                     Caption = 'Apperal Setup';

@@ -146,7 +146,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>STYLE DESCRIPTION</Value>
+                                  <Value>GARMENT TYPE</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -171,14 +171,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Style_Name">
+                        <Textbox Name="Garment_Type_Name">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Style_Name.Value</Value>
+                                  <Value>=Fields!Garment_Type_Name.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -189,7 +189,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Style_Name</rd:DefaultName>
+                          <rd:DefaultName>Garment_Type_Name</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -351,7 +351,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>STYLE NO</Value>
+                                  <Value>STYLE NAME</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -376,14 +376,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Style_No_">
+                        <Textbox Name="Style_Name1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Style_No_.Value</Value>
+                                  <Value>=Fields!Style_Name.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -394,7 +394,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Style_No_</rd:DefaultName>
+                          <rd:DefaultName>Style_Name1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -4327,9 +4327,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Brand_Name">
           <DataField>Brand_Name</DataField>
-        </Field>
-        <Field Name="Hide">
-          <DataField>Hide</DataField>
         </Field>
         <Field Name="Sample_Name">
           <DataField>Sample_Name</DataField>
