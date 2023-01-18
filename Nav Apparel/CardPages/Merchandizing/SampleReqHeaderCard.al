@@ -339,34 +339,34 @@ page 50600 "Sample Request Card"
             }
 
 
-            action("Update Brand Name")
-            {
-                Image = "8ball";
-                ApplicationArea = All;
+            // action("Update Brand Name")
+            // {
+            //     Image = "8ball";
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    stymaster: Record "Style Master";
-                    samplereq: Record "Sample Requsition Header";
-                begin
-                    samplereq.Reset();
-                    if samplereq.FindSet() then begin
-                        repeat
+            //     trigger OnAction()
+            //     var
+            //         stymaster: Record "Style Master";
+            //         samplereq: Record "Sample Requsition Header";
+            //     begin
+            //         samplereq.Reset();
+            //         if samplereq.FindSet() then begin
+            //             repeat
 
-                            stymaster.Reset();
-                            stymaster.SetRange("No.", samplereq."Style No.");
-                            if stymaster.Findset() then begin
+            //                 stymaster.Reset();
+            //                 stymaster.SetRange("No.", samplereq."Style No.");
+            //                 if stymaster.Findset() then begin
 
-                                samplereq."Brand Name" := stymaster."Brand Name";
-                                samplereq."Brand No" := stymaster."Brand No.";
-                                samplereq.Modify();
+            //                     samplereq."Brand Name" := stymaster."Brand Name";
+            //                     samplereq."Brand No" := stymaster."Brand No.";
+            //                     samplereq.Modify();
 
-                            end;
-                        until samplereq.Next() = 0;
-                    end;
+            //                 end;
+            //             until samplereq.Next() = 0;
+            //         end;
 
-                end;
-            }
+            //     end;
+            // }
 
             // action("Update Article")
             // {

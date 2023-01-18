@@ -68,6 +68,11 @@ table 50209 UDBBLcInformation
         {
             DataClassification = ToBeClassified;
         }
+
+        field(14; BBLCValue; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

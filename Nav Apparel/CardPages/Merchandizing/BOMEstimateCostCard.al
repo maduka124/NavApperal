@@ -1387,27 +1387,26 @@ page 50986 "BOM Estimate Cost Card"
             }
 
 
+            // action(ABCD)
+            // {
+            //     Image = "8ball";
+            //     ApplicationArea = All;
 
-            action(ABCD)
-            {
-                Image = "8ball";
-                ApplicationArea = All;
+            //     trigger OnAction()
+            //     var
+            //         bom: Record "BOM Estimate Cost";
+            //     begin
+            //         bom.Reset();
+            //         if bom.FindSet() then begin
+            //             repeat
+            //                 bom."Approved UserID1" := bom."Approved UserID";
+            //                 bom.Modify();
 
-                trigger OnAction()
-                var
-                    bom: Record "BOM Estimate Cost";
-                begin
-                    bom.Reset();
-                    if bom.FindSet() then begin
-                        repeat
-                            bom."Approved UserID1" := bom."Approved UserID";
-                            bom.Modify();
+            //             until bom.Next() = 0;
+            //         end;
+            //     end;
 
-                        until bom.Next() = 0;
-                    end;
-                end;
-
-            }
+            // }
         }
     }
 

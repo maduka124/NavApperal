@@ -34,7 +34,7 @@ page 51213 "PI Infor ListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Order Qty"; rec."Order Qty")
+                field("Order Qty"; rec."Order Qty1")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;

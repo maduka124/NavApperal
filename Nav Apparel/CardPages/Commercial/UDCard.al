@@ -277,7 +277,7 @@ page 51207 "UD Card"
                 UDBBLcInfoRec.Init();
                 UDBBLcInfoRec."No." := rec."No.";
                 UDBBLcInfoRec."Line No" := LineNo;
-                UDBBLcInfoRec.BBLC := B2BLCMasterRec."B2B LC No";
+                UDBBLcInfoRec.BBLCValue := B2BLCMasterRec."B2B LC Value";
                 UDBBLcInfoRec."Expice Date" := B2BLCMasterRec."Expiry Date";
                 UDBBLcInfoRec."Issue Bank" := B2BLCMasterRec."Issue Bank";
                 UDBBLcInfoRec."Issue Bank No" := B2BLCMasterRec."LC Issue Bank No.";
@@ -347,7 +347,7 @@ page 51207 "UD Card"
                                     UDPIInfoRec."Item Description" := PIItemsRec."Item Name";
                                     UDPIInfoRec."Main Category" := PIItemsRec."Main Category Name";
                                     UDPIInfoRec."Main Category No" := PIItemsRec."Main Category No.";
-                                    UDPIInfoRec."Order Qty" := PIItemsRec.Qty;
+                                    UDPIInfoRec."Order Qty1" := PIItemsRec.Qty;
                                     UDPIInfoRec."Supplier" := PIHeaderRec."Supplier Name";
                                     UDPIInfoRec."Suplier No" := PIHeaderRec."Supplier No.";
                                     UDPIInfoRec."Unit Price" := PIItemsRec."Unit Price";
@@ -370,7 +370,7 @@ page 51207 "UD Card"
             UDPIInfoRec.Init();
             UDPIInfoRec."No." := rec."No.";
             UDPIInfoRec."Line No" := LineNo + 1;
-            UDPIInfoRec."Order Qty" := TotOrderQty;
+            UDPIInfoRec."Order Qty1" := TotOrderQty;
             UDPIInfoRec."Supplier" := 'Total';
             UDPIInfoRec.Value := TotValue;
             UDPIInfoRec.Insert();

@@ -17,10 +17,11 @@ page 51212 "BBL LC Infor ListPart"
                     Editable = false;
                 }
 
-                field(BBLC; Rec.BBLC)
+                field(BBLC; Rec.BBLCValue)
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'BBLC Value';
                 }
 
                 field("Supplier Name"; Rec."Supplier Name")

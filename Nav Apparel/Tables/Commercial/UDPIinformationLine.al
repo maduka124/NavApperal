@@ -58,6 +58,11 @@ table 51210 UDPIinformationLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(12; "Order Qty1"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
