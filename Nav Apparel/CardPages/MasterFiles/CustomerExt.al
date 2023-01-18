@@ -42,6 +42,22 @@ pageextension 50948 CustomerCardExt extends "Customer Card"
             }
         }
 
+        modify(Name)
+        {
+            trigger OnAfterValidate()
+            var
+                CustomerRec: Record Customer;
+            begin
+                //Check customer name already exists                
+                CustomerRec.Reset();
+                CustomerRec.SetRange(Name, rec.Name);
+                CustomerRec.SetFilter("No.", '<>%1', rec."No.");
+
+                if CustomerRec.FindSet() then
+                    Error('Customer Name already exists in Customer No : %1', CustomerRec."No.");
+            end;
+        }
+
         // modify("No.")
         // {
         //     trigger OnAfterValidate()

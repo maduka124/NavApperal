@@ -1225,7 +1225,7 @@ page 50986 "BOM Estimate Cost Card"
                     rec.Status := rec.Status::Approved;
                     rec."Approved Date" := WorkDate();
                     rec."Rejected Date" := 0D;
-                    rec."Approved UserID" := UserId;
+                    rec."Approved UserID1" := UserId;
                     CurrPage.Update();
 
                     //Get max revision no
@@ -1380,13 +1380,37 @@ page 50986 "BOM Estimate Cost Card"
                     rec.Status := rec.Status::Rejected;
                     rec."Rejected Date" := WorkDate();
                     rec."Approved Date" := 0D;
-                    rec."Approved UserID" := '';
+                    rec."Approved UserID1" := '';
                     CurrPage.Update();
                     Message('BOM Costing Rejected');
                 end;
             }
+
+
+
+            action(ABCD)
+            {
+                Image = "8ball";
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    bom: Record "BOM Estimate Cost";
+                begin
+                    bom.Reset();
+                    if bom.FindSet() then begin
+                        repeat
+                            bom."Approved UserID1" := bom."Approved UserID";
+                            bom.Modify();
+
+                        until bom.Next() = 0;
+                    end;
+                end;
+
+            }
         }
     }
+
 
     procedure AssistEdit(): Boolean
     var
@@ -1656,7 +1680,7 @@ page 50986 "BOM Estimate Cost Card"
             rec."FOB Pcs" := 1;
 
         if rec.Status = rec.Status::Approved then begin
-            ApprovalStatus := 'Costing is approved by ' + rec."Approved UserID" + ' on ' + format(rec."Approved Date") + '.';
+            ApprovalStatus := 'Costing is approved by ' + rec."Approved UserID1" + ' on ' + format(rec."Approved Date") + '.';
             EditableGB := false;
         end
         else begin
@@ -1672,7 +1696,7 @@ page 50986 "BOM Estimate Cost Card"
     var
     begin
         if rec.Status = rec.Status::Approved then begin
-            ApprovalStatus := 'Costing is approved by ' + rec."Approved UserID" + ' on ' + format(rec."Approved Date") + '.';
+            ApprovalStatus := 'Costing is approved by ' + rec."Approved UserID1" + ' on ' + format(rec."Approved Date") + '.';
             EditableGB := false;
         end
         else begin
@@ -1681,6 +1705,9 @@ page 50986 "BOM Estimate Cost Card"
         end;
 
     end;
+
+
+
 
 
     var

@@ -18,7 +18,11 @@ table 50930 "Sample Requsition Header"
         field(71012583; "Buyer Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Customer.Name where("Group Name" = field("Merchandizer Group Name"));
+            TableRelation = if ("Merchandizer Group Name" = filter(''))
+                    Customer.Name
+            else
+            Customer.Name where("Group Name" = field("Merchandizer Group Name"));
+
             ValidateTableRelation = false;
         }
 

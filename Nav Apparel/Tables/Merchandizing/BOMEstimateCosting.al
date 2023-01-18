@@ -578,6 +578,13 @@ table 50889 "BOM Estimate Cost"
         field(71012679; "Approved UserID"; Code[20])
         {
             DataClassification = ToBeClassified;
+            //Not using
+        }
+
+
+        field(71012680; "Approved UserID1"; Code[50])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 

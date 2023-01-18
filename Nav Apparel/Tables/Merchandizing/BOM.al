@@ -49,7 +49,12 @@ table 50887 "BOM"
         field(71012588; "Buyer Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Customer.Name where("Group Name" = field("Merchandizer Group Name"));
+            TableRelation = if ("Merchandizer Group Name" = filter(''))
+                    Customer.Name
+            else
+            Customer.Name where("Group Name" = field("Merchandizer Group Name"));
+
+            //TableRelation = Customer.Name where("Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
 

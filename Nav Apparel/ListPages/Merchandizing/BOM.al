@@ -83,7 +83,7 @@ page 51022 "BOM"
         BOMAUTOProdBOMRec: Record "BOM Line AutoGen ProdBOM";
     begin
 
-        BOMAUTOProdBOMRec.Insert();
+        BOMAUTOProdBOMRec.Reset();
         BOMAUTOProdBOMRec.SetRange("No.", rec.No);
 
         if BOMAUTOProdBOMRec.FindSet() then
