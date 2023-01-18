@@ -33,6 +33,8 @@ report 50639 SampleRequest
             // Done By Sachith on on 13/01/23
             column(Brand_Name; "Brand Name")
             { }
+            column(Hide; Hide)
+            { }
 
             dataitem("Sample Requsition Line"; "Sample Requsition Line")
             {
@@ -96,6 +98,8 @@ report 50639 SampleRequest
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                Hide := 1;
             end;
         }
     }
@@ -137,6 +141,7 @@ report 50639 SampleRequest
 
         HeaderNo: Code[20];
         comRec: Record "Company Information";
+        Hide: Integer;
 
 
 }
