@@ -223,21 +223,30 @@ page 50464 "New Breakdown Op Listpart1"
                         until NewBreakOpLine1Rec.Next = 0;
 
 
-                        // //Rearrange
-                        // Count1 := 0;
-                        // NewBreakOpLine2Rec.Reset();
-                        // NewBreakOpLine2Rec.SetCurrentKey(RefGPartName, "Line Position");
-                        // NewBreakOpLine2Rec.Ascending(true);
-                        // NewBreakOpLine2Rec.SetRange("No.", rec."NewBRNo.");
-                        // if NewBreakOpLine2Rec.FindSet() then begin
-                        //     repeat
-                        //         Count1 += 1;
-                        //         xxx := NewBreakOpLine2Rec.RefGPartName;
-                        //         z := NewBreakOpLine2Rec."Line Position";
-                        //         NewBreakOpLine2Rec."Line Position" := Count1;
-                        //         NewBreakOpLine2Rec.Modify();
-                        //     until NewBreakOpLine2Rec.Next() = 0;
-                        // end;
+
+                        //Copy seq to a nother field
+                        NewBreakOpLine2Rec.Reset();
+                        NewBreakOpLine2Rec.SetRange("No.", rec."NewBRNo.");
+                        if NewBreakOpLine2Rec.FindSet() then begin
+                            repeat
+                                NewBreakOpLine2Rec."Line Position1" := NewBreakOpLine2Rec."Line Position";
+                                NewBreakOpLine2Rec.Modify();
+                            until NewBreakOpLine2Rec.Next() = 0;
+                        end;
+
+                        //Rearrange
+                        Count1 := 0;
+                        NewBreakOpLine2Rec.Reset();
+                        NewBreakOpLine2Rec.SetCurrentKey("GPart Position", "Line Position1");
+                        NewBreakOpLine2Rec.Ascending(true);
+                        NewBreakOpLine2Rec.SetRange("No.", rec."NewBRNo.");
+                        if NewBreakOpLine2Rec.FindSet() then begin
+                            repeat
+                                Count1 += 1;
+                                NewBreakOpLine2Rec."Line Position" := Count1;
+                                NewBreakOpLine2Rec.Modify();
+                            until NewBreakOpLine2Rec.Next() = 0;
+                        end;
 
                     end;
 

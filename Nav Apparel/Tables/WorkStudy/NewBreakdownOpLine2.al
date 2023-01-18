@@ -134,6 +134,12 @@ table 50465 "New Breakdown Op Line2"
             DataClassification = CustomerContent;
         }
 
+        field(25; "Line Position1"; Integer)
+        {
+            DataClassification = CustomerContent;
+            //Purpose  - For Rearranging purpose
+        }
+
     }
 
     keys
