@@ -20,7 +20,16 @@ report 50124 GeneralIssueReport
             { }
             column(No_; "No.")
             { }
-
+            //   dataitem("Item Ledger Entry"; "Item Ledger Entry")
+            //         {
+            //             DataItemLinkReference = "General Issue Header";
+            //             DataItemLink = "Document No." = field("No.");
+            //             DataItemTableView = sorting("Entry No.");
+            //             column(ItemLeQuantity; Quantity)
+            //             { }
+            //             column(Posting_Date; "Posting Date")
+            //             { }
+            //         }
 
             dataitem("General Issue Line"; "General Issue Line")
             {
@@ -41,16 +50,18 @@ report 50124 GeneralIssueReport
                 { }
                 column(Main_Category_Name; "Main Category Name")
                 { }
+                dataitem("Item Ledger Entry"; "Item Ledger Entry")
+                {
+                    DataItemLinkReference = "General Issue Line";
+                    DataItemLink = "Document No." = field("Document No.");
+                    DataItemTableView = sorting("Entry No.");
+                    column(ItemLeQuantity; Quantity * -1)
+                    { }
+                    column(Posting_Date; "Posting Date")
+                    { }
+                }
+            }
 
-            }
-            dataitem("Item Ledger Entry"; "Item Ledger Entry")
-            {
-                DataItemLinkReference = "General Issue Header";
-                DataItemLink = "Document No." = field("No.");
-                DataItemTableView = sorting("Entry No.");
-                column(ItemLeQuantity; Quantity)
-                { }
-            }
             trigger OnPreDataItem()
 
             begin
