@@ -388,7 +388,7 @@ table 50931 "Sample Requsition Line"
         }
 
         // Done By Sachith On 18/01/23
-        field(71012643; "Garment Type"; Text[50])
+        field(71012643; "Garment Type"; Text[100])
         {
             DataClassification = ToBeClassified;
         }

@@ -55,12 +55,12 @@ page 50799 "Workers Card"
                     var
                         DepartmentRec: Record Department;
                     begin
-
                         DepartmentRec.Reset();
                         DepartmentRec.SetRange("Department Name", rec."Department Name");
-
                         if DepartmentRec.FindSet() then
-                            Rec."Department No" := DepartmentRec."No.";
+                            Rec."Department No" := DepartmentRec."No."
+                        else
+                            Error('Invalid Department.');
                     end;
                 }
 
@@ -73,13 +73,12 @@ page 50799 "Workers Card"
                     var
                         UserRoleRec: Record UserRoles;
                     begin
-
                         UserRoleRec.Reset();
                         UserRoleRec.SetRange(Description, Rec."Worker Type");
-
                         if UserRoleRec.FindSet() then
-                            Rec."User Role Code" := UserRoleRec.Code;
-
+                            Rec."User Role Code" := UserRoleRec.Code
+                        else
+                            Error('Invalid Worker Type.');
                     end;
                 }
 

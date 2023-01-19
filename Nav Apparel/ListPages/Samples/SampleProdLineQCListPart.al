@@ -45,10 +45,10 @@ page 51195 SampleProdLineQCListPart
                     Caption = 'Style';
                 }
 
-                //Done by sachith on 18/01/23
-                field("Garment Type"; Rec."Garment Type")
+                field("Garment Type"; rec."Garment Type")
                 {
-                    ApplicationArea = all;
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Sample Name"; rec."Sample Name")

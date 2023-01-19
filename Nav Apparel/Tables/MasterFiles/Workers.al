@@ -76,6 +76,10 @@ table 50797 Workers
         {
             Clustered = true;
         }
+
+        key(SK; "Worker Name")
+        {
+        }
     }
 
     fieldgroups

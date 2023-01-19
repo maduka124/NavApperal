@@ -4,7 +4,7 @@ page 51216 "User Roles Card"
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = UserRoles;
-    Caption = 'User Role';
+    Caption = 'Worker Type';
 
     layout
     {

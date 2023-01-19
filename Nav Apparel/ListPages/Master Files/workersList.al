@@ -5,7 +5,8 @@ page 50798 "Workers List"
     UsageCategory = Lists;
     SourceTable = Workers;
     CardPageId = "Workers Card";
-    SourceTableView = sorting("No.") order(descending);
+    SourceTableView = sorting("Worker Name") order(ascending);
+
     layout
     {
         area(Content)
@@ -20,6 +21,12 @@ page 50798 "Workers List"
                 field("Worker Type"; Rec."Worker Type")
                 {
                     ApplicationArea = All;
+                }
+
+                field("Department Name"; rec."Department Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Department';
                 }
 
                 field(Status; Rec.Status)

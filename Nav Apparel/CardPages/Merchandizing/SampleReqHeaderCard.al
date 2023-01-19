@@ -338,6 +338,38 @@ page 50600 "Sample Request Card"
                 end;
             }
 
+            action("Update Garment Type")
+            {
+                Image = "8ball";
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    samplereq: Record "Sample Requsition Header";
+                    samplereqLineRec: Record "Sample Requsition Line";
+                begin
+                    samplereqLineRec.Reset();
+                    if samplereqLineRec.FindSet() then begin
+                        repeat
+
+                            samplereq.Reset();
+                            samplereq.SetRange("No.", samplereqLineRec."No.");
+                            if samplereq.Findset() then begin
+
+                                samplereqLineRec."Garment Type" := samplereq."Garment Type Name";
+                                samplereqLineRec."Garment Type No" := samplereq."Garment Type No";
+                                samplereqLineRec.Modify();
+
+                            end;
+                        until samplereqLineRec.Next() = 0;
+                    end;
+
+                    Message('Complated');
+
+                end;
+            }
+
+
 
             // action("Update Brand Name")
             // {
@@ -1020,7 +1052,6 @@ page 50600 "Sample Request Card"
             CurrPage.Editable(false)
         else
             CurrPage.Editable(true);
-
     end;
 
 
@@ -1031,7 +1062,5 @@ page 50600 "Sample Request Card"
             CurrPage.Editable(false)
         else
             CurrPage.Editable(true);
-
-
     end;
 }

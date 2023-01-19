@@ -45,6 +45,12 @@ page 50438 SampleProdLineSendWashListPart
                     Caption = 'Style';
                 }
 
+                field("Garment Type"; rec."Garment Type")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field("Sample Name"; rec."Sample Name")
                 {
                     ApplicationArea = All;

@@ -34,7 +34,13 @@ table 50930 "Sample Requsition Header"
         field(71012585; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer No."), "Merchandizer Group Name" = field("Merchandizer Group Name"));
+
+            TableRelation = if ("Merchandizer Group Name" = filter(''))
+                    "Style Master"."Style No."
+            else
+            "Style Master"."Style No." where("Buyer No." = field("Buyer No."), "Merchandizer Group Name" = field("Merchandizer Group Name"));
+
+            //TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer No."), "Merchandizer Group Name" = field("Merchandizer Group Name"));
             ValidateTableRelation = false;
         }
 

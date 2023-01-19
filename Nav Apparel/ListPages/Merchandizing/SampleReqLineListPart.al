@@ -25,6 +25,7 @@ page 51062 SampleReqLineListPart
                     trigger OnValidate()
                     var
                         ItemRec: Record Item;
+                        SampleReqHeaderRec: Record "Sample Requsition Header";
                     begin
                         ItemRec.Reset();
                         ItemRec.SetRange(Description, rec."Fabrication Name");
@@ -33,6 +34,14 @@ page 51062 SampleReqLineListPart
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
+
+                        //Insert garment type 
+                        SampleReqHeaderRec.Reset();
+                        SampleReqHeaderRec.SetRange("No.", rec."No.");
+                        if SampleReqHeaderRec.FindSet() then begin
+                            rec."Garment Type No" := SampleReqHeaderRec."Garment Type No";
+                            rec."Garment Type" := SampleReqHeaderRec."Garment Type Name";
+                        end;
                     end;
                 }
 
@@ -44,6 +53,7 @@ page 51062 SampleReqLineListPart
                     trigger OnValidate()
                     var
                         SampleRec: Record "Sample Type";
+                        SampleReqHeaderRec: Record "Sample Requsition Header";
                     begin
                         SampleRec.Reset();
                         SampleRec.SetRange("Sample Type Name", rec."Sample Name");
@@ -52,6 +62,14 @@ page 51062 SampleReqLineListPart
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
+
+                        //Insert garment type 
+                        SampleReqHeaderRec.Reset();
+                        SampleReqHeaderRec.SetRange("No.", rec."No.");
+                        if SampleReqHeaderRec.FindSet() then begin
+                            rec."Garment Type No" := SampleReqHeaderRec."Garment Type No";
+                            rec."Garment Type" := SampleReqHeaderRec."Garment Type Name";
+                        end;
                     end;
                 }
 
@@ -63,6 +81,7 @@ page 51062 SampleReqLineListPart
                     trigger OnValidate()
                     var
                         ColourRec: Record Colour;
+                        SampleReqHeaderRec: Record "Sample Requsition Header";
                     begin
                         ColourRec.Reset();
                         ColourRec.SetRange("Colour Name", rec."Color Name");
@@ -71,7 +90,21 @@ page 51062 SampleReqLineListPart
 
                         if Get_Count() = 1 then
                             Error('You cannot put more than one item');
+
+                        //Insert garment type 
+                        SampleReqHeaderRec.Reset();
+                        SampleReqHeaderRec.SetRange("No.", rec."No.");
+                        if SampleReqHeaderRec.FindSet() then begin
+                            rec."Garment Type No" := SampleReqHeaderRec."Garment Type No";
+                            rec."Garment Type" := SampleReqHeaderRec."Garment Type Name";
+                        end;
                     end;
+                }
+
+                field("Garment Type"; rec."Garment Type")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field(Size; rec.Size)

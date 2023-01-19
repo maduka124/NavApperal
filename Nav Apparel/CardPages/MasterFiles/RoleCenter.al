@@ -2267,7 +2267,7 @@ page 50968 "Nav Apperal Role Center"
                 // Done By Sachith On 16/01/23
                 action("User Roles")
                 {
-                    Caption = 'User Role';
+                    Caption = 'Worker Type';
                     RunObject = Page "Users Role List";
                     ApplicationArea = all;
                 }
