@@ -106,7 +106,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>General Issue No</Value>
+                                  <Value>General Requisition No</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1415,7 +1415,7 @@
                 <TablixMember>
                   <Group Name="Details" />
                   <Visibility>
-                    <Hidden>=Fields!Line_No_.Value=0</Hidden>
+                    <Hidden>=Fields!Item_No_.Value=""</Hidden>
                   </Visibility>
                 </TablixMember>
               </TablixMembers>
