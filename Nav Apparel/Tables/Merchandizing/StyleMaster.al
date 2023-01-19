@@ -359,30 +359,19 @@ table 50934 "Style Master"
         LocationRec: Record Location;
     begin
 
-        // //Assign logged user
-        // LoginDetails.Reset();
-        // LoginDetails.SetRange(SessionID, SessionId());
-        // if LoginDetails.FindSet() then begin
-        //     LoggedBy := LoginDetails.UserID;
-        // end
-        // else
-        //     Error('Invalid SessionID');
-
-
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
 
         if UserSetupRec.FindSet() then begin
-            //LocationRec.Reset();
-            //LocationRec.SetRange(Code, UserSetupRec."Factory Code");
-            //if not LocationRec.FindSet() then
-            //    Error('Cannot find factory details.');
 
-            // "Factory Code" := UserSetupRec."Factory Code";
-            // "Factory Name" := LocationRec.Name;
+            if UserSetupRec."Merchandizer Group Name" = '' then
+                Error('Merchandizer Group not setup in the User Setup.');
+
             "Global Dimension Code" := UserSetupRec."Global Dimension Code";
             "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
-        end;
+        end
+        else
+            Error('Merchandizer Group not setup in the User Setup.');
 
         UserRec.Reset();
         UserRec.Get(UserSecurityId());

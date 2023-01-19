@@ -39,26 +39,5 @@ table 50906 "Dependency Review Header"
         {
             Clustered = true;
         }
-    }
-
-    trigger OnInsert()
-    begin
-
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
+    }   
 }

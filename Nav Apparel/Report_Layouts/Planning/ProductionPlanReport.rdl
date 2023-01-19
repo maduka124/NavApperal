@@ -1307,21 +1307,21 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Resource_No">
+                        <Textbox Name="Resource_Name">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LINE NO : </Value>
+                                  <Value>LINE : </Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!Resource_No.Value</Value>
+                                  <Value>=Fields!Resource_Name.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1333,7 +1333,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Resource_No</rd:DefaultName>
+                          <rd:DefaultName>Resource_Name</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -3564,6 +3564,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="PO_No_">
           <DataField>PO_No_</DataField>
+        </Field>
+        <Field Name="Resource_Name">
+          <DataField>Resource_Name</DataField>
         </Field>
       </Fields>
       <Query>

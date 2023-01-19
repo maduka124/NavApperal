@@ -431,21 +431,6 @@ table 50882 AssorColorSizeRatio
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
+    end; 
 
 }

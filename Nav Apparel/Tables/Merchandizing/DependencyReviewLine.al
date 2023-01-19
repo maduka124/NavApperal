@@ -98,19 +98,5 @@ table 50907 "Dependency Review Line"
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
 
 }

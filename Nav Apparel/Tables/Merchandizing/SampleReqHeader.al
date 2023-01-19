@@ -193,11 +193,15 @@ table 50930 "Sample Requsition Header"
 
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
-
         if UserSetupRec.FindSet() then begin
-            //"Global Dimension Code" := UserSetupRec."Global Dimension Code";
+
+            if UserSetupRec."Merchandizer Group Name" = '' then
+                Error('Merchandizer Group not setup in the User Setup.');
+
             "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
-        end;
+        end
+        else
+            Error('Merchandizer Group not setup in the User Setup.');
     end;
 
 }

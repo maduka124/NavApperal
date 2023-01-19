@@ -49,6 +49,13 @@ pageextension 50979 UserSetupCardExt extends "User Setup"
             {
                 ApplicationArea = All;
                 Caption = 'Merchandiser Group Name';
+
+                trigger OnValidate()
+                var
+                begin
+                    if rec."Merchandizer Group Name" <> '' then
+                        rec."Merchandizer All Group" := false;
+                end;
             }
 
             field("Merchandizer All Group"; rec."Merchandizer All Group")

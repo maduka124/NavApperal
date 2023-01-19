@@ -128,20 +128,5 @@ table 50903 "Dependency Buyer Para"
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
+   
 }

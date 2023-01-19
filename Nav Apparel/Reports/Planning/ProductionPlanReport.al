@@ -70,6 +70,8 @@ report 50621 ProductionPlanReport
                 { }
                 column(PO_No_; "PO No.")
                 { }
+                column("Resource_Name"; "Resource Name")
+                { }
 
                 trigger OnAfterGetRecord()
                 var
@@ -155,17 +157,6 @@ report 50621 ProductionPlanReport
                         ApplicationArea = All;
                         Caption = 'End Date';
                     }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
                 }
             }
         }

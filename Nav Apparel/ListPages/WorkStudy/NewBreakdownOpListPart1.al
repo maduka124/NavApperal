@@ -49,11 +49,11 @@ page 50464 "New Breakdown Op Listpart1"
                     end;
                 }
 
-                field("Order of Selection"; rec."Selected Seq")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                }
+                // field("Order of Selection"; rec."Selected Seq")
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                // }
 
                 field(Description; rec.Description)
                 {

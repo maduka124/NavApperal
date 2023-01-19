@@ -60,10 +60,6 @@ table 50904 "Dependency Group"
         "Created User" := UserId;
     end;
 
-    trigger OnModify()
-    begin
-
-    end;
 
     trigger OnDelete()
     var
@@ -87,11 +83,6 @@ table 50904 "Dependency Group"
         DependencyParaRec.SetRange("Dependency Group No.", "No.");
         if DependencyParaRec.FindSet() then
             Error('Dependency Group : %1 already used in operations. Cannot delete.', "Dependency Group");
-
-    end;
-
-    trigger OnRename()
-    begin
 
     end;
 

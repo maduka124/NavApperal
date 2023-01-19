@@ -49,7 +49,6 @@ table 50933 "Special Operation Style"
     {
         fieldgroup(DropDown; "Style No.", "No.", "Special Operation Name")
         {
-
         }
     }
 
@@ -57,21 +56,6 @@ table 50933 "Special Operation Style"
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }
