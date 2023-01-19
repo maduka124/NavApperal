@@ -15,15 +15,17 @@ page 50471 "Copy Breakdown Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Source Style No';
-                    TableRelation = "Style Master"."No.";
                     ShowMandatory = true;
 
-                    trigger OnValidate()
+
+                    trigger OnLookup(var texts: text): Boolean
                     var
+                        NewBRRec: Record "New Breakdown";
                         StyleMasterRec: Record "Style Master";
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
+
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -34,9 +36,23 @@ page 50471 "Copy Breakdown Card"
                             LoginRec.RunModal();
                         end;
 
-                        StyleMasterRec.get(SourceStyle);
-                        SourceStyleName := StyleMasterRec."Style No.";
-                    end;
+                        StyleMasterRec.RESET;
+                        IF StyleMasterRec.FindSet() THEN BEGIN
+                            REPEAT
+                                NewBRRec.RESET;
+                                NewBRRec.SetRange("Style No.", StyleMasterRec."No.");
+                                if NewBRRec.FindSet() then
+                                    StyleMasterRec.MARK(TRUE);
+                            UNTIL StyleMasterRec.NEXT = 0;
+                            StyleMasterRec.MARKEDONLY(TRUE);
+
+                            if Page.RunModal(51185, StyleMasterRec) = Action::LookupOK then begin
+                                SourceStyleName := StyleMasterRec."Style No.";
+                                SourceStyle := StyleMasterRec."No.";
+                            end;
+
+                        END;
+                    END;
                 }
 
                 field(SourceStyleName; SourceStyleName)
@@ -49,7 +65,7 @@ page 50471 "Copy Breakdown Card"
                 field(DestinationStyle; DestinationStyle)
                 {
                     ApplicationArea = All;
-                    Caption = 'Destination style No';
+                    Caption = 'Destination Style No';
                     ShowMandatory = true;
 
                     trigger OnLookup(var texts: text): Boolean
