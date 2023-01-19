@@ -57,7 +57,7 @@ report 50124 GeneralIssueReport
                     DataItemTableView = sorting("Entry No.");
                     column(ItemLeQuantity; Quantity * -1)
                     { }
-                    column(Posting_Date; "Posting Date")
+                    column(Posting_Date;SystemCreatedAt)
                     { }
                 }
             }

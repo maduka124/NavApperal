@@ -58,7 +58,7 @@ report 50125 GeneralIssueReportCard
                     DataItemTableView = sorting("Entry No.");
                     column(ItemLeQuantity; Quantity * -1)
                     { }
-                    column(Posting_Date; "Posting Date")
+                    column(Posting_Date; SystemCreatedAt)
                     { }
                 }
             }
