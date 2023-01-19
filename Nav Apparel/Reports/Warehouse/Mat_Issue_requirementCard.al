@@ -1,11 +1,11 @@
-report 51801 MaterialIssueRequition
+report 51199 MaterialIssueRequitionCard
 {
     RDLCLayout = 'Report_Layouts/Warehouse/MatRequisitionIssue.rdl';
     DefaultLayout = RDLC;
     // ApplicationArea = Manufacturing;
     Caption = 'Material Requisition Issue Report';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = All;
+    // ApplicationArea = All;
 
     dataset
     {
@@ -108,8 +108,8 @@ report 51801 MaterialIssueRequition
                 begin
                     SetRange("Document No.", JournalNo);
                     SetRange("Journal Batch Name", JournalBatchFilter);
-                    // SetRange("Daily Consumption Doc. No.", DocNumber);
-                    JournalBatchFilter := 'DEFAULT';
+                    SetRange("Daily Consumption Doc. No.", DocNumber);
+
                 end;
 
                 trigger OnAfterGetRecord()
@@ -196,17 +196,16 @@ report 51801 MaterialIssueRequition
                     {
                         ApplicationArea = All;
                         Caption = 'Batch';
-                        TableRelation = "Item Journal Batch".Name;
-                        // Visible = false;
-
+                        // TableRelation = "Item Journal Line"."Journal Batch Name";
+                        Visible = false;
 
                     }
                     field(DocNumber; DocNumber)
                     {
                         ApplicationArea = All;
                         Caption = 'Daily Consumption Doc No';
-                        TableRelation = "Daily Consumption Header"."No.";
-                        // Visible = false;
+                        // TableRelation = "Item Journal Line"."Journal Batch Name";
+                        Visible = false;
 
                     }
 
@@ -214,27 +213,27 @@ report 51801 MaterialIssueRequition
             }
         }
     }
-    // labels
-    // {
-    //     ProdOrderCompDueDateCapt = 'Due Date';
-    // }
-    // procedure Set_Value(Journal: Code[20])
-    // var
-    // begin
-    //     JournalNo := Journal;
-    // end;
+    labels
+    {
+        ProdOrderCompDueDateCapt = 'Due Date';
+    }
+    procedure Set_Value(Journal: Code[20])
+    var
+    begin
+        JournalNo := Journal;
+    end;
 
-    // procedure Set_Batch(JournalBatch: Code[10])
-    // var
-    // begin
-    //     JournalBatchFilter := JournalBatch;
-    // end;
+    procedure Set_Batch(JournalBatch: Code[10])
+    var
+    begin
+        JournalBatchFilter := JournalBatch;
+    end;
 
-    // procedure Set_Doc(DocNo: Code[20])
-    // var
-    // begin
-    //     DocNumber := DocNo;
-    // end;
+    procedure Set_Doc(DocNo: Code[20])
+    var
+    begin
+        DocNumber := DocNo;
+    end;
 
 
 

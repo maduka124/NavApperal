@@ -149,7 +149,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
                 trigger OnAction();
                 var
                     // MaterialReport: Report MaterialRequition;
-                    MaterialReport: Report MaterialIssueRequition;
+                    MaterialReport: Report MaterialIssueRequitionCard;
                 begin
 
                     // RPORec.FindSet();
