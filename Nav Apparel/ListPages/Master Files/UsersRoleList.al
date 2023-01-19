@@ -16,13 +16,13 @@ page 51215 "Users Role List"
                 field(Code; Rec.Code)
                 {
                     ApplicationArea = All;
-                    Caption = 'Role ID';
+                    Caption = 'Worker ID';
                 }
 
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-                    Caption = 'Role Description';
+                    Caption = 'Worker Type';
                 }
             }
         }
