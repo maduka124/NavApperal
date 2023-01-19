@@ -47,7 +47,7 @@ page 50434 "Sample Production"
                 }
             }
 
-            group("Quality")
+            group("Quality Checking")
             {
                 part("SampleProdLineQCListPart"; SampleProdLineQCListPart)
                 {

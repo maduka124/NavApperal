@@ -136,7 +136,7 @@ page 51195 SampleProdLineQCListPart
                 field("Quality Checker"; rec."Quality Checker")
                 {
                     ApplicationArea = All;
-                    Caption = 'Quality Operator';
+                    Caption = 'Quality Checker';
                 }
 
                 field("QC Hours"; rec."QC Hours")
@@ -160,7 +160,7 @@ page 51195 SampleProdLineQCListPart
                     var
                     begin
                         if rec."Quality Checker" = '' then
-                            Error('Select a Quality Operator');
+                            Error('Select a Quality Checker');
 
                         if rec."QC Hours" = 0 then
                             Error('QC Minutes is zero');
