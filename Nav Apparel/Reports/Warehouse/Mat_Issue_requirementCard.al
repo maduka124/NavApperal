@@ -1,6 +1,6 @@
 report 51199 MaterialIssueRequitionCard
 {
-    RDLCLayout = 'Report_Layouts/Warehouse/MatRequisitionIssue.rdl';
+    RDLCLayout = 'Report_Layouts/Warehouse/MatRequisitionIssueCard.rdl';
     DefaultLayout = RDLC;
     // ApplicationArea = Manufacturing;
     Caption = 'Material Requisition Issue Report';
