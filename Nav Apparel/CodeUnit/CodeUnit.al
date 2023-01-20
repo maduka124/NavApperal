@@ -245,7 +245,7 @@ codeunit 50618 NavAppCodeUnit
     procedure ChangeColorUDPIInfo(OpList: Record UDPIinformationLine): Text[50]
     var
     begin
-        if OpList.Supplier = 'Total' then
+        if OpList."BBLC No" = 'TOTAL' then
             exit('strongaccent');
     end;
 

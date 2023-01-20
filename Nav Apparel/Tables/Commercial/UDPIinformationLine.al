@@ -63,6 +63,11 @@ table 51210 UDPIinformationLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(13; "BBLC No"; Code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -33,6 +33,7 @@ table 50670 "FabricProceHeader"
         field(6; "No of Roll"; BigInteger)
         {
             DataClassification = ToBeClassified;
+            //Not using 
         }
 
         field(7; "Buyer No."; Code[20])
@@ -90,6 +91,11 @@ table 50670 "FabricProceHeader"
         }
 
         field(16; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(17; "No of Roll1"; Decimal)
         {
             DataClassification = ToBeClassified;
         }

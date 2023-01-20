@@ -1027,5 +1027,10 @@ permissionset 50100 GeneratedPermission
         page "PI Infor ListPart"=X,
         page "Style PO Info ListPart"=X,
         page "UD Card"=X,
-        page "UD List"=X;
+        page "UD List"=X,
+        tabledata UserRoles=RIMD,
+        table UserRoles=X,
+        report MaterialIssueRequitionCard=X,
+        page "User Roles Card"=X,
+        page "Users Role List"=X;
 }

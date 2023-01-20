@@ -52,7 +52,7 @@ page 50673 "FabricProceList"
                     Caption = 'Item';
                 }
 
-                field("No of Roll"; rec."No of Roll")
+                field("No of Roll"; rec."No of Roll1")
                 {
                     ApplicationArea = All;
                     Caption = 'No of Rolls';

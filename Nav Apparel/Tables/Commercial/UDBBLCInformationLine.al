@@ -73,6 +73,11 @@ table 50209 UDBBLcInformation
         {
             DataClassification = ToBeClassified;
         }
+
+        field(15; "UD Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

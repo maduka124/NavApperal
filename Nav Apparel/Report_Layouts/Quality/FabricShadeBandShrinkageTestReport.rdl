@@ -2919,6 +2919,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="No_of_Roll">
           <DataField>No_of_Roll</DataField>
         </Field>
+        <Field Name="No_of_RollFormat">
+          <DataField>No_of_RollFormat</DataField>
+        </Field>
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
         </Field>

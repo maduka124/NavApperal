@@ -115,6 +115,13 @@ page 50607 "Style Master Card"
                     Editable = false;
                 }
 
+                // field("Merchandizer Group Name"; rec."Merchandizer Group Name")
+                // {
+                //     ApplicationArea = All;
+                //     TableRelation = MerchandizingGroupTable."Group Name";
+
+                // }
+
                 // field(BPCD; rec.BPCD)
                 // {
                 //     ApplicationArea = All;

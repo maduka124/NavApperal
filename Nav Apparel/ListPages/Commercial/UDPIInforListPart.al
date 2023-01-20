@@ -10,6 +10,12 @@ page 51213 "PI Infor ListPart"
         {
             repeater(General)
             {
+                field("BBLC No"; rec."BBLC No")
+                {
+                    ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                }
+
                 field(Supplier; rec.Supplier)
                 {
                     ApplicationArea = All;

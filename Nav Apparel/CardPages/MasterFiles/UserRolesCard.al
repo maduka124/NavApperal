@@ -10,17 +10,17 @@ page 51216 "User Roles Card"
     {
         area(Content)
         {
-            group(GroupName)
+            group(General)
             {
                 field(Code; Rec.Code)
                 {
-                    Caption = 'Role ID';
+                    Caption = 'Worker Type ID';
                     ApplicationArea = All;
                 }
 
                 field(Description; Rec.Description)
                 {
-                    Caption = 'Role Description';
+                    Caption = 'Worker Type';
                     ApplicationArea = All;
                 }
             }

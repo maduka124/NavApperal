@@ -343,6 +343,7 @@ page 51207 "UD Card"
                                     UDPIInfoRec.Init();
                                     UDPIInfoRec."No." := rec."No.";
                                     UDPIInfoRec."Line No" := LineNo;
+                                    UDPIInfoRec."BBLC No" := B2BLCPIRec."B2BNo.";
                                     UDPIInfoRec."Item Code" := PIItemsRec."Item No.";
                                     UDPIInfoRec."Item Description" := PIItemsRec."Item Name";
                                     UDPIInfoRec."Main Category" := PIItemsRec."Main Category Name";
@@ -371,7 +372,7 @@ page 51207 "UD Card"
             UDPIInfoRec."No." := rec."No.";
             UDPIInfoRec."Line No" := LineNo + 1;
             UDPIInfoRec."Order Qty1" := TotOrderQty;
-            UDPIInfoRec."Supplier" := 'Total';
+            UDPIInfoRec."BBLC No" := 'Total';
             UDPIInfoRec.Value := TotValue;
             UDPIInfoRec.Insert();
 

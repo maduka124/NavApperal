@@ -57,8 +57,28 @@ page 51212 "BBL LC Infor ListPart"
                 field(UD; rec.UD)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if rec.UD = true then
+                            EditableGB := true
+                        else begin
+                            EditableGB := false;
+                            rec."UD Date" := 0D;
+                        end;
+                    end;
+                }
+
+                field("UD Date"; rec."UD Date")
+                {
+                    ApplicationArea = All;
+                    Editable = EditableGB;
                 }
             }
         }
     }
+
+    var
+        EditableGB: Boolean;
 }

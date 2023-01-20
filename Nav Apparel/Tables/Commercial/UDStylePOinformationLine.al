@@ -13,50 +13,50 @@ table 50208 UDStylePOinformation
         {
             DataClassification = ToBeClassified;
         }
-        field(10; "Style No"; Code[20])
+        field(3; "Style No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(9; "Style Name"; text[50])
+        field(4; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(11; "PO No"; Code[20])
+        field(5; "PO No"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Order Qty"; BigInteger)
+        field(6; "Order Qty"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(4; "Unit Price"; Decimal)
+        field(7; "Unit Price"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(5; "Ship Date"; Date)
+        field(8; "Ship Date"; Date)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Values"; Decimal)
+        field(9; "Values"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(7; "Ship Qty"; BigInteger)
+        field(10; "Ship Qty"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(8; "Ship Values"; Decimal)
+        field(11; "Ship Values"; Decimal)
         {
             DataClassification = ToBeClassified;
-        }
+        }      
 
     }
 

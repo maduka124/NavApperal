@@ -25,7 +25,7 @@ report 50620 FabricShadeBandShrinkageReport
             { }
             column(Item_Name; "Item Name")
             { }
-            column(No_of_Roll; "No of Roll")
+            column(No_of_Roll; "No of Roll1")
             { }
             column(CompLogo; comRec.Picture)
             { }

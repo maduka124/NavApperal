@@ -161,6 +161,12 @@ page 50600 "Sample Request Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Merchandizer Group Name"; rec."Merchandizer Group Name")
+                {
+                    ApplicationArea = All;
+                    TableRelation = MerchandizingGroupTable."Group Name";
+                }
             }
 
             group("Sample Details")
@@ -338,36 +344,36 @@ page 50600 "Sample Request Card"
                 end;
             }
 
-            action("Update Garment Type")
-            {
-                Image = "8ball";
-                ApplicationArea = All;
+            // action("Update Garment Type")
+            // {
+            //     Image = "8ball";
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    samplereq: Record "Sample Requsition Header";
-                    samplereqLineRec: Record "Sample Requsition Line";
-                begin
-                    samplereqLineRec.Reset();
-                    if samplereqLineRec.FindSet() then begin
-                        repeat
+            //     trigger OnAction()
+            //     var
+            //         samplereq: Record "Sample Requsition Header";
+            //         samplereqLineRec: Record "Sample Requsition Line";
+            //     begin
+            //         samplereqLineRec.Reset();
+            //         if samplereqLineRec.FindSet() then begin
+            //             repeat
 
-                            samplereq.Reset();
-                            samplereq.SetRange("No.", samplereqLineRec."No.");
-                            if samplereq.Findset() then begin
+            //                 samplereq.Reset();
+            //                 samplereq.SetRange("No.", samplereqLineRec."No.");
+            //                 if samplereq.Findset() then begin
 
-                                samplereqLineRec."Garment Type" := samplereq."Garment Type Name";
-                                samplereqLineRec."Garment Type No" := samplereq."Garment Type No";
-                                samplereqLineRec.Modify();
+            //                     samplereqLineRec."Garment Type" := samplereq."Garment Type Name";
+            //                     samplereqLineRec."Garment Type No" := samplereq."Garment Type No";
+            //                     samplereqLineRec.Modify();
 
-                            end;
-                        until samplereqLineRec.Next() = 0;
-                    end;
+            //                 end;
+            //             until samplereqLineRec.Next() = 0;
+            //         end;
 
-                    Message('Complated');
+            //         Message('Complated');
 
-                end;
-            }
+            //     end;
+            // }
 
 
 

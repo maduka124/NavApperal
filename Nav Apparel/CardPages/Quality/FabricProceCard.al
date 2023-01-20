@@ -174,7 +174,7 @@ page 50671 "FabricProceCard"
 
                             if Page.RunModal(50677, PurchRcpLineRec) = Action::LookupOK then begin
                                 rec."Item No" := PurchRcpLineRec."No.";
-                                rec."No of Roll" := 0;
+                                rec."No of Roll1" := 0;
                                 CurrPage.Update();
 
                                 ItemRec.Reset();
@@ -194,7 +194,7 @@ page 50671 "FabricProceCard"
                                 if ItemLedEntryRec.FindSet() then begin
                                     repeat
                                         if ItemLedEntryRec."Lot No." <> '' then
-                                            rec."No of Roll" := rec."No of Roll" + ItemLedEntryRec."Remaining Quantity";
+                                            rec."No of Roll1" := rec."No of Roll1" + ItemLedEntryRec."Remaining Quantity";
                                     until ItemLedEntryRec.Next() = 0;
                                 end;
 
@@ -253,7 +253,7 @@ page 50671 "FabricProceCard"
                     // END;
                 }
 
-                field("No of Roll"; rec."No of Roll")
+                field("No of Roll"; rec."No of Roll1")
                 {
                     ApplicationArea = All;
                     Caption = 'No of Rolls';

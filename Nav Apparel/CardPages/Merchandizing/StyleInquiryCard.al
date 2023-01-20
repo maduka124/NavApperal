@@ -355,6 +355,12 @@ page 50602 "Style Inquiry Card"
                             Error('Production File Handover Date should be less than Ship date');
                     end;
                 }
+
+                field("Merchandizer Group Name"; rec."Merchandizer Group Name")
+                {
+                    ApplicationArea = All;
+                    TableRelation = MerchandizingGroupTable."Group Name";
+                }
             }
 
             group(" ")
