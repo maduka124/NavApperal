@@ -356,11 +356,11 @@ page 50602 "Style Inquiry Card"
                     end;
                 }
 
-                field("Merchandizer Group Name"; rec."Merchandizer Group Name")
-                {
-                    ApplicationArea = All;
-                    TableRelation = MerchandizingGroupTable."Group Name";
-                }
+                // field("Merchandizer Group Name"; rec."Merchandizer Group Name")
+                // {
+                //     ApplicationArea = All;
+                //     TableRelation = MerchandizingGroupTable."Group Name";
+                // }
             }
 
             group(" ")

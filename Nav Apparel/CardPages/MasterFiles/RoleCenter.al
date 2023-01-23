@@ -1702,6 +1702,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Posted Sales Invoice")
+                {
+                    Caption = 'Posted Sales Invoice';
+                    RunObject = Page "Posted Sales Invoice";
+                    ApplicationArea = all;
+                }
+
                 action("Paybale Chart")
                 {
                     Caption = 'Paybale Chart';

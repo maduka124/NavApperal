@@ -82,7 +82,7 @@ page 50427 "Sample Request Header ListPart"
     {
         area(Processing)
         {
-            action(Load)
+            action("Load")
             {
                 ApplicationArea = All;
                 Image = GetOrder;
