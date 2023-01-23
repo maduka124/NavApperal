@@ -101,9 +101,35 @@ page 50942 "Gate Pass Card"
                     end;
                 }
 
+                //Done by sachith on 20/01/23
+                field(Returnable; Rec.Returnable)
+                {
+                    ApplicationArea = All;
+
+                    trigger OnValidate()
+                    begin
+
+                        if Rec.Returnable = Rec.Returnable::No then begin
+                            edit := false;
+                            Rec."Expected Return Date" := 0D;
+                        end
+                        else
+                            edit := true;
+
+                    end;
+                }
+
                 field("Expected Return Date"; rec."Expected Return Date")
                 {
                     ApplicationArea = All;
+                    //Done by sachith on 20/01/23
+                    Editable = edit;
+
+                    trigger OnValidate()
+                    begin
+                        if Rec."Expected Return Date" < WorkDate() then
+                            Error('Invalid date');
+                    end;
                 }
 
                 field("Sent By"; rec."Sent By")
@@ -164,6 +190,13 @@ page 50942 "Gate Pass Card"
                 var
                     UserRec: Record "User Setup";
                 begin
+                    //Done by sachith on 20/01/23
+                    if Rec.Returnable = Rec.Returnable::Yes then begin
+                        if Rec."Expected Return Date" = 0D then
+                            Error('Expected return date is empty');
+
+                    end;
+
                     if (rec.Status = rec.Status::New) or (rec.Status = rec.Status::Rejected) then begin
                         if rec."Transfer From Code" = FactoryGB then begin
                             UserRec.Reset();
@@ -321,6 +354,10 @@ page 50942 "Gate Pass Card"
     var
         UserRec: Record "User Setup";
     begin
+
+        // Done By Sachith on 20/01/23
+        edit := true;
+
         if rec.Status = rec.Status::Approved then
             CurrPage.Editable(false)
         else begin
@@ -341,8 +378,8 @@ page 50942 "Gate Pass Card"
         end;
     end;
 
-
     var
         FactoryGB: Code[20];
+        edit: Boolean;
 
 }
