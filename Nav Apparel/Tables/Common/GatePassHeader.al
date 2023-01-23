@@ -121,6 +121,14 @@ table 51080 "Gate Pass Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        // Done By Sachith on 20/01/23
+        field(71012605; Returnable; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = "Yes","No";
+            OptionCaption = 'Yes,No';
+        }
     }
 
     keys

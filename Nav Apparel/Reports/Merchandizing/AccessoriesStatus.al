@@ -90,6 +90,7 @@ report 50633 AccessoriesStatusReport
 
                     PurchaseArchiveRec.SetRange("Document No.", "Order No.");
                     PurchaseArchiveRec.SetRange("No.", "No.");
+                    PurchaseArchiveRec.SetRange("Line No.", "Line No.");
                     if PurchaseArchiveRec.FindFirst() then begin
                         Qty := PurchaseArchiveRec.Quantity;
                     end;
