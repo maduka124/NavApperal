@@ -56,13 +56,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.23386cm</Width>
+                  <Width>2.46944cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.29117cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.15028cm</Width>
+                  <Width>5.96444cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.58629cm</Width>
@@ -1571,6 +1571,7 @@
                                   <Value>=Fields!ItemNo.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1618,6 +1619,7 @@
                                   <Value>=Fields!Description.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1664,6 +1666,7 @@
                                   <Value>=Fields!Location_Code.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1708,6 +1711,7 @@
                                   <Value>=Sum(Fields!Quantity.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -1753,6 +1757,7 @@
                                   <Value>=Fields!Unit_of_Measure.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1797,6 +1802,7 @@
                                   <Value>=Fields!StyleName.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1841,6 +1847,7 @@
                                   <Value>=Fields!Order_No_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1885,6 +1892,7 @@
                                   <Value>=Fields!Lot.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2614,9 +2622,9 @@
               </SortExpression>
             </SortExpressions>
             <Top>2.16641cm</Top>
-            <Left>0.04974cm</Left>
+            <Left>0cm</Left>
             <Height>5.3424cm</Height>
-            <Width>19.84187cm</Width>
+            <Width>19.89161cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
