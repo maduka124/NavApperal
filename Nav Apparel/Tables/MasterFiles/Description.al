@@ -1,8 +1,9 @@
 table 51216 Description
 {
     DataClassification = ToBeClassified;
-    LookupPageId = AQL;
-    DrillDownPageId = AQL;
+    LookupPageId = "Description List";
+    DrillDownPageId = "Description List";
+
     fields
     {
         field(1; No; Code[20])
@@ -10,11 +11,13 @@ table 51216 Description
             DataClassification = ToBeClassified;
 
         }
-        field(2; Description; Text[200])
+
+        field(2; Description; Text[500])
         {
             DataClassification = ToBeClassified;
 
         }
+
         field(3; "Created User"; Code[50])
         {
             DataClassification = ToBeClassified;
@@ -28,31 +31,12 @@ table 51216 Description
 
     keys
     {
-        key(Key1; No)
+        key(PK; No)
         {
             Clustered = true;
         }
     }
 
-    var
-        myInt: Integer;
-
-
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
 
     trigger OnInsert()
     begin

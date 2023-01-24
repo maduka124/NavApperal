@@ -98,6 +98,67 @@ page 50763 "Bank Reference Card"
                 field("LC/Contract No."; rec."LC/Contract No.")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        LCContractRec: Record "Contract/LCMaster";
+                        ContractStyleRec: Record "Contract/LCStyle";
+                        SalesInvoiceRec: Record "Sales Invoice Header";
+                        ContPostedInvRec: Record ContractPostedInvoices;
+                    begin
+                        //Validate contract no
+                        LCContractRec.Reset();
+                        LCContractRec.SetRange("Contract No", rec."LC/Contract No.");
+
+                        if not LCContractRec.FindSet() then
+                            Error('Invalid Contract No.')
+                        else begin
+
+                            ContractStyleRec.Reset();
+                            ContractStyleRec.SetRange("No.", LCContractRec."No.");
+
+                            if ContractStyleRec.FindSet() then begin
+
+                                repeat
+                                    //Get invoices for the  Style
+                                    SalesInvoiceRec.Reset();
+                                    SalesInvoiceRec.SetRange("Style No", ContractStyleRec."Style No.");
+                                    SalesInvoiceRec.SetRange("Sell-to Customer No.", rec."Buyer No");
+
+                                    if SalesInvoiceRec.FindSet() then begin
+
+                                        repeat
+
+                                            //Check duplicates
+                                            ContPostedInvRec.Reset();
+                                            ContPostedInvRec.SetRange("LC/Contract No.", rec."LC/Contract No.");
+                                            ContPostedInvRec.SetRange("Inv No.", SalesInvoiceRec."No.");
+
+                                            if not ContPostedInvRec.FindSet() then begin
+                                                //Insert 
+                                                ContPostedInvRec.Init();
+                                                ContPostedInvRec.BankRefNo := rec."No.";
+                                                ContPostedInvRec.AssignedBankRefNo := '';
+                                                ContPostedInvRec."Created Date" := WorkDate();
+                                                ContPostedInvRec."Created User" := UserId;
+                                                ContPostedInvRec."Inv No." := SalesInvoiceRec."No.";
+                                                SalesInvoiceRec.CalcFields(SalesInvoiceRec."Amount Including VAT");
+                                                ContPostedInvRec."Inv Value" := SalesInvoiceRec."Amount Including VAT";
+                                                ContPostedInvRec."LC/Contract No." := rec."LC/Contract No.";
+                                                ContPostedInvRec."Inv Date" := SalesInvoiceRec."Document Date";
+                                                ContPostedInvRec.Insert();
+                                            end;
+
+                                        until SalesInvoiceRec.Next() = 0;
+
+                                    end;
+                                until ContractStyleRec.Next() = 0;
+
+                            end
+                            else
+                                Error('No Styles assigned for the Contract  : %1', rec."LC/Contract No.");
+                        end;
+                    end;
                 }
 
                 field("Airway Bill Date"; rec."Airway Bill Date")
@@ -128,7 +189,8 @@ page 50763 "Bank Reference Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Available Invoices';
-                    SubPageLink = BankRefNo = FIELD("No."), "Sell-to Customer No." = field("Buyer No");
+                    // SubPageLink = BankRefNo = FIELD("No."), "Sell-to Customer No." = field("Buyer No");
+                    SubPageLink = BankRefNo = FIELD("No.");
                 }
 
                 part("Bank Ref Invoice ListPart2"; "Bank Ref Invoice ListPart2")
@@ -160,6 +222,7 @@ page 50763 "Bank Reference Card"
         BankRefeInvRec: Record BankReferenceInvoice;
         BankRefCollHeaderRec: Record BankRefCollectionHeader;
         SalesInvRec: Record "Sales Invoice Header";
+        ContPostedInvRec: Record ContractPostedInvoices;
     begin
 
         BankRefCollHeaderRec.Reset();
@@ -168,20 +231,30 @@ page 50763 "Bank Reference Card"
             Error('Bank Reference : %1 already used in Bank Reference Collection %2. Cannot delete.', rec."BankRefNo.", BankRefCollHeaderRec."BankRefNo.");
 
         //Update sales invoice header recods
-        BankRefeInvRec.Reset();
-        BankRefeInvRec.SetRange("No.", rec."No.");
-        if BankRefeInvRec.FindSet() then begin
-            repeat
-                SalesInvRec.Reset();
-                SalesInvRec.SetRange("No.", BankRefeInvRec."Invoice No");
-                if SalesInvRec.FindSet() then begin
-                    SalesInvRec.AssignedBankRefNo := '';
-                    SalesInvRec.Modify();
-                end;
-            until BankRefeInvRec.Next() = 0;
+        // BankRefeInvRec.Reset();
+        // BankRefeInvRec.SetRange("No.", rec."No.");
+        // if BankRefeInvRec.FindSet() then begin
+        //     repeat
+        //         SalesInvRec.Reset();
+        //         SalesInvRec.SetRange("No.", BankRefeInvRec."Invoice No");
+        //         if SalesInvRec.FindSet() then begin
+        //             SalesInvRec.AssignedBankRefNo := '';
+        //             SalesInvRec.Modify();
+        //         end;
+        //     until BankRefeInvRec.Next() = 0;
 
-            //Delete Line records
-            BankRefeInvRec.Delete();
+        //     //Delete Line records
+        //     BankRefeInvRec.Delete();
+        // end;
+
+
+        ContPostedInvRec.Reset();
+        ContPostedInvRec.SetRange("BankRefNo", rec."BankRefNo.");
+        if ContPostedInvRec.FindSet() then begin
+            repeat
+                ContPostedInvRec.AssignedBankRefNo := '';
+                ContPostedInvRec.Modify();
+            until ContPostedInvRec.Next() = 0;
         end;
 
     end;

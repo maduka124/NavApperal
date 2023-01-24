@@ -128,6 +128,11 @@ table 50767 BankRefCollectionHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(24; "LC/Contract No."; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

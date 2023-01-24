@@ -20,7 +20,7 @@ page 51218 "Description Card"
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
+                    //ShowMandatory = true;
 
                     trigger OnValidate()
                     var
@@ -28,7 +28,6 @@ page 51218 "Description Card"
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
-
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -42,14 +41,7 @@ page 51218 "Description Card"
 
                     end;
                 }
-
-
             }
-
-
         }
     }
-
-
-
 }

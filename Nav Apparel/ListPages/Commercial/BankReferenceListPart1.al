@@ -1,11 +1,13 @@
 page 50764 "Bank Ref Invoice ListPart1"
 {
     PageType = ListPart;
-    SourceTable = "Sales Invoice Header";
+    // SourceTable = "Sales Invoice Header";
+    SourceTable = ContractPostedInvoices;
+    //SourceTableView = where(AssignedBankRefNo = filter(''));
     SourceTableView = where(AssignedBankRefNo = filter(''));
     DeleteAllowed = false;
     InsertAllowed = false;
-    Permissions = tabledata "Sales Invoice Header" = rm;
+    //Permissions = tabledata "Sales Invoice Header" = rm;
 
 
     layout
@@ -19,14 +21,14 @@ page 50764 "Bank Ref Invoice ListPart1"
                     ApplicationArea = All;
                 }
 
-                field("No."; Rec."No.")
+                field("Inv No."; Rec."Inv No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Invoice No';
                 }
 
-                field("Amount Including VAT"; Rec."Amount Including VAT")
+                field("Inv Value"; Rec."Inv Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -47,50 +49,48 @@ page 50764 "Bank Ref Invoice ListPart1"
 
                 trigger OnAction()
                 var
-                    SalesInvRec: Record "Sales Invoice Header";
+                    ContPostedInvRec: Record ContractPostedInvoices;
                     BankRefInvRec: Record BankReferenceInvoice;
-                    BankRefHeadRec: Record BankReferenceHeader;
                     CodeUnitNav: Codeunit NavAppCodeUnit;
                     BankRefNo1: Code[20];
                 begin
 
-                    SalesInvRec.Reset();
-                    SalesInvRec.SetFilter(Select, '=%1', true);
+                    ContPostedInvRec.Reset();
+                    ContPostedInvRec.SetFilter(Select, '=%1', true);
 
-                    if SalesInvRec.FindSet() then begin
+                    if ContPostedInvRec.FindSet() then begin
                         repeat
 
-                            BankRefHeadRec.Reset();
-                            BankRefHeadRec.SetRange("No.", SalesInvRec.BankRefNo);
-                            BankRefHeadRec.FindSet();
+                            // BankRefHeadRec.Reset();
+                            // BankRefHeadRec.SetRange("No.", ContPostedInvRec.BankRefNo);
+                            // BankRefHeadRec.FindSet();
 
                             //add new Invoice to the Bankref
-                            BankRefNo1 := SalesInvRec.BankRefNo;
+                            BankRefNo1 := ContPostedInvRec.BankRefNo;
                             BankRefInvRec.Init();
-                            BankRefInvRec.BankRefNo := BankRefHeadRec."BankRefNo.";
-                            BankRefInvRec."No." := SalesInvRec.BankRefNo;
-                            BankRefInvRec."Invoice No" := SalesInvRec."No.";
-                            SalesInvRec.CalcFields("Amount Including VAT");
-                            BankRefInvRec."Ship Value" := SalesInvRec."Amount Including VAT";
-                            BankRefInvRec."Invoice Date" := SalesInvRec."Document Date";
+                            BankRefInvRec.BankRefNo := ContPostedInvRec."BankRefNo";
+                            BankRefInvRec."No." := ContPostedInvRec.BankRefNo;
+                            BankRefInvRec."Invoice No" := ContPostedInvRec."Inv No.";
+                            BankRefInvRec."Ship Value" := ContPostedInvRec."Inv Value";
+                            BankRefInvRec."Invoice Date" := ContPostedInvRec."Inv Date";
                             BankRefInvRec."Created User" := UserId;
                             BankRefInvRec."Created Date" := WorkDate();
                             BankRefInvRec.Insert();
 
                             //Update Style master contractno
-                            SalesInvRec.AssignedBankRefNo := Rec.BankRefNo;
-                            SalesInvRec.Modify();
+                            ContPostedInvRec.AssignedBankRefNo := Rec.BankRefNo;
+                            ContPostedInvRec.Modify();
 
-                        until SalesInvRec.Next() = 0;
+                        until ContPostedInvRec.Next() = 0;
 
                     end;
 
                     //Update Select as false
-                    SalesInvRec.Reset();
-                    SalesInvRec.SetFilter(Select, '=%1', true);
+                    ContPostedInvRec.Reset();
+                    ContPostedInvRec.SetFilter(Select, '=%1', true);
 
-                    if SalesInvRec.FindSet() then begin
-                        SalesInvRec.ModifyAll(Select, false);
+                    if ContPostedInvRec.FindSet() then begin
+                        ContPostedInvRec.ModifyAll(Select, false);
                     end;
 
                     CodeUnitNav.CalQtyBankRef(BankRefNo1);

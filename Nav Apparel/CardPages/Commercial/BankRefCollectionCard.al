@@ -28,6 +28,7 @@ page 50770 "Bank Ref Collection Card"
                         CurrencyExchangeRate: Record "Currency Exchange Rate";
                         CurrencyFactor: Decimal;
                         ExchangeRateDate: Date;
+                        LCMasterRec: Record "Contract/LCMaster";
                     begin
 
                         ExchangeRateDate := Today();
@@ -44,6 +45,15 @@ page 50770 "Bank Ref Collection Card"
                             if BankRefHeaderRec.FindSet() then begin
 
                                 rec.Total := BankRefHeaderRec.Total;
+                                rec."LC/Contract No." := BankRefHeaderRec."LC/Contract No.";
+
+                                //Get BU code for he style
+                                LCMasterRec.Reset();
+                                LCMasterRec.SetRange("Contract No", BankRefHeaderRec."LC/Contract No.");
+                                if LCMasterRec.FindSet() then begin
+                                    rec."Cash Rec. Journal Batch" := LCMasterRec."Global Dimension Code";
+                                    rec."Journal Batch" := LCMasterRec."Global Dimension Code";
+                                end;
 
                                 BankRefInvRec.Reset();
                                 BankRefInvRec.SetRange(BankRefNo, rec."BankRefNo.");
@@ -303,18 +313,20 @@ page 50770 "Bank Ref Collection Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Gen. Jrnl. Batch Name';
+                    Visible = false;
                 }
 
                 field("Cash Rec. Journal Batch"; rec."Cash Rec. Journal Batch")
                 {
                     ApplicationArea = All;
                     Caption = 'Cash Rece. Batch Name';
+                    Visible = false;
                 }
 
                 field("Cash Receipt Bank Account No"; rec."Cash Receipt Bank Account No")
                 {
                     ApplicationArea = All;
-                    Caption = 'Cash Receipt Bank Account';
+                    Caption = 'Money Receivng Bank';
 
                     trigger OnValidate()
                     var
@@ -369,11 +381,11 @@ page 50770 "Bank Ref Collection Card"
                     BankRefCollecLine: Record BankRefCollectionLine;
                     SalesInvHeaderRec: Record "Sales Invoice Header";
                     CustledgerEntryrec: Record "Cust. Ledger Entry";
-                    //NavAppSetuprec: Record "NavApp Setup";
                     LineNo: BigInteger;
                 begin
-                    // NavAppSetuprec.Reset();
-                    // NavAppSetuprec.FindSet();
+
+                    if rec."Cash Rec. Journal Batch" = '' then
+                        Error('Cash Rec. Journal Batch is blank. Please check the BU code of Contract : %1', rec."LC/Contract No.");
 
                     //Get max line no
                     GenJournalRec.Reset();
@@ -425,6 +437,7 @@ page 50770 "Bank Ref Collection Card"
 
                             if CustledgerEntryrec.Findset() then begin
                                 CustledgerEntryrec.Validate("Amount to Apply", BankRefCollecLine."Release Amount");
+                                CustledgerEntryrec.Validate("Applies-to ID", BankRefCollecLine."Invoice No");
                                 CustledgerEntryrec.Modify();
                             end;
 
@@ -452,11 +465,11 @@ page 50770 "Bank Ref Collection Card"
                     GenJournalRec: Record "Gen. Journal Line";
                     BankRefDistributionRec: Record BankRefDistribution;
                     CustledgerEntryrec: Record "Cust. Ledger Entry";
-                    //NavAppSetuprec: Record "NavApp Setup";
                     LineNo: BigInteger;
                 begin
-                    // NavAppSetuprec.Reset();
-                    // NavAppSetuprec.FindSet();
+
+                    if rec."Journal Batch" = '' then
+                        Error('Genral Journal Batch is blank. Please check the BU code of Contract : %1', rec."LC/Contract No.");
 
                     //Get max line no
                     GenJournalRec.Reset();

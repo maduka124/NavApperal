@@ -40,12 +40,9 @@ page 50968 "Nav Apperal Role Center"
 
                 action("Article")
                 {
-
                     Caption = 'Article';
                     RunObject = Page Article;
                     ApplicationArea = all;
-
-
                 }
 
                 action("AQL")
@@ -96,7 +93,6 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Defects List";
                     ApplicationArea = all;
                 }
-
                 action("Department Style")
                 {
                     Caption = 'Department Style';
@@ -122,6 +118,14 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Dimension Width';
                     RunObject = Page "Dimension Width";
+                    ApplicationArea = all;
+                }
+
+                action("Description List")
+                {
+                    Caption = 'Description';
+                    Enabled = true;
+                    RunObject = page "Description List";
                     ApplicationArea = all;
                 }
 
@@ -326,13 +330,6 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Workers';
                     RunObject = Page "Workers List";
-                    ApplicationArea = all;
-                }
-                action("Description List")
-                {
-                    Caption = 'Description';
-                    Enabled = true;
-                    RunObject = page "Description List";
                     ApplicationArea = all;
                 }
             }

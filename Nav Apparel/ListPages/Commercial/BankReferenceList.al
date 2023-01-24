@@ -95,6 +95,7 @@ page 50766 "Bank Reference List"
         BankRefeInvRec: Record BankReferenceInvoice;
         BankRefCollHeaderRec: Record BankRefCollectionHeader;
         SalesInvRec: Record "Sales Invoice Header";
+        ContPostedInvRec: Record ContractPostedInvoices;
     begin
 
         BankRefCollHeaderRec.Reset();
@@ -102,24 +103,31 @@ page 50766 "Bank Reference List"
         if BankRefCollHeaderRec.FindSet() then
             Error('Bank Reference : %1 already used in Bank Reference Collection %2. Cannot delete.', rec."BankRefNo.", BankRefCollHeaderRec."BankRefNo.");
 
-
         //Update sales invoice header recods
-        BankRefeInvRec.Reset();
-        BankRefeInvRec.SetRange("No.", Rec."No.");
-        if BankRefeInvRec.FindSet() then begin
+        // BankRefeInvRec.Reset();
+        // BankRefeInvRec.SetRange("No.", Rec."No.");
+        // if BankRefeInvRec.FindSet() then begin
+        //     repeat
+        //         SalesInvRec.Reset();
+        //         SalesInvRec.SetRange("No.", BankRefeInvRec."Invoice No");
+        //         if SalesInvRec.FindSet() then begin
+        //             SalesInvRec.AssignedBankRefNo := '';
+        //             SalesInvRec.Modify();
+        //         end;
+        //     until BankRefeInvRec.Next() = 0;
+
+        //     //Delete Line records
+        //     BankRefeInvRec.Delete();
+        // end;
+
+        ContPostedInvRec.Reset();
+        ContPostedInvRec.SetRange("BankRefNo", rec."BankRefNo.");
+        if ContPostedInvRec.FindSet() then begin
             repeat
-                SalesInvRec.Reset();
-                SalesInvRec.SetRange("No.", BankRefeInvRec."Invoice No");
-                if SalesInvRec.FindSet() then begin
-                    SalesInvRec.AssignedBankRefNo := '';
-                    SalesInvRec.Modify();
-                end;
-            until BankRefeInvRec.Next() = 0;
-
-            //Delete Line records
-            BankRefeInvRec.Delete();
+                ContPostedInvRec.AssignedBankRefNo := '';
+                ContPostedInvRec.Modify();
+            until ContPostedInvRec.Next() = 0;
         end;
-
     end;
 
 }

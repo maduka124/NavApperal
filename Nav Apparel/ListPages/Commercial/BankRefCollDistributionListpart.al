@@ -30,7 +30,7 @@ page 51204 "Bank Ref Colle Dist ListPart"
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-                    //TableRelation = descri
+                    //Editable = false;
                 }
 
                 field("Debit Bank Account No"; Rec."Debit Bank Account No")

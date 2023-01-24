@@ -23,11 +23,10 @@ page 51217 "Description List"
                     ApplicationArea = All;
                     Caption = 'Description';
                 }
-
-
             }
         }
     }
+
     trigger OnOpenPage()
     var
         LoginRec: Page "Login Card";

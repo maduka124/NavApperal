@@ -42,7 +42,7 @@ page 50765 "Bank Ref Invoice ListPart2"
 
                 trigger OnAction()
                 var
-                    SalesInvRec: Record "Sales Invoice Header";
+                    ContPostedInvRec: Record ContractPostedInvoices;
                     BankRefInvRec: Record BankReferenceInvoice;
                     CodeUnitNav: Codeunit NavAppCodeUnit;
                 begin
@@ -53,12 +53,13 @@ page 50765 "Bank Ref Invoice ListPart2"
                     if BankRefInvRec.FindSet() then begin
                         repeat
                             //Update Purchase order pi no
-                            SalesInvRec.Reset();
-                            SalesInvRec.SetRange("No.", BankRefInvRec."Invoice No");
-                            SalesInvRec.FindSet();
-                            SalesInvRec.Select := false;
-                            SalesInvRec.AssignedBankRefNo := '';
-                            SalesInvRec.Modify();
+                            ContPostedInvRec.Reset();
+                            ContPostedInvRec.SetRange("Inv No.", BankRefInvRec."Invoice No");
+                            if ContPostedInvRec.FindSet() then begin
+                                ContPostedInvRec.Select := false;
+                                ContPostedInvRec.AssignedBankRefNo := '';
+                                ContPostedInvRec.Modify();
+                            end;
                         until BankRefInvRec.Next() = 0;
                     end;
 

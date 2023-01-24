@@ -28,6 +28,8 @@ table 51203 BankRefDistribution
         field(5; "Description"; text[250])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Description.Description;
+            ValidateTableRelation = false;
         }
 
         field(6; "Debit Bank Account No"; Code[50])

@@ -1032,5 +1032,12 @@ permissionset 50100 GeneratedPermission
         table UserRoles=X,
         report MaterialIssueRequitionCard=X,
         page "User Roles Card"=X,
-        page "Users Role List"=X;
+        page "Users Role List"=X,
+        tabledata Description=RIMD,
+        table Description=X,
+        page "Description Card"=X,
+        page "Description List"=X,
+        page ProductionFilerelease=X,
+        tabledata ContractPostedInvoices=RIMD,
+        table ContractPostedInvoices=X;
 }
