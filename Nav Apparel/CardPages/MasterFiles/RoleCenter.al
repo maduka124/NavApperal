@@ -1709,10 +1709,10 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Posted Sales Invoice")
+                action("Sales Invoice")
                 {
-                    Caption = 'Posted Sales Invoice';
-                    RunObject = Page "Posted Sales Invoices";
+                    Caption = 'Sales Invoice';
+                    RunObject = Page "Sales Invoice List";
                     ApplicationArea = all;
                 }
 
