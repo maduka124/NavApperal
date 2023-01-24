@@ -1705,7 +1705,7 @@ page 50968 "Nav Apperal Role Center"
                 action("Posted Sales Invoice")
                 {
                     Caption = 'Posted Sales Invoice';
-                    RunObject = Page "Posted Sales Invoice";
+                    RunObject = Page "Posted Sales Invoices";
                     ApplicationArea = all;
                 }
 

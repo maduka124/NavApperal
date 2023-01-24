@@ -66,7 +66,7 @@ page 51204 "Bank Ref Colle Dist ListPart"
                 field("Transferred To Gen. Jrnl."; rec."Transferred To Gen. Jrnl.")
                 {
                     ApplicationArea = All;
-                    //Editable = false;
+                    Editable = false;
                 }
 
                 field("Payment Posted"; rec."Payment Posted")
