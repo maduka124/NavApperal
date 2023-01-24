@@ -101,6 +101,32 @@ page 50427 "Sample Request Header ListPart"
                     wip.ModifyAll("Req No.", rec."No.");
                 end;
             }
+            //Mihiranga 2023/01/23
+            action(viewForSampleDetails)
+            {
+                ApplicationArea = All;
+                Image = View;
+                Caption = 'View For Sample Details';
+
+
+                trigger OnAction()
+                var
+                    SampleCardRec: Page "Sample Request Card";
+                //SampleReq: Record "Sample Requsition Header";
+                begin
+
+
+
+                    Clear(SampleCardRec);
+                    SampleCardRec.PassParameters(Rec."No.", false);
+                    SampleCardRec.Editable := false;
+                    SampleCardRec.RunModal();
+
+
+                end;
+            }
+
+
         }
     }
 }
