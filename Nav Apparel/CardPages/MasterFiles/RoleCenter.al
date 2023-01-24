@@ -328,6 +328,13 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Workers List";
                     ApplicationArea = all;
                 }
+                action("Description List")
+                {
+                    Caption = 'Description';
+                    Enabled = true;
+                    RunObject = page "Description List";
+                    ApplicationArea = all;
+                }
             }
 
             //Merchandizing Group
@@ -1881,6 +1888,7 @@ page 50968 "Nav Apperal Role Center"
                 }
 
             }
+
 
             // group("Finance")
             // {
