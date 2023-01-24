@@ -162,11 +162,11 @@ page 50600 "Sample Request Card"
                     ApplicationArea = All;
                 }
 
-                field("Merchandizer Group Name"; rec."Merchandizer Group Name")
-                {
-                    ApplicationArea = All;
-                    TableRelation = MerchandizingGroupTable."Group Name";
-                }
+                // field("Merchandizer Group Name"; rec."Merchandizer Group Name")
+                // {
+                //     ApplicationArea = All;
+                //     TableRelation = MerchandizingGroupTable."Group Name";
+                // }
             }
 
             group("Sample Details")

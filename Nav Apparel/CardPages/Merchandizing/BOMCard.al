@@ -5603,6 +5603,7 @@ page 50984 "BOM Card"
                     AssortDetailRec: Record AssorColorSizeRatio;
                     AssortDetail1Rec: Record AssorColorSizeRatio;
                     NoSeriesManagementCode: Codeunit NoSeriesManagement;
+                    AutoGenRec: Record "BOM Line AutoGen";
                     StyleMasRec: Record "Style Master";
                     ItemMasterRec: Record Item;
                     LineNo: BigInteger;
@@ -5642,8 +5643,8 @@ page 50984 "BOM Card"
 
                             StatusGB := 0;
 
-                            // Message(AssortDetailRec."Colour Name");
-                            // Message(AssortDetailRec."lot No.");
+                            // Message('color :' + AssortDetailRec."Colour Name");
+                            // Message('lot :' + AssortDetailRec."lot No.");
 
 
                             FOR Count := 1 TO 64 DO begin
@@ -6681,6 +6682,19 @@ page 50984 "BOM Card"
 
                         until AssortDetailRec.Next() = 0;
 
+                        AutoGenRec.Reset();
+                        AutoGenRec.SetRange("No.", rec."No");
+                        AutoGenRec.SetFilter("Include in PO", '=%1', true);
+                        if AutoGenRec.FindSet() then
+                            AutoGenRec.ModifyAll("Included in PO", true);
+
+
+                        AutoGenRec.Reset();
+                        AutoGenRec.SetRange("No.", rec."No");
+                        AutoGenRec.SetFilter("Include in PO", '=%1', true);
+                        if AutoGenRec.FindSet() then
+                            AutoGenRec.ModifyAll("Include in PO", false);
+
 
                         //Create Prod orders                       
                         SalesHeaderRec.Reset();
@@ -7032,6 +7046,7 @@ page 50984 "BOM Card"
                             end;
                         end;
                         until BOMLineAutoGenPRBOMRec.Next() = 0;
+
 
 
 
@@ -7514,7 +7529,6 @@ page 50984 "BOM Card"
         BOMEstimateRec.FindSet();
         FOBPcsPrice := BOMEstimateRec."FOB Pcs";
 
-
         NavAppSetupRec.Reset();
         NavAppSetupRec.FindSet();
 
@@ -7918,7 +7932,8 @@ page 50984 "BOM Card"
 
                         if BOMLineEstimateRec.Reconfirm = false then begin
 
-                            if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
+                            if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
+                                //if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
 
                                 //Get Dimenion only status
                                 MainCateRec.Reset();
@@ -8123,8 +8138,8 @@ page 50984 "BOM Card"
                                 CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name");
 
                                 //Update Auto generate
-                                AutoGenRec."Included in PO" := true;
-                                AutoGenRec."Include in PO" := false;
+                                // AutoGenRec."Included in PO" := true;
+                                // AutoGenRec."Include in PO" := false;
                                 //AutoGenRec."Production BOM No." := NextBomNo;
                                 AutoGenRec."New Item No." := NextItemNo;
                                 AutoGenRec.Modify();
@@ -8481,8 +8496,8 @@ page 50984 "BOM Card"
                                 CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name");
 
                                 //Update Auto generate
-                                AutoGenRec."Included in PO" := true;
-                                AutoGenRec."Include in PO" := false;
+                                // AutoGenRec."Included in PO" := true;
+                                // AutoGenRec."Include in PO" := false;
                                 //AutoGenRec."Production BOM No." := ProdBOM;
                                 AutoGenRec."New Item No." := NextItemNo;
                                 AutoGenRec.Modify();
