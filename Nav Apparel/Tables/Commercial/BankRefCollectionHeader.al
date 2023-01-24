@@ -124,8 +124,11 @@ table 50767 BankRefCollectionHeader
             //general journal
         }
 
+        field(23; "Total"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
-
 
     keys
     {

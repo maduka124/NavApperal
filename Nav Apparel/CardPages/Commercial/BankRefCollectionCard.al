@@ -25,7 +25,14 @@ page 50770 "Bank Ref Collection Card"
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                         NavAppSetup: Record "NavApp Setup";
+                        CurrencyExchangeRate: Record "Currency Exchange Rate";
+                        CurrencyFactor: Decimal;
+                        ExchangeRateDate: Date;
                     begin
+
+                        ExchangeRateDate := Today();
+                        CurrencyFactor := CurrencyExchangeRate.GetCurrentCurrencyFactor('USD');
+                        CurrencyExchangeRate.GetLastestExchangeRate('USD', ExchangeRateDate, rec."Exchange Rate");
 
                         BankRefCollLineRec.Reset();
                         BankRefCollLineRec.SetRange("BankRefNo.", rec."BankRefNo.");
@@ -34,27 +41,31 @@ page 50770 "Bank Ref Collection Card"
 
                             BankRefHeaderRec.Reset();
                             BankRefHeaderRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                            BankRefHeaderRec.FindSet();
+                            if BankRefHeaderRec.FindSet() then begin
 
-                            BankRefInvRec.Reset();
-                            BankRefInvRec.SetRange(BankRefNo, rec."BankRefNo.");
-                            if BankRefInvRec.FindSet() then
-                                repeat
-                                    LineNo += 1;
-                                    BankRefCollLineRec.Init();
-                                    BankRefCollLineRec."BankRefNo." := rec."BankRefNo.";
-                                    BankRefCollLineRec."Airway Bill Date" := BankRefHeaderRec."Airway Bill Date";
-                                    BankRefCollLineRec.AirwayBillNo := BankRefHeaderRec.AirwayBillNo;
-                                    BankRefCollLineRec."Created User" := UserId;
-                                    BankRefCollLineRec."Created Date" := WorkDate();
-                                    BankRefCollLineRec."Invoice Amount" := BankRefInvRec."Ship Value";
-                                    BankRefCollLineRec."Invoice Date" := BankRefInvRec."Invoice Date";
-                                    BankRefCollLineRec."Invoice No" := BankRefInvRec."Invoice No";
-                                    BankRefCollLineRec."LineNo." := LineNo;
-                                    BankRefCollLineRec."Maturity Date" := BankRefHeaderRec."Maturity Date";
-                                    BankRefCollLineRec."Reference Date" := BankRefHeaderRec."Reference Date";
-                                    BankRefCollLineRec.Insert();
-                                until BankRefInvRec.Next() = 0;
+                                rec.Total := BankRefHeaderRec.Total;
+
+                                BankRefInvRec.Reset();
+                                BankRefInvRec.SetRange(BankRefNo, rec."BankRefNo.");
+                                if BankRefInvRec.FindSet() then begin
+                                    repeat
+                                        LineNo += 1;
+                                        BankRefCollLineRec.Init();
+                                        BankRefCollLineRec."BankRefNo." := rec."BankRefNo.";
+                                        BankRefCollLineRec."Airway Bill Date" := BankRefHeaderRec."Airway Bill Date";
+                                        BankRefCollLineRec.AirwayBillNo := BankRefHeaderRec.AirwayBillNo;
+                                        BankRefCollLineRec."Created User" := UserId;
+                                        BankRefCollLineRec."Created Date" := WorkDate();
+                                        BankRefCollLineRec."Invoice Amount" := BankRefInvRec."Ship Value";
+                                        BankRefCollLineRec."Invoice Date" := BankRefInvRec."Invoice Date";
+                                        BankRefCollLineRec."Invoice No" := BankRefInvRec."Invoice No";
+                                        BankRefCollLineRec."LineNo." := LineNo;
+                                        BankRefCollLineRec."Maturity Date" := BankRefHeaderRec."Maturity Date";
+                                        BankRefCollLineRec."Reference Date" := BankRefHeaderRec."Reference Date";
+                                        BankRefCollLineRec.Insert();
+                                    until BankRefInvRec.Next() = 0;
+                                end;
+                            end;
 
                             //Assign template 
                             NavAppSetup.Reset();
@@ -85,6 +96,12 @@ page 50770 "Bank Ref Collection Card"
 
                         CurrPage.Update();
                     end;
+                }
+
+                field(Total; rec.Total)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Release Amount"; rec."Release Amount")

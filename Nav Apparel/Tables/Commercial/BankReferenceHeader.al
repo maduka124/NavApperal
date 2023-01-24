@@ -59,6 +59,7 @@ table 50761 BankReferenceHeader
         {
             DataClassification = ToBeClassified;
         }
+
         //Done By Sachith 10/01/23
         field(12; "Buyer No"; Code[20])
         {
@@ -70,7 +71,14 @@ table 50761 BankReferenceHeader
             DataClassification = ToBeClassified;
             TableRelation = Customer.Name;
             ValidateTableRelation = false;
-        }     
+        }
+
+        field(14; "LC/Contract No."; text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No"), "Status of LC" = filter(Active));
+            ValidateTableRelation = false;
+        }
     }
 
     keys
@@ -83,7 +91,7 @@ table 50761 BankReferenceHeader
 
     fieldgroups
     {
-        fieldgroup(DropDown; "No.", "BankRefNo.", "Reference Date", AirwayBillNo, "Airway Bill Date", "Maturity Date")
+        fieldgroup(DropDown; "No.", "BankRefNo.", "Reference Date", Total, AirwayBillNo, "Airway Bill Date", "Maturity Date")
         {
 
         }

@@ -95,6 +95,11 @@ page 50763 "Bank Reference Card"
                     end;
                 }
 
+                field("LC/Contract No."; rec."LC/Contract No.")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Airway Bill Date"; rec."Airway Bill Date")
                 {
                     ApplicationArea = All;

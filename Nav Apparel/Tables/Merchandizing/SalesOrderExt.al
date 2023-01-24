@@ -24,7 +24,6 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
             OptionMembers = FG,Sample,Washing;
         }
 
-
         //Newly added by maduka on 17/1/2023
         field(50006; "BankRefNo"; Code[50])
         {
