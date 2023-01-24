@@ -8152,15 +8152,24 @@ page 50984 "BOM Card"
                                     ItemMasterRec.ModifyAll("Production BOM No.", NextBomNo);
 
 
-                                //insert Autogen prod bom table
-                                AutoGenPrBOMRec.Init();
-                                AutoGenPrBOMRec."No." := rec."No";
-                                AutoGenPrBOMRec."Item No." := AutoGenRec."Item No.";
-                                AutoGenPrBOMRec."Line No." := AutoGenRec."Line No.";
-                                AutoGenPrBOMRec."Created User" := UserId;
-                                AutoGenPrBOMRec."Created Date" := WorkDate();
-                                AutoGenPrBOMRec."Production BOM No." := NextBomNo;
-                                AutoGenPrBOMRec.Insert();
+                                AutoGenPrBOMRec.Reset();
+                                AutoGenPrBOMRec.SetRange("No.", rec."No");
+                                AutoGenPrBOMRec.SetRange("Item No.", AutoGenRec."Item No.");
+                                AutoGenPrBOMRec.SetRange("Line No.", AutoGenRec."Line No.");
+                                AutoGenPrBOMRec.SetRange("Production BOM No.", NextBomNo);
+
+                                if not AutoGenPrBOMRec.FindSet() then begin
+                                    //insert Autogen prod bom table
+                                    AutoGenPrBOMRec.Init();
+                                    AutoGenPrBOMRec."No." := rec."No";
+                                    AutoGenPrBOMRec."Item No." := AutoGenRec."Item No.";
+                                    AutoGenPrBOMRec."Line No." := AutoGenRec."Line No.";
+                                    AutoGenPrBOMRec."Created User" := UserId;
+                                    AutoGenPrBOMRec."Created Date" := WorkDate();
+                                    AutoGenPrBOMRec."Production BOM No." := NextBomNo;
+                                    AutoGenPrBOMRec.Insert();
+                                end;
+
 
                                 // AutoGenPrBOMRec.Insert()();
                                 // AutoGenPrBOMRec.SetRange("No.", AutoGenRec."No.");
@@ -8504,14 +8513,22 @@ page 50984 "BOM Card"
 
 
                                 //insert Autogen prod bom table
-                                AutoGenPrBOMRec.Init();
-                                AutoGenPrBOMRec."No." := rec."No";
-                                AutoGenPrBOMRec."Item No." := AutoGenRec."Item No.";
-                                AutoGenPrBOMRec."Line No." := AutoGenRec."Line No.";
-                                AutoGenPrBOMRec."Created User" := UserId;
-                                AutoGenPrBOMRec."Created Date" := WorkDate();
-                                AutoGenPrBOMRec."Production BOM No." := ProdBOM;
-                                AutoGenPrBOMRec.Insert();
+                                AutoGenPrBOMRec.Reset();
+                                AutoGenPrBOMRec.SetRange("No.", rec."No");
+                                AutoGenPrBOMRec.SetRange("Item No.", AutoGenRec."Item No.");
+                                AutoGenPrBOMRec.SetRange("Line No.", AutoGenRec."Line No.");
+                                AutoGenPrBOMRec.SetRange("Production BOM No.", ProdBOM);
+
+                                if not AutoGenPrBOMRec.FindSet() then begin
+                                    AutoGenPrBOMRec.Init();
+                                    AutoGenPrBOMRec."No." := rec."No";
+                                    AutoGenPrBOMRec."Item No." := AutoGenRec."Item No.";
+                                    AutoGenPrBOMRec."Line No." := AutoGenRec."Line No.";
+                                    AutoGenPrBOMRec."Created User" := UserId;
+                                    AutoGenPrBOMRec."Created Date" := WorkDate();
+                                    AutoGenPrBOMRec."Production BOM No." := ProdBOM;
+                                    AutoGenPrBOMRec.Insert();
+                                end;
 
                                 // //update Autogen prod bom table
                                 // AutoGenPrBOMRec.Reset();

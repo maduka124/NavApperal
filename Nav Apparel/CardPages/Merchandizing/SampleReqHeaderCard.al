@@ -1052,8 +1052,6 @@ page 50600 "Sample Request Card"
 
 
 
-
-
     trigger OnAfterGetRecord()
     var
     begin
@@ -1063,6 +1061,7 @@ page 50600 "Sample Request Card"
             CurrPage.Editable(true);
     end;
 
+
     //Mihiranga 2023/01/23
     procedure PassParameters(SampleCardNo: Code[20]; EditablePara: Boolean);
     var
@@ -1070,6 +1069,7 @@ page 50600 "Sample Request Card"
         SampleNo := SampleCardNo;
         EditableGb := EditablePara;
     end;
+
 
     trigger OnOpenPage()
     var
@@ -1082,14 +1082,12 @@ page 50600 "Sample Request Card"
 
         if rec.WriteToMRPStatus = 1 then
             CurrPage.Editable(false)
-
         else
             CurrPage.Editable(true);
-
     end;
 
-    var
 
+    var
         SampleNo: Code[20];
         EditableGb: Boolean;
 }
