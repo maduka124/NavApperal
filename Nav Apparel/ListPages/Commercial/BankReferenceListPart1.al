@@ -51,6 +51,7 @@ page 50764 "Bank Ref Invoice ListPart1"
                 var
                     ContPostedInvRec: Record ContractPostedInvoices;
                     BankRefInvRec: Record BankReferenceInvoice;
+                    BankRefHeadRec: Record BankReferenceHeader;
                     CodeUnitNav: Codeunit NavAppCodeUnit;
                     BankRefNo1: Code[20];
                 begin
@@ -61,15 +62,15 @@ page 50764 "Bank Ref Invoice ListPart1"
                     if ContPostedInvRec.FindSet() then begin
                         repeat
 
-                            // BankRefHeadRec.Reset();
-                            // BankRefHeadRec.SetRange("No.", ContPostedInvRec.BankRefNo);
-                            // BankRefHeadRec.FindSet();
+                            BankRefHeadRec.Reset();
+                            BankRefHeadRec.SetRange("No.", ContPostedInvRec.BankRefNo);
+                            BankRefHeadRec.FindSet();
 
                             //add new Invoice to the Bankref
                             BankRefNo1 := ContPostedInvRec.BankRefNo;
                             BankRefInvRec.Init();
-                            BankRefInvRec.BankRefNo := ContPostedInvRec."BankRefNo";
-                            BankRefInvRec."No." := ContPostedInvRec.BankRefNo;
+                            BankRefInvRec.BankRefNo := BankRefHeadRec."BankRefNo.";
+                            BankRefInvRec."No." := ContPostedInvRec.BankRefNo;  //System no series
                             BankRefInvRec."Invoice No" := ContPostedInvRec."Inv No.";
                             BankRefInvRec."Ship Value" := ContPostedInvRec."Inv Value";
                             BankRefInvRec."Invoice Date" := ContPostedInvRec."Inv Date";
