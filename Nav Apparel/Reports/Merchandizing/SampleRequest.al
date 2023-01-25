@@ -29,6 +29,8 @@ report 50639 SampleRequest
             { }
             column(No_; "No.")
             { }
+            column(Secondary_UserID; "Secondary UserID")
+            { }
 
             // Done By Sachith on on 13/01/23
             column(Brand_Name; "Brand Name")
