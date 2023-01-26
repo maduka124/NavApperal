@@ -67,6 +67,7 @@ page 50770 "Bank Ref Collection Card"
                                         BankRefCollLineRec."Created User" := UserId;
                                         BankRefCollLineRec."Created Date" := WorkDate();
                                         BankRefCollLineRec."Invoice Amount" := BankRefInvRec."Ship Value";
+                                        BankRefCollLineRec."Exchange Rate" := Rec."Exchange Rate";
                                         BankRefCollLineRec."Invoice Date" := BankRefInvRec."Invoice Date";
                                         BankRefCollLineRec."Invoice No" := BankRefInvRec."Invoice No";
                                         BankRefCollLineRec."LineNo." := LineNo;
