@@ -718,6 +718,12 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Production File Release")
+                {
+                    RunObject = page ProductionFileReleaseCard;
+                    ApplicationArea = all;
+                }
+
                 action("Shop Calenders")
                 {
                     Caption = 'Shop Calenders';

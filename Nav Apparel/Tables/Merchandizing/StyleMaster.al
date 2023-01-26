@@ -331,6 +331,11 @@ table 50934 "Style Master"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012639; "Prod File Handover Status"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

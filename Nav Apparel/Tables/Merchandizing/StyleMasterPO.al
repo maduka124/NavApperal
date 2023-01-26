@@ -206,6 +206,15 @@ table 50935 "Style Master PO"
             DataClassification = ToBeClassified;
         }
 
+        field(71012616; "Sew Factory No"; Code[20])  //This is sewing factory not LC factory 
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012617; "Sew Factory Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
