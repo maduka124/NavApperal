@@ -318,7 +318,7 @@ page 50355 "Daily Sewing In/Out Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Out PO No';
+                    Caption = 'Output PO No';
                 }
 
                 field("Output Qty"; rec."Output Qty")
