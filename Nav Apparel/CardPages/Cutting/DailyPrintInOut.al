@@ -80,6 +80,8 @@ page 50361 "Daily Printing In/Out Card"
                         if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
                             Rec."Resource No." := WorkCentrRec."No.";
                             rec."Resource Name" := WorkCentrRec.Name;
+                            Rec."Factory Code" := WorkCentrRec."Factory No.";
+                            Rec."Factory Name" := WorkCentrRec."Factory Name";
                         end;
 
 
@@ -113,8 +115,11 @@ page 50361 "Daily Printing In/Out Card"
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");
 
-                        if WorkCenterRec.FindSet() then
-                            rec."Resource No." := WorkCenterRec."No."
+                        if WorkCenterRec.FindSet() then begin
+                            Rec."Resource No." := WorkCenterRec."No.";
+                            Rec."Factory Code" := WorkCenterRec."Factory No.";
+                            Rec."Factory Name" := WorkCenterRec."Factory Name";
+                        end
                         else
                             Error('Invalid Section');
                     end;
@@ -129,6 +134,7 @@ page 50361 "Daily Printing In/Out Card"
                     trigger OnLookup(var text: Text): Boolean
                     var
                         StyleMasterRec: Record "Style Master";
+                        NavAppPlanRec: Record "NavApp Planning Lines";
                         Users: Record "User Setup";
                         Factory: Code[20];
                     begin
@@ -139,15 +145,19 @@ page 50361 "Daily Printing In/Out Card"
                         if Users."Factory Code" = '' then
                             Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
-                        StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Factory Code", Users."Factory Code");
+                        NavAppPlanRec.Reset();
+                        NavAppPlanRec.SetRange("Factory", Users."Factory Code");
+                        if NavAppPlanRec.Findset() then begin
+                            repeat
+                                NavAppPlanRec.Mark(true);
+                            until NavAppPlanRec.Next() = 0;
 
-                        if Page.RunModal(50623, StyleMasterRec) = Action::LookupOK then begin
-                            rec."Style No." := StyleMasterRec."No.";
+                            NavAppPlanRec.MARKEDONLY(TRUE);
+                        end;
 
-                            StyleMasterRec.Reset();
-                            StyleMasterRec.get(rec."Style No.");
-                            rec."Style Name" := StyleMasterRec."Style No.";
+                        if Page.RunModal(51224, NavAppPlanRec) = Action::LookupOK then begin
+                            rec."Style No." := NavAppPlanRec."Style No.";
+                            rec."Style Name" := NavAppPlanRec."Style Name";
                         end;
                     end;
                 }

@@ -80,7 +80,9 @@ page 50358 "Daily Washing In/Out Card"
 
                         if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
                             Rec."Resource No." := WorkCentrRec."No.";
-                            rec."Resource Name" := WorkCentrRec.Name;
+                            Rec."Resource Name" := WorkCentrRec.Name;
+                            Rec."Factory Code" := WorkCentrRec."Factory No.";
+                            Rec."Factory Name" := WorkCentrRec."Factory Name";
                         end;
 
 
@@ -113,8 +115,11 @@ page 50358 "Daily Washing In/Out Card"
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");
 
-                        if WorkCenterRec.FindSet() then
-                            rec."Resource No." := WorkCenterRec."No."
+                        if WorkCenterRec.FindSet() then begin
+                            rec."Resource No." := WorkCenterRec."No.";
+                            Rec."Factory Code" := WorkCenterRec."Factory No.";
+                            Rec."Factory Name" := WorkCenterRec."Factory Name";
+                        end
                         else
                             Error('Invalid Section');
                     end;
