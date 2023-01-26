@@ -215,7 +215,8 @@ page 50600 "Sample Request Card"
                 ApplicationArea = All;
                 Image = AddAction;
                 ToolTip = 'Auto Generate FG/Sales Order/Production BOM/Routing';
-                Visible = EditableGB;
+                Visible = VisibleG;
+
                 trigger OnAction()
                 var
                     Description: Text[500];
@@ -1077,11 +1078,12 @@ page 50600 "Sample Request Card"
 
 
     //Mihiranga 2023/01/23
-    procedure PassParameters(SampleCardNo: Code[20]; EditablePara: Boolean);
+    procedure PassParameters(SampleCardNo: Code[20]; EditablePara: Boolean; VisibleGb: Boolean);
     var
     begin
         SampleNo := SampleCardNo;
         EditableGb := EditablePara;
+        VisibleG := VisibleGb;
     end;
 
 
@@ -1109,5 +1111,6 @@ page 50600 "Sample Request Card"
     var
         SampleNo: Code[20];
         EditableGb: Boolean;
+        VisibleG: Boolean;
 
 }
