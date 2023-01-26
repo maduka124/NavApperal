@@ -114,6 +114,16 @@ table 50349 ProductionOutHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(21; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(22; "Factory Name"; Text[50])
+        {
+            DataClassification = ToBeClassified; //Users factory         
+        }
     }
 
     keys

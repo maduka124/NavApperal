@@ -81,6 +81,8 @@ page 50351 "Daily Cutting Out Card"
                         if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
                             Rec."Resource No." := WorkCentrRec."No.";
                             rec."Resource Name" := WorkCentrRec.Name;
+                            Rec."Factory Code" := WorkCentrRec."Factory No.";
+                            rec."Factory Name" := WorkCentrRec."Factory Name";
                         end;
 
                         //Check whether user logged in or not
@@ -128,10 +130,9 @@ page 50351 "Daily Cutting Out Card"
 
                     trigger OnLookup(var text: Text): Boolean
                     var
-                        StyleMasterRec: Record "Style Master";
+                        NavAppPlanRec: Record "NavApp Planning Lines";
                         BundleGHeaderRec: Record BundleGuideHeader;
                         Users: Record "User Setup";
-                        Factory: Code[20];
                     begin
 
                         Users.Reset();
@@ -140,24 +141,24 @@ page 50351 "Daily Cutting Out Card"
                         if Users."Factory Code" = '' then
                             Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
-                        StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Factory Code", Users."Factory Code");
-                        if StyleMasterRec.FindFirst() then
+                        NavAppPlanRec.Reset();
+                        NavAppPlanRec.SetRange("Factory", Users."Factory Code");
+                        if NavAppPlanRec.Findset() then begin
                             repeat
                                 BundleGHeaderRec.Reset();
-                                BundleGHeaderRec.SetRange("Style No.", StyleMasterRec."No.");
+                                BundleGHeaderRec.SetRange("Style No.", NavAppPlanRec."Style No.");
                                 if BundleGHeaderRec.Findset() then
-                                    StyleMasterRec.Mark(true);
-                            until StyleMasterRec.Next() = 0;
-                        StyleMasterRec.MARKEDONLY(TRUE);
+                                    NavAppPlanRec.Mark(true);
+                            until NavAppPlanRec.Next() = 0;
 
-                        if Page.RunModal(50623, StyleMasterRec) = Action::LookupOK then begin
-                            rec."Style No." := StyleMasterRec."No.";
-
-                            StyleMasterRec.Reset();
-                            StyleMasterRec.get(rec."Style No.");
-                            rec."Style Name" := StyleMasterRec."Style No.";
+                            NavAppPlanRec.MARKEDONLY(TRUE);
                         end;
+
+                        if Page.RunModal(51224, NavAppPlanRec) = Action::LookupOK then begin
+                            rec."Style No." := NavAppPlanRec."Style No.";
+                            rec."Style Name" := NavAppPlanRec."Style Name";
+                        end;
+
                     end;
                 }
 
