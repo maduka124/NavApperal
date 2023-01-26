@@ -4,12 +4,14 @@ page 50600 "Sample Request Card"
     SourceTable = "Sample Requsition Header";
     Caption = 'Sample Requisition';
 
+
     layout
     {
         area(Content)
         {
             group(General)
             {
+                Editable = EditableGB;
                 field("No."; rec."No.")
                 {
                     ApplicationArea = All;
@@ -171,6 +173,7 @@ page 50600 "Sample Request Card"
 
             group("Sample Details")
             {
+                Editable = EditableGB;
                 part("SampleReqLineListPart"; SampleReqLineListPart)
                 {
                     ApplicationArea = All;
@@ -181,6 +184,7 @@ page 50600 "Sample Request Card"
 
             group("Related Documents")
             {
+                Editable = EditableGB;
                 part(SampleReqDocListPart; SampleReqDocListPart)
                 {
                     ApplicationArea = All;
@@ -191,6 +195,7 @@ page 50600 "Sample Request Card"
 
             group("Accessories/BOM")
             {
+                Editable = EditableGB;
                 part(SampleReqAccListPart; SampleReqAccListPart)
                 {
                     ApplicationArea = All;
@@ -1054,11 +1059,20 @@ page 50600 "Sample Request Card"
 
     trigger OnAfterGetRecord()
     var
+        SampleRec: Record "Sample Requsition Header";
     begin
         if rec.WriteToMRPStatus = 1 then
             CurrPage.Editable(false)
         else
             CurrPage.Editable(true);
+        EditableGb := true;
+        SampleRec.Reset();
+        SampleRec.SetRange("No.", Rec."No.");
+        if SampleRec.FindSet() then begin
+            if SampleRec.WriteToMRPStatus = 1 then
+                EditableGb := false;
+        end;
+
     end;
 
 
@@ -1074,6 +1088,7 @@ page 50600 "Sample Request Card"
     trigger OnOpenPage()
     var
     begin
+    
         //Mihiranga 2023/01/23
         if SampleNo <> '' then begin
             rec."No." := SampleNo;
@@ -1084,10 +1099,15 @@ page 50600 "Sample Request Card"
             CurrPage.Editable(false)
         else
             CurrPage.Editable(true);
-    end;
 
+        if rec.WriteToMRPStatus = 1 then
+            EditableGb := false
+        else
+            EditableGb := true;
+    end;
 
     var
         SampleNo: Code[20];
         EditableGb: Boolean;
+
 }
