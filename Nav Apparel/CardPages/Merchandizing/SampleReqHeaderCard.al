@@ -215,7 +215,7 @@ page 50600 "Sample Request Card"
                 ApplicationArea = All;
                 Image = AddAction;
                 ToolTip = 'Auto Generate FG/Sales Order/Production BOM/Routing';
-
+                Visible = EditableGB;
                 trigger OnAction()
                 var
                     Description: Text[500];
@@ -1088,7 +1088,7 @@ page 50600 "Sample Request Card"
     trigger OnOpenPage()
     var
     begin
-    
+
         //Mihiranga 2023/01/23
         if SampleNo <> '' then begin
             rec."No." := SampleNo;
