@@ -136,6 +136,7 @@ page 50351 "Daily Cutting Out Card"
                         NavAppPlanRec: Record "NavApp Planning Lines";
                         BundleGHeaderRec: Record BundleGuideHeader;
                         Users: Record "User Setup";
+                        StyleName: text[50];
                     begin
 
                         Users.Reset();
@@ -145,13 +146,21 @@ page 50351 "Daily Cutting Out Card"
                             Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
                         NavAppPlanRec.Reset();
+                        NavAppPlanRec.SetCurrentKey("Style Name");
+                        NavAppPlanRec.Ascending(true);
                         NavAppPlanRec.SetRange("Factory", Users."Factory Code");
                         if NavAppPlanRec.Findset() then begin
                             repeat
-                                BundleGHeaderRec.Reset();
-                                BundleGHeaderRec.SetRange("Style No.", NavAppPlanRec."Style No.");
-                                if BundleGHeaderRec.Findset() then
-                                    NavAppPlanRec.Mark(true);
+                                if StyleName <> NavAppPlanRec."Style Name" then begin
+                                    BundleGHeaderRec.Reset();
+                                    BundleGHeaderRec.SetRange("Style No.", NavAppPlanRec."Style No.");
+                                    if BundleGHeaderRec.Findset() then
+                                        NavAppPlanRec.Mark(true);
+
+                                    StyleName := NavAppPlanRec."Style Name";
+                                end
+                                else
+                                    StyleName := NavAppPlanRec."Style Name";
                             until NavAppPlanRec.Next() = 0;
 
                             NavAppPlanRec.MARKEDONLY(TRUE);

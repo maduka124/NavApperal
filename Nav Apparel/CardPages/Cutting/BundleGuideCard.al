@@ -727,6 +727,8 @@ page 50665 "Bundle Guide Card"
                                                     BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
                                                     BundleGuideLineRec."Sticker Sequence" := StickerSeq;
                                                     BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                    BundleGuideLineRec."Style No" := rec."Style No.";
+                                                    BundleGuideLineRec."Style Name" := rec."Style Name";
                                                     BundleGuideLineRec."Role ID" := '';
 
                                                     TempLot := SewJobRec."Sewing Job No.";
@@ -1202,6 +1204,8 @@ page 50665 "Bundle Guide Card"
                                                             BundleGuideLineRec."Role ID" := CutProgLineRec."Role ID";
                                                             BundleGuideLineRec."Shade Name" := CutProgLineRec.Shade;
                                                             BundleGuideLineRec."Shade No" := CutProgLineRec."Shade No";
+                                                            BundleGuideLineRec."Style No" := rec."Style No.";
+                                                            BundleGuideLineRec."Style Name" := rec."Style Name";
 
                                                             TempLot := SewJobRec."Sewing Job No.";
                                                             TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
@@ -1245,6 +1249,8 @@ page 50665 "Bundle Guide Card"
                                                                 BundleGuideLineRec."Role ID" := CutProgLineRec."Role ID";
                                                                 BundleGuideLineRec."Shade Name" := CutProgLineRec.Shade;
                                                                 BundleGuideLineRec."Shade No" := CutProgLineRec."Shade No";
+                                                                BundleGuideLineRec."Style No" := rec."Style No.";
+                                                                BundleGuideLineRec."Style Name" := rec."Style Name";
 
                                                                 TempLot := SewJobRec."Sewing Job No.";
                                                                 TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
@@ -1298,48 +1304,72 @@ page 50665 "Bundle Guide Card"
                             end;
                         end;
 
+
+
+                        //get Total bundle qty for the 
                         BundleQty := 0;
-                        //Calculate total for a style/po and update style master cut in qty
                         BundleGuideLineRec.Reset();
-                        BundleGuideLineRec.SetCurrentKey("Style No", Lot);
-                        BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
+                        BundleGuideLineRec.SetRange("Style No", rec."Style No.");
+                        BundleGuideLineRec.SetRange(PO, rec."PO No.");
 
                         if BundleGuideLineRec.FindSet() then begin
                             repeat
-
-                                if (StyleVar = BundleGuideLineRec."Style No") and (LotVar = BundleGuideLineRec.Lot) then begin
-                                    BundleQty += BundleGuideLineRec.Qty;
-                                    StyleVar := BundleGuideLineRec."Style No";
-                                    LotVar := BundleGuideLineRec."Lot";
-                                end
-                                else begin
-                                    StyleMasPoRec.Reset();
-                                    StyleMasPoRec.SetRange("Style No.", StyleVar);
-                                    StyleMasPoRec.SetRange("Lot No.", LotVar);
-
-                                    if StyleMasPoRec.FindSet() then begin
-                                        StyleMasPoRec."Cut In Qty" := BundleQty;
-                                        StyleMasPoRec.Modify();
-                                    end;
-
-                                    StyleVar := BundleGuideLineRec."Style No";
-                                    LotVar := BundleGuideLineRec.Lot;
-                                    BundleQty := 0;
-                                    BundleQty += BundleGuideLineRec.Qty;
-                                end;
-
+                                BundleQty += BundleGuideLineRec.Qty;
                             until BundleGuideLineRec.Next() = 0;
-
-                            StyleMasPoRec.Reset();
-                            StyleMasPoRec.SetRange("Style No.", StyleVar);
-                            StyleMasPoRec.SetRange("Lot No.", LotVar);
-
-                            if StyleMasPoRec.FindSet() then begin
-                                StyleMasPoRec."Cut In Qty" := BundleQty;
-                                StyleMasPoRec.Modify();
-                            end;
-
                         end;
+
+                        //Update Style/PO Cut in qty
+                        StyleMasPoRec.Reset();
+                        StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+                        StyleMasPoRec.SetRange("PO No.", rec."PO No.");
+
+                        if StyleMasPoRec.FindSet() then begin
+                            StyleMasPoRec."Cut In Qty" := BundleQty;
+                            StyleMasPoRec.Modify();
+                        end;
+
+                        // BundleQty := 0;
+                        // //Calculate total for a style/po and update style master cut in qty
+                        // BundleGuideLineRec.Reset();
+                        // BundleGuideLineRec.SetCurrentKey("Style No", Lot);
+                        // BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
+
+                        // if BundleGuideLineRec.FindSet() then begin
+                        //     repeat
+
+                        //         if (StyleVar = BundleGuideLineRec."Style No") and (LotVar = BundleGuideLineRec.Lot) then begin
+                        //             BundleQty += BundleGuideLineRec.Qty;
+                        //             StyleVar := BundleGuideLineRec."Style No";
+                        //             LotVar := BundleGuideLineRec."Lot";
+                        //         end
+                        //         else begin
+                        //             StyleMasPoRec.Reset();
+                        //             StyleMasPoRec.SetRange("Style No.", StyleVar);
+                        //             StyleMasPoRec.SetRange("Lot No.", LotVar);
+
+                        //             if StyleMasPoRec.FindSet() then begin
+                        //                 StyleMasPoRec."Cut In Qty" += BundleQty;
+                        //                 StyleMasPoRec.Modify();
+                        //             end;
+
+                        //             StyleVar := BundleGuideLineRec."Style No";
+                        //             LotVar := BundleGuideLineRec.Lot;
+                        //             BundleQty := 0;
+                        //             BundleQty += BundleGuideLineRec.Qty;
+                        //         end;
+
+                        //     until BundleGuideLineRec.Next() = 0;
+
+                        //     StyleMasPoRec.Reset();
+                        //     StyleMasPoRec.SetRange("Style No.", StyleVar);
+                        //     StyleMasPoRec.SetRange("Lot No.", LotVar);
+
+                        //     if StyleMasPoRec.FindSet() then begin
+                        //         StyleMasPoRec."Cut In Qty" += BundleQty;
+                        //         StyleMasPoRec.Modify();
+                        //     end;
+
+                        // end;
 
 
                         //Coor wise total

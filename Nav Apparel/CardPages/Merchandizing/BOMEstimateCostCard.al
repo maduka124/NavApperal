@@ -1513,7 +1513,8 @@ page 50986 "BOM Estimate Cost Card"
     var
 
     begin
-        rec."CM Doz" := ((rec.smv + (100 - rec."Project Efficiency.") / 100 * rec.SMV) * rec.CPM + ((rec.SMV + (100 - rec."Project Efficiency.") / 100 * rec.SMV) * rec.CPM) * rec.EPM / 100) * 12;
+        rec."CM Doz" := rec.SMV * rec.CPM;
+        //  rec."CM Doz" := ((rec.smv + (100 - rec."Project Efficiency.") / 100 * rec.SMV) * rec.CPM + ((rec.SMV + (100 - rec."Project Efficiency.") / 100 * rec.SMV) * rec.CPM) * rec.EPM / 100) * 12;
         rec."MFG Cost Dz." := rec."CM Doz";
         rec."MFG Cost Pcs" := rec."MFG Cost Dz." / 12;
         rec."MFG Cost Total" := rec."MFG Cost Pcs" * rec.Quantity;

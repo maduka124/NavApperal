@@ -138,6 +138,7 @@ page 50360 "Daily Embroidary In/Out Card"
                         NavAppPlanRec: Record "NavApp Planning Lines";
                         Users: Record "User Setup";
                         Factory: Code[20];
+                        StyleName: text[50];
                     begin
 
                         Users.Reset();
@@ -147,13 +148,21 @@ page 50360 "Daily Embroidary In/Out Card"
                             Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
                         NavAppPlanRec.Reset();
+                        NavAppPlanRec.SetCurrentKey("Style Name");
+                        NavAppPlanRec.Ascending(true);
                         NavAppPlanRec.SetRange("Factory", Users."Factory Code");
                         if NavAppPlanRec.Findset() then begin
                             repeat
-                                BundleGHeaderRec.Reset();
-                                BundleGHeaderRec.SetRange("Style No.", NavAppPlanRec."Style No.");
-                                if BundleGHeaderRec.Findset() then
-                                    NavAppPlanRec.Mark(true);
+                                if StyleName <> NavAppPlanRec."Style Name" then begin
+                                    BundleGHeaderRec.Reset();
+                                    BundleGHeaderRec.SetRange("Style No.", NavAppPlanRec."Style No.");
+                                    if BundleGHeaderRec.Findset() then
+                                        NavAppPlanRec.Mark(true);
+
+                                    StyleName := NavAppPlanRec."Style Name";
+                                end
+                                else
+                                    StyleName := NavAppPlanRec."Style Name";
                             until NavAppPlanRec.Next() = 0;
 
                             NavAppPlanRec.MARKEDONLY(TRUE);

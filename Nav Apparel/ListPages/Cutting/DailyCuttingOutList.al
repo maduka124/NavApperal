@@ -4,7 +4,7 @@ page 50352 "Daily Cutting Out"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = ProductionOutHeader;
-    SourceTableView = where(Type = filter('Cut'));
+    SourceTableView = sorting("No.") order(descending) where(Type = filter('Cut'));
     CardPageId = "Daily Cutting Out Card";
 
 
