@@ -118,7 +118,7 @@ page 50427 "Sample Request Header ListPart"
 
 
                     Clear(SampleCardRec);
-                    SampleCardRec.PassParameters(Rec."No.", false);
+                    SampleCardRec.PassParameters(Rec."No.", false,false);
                     SampleCardRec.Editable := false;
                     SampleCardRec.RunModal();
 
