@@ -74,8 +74,8 @@ table 50893 "BOM Estimate Line"
         field(71012591; "Type"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Doz,Pcs;
-            OptionCaption = 'Doz,Pcs';
+            OptionMembers = Pcs,Doz;
+            OptionCaption = 'Pcs,Doz,';
         }
 
         field(71012592; "Consumption"; Decimal)
@@ -170,5 +170,5 @@ table 50893 "BOM Estimate Line"
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-   
+
 }
