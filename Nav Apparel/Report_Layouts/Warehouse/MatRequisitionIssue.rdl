@@ -1746,7 +1746,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Issued_Quantity.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1795,14 +1795,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Daily_Consumption">
+                        <Textbox Name="Quantity">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Daily_Consumption.Value</Value>
+                                  <Value>=Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1814,7 +1814,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Daily_Consumption</rd:DefaultName>
+                          <rd:DefaultName>Quantity</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1993,8 +1993,29 @@
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Style>Solid</Style>
+                <Width>0.5pt</Width>
               </Border>
+              <TopBorder>
+                <Color>Black</Color>
+                <Style>Solid</Style>
+                <Width>0.5pt</Width>
+              </TopBorder>
+              <BottomBorder>
+                <Color>Black</Color>
+                <Style>Solid</Style>
+                <Width>0.5pt</Width>
+              </BottomBorder>
+              <LeftBorder>
+                <Color>Black</Color>
+                <Style>Solid</Style>
+                <Width>0.5pt</Width>
+              </LeftBorder>
+              <RightBorder>
+                <Color>Black</Color>
+                <Style>Solid</Style>
+                <Width>0.5pt</Width>
+              </RightBorder>
             </Style>
           </Tablix>
         </ReportItems>
@@ -2220,35 +2241,29 @@ End Function
         <Field Name="Main_Category_Name">
           <DataField>Main_Category_Name</DataField>
         </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="QuantityFormat">
+          <DataField>QuantityFormat</DataField>
+        </Field>
         <Field Name="Item_No_">
           <DataField>Item_No_</DataField>
         </Field>
         <Field Name="DescriptionLine">
           <DataField>DescriptionLine</DataField>
         </Field>
-        <Field Name="Issued_Quantity">
-          <DataField>Issued_Quantity</DataField>
-        </Field>
-        <Field Name="Issued_QuantityFormat">
-          <DataField>Issued_QuantityFormat</DataField>
-        </Field>
-        <Field Name="Daily_Consumption">
-          <DataField>Daily_Consumption</DataField>
-        </Field>
-        <Field Name="Daily_ConsumptionFormat">
-          <DataField>Daily_ConsumptionFormat</DataField>
-        </Field>
         <Field Name="SystemCreatedAt">
           <DataField>SystemCreatedAt</DataField>
-        </Field>
-        <Field Name="size">
-          <DataField>size</DataField>
         </Field>
         <Field Name="UOM">
           <DataField>UOM</DataField>
         </Field>
         <Field Name="Location">
           <DataField>Location</DataField>
+        </Field>
+        <Field Name="size">
+          <DataField>size</DataField>
         </Field>
       </Fields>
       <Query>

@@ -40,36 +40,48 @@ report 51801 MaterialIssueRequition
 
 
 
-            dataitem("Daily Consumption Line"; "Daily Consumption Line")
+            // dataitem("Daily Consumption Line"; "Daily Consumption Line")
+            // {
+
+            //     DataItemLinkReference = "Daily Consumption Header";
+            //     DataItemLink = "Document No." = field("No.");
+            //     DataItemTableView = sorting("Document No.", "Line No.");
+            // DataItemTableView = sorting("Item No.", "Posting Date");
+            // RequestFilterFields = "Document No.";
+            // DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("No.");
+            // DataItemTableView = SORTING(Status, "Prod. Order No.", "Prod. Order Line No.", "Line No.");
+            // column(ItemNo_ProdOrderComp; "Item No.")
+            // {
+            //     IncludeCaption = true;
+            // }
+
+
+            // column(Issued_Quantity; "Issued Quantity")
+            // { }
+            // column(Daily_Consumption; "Daily Consumption")
+            // { }
+
+
+
+
+            dataitem("Item Journal Line"; "Item Journal Line")
             {
-
                 DataItemLinkReference = "Daily Consumption Header";
-                DataItemLink = "Document No." = field("No.");
-                DataItemTableView = sorting("Document No.", "Line No.");
-                // DataItemTableView = sorting("Item No.", "Posting Date");
-                // RequestFilterFields = "Document No.";
-                // DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("No.");
-                // DataItemTableView = SORTING(Status, "Prod. Order No.", "Prod. Order Line No.", "Line No.");
-                // column(ItemNo_ProdOrderComp; "Item No.")
-                // {
-                //     IncludeCaption = true;
-                // }
-
+                DataItemLink = "Document No." = field("Prod. Order No.");
+                DataItemTableView = sorting("Journal Template Name", "Journal Batch Name", "Line No.");
+                column(Quantity; Quantity)
+                { }
                 column(Item_No_; "Item No.")
                 { }
                 column(DescriptionLine; Description)
                 { }
-                column(Issued_Quantity; "Issued Quantity")
+                column(SystemCreatedAt; "Posting Date")
                 { }
-                column(Daily_Consumption; "Daily Consumption")
+                column(UOM; "Unit of Measure Code")
                 { }
-                column(SystemCreatedAt; SystemCreatedAt)
+                column(Location; "Location Code")
                 { }
                 column(size; size)
-                { }
-                column(UOM; UOM)
-                { }
-                column(Location; Location)
                 { }
 
                 trigger OnPreDataItem()
