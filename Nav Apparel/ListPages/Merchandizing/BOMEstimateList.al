@@ -139,14 +139,22 @@ page 51026 "Estimate BOM"
 
     trigger OnDeleteRecord(): Boolean
     var
-        BOMEstimateRec: Record "BOM Estimate";
+        //BOMEstimateRec: Record "BOM Estimate";
         BOMLineEstRec: Record "BOM Estimate Line";
+        StyleMas: Record "Style Master";
     begin
-        BOMEstimateRec.SetRange("No.", rec."No.");
-        BOMEstimateRec.DeleteAll();
+        // BOMEstimateRec.SetRange("No.", rec."No.");
+        // BOMEstimateRec.DeleteAll();
 
+        BOMLineEstRec.Reset();
         BOMLineEstRec.SetRange("No.", rec."No.");
-        BOMLineEstRec.DeleteAll();
+        if BOMLineEstRec.FindSet() then
+            BOMLineEstRec.DeleteAll();
+
+        StyleMas.Reset();
+        StyleMas.SetRange("No.", rec."Style No.");
+        if StyleMas.FindSet() then
+            StyleMas.ModifyAll(EstimateBOM, '');
     end;
 
 

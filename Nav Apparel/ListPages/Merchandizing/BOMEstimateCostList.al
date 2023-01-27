@@ -97,14 +97,12 @@ page 50267 "BOM Estimate Cost"
 
     trigger OnDeleteRecord(): Boolean
     var
-        BOMEstimateCostRec: Record "BOM Estimate Cost";
         BOMEstCostLineRec: Record "BOM Estimate Costing Line";
     begin
-        BOMEstimateCostRec.SetRange("No.", rec."No.");
-        BOMEstimateCostRec.DeleteAll();
-
+        BOMEstCostLineRec.Reset();
         BOMEstCostLineRec.SetRange("No.", rec."No.");
-        BOMEstCostLineRec.DeleteAll();
+        if BOMEstCostLineRec.FindSet() then
+            BOMEstCostLineRec.DeleteAll();
     end;
 
 
