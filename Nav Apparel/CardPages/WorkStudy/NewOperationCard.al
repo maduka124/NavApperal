@@ -14,11 +14,11 @@ page 50456 "New Operation Card"
                 {
                     ApplicationArea = All;
 
-                    // trigger OnAssistEdit()
-                    // begin
-                    //     IF AssistEdit THEN
-                    //         CurrPage.UPDATE;
-                    // end;
+                    trigger OnAssistEdit()
+                    begin
+                        IF AssistEdit THEN
+                            CurrPage.UPDATE;
+                    end;
                 }
 
                 field("Item Type Name"; rec."Item Type Name")

@@ -209,7 +209,7 @@ page 50355 "Daily Sewing In/Out Card"
                 {
                     ApplicationArea = All;
                     Caption = ' ';
-                    SubPageLink = Type = field(Type), "No." = FIELD("No."), In_Out = const('IN');
+                    SubPageLink = Type = field(Type), "No." = FIELD("No."), In_Out = filter('IN');
                 }
             }
 
@@ -249,7 +249,7 @@ page 50355 "Daily Sewing In/Out Card"
                         NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
                         NavProdDetRec.SetFilter(PlanDate, '=%1', rec."Prod Date");
-                        if NavProdDetRec.FindSet() then
+                        if not NavProdDetRec.FindSet() then
                             Error('Cannot find planning details');
 
                         if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
@@ -287,11 +287,11 @@ page 50355 "Daily Sewing In/Out Card"
                         Users.FindSet();
 
                         NavAppProdPlansDetRec.Reset();
-                        NavAppProdPlansDetRec.SetRange("Factory No.", Users."Factory Code");
+                        //NavAppProdPlansDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
                         NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', rec."Prod Date");
-                        if NavAppProdPlansDetRec.FindSet() then
+                        if not NavAppProdPlansDetRec.FindSet() then
                             Error('Cannot find planning details');
 
                         if Page.RunModal(50519, NavAppProdPlansDetRec) = Action::LookupOK then begin
@@ -338,7 +338,7 @@ page 50355 "Daily Sewing In/Out Card"
 
             group("Color/Size Output Detail")
             {
-                part(Output; DailyCuttingOutListPart)
+                part(Output; DailyCuttingOutListPart_SawOut)
                 {
                     ApplicationArea = All;
                     Caption = ' ';
