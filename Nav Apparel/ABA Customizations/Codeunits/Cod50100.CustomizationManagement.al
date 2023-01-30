@@ -139,7 +139,7 @@ codeunit 50100 "Customization Management"
 
     procedure InsertTemp(BOMEstCost: Record "BOM Estimate Cost")
     var
-        TempCurrAmt: Record "Currency Amount" temporary;
+        TempCurrAmt: Record "Temp. Budget Entry" temporary;
         GenLedSetup: Record "General Ledger Setup";
         Window: Dialog;
         TextCon: TextConst ENU = 'Checking entries####1';
@@ -167,61 +167,61 @@ codeunit 50100 "Customization Management"
         Window.Update(1, BOMEstCost."No.");
         Sleep(500);
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Manufacturing Cost G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Manufacturing Cost G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."MFG Cost Total";
         TempCurrAmt.Insert();
 
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Overhead Cost G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Overhead Cost G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."Overhead Total";
         TempCurrAmt.Insert();
 
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Commission Cost G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Commission Cost G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."Commission Total";
         TempCurrAmt.Insert();
 
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Commercial Cost G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Commercial Cost G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."Commercial Total";
         TempCurrAmt.Insert();
 
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Deferred Payment G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Deferred Payment G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."Deferred Payment Total";
         TempCurrAmt.Insert();
 
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Tax G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Tax G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."TAX Total";
         TempCurrAmt.Insert();
 
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Sourcing G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Sourcing G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."ABA Sourcing Total";
         TempCurrAmt.Insert();
 
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Risk factor G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Risk factor G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."Risk factor Total";
         TempCurrAmt.Insert();
 
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Total Sales G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Total Sales G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."FOB Total";
         TempCurrAmt.Insert();
 
         TempCurrAmt.Init();
-        TempCurrAmt."Currency Code" := GenLedSetup."Material Cost G/L";
+        TempCurrAmt."G/L Code" := GenLedSetup."Material Cost G/L";
         TempCurrAmt.Date := WorkDate();
         TempCurrAmt.Amount := BOMEstCost."Sub Total (Dz.) Total";
         TempCurrAmt.Insert();
@@ -231,7 +231,7 @@ codeunit 50100 "Customization Management"
         if TempCurrAmt.FindFirst() then
             repeat
                 if TempCurrAmt.Amount > 0 then
-                    InsertBudgetEntry(TempCurrAmt."Currency Code", TempCurrAmt.Amount, BOMEstCost."No.", ShowMsg);
+                    InsertBudgetEntry(TempCurrAmt."G/L Code", TempCurrAmt.Amount, BOMEstCost."No.", ShowMsg);
             until TempCurrAmt.Next() = 0;
 
     end;
@@ -425,6 +425,8 @@ codeunit 50100 "Customization Management"
         NewItemLedgEntry."Main Category Name" := ItemJournalLine."Main Category Name";
         NewItemLedgEntry."Original Daily Requirement" := ItemJournalLine."Original Daily Requirement";
         NewItemLedgEntry."Gen. Issue Doc. No." := ItemJournalLine."Gen. Issue Doc. No.";
+        NewItemLedgEntry."Posted Daily Consump. Doc. No." := ItemJournalLine."Posted Daily Consump. Doc. No.";
+        NewItemLedgEntry."Posted Gen. Issue Doc. No." := ItemJournalLine."Posted Gen. Issue Doc. No.";
         //NewItemLedgEntry."Style No." := ItemJournalLine."Style No.";
         //NewItemLedgEntry."Style Name" := ItemJournalLine."Style Name";
     end;
@@ -499,6 +501,9 @@ codeunit 50100 "Customization Management"
             GenIssueHeddRec.Get(ItemJournalLine."Gen. Issue Doc. No.");
             GenIssueHeddRec."Issued Date/Time" := CurrentDateTime;
             GenIssueHeddRec."Issued UserID" := UserId;
+            GenIssueHeddRec."Posted Qty." += ItemJournalLine.Quantity;
+            if GenIssueHeddRec."Posted Qty." >= GenIssueHeddRec."Line Total Qty." then
+                GenIssueHeddRec."Fully Posted" := true;
             GenIssueHeddRec.Modify();
         end;
     end;

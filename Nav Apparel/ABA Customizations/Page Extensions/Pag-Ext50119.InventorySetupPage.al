@@ -15,6 +15,10 @@ pageextension 50119 InventorySetupPage extends "Inventory Setup"
             {
                 ApplicationArea = All;
             }
+            field("Posted Gen. Issue Nos."; rec."Posted Gen. Issue Nos.")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 }

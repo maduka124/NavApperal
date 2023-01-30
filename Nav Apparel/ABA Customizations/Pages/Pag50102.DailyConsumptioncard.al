@@ -276,6 +276,9 @@ page 50102 "Daily Consumption Card"
                     ReserveEntryLast: Record "Reservation Entry";
                     ReserveEntry: Record "Reservation Entry";
                     ItemJnalBatch: Record "Item Journal Batch";
+                    NoserMangemnt: Codeunit NoSeriesManagement;
+                    ManufacSetup: Record "Manufacturing Setup";
+                    PostNo: Code[20];
                     Window: Dialog;
                     Inx1: Integer;
                     LastLNo: Integer;
@@ -288,16 +291,20 @@ page 50102 "Daily Consumption Card"
                     Text003: Label 'Quantity          #3##########';
 
                 begin
-
-
-
                     Inx1 := 0;
+                    PostNo := '';
+
                     Window.Open(Text000 +
                                     Text001 +
                                     Text002 +
                                     Text003);
 
                     // CalConsump.RUNMODAL;
+                    ManufacSetup.Get();
+                    ManufacSetup.TestField("Posted Daily Consumption Nos.");
+
+                    PostNo := NoserMangemnt.GetNextNo(ManufacSetup."Posted Daily Consumption Nos.", Today, true);
+
                     ProdOrderRec.Get(ProdOrderRec.Status::Released, rec."Prod. Order No.");
                     ItemJnalBatch.Get(rec."Journal Template Name", rec."Journal Batch Name");
 
@@ -332,6 +339,12 @@ page 50102 "Daily Consumption Card"
                                     if LastLNo <> 0 then
                                         Inx1 := LastLNo;
 
+                                    ItemLedEntry.Reset();
+                                    ItemLedEntry.SetCurrentKey("Location Code", "Item No.");
+                                    ItemLedEntry.SetRange("Item No.", ProdOrdComp."Item No.");
+                                    ItemLedEntry.SetRange("Location Code", ProdOrdComp."Location Code");
+                                    ItemLedEntry.CalcSums(Quantity);
+
                                     Window.Update(2, ProdOrdComp."Item No.");
                                     ItemJnalRec.Init();
                                     ItemJnalRec."Journal Template Name" := rec."Journal Template Name";
@@ -346,6 +359,7 @@ page 50102 "Daily Consumption Card"
                                     ItemJnalRec.Validate("Source No.", DailyConsumpLine."Item No.");
                                     ItemJnalRec.Validate("Posting Date", rec."Document Date");
                                     ItemJnalRec."Daily Consumption Doc. No." := DailyConsumpLine."Document No.";
+                                    ItemJnalRec."Posted Daily Consump. Doc. No." := PostNo;
                                     ItemJnalRec."Posted Daily Output" := DailyConsumpLine."Daily Consumption";
                                     ItemJnalRec.Validate("Order Line No.", DailyConsumpLine."prod. Order Line No.");
                                     ItemJnalRec.PO := ProdOrderRec.PO;
@@ -360,6 +374,7 @@ page 50102 "Daily Consumption Card"
                                         ItemJnalRec.Validate(Quantity, (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption"));
                                     Window.Update(3, ItemJnalRec.Quantity);
                                     ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
+                                    ItemJnalRec."Stock After Issue" := ItemLedEntry.Quantity - ItemJnalRec.Quantity;
                                     //Mihiranga 2022/01/16
                                     ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
                                     ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");

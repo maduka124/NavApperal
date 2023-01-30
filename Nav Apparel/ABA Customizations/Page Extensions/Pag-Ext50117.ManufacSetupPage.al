@@ -12,6 +12,10 @@ pageextension 50117 Manufac_Setup_Page extends "Manufacturing Setup"
             {
                 ApplicationArea = All;
             }
+            field("Posted Daily Consumption Nos."; rec."Posted Daily Consumption Nos.")
+            {
+                ApplicationArea = All;
+            }
         }
     }
 }

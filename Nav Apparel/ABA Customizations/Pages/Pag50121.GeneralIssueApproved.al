@@ -1,12 +1,13 @@
-page 50116 "General Issue List"
+page 50121 "Approved General Issue List"
 {
     ApplicationArea = All;
-    Caption = 'General Issue List';
+    Caption = 'General Issue List - Approved';
     PageType = List;
     SourceTable = "General Issue Header";
     UsageCategory = Lists;
-    CardPageId = 50114;
+    //CardPageId = 50114;
     Editable = false;
+    SourceTableView = where(Status = filter(Approved), "Fully Posted" = filter(false));
     layout
     {
         area(content)
@@ -70,7 +71,6 @@ page 50116 "General Issue List"
                 Image = IssueFinanceCharge;
                 Promoted = true;
                 PromotedCategory = Process;
-                Visible = false;
                 trigger OnAction()
                 var
                     ItemJnalRec: Record "Item Journal Line";
@@ -78,14 +78,23 @@ page 50116 "General Issue List"
                     ItemJnlMgt: Codeunit ItemJnlManagement;
                     UserSetup: Record "User Setup";
                     ItemJnalBatch: Record "Item Journal Batch";
+                    InventSetup: Record "Inventory Setup";
                     NosManagement: Codeunit NoSeriesManagement;
+                    PostNoGen: Code[20];
                     Inx: Integer;
                 begin
                     if not Confirm('Do you want to issue the Items?', false) then
                         exit;
 
+                    PostNoGen := '';
                     Rec.TestField(Status, Rec.Status::Approved);
                     UserSetup.Get(UserId);
+
+                    InventSetup.Get();
+                    InventSetup.TestField("Posted Gen. Issue Nos.");
+
+                    PostNoGen := NosManagement.GetNextNo(InventSetup."Posted Gen. Issue Nos.", Today, true);
+
                     ItemJnalBatch.Get(Rec."Journal Template Name", Rec."Journal Batch Name");
                     ItemJnalRec.Reset();
                     ItemJnalRec.SetRange("Journal Template Name", rec."Journal Template Name");
@@ -131,6 +140,7 @@ page 50116 "General Issue List"
                                 ItemJnalRec.Validate("Entry Type", ItemJnalRec."Entry Type"::"Negative Adjmt.");
                                 ItemJnalRec.Validate(Quantity, GenIssueLine.Quantity);
                                 ItemJnalRec."Gen. Issue Doc. No." := rec."No.";
+                                ItemJnalRec."Posted Gen. Issue Doc. No." := PostNoGen;
                                 ItemJnalRec."Requsting Department Name" := UserSetup."Requsting Department Name";
                                 ItemJnalRec.Modify();
                             until GenIssueLine.Next() = 0;

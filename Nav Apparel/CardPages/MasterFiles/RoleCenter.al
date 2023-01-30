@@ -143,13 +143,6 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Factory Wise CPM")
-                {
-                    Caption = 'Factory Wise CPM';
-                    RunObject = Page "Factory CPM List";
-                    ApplicationArea = all;
-                }
-
                 action("Garment Type")
                 {
                     Caption = 'Garment Type';
@@ -339,8 +332,6 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Workers List";
                     ApplicationArea = all;
                 }
-
-
             }
 
             //Merchandizing Group
@@ -397,20 +388,6 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Estimate Costing")
-                {
-                    Caption = 'Estimate Costing';
-                    RunObject = Page "BOM Estimate Cost";
-                    ApplicationArea = all;
-                }
-
-                action("Estimate Costing (Approval)")
-                {
-                    Caption = 'Estimate Costing (Approval)';
-                    RunObject = Page "BOM Estimate Cost (Approval)";
-                    ApplicationArea = all;
-                }
-
                 action("Dependency Parameters")
                 {
                     Caption = 'Dependency Parameters';
@@ -429,6 +406,27 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Estimate BOM';
                     RunObject = Page "Estimate BOM";
+                    ApplicationArea = all;
+                }
+
+                action("Estimate Costing")
+                {
+                    Caption = 'Estimate Costing';
+                    RunObject = Page "BOM Estimate Cost";
+                    ApplicationArea = all;
+                }
+
+                action("Estimate Costing (Approval)")
+                {
+                    Caption = 'Estimate Costing (Approval)';
+                    RunObject = Page "BOM Estimate Cost (Approval)";
+                    ApplicationArea = all;
+                }
+
+                action("Factory Wise CPM")
+                {
+                    Caption = 'Factory Wise CPM';
+                    RunObject = Page "Factory CPM List";
                     ApplicationArea = all;
                 }
 
@@ -931,15 +929,15 @@ page 50968 "Nav Apperal Role Center"
                 {
                     ApplicationArea = All;
                     Caption = 'General Item Requisition';
-                    RunObject = page "General Issue List";
+                    RunObject = page "Approved General Issue List";
                     RunPageView = where(Status = filter(Approved));
                 }
                 action("Approved Raw Material Issue")
                 {
                     Caption = 'Raw Material Requisition';
                     ApplicationArea = All;
-                    RunObject = page "Daily Consumption List";
-                    RunPageView = where(Status = filter(Approved), "Issued UserID" = filter(''));
+                    RunObject = page "Approved Daily Consump. List";
+                    RunPageView = where(Status = filter(Approved));
                 }
 
                 action("Bin Card")
@@ -2280,46 +2278,6 @@ page 50968 "Nav Apperal Role Center"
             //     }
             // }
 
-            group("Chairman Dashboard")
-            {
-                Caption = 'Chairman Dashboard';
-
-                group("Capacity By Pcs1")
-                {
-                    Caption = 'Capacity By Pcs';
-
-                    action("Buyer Wise Order Booking1")
-                    {
-                        Caption = 'Buyer Wise Order Booking';
-                        RunObject = Page BuyerWiseOrderBookingList;
-                        ApplicationArea = all;
-                    }
-                }
-
-                action("Daily Production Report1")
-                {
-                    Caption = 'Daily Production Report';
-                    Enabled = true;
-                    RunObject = report DailyProductionReport;
-                    ApplicationArea = all;
-                }
-
-                action("Factory Wise Production Planning1")
-                {
-                    Caption = 'Factory Wise Production Planning';
-                    RunObject = Page FacWiseProductplaningHdrList;
-                    ApplicationArea = all;
-                }
-
-                action("Planning Efficiency Dashboard1")
-                {
-                    Caption = 'Planning Efficiency Dashboard';
-                    RunObject = Page "Planning Efficiency Dashboard1";
-                    ApplicationArea = all;
-                }
-            }
-
-
             group("Admin")
             {
                 Caption = 'Admin';
@@ -2362,6 +2320,7 @@ page 50968 "Nav Apperal Role Center"
     var
 
         PreProdfollowup: Page PreProductionfollowup;
+
 }
 
 

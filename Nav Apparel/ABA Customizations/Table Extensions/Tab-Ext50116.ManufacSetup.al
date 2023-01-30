@@ -13,5 +13,11 @@ tableextension 50116 Manufac_Setup extends "Manufacturing Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+        field(50102; "Posted Daily Consumption Nos."; Code[20])
+        {
+            Caption = 'Posted Daily Consumption Nos.';
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 }

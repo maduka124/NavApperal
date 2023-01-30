@@ -155,6 +155,14 @@ tableextension 50914 "ItemLedgerEntryExt" extends "Item Ledger Entry"
         {
             DataClassification = ToBeClassified;
         }
+        field(50119; "Posted Daily Consump. Doc. No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50120; "Posted Gen. Issue Doc. No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     fieldgroups

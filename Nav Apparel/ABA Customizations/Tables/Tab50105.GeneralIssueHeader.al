@@ -68,7 +68,20 @@ table 50105 "General Issue Header"
         field(13; "Issued UserID"; Code[50])
         {
             DataClassification = ToBeClassified;
-        }       
+        }
+        field(14; "Fully Posted"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(15; "Posted Qty."; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(16; "Line Total Qty."; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("General Issue Line".Quantity where("Document No." = field("No.")));
+        }
     }
     keys
     {

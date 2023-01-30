@@ -1047,5 +1047,8 @@ permissionset 50100 GeneratedPermission
         query StyleMaster_StyleMasterPO_Q=X,
         tabledata ProductnFileReleaseLineHistory=RIMD,
         table ProductnFileReleaseLineHistory=X,
-        page NavAppPlanLineFilter=X;
+        page NavAppPlanLineFilter=X,
+        tabledata "Temp. Budget Entry"=RIMD,
+        table "Temp. Budget Entry"=X,
+        page DailyCuttingOutListPart_SawOut=X;
 }

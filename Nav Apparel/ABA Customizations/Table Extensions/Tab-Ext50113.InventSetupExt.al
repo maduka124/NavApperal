@@ -13,5 +13,10 @@ tableextension 50113 InventSetupExt extends "Inventory Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+        field(50102; "Posted Gen. Issue Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 }

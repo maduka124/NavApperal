@@ -198,10 +198,30 @@ tableextension 50913 "ItemJournalLineExt" extends "Item Journal Line"
             DataClassification = ToBeClassified;
         }
         //Mihiranga 2023/01/13
-            field(50118; "Request Qty";Decimal)
+        field(50118; "Request Qty"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
+
+        field(50119; "Posted Daily Consump. Doc. No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50120; "Posted Gen. Issue Doc. No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50121; "Stock Before Issue"; Decimal)
+        {
+            FieldClass = FlowField;
+            CalcFormula = sum("Item Ledger Entry".Quantity where("Item No." = field("Item No."), "Location Code" = field("Location Code")));
+            Editable = false;
+        }
+        field(50122; "Stock After Issue"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
         modify(Quantity)
         {
             trigger OnBeforeValidate()

@@ -26,7 +26,16 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
                 ApplicationArea = All;
                 Editable = false;
             }
-
+            field("Stock Before Issue"; rec."Stock Before Issue")
+            {
+                ApplicationArea = All;
+                Editable = false;
+            }
+            field("Stock After Issue"; rec."Stock After Issue")
+            {
+                ApplicationArea = All;
+                Editable = false;
+            }
         }
     }
 
