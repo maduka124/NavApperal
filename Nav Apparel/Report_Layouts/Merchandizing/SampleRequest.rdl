@@ -605,7 +605,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -2562,40 +2561,6 @@
               </Border>
             </Style>
           </Tablix>
-          <Textbox Name="Textbox82">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>SPECIAL REMARKS</Value>
-                    <Style>
-                      <FontFamily>Calibri</FontFamily>
-                      <FontWeight>Bold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox82</rd:DefaultName>
-            <Top>12.74033cm</Top>
-            <Left>0cm</Left>
-            <Height>0.6cm</Height>
-            <Width>4.445cm</Width>
-            <ZIndex>4</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="Textbox83">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -2615,11 +2580,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox82</rd:DefaultName>
-            <Top>14.55227cm</Top>
+            <Top>13.28227cm</Top>
             <Left>0.05126cm</Left>
             <Height>0.6cm</Height>
             <Width>4.445cm</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>4</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -3124,11 +3089,11 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>15.29499cm</Top>
+            <Top>14.02499cm</Top>
             <Left>0cm</Left>
             <Height>2.16254cm</Height>
             <Width>28.50583cm</Width>
-            <ZIndex>6</ZIndex>
+            <ZIndex>5</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -3143,7 +3108,7 @@
             <Left>24.64276cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>6</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -4062,7 +4027,7 @@
             <Left>0cm</Left>
             <Height>1.47108cm</Height>
             <Width>28.50583cm</Width>
-            <ZIndex>8</ZIndex>
+            <ZIndex>7</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -4091,7 +4056,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>17.76852cm</Height>
+        <Height>16.39269cm</Height>
         <Style />
       </Body>
       <Width>28.55557cm</Width>
