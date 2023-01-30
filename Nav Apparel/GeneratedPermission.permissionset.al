@@ -1046,5 +1046,6 @@ permissionset 50100 GeneratedPermission
         query PlanEffDashboardReportTable_Q=X,
         query StyleMaster_StyleMasterPO_Q=X,
         tabledata ProductnFileReleaseLineHistory=RIMD,
-        table ProductnFileReleaseLineHistory=X;
+        table ProductnFileReleaseLineHistory=X,
+        page NavAppPlanLineFilter=X;
 }
