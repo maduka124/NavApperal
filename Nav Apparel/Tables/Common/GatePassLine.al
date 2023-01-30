@@ -30,7 +30,9 @@ table 51081 "Gate Pass Line"
             else
             if ("Inventory Type" = CONST("Fixed Assets")) "Fixed Asset".Description where("FA Class Code" = field("Main Category Code"))
             else
-            if ("Inventory Type" = const("Service Machine")) "Service Item".Description;
+            if ("Inventory Type" = const("Service Machine")) "Service Item".Description
+            else
+            if ("Inventory Type" = const("Finish Goods")) Item.Description where("Replenishment System" = filter("Prod. Order"));
 
             ValidateTableRelation = false;
 

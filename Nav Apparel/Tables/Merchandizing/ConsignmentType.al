@@ -11,4 +11,8 @@ enum 50900 "Inventory Type"
     //value(3; "Other") { Caption = 'Other'; }
 
     value(3; "Service Machine") { Caption = 'Service Machine'; }
+
+    value(4; "Sample") { Caption = 'Sample'; }
+
+    value(5; "Finish Goods") { Caption = 'Finish Goods'; }
 }
