@@ -143,6 +143,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Factory Wise CPM")
+                {
+                    Caption = 'Factory Wise CPM';
+                    RunObject = Page "Factory CPM List";
+                    ApplicationArea = all;
+                }
+
                 action("Garment Type")
                 {
                     Caption = 'Garment Type';
@@ -333,12 +340,7 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Factory Wise CPM")
-                {
-                    Caption = 'Factory Wise CPM';
-                    RunObject = Page "Factory CPM List";
-                    ApplicationArea = all;
-                }
+
             }
 
             //Merchandizing Group
