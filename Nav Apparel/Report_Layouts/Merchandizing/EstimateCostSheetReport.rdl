@@ -19,8 +19,8 @@
             <Source>Embedded</Source>
             <Value>ID41</Value>
             <Sizing>FitProportional</Sizing>
-            <Top>11.52681cm</Top>
-            <Left>4.75383cm</Left>
+            <Top>11.20931cm</Top>
+            <Left>9.07183cm</Left>
             <Height>6.6cm</Height>
             <Width>11.14884cm</Width>
             <Visibility>
@@ -1524,7 +1524,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1539,26 +1539,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1580,7 +1560,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2007,7 +1987,7 @@
                                   <Value>=Fields!Consumption.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2114,7 +2094,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!Consumption.Value,3)*Fields!Quantity.Value</Value>
+                                  <Value>=Fields!Consumption.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -2132,26 +2112,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2446,7 +2406,7 @@
                                   <Value>=Sum(Fields!ConsumptionNot.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2461,26 +2421,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2553,7 +2493,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Sum(Round(Fields!ConsumptionNot.Value,3)))*Fields!Quantity.Value</Value>
+                                  <Value>=(Sum(Fields!ConsumptionNot.Value))*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -2889,7 +2829,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2904,26 +2844,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2995,7 +2915,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round((Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value)),3)*Fields!Quantity.Value</Value>
+                                  <Value>=(Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value))*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -3328,7 +3248,7 @@
                                   <Value>=(Fields!Printing__Dz__.Value)/12</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3343,26 +3263,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -3434,7 +3334,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round((Fields!Printing__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=(Fields!Printing__Dz__.Value / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -3766,7 +3666,7 @@
                                   <Value>=(Fields!Embroidery__Dz__.Value)/12</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0.000;(#,0.000)</Format>
+                                    <Format>#,0.0000;(#,0.0000)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3781,26 +3681,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -3872,7 +3752,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round((Fields!Embroidery__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=(Fields!Embroidery__Dz__.Value / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00)</Format>
@@ -4204,7 +4084,7 @@
                                   <Value>=(Fields!Washing__Dz__.Value)/12</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0.000;(#,0.000)</Format>
+                                    <Format>#,0.0000;(#,0.0000)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4219,26 +4099,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -4310,7 +4170,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round((Fields!Washing__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=(Fields!Washing__Dz__.Value / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00)</Format>
@@ -4642,7 +4502,7 @@
                                   <Value>=(Fields!Others__Dz__.Value)/12</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>#,0.000;(#,0.000)</Format>
+                                    <Format>#,0.0000;(#,0.0000)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -4657,26 +4517,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -4748,7 +4588,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round((Fields!Others__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=(Fields!Others__Dz__.Value / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>#,0.00;(#,0.00)</Format>
@@ -5084,7 +4924,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5099,26 +4939,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -5190,7 +5010,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round((Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=(Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -5471,7 +5291,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5486,26 +5306,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -5528,7 +5328,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5543,26 +5343,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -5634,7 +5414,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round((Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value) + Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=(Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value) + Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -5915,7 +5695,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5930,26 +5710,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -5972,7 +5732,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5987,26 +5747,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -6078,7 +5818,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round((Fields!FOB_Pcs.Value - (Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value) + Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12)),3)*Fields!Quantity.Value</Value>
+                                  <Value>=(Fields!FOB_Pcs.Value - (Fields!Consumption.Value + Sum(Fields!ConsumptionNot.Value) + Fields!Printing__Dz__.Value / 12 + Fields!Embroidery__Dz__.Value / 12 + Fields!Washing__Dz__.Value / 12 + Fields!Others__Dz__.Value / 12))*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -6411,7 +6151,7 @@
                                   <Value>=Fields!MFG_Cost_Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6426,26 +6166,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -6518,7 +6238,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!MFG_Cost_Pcs.Value,3)*Fields!Quantity.Value</Value>
+                                  <Value>=Fields!MFG_Cost_Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -6850,7 +6570,7 @@
                                   <Value>=Fields!Overhead_Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6865,26 +6585,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -6957,7 +6657,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!Overhead_Pcs.Value,3)*Fields!Quantity.Value</Value>
+                                  <Value>=Fields!Overhead_Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -7293,7 +6993,7 @@
                                   <Value>=Fields!Commercial_Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7308,26 +7008,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -7400,7 +7080,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!Commercial_Pcs.Value,3)*Fields!Quantity.Value</Value>
+                                  <Value>=Fields!Commercial_Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -7732,7 +7412,7 @@
                                   <Value>=Fields!Deferred_Payment_Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -7747,26 +7427,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -7839,7 +7499,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!Deferred_Payment_Pcs.Value,3)*Fields!Quantity.Value</Value>
+                                  <Value>=Fields!Deferred_Payment_Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -8171,7 +7831,7 @@
                                   <Value>=Fields!Risk_factor__Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8186,26 +7846,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -8278,7 +7918,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!Risk_factor__Pcs.Value,3)*Fields!Quantity.Value</Value>
+                                  <Value>=Fields!Risk_factor__Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -8610,7 +8250,7 @@
                                   <Value>=Fields!TAX__Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8625,26 +8265,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -8717,7 +8337,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!TAX__Pcs.Value,3)*Fields!Quantity.Value</Value>
+                                  <Value>=Fields!TAX__Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -9049,7 +8669,7 @@
                                   <Value>=Fields!ABA_Sourcing__Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -9064,26 +8684,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -9156,7 +8756,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!ABA_Sourcing__Pcs.Value,3)*Fields!Quantity.Value</Value>
+                                  <Value>=Fields!ABA_Sourcing__Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -9464,7 +9064,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>0.000</Value>
+                                  <Value>0.0000</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -9481,26 +9081,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -9572,7 +9152,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!Quantity.Value,3)*0.000</Value>
+                                  <Value>=Fields!Quantity.Value*0.000</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -9834,7 +9414,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -9849,26 +9429,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -9890,7 +9450,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -9905,26 +9465,6 @@
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -9996,7 +9536,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round((Fields!MFG_Cost_Pcs.Value + Fields!Overhead_Pcs.Value + Fields!Commercial_Pcs.Value + Fields!Deferred_Payment_Pcs.Value + Fields!Risk_factor__Pcs.Value + Fields!TAX__Pcs.Value + Fields!ABA_Sourcing__Pcs.Value),3)*Fields!Quantity.Value</Value>
+                                  <Value>=(Fields!MFG_Cost_Pcs.Value + Fields!Overhead_Pcs.Value + Fields!Commercial_Pcs.Value + Fields!Deferred_Payment_Pcs.Value + Fields!Risk_factor__Pcs.Value + Fields!TAX__Pcs.Value + Fields!ABA_Sourcing__Pcs.Value)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -10337,7 +9877,7 @@ Fields!ABA_Sourcing_Dz_.Value)/12</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -10352,26 +9892,6 @@ Fields!ABA_Sourcing_Dz_.Value)/12</Value>
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -10443,7 +9963,7 @@ Fields!ABA_Sourcing_Dz_.Value)/12</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(((Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value + Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value) / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=((Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value + Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value) / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -10708,7 +10228,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -10723,26 +10243,6 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -10768,7 +10268,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -10783,26 +10283,6 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -10874,7 +10354,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(((Fields!FOB_Dz_.Value - (Sum(Fields!TotFab.Value) + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value) - (Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value)) / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=((Fields!FOB_Dz_.Value - (Sum(Fields!TotFab.Value) + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value) - (Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value)) / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -11207,7 +10687,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                   <Value>=Fields!Commission_Pcs.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -11222,26 +10702,6 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -11314,7 +10774,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(Fields!Commission_Pcs.Value,3)*Fields!Quantity.Value</Value>
+                                  <Value>=Fields!Commission_Pcs.Value*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -11650,7 +11110,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -11665,26 +11125,6 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                               <Style>Solid</Style>
                               <Width>0.25pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.25pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -11756,7 +11196,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(((Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value + Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value + Fields!Commission_Dz_.Value) / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=((Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value + Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value + Fields!Commission_Dz_.Value) / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -11897,7 +11337,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                     <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
@@ -11936,7 +11376,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>n3</Format>
+                                    <Format>n4</Format>
                                     <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
@@ -12011,7 +11451,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Round(((((Fields!FOB_Dz_.Value - (Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value)) - (Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value)) - Fields!Commission_Dz_.Value) / 12),3)*Fields!Quantity.Value</Value>
+                                  <Value>=((((Fields!FOB_Dz_.Value - (Fields!TotFab.Value + Sum(Fields!NotFab.Value) + Fields!Printing__Dz__.Value + Fields!Embroidery__Dz__.Value + Fields!Washing__Dz__.Value + Fields!Others__Dz__.Value)) - (Fields!MFG_Cost_Dz_.Value + Fields!Overhead_Dz_.Value + Fields!Commercial_Dz_.Value + Fields!Deferred_Payment_Dz_.Value + Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value + Fields!ABA_Sourcing_Dz_.Value)) - Fields!Commission_Dz_.Value) / 12)*Fields!Quantity.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
