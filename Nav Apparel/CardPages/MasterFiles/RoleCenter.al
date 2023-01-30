@@ -332,6 +332,13 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Workers List";
                     ApplicationArea = all;
                 }
+
+                action("Factory Wise CPM")
+                {
+                    Caption = 'Factory Wise CPM';
+                    RunObject = Page "Factory CPM List";
+                    ApplicationArea = all;
+                }
             }
 
             //Merchandizing Group
@@ -1365,13 +1372,6 @@ page 50968 "Nav Apperal Role Center"
                     Caption = 'Costing And Planning Parameters';
                     RunObject = page "Costing Planning Para Card";
 
-                    ApplicationArea = all;
-                }
-
-                action("Factory Wise CPM")
-                {
-                    Caption = 'Factory Wise CPM';
-                    RunObject = Page "Factory CPM List";
                     ApplicationArea = all;
                 }
 
