@@ -1347,6 +1347,7 @@ page 50353 DailyCuttingOutListPart
                 Error('Output quantity should match color/size total quantity.');
 
 
+        LineTotal := 0;
         //Get In/out Total for the style and lot for all days (31/1/2023)
         ProductionOutLine.Reset();
         ProductionOutLine.SetRange("Style No.", Rec."Style No.");

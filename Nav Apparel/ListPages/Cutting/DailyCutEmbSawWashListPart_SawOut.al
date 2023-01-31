@@ -1348,6 +1348,7 @@ page 51225 DailyCuttingOutListPart_SawOut
 
 
         //Get In/out Total for the style and lot for all days (31/1/2023)
+        LineTotal := 0;
         ProductionOutLine.Reset();
         ProductionOutLine.SetRange("Style No.", Rec."Style No.");
         ProductionOutLine.SetRange("Lot No.", Rec."Lot No.");
