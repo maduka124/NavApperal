@@ -33,7 +33,7 @@ table 50931 "Sample Requsition Line"
             DataClassification = ToBeClassified;
         }
 
-        field(71012586; "Fabrication Name"; text[50])
+        field(71012586; "Fabrication Name"; text[250])
         {
             DataClassification = ToBeClassified;
             TableRelation = Item.Description where("Main Category Name" = filter('FABRIC'));

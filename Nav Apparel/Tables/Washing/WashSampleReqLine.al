@@ -35,7 +35,7 @@ table 50705 "Washing Sample Requsition Line"
             ValidateTableRelation = false;
         }
 
-        field(6; "Fabric Description"; Text[100])
+        field(6; "Fabric Description"; Text[250])
         {
             DataClassification = ToBeClassified;
             TableRelation = Item.Description where("Main Category Name" = filter('FABRIC'));
