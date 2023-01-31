@@ -102,6 +102,7 @@ page 50355 "Daily Sewing In/Out Card"
                         NavProdDetRec: Record "NavApp Prod Plans Details";//not navapplanning line
                         Users: Record "User Setup";
                         Factory: Code[20];
+                        StyleName: text[50];
                     begin
 
                         Users.Reset();
@@ -114,8 +115,21 @@ page 50355 "Daily Sewing In/Out Card"
                         //NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
                         NavProdDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
-                        if not NavProdDetRec.FindSet() then
+                        if NavProdDetRec.FindSet() then begin
+                            repeat
+                                if StyleName <> NavProdDetRec."Style Name" then begin
+                                    NavProdDetRec.Mark(true);
+                                    StyleName := NavProdDetRec."Style Name";
+                                end
+                                else
+                                    StyleName := NavProdDetRec."Style Name";
+                            until NavProdDetRec.Next() = 0;
+
+                            NavProdDetRec.MARKEDONLY(TRUE);
+                        end
+                        else
                             Error('Cannot find planning details');
+
 
                         if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
                             rec."Style No." := NavProdDetRec."Style No.";
@@ -342,7 +356,7 @@ page 50355 "Daily Sewing In/Out Card"
                 {
                     ApplicationArea = All;
                     Caption = ' ';
-                    SubPageLink = Type = field(Type), "No." = FIELD("No."), In_Out = const('OUT');
+                    SubPageLink = "No." = FIELD("No."), Type = field(Type), In_Out = filter('OUT');
                 }
             }
 
@@ -378,6 +392,21 @@ page 50355 "Daily Sewing In/Out Card"
                     Message('Sewing Runtime Updated');
                 end;
             }
+
+            // action("delete ProductionOutLine")
+            // {
+            //     ApplicationArea = All;
+            //     Image = UpdateDescription;
+
+            //     trigger OnAction()
+            //     var
+            //         ProductionOutLine: Record ProductionOutHeader;
+            //     begin
+            //         ProductionOutLine.Reset();
+            //         ProductionOutLine.FindSet();
+            //         ProductionOutLine.DeleteAll();
+            //     end;
+            // }
         }
     }
 

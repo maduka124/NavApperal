@@ -643,6 +643,10 @@ page 50964 "NavApp Setup Card"
                     TableRelation = "No. Series".Code;
                 }
 
+                field("Base Efficiency"; rec."Base Efficiency")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

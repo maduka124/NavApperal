@@ -2304,6 +2304,45 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
             }
+
+            group("Dashboard")
+            {
+                Caption = 'Dashboard';
+
+                group("Capacity By Pcs1")
+                {
+                    Caption = 'Capacity By Pcs';
+
+                    action("Buyer Wise Order Booking1")
+                    {
+                        Caption = 'Buyer Wise Order Booking';
+                        RunObject = Page BuyerWiseOrderBookingList;
+                        ApplicationArea = all;
+                    }
+                }
+
+                action("Daily Production Report1")
+                {
+                    Caption = 'Daily Production Report';
+                    Enabled = true;
+                    RunObject = report DailyProductionReport;
+                    ApplicationArea = all;
+                }
+
+                action("Factory Wise Production Planning1")
+                {
+                    Caption = 'Factory Wise Production Planning';
+                    RunObject = Page FacWiseProductplaningHdrList;
+                    ApplicationArea = all;
+                }
+
+                action("Planning Efficiency Dashboard1")
+                {
+                    Caption = 'Planning Efficiency Dashboard';
+                    RunObject = Page "Planning Efficiency Dashboard1";
+                    ApplicationArea = all;
+                }
+            }
         }
 
         // area(Creation)

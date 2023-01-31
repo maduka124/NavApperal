@@ -1347,6 +1347,22 @@ page 50353 DailyCuttingOutListPart
                 Error('Output quantity should match color/size total quantity.');
 
 
+        LineTotal := 0;
+        //Get In/out Total for the style and lot for all days (31/1/2023)
+        ProductionOutLine.Reset();
+        ProductionOutLine.SetRange("Style No.", Rec."Style No.");
+        ProductionOutLine.SetRange("Lot No.", Rec."Lot No.");
+        ProductionOutLine.SetRange(Type, Rec.Type);
+        ProductionOutLine.SetRange(In_Out, Rec.In_Out);
+
+        if ProductionOutLine.FindSet() then begin
+            repeat
+                if ProductionOutLine."Colour No" <> '*' then
+                    LineTotal += ProductionOutLine.Total;
+            until ProductionOutLine.Next() = 0;
+        end;
+
+
         StyleMasterPORec.Reset();
         StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
         StyleMasterPORec.SetRange("Lot No.", Rec."Lot No.");

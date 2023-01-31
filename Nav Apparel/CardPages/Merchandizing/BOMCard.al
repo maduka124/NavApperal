@@ -432,7 +432,7 @@ page 50984 "BOM Card"
                     Count: Integer;
                     SubTotal: Decimal;
                     SubCat: Code[20];
-                    SubCatDesc: Text[50];
+                    SubCatDesc: Text[250];
                 begin
 
                     BLERec.Reset();

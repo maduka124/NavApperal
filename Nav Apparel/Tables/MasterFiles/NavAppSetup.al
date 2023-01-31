@@ -640,6 +640,12 @@ table 51139 "NavApp Setup"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012693; "Base Efficiency"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
     }
 
     keys
