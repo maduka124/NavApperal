@@ -136,6 +136,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Factory Wise CPM")
+                {
+                    Caption = 'Factory Wise CPM';
+                    RunObject = Page "Factory CPM List";
+                    ApplicationArea = all;
+                }
+
                 action("Fabric Code")
                 {
                     Caption = 'Fabric Code';
@@ -420,13 +427,6 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Estimate Costing (Approval)';
                     RunObject = Page "BOM Estimate Cost (Approval)";
-                    ApplicationArea = all;
-                }
-
-                action("Factory Wise CPM")
-                {
-                    Caption = 'Factory Wise CPM';
-                    RunObject = Page "Factory CPM List";
                     ApplicationArea = all;
                 }
 

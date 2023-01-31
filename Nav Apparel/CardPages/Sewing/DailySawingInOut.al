@@ -111,7 +111,7 @@ page 50355 "Daily Sewing In/Out Card"
                             Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
                         NavProdDetRec.Reset();
-                        NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
+                        //NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
                         NavProdDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
                         if not NavProdDetRec.FindSet() then
@@ -146,7 +146,7 @@ page 50355 "Daily Sewing In/Out Card"
                         Users.FindSet();
 
                         NavAppProdPlansDetRec.Reset();
-                        NavAppProdPlansDetRec.SetRange("Factory No.", Users."Factory Code");
+                        //NavAppProdPlansDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
                         NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', rec."Prod Date");
@@ -209,7 +209,7 @@ page 50355 "Daily Sewing In/Out Card"
                 {
                     ApplicationArea = All;
                     Caption = ' ';
-                    SubPageLink = Type = field(Type), "No." = FIELD("No."), In_Out = filter('IN');
+                    SubPageLink = "No." = FIELD("No."), Type = field(Type), In_Out = filter('IN');
                 }
             }
 
@@ -246,7 +246,7 @@ page 50355 "Daily Sewing In/Out Card"
                             Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
                         NavProdDetRec.Reset();
-                        NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
+                        //NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
                         NavProdDetRec.SetFilter(PlanDate, '=%1', rec."Prod Date");
                         if not NavProdDetRec.FindSet() then

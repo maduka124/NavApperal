@@ -30,56 +30,59 @@ codeunit 50618 NavAppCodeUnit
             StyleMasterPORec.Reset();
             StyleMasterPORec.SetRange("Style No.", StyleNo);
             StyleMasterPORec.SetRange("Lot No.", LotNo);
-            StyleMasterPORec.FindSet();
+            if StyleMasterPORec.FindSet() then begin
 
-            CASE Type OF
-                'Saw':
-                    BEGIN
-                        if Input = 'IN' then
-                            StyleMasterPORec.ModifyAll("Sawing In Qty", LineTotal)
-                        else
-                            if Input = 'OUT' then
-                                StyleMasterPORec.ModifyAll("Sawing Out Qty", LineTotal);
-                    END;
-                'Wash':
-                    begin
-                        if Input = 'IN' then
-                            StyleMasterPORec.ModifyAll("Wash In Qty", LineTotal)
-                        else
-                            if Input = 'OUT' then
-                                StyleMasterPORec.ModifyAll("Wash Out Qty", LineTotal);
-                    end;
-                'Cut':
-                    begin
-                        StyleMasterPORec.ModifyAll("Cut Out Qty", LineTotal);
-                    end;
-                'Emb':
-                    begin
-                        if Input = 'IN' then
-                            StyleMasterPORec.ModifyAll("Emb In Qty", LineTotal)
-                        else
-                            if Input = 'OUT' then
-                                StyleMasterPORec.ModifyAll("Emb Out Qty", LineTotal);
-                    end;
-                'Print':
-                    begin
-                        if Input = 'IN' then
-                            StyleMasterPORec.ModifyAll("Print In Qty", LineTotal)
-                        else
-                            if Input = 'OUT' then
-                                StyleMasterPORec.ModifyAll("print Out Qty", LineTotal);
-                    end;
-                'Fin':
-                    begin
-                        StyleMasterPORec.ModifyAll("Finish Qty", LineTotal);
-                    end;
-                'Ship':
-                    begin
-                        StyleMasterPORec.ModifyAll("Shipped Qty", LineTotal);
-                    end;
-            END;
+                CASE Type OF
+                    'Saw':
+                        BEGIN
+                            if Input = 'IN' then
+                                StyleMasterPORec.ModifyAll("Sawing In Qty", LineTotal)
+                            else
+                                if Input = 'OUT' then
+                                    StyleMasterPORec.ModifyAll("Sawing Out Qty", LineTotal);
+                        END;
+                    'Wash':
+                        begin
+                            if Input = 'IN' then
+                                StyleMasterPORec.ModifyAll("Wash In Qty", LineTotal)
+                            else
+                                if Input = 'OUT' then
+                                    StyleMasterPORec.ModifyAll("Wash Out Qty", LineTotal);
+                        end;
+                    'Cut':
+                        begin
+                            StyleMasterPORec.ModifyAll("Cut Out Qty", LineTotal);
+                        end;
+                    'Emb':
+                        begin
+                            if Input = 'IN' then
+                                StyleMasterPORec.ModifyAll("Emb In Qty", LineTotal)
+                            else
+                                if Input = 'OUT' then
+                                    StyleMasterPORec.ModifyAll("Emb Out Qty", LineTotal);
+                        end;
+                    'Print':
+                        begin
+                            if Input = 'IN' then
+                                StyleMasterPORec.ModifyAll("Print In Qty", LineTotal)
+                            else
+                                if Input = 'OUT' then
+                                    StyleMasterPORec.ModifyAll("print Out Qty", LineTotal);
+                        end;
+                    'Fin':
+                        begin
+                            StyleMasterPORec.ModifyAll("Finish Qty", LineTotal);
+                        end;
+                    'Ship':
+                        begin
+                            StyleMasterPORec.ModifyAll("Shipped Qty", LineTotal);
+                        end;
+                END;
+
+            end;
         end;
     end;
+
 
     //Delete Master detail tables (Production)
     procedure Delete_Prod_Records(No: BigInteger; StyleNo: Code[20]; LotNo: Code[20]; Input: code[10]; Type: Text[10]; Type1: Option)
@@ -90,11 +93,13 @@ codeunit 50618 NavAppCodeUnit
 
         ProductionOutLineRec.Reset();
         ProductionOutLineRec.SetRange("No.", No);
-        ProductionOutLineRec.DeleteAll();
+        if ProductionOutLineRec.FindSet() then
+            ProductionOutLineRec.DeleteAll();
 
         ProductionOutHeaderRec.Reset();
         ProductionOutHeaderRec.SetRange("No.", No);
-        ProductionOutHeaderRec.DeleteAll();
+        if ProductionOutHeaderRec.FindSet() then
+            ProductionOutHeaderRec.DeleteAll();
 
         Update_Sty_Master_PO(StyleNo, LotNo, Input, Type, Type1);
 
