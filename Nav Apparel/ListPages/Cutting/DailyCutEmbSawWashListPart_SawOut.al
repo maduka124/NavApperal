@@ -46,9 +46,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("1"; Rec."1")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible1;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_1;
 
                     trigger OnValidate()
                     var
@@ -59,9 +59,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("2"; Rec."2")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible2;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_2;
 
                     trigger OnValidate()
                     var
@@ -73,9 +73,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("3"; Rec."3")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible3;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_3;
 
                     trigger OnValidate()
                     var
@@ -87,9 +87,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("4"; Rec."4")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible4;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_4;
 
                     trigger OnValidate()
                     var
@@ -101,9 +101,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("5"; Rec."5")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible5;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_5;
 
                     trigger OnValidate()
                     var
@@ -115,9 +115,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("6"; Rec."6")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible6;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_6;
 
                     trigger OnValidate()
                     var
@@ -129,9 +129,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("7"; Rec."7")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible7;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_7;
 
                     trigger OnValidate()
                     var
@@ -143,9 +143,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("8"; Rec."8")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible8;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_8;
 
                     trigger OnValidate()
                     var
@@ -157,9 +157,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("9"; Rec."9")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible9;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_9;
 
                     trigger OnValidate()
                     var
@@ -171,9 +171,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("10"; Rec."10")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible10;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_10;
 
                     trigger OnValidate()
                     var
@@ -185,9 +185,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("11"; Rec."11")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible11;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_11;
 
                     trigger OnValidate()
                     var
@@ -199,9 +199,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("12"; Rec."12")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible12;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_12;
 
                     trigger OnValidate()
                     var
@@ -213,9 +213,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("13"; Rec."13")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible13;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_13;
 
                     trigger OnValidate()
                     var
@@ -227,9 +227,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("14"; Rec."14")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible14;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_14;
 
                     trigger OnValidate()
                     var
@@ -241,9 +241,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("15"; Rec."15")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible15;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_15;
 
                     trigger OnValidate()
                     var
@@ -255,9 +255,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("16"; Rec."16")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible16;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_16;
 
                     trigger OnValidate()
                     var
@@ -269,9 +269,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("17"; Rec."17")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible17;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_17;
 
                     trigger OnValidate()
                     var
@@ -283,9 +283,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("18"; Rec."18")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible18;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_18;
 
                     trigger OnValidate()
                     var
@@ -297,9 +297,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("19"; Rec."19")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible19;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_19;
 
                     trigger OnValidate()
                     var
@@ -311,9 +311,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("20"; Rec."20")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible20;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_20;
 
                     trigger OnValidate()
                     var
@@ -325,9 +325,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("21"; Rec."21")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible21;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_21;
 
                     trigger OnValidate()
                     var
@@ -339,9 +339,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("22"; Rec."22")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible22;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_22;
 
                     trigger OnValidate()
                     var
@@ -353,9 +353,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("23"; Rec."23")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible23;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_23;
 
                     trigger OnValidate()
                     var
@@ -367,9 +367,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("24"; Rec."24")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible24;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_24;
 
                     trigger OnValidate()
                     var
@@ -381,9 +381,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("25"; Rec."25")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible25;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_25;
 
                     trigger OnValidate()
                     var
@@ -395,9 +395,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("26"; Rec."26")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible26;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_26;
 
                     trigger OnValidate()
                     var
@@ -409,9 +409,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("27"; Rec."27")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible27;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_27;
 
                     trigger OnValidate()
                     var
@@ -423,9 +423,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("28"; Rec."28")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible28;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_28;
 
                     trigger OnValidate()
                     var
@@ -437,9 +437,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("29"; Rec."29")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible29;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_29;
 
                     trigger OnValidate()
                     var
@@ -451,9 +451,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("30"; Rec."30")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible30;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_30;
 
                     trigger OnValidate()
                     var
@@ -465,9 +465,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("31"; Rec."31")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible31;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_31;
 
                     trigger OnValidate()
                     var
@@ -479,9 +479,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("32"; Rec."32")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible32;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_32;
 
                     trigger OnValidate()
                     var
@@ -493,9 +493,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("33"; Rec."33")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible33;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_33;
 
                     trigger OnValidate()
                     var
@@ -507,9 +507,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("34"; Rec."34")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible34;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_34;
 
                     trigger OnValidate()
                     var
@@ -521,9 +521,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("35"; Rec."35")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible35;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_35;
 
                     trigger OnValidate()
                     var
@@ -535,9 +535,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("36"; Rec."36")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible36;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_36;
 
                     trigger OnValidate()
                     var
@@ -549,9 +549,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("37"; Rec."37")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible37;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_37;
 
                     trigger OnValidate()
                     var
@@ -563,9 +563,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("38"; Rec."38")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible38;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_38;
 
                     trigger OnValidate()
                     var
@@ -577,9 +577,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("39"; Rec."39")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible39;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_39;
 
                     trigger OnValidate()
                     var
@@ -591,9 +591,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("40"; Rec."40")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible40;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_40;
 
                     trigger OnValidate()
                     var
@@ -605,9 +605,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("41"; Rec."41")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible41;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_41;
 
                     trigger OnValidate()
                     var
@@ -620,9 +620,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("42"; Rec."42")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible42;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_42;
 
                     trigger OnValidate()
                     var
@@ -635,9 +635,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("43"; Rec."43")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible43;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_43;
 
                     trigger OnValidate()
                     var
@@ -650,9 +650,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("44"; Rec."44")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible44;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_44;
 
                     trigger OnValidate()
                     var
@@ -665,9 +665,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("45"; Rec."45")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible45;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_45;
 
                     trigger OnValidate()
                     var
@@ -680,9 +680,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("46"; Rec."46")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible46;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_46;
 
                     trigger OnValidate()
                     var
@@ -695,9 +695,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("47"; Rec."47")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible47;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_47;
 
                     trigger OnValidate()
                     var
@@ -711,9 +711,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("48"; Rec."48")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible48;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_48;
 
                     trigger OnValidate()
                     var
@@ -726,9 +726,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("49"; Rec."49")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible49;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_49;
 
                     trigger OnValidate()
                     var
@@ -740,9 +740,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("50"; Rec."50")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible50;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_50;
 
                     trigger OnValidate()
                     var
@@ -754,9 +754,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("51"; Rec."51")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible51;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_51;
 
                     trigger OnValidate()
                     var
@@ -768,9 +768,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("52"; Rec."52")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible52;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_52;
 
                     trigger OnValidate()
                     var
@@ -782,9 +782,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("53"; Rec."53")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible53;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_53;
 
                     trigger OnValidate()
                     var
@@ -796,9 +796,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("54"; Rec."54")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible54;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_54;
 
                     trigger OnValidate()
                     var
@@ -810,9 +810,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("55"; Rec."55")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible55;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_55;
 
 
                     trigger OnValidate()
@@ -825,9 +825,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("56"; Rec."56")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible56;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_56;
 
                     trigger OnValidate()
                     var
@@ -839,9 +839,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("57"; Rec."57")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible57;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_57;
 
                     trigger OnValidate()
                     var
@@ -853,9 +853,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("58"; Rec."58")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible58;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_58;
 
                     trigger OnValidate()
                     var
@@ -867,9 +867,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("59"; Rec."59")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible59;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_59;
 
                     trigger OnValidate()
                     var
@@ -881,9 +881,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("60"; Rec."60")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible60;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_60;
 
                     trigger OnValidate()
                     var
@@ -895,9 +895,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("61"; Rec."61")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible61;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_61;
 
                     trigger OnValidate()
                     var
@@ -909,9 +909,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("62"; Rec."62")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible62;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_62;
 
                     trigger OnValidate()
                     var
@@ -923,9 +923,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("63"; Rec."63")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible63;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_63;
 
                     trigger OnValidate()
                     var
@@ -937,9 +937,9 @@ page 51225 DailyCuttingOutListPart_SawOut
                 field("64"; Rec."64")
                 {
                     ApplicationArea = All;
-                    Editable = SetEdit;
-                    StyleExpr = StyleExprTxt;
-                    Visible = SetVisible64;
+                    Editable = SetEdit1;
+                    StyleExpr = StyleExprTxt1;
+                    Visible = SetVisible_64;
 
                     trigger OnValidate()
                     var
@@ -1347,6 +1347,22 @@ page 51225 DailyCuttingOutListPart_SawOut
                 Error('Output quantity should match color/size total quantity.');
 
 
+        //Get In/out Total for the style and lot for all days (31/1/2023)
+        ProductionOutLine.Reset();
+        ProductionOutLine.SetRange("Style No.", Rec."Style No.");
+        ProductionOutLine.SetRange("Lot No.", Rec."Lot No.");
+        ProductionOutLine.SetRange(Type, Rec.Type);
+        ProductionOutLine.SetRange(In_Out, Rec.In_Out);
+
+        if ProductionOutLine.FindSet() then begin
+            repeat
+                if ProductionOutLine."Colour No" <> '*' then
+                    LineTotal += ProductionOutLine.Total;
+            until ProductionOutLine.Next() = 0;
+        end;
+
+
+
         StyleMasterPORec.Reset();
         StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
         StyleMasterPORec.SetRange("Lot No.", Rec."Lot No.");
@@ -1409,15 +1425,15 @@ page 51225 DailyCuttingOutListPart_SawOut
         Count: Integer;
         ProductionOutLineRec: Record ProductionOutLine;
     begin
-        StyleExprTxt := ChangeColor.ChangeColorSewing(Rec);
+        StyleExprTxt1 := ChangeColor1.ChangeColorSewing(Rec);
 
         if Rec."Colour Name" = '*' then begin
-            Clear(SetEdit);
-            SetEdit := false;
+            Clear(SetEdit1);
+            SetEdit1 := false;
         end
         ELSE begin
-            Clear(SetEdit);
-            SetEdit := true;
+            Clear(SetEdit1);
+            SetEdit1 := true;
         end;
 
         ProductionOutLineRec.Reset();
@@ -1431,399 +1447,397 @@ page 51225 DailyCuttingOutListPart_SawOut
 
                     1:
                         if ProductionOutLineRec."1" <> '' then
-                            SetVisible1 := true
+                            SetVisible_1 := true
                         else
-                            SetVisible1 := false;
+                            SetVisible_1 := false;
                     2:
                         if ProductionOutLineRec."2" <> '' then
-                            SetVisible2 := true
+                            SetVisible_2 := true
                         else
-                            SetVisible2 := false;
+                            SetVisible_2 := false;
                     3:
                         if ProductionOutLineRec."3" <> '' then
-                            SetVisible3 := true
+                            SetVisible_3 := true
                         else
-                            SetVisible3 := false;
+                            SetVisible_3 := false;
                     4:
                         if ProductionOutLineRec."4" <> '' then
-                            SetVisible4 := true
+                            SetVisible_4 := true
                         else
-                            SetVisible4 := false;
+                            SetVisible_4 := false;
                     5:
                         if ProductionOutLineRec."5" <> '' then
-                            SetVisible5 := true
+                            SetVisible_5 := true
                         else
-                            SetVisible5 := false;
+                            SetVisible_5 := false;
                     6:
                         if ProductionOutLineRec."6" <> '' then
-                            SetVisible6 := true
+                            SetVisible_6 := true
                         else
-                            SetVisible6 := false;
+                            SetVisible_6 := false;
                     7:
                         if ProductionOutLineRec."7" <> '' then
-                            SetVisible7 := true
+                            SetVisible_7 := true
                         else
-                            SetVisible7 := false;
+                            SetVisible_7 := false;
                     8:
                         if ProductionOutLineRec."8" <> '' then
-                            SetVisible8 := true
+                            SetVisible_8 := true
                         else
-                            SetVisible8 := false;
+                            SetVisible_8 := false;
                     9:
                         if ProductionOutLineRec."9" <> '' then
-                            SetVisible9 := true
+                            SetVisible_9 := true
                         else
-                            SetVisible9 := false;
+                            SetVisible_9 := false;
                     10:
                         if ProductionOutLineRec."10" <> '' then
-                            SetVisible10 := true
+                            SetVisible_10 := true
                         else
-                            SetVisible10 := false;
+                            SetVisible_10 := false;
                     11:
                         if ProductionOutLineRec."11" <> '' then
-                            SetVisible11 := true
+                            SetVisible_11 := true
                         else
-                            SetVisible11 := false;
+                            SetVisible_11 := false;
                     12:
                         if ProductionOutLineRec."12" <> '' then
-                            SetVisible12 := true
+                            SetVisible_12 := true
                         else
-                            SetVisible12 := false;
+                            SetVisible_12 := false;
                     13:
                         if ProductionOutLineRec."13" <> '' then
-                            SetVisible13 := true
+                            SetVisible_13 := true
                         else
-                            SetVisible13 := false;
+                            SetVisible_13 := false;
                     14:
                         if ProductionOutLineRec."14" <> '' then
-                            SetVisible14 := true
+                            SetVisible_14 := true
                         else
-                            SetVisible14 := false;
+                            SetVisible_14 := false;
                     15:
                         if ProductionOutLineRec."15" <> '' then
-                            SetVisible15 := true
+                            SetVisible_15 := true
                         else
-                            SetVisible15 := false;
+                            SetVisible_15 := false;
                     16:
                         if ProductionOutLineRec."16" <> '' then
-                            SetVisible16 := true
+                            SetVisible_16 := true
                         else
-                            SetVisible16 := false;
+                            SetVisible_16 := false;
                     17:
                         if ProductionOutLineRec."17" <> '' then
-                            SetVisible17 := true
+                            SetVisible_17 := true
                         else
-                            SetVisible17 := false;
+                            SetVisible_17 := false;
                     18:
                         if ProductionOutLineRec."18" <> '' then
-                            SetVisible18 := true
+                            SetVisible_18 := true
                         else
-                            SetVisible18 := false;
+                            SetVisible_18 := false;
                     19:
                         if ProductionOutLineRec."19" <> '' then
-                            SetVisible19 := true
+                            SetVisible_19 := true
                         else
-                            SetVisible19 := false;
+                            SetVisible_19 := false;
                     20:
                         if ProductionOutLineRec."20" <> '' then
-                            SetVisible20 := true
+                            SetVisible_20 := true
                         else
-                            SetVisible20 := false;
+                            SetVisible_20 := false;
                     21:
                         if ProductionOutLineRec."21" <> '' then
-                            SetVisible21 := true
+                            SetVisible_21 := true
                         else
-                            SetVisible21 := false;
+                            SetVisible_21 := false;
                     22:
                         if ProductionOutLineRec."22" <> '' then
-                            SetVisible22 := true
+                            SetVisible_22 := true
                         else
-                            SetVisible22 := false;
+                            SetVisible_22 := false;
                     23:
                         if ProductionOutLineRec."23" <> '' then
-                            SetVisible23 := true
+                            SetVisible_23 := true
                         else
-                            SetVisible23 := false;
+                            SetVisible_23 := false;
                     24:
                         if ProductionOutLineRec."24" <> '' then
-                            SetVisible24 := true
+                            SetVisible_24 := true
                         else
-                            SetVisible24 := false;
+                            SetVisible_24 := false;
                     25:
                         if ProductionOutLineRec."25" <> '' then
-                            SetVisible25 := true
+                            SetVisible_25 := true
                         else
-                            SetVisible25 := false;
+                            SetVisible_25 := false;
                     26:
                         if ProductionOutLineRec."26" <> '' then
-                            SetVisible26 := true
+                            SetVisible_26 := true
                         else
-                            SetVisible26 := false;
+                            SetVisible_26 := false;
                     27:
                         if ProductionOutLineRec."27" <> '' then
-                            SetVisible27 := true
+                            SetVisible_27 := true
                         else
-                            SetVisible27 := false;
+                            SetVisible_27 := false;
                     28:
                         if ProductionOutLineRec."28" <> '' then
-                            SetVisible28 := true
+                            SetVisible_28 := true
                         else
-                            SetVisible28 := false;
+                            SetVisible_28 := false;
                     29:
                         if ProductionOutLineRec."29" <> '' then
-                            SetVisible29 := true
+                            SetVisible_29 := true
                         else
-                            SetVisible29 := false;
+                            SetVisible_29 := false;
                     30:
                         if ProductionOutLineRec."30" <> '' then
-                            SetVisible30 := true
+                            SetVisible_30 := true
                         else
-                            SetVisible30 := false;
+                            SetVisible_30 := false;
                     31:
                         if ProductionOutLineRec."31" <> '' then
-                            SetVisible31 := true
+                            SetVisible_31 := true
                         else
-                            SetVisible31 := false;
+                            SetVisible_31 := false;
                     32:
                         if ProductionOutLineRec."32" <> '' then
-                            SetVisible32 := true
+                            SetVisible_32 := true
                         else
-                            SetVisible32 := false;
+                            SetVisible_32 := false;
                     33:
                         if ProductionOutLineRec."33" <> '' then
-                            SetVisible33 := true
+                            SetVisible_33 := true
                         else
-                            SetVisible33 := false;
+                            SetVisible_33 := false;
                     34:
                         if ProductionOutLineRec."34" <> '' then
-                            SetVisible34 := true
+                            SetVisible_34 := true
                         else
-                            SetVisible34 := false;
+                            SetVisible_34 := false;
                     35:
                         if ProductionOutLineRec."35" <> '' then
-                            SetVisible35 := true
+                            SetVisible_35 := true
                         else
-                            SetVisible35 := false;
+                            SetVisible_35 := false;
                     36:
                         if ProductionOutLineRec."36" <> '' then
-                            SetVisible36 := true
+                            SetVisible_36 := true
                         else
-                            SetVisible36 := false;
+                            SetVisible_36 := false;
                     37:
                         if ProductionOutLineRec."37" <> '' then
-                            SetVisible37 := true
+                            SetVisible_37 := true
                         else
-                            SetVisible37 := false;
+                            SetVisible_37 := false;
                     38:
                         if ProductionOutLineRec."38" <> '' then
-                            SetVisible38 := true
+                            SetVisible_38 := true
                         else
-                            SetVisible38 := false;
+                            SetVisible_38 := false;
                     39:
                         if ProductionOutLineRec."39" <> '' then
-                            SetVisible39 := true
+                            SetVisible_39 := true
                         else
-                            SetVisible39 := false;
+                            SetVisible_39 := false;
                     40:
                         if ProductionOutLineRec."40" <> '' then
-                            SetVisible40 := true
+                            SetVisible_40 := true
                         else
-                            SetVisible40 := false;
+                            SetVisible_40 := false;
                     41:
                         if ProductionOutLineRec."41" <> '' then
-                            SetVisible41 := true
+                            SetVisible_41 := true
                         else
-                            SetVisible41 := false;
+                            SetVisible_41 := false;
                     42:
                         if ProductionOutLineRec."42" <> '' then
-                            SetVisible42 := true
+                            SetVisible_42 := true
                         else
-                            SetVisible42 := false;
+                            SetVisible_42 := false;
                     43:
                         if ProductionOutLineRec."43" <> '' then
-                            SetVisible43 := true
+                            SetVisible_43 := true
                         else
-                            SetVisible43 := false;
+                            SetVisible_43 := false;
                     44:
                         if ProductionOutLineRec."44" <> '' then
-                            SetVisible44 := true
+                            SetVisible_44 := true
                         else
-                            SetVisible44 := false;
+                            SetVisible_44 := false;
                     45:
                         if ProductionOutLineRec."45" <> '' then
-                            SetVisible45 := true
+                            SetVisible_45 := true
                         else
-                            SetVisible45 := false;
+                            SetVisible_45 := false;
                     46:
                         if ProductionOutLineRec."46" <> '' then
-                            SetVisible46 := true
+                            SetVisible_46 := true
                         else
-                            SetVisible46 := false;
+                            SetVisible_46 := false;
                     47:
                         if ProductionOutLineRec."47" <> '' then
-                            SetVisible47 := true
+                            SetVisible_47 := true
                         else
-                            SetVisible47 := false;
+                            SetVisible_47 := false;
                     48:
                         if ProductionOutLineRec."48" <> '' then
-                            SetVisible48 := true
+                            SetVisible_48 := true
                         else
-                            SetVisible48 := false;
+                            SetVisible_48 := false;
                     49:
                         if ProductionOutLineRec."49" <> '' then
-                            SetVisible49 := true
+                            SetVisible_49 := true
                         else
-                            SetVisible49 := false;
+                            SetVisible_49 := false;
                     50:
                         if ProductionOutLineRec."50" <> '' then
-                            SetVisible50 := true
+                            SetVisible_50 := true
                         else
-                            SetVisible50 := false;
+                            SetVisible_50 := false;
                     51:
                         if ProductionOutLineRec."51" <> '' then
-                            SetVisible51 := true
+                            SetVisible_51 := true
                         else
-                            SetVisible51 := false;
+                            SetVisible_51 := false;
                     52:
                         if ProductionOutLineRec."52" <> '' then
-                            SetVisible52 := true
+                            SetVisible_52 := true
                         else
-                            SetVisible52 := false;
+                            SetVisible_52 := false;
                     53:
                         if ProductionOutLineRec."53" <> '' then
-                            SetVisible53 := true
+                            SetVisible_53 := true
                         else
-                            SetVisible53 := false;
+                            SetVisible_53 := false;
                     54:
                         if ProductionOutLineRec."54" <> '' then
-                            SetVisible54 := true
+                            SetVisible_54 := true
                         else
-                            SetVisible54 := false;
+                            SetVisible_54 := false;
                     55:
                         if ProductionOutLineRec."55" <> '' then
-                            SetVisible55 := true
+                            SetVisible_55 := true
                         else
-                            SetVisible55 := false;
+                            SetVisible_55 := false;
                     56:
                         if ProductionOutLineRec."56" <> '' then
-                            SetVisible56 := true
+                            SetVisible_56 := true
                         else
-                            SetVisible56 := false;
+                            SetVisible_56 := false;
                     57:
                         if ProductionOutLineRec."57" <> '' then
-                            SetVisible57 := true
+                            SetVisible_57 := true
                         else
-                            SetVisible57 := false;
+                            SetVisible_57 := false;
                     58:
                         if ProductionOutLineRec."58" <> '' then
-                            SetVisible58 := true
+                            SetVisible_58 := true
                         else
-                            SetVisible58 := false;
+                            SetVisible_58 := false;
                     59:
                         if ProductionOutLineRec."59" <> '' then
-                            SetVisible59 := true
+                            SetVisible_59 := true
                         else
-                            SetVisible59 := false;
+                            SetVisible_59 := false;
                     60:
                         if ProductionOutLineRec."60" <> '' then
-                            SetVisible60 := true
+                            SetVisible_60 := true
                         else
-                            SetVisible60 := false;
+                            SetVisible_60 := false;
                     61:
                         if ProductionOutLineRec."61" <> '' then
-                            SetVisible61 := true
+                            SetVisible_61 := true
                         else
-                            SetVisible61 := false;
+                            SetVisible_61 := false;
                     62:
                         if ProductionOutLineRec."62" <> '' then
-                            SetVisible62 := true
+                            SetVisible_62 := true
                         else
-                            SetVisible62 := false;
+                            SetVisible_62 := false;
                     63:
                         if ProductionOutLineRec."63" <> '' then
-                            SetVisible63 := true
+                            SetVisible_63 := true
                         else
-                            SetVisible63 := false;
+                            SetVisible_63 := false;
                     64:
                         if ProductionOutLineRec."64" <> '' then
-                            SetVisible64 := true
+                            SetVisible_64 := true
                         else
-                            SetVisible64 := false;
+                            SetVisible_64 := false;
                 end;
-
-
             end;
 
         end;
     end;
 
     var
-        StyleExprTxt: Text[50];
-        ChangeColor: Codeunit NavAppCodeUnit;
-        SetEdit: Boolean;
-        SetVisible1: Boolean;
-        SetVisible2: Boolean;
-        SetVisible3: Boolean;
-        SetVisible4: Boolean;
-        SetVisible5: Boolean;
-        SetVisible6: Boolean;
-        SetVisible7: Boolean;
-        SetVisible8: Boolean;
-        SetVisible9: Boolean;
-        SetVisible10: Boolean;
-        SetVisible11: Boolean;
-        SetVisible12: Boolean;
-        SetVisible13: Boolean;
-        SetVisible14: Boolean;
-        SetVisible15: Boolean;
-        SetVisible16: Boolean;
-        SetVisible17: Boolean;
-        SetVisible18: Boolean;
-        SetVisible19: Boolean;
-        SetVisible20: Boolean;
-        SetVisible21: Boolean;
-        SetVisible22: Boolean;
-        SetVisible23: Boolean;
-        SetVisible24: Boolean;
-        SetVisible25: Boolean;
-        SetVisible26: Boolean;
-        SetVisible27: Boolean;
-        SetVisible28: Boolean;
-        SetVisible29: Boolean;
-        SetVisible30: Boolean;
-        SetVisible31: Boolean;
-        SetVisible32: Boolean;
-        SetVisible33: Boolean;
-        SetVisible34: Boolean;
-        SetVisible35: Boolean;
-        SetVisible36: Boolean;
-        SetVisible37: Boolean;
-        SetVisible38: Boolean;
-        SetVisible39: Boolean;
-        SetVisible40: Boolean;
-        SetVisible41: Boolean;
-        SetVisible42: Boolean;
-        SetVisible43: Boolean;
-        SetVisible44: Boolean;
-        SetVisible45: Boolean;
-        SetVisible46: Boolean;
-        SetVisible47: Boolean;
-        SetVisible48: Boolean;
-        SetVisible49: Boolean;
-        SetVisible50: Boolean;
-        SetVisible51: Boolean;
-        SetVisible52: Boolean;
-        SetVisible53: Boolean;
-        SetVisible54: Boolean;
-        SetVisible55: Boolean;
-        SetVisible56: Boolean;
-        SetVisible57: Boolean;
-        SetVisible58: Boolean;
-        SetVisible59: Boolean;
-        SetVisible60: Boolean;
-        SetVisible61: Boolean;
-        SetVisible62: Boolean;
-        SetVisible63: Boolean;
-        SetVisible64: Boolean;
+        StyleExprTxt1: Text[50];
+        ChangeColor1: Codeunit NavAppCodeUnit;
+        SetEdit1: Boolean;
+        SetVisible_1: Boolean;
+        SetVisible_2: Boolean;
+        SetVisible_3: Boolean;
+        SetVisible_4: Boolean;
+        SetVisible_5: Boolean;
+        SetVisible_6: Boolean;
+        SetVisible_7: Boolean;
+        SetVisible_8: Boolean;
+        SetVisible_9: Boolean;
+        SetVisible_10: Boolean;
+        SetVisible_11: Boolean;
+        SetVisible_12: Boolean;
+        SetVisible_13: Boolean;
+        SetVisible_14: Boolean;
+        SetVisible_15: Boolean;
+        SetVisible_16: Boolean;
+        SetVisible_17: Boolean;
+        SetVisible_18: Boolean;
+        SetVisible_19: Boolean;
+        SetVisible_20: Boolean;
+        SetVisible_21: Boolean;
+        SetVisible_22: Boolean;
+        SetVisible_23: Boolean;
+        SetVisible_24: Boolean;
+        SetVisible_25: Boolean;
+        SetVisible_26: Boolean;
+        SetVisible_27: Boolean;
+        SetVisible_28: Boolean;
+        SetVisible_29: Boolean;
+        SetVisible_30: Boolean;
+        SetVisible_31: Boolean;
+        SetVisible_32: Boolean;
+        SetVisible_33: Boolean;
+        SetVisible_34: Boolean;
+        SetVisible_35: Boolean;
+        SetVisible_36: Boolean;
+        SetVisible_37: Boolean;
+        SetVisible_38: Boolean;
+        SetVisible_39: Boolean;
+        SetVisible_40: Boolean;
+        SetVisible_41: Boolean;
+        SetVisible_42: Boolean;
+        SetVisible_43: Boolean;
+        SetVisible_44: Boolean;
+        SetVisible_45: Boolean;
+        SetVisible_46: Boolean;
+        SetVisible_47: Boolean;
+        SetVisible_48: Boolean;
+        SetVisible_49: Boolean;
+        SetVisible_50: Boolean;
+        SetVisible_51: Boolean;
+        SetVisible_52: Boolean;
+        SetVisible_53: Boolean;
+        SetVisible_54: Boolean;
+        SetVisible_55: Boolean;
+        SetVisible_56: Boolean;
+        SetVisible_57: Boolean;
+        SetVisible_58: Boolean;
+        SetVisible_59: Boolean;
+        SetVisible_60: Boolean;
+        SetVisible_61: Boolean;
+        SetVisible_62: Boolean;
+        SetVisible_63: Boolean;
+        SetVisible_64: Boolean;
 
 }

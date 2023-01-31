@@ -342,7 +342,7 @@ page 50355 "Daily Sewing In/Out Card"
                 {
                     ApplicationArea = All;
                     Caption = ' ';
-                    SubPageLink = Type = field(Type), "No." = FIELD("No."), In_Out = const('OUT');
+                    SubPageLink = "No." = FIELD("No."), Type = field(Type), In_Out = filter('OUT');
                 }
             }
 
