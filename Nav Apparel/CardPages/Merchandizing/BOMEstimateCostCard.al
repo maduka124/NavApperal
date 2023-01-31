@@ -1511,9 +1511,22 @@ page 50986 "BOM Estimate Cost Card"
 
     procedure CalMFGCost()
     var
-
+        NavAppSetupRec: Record "NavApp Setup";
+        Temp: Decimal;
     begin
-        rec."CM Doz" := rec.SMV * rec.CPM * 12;
+        NavAppSetupRec.Reset();
+        NavAppSetupRec.FindSet();
+
+        Temp := NavAppSetupRec."Base Efficiency" - rec."Project Efficiency.";
+
+        if rec."Project Efficiency." <> NavAppSetupRec."Base Efficiency" then begin
+            rec."CM Doz" := ((rec.SMV * rec.CPM) + (Temp / 100) * rec.SMV * rec.CPM) * 12;
+        end
+        else
+            rec."CM Doz" := rec.SMV * rec.CPM * 12;
+
+
+
         //  rec."CM Doz" := ((rec.smv + (100 - rec."Project Efficiency.") / 100 * rec.SMV) * rec.CPM + ((rec.SMV + (100 - rec."Project Efficiency.") / 100 * rec.SMV) * rec.CPM) * rec.EPM / 100) * 12;
         rec."MFG Cost Dz." := rec."CM Doz";
         rec."MFG Cost Pcs" := rec."MFG Cost Dz." / 12;
