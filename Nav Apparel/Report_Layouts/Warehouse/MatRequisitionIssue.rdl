@@ -1052,13 +1052,13 @@
                   <Width>1.70148cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.81807cm</Width>
+                  <Width>2.15674cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.43799cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.14199cm</Width>
+                  <Width>1.80332cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1739,63 +1739,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Issued_Quantity">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <Format>n2</Format>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Issued_Quantity</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Quantity">
+                        <Textbox Name="Quantity2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1815,6 +1759,42 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Quantity</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Original_Daily_Requirement">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Original_Daily_Requirement.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <Format>n2</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Original_Daily_Requirement</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2264,6 +2244,12 @@ End Function
         </Field>
         <Field Name="size">
           <DataField>size</DataField>
+        </Field>
+        <Field Name="Original_Daily_Requirement">
+          <DataField>Original_Daily_Requirement</DataField>
+        </Field>
+        <Field Name="Original_Daily_RequirementFormat">
+          <DataField>Original_Daily_RequirementFormat</DataField>
         </Field>
       </Fields>
       <Query>
