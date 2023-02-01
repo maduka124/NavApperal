@@ -2328,6 +2328,13 @@ page 50968 "Nav Apperal Role Center"
                     }
                 }
 
+                action("Capacity Utilization By SAH ")
+                {
+                    Caption = 'Capacity Utilization By SAH';
+                    RunObject = Page SAH_CapacityAllocationList;
+                    ApplicationArea = all;
+                }
+
                 action("Daily Production Report1")
                 {
                     Caption = 'Daily Production Report';

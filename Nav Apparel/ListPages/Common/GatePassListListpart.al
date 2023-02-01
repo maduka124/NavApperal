@@ -75,6 +75,7 @@ page 50628 "Gate Pass ListPart"
                         SalesHeaderRec: Record "Sales Header";
                         SalesInvoiceHeader: Record "Sales Invoice Header";
                         SalesInvoiceLine: Record "Sales Invoice Line";
+                        SampleTypeRec: Record "Sample Type";
                     begin
                         if (Rec."Inventory Type" = Rec."Inventory Type"::Inventory) then begin
                             ItemRec.Reset();
@@ -88,6 +89,28 @@ page 50628 "Gate Pass ListPart"
                                 if UOMRec.FindSet() then
                                     Rec.UOM := UOMRec.Description;
                             end;
+                        end;
+
+                        if (Rec."Inventory Type" = Rec."Inventory Type"::"Fixed Assets") then begin
+                            FARec.Reset();
+                            FARec.SetRange(Description, Rec.Description);
+                            if FARec.FindSet() then
+                                Rec."Item No." := FARec."No.";
+                        end;
+
+                        if (Rec."Inventory Type" = rec."Inventory Type"::"Service Machine") then begin
+
+                            ServiceItemRec.Reset();
+                            ServiceItemRec.SetRange(Description, Rec.Description);
+                            if ServiceItemRec.FindSet() then begin
+                                Rec."Item No." := ServiceItemRec."Item No.";
+                                Rec."UOM Code" := ServiceItemRec."Unit of Measure Code";
+                            end;
+
+                            UOMRec.Reset();
+                            UOMRec.SetRange(Code, Rec."UOM Code");
+                            if UOMRec.FindSet() then
+                                Rec.UOM := UOMRec.Description;
                         end;
 
                         //Done By Sachith on 27/01/23
@@ -137,26 +160,15 @@ page 50628 "Gate Pass ListPart"
 
                         end;
 
-                        if (Rec."Inventory Type" = Rec."Inventory Type"::"Fixed Assets") then begin
-                            FARec.Reset();
-                            FARec.SetRange(Description, Rec.Description);
-                            if FARec.FindSet() then
-                                Rec."Item No." := FARec."No.";
-                        end;
+                        if Rec."Inventory Type" = Rec."Inventory Type"::Sample then begin
 
-                        if (Rec."Inventory Type" = rec."Inventory Type"::"Service Machine") then begin
+                            SampleTypeRec.Reset();
+                            SampleTypeRec.SetRange("Sample Type Name", Rec.Description);
 
-                            ServiceItemRec.Reset();
-                            ServiceItemRec.SetRange(Description, Rec.Description);
-                            if ServiceItemRec.FindSet() then begin
-                                Rec."Item No." := ServiceItemRec."Item No.";
-                                Rec."UOM Code" := ServiceItemRec."Unit of Measure Code";
+                            if SampleTypeRec.FindSet() then begin
+                                rec."Sample Type No" := SampleTypeRec."No.";
+                                rec.Remarks := SampleTypeRec."Sample Type Name";
                             end;
-
-                            UOMRec.Reset();
-                            UOMRec.SetRange(Code, Rec."UOM Code");
-                            if UOMRec.FindSet() then
-                                Rec.UOM := UOMRec.Description;
                         end;
                         CurrPage.Update();
                     end;
@@ -165,6 +177,17 @@ page 50628 "Gate Pass ListPart"
                 field(UOM; Rec.UOM)
                 {
                     ApplicationArea = All;
+                    trigger OnValidate()
+                    var
+                        UOMRec: Record "Unit of Measure";
+                    begin
+
+                        UOMRec.Reset();
+                        UOMRec.SetRange(Description, Rec.UOM);
+
+                        if UOMRec.FindSet() then
+                            Rec."UOM Code" := UOMRec.Code;
+                    end;
                 }
 
                 field(Qty; Rec.Qty)

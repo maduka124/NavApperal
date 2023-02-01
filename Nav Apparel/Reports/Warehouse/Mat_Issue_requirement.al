@@ -39,7 +39,6 @@ report 51801 MaterialIssueRequition
             // { }
 
 
-
             // dataitem("Daily Consumption Line"; "Daily Consumption Line")
             // {
 
@@ -61,19 +60,17 @@ report 51801 MaterialIssueRequition
             // column(Daily_Consumption; "Daily Consumption")
             // { }
 
-
-
-
-            dataitem("Item Journal Line"; "Item Journal Line")
+            dataitem("Item Ledger Entry"; "Item Ledger Entry")
             {
                 DataItemLinkReference = "Daily Consumption Header";
                 DataItemLink = "Document No." = field("Prod. Order No.");
-                DataItemTableView = sorting("Journal Template Name", "Journal Batch Name", "Line No.");
-                column(Quantity; Quantity)
+                DataItemTableView = where("Entry Type" = filter('Consumption'));
+
+                column(Quantity; Quantity * -1)
                 { }
                 column(Item_No_; "Item No.")
                 { }
-                column(DescriptionLine; Description)
+                column(DescriptionLine; DescriptionRec)
                 { }
                 column(SystemCreatedAt; "Posting Date")
                 { }
@@ -82,6 +79,8 @@ report 51801 MaterialIssueRequition
                 column(Location; "Location Code")
                 { }
                 column(size; size)
+                { }
+                column(Original_Daily_Requirement; "Original Daily Requirement")
                 { }
 
                 trigger OnPreDataItem()
@@ -102,6 +101,7 @@ report 51801 MaterialIssueRequition
                         size := ItemRec."Size Range No.";
                         UOM := ItemRec."Base Unit of Measure";
                         Location := ItemRec."Location Filter";
+                        DescriptionRec := ItemRec.Description;
                     end;
                 end;
 
@@ -151,6 +151,7 @@ report 51801 MaterialIssueRequition
 
 
     var
+        DescriptionRec: Text[200];
         Location: Code[20];
         UOM: Code[20];
         size: Code[20];

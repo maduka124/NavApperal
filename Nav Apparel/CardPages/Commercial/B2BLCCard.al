@@ -89,12 +89,20 @@ page 50522 "B2B LC Card"
                         "ContLCMasRec": Record "Contract/LCMaster";
                         PIDetMasterRec: Record "PI Details Header";
                         B2BRec: Record B2BLCMaster;
+                        GlobalDimentionRec: Record "Dimension Value";
                     begin
 
                         rec."LC/Contract No." := rec.LCContractNo;
 
                         if rec.Beneficiary = '' then
                             Error('Select Beneficiary.');
+
+                        //Done By Sachith 01/02/23
+                        ContLCMasRec.Reset();
+                        ContLCMasRec.SetRange("Contract No", rec.LCContractNo);
+
+                        if ContLCMasRec.FindSet() then
+                            Rec."Global Dimension Code" := ContLCMasRec."Global Dimension Code";
 
                         PIDetMasterRec.Reset();
                         PIDetMasterRec.SetCurrentKey("Supplier No.");
