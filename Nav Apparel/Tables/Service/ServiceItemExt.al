@@ -11,7 +11,7 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
         {
         }
 
-        field(50003; "Work center Name"; text[50])
+        field(50003; "Work center Name"; text[50])  //Not using
         {
             TableRelation = "Work Center".Name;
             ValidateTableRelation = false;
@@ -44,12 +44,14 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
 
         field(50008; "Factory"; Text[100])
         {
-            TableRelation = Location.Name;
+
         }
 
         field(50009; "Factory Code"; code[20])
         {
-            TableRelation = Location.Name;
+            DataClassification = ToBeClassified;
+            //CaptionClass = '1,2,1';
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
         }
 
         field(50010; "Location Code"; code[20])
@@ -58,7 +60,8 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
 
         field(50011; "Location"; Text[100])
         {
-            TableRelation = Department."Department Name";
+            TableRelation = "Work Center".Name where("Factory No." = field("Factory Code"));
+            ValidateTableRelation = false;
         }
 
         field(50012; "Machine Category Code"; code[20])

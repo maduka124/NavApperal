@@ -1643,6 +1643,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Service Schedule")
+                {
+                    Caption = 'Service Schedule';
+                    RunObject = Page ServiceScheduleList;
+                    ApplicationArea = all;
+                }
+
                 action("Service Worksheet")
                 {
                     Caption = 'Service Worksheet';

@@ -26,7 +26,7 @@ tableextension 51098 "Item Extension" extends Item
         {
         }
 
-        field(50006; "Color Name"; Text[50])
+        field(50006; "Color Name"; Text[250])
         {
             TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
                     Model."Model Name"
@@ -51,7 +51,7 @@ tableextension 51098 "Item Extension" extends Item
             // ValidateTableRelation = false;
         }
 
-        field(50007; "Size Range No."; code[20])
+        field(50007; "Size Range No."; code[250])
         {
             TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
                     "Service Item".Description
@@ -68,7 +68,7 @@ tableextension 51098 "Item Extension" extends Item
         {
         }
 
-        field(50009; "Article"; text[100])
+        field(50009; "Article"; text[250])
         {
             //TableRelation = Article.Article;
             // ValidateTableRelation = false;

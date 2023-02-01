@@ -17,21 +17,21 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                 end;
             }
 
-            field("Work center Name"; rec."Work center Name")
-            {
-                ApplicationArea = All;
+            // field("Work center Name"; rec."Work center Name")
+            // {
+            //     ApplicationArea = All;
 
-                trigger OnValidate()
-                var
-                    WorkCenterRec: Record "Work Center";
-                begin
-                    WorkCenterRec.Reset();
-                    WorkCenterRec.SetRange(Name, rec."Work center Name");
+            //     trigger OnValidate()
+            //     var
+            //         WorkCenterRec: Record "Work Center";
+            //     begin
+            //         WorkCenterRec.Reset();
+            //         WorkCenterRec.SetRange(Name, rec."Work center Name");
 
-                    if WorkCenterRec.FindSet() then
-                        rec."Work center Code" := WorkCenterRec."No.";
-                end;
-            }
+            //         if WorkCenterRec.FindSet() then
+            //             rec."Work center Code" := WorkCenterRec."No.";
+            //     end;
+            // }
 
             field("Service Period"; rec."Service Period")
             {
@@ -53,7 +53,7 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                 ApplicationArea = All;
             }
 
-            field(Factory; rec.Factory)
+            field("Factory Code"; rec."Factory Code")
             {
                 ApplicationArea = All;
 
@@ -61,10 +61,11 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                 var
                     LocationRec: Record Location;
                 begin
+                    rec."Global Dimension Code" := rec."Factory Code";
                     LocationRec.Reset();
-                    LocationRec.SetRange(Name, rec."Factory");
+                    LocationRec.SetRange(code, rec."Factory Code");
                     if LocationRec.FindSet() then
-                        rec."Factory Code" := LocationRec."code";
+                        rec."Factory" := LocationRec."name";
                 end;
             }
 
@@ -74,12 +75,13 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
 
                 trigger OnValidate()
                 var
-                    DepartmentRec: Record Department;
+                    WorkCenterRec: Record "Work Center";
                 begin
-                    DepartmentRec.Reset();
-                    DepartmentRec.SetRange("Department Name", rec."Location");
-                    if DepartmentRec.FindSet() then
-                        rec."Location Code" := DepartmentRec."No.";
+                    WorkCenterRec.Reset();
+                    WorkCenterRec.SetRange(Name, rec.Location);
+
+                    if WorkCenterRec.FindSet() then
+                        rec."Location Code" := WorkCenterRec."No.";
                 end;
             }
 
@@ -113,14 +115,6 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                 end;
             }
 
-            field("Global Dimension Code"; rec."Global Dimension Code")
-            {
-                ApplicationArea = All;
-            }
-        }
-
-        addafter("Global Dimension Code")
-        {
             field("Asset Number"; Rec."Asset Number")
             {
                 ApplicationArea = All;

@@ -2,6 +2,14 @@ pageextension 50807 ServiceItemListExt extends "Service Item List"
 {
     layout
     {
+        addafter("Item No.")
+        {
+            field("Asset Number"; rec."Asset Number")
+            {
+                ApplicationArea = ALL;
+            }
+        }
+
         addafter("Customer No.")
         {
             field(Brand; rec.Brand)

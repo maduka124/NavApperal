@@ -111,14 +111,14 @@ page 50964 "NavApp Setup Card"
                 field("Worksheet Template Name"; rec."Worksheet Template Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Req. Wksh. Template Name';
+                    Caption = 'Planning. Wksh. Template Name';
                     TableRelation = "Req. Wksh. Template";
                 }
 
                 field("Journal Batch Name"; rec."Journal Batch Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Req. Wksh. Batch Name';
+                    Caption = 'Planning Wksh. Batch Name';
                     TableRelation = "Requisition Wksh. Name".Name WHERE("Worksheet Template Name" = FIELD("Worksheet Template Name"));
                 }
 
