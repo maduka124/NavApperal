@@ -32,7 +32,9 @@ table 51081 "Gate Pass Line"
             else
             if ("Inventory Type" = const("Service Machine")) "Service Item".Description
             else
-            if ("Inventory Type" = const("Finish Goods")) Item.Description where("Replenishment System" = filter("Prod. Order"));
+            if ("Inventory Type" = const("Finish Goods")) Item.Description where("Replenishment System" = filter("Prod. Order"))
+            else
+            if ("Inventory Type" = const(Sample)) "Sample Type"."Sample Type Name";
 
             ValidateTableRelation = false;
 
@@ -79,6 +81,11 @@ table 51081 "Gate Pass Line"
             if ("Inventory Type" = CONST("Fixed Assets")) "FA Class".Name;
 
             ValidateTableRelation = false;
+        }
+
+        field(71012592; "Sample Type No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 
