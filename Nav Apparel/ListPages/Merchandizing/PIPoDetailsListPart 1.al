@@ -2,7 +2,7 @@ page 51053 "PI Po Details ListPart 1"
 {
     PageType = ListPart;
     SourceTable = "Purchase Header";
-    SourceTableView = where("Assigned PI No." = filter(''));
+    SourceTableView = where("Assigned PI No." = filter(''), Status = filter(Released));
     DeleteAllowed = false;
     InsertAllowed = false;
 
