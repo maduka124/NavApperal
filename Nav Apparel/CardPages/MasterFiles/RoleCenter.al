@@ -375,6 +375,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Capacity Utilization By SAH1")
+                {
+                    Caption = 'Capacity Utilization By SAH';
+                    RunObject = Page SAH_CapacityAllocationList;
+                    ApplicationArea = all;
+                }
+
                 group("Capacity By Pcs")
                 {
                     Caption = 'Capacity By Pcs';
@@ -1657,12 +1664,12 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Gate Pass")
-                {
-                    Caption = 'Gate Pass';
-                    RunObject = page "Gate Pass List";
-                    ApplicationArea = All;
-                }
+                // action("Gate Pass")
+                // {
+                //     Caption = 'Gate Pass';
+                //     RunObject = page "Gate Pass List";
+                //     ApplicationArea = All;
+                // }
             }
 
             group("Commercial")

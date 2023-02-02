@@ -1679,6 +1679,9 @@ page 50986 "BOM Estimate Cost Card"
     var
         BOMEstCostLineRec: Record "BOM Estimate Costing Line";
     begin
+        if rec.Status = rec.Status::Approved then
+            Error('This costing is approved. You cannot delete.');
+
         BOMEstCostLineRec.Reset();
         BOMEstCostLineRec.SetRange("No.", rec."No.");
         if BOMEstCostLineRec.FindSet() then

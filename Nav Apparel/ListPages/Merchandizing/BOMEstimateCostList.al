@@ -99,6 +99,9 @@ page 50267 "BOM Estimate Cost"
     var
         BOMEstCostLineRec: Record "BOM Estimate Costing Line";
     begin
+        if rec.Status = rec.Status::Approved then
+            Error('This costing is approved. You cannot delete.');
+
         BOMEstCostLineRec.Reset();
         BOMEstCostLineRec.SetRange("No.", rec."No.");
         if BOMEstCostLineRec.FindSet() then

@@ -138,7 +138,7 @@ page 50456 "New Operation Card"
     {
         area(Processing)
         {
-            action(Generate)
+            action("Generate Code")
             {
                 ApplicationArea = all;
                 trigger OnAction()
@@ -150,6 +150,9 @@ page 50456 "New Operation Card"
                 begin
 
                     NewOperation2Rec.Reset();
+                    NewOperation2Rec.SetRange("Item Type No.", 'JKT');
+                    // NewOperation2Rec.SetCurrentKey("No.");
+                    // NewOperation2Rec.Ascending(true);
                     if NewOperation2Rec.FindSet() then begin
                         repeat
 
