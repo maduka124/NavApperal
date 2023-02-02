@@ -289,6 +289,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page Shade;
                     ApplicationArea = all;
                 }
+                action(Technician)
+                {
+                    Caption = 'Technician';
+                    RunObject = Page TechnicianList;
+                    ApplicationArea = all;
+                }
 
                 action("Tables")
                 {
