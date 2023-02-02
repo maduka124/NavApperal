@@ -49,7 +49,10 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
 
             end;
         }
-
+        addafter("P&osting")
+        {
+          
+        }
         addafter("P&ost")
         {
             action("Line Qty. Approved")
