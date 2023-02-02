@@ -8135,7 +8135,7 @@ page 50984 "BOM Card"
                                 end;
 
                                 //Create Worksheet Entry
-                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name");
+                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name");
 
                                 //Update Auto generate
                                 // AutoGenRec."Included in PO" := true;
@@ -8502,7 +8502,7 @@ page 50984 "BOM Card"
 
 
                                 //Create Worksheet Entry
-                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name");
+                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name");
 
                                 //Update Auto generate
                                 // AutoGenRec."Included in PO" := true;
@@ -8556,7 +8556,7 @@ page 50984 "BOM Card"
 
     end;
 
-    procedure CreateWorksheetEntry(Item: code[20]; Supplier: Code[20]; Qty: Decimal; Rate: Decimal; Lot: Code[20]; PONo: Code[20]; MainCat: Code[20])
+    procedure CreateWorksheetEntry(Item: code[20]; Supplier: Code[20]; Qty: Decimal; Rate: Decimal; Lot: Code[20]; PONo: Code[20]; MainCat: Code[20]; GMTSizeName: text[50])
     var
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         NavAppSetupRec: Record "NavApp Setup";
@@ -8671,8 +8671,10 @@ page 50984 "BOM Card"
 
         end
         else begin  // Update existing item
-            RequLineRec."Quantity" := RequLineRec."Quantity" + Qty;
-            RequLineRec.Modify();
+            if GMTSizeName <> '' then begin
+                RequLineRec."Quantity" := RequLineRec."Quantity" + Qty;
+                RequLineRec.Modify();
+            end;
         end;
 
 

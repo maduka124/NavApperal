@@ -1,12 +1,12 @@
 page 50731 "Service Wrks Line List part"
 {
     PageType = ListPart;
-    SourceTable = ServiceWorksheet;
+    SourceTable = ServiceWorksheetLineNew;
     Editable = true;
     ModifyAllowed = true;
     InsertAllowed = false;
     DeleteAllowed = false;
-    SourceTableView = sorting("Service Item No") order(descending);
+    SourceTableView = sorting("Brand Name", "Model Name", "Machine Category") order(descending);
 
     layout
     {
@@ -14,23 +14,56 @@ page 50731 "Service Wrks Line List part"
         {
             repeater(General)
             {
-                field("Service Item No"; rec."Service Item No")
+                field("Doc No"; rec."Doc No")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Document No';
+                }
+
+                field("Part No"; rec."Part No")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Service Item Name"; rec."Service Item Name")
+                field("Part Name"; rec."Part Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
 
-                field("Work Center Name"; rec."Work Center Name")
+                field("Brand Name"; rec."Brand Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Work Center';
+                    Caption = 'Brand';
                     Editable = false;
+                }
+
+                field("Model Name"; rec."Model Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Model';
+                    Editable = false;
+                }
+
+                field("Machine Category"; rec."Machine Category")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Machine Category';
+                    Editable = false;
+                }
+
+                field("Unit N0."; rec."Unit N0.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Unit';
+                    Editable = false;
+                }
+
+                field(Qty; rec.Qty)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Qty';
                 }
 
                 field("Service Date"; rec."Service Date")
@@ -39,46 +72,32 @@ page 50731 "Service Wrks Line List part"
                     Editable = false;
                 }
 
-                field("Standard Service Desc"; rec."Standard Service Desc")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Standard Service Code';
-                    Editable = true;
-
-                    trigger OnValidate()
-                    var
-                        StanSerCodeRec: Record "Standard Service Code";
-                    begin
-                        StanSerCodeRec.Reset();
-                        StanSerCodeRec.SetRange(Description, rec."Standard Service Desc");
-                        if StanSerCodeRec.FindSet() then
-                            rec."Standard Service Code" := StanSerCodeRec.Code;
-                    end;
-                }
-
                 field("Next Service Date"; rec."Next Service Date")
                 {
                     ApplicationArea = All;
-                    Editable = true;
-                }
-
-                field("Doc No"; rec."Doc No")
-                {
-                    ApplicationArea = All;
-                    Editable = true;
                 }
 
                 field(Remarks; rec.Remarks)
                 {
                     ApplicationArea = All;
-                    Editable = true;
                 }
 
                 field(Approval; rec.Approval)
                 {
                     ApplicationArea = All;
-                    Editable = true;
                 }
+
+                field("Technician Name"; rec."Technician Name")
+                {
+                    ApplicationArea = All;
+                    trigger OnValidate()
+                    var
+
+                    begin
+
+                    end;
+                }
+
             }
         }
     }

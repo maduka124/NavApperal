@@ -59,10 +59,11 @@ page 51031 "BOM Line Estimate ListPart"
                         ItemRec.Reset();
                         ItemRec.SetRange("Main Category No.", Rec."Main Category No.");
                         ItemRec.SetFilter("EstimateBOM Item", '=%1', true);
-                        ItemRec.FindSet();
-                        if Page.RunModal(51161, ItemRec) = Action::LookupOK then begin
-                            Rec."Item Name" := ItemRec.Description;
-                            Rec."Item No." := ItemRec."No.";
+                        if ItemRec.FindSet() then begin
+                            if Page.RunModal(51161, ItemRec) = Action::LookupOK then begin
+                                Rec."Item Name" := ItemRec.Description;
+                                Rec."Item No." := ItemRec."No.";
+                            end;
                         end;
 
                         //Get Qty from Header 

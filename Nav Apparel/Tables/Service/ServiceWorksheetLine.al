@@ -91,35 +91,10 @@ table 50729 "ServiceWorksheet"
         }
     }
 
-    // fieldgroups
-    // {
-    //     fieldgroup(DropDown; "No.", "Wash Type Name")
-    //     {
-
-    //     }
-    // }
-
     trigger OnInsert()
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    var
-    begin
-
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }
