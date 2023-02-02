@@ -289,6 +289,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page Shade;
                     ApplicationArea = all;
                 }
+                action(Technician)
+                {
+                    Caption = 'Technician';
+                    RunObject = Page TechnicianList;
+                    ApplicationArea = all;
+                }
 
                 action("Tables")
                 {
@@ -928,6 +934,18 @@ page 50968 "Nav Apperal Role Center"
 
             }
 
+            group("Procurement")
+            {
+                Caption = 'Procurement';
+
+                action("Requisition Worksheet")
+                {
+                    Caption = 'Requisition Worksheet';
+                    RunObject = Page "Req. Worksheet";
+                    ApplicationArea = all;
+                }
+            }
+
             group("Store")
             {
                 Caption = 'Store';
@@ -1012,13 +1030,6 @@ page 50968 "Nav Apperal Role Center"
                     Caption = 'Approved Purchase Orders';
                     RunObject = Page "Purchase Order List";
                     RunPageView = order(ascending) where(Status = filter(Released));
-                    ApplicationArea = all;
-                }
-
-                action("Requisition Worksheet")
-                {
-                    Caption = 'Requisition Worksheet';
-                    RunObject = Page "Req. Worksheet";
                     ApplicationArea = all;
                 }
 
