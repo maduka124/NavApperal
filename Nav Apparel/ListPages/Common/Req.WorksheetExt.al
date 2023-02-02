@@ -53,6 +53,15 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
                 end
             end;
         }
+
+        // Done By Sachith on 02/02/23
+        addafter("Vendor No.")
+        {
+            field("Vendor Name"; Rec."Vendor Name")
+            {
+                ApplicationArea = all;
+            }
+        }
     }
 
     actions

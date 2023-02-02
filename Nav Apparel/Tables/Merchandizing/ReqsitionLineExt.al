@@ -128,13 +128,25 @@ tableextension 50925 "ReqLine Extension" extends "Requisition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done By Sachith on 02/02/23
+        field(50022; "Vendor Name"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //Done By Sachith on 02/02/23
+        modify("Vendor No.")
+        {
+            trigger OnAfterValidate()
+            var
+                vendor: Record Vendor;
+            begin
+                if vendor.Get("Vendor No.") then;
+                "Vendor Name" := vendor.Name;
+            end;
+        }
+
     }
-
-    // trigger OnAfterDelete()
-    // var
-
-    // begin
-    //     Message('Deletedxx');
-    // end;
 }
 
