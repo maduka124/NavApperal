@@ -39,7 +39,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     Caption = 'Colour';
                     StyleExpr = StyleExprTxt;
-                    Editable = SetEdit;
+                    Editable = false;
                 }
 
                 field("1"; rec."1")
@@ -47,14 +47,14 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible1;
+                    //Visible = SetVisible1_2;
                 }
                 field("2"; rec."2")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible2;
+                    //Visible = SetVisible2_2;
                 }
 
                 field("3"; rec."3")
@@ -62,7 +62,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible3;
+                    //Visible = SetVisible3_2;
                 }
 
                 field("4"; rec."4")
@@ -70,7 +70,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible4;
+                    //Visible = SetVisible4_2;
                 }
 
                 field("5"; rec."5")
@@ -78,7 +78,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible5;
+                    //Visible = SetVisible5_2;
                 }
 
                 field("6"; rec."6")
@@ -86,7 +86,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible6;
+                    //Visible = SetVisible6_2;
                 }
 
                 field("7"; rec."7")
@@ -94,7 +94,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible7;
+                    //Visible = SetVisible7_2;
                 }
 
                 field("8"; rec."8")
@@ -102,7 +102,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible8;
+                    //Visible = SetVisible8_2;
                 }
 
                 field("9"; rec."9")
@@ -110,7 +110,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible9;
+                    //Visible = SetVisible9_2;
                 }
 
                 field("10"; rec."10")
@@ -118,7 +118,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible10;
+                    //Visible = SetVisible10_2;
                 }
 
                 field("11"; rec."11")
@@ -126,7 +126,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible11;
+                    //Visible = SetVisible11_2;
                 }
 
                 field("12"; rec."12")
@@ -134,7 +134,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible12;
+                    //Visible = SetVisible12_2;
                 }
 
                 field("13"; rec."13")
@@ -142,7 +142,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible13;
+                    //Visible = SetVisible13_2;
                 }
 
                 field("14"; rec."14")
@@ -150,7 +150,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible14;
+                    //Visible = SetVisible14_2;
                 }
 
                 field("15"; rec."15")
@@ -158,7 +158,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible15;
+                    //Visible = SetVisible15_2;
                 }
 
                 field("16"; rec."16")
@@ -166,7 +166,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible16;
+                    //Visible = SetVisible16_2;
                 }
 
                 field("17"; rec."17")
@@ -174,7 +174,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible17;
+                    //Visible = SetVisible17_2;
                 }
 
                 field("18"; rec."18")
@@ -182,7 +182,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible18;
+                    //Visible = SetVisible18_2;
                 }
 
                 field("19"; rec."19")
@@ -190,7 +190,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible19;
+                    //Visible = SetVisible19_2;
                 }
 
                 field("20"; rec."20")
@@ -198,7 +198,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible20;
+                    //Visible = SetVisible20_2;
                 }
 
                 field("21"; rec."21")
@@ -206,7 +206,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible21;
+                    //Visible = SetVisible21_2;
                 }
 
                 field("22"; rec."22")
@@ -214,7 +214,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible22;
+                    //Visible = SetVisible22_2;
                 }
 
                 field("23"; rec."23")
@@ -222,7 +222,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible23;
+                    //Visible = SetVisible23_2;
                 }
 
                 field("24"; rec."24")
@@ -230,7 +230,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible24;
+                    //Visible = SetVisible24_2;
                 }
 
                 field("25"; rec."25")
@@ -238,7 +238,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible25;
+                    //Visible = SetVisible25_2;
                 }
 
                 field("26"; rec."26")
@@ -246,7 +246,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible26;
+                    //Visible = SetVisible26_2;
                 }
 
                 field("27"; rec."27")
@@ -254,7 +254,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible27;
+                    //Visible = SetVisible27_2;
                 }
 
                 field("28"; rec."28")
@@ -262,7 +262,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible28;
+                    //Visible = SetVisible28_2;
                 }
 
                 field("29"; rec."29")
@@ -270,7 +270,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible29;
+                    //Visible = SetVisible29_2;
                 }
 
                 field("30"; rec."30")
@@ -278,7 +278,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible30;
+                    //Visible = SetVisible30_2;
                 }
 
                 field("31"; rec."31")
@@ -286,7 +286,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible31;
+                    //Visible = SetVisible31_2;
                 }
 
                 field("32"; rec."32")
@@ -294,7 +294,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible32;
+                    //Visible = SetVisible32_2;
                 }
 
                 field("33"; rec."33")
@@ -302,7 +302,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible33;
+                    //Visible = SetVisible33_2;
                 }
 
                 field("34"; rec."34")
@@ -310,7 +310,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible34;
+                    //Visible = SetVisible34_2;
                 }
 
                 field("35"; rec."35")
@@ -318,7 +318,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible35;
+                    //Visible = SetVisible35_2;
                 }
 
                 field("36"; rec."36")
@@ -326,7 +326,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible36;
+                    // Visible = SetVisible36_2;
                 }
 
                 field("37"; rec."37")
@@ -334,7 +334,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible37;
+                    //Visible = SetVisible37_2;
                 }
 
                 field("38"; rec."38")
@@ -342,7 +342,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible38;
+                    //Visible = SetVisible38_2;
                 }
 
                 field("39"; rec."39")
@@ -350,7 +350,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible39;
+                    //Visible = SetVisible39_2;
                 }
 
                 field("40"; rec."40")
@@ -358,7 +358,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible40;
+                    //Visible = SetVisible40_2;
                 }
 
                 field("41"; rec."41")
@@ -366,7 +366,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible41;
+                    //Visible = SetVisible41_2;
                 }
 
                 field("42"; rec."42")
@@ -374,7 +374,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible42;
+                    //Visible = SetVisible42_2;
                 }
 
                 field("43"; rec."43")
@@ -382,7 +382,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible43;
+                    //Visible = SetVisible43_2;
                 }
 
                 field("44"; rec."44")
@@ -390,7 +390,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible44;
+                    //Visible = SetVisible44_2;
                 }
 
                 field("45"; rec."45")
@@ -398,7 +398,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible45;
+                    //Visible = SetVisible45_2;
                 }
 
                 field("46"; rec."46")
@@ -406,7 +406,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible46;
+                    //Visible = SetVisible46_2;
                 }
 
                 field("47"; rec."47")
@@ -414,7 +414,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible47;
+                    //Visible = SetVisible47_2;
                 }
 
                 field("48"; rec."48")
@@ -422,7 +422,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible48;
+                    //Visible = SetVisible48_2;
                 }
 
                 field("49"; rec."49")
@@ -430,7 +430,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible49;
+                    //Visible = SetVisible49_2;
                 }
 
                 field("50"; rec."50")
@@ -438,7 +438,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible50;
+                    //Visible = SetVisible50_2;
                 }
 
                 field("51"; rec."51")
@@ -446,7 +446,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible51;
+                    //Visible = SetVisible51_2;
                 }
 
                 field("52"; rec."52")
@@ -454,7 +454,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible52;
+                    //Visible = SetVisible52_2;
                 }
 
                 field("53"; rec."53")
@@ -462,7 +462,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible53;
+                    //Visible = SetVisible53_2;
                 }
 
                 field("54"; rec."54")
@@ -470,7 +470,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible54;
+                    //Visible = SetVisible54_2;
                 }
 
                 field("55"; rec."55")
@@ -478,7 +478,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible55;
+                    //Visible = SetVisible55_2;
                 }
 
                 field("56"; rec."56")
@@ -486,7 +486,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible56;
+                    //Visible = SetVisible56_2;
                 }
 
                 field("57"; rec."57")
@@ -494,7 +494,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible57;
+                    //Visible = SetVisible57_2;
                 }
 
                 field("58"; rec."58")
@@ -502,7 +502,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible58;
+                    //Visible = SetVisible58_2;
                 }
 
                 field("59"; rec."59")
@@ -510,7 +510,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible59;
+                    //Visible = SetVisible59_2;
                 }
 
                 field("60"; rec."60")
@@ -518,7 +518,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible60;
+                    // Visible = SetVisible60_2;
                 }
 
                 field("61"; rec."61")
@@ -526,7 +526,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible61;
+                    // Visible = SetVisible61_2;
                 }
 
                 field("62"; rec."62")
@@ -534,7 +534,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible62;
+                    //Visible = SetVisible62_2;
                 }
 
                 field("63"; rec."63")
@@ -542,7 +542,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible63;
+                    //Visible = SetVisible63_2;
                 }
 
                 field("64"; rec."64")
@@ -550,7 +550,7 @@ page 51020 AssorColorSizeRatiPricListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible64;
+                    //Visible = SetVisible64_2;
                 }
             }
         }
@@ -701,336 +701,336 @@ page 51020 AssorColorSizeRatiPricListPart
     begin
         StyleExprTxt := ChangeColor.ChangeColorAssoPrice(Rec);
 
-        AssoDetail.Reset();
-        AssoDetail.SetRange("Style No.", rec."Style No.");
-        AssoDetail.SetRange("Lot No.", rec."lot No.");
-        AssoDetail.FindSet();
-        Rowcount := AssoDetail.Count;
+        // AssoDetail.Reset();
+        // AssoDetail.SetRange("Style No.", rec."Style No.");
+        // AssoDetail.SetRange("Lot No.", rec."lot No.");
+        // AssoDetail.FindSet();
+        // Rowcount := AssoDetail.Count;
 
-        for Count := 1 To 64 do begin
-            case Count of
-                1:
-                    if Rowcount >= Count then
-                        SetVisible1 := true
-                    else
-                        SetVisible1 := false;
-                2:
-                    if Rowcount >= Count then
-                        SetVisible2 := true
-                    else
-                        SetVisible2 := false;
-                3:
-                    if Rowcount >= Count then
-                        SetVisible3 := true
-                    else
-                        SetVisible3 := false;
-                4:
-                    if Rowcount >= Count then
-                        SetVisible4 := true
-                    else
-                        SetVisible4 := false;
-                5:
-                    if Rowcount >= Count then
-                        SetVisible5 := true
-                    else
-                        SetVisible5 := false;
-                6:
-                    if Rowcount >= Count then
-                        SetVisible6 := true
-                    else
-                        SetVisible6 := false;
-                7:
-                    if Rowcount >= Count then
-                        SetVisible7 := true
-                    else
-                        SetVisible7 := false;
-                8:
-                    if Rowcount >= Count then
-                        SetVisible8 := true
-                    else
-                        SetVisible8 := false;
-                9:
-                    if Rowcount >= Count then
-                        SetVisible9 := true
-                    else
-                        SetVisible9 := false;
-                10:
-                    if Rowcount >= Count then
-                        SetVisible10 := true
-                    else
-                        SetVisible10 := false;
-                11:
-                    if Rowcount >= Count then
-                        SetVisible11 := true
-                    else
-                        SetVisible11 := false;
-                12:
-                    if Rowcount >= Count then
-                        SetVisible12 := true
-                    else
-                        SetVisible12 := false;
-                13:
-                    if Rowcount >= Count then
-                        SetVisible13 := true
-                    else
-                        SetVisible13 := false;
-                14:
-                    if Rowcount >= Count then
-                        SetVisible14 := true
-                    else
-                        SetVisible14 := false;
-                15:
-                    if Rowcount >= Count then
-                        SetVisible15 := true
-                    else
-                        SetVisible15 := false;
-                16:
-                    if Rowcount >= Count then
-                        SetVisible16 := true
-                    else
-                        SetVisible16 := false;
-                17:
-                    if Rowcount >= Count then
-                        SetVisible17 := true
-                    else
-                        SetVisible17 := false;
-                18:
-                    if Rowcount >= Count then
-                        SetVisible18 := true
-                    else
-                        SetVisible18 := false;
-                19:
-                    if Rowcount >= Count then
-                        SetVisible19 := true
-                    else
-                        SetVisible19 := false;
-                20:
-                    if Rowcount >= Count then
-                        SetVisible20 := true
-                    else
-                        SetVisible20 := false;
-                21:
-                    if Rowcount >= Count then
-                        SetVisible21 := true
-                    else
-                        SetVisible21 := false;
-                22:
-                    if Rowcount >= Count then
-                        SetVisible22 := true
-                    else
-                        SetVisible22 := false;
-                23:
-                    if Rowcount >= Count then
-                        SetVisible23 := true
-                    else
-                        SetVisible23 := false;
-                24:
-                    if Rowcount >= Count then
-                        SetVisible24 := true
-                    else
-                        SetVisible24 := false;
-                25:
-                    if Rowcount >= Count then
-                        SetVisible25 := true
-                    else
-                        SetVisible25 := false;
-                26:
-                    if Rowcount >= Count then
-                        SetVisible26 := true
-                    else
-                        SetVisible26 := false;
-                27:
-                    if Rowcount >= Count then
-                        SetVisible27 := true
-                    else
-                        SetVisible27 := false;
-                28:
-                    if Rowcount >= Count then
-                        SetVisible28 := true
-                    else
-                        SetVisible28 := false;
-                29:
-                    if Rowcount >= Count then
-                        SetVisible29 := true
-                    else
-                        SetVisible29 := false;
-                30:
-                    if Rowcount >= Count then
-                        SetVisible30 := true
-                    else
-                        SetVisible30 := false;
-                31:
-                    if Rowcount >= Count then
-                        SetVisible31 := true
-                    else
-                        SetVisible31 := false;
-                32:
-                    if Rowcount >= Count then
-                        SetVisible32 := true
-                    else
-                        SetVisible32 := false;
-                33:
-                    if Rowcount >= Count then
-                        SetVisible33 := true
-                    else
-                        SetVisible33 := false;
-                34:
-                    if Rowcount >= Count then
-                        SetVisible34 := true
-                    else
-                        SetVisible34 := false;
-                35:
-                    if Rowcount >= Count then
-                        SetVisible35 := true
-                    else
-                        SetVisible35 := false;
-                36:
-                    if Rowcount >= Count then
-                        SetVisible36 := true
-                    else
-                        SetVisible36 := false;
-                37:
-                    if Rowcount >= Count then
-                        SetVisible37 := true
-                    else
-                        SetVisible37 := false;
-                38:
-                    if Rowcount >= Count then
-                        SetVisible38 := true
-                    else
-                        SetVisible38 := false;
-                39:
-                    if Rowcount >= Count then
-                        SetVisible39 := true
-                    else
-                        SetVisible39 := false;
-                40:
-                    if Rowcount >= Count then
-                        SetVisible40 := true
-                    else
-                        SetVisible40 := false;
-                41:
-                    if Rowcount >= Count then
-                        SetVisible41 := true
-                    else
-                        SetVisible41 := false;
-                42:
-                    if Rowcount >= Count then
-                        SetVisible42 := true
-                    else
-                        SetVisible42 := false;
-                43:
-                    if Rowcount >= Count then
-                        SetVisible43 := true
-                    else
-                        SetVisible43 := false;
-                44:
-                    if Rowcount >= Count then
-                        SetVisible44 := true
-                    else
-                        SetVisible44 := false;
-                45:
-                    if Rowcount >= Count then
-                        SetVisible45 := true
-                    else
-                        SetVisible45 := false;
-                46:
-                    if Rowcount >= Count then
-                        SetVisible46 := true
-                    else
-                        SetVisible46 := false;
-                47:
-                    if Rowcount >= Count then
-                        SetVisible47 := true
-                    else
-                        SetVisible47 := false;
-                48:
-                    if Rowcount >= Count then
-                        SetVisible48 := true
-                    else
-                        SetVisible48 := false;
-                49:
-                    if Rowcount >= Count then
-                        SetVisible49 := true
-                    else
-                        SetVisible49 := false;
-                50:
-                    if Rowcount >= Count then
-                        SetVisible50 := true
-                    else
-                        SetVisible50 := false;
-                51:
-                    if Rowcount >= Count then
-                        SetVisible51 := true
-                    else
-                        SetVisible51 := false;
-                52:
-                    if Rowcount >= Count then
-                        SetVisible52 := true
-                    else
-                        SetVisible52 := false;
-                53:
-                    if Rowcount >= Count then
-                        SetVisible53 := true
-                    else
-                        SetVisible53 := false;
-                54:
-                    if Rowcount >= Count then
-                        SetVisible54 := true
-                    else
-                        SetVisible54 := false;
-                55:
-                    if Rowcount >= Count then
-                        SetVisible55 := true
-                    else
-                        SetVisible55 := false;
-                56:
-                    if Rowcount >= Count then
-                        SetVisible56 := true
-                    else
-                        SetVisible56 := false;
-                57:
-                    if Rowcount >= Count then
-                        SetVisible57 := true
-                    else
-                        SetVisible57 := false;
-                58:
-                    if Rowcount >= Count then
-                        SetVisible58 := true
-                    else
-                        SetVisible58 := false;
-                59:
-                    if Rowcount >= Count then
-                        SetVisible59 := true
-                    else
-                        SetVisible59 := false;
-                60:
-                    if Rowcount >= Count then
-                        SetVisible60 := true
-                    else
-                        SetVisible60 := false;
-                61:
-                    if Rowcount >= Count then
-                        SetVisible61 := true
-                    else
-                        SetVisible61 := false;
-                62:
-                    if Rowcount >= Count then
-                        SetVisible62 := true
-                    else
-                        SetVisible62 := false;
-                63:
-                    if Rowcount >= Count then
-                        SetVisible63 := true
-                    else
-                        SetVisible63 := false;
-                64:
-                    if Rowcount >= Count then
-                        SetVisible64 := true
-                    else
-                        SetVisible64 := false;
-            end;
-        end;
+        // for Count := 1 To 64 do begin
+        //     case Count of
+        //         1:
+        //             if Rowcount >= Count then
+        //                 SetVisible1_2 := true
+        //             else
+        //                 SetVisible1_2 := false;
+        //         2:
+        //             if Rowcount >= Count then
+        //                 SetVisible2_2 := true
+        //             else
+        //                 SetVisible2_2 := false;
+        //         3:
+        //             if Rowcount >= Count then
+        //                 SetVisible3_2 := true
+        //             else
+        //                 SetVisible3_2 := false;
+        //         4:
+        //             if Rowcount >= Count then
+        //                 SetVisible4_2 := true
+        //             else
+        //                 SetVisible4_2 := false;
+        //         5:
+        //             if Rowcount >= Count then
+        //                 SetVisible5_2 := true
+        //             else
+        //                 SetVisible5_2 := false;
+        //         6:
+        //             if Rowcount >= Count then
+        //                 SetVisible6_2 := true
+        //             else
+        //                 SetVisible6_2 := false;
+        //         7:
+        //             if Rowcount >= Count then
+        //                 SetVisible7_2 := true
+        //             else
+        //                 SetVisible7_2 := false;
+        //         8:
+        //             if Rowcount >= Count then
+        //                 SetVisible8_2 := true
+        //             else
+        //                 SetVisible8_2 := false;
+        //         9:
+        //             if Rowcount >= Count then
+        //                 SetVisible9_2 := true
+        //             else
+        //                 SetVisible9_2 := false;
+        //         10:
+        //             if Rowcount >= Count then
+        //                 SetVisible10_2 := true
+        //             else
+        //                 SetVisible10_2 := false;
+        //         11:
+        //             if Rowcount >= Count then
+        //                 SetVisible11_2 := true
+        //             else
+        //                 SetVisible11_2 := false;
+        //         12:
+        //             if Rowcount >= Count then
+        //                 SetVisible12_2 := true
+        //             else
+        //                 SetVisible12_2 := false;
+        //         13:
+        //             if Rowcount >= Count then
+        //                 SetVisible13_2 := true
+        //             else
+        //                 SetVisible13_2 := false;
+        //         14:
+        //             if Rowcount >= Count then
+        //                 SetVisible14_2 := true
+        //             else
+        //                 SetVisible14_2 := false;
+        //         15:
+        //             if Rowcount >= Count then
+        //                 SetVisible15_2 := true
+        //             else
+        //                 SetVisible15_2 := false;
+        //         16:
+        //             if Rowcount >= Count then
+        //                 SetVisible16_2 := true
+        //             else
+        //                 SetVisible16_2 := false;
+        //         17:
+        //             if Rowcount >= Count then
+        //                 SetVisible17_2 := true
+        //             else
+        //                 SetVisible17_2 := false;
+        //         18:
+        //             if Rowcount >= Count then
+        //                 SetVisible18_2 := true
+        //             else
+        //                 SetVisible18_2 := false;
+        //         19:
+        //             if Rowcount >= Count then
+        //                 SetVisible19_2 := true
+        //             else
+        //                 SetVisible19_2 := false;
+        //         20:
+        //             if Rowcount >= Count then
+        //                 SetVisible20_2 := true
+        //             else
+        //                 SetVisible20_2 := false;
+        //         21:
+        //             if Rowcount >= Count then
+        //                 SetVisible21_2 := true
+        //             else
+        //                 SetVisible21_2 := false;
+        //         22:
+        //             if Rowcount >= Count then
+        //                 SetVisible22_2 := true
+        //             else
+        //                 SetVisible22_2 := false;
+        //         23:
+        //             if Rowcount >= Count then
+        //                 SetVisible23_2 := true
+        //             else
+        //                 SetVisible23_2 := false;
+        //         24:
+        //             if Rowcount >= Count then
+        //                 SetVisible24_2 := true
+        //             else
+        //                 SetVisible24_2 := false;
+        //         25:
+        //             if Rowcount >= Count then
+        //                 SetVisible25_2 := true
+        //             else
+        //                 SetVisible25_2 := false;
+        //         26:
+        //             if Rowcount >= Count then
+        //                 SetVisible26_2 := true
+        //             else
+        //                 SetVisible26_2 := false;
+        //         27:
+        //             if Rowcount >= Count then
+        //                 SetVisible27_2 := true
+        //             else
+        //                 SetVisible27_2 := false;
+        //         28:
+        //             if Rowcount >= Count then
+        //                 SetVisible28_2 := true
+        //             else
+        //                 SetVisible28_2 := false;
+        //         29:
+        //             if Rowcount >= Count then
+        //                 SetVisible29_2 := true
+        //             else
+        //                 SetVisible29_2 := false;
+        //         30:
+        //             if Rowcount >= Count then
+        //                 SetVisible30_2 := true
+        //             else
+        //                 SetVisible30_2 := false;
+        //         31:
+        //             if Rowcount >= Count then
+        //                 SetVisible31_2 := true
+        //             else
+        //                 SetVisible31_2 := false;
+        //         32:
+        //             if Rowcount >= Count then
+        //                 SetVisible32_2 := true
+        //             else
+        //                 SetVisible32_2 := false;
+        //         33:
+        //             if Rowcount >= Count then
+        //                 SetVisible33_2 := true
+        //             else
+        //                 SetVisible33_2 := false;
+        //         34:
+        //             if Rowcount >= Count then
+        //                 SetVisible34_2 := true
+        //             else
+        //                 SetVisible34_2 := false;
+        //         35:
+        //             if Rowcount >= Count then
+        //                 SetVisible35_2 := true
+        //             else
+        //                 SetVisible35_2 := false;
+        //         36:
+        //             if Rowcount >= Count then
+        //                 SetVisible36_2 := true
+        //             else
+        //                 SetVisible36_2 := false;
+        //         37:
+        //             if Rowcount >= Count then
+        //                 SetVisible37_2 := true
+        //             else
+        //                 SetVisible37_2 := false;
+        //         38:
+        //             if Rowcount >= Count then
+        //                 SetVisible38_2 := true
+        //             else
+        //                 SetVisible38_2 := false;
+        //         39:
+        //             if Rowcount >= Count then
+        //                 SetVisible39_2 := true
+        //             else
+        //                 SetVisible39_2 := false;
+        //         40:
+        //             if Rowcount >= Count then
+        //                 SetVisible40_2 := true
+        //             else
+        //                 SetVisible40_2 := false;
+        //         41:
+        //             if Rowcount >= Count then
+        //                 SetVisible41_2 := true
+        //             else
+        //                 SetVisible41_2 := false;
+        //         42:
+        //             if Rowcount >= Count then
+        //                 SetVisible42_2 := true
+        //             else
+        //                 SetVisible42_2 := false;
+        //         43:
+        //             if Rowcount >= Count then
+        //                 SetVisible43_2 := true
+        //             else
+        //                 SetVisible43_2 := false;
+        //         44:
+        //             if Rowcount >= Count then
+        //                 SetVisible44_2 := true
+        //             else
+        //                 SetVisible44_2 := false;
+        //         45:
+        //             if Rowcount >= Count then
+        //                 SetVisible45_2 := true
+        //             else
+        //                 SetVisible45_2 := false;
+        //         46:
+        //             if Rowcount >= Count then
+        //                 SetVisible46_2 := true
+        //             else
+        //                 SetVisible46_2 := false;
+        //         47:
+        //             if Rowcount >= Count then
+        //                 SetVisible47_2 := true
+        //             else
+        //                 SetVisible47_2 := false;
+        //         48:
+        //             if Rowcount >= Count then
+        //                 SetVisible48_2 := true
+        //             else
+        //                 SetVisible48_2 := false;
+        //         49:
+        //             if Rowcount >= Count then
+        //                 SetVisible49_2 := true
+        //             else
+        //                 SetVisible49_2 := false;
+        //         50:
+        //             if Rowcount >= Count then
+        //                 SetVisible50_2 := true
+        //             else
+        //                 SetVisible50_2 := false;
+        //         51:
+        //             if Rowcount >= Count then
+        //                 SetVisible51_2 := true
+        //             else
+        //                 SetVisible51_2 := false;
+        //         52:
+        //             if Rowcount >= Count then
+        //                 SetVisible52_2 := true
+        //             else
+        //                 SetVisible52_2 := false;
+        //         53:
+        //             if Rowcount >= Count then
+        //                 SetVisible53_2 := true
+        //             else
+        //                 SetVisible53_2 := false;
+        //         54:
+        //             if Rowcount >= Count then
+        //                 SetVisible54_2 := true
+        //             else
+        //                 SetVisible54_2 := false;
+        //         55:
+        //             if Rowcount >= Count then
+        //                 SetVisible55_2 := true
+        //             else
+        //                 SetVisible55_2 := false;
+        //         56:
+        //             if Rowcount >= Count then
+        //                 SetVisible56_2 := true
+        //             else
+        //                 SetVisible56_2 := false;
+        //         57:
+        //             if Rowcount >= Count then
+        //                 SetVisible57_2 := true
+        //             else
+        //                 SetVisible57_2 := false;
+        //         58:
+        //             if Rowcount >= Count then
+        //                 SetVisible58_2 := true
+        //             else
+        //                 SetVisible58_2 := false;
+        //         59:
+        //             if Rowcount >= Count then
+        //                 SetVisible59_2 := true
+        //             else
+        //                 SetVisible59_2 := false;
+        //         60:
+        //             if Rowcount >= Count then
+        //                 SetVisible60_2 := true
+        //             else
+        //                 SetVisible60_2 := false;
+        //         61:
+        //             if Rowcount >= Count then
+        //                 SetVisible61_2 := true
+        //             else
+        //                 SetVisible61_2 := false;
+        //         62:
+        //             if Rowcount >= Count then
+        //                 SetVisible62_2 := true
+        //             else
+        //                 SetVisible62_2 := false;
+        //         63:
+        //             if Rowcount >= Count then
+        //                 SetVisible63_2 := true
+        //             else
+        //                 SetVisible63_2 := false;
+        //         64:
+        //             if Rowcount >= Count then
+        //                 SetVisible64_2 := true
+        //             else
+        //                 SetVisible64_2 := false;
+        //     end;
+        // end;
 
         if rec."Colour Name" = '*' then begin
             Clear(SetEdit);
@@ -1046,68 +1046,68 @@ page 51020 AssorColorSizeRatiPricListPart
         StyleExprTxt: Text[50];
         ChangeColor: Codeunit NavAppCodeUnit;
         SetEdit: Boolean;
-        SetVisible1: Boolean;
-        SetVisible2: Boolean;
-        SetVisible3: Boolean;
-        SetVisible4: Boolean;
-        SetVisible5: Boolean;
-        SetVisible6: Boolean;
-        SetVisible7: Boolean;
-        SetVisible8: Boolean;
-        SetVisible9: Boolean;
-        SetVisible10: Boolean;
-        SetVisible11: Boolean;
-        SetVisible12: Boolean;
-        SetVisible13: Boolean;
-        SetVisible14: Boolean;
-        SetVisible15: Boolean;
-        SetVisible16: Boolean;
-        SetVisible17: Boolean;
-        SetVisible18: Boolean;
-        SetVisible19: Boolean;
-        SetVisible20: Boolean;
-        SetVisible21: Boolean;
-        SetVisible22: Boolean;
-        SetVisible23: Boolean;
-        SetVisible24: Boolean;
-        SetVisible25: Boolean;
-        SetVisible26: Boolean;
-        SetVisible27: Boolean;
-        SetVisible28: Boolean;
-        SetVisible29: Boolean;
-        SetVisible30: Boolean;
-        SetVisible31: Boolean;
-        SetVisible32: Boolean;
-        SetVisible33: Boolean;
-        SetVisible34: Boolean;
-        SetVisible35: Boolean;
-        SetVisible36: Boolean;
-        SetVisible37: Boolean;
-        SetVisible38: Boolean;
-        SetVisible39: Boolean;
-        SetVisible40: Boolean;
-        SetVisible41: Boolean;
-        SetVisible42: Boolean;
-        SetVisible43: Boolean;
-        SetVisible44: Boolean;
-        SetVisible45: Boolean;
-        SetVisible46: Boolean;
-        SetVisible47: Boolean;
-        SetVisible48: Boolean;
-        SetVisible49: Boolean;
-        SetVisible50: Boolean;
-        SetVisible51: Boolean;
-        SetVisible52: Boolean;
-        SetVisible53: Boolean;
-        SetVisible54: Boolean;
-        SetVisible55: Boolean;
-        SetVisible56: Boolean;
-        SetVisible57: Boolean;
-        SetVisible58: Boolean;
-        SetVisible59: Boolean;
-        SetVisible60: Boolean;
-        SetVisible61: Boolean;
-        SetVisible62: Boolean;
-        SetVisible63: Boolean;
-        SetVisible64: Boolean;
+    // SetVisible1_2: Boolean;
+    // SetVisible2_2: Boolean;
+    // SetVisible3_2: Boolean;
+    // SetVisible4_2: Boolean;
+    // SetVisible5_2: Boolean;
+    // SetVisible6_2: Boolean;
+    // SetVisible7_2: Boolean;
+    // SetVisible8_2: Boolean;
+    // SetVisible9_2: Boolean;
+    // SetVisible10_2: Boolean;
+    // SetVisible11_2: Boolean;
+    // SetVisible12_2: Boolean;
+    // SetVisible13_2: Boolean;
+    // SetVisible14_2: Boolean;
+    // SetVisible15_2: Boolean;
+    // SetVisible16_2: Boolean;
+    // SetVisible17_2: Boolean;
+    // SetVisible18_2: Boolean;
+    // SetVisible19_2: Boolean;
+    // SetVisible20_2: Boolean;
+    // SetVisible21_2: Boolean;
+    // SetVisible22_2: Boolean;
+    // SetVisible23_2: Boolean;
+    // SetVisible24_2: Boolean;
+    // SetVisible25_2: Boolean;
+    // SetVisible26_2: Boolean;
+    // SetVisible27_2: Boolean;
+    // SetVisible28_2: Boolean;
+    // SetVisible29_2: Boolean;
+    // SetVisible30_2: Boolean;
+    // SetVisible31_2: Boolean;
+    // SetVisible32_2: Boolean;
+    // SetVisible33_2: Boolean;
+    // SetVisible34_2: Boolean;
+    // SetVisible35_2: Boolean;
+    // SetVisible36_2: Boolean;
+    // SetVisible37_2: Boolean;
+    // SetVisible38_2: Boolean;
+    // SetVisible39_2: Boolean;
+    // SetVisible40_2: Boolean;
+    // SetVisible41_2: Boolean;
+    // SetVisible42_2: Boolean;
+    // SetVisible43_2: Boolean;
+    // SetVisible44_2: Boolean;
+    // SetVisible45_2: Boolean;
+    // SetVisible46_2: Boolean;
+    // SetVisible47_2: Boolean;
+    // SetVisible48_2: Boolean;
+    // SetVisible49_2: Boolean;
+    // SetVisible50_2: Boolean;
+    // SetVisible51_2: Boolean;
+    // SetVisible52_2: Boolean;
+    // SetVisible53_2: Boolean;
+    // SetVisible54_2: Boolean;
+    // SetVisible55_2: Boolean;
+    // SetVisible56_2: Boolean;
+    // SetVisible57_2: Boolean;
+    // SetVisible58_2: Boolean;
+    // SetVisible59_2: Boolean;
+    // SetVisible60_2: Boolean;
+    // SetVisible61_2: Boolean;
+    // SetVisible62_2: Boolean;
+    // SetVisible63_2: Boolean;
+    // SetVisible64_2: Boolean;
 }

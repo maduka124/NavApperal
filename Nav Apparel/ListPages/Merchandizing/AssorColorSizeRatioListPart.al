@@ -2109,6 +2109,7 @@ page 51018 AssorColorSizeRatioListPart
         end;
     end;
 
+
     trigger OnClosePage()
     var
         AssoRec: Record AssorColorSizeRatio;

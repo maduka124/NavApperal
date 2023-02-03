@@ -175,16 +175,16 @@ page 50983 "Assortment Card"
                 }
             }
 
-            group("Size Color Wise Price")
-            {
-                part("AssorColorSizeRatiPricListPart"; AssorColorSizeRatiPricListPart)
-                {
-                    ApplicationArea = All;
-                    Caption = ' ';
-                    SubPageLink = "Style No." = FIELD("No."), "Lot No." = FIELD("Lot No.");
-                    //SubPageLink = "Style No." = FIELD("No."), "Lot No." = FIELD("Lot No."), "Pack No" = field("Pack No");
-                }
-            }
+            // group("Size Color Wise Price")
+            // {
+            //     part("AssorColorSizeRatiPricListPart"; AssorColorSizeRatiPricListPart)
+            //     {
+            //         ApplicationArea = All;
+            //         Caption = ' ';
+            //         SubPageLink = "Style No." = FIELD("No."), "Lot No." = FIELD("Lot No.");
+            //         //SubPageLink = "Style No." = FIELD("No."), "Lot No." = FIELD("Lot No."), "Pack No" = field("Pack No");
+            //     }
+            // }
         }
     }
 
