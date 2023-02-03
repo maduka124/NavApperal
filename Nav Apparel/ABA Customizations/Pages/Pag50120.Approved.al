@@ -132,6 +132,7 @@ page 50120 "Approved Daily Consump. List"
                     Text003: Label 'Quantity          #3##########';
                     ItemVer: Integer;
                     CalQty: Decimal;
+                    User: Text[200];
                 begin
                     // ItemJnalRec.Reset();
                     // ItemJnalRec.SetRange("Journal Template Name", rec."Journal Template Name");
@@ -186,6 +187,7 @@ page 50120 "Approved Daily Consump. List"
 
                             if ProdOrdComp.FindFirst() then
                                 repeat
+
                                     CalQty := 0;
                                     ItemVer := ProdOrdComp."Line No.";
 
@@ -259,6 +261,15 @@ page 50120 "Approved Daily Consump. List"
                                         ItemJnalRec.Description := ProdOrdComp.Description;
                                         ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
                                         ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
+
+                                        ItemJnalRec."Line Approved" := true;
+
+                                        if ItemLedEntry2.FindSet() then begin
+                                            ItemJnalRec.SystemCreatedAt := ItemLedEntry2.SystemCreatedAt;
+                                            ItemJnalRec."Posting Date" := ItemLedEntry2."Posting Date";
+                                            ItemJnalRec.SystemCreatedBy := ItemLedEntry2.SystemCreatedBy;
+                                        end;
+
                                         ItemJnalRec.Modify();
                                         Inx1 := ItemJnalRec."Line No.";
                                         LastLNo := 0;

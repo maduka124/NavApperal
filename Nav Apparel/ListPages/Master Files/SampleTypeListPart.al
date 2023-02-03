@@ -1,6 +1,6 @@
 page 51027 "Sample Type List part"
 {
-    PageType = ListPart;
+    PageType = Card;
     SourceTable = "Sample Type";
 
     layout
@@ -50,9 +50,12 @@ page 51027 "Sample Type List part"
         SampleTypeRec: Record "Sample Type";
     begin
 
-        if CloseAction = Action::OK then begin
-            SampleTypeBuyerRec.SetRange("Buyer No.", BuyerNo, BuyerNo);
-            SampleTypeBuyerRec.DeleteAll();
+        if CloseAction = Action::LookupOK then begin
+            //Done By Sachith on 03/02/23
+            SampleTypeBuyerRec.Reset();
+            SampleTypeBuyerRec.SetRange("Buyer No.", BuyerNo);
+            if SampleTypeBuyerRec.FindSet() then
+                SampleTypeBuyerRec.DeleteAll();
 
             REPEAT
                 if SampleTypeRec.Selected = true then begin
@@ -69,7 +72,7 @@ page 51027 "Sample Type List part"
         end;
     end;
 
-    procedure PassParameters(BuyerNoPara: Text);
+    procedure PassParameters(BuyerNoPara: Code[20]);
     var
 
     begin

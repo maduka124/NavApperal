@@ -26,6 +26,18 @@ pageextension 50980 VendorCardExt extends "Vendor Card"
                 ApplicationArea = All;
                 Image = Production;
 
+                // trigger OnAction();
+                // var
+                //     MainCategoryList: Page "Main Category List part";
+                // begin
+
+                //     Clear(MainCategoryList);
+                //     MainCategoryList.LookupMode(true);
+                //     MainCategoryList.PassParameters(rec."No.");
+                //     MainCategoryList.Run();
+                // end;
+
+                //Done By Sachith on 03/02/23
                 trigger OnAction();
                 var
                     MainCategoryList: Page "Main Category List part";
@@ -33,7 +45,8 @@ pageextension 50980 VendorCardExt extends "Vendor Card"
                     Clear(MainCategoryList);
                     MainCategoryList.LookupMode(true);
                     MainCategoryList.PassParameters(rec."No.");
-                    MainCategoryList.Run();
+                    MainCategoryList.RunModal();
+                    CurrPage.Update();
                 end;
             }
         }

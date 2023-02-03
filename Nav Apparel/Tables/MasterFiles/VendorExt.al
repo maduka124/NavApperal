@@ -7,5 +7,7 @@ tableextension 51149 "Vendor Extension" extends Vendor
             DataClassification = ToBeClassified;
         }
     }
+
+
 }
 
