@@ -931,6 +931,20 @@ page 50968 "Nav Apperal Role Center"
             group("Procurement")
             {
                 Caption = 'Procurement';
+                // Done By Sachith on 03/02/23
+                action("Posted Purchase Receipts2")
+                {
+                    Caption = 'Good Receipts';
+                    RunObject = Page "Posted Purchase Receipts";
+                    ApplicationArea = all;
+                }
+
+                action("Purchase Orders3")
+                {
+                    Caption = 'Purchase Orders';
+                    RunObject = Page "PO List Not Merchand";
+                    ApplicationArea = all;
+                }
 
                 action("Requisition Worksheet")
                 {
@@ -938,6 +952,28 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Req. Worksheet";
                     ApplicationArea = all;
                 }
+
+                // Done By Sachith on 03/02/23
+                group("Procurement Reports")
+                {
+                    Caption = 'Procurement Reports';
+
+                    action("Detail GRN Report ")
+                    {
+                        Enabled = true;
+                        RunObject = report DetailGRNReport;
+                        ApplicationArea = All;
+                    }
+
+                    action("Good Reciept Report2")
+                    {
+                        Caption = 'Good Reciept Report';
+                        Enabled = true;
+                        RunObject = report GrnReport;
+                        ApplicationArea = All;
+                    }
+                }
+
             }
 
             group("Store")

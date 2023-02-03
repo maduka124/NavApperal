@@ -104,7 +104,7 @@ pageextension 50948 CustomerCardExt extends "Customer Card"
                     Clear(SampleList);
                     SampleList.LookupMode(true);
                     SampleList.PassParameters(rec."No.");
-                    SampleList.Run();
+                    SampleList.RunModal();
                 end;
             }
 
