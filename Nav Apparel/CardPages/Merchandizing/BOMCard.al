@@ -198,6 +198,7 @@ page 50984 "BOM Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Store';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -214,6 +215,7 @@ page 50984 "BOM Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -230,6 +232,7 @@ page 50984 "BOM Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Buyer';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -248,6 +251,7 @@ page 50984 "BOM Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Season';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -264,6 +268,7 @@ page 50984 "BOM Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -280,6 +285,7 @@ page 50984 "BOM Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Garment Type';
+                    Editable = false;
 
                     trigger OnValidate()
                     var

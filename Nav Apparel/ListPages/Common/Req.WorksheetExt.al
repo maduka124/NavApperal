@@ -60,6 +60,7 @@ pageextension 50824 "Req.Worksheet Ext" extends "Req. Worksheet"
             field("Vendor Name"; Rec."Vendor Name")
             {
                 ApplicationArea = all;
+                Editable = false;
             }
         }
     }

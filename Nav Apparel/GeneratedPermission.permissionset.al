@@ -1063,5 +1063,9 @@ permissionset 50100 GeneratedPermission
         tabledata ServiceWorksheetHeaderNew=RIMD,
         tabledata ServiceWorksheetLineNew=RIMD,
         table ServiceWorksheetHeaderNew=X,
-        table ServiceWorksheetLineNew=X;
+        table ServiceWorksheetLineNew=X,
+        tabledata Technician=RIMD,
+        table Technician=X,
+        page TechnicianCard=X,
+        page TechnicianList=X;
 }

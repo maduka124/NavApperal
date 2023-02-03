@@ -22,11 +22,19 @@ page 51017 AssoPackCountryListPart
                         CountryRec: Record "Country/Region";
                         StyleRec: Record "Style Master PO";
                         AssoDetRec: Record AssortmentDetails;
+                        AssorColorSizeRatioRec: Record AssorColorSizeRatio;
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
                         if rec."Lot No." = '' then
                             Error('Invalid Lot No');
+
+                        //Check whether Color size ratio created for the style/lot
+                        AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
+                        AssorColorSizeRatioRec.SetRange("lot No.", Rec."Lot No.");
+                        if AssorColorSizeRatioRec.FindSet() then
+                            Message('Color Size Ratio has been done for this Style/PO, run the "Color/Size Qty Ratio" process again after adding a country.');
+
 
                         //Check for whether BOm created for the style
                         BOMRec.SetRange("Style No.", rec."Style No.");

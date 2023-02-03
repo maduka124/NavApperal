@@ -21,12 +21,20 @@ page 51015 AssoColourSizeListPart
                         ColourRec: Record Colour;
                         StyleRec: Record "Style Master PO";
                         AssoDetRec: Record AssortmentDetails;
+                        AssorColorSizeRatioRec: Record AssorColorSizeRatio;
                         BOMRec: Record BOM;
                         BOMAutoGenRec: Record "BOM Line AutoGen";
                     begin
 
                         if Rec."Lot No." = '' then
                             Error('Invalid Lot No');
+
+                        //Check whether Color size ratio created for the style/lot
+                        AssorColorSizeRatioRec.SetRange("Style No.", Rec."Style No.");
+                        AssorColorSizeRatioRec.SetRange("lot No.", Rec."Lot No.");
+                        if AssorColorSizeRatioRec.FindSet() then
+                            Message('Color Size Ratio has been done for this Style/PO, run the "Color/Size Qty Ratio" process again after adding a color.');
+
 
                         //Check for whether BOm created for the style
                         BOMRec.SetRange("Style No.", Rec."Style No.");
