@@ -58,7 +58,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible1;
+                    ////Visible =SetVisible1;
 
                     trigger OnValidate()
                     var
@@ -74,7 +74,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible2;
+                    //Visible =SetVisible2;
 
                     trigger OnValidate()
                     var
@@ -91,7 +91,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible3;
+                    //Visible =SetVisible3;
 
                     trigger OnValidate()
                     var
@@ -108,7 +108,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible4;
+                    //Visible =SetVisible4;
 
                     trigger OnValidate()
                     var
@@ -125,7 +125,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible5;
+                    //Visible =SetVisible5;
 
                     trigger OnValidate()
                     var
@@ -142,7 +142,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible6;
+                    //Visible =SetVisible6;
 
                     trigger OnValidate()
                     var
@@ -159,7 +159,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible7;
+                    //Visible =SetVisible7;
 
                     trigger OnValidate()
                     var
@@ -173,7 +173,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible8;
+                    //Visible =SetVisible8;
 
                     trigger OnValidate()
                     var
@@ -187,7 +187,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible9;
+                    //Visible =SetVisible9;
 
                     trigger OnValidate()
                     var
@@ -201,7 +201,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible10;
+                    //Visible =SetVisible10;
 
                     trigger OnValidate()
                     var
@@ -215,7 +215,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible11;
+                    //Visible =SetVisible11;
 
                     trigger OnValidate()
                     var
@@ -229,7 +229,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible12;
+                    //Visible =SetVisible12;
 
                     trigger OnValidate()
                     var
@@ -243,7 +243,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible13;
+                    //Visible =SetVisible13;
 
                     trigger OnValidate()
                     var
@@ -257,7 +257,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible14;
+                    //Visible =SetVisible14;
 
                     trigger OnValidate()
                     var
@@ -271,7 +271,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible15;
+                    //Visible =SetVisible15;
 
                     trigger OnValidate()
                     var
@@ -285,7 +285,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible16;
+                    //Visible =SetVisible16;
 
                     trigger OnValidate()
                     var
@@ -299,7 +299,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible17;
+                    //Visible =SetVisible17;
 
                     trigger OnValidate()
                     var
@@ -313,7 +313,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible18;
+                    //Visible =SetVisible18;
 
                     trigger OnValidate()
                     var
@@ -327,7 +327,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible19;
+                    //Visible =SetVisible19;
 
                     trigger OnValidate()
                     var
@@ -341,7 +341,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible20;
+                    //Visible =SetVisible20;
 
                     trigger OnValidate()
                     var
@@ -355,7 +355,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible21;
+                    //Visible =SetVisible21;
 
                     trigger OnValidate()
                     var
@@ -369,7 +369,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible22;
+                    //Visible =SetVisible22;
 
                     trigger OnValidate()
                     var
@@ -383,7 +383,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible23;
+                    //Visible =SetVisible23;
 
                     trigger OnValidate()
                     var
@@ -397,7 +397,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible24;
+                    //Visible =SetVisible24;
 
                     trigger OnValidate()
                     var
@@ -411,7 +411,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible25;
+                    //Visible =SetVisible25;
 
                     trigger OnValidate()
                     var
@@ -425,7 +425,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible26;
+                    //Visible =SetVisible26;
 
                     trigger OnValidate()
                     var
@@ -439,7 +439,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible27;
+                    //Visible =SetVisible27;
 
                     trigger OnValidate()
                     var
@@ -453,7 +453,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible28;
+                    //Visible =SetVisible28;
 
                     trigger OnValidate()
                     var
@@ -467,7 +467,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible29;
+                    //Visible =SetVisible29;
 
                     trigger OnValidate()
                     var
@@ -481,7 +481,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible30;
+                    //Visible =SetVisible30;
 
                     trigger OnValidate()
                     var
@@ -495,7 +495,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible31;
+                    //Visible =SetVisible31;
 
                     trigger OnValidate()
                     var
@@ -509,7 +509,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible32;
+                    //Visible =SetVisible32;
 
                     trigger OnValidate()
                     var
@@ -523,7 +523,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible33;
+                    //Visible =SetVisible33;
 
                     trigger OnValidate()
                     var
@@ -537,7 +537,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible34;
+                    //Visible =SetVisible34;
 
                     trigger OnValidate()
                     var
@@ -551,7 +551,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible35;
+                    //Visible =SetVisible35;
 
                     trigger OnValidate()
                     var
@@ -565,7 +565,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible36;
+                    //Visible =SetVisible36;
 
                     trigger OnValidate()
                     var
@@ -579,7 +579,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible37;
+                    //Visible =SetVisible37;
 
                     trigger OnValidate()
                     var
@@ -593,7 +593,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible38;
+                    //Visible =SetVisible38;
 
                     trigger OnValidate()
                     var
@@ -607,7 +607,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible39;
+                    //Visible =SetVisible39;
 
                     trigger OnValidate()
                     var
@@ -621,7 +621,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible40;
+                    //Visible =SetVisible40;
 
                     trigger OnValidate()
                     var
@@ -635,7 +635,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible41;
+                    //Visible =SetVisible41;
 
                     trigger OnValidate()
                     var
@@ -650,7 +650,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible42;
+                    //Visible =SetVisible42;
 
                     trigger OnValidate()
                     var
@@ -665,7 +665,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible43;
+                    //Visible =SetVisible43;
 
                     trigger OnValidate()
                     var
@@ -680,7 +680,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible44;
+                    //Visible =SetVisible44;
 
                     trigger OnValidate()
                     var
@@ -695,7 +695,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible45;
+                    //Visible =SetVisible45;
 
                     trigger OnValidate()
                     var
@@ -710,7 +710,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible46;
+                    //Visible =SetVisible46;
 
                     trigger OnValidate()
                     var
@@ -725,7 +725,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible47;
+                    //Visible =SetVisible47;
 
                     trigger OnValidate()
                     var
@@ -741,7 +741,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible48;
+                    //Visible =SetVisible48;
 
                     trigger OnValidate()
                     var
@@ -756,7 +756,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible49;
+                    //Visible =SetVisible49;
 
                     trigger OnValidate()
                     var
@@ -770,7 +770,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible50;
+                    //Visible =SetVisible50;
 
                     trigger OnValidate()
                     var
@@ -784,7 +784,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible51;
+                    //Visible =SetVisible51;
 
                     trigger OnValidate()
                     var
@@ -798,7 +798,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible52;
+                    //Visible =SetVisible52;
 
                     trigger OnValidate()
                     var
@@ -812,7 +812,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible53;
+                    //Visible =SetVisible53;
 
                     trigger OnValidate()
                     var
@@ -826,7 +826,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible54;
+                    //Visible =SetVisible54;
 
                     trigger OnValidate()
                     var
@@ -840,7 +840,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible55;
+                    //Visible =SetVisible55;
 
                     trigger OnValidate()
                     var
@@ -854,7 +854,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible56;
+                    //Visible =SetVisible56;
 
                     trigger OnValidate()
                     var
@@ -868,7 +868,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible57;
+                    //Visible =SetVisible57;
 
                     trigger OnValidate()
                     var
@@ -882,7 +882,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible58;
+                    //Visible =SetVisible58;
 
                     trigger OnValidate()
                     var
@@ -896,7 +896,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible59;
+                    //Visible =SetVisible59;
 
                     trigger OnValidate()
                     var
@@ -910,7 +910,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible60;
+                    //Visible =SetVisible60;
 
                     trigger OnValidate()
                     var
@@ -924,7 +924,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible61;
+                    //Visible =SetVisible61;
 
                     trigger OnValidate()
                     var
@@ -938,7 +938,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible62;
+                    //Visible =SetVisible62;
 
                     trigger OnValidate()
                     var
@@ -952,7 +952,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible63;
+                    //Visible =SetVisible63;
 
                     trigger OnValidate()
                     var
@@ -966,7 +966,7 @@ page 51018 AssorColorSizeRatioListPart
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                     Editable = SetEdit;
-                    Visible = SetVisible64;
+                    //Visible =SetVisible64;
 
                     trigger OnValidate()
                     var
@@ -1767,336 +1767,336 @@ page 51018 AssorColorSizeRatioListPart
     begin
         StyleExprTxt := ChangeColor.ChangeColorAsso(Rec);
 
-        AssoDetail.Reset();
-        AssoDetail.SetRange("Style No.", rec."Style No.");
-        AssoDetail.SetRange("Lot No.", rec."lot No.");
-        AssoDetail.FindSet();
-        Rowcount := AssoDetail.Count;
+        // AssoDetail.Reset();
+        // AssoDetail.SetRange("Style No.", rec."Style No.");
+        // AssoDetail.SetRange("Lot No.", rec."lot No.");
+        // AssoDetail.FindSet();
+        // Rowcount := AssoDetail.Count;
 
-        for Count := 1 To 64 do begin
-            case Count of
-                1:
-                    if Rowcount >= Count then
-                        SetVisible1 := true
-                    else
-                        SetVisible1 := false;
-                2:
-                    if Rowcount >= Count then
-                        SetVisible2 := true
-                    else
-                        SetVisible2 := false;
-                3:
-                    if Rowcount >= Count then
-                        SetVisible3 := true
-                    else
-                        SetVisible3 := false;
-                4:
-                    if Rowcount >= Count then
-                        SetVisible4 := true
-                    else
-                        SetVisible4 := false;
-                5:
-                    if Rowcount >= Count then
-                        SetVisible5 := true
-                    else
-                        SetVisible5 := false;
-                6:
-                    if Rowcount >= Count then
-                        SetVisible6 := true
-                    else
-                        SetVisible6 := false;
-                7:
-                    if Rowcount >= Count then
-                        SetVisible7 := true
-                    else
-                        SetVisible7 := false;
-                8:
-                    if Rowcount >= Count then
-                        SetVisible8 := true
-                    else
-                        SetVisible8 := false;
-                9:
-                    if Rowcount >= Count then
-                        SetVisible9 := true
-                    else
-                        SetVisible9 := false;
-                10:
-                    if Rowcount >= Count then
-                        SetVisible10 := true
-                    else
-                        SetVisible10 := false;
-                11:
-                    if Rowcount >= Count then
-                        SetVisible11 := true
-                    else
-                        SetVisible11 := false;
-                12:
-                    if Rowcount >= Count then
-                        SetVisible12 := true
-                    else
-                        SetVisible12 := false;
-                13:
-                    if Rowcount >= Count then
-                        SetVisible13 := true
-                    else
-                        SetVisible13 := false;
-                14:
-                    if Rowcount >= Count then
-                        SetVisible14 := true
-                    else
-                        SetVisible14 := false;
-                15:
-                    if Rowcount >= Count then
-                        SetVisible15 := true
-                    else
-                        SetVisible15 := false;
-                16:
-                    if Rowcount >= Count then
-                        SetVisible16 := true
-                    else
-                        SetVisible16 := false;
-                17:
-                    if Rowcount >= Count then
-                        SetVisible17 := true
-                    else
-                        SetVisible17 := false;
-                18:
-                    if Rowcount >= Count then
-                        SetVisible18 := true
-                    else
-                        SetVisible18 := false;
-                19:
-                    if Rowcount >= Count then
-                        SetVisible19 := true
-                    else
-                        SetVisible19 := false;
-                20:
-                    if Rowcount >= Count then
-                        SetVisible20 := true
-                    else
-                        SetVisible20 := false;
-                21:
-                    if Rowcount >= Count then
-                        SetVisible21 := true
-                    else
-                        SetVisible21 := false;
-                22:
-                    if Rowcount >= Count then
-                        SetVisible22 := true
-                    else
-                        SetVisible22 := false;
-                23:
-                    if Rowcount >= Count then
-                        SetVisible23 := true
-                    else
-                        SetVisible23 := false;
-                24:
-                    if Rowcount >= Count then
-                        SetVisible24 := true
-                    else
-                        SetVisible24 := false;
-                25:
-                    if Rowcount >= Count then
-                        SetVisible25 := true
-                    else
-                        SetVisible25 := false;
-                26:
-                    if Rowcount >= Count then
-                        SetVisible26 := true
-                    else
-                        SetVisible26 := false;
-                27:
-                    if Rowcount >= Count then
-                        SetVisible27 := true
-                    else
-                        SetVisible27 := false;
-                28:
-                    if Rowcount >= Count then
-                        SetVisible28 := true
-                    else
-                        SetVisible28 := false;
-                29:
-                    if Rowcount >= Count then
-                        SetVisible29 := true
-                    else
-                        SetVisible29 := false;
-                30:
-                    if Rowcount >= Count then
-                        SetVisible30 := true
-                    else
-                        SetVisible30 := false;
-                31:
-                    if Rowcount >= Count then
-                        SetVisible31 := true
-                    else
-                        SetVisible31 := false;
-                32:
-                    if Rowcount >= Count then
-                        SetVisible32 := true
-                    else
-                        SetVisible32 := false;
-                33:
-                    if Rowcount >= Count then
-                        SetVisible33 := true
-                    else
-                        SetVisible33 := false;
-                34:
-                    if Rowcount >= Count then
-                        SetVisible34 := true
-                    else
-                        SetVisible34 := false;
-                35:
-                    if Rowcount >= Count then
-                        SetVisible35 := true
-                    else
-                        SetVisible35 := false;
-                36:
-                    if Rowcount >= Count then
-                        SetVisible36 := true
-                    else
-                        SetVisible36 := false;
-                37:
-                    if Rowcount >= Count then
-                        SetVisible37 := true
-                    else
-                        SetVisible37 := false;
-                38:
-                    if Rowcount >= Count then
-                        SetVisible38 := true
-                    else
-                        SetVisible38 := false;
-                39:
-                    if Rowcount >= Count then
-                        SetVisible39 := true
-                    else
-                        SetVisible39 := false;
-                40:
-                    if Rowcount >= Count then
-                        SetVisible40 := true
-                    else
-                        SetVisible40 := false;
-                41:
-                    if Rowcount >= Count then
-                        SetVisible41 := true
-                    else
-                        SetVisible41 := false;
-                42:
-                    if Rowcount >= Count then
-                        SetVisible42 := true
-                    else
-                        SetVisible42 := false;
-                43:
-                    if Rowcount >= Count then
-                        SetVisible43 := true
-                    else
-                        SetVisible43 := false;
-                44:
-                    if Rowcount >= Count then
-                        SetVisible44 := true
-                    else
-                        SetVisible44 := false;
-                45:
-                    if Rowcount >= Count then
-                        SetVisible45 := true
-                    else
-                        SetVisible45 := false;
-                46:
-                    if Rowcount >= Count then
-                        SetVisible46 := true
-                    else
-                        SetVisible46 := false;
-                47:
-                    if Rowcount >= Count then
-                        SetVisible47 := true
-                    else
-                        SetVisible47 := false;
-                48:
-                    if Rowcount >= Count then
-                        SetVisible48 := true
-                    else
-                        SetVisible48 := false;
-                49:
-                    if Rowcount >= Count then
-                        SetVisible49 := true
-                    else
-                        SetVisible49 := false;
-                50:
-                    if Rowcount >= Count then
-                        SetVisible50 := true
-                    else
-                        SetVisible50 := false;
-                51:
-                    if Rowcount >= Count then
-                        SetVisible51 := true
-                    else
-                        SetVisible51 := false;
-                52:
-                    if Rowcount >= Count then
-                        SetVisible52 := true
-                    else
-                        SetVisible52 := false;
-                53:
-                    if Rowcount >= Count then
-                        SetVisible53 := true
-                    else
-                        SetVisible53 := false;
-                54:
-                    if Rowcount >= Count then
-                        SetVisible54 := true
-                    else
-                        SetVisible54 := false;
-                55:
-                    if Rowcount >= Count then
-                        SetVisible55 := true
-                    else
-                        SetVisible55 := false;
-                56:
-                    if Rowcount >= Count then
-                        SetVisible56 := true
-                    else
-                        SetVisible56 := false;
-                57:
-                    if Rowcount >= Count then
-                        SetVisible57 := true
-                    else
-                        SetVisible57 := false;
-                58:
-                    if Rowcount >= Count then
-                        SetVisible58 := true
-                    else
-                        SetVisible58 := false;
-                59:
-                    if Rowcount >= Count then
-                        SetVisible59 := true
-                    else
-                        SetVisible59 := false;
-                60:
-                    if Rowcount >= Count then
-                        SetVisible60 := true
-                    else
-                        SetVisible60 := false;
-                61:
-                    if Rowcount >= Count then
-                        SetVisible61 := true
-                    else
-                        SetVisible61 := false;
-                62:
-                    if Rowcount >= Count then
-                        SetVisible62 := true
-                    else
-                        SetVisible62 := false;
-                63:
-                    if Rowcount >= Count then
-                        SetVisible63 := true
-                    else
-                        SetVisible63 := false;
-                64:
-                    if Rowcount >= Count then
-                        SetVisible64 := true
-                    else
-                        SetVisible64 := false;
-            end;
-        end;
+        // for Count := 1 To 64 do begin
+        //     case Count of
+        //         1:
+        //             if Rowcount >= Count then
+        //                 SetVisible1 := true
+        //             else
+        //                 SetVisible1 := false;
+        //         2:
+        //             if Rowcount >= Count then
+        //                 SetVisible2 := true
+        //             else
+        //                 SetVisible2 := false;
+        //         3:
+        //             if Rowcount >= Count then
+        //                 SetVisible3 := true
+        //             else
+        //                 SetVisible3 := false;
+        //         4:
+        //             if Rowcount >= Count then
+        //                 SetVisible4 := true
+        //             else
+        //                 SetVisible4 := false;
+        //         5:
+        //             if Rowcount >= Count then
+        //                 SetVisible5 := true
+        //             else
+        //                 SetVisible5 := false;
+        //         6:
+        //             if Rowcount >= Count then
+        //                 SetVisible6 := true
+        //             else
+        //                 SetVisible6 := false;
+        //         7:
+        //             if Rowcount >= Count then
+        //                 SetVisible7 := true
+        //             else
+        //                 SetVisible7 := false;
+        //         8:
+        //             if Rowcount >= Count then
+        //                 SetVisible8 := true
+        //             else
+        //                 SetVisible8 := false;
+        //         9:
+        //             if Rowcount >= Count then
+        //                 SetVisible9 := true
+        //             else
+        //                 SetVisible9 := false;
+        //         10:
+        //             if Rowcount >= Count then
+        //                 SetVisible10 := true
+        //             else
+        //                 SetVisible10 := false;
+        //         11:
+        //             if Rowcount >= Count then
+        //                 SetVisible11 := true
+        //             else
+        //                 SetVisible11 := false;
+        //         12:
+        //             if Rowcount >= Count then
+        //                 SetVisible12 := true
+        //             else
+        //                 SetVisible12 := false;
+        //         13:
+        //             if Rowcount >= Count then
+        //                 SetVisible13 := true
+        //             else
+        //                 SetVisible13 := false;
+        //         14:
+        //             if Rowcount >= Count then
+        //                 SetVisible14 := true
+        //             else
+        //                 SetVisible14 := false;
+        //         15:
+        //             if Rowcount >= Count then
+        //                 SetVisible15 := true
+        //             else
+        //                 SetVisible15 := false;
+        //         16:
+        //             if Rowcount >= Count then
+        //                 SetVisible16 := true
+        //             else
+        //                 SetVisible16 := false;
+        //         17:
+        //             if Rowcount >= Count then
+        //                 SetVisible17 := true
+        //             else
+        //                 SetVisible17 := false;
+        //         18:
+        //             if Rowcount >= Count then
+        //                 SetVisible18 := true
+        //             else
+        //                 SetVisible18 := false;
+        //         19:
+        //             if Rowcount >= Count then
+        //                 SetVisible19 := true
+        //             else
+        //                 SetVisible19 := false;
+        //         20:
+        //             if Rowcount >= Count then
+        //                 SetVisible20 := true
+        //             else
+        //                 SetVisible20 := false;
+        //         21:
+        //             if Rowcount >= Count then
+        //                 SetVisible21 := true
+        //             else
+        //                 SetVisible21 := false;
+        //         22:
+        //             if Rowcount >= Count then
+        //                 SetVisible22 := true
+        //             else
+        //                 SetVisible22 := false;
+        //         23:
+        //             if Rowcount >= Count then
+        //                 SetVisible23 := true
+        //             else
+        //                 SetVisible23 := false;
+        //         24:
+        //             if Rowcount >= Count then
+        //                 SetVisible24 := true
+        //             else
+        //                 SetVisible24 := false;
+        //         25:
+        //             if Rowcount >= Count then
+        //                 SetVisible25 := true
+        //             else
+        //                 SetVisible25 := false;
+        //         26:
+        //             if Rowcount >= Count then
+        //                 SetVisible26 := true
+        //             else
+        //                 SetVisible26 := false;
+        //         27:
+        //             if Rowcount >= Count then
+        //                 SetVisible27 := true
+        //             else
+        //                 SetVisible27 := false;
+        //         28:
+        //             if Rowcount >= Count then
+        //                 SetVisible28 := true
+        //             else
+        //                 SetVisible28 := false;
+        //         29:
+        //             if Rowcount >= Count then
+        //                 SetVisible29 := true
+        //             else
+        //                 SetVisible29 := false;
+        //         30:
+        //             if Rowcount >= Count then
+        //                 SetVisible30 := true
+        //             else
+        //                 SetVisible30 := false;
+        //         31:
+        //             if Rowcount >= Count then
+        //                 SetVisible31 := true
+        //             else
+        //                 SetVisible31 := false;
+        //         32:
+        //             if Rowcount >= Count then
+        //                 SetVisible32 := true
+        //             else
+        //                 SetVisible32 := false;
+        //         33:
+        //             if Rowcount >= Count then
+        //                 SetVisible33 := true
+        //             else
+        //                 SetVisible33 := false;
+        //         34:
+        //             if Rowcount >= Count then
+        //                 SetVisible34 := true
+        //             else
+        //                 SetVisible34 := false;
+        //         35:
+        //             if Rowcount >= Count then
+        //                 SetVisible35 := true
+        //             else
+        //                 SetVisible35 := false;
+        //         36:
+        //             if Rowcount >= Count then
+        //                 SetVisible36 := true
+        //             else
+        //                 SetVisible36 := false;
+        //         37:
+        //             if Rowcount >= Count then
+        //                 SetVisible37 := true
+        //             else
+        //                 SetVisible37 := false;
+        //         38:
+        //             if Rowcount >= Count then
+        //                 SetVisible38 := true
+        //             else
+        //                 SetVisible38 := false;
+        //         39:
+        //             if Rowcount >= Count then
+        //                 SetVisible39 := true
+        //             else
+        //                 SetVisible39 := false;
+        //         40:
+        //             if Rowcount >= Count then
+        //                 SetVisible40 := true
+        //             else
+        //                 SetVisible40 := false;
+        //         41:
+        //             if Rowcount >= Count then
+        //                 SetVisible41 := true
+        //             else
+        //                 SetVisible41 := false;
+        //         42:
+        //             if Rowcount >= Count then
+        //                 SetVisible42 := true
+        //             else
+        //                 SetVisible42 := false;
+        //         43:
+        //             if Rowcount >= Count then
+        //                 SetVisible43 := true
+        //             else
+        //                 SetVisible43 := false;
+        //         44:
+        //             if Rowcount >= Count then
+        //                 SetVisible44 := true
+        //             else
+        //                 SetVisible44 := false;
+        //         45:
+        //             if Rowcount >= Count then
+        //                 SetVisible45 := true
+        //             else
+        //                 SetVisible45 := false;
+        //         46:
+        //             if Rowcount >= Count then
+        //                 SetVisible46 := true
+        //             else
+        //                 SetVisible46 := false;
+        //         47:
+        //             if Rowcount >= Count then
+        //                 SetVisible47 := true
+        //             else
+        //                 SetVisible47 := false;
+        //         48:
+        //             if Rowcount >= Count then
+        //                 SetVisible48 := true
+        //             else
+        //                 SetVisible48 := false;
+        //         49:
+        //             if Rowcount >= Count then
+        //                 SetVisible49 := true
+        //             else
+        //                 SetVisible49 := false;
+        //         50:
+        //             if Rowcount >= Count then
+        //                 SetVisible50 := true
+        //             else
+        //                 SetVisible50 := false;
+        //         51:
+        //             if Rowcount >= Count then
+        //                 SetVisible51 := true
+        //             else
+        //                 SetVisible51 := false;
+        //         52:
+        //             if Rowcount >= Count then
+        //                 SetVisible52 := true
+        //             else
+        //                 SetVisible52 := false;
+        //         53:
+        //             if Rowcount >= Count then
+        //                 SetVisible53 := true
+        //             else
+        //                 SetVisible53 := false;
+        //         54:
+        //             if Rowcount >= Count then
+        //                 SetVisible54 := true
+        //             else
+        //                 SetVisible54 := false;
+        //         55:
+        //             if Rowcount >= Count then
+        //                 SetVisible55 := true
+        //             else
+        //                 SetVisible55 := false;
+        //         56:
+        //             if Rowcount >= Count then
+        //                 SetVisible56 := true
+        //             else
+        //                 SetVisible56 := false;
+        //         57:
+        //             if Rowcount >= Count then
+        //                 SetVisible57 := true
+        //             else
+        //                 SetVisible57 := false;
+        //         58:
+        //             if Rowcount >= Count then
+        //                 SetVisible58 := true
+        //             else
+        //                 SetVisible58 := false;
+        //         59:
+        //             if Rowcount >= Count then
+        //                 SetVisible59 := true
+        //             else
+        //                 SetVisible59 := false;
+        //         60:
+        //             if Rowcount >= Count then
+        //                 SetVisible60 := true
+        //             else
+        //                 SetVisible60 := false;
+        //         61:
+        //             if Rowcount >= Count then
+        //                 SetVisible61 := true
+        //             else
+        //                 SetVisible61 := false;
+        //         62:
+        //             if Rowcount >= Count then
+        //                 SetVisible62 := true
+        //             else
+        //                 SetVisible62 := false;
+        //         63:
+        //             if Rowcount >= Count then
+        //                 SetVisible63 := true
+        //             else
+        //                 SetVisible63 := false;
+        //         64:
+        //             if Rowcount >= Count then
+        //                 SetVisible64 := true
+        //             else
+        //                 SetVisible64 := false;
+        //     end;
+        // end;
 
 
         if rec."Colour Name" = '*' then begin
@@ -2148,68 +2148,68 @@ page 51018 AssorColorSizeRatioListPart
         StyleExprTxt: Text[50];
         ChangeColor: Codeunit NavAppCodeUnit;
         SetEdit: Boolean;
-        SetVisible1: Boolean;
-        SetVisible2: Boolean;
-        SetVisible3: Boolean;
-        SetVisible4: Boolean;
-        SetVisible5: Boolean;
-        SetVisible6: Boolean;
-        SetVisible7: Boolean;
-        SetVisible8: Boolean;
-        SetVisible9: Boolean;
-        SetVisible10: Boolean;
-        SetVisible11: Boolean;
-        SetVisible12: Boolean;
-        SetVisible13: Boolean;
-        SetVisible14: Boolean;
-        SetVisible15: Boolean;
-        SetVisible16: Boolean;
-        SetVisible17: Boolean;
-        SetVisible18: Boolean;
-        SetVisible19: Boolean;
-        SetVisible20: Boolean;
-        SetVisible21: Boolean;
-        SetVisible22: Boolean;
-        SetVisible23: Boolean;
-        SetVisible24: Boolean;
-        SetVisible25: Boolean;
-        SetVisible26: Boolean;
-        SetVisible27: Boolean;
-        SetVisible28: Boolean;
-        SetVisible29: Boolean;
-        SetVisible30: Boolean;
-        SetVisible31: Boolean;
-        SetVisible32: Boolean;
-        SetVisible33: Boolean;
-        SetVisible34: Boolean;
-        SetVisible35: Boolean;
-        SetVisible36: Boolean;
-        SetVisible37: Boolean;
-        SetVisible38: Boolean;
-        SetVisible39: Boolean;
-        SetVisible40: Boolean;
-        SetVisible41: Boolean;
-        SetVisible42: Boolean;
-        SetVisible43: Boolean;
-        SetVisible44: Boolean;
-        SetVisible45: Boolean;
-        SetVisible46: Boolean;
-        SetVisible47: Boolean;
-        SetVisible48: Boolean;
-        SetVisible49: Boolean;
-        SetVisible50: Boolean;
-        SetVisible51: Boolean;
-        SetVisible52: Boolean;
-        SetVisible53: Boolean;
-        SetVisible54: Boolean;
-        SetVisible55: Boolean;
-        SetVisible56: Boolean;
-        SetVisible57: Boolean;
-        SetVisible58: Boolean;
-        SetVisible59: Boolean;
-        SetVisible60: Boolean;
-        SetVisible61: Boolean;
-        SetVisible62: Boolean;
-        SetVisible63: Boolean;
-        SetVisible64: Boolean;
+    // SetVisible1: Boolean;
+    // SetVisible2: Boolean;
+    // SetVisible3: Boolean;
+    // SetVisible4: Boolean;
+    // SetVisible5: Boolean;
+    // SetVisible6: Boolean;
+    // SetVisible7: Boolean;
+    // SetVisible8: Boolean;
+    // SetVisible9: Boolean;
+    // SetVisible10: Boolean;
+    // SetVisible11: Boolean;
+    // SetVisible12: Boolean;
+    // SetVisible13: Boolean;
+    // SetVisible14: Boolean;
+    // SetVisible15: Boolean;
+    // SetVisible16: Boolean;
+    // SetVisible17: Boolean;
+    // SetVisible18: Boolean;
+    // SetVisible19: Boolean;
+    // SetVisible20: Boolean;
+    // SetVisible21: Boolean;
+    // SetVisible22: Boolean;
+    // SetVisible23: Boolean;
+    // SetVisible24: Boolean;
+    // SetVisible25: Boolean;
+    // SetVisible26: Boolean;
+    // SetVisible27: Boolean;
+    // SetVisible28: Boolean;
+    // SetVisible29: Boolean;
+    // SetVisible30: Boolean;
+    // SetVisible31: Boolean;
+    // SetVisible32: Boolean;
+    // SetVisible33: Boolean;
+    // SetVisible34: Boolean;
+    // SetVisible35: Boolean;
+    // SetVisible36: Boolean;
+    // SetVisible37: Boolean;
+    // SetVisible38: Boolean;
+    // SetVisible39: Boolean;
+    // SetVisible40: Boolean;
+    // SetVisible41: Boolean;
+    // SetVisible42: Boolean;
+    // SetVisible43: Boolean;
+    // SetVisible44: Boolean;
+    // SetVisible45: Boolean;
+    // SetVisible46: Boolean;
+    // SetVisible47: Boolean;
+    // SetVisible48: Boolean;
+    // SetVisible49: Boolean;
+    // SetVisible50: Boolean;
+    // SetVisible51: Boolean;
+    // SetVisible52: Boolean;
+    // SetVisible53: Boolean;
+    // SetVisible54: Boolean;
+    // SetVisible55: Boolean;
+    // SetVisible56: Boolean;
+    // SetVisible57: Boolean;
+    // SetVisible58: Boolean;
+    // SetVisible59: Boolean;
+    // SetVisible60: Boolean;
+    // SetVisible61: Boolean;
+    // SetVisible62: Boolean;
+    // SetVisible63: Boolean;
+    // SetVisible64: Boolean;
 }

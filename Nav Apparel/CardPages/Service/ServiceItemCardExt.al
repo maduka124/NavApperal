@@ -38,14 +38,34 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
                 ApplicationArea = All;
             }
 
-            field("Model"; rec."Model")
-            {
-                ApplicationArea = All;
-            }
-
             field(Brand; rec.Brand)
             {
                 ApplicationArea = All;
+
+                trigger OnValidate()
+                var
+                    BrandRec: Record Brand;
+                begin
+                    BrandRec.Reset();
+                    BrandRec.SetRange("Brand Name", rec."Brand");
+                    if BrandRec.FindSet() then
+                        rec."Brand No" := BrandRec."No.";
+                end;
+            }
+
+            field("Model"; rec."Model")
+            {
+                ApplicationArea = All;
+
+                trigger OnValidate()
+                var
+                    ModelRec: Record Model;
+                begin
+                    ModelRec.Reset();
+                    ModelRec.SetRange("Model Name", rec."Model");
+                    if ModelRec.FindSet() then
+                        rec."Model No" := ModelRec."No.";
+                end;
             }
 
             field("Purchase Year"; rec."Purchase Year")

@@ -26,13 +26,22 @@ page 51228 ServiceScheduleLCard
                         LoginRec: Page "Login Card";
                         LoginSessionsRec: Record LoginSessions;
                         UserSetupRec: Record "User Setup";
+                        Locationrec: Record Location;
                     begin
                         //Get Global Dimension
                         UserSetupRec.Reset();
                         UserSetupRec.SetRange("User ID", UserId);
 
-                        if UserSetupRec.FindSet() then
+                        if UserSetupRec.FindSet() then begin
                             rec."Global Dimension Code" := UserSetupRec."Global Dimension Code";
+                            rec."Factory No." := UserSetupRec."Factory Code";
+
+                            //Get factory
+                            Locationrec.Reset();
+                            Locationrec.SetRange(Code, UserSetupRec."Factory Code");
+                            if Locationrec.FindSet() then
+                                rec."Factory Name" := Locationrec.Name;
+                        end;
 
 
                         //Check whether user logged in or not
@@ -69,7 +78,7 @@ page 51228 ServiceScheduleLCard
                 field("Machine Category"; rec."Machine Category")
                 {
                     ApplicationArea = All;
-                    Caption = 'Machine Category';
+                    Caption = 'Type of Machine';
 
                     trigger OnValidate()
                     var
@@ -78,6 +87,7 @@ page 51228 ServiceScheduleLCard
                     begin
                         //Delete old records
                         ServiceScheLineRec.Reset();
+                        ServiceScheLineRec.SetRange("Factory No.", rec."Factory No.");
                         if ServiceScheLineRec.FindSet() then
                             ServiceScheLineRec.DeleteAll();
 
@@ -90,6 +100,8 @@ page 51228 ServiceScheduleLCard
                         if ItemRec.FindSet() then begin
                             repeat
                                 ServiceScheLineRec.Init();
+                                ServiceScheLineRec."Factory No." := rec."Factory No.";
+                                ServiceScheLineRec."Factory Name" := rec."Factory Name";
                                 ServiceScheLineRec."Part No" := ItemRec.Remarks;
                                 ServiceScheLineRec."Part Name" := ItemRec.Description;
                                 ServiceScheLineRec."Unit N0." := ItemRec."Base Unit of Measure";
@@ -108,6 +120,7 @@ page 51228 ServiceScheduleLCard
                     ApplicationArea = All;
                     Caption = ' ';
                     Editable = true;
+                    SubPageLink = "Factory No." = field("Factory No.");
                 }
             }
         }
@@ -134,6 +147,7 @@ page 51228 ServiceScheduleLCard
 
                     //Delete old records
                     ServiceScheHeadRec.Reset();
+                    ServiceScheHeadRec.SetRange("Factory No.", rec."Factory No.");
                     ServiceScheHeadRec.SetRange("Brand Name", rec."Brand Name");
                     ServiceScheHeadRec.SetRange("Model Name", rec."Model Name");
                     ServiceScheHeadRec.SetRange("Machine Category", rec."Machine Category");
@@ -157,6 +171,8 @@ page 51228 ServiceScheduleLCard
                             //Insert Part no
                             ServiceScheHeadRec.Init();
                             ServiceScheHeadRec."No." := MaxLineNo;
+                            ServiceScheHeadRec."Factory Name" := rec."Factory Name";
+                            ServiceScheHeadRec."Factory No." := rec."Factory No.";
                             ServiceScheHeadRec."Brand Name" := rec."Brand Name";
                             ServiceScheHeadRec."Brand No" := rec."Brand No";
                             ServiceScheHeadRec."Created Date" := WorkDate();
@@ -602,12 +618,14 @@ page 51228 ServiceScheduleLCard
     begin
         //Delete old records
         ServiceScheLineRec.Reset();
+        ServiceScheLineRec.SetRange("Factory No.", rec."Factory No.");
         if ServiceScheLineRec.FindSet() then
             ServiceScheLineRec.DeleteAll();
 
         //Get records for the brand/model/category/type
         ServiceScheHeadRec.Reset();
         ServiceScheHeadRec.SetRange(ServiceType, rec.ServiceType);
+        ServiceScheHeadRec.SetRange("Factory No.", rec."Factory No.");
         ServiceScheHeadRec.SetRange("Brand Name", rec."Brand Name");
         ServiceScheHeadRec.SetRange("Model Name", rec."Model Name");
         ServiceScheHeadRec.SetRange("Machine Category", rec."Machine Category");
@@ -619,6 +637,9 @@ page 51228 ServiceScheduleLCard
                 ServiceScheLineRec."Part Name" := ServiceScheHeadRec."Part Name";
                 ServiceScheLineRec."Unit N0." := ServiceScheHeadRec."Unit N0.";
                 ServiceScheLineRec.Qty := ServiceScheHeadRec.Qty;
+                ServiceScheLineRec."Factory No." := ServiceScheHeadRec."Factory No.";
+                ServiceScheLineRec."Factory Name" := ServiceScheHeadRec."Factory Name";
+                ServiceScheLineRec.Select := true;
                 ServiceScheLineRec.Insert();
             until ServiceScheHeadRec.Next() = 0;
         end;

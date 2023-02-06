@@ -55,6 +55,7 @@ table 51231 ServiceWorksheetHeaderNew
         {
             DataClassification = ToBeClassified;
             TableRelation = "Work Center"."No." where("Factory No." = field("Factory No."), "Linked To Service Item" = filter(true));
+            ValidateTableRelation = false;
         }
 
         field(10; "Secondary UserID"; Code[20])
@@ -73,6 +74,17 @@ table 51231 ServiceWorksheetHeaderNew
         }
     }
 
+    keys
+    {
+        key(PK; "No.")
+        {
+            Clustered = true;
+        }
+
+        key(SK; Factory, "Work Center Name", ServiceType, StartDate)
+        {
+        }
+    }
 
     trigger OnInsert()
     begin

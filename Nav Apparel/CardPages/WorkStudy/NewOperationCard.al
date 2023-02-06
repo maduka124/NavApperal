@@ -38,6 +38,13 @@ page 50456 "New Operation Card"
                     end;
                 }
 
+                field("Item Type No."; rec."Item Type No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Item Type No';
+                    Editable = false;
+                }
+
                 field("Garment Part Name"; rec."Garment Part Name")
                 {
                     ApplicationArea = All;
@@ -49,12 +56,20 @@ page 50456 "New Operation Card"
                         GarmentPartRec: Record GarmentPart;
                     begin
                         GarmentPartRec.Reset();
+                        GarmentPartRec.SetRange("Item Type No.", rec."Item Type No.");
                         GarmentPartRec.SetRange(Description, rec."Garment Part Name");
                         if GarmentPartRec.FindSet() then
                             rec."Garment Part No." := GarmentPartRec."No.";
 
                         GenCode();
                     end;
+                }
+
+                field("Garment Part No."; rec."Garment Part No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Garment Part No';
+                    Editable = false;
                 }
 
                 field(Code; rec.Code)

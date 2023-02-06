@@ -13,13 +13,24 @@ page 50726 "Service Worksheet Card"
                 field(Factory; rec.Factory)
                 {
                     ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field(StartDate; rec.StartDate)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Start Date';
 
                     trigger OnValidate()
                     var
                         Locationrec: Record Location;
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        UserRec: Record "User Setup";
                     begin
+                        if rec.StartDate < WorkDate() then
+                            Error('Start date cannot be less than current date.');
+
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -38,25 +49,20 @@ page 50726 "Service Worksheet Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
+
+                        //Get location
+                        UserRec.Reset();
+                        UserRec.SetRange("User ID", UserId);
+
+                        if UserRec.FindSet() then
+                            rec."Factory No." := UserRec."Factory Code";
+
                         Locationrec.Reset();
-                        Locationrec.SetRange(Name, rec.Factory);
+                        Locationrec.SetRange(code, rec."Factory No.");
                         if Locationrec.FindSet() then begin
-                            rec."Factory No." := Locationrec.Code;
+                            rec."Factory" := Locationrec.Name;
                             rec."Global Dimension Code" := Locationrec.Code;
                         end;
-                    end;
-                }
-
-                field(StartDate; rec.StartDate)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Start Date';
-
-                    trigger OnValidate()
-                    var
-                    begin
-                        if rec.StartDate < WorkDate() then
-                            Error('Start date cannot be less than current date.');
                     end;
                 }
 
@@ -81,13 +87,13 @@ page 50726 "Service Worksheet Card"
                     ApplicationArea = All;
                     Caption = 'Work Center';
 
-                    trigger OnLookup(var texts: text): Boolean
+                    trigger OnValidate()
                     var
                         WorkCenterRec: Record "Work Center";
                     begin
-                        WorkCenterRec.RESET;
-                        WorkCenterRec.SetRange("Factory No.", rec."Factory No.");
-                        if WorkCenterRec.FindSet() then
+                        WorkCenterRec.Reset();
+                        WorkCenterRec.SetRange(Name, rec."Work Center Name");
+                        IF WorkCenterRec.FindSet() THEN
                             rec."Work Center No" := WorkCenterRec."No.";
                     end;
                 }
@@ -124,7 +130,8 @@ page 50726 "Service Worksheet Card"
                 trigger OnAction()
                 var
                     ServiceWorkRec: Record ServiceWorksheetLineNew;
-                    ServiceScheLineRec: Record ServiceScheduleLine;
+                    ServiceScheHeadeRec: Record ServiceScheduleHeader;
+                    ServiceItemRec: Record "Service Item";
                     WorkCenRec: Record "Work Center";
                     NextNo: BigInteger;
                     LoginSessionsRec: Record LoginSessions;
@@ -159,50 +166,53 @@ page 50726 "Service Worksheet Card"
                     if ServiceWorkRec.FindLast() then
                         NextNo := ServiceWorkRec."No.";
 
-                    NextNo += 1;
-                    rec."No." := NextNo;
+                    //Get All Service Items for the factory and service type 
+                    ServiceScheHeadeRec.Reset();
+                    ServiceScheHeadeRec.SetRange("Factory No.", rec."Factory No.");
+                    ServiceScheHeadeRec.SetRange(ServiceType, rec.ServiceType);
 
-                    // //Get All Service Items for the date period and work station 
-                    // ServiceItem.Reset();
-                    // ServiceItem.SetRange("Work center Code", WorkCenRec."No.");
-                    // ServiceItem.SetFilter("Service due date", '%1..%2', StartDate, EndDate);
+                    if ServiceScheHeadeRec.FindSet() then begin
+                        repeat
 
-                    // if ServiceItem.FindSet() then begin
-                    //     repeat
+                            //Get All Service Items for the date period
+                            ServiceItemRec.Reset();
+                            ServiceItemRec.SetRange("Factory Code", rec.Factory);
+                            ServiceItemRec.SetRange("Brand No", ServiceScheHeadeRec."Brand No");
+                            ServiceItemRec.SetRange("Model No", ServiceScheHeadeRec."Model No");
+                            ServiceItemRec.SetRange("Machine Category Code", ServiceScheHeadeRec."Machine Category Code");
+                            ServiceItemRec.SetRange("Work center Code", rec."Work Center No");
+                            ServiceItemRec.SetFilter("Service due date", '%1..%2', rec.StartDate, rec.EndDate);
 
-                    //         //Check for duplicates
-                    //         ServiceWrokRec.Reset();
-                    //         ServiceWrokRec.SetRange("Service Item No", ServiceItem."No.");
+                            if ServiceItemRec.FindSet() then begin
+                                repeat
+                                    NextNo += 1;
+                                    //Insert recor
+                                    ServiceWorkRec.Init();
+                                    ServiceWorkRec."No." := rec."No.";
+                                    ServiceWorkRec."Brand Name" := ServiceScheHeadeRec."Brand Name";
+                                    ServiceWorkRec."Brand No" := ServiceScheHeadeRec."Brand No";
+                                    ServiceWorkRec."Created User" := UserId;
+                                    ServiceWorkRec."Created Date" := WorkDate();
+                                    ServiceWorkRec."Line No." := NextNo;
+                                    ServiceWorkRec."Machine Category" := ServiceScheHeadeRec."Machine Category";
+                                    ServiceWorkRec."Machine Category Code" := ServiceScheHeadeRec."Machine Category Code";
+                                    ServiceWorkRec."Model Name" := ServiceScheHeadeRec."Model Name";
+                                    ServiceWorkRec."Model No" := ServiceScheHeadeRec."Model No";
+                                    ServiceWorkRec."Part Name" := ServiceScheHeadeRec."Part Name";
+                                    ServiceWorkRec."Part No" := ServiceScheHeadeRec."Part No";
+                                    ServiceWorkRec.Qty := ServiceScheHeadeRec.Qty;
+                                    ServiceWorkRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                                    ServiceWorkRec."Service Date" := ServiceItemRec."Service due date";
+                                    ServiceWorkRec."Unit N0." := ServiceScheHeadeRec."Unit N0.";
+                                    ServiceWorkRec.Insert();
+                                until ServiceItemRec.Next() = 0;
+                            end;
 
-                    //         if not ServiceWrokRec.FindSet() then begin
+                        until ServiceScheHeadeRec.Next() = 0;
+                    end;
 
-                    //             //Insert recor
-                    //             ServiceWorkRec.Init();
-                    //             ServiceWorkRec."No." := NextNo;
-                    //             ServiceWorkRec."Service Item No" := ServiceItem."No.";
-                    //             ServiceWorkRec."Service Item Name" := ServiceItem.Description;
-                    //             ServiceWorkRec."Work Center No" := WorkCenRec."No.";
-                    //             ServiceWorkRec."Work Center Name" := WorkCenRec.Name;
-                    //             ServiceWorkRec."Service Date" := ServiceItem."Service due date";
-                    //             ServiceWorkRec.Approval := false;
-                    //             ServiceWorkRec."Created User" := UserId;
-                    //             ServiceWorkRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                    //             ServiceWorkRec."Created Date" := WorkDate();
-                    //             ServiceWorkRec.Insert();
-
-                    //         end
-                    //         else
-                    //             ServiceWrokRec.ModifyAll("No.", NextNo);
-
-                    //     until ServiceItem.Next() = 0;
-                    // end;
-
-
+                    Message('Completed');
                 end;
-
-                // CurrPage.Update();
-                // Message('Completed');
-
 
             }
 
@@ -496,13 +506,4 @@ page 50726 "Service Worksheet Card"
             //         }
         }
     }
-
-    // var
-
-    //     StartDate: Date;
-    //     EndDate: Date;
-    //     "Work Center No.": Code[20];
-    //     No: BigInteger;
-    //     SMTPConn: Option;
-    //     "Global Dimension Code": Code[20];
 }

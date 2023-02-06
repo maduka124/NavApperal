@@ -31,5 +31,15 @@ table 51229 ServiceScheduleLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(6; "Factory No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(7; "Factory Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }

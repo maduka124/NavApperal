@@ -65,6 +65,14 @@ page 50444 "Garment Part Card"
 
                 }
 
+                field("Item Type No."; rec."Item Type No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Item Type No';
+                    Editable = false;
+                }
+
+
                 field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;

@@ -71,6 +71,7 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
         field(50013; "Machine Category"; Text[100])
         {
             TableRelation = "Machine Master"."Machine Description";
+            ValidateTableRelation = false;
         }
 
         field(50014; "Ownership Code"; code[20])
@@ -100,6 +101,16 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
         }
 
         field(50019; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50020; "Model No"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50021; "Brand No"; code[20])
         {
             DataClassification = ToBeClassified;
         }

@@ -127,6 +127,7 @@ page 50459 "New Breakdown Card"
                     begin
 
                         GarmentPartRec.Reset();
+                        GarmentPartRec.SetRange("Item Type No.", rec."Item Type No.");
                         GarmentPartRec.SetRange(Description, rec."Garment Part Name");
                         if GarmentPartRec.FindSet() then
                             rec."Garment Part No." := GarmentPartRec."No.";

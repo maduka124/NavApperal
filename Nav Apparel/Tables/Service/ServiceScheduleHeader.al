@@ -50,7 +50,7 @@ table 51226 ServiceScheduleHeader
         field(8; "Machine Category"; Text[100])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Service Item".Description;
+            TableRelation = "Service Item".Description where("Brand No" = field("Brand No"), "Model No" = field("Model No"));
             ValidateTableRelation = false;
         }
 
@@ -98,6 +98,16 @@ table 51226 ServiceScheduleHeader
             DataClassification = ToBeClassified;
             CaptionClass = '1,2,1';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1), Blocked = CONST(false));
+        }
+
+        field(17; "Factory No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(18; "Factory Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 

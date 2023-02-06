@@ -1701,7 +1701,7 @@ page 50968 "Nav Apperal Role Center"
                 action("Service Worksheet")
                 {
                     Caption = 'Service Worksheet';
-                    RunObject = Page "Service Worksheet Card";
+                    RunObject = Page "Service Wrks List";
                     ApplicationArea = all;
                 }
 

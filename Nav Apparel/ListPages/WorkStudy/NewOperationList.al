@@ -24,10 +24,22 @@ page 50455 "New Operation"
                     ApplicationArea = All;
                 }
 
+                field("Item Type No."; rec."Item Type No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Item Type No';
+                }
+
                 field("Item Type Name"; rec."Item Type Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item Type';
+                }
+
+                field("Garment Part No."; rec."Garment Part No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Garment Part No';
                 }
 
                 field("Garment Part Name"; rec."Garment Part Name")

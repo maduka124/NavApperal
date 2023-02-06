@@ -69,4 +69,17 @@ page 51227 ServiceScheduleList
         }
     }
 
+    trigger OnOpenPage()
+    var
+        UserSetupRec: Record "User Setup";
+    begin
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+
+        if UserSetupRec.FindSet() then
+            rec.SetFilter("Factory No.", '=%1', UserSetupRec."Factory Code")
+        else
+            Error('Cannot find user details in user setup table');
+    end;
+
 }

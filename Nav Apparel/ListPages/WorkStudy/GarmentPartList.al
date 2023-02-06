@@ -24,6 +24,12 @@ page 50443 "Garment Part List"
                     ApplicationArea = All;
                 }
 
+                field("Item Type No."; rec."Item Type No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Item Type No';
+                }
+
                 field("Item Type Name"; rec."Item Type Name")
                 {
                     ApplicationArea = All;

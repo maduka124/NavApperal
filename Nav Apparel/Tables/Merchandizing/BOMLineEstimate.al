@@ -67,8 +67,8 @@ table 50897 "BOM Line Estimate"
         field(71012591; "Type"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Doz,Pcs;
-            OptionCaption = 'Doz,Pcs';
+            OptionMembers = Pcs,Doz;
+            OptionCaption = 'Pcs,Doz,';
         }
 
         field(71012592; "Consumption"; Decimal)

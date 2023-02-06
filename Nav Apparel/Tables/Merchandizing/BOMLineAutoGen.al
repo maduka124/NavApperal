@@ -63,8 +63,8 @@ table 50895 "BOM Line AutoGen"
         field(71012591; "Type"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Doz,Pcs;
-            OptionCaption = 'Doz,Pcs';
+            OptionMembers = Pcs,Doz;
+            OptionCaption = 'Pcs,Doz,';
         }
 
         field(71012592; "Consumption"; Decimal)
