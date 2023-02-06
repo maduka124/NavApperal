@@ -972,6 +972,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report GrnReport;
                         ApplicationArea = All;
                     }
+                    action("Vendor - Summary Aging")
+                    {
+                        Caption = 'Vendor - Summary Aging';
+                        Enabled = true;
+                        RunObject = report VendorSummaryAging;
+                        ApplicationArea = All;
+                    }
                 }
 
             }
