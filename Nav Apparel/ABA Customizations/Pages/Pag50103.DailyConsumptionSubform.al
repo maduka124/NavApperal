@@ -25,16 +25,19 @@ page 50103 "Daily Consumption Subform"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Visible = false;
                 }
                 field("Issued Quantity"; Rec."Issued Quantity")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Visible = false;
                 }
                 field("Balance Quantity"; Rec."Balance Quantity")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Visible = false;
                 }
                 field("Daily Consumption"; Rec."Daily Consumption")
                 {
