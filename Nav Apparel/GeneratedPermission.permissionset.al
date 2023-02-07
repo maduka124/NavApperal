@@ -1067,5 +1067,6 @@ permissionset 50100 GeneratedPermission
         tabledata Technician=RIMD,
         table Technician=X,
         page TechnicianCard=X,
-        page TechnicianList=X;
+        page TechnicianList=X,
+        page "Service Wrks List"=X;
 }

@@ -48,7 +48,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_1;
+                    //Visible = SetVisible_1;
 
                     trigger OnValidate()
                     var
@@ -61,7 +61,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_2;
+                    //Visible = SetVisible_2;
 
                     trigger OnValidate()
                     var
@@ -75,7 +75,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_3;
+                    //Visible = SetVisible_3;
 
                     trigger OnValidate()
                     var
@@ -89,7 +89,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_4;
+                    //Visible = SetVisible_4;
 
                     trigger OnValidate()
                     var
@@ -103,7 +103,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_5;
+                    //Visible = SetVisible_5;
 
                     trigger OnValidate()
                     var
@@ -117,7 +117,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_6;
+                    //Visible = SetVisible_6;
 
                     trigger OnValidate()
                     var
@@ -131,7 +131,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_7;
+                    //Visible = SetVisible_7;
 
                     trigger OnValidate()
                     var
@@ -145,7 +145,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_8;
+                    //Visible = SetVisible_8;
 
                     trigger OnValidate()
                     var
@@ -159,7 +159,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_9;
+                    //Visible = SetVisible_9;
 
                     trigger OnValidate()
                     var
@@ -173,7 +173,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_10;
+                    //Visible = SetVisible_10;
 
                     trigger OnValidate()
                     var
@@ -187,7 +187,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_11;
+                    //Visible = SetVisible_11;
 
                     trigger OnValidate()
                     var
@@ -201,7 +201,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_12;
+                    //Visible = SetVisible_12;
 
                     trigger OnValidate()
                     var
@@ -215,7 +215,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_13;
+                    //Visible = SetVisible_13;
 
                     trigger OnValidate()
                     var
@@ -229,7 +229,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_14;
+                    //Visible = SetVisible_14;
 
                     trigger OnValidate()
                     var
@@ -243,7 +243,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_15;
+                    //Visible = SetVisible_15;
 
                     trigger OnValidate()
                     var
@@ -257,7 +257,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_16;
+                    //Visible = SetVisible_16;
 
                     trigger OnValidate()
                     var
@@ -271,7 +271,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_17;
+                    //Visible = SetVisible_17;
 
                     trigger OnValidate()
                     var
@@ -285,7 +285,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_18;
+                    //Visible = SetVisible_18;
 
                     trigger OnValidate()
                     var
@@ -299,7 +299,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_19;
+                    //Visible = SetVisible_19;
 
                     trigger OnValidate()
                     var
@@ -313,7 +313,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_20;
+                    //Visible = SetVisible_20;
 
                     trigger OnValidate()
                     var
@@ -327,7 +327,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_21;
+                    //Visible = SetVisible_21;
 
                     trigger OnValidate()
                     var
@@ -341,7 +341,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_22;
+                    //Visible = SetVisible_22;
 
                     trigger OnValidate()
                     var
@@ -355,7 +355,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_23;
+                    //Visible = SetVisible_23;
 
                     trigger OnValidate()
                     var
@@ -369,7 +369,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_24;
+                    //Visible = SetVisible_24;
 
                     trigger OnValidate()
                     var
@@ -383,7 +383,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_25;
+                    //Visible = SetVisible_25;
 
                     trigger OnValidate()
                     var
@@ -397,7 +397,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_26;
+                    //Visible = SetVisible_26;
 
                     trigger OnValidate()
                     var
@@ -411,7 +411,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_27;
+                    //Visible = SetVisible_27;
 
                     trigger OnValidate()
                     var
@@ -425,7 +425,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_28;
+                    //Visible = SetVisible_28;
 
                     trigger OnValidate()
                     var
@@ -439,7 +439,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_29;
+                    //Visible = SetVisible_29;
 
                     trigger OnValidate()
                     var
@@ -453,7 +453,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_30;
+                    //Visible = SetVisible_30;
 
                     trigger OnValidate()
                     var
@@ -467,7 +467,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_31;
+                    //Visible = SetVisible_31;
 
                     trigger OnValidate()
                     var
@@ -481,7 +481,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_32;
+                    //Visible = SetVisible_32;
 
                     trigger OnValidate()
                     var
@@ -495,7 +495,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_33;
+                    //Visible = SetVisible_33;
 
                     trigger OnValidate()
                     var
@@ -509,7 +509,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_34;
+                    //Visible = SetVisible_34;
 
                     trigger OnValidate()
                     var
@@ -523,7 +523,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_35;
+                    //Visible = SetVisible_35;
 
                     trigger OnValidate()
                     var
@@ -537,7 +537,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_36;
+                    //Visible = SetVisible_36;
 
                     trigger OnValidate()
                     var
@@ -551,7 +551,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_37;
+                    //Visible = SetVisible_37;
 
                     trigger OnValidate()
                     var
@@ -565,7 +565,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_38;
+                    //Visible = SetVisible_38;
 
                     trigger OnValidate()
                     var
@@ -579,7 +579,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_39;
+                    //Visible = SetVisible_39;
 
                     trigger OnValidate()
                     var
@@ -593,7 +593,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_40;
+                    //Visible = SetVisible_40;
 
                     trigger OnValidate()
                     var
@@ -607,7 +607,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_41;
+                    //Visible = SetVisible_41;
 
                     trigger OnValidate()
                     var
@@ -622,7 +622,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_42;
+                    //Visible = SetVisible_42;
 
                     trigger OnValidate()
                     var
@@ -637,7 +637,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_43;
+                    //Visible = SetVisible_43;
 
                     trigger OnValidate()
                     var
@@ -652,7 +652,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_44;
+                    //Visible = SetVisible_44;
 
                     trigger OnValidate()
                     var
@@ -667,7 +667,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_45;
+                    //Visible = SetVisible_45;
 
                     trigger OnValidate()
                     var
@@ -682,7 +682,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_46;
+                    //Visible = SetVisible_46;
 
                     trigger OnValidate()
                     var
@@ -697,7 +697,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_47;
+                    //Visible = SetVisible_47;
 
                     trigger OnValidate()
                     var
@@ -713,7 +713,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_48;
+                    //Visible = SetVisible_48;
 
                     trigger OnValidate()
                     var
@@ -728,7 +728,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_49;
+                    //Visible = SetVisible_49;
 
                     trigger OnValidate()
                     var
@@ -742,7 +742,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_50;
+                    //Visible = SetVisible_50;
 
                     trigger OnValidate()
                     var
@@ -756,7 +756,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_51;
+                    //Visible = SetVisible_51;
 
                     trigger OnValidate()
                     var
@@ -770,7 +770,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_52;
+                    //Visible = SetVisible_52;
 
                     trigger OnValidate()
                     var
@@ -784,7 +784,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_53;
+                    //Visible = SetVisible_53;
 
                     trigger OnValidate()
                     var
@@ -798,7 +798,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_54;
+                    //Visible = SetVisible_54;
 
                     trigger OnValidate()
                     var
@@ -812,7 +812,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_55;
+                    //Visible = SetVisible_55;
 
 
                     trigger OnValidate()
@@ -827,7 +827,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_56;
+                    //Visible = SetVisible_56;
 
                     trigger OnValidate()
                     var
@@ -841,7 +841,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_57;
+                    //Visible = SetVisible_57;
 
                     trigger OnValidate()
                     var
@@ -855,7 +855,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_58;
+                    //Visible = SetVisible_58;
 
                     trigger OnValidate()
                     var
@@ -869,7 +869,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_59;
+                    //Visible = SetVisible_59;
 
                     trigger OnValidate()
                     var
@@ -883,7 +883,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_60;
+                    //Visible = SetVisible_60;
 
                     trigger OnValidate()
                     var
@@ -897,7 +897,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_61;
+                    //Visible = SetVisible_61;
 
                     trigger OnValidate()
                     var
@@ -911,7 +911,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_62;
+                    //Visible = SetVisible_62;
 
                     trigger OnValidate()
                     var
@@ -925,7 +925,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_63;
+                    //Visible = SetVisible_63;
 
                     trigger OnValidate()
                     var
@@ -939,7 +939,7 @@ page 51225 DailyCuttingOutListPart_SawOut
                     ApplicationArea = All;
                     Editable = SetEdit1;
                     StyleExpr = StyleExprTxt1;
-                    Visible = SetVisible_64;
+                    //Visible = SetVisible_64;
 
                     trigger OnValidate()
                     var
@@ -1437,408 +1437,408 @@ page 51225 DailyCuttingOutListPart_SawOut
             SetEdit1 := true;
         end;
 
-        ProductionOutLineRec.Reset();
-        ProductionOutLineRec.SetRange("No.", Rec."No.");
-        ProductionOutLineRec.SetRange(Type, Rec.Type);
-        ProductionOutLineRec.SetFilter("Colour Name", '=%1', '*');
-        if ProductionOutLineRec.FindSet() then begin
+        // ProductionOutLineRec.Reset();
+        // ProductionOutLineRec.SetRange("No.", Rec."No.");
+        // ProductionOutLineRec.SetRange(Type, Rec.Type);
+        // ProductionOutLineRec.SetFilter("Colour Name", '=%1', '*');
+        // if ProductionOutLineRec.FindSet() then begin
 
-            for Count := 1 to 64 do begin
-                case Count of
+        //     for Count := 1 to 64 do begin
+        //         case Count of
 
-                    1:
-                        if ProductionOutLineRec."1" <> '' then
-                            SetVisible_1 := true
-                        else
-                            SetVisible_1 := false;
-                    2:
-                        if ProductionOutLineRec."2" <> '' then
-                            SetVisible_2 := true
-                        else
-                            SetVisible_2 := false;
-                    3:
-                        if ProductionOutLineRec."3" <> '' then
-                            SetVisible_3 := true
-                        else
-                            SetVisible_3 := false;
-                    4:
-                        if ProductionOutLineRec."4" <> '' then
-                            SetVisible_4 := true
-                        else
-                            SetVisible_4 := false;
-                    5:
-                        if ProductionOutLineRec."5" <> '' then
-                            SetVisible_5 := true
-                        else
-                            SetVisible_5 := false;
-                    6:
-                        if ProductionOutLineRec."6" <> '' then
-                            SetVisible_6 := true
-                        else
-                            SetVisible_6 := false;
-                    7:
-                        if ProductionOutLineRec."7" <> '' then
-                            SetVisible_7 := true
-                        else
-                            SetVisible_7 := false;
-                    8:
-                        if ProductionOutLineRec."8" <> '' then
-                            SetVisible_8 := true
-                        else
-                            SetVisible_8 := false;
-                    9:
-                        if ProductionOutLineRec."9" <> '' then
-                            SetVisible_9 := true
-                        else
-                            SetVisible_9 := false;
-                    10:
-                        if ProductionOutLineRec."10" <> '' then
-                            SetVisible_10 := true
-                        else
-                            SetVisible_10 := false;
-                    11:
-                        if ProductionOutLineRec."11" <> '' then
-                            SetVisible_11 := true
-                        else
-                            SetVisible_11 := false;
-                    12:
-                        if ProductionOutLineRec."12" <> '' then
-                            SetVisible_12 := true
-                        else
-                            SetVisible_12 := false;
-                    13:
-                        if ProductionOutLineRec."13" <> '' then
-                            SetVisible_13 := true
-                        else
-                            SetVisible_13 := false;
-                    14:
-                        if ProductionOutLineRec."14" <> '' then
-                            SetVisible_14 := true
-                        else
-                            SetVisible_14 := false;
-                    15:
-                        if ProductionOutLineRec."15" <> '' then
-                            SetVisible_15 := true
-                        else
-                            SetVisible_15 := false;
-                    16:
-                        if ProductionOutLineRec."16" <> '' then
-                            SetVisible_16 := true
-                        else
-                            SetVisible_16 := false;
-                    17:
-                        if ProductionOutLineRec."17" <> '' then
-                            SetVisible_17 := true
-                        else
-                            SetVisible_17 := false;
-                    18:
-                        if ProductionOutLineRec."18" <> '' then
-                            SetVisible_18 := true
-                        else
-                            SetVisible_18 := false;
-                    19:
-                        if ProductionOutLineRec."19" <> '' then
-                            SetVisible_19 := true
-                        else
-                            SetVisible_19 := false;
-                    20:
-                        if ProductionOutLineRec."20" <> '' then
-                            SetVisible_20 := true
-                        else
-                            SetVisible_20 := false;
-                    21:
-                        if ProductionOutLineRec."21" <> '' then
-                            SetVisible_21 := true
-                        else
-                            SetVisible_21 := false;
-                    22:
-                        if ProductionOutLineRec."22" <> '' then
-                            SetVisible_22 := true
-                        else
-                            SetVisible_22 := false;
-                    23:
-                        if ProductionOutLineRec."23" <> '' then
-                            SetVisible_23 := true
-                        else
-                            SetVisible_23 := false;
-                    24:
-                        if ProductionOutLineRec."24" <> '' then
-                            SetVisible_24 := true
-                        else
-                            SetVisible_24 := false;
-                    25:
-                        if ProductionOutLineRec."25" <> '' then
-                            SetVisible_25 := true
-                        else
-                            SetVisible_25 := false;
-                    26:
-                        if ProductionOutLineRec."26" <> '' then
-                            SetVisible_26 := true
-                        else
-                            SetVisible_26 := false;
-                    27:
-                        if ProductionOutLineRec."27" <> '' then
-                            SetVisible_27 := true
-                        else
-                            SetVisible_27 := false;
-                    28:
-                        if ProductionOutLineRec."28" <> '' then
-                            SetVisible_28 := true
-                        else
-                            SetVisible_28 := false;
-                    29:
-                        if ProductionOutLineRec."29" <> '' then
-                            SetVisible_29 := true
-                        else
-                            SetVisible_29 := false;
-                    30:
-                        if ProductionOutLineRec."30" <> '' then
-                            SetVisible_30 := true
-                        else
-                            SetVisible_30 := false;
-                    31:
-                        if ProductionOutLineRec."31" <> '' then
-                            SetVisible_31 := true
-                        else
-                            SetVisible_31 := false;
-                    32:
-                        if ProductionOutLineRec."32" <> '' then
-                            SetVisible_32 := true
-                        else
-                            SetVisible_32 := false;
-                    33:
-                        if ProductionOutLineRec."33" <> '' then
-                            SetVisible_33 := true
-                        else
-                            SetVisible_33 := false;
-                    34:
-                        if ProductionOutLineRec."34" <> '' then
-                            SetVisible_34 := true
-                        else
-                            SetVisible_34 := false;
-                    35:
-                        if ProductionOutLineRec."35" <> '' then
-                            SetVisible_35 := true
-                        else
-                            SetVisible_35 := false;
-                    36:
-                        if ProductionOutLineRec."36" <> '' then
-                            SetVisible_36 := true
-                        else
-                            SetVisible_36 := false;
-                    37:
-                        if ProductionOutLineRec."37" <> '' then
-                            SetVisible_37 := true
-                        else
-                            SetVisible_37 := false;
-                    38:
-                        if ProductionOutLineRec."38" <> '' then
-                            SetVisible_38 := true
-                        else
-                            SetVisible_38 := false;
-                    39:
-                        if ProductionOutLineRec."39" <> '' then
-                            SetVisible_39 := true
-                        else
-                            SetVisible_39 := false;
-                    40:
-                        if ProductionOutLineRec."40" <> '' then
-                            SetVisible_40 := true
-                        else
-                            SetVisible_40 := false;
-                    41:
-                        if ProductionOutLineRec."41" <> '' then
-                            SetVisible_41 := true
-                        else
-                            SetVisible_41 := false;
-                    42:
-                        if ProductionOutLineRec."42" <> '' then
-                            SetVisible_42 := true
-                        else
-                            SetVisible_42 := false;
-                    43:
-                        if ProductionOutLineRec."43" <> '' then
-                            SetVisible_43 := true
-                        else
-                            SetVisible_43 := false;
-                    44:
-                        if ProductionOutLineRec."44" <> '' then
-                            SetVisible_44 := true
-                        else
-                            SetVisible_44 := false;
-                    45:
-                        if ProductionOutLineRec."45" <> '' then
-                            SetVisible_45 := true
-                        else
-                            SetVisible_45 := false;
-                    46:
-                        if ProductionOutLineRec."46" <> '' then
-                            SetVisible_46 := true
-                        else
-                            SetVisible_46 := false;
-                    47:
-                        if ProductionOutLineRec."47" <> '' then
-                            SetVisible_47 := true
-                        else
-                            SetVisible_47 := false;
-                    48:
-                        if ProductionOutLineRec."48" <> '' then
-                            SetVisible_48 := true
-                        else
-                            SetVisible_48 := false;
-                    49:
-                        if ProductionOutLineRec."49" <> '' then
-                            SetVisible_49 := true
-                        else
-                            SetVisible_49 := false;
-                    50:
-                        if ProductionOutLineRec."50" <> '' then
-                            SetVisible_50 := true
-                        else
-                            SetVisible_50 := false;
-                    51:
-                        if ProductionOutLineRec."51" <> '' then
-                            SetVisible_51 := true
-                        else
-                            SetVisible_51 := false;
-                    52:
-                        if ProductionOutLineRec."52" <> '' then
-                            SetVisible_52 := true
-                        else
-                            SetVisible_52 := false;
-                    53:
-                        if ProductionOutLineRec."53" <> '' then
-                            SetVisible_53 := true
-                        else
-                            SetVisible_53 := false;
-                    54:
-                        if ProductionOutLineRec."54" <> '' then
-                            SetVisible_54 := true
-                        else
-                            SetVisible_54 := false;
-                    55:
-                        if ProductionOutLineRec."55" <> '' then
-                            SetVisible_55 := true
-                        else
-                            SetVisible_55 := false;
-                    56:
-                        if ProductionOutLineRec."56" <> '' then
-                            SetVisible_56 := true
-                        else
-                            SetVisible_56 := false;
-                    57:
-                        if ProductionOutLineRec."57" <> '' then
-                            SetVisible_57 := true
-                        else
-                            SetVisible_57 := false;
-                    58:
-                        if ProductionOutLineRec."58" <> '' then
-                            SetVisible_58 := true
-                        else
-                            SetVisible_58 := false;
-                    59:
-                        if ProductionOutLineRec."59" <> '' then
-                            SetVisible_59 := true
-                        else
-                            SetVisible_59 := false;
-                    60:
-                        if ProductionOutLineRec."60" <> '' then
-                            SetVisible_60 := true
-                        else
-                            SetVisible_60 := false;
-                    61:
-                        if ProductionOutLineRec."61" <> '' then
-                            SetVisible_61 := true
-                        else
-                            SetVisible_61 := false;
-                    62:
-                        if ProductionOutLineRec."62" <> '' then
-                            SetVisible_62 := true
-                        else
-                            SetVisible_62 := false;
-                    63:
-                        if ProductionOutLineRec."63" <> '' then
-                            SetVisible_63 := true
-                        else
-                            SetVisible_63 := false;
-                    64:
-                        if ProductionOutLineRec."64" <> '' then
-                            SetVisible_64 := true
-                        else
-                            SetVisible_64 := false;
-                end;
-            end;
+        //             1:
+        //                 if ProductionOutLineRec."1" <> '' then
+        //                     SetVisible_1 := true
+        //                 else
+        //                     SetVisible_1 := false;
+        //             2:
+        //                 if ProductionOutLineRec."2" <> '' then
+        //                     SetVisible_2 := true
+        //                 else
+        //                     SetVisible_2 := false;
+        //             3:
+        //                 if ProductionOutLineRec."3" <> '' then
+        //                     SetVisible_3 := true
+        //                 else
+        //                     SetVisible_3 := false;
+        //             4:
+        //                 if ProductionOutLineRec."4" <> '' then
+        //                     SetVisible_4 := true
+        //                 else
+        //                     SetVisible_4 := false;
+        //             5:
+        //                 if ProductionOutLineRec."5" <> '' then
+        //                     SetVisible_5 := true
+        //                 else
+        //                     SetVisible_5 := false;
+        //             6:
+        //                 if ProductionOutLineRec."6" <> '' then
+        //                     SetVisible_6 := true
+        //                 else
+        //                     SetVisible_6 := false;
+        //             7:
+        //                 if ProductionOutLineRec."7" <> '' then
+        //                     SetVisible_7 := true
+        //                 else
+        //                     SetVisible_7 := false;
+        //             8:
+        //                 if ProductionOutLineRec."8" <> '' then
+        //                     SetVisible_8 := true
+        //                 else
+        //                     SetVisible_8 := false;
+        //             9:
+        //                 if ProductionOutLineRec."9" <> '' then
+        //                     SetVisible_9 := true
+        //                 else
+        //                     SetVisible_9 := false;
+        //             10:
+        //                 if ProductionOutLineRec."10" <> '' then
+        //                     SetVisible_10 := true
+        //                 else
+        //                     SetVisible_10 := false;
+        //             11:
+        //                 if ProductionOutLineRec."11" <> '' then
+        //                     SetVisible_11 := true
+        //                 else
+        //                     SetVisible_11 := false;
+        //             12:
+        //                 if ProductionOutLineRec."12" <> '' then
+        //                     SetVisible_12 := true
+        //                 else
+        //                     SetVisible_12 := false;
+        //             13:
+        //                 if ProductionOutLineRec."13" <> '' then
+        //                     SetVisible_13 := true
+        //                 else
+        //                     SetVisible_13 := false;
+        //             14:
+        //                 if ProductionOutLineRec."14" <> '' then
+        //                     SetVisible_14 := true
+        //                 else
+        //                     SetVisible_14 := false;
+        //             15:
+        //                 if ProductionOutLineRec."15" <> '' then
+        //                     SetVisible_15 := true
+        //                 else
+        //                     SetVisible_15 := false;
+        //             16:
+        //                 if ProductionOutLineRec."16" <> '' then
+        //                     SetVisible_16 := true
+        //                 else
+        //                     SetVisible_16 := false;
+        //             17:
+        //                 if ProductionOutLineRec."17" <> '' then
+        //                     SetVisible_17 := true
+        //                 else
+        //                     SetVisible_17 := false;
+        //             18:
+        //                 if ProductionOutLineRec."18" <> '' then
+        //                     SetVisible_18 := true
+        //                 else
+        //                     SetVisible_18 := false;
+        //             19:
+        //                 if ProductionOutLineRec."19" <> '' then
+        //                     SetVisible_19 := true
+        //                 else
+        //                     SetVisible_19 := false;
+        //             20:
+        //                 if ProductionOutLineRec."20" <> '' then
+        //                     SetVisible_20 := true
+        //                 else
+        //                     SetVisible_20 := false;
+        //             21:
+        //                 if ProductionOutLineRec."21" <> '' then
+        //                     SetVisible_21 := true
+        //                 else
+        //                     SetVisible_21 := false;
+        //             22:
+        //                 if ProductionOutLineRec."22" <> '' then
+        //                     SetVisible_22 := true
+        //                 else
+        //                     SetVisible_22 := false;
+        //             23:
+        //                 if ProductionOutLineRec."23" <> '' then
+        //                     SetVisible_23 := true
+        //                 else
+        //                     SetVisible_23 := false;
+        //             24:
+        //                 if ProductionOutLineRec."24" <> '' then
+        //                     SetVisible_24 := true
+        //                 else
+        //                     SetVisible_24 := false;
+        //             25:
+        //                 if ProductionOutLineRec."25" <> '' then
+        //                     SetVisible_25 := true
+        //                 else
+        //                     SetVisible_25 := false;
+        //             26:
+        //                 if ProductionOutLineRec."26" <> '' then
+        //                     SetVisible_26 := true
+        //                 else
+        //                     SetVisible_26 := false;
+        //             27:
+        //                 if ProductionOutLineRec."27" <> '' then
+        //                     SetVisible_27 := true
+        //                 else
+        //                     SetVisible_27 := false;
+        //             28:
+        //                 if ProductionOutLineRec."28" <> '' then
+        //                     SetVisible_28 := true
+        //                 else
+        //                     SetVisible_28 := false;
+        //             29:
+        //                 if ProductionOutLineRec."29" <> '' then
+        //                     SetVisible_29 := true
+        //                 else
+        //                     SetVisible_29 := false;
+        //             30:
+        //                 if ProductionOutLineRec."30" <> '' then
+        //                     SetVisible_30 := true
+        //                 else
+        //                     SetVisible_30 := false;
+        //             31:
+        //                 if ProductionOutLineRec."31" <> '' then
+        //                     SetVisible_31 := true
+        //                 else
+        //                     SetVisible_31 := false;
+        //             32:
+        //                 if ProductionOutLineRec."32" <> '' then
+        //                     SetVisible_32 := true
+        //                 else
+        //                     SetVisible_32 := false;
+        //             33:
+        //                 if ProductionOutLineRec."33" <> '' then
+        //                     SetVisible_33 := true
+        //                 else
+        //                     SetVisible_33 := false;
+        //             34:
+        //                 if ProductionOutLineRec."34" <> '' then
+        //                     SetVisible_34 := true
+        //                 else
+        //                     SetVisible_34 := false;
+        //             35:
+        //                 if ProductionOutLineRec."35" <> '' then
+        //                     SetVisible_35 := true
+        //                 else
+        //                     SetVisible_35 := false;
+        //             36:
+        //                 if ProductionOutLineRec."36" <> '' then
+        //                     SetVisible_36 := true
+        //                 else
+        //                     SetVisible_36 := false;
+        //             37:
+        //                 if ProductionOutLineRec."37" <> '' then
+        //                     SetVisible_37 := true
+        //                 else
+        //                     SetVisible_37 := false;
+        //             38:
+        //                 if ProductionOutLineRec."38" <> '' then
+        //                     SetVisible_38 := true
+        //                 else
+        //                     SetVisible_38 := false;
+        //             39:
+        //                 if ProductionOutLineRec."39" <> '' then
+        //                     SetVisible_39 := true
+        //                 else
+        //                     SetVisible_39 := false;
+        //             40:
+        //                 if ProductionOutLineRec."40" <> '' then
+        //                     SetVisible_40 := true
+        //                 else
+        //                     SetVisible_40 := false;
+        //             41:
+        //                 if ProductionOutLineRec."41" <> '' then
+        //                     SetVisible_41 := true
+        //                 else
+        //                     SetVisible_41 := false;
+        //             42:
+        //                 if ProductionOutLineRec."42" <> '' then
+        //                     SetVisible_42 := true
+        //                 else
+        //                     SetVisible_42 := false;
+        //             43:
+        //                 if ProductionOutLineRec."43" <> '' then
+        //                     SetVisible_43 := true
+        //                 else
+        //                     SetVisible_43 := false;
+        //             44:
+        //                 if ProductionOutLineRec."44" <> '' then
+        //                     SetVisible_44 := true
+        //                 else
+        //                     SetVisible_44 := false;
+        //             45:
+        //                 if ProductionOutLineRec."45" <> '' then
+        //                     SetVisible_45 := true
+        //                 else
+        //                     SetVisible_45 := false;
+        //             46:
+        //                 if ProductionOutLineRec."46" <> '' then
+        //                     SetVisible_46 := true
+        //                 else
+        //                     SetVisible_46 := false;
+        //             47:
+        //                 if ProductionOutLineRec."47" <> '' then
+        //                     SetVisible_47 := true
+        //                 else
+        //                     SetVisible_47 := false;
+        //             48:
+        //                 if ProductionOutLineRec."48" <> '' then
+        //                     SetVisible_48 := true
+        //                 else
+        //                     SetVisible_48 := false;
+        //             49:
+        //                 if ProductionOutLineRec."49" <> '' then
+        //                     SetVisible_49 := true
+        //                 else
+        //                     SetVisible_49 := false;
+        //             50:
+        //                 if ProductionOutLineRec."50" <> '' then
+        //                     SetVisible_50 := true
+        //                 else
+        //                     SetVisible_50 := false;
+        //             51:
+        //                 if ProductionOutLineRec."51" <> '' then
+        //                     SetVisible_51 := true
+        //                 else
+        //                     SetVisible_51 := false;
+        //             52:
+        //                 if ProductionOutLineRec."52" <> '' then
+        //                     SetVisible_52 := true
+        //                 else
+        //                     SetVisible_52 := false;
+        //             53:
+        //                 if ProductionOutLineRec."53" <> '' then
+        //                     SetVisible_53 := true
+        //                 else
+        //                     SetVisible_53 := false;
+        //             54:
+        //                 if ProductionOutLineRec."54" <> '' then
+        //                     SetVisible_54 := true
+        //                 else
+        //                     SetVisible_54 := false;
+        //             55:
+        //                 if ProductionOutLineRec."55" <> '' then
+        //                     SetVisible_55 := true
+        //                 else
+        //                     SetVisible_55 := false;
+        //             56:
+        //                 if ProductionOutLineRec."56" <> '' then
+        //                     SetVisible_56 := true
+        //                 else
+        //                     SetVisible_56 := false;
+        //             57:
+        //                 if ProductionOutLineRec."57" <> '' then
+        //                     SetVisible_57 := true
+        //                 else
+        //                     SetVisible_57 := false;
+        //             58:
+        //                 if ProductionOutLineRec."58" <> '' then
+        //                     SetVisible_58 := true
+        //                 else
+        //                     SetVisible_58 := false;
+        //             59:
+        //                 if ProductionOutLineRec."59" <> '' then
+        //                     SetVisible_59 := true
+        //                 else
+        //                     SetVisible_59 := false;
+        //             60:
+        //                 if ProductionOutLineRec."60" <> '' then
+        //                     SetVisible_60 := true
+        //                 else
+        //                     SetVisible_60 := false;
+        //             61:
+        //                 if ProductionOutLineRec."61" <> '' then
+        //                     SetVisible_61 := true
+        //                 else
+        //                     SetVisible_61 := false;
+        //             62:
+        //                 if ProductionOutLineRec."62" <> '' then
+        //                     SetVisible_62 := true
+        //                 else
+        //                     SetVisible_62 := false;
+        //             63:
+        //                 if ProductionOutLineRec."63" <> '' then
+        //                     SetVisible_63 := true
+        //                 else
+        //                     SetVisible_63 := false;
+        //             64:
+        //                 if ProductionOutLineRec."64" <> '' then
+        //                     SetVisible_64 := true
+        //                 else
+        //                     SetVisible_64 := false;
+        //         end;
+        //     end;
 
-        end;
+        // end;
     end;
 
     var
         StyleExprTxt1: Text[50];
         ChangeColor1: Codeunit NavAppCodeUnit;
         SetEdit1: Boolean;
-        SetVisible_1: Boolean;
-        SetVisible_2: Boolean;
-        SetVisible_3: Boolean;
-        SetVisible_4: Boolean;
-        SetVisible_5: Boolean;
-        SetVisible_6: Boolean;
-        SetVisible_7: Boolean;
-        SetVisible_8: Boolean;
-        SetVisible_9: Boolean;
-        SetVisible_10: Boolean;
-        SetVisible_11: Boolean;
-        SetVisible_12: Boolean;
-        SetVisible_13: Boolean;
-        SetVisible_14: Boolean;
-        SetVisible_15: Boolean;
-        SetVisible_16: Boolean;
-        SetVisible_17: Boolean;
-        SetVisible_18: Boolean;
-        SetVisible_19: Boolean;
-        SetVisible_20: Boolean;
-        SetVisible_21: Boolean;
-        SetVisible_22: Boolean;
-        SetVisible_23: Boolean;
-        SetVisible_24: Boolean;
-        SetVisible_25: Boolean;
-        SetVisible_26: Boolean;
-        SetVisible_27: Boolean;
-        SetVisible_28: Boolean;
-        SetVisible_29: Boolean;
-        SetVisible_30: Boolean;
-        SetVisible_31: Boolean;
-        SetVisible_32: Boolean;
-        SetVisible_33: Boolean;
-        SetVisible_34: Boolean;
-        SetVisible_35: Boolean;
-        SetVisible_36: Boolean;
-        SetVisible_37: Boolean;
-        SetVisible_38: Boolean;
-        SetVisible_39: Boolean;
-        SetVisible_40: Boolean;
-        SetVisible_41: Boolean;
-        SetVisible_42: Boolean;
-        SetVisible_43: Boolean;
-        SetVisible_44: Boolean;
-        SetVisible_45: Boolean;
-        SetVisible_46: Boolean;
-        SetVisible_47: Boolean;
-        SetVisible_48: Boolean;
-        SetVisible_49: Boolean;
-        SetVisible_50: Boolean;
-        SetVisible_51: Boolean;
-        SetVisible_52: Boolean;
-        SetVisible_53: Boolean;
-        SetVisible_54: Boolean;
-        SetVisible_55: Boolean;
-        SetVisible_56: Boolean;
-        SetVisible_57: Boolean;
-        SetVisible_58: Boolean;
-        SetVisible_59: Boolean;
-        SetVisible_60: Boolean;
-        SetVisible_61: Boolean;
-        SetVisible_62: Boolean;
-        SetVisible_63: Boolean;
-        SetVisible_64: Boolean;
+    // SetVisible_1: Boolean;
+    // SetVisible_2: Boolean;
+    // SetVisible_3: Boolean;
+    // SetVisible_4: Boolean;
+    // SetVisible_5: Boolean;
+    // SetVisible_6: Boolean;
+    // SetVisible_7: Boolean;
+    // SetVisible_8: Boolean;
+    // SetVisible_9: Boolean;
+    // SetVisible_10: Boolean;
+    // SetVisible_11: Boolean;
+    // SetVisible_12: Boolean;
+    // SetVisible_13: Boolean;
+    // SetVisible_14: Boolean;
+    // SetVisible_15: Boolean;
+    // SetVisible_16: Boolean;
+    // SetVisible_17: Boolean;
+    // SetVisible_18: Boolean;
+    // SetVisible_19: Boolean;
+    // SetVisible_20: Boolean;
+    // SetVisible_21: Boolean;
+    // SetVisible_22: Boolean;
+    // SetVisible_23: Boolean;
+    // SetVisible_24: Boolean;
+    // SetVisible_25: Boolean;
+    // SetVisible_26: Boolean;
+    // SetVisible_27: Boolean;
+    // SetVisible_28: Boolean;
+    // SetVisible_29: Boolean;
+    // SetVisible_30: Boolean;
+    // SetVisible_31: Boolean;
+    // SetVisible_32: Boolean;
+    // SetVisible_33: Boolean;
+    // SetVisible_34: Boolean;
+    // SetVisible_35: Boolean;
+    // SetVisible_36: Boolean;
+    // SetVisible_37: Boolean;
+    // SetVisible_38: Boolean;
+    // SetVisible_39: Boolean;
+    // SetVisible_40: Boolean;
+    // SetVisible_41: Boolean;
+    // SetVisible_42: Boolean;
+    // SetVisible_43: Boolean;
+    // SetVisible_44: Boolean;
+    // SetVisible_45: Boolean;
+    // SetVisible_46: Boolean;
+    // SetVisible_47: Boolean;
+    // SetVisible_48: Boolean;
+    // SetVisible_49: Boolean;
+    // SetVisible_50: Boolean;
+    // SetVisible_51: Boolean;
+    // SetVisible_52: Boolean;
+    // SetVisible_53: Boolean;
+    // SetVisible_54: Boolean;
+    // SetVisible_55: Boolean;
+    // SetVisible_56: Boolean;
+    // SetVisible_57: Boolean;
+    // SetVisible_58: Boolean;
+    // SetVisible_59: Boolean;
+    // SetVisible_60: Boolean;
+    // SetVisible_61: Boolean;
+    // SetVisible_62: Boolean;
+    // SetVisible_63: Boolean;
+    // SetVisible_64: Boolean;
 
 }
