@@ -50,16 +50,35 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
+        field(50011; "No of Cartons"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(50006; "Secondary UserID"; Code[20])
-        // {
-        //     DataClassification = ToBeClassified;
-        // }
+        field(50012; "CBM"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // field(50007; "Merchandizer Group Name"; Text[200])
-        // {
+        field(50013; "Exp No"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
 
-        // }
+        field(50014; "Exp Date"; date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50015; "UD No"; code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        modify("Your Reference")
+        {
+            Caption = 'Factory Inv. No';
+        }
     }
 
 

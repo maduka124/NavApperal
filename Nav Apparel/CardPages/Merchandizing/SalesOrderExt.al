@@ -128,6 +128,32 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
             end;
         }
 
+        addafter(Lot)
+        {
+            field("No of Cartons"; rec."No of Cartons")
+            {
+                ApplicationArea = All;
+            }
 
+            field(CBM; rec.CBM)
+            {
+                ApplicationArea = All;
+            }
+
+            field("Exp No"; rec."Exp No")
+            {
+                ApplicationArea = All;
+            }
+
+            field("Exp Date"; rec."Exp Date")
+            {
+                ApplicationArea = All;
+            }
+
+            field("UD No"; rec."UD No")
+            {
+                ApplicationArea = All;
+            }
+        }
     }
 }
