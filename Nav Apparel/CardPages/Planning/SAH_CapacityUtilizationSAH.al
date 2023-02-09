@@ -115,7 +115,9 @@ page 50855 CapacityUtilizationSAH
                     CapacityAlloRec: Record SAH_CapacityAllocation;
                     PlanEfficiencyRec: Record SAH_PlanEfficiency;
                     FactoryCapacityRec: Record SAH_FactoryCapacity;
+                    FactoryCapacity2Rec: Record SAH_FactoryCapacity;
                     SAH_MerchGRPWiseAllocRec: Record SAH_MerchGRPWiseAllocation;
+                    SAH_MerchGRPWiseAlloc2Rec: Record SAH_MerchGRPWiseAllocation;
                     MerchanGroupTableRec: Record MerchandizingGroupTable;
                     LocationsRec: Record Location;
                     WorkCenterRec: Record "Work Center";
@@ -138,6 +140,18 @@ page 50855 CapacityUtilizationSAH
                     Total10: Decimal;
                     Total11: Decimal;
                     Total12: Decimal;
+                    Total1_M: Decimal;
+                    Total2_M: Decimal;
+                    Total3_M: Decimal;
+                    Total4_M: Decimal;
+                    Total5_M: Decimal;
+                    Total6_M: Decimal;
+                    Total7_M: Decimal;
+                    Total8_M: Decimal;
+                    Total9_M: Decimal;
+                    Total10_M: Decimal;
+                    Total11_M: Decimal;
+                    Total12_M: Decimal;
                     Total1_A: Decimal;
                     Total2_A: Decimal;
                     Total3_A: Decimal;
@@ -254,7 +268,27 @@ page 50855 CapacityUtilizationSAH
                         end;
 
 
-                        ////////////////////////////////////Factory Capacity                      
+                        ////////////////////////////////////Factory Capacity
+                        //Done By Sachith on 7/2/23
+                        //delete Records
+                        FactoryCapacityRec.Reset();
+                        FactoryCapacityRec.SetRange(Year, Rec.Year);
+                        if FactoryCapacityRec.FindSet() then
+                            FactoryCapacityRec.DeleteAll();
+
+                        FactoryCapacityRec.Reset();
+
+                        //Done By Sachith on 7/2/23
+                        //insert Grand Total 
+                        FactoryCapacityRec.Init();
+                        FactoryCapacityRec.Year := rec.Year;
+                        FactoryCapacityRec."Factory Code" := '';
+                        FactoryCapacityRec."Factory Name" := 'Total';
+                        FactoryCapacityRec.Type := 'T';
+                        FactoryCapacityRec."Created User" := UserId;
+                        FactoryCapacityRec."Created Date" := WorkDate();
+                        FactoryCapacityRec.Insert();
+
                         //Get all the factories
                         LocationsRec.Reset();
                         LocationsRec.SetFilter("Sewing Unit", '=%1', true);
@@ -406,6 +440,7 @@ page 50855 CapacityUtilizationSAH
                                     until WorkCenterRec.Next() = 0;
                                 end;
 
+                                SeqNo := 0;
 
                                 //Check for existing records
                                 FactoryCapacityRec.Reset();
@@ -413,8 +448,10 @@ page 50855 CapacityUtilizationSAH
                                 FactoryCapacityRec.SetRange("Factory Code", LocationsRec.Code);
                                 if not FactoryCapacityRec.FindSet() then begin  //insert
 
+                                    SeqNo += 1;
                                     //Insert lines
                                     FactoryCapacityRec.Init();
+                                    FactoryCapacityRec."No." := SeqNo;
                                     FactoryCapacityRec.Year := rec.Year;
                                     FactoryCapacityRec."Factory Code" := LocationsRec.Code;
                                     FactoryCapacityRec."Factory Name" := LocationsRec.Name;
@@ -451,21 +488,58 @@ page 50855 CapacityUtilizationSAH
                                     FactoryCapacityRec.Modify();
                                 end;
 
+                                //Done By Sachith on 7/2/23
+                                //Modify GrandTotal Field
+                                FactoryCapacity2Rec.Reset();
+                                FactoryCapacity2Rec.SetRange(Year, Rec.Year);
+                                FactoryCapacity2Rec.SetFilter("Factory Name", '%1', 'Total');
+
+                                if FactoryCapacity2Rec.FindSet() then begin
+                                    SeqNo += 1;
+                                    FactoryCapacity2Rec."No." := SeqNo;
+                                    FactoryCapacity2Rec.JAN := FactoryCapacity2Rec.JAN + Total1;
+                                    FactoryCapacity2Rec.FEB := FactoryCapacity2Rec.FEB + Total2;
+                                    FactoryCapacity2Rec.MAR := FactoryCapacity2Rec.MAR + Total3;
+                                    FactoryCapacity2Rec.APR := FactoryCapacity2Rec.APR + Total4;
+                                    FactoryCapacity2Rec.MAY := FactoryCapacity2Rec.MAY + Total5;
+                                    FactoryCapacity2Rec.JUN := FactoryCapacity2Rec.JUN + Total6;
+                                    FactoryCapacity2Rec.JUL := FactoryCapacity2Rec.JUL + Total7;
+                                    FactoryCapacity2Rec.AUG := FactoryCapacity2Rec.AUG + Total8;
+                                    FactoryCapacity2Rec.SEP := FactoryCapacity2Rec.SEP + Total9;
+                                    FactoryCapacity2Rec.OCT := FactoryCapacity2Rec.OCT + Total10;
+                                    FactoryCapacity2Rec.NOV := FactoryCapacity2Rec.NOV + Total11;
+                                    FactoryCapacity2Rec.DEC := FactoryCapacity2Rec.DEC + Total12;
+                                    FactoryCapacity2Rec.Modify();
+                                end;
                             until LocationsRec.Next() = 0;
                         end;
 
 
                         //////////////////////////////////Merchand group wise allocaton
                         //Insert all group heads
+
+                        //Done By Sachith on 7/2/23
+                        //Delete Old Record
+                        SAH_MerchGRPWiseAllocRec.Reset();
+                        SAH_MerchGRPWiseAllocRec.SetRange("Created User", UserId);
+                        if SAH_MerchGRPWiseAllocRec.FindSet() then
+                            SAH_MerchGRPWiseAllocRec.DeleteAll();
+
+                        SeqNo := 0;
+
                         MerchanGroupTableRec.Reset();
                         if MerchanGroupTableRec.FindSet() then begin
+
                             repeat
                                 SAH_MerchGRPWiseAllocRec.Reset();
                                 SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
                                 SAH_MerchGRPWiseAllocRec.SetRange("Group Id", MerchanGroupTableRec."Group Id");
                                 if not SAH_MerchGRPWiseAllocRec.findset() then begin
 
+                                    SeqNo += 1;
+
                                     SAH_MerchGRPWiseAllocRec.Init();
+                                    SAH_MerchGRPWiseAllocRec."No." := SeqNo;
                                     SAH_MerchGRPWiseAllocRec."Group Id" := MerchanGroupTableRec."Group Id";
                                     SAH_MerchGRPWiseAllocRec."Group Head" := MerchanGroupTableRec."Group Head";
                                     SAH_MerchGRPWiseAllocRec."Group Name" := MerchanGroupTableRec."Group Name";
@@ -489,8 +563,38 @@ page 50855 CapacityUtilizationSAH
                                     SAH_MerchGRPWiseAllocRec.DEC := 0;
                                     SAH_MerchGRPWiseAllocRec.Modify();
                                 end;
-
                             until MerchanGroupTableRec.Next() = 0;
+                            //Done By Sachith on 7/2/23
+                            //insert Grand Total line
+                            SAH_MerchGRPWiseAllocRec.Reset();
+                            SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
+                            SAH_MerchGRPWiseAllocRec.SetFilter(Type, '=%1', 'T');
+                            if not SAH_MerchGRPWiseAllocRec.FindSet() then begin
+                                SeqNo += 1;
+                                SAH_MerchGRPWiseAllocRec.Init();
+                                SAH_MerchGRPWiseAllocRec."No." := SeqNo;
+                                SAH_MerchGRPWiseAllocRec."Group Id" := '';
+                                SAH_MerchGRPWiseAllocRec."Group Head" := '';
+                                SAH_MerchGRPWiseAllocRec.Type := 'T';
+                                SAH_MerchGRPWiseAllocRec."Group Name" := 'Total';
+                                SAH_MerchGRPWiseAllocRec.Year := rec.Year;
+                                SAH_MerchGRPWiseAllocRec."Created User" := UserId;
+                                SAH_MerchGRPWiseAllocRec."Created Date" := WorkDate();
+                                SAH_MerchGRPWiseAllocRec.JAN := 0;
+                                SAH_MerchGRPWiseAllocRec.FEB := 0;
+                                SAH_MerchGRPWiseAllocRec.MAR := 0;
+                                SAH_MerchGRPWiseAllocRec.APR := 0;
+                                SAH_MerchGRPWiseAllocRec.MAY := 0;
+                                SAH_MerchGRPWiseAllocRec.JUN := 0;
+                                SAH_MerchGRPWiseAllocRec.JUL := 0;
+                                SAH_MerchGRPWiseAllocRec.AUG := 0;
+                                SAH_MerchGRPWiseAllocRec.SEP := 0;
+                                SAH_MerchGRPWiseAllocRec.OCT := 0;
+                                SAH_MerchGRPWiseAllocRec.NOV := 0;
+                                SAH_MerchGRPWiseAllocRec.DEC := 0;
+                                SAH_MerchGRPWiseAllocRec.Insert();
+                            end;
+
                         end;
 
                         //Get all the factories
@@ -499,36 +603,36 @@ page 50855 CapacityUtilizationSAH
                         if LocationsRec.FindSet() then begin
                             repeat
                                 HoursPerDay := (LocationsRec."Finish Time" - LocationsRec."Start Time") / 3600000;
-                                Total1 := 0;
-                                Total2 := 0;
-                                Total3 := 0;
-                                Total4 := 0;
-                                Total5 := 0;
-                                Total6 := 0;
-                                Total7 := 0;
-                                Total8 := 0;
-                                Total9 := 0;
-                                Total10 := 0;
-                                Total11 := 0;
-                                Total12 := 0;
+                                Total1_M := 0;
+                                Total2_M := 0;
+                                Total3_M := 0;
+                                Total4_M := 0;
+                                Total5_M := 0;
+                                Total6_M := 0;
+                                Total7_M := 0;
+                                Total8_M := 0;
+                                Total9_M := 0;
+                                Total10_M := 0;
+                                Total11_M := 0;
+                                Total12_M := 0;
 
                                 //Get all the lines for the above factory
                                 WorkCenterRec.Reset();
                                 WorkCenterRec.SetRange("Factory No.", LocationsRec.Code);
                                 if WorkCenterRec.FindSet() then begin
                                     repeat
-                                        Total1 := 0;
-                                        Total2 := 0;
-                                        Total3 := 0;
-                                        Total4 := 0;
-                                        Total5 := 0;
-                                        Total6 := 0;
-                                        Total7 := 0;
-                                        Total8 := 0;
-                                        Total9 := 0;
-                                        Total10 := 0;
-                                        Total11 := 0;
-                                        Total12 := 0;
+                                        Total1_M := 0;
+                                        Total2_M := 0;
+                                        Total3_M := 0;
+                                        Total4_M := 0;
+                                        Total5_M := 0;
+                                        Total6_M := 0;
+                                        Total7_M := 0;
+                                        Total8_M := 0;
+                                        Total9_M := 0;
+                                        Total10_M := 0;
+                                        Total11_M := 0;
+                                        Total12_M := 0;
                                         Carders := WorkCenterRec.Carder;
 
                                         //No of days for a month
@@ -592,57 +696,57 @@ page 50855 CapacityUtilizationSAH
                                                 1:
                                                     begin
                                                         NoofDays1 := NoofDays;
-                                                        Total1 += (Carders * HoursPerDay * NoofDays1 * PlanEfficiencyRec.JAN) / 100;
+                                                        Total1_M += (Carders * HoursPerDay * NoofDays1 * PlanEfficiencyRec.JAN) / 100;
                                                     end;
                                                 2:
                                                     begin
                                                         NoofDays2 := NoofDays;
-                                                        Total2 += (Carders * HoursPerDay * NoofDays2 * PlanEfficiencyRec.FEB) / 100;
+                                                        Total2_M += (Carders * HoursPerDay * NoofDays2 * PlanEfficiencyRec.FEB) / 100;
                                                     end;
                                                 3:
                                                     begin
                                                         NoofDays3 := NoofDays;
-                                                        Total3 += (Carders * HoursPerDay * NoofDays3 * PlanEfficiencyRec.MAR) / 100;
+                                                        Total3_M += (Carders * HoursPerDay * NoofDays3 * PlanEfficiencyRec.MAR) / 100;
                                                     end;
                                                 4:
                                                     begin
                                                         NoofDays4 := NoofDays;
-                                                        Total4 += (Carders * HoursPerDay * NoofDays4 * PlanEfficiencyRec.APR) / 100;
+                                                        Total4_M += (Carders * HoursPerDay * NoofDays4 * PlanEfficiencyRec.APR) / 100;
                                                     end;
                                                 5:
                                                     begin
                                                         NoofDays5 := NoofDays;
-                                                        Total5 += (Carders * HoursPerDay * NoofDays5 * PlanEfficiencyRec.MAY) / 100;
+                                                        Total5_M += (Carders * HoursPerDay * NoofDays5 * PlanEfficiencyRec.MAY) / 100;
                                                     end;
                                                 6:
                                                     begin
                                                         NoofDays6 := NoofDays;
-                                                        Total6 += (Carders * HoursPerDay * NoofDays6 * PlanEfficiencyRec.JUN) / 100;
+                                                        Total6_M += (Carders * HoursPerDay * NoofDays6 * PlanEfficiencyRec.JUN) / 100;
                                                     end;
                                                 7:
                                                     begin
                                                         NoofDays7 := NoofDays;
-                                                        Total7 += (Carders * HoursPerDay * NoofDays7 * PlanEfficiencyRec.JUL) / 100;
+                                                        Total7_M += (Carders * HoursPerDay * NoofDays7 * PlanEfficiencyRec.JUL) / 100;
                                                     end;
                                                 8:
                                                     begin
                                                         NoofDays8 := NoofDays;
-                                                        Total8 += (Carders * HoursPerDay * NoofDays8 * PlanEfficiencyRec.AUG) / 100;
+                                                        Total8_M += (Carders * HoursPerDay * NoofDays8 * PlanEfficiencyRec.AUG) / 100;
                                                     end;
                                                 9:
                                                     begin
                                                         NoofDays9 := NoofDays;
-                                                        Total9 += (Carders * HoursPerDay * NoofDays9 * PlanEfficiencyRec.SEP) / 100;
+                                                        Total9_M += (Carders * HoursPerDay * NoofDays9 * PlanEfficiencyRec.SEP) / 100;
                                                     end;
                                                 10:
                                                     begin
                                                         NoofDays10 := NoofDays;
-                                                        Total10 += (Carders * HoursPerDay * NoofDays10 * PlanEfficiencyRec.OCT) / 100;
+                                                        Total10_M += (Carders * HoursPerDay * NoofDays10 * PlanEfficiencyRec.OCT) / 100;
                                                     end;
                                                 11:
                                                     begin
                                                         NoofDays11 := NoofDays;
-                                                        Total11 += (Carders * HoursPerDay * NoofDays11 * PlanEfficiencyRec.NOV) / 100;
+                                                        Total11_M += (Carders * HoursPerDay * NoofDays11 * PlanEfficiencyRec.NOV) / 100;
                                                     end;
                                                 12:
                                                     begin
@@ -696,39 +800,72 @@ page 50855 CapacityUtilizationSAH
 
                                                 case i of
                                                     1:
-                                                        SAH_MerchGRPWiseAllocRec.JAN := SAH_MerchGRPWiseAllocRec.JAN + Total1;
+                                                        SAH_MerchGRPWiseAllocRec.JAN := SAH_MerchGRPWiseAllocRec.JAN + Total1_M;
                                                     2:
-                                                        SAH_MerchGRPWiseAllocRec.FEB := SAH_MerchGRPWiseAllocRec.FEB + Total2;
+                                                        SAH_MerchGRPWiseAllocRec.FEB := SAH_MerchGRPWiseAllocRec.FEB + Total2_M;
                                                     3:
-                                                        SAH_MerchGRPWiseAllocRec.MAR := SAH_MerchGRPWiseAllocRec.MAR + Total3;
+                                                        SAH_MerchGRPWiseAllocRec.MAR := SAH_MerchGRPWiseAllocRec.MAR + Total3_M;
                                                     4:
-                                                        SAH_MerchGRPWiseAllocRec.APR := SAH_MerchGRPWiseAllocRec.APR + Total4;
+                                                        SAH_MerchGRPWiseAllocRec.APR := SAH_MerchGRPWiseAllocRec.APR + Total4_M;
                                                     5:
-                                                        SAH_MerchGRPWiseAllocRec.MAY := SAH_MerchGRPWiseAllocRec.MAY + Total5;
+                                                        SAH_MerchGRPWiseAllocRec.MAY := SAH_MerchGRPWiseAllocRec.MAY + Total5_M;
                                                     6:
-                                                        SAH_MerchGRPWiseAllocRec.JUN := SAH_MerchGRPWiseAllocRec.JUN + Total6;
+                                                        SAH_MerchGRPWiseAllocRec.JUN := SAH_MerchGRPWiseAllocRec.JUN + Total6_M;
                                                     7:
-                                                        SAH_MerchGRPWiseAllocRec.JUL := SAH_MerchGRPWiseAllocRec.JUL + Total7;
+                                                        SAH_MerchGRPWiseAllocRec.JUL := SAH_MerchGRPWiseAllocRec.JUL + Total7_M;
                                                     8:
-                                                        SAH_MerchGRPWiseAllocRec.AUG := SAH_MerchGRPWiseAllocRec.AUG + Total8;
+                                                        SAH_MerchGRPWiseAllocRec.AUG := SAH_MerchGRPWiseAllocRec.AUG + Total8_M;
                                                     9:
-                                                        SAH_MerchGRPWiseAllocRec.SEP := SAH_MerchGRPWiseAllocRec.SEP + Total9;
+                                                        SAH_MerchGRPWiseAllocRec.SEP := SAH_MerchGRPWiseAllocRec.SEP + Total9_M;
                                                     10:
-                                                        SAH_MerchGRPWiseAllocRec.OCT := SAH_MerchGRPWiseAllocRec.OCT + Total10;
+                                                        SAH_MerchGRPWiseAllocRec.OCT := SAH_MerchGRPWiseAllocRec.OCT + Total10_M;
                                                     11:
-                                                        SAH_MerchGRPWiseAllocRec.NOV := SAH_MerchGRPWiseAllocRec.NOV + Total11;
+                                                        SAH_MerchGRPWiseAllocRec.NOV := SAH_MerchGRPWiseAllocRec.NOV + Total11_M;
                                                     12:
-                                                        SAH_MerchGRPWiseAllocRec.DEC := SAH_MerchGRPWiseAllocRec.DEC + Total12;
+                                                        SAH_MerchGRPWiseAllocRec.DEC := SAH_MerchGRPWiseAllocRec.DEC + Total12_M;
                                                 end;
-
                                                 SAH_MerchGRPWiseAllocRec.Modify();
+
+                                                //Done By Sachith on 7/2/23
+                                                //Modify Grand Total
+                                                SAH_MerchGRPWiseAlloc2Rec.Reset();
+                                                SAH_MerchGRPWiseAlloc2Rec.SetRange(Year, Rec.Year);
+                                                SAH_MerchGRPWiseAlloc2Rec.SetRange(Type, '=%1', 'T');
+
+                                                if SAH_MerchGRPWiseAlloc2Rec.FindSet() then begin
+
+                                                    case i of
+                                                        1:
+                                                            SAH_MerchGRPWiseAlloc2Rec.JAN := SAH_MerchGRPWiseAlloc2Rec.JAN + Total1_M;
+                                                        2:
+                                                            SAH_MerchGRPWiseAlloc2Rec.FEB := SAH_MerchGRPWiseAlloc2Rec.FEB + Total2_M;
+                                                        3:
+                                                            SAH_MerchGRPWiseAlloc2Rec.MAR := SAH_MerchGRPWiseAlloc2Rec.MAR + Total3_M;
+                                                        4:
+                                                            SAH_MerchGRPWiseAlloc2Rec.APR := SAH_MerchGRPWiseAlloc2Rec.APR + Total4_M;
+                                                        5:
+                                                            SAH_MerchGRPWiseAlloc2Rec.MAY := SAH_MerchGRPWiseAlloc2Rec.MAY + Total5_M;
+                                                        6:
+                                                            SAH_MerchGRPWiseAlloc2Rec.JUN := SAH_MerchGRPWiseAlloc2Rec.JUN + Total6_M;
+                                                        7:
+                                                            SAH_MerchGRPWiseAlloc2Rec.JUL := SAH_MerchGRPWiseAlloc2Rec.JUL + Total7_M;
+                                                        8:
+                                                            SAH_MerchGRPWiseAlloc2Rec.AUG := SAH_MerchGRPWiseAlloc2Rec.AUG + Total8_M;
+                                                        9:
+                                                            SAH_MerchGRPWiseAlloc2Rec.SEP := SAH_MerchGRPWiseAlloc2Rec.SEP + Total9_M;
+                                                        10:
+                                                            SAH_MerchGRPWiseAlloc2Rec.OCT := SAH_MerchGRPWiseAlloc2Rec.OCT + Total10_M;
+                                                        11:
+                                                            SAH_MerchGRPWiseAlloc2Rec.NOV := SAH_MerchGRPWiseAlloc2Rec.NOV + Total11_M;
+                                                        12:
+                                                            SAH_MerchGRPWiseAlloc2Rec.DEC := SAH_MerchGRPWiseAlloc2Rec.DEC + Total12_M;
+                                                    end;
+                                                    SAH_MerchGRPWiseAlloc2Rec.Modify()
+                                                end;
                                             end;
-
                                         end;
-
                                     until WorkCenterRec.Next() = 0;
                                 end;
-
                             until LocationsRec.Next() = 0;
                         end;
 

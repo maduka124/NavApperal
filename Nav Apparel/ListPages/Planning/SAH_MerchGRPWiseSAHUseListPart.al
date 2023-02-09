@@ -44,51 +44,67 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
                 field("Group Name"; rec."Group Name")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Group Id"; rec."Group Id")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Allocated Lines"; rec."Allocated Lines")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Allocated SAH"; rec."Allocated SAH")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field("Used SAH"; rec."Used SAH")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field("Difference Hrs"; rec."Difference Hrs")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field("Avg SMV"; rec."Avg SMV")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field("Capacity Pcs"; rec."Capacity Pcs")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+
                 }
 
                 field("Booked Pcs"; rec."Booked Pcs")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Difference Pcs"; rec."Difference Pcs")
                 {
                     ApplicationArea = All;
+                    StyleExpr = StyleExprTxt;
+
                 }
             }
         }
@@ -125,6 +141,8 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
         AlloSAH: Decimal;
         SAHUsed: Decimal;
         AvgSMV: Decimal;
+        DefPsc: BigInteger;
+        BookPsc: BigInteger;
     begin
 
         if YearNo <= 0 then
@@ -140,10 +158,25 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
         if SAH_MerchGRPWiseSAHUsedRec.FindSet() then
             SAH_MerchGRPWiseSAHUsedRec.DeleteAll();
 
+        // SAH_MerchGRPWiseSAHUsedRec.Reset();
+        // SAH_MerchGRPWiseSAHUsedRec.FindSet();
+        // if SAH_MerchGRPWiseSAHUsedRec.FindSet() then
+        //     // SAH_MerchGRPWiseSAHUsedRec.DeleteAll();
+
         //Get max no
         SAH_MerchGRPWiseSAHUsedRec.Reset();
         if SAH_MerchGRPWiseSAHUsedRec.FindLast() then
             MaxNo := SAH_MerchGRPWiseSAHUsedRec.No;
+
+        Var1 := 0;
+        Var2 := 0;
+        Var3 := 0;
+        Var4 := 0;
+        Var5 := 0;
+        Var6 := 0;
+        Var7 := 0;
+        var8 := 0;
+
 
 
         //Insert all group heads
@@ -155,6 +188,7 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
 
                 //Get Allocated lines
                 AlloLines := 0;
+                AvgSMV := 0;
                 CapacityAlloRec.Reset();
                 CapacityAlloRec.SetRange(Year, YearNo);
                 case MonthNo of
@@ -312,13 +346,65 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
                     SAH_MerchGRPWiseSAHUsedRec."Difference Pcs" := 0;
                 end;
 
+                BookPsc := SAH_MerchGRPWiseSAHUsedRec."Booked Pcs";
+                DefPsc := SAH_MerchGRPWiseSAHUsedRec."Difference Pcs";
                 SAH_MerchGRPWiseSAHUsedRec."Avg SMV" := AvgSMV;
                 SAH_MerchGRPWiseSAHUsedRec."User ID" := UserId;
                 SAH_MerchGRPWiseSAHUsedRec."Created User" := UserId;
                 SAH_MerchGRPWiseSAHUsedRec."Created Date" := WorkDate();
                 SAH_MerchGRPWiseSAHUsedRec.Insert();
 
+
+
+                Var1 := Var1 + AlloLines;
+                Var2 := Var2 + AlloSAH;
+                Var3 := Var3 + SAHUsed;
+                Var4 := Var4 + (SAHUsed - AlloSAH);
+                Var5 := Var5 + AvgSMV;
+                Var6 := Var6 + SAH_MerchGRPWiseSAHUsedRec."Capacity Pcs";
+                Var7 := Var7 + SAH_MerchGRPWiseSAHUsedRec."Booked Pcs";
+                var8 := var8 + DefPsc;
+
+            // SAH_MerchGRPWiseSAHUsedRec.Reset();
+            // SAH_MerchGRPWiseSAHUsedRec.SetRange(Year, Rec.Year);
+            // SAH_MerchGRPWiseSAHUsedRec.SetFilter("Group Name", '%1', 'Total');
+
+            // if SAH_MerchGRPWiseSAHUsedRec.FindSet() then begin
+            //     SAH_MerchGRPWiseSAHUsedRec."Allocated Lines" := SAH_MerchGRPWiseSAHUsedRec."Allocated Lines" + AlloLines;
+            //     SAH_MerchGRPWiseSAHUsedRec."Allocated SAH" := SAH_MerchGRPWiseSAHUsedRec."Allocated SAH" + AlloSAH;
+            //     SAH_MerchGRPWiseSAHUsedRec."Used SAH" := SAH_MerchGRPWiseSAHUsedRec."Used SAH" + SAHUsed;
+            //     SAH_MerchGRPWiseSAHUsedRec."Difference Hrs" := SAH_MerchGRPWiseSAHUsedRec."Difference Hrs" + (SAHUsed - AlloSAH);
+            //     SAH_MerchGRPWiseSAHUsedRec."Avg SMV" := SAH_MerchGRPWiseSAHUsedRec."Avg SMV" + AvgSMV;
+            //     SAH_MerchGRPWiseSAHUsedRec."Capacity Pcs" := SAH_MerchGRPWiseSAHUsedRec."Capacity Pcs" + SAH_MerchGRPWiseSAHUsedRec."Capacity Pcs";
+            //     SAH_MerchGRPWiseSAHUsedRec."Booked Pcs" := SAH_MerchGRPWiseSAHUsedRec."Booked Pcs" + SAH_MerchGRPWiseSAHUsedRec."Booked Pcs";
+            //     SAH_MerchGRPWiseSAHUsedRec."Difference Pcs" := SAH_MerchGRPWiseSAHUsedRec."Difference Pcs" + DefPsc;
+            //     SAH_MerchGRPWiseSAHUsedRec.Modify();
+
+            // end;
+
+
             until MerchanGroupTableRec.Next() = 0;
+
+            //Grand total insert 
+            MaxNo += 1;
+            SAH_MerchGRPWiseSAHUsedRec.Init();
+            SAH_MerchGRPWiseSAHUsedRec.No := MaxNo;
+            SAH_MerchGRPWiseSAHUsedRec.Year := YearNo;
+            SAH_MerchGRPWiseSAHUsedRec.Type := 'T';
+            SAH_MerchGRPWiseSAHUsedRec."Group Name" := 'Total';
+            SAH_MerchGRPWiseSAHUsedRec."Month Name" := MonthName;
+            SAH_MerchGRPWiseSAHUsedRec."Allocated Lines" := Var1;
+            SAH_MerchGRPWiseSAHUsedRec."Allocated SAH" := Var2;
+            SAH_MerchGRPWiseSAHUsedRec."Used SAH" := Var3;
+            SAH_MerchGRPWiseSAHUsedRec."Difference Hrs" := Var4;
+            SAH_MerchGRPWiseSAHUsedRec."Avg SMV" := Var5;
+            SAH_MerchGRPWiseSAHUsedRec."Capacity Pcs" := Var6;
+            SAH_MerchGRPWiseSAHUsedRec."Booked Pcs" := Var7;
+            SAH_MerchGRPWiseSAHUsedRec."Difference Pcs" := var8;
+            SAH_MerchGRPWiseSAHUsedRec."User ID" := UserId;
+            SAH_MerchGRPWiseSAHUsedRec."Created User" := UserId;
+            SAH_MerchGRPWiseSAHUsedRec."Created Date" := WorkDate();
+            SAH_MerchGRPWiseSAHUsedRec.Insert();
         end;
 
         Message('Completed');
@@ -328,5 +414,25 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
         YearNo: Integer;
         MonthNo: Integer;
         MonthName: Text[20];
+        Var1: BigInteger;
+        Var2: Decimal;
+        Var3: Decimal;
+        Var4: Decimal;
+        Var5: Decimal;
+        Var6: BigInteger;
+        Var7: BigInteger;
+        var8: BigInteger;
+
+
+    trigger OnAfterGetRecord()
+    var
+    begin
+        StyleExprTxt := ChangeColor.ChangeColorBooking7(Rec);
+    end;
+
+    var
+        StyleExprTxt: Text[50];
+        ChangeColor: Codeunit NavAppCodeUnit;
+
 
 }

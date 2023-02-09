@@ -94,6 +94,18 @@ table 50869 SAH_MerchGRPWiseAllocation
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done By Sachith 7/02/23
+        field(19; "No."; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //done by sachith on 7/2/23
+        field(36; "Type"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -102,6 +114,10 @@ table 50869 SAH_MerchGRPWiseAllocation
         {
             Clustered = true;
         }
+
+        //done by sachith on 7/2/23
+        key(Key2; "No.")
+        { }
     }
 
     fieldgroups

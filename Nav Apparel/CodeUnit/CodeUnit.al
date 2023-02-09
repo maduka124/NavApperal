@@ -239,6 +239,30 @@ codeunit 50618 NavAppCodeUnit
             exit('StrongAccent');
     end;
 
+    //Done By Sachith on 06/02/23
+    procedure ChangeColorBooking5(OpList: Record SAH_MerchGRPWiseAllocation): Text[50]
+    var
+    begin
+        if OpList.Type = 'T' then
+            exit('StrongAccent');
+    end;
+
+    //Done By Sachith on 06/02/23
+    procedure ChangeColorBooking6(OpList: Record SAH_FactoryCapacity): Text[50]
+
+    begin
+        if OpList.Type = 'T' then
+            exit('StrongAccent');
+    end;
+
+    //Done By Sachith on 06/02/23
+    procedure ChangeColorBooking7(OpList: Record SAH_MerchGRPWiseSAHUsed): Text[50]
+
+    begin
+        if OpList.Type = 'T' then
+            exit('StrongAccent');
+    end;
+
 
     procedure ChangeColorUDStylePOInfo(OpList: Record UDStylePOinformation): Text[50]
     var
