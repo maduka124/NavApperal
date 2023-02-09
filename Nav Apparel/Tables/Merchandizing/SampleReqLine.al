@@ -398,6 +398,18 @@ table 50931 "Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        // Done By Sachith On 09/02/23
+        field(71012645; "Brand Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        // Done By Sachith On 09/02/23
+        field(71012646; "Brand No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

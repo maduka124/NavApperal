@@ -2,24 +2,40 @@
     "version": "0.2.0",
     "configurations": [
         { //local
-            "type": "al",
-            "request": "launch",
-            "name": "Your own server",
-            "server": "http://localhost:8080/BC200/",
-            "serverInstance": "BC200",
-            "authentication": "Windows",
-            "port": 8049,    
-            //"startupObjectId": "",
-            //"startupObjectType": "Page",
-            "breakOnError": true,
-            "launchBrowser": false,
-            "schemaUpdateMode": "ForceSync"
-            
-            // SandBox
             // "type": "al",
             // "request": "launch",
             // "name": "Your own server",
-            // "server": https:businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/development-sandbox,
+            // "server": "http://localhost:8080/BC200/",
+            // "serverInstance": "BC200",
+            // "authentication": "Windows",
+            // "port": 8049,    
+            // //"startupObjectId": "",
+            // //"startupObjectType": "Page",
+            // "breakOnError": true,
+            // "launchBrowser": false,
+            // "schemaUpdateMode": "ForceSync"
+            
+
+            //Dev SandBox
+            "type": "al",
+            "request": "launch",
+            "name": "Your own server",
+            "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/SL-Developments",
+            "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
+            "dependencyPublishingOption": "Ignore",        
+            "breakOnError": true,
+            "launchBrowser": false,
+            "environmentType": "Sandbox",
+            "environmentName": "SL-Developments",
+            "serverInstance": "SL-Developments",
+            "schemaUpdateMode": "ForceSync"
+
+
+            // Prod SandBox
+            // "type": "al",
+            // "request": "launch",
+            // "name": "Your own server",
+            // "server": "https:businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/development-sandbox",
             // "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
             // "dependencyPublishingOption": "Ignore",        
             // "breakOnError": true,

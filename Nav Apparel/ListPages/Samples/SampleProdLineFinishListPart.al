@@ -31,6 +31,14 @@ page 50800 SampleProdLineFinishListPart
                     Editable = false;
                 }
 
+                // Done By Sachith On 09/02/23
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Brand';
+                }
+
                 field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
