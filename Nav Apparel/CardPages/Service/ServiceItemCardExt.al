@@ -111,12 +111,12 @@ pageextension 50730 ServiceItemCardExt extends "Service Item Card"
 
                 trigger OnValidate()
                 var
-                    MachineRec: Record "Machine Master";
+                    MachineRec: Record "Service Item";
                 begin
                     MachineRec.Reset();
-                    MachineRec.SetRange("Machine Description", rec."Machine Category");
+                    MachineRec.SetRange(Description, rec."Machine Category");
                     if MachineRec.FindSet() then
-                        rec."Machine Category Code" := MachineRec."Machine No.";
+                        rec."Machine Category Code" := MachineRec."No.";
                 end;
             }
 

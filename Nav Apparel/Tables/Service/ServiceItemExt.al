@@ -7,7 +7,6 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
         }
 
         field(50002; "Work center Code"; Code[20])
-
         {
         }
 
@@ -70,7 +69,7 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
 
         field(50013; "Machine Category"; Text[100])
         {
-            TableRelation = "Machine Master"."Machine Description";
+            TableRelation = "Service Item".Description;
             ValidateTableRelation = false;
         }
 

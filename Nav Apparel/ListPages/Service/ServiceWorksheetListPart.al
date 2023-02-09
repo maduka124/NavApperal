@@ -70,6 +70,7 @@ page 50731 "Service Wrks Line List part"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Service Due Date';
                 }
 
                 field("Next Service Date"; rec."Next Service Date")

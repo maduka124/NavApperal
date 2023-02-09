@@ -55,7 +55,7 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
-        field(50012; "CBM"; Text[200])
+        field(50012; "CBM"; Decimal)
         {
             DataClassification = ToBeClassified;
         }

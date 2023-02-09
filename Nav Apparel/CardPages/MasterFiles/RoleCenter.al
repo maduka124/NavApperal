@@ -1684,6 +1684,13 @@ page 50968 "Nav Apperal Role Center"
             {
                 Caption = 'Service Mgt';
 
+                action("Item2")
+                {
+                    Caption = 'Item';
+                    RunObject = Page "Item List";
+                    ApplicationArea = all;
+                }
+
                 action("Service Machine Master")
                 {
                     Caption = 'Service Machine Master';
@@ -1691,12 +1698,12 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Standard Service Codes")
-                {
-                    Caption = 'Standard Service Codes';
-                    RunObject = Page "Standard Service Codes";
-                    ApplicationArea = all;
-                }
+                // action("Standard Service Codes")
+                // {
+                //     Caption = 'Standard Service Codes';
+                //     RunObject = Page "Standard Service Codes";
+                //     ApplicationArea = all;
+                // }
 
                 action("Service Schedule")
                 {
@@ -1764,6 +1771,13 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Export Bank Ref. Collection List';
                     RunObject = Page "Bank Ref Collection List";
+                    ApplicationArea = all;
+                }
+
+                action("Export Reference List")
+                {
+                    Caption = 'Export Reference List';
+                    RunObject = Page "Export Reference List";
                     ApplicationArea = all;
                 }
 

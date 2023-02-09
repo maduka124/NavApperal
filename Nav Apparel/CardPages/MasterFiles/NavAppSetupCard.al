@@ -647,6 +647,12 @@ page 50964 "NavApp Setup Card"
                 {
                     ApplicationArea = All;
                 }
+
+                field("ExpoRef Nos."; rec."ExpoRef Nos.")
+                {
+                    ApplicationArea = All;
+                    TableRelation = "No. Series".Code;
+                }
             }
         }
     }

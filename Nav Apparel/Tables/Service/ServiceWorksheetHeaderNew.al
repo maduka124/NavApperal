@@ -54,7 +54,7 @@ table 51231 ServiceWorksheetHeaderNew
         field(9; "Work Center Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Work Center"."No." where("Factory No." = field("Factory No."), "Linked To Service Item" = filter(true));
+            TableRelation = "Work Center".Name where("Factory No." = field("Factory No."), "Linked To Service Item" = filter(true));
             ValidateTableRelation = false;
         }
 

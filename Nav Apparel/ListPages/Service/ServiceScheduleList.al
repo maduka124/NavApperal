@@ -82,4 +82,18 @@ page 51227 ServiceScheduleList
             Error('Cannot find user details in user setup table');
     end;
 
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        ServiceScheLineRec: Record ServiceScheduleLine;
+    begin
+        //Delete old records
+        ServiceScheLineRec.Reset();
+        ServiceScheLineRec.SetRange("Factory No.", rec."Factory No.");
+        if ServiceScheLineRec.FindSet() then
+            ServiceScheLineRec.DeleteAll();
+
+    end;
+
 }

@@ -50,6 +50,41 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
             DataClassification = ToBeClassified;
         }
 
+        //Done by maduka on 8/2/2023
+        field(50011; "No of Cartons"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50012; "CBM"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50013; "Exp No"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50014; "Exp Date"; date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50015; "UD No"; code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50016; "Export Ref No."; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        modify("Your Reference")
+        {
+            Caption = 'Factory Inv. No';
+        }
     }
 }
 
