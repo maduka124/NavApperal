@@ -2946,7 +2946,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>PROD. ORDER - MATERIAL ISSUE</Value>
+                    <Value>PROD. ORDER - BEFORE MATERIAL ISSUE</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>18pt</FontSize>

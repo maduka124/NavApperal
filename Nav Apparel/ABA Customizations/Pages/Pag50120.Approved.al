@@ -243,8 +243,15 @@ page 50120 "Approved Daily Consump. List"
                                         ItemLedEntry2.SetRange("Order Line No.", ProdOrdComp."Prod. Order Line No.");
                                         ItemLedEntry2.SetRange("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
                                         ItemLedEntry2.CalcSums(Quantity);
-
+                                        // Message('comp %1 / Ord Lin %2 / Qty %3', ProdOrdComp."Line No.", ProdOrdComp."Prod. Order Line No.", Abs(ItemLedEntry2.Quantity));
                                         CalQty := ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption";
+
+                                        // if ItemLedEntry2.Quantity > CalQty then
+                                        //     Message('This issuing cannot be post')
+                                        //     else
+                                        //     calQty := CalQty - abs(ItemLedEntry2.Quantity);
+                                        // end;
+
                                         calQty := CalQty - abs(ItemLedEntry2.Quantity);
                                         ItemJnalRec.Validate(Quantity, calQty);
                                         // if (ProdOrdComp."Quantity per" * (DailyConsumpLine."Daily Consumption" - abs(ItemLedEntry2.Quantity))) > ProdOrdComp."Remaining Quantity" then
@@ -316,6 +323,7 @@ page 50120 "Approved Daily Consump. List"
                                                 end;
                                             until ItemLedEntry.Next() = 0;
                                         end;
+
                                     end;
                                 until ProdOrdComp.Next() = 0;
                         until DailyConsumpLine.Next() = 0;

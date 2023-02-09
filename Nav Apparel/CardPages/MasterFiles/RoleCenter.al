@@ -1175,6 +1175,12 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report MaterialIssueRequition;
                         ApplicationArea = All;
                     }
+                    action("Consumption Subform Report")
+                    {
+                        Enabled = true;
+                        RunObject = report ConsumptionSubformReport;
+                        ApplicationArea = All;
+                    }
                 }
             }
 
