@@ -67,12 +67,33 @@ page 51228 ServiceScheduleLCard
                 {
                     ApplicationArea = All;
                     Caption = 'Brand';
+
+                    trigger OnValidate()
+                    var
+                        BrandRec: Record Brand;
+                    begin
+                        BrandRec.Reset();
+                        BrandRec.SetRange("Brand Name", rec."Brand Name");
+                        if BrandRec.FindSet() then
+                            rec."Brand No" := BrandRec."No.";
+                    end;
                 }
 
                 field("Model Name"; rec."Model Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Model';
+
+
+                    trigger OnValidate()
+                    var
+                        ModelRec: Record Model;
+                    begin
+                        ModelRec.Reset();
+                        ModelRec.SetRange("Model Name", rec."Model Name");
+                        if ModelRec.FindSet() then
+                            rec."Model No" := ModelRec."No.";
+                    end;
                 }
 
                 field("Machine Category"; rec."Machine Category")
@@ -84,6 +105,7 @@ page 51228 ServiceScheduleLCard
                     var
                         ItemRec: Record Item;
                         ServiceScheLineRec: Record ServiceScheduleLine;
+                        ServiceItemRec: Record "Service Item";
                     begin
                         //Delete old records
                         ServiceScheLineRec.Reset();
@@ -109,6 +131,13 @@ page 51228 ServiceScheduleLCard
                                 ServiceScheLineRec.Insert();
                             until ItemRec.Next() = 0;
                         end;
+
+                        //Get Machine cat code
+                        ServiceItemRec.Reset();
+                        ServiceItemRec.SetRange(Description, rec."Machine Category");
+                        if ServiceItemRec.FindSet() then
+                            rec."Machine Category Code" := ServiceItemRec."No.";
+
                     end;
                 }
             }
@@ -144,6 +173,21 @@ page 51228 ServiceScheduleLCard
                     LoginSessionsRec: Record LoginSessions;
                     MaxLineNo: BigInteger;
                 begin
+
+                    //Check whether user logged in or not
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                    if not LoginSessionsRec.FindSet() then begin  //not logged in
+                        Clear(LoginRec);
+                        LoginRec.LookupMode(true);
+                        LoginRec.RunModal();
+
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        LoginSessionsRec.FindSet();
+                    end;
+
 
                     //Delete old records
                     ServiceScheHeadRec.Reset();
@@ -193,24 +237,7 @@ page 51228 ServiceScheduleLCard
                             ServiceScheHeadRec."Part Name" := ServiceScheLineRec."Part Name";
                             ServiceScheHeadRec."Part No" := ServiceScheLineRec."Part No";
                             ServiceScheHeadRec.Qty := ServiceScheLineRec.Qty;
-
-                            //Check whether user logged in or not
-                            LoginSessionsRec.Reset();
-                            LoginSessionsRec.SetRange(SessionID, SessionId());
-
-                            if not LoginSessionsRec.FindSet() then begin  //not logged in
-                                Clear(LoginRec);
-                                LoginRec.LookupMode(true);
-                                LoginRec.RunModal();
-
-                                LoginSessionsRec.Reset();
-                                LoginSessionsRec.SetRange(SessionID, SessionId());
-                                if LoginSessionsRec.FindSet() then
-                                    ServiceScheHeadRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                            end
-                            else    //logged in
-                                ServiceScheHeadRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-
+                            ServiceScheHeadRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                             ServiceScheHeadRec."Unit N0." := ServiceScheLineRec."Unit N0.";
                             ServiceScheHeadRec.Insert();
                         until ServiceScheLineRec.Next() = 0;
@@ -643,6 +670,19 @@ page 51228 ServiceScheduleLCard
                 ServiceScheLineRec.Insert();
             until ServiceScheHeadRec.Next() = 0;
         end;
+
+    end;
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        ServiceScheLineRec: Record ServiceScheduleLine;
+    begin
+        //Delete old records
+        ServiceScheLineRec.Reset();
+        ServiceScheLineRec.SetRange("Factory No.", rec."Factory No.");
+        if ServiceScheLineRec.FindSet() then
+            ServiceScheLineRec.DeleteAll();
 
     end;
 

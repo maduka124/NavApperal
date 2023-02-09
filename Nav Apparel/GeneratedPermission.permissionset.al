@@ -1068,5 +1068,13 @@ permissionset 50100 GeneratedPermission
         table Technician=X,
         page TechnicianCard=X,
         page TechnicianList=X,
-        page "Service Wrks List"=X;
+        page "Service Wrks List"=X,
+        tabledata ExportReferenceHeader=RIMD,
+        tabledata ExportReferenceLine=RIMD,
+        table ExportReferenceHeader=X,
+        table ExportReferenceLine=X,
+        report VendorSummaryAging=X,
+        page "Export Ref ListPart"=X,
+        page "Export Reference Card"=X,
+        page "Export Reference List"=X;
 }

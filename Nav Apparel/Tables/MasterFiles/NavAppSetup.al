@@ -646,6 +646,12 @@ table 51139 "NavApp Setup"
             DataClassification = ToBeClassified;
             InitValue = 0;
         }
+
+        field(71012694; "ExpoRef Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 
     keys

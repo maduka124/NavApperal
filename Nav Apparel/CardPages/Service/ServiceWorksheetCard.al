@@ -180,7 +180,7 @@ page 50726 "Service Worksheet Card"
                             ServiceItemRec.SetRange("Brand No", ServiceScheHeadeRec."Brand No");
                             ServiceItemRec.SetRange("Model No", ServiceScheHeadeRec."Model No");
                             ServiceItemRec.SetRange("Machine Category Code", ServiceScheHeadeRec."Machine Category Code");
-                            ServiceItemRec.SetRange("Work center Code", rec."Work Center No");
+                            ServiceItemRec.SetRange("Location Code", rec."Work Center No");
                             ServiceItemRec.SetFilter("Service due date", '%1..%2', rec.StartDate, rec.EndDate);
 
                             if ServiceItemRec.FindSet() then begin
@@ -506,4 +506,18 @@ page 50726 "Service Worksheet Card"
             //         }
         }
     }
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        ServiceWorkLineRec: Record ServiceWorksheetLineNew;
+    begin
+        //Delete old records
+        ServiceWorkLineRec.Reset();
+        ServiceWorkLineRec.SetRange("No.", rec."No.");
+        if ServiceWorkLineRec.FindSet() then
+            ServiceWorkLineRec.DeleteAll();
+
+    end;
+
 }

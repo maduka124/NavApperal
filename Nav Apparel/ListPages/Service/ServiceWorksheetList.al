@@ -61,4 +61,17 @@ page 51236 "Service Wrks List"
         else
             Error('Cannot find user details in user setup table');
     end;
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        ServiceWorkLineRec: Record ServiceWorksheetLineNew;
+    begin
+        //Delete old records
+        ServiceWorkLineRec.Reset();
+        ServiceWorkLineRec.SetRange("No.", rec."No.");
+        if ServiceWorkLineRec.FindSet() then
+            ServiceWorkLineRec.DeleteAll();
+
+    end;
 }
