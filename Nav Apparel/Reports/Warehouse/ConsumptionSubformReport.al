@@ -50,19 +50,26 @@ report 51238 ConsumptionSubformReport
                 { }
                 column(OrginalDailyReq; OrginalDailyReq)
                 { }
+                column(PO; PO)
+                { }
+                column(ItemName; ItemName)
+                { }
+
 
                 trigger OnAfterGetRecord()
                 begin
                     DailyConsumptionLineRec.Reset();
                     DailyConsumptionLineRec.SetRange("Document No.", "No.");
+                    DailyConsumptionLineRec.SetRange("Prod. Order No.", "Prod. Order No.");
                     if DailyConsumptionLineRec.FindSet() then begin
                         ItemNo := DailyConsumptionLineRec."Item No.";
                     end;
 
                     ItemLedgRec.Reset();
-                    ItemLedgRec.SetRange("Document No.", "No.");
+                    ItemLedgRec.SetRange("Document No.", "Prod. Order No.");
+                    ItemLedgRec.SetRange("Document No.", DailyConsumptionLineRec."Prod. Order No.");
                     if ItemLedgRec.FindSet() then begin
-                        if ItemLedgRec."Entry Type" = 5 then begin
+                        if ItemLedgRec."Entry Type" = ItemLedgRec."Entry Type"::Consumption then begin
                             ItemLeQuantity := ItemLedgRec.Quantity;
                             OrginalDailyReq := ItemLedgRec."Original Daily Requirement";
                         end;
@@ -76,6 +83,7 @@ report 51238 ConsumptionSubformReport
                         Article := ItemRec."Article No.";
                         Dimenshion := ItemRec."Dimension Width No.";
                         UOM := ItemRec."Base Unit of Measure";
+                        ItemName := ItemRec.Description;
                     end;
 
                     DailyConsLineRec.Reset();
@@ -125,6 +133,7 @@ report 51238 ConsumptionSubformReport
 
 
     var
+        ItemName: Text[100];
         OrginalDailyReq: Decimal;
         ReqQty: Decimal;
         DailyConsLineRec: Record "Daily Consumption Line";
