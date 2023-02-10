@@ -94,9 +94,17 @@ page 50440 "Sample Status List"
                     ApplicationArea = All;
                 }
 
-                field("Created User"; rec."Created User")
+                //Done by sachith on 10/02/23
+                // field("Created User"; rec."Created User")
+                // {
+                //     ApplicationArea = All;
+                // }
+
+                //Done by sachith on 10/02/23
+                field("Secondary UserID"; Rec."Secondary UserID")
                 {
                     ApplicationArea = All;
+                    caption = 'Created User';
                 }
 
                 field("Created Date"; rec."Created Date")

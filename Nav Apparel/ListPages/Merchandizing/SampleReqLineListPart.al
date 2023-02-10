@@ -26,6 +26,8 @@ page 51062 SampleReqLineListPart
                     var
                         ItemRec: Record Item;
                         SampleReqHeaderRec: Record "Sample Requsition Header";
+                        LoginSessionsRec: Record LoginSessions;
+                        LoginRec: Page "Login Card";
                     begin
                         ItemRec.Reset();
                         ItemRec.SetRange(Description, rec."Fabrication Name");
@@ -41,6 +43,24 @@ page 51062 SampleReqLineListPart
                         if SampleReqHeaderRec.FindSet() then begin
                             rec."Garment Type No" := SampleReqHeaderRec."Garment Type No";
                             rec."Garment Type" := SampleReqHeaderRec."Garment Type Name";
+                        end;
+
+                        //done by sachith on 10/02/23
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                        if not LoginSessionsRec.FindSet() then begin  //not logged in
+                            Clear(LoginRec);
+                            LoginRec.LookupMode(true);
+                            LoginRec.RunModal();
+
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+                            if LoginSessionsRec.FindSet() then
+                                rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end
+                        else begin   //logged in
+                            rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
                     end;
                 }

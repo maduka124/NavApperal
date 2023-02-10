@@ -410,6 +410,12 @@ table 50931 "Sample Requsition Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        //done by sachith on 10/02/23
+        field(71012647; "Secondary UserID"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
