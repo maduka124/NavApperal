@@ -293,169 +293,169 @@ page 50726 "Service Worksheet Card"
                     ServiceWorksheetLineRec.SetRange("No.", rec."No.");
                     //ServiceWorksheetLineRec.SetFilter(Approval, '=%1', true);
 
-                    if ServiceWorksheetLineRec.FindSet() then begin
-                        repeat
-                            // if ServiceWorksheetLineRec."Standard Service Code" = '' then
-                            //     Error('Standard Service Code has not updated for Service Item : %1', ServiceWorksheetLineRec."Service Item Name");
+                    // if ServiceWorksheetLineRec.FindSet() then begin
+                    //     repeat
+                    //         // if ServiceWorksheetLineRec."Standard Service Code" = '' then
+                    //         //     Error('Standard Service Code has not updated for Service Item : %1', ServiceWorksheetLineRec."Service Item Name");
 
-                            DocNo := NoSeriesMngment.GetNextNo(NavappRec."Service Doc Nos.", Today, true);
+                    //         DocNo := NoSeriesMngment.GetNextNo(NavappRec."Service Doc Nos.", Today, true);
 
-                            //Get Standard service Line details
-                            StServLineRec.Reset();
-                            StServLineRec.SetRange("Standard Service Code", ServiceWorksheetLineRec."Standard Service Code");
+                    //         //Get Standard service Line details
+                    //         StServLineRec.Reset();
+                    //         StServLineRec.SetRange("Standard Service Code", ServiceWorksheetLineRec."Standard Service Code");
 
-                            if StServLineRec.FindSet() then begin
-                                repeat
-                                    if StServLineRec.Type = StServLineRec.Type::Item then begin
-                                        //Write to item Journal entry   
-                                        itemLineNo += 10000;
-                                        ItemJrnlRec.Init();
-                                        ItemJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
-                                        ItemJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
-                                        ItemJrnlRec.validate("Line No.", itemLineNo);
-                                        ItemJrnlRec.Validate("Item No.", StServLineRec."No.");
-                                        ItemJrnlRec.Validate("Posting Date", WorkDate());
-                                        ItemJrnlRec.Validate("Entry Type", ItemJrnlRec."Entry Type"::"Negative Adjmt.");
-                                        ItemJrnlRec.Validate("Document No.", DocNo);
-                                        ItemJrnlRec.Validate("Location Code", Users."Factory Code");
-                                        ItemJrnlRec.Validate(Quantity, StServLineRec.Quantity);
-                                        ItemJrnlRec.Validate("Document Date", WorkDate());
-                                        ItemJrnlRec.Validate("Document Type", ItemJrnlRec."Document Type"::"Service Invoice");
-                                        ItemJrnlRec.Insert();
-                                    end;
+                    //         if StServLineRec.FindSet() then begin
+                    //             repeat
+                    //                 if StServLineRec.Type = StServLineRec.Type::Item then begin
+                    //                     //Write to item Journal entry   
+                    //                     itemLineNo += 10000;
+                    //                     ItemJrnlRec.Init();
+                    //                     ItemJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
+                    //                     ItemJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+                    //                     ItemJrnlRec.validate("Line No.", itemLineNo);
+                    //                     ItemJrnlRec.Validate("Item No.", StServLineRec."No.");
+                    //                     ItemJrnlRec.Validate("Posting Date", WorkDate());
+                    //                     ItemJrnlRec.Validate("Entry Type", ItemJrnlRec."Entry Type"::"Negative Adjmt.");
+                    //                     ItemJrnlRec.Validate("Document No.", DocNo);
+                    //                     ItemJrnlRec.Validate("Location Code", Users."Factory Code");
+                    //                     ItemJrnlRec.Validate(Quantity, StServLineRec.Quantity);
+                    //                     ItemJrnlRec.Validate("Document Date", WorkDate());
+                    //                     ItemJrnlRec.Validate("Document Type", ItemJrnlRec."Document Type"::"Service Invoice");
+                    //                     ItemJrnlRec.Insert();
+                    //                 end;
 
-                                    if StServLineRec.Type = StServLineRec.Type::Resource then begin
-                                        //Write to Resource Journal entry   
-                                        ResLineNo += 10000;
-                                        ResJrnlRec.Init();
-                                        ResJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
-                                        ResJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
-                                        ResJrnlRec.validate("Line No.", ResLineNo);
-                                        ResJrnlRec.Validate("Entry Type", ResJrnlRec."Entry Type"::Usage);
-                                        ResJrnlRec.Validate("Document No.", DocNo);
-                                        ResJrnlRec.Validate("Posting Date", WorkDate());
-                                        ResJrnlRec.Validate("Resource No.", StServLineRec."No.");
-                                        ResJrnlRec.Validate(Quantity, StServLineRec.Quantity);
-                                        ResJrnlRec.Validate("Document Date", WorkDate());
-                                        ResJrnlRec.Insert();
-                                    end;
+                    //                 if StServLineRec.Type = StServLineRec.Type::Resource then begin
+                    //                     //Write to Resource Journal entry   
+                    //                     ResLineNo += 10000;
+                    //                     ResJrnlRec.Init();
+                    //                     ResJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
+                    //                     ResJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+                    //                     ResJrnlRec.validate("Line No.", ResLineNo);
+                    //                     ResJrnlRec.Validate("Entry Type", ResJrnlRec."Entry Type"::Usage);
+                    //                     ResJrnlRec.Validate("Document No.", DocNo);
+                    //                     ResJrnlRec.Validate("Posting Date", WorkDate());
+                    //                     ResJrnlRec.Validate("Resource No.", StServLineRec."No.");
+                    //                     ResJrnlRec.Validate(Quantity, StServLineRec.Quantity);
+                    //                     ResJrnlRec.Validate("Document Date", WorkDate());
+                    //                     ResJrnlRec.Insert();
+                    //                 end;
 
-                                    if StServLineRec.Type = StServLineRec.Type::"G/L Account" then begin
-                                        //Write to General Journal
-                                        GenLineNo += 10000;
-                                        GenJrnlRec.Init();
-                                        GenJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
-                                        GenJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
-                                        GenJrnlRec.validate("Line No.", GenLineNo);
-                                        GenJrnlRec.Validate("Account Type", GenJrnlRec."Account Type"::"G/L Account");
-                                        GenJrnlRec.Validate("Account No.", StServLineRec."No.");
-                                        GenJrnlRec.Validate("Posting Date", WorkDate);
-                                        GenJrnlRec.Validate("Document Type", GenJrnlRec."Document Type"::Invoice);
-                                        GenJrnlRec.Validate("Document No.", DocNo);
-                                        GenJrnlRec.Validate("Document Date", WorkDate());
-                                        GenJrnlRec.Validate("Bal. Account No.", BalAccountNo);
-                                        //GenJrnlRec.Validate("Currency Code", '');
-                                        GenJrnlRec.Validate(Amount, StServLineRec.Quantity);
-                                        GenJrnlRec.Insert();
-                                    end;
+                    //                 if StServLineRec.Type = StServLineRec.Type::"G/L Account" then begin
+                    //                     //Write to General Journal
+                    //                     GenLineNo += 10000;
+                    //                     GenJrnlRec.Init();
+                    //                     GenJrnlRec.Validate("Journal Template Name", NavappRec."Gen Journal Template Name");
+                    //                     GenJrnlRec.Validate("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+                    //                     GenJrnlRec.validate("Line No.", GenLineNo);
+                    //                     GenJrnlRec.Validate("Account Type", GenJrnlRec."Account Type"::"G/L Account");
+                    //                     GenJrnlRec.Validate("Account No.", StServLineRec."No.");
+                    //                     GenJrnlRec.Validate("Posting Date", WorkDate);
+                    //                     GenJrnlRec.Validate("Document Type", GenJrnlRec."Document Type"::Invoice);
+                    //                     GenJrnlRec.Validate("Document No.", DocNo);
+                    //                     GenJrnlRec.Validate("Document Date", WorkDate());
+                    //                     GenJrnlRec.Validate("Bal. Account No.", BalAccountNo);
+                    //                     //GenJrnlRec.Validate("Currency Code", '');
+                    //                     GenJrnlRec.Validate(Amount, StServLineRec.Quantity);
+                    //                     GenJrnlRec.Insert();
+                    //                 end;
 
-                                until StServLineRec.Next() = 0;
-                            end;
-
-
-                            //Update next Service Date
-                            ServiceItem.Reset();
-                            ServiceItem.SetRange("No.", ServiceWorksheetLineRec."Service Item No");
-
-                            if ServiceItem.FindSet() then begin
-                                if ServiceWorksheetLineRec."Next Service Date" = 0D then begin
-                                    if ServiceItem."Service Period" = ServiceItem."Service Period"::"''" then
-                                        Error('Service Period has not updated for Service Item : %1', ServiceItem.Name);
-
-                                    case ServiceItem."Service Period" of
-                                        ServiceItem."Service Period"::"1 Week":
-                                            begin
-                                                TempDate := CalcDate('<+1W>', ServiceWorksheetLineRec."Service Date");
-                                                //break;
-                                            end;
-                                        ServiceItem."Service Period"::"2 Weeks":
-                                            begin
-                                                TempDate := CalcDate('<+2W>', ServiceWorksheetLineRec."Service Date");
-                                                //break;
-                                            end;
-                                        ServiceItem."Service Period"::"3 Weeks":
-                                            begin
-                                                TempDate := CalcDate('<+3W>', ServiceWorksheetLineRec."Service Date");
-                                                //break;
-                                            end;
-                                        ServiceItem."Service Period"::"1 Month":
-                                            begin
-                                                TempDate := CalcDate('<+1M>', ServiceWorksheetLineRec."Service Date");
-                                                //break;
-                                            end;
-                                        ServiceItem."Service Period"::"2 Months":
-                                            begin
-                                                TempDate := CalcDate('<+2M>', ServiceWorksheetLineRec."Service Date");
-                                                //break;
-                                            end;
-                                        ServiceItem."Service Period"::"3 Months":
-                                            begin
-                                                TempDate := CalcDate('<+3M>', ServiceWorksheetLineRec."Service Date");
-                                                //break;
-                                            end;
-                                    end;
-                                end
-                                else
-                                    TempDate := ServiceWorksheetLineRec."Next Service Date";
-
-                                ServiceItem."Service due date" := TempDate;
-                                ServiceItem."Last Service Date" := WorkDate();
-                                ServiceItem.Modify();
-                            end;
-
-                            // //Write to service ledger entry
-                            // ServiceLdgrRec.Init();
-                            // ServiceLdgrRec."Service Contract No." := ServiceWorksheetLineRec."Doc No";
-                            // ServiceLdgrRec."Document Type" := ServiceLdgrRec."Document Type"::Invoice;
-                            // ServiceLdgrRec."Document No." := ServiceWorksheetLineRec."Doc No";
-                            // ServiceLdgrRec."Posting Date" := WorkDate();
-                            // ServiceLdgrRec.Amount := 0;
-                            // ServiceLdgrRec
-                            // ServiceLdgrRec.Insert();
+                    //             until StServLineRec.Next() = 0;
+                    //         end;
 
 
-                            //Delete entry from worksheet
-                            ServiceWorksheetLineRec.Delete();
-                        until ServiceWorksheetLineRec.Next() = 0;
+                    //         //Update next Service Date
+                    //         ServiceItem.Reset();
+                    //         ServiceItem.SetRange("No.", ServiceWorksheetLineRec."Service Item No");
 
-                        //Post General Journal
-                        GenJrnlRec.Reset();
-                        GenJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                        GenJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                        GenJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+                    //         if ServiceItem.FindSet() then begin
+                    //             if ServiceWorksheetLineRec."Next Service Date" = 0D then begin
+                    //                 if ServiceItem."Service Period" = ServiceItem."Service Period"::"''" then
+                    //                     Error('Service Period has not updated for Service Item : %1', ServiceItem.Name);
 
-                        if GenJrnlRec.FindSet() then
-                            GenJnlCodeUnit.Run(GenJrnlRec);
+                    //                 case ServiceItem."Service Period" of
+                    //                     ServiceItem."Service Period"::"1 Week":
+                    //                         begin
+                    //                             TempDate := CalcDate('<+1W>', ServiceWorksheetLineRec."Service Date");
+                    //                             //break;
+                    //                         end;
+                    //                     ServiceItem."Service Period"::"2 Weeks":
+                    //                         begin
+                    //                             TempDate := CalcDate('<+2W>', ServiceWorksheetLineRec."Service Date");
+                    //                             //break;
+                    //                         end;
+                    //                     ServiceItem."Service Period"::"3 Weeks":
+                    //                         begin
+                    //                             TempDate := CalcDate('<+3W>', ServiceWorksheetLineRec."Service Date");
+                    //                             //break;
+                    //                         end;
+                    //                     ServiceItem."Service Period"::"1 Month":
+                    //                         begin
+                    //                             TempDate := CalcDate('<+1M>', ServiceWorksheetLineRec."Service Date");
+                    //                             //break;
+                    //                         end;
+                    //                     ServiceItem."Service Period"::"2 Months":
+                    //                         begin
+                    //                             TempDate := CalcDate('<+2M>', ServiceWorksheetLineRec."Service Date");
+                    //                             //break;
+                    //                         end;
+                    //                     ServiceItem."Service Period"::"3 Months":
+                    //                         begin
+                    //                             TempDate := CalcDate('<+3M>', ServiceWorksheetLineRec."Service Date");
+                    //                             //break;
+                    //                         end;
+                    //                 end;
+                    //             end
+                    //             else
+                    //                 TempDate := ServiceWorksheetLineRec."Next Service Date";
 
-                        //Post Item Journal
-                        ItemJrnlRec.Reset();
-                        ItemJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                        ItemJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                        ItemJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+                    //             ServiceItem."Service due date" := TempDate;
+                    //             ServiceItem."Last Service Date" := WorkDate();
+                    //             ServiceItem.Modify();
+                    //         end;
 
-                        if ItemJrnlRec.FindSet() then
-                            ItemJnlCodeUnit.Run(ItemJrnlRec);
+                    //         // //Write to service ledger entry
+                    //         // ServiceLdgrRec.Init();
+                    //         // ServiceLdgrRec."Service Contract No." := ServiceWorksheetLineRec."Doc No";
+                    //         // ServiceLdgrRec."Document Type" := ServiceLdgrRec."Document Type"::Invoice;
+                    //         // ServiceLdgrRec."Document No." := ServiceWorksheetLineRec."Doc No";
+                    //         // ServiceLdgrRec."Posting Date" := WorkDate();
+                    //         // ServiceLdgrRec.Amount := 0;
+                    //         // ServiceLdgrRec
+                    //         // ServiceLdgrRec.Insert();
 
-                        //Post Resource Journal
-                        ResJrnlRec.Reset();
-                        ResJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-                        ResJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
-                        ResJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
 
-                        if ResJrnlRec.FindSet() then
-                            ResJnlCodeUnit.Run(ResJrnlRec);
+                    //         //Delete entry from worksheet
+                    //         ServiceWorksheetLineRec.Delete();
+                    //     until ServiceWorksheetLineRec.Next() = 0;
 
-                    end;
+                    //     //Post General Journal
+                    //     GenJrnlRec.Reset();
+                    //     GenJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+                    //     GenJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+                    //     GenJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+
+                    //     if GenJrnlRec.FindSet() then
+                    //         GenJnlCodeUnit.Run(GenJrnlRec);
+
+                    //     //Post Item Journal
+                    //     ItemJrnlRec.Reset();
+                    //     ItemJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+                    //     ItemJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+                    //     ItemJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+
+                    //     if ItemJrnlRec.FindSet() then
+                    //         ItemJnlCodeUnit.Run(ItemJrnlRec);
+
+                    //     //Post Resource Journal
+                    //     ResJrnlRec.Reset();
+                    //     ResJrnlRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
+                    //     ResJrnlRec.SetRange("Journal Template Name", NavappRec."Gen Journal Template Name");
+                    //     ResJrnlRec.SetRange("Journal Batch Name", NavappRec."Gen Journal Batch Name");
+
+                    //     if ResJrnlRec.FindSet() then
+                    //         ResJnlCodeUnit.Run(ResJrnlRec);
+
+                    // end;
 
                     Message('Posting Completed');
                 end;
