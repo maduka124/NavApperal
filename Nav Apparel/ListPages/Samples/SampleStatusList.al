@@ -20,6 +20,14 @@ page 50440 "Sample Status List"
                     Caption = 'Sample Req. No';
                 }
 
+                // Done By Sachith On 10/02/23
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Brand';
+                }
+
                 field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
@@ -132,6 +140,7 @@ page 50440 "Sample Status List"
         end
         else begin   //logged in
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+
         end;
 
 

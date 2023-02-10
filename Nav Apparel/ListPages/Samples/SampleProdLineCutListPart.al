@@ -31,19 +31,19 @@ page 50436 SampleProdLineCutListPart
                     Editable = false;
                 }
 
-                field("Buyer Name"; rec."Buyer Name")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Buyer';
-                }
-
                 // Done By Sachith On 09/02/23
                 field("Brand Name"; Rec."Brand Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Brand';
+                }
+
+                field("Buyer Name"; rec."Buyer Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Buyer';
                 }
 
                 field("Style Name"; rec."Style Name")
