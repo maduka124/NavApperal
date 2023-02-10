@@ -17,6 +17,14 @@ page 50427 "Sample Request Header ListPart"
                     Editable = false;
                 }
 
+                // Done By Sachith on 10/02/23
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Brand';
+                    Editable = false;
+                }
+
                 field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
@@ -118,7 +126,7 @@ page 50427 "Sample Request Header ListPart"
 
 
                     Clear(SampleCardRec);
-                    SampleCardRec.PassParameters(Rec."No.", false,false);
+                    SampleCardRec.PassParameters(Rec."No.", false, false);
                     SampleCardRec.Editable := false;
                     SampleCardRec.RunModal();
 
