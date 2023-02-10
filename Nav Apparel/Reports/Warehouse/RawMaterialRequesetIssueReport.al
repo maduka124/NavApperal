@@ -1,10 +1,10 @@
-report 51238 ConsumptionSubformReport
+report 51238 RawMaterialRequesetIssue
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Consumption Subform Report';
+    Caption = 'Raw Material Request/Issue Report';
     DefaultLayout = RDLC;
-    RDLCLayout = 'Report_Layouts/Warehouse/ConsumptionSubform.rdl';
+    RDLCLayout = 'Report_Layouts/Warehouse/RawMaterialRequesetIssueReport.rdl';
 
     dataset
     {
@@ -22,20 +22,20 @@ report 51238 ConsumptionSubformReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(Factory_Name; "Factory Name")
+            { }
 
             dataitem("Daily Consumption Header"; "Daily Consumption Header")
             {
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("Style No.");
                 DataItemTableView = where("Journal Template Name" = filter('CONSUMPTIO'));
+
                 column(No_; "No.")
                 { }
                 column(Main_Category_Name; "Main Category Name")
                 { }
-                column(ItemNo; ItemNo)
-                { }
-                column(ItemLeQuantity; ItemLeQuantity)
-                { }
+
                 column(SizeRange; SizeRange)
                 { }
                 column(color; color)
@@ -46,46 +46,48 @@ report 51238 ConsumptionSubformReport
                 { }
                 column(UOM; UOM)
                 { }
-                column(ReqQty; ReqQty)
-                { }
-                column(OrginalDailyReq; OrginalDailyReq)
-                { }
 
-                trigger OnAfterGetRecord()
-                begin
-                    DailyConsumptionLineRec.Reset();
-                    DailyConsumptionLineRec.SetRange("Document No.", "No.");
-                    if DailyConsumptionLineRec.FindSet() then begin
-                        ItemNo := DailyConsumptionLineRec."Item No.";
-                    end;
+                column(PO; PO)
+                { }
+                column(ItemName; ItemName)
+                { }
+                dataitem("Daily Consumption Line"; "Daily Consumption Line")
+                {
+                    DataItemLinkReference = "Daily Consumption Header";
+                    DataItemLink = "Document No." = field("No.");
+                    DataItemTableView = sorting("Document No.", "Line No.");
 
-                    ItemLedgRec.Reset();
-                    ItemLedgRec.SetRange("Document No.", "No.");
-                    if ItemLedgRec.FindSet() then begin
-                        if ItemLedgRec."Entry Type" = 5 then begin
-                            ItemLeQuantity := ItemLedgRec.Quantity;
-                            OrginalDailyReq := ItemLedgRec."Original Daily Requirement";
+                    column(ItemNo; "Item No.")
+                    { }
+                    column(ReqQty; "Daily Consumption")
+                    { }
+
+                    dataitem("Item Ledger Entry"; "Item Ledger Entry")
+                    {
+                        DataItemLinkReference = "Daily Consumption Line";
+                        DataItemLink = "Document No." = field("Prod. Order No."), "Order Line No." = field("Line No.");
+                        DataItemTableView = where("Entry Type" = filter('Consumption'));
+
+                        column(ItemLeQuantity; Quantity * -1)
+                        { }
+                        column(OrginalDailyReq; "Original Daily Requirement")
+                        { }
+                    }
+                    trigger OnAfterGetRecord()
+
+                    begin
+                        ItemRec.Reset();
+                        ItemRec.SetRange("No.", "Item No.");
+                        if ItemRec.FindFirst() then begin
+                            SizeRange := ItemRec."Size Range No.";
+                            color := ItemRec."Color No.";
+                            Article := ItemRec."Article No.";
+                            Dimenshion := ItemRec."Dimension Width No.";
+                            UOM := ItemRec."Base Unit of Measure";
+                            ItemName := ItemRec.Description;
                         end;
                     end;
-
-                    ItemRec.Reset();
-                    ItemRec.SetRange("No.", DailyConsumptionLineRec."Item No.");
-                    if ItemRec.FindFirst() then begin
-                        SizeRange := ItemRec."Size Range No.";
-                        color := ItemRec."Color No.";
-                        Article := ItemRec."Article No.";
-                        Dimenshion := ItemRec."Dimension Width No.";
-                        UOM := ItemRec."Base Unit of Measure";
-                    end;
-
-                    DailyConsLineRec.Reset();
-                    DailyConsLineRec.SetRange("Document No.", "No.");
-                    if DailyConsLineRec.FindFirst() then begin
-                        ReqQty := DailyConsLineRec."Daily Consumption";
-                    end;
-                end;
-
-
+                }
             }
             trigger OnAfterGetRecord()
             begin
@@ -125,7 +127,7 @@ report 51238 ConsumptionSubformReport
 
 
     var
-        OrginalDailyReq: Decimal;
+        ItemName: Text[100];
         ReqQty: Decimal;
         DailyConsLineRec: Record "Daily Consumption Line";
         UOM: Code[20];
@@ -134,9 +136,7 @@ report 51238 ConsumptionSubformReport
         color: Code[20];
         SizeRange: Code[250];
         ItemRec: Record Item;
-        ItemLeQuantity: Decimal;
         ItemLedgRec: Record "Item Ledger Entry";
-        ItemNo: Code[20];
         DailyConsumptionLineRec: Record "Daily Consumption Line";
         comRec: Record "Company Information";
         FilterNo: Code[30];

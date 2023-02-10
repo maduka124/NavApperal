@@ -251,7 +251,6 @@ page 50120 "Approved Daily Consump. List"
                                         //     else
                                         //     calQty := CalQty - abs(ItemLedEntry2.Quantity);
                                         // end;
-
                                         calQty := CalQty - abs(ItemLedEntry2.Quantity);
                                         ItemJnalRec.Validate(Quantity, calQty);
                                         // if (ProdOrdComp."Quantity per" * (DailyConsumpLine."Daily Consumption" - abs(ItemLedEntry2.Quantity))) > ProdOrdComp."Remaining Quantity" then

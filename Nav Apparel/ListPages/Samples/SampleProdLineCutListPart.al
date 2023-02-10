@@ -38,6 +38,14 @@ page 50436 SampleProdLineCutListPart
                     Caption = 'Buyer';
                 }
 
+                // Done By Sachith On 09/02/23
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Brand';
+                }
+
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;

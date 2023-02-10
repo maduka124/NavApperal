@@ -94,6 +94,12 @@ table 50873 SAH_MerchGRPWiseSAHUsed
         {
             DataClassification = ToBeClassified;
         }
+
+        //done by sachith on 7/2/23
+        field(36; "Type"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

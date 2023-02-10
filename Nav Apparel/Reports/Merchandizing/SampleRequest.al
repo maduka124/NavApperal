@@ -10,7 +10,8 @@ report 50639 SampleRequest
     {
         dataitem("Sample Requsition Header"; "Sample Requsition Header")
         {
-            DataItemTableView = sorting("No.");
+            // DataItemTableView = sorting("No.");
+            // DataItemTableView = where("Merchandizer Group Name" = filter())
             column(Buyer_Name; "Buyer Name")
             { }
             column(Style_Name; "Style Name")
@@ -96,7 +97,21 @@ report 50639 SampleRequest
             trigger OnPreDataItem()
 
             begin
+                UserRec.Reset();
+                UserReC.SetRange("User Name", "Created User");
+                if UserRec.FindSet() then begin
+
+                end;
+
+                UserSetup.Reset();
+                UserSetup.SetRange("User ID", UserId);
+                if UserSetup.FindFirst() then begin
+                    MerchantGrpName := UserSetup."Merchandizer Group Name";
+                end;
+
+
                 SetRange("No.", HeaderNo);
+                SetRange("Merchandizer Group Name", MerchantGrpName);
             end;
 
             trigger OnAfterGetRecord()
@@ -122,9 +137,15 @@ report 50639 SampleRequest
                     {
                         ApplicationArea = All;
                         Caption = 'Sample Request No';
-                        TableRelation = "Sample Requsition Header"."No.";
-
+                        // TableRelation = "Sample Requsition Header"."No." where("Merchandizer Group Name" = field(gr));
                     }
+                    field(MerchantGrpName; MerchantGrpName)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Merchandizer Group Name';
+                        
+                    }
+
                 }
             }
         }
@@ -144,7 +165,9 @@ report 50639 SampleRequest
 
 
     var
-
+        MerchantGrpName: Text[200];
+        UserSetup: Record "User Setup";
+        UserRec: Record User;
         HeaderNo: Code[20];
         comRec: Record "Company Information";
         Hide: Integer;

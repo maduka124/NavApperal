@@ -2,7 +2,7 @@ page 50867 SAH_FactoryCapacityListPart
 {
     PageType = ListPart;
     SourceTable = SAH_FactoryCapacity;
-    SourceTableView = sorting(Year, "Factory Name") order(ascending);
+    SourceTableView = sorting("No.", Year, "Factory Name") order(ascending);
     Caption = ' ';
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -18,78 +18,103 @@ page 50867 SAH_FactoryCapacityListPart
                 {
                     ApplicationArea = All;
                     //Editable = JAN_EDITABLE;
+                    StyleExpr = StyleExprTxt;
                 }
 
                 field(JAN; rec.JAN)
                 {
                     ApplicationArea = All;
                     //Editable = JAN_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(FEB; rec.FEB)
                 {
                     ApplicationArea = All;
                     //Editable = FEB_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(MAR; rec.MAR)
                 {
                     ApplicationArea = All;
                     //Editable = MAR_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(APR; rec.APR)
                 {
                     ApplicationArea = All;
                     //Editable = APR_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(MAY; rec.MAY)
                 {
                     ApplicationArea = All;
                     //Editable = MAY_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(JUN; rec.JUN)
                 {
                     ApplicationArea = All;
                     //Editable = JUN_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(JUL; rec.JUL)
                 {
                     ApplicationArea = All;
                     //Editable = JUL_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(AUG; rec.AUG)
                 {
                     ApplicationArea = All;
                     //Editable = AUG_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(SEP; rec.SEP)
                 {
                     ApplicationArea = All;
                     //Editable = SEP_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(OCT; rec.OCT)
                 {
                     ApplicationArea = All;
                     //Editable = OCT_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(NOV; rec.NOV)
                 {
                     ApplicationArea = All;
                     //Editable = NOV_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
 
                 field(DEC; rec.DEC)
                 {
                     ApplicationArea = All;
                     //Editable = DEC_EDITABLE;
+                    StyleExpr = StyleExprTxt;
+                    DecimalPlaces = 0;
                 }
             }
         }
@@ -302,4 +327,15 @@ page 50867 SAH_FactoryCapacityListPart
         OCT_EDITABLE: Boolean;
         NOV_EDITABLE: Boolean;
         DEC_EDITABLE: Boolean;
+
+    //Done By Sachith on 7/2/23
+    trigger OnAfterGetRecord()
+    var
+    begin
+        StyleExprTxt := ChangeColor.ChangeColorBooking6(Rec);
+    end;
+
+    var
+        StyleExprTxt: Text[50];
+        ChangeColor: Codeunit NavAppCodeUnit;
 }

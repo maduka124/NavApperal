@@ -89,6 +89,17 @@ table 50866 SAH_FactoryCapacity
         {
             DataClassification = ToBeClassified;
         }
+        //done by sachith on 7/2/23
+        field(18; "No."; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //done by sachith on 7/2/23
+        field(36; "Type"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -97,6 +108,10 @@ table 50866 SAH_FactoryCapacity
         {
             Clustered = true;
         }
+
+        //done by sachith on 7/2/23
+        key(Key2; "No.")
+        { }
     }
 
     fieldgroups
