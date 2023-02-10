@@ -10,6 +10,7 @@ report 51244 ShipementSummaryReport
     {
         dataitem("Contract/LCMaster"; "Contract/LCMaster")
         {
+             DataItemTableView = sorting("No.");
             column(Buyer; Buyer)
             { }
             column(Contract_No; "Contract No")
@@ -26,6 +27,7 @@ report 51244 ShipementSummaryReport
             {
                 DataItemLinkReference = "Contract/LCMaster";
                 DataItemLink = "No." = field("No.");
+                 DataItemTableView = sorting("No.");
 
                 column(OrderQty; OrderQty)
                 { }
@@ -51,6 +53,7 @@ report 51244 ShipementSummaryReport
             {
                 DataItemLinkReference = "Contract/LCMaster";
                 DataItemLink = "LC/Contract No." = field("Contract No");
+                 DataItemTableView = sorting("No.");
 
                 column(UD_No; "No.")
                 { }
@@ -84,7 +87,7 @@ report 51244 ShipementSummaryReport
             trigger OnPreDataItem()
 
             begin
-                // SetRange("Buyer No.", BuyerFilter);
+                SetRange("Buyer No.", BuyerFilter);
             end;
 
         }
@@ -102,7 +105,7 @@ report 51244 ShipementSummaryReport
                     {
                         ApplicationArea = All;
                         Caption = 'Buyer';
-                        TableRelation = Vendor."No.";
+                        TableRelation = Customer."No.";
 
                     }
                 }
