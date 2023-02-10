@@ -121,6 +121,8 @@ table 51232 ServiceWorksheetLineNew
         field(22; "Technician Name"; text[200])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Technician.Name where(Active = filter(true));
+            ValidateTableRelation = false;
         }
 
         field(23; "Line No."; BigInteger)

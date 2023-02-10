@@ -1076,5 +1076,6 @@ permissionset 50100 GeneratedPermission
         report VendorSummaryAging=X,
         page "Export Ref ListPart"=X,
         page "Export Reference Card"=X,
-        page "Export Reference List"=X;
+        page "Export Reference List"=X,
+        report ConsumptionSubformReport=X;
 }

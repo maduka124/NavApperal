@@ -23,6 +23,10 @@ page 51234 TechnicianList
                     Caption = 'Name';
                 }
 
+                field(Active; rec.Active)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

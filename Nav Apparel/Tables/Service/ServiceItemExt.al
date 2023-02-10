@@ -18,8 +18,9 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
 
         field(50004; "Service Period"; Option)
         {
-            OptionCaption = ''',1 Week,2 Weeks,3 Weeks,1 Month,2 Months,3 Months';
-            OptionMembers = "''","1 Week","2 Weeks","3 Weeks","1 Month","2 Months","3 Months";
+            //Not using
+            OptionCaption = '"",1 Week,2 Weeks,3 Weeks,1 Month,2 Months,3 Months';
+            OptionMembers = "","1 Week","2 Weeks","3 Weeks","1 Month","2 Months","3 Months";
         }
 
         field(50005; "Brand"; Text[100])
@@ -69,7 +70,7 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
 
         field(50013; "Machine Category"; Text[100])
         {
-            TableRelation = "Service Item".Description;
+            TableRelation = "Machine Master"."Machine Description";
             ValidateTableRelation = false;
         }
 
@@ -110,6 +111,11 @@ tableextension 50725 "Service Item Extension" extends "Service Item"
         }
 
         field(50021; "Brand No"; code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50022; "Service Period1"; Integer)
         {
             DataClassification = ToBeClassified;
         }

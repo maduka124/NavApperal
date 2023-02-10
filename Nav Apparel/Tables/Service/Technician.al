@@ -31,6 +31,11 @@ table 51233 Technician
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012586; "Active"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

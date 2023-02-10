@@ -83,10 +83,10 @@ page 50731 "Service Wrks Line List part"
                     ApplicationArea = All;
                 }
 
-                field(Approval; rec.Approval)
-                {
-                    ApplicationArea = All;
-                }
+                // field(Approval; rec.Approval)
+                // {
+                //     ApplicationArea = All;
+                // }
 
                 field("Technician Name"; rec."Technician Name")
                 {

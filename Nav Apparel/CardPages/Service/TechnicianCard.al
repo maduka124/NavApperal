@@ -16,7 +16,7 @@ page 51235 TechnicianCard
                     Caption = 'No';
                 }
 
-                field(Name;Rec.Name)
+                field(Name; Rec.Name)
                 {
                     ApplicationArea = All;
 
@@ -25,7 +25,7 @@ page 51235 TechnicianCard
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
-                      
+
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -45,6 +45,11 @@ page 51235 TechnicianCard
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
                     end;
+                }
+
+                field(Active; rec.Active)
+                {
+                    ApplicationArea = All;
                 }
             }
         }
