@@ -154,7 +154,14 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
 
         //Delete old records for the user
         SAH_MerchGRPWiseSAHUsedRec.Reset();
-        SAH_MerchGRPWiseSAHUsedRec.SetRange("User ID", UserId);
+        //SAH_MerchGRPWiseSAHUsedRec.SetRange("User ID", UserId);
+        SAH_MerchGRPWiseSAHUsedRec.SetRange(Year, YearNo);
+        if SAH_MerchGRPWiseSAHUsedRec.FindSet() then
+            SAH_MerchGRPWiseSAHUsedRec.DeleteAll();
+
+        //Delete old records year = 0
+        SAH_MerchGRPWiseSAHUsedRec.Reset();
+        SAH_MerchGRPWiseSAHUsedRec.SetRange(Year, 0);
         if SAH_MerchGRPWiseSAHUsedRec.FindSet() then
             SAH_MerchGRPWiseSAHUsedRec.DeleteAll();
 
@@ -357,10 +364,10 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
 
 
                 Var1 := Var1 + AlloLines;
-                Var2 := Var2 + AlloSAH;
-                Var3 := Var3 + SAHUsed;
-                Var4 := Var4 + (SAHUsed - AlloSAH);
-                Var5 := Var5 + AvgSMV;
+                Var2 := Var2 + round(AlloSAH, 1);
+                Var3 := Var3 + round(SAHUsed, 1);
+                Var4 := Var4 + round(SAHUsed, 1) - round(AlloSAH, 1);
+                Var5 := Var5 + round(AvgSMV, 1);
                 Var6 := Var6 + SAH_MerchGRPWiseSAHUsedRec."Capacity Pcs";
                 Var7 := Var7 + SAH_MerchGRPWiseSAHUsedRec."Booked Pcs";
                 var8 := var8 + DefPsc;

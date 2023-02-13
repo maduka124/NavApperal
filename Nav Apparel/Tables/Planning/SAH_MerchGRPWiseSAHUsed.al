@@ -96,7 +96,7 @@ table 50873 SAH_MerchGRPWiseSAHUsed
         }
 
         //done by sachith on 7/2/23
-        field(36; "Type"; Code[20])
+        field(19; "Type"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
@@ -109,6 +109,7 @@ table 50873 SAH_MerchGRPWiseSAHUsed
             Clustered = true;
         }
     }
+
 
     fieldgroups
     {

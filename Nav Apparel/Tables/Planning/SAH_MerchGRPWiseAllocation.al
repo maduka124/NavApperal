@@ -102,7 +102,7 @@ table 50869 SAH_MerchGRPWiseAllocation
         }
 
         //done by sachith on 7/2/23
-        field(36; "Type"; Code[20])
+        field(20; "Type"; Code[20])
         {
             DataClassification = ToBeClassified;
         }
@@ -116,8 +116,10 @@ table 50869 SAH_MerchGRPWiseAllocation
         }
 
         //done by sachith on 7/2/23
-        key(Key2; "No.")
-        { }
+        key(SK; "No.")
+        {
+
+        }
     }
 
     fieldgroups

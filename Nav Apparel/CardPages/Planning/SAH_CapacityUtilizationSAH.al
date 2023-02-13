@@ -276,7 +276,6 @@ page 50855 CapacityUtilizationSAH
                         if FactoryCapacityRec.FindSet() then
                             FactoryCapacityRec.DeleteAll();
 
-                        FactoryCapacityRec.Reset();
 
                         //Done By Sachith on 7/2/23
                         //insert Grand Total 
@@ -516,17 +515,17 @@ page 50855 CapacityUtilizationSAH
 
 
                         //////////////////////////////////Merchand group wise allocaton
-                        //Insert all group heads
 
                         //Done By Sachith on 7/2/23
                         //Delete Old Record
                         SAH_MerchGRPWiseAllocRec.Reset();
-                        SAH_MerchGRPWiseAllocRec.SetRange("Created User", UserId);
+                        SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
                         if SAH_MerchGRPWiseAllocRec.FindSet() then
                             SAH_MerchGRPWiseAllocRec.DeleteAll();
 
                         SeqNo := 0;
 
+                        //Insert all group heads
                         MerchanGroupTableRec.Reset();
                         if MerchanGroupTableRec.FindSet() then begin
 
@@ -534,6 +533,7 @@ page 50855 CapacityUtilizationSAH
                                 SAH_MerchGRPWiseAllocRec.Reset();
                                 SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
                                 SAH_MerchGRPWiseAllocRec.SetRange("Group Id", MerchanGroupTableRec."Group Id");
+
                                 if not SAH_MerchGRPWiseAllocRec.findset() then begin
 
                                     SeqNo += 1;
@@ -564,36 +564,39 @@ page 50855 CapacityUtilizationSAH
                                     SAH_MerchGRPWiseAllocRec.Modify();
                                 end;
                             until MerchanGroupTableRec.Next() = 0;
+
+
                             //Done By Sachith on 7/2/23
                             //insert Grand Total line
-                            SAH_MerchGRPWiseAllocRec.Reset();
-                            SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
-                            SAH_MerchGRPWiseAllocRec.SetFilter(Type, '=%1', 'T');
-                            if not SAH_MerchGRPWiseAllocRec.FindSet() then begin
-                                SeqNo += 1;
-                                SAH_MerchGRPWiseAllocRec.Init();
-                                SAH_MerchGRPWiseAllocRec."No." := SeqNo;
-                                SAH_MerchGRPWiseAllocRec."Group Id" := '';
-                                SAH_MerchGRPWiseAllocRec."Group Head" := '';
-                                SAH_MerchGRPWiseAllocRec.Type := 'T';
-                                SAH_MerchGRPWiseAllocRec."Group Name" := 'Total';
-                                SAH_MerchGRPWiseAllocRec.Year := rec.Year;
-                                SAH_MerchGRPWiseAllocRec."Created User" := UserId;
-                                SAH_MerchGRPWiseAllocRec."Created Date" := WorkDate();
-                                SAH_MerchGRPWiseAllocRec.JAN := 0;
-                                SAH_MerchGRPWiseAllocRec.FEB := 0;
-                                SAH_MerchGRPWiseAllocRec.MAR := 0;
-                                SAH_MerchGRPWiseAllocRec.APR := 0;
-                                SAH_MerchGRPWiseAllocRec.MAY := 0;
-                                SAH_MerchGRPWiseAllocRec.JUN := 0;
-                                SAH_MerchGRPWiseAllocRec.JUL := 0;
-                                SAH_MerchGRPWiseAllocRec.AUG := 0;
-                                SAH_MerchGRPWiseAllocRec.SEP := 0;
-                                SAH_MerchGRPWiseAllocRec.OCT := 0;
-                                SAH_MerchGRPWiseAllocRec.NOV := 0;
-                                SAH_MerchGRPWiseAllocRec.DEC := 0;
-                                SAH_MerchGRPWiseAllocRec.Insert();
-                            end;
+                            // SAH_MerchGRPWiseAllocRec.Reset();
+                            // SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
+                            // SAH_MerchGRPWiseAllocRec.SetFilter(Type, '=%1', 'T');
+                            // if not SAH_MerchGRPWiseAllocRec.FindSet() then begin
+
+                            SeqNo += 1;
+                            SAH_MerchGRPWiseAllocRec.Init();
+                            SAH_MerchGRPWiseAllocRec."No." := SeqNo;
+                            SAH_MerchGRPWiseAllocRec."Group Id" := '';
+                            SAH_MerchGRPWiseAllocRec."Group Head" := '';
+                            SAH_MerchGRPWiseAllocRec.Type := 'T';
+                            SAH_MerchGRPWiseAllocRec."Group Name" := 'Total';
+                            SAH_MerchGRPWiseAllocRec.Year := rec.Year;
+                            SAH_MerchGRPWiseAllocRec."Created User" := UserId;
+                            SAH_MerchGRPWiseAllocRec."Created Date" := WorkDate();
+                            SAH_MerchGRPWiseAllocRec.JAN := 0;
+                            SAH_MerchGRPWiseAllocRec.FEB := 0;
+                            SAH_MerchGRPWiseAllocRec.MAR := 0;
+                            SAH_MerchGRPWiseAllocRec.APR := 0;
+                            SAH_MerchGRPWiseAllocRec.MAY := 0;
+                            SAH_MerchGRPWiseAllocRec.JUN := 0;
+                            SAH_MerchGRPWiseAllocRec.JUL := 0;
+                            SAH_MerchGRPWiseAllocRec.AUG := 0;
+                            SAH_MerchGRPWiseAllocRec.SEP := 0;
+                            SAH_MerchGRPWiseAllocRec.OCT := 0;
+                            SAH_MerchGRPWiseAllocRec.NOV := 0;
+                            SAH_MerchGRPWiseAllocRec.DEC := 0;
+                            SAH_MerchGRPWiseAllocRec.Insert();
+                            // end;
 
                         end;
 
@@ -620,6 +623,7 @@ page 50855 CapacityUtilizationSAH
                                 WorkCenterRec.Reset();
                                 WorkCenterRec.SetRange("Factory No.", LocationsRec.Code);
                                 if WorkCenterRec.FindSet() then begin
+
                                     repeat
                                         Total1_M := 0;
                                         Total2_M := 0;
@@ -796,6 +800,7 @@ page 50855 CapacityUtilizationSAH
                                             SAH_MerchGRPWiseAllocRec.Reset();
                                             SAH_MerchGRPWiseAllocRec.SetRange(Year, rec.Year);
                                             SAH_MerchGRPWiseAllocRec.SetRange("Group Id", MerGR);
+                                            SAH_MerchGRPWiseAllocRec.SetFilter("Group Name", '<>%1', 'Total');
                                             if SAH_MerchGRPWiseAllocRec.FindSet() then begin
 
                                                 case i of
@@ -830,7 +835,7 @@ page 50855 CapacityUtilizationSAH
                                                 //Modify Grand Total
                                                 SAH_MerchGRPWiseAlloc2Rec.Reset();
                                                 SAH_MerchGRPWiseAlloc2Rec.SetRange(Year, Rec.Year);
-                                                SAH_MerchGRPWiseAlloc2Rec.SetRange(Type, '=%1', 'T');
+                                                SAH_MerchGRPWiseAlloc2Rec.SetFilter(Type, '=%1', 'T');
 
                                                 if SAH_MerchGRPWiseAlloc2Rec.FindSet() then begin
 
