@@ -45,7 +45,7 @@ page 50427 "Sample Request Header ListPart"
                     Editable = false;
                 }
 
-                field("Created User"; rec."Created User")
+                field("Secondary UserID"; rec."Secondary UserID")
                 {
                     ApplicationArea = All;
                     Caption = 'Merchant';

@@ -183,6 +183,7 @@ table 50930 "Sample Requsition Header"
     var
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
+        MerchandGrpname: Record MerchandizingGroupTable;
         UserSetupRec: Record "User Setup";
     begin
         NavAppSetup.Get('0001');
@@ -199,6 +200,13 @@ table 50930 "Sample Requsition Header"
                 Error('Merchandizer Group not setup in the User Setup.');
 
             "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+
+            //get Merchand group head
+            MerchandGrpname.Reset();
+            MerchandGrpname.SetRange("Group Name", UserSetupRec."Merchandizer Group Name");
+            if MerchandGrpname.FindSet() then
+                rec."Group HD" := MerchandGrpname."Group Head";
+
         end
         else
             Error('Merchandizer Group not setup in the User Setup.');
