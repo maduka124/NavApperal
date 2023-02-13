@@ -759,6 +759,19 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                //Done By Sachith on 13/02/23
+                group("Capacity By Pcs2")
+                {
+                    Caption = 'Capacity By Pcs';
+
+                    action("Buyer Wise Order Booking2")
+                    {
+                        Caption = 'Buyer Wise Order Booking';
+                        RunObject = Page BuyerWiseOrderBookingList;
+                        ApplicationArea = all;
+                    }
+                }
+
                 group("Planning Reports")
                 {
                     Caption = 'Planning Reports';
