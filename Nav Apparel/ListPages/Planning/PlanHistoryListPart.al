@@ -40,6 +40,12 @@ page 50347 "Plan History List part"
                     ApplicationArea = All;
                 }
 
+                field(ShipDate; ShipDate)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Ship Date';
+                }
+
                 field(StartDateTime; rec.StartDateTime)
                 {
                     ApplicationArea = All;
@@ -90,6 +96,18 @@ page 50347 "Plan History List part"
     end;
 
 
+    trigger OnAfterGetRecord()
+    var
+        StyleMasPoRec: Record "Style Master PO";
+    begin
+        StyleMasPoRec.Reset();
+        StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+        StyleMasPoRec.SetRange("PO No.", rec."PO No.");
+        if StyleMasPoRec.FindSet() then
+            ShipDate := StyleMasPoRec."Ship Date";
+    end;
+
+
     procedure PassParameters(StyleNoPara: Text);
     var
     begin
@@ -98,5 +116,6 @@ page 50347 "Plan History List part"
 
     var
         StyleNo: Text;
+        ShipDate: Date;
 
 }

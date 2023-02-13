@@ -289,9 +289,11 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         lrecSOAllocation: Record 5950;
         lrecJobPlanningLine: Record "NavApp Planning Lines";
         NavAppSetupRec: Record "NavApp Setup";
+        StyleMasPoRec: Record "Style Master PO";
         tempEntry: JsonObject;
         tempEntries: JsonArray;
         tempText: Text;
+        ShiDate: Date;
     // dStart: Date;
     // dEnd: Date;
     begin
@@ -361,6 +363,12 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         IF lrecJobPlanningLine.FIND('-') THEN
             REPEAT
 
+                StyleMasPoRec.Reset();
+                StyleMasPoRec.SetRange("Style No.", lrecJobPlanningLine."Style No.");
+                StyleMasPoRec.SetRange("PO No.", lrecJobPlanningLine."PO No.");
+                if StyleMasPoRec.FindSet() then
+                    ShiDate := StyleMasPoRec."Ship Date";
+
                 //tempText := 'JPL_' + FORMAT(lrecJobPlanningLine."Job No.") + '_' + FORMAT(lrecJobPlanningLine."Job Task No.") + '_' + FORMAT(lrecJobPlanningLine."Line No.");
                 tempText := lrecJobPlanningLine."Style No." + '/' + lrecJobPlanningLine."Lot No." + '/' + lrecJobPlanningLine."PO No." + '/' + FORMAT(lrecJobPlanningLine."Line No.");
                 ldnAllocation := createJsonObject();
@@ -382,6 +390,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 ldnAllocation.Add('AddIn_TooltipText', 'Style : ' + FORMAT(lrecJobPlanningLine."Style Name") +
                   '<br>PO No : ' + FORMAT(lrecJobPlanningLine."PO No.") +
                   '<br>Qty : ' + FORMAT(lrecJobPlanningLine.Qty) +
+                  '<br>Ship Date : ' + FORMAT(CreateDateTime(ShiDate, 0T)) +
                   '<br>Start D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."Start Date", lrecJobPlanningLine."Start Time")) +
                   '<br>Finish D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."End Date", lrecJobPlanningLine."Finish Time")));
                 ldnAllocation.Add('AddIn_ContextMenuID', 'CM_Allocation');
@@ -420,7 +429,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 ldnEntity.Add('AddIn_TableText', TempString);
                 ldnEntity.Get('ID', tempEntityToken);
                 ldnEntity.Add('AddIn_ContextMenuID', 'CM_Entity');
-                ldnEntity.Add('AddIn_TooltipText', 'Style : ' + FORMAT(PlanningQueueRec."Style Name") + '<br>' + 'LOT : ' + FORMAT(PlanningQueueRec."Lot No.") + '<br>' + 'PO : ' + FORMAT(PlanningQueueRec."PO No.") + '<br>' + 'Target Date : ' + FORMAT(PlanningQueueRec."TGTSEWFIN Date") + '<br>' + 'Qty : ' + FORMAT(PlanningQueueRec.Qty));
+                ldnEntity.Add('AddIn_TooltipText', 'Style : ' + FORMAT(PlanningQueueRec."Style Name") + '<br>' + 'LOT : ' + FORMAT(PlanningQueueRec."Lot No.") + '<br>' + 'PO : ' + FORMAT(PlanningQueueRec."PO No.") + '<br>' + 'Ship Date : ' + FORMAT(PlanningQueueRec."TGTSEWFIN Date") + '<br>' + 'Qty : ' + FORMAT(PlanningQueueRec.Qty));
                 pEntities.Add(ldnEntity);
 
             until PlanningQueueRec.Next() = 0;

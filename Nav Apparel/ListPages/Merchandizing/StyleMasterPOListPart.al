@@ -72,7 +72,15 @@ page 51069 "Style Master PO ListPart"
                         StyleMasterRec: Record "Style Master";
                         StyleMasterPORec: Record "Style Master PO";
                         Tot: BigInteger;
+                        NavappPlanLineRec: Record "NavApp Planning Lines";
                     begin
+
+                        NavappPlanLineRec.Reset();
+                        NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
+                        NavappPlanLineRec.SetRange("PO No.", rec."PO No.");
+                        if NavappPlanLineRec.FindSet() then
+                            Error('PO already planned. Cannot change quantity.');
+
 
                         CurrPage.Update();
                         StyleMasterPORec.Reset();
@@ -118,7 +126,15 @@ page 51069 "Style Master PO ListPart"
                     var
                         NavappRec: Record "NavApp Setup";
                         StyleMasRec: Record "Style Master";
+                        NavappPlanLineRec: Record "NavApp Planning Lines";
                     begin
+
+                        NavappPlanLineRec.Reset();
+                        NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
+                        NavappPlanLineRec.SetRange("PO No.", rec."PO No.");
+                        if NavappPlanLineRec.FindSet() then
+                            Error('Style already planned. Cannot change Ship Date.');
+
                         NavappRec.Reset();
                         NavappRec.FindSet();
 

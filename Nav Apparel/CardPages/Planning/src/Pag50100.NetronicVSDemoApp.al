@@ -1,7 +1,7 @@
 page 50324 "NETRONICVSDevToolDemoAppPage"
 {
     PageType = Card;
-    Caption = 'Visual Planning';
+    Caption = ' ';
     UsageCategory = Tasks;
     ApplicationArea = All;
 

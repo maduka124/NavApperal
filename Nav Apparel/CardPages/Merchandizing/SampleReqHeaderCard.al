@@ -350,33 +350,33 @@ page 50600 "Sample Request Card"
                 end;
             }
 
-            action("Update Group name")
-            {
-                Image = "8ball";
-                ApplicationArea = All;
+            // action("Update Group name")
+            // {
+            //     Image = "8ball";
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    MerchandGrpname: Record MerchandizingGroupTable;
-                    sampleheasder: Record "Sample Requsition Header";
-                begin
-                    //get Merchna group head
-                    sampleheasder.Reset();
-                    if sampleheasder.FindSet() then begin
-                        repeat
-                            MerchandGrpname.Reset();
-                            MerchandGrpname.SetRange("Group Name", sampleheasder."Merchandizer Group Name");
-                            if MerchandGrpname.FindSet() then
-                                sampleheasder."Group HD" := MerchandGrpname."Group Head";
+            //     trigger OnAction()
+            //     var
+            //         MerchandGrpname: Record MerchandizingGroupTable;
+            //         sampleheasder: Record "Sample Requsition Header";
+            //     begin
+            //         //get Merchna group head
+            //         sampleheasder.Reset();
+            //         if sampleheasder.FindSet() then begin
+            //             repeat
+            //                 MerchandGrpname.Reset();
+            //                 MerchandGrpname.SetRange("Group Name", sampleheasder."Merchandizer Group Name");
+            //                 if MerchandGrpname.FindSet() then
+            //                     sampleheasder."Group HD" := MerchandGrpname."Group Head";
 
-                            sampleheasder.Modify();
-                        until sampleheasder.Next() = 0;
-                    end;
+            //                 sampleheasder.Modify();
+            //             until sampleheasder.Next() = 0;
+            //         end;
 
-                    Message('Complated');
+            //         Message('Complated');
 
-                end;
-            }
+            //     end;
+            // }
 
 
             // action("Update Garment Type")
