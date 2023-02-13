@@ -705,13 +705,18 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Visual Planning")
+                //Done By Sachith on 13/02/23
+                group("Capacity By Pcs2")
                 {
-                    Caption = 'Visual Planning';
-                    RunObject = Page NETRONICVSDevToolDemoAppPage;
-                    ApplicationArea = all;
-                }
+                    Caption = 'Capacity By Pcs';
 
+                    action("Buyer Wise Order Booking2")
+                    {
+                        Caption = 'Buyer Wise Order Booking';
+                        RunObject = Page BuyerWiseOrderBookingList;
+                        ApplicationArea = all;
+                    }
+                }
 
                 action("Factory Wise Production Planning")
                 {
@@ -745,6 +750,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Visual Planning")
+                {
+                    Caption = 'Visual Planning';
+                    RunObject = Page NETRONICVSDevToolDemoAppPage;
+                    ApplicationArea = all;
+                }
+
                 action("Wastage")
                 {
                     Caption = 'Quantity Wise Extra %';
@@ -759,35 +771,39 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                //Done By Sachith on 13/02/23
-                group("Capacity By Pcs2")
-                {
-                    Caption = 'Capacity By Pcs';
-
-                    action("Buyer Wise Order Booking2")
-                    {
-                        Caption = 'Buyer Wise Order Booking';
-                        RunObject = Page BuyerWiseOrderBookingList;
-                        ApplicationArea = all;
-                    }
-                }
-
                 group("Planning Reports")
                 {
                     Caption = 'Planning Reports';
-
-                    action("Planning Efficiency Dashboard")
-                    {
-                        Caption = 'Planning Efficiency Dashboard';
-                        RunObject = Page "Planning Efficiency Dashboard1";
-                        ApplicationArea = all;
-                    }
 
                     action("Capacity Gap Details Report")
                     {
                         Caption = 'Capacity Gap Details Report';
                         Enabled = true;
                         RunObject = report CapacityGapDetailsReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Day Wise Sewing Target")
+                    {
+                        Caption = 'Day Wise Sewing Target Report';
+                        Enabled = true;
+                        RunObject = report DayWiseSewingTarget;
+                        ApplicationArea = all;
+                    }
+
+                    action("Daily Production Report")
+                    {
+                        Caption = 'Daily Production Report';
+                        Enabled = true;
+                        RunObject = report DailyProductionReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Day Wise Production Report")
+                    {
+                        Caption = 'Day Wise Production Report';
+                        Enabled = true;
+                        RunObject = report DayWiseProductionReport;
                         ApplicationArea = all;
                     }
 
@@ -807,11 +823,10 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Day Wise Production Report")
+                    action("Planning Efficiency Dashboard")
                     {
-                        Caption = 'Day Wise Production Report';
-                        Enabled = true;
-                        RunObject = report DayWiseProductionReport;
+                        Caption = 'Planning Efficiency Dashboard';
+                        RunObject = Page "Planning Efficiency Dashboard1";
                         ApplicationArea = all;
                     }
 
@@ -838,25 +853,12 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report WeeklyOrderBookingStatus;
                         ApplicationArea = all;
                     }
-                    action("Day Wise Sewing Target")
-                    {
-                        Caption = 'Day Wise Sewing Target Report';
-                        Enabled = true;
-                        RunObject = report DayWiseSewingTarget;
-                        ApplicationArea = all;
-                    }
+
                     action("Sewing Production Details")
                     {
                         Caption = 'Sewing Production Details';
                         Enabled = true;
                         RunObject = report SewingProductionDetails;
-                        ApplicationArea = all;
-                    }
-                    action("Daily Production Report")
-                    {
-                        Caption = 'Daily Production Report';
-                        Enabled = true;
-                        RunObject = report DailyProductionReport;
                         ApplicationArea = all;
                     }
                 }

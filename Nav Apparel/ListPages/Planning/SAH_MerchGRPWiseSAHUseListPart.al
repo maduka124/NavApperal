@@ -123,6 +123,8 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
                 var
                 begin
                     Generate();
+                    // rec.SetRange(Year, rec.Year);
+                    // rec.SetRange("Month No", rec."Month No");
                 end;
             }
         }
@@ -397,9 +399,10 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
             SAH_MerchGRPWiseSAHUsedRec.Init();
             SAH_MerchGRPWiseSAHUsedRec.No := MaxNo;
             SAH_MerchGRPWiseSAHUsedRec.Year := YearNo;
+            SAH_MerchGRPWiseSAHUsedRec."Month No" := MonthNo;
+            SAH_MerchGRPWiseSAHUsedRec."Month Name" := MonthName;
             SAH_MerchGRPWiseSAHUsedRec.Type := 'T';
             SAH_MerchGRPWiseSAHUsedRec."Group Name" := 'Total';
-            SAH_MerchGRPWiseSAHUsedRec."Month Name" := MonthName;
             SAH_MerchGRPWiseSAHUsedRec."Allocated Lines" := Var1;
             SAH_MerchGRPWiseSAHUsedRec."Allocated SAH" := Var2;
             SAH_MerchGRPWiseSAHUsedRec."Used SAH" := Var3;
@@ -417,7 +420,26 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
         Message('Completed');
     end;
 
+
+    trigger OnAfterGetRecord()
     var
+    begin
+        // rec.SetRange(Year, rec.Year);
+        // rec.SetRange("Month No", rec."Month No");
+        StyleExprTxt := ChangeColor.ChangeColorBooking7(Rec);
+    end;
+
+
+    trigger OnOpenPage()
+    var
+    begin
+
+    end;
+
+
+    var
+        StyleExprTxt: Text[50];
+        ChangeColor: Codeunit NavAppCodeUnit;
         YearNo: Integer;
         MonthNo: Integer;
         MonthName: Text[20];
@@ -429,17 +451,4 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
         Var6: BigInteger;
         Var7: BigInteger;
         var8: BigInteger;
-
-
-    trigger OnAfterGetRecord()
-    var
-    begin
-        StyleExprTxt := ChangeColor.ChangeColorBooking7(Rec);
-    end;
-
-    var
-        StyleExprTxt: Text[50];
-        ChangeColor: Codeunit NavAppCodeUnit;
-
-
 }
