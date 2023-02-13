@@ -43,6 +43,9 @@ page 51062 SampleReqLineListPart
                         if SampleReqHeaderRec.FindSet() then begin
                             rec."Garment Type No" := SampleReqHeaderRec."Garment Type No";
                             rec."Garment Type" := SampleReqHeaderRec."Garment Type Name";
+                            //Done By Maduka 13/02/23
+                            Rec."Brand Name" := SampleReqHeaderRec."Brand Name";
+                            Rec."Brand No" := SampleReqHeaderRec."Brand No";
                         end;
 
                         //done by sachith on 10/02/23

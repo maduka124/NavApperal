@@ -226,7 +226,7 @@ table 50520 "B2BLCMaster"
             DataClassification = ToBeClassified;
         }
 
-        field(39; LCContractNo; Text[20])
+        field(39; LCContractNo; Text[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No."), "Status of LC" = filter(Active));

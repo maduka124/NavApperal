@@ -142,7 +142,10 @@ page 50523 "B2B PI ListPart1"
                         end;
 
                         B2BRec."B2B LC Opened (Value)" := "Tot B2B LC Opened (Value)";
-                        B2BRec."B2B LC Opened (%)" := ("Tot B2B LC Opened (Value)" / B2BRec."LC Value") * 100;
+
+                        if B2BRec."LC Value" > 0 then
+                            B2BRec."B2B LC Opened (%)" := ("Tot B2B LC Opened (Value)" / B2BRec."LC Value") * 100;
+
                         B2BRec.Balance := B2BRec."B2B LC Limit" - "Tot B2B LC Opened (Value)";
                         B2BRec.Modify();
                     end
