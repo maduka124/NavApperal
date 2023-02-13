@@ -28,13 +28,14 @@ page 50475 "Maning Level Card"
                     ShowMandatory = true;
                     Caption = 'Style';
 
-                    trigger OnValidate()
+                    trigger OnLookup(var text: Text): Boolean
                     var
-                        StyleMasterRec: Record "Style Master";
+                        NewBRRec: Record "New Breakdown";
+                        StyeleMasRec: Record "Style Master";
+                        StyleName: text[50];
                         NewBR: Record "New Breakdown";
                         ManingLevelsLineRec: Record "Maning Levels Line";
                         NewBrOpLineRec: Record "New Breakdown Op Line2";
-                        NewBrRec: Record "New Breakdown";
                         NewBRNo: Code[20];
                         LineNo: Integer;
                         LoginSessionsRec: Record LoginSessions;
@@ -60,78 +61,184 @@ page 50475 "Maning Level Card"
                         end;
 
 
-                        //Delete old records
-                        ManingLevelsLineRec.Reset();
-                        ManingLevelsLineRec.SetRange("No.", rec."No.");
-                        ManingLevelsLineRec.DeleteAll();
+                        StyeleMasRec.Reset();
+                        if StyeleMasRec.Findset() then begin
+                            repeat
+                                NewBRRec.Reset();
+                                NewBRRec.SetRange("Style No.", StyeleMasRec."No.");
+                                if NewBRRec.Findset() then
+                                    StyeleMasRec.Mark(true);
+                            until StyeleMasRec.Next() = 0;
 
-                        StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
-                        if StyleMasterRec.FindSet() then
-                            rec."Style No." := StyleMasterRec."No.";
-
-                        NewBR.Reset();
-                        NewBR.SetRange("Style No.", StyleMasterRec."No.");
-                        NewBR.FindSet();
-
-                        rec."Total SMV" := NewBR."Total SMV";
-                        rec."Sewing SMV" := NewBR.Machine;
-                        rec."Manual SMV" := NewBR.Manual;
-
-
-                        //Load Line Items
-                        NewBrRec.Reset();
-                        NewBrRec.SetRange("Style No.", StyleMasterRec."No.");
-
-                        if NewBrRec.FindSet() then begin
-
-                            NewBRNo := NewBrRec."No.";
-
-                            NewBrOpLineRec.Reset();
-                            NewBrOpLineRec.SetRange("No.", NewBRNo);
-                            NewBrOpLineRec.SetCurrentKey("Garment Part Name", "Line Position");
-                            NewBrOpLineRec.Ascending(true);
-                            NewBrOpLineRec.SetFilter(LineType, '=%1', 'L');
-
-                            if NewBrOpLineRec.FindSet() then begin
-
-                                //Get max line no
-                                LineNo := 0;
-                                ManingLevelsLineRec.Reset();
-                                ManingLevelsLineRec.SetRange("No.", rec."No.");
-
-                                if ManingLevelsLineRec.FindLast() then
-                                    LineNo := ManingLevelsLineRec."Line No.";
-
-                                repeat
-
-                                    LineNo += 1;
-                                    ManingLevelsLineRec.Init();
-                                    ManingLevelsLineRec."No." := rec."No.";
-                                    ManingLevelsLineRec."Line No." := LineNo;
-                                    ManingLevelsLineRec.Code := NewBrOpLineRec.Code;
-                                    ManingLevelsLineRec.Description := NewBrOpLineRec.Description;
-                                    ManingLevelsLineRec."Machine No." := NewBrOpLineRec."Machine No.";
-                                    ManingLevelsLineRec."Machine Name" := NewBrOpLineRec."Machine Name";
-                                    ManingLevelsLineRec."Department No." := NewBrOpLineRec."Department No.";
-                                    ManingLevelsLineRec."Department Name" := NewBrOpLineRec."Department Name";
-                                    ManingLevelsLineRec.RefGPartName := NewBrOpLineRec.RefGPartName;
-
-                                    if NewBrOpLineRec.MachineType = 'Machine' then
-                                        ManingLevelsLineRec."SMV Machine" := NewBrOpLineRec.SMV;
-
-                                    if NewBrOpLineRec.MachineType = 'Helper' then
-                                        ManingLevelsLineRec."SMV Manual" := NewBrOpLineRec.SMV;
-
-                                    ManingLevelsLineRec."Target Per Hour" := NewBrOpLineRec."Target Per Hour";
-                                    ManingLevelsLineRec."Created User" := UserId;
-                                    ManingLevelsLineRec.Insert();
-
-                                until NewBrOpLineRec.Next = 0;
-
-                            end;
+                            StyeleMasRec.MARKEDONLY(TRUE);
                         end;
+
+                        if Page.RunModal(51185, StyeleMasRec) = Action::LookupOK then begin
+
+                            rec."Style No." := StyeleMasRec."No.";
+                            rec."Style Name" := StyeleMasRec."Style No.";
+
+                            //Delete old records
+                            ManingLevelsLineRec.Reset();
+                            ManingLevelsLineRec.SetRange("No.", rec."No.");
+                            ManingLevelsLineRec.DeleteAll();
+
+                            NewBR.Reset();
+                            NewBR.SetRange("Style No.", StyeleMasRec."No.");
+                            if NewBR.FindSet() then begin
+                                rec."Total SMV" := NewBR."Total SMV";
+                                rec."Sewing SMV" := NewBR.Machine;
+                                rec."Manual SMV" := NewBR.Manual;
+                            end
+                            else
+                                Error('No Breakdown for the Style : %1', StyeleMasRec."Style No.");
+
+
+                            //Load Line Items
+                            NewBrRec.Reset();
+                            NewBrRec.SetRange("Style No.", StyeleMasRec."No.");
+
+                            if NewBrRec.FindSet() then begin
+
+                                NewBRNo := NewBrRec."No.";
+
+                                NewBrOpLineRec.Reset();
+                                NewBrOpLineRec.SetRange("No.", NewBRNo);
+                                NewBrOpLineRec.SetCurrentKey("Garment Part Name", "Line Position");
+                                NewBrOpLineRec.Ascending(true);
+                                NewBrOpLineRec.SetFilter(LineType, '=%1', 'L');
+
+                                if NewBrOpLineRec.FindSet() then begin
+
+                                    //Get max line no
+                                    LineNo := 0;
+                                    ManingLevelsLineRec.Reset();
+                                    ManingLevelsLineRec.SetRange("No.", rec."No.");
+
+                                    if ManingLevelsLineRec.FindLast() then
+                                        LineNo := ManingLevelsLineRec."Line No.";
+
+                                    repeat
+
+                                        LineNo += 1;
+                                        ManingLevelsLineRec.Init();
+                                        ManingLevelsLineRec."No." := rec."No.";
+                                        ManingLevelsLineRec."Line No." := LineNo;
+                                        ManingLevelsLineRec.Code := NewBrOpLineRec.Code;
+                                        ManingLevelsLineRec.Description := NewBrOpLineRec.Description;
+                                        ManingLevelsLineRec."Machine No." := NewBrOpLineRec."Machine No.";
+                                        ManingLevelsLineRec."Machine Name" := NewBrOpLineRec."Machine Name";
+                                        ManingLevelsLineRec."Department No." := NewBrOpLineRec."Department No.";
+                                        ManingLevelsLineRec."Department Name" := NewBrOpLineRec."Department Name";
+                                        ManingLevelsLineRec.RefGPartName := NewBrOpLineRec.RefGPartName;
+
+                                        if NewBrOpLineRec.MachineType = 'Machine' then
+                                            ManingLevelsLineRec."SMV Machine" := NewBrOpLineRec.SMV;
+
+                                        if NewBrOpLineRec.MachineType = 'Helper' then
+                                            ManingLevelsLineRec."SMV Manual" := NewBrOpLineRec.SMV;
+
+                                        ManingLevelsLineRec."Target Per Hour" := NewBrOpLineRec."Target Per Hour";
+                                        ManingLevelsLineRec."Created User" := UserId;
+                                        ManingLevelsLineRec.Insert();
+
+                                    until NewBrOpLineRec.Next = 0;
+
+                                end;
+                            end;
+
+                        end;
+
                     end;
+
+                    // trigger OnValidate()
+                    // var
+                    //     StyleMasterRec: Record "Style Master";
+                    //     NewBR: Record "New Breakdown";
+                    //     ManingLevelsLineRec: Record "Maning Levels Line";
+                    //     NewBrOpLineRec: Record "New Breakdown Op Line2";
+                    //     NewBrRec: Record "New Breakdown";
+                    //     NewBRNo: Code[20];
+                    //     LineNo: Integer;
+                    //     LoginSessionsRec: Record LoginSessions;
+                    //     LoginRec: Page "Login Card";
+                    // begin
+
+
+                    //     //Delete old records
+                    //     ManingLevelsLineRec.Reset();
+                    //     ManingLevelsLineRec.SetRange("No.", rec."No.");
+                    //     ManingLevelsLineRec.DeleteAll();
+
+                    //     StyleMasterRec.Reset();
+                    //     StyleMasterRec.SetRange("Style No.", rec."Style Name");
+                    //     if StyleMasterRec.FindSet() then
+                    //         rec."Style No." := StyleMasterRec."No.";
+
+                    //     NewBR.Reset();
+                    //     NewBR.SetRange("Style No.", StyleMasterRec."No.");
+                    //     if NewBR.FindSet() then begin
+                    //         rec."Total SMV" := NewBR."Total SMV";
+                    //         rec."Sewing SMV" := NewBR.Machine;
+                    //         rec."Manual SMV" := NewBR.Manual;
+                    //     end
+                    //     else
+                    //         Error('No Breakdown for the Style : %1', StyleMasterRec."Style No.");
+
+
+                    //     //Load Line Items
+                    //     NewBrRec.Reset();
+                    //     NewBrRec.SetRange("Style No.", StyleMasterRec."No.");
+
+                    //     if NewBrRec.FindSet() then begin
+
+                    //         NewBRNo := NewBrRec."No.";
+
+                    //         NewBrOpLineRec.Reset();
+                    //         NewBrOpLineRec.SetRange("No.", NewBRNo);
+                    //         NewBrOpLineRec.SetCurrentKey("Garment Part Name", "Line Position");
+                    //         NewBrOpLineRec.Ascending(true);
+                    //         NewBrOpLineRec.SetFilter(LineType, '=%1', 'L');
+
+                    //         if NewBrOpLineRec.FindSet() then begin
+
+                    //             //Get max line no
+                    //             LineNo := 0;
+                    //             ManingLevelsLineRec.Reset();
+                    //             ManingLevelsLineRec.SetRange("No.", rec."No.");
+
+                    //             if ManingLevelsLineRec.FindLast() then
+                    //                 LineNo := ManingLevelsLineRec."Line No.";
+
+                    //             repeat
+
+                    //                 LineNo += 1;
+                    //                 ManingLevelsLineRec.Init();
+                    //                 ManingLevelsLineRec."No." := rec."No.";
+                    //                 ManingLevelsLineRec."Line No." := LineNo;
+                    //                 ManingLevelsLineRec.Code := NewBrOpLineRec.Code;
+                    //                 ManingLevelsLineRec.Description := NewBrOpLineRec.Description;
+                    //                 ManingLevelsLineRec."Machine No." := NewBrOpLineRec."Machine No.";
+                    //                 ManingLevelsLineRec."Machine Name" := NewBrOpLineRec."Machine Name";
+                    //                 ManingLevelsLineRec."Department No." := NewBrOpLineRec."Department No.";
+                    //                 ManingLevelsLineRec."Department Name" := NewBrOpLineRec."Department Name";
+                    //                 ManingLevelsLineRec.RefGPartName := NewBrOpLineRec.RefGPartName;
+
+                    //                 if NewBrOpLineRec.MachineType = 'Machine' then
+                    //                     ManingLevelsLineRec."SMV Machine" := NewBrOpLineRec.SMV;
+
+                    //                 if NewBrOpLineRec.MachineType = 'Helper' then
+                    //                     ManingLevelsLineRec."SMV Manual" := NewBrOpLineRec.SMV;
+
+                    //                 ManingLevelsLineRec."Target Per Hour" := NewBrOpLineRec."Target Per Hour";
+                    //                 ManingLevelsLineRec."Created User" := UserId;
+                    //                 ManingLevelsLineRec.Insert();
+
+                    //             until NewBrOpLineRec.Next = 0;
+
+                    //         end;
+                    //     end;
+                    // end;
                 }
 
                 field("Work Center Name"; rec."Work Center Name")

@@ -41,17 +41,23 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
 
             repeater(General)
             {
-                field("Group Name"; rec."Group Name")
+                field("Group Head"; rec."Group Head")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Group Id"; rec."Group Id")
-                {
-                    ApplicationArea = All;
-                    StyleExpr = StyleExprTxt;
-                }
+                // field("Group Name"; rec."Group Name")
+                // {
+                //     ApplicationArea = All;
+                //     StyleExpr = StyleExprTxt;
+                // }
+
+                // field("Group Id"; rec."Group Id")
+                // {
+                //     ApplicationArea = All;
+                //     StyleExpr = StyleExprTxt;
+                // }
 
                 field("Allocated Lines"; rec."Allocated Lines")
                 {
@@ -403,6 +409,7 @@ page 50874 SAH_MerchGRPWiseSAHUseListPart
             SAH_MerchGRPWiseSAHUsedRec."Month Name" := MonthName;
             SAH_MerchGRPWiseSAHUsedRec.Type := 'T';
             SAH_MerchGRPWiseSAHUsedRec."Group Name" := 'Total';
+            SAH_MerchGRPWiseSAHUsedRec."Group Head" := 'Total';
             SAH_MerchGRPWiseSAHUsedRec."Allocated Lines" := Var1;
             SAH_MerchGRPWiseSAHUsedRec."Allocated SAH" := Var2;
             SAH_MerchGRPWiseSAHUsedRec."Used SAH" := Var3;

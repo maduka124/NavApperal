@@ -580,6 +580,7 @@ page 50855 CapacityUtilizationSAH
                             SAH_MerchGRPWiseAllocRec."Group Head" := '';
                             SAH_MerchGRPWiseAllocRec.Type := 'T';
                             SAH_MerchGRPWiseAllocRec."Group Name" := 'Total';
+                            SAH_MerchGRPWiseAllocRec."Group Head" := 'Total';
                             SAH_MerchGRPWiseAllocRec.Year := rec.Year;
                             SAH_MerchGRPWiseAllocRec."Created User" := UserId;
                             SAH_MerchGRPWiseAllocRec."Created Date" := WorkDate();

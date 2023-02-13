@@ -20,8 +20,8 @@ table 50473 "Maning Level"
         field(3; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No.";
-            ValidateTableRelation = false;
+            //TableRelation = "Style Master"."Style No.";
+            //ValidateTableRelation = false;
         }
 
         field(4; "Line No."; Code[20])

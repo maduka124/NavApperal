@@ -14,17 +14,23 @@ page 50873 SAH_MerchGRPWiseAlloListPart
         {
             repeater(General)
             {
-                field("Group Name"; rec."Group Name")
+                field("Group Head"; rec."Group Head")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
                 }
 
-                field("Group Id"; rec."Group Id")
-                {
-                    ApplicationArea = All;
-                    StyleExpr = StyleExprTxt;
-                }
+                // field("Group Name"; rec."Group Name")
+                // {
+                //     ApplicationArea = All;
+                //     StyleExpr = StyleExprTxt;
+                // }
+
+                // field("Group Id"; rec."Group Id")
+                // {
+                //     ApplicationArea = All;
+                //     StyleExpr = StyleExprTxt;
+                // }
 
                 field(JAN; rec.JAN)
                 {
