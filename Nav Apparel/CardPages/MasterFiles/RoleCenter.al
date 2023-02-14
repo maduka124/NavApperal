@@ -1190,10 +1190,11 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report MaterialIssueRequition;
                         ApplicationArea = All;
                     }
-                    action("Raw Material Request/Issue Report")
+                    action("Garment Wise Raw Material Request & Issue Report")
                     {
+                        Caption = 'Garment Wise Raw Material Request & Issue Report';
                         Enabled = true;
-                        RunObject = report RawMaterialRequesetIssue;
+                        RunObject = report GarmentWiseRawMaterialRequest;
                         ApplicationArea = All;
                     }
                 }

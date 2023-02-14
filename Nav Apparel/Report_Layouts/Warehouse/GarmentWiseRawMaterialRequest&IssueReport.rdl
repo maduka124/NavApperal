@@ -22,7 +22,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>RAW MATERIAL REQUEST/ISSUE REPORT</Value>
+                    <Value>GARMENT WISE RAW MATERIAL REQUEST &amp; ISSUE REPORT</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>20pt</FontSize>
@@ -38,9 +38,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0.3175cm</Top>
-            <Left>6.51469cm</Left>
+            <Left>3.81065cm</Left>
             <Height>1.19062cm</Height>
-            <Width>13.67897cm</Width>
+            <Width>17.97051cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -836,6 +836,11 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>0.5pt</Width>
+                            </BottomBorder>
                             <LeftBorder>
                               <Color>Black</Color>
                               <Style>Solid</Style>
