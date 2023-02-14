@@ -10,7 +10,7 @@ report 50639 SampleRequest
     {
         dataitem("Sample Requsition Header"; "Sample Requsition Header")
         {
-            // DataItemTableView = sorting("No.");
+            DataItemTableView = sorting("No.");
             // DataItemTableView = where("Merchandizer Group Name" = filter())
             column(Buyer_Name; "Buyer Name")
             { }
@@ -111,7 +111,7 @@ report 50639 SampleRequest
 
 
                 SetRange("No.", HeaderNo);
-                SetRange("Merchandizer Group Name", MerchantGrpName);
+                // SetRange("Merchandizer Group Name", MerchantGrpName);
             end;
 
             trigger OnAfterGetRecord()
@@ -137,14 +137,15 @@ report 50639 SampleRequest
                     {
                         ApplicationArea = All;
                         Caption = 'Sample Request No';
+                        TableRelation = "Sample Requsition Header"."No.";
                         // TableRelation = "Sample Requsition Header"."No." where("Merchandizer Group Name" = field(gr));
                     }
-                    field(MerchantGrpName; MerchantGrpName)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Merchandizer Group Name';
-                        
-                    }
+                    // field(MerchantGrpName; MerchantGrpName)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'Merchandizer Group Name';
+
+                    // }
 
                 }
             }
