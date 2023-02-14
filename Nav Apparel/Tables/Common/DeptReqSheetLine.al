@@ -144,6 +144,9 @@ table 50820 DeptReqSheetLine
             TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
                     Brand."Brand Name"
             else
+            if ("Main Category Name" = filter('SPARE PARTS'))
+                    Brand."Brand Name"
+            else
             if ("Main Category Name" = filter('CHEMICAL'))
                     Brand."Brand Name"
             else
@@ -185,6 +188,9 @@ table 50820 DeptReqSheetLine
             TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
                     Model."Model Name"
             else
+            if ("Main Category Name" = filter('SPARE PARTS'))
+                    Model."Model Name"
+            else
             if ("Main Category Name" = filter('STATIONARY'))
                     Colour."Colour Name"
             else
@@ -207,6 +213,9 @@ table 50820 DeptReqSheetLine
             DataClassification = ToBeClassified;
 
             TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
+                    "Service Item".Description
+            else
+            if ("Main Category Name" = filter('SPARE PARTS'))
                     "Service Item".Description
             else
             if ("Main Category Name" = filter('CHEMICAL'))

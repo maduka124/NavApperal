@@ -26,7 +26,8 @@ pageextension 50957 ItemCardExt extends "Item Card"
                         end;
 
                         //Article
-                        if (rec."Main Category Name" = 'SPAIR PARTS') or (rec."Main Category Name" = 'CHEMICAL')
+                        if (rec."Main Category Name" = 'SPARE PARTS')
+                            or (rec."Main Category Name" = 'SPAIR PARTS') or (rec."Main Category Name" = 'CHEMICAL')
                             or (rec."Main Category Name" = 'STATIONARY') or (rec."Main Category Name" = 'IT ACESSORIES')
                             or (rec."Main Category Name" = 'ELETRICAL') then
                             CaptionA := 'Brand'
@@ -34,7 +35,7 @@ pageextension 50957 ItemCardExt extends "Item Card"
                             CaptionA := 'Article';
 
                         //Size                            
-                        if (rec."Main Category Name" = 'SPAIR PARTS') then
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (rec."Main Category Name" = 'SPAIR PARTS') then
                             CaptionB := 'Type of Machine'
                         else
                             if (rec."Main Category Name" = 'CHEMICAL') then
@@ -43,7 +44,7 @@ pageextension 50957 ItemCardExt extends "Item Card"
                                 CaptionB := 'Size';
 
                         //Color                            
-                        if (rec."Main Category Name" = 'SPAIR PARTS') then
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (rec."Main Category Name" = 'SPAIR PARTS') then
                             CaptionC := 'Model'
                         else
                             if (rec."Main Category Name" = 'CHEMICAL') then
@@ -52,7 +53,7 @@ pageextension 50957 ItemCardExt extends "Item Card"
                                 CaptionC := 'Color';
 
                         //remarks                            
-                        if (rec."Main Category Name" = 'SPAIR PARTS') then
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (rec."Main Category Name" = 'SPAIR PARTS') then
                             CaptionD := 'Part No'
                         else
                             if (rec."Main Category Name" = 'CHEMICAL') then
@@ -93,7 +94,7 @@ pageextension 50957 ItemCardExt extends "Item Card"
                         ModelRec: Record Model;
                     begin
 
-                        if (rec."Main Category Name" = 'SPAIR PARTS') then begin
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (rec."Main Category Name" = 'SPAIR PARTS') then begin
                             ModelRec.Reset();
                             ModelRec.SetRange("Model Name", rec."Color Name");
                             if ModelRec.FindSet() then
@@ -160,7 +161,8 @@ pageextension 50957 ItemCardExt extends "Item Card"
                         ArticleRec: Record Article;
                         BrandRec: Record Brand;
                     begin
-                        if (rec."Main Category Name" = 'SPAIR PARTS') or (rec."Main Category Name" = 'CHEMICAL')
+                        if (rec."Main Category Name" = 'SPARE PARTS')
+                        or (rec."Main Category Name" = 'SPAIR PARTS') or (rec."Main Category Name" = 'CHEMICAL')
                         or (rec."Main Category Name" = 'STATIONARY') or (rec."Main Category Name" = 'IT ACESSORIES')
                         or (rec."Main Category Name" = 'ELETRICAL') then begin
                             BrandRec.Reset();
@@ -335,7 +337,8 @@ pageextension 50957 ItemCardExt extends "Item Card"
 
     begin
         //Article
-        if (rec."Main Category Name" = 'SPAIR PARTS') or (rec."Main Category Name" = 'CHEMICAL')
+        if (rec."Main Category Name" = 'SPARE PARTS') or (rec."Main Category Name" = 'SPAIR PARTS')
+            or (rec."Main Category Name" = 'CHEMICAL')
             or (rec."Main Category Name" = 'STATIONARY') or (rec."Main Category Name" = 'IT ACESSORIES')
             or (rec."Main Category Name" = 'ELETRICAL') then
             CaptionA := 'Brand'
@@ -343,7 +346,7 @@ pageextension 50957 ItemCardExt extends "Item Card"
             CaptionA := 'Article';
 
         //Size                            
-        if (rec."Main Category Name" = 'SPAIR PARTS') then
+        if (rec."Main Category Name" = 'SPARE PARTS') or (rec."Main Category Name" = 'SPAIR PARTS') then
             CaptionB := 'Type of Machine'
         else
             if (rec."Main Category Name" = 'CHEMICAL') then
@@ -352,7 +355,7 @@ pageextension 50957 ItemCardExt extends "Item Card"
                 CaptionB := 'Size';
 
         //Color                            
-        if (rec."Main Category Name" = 'SPAIR PARTS') then
+        if (rec."Main Category Name" = 'SPARE PARTS') or (rec."Main Category Name" = 'SPAIR PARTS') then
             CaptionC := 'Model'
         else
             if (rec."Main Category Name" = 'CHEMICAL') then
@@ -361,7 +364,7 @@ pageextension 50957 ItemCardExt extends "Item Card"
                 CaptionC := 'Color';
 
         //remarks                            
-        if (rec."Main Category Name" = 'SPAIR PARTS') then
+        if (rec."Main Category Name" = 'SPARE PARTS') or (rec."Main Category Name" = 'SPAIR PARTS') then
             CaptionD := 'Part No'
         else
             if (rec."Main Category Name" = 'CHEMICAL') then

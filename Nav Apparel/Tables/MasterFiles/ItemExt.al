@@ -31,6 +31,9 @@ tableextension 51098 "Item Extension" extends Item
             TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
                     Model."Model Name"
             else
+            if ("Main Category Name" = filter('SPARE PARTS'))
+                    Model."Model Name"
+            else
             if ("Main Category Name" = filter('STATIONARY'))
                     Colour."Colour Name"
             else
@@ -56,6 +59,9 @@ tableextension 51098 "Item Extension" extends Item
             TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
                     "Service Item".Description
             else
+            if ("Main Category Name" = filter('SPARE PARTS'))
+                    "Service Item".Description
+            else
             if ("Main Category Name" = filter('CHEMICAL'))
                     ChemicalType."Chemical Type Name";
             // else
@@ -74,6 +80,9 @@ tableextension 51098 "Item Extension" extends Item
             // ValidateTableRelation = false;
 
             TableRelation = if ("Main Category Name" = filter('SPAIR PARTS'))
+                    Brand."Brand Name"
+            else
+            if ("Main Category Name" = filter('SPARE PARTS'))
                     Brand."Brand Name"
             else
             if ("Main Category Name" = filter('CHEMICAL'))

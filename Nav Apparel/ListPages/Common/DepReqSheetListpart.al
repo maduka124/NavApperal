@@ -27,7 +27,7 @@ page 50823 "DepReqSheetListpart"
                             Rec."Main Category No." := MainCategoryRec."No.";
 
                         //Article
-                        if (Rec."Main Category Name" = 'SPAIR PARTS') or (Rec."Main Category Name" = 'CHEMICAL')
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (Rec."Main Category Name" = 'SPAIR PARTS') or (Rec."Main Category Name" = 'CHEMICAL')
                             or (Rec."Main Category Name" = 'STATIONARY') or (Rec."Main Category Name" = 'IT ACESSORIES')
                             or (Rec."Main Category Name" = 'ELETRICAL') then
                             CaptionA := 'Brand'
@@ -35,7 +35,7 @@ page 50823 "DepReqSheetListpart"
                             CaptionA := 'Article';
 
                         //Size                            
-                        if (Rec."Main Category Name" = 'SPAIR PARTS') then
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (Rec."Main Category Name" = 'SPAIR PARTS') then
                             CaptionB := 'Type of Machine'
                         else
                             if (Rec."Main Category Name" = 'CHEMICAL') then
@@ -44,7 +44,7 @@ page 50823 "DepReqSheetListpart"
                                 CaptionB := 'Size';
 
                         //Color                            
-                        if (Rec."Main Category Name" = 'SPAIR PARTS') then
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (Rec."Main Category Name" = 'SPAIR PARTS') then
                             CaptionC := 'Model'
                         else
                             if (Rec."Main Category Name" = 'CHEMICAL') then
@@ -53,7 +53,7 @@ page 50823 "DepReqSheetListpart"
                                 CaptionC := 'Color';
 
                         //remarks                            
-                        if (Rec."Main Category Name" = 'SPAIR PARTS') then
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (Rec."Main Category Name" = 'SPAIR PARTS') then
                             CaptionD := 'Part No'
                         else
                             if (Rec."Main Category Name" = 'CHEMICAL') then
@@ -150,7 +150,8 @@ page 50823 "DepReqSheetListpart"
                         ArticleRec: Record Article;
                         BrandRec: Record Brand;
                     begin
-                        if (Rec."Main Category Name" = 'SPAIR PARTS') or (Rec."Main Category Name" = 'CHEMICAL')
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (Rec."Main Category Name" = 'SPAIR PARTS')
+                        or (Rec."Main Category Name" = 'CHEMICAL')
                         or (Rec."Main Category Name" = 'STATIONARY') or (Rec."Main Category Name" = 'IT ACESSORIES')
                         or (Rec."Main Category Name" = 'ELETRICAL') then begin
                             BrandRec.Reset();
@@ -184,7 +185,7 @@ page 50823 "DepReqSheetListpart"
                         ModelRec: Record Model;
                     begin
 
-                        if (Rec."Main Category Name" = 'SPAIR PARTS') then begin
+                        if (rec."Main Category Name" = 'SPARE PARTS') or (Rec."Main Category Name" = 'SPAIR PARTS') then begin
                             ModelRec.Reset();
                             ModelRec.SetRange("Model Name", Rec."Color Name");
                             if ModelRec.FindSet() then
