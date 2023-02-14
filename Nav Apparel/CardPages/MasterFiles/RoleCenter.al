@@ -598,7 +598,7 @@ page 50968 "Nav Apperal Role Center"
 
                     action("Delivery Information - Production")
                     {
-                        Caption = 'Delivery Information - Production Report';
+                        Caption = 'Delivery Details';
                         Enabled = true;
                         RunObject = report DeliveryInfoProductReport;
                         ApplicationArea = all;
@@ -804,6 +804,15 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'Day Wise Production Report';
                         Enabled = true;
                         RunObject = report DayWiseProductionReport;
+                        ApplicationArea = all;
+                    }
+
+                    //Done By Sachith 14/02/23
+                    action("Delivery Information - Production 2")
+                    {
+                        Caption = 'Delivery Details';
+                        Enabled = true;
+                        RunObject = report DeliveryInfoProductReport;
                         ApplicationArea = all;
                     }
 

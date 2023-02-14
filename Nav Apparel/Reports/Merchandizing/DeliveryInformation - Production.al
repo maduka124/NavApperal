@@ -2,7 +2,7 @@ report 51073 DeliveryInfoProductReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Delivery Information - Production';
+    Caption = 'Delivery Details';
     RDLCLayout = 'Report_Layouts/Merchandizing/DeliveryInformation - Production.rdl';
     DefaultLayout = RDLC;
 
@@ -10,7 +10,7 @@ report 51073 DeliveryInfoProductReport
     {
         dataitem("Style Master"; "Style Master")
         {
-            DataItemTableView = sorting("No.");
+            DataItemTableView = where(Status = filter('Confirmed'));
             column(Season_Name; "Season Name")
             { }
             column(No_; "No.")
@@ -79,6 +79,7 @@ report 51073 DeliveryInfoProductReport
 
             begin
                 SetRange("Created Date", stDate, endDate);
+                SetRange("Buyer No.", Buyer);
             end;
         }
     }
@@ -97,12 +98,23 @@ report 51073 DeliveryInfoProductReport
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
+                        ShowMandatory = true;
                     }
 
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
+                        ShowMandatory = true;
+                    }
+
+                    //Done By sachith On 14/02/23
+                    field(Buyer; Buyer)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Buyer';
+                        ShowMandatory = true;
+                        TableRelation = Customer."No.";
                     }
                 }
             }
@@ -130,4 +142,6 @@ report 51073 DeliveryInfoProductReport
         stDate: Date;
         endDate: Date;
         UnitPriceRound: Decimal;
+        //Done By sachith On 14/02/23
+        Buyer: Code[20];
 }

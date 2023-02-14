@@ -133,6 +133,11 @@ report 50621 ProductionPlanReport
                 // end;
 
             end;
+            //Done By sachith On 14/02/23
+            trigger OnPreDataItem()
+            begin
+                SetRange("Factory Code", Factory);
+            end;
         }
     }
 
@@ -150,12 +155,21 @@ report 50621 ProductionPlanReport
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
+                        ShowMandatory = true;
                     }
 
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
+                        ShowMandatory = true;
+                    }
+                    //Done By sachith On 14/02/23
+                    field(Factory; Factory)
+                    {
+                        ApplicationArea = All;
+                        TableRelation = Location.Code;
+                        ShowMandatory = true;
                     }
                 }
             }
@@ -183,6 +197,6 @@ report 50621 ProductionPlanReport
         StartDate: Date;
         PRDHR: Integer;
         NavRec: Record "NavApp Planning Lines";
-
-
+        //Done By sachith On 14/02/23
+        Factory: Code[20];
 }
