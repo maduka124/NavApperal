@@ -1,10 +1,10 @@
-report 51238 RawMaterialRequesetIssue
+report 51238 GarmentWiseRawMaterialRequest
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Raw Material Request/Issue Report';
+    Caption = 'Garment Wise Raw Material Request & Issue Report';
     DefaultLayout = RDLC;
-    RDLCLayout = 'Report_Layouts/Warehouse/RawMaterialRequesetIssueReport.rdl';
+    RDLCLayout = 'Report_Layouts/Warehouse/GarmentWiseRawMaterialRequest&IssueReport.rdl';
 
     dataset
     {

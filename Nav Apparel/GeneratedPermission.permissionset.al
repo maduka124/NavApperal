@@ -567,7 +567,7 @@ permissionset 50100 GeneratedPermission
         report ProductionStatus=X,
         report PurchaseOrderReport=X,
         report PurchaseOrderReportCard=X,
-        report RawMaterialRequesetIssue=X,
+        report GarmentWiseRawMaterialRequest=X,
         report SampleRequest=X,
         report SewingProductionDetails=X,
         report SizeColourwiseQuantity=X,
