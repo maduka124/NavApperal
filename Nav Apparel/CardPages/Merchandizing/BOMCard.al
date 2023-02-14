@@ -7519,7 +7519,8 @@ page 50984 "BOM Card"
         ItemMasterRec: Record Item;
         ItemUinitRec: Record "Item Unit of Measure";
         ColorRec: Record Colour;
-        BOMEstimateRec: Record "BOM Estimate Cost";
+        //BOMEstimateRec: Record "BOM Estimate Cost";
+        StyleMasPORec: Record "Style Master PO";
         FOBPcsPrice: Decimal;
         ItemRec: Record Item;
         NextItemNo: Code[20];
@@ -7530,10 +7531,18 @@ page 50984 "BOM Card"
 
         //Get FOB Pcs price
         FOBPcsPrice := 0;
-        BOMEstimateRec.Reset();
-        BOMEstimateRec.SetRange("Style No.", rec."Style No.");
-        BOMEstimateRec.FindSet();
-        FOBPcsPrice := BOMEstimateRec."FOB Pcs";
+        // BOMEstimateRec.Reset();
+        // BOMEstimateRec.SetRange("Style No.", rec."Style No.");
+        // BOMEstimateRec.FindSet();
+        // FOBPcsPrice := BOMEstimateRec."FOB Pcs";
+
+        //Get unit price
+        StyleMasPORec.Reset();
+        StyleMasPORec.SetRange("Style No.", rec."Style No.");
+        StyleMasPORec.SetRange("Lot No.", Lot);
+        if StyleMasPORec.FindSet() then
+            FOBPcsPrice := StyleMasPORec."Unit Price";
+
 
         NavAppSetupRec.Reset();
         NavAppSetupRec.FindSet();

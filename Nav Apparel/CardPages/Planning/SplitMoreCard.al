@@ -27,10 +27,12 @@ page 50338 "Split More Card"
 
                         trigger OnValidate()
                         var
-
                         begin
                             if EqualQty = true then begin
                                 Quantity := false;
+                                EditableGB1 := false;
+                                EditableGB2 := true;
+                                CurrPage.Update();
                             end;
                         end;
                     }
@@ -44,8 +46,12 @@ page 50338 "Split More Card"
                         var
 
                         begin
-                            if Quantity = true then
+                            if Quantity = true then begin
                                 EqualQty := false;
+                                EditableGB1 := true;
+                                EditableGB2 := true;
+                                CurrPage.Update();
+                            end;
                         end;
                     }
 
@@ -53,12 +59,14 @@ page 50338 "Split More Card"
                     {
                         ApplicationArea = All;
                         Caption = ' ';
+                        Editable = EditableGB1;
                     }
 
                     field(NoofLines; NoofLines)
                     {
                         ApplicationArea = All;
                         Caption = 'No of Lines';
+                        Editable = EditableGB2;
                     }
                 }
             }
@@ -298,9 +306,12 @@ page 50338 "Split More Card"
 
     procedure PassParameters(QueueIDPara: Text);
     var
-
     begin
         QueueID := QueueIDPara;
     end;
 
+
+    var
+        EditableGB1: Boolean;
+        EditableGB2: Boolean;
 }

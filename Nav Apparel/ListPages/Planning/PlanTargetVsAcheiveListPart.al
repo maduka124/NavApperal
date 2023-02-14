@@ -12,10 +12,16 @@ page 50348 "Plan Target Vs Acheive"
         {
             repeater(General)
             {
-                field("Resource No."; rec."Resource No.")
+                // field("Resource No."; rec."Resource No.")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Line No';
+                // }
+
+                field(ResourceName; ResourceName)
                 {
                     ApplicationArea = All;
-                    Caption = 'Line No';
+                    Caption = 'Line';
                 }
 
                 field(PlanDate; rec.PlanDate)
@@ -71,8 +77,15 @@ page 50348 "Plan Target Vs Acheive"
 
     trigger OnAfterGetRecord()
     var
+        WorkCEnterRec: Record "Work Center";
     begin
         Variance := rec.ProdUpdQty - rec.qty;
+
+        //Get Resource Name
+        WorkCEnterRec.Reset();
+        WorkCEnterRec.SetRange("No.", rec."Resource No.");
+        if WorkCEnterRec.FindSet() then
+            ResourceName := WorkCEnterRec.Name;
     end;
 
 
@@ -96,6 +109,7 @@ page 50348 "Plan Target Vs Acheive"
         //ResourceNo: Code[20];
         LineNo: Code[20];
         Variance: BigInteger;
+        ResourceName: Text[50];
 
 
 }
