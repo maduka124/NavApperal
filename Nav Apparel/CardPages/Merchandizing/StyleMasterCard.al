@@ -76,12 +76,12 @@ page 50607 "Style Master Card"
                     var
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
-                        NavappPlanLineRec: Record "NavApp Planning Lines";
+                    //NavappPlanLineRec: Record "NavApp Planning Lines";
                     begin
-                        NavappPlanLineRec.Reset();
-                        NavappPlanLineRec.SetRange("Style No.", rec."No.");
-                        if NavappPlanLineRec.FindSet() then
-                            Error('Style already planned. Cannot change quantity.');
+                        // NavappPlanLineRec.Reset();
+                        // NavappPlanLineRec.SetRange("Style No.", rec."No.");
+                        // if NavappPlanLineRec.FindSet() then
+                        //     Error('Style already planned. Cannot change quantity.');
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();

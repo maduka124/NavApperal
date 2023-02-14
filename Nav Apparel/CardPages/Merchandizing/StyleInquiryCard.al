@@ -485,6 +485,104 @@ page 50602 "Style Inquiry Card"
                 end;
             }
 
+            action("Remove/")
+            {
+                Image = "8ball";
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    styemaster: Record "Style Master";
+                    styemasterpo: Record "Style Master PO";
+                    bomestimate: Record "BOM Estimate";
+                    bomestimatecost: Record "BOM Estimate Cost";
+                    NavAppplaline: Record "NavApp Planning Lines";
+                    NavAppprodline: Record "NavApp Prod Plans Details";
+                    stylename: Text[50];
+                    pono: Text[50];
+                begin
+                    styemaster.Reset();
+                    styemaster.FindSet();
+                    repeat
+                        stylename := styemaster."Style No.";
+                        stylename := stylename.Replace('/', '-');
+                        styemaster."Style No." := stylename;
+                        styemaster.Modify();
+                    until styemaster.Next() = 0;
+
+                    styemasterpo.Reset();
+                    styemasterpo.FindSet();
+                    repeat
+                        pono := styemasterpo."PO No.";
+                        pono := pono.Replace('/', '-');
+                        styemasterpo."PO No." := pono;
+                        styemasterpo.Modify();
+                    until styemasterpo.Next() = 0;
+
+
+                    bomestimate.Reset();
+                    bomestimate.FindSet();
+                    repeat
+                        stylename := bomestimate."Style Name";
+                        stylename := stylename.Replace('/', '-');
+                        bomestimate."Style Name" := stylename;
+                        bomestimate.Modify();
+                    until bomestimate.Next() = 0;
+
+
+                    bomestimatecost.Reset();
+                    bomestimatecost.FindSet();
+                    repeat
+                        stylename := bomestimatecost."Style Name";
+                        stylename := stylename.Replace('/', '-');
+                        bomestimatecost."Style Name" := stylename;
+                        bomestimatecost.Modify();
+                    until bomestimatecost.Next() = 0;
+
+
+                    NavAppplaline.Reset();
+                    NavAppplaline.FindSet();
+                    repeat
+                        stylename := NavAppplaline."Style Name";
+                        pono := NavAppplaline."PO No.";
+                        stylename := stylename.Replace('/', '-');
+                        pono := pono.Replace('/', '-');
+                        NavAppplaline."Style Name" := stylename;
+                        NavAppplaline."PO No." := pono;
+                        NavAppplaline.Modify();
+                    until NavAppplaline.Next() = 0;
+
+
+                    NavAppprodline.Reset();
+                    NavAppprodline.FindSet();
+                    repeat
+                        stylename := NavAppprodline."Style Name";
+                        pono := NavAppprodline."PO No.";
+                        stylename := stylename.Replace('/', '-');
+                        pono := pono.Replace('/', '-');
+                        NavAppprodline."Style Name" := stylename;
+                        NavAppprodline."PO No." := pono;
+                        NavAppprodline.Modify();
+                    until NavAppprodline.Next() = 0;
+
+
+                    NavAppprodline.Reset();
+                    NavAppprodline.FindSet();
+                    repeat
+                        stylename := NavAppprodline."Style Name";
+                        pono := NavAppprodline."PO No.";
+                        stylename := stylename.Replace('/', '-');
+                        pono := pono.Replace('/', '-');
+                        NavAppprodline."Style Name" := stylename;
+                        NavAppprodline."PO No." := pono;
+                        NavAppprodline.Modify();
+                    until NavAppprodline.Next() = 0;
+
+                    Message('completed');
+
+                end;
+            }
+
             // action(ABCD)
             // {
             //     Image = "8ball";
