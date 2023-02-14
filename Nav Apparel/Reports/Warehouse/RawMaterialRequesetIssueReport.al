@@ -24,6 +24,10 @@ report 51238 RawMaterialRequesetIssue
             { }
             column(Factory_Name; "Factory Name")
             { }
+            column(PoQty; PoQty)
+            { }
+            column(PONo; PONo)
+            { }
 
             dataitem("Daily Consumption Header"; "Daily Consumption Header")
             {
@@ -35,7 +39,6 @@ report 51238 RawMaterialRequesetIssue
                 { }
                 column(Main_Category_Name; "Main Category Name")
                 { }
-
                 column(SizeRange; SizeRange)
                 { }
                 column(color; color)
@@ -46,11 +49,11 @@ report 51238 RawMaterialRequesetIssue
                 { }
                 column(UOM; UOM)
                 { }
-
                 column(PO; PO)
                 { }
                 column(ItemName; ItemName)
                 { }
+
                 dataitem("Daily Consumption Line"; "Daily Consumption Line")
                 {
                     DataItemLinkReference = "Daily Consumption Header";
@@ -65,9 +68,10 @@ report 51238 RawMaterialRequesetIssue
                     dataitem("Item Ledger Entry"; "Item Ledger Entry")
                     {
                         DataItemLinkReference = "Daily Consumption Line";
-                        DataItemLink = "Document No." = field("Prod. Order No."), "Order Line No." = field("Line No.");
+                        DataItemLink = "Source No." = field("Item No."), "Document No." = field("Prod. Order No.");
                         DataItemTableView = where("Entry Type" = filter('Consumption'));
-
+                        // "Order Line No." = field("Line No.")
+                        //  "Document No." = field("Prod. Order No."),
                         column(ItemLeQuantity; Quantity * -1)
                         { }
                         column(OrginalDailyReq; "Original Daily Requirement")
@@ -86,13 +90,26 @@ report 51238 RawMaterialRequesetIssue
                             UOM := ItemRec."Base Unit of Measure";
                             ItemName := ItemRec.Description;
                         end;
+
                     end;
                 }
+                trigger OnAfterGetRecord()
+
+                begin
+
+                end;
             }
             trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+                StylePoRec.Reset();
+                StylePoRec.SetRange("Style No.", "No.");
+                if StylePoRec.FindFirst() then begin
+                    PoQty := StylePoRec.Qty;
+                    PONo := StylePoRec."PO No.";
+                end;
+
             end;
 
             trigger OnPreDataItem()
@@ -127,6 +144,9 @@ report 51238 RawMaterialRequesetIssue
 
 
     var
+        PONo: Code[20];
+        PoQty: BigInteger;
+        StylePoRec: Record "Style Master PO";
         ItemName: Text[100];
         ReqQty: Decimal;
         DailyConsLineRec: Record "Daily Consumption Line";
