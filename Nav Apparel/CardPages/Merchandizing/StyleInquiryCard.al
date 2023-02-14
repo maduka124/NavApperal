@@ -56,6 +56,8 @@ page 50602 "Style Inquiry Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
+                        if rec."Style No.".Contains('/') then
+                            Error('Cannot use "/" within Style Name');
 
 
                         //Check for style rename  

@@ -19,7 +19,14 @@ page 51069 "Style Master PO ListPart"
                     var
                         BOMEstCostRec: Record "BOM Estimate Cost";
                         StyleMasRec: Record "Style Master";
+                        LOTVar: Text[20];
                     begin
+
+                        LOTVar := rec."Lot No.";
+
+                        if LOTVar.Contains('/') then
+                            Error('Cannot use "/" within Lot No');
+
 
                         BOMEstCostRec.Reset();
                         BOMEstCostRec.SetCurrentKey("Style No.");
@@ -50,7 +57,13 @@ page 51069 "Style Master PO ListPart"
                     trigger OnValidate()
                     var
                         SalesHeaderRec: Record "Sales Header";
+                        PONOVar: Text[50];
                     begin
+
+                        PONOVar := rec."PO No.";
+                        if PONOVar.Contains('/') then
+                            Error('Cannot use "/" within PO No');
+
                         CurrPage.Update();
                         SalesHeaderRec.Reset();
                         SalesHeaderRec.SetCurrentKey("Style No", Lot);
