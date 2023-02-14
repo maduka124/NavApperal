@@ -48,12 +48,13 @@ report 50627 ProductionAndShipmentDetails
                 { }
                 column(PoNo; "PO No.")
                 { }
-            }
 
-            trigger OnPreDataItem()
-            begin
-                SetRange("Created Date", stDate, endDate);
-            end;
+
+                trigger OnPreDataItem()
+                begin
+                    SetRange("Ship Date", stDate, endDate);
+                end;
+            }
 
             trigger OnAfterGetRecord()
 
@@ -76,13 +77,13 @@ report 50627 ProductionAndShipmentDetails
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
-                        Caption = 'Start Date';
+                        Caption = 'Shipping Start Date';
 
                     }
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
-                        Caption = 'End Date';
+                        Caption = 'Shipping End Date';
 
                     }
                 }
