@@ -143,6 +143,8 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
 
         }
     }
+
+
     trigger OnAfterGetCurrRecord()
     var
     begin

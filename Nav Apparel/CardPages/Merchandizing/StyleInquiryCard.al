@@ -10,6 +10,8 @@ page 50602 "Style Inquiry Card"
         {
             group(General)
             {
+                Editable = EditableGb;
+
                 field("No."; rec."No.")
                 {
                     ApplicationArea = All;
@@ -383,6 +385,8 @@ page 50602 "Style Inquiry Card"
 
             group(" ")
             {
+                Editable = EditableGb;
+
                 part("SpecialOperationStyle Listpart"; "SpecialOperationStyle Listpart")
                 {
                     ApplicationArea = All;
@@ -844,11 +848,17 @@ page 50602 "Style Inquiry Card"
         }
     }
 
+
     trigger OnOpenPage()
     var
     begin
         if rec.Status = rec.Status::Confirmed then
-            CurrPage.Editable := false;
+            EditableGb := false
+        else
+            EditableGb := true;
+
+        // if rec.Status = rec.Status::Confirmed then
+        //     CurrPage.Editable := false;
     end;
 
 
@@ -935,6 +945,16 @@ page 50602 "Style Inquiry Card"
             rec.TestField("Order Qty");
             rec.TestField("Ship Date");
         end;
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+    begin
+        if rec.Status = rec.Status::Confirmed then
+            EditableGb := false
+        else
+            EditableGb := true;
     end;
 
 
