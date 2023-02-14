@@ -53,6 +53,7 @@ page 50523 "B2B PI ListPart1"
                     PIPORec: Record "PI Po Details";
                     POHeaderRec: Record "Purchase Header";
                     CodeUnitNav: Codeunit NavAppCodeUnit;
+                    LCConRec: Record "Contract/LCMaster";
                     B2BLCPIRec: Record "B2BLCPI";
                     B2BNo1: Code[20];
                     B2BRec: Record B2BLCMaster;
@@ -60,6 +61,8 @@ page 50523 "B2B PI ListPart1"
                     "LC/ContractNo": Code[20];
                     "LC/ContractNo1": Code[20];
                     "Tot B2B LC Opened (Value)": Decimal;
+                    "LC%": Decimal;
+                    PIValue: Decimal;
                 begin
                     CurrPage.Update();
 
@@ -70,6 +73,7 @@ page 50523 "B2B PI ListPart1"
 
                     if PIHeaderRec.FindSet() then begin
 
+                        "LC%" := 0;
                         repeat
 
                             B2BNo1 := PIHeaderRec.B2BNo;
@@ -87,6 +91,13 @@ page 50523 "B2B PI ListPart1"
                             B2B1Rec.SetRange("No.", PIHeaderRec.B2BNo);
                             if B2B1Rec.FindSet() then
                                 "LC/ContractNo1" := B2B1Rec."LC/Contract No.";
+
+                            //Get LC %                           
+                            LCConRec.Reset();
+                            LCConRec.SetRange("Contract No", "LC/ContractNo1");
+                            if LCConRec.FindSet() then
+                                "LC%" := LCConRec.BBLC;
+
 
                             //Get All POs in the PI
                             PIPORec.Reset();
@@ -145,6 +156,11 @@ page 50523 "B2B PI ListPart1"
 
                         if B2BRec."LC Value" > 0 then
                             B2BRec."B2B LC Opened (%)" := ("Tot B2B LC Opened (Value)" / B2BRec."LC Value") * 100;
+
+                        //Validate B2BlC opened % against allowed LC%
+                        if "LC%" < B2BRec."B2B LC Opened (%)" then
+                            Error('B2B LC Opened (%) limit exceeded. Cannot proceed.');
+
 
                         B2BRec.Balance := B2BRec."B2B LC Limit" - "Tot B2B LC Opened (Value)";
                         B2BRec.Modify();
