@@ -2,7 +2,7 @@ report 50610 FabricAndTrimsRequiremts
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Fabric & Trims requiremts';
+    Caption = 'Fabric & Trims requirements';
     RDLCLayout = 'Report_Layouts/Merchandizing/FabricAndTrimsRequiremts.rdl';
     DefaultLayout = RDLC;
 

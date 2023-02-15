@@ -614,7 +614,7 @@ page 50968 "Nav Apperal Role Center"
 
                     action("Fabric & Trims requiremts - Marchandizingn")
                     {
-                        Caption = 'Fabric & Trims requiremts Report';
+                        Caption = 'Fabric & Trims Requirements Report';
                         Enabled = true;
                         RunObject = report FabricAndTrimsRequiremts;
                         ApplicationArea = all;
