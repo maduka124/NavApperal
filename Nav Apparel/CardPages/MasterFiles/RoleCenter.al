@@ -1910,13 +1910,15 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report ExportLcUtilizationReport;
                         ApplicationArea = all;
                     }
+
                     action("Shipment Summary Report")
                     {
-                        Caption = 'Shipment Summary Report';
+                        Caption = 'Shipment Summary As Per SC/UD';
                         Enabled = true;
                         RunObject = report ShipementSummaryReport;
                         ApplicationArea = all;
                     }
+
                     action("Sales Contract Report")
                     {
                         Caption = 'Sales Contract Report';

@@ -2,7 +2,7 @@ report 51244 ShipementSummaryReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Shipment Summary Report';
+    Caption = 'Shipment Summary As Per SC/UD';
     RDLCLayout = 'Report_Layouts/Commercial/ShipementSummaryReport.rdl';
     DefaultLayout = RDLC;
 
@@ -10,7 +10,7 @@ report 51244 ShipementSummaryReport
     {
         dataitem("Contract/LCMaster"; "Contract/LCMaster")
         {
-             DataItemTableView = sorting("No.");
+            DataItemTableView = sorting("No.");
             column(Buyer; Buyer)
             { }
             column(Contract_No; "Contract No")
@@ -23,17 +23,17 @@ report 51244 ShipementSummaryReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
             {
                 DataItemLinkReference = "Contract/LCMaster";
                 DataItemLink = "No." = field("No.");
-                 DataItemTableView = sorting("No.");
+                DataItemTableView = sorting("No.");
 
                 column(OrderQty; OrderQty)
                 { }
 
                 trigger OnAfterGetRecord()
-
                 begin
                     StyleRec.Reset();
                     StyleRec.SetRange("No.", "Style No.");
@@ -53,7 +53,7 @@ report 51244 ShipementSummaryReport
             {
                 DataItemLinkReference = "Contract/LCMaster";
                 DataItemLink = "LC/Contract No." = field("Contract No");
-                 DataItemTableView = sorting("No.");
+                DataItemTableView = sorting("No.");
 
                 column(UD_No; "No.")
                 { }
@@ -68,8 +68,8 @@ report 51244 ShipementSummaryReport
                 column(ShipQty; ShipQty)
                 { }
             }
-            trigger OnAfterGetRecord()
 
+            trigger OnAfterGetRecord()
             begin
                 UdStyleRec.Reset();
                 UdStyleRec.SetRange("No.", "No.");
@@ -79,13 +79,12 @@ report 51244 ShipementSummaryReport
                     ShipQty := UdStyleRec."Ship Qty";
                 end;
 
-
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
 
-            trigger OnPreDataItem()
 
+            trigger OnPreDataItem()
             begin
                 SetRange("Buyer No.", BuyerFilter);
             end;
@@ -106,20 +105,7 @@ report 51244 ShipementSummaryReport
                         ApplicationArea = All;
                         Caption = 'Buyer';
                         TableRelation = Customer."No.";
-
                     }
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
