@@ -337,12 +337,12 @@ page 50602 "Style Inquiry Card"
                     var
                     begin
                         if rec.Type = rec.Type::Online then begin
-                            EditableGB := true;
+                            EditableSMVGB := true;
                             rec.SMV := 0;
                             rec.CostingSMV := 0;
                         end
                         else begin
-                            EditableGB := false;
+                            EditableSMVGB := false;
                             rec.SMV := 0;
                             rec.CostingSMV := 0;
                         end;
@@ -352,7 +352,7 @@ page 50602 "Style Inquiry Card"
                 field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
-                    Editable = EditableGB;
+                    Editable = EditableSMVGB;
 
                     trigger OnValidate()
                     var
@@ -950,10 +950,18 @@ page 50602 "Style Inquiry Card"
     trigger OnOpenPage()
     var
     begin
-        if rec.Status = rec.Status::Confirmed then
-            EditableGb := false
-        else
+        if rec.Status = rec.Status::Confirmed then begin
+            EditableGb := false;
+            EditableSMVGB := false;
+        end
+        else begin
             EditableGb := true;
+
+            if rec.Type = rec.Type::Online then
+                EditableSMVGB := true
+            else
+                EditableSMVGB := false;
+        end;
 
         // if rec.Status = rec.Status::Confirmed then
         //     CurrPage.Editable := false;
@@ -1049,14 +1057,23 @@ page 50602 "Style Inquiry Card"
     trigger OnAfterGetCurrRecord()
     var
     begin
-        if rec.Status = rec.Status::Confirmed then
-            EditableGb := false
-        else
+        if rec.Status = rec.Status::Confirmed then begin
+            EditableGb := false;
+            EditableSMVGB := false;
+        end
+        else begin
             EditableGb := true;
+
+            if rec.Type = rec.Type::Online then
+                EditableSMVGB := true
+            else
+                EditableSMVGB := false;
+        end;
     end;
 
 
     var
         EditableGB: Boolean;
+        EditableSMVGB: Boolean;
 
 }

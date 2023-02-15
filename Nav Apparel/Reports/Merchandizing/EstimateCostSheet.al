@@ -115,6 +115,10 @@ report 50613 EstimateCostSheetReport
             { }
             column(visible; visible)
             { }
+            column(NewCPM; NewCPM)
+            { }
+            column(Factory_Name; "Factory Name")
+            { }
 
             dataitem("BOM Estimate Costing Line"; "BOM Estimate Costing Line")
             {
@@ -193,6 +197,9 @@ report 50613 EstimateCostSheetReport
 
 
             trigger OnAfterGetRecord()
+            var
+                NavAppSetupRec: Record "NavApp Setup";
+                Temp: Decimal;
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -203,6 +210,12 @@ report 50613 EstimateCostSheetReport
                 else
                     visible := 'Estimate Cost Sheet';
 
+                //Calculate NewCPM
+                NavAppSetupRec.Reset();
+                NavAppSetupRec.FindSet();
+
+                Temp := NavAppSetupRec."Base Efficiency" - "BOM Estimate Cost"."Project Efficiency.";
+                NewCPM := "BOM Estimate Cost".CPM + ("BOM Estimate Cost".CPM * Temp) / 100;
             end;
 
 
@@ -244,5 +257,6 @@ report 50613 EstimateCostSheetReport
         BomNo: Code[50];
         BomRec: Record BOM;
         comRec: Record "Company Information";
+        NewCPM: Decimal;
 
 }
