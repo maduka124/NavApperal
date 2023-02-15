@@ -94,6 +94,16 @@ report 51073 DeliveryInfoProductReport
                 group(GroupName)
                 {
                     Caption = 'Filter By';
+
+                    //Done By sachith On 14/02/23
+                    field(Buyer; Buyer)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Buyer';
+                        ShowMandatory = true;
+                        TableRelation = Customer."No.";
+                    }
+
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
@@ -106,15 +116,6 @@ report 51073 DeliveryInfoProductReport
                         ApplicationArea = All;
                         Caption = 'End Date';
                         ShowMandatory = true;
-                    }
-
-                    //Done By sachith On 14/02/23
-                    field(Buyer; Buyer)
-                    {
-                        ApplicationArea = all;
-                        Caption = 'Buyer';
-                        ShowMandatory = true;
-                        TableRelation = Customer."No.";
                     }
                 }
             }
