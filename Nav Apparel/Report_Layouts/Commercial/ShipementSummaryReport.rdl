@@ -71,40 +71,40 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.17846cm</Width>
+                  <Width>4.66013cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.03509cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.33901cm</Width>
+                  <Width>3.65479cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.0555cm</Width>
+                  <Width>1.78627cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.1825cm</Width>
+                  <Width>1.86671cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.05083cm</Width>
+                  <Width>1.79683cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.93022cm</Width>
+                  <Width>1.82439cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.0555cm</Width>
+                  <Width>1.94967cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.0555cm</Width>
+                  <Width>1.88617cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.01317cm</Width>
+                  <Width>1.75323cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.22483cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.35184cm</Width>
+                  <Width>2.03434cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -356,7 +356,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox22</rd:DefaultName>
@@ -745,7 +747,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>SHORT AC</Value>
+                                  <Value>SHORT/ACC. VALUE IN S/C</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -975,11 +977,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OrderQty.Value</Value>
+                                  <Value>=Sum(Fields!OrderQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1032,7 +1034,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Contract_Value.Value</Value>
+                                  <Value>=Sum(Fields!Contract_Value.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1145,10 +1147,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ShipQty.Value</Value>
+                                  <Value>=Sum(Fields!ShipQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1201,7 +1204,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ShipValue.Value</Value>
+                                  <Value>=Sum(Fields!ShipValue.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1258,11 +1261,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UdQuanty.Value</Value>
+                                  <Value>=Sum(Fields!UdQuanty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>n2</Format>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1315,7 +1318,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UdValue.Value</Value>
+                                  <Value>=Sum(Fields!UdValue.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1372,7 +1375,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OrderQty.Value-Fields!ShipQty.Value</Value>
+                                  <Value>=Sum(Fields!OrderQty.Value-Fields!ShipQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1429,7 +1432,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Contract_Value.Value-Fields!ShipValue.Value</Value>
+                                  <Value>=Sum(Fields!Contract_Value.Value-Fields!ShipValue.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1503,7 +1506,11 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Details" />
+                  <Group Name="Details">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!Contract_No.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
@@ -1520,10 +1527,10 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>3.86503cm</Height>
+        <Height>4.0767cm</Height>
         <Style />
       </Body>
-      <Width>27.48515cm</Width>
+      <Width>27.48516cm</Width>
       <Page>
         <PageFooter>
           <Height>1.32292cm</Height>
@@ -1728,30 +1735,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="Contract_No">
-          <DataField>Contract_No</DataField>
-        </Field>
-        <Field Name="Factory">
-          <DataField>Factory</DataField>
-        </Field>
-        <Field Name="UdNo">
-          <DataField>UdNo</DataField>
-        </Field>
-        <Field Name="Contract_Value">
-          <DataField>Contract_Value</DataField>
-        </Field>
-        <Field Name="Contract_ValueFormat">
-          <DataField>Contract_ValueFormat</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="OrderQty">
-          <DataField>OrderQty</DataField>
-        </Field>
         <Field Name="UD_No">
           <DataField>UD_No</DataField>
         </Field>
@@ -1764,6 +1747,24 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="UdValueFormat">
           <DataField>UdValueFormat</DataField>
         </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="Contract_No">
+          <DataField>Contract_No</DataField>
+        </Field>
+        <Field Name="Factory">
+          <DataField>Factory</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Contract_Value">
+          <DataField>Contract_Value</DataField>
+        </Field>
+        <Field Name="Contract_ValueFormat">
+          <DataField>Contract_ValueFormat</DataField>
+        </Field>
         <Field Name="ShDate">
           <DataField>ShDate</DataField>
         </Field>
@@ -1775,6 +1776,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="ShipQty">
           <DataField>ShipQty</DataField>
+        </Field>
+        <Field Name="OrderQty">
+          <DataField>OrderQty</DataField>
         </Field>
       </Fields>
       <Query>
