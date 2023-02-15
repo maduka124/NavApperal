@@ -11,6 +11,103 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="Merchandiser_Name">
+          <DataField>Merchandiser_Name</DataField>
+        </Field>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="BPCD">
+          <DataField>BPCD</DataField>
+        </Field>
+        <Field Name="Start_Date">
+          <DataField>Start_Date</DataField>
+        </Field>
+        <Field Name="End_Date">
+          <DataField>End_Date</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Order_NO">
+          <DataField>Order_NO</DataField>
+        </Field>
+        <Field Name="LineQty">
+          <DataField>LineQty</DataField>
+        </Field>
+        <Field Name="LineQtyFormat">
+          <DataField>LineQtyFormat</DataField>
+        </Field>
+        <Field Name="StartDt">
+          <DataField>StartDt</DataField>
+        </Field>
+        <Field Name="EndDt">
+          <DataField>EndDt</DataField>
+        </Field>
+        <Field Name="InSpectionDt">
+          <DataField>InSpectionDt</DataField>
+        </Field>
+        <Field Name="PRDHR">
+          <DataField>PRDHR</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="Style_Description">
+          <DataField>Style_Description</DataField>
+        </Field>
+        <Field Name="SMV">
+          <DataField>SMV</DataField>
+        </Field>
+        <Field Name="SMVFormat">
+          <DataField>SMVFormat</DataField>
+        </Field>
+        <Field Name="PlanTGT">
+          <DataField>PlanTGT</DataField>
+        </Field>
+        <Field Name="PRD_Days">
+          <DataField>PRD_Days</DataField>
+        </Field>
+        <Field Name="Resource_No">
+          <DataField>Resource_No</DataField>
+        </Field>
+        <Field Name="Planing_input">
+          <DataField>Planing_input</DataField>
+        </Field>
+        <Field Name="Lot_No_">
+          <DataField>Lot_No_</DataField>
+        </Field>
+        <Field Name="Ship_Date">
+          <DataField>Ship_Date</DataField>
+        </Field>
+        <Field Name="Carder">
+          <DataField>Carder</DataField>
+        </Field>
+        <Field Name="Learning_Curve_No_">
+          <DataField>Learning_Curve_No_</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+        <Field Name="Resource_Name">
+          <DataField>Resource_Name</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -109,7 +206,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>2.00765cm</Top>
+            <Top>2.96015cm</Top>
             <Left>0cm</Left>
             <Height>0.79905cm</Height>
             <Width>14.36688cm</Width>
@@ -143,13 +240,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.71164cm</Width>
+                  <Width>3.82892cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.47848cm</Width>
+                  <Width>3.50919cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.15604cm</Width>
+                  <Width>6.23055cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.1825cm</Width>
@@ -164,10 +261,10 @@
                   <Width>0.98492cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.64141cm</Width>
+                  <Width>1.32391cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.99729cm</Width>
+                  <Width>1.38346cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.90812cm</Width>
@@ -179,13 +276,13 @@
                   <Width>2.1825cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.44166cm</Width>
+                  <Width>0.84899cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.75917cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.23542cm</Width>
+                  <Width>2.21425cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.10312cm</Width>
@@ -194,7 +291,7 @@
                   <Width>2.24945cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.75917cm</Width>
+                  <Width>1.08184cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.13687cm</Width>
@@ -596,7 +693,21 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ALLO MC</Value>
+                                  <Value>ALLO </Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>MC</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -651,7 +762,21 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ACCESS.STS</Value>
+                                  <Value>ACCESS</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>.STS</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1136,7 +1261,21 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>PRD DAYS</Value>
+                                  <Value>PRD </Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>DAYS</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2238,7 +2377,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>InSpectionDt</rd:DefaultName>
@@ -3250,7 +3391,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>3.20887cm</Top>
+            <Top>4.16137cm</Top>
             <Left>0cm</Left>
             <Height>2.90066cm</Height>
             <Width>40.70144cm</Width>
@@ -3261,8 +3402,51 @@
               </Border>
             </Style>
           </Tablix>
+          <Textbox Name="Textbox7">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>FACTORY : </Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Fields!Factory_Name.Value</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>2.01999cm</Top>
+            <Left>0cm</Left>
+            <Height>0.79905cm</Height>
+            <Width>14.36688cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>6.56136cm</Height>
+        <Height>7.32336cm</Height>
         <Style />
       </Body>
       <Width>40.73341cm</Width>
@@ -3427,6 +3611,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3478,101 +3668,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="Merchandiser_Name">
-          <DataField>Merchandiser_Name</DataField>
-        </Field>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="BPCD">
-          <DataField>BPCD</DataField>
-        </Field>
-        <Field Name="Start_Date">
-          <DataField>Start_Date</DataField>
-        </Field>
-        <Field Name="End_Date">
-          <DataField>End_Date</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Order_NO">
-          <DataField>Order_NO</DataField>
-        </Field>
-        <Field Name="LineQty">
-          <DataField>LineQty</DataField>
-        </Field>
-        <Field Name="LineQtyFormat">
-          <DataField>LineQtyFormat</DataField>
-        </Field>
-        <Field Name="StartDt">
-          <DataField>StartDt</DataField>
-        </Field>
-        <Field Name="EndDt">
-          <DataField>EndDt</DataField>
-        </Field>
-        <Field Name="InSpectionDt">
-          <DataField>InSpectionDt</DataField>
-        </Field>
-        <Field Name="PRDHR">
-          <DataField>PRDHR</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="Style_Description">
-          <DataField>Style_Description</DataField>
-        </Field>
-        <Field Name="SMV">
-          <DataField>SMV</DataField>
-        </Field>
-        <Field Name="SMVFormat">
-          <DataField>SMVFormat</DataField>
-        </Field>
-        <Field Name="PlanTGT">
-          <DataField>PlanTGT</DataField>
-        </Field>
-        <Field Name="PRD_Days">
-          <DataField>PRD_Days</DataField>
-        </Field>
-        <Field Name="Resource_No">
-          <DataField>Resource_No</DataField>
-        </Field>
-        <Field Name="Planing_input">
-          <DataField>Planing_input</DataField>
-        </Field>
-        <Field Name="Lot_No_">
-          <DataField>Lot_No_</DataField>
-        </Field>
-        <Field Name="Ship_Date">
-          <DataField>Ship_Date</DataField>
-        </Field>
-        <Field Name="Carder">
-          <DataField>Carder</DataField>
-        </Field>
-        <Field Name="Learning_Curve_No_">
-          <DataField>Learning_Curve_No_</DataField>
-        </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
-        <Field Name="Resource_Name">
-          <DataField>Resource_Name</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
