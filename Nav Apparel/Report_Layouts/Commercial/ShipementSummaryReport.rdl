@@ -11,64 +11,6 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="Contract_No">
-          <DataField>Contract_No</DataField>
-        </Field>
-        <Field Name="Factory">
-          <DataField>Factory</DataField>
-        </Field>
-        <Field Name="UdNo">
-          <DataField>UdNo</DataField>
-        </Field>
-        <Field Name="Contract_Value">
-          <DataField>Contract_Value</DataField>
-        </Field>
-        <Field Name="Contract_ValueFormat">
-          <DataField>Contract_ValueFormat</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="OrderQty">
-          <DataField>OrderQty</DataField>
-        </Field>
-        <Field Name="UD_No">
-          <DataField>UD_No</DataField>
-        </Field>
-        <Field Name="UdQuanty">
-          <DataField>UdQuanty</DataField>
-        </Field>
-        <Field Name="UdValue">
-          <DataField>UdValue</DataField>
-        </Field>
-        <Field Name="UdValueFormat">
-          <DataField>UdValueFormat</DataField>
-        </Field>
-        <Field Name="ShDate">
-          <DataField>ShDate</DataField>
-        </Field>
-        <Field Name="ShipValue">
-          <DataField>ShipValue</DataField>
-        </Field>
-        <Field Name="ShipValueFormat">
-          <DataField>ShipValueFormat</DataField>
-        </Field>
-        <Field Name="ShipQty">
-          <DataField>ShipQty</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1732,12 +1674,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -1789,4 +1725,62 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="Contract_No">
+          <DataField>Contract_No</DataField>
+        </Field>
+        <Field Name="Factory">
+          <DataField>Factory</DataField>
+        </Field>
+        <Field Name="UdNo">
+          <DataField>UdNo</DataField>
+        </Field>
+        <Field Name="Contract_Value">
+          <DataField>Contract_Value</DataField>
+        </Field>
+        <Field Name="Contract_ValueFormat">
+          <DataField>Contract_ValueFormat</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="OrderQty">
+          <DataField>OrderQty</DataField>
+        </Field>
+        <Field Name="UD_No">
+          <DataField>UD_No</DataField>
+        </Field>
+        <Field Name="UdQuanty">
+          <DataField>UdQuanty</DataField>
+        </Field>
+        <Field Name="UdValue">
+          <DataField>UdValue</DataField>
+        </Field>
+        <Field Name="UdValueFormat">
+          <DataField>UdValueFormat</DataField>
+        </Field>
+        <Field Name="ShDate">
+          <DataField>ShDate</DataField>
+        </Field>
+        <Field Name="ShipValue">
+          <DataField>ShipValue</DataField>
+        </Field>
+        <Field Name="ShipValueFormat">
+          <DataField>ShipValueFormat</DataField>
+        </Field>
+        <Field Name="ShipQty">
+          <DataField>ShipQty</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

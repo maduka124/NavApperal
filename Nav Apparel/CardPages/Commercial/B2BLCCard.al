@@ -90,6 +90,7 @@ page 50522 "B2B LC Card"
                         PIDetMasterRec: Record "PI Details Header";
                         B2BRec: Record B2BLCMaster;
                         GlobalDimentionRec: Record "Dimension Value";
+                        B2BLCOpenedValue: Decimal;
                     begin
 
                         rec."LC/Contract No." := rec.LCContractNo;
@@ -123,15 +124,22 @@ page 50522 "B2B LC Card"
                         end;
 
                         //Calculate B2B LC opened  and %
+                        B2BLCOpenedValue := 0;
                         B2BRec.Reset();
                         B2BRec.SetRange("LC/Contract No.", rec."LC/Contract No.");
 
                         if B2BRec.FindSet() then begin
                             repeat
-                                rec."B2B LC Opened (Value)" += B2BRec."B2B LC Value";
+                                B2BLCOpenedValue += B2BRec."B2B LC Value";
                             until B2BRec.Next() = 0;
 
-                            rec."B2B LC Opened (%)" := (rec."B2B LC Opened (Value)" / rec."LC Value") * 100;
+                            rec."B2B LC Opened (Value)" := B2BLCOpenedValue;
+
+                            if rec."LC Value" > 0 then
+                                rec."B2B LC Opened (%)" := (rec."B2B LC Opened (Value)" / rec."LC Value") * 100
+                            else
+                                rec."B2B LC Opened (%)" := 0;
+
                         end;
 
                         rec.Balance := rec."B2B LC Limit" - rec."B2B LC Opened (Value)";

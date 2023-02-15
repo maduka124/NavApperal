@@ -102,6 +102,7 @@ page 50791 "ContractBBLCSummaryCard"
         PurchaseHeadeaerRec: Record "Purchase Header";
         PurchaselineRec: Record "Purchase Line";
         ContractStyleRec: Record "Contract/LCStyle";
+        BBLCOPENED: Decimal;
     begin
 
         ContLCMasRec.Reset();
@@ -118,8 +119,10 @@ page 50791 "ContractBBLCSummaryCard"
 
         if B2BRec.FindSet() then begin
             repeat
-                "BBLC Opened" += B2BRec."B2B LC Value";
+                BBLCOPENED += B2BRec."B2B LC Value";
             until B2BRec.Next() = 0;
+
+            "BBLC Opened" := BBLCOPENED;
 
             if "Amount" > 0 then
                 "BBLC OPENED %" := ("BBLC Opened" / "Amount") * 100
@@ -198,6 +201,7 @@ page 50791 "ContractBBLCSummaryCard"
         PurchaseHeadeaerRec: Record "Purchase Header";
         PurchaselineRec: Record "Purchase Line";
         ContractStyleRec: Record "Contract/LCStyle";
+        BBLCOPENED: Decimal;
     begin
 
         ContLCMasRec.Reset();
@@ -214,8 +218,10 @@ page 50791 "ContractBBLCSummaryCard"
 
         if B2BRec.FindSet() then begin
             repeat
-                "BBLC Opened" += B2BRec."B2B LC Value";
+                BBLCOPENED += B2BRec."B2B LC Value";
             until B2BRec.Next() = 0;
+
+            "BBLC Opened" := BBLCOPENED;
 
             if "Amount" > 0 then
                 "BBLC OPENED %" := ("BBLC Opened" / "Amount") * 100
