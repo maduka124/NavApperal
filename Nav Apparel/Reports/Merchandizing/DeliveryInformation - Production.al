@@ -3,7 +3,7 @@ report 51073 DeliveryInfoProductReport
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Delivery Details';
-    RDLCLayout = 'Report_Layouts/Merchandizing/DeliveryInformation - Production.rdl';
+    RDLCLayout = 'Report_Layouts/Merchandizing/Delivery Details.rdl';
     DefaultLayout = RDLC;
 
     dataset

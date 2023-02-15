@@ -596,7 +596,7 @@ page 50968 "Nav Apperal Role Center"
                     //     ApplicationArea = all;
                     // }
 
-                    action("Delivery Information - Production")
+                    action("Delivery Details")
                     {
                         Caption = 'Delivery Details';
                         Enabled = true;
@@ -808,7 +808,7 @@ page 50968 "Nav Apperal Role Center"
                     }
 
                     //Done By Sachith 14/02/23
-                    action("Delivery Information - Production 2")
+                    action("Delivery Details 2")
                     {
                         Caption = 'Delivery Details';
                         Enabled = true;
