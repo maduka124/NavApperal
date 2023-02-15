@@ -2,7 +2,7 @@ report 50865 DailyProductionReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Daily Production Report';
+    Caption = 'Hourly Production Report';
     RDLCLayout = 'Report_Layouts/Planning/DailyProductionReport.rdl';
     DefaultLayout = RDLC;
 

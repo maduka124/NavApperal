@@ -58,25 +58,19 @@ report 51073 DeliveryInfoProductReport
                 column(BPCD; BPCD)
                 { }
 
-
-
                 trigger OnAfterGetRecord()
                 begin
                     UnitPriceRound := Round("Unit Price", 0.01, '=')
                 end;
-
-
-
             }
-            trigger OnAfterGetRecord()
 
+            trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
 
             trigger OnPreDataItem()
-
             begin
                 SetRange("Created Date", stDate, endDate);
                 SetRange("Buyer No.", Buyer);
@@ -120,20 +114,7 @@ report 51073 DeliveryInfoProductReport
                 }
             }
         }
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
     }
-
-    var
 
     var
         vendorRec: Record Vendor;

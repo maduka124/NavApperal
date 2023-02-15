@@ -791,9 +791,9 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Daily Production Report")
+                    action("Hourly Production Report")
                     {
-                        Caption = 'Daily Production Report';
+                        Caption = 'Hourly Production Report';
                         Enabled = true;
                         RunObject = report DailyProductionReport;
                         ApplicationArea = all;

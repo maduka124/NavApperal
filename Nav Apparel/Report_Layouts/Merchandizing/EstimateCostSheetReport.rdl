@@ -13206,7 +13206,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>1.67005cm</Top>
+            <Top>1.35255cm</Top>
             <Left>9.40453cm</Left>
             <Height>1.19062cm</Height>
             <Width>9.78959cm</Width>
@@ -13234,7 +13234,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>14pt</FontSize>
                       <FontWeight>Bold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
+                      <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -13244,7 +13244,7 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>0.96517cm</Top>
+            <Top>0.64767cm</Top>
             <Left>9.29708cm</Left>
             <Height>0.68262cm</Height>
             <Width>9.78959cm</Width>
