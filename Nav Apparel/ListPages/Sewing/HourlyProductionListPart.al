@@ -12,7 +12,6 @@ page 50516 HourlyProductionListPart
         {
             repeater(General)
             {
-
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
@@ -78,7 +77,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 01" := TempDHU;
+                                    HourlyProdLinesRec."Hour 01" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -147,7 +146,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 02" := TempDHU;
+                                    HourlyProdLinesRec."Hour 02" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -171,6 +170,7 @@ page 50516 HourlyProductionListPart
                         CalTotal();
                     end;
                 }
+
                 field("Hour 03"; rec."Hour 03")
                 {
                     ApplicationArea = All;
@@ -215,7 +215,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 03" := TempDHU;
+                                    HourlyProdLinesRec."Hour 03" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -284,7 +284,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 04" := TempDHU;
+                                    HourlyProdLinesRec."Hour 04" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -352,7 +352,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 05" := TempDHU;
+                                    HourlyProdLinesRec."Hour 05" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -421,7 +421,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 06" := TempDHU;
+                                    HourlyProdLinesRec."Hour 06" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -490,7 +490,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 07" := TempDHU;
+                                    HourlyProdLinesRec."Hour 07" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -559,7 +559,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 08" := TempDHU;
+                                    HourlyProdLinesRec."Hour 08" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -628,7 +628,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 09" := TempDHU;
+                                    HourlyProdLinesRec."Hour 09" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -697,7 +697,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 10" := TempDHU;
+                                    HourlyProdLinesRec."Hour 10" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -766,7 +766,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 11" := TempDHU;
+                                    HourlyProdLinesRec."Hour 11" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -835,7 +835,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 12" := TempDHU;
+                                    HourlyProdLinesRec."Hour 12" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -904,7 +904,7 @@ page 50516 HourlyProductionListPart
                                 HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
 
                                 if HourlyProdLinesRec.FindSet() then begin
-                                    HourlyProdLinesRec."Hour 13" := TempDHU;
+                                    HourlyProdLinesRec."Hour 13" := round(TempDHU, 1);
                                     HourlyProdLinesRec.Modify();
                                 end;
 
@@ -944,6 +944,9 @@ page 50516 HourlyProductionListPart
     var
         HourlyProdLinesRec: Record "Hourly Production Lines";
         HourlyProdLines1Rec: Record "Hourly Production Lines";
+        ProductionOutLine: Record ProductionOutLine;
+        ProdOutHeaderRec: Record ProductionOutHeader;
+        InputQtyVar: Decimal;
         TotPassPcsHour1: Integer;
         TotPassPcsHour2: Integer;
         TotPassPcsHour3: Integer;
@@ -1115,6 +1118,30 @@ page 50516 HourlyProductionListPart
 
 
         end;
+
+
+        //Get sewing line in qty
+        InputQtyVar := 0;
+        ProdOutHeaderRec.Reset();
+        ProdOutHeaderRec.SetRange("Resource No.", rec."Work Center No.");
+        ProdOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
+        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+
+        if rec.Type = rec.Type::Sewing then
+            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+
+        if rec.Type = rec.Type::Finishing then
+            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Fin);
+
+        if ProdOutHeaderRec.FindSet() then begin
+            repeat
+                InputQtyVar += ProdOutHeaderRec."Input Qty";
+            until ProdOutHeaderRec.Next() = 0;
+        end;
+
+        if InputQtyVar < rec.Total then
+            Error('Hourly Production Total is greater than Sewing In quantity.');
+
 
         CurrPage.Update();
 

@@ -143,6 +143,7 @@ page 50515 "Hourly Production Card"
                                     HourlyProdLinesRec."No." := rec."No.";
                                     HourlyProdLinesRec."Line No." := LineNo;
                                     HourlyProdLinesRec."Style Name" := NavAppProdPlanLinesRec."Style Name";
+                                    HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
                                     HourlyProdLinesRec.Insert();
                                     StyleNo := NavAppProdPlanLinesRec."Style No.";
 
@@ -157,6 +158,7 @@ page 50515 "Hourly Production Card"
                                 HourlyProdLinesRec."Prod Date" := rec."Prod Date";
                                 HourlyProdLinesRec.Type := rec.Type;
                                 HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
+                                HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
                                 HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
                                 HourlyProdLinesRec.Item := 'PASS PCS';
                                 HourlyProdLinesRec.Insert();
@@ -170,6 +172,7 @@ page 50515 "Hourly Production Card"
                                 HourlyProdLinesRec."Prod Date" := rec."Prod Date";
                                 HourlyProdLinesRec.Type := rec.Type;
                                 HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
+                                HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
                                 HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
                                 HourlyProdLinesRec.Item := 'DEFECT PCS';
                                 HourlyProdLinesRec.Insert();
@@ -182,6 +185,7 @@ page 50515 "Hourly Production Card"
                                 HourlyProdLinesRec."Factory No." := rec."Factory No.";
                                 HourlyProdLinesRec."Prod Date" := rec."Prod Date";
                                 HourlyProdLinesRec.Type := rec.Type;
+                                HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
                                 HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
                                 HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
                                 HourlyProdLinesRec.Item := 'DHU';
