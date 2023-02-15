@@ -12,19 +12,12 @@ report 51245 SalesContractReport
         dataitem("Contract/LCMaster"; "Contract/LCMaster")
         {
             RequestFilterFields = "No.";
-            column(No_; "No.")
+            column(No_; "Contract No")
             { }
             column(Buyer; Buyer)
             { }
             column(CompLogo; comRec.Picture)
             { }
-            // column()
-            // { }
-            // column()
-            // { }
-            // column()
-            // { }
-
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
             {
                 DataItemLinkReference = "Contract/LCMaster";
@@ -33,49 +26,55 @@ report 51245 SalesContractReport
 
                 column(Style_Name; "Style Name")
                 { }
-                column(PoNo; PoNo)
-                { }
-                column(GarmentType; GarmentType)
-                { }
-                column(ShipDate; ShipDate)
-                { }
-                column(Color; Color)
-                { }
-                column(AssormentQty; AssormentQty)
-                { }
-                column(UnitPrice; UnitPrice)
-                { }
-                column(PoQty; PoQty)
-                { }
-                column(ShippedQty; ShippedQty)
-                { }
+                dataitem("Style Master PO"; "Style Master PO")
+                {
+                    DataItemLinkReference = "Contract/LCStyle";
+                    DataItemLink = "Style No." = field("Style No.");
+                    DataItemTableView = sorting("Style No.", "Lot No.");
+                    column(GarmentType; GarmentType)
+                    { }
+                    column(UnitPrice; "Unit Price")
+                    { }
+                    column(PoQty; Qty)
+                    { }
+                    column(ShippedQty; "Shipped Qty")
+                    { }
+                    column(PoNo; "PO No.")
+                    { }
+                    column(ShipDate; "Ship Date")
+                    { }
+                    dataitem(AssortmentDetails; AssortmentDetails)
+                    {
+                        DataItemLinkReference = "Style Master PO";
+                        DataItemLink = "Style No." = field("Style No."), "PO No." = field("PO No.");
+                        DataItemTableView = sorting("Style No.", "Lot No.");
 
-                trigger OnAfterGetRecord()
+                        column(Color; "Colour Name")
+                        { }
+                        column(AssormentQty; AssormentQty)
+                        { }
+                        trigger OnAfterGetRecord()
 
-                begin
-                    StyleRec.Reset();
-                    StyleRec.SetRange("No.", "Style No.");
-                    if StyleRec.FindFirst() then begin
-                        PoNo := StyleRec."PO No";
-                        GarmentType := StyleRec."Garment Type Name";
+                        begin
+                            AssorColorRationRec.Reset();
+                            AssorColorRationRec.SetRange("Style No.", "Style No.");
+                            AssorColorRationRec.SetRange("PO No.", "PO No.");
+                            AssorColorRationRec.SetRange("Colour No", "Colour No");
+                            if AssorColorRationRec.FindFirst() then begin
+                                AssormentQty := AssorColorRationRec.Total;
+                            end;
+                        end;
+                    }
+                    trigger OnAfterGetRecord()
+                    begin
+
+                        StyleRec.Reset();
+                        StyleRec.SetRange("No.", "Style No.");
+                        if StyleRec.FindFirst() then begin
+                            GarmentType := StyleRec."Garment Type Name";
+                        end;
                     end;
-
-                    StylePoRec.Reset();
-                    StylePoRec.SetRange("Style No.", "Style No.");
-                    if StylePoRec.FindFirst() then begin
-                        ShipDate := StylePoRec."Ship Date";
-                        UnitPrice := StylePoRec."Unit Price";
-                        PoQty := StylePoRec.Qty;
-                        ShippedQty := StylePoRec."Shipped Qty";
-                    end;
-
-                    AssortmentRec.Reset();
-                    AssortmentRec.SetRange("Style No.", "Style No.");
-                    if AssortmentRec.FindFirst() then begin
-                        Color := AssortmentRec."Colour Name";
-                        AssormentQty := AssortmentRec.Qty;
-                    end;
-                end;
+                }
             }
             trigger OnAfterGetRecord()
 
@@ -86,7 +85,6 @@ report 51245 SalesContractReport
 
         }
     }
-
 
     requestpage
     {
@@ -120,16 +118,10 @@ report 51245 SalesContractReport
 
 
     var
-        comRec: Record "Company Information";
-        ShippedQty: BigInteger;
-        PoQty: Integer;
-        UnitPrice: Decimal;
         AssormentQty: Integer;
+        AssorColorRationRec: Record AssorColorSizeRatio;
+        comRec: Record "Company Information";
         Color: Text[50];
-        AssortmentRec: Record AssortmentDetails;
-        ShipDate: Date;
-        StylePoRec: Record "Style Master PO";
         GarmentType: text[50];
-        PoNo: Code[20];
         StyleRec: Record "Style Master";
 }
