@@ -8,81 +8,75 @@ report 51244 ShipementSummaryReport
 
     dataset
     {
-        dataitem("Contract/LCMaster"; "Contract/LCMaster")
+        dataitem(UDHeader; UDHeader)
         {
             DataItemTableView = sorting("No.");
+            column(UD_No; "No.")
+            { }
+            column(UdQuanty; Qantity)
+            { }
+            column(UdValue; Value)
+            { }
             column(Buyer; Buyer)
             { }
-            column(Contract_No; "Contract No")
+            column(Contract_No; "LC/Contract No.")
             { }
             column(Factory; Factory)
             { }
-            column(UdNo; UdNo)
-            { }
-            column(Contract_Value; "Contract Value")
-            { }
             column(CompLogo; comRec.Picture)
             { }
+            column(Contract_Value; ContractValue)
+            { }
 
-            dataitem("Contract/LCStyle"; "Contract/LCStyle")
+            dataitem(UDStylePOinformation; UDStylePOinformation)
             {
-                DataItemLinkReference = "Contract/LCMaster";
+                DataItemLinkReference = UDHeader;
                 DataItemLink = "No." = field("No.");
                 DataItemTableView = sorting("No.");
-
+                column(ShDate; "Ship Date")
+                { }
+                column(ShipValue; "Ship Values")
+                { }
+                column(ShipQty; "Ship Qty")
+                { }
                 column(OrderQty; OrderQty)
                 { }
 
                 trigger OnAfterGetRecord()
                 begin
                     StyleRec.Reset();
-                    StyleRec.SetRange("No.", "Style No.");
+                    StyleRec.SetRange("No.", "Style No");
                     if StyleRec.FindFirst() then begin
                         OrderQty := StyleRec."Order Qty";
                     end;
 
                     StylePoRec.Reset();
-                    StylePoRec.SetRange("Style No.", "Style No.");
+                    StylePoRec.SetRange("Style No.", "Style No");
                     if StylePoRec.FindFirst() then begin
                         ShDate := StylePoRec."Ship Date";
                     end;
                 end;
+
             }
-
-            dataitem(UDHeader; UDHeader)
-            {
-                DataItemLinkReference = "Contract/LCMaster";
-                DataItemLink = "LC/Contract No." = field("Contract No");
-                DataItemTableView = sorting("No.");
-
-                column(UD_No; "No.")
-                { }
-                column(UdQuanty; Qantity)
-                { }
-                column(UdValue; Value)
-                { }
-                column(ShDate; ShDate)
-                { }
-                column(ShipValue; ShipValue)
-                { }
-                column(ShipQty; ShipQty)
-                { }
-            }
-
             trigger OnAfterGetRecord()
             begin
-                UdStyleRec.Reset();
-                UdStyleRec.SetRange("No.", "No.");
-                if UdStyleRec.FindFirst() then begin
-                    ShDate := UdStyleRec."Ship Date";
-                    ShipValue := UdStyleRec."Ship Values";
-                    ShipQty := UdStyleRec."Ship Qty";
+                // UdStyleRec.Reset();
+                // UdStyleRec.SetRange("No.", "No.");
+                // if UdStyleRec.FindFirst() then begin
+                //     ShDate := UdStyleRec."Ship Date";
+                //     ShipValue := UdStyleRec."Ship Values";
+                //     ShipQty := UdStyleRec."Ship Qty";
+
+                LcMasterRec.Reset();
+                LcMasterRec.SetRange("No.", "LC/Contract No.");
+                LcMasterRec.SetRange("Buyer No.", "Buyer No.");
+                if LcMasterRec.FindFirst() then begin
+                    ContractValue := LcMasterRec."Contract Value";
                 end;
 
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
-
 
             trigger OnPreDataItem()
             begin
@@ -113,14 +107,16 @@ report 51244 ShipementSummaryReport
 
 
     var
+        ContractValue: Decimal;
+        LcMasterRec: Record "Contract/LCMaster";
         BuyerFilter: Code[20];
         ShipQty: BigInteger;
-        ShipValue: Decimal;
+        // ShipValue: Decimal;
         comRec: Record "Company Information";
-        UdValue: Decimal;
-        UdNo: Code[20];
-        UdQuanty: BigInteger;
-        UdStyleRec: Record UDStylePOinformation;
+        // UdValue: Decimal;
+        // UdNo: Code[20];
+        // UdQuanty: BigInteger;
+        // UdStyleRec: Record UDStylePOinformation;
         ShDate: Date;
         StylePoRec: Record "Style Master PO";
         OrderQty: BigInteger;

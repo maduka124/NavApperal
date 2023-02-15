@@ -151,6 +151,15 @@ report 50621 ProductionPlanReport
                 group(GroupName)
                 {
                     Caption = 'Filter By';
+
+                    //Done By sachith On 14/02/23
+                    field(Factory; Factory)
+                    {
+                        ApplicationArea = All;
+                        TableRelation = Location.Code where("Sewing Unit" = filter(1));
+                        ShowMandatory = true;
+                    }
+
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
@@ -162,13 +171,6 @@ report 50621 ProductionPlanReport
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-                        ShowMandatory = true;
-                    }
-                    //Done By sachith On 14/02/23
-                    field(Factory; Factory)
-                    {
-                        ApplicationArea = All;
-                        TableRelation = Location.Code;
                         ShowMandatory = true;
                     }
                 }
