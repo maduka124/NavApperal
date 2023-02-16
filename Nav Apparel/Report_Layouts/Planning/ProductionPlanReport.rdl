@@ -109,7 +109,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>2.00765cm</Top>
+            <Top>2.96015cm</Top>
             <Left>0cm</Left>
             <Height>0.79905cm</Height>
             <Width>14.36688cm</Width>
@@ -143,13 +143,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.71164cm</Width>
+                  <Width>3.82892cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.47848cm</Width>
+                  <Width>3.50919cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.15604cm</Width>
+                  <Width>6.23055cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.1825cm</Width>
@@ -164,10 +164,10 @@
                   <Width>0.98492cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.64141cm</Width>
+                  <Width>1.32391cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.99729cm</Width>
+                  <Width>1.38346cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.90812cm</Width>
@@ -179,13 +179,13 @@
                   <Width>2.1825cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.44166cm</Width>
+                  <Width>1.48399cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.75917cm</Width>
+                  <Width>1.12417cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.23542cm</Width>
+                  <Width>2.21425cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.10312cm</Width>
@@ -194,7 +194,7 @@
                   <Width>2.24945cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.75917cm</Width>
+                  <Width>1.08184cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.13687cm</Width>
@@ -596,7 +596,21 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ALLO MC</Value>
+                                  <Value>ALLO </Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>MC</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -651,7 +665,21 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ACCESS.STS</Value>
+                                  <Value>ACCESS</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>.STS</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1136,7 +1164,21 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>PRD DAYS</Value>
+                                  <Value>PRD </Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>DAYS</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2238,7 +2280,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>InSpectionDt</rd:DefaultName>
@@ -3250,7 +3294,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>3.20887cm</Top>
+            <Top>4.16137cm</Top>
             <Left>0cm</Left>
             <Height>2.90066cm</Height>
             <Width>40.70144cm</Width>
@@ -3261,8 +3305,51 @@
               </Border>
             </Style>
           </Tablix>
+          <Textbox Name="Textbox7">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>FACTORY : </Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Fields!Factory_Name.Value</Value>
+                    <Style>
+                      <FontFamily>Calibri</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox6</rd:DefaultName>
+            <Top>2.01999cm</Top>
+            <Left>0cm</Left>
+            <Height>0.79905cm</Height>
+            <Width>14.36688cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>6.56136cm</Height>
+        <Height>7.32336cm</Height>
         <Style />
       </Body>
       <Width>40.73341cm</Width>
@@ -3490,9 +3577,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Buyer_Name">
           <DataField>Buyer_Name</DataField>
         </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
         <Field Name="BPCD">
           <DataField>BPCD</DataField>
         </Field>
@@ -3504,9 +3588,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Order_NO">
-          <DataField>Order_NO</DataField>
         </Field>
         <Field Name="LineQty">
           <DataField>LineQty</DataField>
@@ -3525,6 +3606,12 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="PRDHR">
           <DataField>PRDHR</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="Order_NO">
+          <DataField>Order_NO</DataField>
         </Field>
         <Field Name="Style_Name">
           <DataField>Style_Name</DataField>

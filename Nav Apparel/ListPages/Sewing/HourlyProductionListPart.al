@@ -12,7 +12,6 @@ page 50516 HourlyProductionListPart
         {
             repeater(General)
             {
-
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
@@ -42,7 +41,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 01" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 01";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 01";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 01" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 01" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -55,10 +110,67 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 02" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 02";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 02";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 02" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 02" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
+
                 field("Hour 03"; rec."Hour 03")
                 {
                     ApplicationArea = All;
@@ -67,7 +179,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 03" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 03";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 03";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 03" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 03" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -80,7 +248,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 04" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 04";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 04";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 04" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 04" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -90,10 +314,65 @@ page 50516 HourlyProductionListPart
                     ApplicationArea = All;
                     Editable = SetEdit;
                     StyleExpr = StyleExprTxt;
-
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 05" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 05";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 05";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 05" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 05" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -106,7 +385,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 06" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 06";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 06";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 06" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 06" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -119,7 +454,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 07" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 07";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 07";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 07" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 07" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -132,7 +523,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 08" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 08";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 08";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 08" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 08" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -145,7 +592,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 09" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 09";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 09";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 09" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 09" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -158,7 +661,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 10" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 10";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 10";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 10" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 10" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -171,7 +730,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 11" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 11";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 11";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 11" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 11" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -184,7 +799,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 12" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 12";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 12";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 12" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 12" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -197,7 +868,63 @@ page 50516 HourlyProductionListPart
 
                     trigger OnValidate()
                     var
+                        HourlyProdLinesRec: Record "Hourly Production Lines";
+                        TempPASSPCS: Decimal;
+                        TempDEFECTS: Decimal;
+                        TempDHU: Decimal;
                     begin
+
+                        CurrPage.Update();
+                        HourlyProdLinesRec.Reset();
+                        HourlyProdLinesRec.SetRange("No.", rec."No.");
+                        HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                        HourlyProdLinesRec.SetFilter(item, '=%1', 'PASS PCS');
+                        HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                        if HourlyProdLinesRec.FindSet() then begin
+                            if HourlyProdLinesRec."Hour 13" <> 0 then begin
+
+                                TempPASSPCS := HourlyProdLinesRec."Hour 13";
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DEFECT PCS');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    TempDEFECTS := HourlyProdLinesRec."Hour 13";
+                                end;
+
+                                //Calculate DHU and update
+                                TempDHU := (TempDEFECTS / TempPASSPCS) * 100;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 13" := round(TempDHU, 1);
+                                    HourlyProdLinesRec.Modify();
+                                end;
+
+                            end
+                            else begin
+                                TempDHU := 0;
+
+                                HourlyProdLinesRec.SetRange("No.", rec."No.");
+                                HourlyProdLinesRec.SetRange("Work Center No.", rec."Work Center No.");
+                                HourlyProdLinesRec.SetFilter(item, '=%1', 'DHU');
+                                HourlyProdLinesRec.SetFilter("Factory No.", '<>%1', '');
+
+                                if HourlyProdLinesRec.FindSet() then begin
+                                    HourlyProdLinesRec."Hour 13" := TempDHU;
+                                    HourlyProdLinesRec.Modify();
+                                end;
+                            end;
+
+                        end;
+
                         CalTotal();
                     end;
                 }
@@ -217,6 +944,9 @@ page 50516 HourlyProductionListPart
     var
         HourlyProdLinesRec: Record "Hourly Production Lines";
         HourlyProdLines1Rec: Record "Hourly Production Lines";
+        ProductionOutLine: Record ProductionOutLine;
+        ProdOutHeaderRec: Record ProductionOutHeader;
+        InputQtyVar: Decimal;
         TotPassPcsHour1: Integer;
         TotPassPcsHour2: Integer;
         TotPassPcsHour3: Integer;
@@ -261,6 +991,7 @@ page 50516 HourlyProductionListPart
         CurrPage.Update();
         rec.Total := rec."Hour 01" + rec."Hour 02" + rec."Hour 03" + rec."Hour 04" + rec."Hour 05" + rec."Hour 06" +
         rec."Hour 07" + rec."Hour 08" + rec."Hour 09" + rec."Hour 10" + rec."Hour 11" + rec."Hour 12" + rec."Hour 13";
+
 
         //Sub totals
         HourlyProdLinesRec.Reset();
@@ -388,6 +1119,30 @@ page 50516 HourlyProductionListPart
 
         end;
 
+
+        //Get sewing line in qty
+        InputQtyVar := 0;
+        ProdOutHeaderRec.Reset();
+        ProdOutHeaderRec.SetRange("Resource No.", rec."Work Center No.");
+        ProdOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
+        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+
+        if rec.Type = rec.Type::Sewing then
+            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+
+        if rec.Type = rec.Type::Finishing then
+            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Fin);
+
+        if ProdOutHeaderRec.FindSet() then begin
+            repeat
+                InputQtyVar += ProdOutHeaderRec."Input Qty";
+            until ProdOutHeaderRec.Next() = 0;
+        end;
+
+        if InputQtyVar < rec.Total then
+            Error('Hourly Production Total is greater than Sewing In quantity.');
+
+
         CurrPage.Update();
 
     end;
@@ -398,7 +1153,7 @@ page 50516 HourlyProductionListPart
     begin
         StyleExprTxt := ChangeColor.ChangeHourlyProduction(Rec);
 
-        if rec."Factory No." = '' then begin
+        if (rec."Factory No." = '') or (rec.Item = 'DHU') then begin
             Clear(SetEdit);
             SetEdit := false;
         end
