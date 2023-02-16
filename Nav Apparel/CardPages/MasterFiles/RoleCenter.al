@@ -627,7 +627,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report GrnReport;
                         ApplicationArea = all;
                     }
-
+                    action("Hourly Production Report Merchandizing")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
                     action("Order Completion Report")
                     {
                         Caption = 'Order Completion Report';
@@ -791,11 +797,11 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Hourly Production Report")
+                    action("Hourly Production Report Planning")
                     {
                         Caption = 'Hourly Production Report';
                         Enabled = true;
-                        RunObject = report DailyProductionReport;
+                        RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
 
@@ -897,6 +903,17 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "YY Requsition List";
                     ApplicationArea = all;
                 }
+                group("CAD Reports")
+                {
+                    action("Hourly Production Report CAD")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
+                }
+
             }
 
             group("Common")
@@ -947,6 +964,13 @@ page 50968 "Nav Apperal Role Center"
                         Enabled = true;
                         RunObject = report DepartmentRequisitionReport;
                         ApplicationArea = All;
+                    }
+                    action("Hourly Production Report Common")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
                     }
                 }
 
@@ -1002,6 +1026,13 @@ page 50968 "Nav Apperal Role Center"
                         Enabled = true;
                         RunObject = report VendorSummaryAging;
                         ApplicationArea = All;
+                    }
+                    action("Hourly Production Report Procurement")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
                     }
                 }
 
@@ -1206,6 +1237,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report GarmentWiseRawMaterialRequest;
                         ApplicationArea = All;
                     }
+                    action("Hourly Production Report Warehouse")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
@@ -1311,6 +1349,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report FabricRequisitionNote;
                         ApplicationArea = all;
                     }
+                    action("Hourly Production Report Cutting")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
@@ -1339,6 +1384,16 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page WashingSampleHistry;
                     ApplicationArea = all;
                 }
+                group("Sewing Reports")
+                {
+                    action("Hourly Production Report Sewing")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
+                }
             }
 
             group("Finishing")
@@ -1366,18 +1421,25 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                // group("Fnishing Reports")
-                // {
-                //     Caption = 'Fnishing Reports';
+                group("Finishing Reports")
+                {
+                    Caption = 'Finishing Reports';
 
-                //     action("Weekly Order Booking")
-                //     {
-                //         Caption = 'Weekly Order Booking';
-                //         Enabled = true;
-                //         RunObject = report WeeklyOrderBookingStatus;
-                //         ApplicationArea = all;
-                //     }
-                // }
+                    // action("Weekly Order Booking")
+                    // {
+                    //     Caption = 'Weekly Order Booking';
+                    //     Enabled = true;
+                    //     RunObject = report WeeklyOrderBookingStatus;
+                    //     ApplicationArea = all;
+                    // }
+                    action("Hourly Production Report Finishing")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
+                }
             }
 
             group("Samples")
@@ -1438,6 +1500,16 @@ page 50968 "Nav Apperal Role Center"
                     Caption = 'YY Requisition';
                     RunObject = Page "YY Requsition List";
                     ApplicationArea = all;
+                }
+                group("Sample Reports")
+                {
+                    action("Hourly Production Report Sample")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
@@ -1548,7 +1620,13 @@ page 50968 "Nav Apperal Role Center"
                 group("Workstudy Reports")
                 {
                     Caption = 'Workstudy Reports';
-
+                    action("Hourly Production Report WorkStudy")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
                     action("Manning Level Report")
                     {
                         Caption = 'Manning Level Report';
@@ -1596,6 +1674,7 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report ManpowerBudgetReport;
                         ApplicationArea = all;
                     }
+
                 }
             }
 
@@ -2458,11 +2537,11 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Daily Production Report1")
+                action("Hourly Production Report Dashboard")
                 {
-                    Caption = 'Daily Production Report';
+                    Caption = 'Hourly Production Report';
                     Enabled = true;
-                    RunObject = report DailyProductionReport;
+                    RunObject = report HourlyProductionReport;
                     ApplicationArea = all;
                 }
 
