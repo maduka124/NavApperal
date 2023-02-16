@@ -162,8 +162,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     _settings.Add('EntitiesTableViewWidth', gintconVSControlAddInEntitiesTableViewWidth);
                     _settings.Add('EntitiesTableVisible', gbShowEntities);
                     _settings.Add('PM_DefaultAllocationAllowedBarDragModes', 16);
-                    //_settings.Add('PM_TopRowMarginInTimeArea', 5);
-                    //_settings.Add('PM_BottomRowMarginInTimeArea', 5);
+                    _settings.Add('PM_DefaultMinimumActivityRowHeight', '25');
+                    _settings.Add('PM_DefaultAllocationMinimumRowHeight', '25');
+                    _settings.Add('PM_DefaultMinimumResourceRowHeight', '25');
+                    _settings.Add('PM_DefaultMinimumEntityRowHeight', '25');
+                    _settings.Add('PM_TopRowMarginInTimeArea', 4);
+                    _settings.Add('PM_BottomRowMarginInTimeArea', 4);
 
                     CurrPage.conVSControlAddIn.SetSettings(_settings);
 
@@ -3276,8 +3280,12 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
             _settings.Add('EntitiesTableVisible', gbShowEntities);
             _settings.Add('NonworkingTimeVisible', gbShowWorkfreePeriods);
             _settings.Add('PM_DefaultAllocationAllowedBarDragModes', 16);
-            //_settings.Add('PM_TopRowMarginInTimeArea', 5);
-            //_settings.Add('PM_BottomRowMarginInTimeArea', 5);
+            _settings.Add('PM_DefaultMinimumActivityRowHeight', '25');
+            _settings.Add('PM_DefaultAllocationMinimumRowHeight', '25');
+            _settings.Add('PM_DefaultMinimumResourceRowHeight', '25');
+            _settings.Add('PM_DefaultMinimumEntityRowHeight', '25');
+            _settings.Add('PM_TopRowMarginInTimeArea', 4);
+            _settings.Add('PM_BottomRowMarginInTimeArea', 4);
 
 
             CurrPage.conVSControlAddIn.SetSettings(_settings);

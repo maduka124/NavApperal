@@ -92,7 +92,8 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 //ldnResource.Add('AddIn_TableText', lrecResource.Name + ' (' + lrecResource."No." + ')');
                 ldnResource.Add('AddIn_TooltipText', 'Resource<br>Name: ' + FORMAT(lrecResource.Name) + '<br>No.: ' + FORMAT(lrecResource."No."));
                 ldnResource.Add('AddIn_ContextMenuID', 'CM_Resource');
-                //ldnResource.Add('PM_MinimumRowHeight', '30');
+                //ldnResource.Add('PM_MinimumRowHeight', '19');
+
 
                 // IF (lrecResource."Resource Group No." = '') THEN BEGIN
                 //     ldnResource.Add('ParentID', 'RG0_NoGroup');
@@ -395,7 +396,10 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                   '<br>Finish D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."End Date", lrecJobPlanningLine."Finish Time")));
                 ldnAllocation.Add('AddIn_ContextMenuID', 'CM_Allocation');
 
-                ldnAllocation.Add('PM_BarHeight', '20');
+                ldnAllocation.Add('PM_BarHeight', '15');
+                //ldnAllocation.Add('PM_MinimumRowHeight', '19');
+                // ldnAllocation.Add('PM_TopRowMarginInTimeArea', '2');
+                // ldnAllocation.Add('PM_BottomRowMarginInTimeArea', '2');
                 pAllocations.Add(ldnAllocation);
 
             UNTIL lrecJobPlanningLine.NEXT = 0;
@@ -425,7 +429,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 ldnEntity.Add('ID', PlanningQueueRec."Queue No.");
                 ldnEntity.Add('PM_TableColor', '#2672ab');
                 ldnEntity.Add('PM_TableTextColor', 'white');
-                ldnEntity.Add('PM_MinimumRowHeight', '22');
+                //ldnEntity.Add('PM_MinimumRowHeight', '19');
                 ldnEntity.Add('AddIn_TableText', TempString);
                 ldnEntity.Get('ID', tempEntityToken);
                 ldnEntity.Add('AddIn_ContextMenuID', 'CM_Entity');

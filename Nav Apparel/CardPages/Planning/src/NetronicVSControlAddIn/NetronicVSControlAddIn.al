@@ -1,8 +1,8 @@
 // Version 5.0.1
 controladdin NetronicVSControlAddIn
 {
-    RequestedHeight = 400;
-    MinimumHeight = 400;
+    RequestedHeight = 800;
+    MinimumHeight = 800;
     //MaximumHeight = 0;
     RequestedWidth = 600;
     MinimumWidth = 600;
