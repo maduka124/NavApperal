@@ -2,6 +2,7 @@ page 51031 "BOM Line Estimate ListPart"
 {
     PageType = ListPart;
     SourceTable = "BOM Line Estimate";
+    //AutoSplitKey = true;
 
     layout
     {
@@ -18,7 +19,23 @@ page 51031 "BOM Line Estimate ListPart"
                     trigger OnValidate()
                     var
                         MainCategoryRec: Record "Main Category";
+                        BOMLineEstimateRec: Record "BOM Line Estimate";
+                        LineNo: BigInteger;
                     begin
+
+                        //Get Max line no
+                        LineNo := 0;
+                        BOMLineEstimateRec.Reset();
+                        BOMLineEstimateRec.SetCurrentKey("Line No.");
+                        BOMLineEstimateRec.Ascending(true);
+                        BOMLineEstimateRec.SetRange("No.", rec."No.");
+
+                        if BOMLineEstimateRec.FindLast() then
+                            LineNo := BOMLineEstimateRec."Line No.";
+
+                        rec."Line No." := LineNo + 1;
+
+
                         MainCategoryRec.Reset();
                         MainCategoryRec.SetRange("Main Category Name", rec."Main Category Name");
                         if MainCategoryRec.FindSet() then begin
@@ -364,7 +381,7 @@ page 51031 "BOM Line Estimate ListPart"
             rec.Requirment := 1;
 
         rec.Value := rec.Requirment * rec.Rate;
-        CurrPage.Update(true);
+        //CurrPage.Update(true);
         // CalculateCost();
     end;
 

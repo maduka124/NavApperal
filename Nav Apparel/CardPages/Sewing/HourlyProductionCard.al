@@ -23,6 +23,11 @@ page 50515 "Hourly Production Card"
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
+
+                        //Validate Date
+                        if rec."Prod Date" < WorkDate() then
+                            Error('Cannot enter production for previous dates.');
+
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -106,6 +111,10 @@ page 50515 "Hourly Production Card"
                     LineNo: Integer;
                     StyleNo: code[20];
                 begin
+
+                    //Validate Date
+                    if rec."Prod Date" < WorkDate() then
+                        Error('Cannot enter production for previous dates.');
 
                     CurrPage.Update();
                     //Get max lineno
