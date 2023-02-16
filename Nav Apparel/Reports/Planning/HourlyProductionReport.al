@@ -1,9 +1,9 @@
-report 50865 DailyProductionReport
+report 50865 HourlyProductionReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Hourly Production Report';
-    RDLCLayout = 'Report_Layouts/Planning/DailyProductionReport.rdl';
+    RDLCLayout = 'Report_Layouts/Planning/HourlyProductionReport.rdl';
     DefaultLayout = RDLC;
 
     dataset
@@ -259,8 +259,8 @@ report 50865 DailyProductionReport
             }
             trigger OnPreDataItem()
             begin
-                SetRange("Prod Date", FilterDate);
-                SetRange("Factory No.", FactortFilter);
+                // SetRange("Prod Date", FilterDate);
+                // SetRange("Factory No.", FactortFilter);
             end;
 
             trigger OnAfterGetRecord()
