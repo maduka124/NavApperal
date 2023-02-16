@@ -74,8 +74,13 @@ report 51238 GarmentWiseRawMaterialRequest
                         //  "Document No." = field("Prod. Order No."),
                         column(ItemLeQuantity; Quantity * -1)
                         { }
-                        column(OrginalDailyReq; "Original Daily Requirement")
+                        column(OrginalDailyReq;RoundDailyReq)
                         { }
+
+                        trigger OnAfterGetRecord()
+                        begin
+                            RoundDailyReq :=Round("Original Daily Requirement",0.001,'>');
+                        end;
                     }
                     trigger OnAfterGetRecord()
 
@@ -144,6 +149,7 @@ report 51238 GarmentWiseRawMaterialRequest
 
 
     var
+        RoundDailyReq: Decimal;
         PONo: Code[20];
         PoQty: BigInteger;
         StylePoRec: Record "Style Master PO";
