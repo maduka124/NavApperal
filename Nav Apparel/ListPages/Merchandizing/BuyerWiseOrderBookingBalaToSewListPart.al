@@ -21,6 +21,13 @@ page 51169 "BuyWisOdrBoo-BalTosewListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
+                //Done By Sachith on 16/02/23
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Brand';
+                }
+
                 field(JAN; rec.JAN)
                 {
                     ApplicationArea = All;

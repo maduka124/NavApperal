@@ -103,6 +103,24 @@ table 51163 BuyerWiseOdrBookingAllBook
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done By Sachith on 16/02/23
+        field(21; "Brand No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //Done By Sachith on 16/02/23
+        field(22; "Brand Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        // for testing Sachith 
+        field(23; Style; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

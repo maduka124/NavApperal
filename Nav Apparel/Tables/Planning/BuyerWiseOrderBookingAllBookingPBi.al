@@ -44,6 +44,18 @@ table 51178 BuyerWiseOdrBookingAllBookPBi1
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done By Sachith on 16/02/23
+        field(9; "Brand No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //Done By Sachith on 16/02/23
+        field(10; "Brand Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

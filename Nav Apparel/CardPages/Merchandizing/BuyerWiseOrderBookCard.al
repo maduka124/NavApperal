@@ -194,19 +194,24 @@ page 51165 "BuyerWiseOrderBooking"
                                     StyleMasterRec.SetRange("No.", StyleMasterPORec."Style No.");
                                     if StyleMasterRec.FindSet() then begin
 
+                                        //Done By Sachith on 16/02/23 (insert brand filter line)
                                         //Check for existing records
                                         BuyWisOdrBookAllBookRec.Reset();
                                         BuyWisOdrBookAllBookRec.SetRange(Year, rec.Year);
                                         BuyWisOdrBookAllBookRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
+                                        BuyWisOdrBookAllBookRec.SetRange("Brand Name", StyleMasterRec."Brand Name");
                                         if not BuyWisOdrBookAllBookRec.FindSet() then begin  //insert
 
                                             SeqNo += 1;
                                             //Insert new line
+                                            //Done By Sachith on 16/02/23 (insert Brand No and Name)
                                             BuyWisOdrBookAllBookRec.Init();
                                             BuyWisOdrBookAllBookRec."No." := SeqNo;
                                             BuyWisOdrBookAllBookRec.Year := rec.Year;
                                             BuyWisOdrBookAllBookRec."Buyer Code" := StyleMasterRec."Buyer No.";
                                             BuyWisOdrBookAllBookRec."Buyer Name" := StyleMasterRec."Buyer Name";
+                                            BuyWisOdrBookAllBookRec."Brand No" := StyleMasterRec."Brand No.";
+                                            BuyWisOdrBookAllBookRec."Brand Name" := StyleMasterRec."Brand Name";
                                             BuyWisOdrBookAllBookRec.Type := 'L';
 
                                             case i of
@@ -338,13 +343,17 @@ page 51165 "BuyerWiseOrderBooking"
                         //BuyWisOdrBookAllBookRec.SetFilter(Type, '=%1', 'L');
                         if BuyWisOdrBookAllBookRec.FindSet() then begin
                             repeat
+
                                 //Insert new line
+                                //Done By Sachith on 16/02/23 (insert Brand No and Name)
                                 SeqNo += 1;
                                 BuyerWiseOdrBookinBalatoSewRec.Init();
                                 BuyerWiseOdrBookinBalatoSewRec."No." := SeqNo;
                                 BuyerWiseOdrBookinBalatoSewRec.Year := BuyWisOdrBookAllBookRec.Year;
                                 BuyerWiseOdrBookinBalatoSewRec."Buyer Code" := BuyWisOdrBookAllBookRec."Buyer Code";
                                 BuyerWiseOdrBookinBalatoSewRec."Buyer Name" := BuyWisOdrBookAllBookRec."Buyer Name";
+                                BuyerWiseOdrBookinBalatoSewRec."Brand No" := BuyWisOdrBookAllBookRec."Brand No";
+                                BuyerWiseOdrBookinBalatoSewRec."Brand Name" := BuyWisOdrBookAllBookRec."Brand Name";
                                 BuyerWiseOdrBookinBalatoSewRec.JAN := BuyWisOdrBookAllBookRec.JAN;
                                 BuyerWiseOdrBookinBalatoSewRec.FEB := BuyWisOdrBookAllBookRec.FEB;
                                 BuyerWiseOdrBookinBalatoSewRec.MAR := BuyWisOdrBookAllBookRec.MAR;
@@ -516,12 +525,15 @@ page 51165 "BuyerWiseOrderBooking"
                         if BuyWisOdrBookAllBookRec.FindSet() then begin
                             repeat
                                 //Insert new line
+                                //Done By Sachith on 16/02/23 (insert Brand No and Name)
                                 SeqNo += 1;
                                 BuyerWiseOdrBookinBalatoShipRec.Init();
                                 BuyerWiseOdrBookinBalatoShipRec."No." := SeqNo;
                                 BuyerWiseOdrBookinBalatoShipRec.Year := BuyWisOdrBookAllBookRec.Year;
                                 BuyerWiseOdrBookinBalatoShipRec."Buyer Code" := BuyWisOdrBookAllBookRec."Buyer Code";
                                 BuyerWiseOdrBookinBalatoShipRec."Buyer Name" := BuyWisOdrBookAllBookRec."Buyer Name";
+                                BuyerWiseOdrBookinBalatoShipRec."Brand No" := BuyWisOdrBookAllBookRec."Brand No";
+                                BuyerWiseOdrBookinBalatoShipRec."Brand Name" := BuyWisOdrBookAllBookRec."Brand Name";
                                 BuyerWiseOdrBookinBalatoShipRec.JAN := BuyWisOdrBookAllBookRec.JAN;
                                 BuyerWiseOdrBookinBalatoShipRec.FEB := BuyWisOdrBookAllBookRec.FEB;
                                 BuyerWiseOdrBookinBalatoShipRec.MAR := BuyWisOdrBookAllBookRec.MAR;

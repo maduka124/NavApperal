@@ -108,11 +108,14 @@ codeunit 51175 "CodeUnitJobQueue-AllBooking"
                                     MonthName := 'DEC';
                             end;
 
+                            // Done By Sachith 16/02/23 (insert Brand Name and No )
                             //Insert new line
                             BuyWisOdrBookAllBookRec.Init();
                             BuyWisOdrBookAllBookRec.Year := Y;
                             BuyWisOdrBookAllBookRec."Buyer Code" := StyleMasterRec."Buyer No.";
                             BuyWisOdrBookAllBookRec."Buyer Name" := StyleMasterRec."Buyer Name";
+                            BuyWisOdrBookAllBookRec."Brand No" := StyleMasterRec."Brand No.";
+                            BuyWisOdrBookAllBookRec."Brand Name" := StyleMasterRec."Brand Name";
                             BuyWisOdrBookAllBookRec.MonthName := MonthName;
                             BuyWisOdrBookAllBookRec.MonthNo := i;
                             BuyWisOdrBookAllBookRec.Value := StyleMasterPORec.Qty;
