@@ -1909,7 +1909,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PoQty.Value-((Sum((Fields!ReqQty.Value / Fields!OrginalDailyReq.Value) * Fields!ItemLeQuantity.Value))/2)</Value>
+                                  <Value>=Fields!PoQty.Value-(Sum((Fields!ReqQty.Value / Fields!OrginalDailyReq.Value) * Fields!ItemLeQuantity.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
