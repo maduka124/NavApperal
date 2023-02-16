@@ -20,13 +20,6 @@ page 51173 "BuyWisOdrBoo-GRWisBookListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
-                //Done By Sachith on 16/02/23
-                field("Brand Name"; Rec."Brand Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Brand';
-                }
-
                 field(JAN; rec.JAN)
                 {
                     ApplicationArea = All;

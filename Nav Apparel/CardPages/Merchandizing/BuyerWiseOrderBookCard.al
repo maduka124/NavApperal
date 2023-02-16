@@ -115,8 +115,6 @@ page 51165 "BuyerWiseOrderBooking"
                     StartDate: date;
                     FinishDate: Date;
                     SeqNo: BigInteger;
-                    //Done By sachith On 16/02/23
-                    BrandRec: Record Brand;
                 begin
 
                     if rec.Year > 0 then begin
@@ -527,12 +525,15 @@ page 51165 "BuyerWiseOrderBooking"
                         if BuyWisOdrBookAllBookRec.FindSet() then begin
                             repeat
                                 //Insert new line
+                                //Done By Sachith on 16/02/23 (insert Brand No and Name)
                                 SeqNo += 1;
                                 BuyerWiseOdrBookinBalatoShipRec.Init();
                                 BuyerWiseOdrBookinBalatoShipRec."No." := SeqNo;
                                 BuyerWiseOdrBookinBalatoShipRec.Year := BuyWisOdrBookAllBookRec.Year;
                                 BuyerWiseOdrBookinBalatoShipRec."Buyer Code" := BuyWisOdrBookAllBookRec."Buyer Code";
                                 BuyerWiseOdrBookinBalatoShipRec."Buyer Name" := BuyWisOdrBookAllBookRec."Buyer Name";
+                                BuyerWiseOdrBookinBalatoShipRec."Brand No" := BuyWisOdrBookAllBookRec."Brand No";
+                                BuyerWiseOdrBookinBalatoShipRec."Brand Name" := BuyWisOdrBookAllBookRec."Brand Name";
                                 BuyerWiseOdrBookinBalatoShipRec.JAN := BuyWisOdrBookAllBookRec.JAN;
                                 BuyerWiseOdrBookinBalatoShipRec.FEB := BuyWisOdrBookAllBookRec.FEB;
                                 BuyerWiseOdrBookinBalatoShipRec.MAR := BuyWisOdrBookAllBookRec.MAR;
