@@ -182,6 +182,18 @@ table 51172 BuyerWiseOrderBookinGRWiseBook
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done By Sachith on 16/02/23
+        field(37; "Brand No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //Done By Sachith on 16/02/23
+        field(38; "Brand Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

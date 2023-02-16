@@ -21,6 +21,13 @@ page 51166 "BuyeWisOdrBook-AllBookListPart"
                     StyleExpr = StyleExprTxt;
                 }
 
+                //Done By Sachith on 16/02/23
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Brand';
+                }
+
                 field(JAN; rec.JAN)
                 {
                     ApplicationArea = All;
