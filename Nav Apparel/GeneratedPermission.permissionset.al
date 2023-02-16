@@ -525,7 +525,7 @@ permissionset 50100 GeneratedPermission
         report CapacityGapDetailsReport=X,
         report ContractExportStatus=X,
         report CuttingChartReport=X,
-        report DailyProductionReport=X,
+        report HourlyProductionReport=X,
         report DayWiseProductionReport=X,
         report DayWiseSewingTarget=X,
         report DeliveryInfoProductReport=X,
