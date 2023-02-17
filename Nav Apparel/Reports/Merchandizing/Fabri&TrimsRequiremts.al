@@ -32,6 +32,14 @@ report 50610 FabricAndTrimsRequiremts
                 DataItemLink = "No." = field("Style No.");
                 DataItemTableView = sorting("No.");
 
+                //Done By Sachith on 17/02/23 
+                column(Factory_Name; "Factory Name")
+                { }
+
+                //Done By Sachith on 17/02/23 
+                column(Brand_Name; "Brand Name")
+                { }
+
 
                 // column(Order_Qty; "Order Qty")
                 // { }
