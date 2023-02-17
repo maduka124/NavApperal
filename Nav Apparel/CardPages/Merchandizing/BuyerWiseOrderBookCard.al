@@ -426,6 +426,7 @@ page 51165 "BuyerWiseOrderBooking"
                                         BuyerWiseOdrBookinBalatoSewRec.Reset();
                                         BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, rec.Year);
                                         BuyerWiseOdrBookinBalatoSewRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
+                                        BuyerWiseOdrBookinBalatoSewRec.SetRange("Brand No", StyleMasterRec."Brand No.");
                                         if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
 
                                             case i of
@@ -605,6 +606,7 @@ page 51165 "BuyerWiseOrderBooking"
                                         BuyerWiseOdrBookinBalatoShipRec.Reset();
                                         BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
                                         BuyerWiseOdrBookinBalatoShipRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
+                                        BuyerWiseOdrBookinBalatoShipRec.SetRange("Brand No", StyleMasterRec."Brand No.");
                                         if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
 
                                             case i of
@@ -755,7 +757,7 @@ page 51165 "BuyerWiseOrderBooking"
                         BuyerWiseOdrBookinGRWiseBookRec.Init();
                         BuyerWiseOdrBookinGRWiseBookRec."No." := SeqNo;
                         BuyerWiseOdrBookinGRWiseBookRec.Year := rec.Year;
-                        BuyerWiseOdrBookinGRWiseBookRec."Group Id" := ' ';
+                        BuyerWiseOdrBookinGRWiseBookRec."Group Id" := 'Total';
                         BuyerWiseOdrBookinGRWiseBookRec."Group Head" := 'Total';
                         BuyerWiseOdrBookinGRWiseBookRec."Group Name" := 'Total';
                         BuyerWiseOdrBookinGRWiseBookRec.Type := 'T';
@@ -819,6 +821,7 @@ page 51165 "BuyerWiseOrderBooking"
                                             BuyerWiseOdrBookinGRWiseBookRec.Reset();
                                             BuyerWiseOdrBookinGRWiseBookRec.SetRange(Year, rec.Year);
                                             BuyerWiseOdrBookinGRWiseBookRec.SetRange("Group Id", CustomerRec."Group Id");
+                                            BuyerWiseOdrBookinGRWiseBookRec.SetFilter(Type, '<>%1', 'T');
                                             if BuyerWiseOdrBookinGRWiseBookRec.FindSet() then begin
 
                                                 case i of

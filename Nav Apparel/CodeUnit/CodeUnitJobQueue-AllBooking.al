@@ -75,6 +75,7 @@ codeunit 51175 "CodeUnitJobQueue-AllBooking"
                         BuyWisOdrBookAllBookRec.Reset();
                         BuyWisOdrBookAllBookRec.SetRange(Year, Y);
                         BuyWisOdrBookAllBookRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
+                        BuyWisOdrBookAllBookRec.SetRange("Brand No", StyleMasterRec."Brand No.");
                         BuyWisOdrBookAllBookRec.SetRange(MonthNo, i);
 
                         if not BuyWisOdrBookAllBookRec.FindSet() then begin  //insert

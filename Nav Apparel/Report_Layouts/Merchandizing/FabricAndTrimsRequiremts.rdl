@@ -3188,7 +3188,8 @@
                     <Value>=Fields!Factory_Name.Value</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
-                      <FontSize>11pt</FontSize>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -3198,10 +3199,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.81111cm</Top>
-            <Left>11.36694cm</Left>
+            <Top>0.49361cm</Top>
+            <Left>10.73194cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.77333cm</Width>
+            <Width>7.87357cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
