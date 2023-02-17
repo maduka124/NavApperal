@@ -93,12 +93,18 @@ page 51031 "BOM Line Estimate ListPart"
                     trigger OnValidate()
                     var
                         ItemRec: Record "Item";
+                        BOMHeaderRec: record "BOM";
                     begin
                         ItemRec.Reset();
                         ItemRec.SetRange(Description, rec."Item Name");
 
-                        if ItemRec.FindSet() then
-                            rec."Item No." := ItemRec."No."
+                        if ItemRec.FindSet() then begin
+                            rec."Item No." := ItemRec."No.";
+
+                            //Get Qty from Header 
+                            BOMHeaderRec.get(rec."No.");
+                            rec.Qty := BOMHeaderRec.Quantity;
+                        end
                         else
                             Error('Invalid item name');
                     end;
@@ -178,20 +184,28 @@ page 51031 "BOM Line Estimate ListPart"
                     end;
                 }
 
-                field("GMT Qty"; rec."GMT Qty")
+                // field("GMT Qty"; rec."GMT Qty")
+                // {
+                //     ApplicationArea = All;
+                //     StyleExpr = StyleExprTxt;
+
+                //     trigger OnValidate()
+                //     var
+                //     begin
+                //         if rec."Article Name." = '' then
+                //             Error('Article is blank.');
+
+                //         if rec."Dimension Name." = '' then
+                //             Error('Dimension is blank.');
+                //     end;
+                // }
+
+                field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
-
-                    trigger OnValidate()
-                    var
-                    begin
-                        if rec."Article Name." = '' then
-                            Error('Article is blank.');
-
-                        if rec."Dimension Name." = '' then
-                            Error('Dimension is blank.');
-                    end;
+                    Caption = 'GMT Qty';
+                    Editable = false;
                 }
 
                 field(Consumption; rec.Consumption)
@@ -276,12 +290,6 @@ page 51031 "BOM Line Estimate ListPart"
                     begin
                         CalculateWST();
                     end;
-                }
-
-                field(Qty; rec.Qty)
-                {
-                    ApplicationArea = All;
-                    StyleExpr = StyleExprTxt;
                 }
 
                 field("Size Sensitive"; rec."Size Sensitive")
