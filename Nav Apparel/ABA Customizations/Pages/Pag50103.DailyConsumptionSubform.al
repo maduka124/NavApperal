@@ -1,6 +1,6 @@
 page 50103 "Daily Consumption Subform"
 {
-    Caption = 'Daily Consumption Subform';
+    Caption = 'Garment Requirement';
     PageType = ListPart;
     SourceTable = "Daily Consumption Line";
     InsertAllowed = false;

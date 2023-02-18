@@ -1,6 +1,6 @@
 page 50111 "Daily Requirement"
 {
-    Caption = 'Daily Requirnment';
+    Caption = 'Daily Requirement';
     PageType = ListPart;
     SourceTable = "Item Journal Line";
     Editable = false;

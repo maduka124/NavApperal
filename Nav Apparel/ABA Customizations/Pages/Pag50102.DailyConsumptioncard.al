@@ -30,14 +30,18 @@ page 50102 "Daily Consumption Card"
                 {
                     ApplicationArea = All;
                 }
-                field("Buyer Code"; Rec."Buyer Code")
-                {
-                    ApplicationArea = All;
-                }
+                //Mihiranga 2023/02/18
                 field(Buyer; Rec.Buyer)
                 {
                     ApplicationArea = All;
+                    // Editable = false;
+                }
+                //Mihiranga 2023/02/18
+                field("Buyer Code"; Rec."Buyer Code")
+                {
+                    ApplicationArea = All;
                     Editable = false;
+                    // Visible = false;
                 }
                 field("Style No."; Rec."Style No.")
                 {
@@ -68,13 +72,16 @@ page 50102 "Daily Consumption Card"
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Colour No."; rec."Colour No.")
-                {
-                    ApplicationArea = All;
-                }
+                //Mihiranga 2023/02/18
                 field("Colour Name"; rec."Colour Name")
                 {
                     ApplicationArea = All;
+
+                }
+                field("Colour No."; rec."Colour No.")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Prod. Order No."; Rec."Prod. Order No.")

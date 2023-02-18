@@ -123,11 +123,24 @@ table 50101 "Daily Consumption Header"
             DataClassification = ToBeClassified;
             TableRelation = "Item Journal Batch".Name where("Journal Template Name" = field("Journal Template Name"));
         }
+        //Mihiranga 2023/02/18
         field(10; Buyer; Text[100])
         {
             DataClassification = ToBeClassified;
-            //TableRelation = Customer.Name;
-            //ValidateTableRelation = false;
+            TableRelation = Customer.Name;
+            ValidateTableRelation = false;
+            trigger OnValidate()
+            var
+                CustRec: Record Customer;
+            begin
+
+                CustRec.Reset();
+                CustRec.SetRange(Name, Buyer);
+                if CustRec.FindSet() then begin
+                    "Buyer Code" := CustRec."No.";
+                end;
+            end;
+
         }
         field(11; PO; Code[20])
         {
@@ -157,16 +170,17 @@ table 50101 "Daily Consumption Header"
         {
             DataClassification = ToBeClassified;
             TableRelation = Customer;
-            trigger OnValidate()
-            var
-                CustRec: Record Customer;
-            begin
-                Buyer := '';
+            ValidateTableRelation = false;
+            // trigger OnValidate()
+            // var
+            //     CustRec: Record Customer;
+            // begin
+            //     Buyer := '';
 
-                if "Buyer Code" <> '' then
-                    CustRec.get("Buyer Code");
-                Buyer := CustRec.Name;
-            end;
+            //     if "Buyer Code" <> '' then
+            //         CustRec.get("Buyer Code");
+            //     Buyer := CustRec.Name;
+            // end;
         }
         field(13; "Style No."; Code[50])
         {
@@ -216,7 +230,28 @@ table 50101 "Daily Consumption Header"
         field(15; "Colour Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-            Editable = false;
+            // Editable = false;
+            trigger OnValidate()
+            var
+                ColorRec: Record Colour;
+            begin
+                ColorRec.Reset();
+                ColorRec.SetRange("Colour Name", "Colour Name");
+                if ColorRec.FindSet() then begin
+                    "Colour No." := ColorRec."No.";
+                end;
+            end;
+
+            trigger OnLookup()
+            var
+                AssortDetails: Record AssortmentDetails;
+            begin
+                AssortDetails.Reset();
+                AssortDetails.SetRange("PO No.", PO);
+                AssortDetails.SetRange("Style No.", "Style Master No.");
+                if Page.RunModal(50109, AssortDetails) = Action::LookupOK then
+                    Validate("Colour Name", AssortDetails."Colour Name");
+            end;
         }
         field(16; "Style Master No."; Code[20])
         {
