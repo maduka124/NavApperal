@@ -82,7 +82,9 @@ report 51238 GarmentWiseRawMaterialRequest
 
                         trigger OnAfterGetRecord()
                         begin
+
                             RoundDailyReq := Round("Original Daily Requirement", 0.01, '>');
+
                         end;
                     }
                     trigger OnAfterGetRecord()
@@ -158,7 +160,7 @@ report 51238 GarmentWiseRawMaterialRequest
     var
         LotNo: Code[20];
 
-
+        ItemLe: Decimal;
         RoundDailyReq: Decimal;
         PONo: Code[20];
         PoQty: BigInteger;
