@@ -28,6 +28,8 @@ report 51238 GarmentWiseRawMaterialRequest
             { }
             column(PONo; PONo)
             { }
+            column(LotNo; LotNo)
+            { }
 
             dataitem("Daily Consumption Header"; "Daily Consumption Header")
             {
@@ -65,21 +67,22 @@ report 51238 GarmentWiseRawMaterialRequest
                     column(ReqQty; "Daily Consumption")
                     { }
 
+
                     dataitem("Item Ledger Entry"; "Item Ledger Entry")
                     {
                         DataItemLinkReference = "Daily Consumption Line";
-                        DataItemLink = "Source No." = field("Item No."), "Document No." = field("Prod. Order No.");
-                        DataItemTableView = where("Entry Type" = filter('Consumption'));
+                        DataItemLink = "Source No." = field("Item No."), "Daily Consumption Doc. No." = field("Document No.");
+                        DataItemTableView = where("Entry Type" = filter(Consumption));
                         // "Order Line No." = field("Line No.")
                         //  "Document No." = field("Prod. Order No."),
                         column(ItemLeQuantity; Quantity * -1)
                         { }
-                        column(OrginalDailyReq;RoundDailyReq)
+                        column(OrginalDailyReq; RoundDailyReq)
                         { }
 
                         trigger OnAfterGetRecord()
                         begin
-                            RoundDailyReq :=Round("Original Daily Requirement",0.001,'>');
+                            RoundDailyReq := Round("Original Daily Requirement", 0.01, '>');
                         end;
                     }
                     trigger OnAfterGetRecord()
@@ -95,6 +98,9 @@ report 51238 GarmentWiseRawMaterialRequest
                             UOM := ItemRec."Base Unit of Measure";
                             ItemName := ItemRec.Description;
                         end;
+
+
+
 
                     end;
                 }
@@ -113,6 +119,7 @@ report 51238 GarmentWiseRawMaterialRequest
                 if StylePoRec.FindFirst() then begin
                     PoQty := StylePoRec.Qty;
                     PONo := StylePoRec."PO No.";
+                    LotNo := StylePoRec."Lot No.";
                 end;
 
             end;
@@ -149,6 +156,9 @@ report 51238 GarmentWiseRawMaterialRequest
 
 
     var
+        LotNo: Code[20];
+
+
         RoundDailyReq: Decimal;
         PONo: Code[20];
         PoQty: BigInteger;
