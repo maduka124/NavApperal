@@ -271,6 +271,7 @@ page 50102 "Daily Consumption Card"
                 PromotedCategory = Process;
                 Caption = 'Calculate Requirement';
                 Visible = not BooVis;
+
                 trigger OnAction()
                 var
                     CalConsump: Report "Calc. Consumption";
@@ -314,6 +315,16 @@ page 50102 "Daily Consumption Card"
 
                     ProdOrderRec.Get(ProdOrderRec.Status::Released, rec."Prod. Order No.");
                     ItemJnalBatch.Get(rec."Journal Template Name", rec."Journal Batch Name");
+
+                    //Delete existing records //Done by Maduka on 20/02/2023
+                    ItemJnalRec.Reset();
+                    ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+                    ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                    ItemJnalRec.SetFilter("Entry Type", '=%1', ItemJnalRec."Entry Type"::Consumption);
+                    ItemJnalRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+                    if ItemJnalRec.Findset() then
+                        ItemJnalRec.DeleteAll();
+
 
                     ItemJnalRec.Reset();
                     ItemJnalRec.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
@@ -448,12 +459,12 @@ page 50102 "Daily Consumption Card"
             }
         }
     }
+
     trigger OnOpenPage()
     var
         UserSetup: Record "User Setup";
         ItemJnalRec: Record "Item Journal Line";
         ItemLedRec: Record "Item Ledger Entry";
-
     begin
         Vis1 := false;
 
@@ -472,6 +483,7 @@ page 50102 "Daily Consumption Card"
         //     Vis1 := true;
     end;
 
+
     trigger OnAfterGetCurrRecord()
     var
         ItemLedRec: Record "Item Ledger Entry";
@@ -483,6 +495,7 @@ page 50102 "Daily Consumption Card"
         if ItemLedRec.FindFirst() then
             Vis2 := true;
     end;
+
 
     local procedure InsertResvEntry(PassItemNo: Code[20]; PassLocation: Code[20]; PassSourceType: Integer; PassSubType: Integer; PassQty: Decimal; PassLotNo: Code[50];
                PassPos: Boolean; PassDate: Date; PassSourceID: Text[20]; PassBatch: Text[20]; PassRefNo: Integer; DocT: Code[1]; var Completed: Boolean)
