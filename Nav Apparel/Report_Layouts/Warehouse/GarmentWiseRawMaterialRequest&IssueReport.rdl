@@ -1727,7 +1727,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=SUM(IIF(IsNothing(Fields!OrginalDailyReq.Value),0,(Fields!ReqQty.Value/IIF(IsNothing(Fields!OrginalDailyReq.Value),1,Fields!OrginalDailyReq.Value))*Fields!ItemLeQuantity.Value))</Value>
+                                  <Value>=SUM(IIF(IsNothing(Fields!OrginalDailyReq.Value),0,1*1*Fields!ItemLeQuantity.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -2083,7 +2083,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
