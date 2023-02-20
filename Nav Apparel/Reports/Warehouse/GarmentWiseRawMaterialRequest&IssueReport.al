@@ -73,16 +73,23 @@ report 51238 GarmentWiseRawMaterialRequest
                         DataItemLinkReference = "Daily Consumption Line";
                         DataItemLink = "Source No." = field("Item No."), "Daily Consumption Doc. No." = field("Document No.");
                         DataItemTableView = where("Entry Type" = filter(Consumption));
-                        // "Order Line No." = field("Line No.")
+
+                        // "Order Line No." = field("Line No.") 
                         //  "Document No." = field("Prod. Order No."),
                         column(ItemLeQuantity; Quantity * -1)
                         { }
                         column(OrginalDailyReq; RoundDailyReq)
                         { }
+                        column(GMTISSUEQty; GMTISSUEQty)
+                        { }
 
                         trigger OnAfterGetRecord()
                         begin
                             RoundDailyReq := Round("Original Daily Requirement", 0.01, '>');
+                            if RoundDailyReq = 0 then
+                                GMTISSUEQty := 0
+                            else
+                                GMTISSUEQty := round(("Daily Consumption Line"."Daily Consumption" / RoundDailyReq) * (Quantity * -1), 1);
                         end;
                     }
 
@@ -173,6 +180,7 @@ report 51238 GarmentWiseRawMaterialRequest
         DailyConsumptionLineRec: Record "Daily Consumption Line";
         comRec: Record "Company Information";
         FilterNo: Code[30];
+        GMTISSUEQty: Decimal;
 
 
 }
