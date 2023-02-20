@@ -82,13 +82,11 @@ report 51238 GarmentWiseRawMaterialRequest
 
                         trigger OnAfterGetRecord()
                         begin
-
                             RoundDailyReq := Round("Original Daily Requirement", 0.01, '>');
-
                         end;
                     }
-                    trigger OnAfterGetRecord()
 
+                    trigger OnAfterGetRecord()
                     begin
                         ItemRec.Reset();
                         ItemRec.SetRange("No.", "Item No.");
@@ -100,18 +98,15 @@ report 51238 GarmentWiseRawMaterialRequest
                             UOM := ItemRec."Base Unit of Measure";
                             ItemName := ItemRec.Description;
                         end;
-
-
-
-
                     end;
                 }
-                trigger OnAfterGetRecord()
 
+                trigger OnAfterGetRecord()
                 begin
 
                 end;
             }
+
             trigger OnAfterGetRecord()
             begin
                 comRec.Get;
