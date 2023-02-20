@@ -1326,6 +1326,15 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Cutting Reports';
 
+                    //Done By Sachith on 20/02/23
+                    action("Accessory Status Cutting")
+                    {
+                        Caption = 'Accessory Status Report';
+                        Enabled = true;
+                        RunObject = report AccessoriesStatusReport;
+                        ApplicationArea = all;
+                    }
+
                     action("Bundle Guide Report")
                     {
                         Caption = 'Bundle Guide Report';
@@ -1354,6 +1363,15 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'Hourly Production Report';
                         Enabled = true;
                         RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
+
+                    //Done By Sachith on 20/02/23
+                    action("WIP Cuting")
+                    {
+                        Caption = 'WIP Report';
+                        Enabled = true;
+                        RunObject = report WIPReport;
                         ApplicationArea = all;
                     }
                 }
