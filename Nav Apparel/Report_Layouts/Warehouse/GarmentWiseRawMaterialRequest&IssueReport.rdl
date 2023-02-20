@@ -11,91 +11,6 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Garment_Type_Name">
-          <DataField>Garment_Type_Name</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
-        <Field Name="PoQty">
-          <DataField>PoQty</DataField>
-        </Field>
-        <Field Name="PONo">
-          <DataField>PONo</DataField>
-        </Field>
-        <Field Name="LotNo">
-          <DataField>LotNo</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Main_Category_Name">
-          <DataField>Main_Category_Name</DataField>
-        </Field>
-        <Field Name="SizeRange">
-          <DataField>SizeRange</DataField>
-        </Field>
-        <Field Name="color">
-          <DataField>color</DataField>
-        </Field>
-        <Field Name="Article">
-          <DataField>Article</DataField>
-        </Field>
-        <Field Name="Dimenshion">
-          <DataField>Dimenshion</DataField>
-        </Field>
-        <Field Name="UOM">
-          <DataField>UOM</DataField>
-        </Field>
-        <Field Name="PO">
-          <DataField>PO</DataField>
-        </Field>
-        <Field Name="ItemName">
-          <DataField>ItemName</DataField>
-        </Field>
-        <Field Name="ItemNo">
-          <DataField>ItemNo</DataField>
-        </Field>
-        <Field Name="ReqQty">
-          <DataField>ReqQty</DataField>
-        </Field>
-        <Field Name="ReqQtyFormat">
-          <DataField>ReqQtyFormat</DataField>
-        </Field>
-        <Field Name="ItemLeQuantity">
-          <DataField>ItemLeQuantity</DataField>
-        </Field>
-        <Field Name="ItemLeQuantityFormat">
-          <DataField>ItemLeQuantityFormat</DataField>
-        </Field>
-        <Field Name="OrginalDailyReq">
-          <DataField>OrginalDailyReq</DataField>
-        </Field>
-        <Field Name="OrginalDailyReqFormat">
-          <DataField>OrginalDailyReqFormat</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1812,7 +1727,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=SUM(IIF(IsNothing(Fields!OrginalDailyReq.Value),0,(Fields!ReqQty.Value/IIF(IsNothing(Fields!OrginalDailyReq.Value),1,Fields!OrginalDailyReq.Value))*Fields!ItemLeQuantity.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -1918,6 +1833,43 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Order_Qty3">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Order_Qty.Value</Value>
+                                  <Style>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>n0</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Order_Qty</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>2</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox43">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1933,7 +1885,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Right</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1941,64 +1893,6 @@
                           <Style>
                             <Border>
                               <Style>None</Style>
-                            </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>2</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox9">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox9</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
                             </Border>
                             <TopBorder>
                               <Color>Black</Color>
@@ -2146,7 +2040,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=First(Fields!PoQty.Value, "DataSet_Result")-SUM(IIF(IsNothing(Fields!OrginalDailyReq.Value),0,(Fields!ReqQty.Value/IIF(IsNothing(Fields!OrginalDailyReq.Value),1,Fields!OrginalDailyReq.Value))*Fields!ItemLeQuantity.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -2189,6 +2083,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2551,7 +2446,6 @@
                           <PaddingBottom>2pt</PaddingBottom>
                         </Style>
                       </Textbox>
-                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixHeader>
                   <TablixMembers>
@@ -2647,7 +2541,7 @@
                                   </TextRun>
                                 </TextRuns>
                                 <Style>
-                                  <TextAlign>Right</TextAlign>
+                                  <TextAlign>Left</TextAlign>
                                 </Style>
                               </Paragraph>
                             </Paragraphs>
@@ -2693,26 +2587,25 @@
                   <TablixHeader>
                     <Size>2.22315cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox37">
+                      <Textbox Name="Textbox28">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>ORDER QTY</Value>
+                                <Value />
                                 <Style>
                                   <FontFamily>Calibri</FontFamily>
-                                  <FontWeight>Bold</FontWeight>
                                 </Style>
                               </TextRun>
                             </TextRuns>
                             <Style>
-                              <TextAlign>Right</TextAlign>
+                              <TextAlign>Left</TextAlign>
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox36</rd:DefaultName>
+                        <rd:DefaultName>Textbox28</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>None</Style>
@@ -2730,17 +2623,17 @@
                       <TablixHeader>
                         <Size>3.45427cm</Size>
                         <CellContents>
-                          <Textbox Name="Order_Qty2">
+                          <Textbox Name="Textbox37">
                             <CanGrow>true</CanGrow>
                             <KeepTogether>true</KeepTogether>
                             <Paragraphs>
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!Order_Qty.Value</Value>
+                                    <Value>ORDER QTY</Value>
                                     <Style>
                                       <FontFamily>Calibri</FontFamily>
-                                      <Format>n0</Format>
+                                      <FontWeight>Bold</FontWeight>
                                     </Style>
                                   </TextRun>
                                 </TextRuns>
@@ -2749,7 +2642,7 @@
                                 </Style>
                               </Paragraph>
                             </Paragraphs>
-                            <rd:DefaultName>Order_Qty</rd:DefaultName>
+                            <rd:DefaultName>Textbox36</rd:DefaultName>
                             <Style>
                               <Border>
                                 <Style>None</Style>
@@ -3216,12 +3109,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3273,4 +3160,89 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Garment_Type_Name">
+          <DataField>Garment_Type_Name</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="PoQty">
+          <DataField>PoQty</DataField>
+        </Field>
+        <Field Name="PONo">
+          <DataField>PONo</DataField>
+        </Field>
+        <Field Name="LotNo">
+          <DataField>LotNo</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Main_Category_Name">
+          <DataField>Main_Category_Name</DataField>
+        </Field>
+        <Field Name="SizeRange">
+          <DataField>SizeRange</DataField>
+        </Field>
+        <Field Name="color">
+          <DataField>color</DataField>
+        </Field>
+        <Field Name="Article">
+          <DataField>Article</DataField>
+        </Field>
+        <Field Name="Dimenshion">
+          <DataField>Dimenshion</DataField>
+        </Field>
+        <Field Name="UOM">
+          <DataField>UOM</DataField>
+        </Field>
+        <Field Name="PO">
+          <DataField>PO</DataField>
+        </Field>
+        <Field Name="ItemName">
+          <DataField>ItemName</DataField>
+        </Field>
+        <Field Name="ItemNo">
+          <DataField>ItemNo</DataField>
+        </Field>
+        <Field Name="ReqQty">
+          <DataField>ReqQty</DataField>
+        </Field>
+        <Field Name="ReqQtyFormat">
+          <DataField>ReqQtyFormat</DataField>
+        </Field>
+        <Field Name="ItemLeQuantity">
+          <DataField>ItemLeQuantity</DataField>
+        </Field>
+        <Field Name="ItemLeQuantityFormat">
+          <DataField>ItemLeQuantityFormat</DataField>
+        </Field>
+        <Field Name="OrginalDailyReq">
+          <DataField>OrginalDailyReq</DataField>
+        </Field>
+        <Field Name="OrginalDailyReqFormat">
+          <DataField>OrginalDailyReqFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
