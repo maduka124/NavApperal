@@ -152,6 +152,5 @@ report 50634 BundleGuideReport
         comRec: Record "Company Information";
         BundleGuideNo: code[50];
         FactoryName: Text[50];
-
         styleNo: Code[20];
 }
