@@ -3,7 +3,7 @@ page 50489 "All PO List"
 {
     PageType = Card;
     SourceTable = StyleMaster_StyleMasterPO_T;
-    SourceTableView = where(PlannedStatus = filter(false), Status = filter(Confirm), smv = filter(> 0));
+    SourceTableView = where(PlannedStatus = filter(false), smv = filter(> 0));
     DeleteAllowed = false;
     InsertAllowed = false;
 
