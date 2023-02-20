@@ -96,14 +96,28 @@ report 50634 BundleGuideReport
                         ApplicationArea = All;
                         Caption = 'Style';
 
-                        TableRelation = BundleGuideHeader."Style No.";
+                        // TableRelation = BundleGuideHeader."Style No.";
 
-                        trigger OnLookup(var Text: Text): Boolean
+                        // trigger OnLookup(var Text: Text): Boolean
+                        // begin
+                        //     if Page.RunModal(50666, BundleGuideHeader) = Action::LookupOK then begin
+                        //         Editable := false;
+                        //         styleNo := BundleGuideHeader."Style No.";
+                        //     end;
+                        // end;
+
+                        TableRelation = "Style Master"."No.";
+
+                        trigger OnValidate()
+                        var
+                            StyleMasterRec: Record "Style Master";
                         begin
-                            if Page.RunModal(50666, BundleGuideHeader) = Action::LookupOK then begin
-                                Editable := false;
-                                styleNo := BundleGuideHeader."Style No.";
-                            end;
+
+                            StyleMasterRec.Reset();
+                            StyleMasterRec.SetRange("No.", BundleGuideHeader."Style No.");
+
+                            if StyleMasterRec.FindSet() then
+                                styleNo := StyleMasterRec."No.";
                         end;
                     }
 
