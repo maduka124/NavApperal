@@ -22,6 +22,11 @@ report 50634 BundleGuideReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+
+            //Done By sachith on 20/02/23
+            column(PO_No_; "PO No.")
+            { }
+
             dataitem(BundleGuideLine; BundleGuideLine)
             {
                 DataItemLinkReference = BundleGuideHeader;
@@ -67,7 +72,9 @@ report 50634 BundleGuideReport
             trigger OnPreDataItem()
 
             begin
-                SetRange("BundleGuideNo.", BundleGuideNo);
+                SetRange("Style No.", styleNo);
+
+                // SetRange("BundleGuideNo.", BundleGuideNo);
             end;
         }
     }
@@ -82,13 +89,30 @@ report 50634 BundleGuideReport
                 group(GroupName)
                 {
                     Caption = 'Filter By';
-                    field(BundleGuideNo; BundleGuideNo)
+
+                    //Done By Sachith On 20/02/23
+                    field(styleNo; styleNo)
                     {
                         ApplicationArea = All;
-                        Caption = 'Bundle Guide No';
-                        TableRelation = BundleGuideHeader."BundleGuideNo.";
+                        Caption = 'Style';
 
+                        TableRelation = BundleGuideHeader."Style No.";
+
+                        trigger OnLookup(var Text: Text): Boolean
+                        begin
+                            if Page.RunModal(50666, BundleGuideHeader) = Action::LookupOK then begin
+                                Editable := false;
+                                styleNo := BundleGuideHeader."Style No.";
+                            end;
+                        end;
                     }
+
+                    // field(BundleGuideNo; BundleGuideNo)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'Bundle Guide No';
+                    //     TableRelation = BundleGuideHeader."BundleGuideNo.";
+                    // }
                 }
             }
         }
@@ -114,4 +138,6 @@ report 50634 BundleGuideReport
         comRec: Record "Company Information";
         BundleGuideNo: code[50];
         FactoryName: Text[50];
+
+        styleNo: Code[20];
 }
