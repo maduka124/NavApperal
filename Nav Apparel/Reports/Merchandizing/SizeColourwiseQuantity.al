@@ -331,6 +331,9 @@ report 51077 SizeColourwiseQuantity
             trigger OnPreDataItem()
             begin
                 SetRange("No.", StyleNum);
+                //Done By Sachith On 20/02/23
+                SetRange("Buyer No.", BuyerNo);
+                SetRange("PO No", PONo);
             end;
 
             trigger OnAfterGetRecord()
@@ -350,12 +353,31 @@ report 51077 SizeColourwiseQuantity
             {
                 group(GroupName)
                 {
+                    //Done By Sachith On 20/02/23 
+                    field(BuyerNo; BuyerNo)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'Buyer';
+                        TableRelation = Customer."No.";
+                        ShowMandatory = true;
+                    }
+
                     field(StyleNum; StyleNum)
                     {
                         ApplicationArea = All;
                         Caption = 'Style';
                         TableRelation = "Style Master"."No.";
+                        ShowMandatory = true;
 
+                    }
+
+                    // done By sachith On 20/02/23
+                    field(PONo; PONo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'PO No';
+                        TableRelation = "Purchase Header"."No.";
+                        ShowMandatory = true;
                     }
                 }
             }
@@ -386,6 +408,8 @@ report 51077 SizeColourwiseQuantity
         tot: Decimal;
         oneDes: Decimal;
         comRec: Record "Company Information";
+        BuyerNo: Code[20];
+        PONo: Code[20];
 
 
 }
