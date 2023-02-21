@@ -20,7 +20,14 @@ page 51069 "Style Master PO ListPart"
                         BOMEstCostRec: Record "BOM Estimate Cost";
                         StyleMasRec: Record "Style Master";
                         LOTVar: Text[20];
+                        NavappPlanLineRec: Record "NavApp Planning Lines";
                     begin
+                        CurrPage.Update();
+                        NavappPlanLineRec.Reset();
+                        NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
+                        NavappPlanLineRec.SetRange("Lot No.", xrec."Lot No.");
+                        if NavappPlanLineRec.FindSet() then
+                            Error('PO already planned. Cannot change Lot No.');
 
                         LOTVar := rec."Lot No.";
 
@@ -58,7 +65,14 @@ page 51069 "Style Master PO ListPart"
                     var
                         SalesHeaderRec: Record "Sales Header";
                         PONOVar: Text[50];
+                        NavappPlanLineRec: Record "NavApp Planning Lines";
                     begin
+
+                        NavappPlanLineRec.Reset();
+                        NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
+                        NavappPlanLineRec.SetRange("PO No.", xrec."PO No.");
+                        if NavappPlanLineRec.FindSet() then
+                            Error('PO already planned. Cannot change PO No.');
 
                         PONOVar := rec."PO No.";
                         if PONOVar.Contains('/') then
@@ -229,6 +243,18 @@ page 51069 "Style Master PO ListPart"
         rec.TestField(BPCD);
         rec.TestField("Ship Date");
         rec.TestField("PO No.");
+    end;
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        NavappPlanLineRec: Record "NavApp Planning Lines";
+    begin
+        CurrPage.Update();
+        NavappPlanLineRec.Reset();
+        NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
+        NavappPlanLineRec.SetRange("Lot No.", rec."Lot No.");
+        if NavappPlanLineRec.FindSet() then
+            Error('PO already planned. Cannot delete.');
     end;
 
 }
