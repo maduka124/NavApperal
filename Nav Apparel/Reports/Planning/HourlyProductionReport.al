@@ -15,10 +15,11 @@ report 50865 HourlyProductionReport
             { }
             column(PlanDate; "Prod Date")
             { }
+
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = ProductionOutHeader;
-                DataItemLink = "Factory No." = field("Factory Code"), "Prod Date" = field("Prod Date");
+                DataItemLink = "Factory No." = field("Factory Code"), "Line No." = field("Resource No."), "Prod Date" = field("Prod Date");
                 // DataItemTableView = where(Type = filter('Sewing'));
                 // column(FactoryName; FactoryName)
                 // { }
@@ -50,10 +51,11 @@ report 50865 HourlyProductionReport
                 { }
                 column(Factory_No_1; "Factory No.")
                 { }
+
                 dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
                 {
                     DataItemLinkReference = "Hourly Production Lines";
-                    DataItemLink = PlanDate = field("Prod Date"), "Factory No." = field("Factory No."), "Style No." = field("Style No.");
+                    DataItemLink = PlanDate = field("Prod Date"), "Factory No." = field("Factory No."), "Style No." = field("Style No."), "Resource No." = field("Work Center No.");
                     DataItemTableView = sorting("No.");
 
                     column(Qty; Qty)
@@ -260,6 +262,7 @@ report 50865 HourlyProductionReport
                 end;
 
             }
+
             trigger OnPreDataItem()
             begin
                 SetRange("Prod Date", FilterDate);
@@ -267,7 +270,6 @@ report 50865 HourlyProductionReport
             end;
 
             trigger OnAfterGetRecord()
-
             begin
                 LocationRec.SetRange(Code, "Factory Code");
                 if LocationRec.FindFirst() then begin
@@ -289,8 +291,8 @@ report 50865 HourlyProductionReport
                     {
                         ApplicationArea = All;
                         Caption = 'Production Date';
-
                     }
+
                     field(FactortFilter; FactortFilter)
                     {
                         ApplicationArea = All;
@@ -300,21 +302,7 @@ report 50865 HourlyProductionReport
                 }
             }
         }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
     }
-
-
 
     var
         ActualFinishDate: Date;
