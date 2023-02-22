@@ -19,7 +19,7 @@ report 50865 HourlyProductionReport
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = ProductionOutHeader;
-                DataItemLink = "Factory No." = field("Factory Code"), "Line No." = field("Resource No."), "Prod Date" = field("Prod Date");
+                DataItemLink = "Factory No." = field("Factory Code"), "Work Center No." = field("Resource No."), "Prod Date" = field("Prod Date");
                 // DataItemTableView = where(Type = filter('Sewing'));
                 // column(FactoryName; FactoryName)
                 // { }
@@ -237,18 +237,22 @@ report 50865 HourlyProductionReport
                                     ActualFinishDate := ProductionHeaderRec."Prod Date";
                         end;
 
+                        PlanInput := 0D;
                         NavAppProdRec.Reset();
-                        NavAppProdRec.SetRange("No.", "No.");
+                        NavAppProdRec.SetRange("Style No.", "Hourly Production Lines"."Style No.");
+                        NavAppProdRec.SetRange("Resource No.", "Hourly Production Lines"."Work Center No.");
                         NavAppProdRec.SetCurrentKey(PlanDate);
                         NavAppProdRec.Ascending(true);
                         if NavAppProdRec.FindFirst() then begin
                             PlanInput := NavAppProdRec.PlanDate;
                         end;
 
-                        NavAppProdRec2.Reset();
-                        NavAppProdRec2.SetRange("No.", "No.");
+                        Planfinish := 0D;
+                        NavAppProdRec.Reset();
+                        NavAppProdRec.SetRange("Style No.", "Hourly Production Lines"."Style No.");
+                        NavAppProdRec.SetRange("Resource No.", "Hourly Production Lines"."Work Center No.");
                         NavAppProdRec.SetCurrentKey(PlanDate);
-                        NavAppProdRec2.Ascending(false);
+                        NavAppProdRec.Ascending(true);
                         if NavAppProdRec.FindLast() then begin
                             Planfinish := NavAppProdRec.PlanDate;
                         end;
