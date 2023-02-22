@@ -142,8 +142,8 @@ report 50865 HourlyProductionReport
 
 
                     trigger OnAfterGetRecord()
-
                     begin
+
                         variance := TodayOutput - Qty;
                         comRec.Get;
                         comRec.CalcFields(Picture);
@@ -222,6 +222,7 @@ report 50865 HourlyProductionReport
                                 else
                                     ActualInputDate := ProductionHeaderRec."Prod Date";
                         end;
+
                         ProductionHeaderRec4.Reset();
                         ProductionHeaderRec4.SetRange("Style No.", "Style No.");
                         ProductionHeaderRec4.SetRange("PO No", "PO No.");
@@ -235,6 +236,7 @@ report 50865 HourlyProductionReport
                                 else
                                     ActualFinishDate := ProductionHeaderRec."Prod Date";
                         end;
+
                         NavAppProdRec.Reset();
                         NavAppProdRec.SetRange("No.", "No.");
                         NavAppProdRec.SetCurrentKey(PlanDate);
@@ -242,6 +244,7 @@ report 50865 HourlyProductionReport
                         if NavAppProdRec.FindFirst() then begin
                             PlanInput := NavAppProdRec.PlanDate;
                         end;
+
                         NavAppProdRec2.Reset();
                         NavAppProdRec2.SetRange("No.", "No.");
                         NavAppProdRec.SetCurrentKey(PlanDate);
@@ -254,7 +257,6 @@ report 50865 HourlyProductionReport
                 }
 
 
-
                 trigger OnPreDataItem()
                 begin
                     // SetRange("Prod Date", FilterDate);
@@ -265,8 +267,8 @@ report 50865 HourlyProductionReport
 
             trigger OnPreDataItem()
             begin
-                SetRange("Prod Date", FilterDate);
-                SetRange("Factory Code", FactortFilter);
+                "NavApp Prod Plans Details".SetRange(PlanDate, FilterDate);
+                "NavApp Prod Plans Details".SetRange("Factory No.", FactortFilter);
             end;
 
             trigger OnAfterGetRecord()
