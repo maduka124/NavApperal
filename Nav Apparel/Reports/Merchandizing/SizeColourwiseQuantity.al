@@ -330,10 +330,10 @@ report 51077 SizeColourwiseQuantity
             }
             trigger OnPreDataItem()
             begin
-                SetRange("No.", StyleNum);
                 //Done By Sachith On 20/02/23
                 SetRange("Buyer No.", BuyerNo);
-                SetRange("PO No", PONo);
+                SetRange("No.", StyleNum);
+                //SetRange("PO No", PONo);
             end;
 
             trigger OnAfterGetRecord()
@@ -372,13 +372,26 @@ report 51077 SizeColourwiseQuantity
                     }
 
                     // done By sachith On 20/02/23
-                    field(PONo; PONo)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'PO No';
-                        TableRelation = "Purchase Header"."No.";
-                        ShowMandatory = true;
-                    }
+                    // field(PONo; PONo)
+                    // {
+                    //     ApplicationArea = All;
+                    //     Caption = 'PO No';
+                    //     TableRelation = "Style Master PO"."Style No.";
+                    //     ShowMandatory = true;
+
+                    //     trigger OnValidate()
+                    //     var
+                    //         StyleMasterPORec: Record "Style Master PO";
+                    //     begin
+
+                    //         StyleMasterPORec.Reset();
+                    //         StyleMasterPORec.SetRange("Style No.", "Style Master"."No.");
+
+                    //         if StyleMasterPORec.FindSet() then
+                    //             PONo := StyleMasterPORec."PO No.";
+
+                    //     end;
+                    // }
                 }
             }
         }
@@ -409,7 +422,7 @@ report 51077 SizeColourwiseQuantity
         oneDes: Decimal;
         comRec: Record "Company Information";
         BuyerNo: Code[20];
-        PONo: Code[20];
+    // PONo: Code[50];
 
 
 }
