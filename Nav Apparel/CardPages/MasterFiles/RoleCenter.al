@@ -1420,6 +1420,33 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
+
+                    //Done By Sachith on 22/02/23
+                    action("Production Plan Report Sewing")
+                    {
+                        Caption = 'Production Plan Report';
+                        Enabled = true;
+                        RunObject = report ProductionPlanReport;
+                        ApplicationArea = all;
+                    }
+
+                    //Done By Sachith on 22/02/23
+                    action("Size Colour Wise Quantity Breakdown Report Sewing")
+                    {
+                        Caption = 'Size Colour Wise Quantity Breakdown';
+                        Enabled = true;
+                        RunObject = report SizeColourwiseQuantity;
+                        ApplicationArea = all;
+                    }
+
+                    //Done By Sachith on 22/02/23
+                    action("WIP Sewing")
+                    {
+                        Caption = 'WIP Report';
+                        Enabled = true;
+                        RunObject = report WIPReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
