@@ -186,13 +186,9 @@ report 50865 HourlyProductionReport
                         if ProductionHeaderRec.FindFirst() then begin
                             if ProductionHeaderRec.Type = ProductionHeaderRec.Type::Saw then
                                 ActualPlanDT := ProductionHeaderRec."Prod Date";
-
                             InputQtyToday := ProductionHeaderRec."Input Qty";
                             OutputQty := ProductionHeaderRec."Output Qty";
                             TodayOutput := ProductionHeaderRec."Output Qty";
-
-
-
                         end;
 
                         ProductionHeaderRec2.Reset();
@@ -202,7 +198,6 @@ report 50865 HourlyProductionReport
                         if ProductionHeaderRec2.FindLast() then begin
                             if ProductionHeaderRec2.Type = ProductionHeaderRec2.Type::Saw then
                                 OutPutStartDate := ProductionHeaderRec."Prod Date";
-
                         end;
 
                         ProductionHeaderRec3.Reset();
@@ -250,7 +245,7 @@ report 50865 HourlyProductionReport
                 }
                 trigger OnPreDataItem()
                 begin
-                    // SetRange("Prod Date", FilterDate);
+                    SetRange("Prod Date", FilterDate);
                     SetRange("Factory No.", FactortFilter);
                 end;
 
