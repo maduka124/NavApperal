@@ -8,17 +8,17 @@ report 50865 HourlyProductionReport
 
     dataset
     {
-        dataitem("Hourly Production Master"; "Hourly Production Master")
+        dataitem(ProductionOutHeader; ProductionOutHeader)
         {
-            // DataItemTableView = where(Type = filter('Sewing'));
+            DataItemTableView = where(Type = filter('Saw'));
             column(FactoryName; FactoryName)
             { }
             column(PlanDate; "Prod Date")
             { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
-                DataItemLinkReference = "Hourly Production Master";
-                DataItemLink = "No." = field("No."), "Factory No." = field("Factory No."), "Prod Date" = field("Prod Date");
+                DataItemLinkReference = ProductionOutHeader;
+                DataItemLink = "Factory No." = field("Factory Code"), "Prod Date" = field("Prod Date");
                 // DataItemTableView = where(Type = filter('Sewing'));
                 // column(FactoryName; FactoryName)
                 // { }
@@ -263,13 +263,13 @@ report 50865 HourlyProductionReport
             trigger OnPreDataItem()
             begin
                 SetRange("Prod Date", FilterDate);
-                SetRange("Factory No.", FactortFilter);
+                SetRange("Factory Code", FactortFilter);
             end;
 
             trigger OnAfterGetRecord()
 
             begin
-                LocationRec.SetRange(Code, "Factory No.");
+                LocationRec.SetRange(Code, "Factory Code");
                 if LocationRec.FindFirst() then begin
                     FactoryName := LocationRec.Name;
                 end;
