@@ -11,8 +11,8 @@ report 50865 HourlyProductionReport
         dataitem(ProductionOutHeader; ProductionOutHeader)
         {
             DataItemTableView = where(Type = filter('Saw'));
-            column(FactoryName; FactoryName)
-            { }
+            // column(FactoryName; FactoryName)
+            // { }
             column(PlanDate; "Prod Date")
             { }
 
@@ -21,8 +21,8 @@ report 50865 HourlyProductionReport
                 DataItemLinkReference = ProductionOutHeader;
                 DataItemLink = "Factory No." = field("Factory Code"), "Work Center No." = field("Resource No."), "Prod Date" = field("Prod Date");
                 // DataItemTableView = where(Type = filter('Sewing'));
-                // column(FactoryName; FactoryName)
-                // { }
+                column(FactoryName; FactoryName)
+                { }
                 // column(PlanDate; "Prod Date")
                 // { }
                 column(Hour_1; "Hour 01")
@@ -267,6 +267,13 @@ report 50865 HourlyProductionReport
                     // SetRange("Factory No.", FactortFilter);
                 end;
 
+                trigger OnAfterGetRecord()
+                begin
+                    LocationRec.SetRange(Code, FactortFilter);
+                    if LocationRec.FindFirst() then begin
+                        FactoryName := LocationRec.Name;
+                    end;
+                end;
             }
 
             trigger OnPreDataItem()
@@ -274,14 +281,14 @@ report 50865 HourlyProductionReport
                 "NavApp Prod Plans Details".SetRange(PlanDate, FilterDate);
                 "NavApp Prod Plans Details".SetRange("Factory No.", FactortFilter);
             end;
+            //  trigger OnAfterGetRecord()
+            //         begin
+            //             LocationRec.SetRange(Code, "NavApp Prod Plans Details"."Factory No.");
+            //             if LocationRec.FindFirst() then begin
+            //                 FactoryName := LocationRec.Name;
+            //             end;
+            //         end;
 
-            trigger OnAfterGetRecord()
-            begin
-                LocationRec.SetRange(Code, "Factory Code");
-                if LocationRec.FindFirst() then begin
-                    FactoryName := LocationRec.Name;
-                end;
-            end;
         }
     }
     requestpage
