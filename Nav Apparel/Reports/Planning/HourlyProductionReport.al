@@ -10,13 +10,20 @@ report 50865 HourlyProductionReport
     {
         dataitem("Hourly Production Master"; "Hourly Production Master")
         {
+            // DataItemTableView = where(Type = filter('Sewing'));
             column(FactoryName; FactoryName)
+            { }
+            column(PlanDate; "Prod Date")
             { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "Hourly Production Master";
                 DataItemLink = "No." = field("No."), "Factory No." = field("Factory No."), "Prod Date" = field("Prod Date");
-                DataItemTableView = sorting("No.");
+                // DataItemTableView = where(Type = filter('Sewing'));
+                // column(FactoryName; FactoryName)
+                // { }
+                // column(PlanDate; "Prod Date")
+                // { }
                 column(Hour_1; "Hour 01")
                 { }
                 column(Hour_2; "Hour 02")
@@ -46,7 +53,7 @@ report 50865 HourlyProductionReport
                 dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
                 {
                     DataItemLinkReference = "Hourly Production Lines";
-                    DataItemLink = PlanDate = field("Prod Date"), "Factory No." = field("Factory No.");
+                    DataItemLink = PlanDate = field("Prod Date"), "Factory No." = field("Factory No."), "Style No." = field("Style No.");
                     DataItemTableView = sorting("No.");
 
                     column(Qty; Qty)
@@ -93,8 +100,8 @@ report 50865 HourlyProductionReport
                     { }
                     column(CompLogo; comRec.Picture)
                     { }
-                    column(PlanDate; PlanDate)
-                    { }
+                    // column(PlanDate; PlanDate)
+                    // { }
                     column(TodayOutput; TodayOutput)
                     { }
                     column(variance; variance)
@@ -243,21 +250,30 @@ report 50865 HourlyProductionReport
 
                     end;
                 }
+
+
+
                 trigger OnPreDataItem()
                 begin
-                    SetRange("Prod Date", FilterDate);
-                    SetRange("Factory No.", FactortFilter);
+                    // SetRange("Prod Date", FilterDate);
+                    // SetRange("Factory No.", FactortFilter);
                 end;
 
-                trigger OnAfterGetRecord()
-
-                begin
-                    LocationRec.SetRange(Code, "Factory No.");
-                    if LocationRec.FindFirst() then begin
-                        FactoryName := LocationRec.Name;
-                    end;
-                end;
             }
+            trigger OnPreDataItem()
+            begin
+                SetRange("Prod Date", FilterDate);
+                SetRange("Factory No.", FactortFilter);
+            end;
+
+            trigger OnAfterGetRecord()
+
+            begin
+                LocationRec.SetRange(Code, "Factory No.");
+                if LocationRec.FindFirst() then begin
+                    FactoryName := LocationRec.Name;
+                end;
+            end;
         }
     }
     requestpage
@@ -320,7 +336,6 @@ report 50865 HourlyProductionReport
         TodayOutput: BigInteger;
         comRec: Record "Company Information";
         OutputQty: BigInteger;
-        HourlyProductionLineRec: Record "Hourly Production Lines";
         InputQtyToday: BigInteger;
         MerchandizerName: Text[50];
         MC: Integer;
