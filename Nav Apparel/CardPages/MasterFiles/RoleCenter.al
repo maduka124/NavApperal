@@ -1367,6 +1367,15 @@ page 50968 "Nav Apperal Role Center"
                     }
 
                     //Done By Sachith on 20/02/23
+                    action("Size Colour Wise Quantity Breakdown Report Cutting")
+                    {
+                        Caption = 'Size Colour Wise Quantity Breakdown';
+                        Enabled = true;
+                        RunObject = report SizeColourwiseQuantity;
+                        ApplicationArea = all;
+                    }
+
+                    //Done By Sachith on 20/02/23
                     action("WIP Cuting")
                     {
                         Caption = 'WIP Report';
@@ -1450,11 +1459,39 @@ page 50968 "Nav Apperal Role Center"
                     //     RunObject = report WeeklyOrderBookingStatus;
                     //     ApplicationArea = all;
                     // }
+
+                    //Done By Sachith on 22/02/23
+                    action("Accessory Finishing")
+                    {
+                        Caption = 'Accessory Status Report';
+                        Enabled = true;
+                        RunObject = report AccessoriesStatusReport;
+                        ApplicationArea = all;
+                    }
+
                     action("Hourly Production Report Finishing")
                     {
                         Caption = 'Hourly Production Report';
                         Enabled = true;
                         RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
+
+                    //Done By Sachith on 22/02/23
+                    action("Size Colour Wise Quantity Breakdown Report Finishing")
+                    {
+                        Caption = 'Size Colour Wise Quantity Breakdown';
+                        Enabled = true;
+                        RunObject = report SizeColourwiseQuantity;
+                        ApplicationArea = all;
+                    }
+
+                    //Done By Sachith on 22/02/23
+                    action("WIP Finishing")
+                    {
+                        Caption = 'WIP Report';
+                        Enabled = true;
+                        RunObject = report WIPReport;
                         ApplicationArea = all;
                     }
                 }
