@@ -104,7 +104,7 @@ page 50475 "Maning Level Card"
 
                                 NewBrOpLineRec.Reset();
                                 NewBrOpLineRec.SetRange("No.", NewBRNo);
-                                NewBrOpLineRec.SetCurrentKey("Garment Part Name", "Line Position");
+                                NewBrOpLineRec.SetCurrentKey("GPart Position", "Line Position");
                                 NewBrOpLineRec.Ascending(true);
                                 NewBrOpLineRec.SetFilter(LineType, '=%1', 'L');
 
