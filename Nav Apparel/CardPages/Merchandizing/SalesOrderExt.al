@@ -43,8 +43,6 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
             {
                 ApplicationArea = All;
             }
-
-
         }
 
         modify("Order Date")
@@ -154,6 +152,69 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
             {
                 ApplicationArea = All;
             }
+        }
+
+        modify("Shortcut Dimension 1 Code")
+        {
+            trigger OnBeforeValidate()
+            var
+                SalesLineRec: Record "Sales Line";
+                ReservEntryRec: Record "Reservation Entry";
+                ProdOrderRec: Record "Production Order";
+                ProdOrderLineRec: Record "Prod. Order Line";
+                Temp: code[20];
+            begin
+
+                Temp := rec."Shortcut Dimension 1 Code";
+
+                //Update sales line location code               
+                SalesLineRec.Reset();
+                SalesLineRec.SetRange("Document No.", rec."No.");
+                SalesLineRec.SetRange("Document Type", rec."Document Type"::Order);
+                if SalesLineRec.FindSet() then begin
+                    repeat
+
+                        //Delete reservation entry
+                        ReservEntryRec.Reset();
+                        ReservEntryRec.SetFilter("Reservation Status", '=%1', ReservEntryRec."Reservation Status"::Reservation);
+                        ReservEntryRec.SetRange("Item No.", SalesLineRec."No.");
+                        ReservEntryRec.SetRange("Source ID", SalesLineRec."Document No.");
+                        if ReservEntryRec.FindSet() then
+                            ReservEntryRec.DeleteAll();
+
+                        SalesLineRec.Validate("Location Code", rec."Shortcut Dimension 1 Code");
+                        SalesLineRec.Modify();
+
+                    until SalesLineRec.Next() = 0;
+                end;
+
+                //Update location in Firm Plan Prod Order
+                ProdOrderRec.SetFilter(Status, '=%1', ProdOrderRec.Status::"Firm Planned");
+                ProdOrderRec.SetFilter("Source Type", '=%1', ProdOrderRec."Source Type"::"Sales Header");
+                ProdOrderRec.SetRange("Source No.", rec."No.");
+
+                if ProdOrderRec.FindSet() then begin
+                    ProdOrderRec.ModifyAll("Location Code", Temp);
+                end;
+
+
+                //Update location in Firm Plan Prod Order lines
+                ProdOrderLineRec.SetFilter(Status, '=%1', ProdOrderRec.Status::"Firm Planned");
+                ProdOrderLineRec.SetRange("Prod. Order No.", ProdOrderRec."No.");
+
+                if ProdOrderLineRec.FindSet() then begin
+                    repeat
+                        ProdOrderLineRec.ModifyAll("Location Code", Temp);
+                    until ProdOrderLineRec.Next() = 0;
+                end;
+
+
+                CurrPage.Update();
+                //Update header record location code
+                rec.Validate("Location Code", rec."Shortcut Dimension 1 Code");
+                rec."Shortcut Dimension 1 Code" := Temp;
+
+            end;
         }
     }
 }
