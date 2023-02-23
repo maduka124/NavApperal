@@ -6195,48 +6195,6 @@ End Function
         <Field Name="PlanDate">
           <DataField>PlanDate</DataField>
         </Field>
-        <Field Name="FactoryName">
-          <DataField>FactoryName</DataField>
-        </Field>
-        <Field Name="Hour_1">
-          <DataField>Hour_1</DataField>
-        </Field>
-        <Field Name="Hour_2">
-          <DataField>Hour_2</DataField>
-        </Field>
-        <Field Name="Hour_3">
-          <DataField>Hour_3</DataField>
-        </Field>
-        <Field Name="Hour_4">
-          <DataField>Hour_4</DataField>
-        </Field>
-        <Field Name="Hour_5">
-          <DataField>Hour_5</DataField>
-        </Field>
-        <Field Name="Hour_6">
-          <DataField>Hour_6</DataField>
-        </Field>
-        <Field Name="Hour_7">
-          <DataField>Hour_7</DataField>
-        </Field>
-        <Field Name="Hour_8">
-          <DataField>Hour_8</DataField>
-        </Field>
-        <Field Name="Hour_9">
-          <DataField>Hour_9</DataField>
-        </Field>
-        <Field Name="Hour_10">
-          <DataField>Hour_10</DataField>
-        </Field>
-        <Field Name="Line_No_1">
-          <DataField>Line_No_1</DataField>
-        </Field>
-        <Field Name="Item">
-          <DataField>Item</DataField>
-        </Field>
-        <Field Name="Factory_No_1">
-          <DataField>Factory_No_1</DataField>
-        </Field>
         <Field Name="Qty">
           <DataField>Qty</DataField>
         </Field>
@@ -6350,6 +6308,48 @@ End Function
         </Field>
         <Field Name="EffProdOutFormat">
           <DataField>EffProdOutFormat</DataField>
+        </Field>
+        <Field Name="FactoryName">
+          <DataField>FactoryName</DataField>
+        </Field>
+        <Field Name="Hour_1">
+          <DataField>Hour_1</DataField>
+        </Field>
+        <Field Name="Hour_2">
+          <DataField>Hour_2</DataField>
+        </Field>
+        <Field Name="Hour_3">
+          <DataField>Hour_3</DataField>
+        </Field>
+        <Field Name="Hour_4">
+          <DataField>Hour_4</DataField>
+        </Field>
+        <Field Name="Hour_5">
+          <DataField>Hour_5</DataField>
+        </Field>
+        <Field Name="Hour_6">
+          <DataField>Hour_6</DataField>
+        </Field>
+        <Field Name="Hour_7">
+          <DataField>Hour_7</DataField>
+        </Field>
+        <Field Name="Hour_8">
+          <DataField>Hour_8</DataField>
+        </Field>
+        <Field Name="Hour_9">
+          <DataField>Hour_9</DataField>
+        </Field>
+        <Field Name="Hour_10">
+          <DataField>Hour_10</DataField>
+        </Field>
+        <Field Name="Line_No_1">
+          <DataField>Line_No_1</DataField>
+        </Field>
+        <Field Name="Item">
+          <DataField>Item</DataField>
+        </Field>
+        <Field Name="Factory_No_1">
+          <DataField>Factory_No_1</DataField>
         </Field>
         <Field Name="PO_No_">
           <DataField>PO_No_</DataField>
