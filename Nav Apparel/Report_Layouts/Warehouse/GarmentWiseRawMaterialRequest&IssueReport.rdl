@@ -1621,7 +1621,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!GMTISSUEQty.Value)</Value>
+                                  <Value>=IIF(IsNothing(Sum(Fields!GMTISSUEQty.Value)),0,Sum(Fields!GMTISSUEQty.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -1657,6 +1657,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2370,9 +2371,6 @@
                           <Group Name="Details" />
                         </TablixMember>
                         <TablixMember>
-                          <Visibility>
-                            <Hidden>=Sum(Fields!GMTISSUEQty.Value)=0</Hidden>
-                          </Visibility>
                           <KeepWithGroup>Before</KeepWithGroup>
                         </TablixMember>
                       </TablixMembers>
