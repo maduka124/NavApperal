@@ -2567,6 +2567,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     PlanTargetList: Page "Plan Target List part";
                     PlanHistoryList: Page "Plan History List part";
                     PlanTargetVsAchList: Page "Plan Target Vs Acheive";
+                    WIPReport: Report WIPReport;
                     AccessoriesStatusReport: Report AccessoriesStatusReport;
                     TnAStyleMerchanReport: Report TnAStyleMerchandizing;
                     ProPicFactBoxPlan: Page "Property Picture FactBox Plan";
@@ -3032,6 +3033,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         if _contextMenuItemCode = 'Al_08' then begin   //Accessories Status  
                             AccessoriesStatusReport.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
                             AccessoriesStatusReport.RunModal();
+                        end;
+                        //Mihiranga 2023/02/23
+                        if _contextMenuItemCode = 'Al_09' then begin   //WIP  
+                            WIPReport.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
+                            WIPReport.RunModal();
                         end;
 
                         if _contextMenuItemCode = 'Al_10' then begin   //picture
