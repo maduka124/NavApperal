@@ -85,6 +85,8 @@ report 50865 HourlyProductionReport
             { }
             column(OutputQtyTotal; OutputQtyTotal)
             { }
+            column(CMPcs; CMPcs)
+            { }
 
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
@@ -287,6 +289,38 @@ report 50865 HourlyProductionReport
                 if LocationRec.FindFirst() then begin
                     FactoryName := LocationRec.Name;
                 end;
+
+
+                //CM (Pcs) of the style
+                CMPcs := 0;
+                EstCostRec.Reset();
+                EstCostRec.SetRange("Style No.", "Style No.");
+                if EstCostRec.FindSet() then
+                    CMPcs := EstCostRec."MFG Cost Pcs";
+
+
+                //Send Wash
+                SendWashQty := 0;
+                ProductionHeaderRec4.Reset();
+                ProductionHeaderRec4.SetRange("Ref Line No.", "Line No.");
+                ProductionHeaderRec4.SetRange("Prod Date", PlanDate);
+                ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Wash);
+
+                if ProductionHeaderRec4.Findset() then
+                    SendWashQty := ProductionHeaderRec4."Input Qty";
+
+
+                //receive Wash
+                SendWashQty := 0;
+                ProductionHeaderRec4.Reset();
+                ProductionHeaderRec4.SetRange("Ref Line No.", "Line No.");
+                ProductionHeaderRec4.SetRange("Prod Date", PlanDate);
+                ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Wash);
+
+                if ProductionHeaderRec4.Findset() then
+                    ReceiveWashQty := ProductionHeaderRec4."Output Qty";
+
+
             end;
 
             trigger OnPreDataItem()
@@ -336,6 +370,7 @@ report 50865 HourlyProductionReport
         NavAppProdRec2: Record "NavApp Prod Plans Details";
         PlanInput: Date;
         NavAppProdRec: Record "NavApp Prod Plans Details";
+        EstCostRec: Record "BOM Estimate Cost";
         BrandName: Text[50];
         FactoryName: Text[100];
         LocationRec: Record Location;
@@ -370,4 +405,7 @@ report 50865 HourlyProductionReport
         StyleRec: Record "Style Master";
         Factory: Text[100];
         Style: Text[50];
+        CMPcs: Decimal;
+        SendWashQty: Decimal;
+        ReceiveWashQty: Decimal;
 }
