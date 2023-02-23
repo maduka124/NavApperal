@@ -202,32 +202,30 @@ report 50865 HourlyProductionReport
                 end;
 
                 ProductionHeaderRec3.Reset();
-                ProductionHeaderRec3.SetRange("Style No.", "Style No.");
-                ProductionHeaderRec3.SetRange("PO No", "PO No.");
+                // ProductionHeaderRec3.SetRange("Style No.", "Style No.");
+                // ProductionHeaderRec3.SetRange("PO No", "PO No.");
                 ProductionHeaderRec3.SetRange("Ref Line No.", "Line No.");
+                ProductionHeaderRec3.SetFilter("Input Qty", '<>%1', 0);
+                ProductionHeaderRec3.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
                 ProductionHeaderRec3.SetCurrentKey("Prod Date");
                 ProductionHeaderRec3.Ascending(true);
-                if ProductionHeaderRec3.FindFirst() then begin
-                    if ProductionHeaderRec3.Type = ProductionHeaderRec3.Type::Saw then
-                        if ProductionHeaderRec."Input Qty" = 0 then
-                            ActualInputDate := ProductionHeaderRec."Prod Date"
-                        else
-                            ActualInputDate := ProductionHeaderRec."Prod Date";
-                end;
+
+                if ProductionHeaderRec3.FindFirst() then
+                    ActualInputDate := ProductionHeaderRec3."Prod Date";
+
 
                 ProductionHeaderRec4.Reset();
-                ProductionHeaderRec4.SetRange("Style No.", "Style No.");
-                ProductionHeaderRec4.SetRange("PO No", "PO No.");
+                // ProductionHeaderRec4.SetRange("Style No.", "Style No.");
+                // ProductionHeaderRec4.SetRange("PO No", "PO No.");
                 ProductionHeaderRec4.SetRange("Ref Line No.", "Line No.");
+                ProductionHeaderRec4.SetFilter("Output Qty", '<>%1', 0);
+                ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
                 ProductionHeaderRec4.SetCurrentKey("Prod Date");
-                ProductionHeaderRec4.Ascending(false);
-                if ProductionHeaderRec4.FindLast() then begin
-                    if ProductionHeaderRec4.Type = ProductionHeaderRec4.Type::Saw then
-                        if ProductionHeaderRec."Input Qty" = 0 then
-                            ActualFinishDate := ProductionHeaderRec."Prod Date"
-                        else
-                            ActualFinishDate := ProductionHeaderRec."Prod Date";
-                end;
+                ProductionHeaderRec4.Ascending(true);
+
+                if ProductionHeaderRec4.FindLast() then
+                    ActualFinishDate := ProductionHeaderRec4."Prod Date";
+
 
                 PlanInput := 0D;
                 NavAppProdRec.Reset();
