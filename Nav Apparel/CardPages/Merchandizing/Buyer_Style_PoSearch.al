@@ -8,7 +8,7 @@ page 51247 "Buyer Style PO Search"
     {
         area(Content)
         {
-            group(GroupName)
+            group(Genaral)
             {
                 field(Buyer; Buyer)
                 {
@@ -32,21 +32,29 @@ page 51247 "Buyer Style PO Search"
                             if Page.RunModal(22, CutomerRec) = Action::LookupOK then begin
                                 Buyer := CutomerRec."No.";
                             end
-
-
-                        // if Page.RunModal(22,) = Action::LookupOK then begin
-                        //     
-                        // end;
                     end;
                 }
 
                 field(Style; Style)
                 {
                     ApplicationArea = all;
-                    //TableRelation = "Style Master"."No." where("Buyer No." = field('Buyer'));
+                    TableRelation = "Style Master"."No.";
 
+                    trigger OnLookup(var Text: Text): Boolean
+                    var
+                        CutomerRec: Record Customer;
+                        StyleMasterRec: Record "Style Master";
+                    begin
 
+                        StyleMasterRec.Reset();
+                        StyleMasterRec.SetRange("Buyer No.", Buyer);
 
+                        if StyleMasterRec.FindSet() then begin
+                            if Page.RunModal(51067, StyleMasterRec) = Action::LookupOK then
+                                Style := StyleMasterRec."No.";
+                        end;
+
+                    end;
                 }
 
                 field(Posted; Posted)
@@ -70,11 +78,13 @@ page 51247 "Buyer Style PO Search"
     {
         area(Processing)
         {
-            action("Load PO Details")
+            action("Load PO")
             {
                 ApplicationArea = All;
 
                 trigger OnAction()
+                var
+                    GrnRec: Record GRN
                 begin
 
                 end;
@@ -82,36 +92,36 @@ page 51247 "Buyer Style PO Search"
         }
     }
 
-    trigger OnOpenPage()
-    var
-        LoginRec: Page "Login Card";
-        LoginSessionsRec: Record LoginSessions;
-        UsersetupRec: Record "User Setup";
-    begin
+    // trigger OnOpenPage()
+    // var
+    //     LoginRec: Page "Login Card";
+    //     LoginSessionsRec: Record LoginSessions;
+    //     UsersetupRec: Record "User Setup";
+    // begin
 
-        UsersetupRec.Reset();
-        UsersetupRec.FindSet();
+    //     UsersetupRec.Reset();
+    //     UsersetupRec.FindSet();
 
-        UserID := UsersetupRec."User ID";
-        //Check whether user logged in or not
-        LoginSessionsRec.Reset();
-        LoginSessionsRec.SetRange(SessionID, SessionId());
+    //     UserID := UsersetupRec."User ID";
+    //     //Check whether user logged in or not
+    //     LoginSessionsRec.Reset();
+    //     LoginSessionsRec.SetRange(SessionID, SessionId());
 
-        if not LoginSessionsRec.FindSet() then begin  //not logged in
-            Clear(LoginRec);
-            LoginRec.LookupMode(true);
-            LoginRec.RunModal();
+    //     if not LoginSessionsRec.FindSet() then begin  //not logged in
+    //         Clear(LoginRec);
+    //         LoginRec.LookupMode(true);
+    //         LoginRec.RunModal();
 
-            // LoginSessionsRec.Reset();
-            // LoginSessionsRec.SetRange(SessionID, SessionId());
-            // if LoginSessionsRec.FindSet() then
-            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-        end
-        else begin   //logged in
-            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-        end;
+    //         // LoginSessionsRec.Reset();
+    //         // LoginSessionsRec.SetRange(SessionID, SessionId());
+    //         // if LoginSessionsRec.FindSet() then
+    //         //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+    //     end
+    //     else begin   //logged in
+    //         //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+    //     end;
 
-    end;
+    // end;
 
     var
         Buyer: Code[20];
