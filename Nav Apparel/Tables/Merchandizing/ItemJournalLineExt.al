@@ -244,7 +244,7 @@ tableextension 50913 "ItemJournalLineExt" extends "Item Journal Line"
                     if ItemJnalTemplate.Type = ItemJnalTemplate.Type::Consumption then
                         "Posted Daily Output" := Quantity / ProdOrdComp."Quantity per";
                     //Mihiranga 2022/02/22
-                    rec."Stock After Issue" := rec."Stock After Issue" - Quantity;
+                    rec."Stock After Issue" := rec."Stock Before Issue" - Quantity;
                 end;
 
             end;

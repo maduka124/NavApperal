@@ -152,6 +152,16 @@ page 50120 "Approved Daily Consump. List"
                     // Text003);
 
                     // CalConsump.RUNMODAL;
+
+                    //Mihiranga 2023/02/23
+                    ItemJnalRec.Reset();
+                    ItemJnalRec.SetRange("Prod. Order Comp. Line No.", ItemVer);
+                    ItemJnalRec.SetRange("Order No.", Rec."Prod. Order No.");
+                    ItemJnalRec.SetRange("Order Line No.", ProdOrdComp."Prod. Order Line No.");
+                    if ItemJnalRec.FindSet() then begin
+                        ItemJnalRec."Stock After Issue" := ItemJnalRec."Stock After Issue";
+                    end;
+
                     ManufacSetup.Get();
                     ManufacSetup.TestField("Posted Daily Consumption Nos.");
 
