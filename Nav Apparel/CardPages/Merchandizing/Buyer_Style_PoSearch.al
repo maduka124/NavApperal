@@ -82,12 +82,12 @@ page 51247 "Buyer Style PO Search"
             {
                 ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    GrnRec: Record GRN
-                begin
+                // trigger OnAction()
+                // var
+                //     GrnRec: Record GRN
+                // begin
 
-                end;
+                // end;
             }
         }
     }
