@@ -33,6 +33,11 @@ table 51248 "Buyer Style PO Search"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(7; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

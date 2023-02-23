@@ -21,8 +21,9 @@ page 51247 "Buyer Style PO Search"
                         UsersetupRec: Record "User Setup";
                     begin
 
-                        UsersetupRec.Get(UserId);
-
+                        // UsersetupRec.Get(UserId);
+                        UsersetupRec.Reset();
+                        UsersetupRec.SetRange("User ID", UserID);
                         if UsersetupRec."Merchandizer Group Name" = '' then begin
                             if Page.RunModal(22, CutomerRec) = Action::LookupOK then
                                 Buyer := CutomerRec."No.";
@@ -31,7 +32,7 @@ page 51247 "Buyer Style PO Search"
                         else
                             if Page.RunModal(22, CutomerRec) = Action::LookupOK then begin
                                 Buyer := CutomerRec."No.";
-                            end
+                            end;
                     end;
                 }
 
@@ -82,51 +83,95 @@ page 51247 "Buyer Style PO Search"
             {
                 ApplicationArea = All;
 
-                // trigger OnAction()
-                // var
-                //     GrnRec: Record GRN
-                // begin
+                trigger OnAction()
+                var
+                    PurchaseRcptHeaderRec: Record "Purch. Rcpt. Header";
+                    PurchaseHeaderRec: Record "Purchase Header";
+                    purchaseLineRec: record "Purchase Line";
+                    BuyerStylePoSearchRec: Record "Buyer Style PO Search";
+                begin
 
-                // end;
+                    //delete old records
+                    BuyerStylePoSearchRec.Reset();
+                    BuyerStylePoSearchRec.SetRange("Secondary UserID", "Secondary UserID");
+
+                    if BuyerStylePoSearchRec.findset then
+                        BuyerStylePoSearchRec.DeleteAll();
+
+                    if Buyer = '' then
+                        Error('Select Buyer');
+
+                    //Select Buyer Only
+                    // Not Posted
+
+                    if Style = '' then begin
+
+                        purchaseLineRec.Reset();
+                        purchaseLineRec.SetRange("Buyer No.", Buyer);
+
+                        if PurchaseHeaderRec.FindSet() then begin
+                            repeat
+
+                                BuyerStylePoSearchRec.Init();
+                                BuyerStylePoSearchRec."PO No" := purchaseLineRec."Document No.";
+                                BuyerStylePoSearchRec.Insert();
+
+                            until purchaseLineRec.Next() = 0;
+                            BuyerStylePoSearchRec.Reset();
+
+                            BuyerStylePoSearchRec.Init();
+                            BuyerStylePoSearchRec."PO No" := purchaseLineRec."Document No.";
+                            BuyerStylePoSearchRec.Insert();
+                        end
+
+                        else
+                            Error('thre is no POs');
+
+
+
+                    end
+                    else
+                        ;
+
+
+                end;
             }
         }
     }
 
-    // trigger OnOpenPage()
-    // var
-    //     LoginRec: Page "Login Card";
-    //     LoginSessionsRec: Record LoginSessions;
-    //     UsersetupRec: Record "User Setup";
-    // begin
+    trigger OnOpenPage()
+    var
+        LoginRec: Page "Login Card";
+        LoginSessionsRec: Record LoginSessions;
+        UsersetupRec: Record "User Setup";
+    begin
 
-    //     UsersetupRec.Reset();
-    //     UsersetupRec.FindSet();
 
-    //     UserID := UsersetupRec."User ID";
-    //     //Check whether user logged in or not
-    //     LoginSessionsRec.Reset();
-    //     LoginSessionsRec.SetRange(SessionID, SessionId());
+        // //Check whether user logged in or not
+        // LoginSessionsRec.Reset();
+        // LoginSessionsRec.SetRange(SessionID, SessionId());
 
-    //     if not LoginSessionsRec.FindSet() then begin  //not logged in
-    //         Clear(LoginRec);
-    //         LoginRec.LookupMode(true);
-    //         LoginRec.RunModal();
+        // if not LoginSessionsRec.FindSet() then begin  //not logged in
+        //     Clear(LoginRec);
+        //     LoginRec.LookupMode(true);
+        //     LoginRec.RunModal();
 
-    //         // LoginSessionsRec.Reset();
-    //         // LoginSessionsRec.SetRange(SessionID, SessionId());
-    //         // if LoginSessionsRec.FindSet() then
-    //         //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-    //     end
-    //     else begin   //logged in
-    //         //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-    //     end;
-
-    // end;
+        //     LoginSessionsRec.Reset();
+        //     LoginSessionsRec.SetRange(SessionID, SessionId());
+        //     if LoginSessionsRec.FindSet() then
+        //         "Secondary UserID" := LoginSessionsRec."Secondary UserID";
+        // end
+        // else begin   //logged in
+        //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
+        // end;
+    end;
 
     var
         Buyer: Code[20];
         Style: Text[50];
         UserID: Code[50];
         Posted: Boolean;
+        "Secondary UserID": Code[20];
+
 
 }
