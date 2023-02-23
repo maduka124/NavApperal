@@ -285,11 +285,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         ResourceList.LookupMode(true);
                         ResourceList.PassParameters(objectID);
                         ResourceList.Run();
-                    end
+                    end;
 
 
 
-                    //
+
                     // Message('Event OnDoubleClicked:\ObjectType: ' + Format(_objectType) + '\ObjectID: ' + _objectID +
                     //       '\VisualType: ' + Format(_visualType) + '\Date: ' + Format(_date));
                 end;
