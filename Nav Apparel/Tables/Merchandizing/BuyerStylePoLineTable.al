@@ -14,7 +14,7 @@ table 51248 "Buyer Style PO Search"
             DataClassification = ToBeClassified;
         }
 
-        field(3; Suplier; Text[100])
+        field(3; Supplier; Text[100])
         {
             DataClassification = ToBeClassified;
         }
