@@ -19,6 +19,8 @@ report 50865 HourlyProductionReport
             { }
             column(ResourceName; ResourceName)
             { }
+            column("ResourceNo"; "Resource No.")
+            { }
             column(EffProdPlan; Eff)
             { }
             column(BuyerName; BuyerName)
@@ -229,8 +231,8 @@ report 50865 HourlyProductionReport
 
                 PlanInput := 0D;
                 NavAppProdRec.Reset();
-                NavAppProdRec.SetRange("Style No.", "Hourly Production Lines"."Style No.");
-                NavAppProdRec.SetRange("Resource No.", "Hourly Production Lines"."Work Center No.");
+                NavAppProdRec.SetRange("Style No.", "Style No.");
+                NavAppProdRec.SetRange("Resource No.", "Resource No.");
                 NavAppProdRec.SetCurrentKey(PlanDate);
                 NavAppProdRec.Ascending(true);
                 if NavAppProdRec.FindFirst() then begin
@@ -239,13 +241,14 @@ report 50865 HourlyProductionReport
 
                 Planfinish := 0D;
                 NavAppProdRec.Reset();
-                NavAppProdRec.SetRange("Style No.", "Hourly Production Lines"."Style No.");
-                NavAppProdRec.SetRange("Resource No.", "Hourly Production Lines"."Work Center No.");
+                NavAppProdRec.SetRange("Style No.", "Style No.");
+                NavAppProdRec.SetRange("Resource No.", "Resource No.");
                 NavAppProdRec.SetCurrentKey(PlanDate);
                 NavAppProdRec.Ascending(true);
                 if NavAppProdRec.FindLast() then begin
                     Planfinish := NavAppProdRec.PlanDate;
                 end;
+
                 LocationRec.SetRange(Code, FactortFilter);
                 if LocationRec.FindFirst() then begin
                     FactoryName := LocationRec.Name;
@@ -272,17 +275,18 @@ report 50865 HourlyProductionReport
                 group(GroupName)
                 {
                     Caption = 'Filter By';
-                    field(FilterDate; FilterDate)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Production Date';
-                    }
 
                     field(FactortFilter; FactortFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Factory';
                         TableRelation = Location.Code where("Sewing Unit" = filter(true));
+                    }
+
+                    field(FilterDate; FilterDate)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Production Date';
                     }
                 }
             }

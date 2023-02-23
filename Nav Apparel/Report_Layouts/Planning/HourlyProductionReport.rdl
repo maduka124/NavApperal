@@ -5699,7 +5699,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Line_No_.Value</Value>
+                      <Value>ResourceNo</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
@@ -5766,6 +5766,11 @@
                           <GroupExpression>=Fields!Style_Name.Value</GroupExpression>
                         </GroupExpressions>
                       </Group>
+                      <SortExpressions>
+                        <SortExpression>
+                          <Value>=Fields!ResourceName.Value</Value>
+                        </SortExpression>
+                      </SortExpressions>
                     </TablixMember>
                   </TablixMembers>
                   <Visibility>
@@ -5832,7 +5837,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -6206,6 +6210,9 @@ End Function
         </Field>
         <Field Name="ResourceName">
           <DataField>ResourceName</DataField>
+        </Field>
+        <Field Name="ResourceNo">
+          <DataField>ResourceNo</DataField>
         </Field>
         <Field Name="EffProdPlan">
           <DataField>EffProdPlan</DataField>
