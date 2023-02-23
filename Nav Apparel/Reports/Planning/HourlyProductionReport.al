@@ -87,6 +87,10 @@ report 50865 HourlyProductionReport
             { }
             column(CMPcs; CMPcs)
             { }
+            column(SendWashQty; SendWashQty)
+            { }
+            column(ReceiveWashQty; ReceiveWashQty)
+            { }
 
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
@@ -311,11 +315,11 @@ report 50865 HourlyProductionReport
 
 
                 //receive Wash
-                SendWashQty := 0;
+                ReceiveWashQty := 0;
                 ProductionHeaderRec4.Reset();
                 ProductionHeaderRec4.SetRange("Ref Line No.", "Line No.");
                 ProductionHeaderRec4.SetRange("Prod Date", PlanDate);
-                ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Wash);
+                ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec4.Type::Wash);
 
                 if ProductionHeaderRec4.Findset() then
                     ReceiveWashQty := ProductionHeaderRec4."Output Qty";

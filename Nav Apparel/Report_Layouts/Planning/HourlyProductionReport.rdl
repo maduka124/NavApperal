@@ -150,6 +150,18 @@
         <Field Name="CMPcsFormat">
           <DataField>CMPcsFormat</DataField>
         </Field>
+        <Field Name="SendWashQty">
+          <DataField>SendWashQty</DataField>
+        </Field>
+        <Field Name="SendWashQtyFormat">
+          <DataField>SendWashQtyFormat</DataField>
+        </Field>
+        <Field Name="ReceiveWashQty">
+          <DataField>ReceiveWashQty</DataField>
+        </Field>
+        <Field Name="ReceiveWashQtyFormat">
+          <DataField>ReceiveWashQtyFormat</DataField>
+        </Field>
         <Field Name="FactoryName">
           <DataField>FactoryName</DataField>
         </Field>
@@ -5352,10 +5364,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!SendWashQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Format>0;(0)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5370,26 +5383,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5408,10 +5401,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!ReceiveWashQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Format>0;(0)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5426,26 +5420,6 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>0.5pt</Width>
-                            </RightBorder>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5542,7 +5516,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>0.00;(0.00)</Format>
+                                    <Format>0.00</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
