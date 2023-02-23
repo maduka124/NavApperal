@@ -193,7 +193,7 @@ report 50865 HourlyProductionReport
                 ProductionHeaderRec.SetRange("PO No", "PO No.");
                 ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
                 ProductionHeaderRec.SetRange("Prod Date", PlanDate);
-                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
                 // ProductionHeaderRec.SetRange("Ref Line No.", "Line No.");
 
                 if ProductionHeaderRec.Findset() then begin
@@ -210,7 +210,7 @@ report 50865 HourlyProductionReport
                 ProductionHeaderRec.SetRange("PO No", "PO No.");
                 ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
                 ProductionHeaderRec.SetFilter("Prod Date", '<=%1', PlanDate);
-                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
 
                 if ProductionHeaderRec.Findset() then begin
                     repeat
