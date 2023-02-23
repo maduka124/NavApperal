@@ -81,6 +81,10 @@ report 50865 HourlyProductionReport
             { }
             column(EffProdOut; Eff)
             { }
+            column(InputQtyTotal; InputQtyTotal)
+            { }
+            column(OutputQtyTotal; OutputQtyTotal)
+            { }
 
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
@@ -180,30 +184,61 @@ report 50865 HourlyProductionReport
                     OrderQy := StylePoRec.Qty;
                 end;
 
+
+                InputQtyToday := 0;
+                OutputQty := 0;
+                //Input/Output Today
                 ProductionHeaderRec.Reset();
                 ProductionHeaderRec.SetRange("Style No.", "Style No.");
                 ProductionHeaderRec.SetRange("PO No", "PO No.");
-                ProductionHeaderRec.SetRange("Ref Line No.", "Line No.");
-                if ProductionHeaderRec.FindFirst() then begin
-                    if ProductionHeaderRec.Type = ProductionHeaderRec.Type::Saw then
-                        ActualPlanDT := ProductionHeaderRec."Prod Date";
+                ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec.SetRange("Prod Date", PlanDate);
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
+                // ProductionHeaderRec.SetRange("Ref Line No.", "Line No.");
+
+                if ProductionHeaderRec.Findset() then begin
                     InputQtyToday := ProductionHeaderRec."Input Qty";
                     OutputQty := ProductionHeaderRec."Output Qty";
-                    TodayOutput := ProductionHeaderRec."Output Qty";
                 end;
 
+
+                InputQtyTotal := 0;
+                OutputQtyTotal := 0;
+                //Input/Ouput Total (up to date)
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("Style No.", "Style No.");
+                ProductionHeaderRec.SetRange("PO No", "PO No.");
+                ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec.SetFilter("Prod Date", '<=%1', PlanDate);
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
+
+                if ProductionHeaderRec.Findset() then begin
+                    repeat
+                        InputQtyTotal += ProductionHeaderRec."Input Qty";
+                        OutputQtyTotal += ProductionHeaderRec."Output Qty";
+                    until ProductionHeaderRec.Next() = 0;
+                end;
+
+                //ActualPlanDT := ProductionHeaderRec."Prod Date";
+                // OutputQty := ProductionHeaderRec."Output Qty";
+                //TodayOutput := ProductionHeaderRec."Output Qty";
+
+
+
+                OutPutStartDate := 0D;
                 ProductionHeaderRec2.Reset();
-                ProductionHeaderRec2.SetRange("Style No.", "Style No.");
-                ProductionHeaderRec2.SetRange("PO No", "PO No.");
                 ProductionHeaderRec2.SetRange("Ref Line No.", "Line No.");
-                if ProductionHeaderRec2.FindLast() then begin
-                    if ProductionHeaderRec2.Type = ProductionHeaderRec2.Type::Saw then
-                        OutPutStartDate := ProductionHeaderRec."Prod Date";
-                end;
+                ProductionHeaderRec2.SetFilter("Output Qty", '<>%1', 0);
+                ProductionHeaderRec2.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
+                ProductionHeaderRec2.SetCurrentKey("Prod Date");
+                ProductionHeaderRec2.Ascending(true);
 
+                if ProductionHeaderRec2.FindFirst() then
+                    OutPutStartDate := ProductionHeaderRec2."Prod Date";
+
+
+                ActualInputDate := 0D;
                 ProductionHeaderRec3.Reset();
-                // ProductionHeaderRec3.SetRange("Style No.", "Style No.");
-                // ProductionHeaderRec3.SetRange("PO No", "PO No.");
                 ProductionHeaderRec3.SetRange("Ref Line No.", "Line No.");
                 ProductionHeaderRec3.SetFilter("Input Qty", '<>%1', 0);
                 ProductionHeaderRec3.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
@@ -214,9 +249,8 @@ report 50865 HourlyProductionReport
                     ActualInputDate := ProductionHeaderRec3."Prod Date";
 
 
+                ActualFinishDate := 0D;
                 ProductionHeaderRec4.Reset();
-                // ProductionHeaderRec4.SetRange("Style No.", "Style No.");
-                // ProductionHeaderRec4.SetRange("PO No", "PO No.");
                 ProductionHeaderRec4.SetRange("Ref Line No.", "Line No.");
                 ProductionHeaderRec4.SetFilter("Output Qty", '<>%1', 0);
                 ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
@@ -237,6 +271,7 @@ report 50865 HourlyProductionReport
                     PlanInput := NavAppProdRec.PlanDate;
                 end;
 
+
                 Planfinish := 0D;
                 NavAppProdRec.Reset();
                 NavAppProdRec.SetRange("Style No.", "Style No.");
@@ -246,6 +281,7 @@ report 50865 HourlyProductionReport
                 if NavAppProdRec.FindLast() then begin
                     Planfinish := NavAppProdRec.PlanDate;
                 end;
+
 
                 LocationRec.SetRange(Code, FactortFilter);
                 if LocationRec.FindFirst() then begin
@@ -312,6 +348,8 @@ report 50865 HourlyProductionReport
         comRec: Record "Company Information";
         OutputQty: BigInteger;
         InputQtyToday: BigInteger;
+        InputQtyTotal: BigInteger;
+        OutputQtyTotal: BigInteger;
         MerchandizerName: Text[50];
         MC: Integer;
         OutPutStartDate: Date;

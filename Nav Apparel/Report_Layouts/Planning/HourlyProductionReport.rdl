@@ -3169,7 +3169,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>PANNED</Value>
+                                  <Value>PLANNED</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -3224,7 +3224,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ACHIVE</Value>
+                                  <Value>ACHIEVED</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -3268,6 +3268,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -4187,7 +4188,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!EffProdOut.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6315,6 +6316,12 @@ End Function
         </Field>
         <Field Name="EffProdOutFormat">
           <DataField>EffProdOutFormat</DataField>
+        </Field>
+        <Field Name="InputQtyTotal">
+          <DataField>InputQtyTotal</DataField>
+        </Field>
+        <Field Name="OutputQtyTotal">
+          <DataField>OutputQtyTotal</DataField>
         </Field>
         <Field Name="FactoryName">
           <DataField>FactoryName</DataField>
