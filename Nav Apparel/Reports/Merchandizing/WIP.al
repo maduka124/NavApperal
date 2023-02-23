@@ -167,20 +167,14 @@ report 50641 WIPReport
             }
         }
 
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
 
-                }
-            }
-        }
     }
 
-
+    procedure PassParameters(StyleNoPara: Code[20])
+    var
+    begin
+        STFilter := StyleNoPara;
+    end;
 
     var
         myInt: Integer;
