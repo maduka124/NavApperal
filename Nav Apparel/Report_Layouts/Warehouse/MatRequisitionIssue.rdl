@@ -1739,7 +1739,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Quantity2">
+                        <Textbox Name="Quantity">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1775,14 +1775,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Original_Daily_Requirement">
+                        <Textbox Name="OrginalDailyReq">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Original_Daily_Requirement.Value</Value>
+                                  <Value>=Fields!OrginalDailyReq.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1794,7 +1794,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Original_Daily_Requirement</rd:DefaultName>
+                          <rd:DefaultName>OrginalDailyReq</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -2226,6 +2226,12 @@ End Function
         </Field>
         <Field Name="QuantityFormat">
           <DataField>QuantityFormat</DataField>
+        </Field>
+        <Field Name="OrginalDailyReq">
+          <DataField>OrginalDailyReq</DataField>
+        </Field>
+        <Field Name="OrginalDailyReqFormat">
+          <DataField>OrginalDailyReqFormat</DataField>
         </Field>
         <Field Name="Item_No_">
           <DataField>Item_No_</DataField>

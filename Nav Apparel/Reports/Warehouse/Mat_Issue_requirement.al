@@ -11,10 +11,9 @@ report 51801 MaterialIssueRequition
     {
         dataitem("Daily Consumption Header"; "Daily Consumption Header")
         {
-
-            // DataItemTableView = where(Status = filter('Released'));
+            DataItemTableView = where(Status = filter('Released'));
             // PrintOnlyIfDetail = true;
-            DataItemTableView = sorting("No.");
+            // DataItemTableView = sorting("No.");
             column(CompLogo; comRec.Picture)
             { }
             column(IssueNo; "No.")
@@ -31,34 +30,6 @@ report 51801 MaterialIssueRequition
             { }
             column(Main_Category_Name; "Main Category Name")
             { }
-            // column()
-            // { }
-            // column()
-            // { }
-            // column()
-            // { }
-
-
-            // dataitem("Daily Consumption Line"; "Daily Consumption Line")
-            // {
-
-            //     DataItemLinkReference = "Daily Consumption Header";
-            //     DataItemLink = "Document No." = field("No.");
-            //     DataItemTableView = sorting("Document No.", "Line No.");
-            // DataItemTableView = sorting("Item No.", "Posting Date");
-            // RequestFilterFields = "Document No.";
-            // DataItemLink = Status = FIELD(Status), "Prod. Order No." = FIELD("No.");
-            // DataItemTableView = SORTING(Status, "Prod. Order No.", "Prod. Order Line No.", "Line No.");
-            // column(ItemNo_ProdOrderComp; "Item No.")
-            // {
-            //     IncludeCaption = true;
-            // }
-
-
-            // column(Issued_Quantity; "Issued Quantity")
-            // { }
-            // column(Daily_Consumption; "Daily Consumption")
-            // { }
 
             dataitem("Item Ledger Entry"; "Item Ledger Entry")
             {
@@ -67,6 +38,8 @@ report 51801 MaterialIssueRequition
                 DataItemTableView = where("Entry Type" = filter('Consumption'));
 
                 column(Quantity; Quantity * -1)
+                { }
+                column(OrginalDailyReq; RoundDailyReq)
                 { }
                 column(Item_No_; "Item No.")
                 { }
@@ -83,14 +56,6 @@ report 51801 MaterialIssueRequition
                 column(Original_Daily_Requirement; "Original Daily Requirement")
                 { }
 
-                trigger OnPreDataItem()
-
-                begin
-                    // SetRange("Document No.", JournalNo);
-                    // SetRange("Journal Batch Name", JournalBatchFilter);
-                    // // SetRange("Daily Consumption Doc. No.", DocNumber);
-                    // JournalBatchFilter := 'DEFAULT';
-                end;
 
                 trigger OnAfterGetRecord()
 
@@ -103,6 +68,8 @@ report 51801 MaterialIssueRequition
                         Location := ItemRec."Location Filter";
                         DescriptionRec := ItemRec.Description;
                     end;
+
+                    RoundDailyReq := Round("Original Daily Requirement", 0.01, '>');
                 end;
 
 
@@ -151,13 +118,13 @@ report 51801 MaterialIssueRequition
 
 
     var
+        RoundDailyReq: Decimal;
         DescriptionRec: Text[200];
         Location: Code[20];
         UOM: Code[20];
         size: Code[20];
         ItemRec: Record Item;
-        DocNumber: Code[20];
-        JournalBatchFilter: Code[10];
+
         JournalNo: Code[20];
         comRec: Record "Company Information";
 }
