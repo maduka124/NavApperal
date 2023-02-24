@@ -1079,5 +1079,10 @@ permissionset 50100 GeneratedPermission
         query PlanEffDashboardReportTable_Q=X,
         query StyleMaster_StyleMasterPO_Q=X,
         report SalesContractReport=X,
-        report ShipementSummaryReport=X;
+        report ShipementSummaryReport=X,
+        tabledata "Buyer Style PO Search"=RIMD,
+        table "Buyer Style PO Search"=X,
+        report LCReport=X,
+        page "Buyer Style PO Search"=X,
+        page "Buyer Style PO Search Listpart"=X;
 }
