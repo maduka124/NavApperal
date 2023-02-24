@@ -6,6 +6,12 @@ tableextension 51149 "Vendor Extension" extends Vendor
         {
             DataClassification = ToBeClassified;
         }
+        //Mihiranga 2023/02/24
+        field(50002; "General Item Vendor"; Boolean)
+        {
+            Caption = 'General Item Vendor';
+            DataClassification = ToBeClassified;
+        }
     }
 
 

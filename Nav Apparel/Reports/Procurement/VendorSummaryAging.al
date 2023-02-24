@@ -13,7 +13,7 @@ report 51237 VendorSummaryAging
         dataitem(Vendor; Vendor)
         {
 
-            DataItemTableView = SORTING("No.");
+            DataItemTableView = where("General Item Vendor" = filter(1));
             RequestFilterFields = "No.", "Search Name", "Vendor Posting Group", "Currency Filter";
             column(COMPANYNAME; COMPANYPROPERTY.DisplayName)
             {
