@@ -119,6 +119,7 @@ page 50102 "Daily Consumption Card"
                     Editable = false;
                 }
             }
+
             part(Lines; "Daily Consumption Subform")
             {
                 ApplicationArea = All;
@@ -126,6 +127,7 @@ page 50102 "Daily Consumption Card"
                 UpdatePropagation = Both;
                 SubPageLink = "Document No." = field("No.");
             }
+
             part("Daily Requirement"; "Daily Requirement")
             {
                 ApplicationArea = All;
@@ -135,6 +137,7 @@ page 50102 "Daily Consumption Card"
                 UpdatePropagation = Both;
                 SubPageLink = "Journal Template Name" = field("Journal Template Name"), "Journal Batch Name" = field("Journal Batch Name"), "Daily Consumption Doc. No." = field("No.");
             }
+
             part("Posted Daily Requirement"; "Posted Consumptions")
             {
                 ApplicationArea = All;
@@ -145,6 +148,7 @@ page 50102 "Daily Consumption Card"
             }
         }
     }
+
     actions
     {
         area(Processing)
@@ -179,8 +183,11 @@ page 50102 "Daily Consumption Card"
 
                     Rec."Approver UserID" := UserSetup."Daily Requirement Approver";
                     Rec.Modify();
+
+                    Message('Sent for approval.');
                 end;
             }
+
             action(CancelApprovalRequest)
             {
                 ApplicationArea = Basic, Suite;
@@ -198,8 +205,11 @@ page 50102 "Daily Consumption Card"
                     Sleep(500);
                     Rec.Status := Rec.Status::Open;
                     Rec.Modify();
+
+                    Message('Cancelled approval.');
                 end;
             }
+
             action(Approve)
             {
                 Image = Approve;
@@ -208,6 +218,7 @@ page 50102 "Daily Consumption Card"
                 PromotedCategory = Process;
                 Caption = 'Approve';
                 Visible = BooVis;
+
                 trigger OnAction()
                 var
                     ItemJnalLine: Record "Item Journal Line";
@@ -238,9 +249,12 @@ page 50102 "Daily Consumption Card"
                         Rec."Approved UserID" := UserId;
                         Rec."Approved Date/Time" := CurrentDateTime;
                         Rec.Modify();
+
+                        Message('Approved.');
                     end;
                 end;
             }
+
             action(Reject)
             {
                 Image = Reject;
@@ -249,6 +263,7 @@ page 50102 "Daily Consumption Card"
                 PromotedCategory = Process;
                 Caption = 'Reject';
                 Visible = BooVis;
+
                 trigger OnAction()
                 var
                     UserSetup: Record "User Setup";
@@ -261,8 +276,11 @@ page 50102 "Daily Consumption Card"
                     Sleep(500);
                     Rec.Status := Rec.Status::Open;
                     Rec.Modify();
+
+                    Message('Request rejected. .');
                 end;
             }
+
             action("Calculate Consumption")
             {
                 Image = CalculateConsumption;
@@ -286,6 +304,7 @@ page 50102 "Daily Consumption Card"
                     ItemJnalBatch: Record "Item Journal Batch";
                     NoserMangemnt: Codeunit NoSeriesManagement;
                     ManufacSetup: Record "Manufacturing Setup";
+                    ItemJrnlLineTempRec: Record ItemJournalLinetemp;
                     PostNo: Code[20];
                     Window: Dialog;
                     Inx1: Integer;
@@ -297,8 +316,13 @@ page 50102 "Daily Consumption Card"
                     Text001: Label 'Prod. Order No.   #1##########\';
                     Text002: Label 'Item No.          #2##########\';
                     Text003: Label 'Quantity          #3##########';
+                    Lineno: BigInteger;
 
                 begin
+
+                    if (Rec.Status = Rec.Status::"Pending Approval") then
+                        Error('Request already sent for approval. Cannot calculate Consumption.');
+
                     Inx1 := 0;
                     PostNo := '';
 
@@ -337,8 +361,10 @@ page 50102 "Daily Consumption Card"
                     DailyConsumpLine.Reset();
                     DailyConsumpLine.SetRange("Document No.", rec."No.");
                     DailyConsumpLine.SetFilter("Daily Consumption", '>%1', 0);
+
                     if DailyConsumpLine.FindFirst() then begin
                         repeat
+
                             ProdOrderLine.Get(ProdOrderLine.Status::Released, DailyConsumpLine."Prod. Order No.", DailyConsumpLine."Prod. Order Line No.");
                             ProdOrdComp.Reset();
                             ProdOrdComp.SetRange("Prod. Order No.", Rec."Prod. Order No.");
@@ -346,6 +372,7 @@ page 50102 "Daily Consumption Card"
                             ProdOrdComp.SetFilter("Remaining Quantity", '<>%1', 0);
                             ProdOrdComp.SETFILTER("Flushing Method", '<>%1&<>%2', "Flushing Method"::Backward, "Flushing Method"::"Pick + Backward");
                             ProdOrdComp.SetRange("Item Cat. Code", Rec."Main Category");
+
                             if ItemJnalBatch."Inventory Posting Group" <> '' then
                                 ProdOrdComp.SetRange("Invent. Posting Group", ItemJnalBatch."Inventory Posting Group");
 
@@ -361,7 +388,7 @@ page 50102 "Daily Consumption Card"
                                     ItemLedEntry.SetCurrentKey("Location Code", "Item No.");
                                     ItemLedEntry.SetRange("Item No.", ProdOrdComp."Item No.");
                                     ItemLedEntry.SetRange("Location Code", ProdOrdComp."Location Code");
-                                    ItemLedEntry.CalcSums(Quantity);
+                                    ItemLedEntry.CalcSums("Remaining Quantity");
 
                                     Window.Update(2, ProdOrdComp."Item No.");
                                     ItemJnalRec.Init();
@@ -386,21 +413,23 @@ page 50102 "Daily Consumption Card"
 
                                     //ProdOrdComp.Get(ProdOrdComp.Status::Released, rec."Transaction Doc. No.", rec."Transaction Line No.", BarcodeLine."Componant Line No.");
                                     ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");
+
                                     if (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption") > ProdOrdComp."Remaining Quantity" then
                                         ItemJnalRec.Validate(Quantity, ProdOrdComp."Remaining Quantity")
                                     else
                                         ItemJnalRec.Validate(Quantity, (ProdOrdComp."Quantity per" * DailyConsumpLine."Daily Consumption"));
+
                                     Window.Update(3, ItemJnalRec.Quantity);
                                     ItemJnalRec."Original Daily Requirement" := ItemJnalRec.Quantity;
-                                    ItemJnalRec."Stock After Issue" := ItemLedEntry.Quantity - ItemJnalRec.Quantity;
-                                    //Mihiranga 2022/01/16
                                     ItemJnalRec."Request Qty" := ItemJnalRec.Quantity;
                                     ItemJnalRec.Validate("Variant Code", ProdOrdComp."Variant Code");
                                     ItemJnalRec.Validate("Location Code", ProdOrdComp."Location Code");
                                     ItemJnalRec.Description := ProdOrdComp.Description;
                                     ItemJnalRec.Validate("Unit of Measure Code", ProdOrdComp."Unit of Measure Code");
                                     ItemJnalRec.Validate("Prod. Order Comp. Line No.", ProdOrdComp."Line No.");
+                                    ItemJnalRec."Stock After Issue" := ItemLedEntry."Remaining Quantity" - ItemJnalRec.Quantity;
                                     ItemJnalRec.Modify();
+
                                     Inx1 := ItemJnalRec."Line No.";
                                     LastLNo := 0;
 
@@ -412,6 +441,7 @@ page 50102 "Daily Consumption Card"
                                     ItemLedEntry.SetRange(Open, true);
                                     ItemLedEntry.SetRange("Location Code", ProdOrdComp."Location Code");
                                     ItemLedEntry.SetFilter("Lot No.", '<>%1', '');
+
                                     if ItemLedEntry.FindFirst() then begin
                                         REPEAT
                                             if not LineCompleted then begin
@@ -447,8 +477,56 @@ page 50102 "Daily Consumption Card"
                                         until ItemLedEntry.Next() = 0;
                                     end;
 
+
+
+                                    //Delete old records from temp table
+                                    ItemJrnlLineTempRec.Reset();
+                                    ItemJrnlLineTempRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+                                    ItemJrnlLineTempRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                                    ItemJrnlLineTempRec.SetRange("Source No.", DailyConsumpLine."Item No.");
+                                    ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", DailyConsumpLine."Document No.");
+                                    ItemJrnlLineTempRec.SetRange("Item No.", ProdOrdComp."Item No.");
+                                    if ItemJrnlLineTempRec.Findset() then
+                                        ItemJrnlLineTempRec.DeleteAll();
+
+                                    //Get max line;
+                                    Lineno := 0;
+                                    ItemJrnlLineTempRec.Reset();
+                                    ItemJrnlLineTempRec.SetCurrentKey("Line No.");
+                                    ItemJrnlLineTempRec.Ascending(true);
+                                    if ItemJrnlLineTempRec.FindLast() then
+                                        Lineno := ItemJrnlLineTempRec."Line No.";
+
+                                    //Insert to the temp table
+                                    ItemJrnlLineTempRec.Init();
+                                    ItemJrnlLineTempRec."Daily Consumption Doc. No." := DailyConsumpLine."Document No.";
+                                    ItemJrnlLineTempRec."Item No." := ProdOrdComp."Item No.";
+                                    ItemJrnlLineTempRec."Journal Batch Name" := Rec."Journal Batch Name";
+                                    ItemJrnlLineTempRec."Journal Template Name" := Rec."Journal Template Name";
+                                    ItemJrnlLineTempRec."Prod. Order No." := DailyConsumpLine."Prod. Order No.";
+                                    ItemJrnlLineTempRec."Prod. Order Line No." := DailyConsumpLine."Prod. Order Line No.";
+                                    ItemJrnlLineTempRec."Daily Consumption" := DailyConsumpLine."Daily Consumption";
+                                    ItemJrnlLineTempRec."Line No." := Lineno + 1;
+                                    ItemJrnlLineTempRec."Original Requirement" := ItemJnalRec.Quantity;
+                                    ItemJrnlLineTempRec."Posted requirement" := 0;
+                                    ItemJrnlLineTempRec."Source No." := DailyConsumpLine."Item No.";
+                                    ItemJrnlLineTempRec.Insert();
+
+
+                                //////////////////below lines are for testing purpose only
+                                // ItemJnalRec.Reset();
+                                // ItemJnalRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+                                // ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                                // ItemJnalRec.SetFilter("Entry Type", '=%1', ItemJnalRec."Entry Type"::Consumption);
+                                // ItemJnalRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+                                // ItemJnalRec.SetRange("Line No.", Inx1);
+                                // ItemJnalRec.Findset();
+                                //Message(format(ItemJnalRec."Stock After Issue"));
+                                /////////////////////////
+
                                 until ProdOrdComp.Next() = 0;
                         until DailyConsumpLine.Next() = 0;
+
                     end
                     else
                         Message('There is nothing to process');
@@ -494,6 +572,41 @@ page 50102 "Daily Consumption Card"
         ItemLedRec.SetRange("Daily Consumption Doc. No.", rec."No.");
         if ItemLedRec.FindFirst() then
             Vis2 := true;
+    end;
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        DailyConsumptionLine: Record "Daily Consumption Line";
+        ItemJournalLine: Record "Item Journal Line";
+        ItemJrnlLineTempRec: Record ItemJournalLinetemp;
+    begin
+        if rec.Status = rec.Status::Approved then
+            Error('Request already approved. Cannot delete.');
+
+        if rec.Status = rec.Status::"Pending Approval" then
+            Error('Request already sent for approval. Cannot delete.');
+
+        if rec.Status = rec.Status::Open then begin
+            DailyConsumptionLine.Reset();
+            DailyConsumptionLine.SetRange("Document No.", rec."No.");
+            if DailyConsumptionLine.FindSet() then
+                DailyConsumptionLine.DeleteAll();
+
+            ItemJournalLine.SetRange("Journal Template Name", Rec."Journal Template Name");
+            ItemJournalLine.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+            ItemJournalLine.SetFilter("Entry Type", '=%1', ItemJournalLine."Entry Type"::Consumption);
+            ItemJournalLine.SetRange("Daily Consumption Doc. No.", rec."No.");
+            if ItemJournalLine.FindSet() then
+                ItemJournalLine.DeleteAll();
+
+            ItemJrnlLineTempRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+            ItemJrnlLineTempRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+            ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+            if ItemJrnlLineTempRec.FindSet() then
+                ItemJrnlLineTempRec.DeleteAll();
+        end;
+
     end;
 
 

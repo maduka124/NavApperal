@@ -37,6 +37,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
             //     Editable = false;
             // }
         }
+
         addafter(Description)
         {
             field("Stock Before Issue"; rec."Stock Before Issue")
@@ -45,6 +46,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
                 Editable = false;
             }
         }
+
         addafter(Quantity)
         {
             field("Stock After Issue"; rec."Stock After Issue")
@@ -58,13 +60,18 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
 
     actions
     {
-        modify("P&ost")
-        {
-            trigger OnBeforeAction()
-            begin
+        // modify("P&ost")
+        // {
+        //     trigger OnBeforeAction()
+        //     begin
 
-            end;
-        }
+        //     end;
+
+        //     trigger OnAfterAction()
+        //     begin
+
+        //     end;
+        // }
 
         addafter("P&ost")
         {
@@ -158,10 +165,6 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
                     // MaterialReport.Set_Value("Document No.");
                     // MaterialReport.Set_Batch("Journal Batch Name");
                     // MaterialReport.Run();
-
-
-
-
                 end;
             }
 
@@ -264,8 +267,6 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
             //     end;
             // }
         }
-
-
     }
 
 
@@ -390,6 +391,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
 
     var
         ManuPrintReport: Codeunit "Manu. Print Report";
+
 
     trigger OnOpenPage()
     var

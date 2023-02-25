@@ -79,6 +79,9 @@ codeunit 50621 ReservationEntryCodeUnit
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Line", 'OnAfterInitItemLedgEntry', '', false, false)]
     local procedure ItemJnlPostLineOnAfterInitItemLedgEntry(var NewItemLedgEntry: Record "Item Ledger Entry"; ItemJournalLine: Record "Item Journal Line")
+    var
+        ItemJrnlLineTempRec: Record ItemJournalLinetemp;
+        var1: Decimal;
     begin
         NewItemLedgEntry."Supplier Batch No." := ItemJournalLine."Supplier Batch No.";
         NewItemLedgEntry."Shade No" := ItemJournalLine."Shade No";
@@ -90,6 +93,26 @@ codeunit 50621 ReservationEntryCodeUnit
         NewItemLedgEntry.InvoiceNo := ItemJournalLine.InvoiceNo;
         NewItemLedgEntry."Color No" := ItemJournalLine."Color No";
         NewItemLedgEntry.Color := ItemJournalLine.Color;
+
+
+        //update item jurnal temp table - posted qty (material issuing)
+        ItemJrnlLineTempRec.Reset();
+        ItemJrnlLineTempRec.SetRange("Journal Template Name", ItemJournalLine."Journal Template Name");
+        ItemJrnlLineTempRec.SetRange("Journal Batch Name", ItemJournalLine."Journal Batch Name");
+        ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", ItemJournalLine."Daily Consumption Doc. No.");
+        ItemJrnlLineTempRec.SetRange("Source No.", ItemJournalLine."Source No.");
+        ItemJrnlLineTempRec.SetRange("Item No.", ItemJournalLine."Item No.");
+
+        if ItemJrnlLineTempRec.FindSet() then begin
+
+            if (Round(ItemJrnlLineTempRec."Original Requirement", 0.00001) - Round(ItemJournalLine."Quantity", 0.00001)) <= 0 then
+                ItemJrnlLineTempRec.Delete()
+            else begin
+                ItemJrnlLineTempRec."Posted requirement" := Round(ItemJournalLine."Quantity", 0.00001);
+                ItemJrnlLineTempRec.Modify();
+            end;
+        end;
+
     end;
 
 
