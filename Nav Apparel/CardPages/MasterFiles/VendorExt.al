@@ -14,6 +14,14 @@ pageextension 50980 VendorCardExt extends "Vendor Card"
                 }
             }
         }
+        //MIhiranga 2023/02/24
+        addafter(Blocked)
+        {
+            field("General Item Vendor"; Rec."General Item Vendor")
+            {
+                ApplicationArea = VAT;
+            }
+        }
     }
 
     actions
@@ -50,6 +58,7 @@ pageextension 50980 VendorCardExt extends "Vendor Card"
                 end;
             }
         }
+
     }
 
 }

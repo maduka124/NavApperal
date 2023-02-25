@@ -13,7 +13,7 @@ report 51237 VendorSummaryAging
         dataitem(Vendor; Vendor)
         {
 
-            DataItemTableView = SORTING("No.");
+            // DataItemTableView = where("General Item Vendor" = filter("Yes"));
             RequestFilterFields = "No.", "Search Name", "Vendor Posting Group", "Currency Filter";
             column(COMPANYNAME; COMPANYPROPERTY.DisplayName)
             {
@@ -283,6 +283,9 @@ report 51237 VendorSummaryAging
                         Currency2 := Currency;
                         Currency2.Insert();
                     until Currency.Next() = 0;
+                SetFilter("General Item Vendor", '=%1', GeneralItemVendor);
+
+               
             end;
         }
     }
@@ -317,6 +320,12 @@ report 51237 VendorSummaryAging
                         Caption = 'Show Amounts in LCY';
                         ToolTip = 'Specifies if amounts in the report are displayed in LCY. If you leave the check box blank, amounts are shown in foreign currencies.';
                     }
+                    field(GeneralItemVendor; GeneralItemVendor)
+                    {
+                        ApplicationArea = all;
+                        Caption = 'General Item Vendors Only';
+
+                    }
 
                 }
             }
@@ -350,7 +359,7 @@ report 51237 VendorSummaryAging
     end;
 
     var
-
+        GeneralItemVendor: Boolean;
         comRec: Record "Company Information";
         Currency: Record Currency;
         Currency2: Record Currency temporary;

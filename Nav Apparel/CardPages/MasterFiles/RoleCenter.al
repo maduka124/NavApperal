@@ -2186,6 +2186,14 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report FabricTwistReport;
                         ApplicationArea = all;
                     }
+                    action("Hourly Production Report Quality")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
+
                 }
 
             }
@@ -2619,13 +2627,7 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Hourly Production Report Dashboard")
-                {
-                    Caption = 'Hourly Production Report';
-                    Enabled = true;
-                    RunObject = report HourlyProductionReport;
-                    ApplicationArea = all;
-                }
+
 
                 action("Factory Wise Production Planning1")
                 {
@@ -2640,7 +2642,19 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Planning Efficiency Dashboard1";
                     ApplicationArea = all;
                 }
+                group("Dashboard Reports")
+                {
+                    action("Hourly Production Report Dashboard")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
+
+                }
             }
+
         }
 
         // area(Creation)
