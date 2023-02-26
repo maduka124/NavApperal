@@ -21,6 +21,12 @@ page 50113 "Posted Consumptions"
                 {
                     ApplicationArea = all;
                 }
+
+                field("Item Tracking"; rec."Item Tracking")
+                {
+                    ApplicationArea = all;
+                }
+
                 field("Entry Type"; Rec."Entry Type")
                 {
                     ApplicationArea = all;

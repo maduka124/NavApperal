@@ -11,7 +11,7 @@ report 51801 MaterialIssueRequition
     {
         dataitem("Daily Consumption Header"; "Daily Consumption Header")
         {
-            DataItemTableView = where(Status = filter('Released'));
+            DataItemTableView = where(Status = filter('Approved'));
             // PrintOnlyIfDetail = true;
             // DataItemTableView = sorting("No.");
             column(CompLogo; comRec.Picture)
@@ -34,7 +34,8 @@ report 51801 MaterialIssueRequition
             dataitem("Item Ledger Entry"; "Item Ledger Entry")
             {
                 DataItemLinkReference = "Daily Consumption Header";
-                DataItemLink = "Document No." = field("Prod. Order No.");
+                // DataItemLink = "Document No." = field("Prod. Order No.");
+                DataItemLink = "Daily Consumption Doc. No." = field("No."), "Order No." = field("Prod. Order No.");
                 DataItemTableView = where("Entry Type" = filter('Consumption'));
 
                 column(Quantity; Quantity * -1)
@@ -56,9 +57,7 @@ report 51801 MaterialIssueRequition
                 column(Original_Daily_Requirement; "Original Daily Requirement")
                 { }
 
-
                 trigger OnAfterGetRecord()
-
                 begin
                     ItemRec.Reset();
                     ItemRec.SetRange("No.", "Item No.");
@@ -71,20 +70,16 @@ report 51801 MaterialIssueRequition
 
                     RoundDailyReq := Round("Original Daily Requirement", 0.01, '>');
                 end;
-
-
             }
+
             trigger OnAfterGetRecord()
             begin
-
                 comRec.Get;
                 comRec.CalcFields(Picture);
-
             end;
 
             trigger OnPreDataItem()
             var
-                myInt: Integer;
             begin
                 SetRange("No.", JournalNo);
             end;
@@ -104,18 +99,14 @@ report 51801 MaterialIssueRequition
                     {
                         ApplicationArea = All;
                         Caption = 'No';
-                        TableRelation = "Daily Consumption Header"."No." where(Status = filter(Approved));
+                        TableRelation = "Daily Consumption Header"."No." where(Status = filter(Approved),
+                        "Issued UserID" = filter(<> ''));
+
                     }
-
-
                 }
             }
         }
     }
-
-
-
-
 
     var
         RoundDailyReq: Decimal;
@@ -124,7 +115,6 @@ report 51801 MaterialIssueRequition
         UOM: Code[20];
         size: Code[20];
         ItemRec: Record Item;
-
         JournalNo: Code[20];
         comRec: Record "Company Information";
 }
