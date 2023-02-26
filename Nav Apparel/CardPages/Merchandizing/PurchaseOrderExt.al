@@ -114,6 +114,7 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
                 ApplicationArea = All;
                 Promoted = true;
                 PromotedCategory = Process;
+
                 trigger OnAction()
                 var
                     ExcelUpload: Codeunit "Customization Management";

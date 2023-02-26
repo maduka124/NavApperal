@@ -522,6 +522,8 @@ codeunit 50100 "Customization Management"
     procedure ImportPurchaseTrackingExcel(PurchHedd: Record "Purchase Header")
     var
         ReservEntry: Record "Reservation Entry";
+        ColourRec: Record Colour;
+        ShadeRec: Record Shade;
         EntNo: Integer;
         Rec_ExcelBuffer: Record "Excel Buffer";
         Rows: Integer;
@@ -540,10 +542,12 @@ codeunit 50100 "Customization Management"
         Columns := 0;
         DialogCaption := 'Select File to upload';
         UploadResult := UploadIntoStream(DialogCaption, '', '', Name, NVInStream);
+
         If Name <> '' then
             Sheetname := Rec_ExcelBuffer.SelectSheetsNameStream(NVInStream)
         else
             exit;
+
         Rec_ExcelBuffer.Reset();
         Rec_ExcelBuffer.OpenBookStream(NVInStream, Sheetname);
         Rec_ExcelBuffer.ReadSheet();
@@ -598,8 +602,25 @@ codeunit 50100 "Customization Management"
                 EVALUATE(ReservEntry."Lot No.", GetValueAtCell(RowNo, 8));
                 EVALUATE(ReservEntry."Supplier Batch No.", GetValueAtCell(RowNo, 9));
                 EVALUATE(ReservEntry."Shade No", GetValueAtCell(RowNo, 10));
+
+                ShadeRec.Reset();
+                ShadeRec.SetRange("No.", GetValueAtCell(RowNo, 10));
+                if ShadeRec.FindSet() then
+                    EVALUATE(ReservEntry."Shade", ShadeRec.Shade)
+                else
+                    Error('Invalid Shade');
+
                 EVALUATE(ReservEntry."Length Tag", GetValueAtCell(RowNo, 11));
                 EVALUATE(ReservEntry."Width Tag", GetValueAtCell(RowNo, 12));
+                EVALUATE(ReservEntry.Color, GetValueAtCell(RowNo, 13));
+
+                ColourRec.Reset();
+                ColourRec.SetRange("Colour Name", GetValueAtCell(RowNo, 13));
+                if ColourRec.FindSet() then
+                    EVALUATE(ReservEntry."Color No", ColourRec."No.")
+                else
+                    Error('Invalid Color.');
+
                 ReservEntry.Positive := true;
                 ReservEntry.validate("Qty. per Unit of Measure", 1);
                 ReservEntry."Created By" := UserId;

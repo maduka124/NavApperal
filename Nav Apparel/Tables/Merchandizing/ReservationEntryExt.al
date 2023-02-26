@@ -52,7 +52,18 @@ tableextension 50926 "ReservationEntry" extends "Reservation Entry"
 
         field(50011; "Color"; Code[20])
         {
+            TableRelation = Colour."Colour Name";
+            ValidateTableRelation = false;
 
+            trigger OnValidate()
+            var
+                ColourRec: Record Colour;
+            begin
+                ColourRec.Reset();
+                ColourRec.SetRange("Colour Name", rec.Color);
+                if ColourRec.FindSet() then
+                    rec."Color No" := ColourRec."No.";
+            end;
         }
     }
 }
