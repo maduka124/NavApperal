@@ -36,7 +36,12 @@ page 50356 "Daily Sewing In/Out"
                 {
                     ApplicationArea = All;
                 }
-
+                //Mihiranga 2023/02/26
+                field("Input Qty"; Rec."Input Qty")
+                {
+                    ApplicationArea = All;
+                }
+                //
                 field("Output Qty"; rec."Output Qty")
                 {
                     ApplicationArea = All;
