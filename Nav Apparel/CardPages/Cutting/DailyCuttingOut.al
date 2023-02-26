@@ -224,14 +224,14 @@ page 50351 "Daily Cutting Out Card"
                     Caption = 'PO No';
                     Editable = false;
                 }
-
+                //Mihiranga 2023/02/26
                 field("Input Qty"; rec."Input Qty")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    Editable = true;
                     Caption = 'Bundle Guide Qty';
                 }
-
+                //////////
                 field("Output Qty"; rec."Output Qty")
                 {
                     ApplicationArea = All;
