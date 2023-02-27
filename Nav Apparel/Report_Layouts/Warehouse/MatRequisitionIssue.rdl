@@ -11,6 +11,76 @@
       <rd:DataSourceID>19469799-b2b4-487d-a9f7-b13072566965</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="IssueNo">
+          <DataField>IssueNo</DataField>
+        </Field>
+        <Field Name="Source_No_">
+          <DataField>Source_No_</DataField>
+        </Field>
+        <Field Name="Buyer">
+          <DataField>Buyer</DataField>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="PO">
+          <DataField>PO</DataField>
+        </Field>
+        <Field Name="Main_Category_Name">
+          <DataField>Main_Category_Name</DataField>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+        </Field>
+        <Field Name="QuantityFormat">
+          <DataField>QuantityFormat</DataField>
+        </Field>
+        <Field Name="OrginalDailyReq">
+          <DataField>OrginalDailyReq</DataField>
+        </Field>
+        <Field Name="OrginalDailyReqFormat">
+          <DataField>OrginalDailyReqFormat</DataField>
+        </Field>
+        <Field Name="Item_No_">
+          <DataField>Item_No_</DataField>
+        </Field>
+        <Field Name="DescriptionLine">
+          <DataField>DescriptionLine</DataField>
+        </Field>
+        <Field Name="SystemCreatedAt">
+          <DataField>SystemCreatedAt</DataField>
+        </Field>
+        <Field Name="UOM">
+          <DataField>UOM</DataField>
+        </Field>
+        <Field Name="Location">
+          <DataField>Location</DataField>
+        </Field>
+        <Field Name="size">
+          <DataField>size</DataField>
+        </Field>
+        <Field Name="Original_Daily_Requirement">
+          <DataField>Original_Daily_Requirement</DataField>
+        </Field>
+        <Field Name="Original_Daily_RequirementFormat">
+          <DataField>Original_Daily_RequirementFormat</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -19,16 +89,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.58095cm</Width>
+                  <Width>6.40587cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.27193cm</Width>
+                  <Width>5.09685cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.41665cm</Width>
+                  <Width>5.24157cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.59033cm</Width>
+                  <Width>6.41525cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -199,7 +269,7 @@
             <Top>8.59353cm</Top>
             <Left>0cm</Left>
             <Height>0.62646cm</Height>
-            <Width>19.85986cm</Width>
+            <Width>23.15953cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -210,8 +280,8 @@
             <Source>Database</Source>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
-            <Top>0cm</Top>
-            <Left>15.54234cm</Left>
+            <Top>0.08826cm</Top>
+            <Left>20.29586cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
             <ZIndex>1</ZIndex>
@@ -244,7 +314,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0.45868cm</Top>
-            <Left>2.45545cm</Left>
+            <Left>5.33411cm</Left>
             <Height>1.19062cm</Height>
             <Width>13.67897cm</Width>
             <ZIndex>2</ZIndex>
@@ -275,7 +345,7 @@
                   <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>8.21736cm</Width>
+                  <Width>12.05075cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1025,7 +1095,7 @@
             <Top>2.82787cm</Top>
             <Left>0cm</Left>
             <Height>2.9715cm</Height>
-            <Width>19.85986cm</Width>
+            <Width>23.69325cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1037,28 +1107,28 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.06977cm</Width>
+                  <Width>2.48223cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.06765cm</Width>
+                  <Width>2.48011cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>7.00613cm</Width>
+                  <Width>9.83422cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.61678cm</Width>
+                  <Width>1.33787cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.70148cm</Width>
+                  <Width>1.64827cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.15674cm</Width>
+                  <Width>2.07717cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.43799cm</Width>
+                  <Width>1.70228cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.80332cm</Width>
+                  <Width>2.13111cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1827,7 +1897,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1974,7 +2043,7 @@
             <Top>6.08753cm</Top>
             <Left>0cm</Left>
             <Height>1.27cm</Height>
-            <Width>19.85986cm</Width>
+            <Width>23.69325cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -2007,7 +2076,7 @@
         <Height>9.51632cm</Height>
         <Style />
       </Body>
-      <Width>19.88928cm</Width>
+      <Width>24.77082cm</Width>
       <Page>
         <PageFooter>
           <Height>1.06716cm</Height>
@@ -2126,7 +2195,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox72</rd:DefaultName>
               <Top>0.03528cm</Top>
-              <Left>17.67303cm</Left>
+              <Left>20.94328cm</Left>
               <Height>1.03188cm</Height>
               <Width>2.21625cm</Width>
               <ZIndex>2</ZIndex>
@@ -2160,6 +2229,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2199,74 +2274,4 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>f4355aed-d23a-4dff-a00b-d826a436da84</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="IssueNo">
-          <DataField>IssueNo</DataField>
-        </Field>
-        <Field Name="Source_No_">
-          <DataField>Source_No_</DataField>
-        </Field>
-        <Field Name="Buyer">
-          <DataField>Buyer</DataField>
-        </Field>
-        <Field Name="Description">
-          <DataField>Description</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="PO">
-          <DataField>PO</DataField>
-        </Field>
-        <Field Name="Main_Category_Name">
-          <DataField>Main_Category_Name</DataField>
-        </Field>
-        <Field Name="Quantity">
-          <DataField>Quantity</DataField>
-        </Field>
-        <Field Name="QuantityFormat">
-          <DataField>QuantityFormat</DataField>
-        </Field>
-        <Field Name="OrginalDailyReq">
-          <DataField>OrginalDailyReq</DataField>
-        </Field>
-        <Field Name="OrginalDailyReqFormat">
-          <DataField>OrginalDailyReqFormat</DataField>
-        </Field>
-        <Field Name="Item_No_">
-          <DataField>Item_No_</DataField>
-        </Field>
-        <Field Name="DescriptionLine">
-          <DataField>DescriptionLine</DataField>
-        </Field>
-        <Field Name="SystemCreatedAt">
-          <DataField>SystemCreatedAt</DataField>
-        </Field>
-        <Field Name="UOM">
-          <DataField>UOM</DataField>
-        </Field>
-        <Field Name="Location">
-          <DataField>Location</DataField>
-        </Field>
-        <Field Name="size">
-          <DataField>size</DataField>
-        </Field>
-        <Field Name="Original_Daily_Requirement">
-          <DataField>Original_Daily_Requirement</DataField>
-        </Field>
-        <Field Name="Original_Daily_RequirementFormat">
-          <DataField>Original_Daily_RequirementFormat</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>

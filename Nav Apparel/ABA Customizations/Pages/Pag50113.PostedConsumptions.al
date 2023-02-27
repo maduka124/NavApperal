@@ -59,4 +59,20 @@ page 50113 "Posted Consumptions"
             }
         }
     }
+
+    trigger OnAfterGetRecord()
+    var
+        ItemRec: Record Item;
+    begin
+        ItemRec.Reset();
+        ItemRec.SetRange("No.", rec."Item No.");
+        if ItemRec.FindFirst() then
+            rec.Description := ItemRec.Description;
+
+        ItemRec.Reset();
+        ItemRec.SetRange("No.", rec."Source No.");
+        if ItemRec.FindFirst() then
+            rec."FG Description" := ItemRec.Description;
+
+    end;
 }

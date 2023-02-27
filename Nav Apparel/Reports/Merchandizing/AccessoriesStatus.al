@@ -32,12 +32,14 @@ report 50633 AccessoriesStatusReport
                 DataItemLinkReference = "Style Master";
                 DataItemLink = StyleNo = field("No.");
                 DataItemTableView = sorting("Line No.");
+
                 column(GRNQty; Quantity)
                 { }
                 column(Qty; Qty)
                 { }
                 column(PO_No; OrderNO)
                 { }
+
                 dataitem(Item; Item)
                 {
                     DataItemLinkReference = "Purch. Rcpt. Line";
