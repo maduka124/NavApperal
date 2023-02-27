@@ -1746,7 +1746,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Quantity.Value</Value>
+                                  <Value>=Sum(Fields!Quantity.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1771,6 +1771,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1961,7 +1962,11 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Details" />
+                  <Group Name="Details">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!DescriptionLine.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
