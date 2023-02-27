@@ -1157,7 +1157,12 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report AccessoriesStatusReport;
                         ApplicationArea = all;
                     }
-
+                    action("Detail GRN Report")
+                    {
+                        Enabled = true;
+                        RunObject = report DetailGRNReport;
+                        ApplicationArea = All;
+                    }
                     action("Fabric & Trims requiremts - Marchandizingn ")
                     {
                         Caption = 'Fabric & Trims requiremts Report';
@@ -1165,7 +1170,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report FabricAndTrimsRequiremts;
                         ApplicationArea = all;
                     }
-
+                    action("Garment Wise Raw Material Request & Issue Report")
+                    {
+                        Caption = 'Garment Wise Raw Material Request & Issue Report';
+                        Enabled = true;
+                        RunObject = report GarmentWiseRawMaterialRequest;
+                        ApplicationArea = All;
+                    }
                     action("General Issue Note Report")
                     {
                         Caption = 'General Issue Note Report';
@@ -1173,68 +1184,10 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report GeneralIssueReport;
                         ApplicationArea = all;
                     }
-
-                    action("Roll Issuing Report")
-                    {
-                        Caption = 'Roll Issuing Report';
-                        Enabled = true;
-                        RunObject = report IssueNoteReport;
-                        ApplicationArea = all;
-                    }
-
-                    action("Size Colour Wise Quantity Breakdown Report ")
-                    {
-                        Caption = 'Size Colour Wise Quantity Breakdown';
-                        Enabled = true;
-                        RunObject = report SizeColourwiseQuantity;
-                        ApplicationArea = all;
-                    }
-
-                    action("Transfer Order Report")
-                    {
-                        Caption = 'Transfer Order Report';
-                        Enabled = true;
-                        RunObject = report TransferOrder;
-                        ApplicationArea = all;
-                    }
-
-                    action("Inventory Valuation Report")
-                    {
-                        Enabled = true;
-                        RunObject = Report "Inventory Valuation";
-                        ApplicationArea = All;
-                    }
-
                     action("Good Reciept Report")
                     {
                         Enabled = true;
                         RunObject = report GrnReport;
-                        ApplicationArea = All;
-                    }
-
-                    action("Phys. Inventory List Report")
-                    {
-                        Enabled = true;
-                        RunObject = report "Phys. Inventory List";
-                        ApplicationArea = All;
-                    }
-                    action("Detail GRN Report")
-                    {
-                        Enabled = true;
-                        RunObject = report DetailGRNReport;
-                        ApplicationArea = All;
-                    }
-                    action("Material Issue Report")
-                    {
-                        Enabled = true;
-                        RunObject = report MaterialIssueRequition;
-                        ApplicationArea = All;
-                    }
-                    action("Garment Wise Raw Material Request & Issue Report")
-                    {
-                        Caption = 'Garment Wise Raw Material Request & Issue Report';
-                        Enabled = true;
-                        RunObject = report GarmentWiseRawMaterialRequest;
                         ApplicationArea = All;
                     }
                     action("Hourly Production Report Warehouse")
@@ -1244,6 +1197,47 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
+                    action("Inventory Valuation Report")
+                    {
+                        Enabled = true;
+                        RunObject = Report "Inventory Valuation";
+                        ApplicationArea = All;
+                    }
+                    action("Roll Issuing Report")
+                    {
+                        Caption = 'Roll Issuing Report';
+                        Enabled = true;
+                        RunObject = report IssueNoteReport;
+                        ApplicationArea = all;
+                    }
+                    action("Material Issue Report")
+                    {
+                        Enabled = true;
+                        RunObject = report MaterialIssueRequition;
+                        ApplicationArea = All;
+                    }
+
+                    action("Phys. Inventory List Report")
+                    {
+                        Enabled = true;
+                        RunObject = report "Phys. Inventory List";
+                        ApplicationArea = All;
+                    }
+                    action("Size Colour Wise Quantity Breakdown Report ")
+                    {
+                        Caption = 'Size Colour Wise Quantity Breakdown';
+                        Enabled = true;
+                        RunObject = report SizeColourwiseQuantity;
+                        ApplicationArea = all;
+                    }
+                    action("Transfer Order Report")
+                    {
+                        Caption = 'Transfer Order Report';
+                        Enabled = true;
+                        RunObject = report TransferOrder;
+                        ApplicationArea = all;
+                    }
+
                 }
             }
 
