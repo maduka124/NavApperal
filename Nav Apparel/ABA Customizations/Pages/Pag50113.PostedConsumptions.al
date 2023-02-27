@@ -16,12 +16,25 @@ page 50113 "Posted Consumptions"
                 field("Item No."; Rec."Item No.")
                 {
                     ApplicationArea = all;
+                    Caption = 'RM No';
+
                 }
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = all;
-                }
+                    Caption = 'RM Description';
 
+                }
+                field("Source No."; Rec."Source No.")
+                {
+                    ApplicationArea = all;
+                    Caption = 'FG No';
+                }
+                field("FG Description"; Rec."FG Description")
+                {
+                    ApplicationArea = all;
+                    Caption = 'FG Description';
+                }
                 field("Item Tracking"; rec."Item Tracking")
                 {
                     ApplicationArea = all;

@@ -11,7 +11,7 @@ report 51801 MaterialIssueRequition
     {
         dataitem("Daily Consumption Header"; "Daily Consumption Header")
         {
-            DataItemTableView = where(Status = filter('Approved'));
+            DataItemTableView = where(Status = filter('Approved'), "Journal Template Name" = filter('CONSUMPTIO'));
             // PrintOnlyIfDetail = true;
             // DataItemTableView = sorting("No.");
             column(CompLogo; comRec.Picture)
@@ -35,14 +35,14 @@ report 51801 MaterialIssueRequition
             {
                 DataItemLinkReference = "Daily Consumption Header";
                 // DataItemLink = "Document No." = field("Prod. Order No.");
-                DataItemLink = "Daily Consumption Doc. No." = field("No."), "Order No." = field("Prod. Order No.");
-                DataItemTableView = where("Entry Type" = filter('Consumption'));
+                DataItemLink = "Daily Consumption Doc. No." = field("No."), "Document No." = field("Prod. Order No.");
+                DataItemTableView = where("Entry Type" = filter(Consumption));
 
                 column(Quantity; Quantity * -1)
                 { }
                 column(OrginalDailyReq; RoundDailyReq)
                 { }
-                column(Item_No_; "Item No.")
+                column(Item_No_; "Source No.")
                 { }
                 column(DescriptionLine; DescriptionRec)
                 { }
@@ -60,7 +60,7 @@ report 51801 MaterialIssueRequition
                 trigger OnAfterGetRecord()
                 begin
                     ItemRec.Reset();
-                    ItemRec.SetRange("No.", "Item No.");
+                    ItemRec.SetRange("No.", "Source No.");
                     if ItemRec.FindFirst() then begin
                         size := ItemRec."Size Range No.";
                         UOM := ItemRec."Base Unit of Measure";
