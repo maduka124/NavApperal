@@ -66,6 +66,8 @@ report 51238 GarmentWiseRawMaterialRequest
                     { }
                     column(ReqQty; "Daily Consumption")
                     { }
+                    column(Document_No_; "Document No.")
+                    { }
                     dataitem("Item Ledger Entry"; "Item Ledger Entry")
                     {
                         DataItemLinkReference = "Daily Consumption Line";
