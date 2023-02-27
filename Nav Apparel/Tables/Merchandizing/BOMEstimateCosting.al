@@ -611,6 +611,11 @@ table 50889 "BOM Estimate Cost"
         NoSeriesMngment: Codeunit NoSeriesManagement;
         UserSetupRec: Record "User Setup";
     begin
+        NavAppSetup.Get('0001');
+        NavAppSetup.TestField("BOM Cost Nos.");
+        "No." := NoSeriesMngment.GetNextNo(NavAppSetup."BOM Cost Nos.", Today, true);
+        "Created Date" := WorkDate();
+        "Created User" := UserId;
 
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
@@ -619,17 +624,12 @@ table 50889 "BOM Estimate Cost"
             if UserSetupRec."Merchandizer Group Name" = '' then
                 Error('Merchandizer Group not setup in the User Setup.');
 
-            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+            rec."Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
         end
         else
             Error('Merchandizer Group not setup in the User Setup.');
 
-        "Created Date" := WorkDate();
-        "Created User" := UserId;
 
-        NavAppSetup.Get('0001');
-        NavAppSetup.TestField("BOM Cost Nos.");
-        "No." := NoSeriesMngment.GetNextNo(NavAppSetup."BOM Cost Nos.", Today, true);
 
     end;
 

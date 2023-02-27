@@ -15,6 +15,7 @@ page 50986 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Cost Sheet No';
+                    Editable = false;
 
                     trigger OnAssistEdit()
                     begin
@@ -41,15 +42,6 @@ page 50986 "BOM Estimate Cost Card"
                         LoginRec: Page "Login Card";
                     begin
 
-                        NavAppSetup.Get('0001');
-                        rec."Risk factor %" := NavAppSetup."Risk Factor";
-                        rec."TAX %" := NavAppSetup.TAX;
-                        rec."ABA Sourcing %" := NavAppSetup."ABA Sourcing";
-                        rec."Commercial %" := NavAppSetup."Comm. Cost percentage";
-
-                        if rec."FOB Pcs" = 0 then
-                            rec."FOB Pcs" := 1;
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -68,9 +60,17 @@ page 50986 "BOM Estimate Cost Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
+                        NavAppSetup.Get('0001');
+                        rec."Risk factor %" := NavAppSetup."Risk Factor";
+                        rec."TAX %" := NavAppSetup.TAX;
+                        rec."ABA Sourcing %" := NavAppSetup."ABA Sourcing";
+                        rec."Commercial %" := NavAppSetup."Comm. Cost percentage";
 
                         if rec."FOB Pcs" = 0 then
                             rec."FOB Pcs" := 1;
+
+                        CurrPage.Update();
+
 
                         //Check for duplicates
                         BOMEstCostRec.Reset();
@@ -79,10 +79,10 @@ page 50986 "BOM Estimate Cost Card"
                             Error('Estimate BOM : %1 already used to create a Estimate Cost Sheet', BOMEstCostRec."BOM No.");
 
                         // NavAppSetup.Get('0001');
-                        rec."Risk factor %" := NavAppSetup."Risk Factor";
-                        rec."TAX %" := NavAppSetup.TAX;
-                        rec."ABA Sourcing %" := NavAppSetup."ABA Sourcing";
-                        rec."Commercial %" := NavAppSetup."Comm. Cost percentage";
+                        // rec."Risk factor %" := NavAppSetup."Risk Factor";
+                        // rec."TAX %" := NavAppSetup.TAX;
+                        // rec."ABA Sourcing %" := NavAppSetup."ABA Sourcing";
+                        // rec."Commercial %" := NavAppSetup."Comm. Cost percentage";
 
                         BOMRec.get(rec."BOM No.");
                         rec."Style No." := BOMRec."Style No.";
