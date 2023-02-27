@@ -38,13 +38,18 @@ table 51248 "Buyer Style PO Search"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(8; "Seq No"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
     {
-        // key(Key1; MyField)
-        // {
-        //     Clustered = true;
-        // }
+        key(PK1; "Seq No")
+        {
+            Clustered = true;
+        }
     }
 }
