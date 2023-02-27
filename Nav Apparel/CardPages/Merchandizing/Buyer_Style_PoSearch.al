@@ -234,9 +234,7 @@ page 51247 "Buyer Style PO Search"
 
                             if purchaseLineRec.FindSet() then begin
                                 repeat
-
                                     MaxSeqNo += 1;
-
                                     BuyerStylePoSearchRec.Reset();
                                     BuyerStylePoSearchRec.SetRange("PO No", purchaseLineRec."Document No.");
 
