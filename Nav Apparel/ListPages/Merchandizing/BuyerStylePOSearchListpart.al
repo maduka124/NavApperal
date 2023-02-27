@@ -2,6 +2,9 @@ page 51249 "Buyer Style PO Search Listpart"
 {
     PageType = ListPart;
     SourceTable = "Buyer Style PO Search";
+    DeleteAllowed = false;
+    InsertAllowed = false;
+    ModifyAllowed = false;
 
     layout
     {
@@ -22,6 +25,7 @@ page 51249 "Buyer Style PO Search Listpart"
                 field(Location; Rec.Location)
                 {
                     ApplicationArea = All;
+                    Caption = 'Factory';
                 }
 
                 field(Date; Rec.Date)
@@ -41,4 +45,41 @@ page 51249 "Buyer Style PO Search Listpart"
             }
         }
     }
+
+    trigger OnOpenPage()
+    var
+        LoginRec: Page "Login Card";
+        LoginSessionsRec: Record LoginSessions;
+        UsersetupRec: Record "User Setup";
+        BuyerStylePoSearchRec: Record "Buyer Style PO Search";
+    begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            // LoginSessionsRec.Reset();
+            // LoginSessionsRec.SetRange(SessionID, SessionId());
+            // if LoginSessionsRec.FindSet() then
+            //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
+        end
+        // else begin   //logged in
+        //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
+        // end;
+
+        // BuyerStylePoSearchRec.Reset();
+        // BuyerStylePoSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+        // BuyerStylePoSearchRec.FindSet();
+
+        // LoginSessionsRec.SetRange("Secondary UserID", Rec."Secondary UserID");
+        // LoginSessionsRec.FindSet()
+        else
+            rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+
+    end;
 }
