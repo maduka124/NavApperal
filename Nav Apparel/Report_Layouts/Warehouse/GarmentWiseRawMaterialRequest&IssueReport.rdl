@@ -1426,7 +1426,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(IsNothing(Fields!OrginalDailyReq.Value),0,Fields!OrginalDailyReq.Value)</Value>
+                                  <Value>=Sum(IIF(IsNothing(Fields!OrginalDailyReq.Value),0,Fields!OrginalDailyReq.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1461,7 +1461,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(IsNothing(Fields!GMTISSUEQty.Value),0,Fields!GMTISSUEQty.Value)</Value>
+                                  <Value>=Sum(IIF(IsNothing(Fields!GMTISSUEQty.Value),0,Fields!GMTISSUEQty.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -1516,7 +1516,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF(IsNothing(Fields!ItemLeQuantity.Value),0,Fields!ItemLeQuantity.Value)</Value>
+                                  <Value>=Sum(IIF(IsNothing(Fields!ItemLeQuantity.Value),0,Fields!ItemLeQuantity.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1560,6 +1560,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -2367,7 +2368,11 @@
                       </TablixHeader>
                       <TablixMembers>
                         <TablixMember>
-                          <Group Name="Details" />
+                          <Group Name="Details">
+                            <GroupExpressions>
+                              <GroupExpression>=Fields!ItemName.Value</GroupExpression>
+                            </GroupExpressions>
+                          </Group>
                         </TablixMember>
                         <TablixMember>
                           <KeepWithGroup>Before</KeepWithGroup>
@@ -2635,7 +2640,7 @@
             <Top>7.6327cm</Top>
             <Left>9.6012cm</Left>
             <Height>0.59424cm</Height>
-            <Width>9.86366cm</Width>
+            <Width>9.86367cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
