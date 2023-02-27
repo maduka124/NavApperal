@@ -63,11 +63,11 @@ page 51249 "Buyer Style PO Search Listpart"
             LoginRec.LookupMode(true);
             LoginRec.RunModal();
 
-            // LoginSessionsRec.Reset();
-            // LoginSessionsRec.SetRange(SessionID, SessionId());
-            // if LoginSessionsRec.FindSet() then
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
             //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
-        end
+        end;
         // else begin   //logged in
         //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
         // end;
@@ -78,8 +78,8 @@ page 51249 "Buyer Style PO Search Listpart"
 
         // LoginSessionsRec.SetRange("Secondary UserID", Rec."Secondary UserID");
         // LoginSessionsRec.FindSet()
-        else
-            rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
+
+        rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
 
     end;
 }
