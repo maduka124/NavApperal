@@ -163,6 +163,13 @@ tableextension 50914 "ItemLedgerEntryExt" extends "Item Ledger Entry"
         {
             DataClassification = ToBeClassified;
         }
+        //Mihiranga 2023/02/27
+        field(50121; "FG Description"; Text[100])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
     }
 
     fieldgroups
