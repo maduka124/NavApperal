@@ -15,7 +15,7 @@ page 50986 "BOM Estimate Cost Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Cost Sheet No';
-                    Editable = false;
+                    // Editable = false;
 
                     trigger OnAssistEdit()
                     begin
