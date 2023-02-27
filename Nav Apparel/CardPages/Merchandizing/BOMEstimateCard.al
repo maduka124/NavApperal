@@ -16,6 +16,7 @@ page 50985 "BOM Estimate Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Estimate BOM No';
+                    Editable = false;
 
                     trigger OnAssistEdit()
                     begin

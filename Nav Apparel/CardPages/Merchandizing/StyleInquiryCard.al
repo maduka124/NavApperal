@@ -16,6 +16,7 @@ page 50602 "Style Inquiry Card"
                 {
                     ApplicationArea = All;
                     Caption = 'No';
+                    Editable = false;
 
                     trigger OnAssistEdit()
                     begin
@@ -61,39 +62,41 @@ page 50602 "Style Inquiry Card"
                         if rec."Style No.".Contains('/') then
                             Error('Cannot use "/" within Style Name');
 
+                        if rec."No." <> '' then begin
 
-                        //Check for style rename  
-                        SampleReqRec.Reset();
-                        SampleReqRec.SetFilter("Style No.", rec."No.");
-                        if SampleReqRec.FindSet() then
-                            Error('Style Name : %1 already usade in Sample requests. Cannot rename', rec."Style No.");
+                            //Check for style rename  
+                            SampleReqRec.Reset();
+                            SampleReqRec.SetFilter("Style No.", rec."No.");
+                            if SampleReqRec.FindSet() then
+                                Error('Style Name : %1 already usade in Sample requests. Cannot rename', rec."Style No.");
 
-                        EstBOMRec.Reset();
-                        EstBOMRec.SetFilter("Style No.", rec."No.");
-                        if EstBOMRec.FindSet() then
-                            Error('Style Name : %1 already usade in Estimate BOM. Cannot rename', rec."Style No.");
+                            EstBOMRec.Reset();
+                            EstBOMRec.SetFilter("Style No.", rec."No.");
+                            if EstBOMRec.FindSet() then
+                                Error('Style Name : %1 already usade in Estimate BOM. Cannot rename', rec."Style No.");
 
-                        NewBRRec.Reset();
-                        NewBRRec.SetFilter("Style No.", rec."No.");
-                        if NewBRRec.FindSet() then
-                            Error('Style Name : %1 already usade in New Breakdown. Cannot rename', rec."Style No.");
+                            NewBRRec.Reset();
+                            NewBRRec.SetFilter("Style No.", rec."No.");
+                            if NewBRRec.FindSet() then
+                                Error('Style Name : %1 already usade in New Breakdown. Cannot rename', rec."Style No.");
 
-                        if rec.Status = rec.Status::Confirmed then
-                            Error('Style Name : %1 already confirmed. Cannot rename', rec."Style No.");
+                            if rec.Status = rec.Status::Confirmed then
+                                Error('Style Name : %1 already confirmed. Cannot rename', rec."Style No.");
 
 
-                        StyleMasRec.Reset();
-                        StyleMasRec.SetFilter("No.", '<>%1', rec."No.");
+                            StyleMasRec.Reset();
+                            StyleMasRec.SetFilter("No.", '<>%1', rec."No.");
 
-                        if StyleMasRec.FindSet() then begin
-                            repeat
-                                if UpperCase(StyleMasRec."Style No.") = UpperCase(rec."Style No.") then
-                                    Error('Style Name : %1 already exists', rec."Style No.");
-                            until StyleMasRec.Next() = 0;
+                            if StyleMasRec.FindSet() then begin
+                                repeat
+                                    if UpperCase(StyleMasRec."Style No.") = UpperCase(rec."Style No.") then
+                                        Error('Style Name : %1 already exists', rec."Style No.");
+                                until StyleMasRec.Next() = 0;
+                            end;
+
                         end;
 
                         rec."Style Display Name" := rec."Style No.";
-
                         CurrPage.Update();
                     end;
                 }

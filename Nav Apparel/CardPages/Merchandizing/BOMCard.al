@@ -13,7 +13,7 @@ page 50984 "BOM Card"
                 field("No"; rec."No")
                 {
                     ApplicationArea = All;
-                    //Editable = false;
+                    Editable = false;
                     Caption = 'BOM No';
 
                     trigger OnAssistEdit()
