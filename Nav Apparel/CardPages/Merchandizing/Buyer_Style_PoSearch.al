@@ -102,7 +102,7 @@ page 51247 "Buyer Style PO Search"
                     PurchaseRcptLineRec: record "Purch. Rcpt. Line";
                     PurchaseHeaderRec: Record "Purchase Header";
                     purchaseLineRec: record "Purchase Line";
-                    BuyerStylePoSearchRec: Record "Buyer Style PO Search";
+                    BuyerStylePoSearchRec: Record "Buyer Style PO Search New";
                     LoginSessionsRec: Record LoginSessions;
                     LoginRec: Page "Login Card";
                 begin

@@ -1072,6 +1072,14 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = page "Item Ledger Entries";
                 }
 
+                //Done By Sachith 28/02/23
+                action("Buyer/Style/PO Search Store")
+                {
+                    Caption = 'Buyer/Style/PO Search';
+                    RunObject = page "Buyer Style PO Search";
+                    ApplicationArea = All;
+                }
+
                 action("Consumption Journal")
                 {
                     Caption = 'Consumption Journal';
