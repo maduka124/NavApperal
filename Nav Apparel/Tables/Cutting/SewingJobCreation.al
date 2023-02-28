@@ -68,6 +68,17 @@ table 50585 SewingJobCreation
             DataClassification = ToBeClassified;
         }
 
+        field(12; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(13; "Factory Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Location.Name;
+            ValidateTableRelation = false;
+        }
     }
 
     keys
@@ -78,17 +89,40 @@ table 50585 SewingJobCreation
         }
     }
 
-
     trigger OnInsert()
     var
         NavAppSetup: Record "NavApp Setup";
         NoSeriesMngment: Codeunit NoSeriesManagement;
+        UserSetupRec: Record "User Setup";
+        LocationRec: Record Location;
     begin
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+
+        if UserSetupRec.FindSet() then begin
+            if UserSetupRec."Factory Code" = '' then
+                Error('Factory not setup in the User Setup.');
+
+            LocationRec.Reset();
+            LocationRec.SetRange(code, UserSetupRec."Factory Code");
+
+            if LocationRec.FindSet() then begin
+                "Factory Code" := UserSetupRec."Factory Code";
+                "Factory Name" := LocationRec.Name;
+            end
+            else
+                Error('Factory not setup in the locatons card.');
+        end
+        else
+            Error('User ID not setup in the User Setup.');
+
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("SJC Nos.");
         SJCNo := NoSeriesMngment.GetNextNo(NavAppSetup."SJC Nos.", Today, true);
         "Created Date" := WorkDate();
         "Created User" := UserId;
+
     end;
 
 }

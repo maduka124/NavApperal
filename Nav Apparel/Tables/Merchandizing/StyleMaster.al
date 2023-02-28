@@ -376,7 +376,7 @@ table 50934 "Style Master"
             "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
         end
         else
-            Error('Merchandizer Group not setup in the User Setup.');
+            Error('User ID not setup in the User Setup.');
 
         UserRec.Reset();
         UserRec.Get(UserSecurityId());

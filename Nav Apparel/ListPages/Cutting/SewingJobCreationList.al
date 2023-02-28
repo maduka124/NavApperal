@@ -50,6 +50,7 @@ page 50586 "Sewing Job Creation"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserSetupRec: Record "User Setup";
     begin
 
         //Check whether user logged in or not
@@ -69,6 +70,19 @@ page 50586 "Sewing Job Creation"
         else begin   //logged in
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
+
+
+        UserSetupRec.Reset();
+        UserSetupRec.SetRange("User ID", UserId);
+
+        if UserSetupRec.FindSet() then begin
+            if UserSetupRec."Factory Code" = '' then
+                Error('Factory has not setup for the user : %1', UserId)
+            else
+                rec.SetFilter("Factory Code", '=%1', UserSetupRec."Factory Code");
+        end
+        else
+            Error('Cannot find user details in user setup table');
 
     end;
 
