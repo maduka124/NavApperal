@@ -124,6 +124,22 @@ page 50502 "Contract/LC Card"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
+                    //Done By Sachith 28/02/23
+                    trigger OnValidate()
+                    var
+                        ContractLCRec: Record "Contract/LCMaster";
+                    begin
+
+                        ContractLCRec.Reset();
+                        ContractLCRec.FindSet();
+                        begin
+                            repeat
+                                if ContractLCRec."Contract No" = Rec."Contract No" then
+                                    Error('Contract no already exists');
+                            until ContractLCRec.Next() = 0;
+                        end;
+                    end;
                 }
 
                 field(AMD; rec.AMD)
