@@ -1086,5 +1086,7 @@ permissionset 50100 GeneratedPermission
         page "Buyer Style PO Search"=X,
         page "Buyer Style PO Search Listpart"=X,
         tabledata ItemJournalLinetemp=RIMD,
-        table ItemJournalLinetemp=X;
+        table ItemJournalLinetemp=X,
+        tabledata "Buyer Style PO Search New"=RIMD,
+        table "Buyer Style PO Search New"=X;
 }

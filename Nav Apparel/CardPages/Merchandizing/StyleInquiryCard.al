@@ -16,7 +16,7 @@ page 50602 "Style Inquiry Card"
                 {
                     ApplicationArea = All;
                     Caption = 'No';
-                    Editable = false;
+                    //Editable = false;
 
                     trigger OnAssistEdit()
                     begin

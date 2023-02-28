@@ -16,7 +16,7 @@ page 50985 "BOM Estimate Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Estimate BOM No';
-                    Editable = false;
+                    //Editable = false;
 
                     trigger OnAssistEdit()
                     begin
@@ -400,12 +400,15 @@ page 50985 "BOM Estimate Card"
 
     trigger OnDeleteRecord(): Boolean
     var
-        //BOMEstimateRec: Record "BOM Estimate";
+        BOMEstimateCostRec: Record "BOM Estimate Cost";
         BOMLineEstRec: Record "BOM Estimate Line";
         StyleMas: Record "Style Master";
     begin
-        // BOMEstimateRec.SetRange("No.", rec."No.");
-        // BOMEstimateRec.DeleteAll();
+
+        BOMEstimateCostRec.Reset();
+        BOMEstimateCostRec.SetRange("BOM No.", rec."No.");
+        if BOMEstimateCostRec.FindSet() then
+            Error('Estimate BOM has used in Costing. Cannot delete.');
 
         BOMLineEstRec.Reset();
         BOMLineEstRec.SetRange("No.", rec."No.");
@@ -451,8 +454,8 @@ page 50985 "BOM Estimate Card"
         EstCostRec.Reset();
         EstCostRec.SetRange("BOM No.", rec."No.");
         if EstCostRec.FindSet() then begin
-            if EstCostRec.Status = EstCostRec.Status::Approved then
-                EditableGB := false;
+            //if EstCostRec.Status = EstCostRec.Status::Approved then
+            EditableGB := false;
         end;
     end;
 
@@ -465,8 +468,8 @@ page 50985 "BOM Estimate Card"
         EstCostRec.Reset();
         EstCostRec.SetRange("BOM No.", rec."No.");
         if EstCostRec.FindSet() then begin
-            if EstCostRec.Status = EstCostRec.Status::Approved then
-                EditableGB := false;
+            //if EstCostRec.Status = EstCostRec.Status::Approved then
+            EditableGB := false;
         end;
     end;
 
