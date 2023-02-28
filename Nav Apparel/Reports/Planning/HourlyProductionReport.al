@@ -35,7 +35,7 @@ report 50865 HourlyProductionReport
             { }
             column(PlanTarget; PlanTarget)
             { }
-            column(TodayTarget; Target)
+            column(TodayTarget; Qty)
             { }
             column(PlanQty; PlanQty)
             { }
@@ -91,12 +91,18 @@ report 50865 HourlyProductionReport
             { }
             column(ReceiveWashQty; ReceiveWashQty)
             { }
+            column(PO_No_; PoNo)
+            { }
+            column(ShipDate; ShipDate)
+            { }
+            column(OrderQy; OrderQy)
+            { }
 
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
                 DataItemLink = "Factory No." = field("Factory No."), "Work Center No." = field("Resource No."), "Prod Date" = field(PlanDate), "Style No." = field("Style No.");
-                DataItemTableView = where(Type = filter('Sewing'));
+                DataItemTableView = where(Type = filter('Sewing'), Item = filter('PASS PCS'));
                 column(FactoryName; FactoryName)
                 { }
                 column(Hour_1; "Hour 01")
@@ -125,22 +131,24 @@ report 50865 HourlyProductionReport
                 { }
                 column(Factory_No_1; "Factory No.")
                 { }
+
+
             }
 
-            dataitem("Style Master PO"; "Style Master PO")
-            {
-                DataItemLinkReference = "NavApp Prod Plans Details";
-                DataItemLink = "Style No." = field("Style No.");
-                DataItemTableView = sorting("Style No.", "Lot No.");
+            // dataitem("Style Master PO"; "Style Master PO")
+            // {
+            //     DataItemLinkReference = "NavApp Prod Plans Details";
+            //     DataItemLink = "Style No." = field("Style No.");
+            //     DataItemTableView = sorting("Style No.", "Lot No.");
 
-                column(PO_No_; "PO No.")
-                { }
-                column(ShipDate; "Ship Date")
-                { }
-                column(OrderQy; Qty)
-                { }
-                //hourly data
-            }
+            //     column(PO_No_; "PO No.")
+            //     { }
+            //     column(ShipDate; "Ship Date")
+            //     { }
+            //     column(OrderQy; Qty)
+            //     { }
+            //     //hourly data
+            // }
 
 
             trigger OnAfterGetRecord()
@@ -182,7 +190,7 @@ report 50865 HourlyProductionReport
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Style No.");
                 StylePoRec.SetRange("Lot No.", "Lot No.");
-                // StylePoRec.SetRange("PO No.", "PO No.");
+                StylePoRec.SetRange("PO No.", "PO No.");
                 if StylePoRec.FindFirst() then begin
                     // TotalOuput := StylePoRec."Sawing Out Qty";
                     PoNo := StylePoRec."PO No.";
@@ -220,8 +228,8 @@ report 50865 HourlyProductionReport
 
                 if ProductionHeaderRec.Findset() then begin
                     repeat
-                        InputQtyTotal += ProductionHeaderRec."Input Qty";
-                        OutputQtyTotal += ProductionHeaderRec."Output Qty";
+                        InputQtyTotal := ProductionHeaderRec."Input Qty";
+                        OutputQtyTotal := ProductionHeaderRec."Output Qty";
                     until ProductionHeaderRec.Next() = 0;
                 end;
 
@@ -233,6 +241,9 @@ report 50865 HourlyProductionReport
 
                 OutPutStartDate := 0D;
                 ProductionHeaderRec2.Reset();
+                ProductionHeaderRec2.SetRange("Style No.", "Style No.");
+                ProductionHeaderRec2.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec2.SetRange("Prod Date", PlanDate);
                 ProductionHeaderRec2.SetRange("Ref Line No.", "Line No.");
                 ProductionHeaderRec2.SetFilter("Output Qty", '<>%1', 0);
                 ProductionHeaderRec2.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
@@ -245,24 +256,28 @@ report 50865 HourlyProductionReport
 
                 ActualInputDate := 0D;
                 ProductionHeaderRec3.Reset();
+                ProductionHeaderRec3.SetRange("Style No.", "Style No.");
+                ProductionHeaderRec3.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec3.SetRange("Prod Date", PlanDate);
                 ProductionHeaderRec3.SetRange("Ref Line No.", "Line No.");
                 ProductionHeaderRec3.SetFilter("Input Qty", '<>%1', 0);
                 ProductionHeaderRec3.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
                 ProductionHeaderRec3.SetCurrentKey("Prod Date");
                 ProductionHeaderRec3.Ascending(true);
-
                 if ProductionHeaderRec3.FindFirst() then
                     ActualInputDate := ProductionHeaderRec3."Prod Date";
 
 
                 ActualFinishDate := 0D;
                 ProductionHeaderRec4.Reset();
+                ProductionHeaderRec4.SetRange("Style No.", "Style No.");
+                ProductionHeaderRec4.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec4.SetRange("Prod Date", PlanDate);
                 ProductionHeaderRec4.SetRange("Ref Line No.", "Line No.");
                 ProductionHeaderRec4.SetFilter("Output Qty", '<>%1', 0);
                 ProductionHeaderRec4.SetFilter(Type, '=%1', ProductionHeaderRec3.Type::Saw);
                 ProductionHeaderRec4.SetCurrentKey("Prod Date");
                 ProductionHeaderRec4.Ascending(true);
-
                 if ProductionHeaderRec4.FindLast() then
                     ActualFinishDate := ProductionHeaderRec4."Prod Date";
 
