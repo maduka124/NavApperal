@@ -2,7 +2,9 @@ page 51247 "Buyer Style PO Search"
 {
     PageType = Card;
     ApplicationArea = All;
-    UsageCategory = Administration;
+    UsageCategory = Tasks;
+    Editable = true;
+    SourceTable = BuyerStylePOSearchHeader;
 
     layout
     {
@@ -21,8 +23,6 @@ page 51247 "Buyer Style PO Search"
                         UserSetupRec: Record "User Setup";
                     begin
 
-                        // UserSetupRec.Reset();
-                        // UserSetupRec.SetRange("User ID", UserId);
                         UserSetupRec.Get(UserId);
 
                         if UserSetupRec."Merchandizer All Group" = true then begin
@@ -59,7 +59,6 @@ page 51247 "Buyer Style PO Search"
                         CutomerRec: Record Customer;
                         StyleMasterRec: Record "Style Master";
                     begin
-
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Buyer No.", Buyer);
 
@@ -67,21 +66,41 @@ page 51247 "Buyer Style PO Search"
                             if Page.RunModal(51067, StyleMasterRec) = Action::LookupOK then
                                 Style := StyleMasterRec."No.";
                         end;
-
                     end;
                 }
 
                 field(Posted; Posted)
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        if Posted = true then begin
+                            VisiblePO := false;
+                            VisibleGRN := true;
+                        end
+                        else begin
+                            VisiblePO := true;
+                            VisibleGRN := false;
+                        end;
+                    end;
                 }
             }
 
             group(" ")
             {
-                part("Buyer Style PO Search Listpart"; "Buyer Style PO Search Listpart")
+                part("Buyer Style PO Search Listpart1"; "BuyerStyle PO Search Listpart1")
                 {
                     Caption = ' ';
+                    Visible = VisiblePO;
+                    ApplicationArea = All;
+                }
+
+                part("Buyer Style PO Search Listpart2"; "BuyerStyle PO Search Listpart2")
+                {
+                    Caption = ' ';
+                    Visible = VisibleGRN;
                     ApplicationArea = All;
                 }
             }
@@ -92,7 +111,7 @@ page 51247 "Buyer Style PO Search"
     {
         area(Processing)
         {
-            action("Load PO")
+            action("Load PO/GRN")
             {
                 ApplicationArea = All;
 
@@ -103,6 +122,7 @@ page 51247 "Buyer Style PO Search"
                     PurchaseHeaderRec: Record "Purchase Header";
                     purchaseLineRec: record "Purchase Line";
                     BuyerStylePoSearchRec: Record "Buyer Style PO Search New";
+                    BuyerStyleGRNSearchRec: Record "Buyer Style PO Search GRN";
                     LoginSessionsRec: Record LoginSessions;
                     LoginRec: Page "Login Card";
                 begin
@@ -116,14 +136,10 @@ page 51247 "Buyer Style PO Search"
                         LoginRec.LookupMode(true);
                         LoginRec.RunModal();
 
-                        // LoginSessionsRec.Reset();
-                        // LoginSessionsRec.SetRange(SessionID, SessionId());
-                        // if LoginSessionsRec.FindSet() then
-                        //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        LoginSessionsRec.Reset();
+                        LoginSessionsRec.SetRange(SessionID, SessionId());
+                        LoginSessionsRec.FindSet()
                     end;
-                    // else begin   //logged in
-                    //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                    // end;
 
                     if Buyer = '' then
                         Error('Select Buyer');
@@ -136,8 +152,14 @@ page 51247 "Buyer Style PO Search"
                     if BuyerStylePoSearchRec.findset then
                         BuyerStylePoSearchRec.DeleteAll();
 
+                    // delete old records
+                    BuyerStyleGRNSearchRec.Reset();
+                    BuyerStyleGRNSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+                    if BuyerStyleGRNSearchRec.findset then
+                        BuyerStyleGRNSearchRec.DeleteAll();
 
-                    //Select Buyer Only
+
+                    //Buyer Only
                     if Style = '' then begin
 
                         // Not Posted
@@ -183,13 +205,13 @@ page 51247 "Buyer Style PO Search"
                             else
                                 Error('No PO found');
                         end
-                        //Posted PO
                         else begin
+                            //Posted PO                           
 
                             //Get Max Seq No
-                            BuyerStylePoSearchRec.Reset();
-                            if BuyerStylePoSearchRec.FindLast() then
-                                MaxSeqNo := BuyerStylePoSearchRec."Seq No";
+                            BuyerStyleGRNSearchRec.Reset();
+                            if BuyerStyleGRNSearchRec.FindLast() then
+                                MaxSeqNo := BuyerStyleGRNSearchRec."Seq No";
 
                             PurchaseRcptLineRec.Reset();
                             PurchaseRcptLineRec.SetRange("Buyer No.", Buyer);
@@ -197,32 +219,32 @@ page 51247 "Buyer Style PO Search"
                             if PurchaseRcptLineRec.FindSet() then begin
                                 repeat
 
-                                    BuyerStylePoSearchRec.Reset();
-                                    BuyerStylePoSearchRec.SetRange("PO No", PurchaseRcptLineRec."Order No.");
+                                    BuyerStyleGRNSearchRec.Reset();
+                                    BuyerStyleGRNSearchRec.SetRange("GRN No", PurchaseRcptLineRec."Document No.");
 
-                                    if not BuyerStylePoSearchRec.FindSet() then begin
+                                    if not BuyerStyleGRNSearchRec.FindSet() then begin
                                         MaxSeqNo += 1;
-                                        BuyerStylePoSearchRec.Init();
-                                        BuyerStylePoSearchRec."Seq No" := MaxSeqNo;
-                                        BuyerStylePoSearchRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                                        BuyerStylePoSearchRec."PO No" := PurchaseRcptLineRec."Order No.";
+                                        BuyerStyleGRNSearchRec.Init();
+                                        BuyerStyleGRNSearchRec."Seq No" := MaxSeqNo;
+                                        BuyerStyleGRNSearchRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                                        BuyerStyleGRNSearchRec."GRN No" := PurchaseRcptLineRec."Document No.";
 
                                         PurchaseRcptHeaderRec.Reset();
-                                        PurchaseRcptHeaderRec.SetRange("Order No.", PurchaseRcptLineRec."Order No.");
+                                        PurchaseRcptHeaderRec.SetRange("No.", PurchaseRcptLineRec."Document No.");
 
                                         if PurchaseRcptHeaderRec.FindSet() then begin
-                                            BuyerStylePoSearchRec.Supplier := PurchaseRcptHeaderRec."Buy-from Vendor Name";
-                                            BuyerStylePoSearchRec.Date := PurchaseRcptHeaderRec."Posting Date";
-                                            BuyerStylePoSearchRec.Location := PurchaseRcptHeaderRec."Location Code";
-                                            BuyerStylePoSearchRec.Amount := 0;
-                                            BuyerStylePoSearchRec."Amount Including VAT" := 0;
+                                            BuyerStyleGRNSearchRec.Supplier := PurchaseRcptHeaderRec."Buy-from Vendor Name";
+                                            BuyerStyleGRNSearchRec.Date := PurchaseRcptHeaderRec."Posting Date";
+                                            BuyerStyleGRNSearchRec.Location := PurchaseRcptHeaderRec."Location Code";
+                                            BuyerStyleGRNSearchRec.Amount := 0;
+                                            BuyerStyleGRNSearchRec."Amount Including VAT" := 0;
                                         end;
-                                        BuyerStylePoSearchRec.Insert();
+                                        BuyerStyleGRNSearchRec.Insert();
                                     end;
                                 until PurchaseRcptLineRec.Next() = 0;
                             end
                             else
-                                Error('No PO found');
+                                Error('No GRN found');
                         end;
                     end
 
@@ -231,6 +253,9 @@ page 51247 "Buyer Style PO Search"
 
                         // Not Posted
                         if Posted = false then begin
+
+                            // VisiblePO := true;
+                            // VisibleGRN := false;
 
                             //Get Max Seq No
                             BuyerStylePoSearchRec.Reset();
@@ -276,10 +301,13 @@ page 51247 "Buyer Style PO Search"
                         //Posted PO
                         else begin
 
+                            // VisiblePO := false;
+                            // VisibleGRN := true;
+
                             //Get Max Seq No
-                            BuyerStylePoSearchRec.Reset();
-                            if BuyerStylePoSearchRec.FindLast() then
-                                MaxSeqNo := BuyerStylePoSearchRec."Seq No";
+                            BuyerStyleGRNSearchRec.Reset();
+                            if BuyerStyleGRNSearchRec.FindLast() then
+                                MaxSeqNo := BuyerStyleGRNSearchRec."Seq No";
 
                             PurchaseRcptLineRec.Reset();
                             PurchaseRcptLineRec.SetRange("Buyer No.", Buyer);
@@ -288,32 +316,32 @@ page 51247 "Buyer Style PO Search"
                             if PurchaseRcptLineRec.FindSet() then begin
                                 repeat
 
-                                    BuyerStylePoSearchRec.Reset();
-                                    BuyerStylePoSearchRec.SetRange("PO No", PurchaseRcptLineRec."Order No.");
+                                    BuyerStyleGRNSearchRec.Reset();
+                                    BuyerStyleGRNSearchRec.SetRange("GRN No", PurchaseRcptLineRec."Document No.");
 
-                                    if not BuyerStylePoSearchRec.FindSet() then begin
+                                    if not BuyerStyleGRNSearchRec.FindSet() then begin
                                         MaxSeqNo += 1;
-                                        BuyerStylePoSearchRec.Init();
-                                        BuyerStylePoSearchRec."Seq No" := MaxSeqNo;
-                                        BuyerStylePoSearchRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                                        BuyerStylePoSearchRec."PO No" := PurchaseRcptLineRec."Order No.";
+                                        BuyerStyleGRNSearchRec.Init();
+                                        BuyerStyleGRNSearchRec."Seq No" := MaxSeqNo;
+                                        BuyerStyleGRNSearchRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                                        BuyerStyleGRNSearchRec."GRN No" := PurchaseRcptLineRec."Document No.";
 
                                         PurchaseRcptHeaderRec.Reset();
-                                        PurchaseRcptHeaderRec.SetRange("Order No.", PurchaseRcptLineRec."Order No.");
+                                        PurchaseRcptHeaderRec.SetRange("No.", PurchaseRcptLineRec."Document No.");
 
                                         if PurchaseRcptHeaderRec.FindSet() then begin
-                                            BuyerStylePoSearchRec.Supplier := PurchaseRcptHeaderRec."Buy-from Vendor Name";
-                                            BuyerStylePoSearchRec.Date := PurchaseRcptHeaderRec."Posting Date";
-                                            BuyerStylePoSearchRec.Location := PurchaseRcptHeaderRec."Location Code";
-                                            BuyerStylePoSearchRec.Amount := 0;
-                                            BuyerStylePoSearchRec."Amount Including VAT" := 0;
+                                            BuyerStyleGRNSearchRec.Supplier := PurchaseRcptHeaderRec."Buy-from Vendor Name";
+                                            BuyerStyleGRNSearchRec.Date := PurchaseRcptHeaderRec."Posting Date";
+                                            BuyerStyleGRNSearchRec.Location := PurchaseRcptHeaderRec."Location Code";
+                                            BuyerStyleGRNSearchRec.Amount := 0;
+                                            BuyerStyleGRNSearchRec."Amount Including VAT" := 0;
                                         end;
-                                        BuyerStylePoSearchRec.Insert();
+                                        BuyerStyleGRNSearchRec.Insert();
                                     end;
                                 until PurchaseRcptLineRec.Next() = 0;
                             end
                             else
-                                Error('No PO found');
+                                Error('No GRN found');
                         end;
                     end;
                 end;
@@ -327,7 +355,6 @@ page 51247 "Buyer Style PO Search"
         LoginSessionsRec: Record LoginSessions;
         UsersetupRec: Record "User Setup";
     begin
-
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -336,15 +363,15 @@ page 51247 "Buyer Style PO Search"
             Clear(LoginRec);
             LoginRec.LookupMode(true);
             LoginRec.RunModal();
-
-            // LoginSessionsRec.Reset();
-            // LoginSessionsRec.SetRange(SessionID, SessionId());
-            // if LoginSessionsRec.FindSet() then
-            //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
         end;
-        // else begin   //logged in
-        //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
-        // end;
+
+        if not rec.get() then begin
+            rec.INIT();
+            rec.INSERT();
+        end;
+
+        VisiblePO := true;
+        VisibleGRN := false;
     end;
 
     var
@@ -352,6 +379,8 @@ page 51247 "Buyer Style PO Search"
         Style: Text[50];
         Posted: Boolean;
         MaxSeqNo: BigInteger;
+        VisiblePO: Boolean;
+        VisibleGRN: Boolean;
 
 
 }

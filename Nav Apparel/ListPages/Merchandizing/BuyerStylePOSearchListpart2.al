@@ -1,10 +1,12 @@
-page 51249 "Buyer Style PO Search Listpart"
+page 51254 "BuyerStyle PO Search Listpart2"
 {
     PageType = ListPart;
-    SourceTable = "Buyer Style PO Search New";
+    SourceTable = "Buyer Style PO Search GRN";
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
+    //CardPageId = "Posted Purchase Receipt";
+    Caption = 'GRN Details';
 
     layout
     {
@@ -12,7 +14,7 @@ page 51249 "Buyer Style PO Search Listpart"
         {
             repeater(GroupName)
             {
-                field("PO No"; Rec."PO No")
+                field("GRN No"; Rec."GRN No")
                 {
                     ApplicationArea = All;
                 }
@@ -46,6 +48,34 @@ page 51249 "Buyer Style PO Search Listpart"
         }
     }
 
+    actions
+    {
+        area(Processing)
+        {
+            action("View GRN")
+            {
+                ApplicationArea = All;
+                Image = ViewOrder;
+                // PromotedOnly = true;
+                // Promoted = true;
+
+                trigger OnAction()
+                var
+                    GRNRec: Record "Purch. Rcpt. Header";
+                begin
+                    GRNRec.Reset();
+                    GRNRec.SetRange("No.", rec."GRN No");
+
+                    if GRNRec.FindSet() then begin
+                        Page.RunModal(136, GRNRec);
+                    end
+                    else
+                        Error('Cannot find GRN details');
+                end;
+            }
+        }
+    }
+
     trigger OnOpenPage()
     var
         LoginRec: Page "Login Card";
@@ -66,18 +96,7 @@ page 51249 "Buyer Style PO Search Listpart"
             LoginSessionsRec.Reset();
             LoginSessionsRec.SetRange(SessionID, SessionId());
             LoginSessionsRec.FindSet();
-            //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
         end;
-        // else begin   //logged in
-        //     "Secondary UserID" := LoginSessionsRec."Secondary UserID";
-        // end;
-
-        // BuyerStylePoSearchRec.Reset();
-        // BuyerStylePoSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
-        // BuyerStylePoSearchRec.FindSet();
-
-        // LoginSessionsRec.SetRange("Secondary UserID", Rec."Secondary UserID");
-        // LoginSessionsRec.FindSet()
 
         rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
 

@@ -364,8 +364,8 @@ page 50968 "Nav Apperal Role Center"
                 //Done By Sachith 23/02/23
                 action("Buyer/Style/PO Search")
                 {
-                    Caption = 'Buyer/Style/PO Search';
-                    RunObject = page "Buyer Style PO Search";
+                    Caption = 'Buyer/Style/PO/GRN Search';
+                    RunObject = page "Buyer Style PO Search List";
                     ApplicationArea = All;
                 }
 
