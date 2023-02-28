@@ -692,7 +692,6 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
@@ -700,7 +699,6 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1308,7 +1306,6 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1395,7 +1392,6 @@
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
-                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1475,7 +1471,6 @@
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00)</Format>
-                                    <Color>Teal</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1632,7 +1627,6 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
-                                    <Color>Maroon</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1722,7 +1716,6 @@
                                     <FontWeight>Bold</FontWeight>
                                     <Format>n0</Format>
                                     <TextDecoration>None</TextDecoration>
-                                    <Color>Maroon</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1803,7 +1796,6 @@
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00)</Format>
-                                    <Color>Maroon</Color>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
@@ -1812,7 +1804,6 @@
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>#,0.00;(#,0.00)</Format>
-                                    <Color>Maroon</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1934,8 +1925,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>0.45544cm</Top>
-            <Left>9.37849cm</Left>
+            <Top>0.13794cm</Top>
+            <Left>8.74349cm</Left>
             <Height>0.89959cm</Height>
             <Width>11.1478cm</Width>
             <ZIndex>1</ZIndex>
@@ -2150,7 +2141,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>6.70301cm</Height>
+        <Height>6.65013cm</Height>
         <Style />
       </Body>
       <Width>29.51229cm</Width>
