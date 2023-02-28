@@ -132,24 +132,7 @@ report 50865 HourlyProductionReport
                 column(Factory_No_1; "Factory No.")
                 { }
 
-
             }
-
-            // dataitem("Style Master PO"; "Style Master PO")
-            // {
-            //     DataItemLinkReference = "NavApp Prod Plans Details";
-            //     DataItemLink = "Style No." = field("Style No.");
-            //     DataItemTableView = sorting("Style No.", "Lot No.");
-
-            //     column(PO_No_; "PO No.")
-            //     { }
-            //     column(ShipDate; "Ship Date")
-            //     { }
-            //     column(OrderQy; Qty)
-            //     { }
-            //     //hourly data
-            // }
-
 
             trigger OnAfterGetRecord()
             begin
