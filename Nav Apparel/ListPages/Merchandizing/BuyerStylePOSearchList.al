@@ -5,7 +5,7 @@ page 51252 "Buyer Style PO Search List"
     UsageCategory = Lists;
     SourceTable = "BuyerStylePOSearchHeader";
     CardPageId = "Buyer Style PO Search";
-    DeleteAllowed = false;
+    //DeleteAllowed = false;
     // InsertAllowed = false;
     // ModifyAllowed = false;
 
@@ -22,4 +22,13 @@ page 51252 "Buyer Style PO Search List"
             }
         }
     }
+
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+
+    begin
+        Error('Cannot delete this record.');
+    end;
 }

@@ -107,6 +107,7 @@ page 51247 "Buyer Style PO Search"
         }
     }
 
+
     actions
     {
         area(Processing)
@@ -349,6 +350,7 @@ page 51247 "Buyer Style PO Search"
         }
     }
 
+
     trigger OnOpenPage()
     var
         LoginRec: Page "Login Card";
@@ -373,6 +375,15 @@ page 51247 "Buyer Style PO Search"
         VisiblePO := true;
         VisibleGRN := false;
     end;
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+
+    begin
+        Error('Cannot delete this record.');
+    end;
+
 
     var
         Buyer: Code[20];
