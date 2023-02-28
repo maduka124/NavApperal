@@ -73,7 +73,11 @@ report 51073 DeliveryInfoProductReport
             trigger OnPreDataItem()
             begin
                 SetRange("Created Date", stDate, endDate);
-                SetRange("Buyer No.", Buyer);
+
+                //Done By Sachith on 28/02/23
+                if "All buyers" = false then
+                    SetRange("Buyer No.", Buyer);
+
             end;
         }
     }
@@ -89,11 +93,27 @@ report 51073 DeliveryInfoProductReport
                 {
                     Caption = 'Filter By';
 
+                    // Done By Sachith 28/02/23
+                    field("All buyers"; "All buyers")
+                    {
+                        ApplicationArea = All;
+
+                        Caption = 'All Buyer';
+                        trigger OnValidate()
+                        begin
+                            if "All buyers" = true then
+                                BuyerEditable := false
+                            else
+                                BuyerEditable := true;
+                        end;
+                    }
+
                     //Done By sachith On 14/02/23
                     field(Buyer; Buyer)
                     {
                         ApplicationArea = all;
                         Caption = 'Buyer';
+                        Editable = BuyerEditable;
                         ShowMandatory = true;
                         TableRelation = Customer."No.";
                     }
@@ -114,6 +134,11 @@ report 51073 DeliveryInfoProductReport
                 }
             }
         }
+        //Done By Sachith on  28/02/23
+        trigger OnOpenPage()
+        begin
+            BuyerEditable := true;
+        end;
     }
 
     var
@@ -126,4 +151,6 @@ report 51073 DeliveryInfoProductReport
         UnitPriceRound: Decimal;
         //Done By sachith On 14/02/23
         Buyer: Code[20];
+        "All buyers": Boolean;
+        BuyerEditable: Boolean;
 }
