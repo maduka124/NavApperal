@@ -22,10 +22,10 @@
                   <Width>6.40587cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.09685cm</Width>
+                  <Width>3.76277cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.24157cm</Width>
+                  <Width>3.80281cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>6.41525cm</Width>
@@ -199,7 +199,7 @@
             <Top>8.59353cm</Top>
             <Left>0cm</Left>
             <Height>0.62646cm</Height>
-            <Width>23.15953cm</Width>
+            <Width>20.3867cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -211,7 +211,7 @@
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
             <Top>0.08826cm</Top>
-            <Left>20.29586cm</Left>
+            <Left>16.48586cm</Left>
             <Height>1.56104cm</Height>
             <Width>3.39739cm</Width>
             <ZIndex>1</ZIndex>
@@ -244,7 +244,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0.45868cm</Top>
-            <Left>5.33411cm</Left>
+            <Left>2.79411cm</Left>
             <Height>1.19062cm</Height>
             <Width>13.67897cm</Width>
             <ZIndex>2</ZIndex>
@@ -272,10 +272,10 @@
                   <Width>3.58513cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>1.96628cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>12.05075cm</Width>
+                  <Width>9.27792cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1025,7 +1025,7 @@
             <Top>2.82787cm</Top>
             <Left>0cm</Left>
             <Height>2.9715cm</Height>
-            <Width>23.69325cm</Width>
+            <Width>20.3867cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1037,13 +1037,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.48223cm</Width>
+                  <Width>2.19328cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.48011cm</Width>
+                  <Width>2.16261cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.83422cm</Width>
+                  <Width>7.36182cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.33787cm</Width>
@@ -1055,7 +1055,7 @@
                   <Width>2.07717cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.70228cm</Width>
+                  <Width>1.47457cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.13111cm</Width>
@@ -1973,7 +1973,7 @@
             <Top>6.08753cm</Top>
             <Left>0cm</Left>
             <Height>1.27cm</Height>
-            <Width>23.69325cm</Width>
+            <Width>20.3867cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -2006,7 +2006,7 @@
         <Height>9.51632cm</Height>
         <Style />
       </Body>
-      <Width>24.77082cm</Width>
+      <Width>20.3867cm</Width>
       <Page>
         <PageFooter>
           <Height>1.06716cm</Height>
@@ -2125,7 +2125,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox72</rd:DefaultName>
               <Top>0.03528cm</Top>
-              <Left>20.94328cm</Left>
+              <Left>18.08578cm</Left>
               <Height>1.03188cm</Height>
               <Width>2.21625cm</Width>
               <ZIndex>2</ZIndex>
@@ -2150,8 +2150,8 @@
         <PageWidth>21cm</PageWidth>
         <InteractiveHeight>11in</InteractiveHeight>
         <InteractiveWidth>8.5in</InteractiveWidth>
-        <LeftMargin>0.5cm</LeftMargin>
-        <RightMargin>0.5cm</RightMargin>
+        <LeftMargin>0.3cm</LeftMargin>
+        <RightMargin>0.2cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>

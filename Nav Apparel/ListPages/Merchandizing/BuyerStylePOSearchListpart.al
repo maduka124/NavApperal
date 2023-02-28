@@ -1,7 +1,7 @@
 page 51249 "Buyer Style PO Search Listpart"
 {
     PageType = ListPart;
-    SourceTable = "Buyer Style PO Search";
+    SourceTable = "Buyer Style PO Search New";
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
