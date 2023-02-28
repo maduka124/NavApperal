@@ -47,7 +47,7 @@ table 51248 "Buyer Style PO Search"
 
     keys
     {
-        key(PK1; "Seq No")
+        key(PK1; "PO No")
         {
             Clustered = true;
         }
