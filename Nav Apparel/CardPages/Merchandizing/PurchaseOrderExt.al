@@ -2,6 +2,7 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
 {
     layout
     {
+
         modify("Document Date")
         {
             trigger OnAfterValidate()
@@ -54,6 +55,11 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
                 else begin   //logged in
                     rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                 end;
+
+                if Rec.Status = Rec.Status::Released then
+                    VisibleGB := true
+                else
+                    VisibleGB := false;
             end;
         }
 
@@ -62,6 +68,33 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
             field("Workflow User Group"; rec."Workflow User Group")
             {
                 ApplicationArea = all;
+            }
+            field("Cost Center"; Rec."Cost Center")
+            {
+                ApplicationArea = all;
+                Visible = VisibleGB;
+
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    DimensionRec: Record "Dimension Value";
+                    UserRec: Record "User Setup";
+                begin
+                    UserRec.Reset();
+                    UserRec.Get(UserId);
+                    // UserRec.SetRange(SystemCreatedBy, Rec.SystemCreatedBy);
+                    DimensionRec.Reset();
+                    if DimensionRec.FindSet() then begin
+                        repeat
+                            if UserRec."Cost Center" = DimensionRec."Dimension Code" then begin
+                                if page.RunModal(560, DimensionRec) = Action::LookupOK then begin
+                                    Rec."Cost Center" := DimensionRec."Dimension Code";
+                                end;
+                            end;
+
+                        until DimensionRec.Next() = 0;
+
+                    end;
+                end;
             }
         }
 
@@ -153,8 +186,22 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
             EditableGb := false
         else
             EditableGb := true;
+
+
+    end;
+
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+        if Rec.Status = Rec.Status::Released then
+            VisibleGB := true
+        else
+            VisibleGB := false;
+
     end;
 
     var
         EditableGB: Boolean;
+        VisibleGB: Boolean;
 }

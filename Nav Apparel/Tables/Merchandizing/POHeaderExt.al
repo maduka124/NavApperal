@@ -38,6 +38,30 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
             OptionCaption = 'FG,Sample,Washing,Central Purchasing';
             OptionMembers = FG,Sample,Washing,"Central Purchasing";
         }
+        //Mihiranga 2023/03/01
+        field(50411; "Cost Center"; code[20])
+        {
+
+        }
+        // modify("Buy-from Vendor No.")
+        // {
+        //     trigger OnAfterValidate()
+        //     var
+        //         UserRec: Record "User Setup";
+        //     begin
+        //         UserRec.Reset();
+        //         UserRec.SetRange(SystemCreatedBy, SystemCreatedBy);
+        //         if UserRec.FindSet() then begin
+        //             Rec."Cost Center" := UserRec."Cost Center";
+        //         end;
+        //         UserRec.Reset();
+
+
+        //     end;
+          
+        // }
+
+
     }
 
 

@@ -8,7 +8,7 @@ pageextension 50979 UserSetupCardExt extends "User Setup"
             {
                 ApplicationArea = All;
                 Caption = 'Factory';
-                ShowMandatory = true;               
+                ShowMandatory = true;
             }
 
             field("Service Approval"; rec."Service Approval")
@@ -37,6 +37,10 @@ pageextension 50979 UserSetupCardExt extends "User Setup"
             {
                 ApplicationArea = All;
                 ShowMandatory = true;
+            }
+            field("Cost Center"; Rec."Cost Center")
+            {
+                ApplicationArea = All;
             }
 
             field("Merchandizer Head"; rec."Merchandizer Head")
