@@ -134,7 +134,7 @@ page 50515 "Hourly Production Card"
                         NavAppProdPlanLinesRec.Reset();
                         NavAppProdPlanLinesRec.SetRange("PlanDate", rec."Prod Date");
                         NavAppProdPlanLinesRec.SetRange("Factory No.", rec."Factory No.");
-                        NavAppProdPlanLinesRec.SetCurrentKey("Style No.");
+                        NavAppProdPlanLinesRec.SetCurrentKey("Style No.", "Resource No.");
                         NavAppProdPlanLinesRec.Ascending(true);
 
                         if NavAppProdPlanLinesRec.FindSet() then begin

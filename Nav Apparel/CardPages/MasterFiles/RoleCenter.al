@@ -805,14 +805,6 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Hourly Production Report Planning")
-                    {
-                        Caption = 'Hourly Production Report';
-                        Enabled = true;
-                        RunObject = report HourlyProductionReport;
-                        ApplicationArea = all;
-                    }
-
                     action("Day Wise Production Report")
                     {
                         Caption = 'Day Wise Production Report';
@@ -827,6 +819,14 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'Delivery Details';
                         Enabled = true;
                         RunObject = report DeliveryInfoProductReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Hourly Production Report Planning")
+                    {
+                        Caption = 'Hourly Production Report';
+                        Enabled = true;
+                        RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
 
@@ -861,6 +861,14 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Sewing Production Details")
+                    {
+                        Caption = 'Sewing Production Details';
+                        Enabled = true;
+                        RunObject = report SewingProductionDetails;
+                        ApplicationArea = all;
+                    }
+
                     action("Target Sheet Report")
                     {
                         Caption = 'Target Sheet Report';
@@ -877,11 +885,11 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("Sewing Production Details")
+                    action("WIP1")
                     {
-                        Caption = 'Sewing Production Details';
+                        Caption = 'WIP Report';
                         Enabled = true;
-                        RunObject = report SewingProductionDetails;
+                        RunObject = report WIPReport;
                         ApplicationArea = all;
                     }
                 }
@@ -1057,6 +1065,7 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = page "Approved General Issue List";
                     RunPageView = where(Status = filter(Approved));
                 }
+
                 action("Approved Raw Material Issue")
                 {
                     Caption = 'Raw Material Requisition';
@@ -1173,12 +1182,14 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report AccessoriesStatusReport;
                         ApplicationArea = all;
                     }
+
                     action("Detail GRN Report")
                     {
                         Enabled = true;
                         RunObject = report DetailGRNReport;
                         ApplicationArea = All;
                     }
+
                     action("Fabric & Trims requiremts - Marchandizingn ")
                     {
                         Caption = 'Fabric & Trims requiremts Report';
@@ -1186,6 +1197,7 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report FabricAndTrimsRequiremts;
                         ApplicationArea = all;
                     }
+
                     action("Garment Wise Raw Material Request & Issue Report")
                     {
                         Caption = 'Garment Wise Raw Material Request & Issue Report';
@@ -1193,6 +1205,7 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report GarmentWiseRawMaterialRequest;
                         ApplicationArea = All;
                     }
+
                     action("General Issue Note Report")
                     {
                         Caption = 'General Issue Note Report';
@@ -1200,12 +1213,14 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report GeneralIssueReport;
                         ApplicationArea = all;
                     }
+
                     action("Good Reciept Report")
                     {
                         Enabled = true;
                         RunObject = report GrnReport;
                         ApplicationArea = All;
                     }
+
                     action("Hourly Production Report Warehouse")
                     {
                         Caption = 'Hourly Production Report';
@@ -1213,19 +1228,14 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
+
                     action("Inventory Valuation Report")
                     {
                         Enabled = true;
                         RunObject = Report "Inventory Valuation";
                         ApplicationArea = All;
                     }
-                    action("Roll Issuing Report")
-                    {
-                        Caption = 'Roll Issuing Report';
-                        Enabled = true;
-                        RunObject = report IssueNoteReport;
-                        ApplicationArea = all;
-                    }
+
                     action("Material Issue Report")
                     {
                         Enabled = true;
@@ -1239,6 +1249,15 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report "Phys. Inventory List";
                         ApplicationArea = All;
                     }
+
+                    action("Roll Issuing Report")
+                    {
+                        Caption = 'Roll Issuing Report';
+                        Enabled = true;
+                        RunObject = report IssueNoteReport;
+                        ApplicationArea = all;
+                    }
+
                     action("Size Colour Wise Quantity Breakdown Report ")
                     {
                         Caption = 'Size Colour Wise Quantity Breakdown';
@@ -1246,6 +1265,7 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report SizeColourwiseQuantity;
                         ApplicationArea = all;
                     }
+
                     action("Transfer Order Report")
                     {
                         Caption = 'Transfer Order Report';
@@ -1254,6 +1274,13 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("WIP2")
+                    {
+                        Caption = 'WIP Report';
+                        Enabled = true;
+                        RunObject = report WIPReport;
+                        ApplicationArea = all;
+                    }
                 }
             }
 
@@ -1373,6 +1400,14 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'Hourly Production Report';
                         Enabled = true;
                         RunObject = report HourlyProductionReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("Production Plan Report2")
+                    {
+                        Caption = 'Production Plan Report';
+                        Enabled = true;
+                        RunObject = report ProductionPlanReport;
                         ApplicationArea = all;
                     }
 
@@ -1513,6 +1548,15 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
                     }
+
+                    action("Production Plan Report3")
+                    {
+                        Caption = 'Production Plan Report';
+                        Enabled = true;
+                        RunObject = report ProductionPlanReport;
+                        ApplicationArea = all;
+                    }
+
 
                     //Done By Sachith on 22/02/23
                     action("Size Colour Wise Quantity Breakdown Report Finishing")
@@ -1848,11 +1892,11 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Washing Reports';
 
-                    action("Washing Requisition Report")
+                    action("AW QC Report")
                     {
-                        Caption = 'Washing Requisition Report';
+                        Caption = 'AW QC Report';
                         Enabled = true;
-                        RunObject = report WashSampleReqReport;
+                        RunObject = report AWQCReport;
                         ApplicationArea = all;
                     }
 
@@ -1872,11 +1916,27 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
-                    action("AW QC Report")
+                    action("Size Colour Wise Quantity Breakdown Report Finishing6")
                     {
-                        Caption = 'AW QC Report';
+                        Caption = 'Size Colour Wise Quantity Breakdown';
                         Enabled = true;
-                        RunObject = report AWQCReport;
+                        RunObject = report SizeColourwiseQuantity;
+                        ApplicationArea = all;
+                    }
+
+                    action("Washing Requisition Report")
+                    {
+                        Caption = 'Washing Requisition Report';
+                        Enabled = true;
+                        RunObject = report WashSampleReqReport;
+                        ApplicationArea = all;
+                    }
+
+                    action("WIP3")
+                    {
+                        Caption = 'WIP Report';
+                        Enabled = true;
+                        RunObject = report WIPReport;
                         ApplicationArea = all;
                     }
                 }
@@ -2204,10 +2264,23 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    action("Size Colour Wise Quantity Breakdown Report Finishing7")
+                    {
+                        Caption = 'Size Colour Wise Quantity Breakdown';
+                        Enabled = true;
+                        RunObject = report SizeColourwiseQuantity;
+                        ApplicationArea = all;
+                    }
+
+                    action("WIP4")
+                    {
+                        Caption = 'WIP Report';
+                        Enabled = true;
+                        RunObject = report WIPReport;
+                        ApplicationArea = all;
+                    }
                 }
-
             }
-
 
             // group("Finance")
             // {
