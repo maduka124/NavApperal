@@ -281,7 +281,9 @@ page 50101 "Daily Consumption List"
                                                             QtyToLot := ItemJnalRec.Quantity - TotRecervQty;
 
                                                         InsertResvEntry(ItemJnalRec."Item No.", ItemJnalRec."Location Code", 83, 5, -QtyToLot, ItemLedEntry."Lot No.",
-                                                                false, ItemJnalRec."Posting Date", rec."Journal Template Name", Rec."Journal Batch Name", ItemJnalRec."Line No.", 'C', LineCompleted);
+                                                                false, ItemJnalRec."Posting Date", rec."Journal Template Name", Rec."Journal Batch Name", ItemJnalRec."Line No.", 'C', LineCompleted,
+                                                                ItemLedEntry.Shade, ItemLedEntry."Shade No", ItemLedEntry."Width Act", ItemLedEntry."Width Tag", ItemLedEntry."Length Act", ItemLedEntry."Length Tag"
+                                                                , ItemLedEntry."Supplier Batch No.", ItemLedEntry.InvoiceNo, ItemLedEntry.Color, ItemLedEntry."Color No");
                                                     end;
                                                 end;
                                             until ItemLedEntry.Next() = 0;
@@ -355,7 +357,9 @@ page 50101 "Daily Consumption List"
 
 
     local procedure InsertResvEntry(PassItemNo: Code[20]; PassLocation: Code[20]; PassSourceType: Integer; PassSubType: Integer; PassQty: Decimal; PassLotNo: Code[50];
-             PassPos: Boolean; PassDate: Date; PassSourceID: Text[20]; PassBatch: Text[20]; PassRefNo: Integer; DocT: Code[1]; var Completed: Boolean)
+             PassPos: Boolean; PassDate: Date; PassSourceID: Text[20]; PassBatch: Text[20]; PassRefNo: Integer; DocT: Code[1]; var Completed: Boolean;
+             PassShade: text[20]; PassShadeNo: code[20]; PassWidthAct: Decimal; PassWidthTag: Decimal; PassLengthAct: Decimal; PassLengthTag: Decimal;
+             PassSupplierBatchNo: code[50]; PassInvoiceNo: Code[20]; PassColor: code[20]; PassColorNo: code[20])
     var
         ResvEntry: Record "Reservation Entry";
         ItemJnal: Record "Item Journal Line";
@@ -397,6 +401,16 @@ page 50101 "Daily Consumption List"
         ResvEntry."Item Tracking" := ResvEntry."Item Tracking"::"Lot No.";
         ResvEntry.validate("Qty. per Unit of Measure", 1);
         ResvEntry."Reservation Status" := ResvEntry."Reservation Status"::Prospect;
+        ResvEntry.Shade := PassShade;
+        ResvEntry."Shade No" := PassShadeNo;
+        ResvEntry."Width Act" := PassWidthAct;
+        ResvEntry."Width Tag" := PassWidthTag;
+        ResvEntry."Length Act" := PassLengthAct;
+        ResvEntry."Length Tag" := PassLengthTag;
+        ResvEntry."Supplier Batch No." := PassSupplierBatchNo;
+        ResvEntry.InvoiceNo := PassInvoiceNo;
+        ResvEntry.Color := PassColor;
+        ResvEntry."Color No" := PassColorNo;
         ResvEntry.Insert(true);
 
         ReserveEntry.RESET;
