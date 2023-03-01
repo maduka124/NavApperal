@@ -90,6 +90,14 @@ tableextension 51141 "User Setup Extension" extends "User Setup"
         {
             DataClassification = ToBeClassified;
         }
+        //Mihiranga 2023/03/01
+        field(50110; "Cost Center"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Dimension Value".Code;
+            ValidateTableRelation = false;
+        }
+        //
     }
 }
 

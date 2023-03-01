@@ -12,6 +12,7 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
         modify("No.")
         {
             Editable = EditableGB;
+
         }
 
         modify(Type)
@@ -137,6 +138,7 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
     trigger OnAfterGetRecord()
     var
         PurchaseOrderRec: Record "Purchase Header";
+        UserRec: Record "User Setup";
     begin
         PurchaseOrderRec.get(rec."Document Type", rec."Document No.");
 
@@ -144,6 +146,11 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
             EditableGb := false
         else
             EditableGb := true;
+        UserRec.Reset();
+        UserRec.SetRange(SystemCreatedBy, Rec.SystemCreatedBy);
+        if UserRec.FindSet() then begin
+            Rec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
+        end;
     end;
 
     var
