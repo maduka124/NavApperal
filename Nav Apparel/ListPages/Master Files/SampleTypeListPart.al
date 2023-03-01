@@ -80,4 +80,35 @@ page 51027 "Sample Type List part"
 
     end;
 
+    //Done By Sachith 01/03/23
+    trigger OnOpenPage()
+    var
+        SampleTypeBuyerRec: Record "Sample Type Buyer";
+        SampleTypeRec: Record "Sample Type";
+    begin
+
+        SampleTypeRec.Reset();
+        if SampleTypeRec.FindSet() then begin
+            repeat
+                SampleTypeRec.Selected := false;
+                SampleTypeRec.Modify()
+            until SampleTypeRec.Next() = 0;
+        end;
+
+        SampleTypeBuyerRec.Reset();
+        SampleTypeBuyerRec.SetRange("Buyer No.", BuyerNo);
+
+        if SampleTypeBuyerRec.FindSet() then begin
+            repeat
+                SampleTypeRec.Reset();
+                SampleTypeRec.SetRange("No.", SampleTypeBuyerRec."No.");
+                if SampleTypeRec.FindSet() then begin
+                    SampleTypeRec.Selected := true;
+                    SampleTypeRec.Modify();
+                end;
+            until SampleTypeBuyerRec.Next() = 0;
+        end;
+
+    end;
+
 }

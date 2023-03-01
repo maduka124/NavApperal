@@ -76,6 +76,7 @@ page 51047 "Main Category List part"
     var
         MainCategoryVendorRec: Record "Main Category Vendor";
         MainCategoryRec: Record "Main Category";
+        MainCat2Rec: Record "Main Category";
         VendorRec: Record Vendor;
     begin
 
@@ -109,6 +110,42 @@ page 51047 "Main Category List part"
     var
     begin
         VendorNo := VendorNoPara;
+
+    end;
+
+    trigger OnOpenPage()
+    var
+        MainCatRec: Record "Main Category";
+        MainCatVendorRec: Record "Main Category Vendor";
+        VendorRec: Record Vendor;
+    begin
+
+        //Clear Selected Data
+        MainCatRec.Reset();
+        if MainCatRec.FindSet() then begin
+            repeat
+                MainCatRec.Selected := false;
+                MainCatRec.Modify();
+            until MainCatRec.Next() = 0;
+        end;
+
+        MainCatVendorRec.Reset();
+        MainCatVendorRec.SetRange("Vendor No.", VendorNo);
+
+        if MainCatVendorRec.FindSet() then begin
+            repeat
+
+                MainCatRec.Reset();
+                MainCatRec.SetRange("No.", MainCatVendorRec."No.");
+
+                if MainCatRec.FindSet() then begin
+                    MainCatRec.Selected := true;
+                    MainCatRec.Modify();
+                end;
+
+
+            until MainCatVendorRec.Next() = 0;
+        end;
 
     end;
 
