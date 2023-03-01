@@ -178,6 +178,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Learning Curve")
+                {
+                    Caption = 'Learning Curve';
+                    RunObject = Page "Learning Curve";
+                    ApplicationArea = all;
+                }
+
                 action("Location")
                 {
                     Caption = 'Location';
@@ -735,13 +742,6 @@ page 50968 "Nav Apperal Role Center"
                 action("Factory Wise Production Planning")
                 {
                     RunObject = Page FacWiseProductplaningHdrList;
-                    ApplicationArea = all;
-                }
-
-                action("Learning Curve")
-                {
-                    Caption = 'Learning Curve';
-                    RunObject = Page "Learning Curve";
                     ApplicationArea = all;
                 }
 
