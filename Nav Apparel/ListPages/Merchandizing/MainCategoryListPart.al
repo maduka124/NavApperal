@@ -142,8 +142,6 @@ page 51047 "Main Category List part"
                     MainCatRec.Selected := true;
                     MainCatRec.Modify();
                 end;
-
-
             until MainCatVendorRec.Next() = 0;
         end;
 
