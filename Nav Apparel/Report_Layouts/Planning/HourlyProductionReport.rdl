@@ -6675,7 +6675,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>ResourceNo</Value>
+                      <Value>=Fields!Line_No_1.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
@@ -6733,6 +6733,7 @@
                           <PaddingBottom>2pt</PaddingBottom>
                         </Style>
                       </Textbox>
+                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixHeader>
                   <TablixMembers>
