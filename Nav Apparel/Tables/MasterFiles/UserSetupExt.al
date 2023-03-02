@@ -94,7 +94,7 @@ tableextension 51141 "User Setup Extension" extends "User Setup"
         field(50110; "Cost Center"; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Dimension Value".Code;
+            TableRelation = "Dimension Value".Code where("Dimension Code" = filter('COST-CENTER'));
             ValidateTableRelation = false;
         }
         //
