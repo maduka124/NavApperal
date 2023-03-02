@@ -89,21 +89,28 @@ report 50633 AccessoriesStatusReport
                 trigger OnAfterGetRecord()
 
                 begin
-
+                    Qty := 0;
+                    PurchLineRec.Reset();
+                    PurchLineRec.SetRange(StyleNo, StyleNo);
+                    PurchLineRec.SetRange("Document No.", "Document No.");
+                    PurchLineRec.SetRange("No.", "No.");
+                    PurchLineRec.SetFilter("Document Type", '=%1', PurchLineRec."Document Type"::Order);
                     PurchaseArchiveRec.SetRange("Document No.", "Order No.");
+                    PurchaseArchiveRec.SetFilter("Document Type", '=%1', PurchaseArchiveRec."Document Type"::Order);
                     PurchaseArchiveRec.SetRange("No.", "No.");
-                    PurchaseArchiveRec.SetRange("Line No.", "Line No.");
-                    if PurchaseArchiveRec.FindFirst() then begin
-                        Qty := PurchaseArchiveRec.Quantity;
-                    end;
-
+                    repeat
+                        if PurchLineRec.Quantity <> 0 then
+                            Qty := PurchLineRec.Quantity
+                        else
+                            if PurchaseArchiveRec.FindFirst() then begin
+                                Qty := PurchaseArchiveRec.Quantity;
+                            end;
+                    until PurchLineRec.Next() = 0;
                     PurchHDRec.SetRange("No.", "Document No.");
                     if PurchHDRec.FindFirst() then begin
                         OrderNO := PurchHDRec."Order No.";
                     end;
                 end;
-
-
             }
             trigger OnAfterGetRecord()
 
