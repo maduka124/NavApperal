@@ -7329,7 +7329,9 @@ page 50984 "BOM Card"
 
                                 until BOMAssortRec.Next() = 0;
                             end;
-                        end;
+                        end
+                        else
+                            Error('Incomplete GMT SIZE record in Assortment Size/Inseam List.');
 
                     until BOMLInePORec.Next() = 0;
                 end;
