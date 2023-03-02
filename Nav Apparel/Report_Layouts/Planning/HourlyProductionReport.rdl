@@ -6740,7 +6740,7 @@
                       <Group Name="Details" />
                       <SortExpressions>
                         <SortExpression>
-                          <Value>=Fields!ResourceName.Value</Value>
+                          <Value>=Fields!ResourceNo.Value</Value>
                         </SortExpression>
                       </SortExpressions>
                     </TablixMember>

@@ -3,6 +3,8 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
     layout
     {
 
+
+
         modify("Document Date")
         {
             trigger OnAfterValidate()
@@ -55,10 +57,10 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
                     rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                 end;
 
-                if Rec.Status = Rec.Status::Released then
-                    VisibleGB := true
-                else
-                    VisibleGB := false;
+                // if Rec.Status = Rec.Status::Released then
+                //     VisibleGB := true
+                // else
+                //     VisibleGB := false;
             end;
         }
 
