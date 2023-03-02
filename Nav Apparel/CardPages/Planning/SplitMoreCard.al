@@ -113,7 +113,7 @@ page 50338 "Split More Card"
                     if format(EqualQty) = 'Yes' then begin
 
                         if Format(NoofLines) <> '0' then begin
-                            x := Round(OrderQty / NoofLines, 2);
+                            x := OrderQty Div NoofLines;
                             y := x;
 
                             //Get Max Lineno
@@ -153,7 +153,15 @@ page 50338 "Split More Card"
                                     y := y + x;
 
                                     if x = 0 then
+                                        break
+                                    else begin
+                                        PlanningQueueRec.Reset();
+                                        PlanningQueueRec.SetRange("Queue No.", QueueNo);
+                                        if PlanningQueueRec.FindSet() then
+                                            PlanningQueueRec.ModifyAll(Qty, PlanningQueueRec.Qty + x);
+
                                         break;
+                                    end;
                                 end
                                 else
                                     y := y + x;
