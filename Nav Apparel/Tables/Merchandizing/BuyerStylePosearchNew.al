@@ -43,6 +43,13 @@ table 51251 "Buyer Style PO Search New"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(120; Status; Enum "Purchase Document Status")
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
     }
 
     keys

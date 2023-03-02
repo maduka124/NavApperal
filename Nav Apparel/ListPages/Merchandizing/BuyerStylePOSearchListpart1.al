@@ -35,6 +35,11 @@ page 51249 "BuyerStyle PO Search Listpart1"
                     ApplicationArea = All;
                 }
 
+                field(Status; Rec.Status)
+                {
+                    ApplicationArea = All;
+                }
+
                 field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;

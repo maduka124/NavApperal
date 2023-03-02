@@ -5,9 +5,8 @@ page 51252 "Buyer Style PO Search List"
     UsageCategory = Lists;
     SourceTable = "BuyerStylePOSearchHeader";
     CardPageId = "Buyer Style PO Search";
-    //DeleteAllowed = false;
-    // InsertAllowed = false;
-    // ModifyAllowed = false;
+    DeleteAllowed = false;
+    InsertAllowed = false;
 
     layout
     {
@@ -39,7 +38,7 @@ page 51252 "Buyer Style PO Search List"
     var
 
     begin
-        Error('Cannot delete this record.');
+        // Error('Cannot delete this record.');
     end;
 
     trigger OnOpenPage()
@@ -50,27 +49,38 @@ page 51252 "Buyer Style PO Search List"
         MaxNo: BigInteger;
     begin
 
-        UsersetupRec.Reset();
-        UsersetupRec.Get(UserId);
-
         CustomerRec.Reset();
-        CustomerRec.SetRange("Group Name", UsersetupRec."Merchandizer Group Name");
+        CustomerRec.SetCurrentKey(Name);
+        CustomerRec.Ascending(true);
 
         if CustomerRec.FindSet() then begin
-            MaxNo := 0;
             repeat
                 PosearchRec.Reset();
                 PosearchRec.SetRange("Buyer Code", CustomerRec."No.");
-
-                if PosearchRec.FindSet() then begin
+                if not PosearchRec.FindSet() then begin
                     MaxNo += 1;
                     PosearchRec.Init();
-                    Rec."No." := MaxNo;
-                    Rec."Buyer Code" := CustomerRec."No.";
-                    Rec."Buyer Name" := CustomerRec.Name;
+                    PosearchRec."No." := MaxNo;
+                    PosearchRec."Buyer Code" := CustomerRec."No.";
+                    PosearchRec."Buyer Name" := CustomerRec.Name;
+                    PosearchRec."Group Name" := CustomerRec."Group Name";
+                    PosearchRec."Goup Code" := CustomerRec."Group Id";
                     PosearchRec.Insert();
                 end;
             until CustomerRec.Next() = 0;
+        end;
+        //Get UserID
+        UsersetupRec.Reset();
+        UsersetupRec.Get(UserId);
+
+        // All Merchandizer Group false
+        if UsersetupRec."Merchandizer All Group" = false then begin
+
+            if UsersetupRec."Merchandizer Group Name" = '' then
+                Error('Merchandiser Group Name is not setup in user setup')
+            else begin
+                Rec.SetRange("Group Name", UsersetupRec."Merchandizer Group Name");
+            end;
         end;
     end;
 }
