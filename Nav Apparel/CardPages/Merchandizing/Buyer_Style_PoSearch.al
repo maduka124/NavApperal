@@ -5,8 +5,7 @@ page 51247 "Buyer Style PO Search"
     UsageCategory = Tasks;
     Editable = true;
     SourceTable = BuyerStylePOSearchHeader;
-
-
+    Caption = 'Buyer/Style/Vendor PO/GRN Details';
 
     layout
     {
@@ -107,7 +106,7 @@ page 51247 "Buyer Style PO Search"
                 }
             }
 
-            group(" ")
+            group("PO Details")
             {
                 part("Buyer Style PO Search Listpart1"; "BuyerStyle PO Search Listpart1")
                 {
@@ -115,7 +114,10 @@ page 51247 "Buyer Style PO Search"
                     Visible = VisiblePO;
                     ApplicationArea = All;
                 }
+            }
 
+            group("GRN Details")
+            {
                 part("Buyer Style PO Search Listpart2"; "BuyerStyle PO Search Listpart2")
                 {
                     Caption = ' ';
@@ -180,7 +182,7 @@ page 51247 "Buyer Style PO Search"
 
 
                     //Buyer Only
-                    if Rec."Style No" = '' then begin
+                    if Rec."Style Name" = '' then begin
 
                         // Not Posted
                         if Rec.Posted = false then begin
@@ -217,8 +219,8 @@ page 51247 "Buyer Style PO Search"
                                             BuyerStylePoSearchRec.Date := PurchaseHeaderRec."Document Date";
                                             BuyerStylePoSearchRec.Location := PurchaseHeaderRec."Location Code";
                                             BuyerStylePoSearchRec.Status := PurchaseHeaderRec.Status;
-                                            BuyerStylePoSearchRec.Amount := purchaseLineRec.Amount;
-                                            BuyerStylePoSearchRec."Amount Including VAT" := purchaseLineRec."Amount Including VAT";
+                                            BuyerStylePoSearchRec.Amount := PurchaseHeaderRec.Amount;
+                                            BuyerStylePoSearchRec."Amount Including VAT" := PurchaseHeaderRec."Amount Including VAT";
                                         end;
                                         BuyerStylePoSearchRec.Insert();
                                     end;
@@ -270,15 +272,10 @@ page 51247 "Buyer Style PO Search"
                                 Error('No GRN found');
                         end;
                     end
-
-                    //Select Buyer And Style
-                    else begin
+                    else begin   //Select Buyer And Style
 
                         // Not Posted
                         if Rec.Posted = false then begin
-
-                            // VisiblePO := true;
-                            // VisibleGRN := false;
 
                             //Get Max Seq No
                             BuyerStylePoSearchRec.Reset();
@@ -286,7 +283,7 @@ page 51247 "Buyer Style PO Search"
                                 MaxSeqNo := BuyerStylePoSearchRec."Seq No";
 
                             purchaseLineRec.Reset();
-                            purchaseLineRec.SetRange(StyleNo, Rec."Style No");
+                            purchaseLineRec.SetRange(StyleName, Rec."Style Name");
                             purchaseLineRec.SetRange("Buyer No.", Rec."Buyer Code");
 
                             if purchaseLineRec.FindSet() then begin
@@ -337,8 +334,7 @@ page 51247 "Buyer Style PO Search"
 
                             PurchaseRcptLineRec.Reset();
                             PurchaseRcptLineRec.SetRange("Buyer No.", Rec."Buyer Code");
-                            PurchaseRcptLineRec.SetRange(StyleNo, Rec."Style No");
-
+                            PurchaseRcptLineRec.SetRange(StyleName, Rec."Style Name");
                             if PurchaseRcptLineRec.FindSet() then begin
                                 repeat
 

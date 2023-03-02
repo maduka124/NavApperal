@@ -12,7 +12,6 @@ report 51237 VendorSummaryAging
 
         dataitem(Vendor; Vendor)
         {
-
             // DataItemTableView = where("General Item Vendor" = filter("Yes"));
             RequestFilterFields = "No.", "Search Name", "Vendor Posting Group", "Currency Filter";
             column(COMPANYNAME; COMPANYPROPERTY.DisplayName)
@@ -285,7 +284,7 @@ report 51237 VendorSummaryAging
                     until Currency.Next() = 0;
                 SetFilter("General Item Vendor", '=%1', GeneralItemVendor);
 
-               
+
             end;
         }
     }

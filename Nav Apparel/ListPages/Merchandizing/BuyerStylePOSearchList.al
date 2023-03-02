@@ -4,9 +4,8 @@ page 51252 "Buyer Style PO Search List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "BuyerStylePOSearchHeader";
-    CardPageId = "Buyer Style PO Search";
-    DeleteAllowed = false;
-    InsertAllowed = false;
+    CardPageId = "Buyer Style PO Search";  
+    Editable = false;
 
     layout
     {
@@ -36,10 +35,24 @@ page 51252 "Buyer Style PO Search List"
 
     trigger OnDeleteRecord(): Boolean
     var
-
     begin
-        // Error('Cannot delete this record.');
+        Error('Cannot delete this record.');
     end;
+
+
+    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    var
+    begin
+        Error('Cannot insert new record.');
+    end;
+
+
+    trigger OnModifyRecord(): Boolean
+    var
+    begin
+        Error('Cannot modify this record.');
+    end;
+
 
     trigger OnOpenPage()
     var
@@ -48,6 +61,11 @@ page 51252 "Buyer Style PO Search List"
         PosearchRec: Record BuyerStylePOSearchHeader;
         MaxNo: BigInteger;
     begin
+
+        PosearchRec.Reset();
+        PosearchRec.Ascending(true);
+        if PosearchRec.Findlast() then
+            MaxNo := PosearchRec."No.";
 
         CustomerRec.Reset();
         CustomerRec.SetCurrentKey(Name);
