@@ -69,32 +69,35 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
             {
                 ApplicationArea = all;
             }
+            //Mihiranga 2023/03/02
             field("Cost Center"; Rec."Cost Center")
             {
                 ApplicationArea = all;
                 Visible = VisibleGB;
 
-                trigger OnLookup(var Text: Text): Boolean
-                var
-                    DimensionRec: Record "Dimension Value";
-                    UserRec: Record "User Setup";
-                begin
-                    UserRec.Reset();
-                    UserRec.Get(UserId);
-                    // UserRec.SetRange(SystemCreatedBy, Rec.SystemCreatedBy);
-                    DimensionRec.Reset();
-                    if DimensionRec.FindSet() then begin
-                        repeat
-                            if UserRec."Cost Center" = DimensionRec."Dimension Code" then begin
-                                if page.RunModal(560, DimensionRec) = Action::LookupOK then begin
-                                    Rec."Cost Center" := DimensionRec."Dimension Code";
-                                end;
-                            end;
+                // trigger OnLookup(var Text: Text): Boolean
+                // var
+                //     DimensionRec: Record "Dimension Value";
+                //     UserRec: Record "User Setup";
+                // begin
+                //     UserRec.Reset();
+                //     UserRec.Get(UserId);
+                //     DimensionRec.Reset();
 
-                        until DimensionRec.Next() = 0;
+                //     if DimensionRec.FindSet() then begin
+                //         repeat
+                //             if UserRec."Cost Center" = DimensionRec.Code then begin
+                //                 // if page.RunModal(560, DimensionRec) = Action::LookupOK then begin
+                //                 Rec."Cost Center" := UserRec."Cost Center";
+                //                 // end;
+                //             end;
 
-                    end;
-                end;
+                //         until DimensionRec.Next() = 0;
+                // end;
+                // end;
+                // end;
+
+                //
             }
         }
 
@@ -189,17 +192,33 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
 
 
     end;
-
+    //Mihiranga 2023/03/02
     trigger OnOpenPage()
     var
+        DimensionRec: Record "Dimension Value";
         UserRec: Record "User Setup";
     begin
         if Rec.Status = Rec.Status::Released then
             VisibleGB := true
         else
             VisibleGB := false;
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        DimensionRec.Reset();
 
+        if DimensionRec.FindSet() then begin
+            repeat
+                if UserRec."Cost Center" = DimensionRec.Code then begin
+                    // if page.RunModal(560, DimensionRec) = Action::LookupOK then begin
+                    Rec."Cost Center" := UserRec."Cost Center";
+                    // end;
+                end;
+
+            until DimensionRec.Next() = 0;
+
+        end;
     end;
+    ////
 
     var
         EditableGB: Boolean;
