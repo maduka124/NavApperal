@@ -38,6 +38,7 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
             OptionCaption = 'FG,Sample,Washing,Central Purchasing';
             OptionMembers = FG,Sample,Washing,"Central Purchasing";
         }
+
         //Mihiranga 2023/03/01
         field(50411; "Cost Center"; code[20])
         {
@@ -58,7 +59,7 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
 
 
         //     end;
-          
+
         // }
 
 

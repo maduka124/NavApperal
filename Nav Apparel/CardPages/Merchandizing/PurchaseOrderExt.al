@@ -30,7 +30,6 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
             end;
         }
 
-
         modify("Vendor Invoice No.")
         {
             trigger OnAfterValidate()
@@ -69,35 +68,13 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
             {
                 ApplicationArea = all;
             }
+
             //Mihiranga 2023/03/02
             field("Cost Center"; Rec."Cost Center")
             {
                 ApplicationArea = all;
-                Visible = VisibleGB;
-
-                // trigger OnLookup(var Text: Text): Boolean
-                // var
-                //     DimensionRec: Record "Dimension Value";
-                //     UserRec: Record "User Setup";
-                // begin
-                //     UserRec.Reset();
-                //     UserRec.Get(UserId);
-                //     DimensionRec.Reset();
-
-                //     if DimensionRec.FindSet() then begin
-                //         repeat
-                //             if UserRec."Cost Center" = DimensionRec.Code then begin
-                //                 // if page.RunModal(560, DimensionRec) = Action::LookupOK then begin
-                //                 Rec."Cost Center" := UserRec."Cost Center";
-                //                 // end;
-                //             end;
-
-                //         until DimensionRec.Next() = 0;
-                // end;
-                // end;
-                // end;
-
-                //
+                Editable = false;
+                Visible = true;
             }
         }
 
@@ -184,41 +161,74 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
 
     trigger OnAfterGetCurrRecord()
     var
+        POLineRec: Record "Purchase Line";
+        UserRec: Record "User Setup";
     begin
-        if rec.Status = rec.Status::Released then
-            EditableGb := false
-        else
-            EditableGb := true;
+        if Rec.Status = Rec.Status::Released then begin
+            //VisibleGB := true;
 
+            UserRec.Reset();
+            UserRec.Get(UserId);
 
+            if UserRec."Cost Center" = '' then
+                Error('Cost Center has not setup in the User Card.')
+            else begin
+                //Header record
+                rec."Cost Center" := UserRec."Cost Center";
+
+                //Line records
+                POLineRec.Reset();
+                POLineRec.SetFilter("Document Type", '=%1', POLineRec."Document Type"::Order);
+                POLineRec.SetRange("Document No.", rec."No.");
+                if POLineRec.FindSet() then begin
+                    repeat
+                        POLineRec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
+                        POLineRec.Modify();
+                    until POLineRec.Next() = 0;
+                end;
+                //CurrPage.Update();
+            end;
+        end;
+        // else
+        //     VisibleGB := false;
     end;
+
+
     //Mihiranga 2023/03/02
     trigger OnOpenPage()
     var
-        DimensionRec: Record "Dimension Value";
+        POLineRec: Record "Purchase Line";
         UserRec: Record "User Setup";
     begin
-        if Rec.Status = Rec.Status::Released then
-            VisibleGB := true
-        else
-            VisibleGB := false;
-        UserRec.Reset();
-        UserRec.Get(UserId);
-        DimensionRec.Reset();
+        if Rec.Status = Rec.Status::Released then begin
+            //VisibleGB := true;
 
-        if DimensionRec.FindSet() then begin
-            repeat
-                if UserRec."Cost Center" = DimensionRec.Code then begin
-                    // if page.RunModal(560, DimensionRec) = Action::LookupOK then begin
-                    Rec."Cost Center" := UserRec."Cost Center";
-                    // end;
+            UserRec.Reset();
+            UserRec.Get(UserId);
+
+            if UserRec."Cost Center" = '' then
+                Error('Cost Center has not setup in the User Card.')
+            else begin
+                //Header record
+                rec."Cost Center" := UserRec."Cost Center";
+
+                //Line records
+                POLineRec.Reset();
+                POLineRec.SetFilter("Document Type", '=%1', POLineRec."Document Type"::Order);
+                POLineRec.SetRange("Document No.", rec."No.");
+                if POLineRec.FindSet() then begin
+                    repeat
+                        POLineRec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
+                        POLineRec.Modify();
+                    until POLineRec.Next() = 0;
                 end;
-
-            until DimensionRec.Next() = 0;
-
+                CurrPage.Update();
+            end;
         end;
+        // else
+        //     VisibleGB := false;
+
     end;
-    ////
 
     var
         EditableGB: Boolean;

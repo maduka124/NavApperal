@@ -11,19 +11,19 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
 
         modify("No.")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
 
         }
 
         modify(Type)
         {
             Caption = 'Type';
-            Editable = EditableGB;
+            Editable = EditableGB1;
 
             // trigger OnBeforeValidate()
             // var
             // begin
-            //     if EditableGB = false then
+            //     if EditableGB1 = false then
             //         Error('Cannot change Type');
 
             // end;
@@ -31,67 +31,71 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
 
         modify("Item Reference No.")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
 
         modify(Description)
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
 
         modify("Bin Code")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
         modify(Quantity)
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
         modify("Location Code")
         {
             ShowMandatory = true;
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
         modify("Unit of Measure Code")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
         modify("Direct Unit Cost")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
         modify("Line Amount")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
         modify("Promised Receipt Date")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
         modify("Planned Receipt Date")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
         modify("Expected Receipt Date")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
         modify("Shortcut Dimension 1 Code")
         {
-            Editable = EditableGB;
+            Editable = EditableGB1;
         }
 
+        modify("Shortcut Dimension 2 Code")
+        {
+            Editable = false;
+        }
 
         addafter(Description)
         {
@@ -99,7 +103,7 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
             {
                 ApplicationArea = all;
                 Caption = 'Buyer';
-                Editable = EditableGB;
+                Editable = EditableGB1;
 
                 trigger OnValidate()
                 var
@@ -116,43 +120,53 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
             {
                 ApplicationArea = all;
                 Caption = 'Style';
-                Editable = EditableGB;
+                Editable = EditableGB1;
             }
         }
     }
 
 
-    trigger OnAfterGetCurrRecord()
+    // trigger OnAfterGetRecord()
+    // var
+    //     PurchaseOrderRec: Record "Purchase Header";
+    // begin
+    //     PurchaseOrderRec.Reset();
+    //     PurchaseOrderRec.SetRange("No.", rec."Document No.");
+    //     PurchaseOrderRec.SetFilter("Document Type", '=%1', PurchaseOrderRec."Document Type"::Order);
+    //     if PurchaseOrderRec.FindSet() then begin
+
+    //         if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then begin
+    //             EditableGB1 := false;
+    //             // VisibleGB1 := true;
+    //         end
+    //         else begin
+    //             EditableGB1 := true;
+    //             // VisibleGB1 := false;
+    //         end;
+
+    //     end;
+    // end;
+
+
+    // trigger OnAfterGetRecord()
+    // var
+    //     PurchaseOrderRec: Record "Purchase Header";
+    //     UserRec: Record "User Setup";
+    // begin
+    //     PurchaseOrderRec.get(rec."Document Type", rec."Document No.");
+
+    //     if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then
+    //         EditableGB1 := false
+    //     else
+    //         EditableGB1 := true;
+    //     UserRec.Reset();
+    //     UserRec.SetRange(SystemCreatedBy, Rec.SystemCreatedBy);
+    //     if UserRec.FindSet() then begin
+    //         Rec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
+    //     end;
+    // end;
+
     var
-        PurchaseOrderRec: Record "Purchase Header";
-    begin
-        PurchaseOrderRec.get(rec."Document Type", rec."Document No.");
-
-        if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then
-            EditableGb := false
-        else
-            EditableGb := true;
-    end;
-
-
-    trigger OnAfterGetRecord()
-    var
-        PurchaseOrderRec: Record "Purchase Header";
-        UserRec: Record "User Setup";
-    begin
-        PurchaseOrderRec.get(rec."Document Type", rec."Document No.");
-
-        if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then
-            EditableGb := false
-        else
-            EditableGb := true;
-        UserRec.Reset();
-        UserRec.SetRange(SystemCreatedBy, Rec.SystemCreatedBy);
-        if UserRec.FindSet() then begin
-            Rec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
-        end;
-    end;
-
-    var
-        EditableGB: Boolean;
+        EditableGB1: Boolean;
+        VisibleGB1: Boolean;
 }
