@@ -82,6 +82,7 @@ page 51254 "BuyerStyle PO Search Listpart2"
         LoginSessionsRec: Record LoginSessions;
         UsersetupRec: Record "User Setup";
         BuyerStylePoSearchRec: Record "Buyer Style PO Search";
+        BuyerStyleGRNSearchRec: Record "Buyer Style PO Search GRN";
     begin
 
         //Check whether user logged in or not
@@ -97,6 +98,12 @@ page 51254 "BuyerStyle PO Search Listpart2"
             LoginSessionsRec.SetRange(SessionID, SessionId());
             LoginSessionsRec.FindSet();
         end;
+
+        //Delete old Records
+        BuyerStyleGRNSearchRec.Reset();
+        BuyerStyleGRNSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+        if BuyerStyleGRNSearchRec.findset then
+            BuyerStyleGRNSearchRec.DeleteAll();
 
         rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
 

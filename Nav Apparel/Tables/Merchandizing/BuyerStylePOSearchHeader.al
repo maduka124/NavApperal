@@ -31,10 +31,10 @@ table 51253 BuyerStylePOSearchHeader
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Style Name"; Text[100])
+        field(6; "Style Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style Display Name" where("Buyer No." = field("Buyer Code"));
+            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"));
             ValidateTableRelation = false;
         }
 

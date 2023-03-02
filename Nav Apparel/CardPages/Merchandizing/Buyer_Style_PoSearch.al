@@ -64,10 +64,12 @@ page 51247 "Buyer Style PO Search"
                     begin
 
                         StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style Display Name", Rec."Style Name");
+                        StyleMasterRec.SetRange("Style No.", Rec."Style Name");
 
                         if StyleMasterRec.FindSet() then
-                            Rec."Style No" := StyleMasterRec."No.";
+                            Rec."Style No" := StyleMasterRec."No."
+                        else
+                            Error('Invalid Style');
                     end;
                     // TableRelation = "Style Master"."No.";
 
@@ -164,13 +166,13 @@ page 51247 "Buyer Style PO Search"
 
                     MaxSeqNo := 0;
 
-                    // delete old records
+                    // Delete old records
                     BuyerStylePoSearchRec.Reset();
                     BuyerStylePoSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
                     if BuyerStylePoSearchRec.findset then
                         BuyerStylePoSearchRec.DeleteAll();
 
-                    // delete old records
+                    // Delete old records
                     BuyerStyleGRNSearchRec.Reset();
                     BuyerStyleGRNSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
                     if BuyerStyleGRNSearchRec.findset then
@@ -209,9 +211,12 @@ page 51247 "Buyer Style PO Search"
                                         PurchaseHeaderRec.SetRange("No.", purchaseLineRec."Document No.");
                                         PurchaseHeaderRec.SetRange("Document Type", purchaseLineRec."Document Type"::Order);
                                         if PurchaseHeaderRec.FindSet() then begin
+                                            PurchaseHeaderRec.CalcFields(Amount);
+                                            PurchaseHeaderRec.CalcFields("Amount Including VAT");
                                             BuyerStylePoSearchRec.Supplier := PurchaseHeaderRec."Buy-from Vendor Name";
                                             BuyerStylePoSearchRec.Date := PurchaseHeaderRec."Document Date";
                                             BuyerStylePoSearchRec.Location := PurchaseHeaderRec."Location Code";
+                                            BuyerStylePoSearchRec.Status := PurchaseHeaderRec.Status;
                                             BuyerStylePoSearchRec.Amount := purchaseLineRec.Amount;
                                             BuyerStylePoSearchRec."Amount Including VAT" := purchaseLineRec."Amount Including VAT";
                                         end;
@@ -302,11 +307,14 @@ page 51247 "Buyer Style PO Search"
                                         PurchaseHeaderRec.SetRange("Document Type", purchaseLineRec."Document Type"::Order);
 
                                         if PurchaseHeaderRec.FindSet() then begin
+                                            PurchaseHeaderRec.CalcFields(Amount);
+                                            PurchaseHeaderRec.CalcFields("Amount Including VAT");
                                             BuyerStylePoSearchRec.Supplier := PurchaseHeaderRec."Buy-from Vendor Name";
                                             BuyerStylePoSearchRec.Date := PurchaseHeaderRec."Document Date";
+                                            BuyerStylePoSearchRec.Status := PurchaseHeaderRec.Status;
                                             BuyerStylePoSearchRec.Location := PurchaseHeaderRec."Location Code";
-                                            BuyerStylePoSearchRec.Amount := purchaseLineRec.Amount;
-                                            BuyerStylePoSearchRec."Amount Including VAT" := purchaseLineRec."Amount Including VAT";
+                                            BuyerStylePoSearchRec.Amount := PurchaseHeaderRec.Amount;
+                                            BuyerStylePoSearchRec."Amount Including VAT" := PurchaseHeaderRec."Amount Including VAT";
                                         end;
                                         BuyerStylePoSearchRec.Insert();
                                     end;
@@ -373,6 +381,7 @@ page 51247 "Buyer Style PO Search"
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
         UsersetupRec: Record "User Setup";
+        BuyerStylePOSearchHeaderRec: Record BuyerStylePOSearchHeader;
     begin
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
@@ -391,6 +400,10 @@ page 51247 "Buyer Style PO Search"
 
         VisiblePO := true;
         VisibleGRN := false;
+
+        BuyerStylePOSearchHeaderRec.Get(Rec."No.");
+        BuyerStylePOSearchHeaderRec.Posted := false;
+
     end;
 
 
@@ -403,8 +416,7 @@ page 51247 "Buyer Style PO Search"
 
 
     var
-        // Buyer: Code[20];
-        // Posted: Boolean;
+
         MaxSeqNo: BigInteger;
         VisiblePO: Boolean;
         VisibleGRN: Boolean;

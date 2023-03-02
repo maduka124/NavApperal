@@ -3,6 +3,8 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
     layout
     {
 
+
+
         modify("Document Date")
         {
             trigger OnAfterValidate()
@@ -82,22 +84,22 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
                 // begin
                 //     UserRec.Reset();
                 //     UserRec.Get(UserId);
+                //     // UserRec.SetRange(SystemCreatedBy, Rec.SystemCreatedBy);
                 //     DimensionRec.Reset();
-
                 //     if DimensionRec.FindSet() then begin
                 //         repeat
-                //             if UserRec."Cost Center" = DimensionRec.Code then begin
-                //                 // if page.RunModal(560, DimensionRec) = Action::LookupOK then begin
-                //                 Rec."Cost Center" := UserRec."Cost Center";
-                //                 // end;
+                //             if UserRec."Cost Center" = DimensionRec."Dimension Code" then begin
+                //                 if page.RunModal(560, DimensionRec) = Action::LookupOK then begin
+                //                     Rec."Cost Center" := DimensionRec."Dimension Code";
+                //                 end;
                 //             end;
 
                 //         until DimensionRec.Next() = 0;
-                // end;
-                // end;
-                // end;
+                // // end;
+                // // end;
+                // // end;
 
-                //
+                //         //
             }
         }
 

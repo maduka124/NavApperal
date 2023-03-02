@@ -38,6 +38,8 @@ page 51249 "BuyerStyle PO Search Listpart1"
                 field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
+                    Style = Strong;
+                    StyleExpr = true;
                 }
 
                 field(Amount; Rec.Amount)
@@ -88,7 +90,7 @@ page 51249 "BuyerStyle PO Search Listpart1"
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
         UsersetupRec: Record "User Setup";
-        BuyerStylePoSearchRec: Record "Buyer Style PO Search";
+        BuyerStylePoSearchRec: Record "Buyer Style PO Search New";
     begin
 
         //Check whether user logged in or not
@@ -104,6 +106,13 @@ page 51249 "BuyerStyle PO Search Listpart1"
             LoginSessionsRec.SetRange(SessionID, SessionId());
             LoginSessionsRec.FindSet();
         end;
+
+        //Delete Old Records
+        BuyerStylePoSearchRec.Reset();
+        BuyerStylePoSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+        if BuyerStylePoSearchRec.findset then
+            BuyerStylePoSearchRec.DeleteAll();
+
 
         rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
 
