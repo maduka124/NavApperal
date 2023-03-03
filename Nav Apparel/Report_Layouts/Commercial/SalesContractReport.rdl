@@ -1118,14 +1118,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="AssormentQty">
+                        <Textbox Name="PoQty">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!AssormentQty.Value</Value>
+                                  <Value>=Fields!PoQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -1137,7 +1137,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>AssormentQty</rd:DefaultName>
+                          <rd:DefaultName>PoQty</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -1235,7 +1235,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UnitPrice.Value*Fields!AssormentQty.Value</Value>
+                                  <Value>=Fields!UnitPrice.Value*Fields!PoQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n2</Format>
@@ -1279,6 +1279,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1678,9 +1679,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Color">
           <DataField>Color</DataField>
-        </Field>
-        <Field Name="AssormentQty">
-          <DataField>AssormentQty</DataField>
         </Field>
       </Fields>
       <Query>

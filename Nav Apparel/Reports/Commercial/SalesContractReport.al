@@ -43,28 +43,30 @@ report 51245 SalesContractReport
                     { }
                     column(ShipDate; "Ship Date")
                     { }
-                    dataitem(AssortmentDetails; AssortmentDetails)
-                    {
-                        DataItemLinkReference = "Style Master PO";
-                        DataItemLink = "Style No." = field("Style No."), "PO No." = field("PO No.");
-                        DataItemTableView = sorting("Style No.", "Lot No.");
+                    column(Color; Color)
+                    { }
+                    // dataitem(AssortmentDetails; AssortmentDetails)
+                    // {
+                    //     DataItemLinkReference = "Style Master PO";
+                    //     DataItemLink = "Style No." = field("Style No."), "PO No." = field("PO No.");
+                    //     DataItemTableView = sorting("Style No.", "Lot No.");
 
-                        column(Color; "Colour Name")
-                        { }
-                        column(AssormentQty; AssormentQty)
-                        { }
-                        trigger OnAfterGetRecord()
+                    //     column(Color; "Colour Name")
+                    //     { }
+                    //     column(AssormentQty; AssormentQty)
+                    //     { }
+                    //     trigger OnAfterGetRecord()
 
-                        begin
-                            AssorColorRationRec.Reset();
-                            AssorColorRationRec.SetRange("Style No.", "Style No.");
-                            AssorColorRationRec.SetRange("PO No.", "PO No.");
-                            AssorColorRationRec.SetRange("Colour No", "Colour No");
-                            if AssorColorRationRec.FindFirst() then begin
-                                AssormentQty := AssorColorRationRec.Total;
-                            end;
-                        end;
-                    }
+                    //     begin
+                    //         AssorColorRationRec.Reset();
+                    //         AssorColorRationRec.SetRange("Style No.", "Style No.");
+                    //         AssorColorRationRec.SetRange("PO No.", "PO No.");
+                    //         AssorColorRationRec.SetRange("Colour No", "Colour No");
+                    //         if AssorColorRationRec.FindFirst() then begin
+                    //             AssormentQty := AssorColorRationRec.Total;
+                    //         end;
+                    //     end;
+                    // }
                     trigger OnAfterGetRecord()
                     begin
 
@@ -72,6 +74,13 @@ report 51245 SalesContractReport
                         StyleRec.SetRange("No.", "Style No.");
                         if StyleRec.FindFirst() then begin
                             GarmentType := StyleRec."Garment Type Name";
+                        end;
+
+                        AssormentDetailRec.Reset();
+                        AssormentDetailRec.SetRange("Style No.", "Style No.");
+                        AssormentDetailRec.SetRange("PO No.", "PO No.");
+                        if AssormentDetailRec.FindFirst() then begin
+                            Color := AssormentDetailRec."Colour Name";
                         end;
                     end;
                 }
@@ -92,14 +101,14 @@ report 51245 SalesContractReport
         {
             area(Content)
             {
-                group(GroupName)
-                {
-                    // field(Name; SourceExpression)
-                    // {
-                    //     ApplicationArea = All;
+                // group(GroupName)
+                // {
+                //     // field(Name; SourceExpression)
+                //     // {
+                //     //     ApplicationArea = All;
 
-                    // }
-                }
+                //     // }
+                // }
             }
         }
 
@@ -118,6 +127,8 @@ report 51245 SalesContractReport
 
 
     var
+
+        AssormentDetailRec: Record AssortmentDetails;
         AssormentQty: Integer;
         AssorColorRationRec: Record AssorColorSizeRatio;
         comRec: Record "Company Information";
