@@ -98,14 +98,16 @@ report 50633 AccessoriesStatusReport
                     PurchaseArchiveRec.SetRange("Document No.", "Order No.");
                     PurchaseArchiveRec.SetFilter("Document Type", '=%1', PurchaseArchiveRec."Document Type"::Order);
                     PurchaseArchiveRec.SetRange("No.", "No.");
-                    repeat
-                        if PurchLineRec.Quantity <> 0 then
-                            Qty := PurchLineRec.Quantity
-                        else
-                            if PurchaseArchiveRec.FindFirst() then begin
-                                Qty := PurchaseArchiveRec.Quantity;
-                            end;
-                    until PurchLineRec.Next() = 0;
+                    if PurchLineRec.FindSet() then
+                        
+                            repeat
+                                if PurchLineRec.Quantity <> 0 then
+                                    Qty := PurchLineRec.Quantity
+                                else
+                                    if PurchaseArchiveRec.FindFirst() then begin
+                                        Qty := PurchaseArchiveRec.Quantity;
+                                    end;
+                            until PurchLineRec.Next() = 0;
                     PurchHDRec.SetRange("No.", "Document No.");
                     if PurchHDRec.FindFirst() then begin
                         OrderNO := PurchHDRec."Order No.";

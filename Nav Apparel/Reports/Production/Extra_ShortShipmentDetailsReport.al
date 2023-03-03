@@ -1,4 +1,4 @@
-report 51300 ExtraShortShipmentDetails
+report 51257 ExtraShortShipmentDetails
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
