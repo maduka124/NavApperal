@@ -48,7 +48,70 @@ page 50505 "StyleMasterContract ListPart 2"
                     CodeUnitNav: Codeunit NavAppCodeUnit;
                     "B2BLC%": Decimal;
                     CodeUnit2Nav: Codeunit NavAppCodeUnit2;
+                    Status: Boolean;
+                    POLineRec: Record "Purchase Line";
+                    B2BLCRec: Record B2BLCMaster;
+                    PIRec: Record "PI Details Header";
+                    PIPoDetails: Record "PI Po Details";
                 begin
+                    //validate Style before remove
+                    Status := false;
+
+                    "Contract/LCStyleRec".Reset();
+                    "Contract/LCStyleRec".SetRange("No.", Rec."No.");
+                    "Contract/LCStyleRec".SetFilter(Select, '=%1', true);
+
+                    if "Contract/LCStyleRec".FindSet() then begin
+                        repeat
+
+                            //Get Vender PO for the style
+                            POLineRec.Reset();
+                            POLineRec.SetFilter("Document Type", '=%1', POLineRec."Document Type"::Order);
+                            POLineRec.SetRange(StyleNo, "Contract/LCStyleRec"."Style No.");
+                            if POLineRec.FindSet() then begin
+                                repeat
+
+                                    //Get LCContract No
+                                    "Contract/LCMasterRec".Reset();
+                                    "Contract/LCMasterRec".SetRange("No.", Rec."No.");
+
+                                    if "Contract/LCMasterRec".FindSet() then begin
+
+                                        //Get B2B Lc for contract no
+                                        B2BLCRec.Reset();
+                                        B2BLCRec.SetRange(LCContractNo, "Contract/LCMasterRec"."Contract No");
+                                        if B2BLCRec.FindSet() then begin
+                                            repeat
+
+                                                //Get PI details for B2B no
+                                                PIRec.Reset();
+                                                PIRec.SetRange(B2BNo, B2BLCRec."No.");
+                                                if PIRec.FindSet() then begin
+                                                    repeat
+
+                                                        //Check for Po No
+                                                        PIPoDetails.Reset();
+                                                        PIPoDetails.SetRange("PO No.", POLineRec."Document No.");
+                                                        PIPoDetails.SetRange("PI No.", PIRec."No.");
+                                                        if PIPoDetails.FindSet() then
+                                                            Status := true;
+
+                                                    until PIRec.Next() = 0;
+                                                end;
+
+                                            until B2BLCRec.Next() = 0;
+                                        end;
+                                    end;
+
+                                until POLineRec.Next() = 0;
+                            end;
+
+                        until "Contract/LCStyleRec".Next() = 0;
+                    end;
+
+                    if Status = true then
+                        Error('Cannot delete Style. Vendor POs have been attached to PIs.');
+
 
                     "Contract/LCStyleRec".Reset();
                     "Contract/LCStyleRec".SetRange("No.", Rec."No.");

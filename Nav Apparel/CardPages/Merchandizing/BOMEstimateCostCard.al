@@ -741,7 +741,8 @@ page 50986 "BOM Estimate Cost Card"
                         {
                             ApplicationArea = All;
                             ShowCaption = false;
-                            StyleExpr = 'StrongAccent';
+                            //StyleExpr = 'StrongAccent';
+                            Editable = false;
 
                             trigger OnValidate()
                             var

@@ -1177,4 +1177,37 @@ codeunit 50618 NavAppCodeUnit
     end;
 
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"ArchiveManagement", 'OnAfterPurchHeaderArchiveInsert', '', true, true)]
+    local procedure OnAfterPurchHeaderArchiveInsert(var PurchaseHeaderArchive: Record "Purchase Header Archive"; PurchaseHeader: Record "Purchase Header")
+
+    begin
+        PurchaseHeaderArchive."PI No." := PurchaseHeader."PI No.";
+        PurchaseHeaderArchive.Select := PurchaseHeader.Select;
+        PurchaseHeaderArchive."Assigned PI No." := PurchaseHeader."Assigned PI No.";
+        PurchaseHeaderArchive."LC/Contract No." := PurchaseHeader."LC/Contract No.";
+        PurchaseHeaderArchive."Secondary UserID" := PurchaseHeader."Secondary UserID";
+        PurchaseHeaderArchive."Merchandizer Group Name" := PurchaseHeader."Merchandizer Group Name";
+        PurchaseHeaderArchive."Workflow User Group" := PurchaseHeader."Workflow User Group";
+        PurchaseHeaderArchive."EntryType" := PurchaseHeader."EntryType";
+        PurchaseHeaderArchive."Cost Center" := PurchaseHeader."Cost Center";
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"ArchiveManagement", 'OnAfterStorePurchLineArchive', '', true, true)]
+    local procedure OnAfterStorePurchLineArchive(var PurchHeader: Record "Purchase Header"; var PurchLine: Record "Purchase Line"; var PurchHeaderArchive: Record "Purchase Header Archive"; var PurchLineArchive: Record "Purchase Line Archive")
+
+    begin
+        PurchLineArchive.StyleNo := PurchLine.StyleNo;
+        PurchLineArchive.StyleName := PurchLine.StyleName;
+        PurchLineArchive.PONo := PurchLine.PONo;
+        PurchLineArchive.Lot := PurchLine.Lot;
+        PurchLineArchive."Color Name" := PurchLine."Color Name";
+        PurchLineArchive."Color No." := PurchLine."Color No.";
+        PurchLineArchive.EntryType := PurchLine.EntryType;
+        PurchLineArchive."CP Req No" := PurchLine."CP Req No";
+        PurchLineArchive."Buyer Name" := PurchLine."Buyer Name";
+        PurchLineArchive."Buyer No." := PurchLine."Buyer No.";
+        PurchLineArchive."Secondary UserID" := PurchLine."Secondary UserID";
+    end;
+
 }

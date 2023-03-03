@@ -6,7 +6,7 @@ page 51254 "BuyerStyle PO Search Listpart2"
     InsertAllowed = false;
     ModifyAllowed = false;
     //CardPageId = "Posted Purchase Receipt";
-    Caption = 'GRN Details';
+    Caption = 'PO Details (Invoiced)';
 
     layout
     {
@@ -52,7 +52,7 @@ page 51254 "BuyerStyle PO Search Listpart2"
     {
         area(Processing)
         {
-            action("View GRN")
+            action("View PO")
             {
                 ApplicationArea = All;
                 Image = ViewOrder;
@@ -61,13 +61,13 @@ page 51254 "BuyerStyle PO Search Listpart2"
 
                 trigger OnAction()
                 var
-                    GRNRec: Record "Purch. Rcpt. Header";
+                    PORec: Record "Purchase Header Archive";
                 begin
-                    GRNRec.Reset();
-                    GRNRec.SetRange("No.", rec."GRN No");
+                    PORec.Reset();
+                    PORec.SetRange("No.", rec."GRN No"); //GRN No is PO No
 
-                    if GRNRec.FindSet() then begin
-                        Page.RunModal(136, GRNRec);
+                    if PORec.FindSet() then begin
+                        Page.RunModal(5167, PORec);
                     end
                     else
                         Error('Cannot find GRN details');

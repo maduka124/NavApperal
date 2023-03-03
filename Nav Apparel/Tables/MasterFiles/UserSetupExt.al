@@ -19,7 +19,8 @@ tableextension 51141 "User Setup Extension" extends "User Setup"
 
         field(50004; "UserRole"; Text[50])
         {
-
+            TableRelation = UserRoles.Description;
+            ValidateTableRelation = false;
         }
 
         field(50005; "Global Dimension Code"; Code[20])

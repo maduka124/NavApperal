@@ -2,9 +2,6 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
 {
     layout
     {
-
-
-
         modify("Document Date")
         {
             trigger OnAfterValidate()
@@ -166,29 +163,31 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
         POLineRec: Record "Purchase Line";
         UserRec: Record "User Setup";
     begin
-        if Rec.Status = Rec.Status::Released then begin
-            //VisibleGB := true;
+        UserRec.Reset();
+        UserRec.Get(UserId);
 
-            UserRec.Reset();
-            UserRec.Get(UserId);
+        if UserRec.UserRole = 'STORE USER' then begin
+            if Rec.Status = Rec.Status::Released then begin
+                //VisibleGB := true;
 
-            if UserRec."Cost Center" = '' then
-                Error('Cost Center has not setup in the User Card.')
-            else begin
-                //Header record
-                rec."Cost Center" := UserRec."Cost Center";
+                if UserRec."Cost Center" = '' then
+                    Error('Cost Center has not setup in the User Card.')
+                else begin
+                    //Header record
+                    rec."Cost Center" := UserRec."Cost Center";
 
-                //Line records
-                POLineRec.Reset();
-                POLineRec.SetFilter("Document Type", '=%1', POLineRec."Document Type"::Order);
-                POLineRec.SetRange("Document No.", rec."No.");
-                if POLineRec.FindSet() then begin
-                    repeat
-                        POLineRec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
-                        POLineRec.Modify();
-                    until POLineRec.Next() = 0;
+                    //Line records
+                    POLineRec.Reset();
+                    POLineRec.SetFilter("Document Type", '=%1', POLineRec."Document Type"::Order);
+                    POLineRec.SetRange("Document No.", rec."No.");
+                    if POLineRec.FindSet() then begin
+                        repeat
+                            POLineRec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
+                            POLineRec.Modify();
+                        until POLineRec.Next() = 0;
+                    end;
+                    //CurrPage.Update();
                 end;
-                //CurrPage.Update();
             end;
         end;
         // else
@@ -202,29 +201,30 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
         POLineRec: Record "Purchase Line";
         UserRec: Record "User Setup";
     begin
-        if Rec.Status = Rec.Status::Released then begin
-            //VisibleGB := true;
+        UserRec.Reset();
+        UserRec.Get(UserId);
 
-            UserRec.Reset();
-            UserRec.Get(UserId);
+        if UserRec.UserRole = 'STORE USER' then begin
+            if Rec.Status = Rec.Status::Released then begin
 
-            if UserRec."Cost Center" = '' then
-                Error('Cost Center has not setup in the User Card.')
-            else begin
-                //Header record
-                rec."Cost Center" := UserRec."Cost Center";
+                if UserRec."Cost Center" = '' then
+                    Error('Cost Center has not setup in the User Card.')
+                else begin
+                    //Header record
+                    rec."Cost Center" := UserRec."Cost Center";
 
-                //Line records
-                POLineRec.Reset();
-                POLineRec.SetFilter("Document Type", '=%1', POLineRec."Document Type"::Order);
-                POLineRec.SetRange("Document No.", rec."No.");
-                if POLineRec.FindSet() then begin
-                    repeat
-                        POLineRec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
-                        POLineRec.Modify();
-                    until POLineRec.Next() = 0;
+                    //Line records
+                    POLineRec.Reset();
+                    POLineRec.SetFilter("Document Type", '=%1', POLineRec."Document Type"::Order);
+                    POLineRec.SetRange("Document No.", rec."No.");
+                    if POLineRec.FindSet() then begin
+                        repeat
+                            POLineRec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
+                            POLineRec.Modify();
+                        until POLineRec.Next() = 0;
+                    end;
+                    CurrPage.Update();
                 end;
-                CurrPage.Update();
             end;
         end;
         // else

@@ -79,6 +79,9 @@ page 51016 AssoInSeamListPart
                         if rec."Lot No." = '' then
                             Error('Invalid Lot No');
 
+                        if (rec.InSeam >= 0) and (rec."Com Size" = '') then
+                            Error('Please enter Com Size.');
+
                         if rec.InSeam <> 0 then
                             rec."GMT Size" := format(rec."Com Size") + '/' + format(rec.InSeam)
                         else

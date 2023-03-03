@@ -369,9 +369,9 @@ page 50968 "Nav Apperal Role Center"
                 }
 
                 //Done By Sachith 23/02/23
-                action("Buyer/Style/VendorPO/GRNDetails")
+                action("Buyer/Style/VendorPO Details")
                 {
-                    Caption = 'Buyer/Style/Vendor PO/GRN Details';
+                    Caption = 'Buyer/Style/Vendor PO Details';
                     RunObject = page "Buyer Style PO Search List";
                     ApplicationArea = All;
                 }
@@ -1082,9 +1082,9 @@ page 50968 "Nav Apperal Role Center"
                 }
 
                 //Done By Sachith 28/02/23
-                action("Buyer/Style/VendorPO/GRNDetails Store")
+                action("Buyer/Style/VendorPO Details Store")
                 {
-                    Caption = 'Buyer/Style/Vendor PO/GRN Details';
+                    Caption = 'Buyer/Style/Vendor PO Details';
                     RunObject = page "Buyer Style PO Search";
                     ApplicationArea = All;
                 }

@@ -126,47 +126,35 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
     }
 
 
-    // trigger OnAfterGetRecord()
-    // var
-    //     PurchaseOrderRec: Record "Purchase Header";
-    // begin
-    //     PurchaseOrderRec.Reset();
-    //     PurchaseOrderRec.SetRange("No.", rec."Document No.");
-    //     PurchaseOrderRec.SetFilter("Document Type", '=%1', PurchaseOrderRec."Document Type"::Order);
-    //     if PurchaseOrderRec.FindSet() then begin
+    trigger OnOpenPage()
+    var
+        PurchaseOrderRec: Record "Purchase Header";
+    begin
+        if rec."Document No." <> '' then begin
+            PurchaseOrderRec.get(rec."Document Type"::Order, rec."Document No.");
 
-    //         if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then begin
-    //             EditableGB1 := false;
-    //             // VisibleGB1 := true;
-    //         end
-    //         else begin
-    //             EditableGB1 := true;
-    //             // VisibleGB1 := false;
-    //         end;
-
-    //     end;
-    // end;
+            if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then
+                EditableGB1 := false
+            else
+                EditableGB1 := true;
+        end
+        else
+            EditableGB1 := true;
+    end;
 
 
-    // trigger OnAfterGetRecord()
-    // var
-    //     PurchaseOrderRec: Record "Purchase Header";
-    //     UserRec: Record "User Setup";
-    // begin
-    //     PurchaseOrderRec.get(rec."Document Type", rec."Document No.");
+    trigger OnAfterGetRecord()
+    var
+        PurchaseOrderRec: Record "Purchase Header";
+    begin
+        PurchaseOrderRec.get(rec."Document Type"::Order, rec."Document No.");
 
-    //     if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then
-    //         EditableGB1 := false
-    //     else
-    //         EditableGB1 := true;
-    //     UserRec.Reset();
-    //     UserRec.SetRange(SystemCreatedBy, Rec.SystemCreatedBy);
-    //     if UserRec.FindSet() then begin
-    //         Rec."Shortcut Dimension 2 Code" := UserRec."Cost Center";
-    //     end;
-    // end;
+        if PurchaseOrderRec.Status = PurchaseOrderRec.Status::Released then
+            EditableGB1 := false
+        else
+            EditableGB1 := true;
+    end;
 
     var
         EditableGB1: Boolean;
-        VisibleGB1: Boolean;
 }
