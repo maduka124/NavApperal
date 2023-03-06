@@ -89,6 +89,8 @@ page 50503 "Contract/LC List"
             }
         }
     }
+
+    
     trigger OnOpenPage()
     var
         LoginRec: Page "Login Card";

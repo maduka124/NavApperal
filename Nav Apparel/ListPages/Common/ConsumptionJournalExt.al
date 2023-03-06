@@ -72,10 +72,9 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
             var
                 ItemJnlMgt: Codeunit ItemJnlManagement;
             begin
-                // rec.SetRange("Journal Template Name", rec."Journal Template Name");
-                // ItemJnlMgt.SetName(rec."Journal Batch Name", rec);
-                // rec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
-                // rec.SetRange("Daily Consumption Doc. No.", rec."Daily Consumption Doc. No.");
+                rec.SetRange("Journal Template Name", '');
+                rec.SetRange("Journal Batch Name", '');
+                rec.SetRange("Daily Consumption Doc. No.", '');
             end;
         }
 

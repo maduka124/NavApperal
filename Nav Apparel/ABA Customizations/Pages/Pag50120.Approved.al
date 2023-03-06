@@ -6,7 +6,6 @@ page 50120 "Approved Daily Consump. List"
     SourceTable = "Daily Consumption Header";
     UsageCategory = Lists;
     SourceTableView = sorting("No.") order(descending) where(Status = filter(Approved), "Fully Issued" = filter(false));
-    //CardPageId = 50102;
     Editable = false;
 
     layout
@@ -553,10 +552,10 @@ page 50120 "Approved Daily Consump. List"
         }
     }
 
-    trigger OnOpenPage()
-    begin
-        Rec.SetRange("Created UserID", UserId);
-    end;
+    // trigger OnOpenPage()
+    // begin
+    //     Rec.SetRange("Created UserID", UserId);
+    // end;
 
 
     trigger OnDeleteRecord(): Boolean

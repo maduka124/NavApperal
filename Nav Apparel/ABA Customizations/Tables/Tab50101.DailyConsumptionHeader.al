@@ -299,28 +299,26 @@ table 50101 "Daily Consumption Header"
         }
         field(25; "Main Category"; Code[20])
         {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
+        field(26; "Main Category Name"; Text[50])
+        {
             Caption = 'Main Category';
             DataClassification = ToBeClassified;
-            //TableRelation = "Main Category";
+
             trigger OnValidate()
             var
                 MainCatRec: Record "Main Category";
-                ItemJnalBatch: Record "Item Journal Batch";
             begin
-                "Main Category Name" := '';
-                if "Main Category" <> '' then begin
-                    MainCatRec.Get("Main Category");
-                    "Main Category Name" := MainCatRec."Main Category Name";
-                    // ItemJnalBatch.Reset();
-                    // ItemJnalBatch.SetRange("Journal Template Name", "Journal Template Name");
-                    // ItemJnalBatch.SetRange("Inventory Posting Group", MainCatRec."Inv. Posting Group Code");
-                    // if ItemJnalBatch.Count > 1 then
-                    //     Error('More than one batches found');
-                    // if ItemJnalBatch.FindFirst() then
-                    //     Rec."Journal Batch Name" := ItemJnalBatch.Name;
-                end;
-
+                MainCatRec.Reset();
+                MainCatRec.SetRange("Main Category Name", "Main Category Name");
+                if MainCatRec.FindSet() then
+                    "Main Category" := MainCatRec."No."
+                else
+                    Error('Invalid Main Category Name');
             end;
+
 
             trigger OnLookup()
             var
@@ -335,7 +333,6 @@ table 50101 "Daily Consumption Header"
                 ProdOrder.Reset();
                 ProdOrder.SetRange(Status, ProdOrder.Status::Released);
                 ProdOrder.SetRange(BuyerCode, "Buyer Code");
-                // ProdOrder.SetRange("Style Name", "Style No.");
                 ProdOrder.SetRange("Style Name", "Style Name");
                 ProdOrder.SetRange(PO, PO);
                 if ProdOrder.FindFirst() then begin
@@ -355,14 +352,15 @@ table 50101 "Daily Consumption Header"
                     end;
                 end;
                 Commit();
-                if Page.RunModal(50118, MainCatFilter) = Action::LookupOK then
-                    Rec.Validate("Main Category", MainCatFilter.Code);
+                if Page.RunModal(50118, MainCatFilter) = Action::LookupOK then begin
+                    "Main Category" := MainCatFilter.Code;
+                    "Main Category Name" := MainCatFilter.Name;
+                    // Rec.Validate("Main Category", MainCatFilter.Code);
+                end
+
             end;
-        }
-        field(26; "Main Category Name"; Text[50])
-        {
-            DataClassification = ToBeClassified;
-            Editable = false;
+
+
         }
 
         field(27; "Style Name"; Text[50])

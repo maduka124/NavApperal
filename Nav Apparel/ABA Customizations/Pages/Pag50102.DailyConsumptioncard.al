@@ -10,6 +10,8 @@ page 50102 "Daily Consumption Card"
         {
             group(General)
             {
+                Editable = EditableGB;
+
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
@@ -20,33 +22,16 @@ page 50102 "Daily Consumption Card"
                             CurrPage.Update();
                     end;
                 }
-                field("Journal Batch Name"; Rec."Journal Batch Name")
-                {
-                    ApplicationArea = All;
-                    Visible = false;
 
-                }
                 field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                 }
+
                 //Mihiranga 2023/02/18
                 field(Buyer; Rec.Buyer)
                 {
                     ApplicationArea = All;
-                    // Editable = false;
-                }
-                //Mihiranga 2023/02/18
-                field("Buyer Code"; Rec."Buyer Code")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    // Visible = false;
-                }
-                field("Style No."; Rec."Style No.")
-                {
-                    ApplicationArea = All;
-                    Visible = false;
                 }
 
                 field("Style Name"; Rec."Style Name")
@@ -59,29 +44,21 @@ page 50102 "Daily Consumption Card"
                         rec."Style No." := rec."Style Name";
                     end;
                 }
+
                 field(PO; Rec.PO)
                 {
                     ApplicationArea = All;
                 }
-                field("Main Category"; Rec."Main Category")
-                {
-                    ApplicationArea = All;
-                }
+
                 field("Main Category Name"; Rec."Main Category Name")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
+
                 //Mihiranga 2023/02/18
                 field("Colour Name"; rec."Colour Name")
                 {
                     ApplicationArea = All;
-
-                }
-                field("Colour No."; rec."Colour No.")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
                 }
 
                 field("Prod. Order No."; Rec."Prod. Order No.")
@@ -94,25 +71,30 @@ page 50102 "Daily Consumption Card"
                     ApplicationArea = All;
                     Editable = false;
                 }
+
                 field("Source No."; Rec."Source No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
+
                 field("Due Date"; Rec."Due Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
+
                 field("Document Date"; Rec."Document Date")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
+
                 field(Remarks; Rec.Remarks)
                 {
                     ApplicationArea = All;
                 }
+
                 field(Status; rec.Status)
                 {
                     ApplicationArea = All;
@@ -123,6 +105,7 @@ page 50102 "Daily Consumption Card"
             part(Lines; "Daily Consumption Subform")
             {
                 ApplicationArea = All;
+                Editable = EditableGB;
                 Enabled = rec."Prod. Order No." <> '';
                 UpdatePropagation = Both;
                 SubPageLink = "Document No." = field("No.");
@@ -160,7 +143,8 @@ page 50102 "Daily Consumption Card"
                 Caption = 'Send Approval Request';
                 Promoted = true;
                 PromotedCategory = Process;
-                Visible = not BooVis;
+                Visible = BooVis1;
+
                 trigger OnAction()
                 var
                     ItemJnalLine: Record "Item Journal Line";
@@ -195,7 +179,8 @@ page 50102 "Daily Consumption Card"
                 Caption = 'Cancel Approval Request';
                 Promoted = true;
                 PromotedCategory = Process;
-                Visible = not BooVis;
+                Visible = BooVis1;
+
                 trigger OnAction()
                 var
                     ItemJnalLine: Record "Item Journal Line";
@@ -217,7 +202,7 @@ page 50102 "Daily Consumption Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 Caption = 'Approve';
-                Visible = BooVis;
+                Visible = BooVis2;
 
                 trigger OnAction()
                 var
@@ -262,7 +247,7 @@ page 50102 "Daily Consumption Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 Caption = 'Reject';
-                Visible = BooVis;
+                Visible = BooVis2;
 
                 trigger OnAction()
                 var
@@ -288,7 +273,7 @@ page 50102 "Daily Consumption Card"
                 Promoted = true;
                 PromotedCategory = Process;
                 Caption = 'Calculate Requirement';
-                Visible = not BooVis;
+                Visible = BooVis1;
 
                 trigger OnAction()
                 var
@@ -546,28 +531,49 @@ page 50102 "Daily Consumption Card"
         ItemJnalRec: Record "Item Journal Line";
         ItemLedRec: Record "Item Ledger Entry";
     begin
-        Vis1 := false;
-
-
         UserSetup.Get(UserId);
-        if not UserSetup."Consumption Approve" then
-            BooVis := false
-        else
-            BooVis := true;
+        if not UserSetup."Consumption Approve" then begin
+            BooVis1 := true;
+            BooVis2 := false;
+            EditableGB := true;
+        end
+        else begin
+            BooVis1 := false;
+            BooVis2 := true;
+            EditableGB := true;
+        end;
 
-        // ItemJnalRec.Reset();
-        // ItemJnalRec.SetRange("Journal Template Name", rec."Journal Template Name");
-        // ItemJnalRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
-        // ItemJnalRec.SetRange("Daily Consumption Doc. No.", Rec."No.");
-        // if ItemJnalRec.FindFirst() then
-        //     Vis1 := true;
+        if UserSetup.UserRole = 'STORE USER' then begin
+            BooVis1 := false;
+            BooVis2 := false;
+            EditableGB := false;
+        end;
     end;
 
 
     trigger OnAfterGetCurrRecord()
     var
         ItemLedRec: Record "Item Ledger Entry";
+        UserSetup: Record "User Setup";
     begin
+        UserSetup.Get(UserId);
+        if not UserSetup."Consumption Approve" then begin
+            BooVis1 := true;
+            BooVis2 := false;
+            EditableGB := true;
+        end
+        else begin
+            BooVis1 := false;
+            BooVis2 := true;
+            EditableGB := true;
+        end;
+
+        if UserSetup.UserRole = 'STORE USER' then begin
+            BooVis1 := false;
+            BooVis2 := false;
+            EditableGB := false;
+        end;
+
         Vis2 := false;
         ItemLedRec.Reset();
         ItemLedRec.SetRange("Entry Type", ItemLedRec."Entry Type"::Consumption);
@@ -683,7 +689,8 @@ page 50102 "Daily Consumption Card"
     end;
 
     var
-        BooVis: Boolean;
-        Vis1: Boolean;
+        BooVis1: Boolean;
+        BooVis2: Boolean;
         Vis2: Boolean;
+        EditableGB: Boolean;
 }
