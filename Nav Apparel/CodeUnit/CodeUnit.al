@@ -1210,4 +1210,20 @@ codeunit 50618 NavAppCodeUnit
         PurchLineArchive."Secondary UserID" := PurchLine."Secondary UserID";
     end;
 
+
+
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnBeforeUpdateDeleteLines', '', true, true)]
+    // local procedure OnBeforeUpdateDeleteLines(var ItemJournalLine: Record "Item Journal Line"; ItemRegNo: Integer)
+    // var
+    //     ItemJrnlLineTempRec: Record ItemJournalLinetemp;
+    // begin
+    //     ItemJrnlLineTempRec.SetRange("Journal Template Name", ItemJournalLine."Journal Template Name");
+    //     ItemJrnlLineTempRec.SetRange("Journal Batch Name", ItemJournalLine."Journal Batch Name");
+    //     ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", ItemJournalLine."Daily Consumption Doc. No.");
+    //     ItemJrnlLineTempRec.SetRange("Source No.", ItemJournalLine."Source No.");
+    //     ItemJrnlLineTempRec.SetRange("Item No.", ItemJournalLine."Item No.");
+    //     if ItemJrnlLineTempRec.FindSet() then
+    //         ItemJrnlLineTempRec.DeleteAll();
+    // end;
+
 }

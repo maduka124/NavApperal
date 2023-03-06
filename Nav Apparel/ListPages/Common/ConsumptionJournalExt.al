@@ -60,18 +60,25 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
 
     actions
     {
-        // modify("P&ost")
-        // {
-        //     trigger OnBeforeAction()
-        //     begin
+        modify("P&ost")
+        {
+            trigger OnBeforeAction()
+            begin
 
-        //     end;
+            end;
 
-        //     trigger OnAfterAction()
-        //     begin
 
-        //     end;
-        // }
+            trigger OnAfterAction()
+            var
+                ItemJnlMgt: Codeunit ItemJnlManagement;
+            begin
+                // rec.SetRange("Journal Template Name", rec."Journal Template Name");
+                // ItemJnlMgt.SetName(rec."Journal Batch Name", rec);
+                // rec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+                // rec.SetRange("Daily Consumption Doc. No.", rec."Daily Consumption Doc. No.");
+            end;
+        }
+
 
         addafter("P&ost")
         {
@@ -391,6 +398,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
 
     var
         ManuPrintReport: Codeunit "Manu. Print Report";
+        DocNo: text[100];
 
 
     trigger OnOpenPage()

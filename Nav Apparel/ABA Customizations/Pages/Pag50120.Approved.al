@@ -5,7 +5,7 @@ page 50120 "Approved Daily Consump. List"
     PageType = List;
     SourceTable = "Daily Consumption Header";
     UsageCategory = Lists;
-    SourceTableView = sorting("No.") order(descending) where(Status = filter(Approved));
+    SourceTableView = sorting("No.") order(descending) where(Status = filter(Approved), "Fully Issued" = filter(false));
     //CardPageId = 50102;
     Editable = false;
 
@@ -291,7 +291,9 @@ page 50120 "Approved Daily Consump. List"
                                                             QtyToLot := ItemJnalRec.Quantity - TotRecervQty;
 
                                                         InsertResvEntry(ItemJnalRec."Item No.", ItemJnalRec."Location Code", 83, 5, -QtyToLot, ItemLedEntry."Lot No.",
-                                                                false, ItemJnalRec."Posting Date", rec."Journal Template Name", Rec."Journal Batch Name", ItemJnalRec."Line No.", 'C', LineCompleted);
+                                                                false, ItemJnalRec."Posting Date", rec."Journal Template Name", Rec."Journal Batch Name", ItemJnalRec."Line No.", 'C', LineCompleted,
+                                                                  ItemLedEntry.Shade, ItemLedEntry."Shade No", ItemLedEntry."Width Act", ItemLedEntry."Width Tag", ItemLedEntry."Length Act", ItemLedEntry."Length Tag"
+                                                                , ItemLedEntry."Supplier Batch No.", ItemLedEntry.InvoiceNo, ItemLedEntry.Color, ItemLedEntry."Color No");
                                                     end;
                                                 end;
                                             until ItemLedEntry.Next() = 0;
@@ -556,8 +558,46 @@ page 50120 "Approved Daily Consump. List"
         Rec.SetRange("Created UserID", UserId);
     end;
 
+
+    trigger OnDeleteRecord(): Boolean
+    var
+    // DailyConsumptionLine: Record "Daily Consumption Line";
+    // ItemJournalLine: Record "Item Journal Line";
+    // ItemJrnlLineTempRec: Record ItemJournalLinetemp;
+    begin
+        if rec.Status = rec.Status::Approved then
+            Error('Request already approved. Cannot delete.');
+
+        if rec.Status = rec.Status::"Pending Approval" then
+            Error('Request already sent for approval. Cannot delete.');
+
+        // if rec.Status = rec.Status::Open then begin
+        //     DailyConsumptionLine.Reset();
+        //     DailyConsumptionLine.SetRange("Document No.", rec."No.");
+        //     if DailyConsumptionLine.FindSet() then
+        //         DailyConsumptionLine.DeleteAll();
+
+        //     ItemJournalLine.SetRange("Journal Template Name", Rec."Journal Template Name");
+        //     ItemJournalLine.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+        //     ItemJournalLine.SetFilter("Entry Type", '=%1', ItemJournalLine."Entry Type"::Consumption);
+        //     ItemJournalLine.SetRange("Daily Consumption Doc. No.", rec."No.");
+        //     if ItemJournalLine.FindSet() then
+        //         ItemJournalLine.DeleteAll();
+
+        //     ItemJrnlLineTempRec.SetRange("Journal Template Name", Rec."Journal Template Name");
+        //     ItemJrnlLineTempRec.SetRange("Journal Batch Name", Rec."Journal Batch Name");
+        //     ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", rec."No.");
+        //     if ItemJrnlLineTempRec.FindSet() then
+        //         ItemJrnlLineTempRec.DeleteAll();
+        // end;
+
+    end;
+
+
     local procedure InsertResvEntry(PassItemNo: Code[20]; PassLocation: Code[20]; PassSourceType: Integer; PassSubType: Integer; PassQty: Decimal; PassLotNo: Code[50];
-              PassPos: Boolean; PassDate: Date; PassSourceID: Text[20]; PassBatch: Text[20]; PassRefNo: Integer; DocT: Code[1]; var Completed: Boolean)
+              PassPos: Boolean; PassDate: Date; PassSourceID: Text[20]; PassBatch: Text[20]; PassRefNo: Integer; DocT: Code[1]; var Completed: Boolean;
+              PassShade: text[20]; PassShadeNo: code[20]; PassWidthAct: Decimal; PassWidthTag: Decimal; PassLengthAct: Decimal; PassLengthTag: Decimal;
+             PassSupplierBatchNo: code[50]; PassInvoiceNo: Code[20]; PassColor: code[20]; PassColorNo: code[20])
     var
         ResvEntry: Record "Reservation Entry";
         ItemJnal: Record "Item Journal Line";
@@ -599,6 +639,16 @@ page 50120 "Approved Daily Consump. List"
         ResvEntry."Item Tracking" := ResvEntry."Item Tracking"::"Lot No.";
         ResvEntry.validate("Qty. per Unit of Measure", 1);
         ResvEntry."Reservation Status" := ResvEntry."Reservation Status"::Prospect;
+        ResvEntry.Shade := PassShade;
+        ResvEntry."Shade No" := PassShadeNo;
+        ResvEntry."Width Act" := PassWidthAct;
+        ResvEntry."Width Tag" := PassWidthTag;
+        ResvEntry."Length Act" := PassLengthAct;
+        ResvEntry."Length Tag" := PassLengthTag;
+        ResvEntry."Supplier Batch No." := PassSupplierBatchNo;
+        ResvEntry.InvoiceNo := PassInvoiceNo;
+        ResvEntry.Color := PassColor;
+        ResvEntry."Color No" := PassColorNo;
         ResvEntry.Insert(true);
 
         ReserveEntry.RESET;

@@ -81,6 +81,7 @@ codeunit 50621 ReservationEntryCodeUnit
     local procedure ItemJnlPostLineOnAfterInitItemLedgEntry(var NewItemLedgEntry: Record "Item Ledger Entry"; ItemJournalLine: Record "Item Journal Line")
     var
         ItemJrnlLineTempRec: Record ItemJournalLinetemp;
+        DailyConsuHeaderRec: Record "Daily Consumption Header";
         var1: Decimal;
     begin
         NewItemLedgEntry."Supplier Batch No." := ItemJournalLine."Supplier Batch No.";
@@ -113,7 +114,20 @@ codeunit 50621 ReservationEntryCodeUnit
             end;
         end;
 
+
+        //Check whether all items fully issued in the document and update header status accordingly
+        ItemJrnlLineTempRec.Reset();
+        ItemJrnlLineTempRec.SetRange("Journal Template Name", ItemJournalLine."Journal Template Name");
+        ItemJrnlLineTempRec.SetRange("Journal Batch Name", ItemJournalLine."Journal Batch Name");
+        ItemJrnlLineTempRec.SetRange("Daily Consumption Doc. No.", ItemJournalLine."Daily Consumption Doc. No.");
+
+        if not ItemJrnlLineTempRec.FindSet() then begin
+            DailyConsuHeaderRec.Reset();
+            DailyConsuHeaderRec.SetRange("No.", ItemJournalLine."Daily Consumption Doc. No.");
+            if DailyConsuHeaderRec.FindSet() then
+                DailyConsuHeaderRec.ModifyAll("Fully Issued", true);
+
+        end;
+
     end;
-
-
 }

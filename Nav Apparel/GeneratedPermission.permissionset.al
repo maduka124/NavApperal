@@ -1094,5 +1094,11 @@ permissionset 50100 GeneratedPermission
         page "YY Type Card"=X,
         page "YY Type List"=X,
         query PlanEffDashboardReportTable_Q=X,
-        query StyleMaster_StyleMasterPO_Q=X;
+        query StyleMaster_StyleMasterPO_Q=X,
+        tabledata AccessoriesStatusReportNew=RIMD,
+        table AccessoriesStatusReportNew=X,
+        report AccessoriesStatusReportNew=X,
+        report ExtraShortShipmentDetails=X,
+        report FabricInspectionReport=X,
+        report TrimInspectionReport=X;
 }

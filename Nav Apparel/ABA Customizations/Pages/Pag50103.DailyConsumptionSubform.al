@@ -37,7 +37,7 @@ page 50103 "Daily Consumption Subform"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Visible = false;
+                    //Visible = false;
                 }
                 field("Daily Consumption"; Rec."Daily Consumption")
                 {

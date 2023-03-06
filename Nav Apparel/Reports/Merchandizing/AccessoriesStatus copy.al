@@ -45,6 +45,7 @@ report 50633 AccessoriesStatusReport
                     DataItemLinkReference = "Purch. Rcpt. Line";
                     DataItemLink = "No." = field("No.");
                     DataItemTableView = sorting("No.");
+
                     column(Size_Range_Name; "Size Range No.")
                     { }
                     column(ItemDes; Description)
@@ -82,47 +83,61 @@ report 50633 AccessoriesStatusReport
                         end;
 
                     end;
-
                 }
 
-
                 trigger OnAfterGetRecord()
-
                 begin
-                    Qty := 0;
-                    PurchLineRec.Reset();
-                    PurchLineRec.SetRange(StyleNo, StyleNo);
-                    PurchLineRec.SetRange("Document No.", "Document No.");
-                    PurchLineRec.SetRange("No.", "No.");
-                    PurchLineRec.SetFilter("Document Type", '=%1', PurchLineRec."Document Type"::Order);
-                    PurchaseArchiveRec.SetRange("Document No.", "Order No.");
-                    PurchaseArchiveRec.SetFilter("Document Type", '=%1', PurchaseArchiveRec."Document Type"::Order);
-                    PurchaseArchiveRec.SetRange("No.", "No.");
-                    if PurchLineRec.FindSet() then
-                        
-                            repeat
-                                if PurchLineRec.Quantity <> 0 then
-                                    Qty := PurchLineRec.Quantity
-                                else
-                                    if PurchaseArchiveRec.FindFirst() then begin
-                                        Qty := PurchaseArchiveRec.Quantity;
-                                    end;
-                            until PurchLineRec.Next() = 0;
+                    PurchHDRec.Reset();
                     PurchHDRec.SetRange("No.", "Document No.");
                     if PurchHDRec.FindFirst() then begin
                         OrderNO := PurchHDRec."Order No.";
                     end;
+
+                    Qty := 0;
+                    PurchLineRec.Reset();
+                    PurchLineRec.SetRange(StyleNo, FilterNo);
+                    PurchLineRec.SetRange("Document No.", OrderNO);
+                    PurchLineRec.SetRange("No.", "Purch. Rcpt. Line"."No.");
+                    PurchLineRec.SetFilter("Document Type", '=%1', PurchLineRec."Document Type"::Order);
+                    if PurchLineRec.FindSet() then begin
+                        repeat
+                            if PurchLineRec.Quantity <> 0 then
+                                Qty := PurchLineRec.Quantity
+                            else begin
+                                PurchaseArchiveRec.Reset();
+                                PurchaseArchiveRec.SetRange("Document No.", OrderNO);
+                                PurchaseArchiveRec.SetFilter("Document Type", '=%1', PurchaseArchiveRec."Document Type"::Order);
+                                PurchaseArchiveRec.SetRange(StyleNo, FilterNo);
+                                PurchaseArchiveRec.SetRange("No.", "Purch. Rcpt. Line"."No.");
+                                if PurchaseArchiveRec.FindFirst() then begin
+                                    Qty := PurchaseArchiveRec.Quantity;
+                                end;
+                            end;
+
+                        until PurchLineRec.Next() = 0;
+
+                    end
+                    else begin
+                        PurchaseArchiveRec.Reset();
+                        PurchaseArchiveRec.SetRange("Document No.", OrderNO);
+                        PurchaseArchiveRec.SetFilter("Document Type", '=%1', PurchaseArchiveRec."Document Type"::Order);
+                        PurchaseArchiveRec.SetRange(StyleNo, FilterNo);
+                        PurchaseArchiveRec.SetRange("No.", "Purch. Rcpt. Line"."No.");
+                        if PurchaseArchiveRec.FindSet() then begin
+                            Qty := PurchaseArchiveRec.Quantity;
+                        end;
+                    end;
+
                 end;
             }
-            trigger OnAfterGetRecord()
 
+            trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
 
             trigger OnPreDataItem()
-
             begin
                 SetRange("No.", FilterNo);
             end;

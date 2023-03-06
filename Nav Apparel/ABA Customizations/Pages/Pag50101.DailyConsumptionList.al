@@ -100,6 +100,7 @@ page 50101 "Daily Consumption List"
                 Image = ConsumptionJournal;
                 Promoted = true;
                 PromotedCategory = Process;
+                Visible = VisibleGB;
 
                 // RunObject = page "Consumption Journal";
                 // RunPageLink = "Daily Consumption Doc. No." = field("No.");
@@ -321,6 +322,15 @@ page 50101 "Daily Consumption List"
     end;
 
 
+    trigger OnAfterGetCurrRecord()
+    begin
+        if (rec."Fully Issued" = true) or (rec."Issued UserID" <> '') then
+            VisibleGB := false
+        else
+            VisibleGB := true;
+    end;
+
+
     trigger OnDeleteRecord(): Boolean
     var
         DailyConsumptionLine: Record "Daily Consumption Line";
@@ -425,4 +435,7 @@ page 50101 "Daily Consumption List"
         if Abs(ReserveEntry.Quantity) = ItemJnal.Quantity then
             Completed := true;
     end;
+
+    var
+        VisibleGB: Boolean;
 }

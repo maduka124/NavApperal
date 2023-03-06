@@ -35,7 +35,7 @@ page 50113 "Posted Consumptions"
                     ApplicationArea = all;
                     Caption = 'FG Description';
                 }
-                field("Item Tracking"; rec."Item Tracking")
+                field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = all;
                 }

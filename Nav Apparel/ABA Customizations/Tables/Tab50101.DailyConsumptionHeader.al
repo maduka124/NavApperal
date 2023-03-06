@@ -372,6 +372,11 @@ table 50101 "Daily Consumption Header"
             TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"));
             ValidateTableRelation = false;
         }
+
+        field(28; "Fully Issued"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
