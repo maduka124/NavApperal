@@ -12,8 +12,7 @@ report 51801 MaterialIssueRequition
         dataitem("Daily Consumption Header"; "Daily Consumption Header")
         {
             DataItemTableView = where(Status = filter('Approved'), "Journal Template Name" = filter('CONSUMPTIO'));
-            // PrintOnlyIfDetail = true;
-            // DataItemTableView = sorting("No.");
+            
             column(CompLogo; comRec.Picture)
             { }
             column(IssueNo; "No.")
