@@ -26,7 +26,7 @@ report 50629 ExportSummartReport
                 DataItemLink = "No." = field("No.");
                 DataItemTableView = sorting("No.");
 
-                column(Style_No_; "Style No.")
+                column(Style_No_; "Style Name")
                 { }
                 column(Order_Qty; OrderQt)
                 { }
