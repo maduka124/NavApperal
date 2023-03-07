@@ -75,6 +75,12 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
                 Editable = false;
                 Visible = true;
             }
+
+            field("Merchandizer Group Name"; rec."Merchandizer Group Name")
+            {
+                ApplicationArea = all;
+                Editable = false;
+            }
         }
 
         // modify("Invoice Details")

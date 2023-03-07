@@ -116,10 +116,31 @@ pageextension 51056 PurchaseOrderListExt extends "Purchase Order Subform"
                 end;
             }
 
+            field(StyleNo; rec.StyleNo)
+            {
+                ApplicationArea = all;
+                Caption = 'Style No';
+                Editable = EditableGB1;
+            }
+
             field(StyleName; rec.StyleName)
             {
                 ApplicationArea = all;
-                Caption = 'Style';
+                Caption = 'Style Name';
+                Editable = EditableGB1;
+            }
+
+            field(Lot; rec.Lot)
+            {
+                ApplicationArea = all;
+                Caption = 'LOT';
+                Editable = EditableGB1;
+            }
+
+            field(PONo; rec.PONo)
+            {
+                ApplicationArea = all;
+                Caption = 'PO No';
                 Editable = EditableGB1;
             }
         }
