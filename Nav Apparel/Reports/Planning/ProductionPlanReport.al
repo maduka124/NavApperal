@@ -121,7 +121,8 @@ report 50621 ProductionPlanReport
 
                 trigger OnPreDataItem()
                 begin
-                    SetRange("Start Date", stDate, endDate);
+                    if StartDate <> 0D then
+                        SetRange("Start Date", stDate, endDate);
                 end;
             }
 
@@ -147,7 +148,8 @@ report 50621 ProductionPlanReport
             //Done By sachith On 14/02/23
             trigger OnPreDataItem()
             begin
-                SetRange("Factory Code", Factory);
+                if Factory <> '' then
+                    SetRange("Factory Code", Factory);
             end;
         }
     }
@@ -167,22 +169,22 @@ report 50621 ProductionPlanReport
                     field(Factory; Factory)
                     {
                         ApplicationArea = All;
-                        TableRelation = Location.Code where("Sewing Unit" = filter(1));
-                        ShowMandatory = true;
+                        TableRelation = Location.Code where("Sewing Unit" = filter(true));
+                        // ShowMandatory = true;
                     }
 
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-                        ShowMandatory = true;
+                        // ShowMandatory = true;
                     }
 
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-                        ShowMandatory = true;
+                        // ShowMandatory = true;
                     }
                 }
             }
