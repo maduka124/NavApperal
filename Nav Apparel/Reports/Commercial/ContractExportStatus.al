@@ -51,8 +51,11 @@ report 50724 ContractExportStatus
             trigger OnPreDataItem()
 
             begin
-                SetRange("Buyer No.", FilterBuyer);
-                SetRange(AssignedContractNo, LcNo);
+                if FilterBuyer <> '' then
+                    SetRange("Buyer No.", FilterBuyer);
+
+                if LcNo <> '' then
+                    SetRange(AssignedContractNo, LcNo);
             end;
 
             trigger OnAfterGetRecord()
