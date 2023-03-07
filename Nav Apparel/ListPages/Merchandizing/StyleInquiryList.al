@@ -17,15 +17,16 @@ page 51066 "Style Inquiry"
             {
                 Editable = false;
 
-                field("Style No."; rec."Style No.")
+                field("No."; rec."No.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Style';
+                    Caption = 'Style No';
                 }
 
-                field("Style Display Name"; rec."Style Display Name")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Buyer';
                 }
 
                 field(AssignedContractNoVar; AssignedContractNoVar)
@@ -34,16 +35,15 @@ page 51066 "Style Inquiry"
                     Caption = 'LC/Contract No';
                 }
 
-                field("Store Name"; rec."Store Name")
+                field("Style No."; rec."Style No.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Store';
+                    Caption = 'Style Description';
                 }
 
-                field("Season Name"; rec."Season Name")
+                field("Style Display Name"; rec."Style Display Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Season';
                 }
 
                 field("Brand Name"; rec."Brand Name")
@@ -52,16 +52,22 @@ page 51066 "Style Inquiry"
                     Caption = 'Brand';
                 }
 
+                field("Store Name"; rec."Store Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Store';
+                }
+
                 field("Department Name"; rec."Department Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Department';
                 }
 
-                field("Buyer Name"; rec."Buyer Name")
+                field("Season Name"; rec."Season Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Buyer';
+                    Caption = 'Season';
                 }
 
                 field("Garment Type Name"; rec."Garment Type Name")
