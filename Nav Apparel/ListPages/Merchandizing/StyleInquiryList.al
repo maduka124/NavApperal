@@ -28,6 +28,12 @@ page 51066 "Style Inquiry"
                     ApplicationArea = All;
                 }
 
+                field(AssignedContractNoVar; AssignedContractNoVar)
+                {
+                    ApplicationArea = All;
+                    Caption = 'LC/Contract No';
+                }
+
                 field("Store Name"; rec."Store Name")
                 {
                     ApplicationArea = All;
@@ -172,6 +178,7 @@ page 51066 "Style Inquiry"
     trigger OnAfterGetRecord()
     var
         UserSetupRec: Record "User Setup";
+        LCContractRec: Record "Contract/LCMaster";
     begin
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
@@ -184,6 +191,17 @@ page 51066 "Style Inquiry"
                 END;
             END;
         end;
+
+        //Get LC Contract No
+        LCContractRec.Reset();
+        LCContractRec.SetRange("No.", rec.AssignedContractNo);
+        if LCContractRec.FindSet() then
+            AssignedContractNoVar := LCContractRec."Contract No"
+        else
+            AssignedContractNoVar := '';
     end;
+
+    var
+        AssignedContractNoVar: Text[100];
 
 }
