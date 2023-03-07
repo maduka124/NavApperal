@@ -32,9 +32,7 @@ page 51247 "Buyer Style PO Search"
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", Rec."Style Name");
 
-                        if StyleMasterRec.FindSet() then
-                            Rec."Style No" := StyleMasterRec."No."
-                        else
+                        if not StyleMasterRec.FindSet() then
                             Error('Invalid Style');
                     end;
                 }

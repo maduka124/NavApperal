@@ -35,6 +35,11 @@ page 51067 "Style Master"
                     ApplicationArea = All;
                     Caption = 'Season';
                 }
+                field(AssignedContractNo; Rec.AssignedContractNo)
+                {
+                    ApplicationArea = All;
+                    Caption = 'LC/Contract No';
+                }
 
                 field("Brand Name"; rec."Brand Name")
                 {

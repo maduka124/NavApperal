@@ -38,17 +38,12 @@ table 51253 BuyerStylePOSearchHeader
             ValidateTableRelation = false;
         }
 
-        field(7; "Style No"; Code[20])
+        field(7; Posted; Boolean)
         {
             DataClassification = ToBeClassified;
         }
 
-        field(8; Posted; Boolean)
-        {
-            DataClassification = ToBeClassified;
-        }
-
-        field(9; Status; Enum "Purchase Document Status")
+        field(8; Status; Enum "Purchase Document Status")
         {
             DataClassification = ToBeClassified;
         }
