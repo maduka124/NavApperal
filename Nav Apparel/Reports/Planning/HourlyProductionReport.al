@@ -10,7 +10,9 @@ report 50865 HourlyProductionReport
     {
         dataitem("NavApp Prod Plans Details"; "NavApp Prod Plans Details")
         {
-            DataItemTableView = sorting("No.");
+            DataItemTableView = sorting("PO No.", "Resource No.", PlanDate);
+            column(FactoryName; FactoryName)
+            { }
             column(PlanDate; PlanDate)
             { }
             column(Qty; Qty)
@@ -97,14 +99,15 @@ report 50865 HourlyProductionReport
             { }
             column(OrderQy; OrderQy)
             { }
+            column(TargetProdPlan; TargetProdPlan)
+            { }
 
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
                 DataItemLink = "Factory No." = field("Factory No."), "Work Center No." = field("Resource No."), "Prod Date" = field(PlanDate), "Style No." = field("Style No.");
                 DataItemTableView = where(Type = filter('Sewing'), Item = filter('PASS PCS'));
-                column(FactoryName; FactoryName)
-                { }
+
                 column(Hour_1; "Hour 01")
                 { }
                 column(Hour_2; "Hour 02")
@@ -286,8 +289,18 @@ report 50865 HourlyProductionReport
                     Planfinish := NavAppProdRec.PlanDate;
                 end;
 
+                TargetProdPlan := 0;
+                NavAppProdRec.Reset();
+                NavAppProdRec.SetRange("Style No.", "Style No.");
+                NavAppProdRec.SetRange("Resource No.", "Resource No.");
+                NavAppProdRec.SetRange("Factory No.","Factory No.");
+                if NavAppProdRec.FindSet() then begin
+                    TargetProdPlan += NavAppProdRec.Target;
+                end;
 
-                LocationRec.SetRange(Code, FactortFilter);
+
+
+                LocationRec.SetRange(Code, "Factory No.");
                 if LocationRec.FindFirst() then begin
                     FactoryName := LocationRec.Name;
                 end;
@@ -364,6 +377,7 @@ report 50865 HourlyProductionReport
     }
 
     var
+        TargetProdPlan: BigInteger;
         ActualFinishDate: Date;
         ProductionHeaderRec4: Record ProductionOutHeader;
         ProductionHeaderRec3: Record ProductionOutHeader;
@@ -410,4 +424,5 @@ report 50865 HourlyProductionReport
         CMPcs: Decimal;
         SendWashQty: Decimal;
         ReceiveWashQty: Decimal;
+
 }
