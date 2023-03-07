@@ -52,6 +52,7 @@ report 50724 ContractExportStatus
 
             begin
                 SetRange("Buyer No.", FilterBuyer);
+                SetRange(AssignedContractNo, LcNo);
             end;
 
             trigger OnAfterGetRecord()
@@ -79,6 +80,12 @@ report 50724 ContractExportStatus
                         Caption = 'Buyer No';
                         TableRelation = Customer."No.";
                     }
+                    field(LcNo; LcNo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Contract No';
+                        TableRelation = "Contract/LCMaster"."No.";
+                    }
                 }
             }
         }
@@ -99,7 +106,7 @@ report 50724 ContractExportStatus
 
 
     var
-
+        LcNo: Text[20];
         FilterBuyer: Code[20];
         RoundOrderValue: Decimal;
         RoundUnitPrice: Decimal;
