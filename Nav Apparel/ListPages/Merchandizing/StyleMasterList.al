@@ -38,7 +38,7 @@ page 51067 "Style Master"
                 field(AssignedContractNo; Rec.AssignedContractNo)
                 {
                     ApplicationArea = All;
-                    Caption = 'LC/Contract No’';
+                    Caption = 'LC/Contract No';
                 }
 
                 field("Brand Name"; rec."Brand Name")
