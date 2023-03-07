@@ -25,6 +25,25 @@ report 51259 TrimInspectionReport
             // { }
             //  column()
             // { }
+            dataitem(TrimInspectionLine; TrimInspectionLine)
+            {
+                DataItemLinkReference = "Purch. Rcpt. Header";
+                DataItemLink = "PurchRecNo." = field("No.");
+                DataItemTableView = sorting("PurchRecNo.", "Line No");
+
+                column(Item_Name; "Item Name")
+                { }
+                column(Color_Name; "Color Name")
+                { }
+                column(Size; Size)
+                { }
+                //  column()
+                // { }
+                //  column()
+                // { }
+
+
+            }
             trigger OnAfterGetRecord()
 
             begin
