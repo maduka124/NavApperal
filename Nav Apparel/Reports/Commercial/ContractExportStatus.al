@@ -17,6 +17,8 @@ report 50724 ContractExportStatus
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(LcNo; LcNo)
+            { }
             dataitem("Style Master PO"; "Style Master PO")
             {
                 DataItemLinkReference = "Style Master";
