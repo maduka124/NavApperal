@@ -11,6 +11,70 @@
       <rd:DataSourceID>a9b20454-82fc-461d-8d80-666c5d464bd1</rd:DataSourceID>
     </DataSource>
   </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+      <Fields>
+        <Field Name="ContractNo">
+          <DataField>ContractNo</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Style_No_">
+          <DataField>Style_No_</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
+        </Field>
+        <Field Name="Mode">
+          <DataField>Mode</DataField>
+        </Field>
+        <Field Name="stDate">
+          <DataField>stDate</DataField>
+        </Field>
+        <Field Name="endDate">
+          <DataField>endDate</DataField>
+        </Field>
+        <Field Name="ShipQty">
+          <DataField>ShipQty</DataField>
+        </Field>
+        <Field Name="Balance">
+          <DataField>Balance</DataField>
+        </Field>
+        <Field Name="ShipValue">
+          <DataField>ShipValue</DataField>
+        </Field>
+        <Field Name="ShipValueFormat">
+          <DataField>ShipValueFormat</DataField>
+        </Field>
+        <Field Name="UnitPrice">
+          <DataField>UnitPrice</DataField>
+        </Field>
+        <Field Name="UnitPriceFormat">
+          <DataField>UnitPriceFormat</DataField>
+        </Field>
+        <Field Name="InvoiceNO">
+          <DataField>InvoiceNO</DataField>
+        </Field>
+        <Field Name="InvoiceDate">
+          <DataField>InvoiceDate</DataField>
+        </Field>
+        <Field Name="Factory">
+          <DataField>Factory</DataField>
+        </Field>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -68,7 +132,7 @@
                   <Width>2.03605cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.26505cm</Width>
+                  <Width>3.15674cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.16704cm</Width>
@@ -83,13 +147,13 @@
                   <Width>1.6637cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.78563cm</Width>
+                  <Width>1.41077cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.78123cm</Width>
+                  <Width>1.53139cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.28833cm</Width>
+                  <Width>2.09754cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.67979cm</Width>
@@ -337,7 +401,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>STYLE NO</Value>
+                                  <Value>STYLE DESC</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -920,7 +984,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1144,7 +1208,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1181,6 +1245,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2244,7 +2309,7 @@
             <Top>2.77495cm</Top>
             <Left>0cm</Left>
             <Height>1.92292cm</Height>
-            <Width>27.45869cm</Width>
+            <Width>27.53489cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -3259,7 +3324,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>27.56924cm</Width>
+      <Width>27.53489cm</Width>
       <Page>
         <PageFooter>
           <Height>1.32292cm</Height>
@@ -3410,6 +3475,12 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -3461,68 +3532,4 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Fields>
-        <Field Name="ContractNo">
-          <DataField>ContractNo</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Style_No_">
-          <DataField>Style_No_</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
-        <Field Name="Mode">
-          <DataField>Mode</DataField>
-        </Field>
-        <Field Name="stDate">
-          <DataField>stDate</DataField>
-        </Field>
-        <Field Name="endDate">
-          <DataField>endDate</DataField>
-        </Field>
-        <Field Name="ShipQty">
-          <DataField>ShipQty</DataField>
-        </Field>
-        <Field Name="Balance">
-          <DataField>Balance</DataField>
-        </Field>
-        <Field Name="ShipValue">
-          <DataField>ShipValue</DataField>
-        </Field>
-        <Field Name="ShipValueFormat">
-          <DataField>ShipValueFormat</DataField>
-        </Field>
-        <Field Name="UnitPrice">
-          <DataField>UnitPrice</DataField>
-        </Field>
-        <Field Name="UnitPriceFormat">
-          <DataField>UnitPriceFormat</DataField>
-        </Field>
-        <Field Name="InvoiceNO">
-          <DataField>InvoiceNO</DataField>
-        </Field>
-        <Field Name="InvoiceDate">
-          <DataField>InvoiceDate</DataField>
-        </Field>
-        <Field Name="Factory">
-          <DataField>Factory</DataField>
-        </Field>
-        <Field Name="Buyer_Name">
-          <DataField>Buyer_Name</DataField>
-        </Field>
-      </Fields>
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-    </DataSet>
-  </DataSets>
 </Report>
