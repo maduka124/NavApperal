@@ -282,6 +282,7 @@ report 51262 AccessoriesStatusReportNew
 
                 AcceRec."Issue Qty" := IssueQty * -1;
                 AcceRec."Stock Balance" := AcceRec."GRN Qty" - AcceRec."Issue Qty";
+                AcceRec.Balance := AcceRec."PO Qty" - AcceRec."GRN Qty";
                 AcceRec.Modify();
             until AcceRec.Next() = 0;
         end
