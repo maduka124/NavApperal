@@ -25,9 +25,12 @@ table 50101 "Daily Consumption Header"
                 ProdOrderLine: Record "Prod. Order Line";
                 ProdOrderComp: Record "Prod. Order Component";
                 ItemLed: Record "Item Ledger Entry";
+                ItemLed1: Record "Item Ledger Entry";
                 ItemJnalBatch: Record "Item Journal Batch";
                 ItemRec: Record Item;
                 Inx: Integer;
+                Total: Decimal;
+                DocNo: Text[20];
             begin
                 DailyConsumpLine.Reset();
                 DailyConsumpLine.SetRange("Document No.", "No.");
@@ -66,6 +69,26 @@ table 50101 "Daily Consumption Header"
                                 ProdOrderComp.SetFilter("Remaining Quantity", '>%1', 0);
                                 if ProdOrderComp.FindFirst() then begin
 
+                                    // Total := 0;
+                                    // DocNo := '';
+
+                                    // ItemLed1.Reset();
+                                    // ItemLed1.SetRange("Entry Type", ItemLed1."Entry Type"::Consumption);
+                                    // ItemLed1.SetRange("Order No.", ProdOrderLine."Prod. Order No.");
+                                    // ItemLed1.SetRange("Order Line No.", ProdOrderLine."Line No.");
+                                    // ItemLed1.SetCurrentKey("Daily Consumption Doc. No.");
+                                    // ItemLed1.Ascending(true);
+                                    // if ItemJnalBatch."Inventory Posting Group" <> '' then
+                                    //     ItemLed1.SetRange("Invent. Posting Grp.", ItemJnalBatch."Inventory Posting Group");
+
+                                    // if ItemLed1.FindSet() then begin
+                                    //     repeat
+                                    //         if DocNo <> ItemLed1."Daily Consumption Doc. No." then
+                                    //             Total += ItemLed1."Posted Daily Output";
+                                    //         DocNo := ItemLed1."Daily Consumption Doc. No.";
+                                    //     until ItemLed1.Next() = 0;
+                                    // end;
+
                                     Inx += 10000;
                                     DailyConsumpLine.Init();
                                     DailyConsumpLine."Document No." := "No.";
@@ -76,7 +99,9 @@ table 50101 "Daily Consumption Header"
                                     DailyConsumpLine."Prod. Order No." := ProdOrderLine."Prod. Order No.";
                                     DailyConsumpLine."prod. Order Line No." := ProdOrderLine."Line No.";
                                     DailyConsumpLine."Issued Quantity" := ItemLed."Posted Daily Output";
+                                    // DailyConsumpLine."Issued Quantity" := Total;
                                     DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - ItemLed."Posted Daily Output";
+                                    // DailyConsumpLine."Balance Quantity" := ProdOrderLine.Quantity - Total;
                                     DailyConsumpLine.Insert();
                                 end;
                             end;
