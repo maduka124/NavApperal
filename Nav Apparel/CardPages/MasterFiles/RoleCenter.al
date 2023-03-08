@@ -830,6 +830,15 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    //Done By Sachith on 08/03/23
+                    action("Line in Out Report Planning")
+                    {
+                        Caption = 'Line In & Out Report';
+                        Enabled = true;
+                        RunObject = report lineinoutReport;
+                        ApplicationArea = All;
+                    }
+
                     action("Production Plan Report")
                     {
                         Caption = 'Production Plan Report';
@@ -1403,6 +1412,15 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    //Done By Sachith on 08/03/23
+                    action("Line in Out Report Cutting")
+                    {
+                        Caption = 'Line In & Out Report';
+                        Enabled = true;
+                        RunObject = report lineinoutReport;
+                        ApplicationArea = All;
+                    }
+
                     action("Production Plan Report2")
                     {
                         Caption = 'Production Plan Report';
@@ -1458,6 +1476,15 @@ page 50968 "Nav Apperal Role Center"
                 }
                 group("Sewing Reports")
                 {
+                    //Done By Sachith on 08/03/23
+                    action("Line in Out Report Sewing")
+                    {
+                        Caption = 'Line In & Out Report';
+                        Enabled = true;
+                        RunObject = report lineinoutReport;
+                        ApplicationArea = All;
+                    }
+
                     action("Hourly Production Report Sewing")
                     {
                         Caption = 'Hourly Production Report';
@@ -1547,6 +1574,15 @@ page 50968 "Nav Apperal Role Center"
                         Enabled = true;
                         RunObject = report HourlyProductionReport;
                         ApplicationArea = all;
+                    }
+
+                    //Done By Sachith on 08/03/23
+                    action("Line in Out Report Finishing")
+                    {
+                        Caption = 'Line In & Out Report';
+                        Enabled = true;
+                        RunObject = report lineinoutReport;
+                        ApplicationArea = All;
                     }
 
                     action("Production Plan Report3")
