@@ -2,7 +2,6 @@ report 51801 MaterialIssueRequition
 {
     RDLCLayout = 'Report_Layouts/Warehouse/MatRequisitionIssue.rdl';
     DefaultLayout = RDLC;
-    // ApplicationArea = Manufacturing;
     Caption = 'Material Requisition Issue Report';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
@@ -29,19 +28,20 @@ report 51801 MaterialIssueRequition
             { }
             column(Main_Category_Name; "Main Category Name")
             { }
+            column(AllocatedFactory; AllocatedFactory)
+            { }
 
             dataitem("Item Ledger Entry"; "Item Ledger Entry")
             {
                 DataItemLinkReference = "Daily Consumption Header";
-                // DataItemLink = "Document No." = field("Prod. Order No.");
                 DataItemLink = "Daily Consumption Doc. No." = field("No."), "Document No." = field("Prod. Order No.");
                 DataItemTableView = where("Entry Type" = filter(Consumption));
 
+                column(Item_No_; "Item No.")
+                { }
+                column(Source_No_FG; "Source No.")
+                { }
                 column(Quantity; Quantity * -1)
-                { }
-                column(OrginalDailyReq; RoundDailyReq)
-                { }
-                column(Item_No_; "Source No.")
                 { }
                 column(DescriptionLine; DescriptionRec)
                 { }
@@ -49,32 +49,35 @@ report 51801 MaterialIssueRequition
                 { }
                 column(UOM; "Unit of Measure Code")
                 { }
-                column(Location; "Location Code")
-                { }
-                column(size; size)
-                { }
                 column(Original_Daily_Requirement; "Original Daily Requirement")
                 { }
 
                 trigger OnAfterGetRecord()
                 begin
+                    UOM := '';
+                    DescriptionRec := '';
+
                     ItemRec.Reset();
-                    ItemRec.SetRange("No.", "Source No.");
+                    ItemRec.SetRange("No.", "Item No.");
                     if ItemRec.FindFirst() then begin
-                        size := ItemRec."Size Range No.";
                         UOM := ItemRec."Base Unit of Measure";
-                        Location := ItemRec."Location Filter";
                         DescriptionRec := ItemRec.Description;
                     end;
-
-                    RoundDailyReq := Round("Original Daily Requirement", 0.01, '>');
                 end;
             }
 
             trigger OnAfterGetRecord()
+            var
+                StyleMasRec: Record "Style Master";
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                StyleMasRec.Reset();
+                StyleMasRec.SetRange("Style No.", "Daily Consumption Header"."Style No.");
+                if StyleMasRec.Findset() then
+                    AllocatedFactory := StyleMasRec."Factory Name";
+
             end;
 
             trigger OnPreDataItem()
@@ -100,7 +103,6 @@ report 51801 MaterialIssueRequition
                         Caption = 'No';
                         TableRelation = "Daily Consumption Header"."No." where(Status = filter(Approved),
                         "Issued UserID" = filter(<> ''));
-
                     }
                 }
             }
@@ -108,12 +110,10 @@ report 51801 MaterialIssueRequition
     }
 
     var
-        RoundDailyReq: Decimal;
         DescriptionRec: Text[200];
-        Location: Code[20];
         UOM: Code[20];
-        size: Code[20];
         ItemRec: Record Item;
         JournalNo: Code[20];
         comRec: Record "Company Information";
+        AllocatedFactory: text[50];
 }
