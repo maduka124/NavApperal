@@ -133,30 +133,43 @@ report 51262 AccessoriesStatusReportNew
         PurchLineRec.SetFilter("Document Type", '=%1', PurchLineRec."Document Type"::Order);
         if PurchLineRec.FindSet() then begin
             repeat
-                MaxSeqNo += 1;
 
-                //Get Item details
-                ItemRec.Reset();
-                ItemRec.SetRange("No.", PurchLineRec."No.");
-                if ItemRec.FindSet() then begin
-                    //insert lines
-                    AcceRec.Init();
-                    AcceRec.SeqNo := MaxSeqNo;
-                    AcceRec.StyleNo := FilterNo;
-                    AcceRec."PONo." := PurchLineRec."Document No.";
-                    AcceRec."Item No" := ItemRec."No.";
-                    AcceRec.Article := ItemRec.Article;
-                    AcceRec.Unit := ItemRec."Base Unit of Measure";
-                    AcceRec.Color := ItemRec."Color Name";
-                    AcceRec.Dimension := ItemRec."Dimension Width";
-                    AcceRec."Item Desc" := ItemRec."Description";
-                    AcceRec.Size := ItemRec."Size Range No.";
-                    AcceRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                    AcceRec."PO Qty" := PurchLineRec.Quantity;
-                    AcceRec.Insert();
+                AcceRec.Reset();
+                AcceRec.SetRange("Item No", PurchLineRec."No.");
+                AcceRec.SetRange("PONo.", PurchLineRec."Document No.");
+                AcceRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+                if AcceRec.FindSet() then begin
+                    //Modify item line
+                    AcceRec."PO Qty" := AcceRec."PO Qty" + PurchLineRec.Quantity;
+                    AcceRec.Modify();
                 end
-                else
-                    Error('Cannot find Item details for : %1', PurchLineRec."No.");
+                else begin
+                    MaxSeqNo += 1;
+
+                    //Get Item details
+                    ItemRec.Reset();
+                    ItemRec.SetRange("No.", PurchLineRec."No.");
+                    if ItemRec.FindSet() then begin
+                        //insert lines
+                        AcceRec.Init();
+                        AcceRec.SeqNo := MaxSeqNo;
+                        AcceRec.StyleNo := FilterNo;
+                        AcceRec."PONo." := PurchLineRec."Document No.";
+                        AcceRec."Item No" := ItemRec."No.";
+                        AcceRec.Article := ItemRec.Article;
+                        AcceRec.Unit := ItemRec."Base Unit of Measure";
+                        AcceRec.Color := ItemRec."Color Name";
+                        AcceRec.Dimension := ItemRec."Dimension Width";
+                        AcceRec."Item Desc" := ItemRec."Description";
+                        AcceRec.Size := ItemRec."Size Range No.";
+                        AcceRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        AcceRec."PO Qty" := PurchLineRec.Quantity;
+                        AcceRec.Insert();
+                    end
+                    else
+                        Error('Cannot find Item details for : %1', PurchLineRec."No.");
+                end;
+
             until PurchLineRec.Next() = 0;
         end;
 
