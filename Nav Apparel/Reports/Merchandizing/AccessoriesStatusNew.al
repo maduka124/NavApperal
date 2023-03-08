@@ -20,12 +20,8 @@ report 51262 AccessoriesStatusReportNew
             { }
             column(Order_Qty; "Order Qty")
             { }
-            // column(Dimension; Dimension)
-            // { }
-            // column(IssueQty; IssuePlus)
-            // { }
-            // column(CompLogo; comRec.Picture)
-            // { }
+            column(CompLogo; comRec.Picture)
+            { }
 
             dataitem("AccessoriesStatusReportNew"; "AccessoriesStatusReportNew")
             {
@@ -33,11 +29,31 @@ report 51262 AccessoriesStatusReportNew
                 DataItemLink = StyleNo = field("No.");
                 DataItemTableView = sorting("Item Desc");
 
-                //column(GRNQty; Quantity)
-                // { }
-                column(Qty; Qty)
+                column(Item_No; "Item No")
                 { }
-                column(PO_No; OrderNO)
+                column(PONo_; "PONo.")
+                { }
+                column(Item_Desc; "Item Desc")
+                { }
+                column(Size; Size)
+                { }
+                column(Color; Color)
+                { }
+                column(Article; Article)
+                { }
+                column(Dimension; Dimension)
+                { }
+                column(Unit; Unit)
+                { }
+                column(PO_Qty; "PO Qty")
+                { }
+                column(GRN_Qty; "GRN Qty")
+                { }
+                column(Balance; Balance)
+                { }
+                column(IssueQty; "Issue Qty")
+                { }
+                column(Stock_Balance; "Stock Balance")
                 { }
 
                 trigger OnPreDataItem()
@@ -103,7 +119,7 @@ report 51262 AccessoriesStatusReportNew
         // Delete old records
         AcceRec.Reset();
         AcceRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
-        if AcceRec.findset then
+        if AcceRec.FindSet() then
             AcceRec.DeleteAll();
 
         //Get Max Seq No
@@ -126,13 +142,14 @@ report 51262 AccessoriesStatusReportNew
                     //insert lines
                     AcceRec.Init();
                     AcceRec.SeqNo := MaxSeqNo;
+                    AcceRec.StyleNo := FilterNo;
                     AcceRec."PONo." := PurchLineRec."Document No.";
                     AcceRec."Item No" := ItemRec."No.";
                     AcceRec.Article := ItemRec.Article;
                     AcceRec.Unit := ItemRec."Base Unit of Measure";
                     AcceRec.Color := ItemRec."Color Name";
                     AcceRec.Dimension := ItemRec."Dimension Width";
-                    AcceRec."Item Desc" := ItemRec."Description 2";
+                    AcceRec."Item Desc" := ItemRec."Description";
                     AcceRec.Size := ItemRec."Size Range No.";
                     AcceRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                     AcceRec."PO Qty" := PurchLineRec.Quantity;
@@ -171,13 +188,14 @@ report 51262 AccessoriesStatusReportNew
                         //insert item line
                         AcceRec.Init();
                         AcceRec.SeqNo := MaxSeqNo;
+                        AcceRec.StyleNo := FilterNo;
                         AcceRec."PONo." := PurchaseArchiveRec."Document No.";
                         AcceRec."Item No" := ItemRec."No.";
                         AcceRec.Article := ItemRec.Article;
                         AcceRec.Unit := ItemRec."Base Unit of Measure";
                         AcceRec.Color := ItemRec."Color Name";
                         AcceRec.Dimension := ItemRec."Dimension Width";
-                        AcceRec."Item Desc" := ItemRec."Description 2";
+                        AcceRec."Item Desc" := ItemRec."Description";
                         AcceRec.Size := ItemRec."Size Range No.";
                         AcceRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         AcceRec."PO Qty" := PurchaseArchiveRec.Quantity;
@@ -222,13 +240,14 @@ report 51262 AccessoriesStatusReportNew
                         //insert item line
                         AcceRec.Init();
                         AcceRec.SeqNo := MaxSeqNo;
+                        AcceRec.StyleNo := FilterNo;
                         AcceRec."PONo." := OrderNO;
                         AcceRec."Item No" := ItemRec."No.";
                         AcceRec.Article := ItemRec.Article;
                         AcceRec.Unit := ItemRec."Base Unit of Measure";
                         AcceRec.Color := ItemRec."Color Name";
                         AcceRec.Dimension := ItemRec."Dimension Width";
-                        AcceRec."Item Desc" := ItemRec."Description 2";
+                        AcceRec."Item Desc" := ItemRec."Description";
                         AcceRec.Size := ItemRec."Size Range No.";
                         AcceRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         AcceRec."PO Qty" := 0;
@@ -242,34 +261,31 @@ report 51262 AccessoriesStatusReportNew
             until PurchRcptLineRec.Next() = 0;
         end;
 
+
         //get Issue Qty
         AcceRec.Reset();
         AcceRec.SetRange(StyleNo, FilterNo);
         AcceRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
         if AcceRec.FindSet() then begin
             repeat
-                //Modify item line
-                AcceRec."GRN Qty" := AcceRec."GRN Qty" + PurchRcptLineRec.Quantity;
-                AcceRec.Balance := AcceRec."PO Qty" - AcceRec."GRN Qty";
+                IssueQty := 0;
+                ItemLedgerRec.Reset();
+                ItemLedgerRec.SetRange("Style No.", FilterNo);
+                ItemLedgerRec.SetRange("Item No.", AcceRec."Item No");
+                ItemLedgerRec.SetFilter("Entry Type", '=%1', ItemLedgerRec."Entry Type"::Consumption);
+
+                if ItemLedgerRec.FindSet() then begin
+                    repeat
+                        IssueQty += ItemLedgerRec.Quantity;
+                    until ItemLedgerRec.Next() = 0;
+                end;
+
+                AcceRec."Issue Qty" := IssueQty * -1;
+                AcceRec."Stock Balance" := AcceRec."GRN Qty" - AcceRec."Issue Qty";
                 AcceRec.Modify();
             until AcceRec.Next() = 0;
         end
-
-        // IssueQty := 0;
-        // ItemLedgerRec.Reset();
-        // ItemLedgerRec.SetRange("Style No.", FilterNo);
-        // ItemLedgerRec.SetRange("Item No.", Item."No.");
-        // if ItemLedgerRec.FindSet() then begin
-        //     repeat
-        //         if ItemLedgerRec."Entry Type" = ItemLedgerRec."Entry Type"::Consumption then begin
-        //             IssueQty += ItemLedgerRec.Quantity
-        //         end;
-        //     until ItemLedgerRec.Next() = 0;
-        // end;
-        // IssuePlus := IssueQty * -1;
-
     end;
-
 
     procedure PassParameters(StyleNoPara: Code[20])
     var
@@ -278,16 +294,11 @@ report 51262 AccessoriesStatusReportNew
         EditableGB := true;
     end;
 
-
     var
         EditableGB: Boolean;
         MaxSeqNo: BigInteger;
         LoginSessionsRec: Record LoginSessions;
-        DimenRec: Record DimensionWidth;
-        Dimension: Text[200];
-        ArticleRec: Record Article;
         ItemRec: Record Item;
-        Article: text[50];
         PurchLineRec: Record "Purchase Line";
         Qty: Decimal;
         PurchRcptLineRec: Record "Purch. Rcpt. Line";
@@ -298,6 +309,4 @@ report 51262 AccessoriesStatusReportNew
         comRec: Record "Company Information";
         FilterNo: Code[30];
         ItemLedgerRec: Record "Item Ledger Entry";
-        IssuePlus: Decimal;
-
 }

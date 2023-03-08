@@ -599,7 +599,7 @@ page 50968 "Nav Apperal Role Center"
                     {
                         Caption = 'Accessory Status Report';
                         Enabled = true;
-                        RunObject = report AccessoriesStatusReport;
+                        RunObject = report AccessoriesStatusReportNew;
                         ApplicationArea = all;
                     }
 
@@ -1179,7 +1179,7 @@ page 50968 "Nav Apperal Role Center"
                     {
                         Caption = 'Accessory Status Report';
                         Enabled = true;
-                        RunObject = report AccessoriesStatusReport;
+                        RunObject = report AccessoriesStatusReportNew;
                         ApplicationArea = all;
                     }
 
@@ -1368,7 +1368,7 @@ page 50968 "Nav Apperal Role Center"
                     {
                         Caption = 'Accessory Status Report';
                         Enabled = true;
-                        RunObject = report AccessoriesStatusReport;
+                        RunObject = report AccessoriesStatusReportNew;
                         ApplicationArea = all;
                     }
 
@@ -1537,7 +1537,7 @@ page 50968 "Nav Apperal Role Center"
                     {
                         Caption = 'Accessory Status Report';
                         Enabled = true;
-                        RunObject = report AccessoriesStatusReport;
+                        RunObject = report AccessoriesStatusReportNew;
                         ApplicationArea = all;
                     }
 
