@@ -13013,6 +13013,9 @@ Fields!Risk_factor_Dz_.Value + Fields!TAX_Dz_.Value+Fields!ABA_Sourcing_Dz_.Valu
                       <KeepWithGroup>Before</KeepWithGroup>
                     </TablixMember>
                   </TablixMembers>
+                  <Visibility>
+                    <Hidden>=Fields!Item_Name.Value=""</Hidden>
+                  </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <TablixHeader>
