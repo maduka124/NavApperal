@@ -61,11 +61,10 @@ page 50680 FabricCodeCard
 
                     end;
                 }
-                //2023/03/09
-                field(TextField; Rec.TextField)
+                //MIhiranga 2023/03/09
+                field(Reference; Rec.Reference)
                 {
                     ApplicationArea = All;
-                    Caption = 'Text';
                 }
                 //
                 field(Composition; rec.Composition)
