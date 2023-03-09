@@ -390,6 +390,20 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("ContractLC")
+                {
+                    Caption = 'Contract/Master LC';
+                    RunObject = Page "Contract/LC List";
+                    ApplicationArea = all;
+                }
+
+                action("Contract BBLC Summary List1")
+                {
+                    Caption = 'Contract BBLC Summary List';
+                    RunObject = Page "Contract BBLC Summary List";
+                    ApplicationArea = all;
+                }
+
                 action("Capacity Utilization By SAH1")
                 {
                     Caption = 'Capacity Utilization By SAH';
@@ -567,20 +581,6 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'YY Requisition';
                     RunObject = Page "YY Requsition List";
-                    ApplicationArea = all;
-                }
-
-                action("ContractLC")
-                {
-                    Caption = 'Contract/Master LC';
-                    RunObject = Page "Contract/LC List";
-                    ApplicationArea = all;
-                }
-
-                action("Contract BBLC Summary List1")
-                {
-                    Caption = 'Contract BBLC Summary List';
-                    RunObject = Page "Contract BBLC Summary List";
                     ApplicationArea = all;
                 }
 
