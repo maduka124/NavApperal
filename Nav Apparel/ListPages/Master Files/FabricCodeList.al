@@ -16,7 +16,11 @@ page 50681 "FabricCodeList"
                     ApplicationArea = all;
                     Caption = 'Fabric Code';
                 }
-
+                //Mihiranga 2023/03/09
+                field(Reference; Rec.Reference)
+                {
+                    ApplicationArea = All;
+                }
                 field(Composition; Rec.Composition)
                 {
                     ApplicationArea = All;

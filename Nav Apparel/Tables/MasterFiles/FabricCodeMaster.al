@@ -47,9 +47,10 @@ table 50679 FabricCodeMaster
             DataClassification = ToBeClassified;
         }
         //2023/03/09
-        field(9; TextField; Text[50])
+        field(9; Reference; Text[50])
         {
             DataClassification = ToBeClassified;
+            Caption = 'ABA-Reference';
         }
         //
     }
