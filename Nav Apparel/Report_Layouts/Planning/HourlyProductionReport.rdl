@@ -3845,7 +3845,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=iif(Fields!TodayTarget.Value=0,0,Fields!TodayTarget.Value / Fields!HoursPerDay.Value)</Value>
+                                  <Value>=Fields!HourlyTarget.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5582,7 +5582,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(iif(Fields!TodayTarget.Value=0,0,Fields!TodayTarget.Value / Fields!HoursPerDay.Value))</Value>
+                                  <Value>=Sum(Fields!HourlyTarget.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5609,7 +5609,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -7570,6 +7569,12 @@ End Function
         </Field>
         <Field Name="TargetProdPlan">
           <DataField>TargetProdPlan</DataField>
+        </Field>
+        <Field Name="HourlyTarget">
+          <DataField>HourlyTarget</DataField>
+        </Field>
+        <Field Name="HourlyTargetFormat">
+          <DataField>HourlyTargetFormat</DataField>
         </Field>
         <Field Name="Hour_1">
           <DataField>Hour_1</DataField>

@@ -101,6 +101,8 @@ report 50865 HourlyProductionReport
             { }
             column(TargetProdPlan; TargetProdPlan)
             { }
+            column(HourlyTarget; HourlyTarget)
+            { }
 
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
@@ -139,6 +141,13 @@ report 50865 HourlyProductionReport
 
             trigger OnAfterGetRecord()
             begin
+
+                if HoursPerDay > 0 then
+                    HourlyTarget := Qty / HoursPerDay
+                else
+                    HourlyTarget := 0;
+
+
 
                 variance := TodayOutput - Qty;
                 comRec.Get;
@@ -379,6 +388,7 @@ report 50865 HourlyProductionReport
     }
 
     var
+        HourlyTarget: Decimal;
         TargetProdPlan: BigInteger;
         ActualFinishDate: Date;
         ProductionHeaderRec4: Record ProductionOutHeader;
