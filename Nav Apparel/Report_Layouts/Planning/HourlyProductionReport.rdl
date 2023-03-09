@@ -3845,7 +3845,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=iif(Fields!TodayTarget.Value=0,0,Fields!TodayTarget.Value / Fields!HoursPerDay.Value)</Value>
+                                  <Value>=iif( Fields!HoursPerDay.Value=0,0,Fields!TodayTarget.Value / Fields!HoursPerDay.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5582,7 +5582,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(iif(Fields!TodayTarget.Value=0,0,Fields!TodayTarget.Value / Fields!HoursPerDay.Value))</Value>
+                                  <Value>=Sum(iif(Fields!HoursPerDay.Value=0,0,Fields!TodayTarget.Value / Fields!HoursPerDay.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
