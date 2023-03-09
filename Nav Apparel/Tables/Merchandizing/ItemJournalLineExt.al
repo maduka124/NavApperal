@@ -222,6 +222,18 @@ tableextension 50913 "ItemJournalLineExt" extends "Item Journal Line"
             DataClassification = ToBeClassified;
         }
 
+        field(50123; "MainCategory"; Code[20])  //to identify item Issuing per main category wise
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
+
+        field(50124; "MainCategoryName"; Text[50]) //to identify item Issuing per main category wise
+        {
+            Caption = 'Main Category';
+            DataClassification = ToBeClassified;
+        }
+
         modify(Quantity)
         {
             trigger OnBeforeValidate()

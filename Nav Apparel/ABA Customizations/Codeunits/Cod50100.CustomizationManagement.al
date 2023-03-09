@@ -423,6 +423,8 @@ codeunit 50100 "Customization Management"
         NewItemLedgEntry."Line Approved UserID" := ItemJournalLine."Line Approved UserID";
         NewItemLedgEntry."Requsting Department Name" := ItemJournalLine."Requsting Department Name";
         NewItemLedgEntry."Main Category Name" := ItemJournalLine."Main Category Name";
+        NewItemLedgEntry.MainCategory := ItemJournalLine.MainCategory;
+        NewItemLedgEntry.MainCategoryName := ItemJournalLine.MainCategoryName;
         NewItemLedgEntry."Original Daily Requirement" := ItemJournalLine."Original Daily Requirement";
         NewItemLedgEntry."Gen. Issue Doc. No." := ItemJournalLine."Gen. Issue Doc. No.";
         NewItemLedgEntry."Posted Daily Consump. Doc. No." := ItemJournalLine."Posted Daily Consump. Doc. No.";

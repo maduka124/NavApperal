@@ -395,6 +395,8 @@ page 50102 "Daily Consumption Card"
                                     ItemJnalRec.PO := ProdOrderRec.PO;
                                     ItemJnalRec."Style No." := ProdOrderRec."Style No.";
                                     ItemJnalRec."Style Name" := ProdOrderRec."Style Name";
+                                    ItemJnalRec.MainCategory := rec."Main Category";
+                                    ItemJnalRec.MainCategoryName := rec."Main Category Name";
 
                                     //ProdOrdComp.Get(ProdOrdComp.Status::Released, rec."Transaction Doc. No.", rec."Transaction Line No.", BarcodeLine."Componant Line No.");
                                     ItemJnalRec.Validate("Item No.", ProdOrdComp."Item No.");

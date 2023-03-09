@@ -60,6 +60,8 @@ table 50101 "Daily Consumption Header"
                                 ItemLed.SetRange("Order Line No.", ProdOrderLine."Line No.");
                                 if ItemJnalBatch."Inventory Posting Group" <> '' then
                                     ItemLed.SetRange("Invent. Posting Grp.", ItemJnalBatch."Inventory Posting Group");
+
+                                ItemLed.SetRange(MainCategoryName, "Main Category Name");
                                 ItemLed.CalcSums("Posted Daily Output");
 
                                 ProdOrderComp.Reset();
