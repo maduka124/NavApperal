@@ -1961,6 +1961,7 @@
                           </Style>
                         </Textbox>
                         <ColSpan>14</ColSpan>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -2033,6 +2034,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2777,7 +2779,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!RefGPartName.Value</Value>
+                      <Value>=Fields!Line_No_.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixMembers>
