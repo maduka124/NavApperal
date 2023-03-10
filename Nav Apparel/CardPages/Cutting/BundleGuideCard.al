@@ -253,7 +253,6 @@ page 50665 "Bundle Guide Card"
                             Error('Cannot find sizes');
 
 
-
                         //Get Sizes
                         CutCreLineRec.Reset();
                         CutCreLineRec.SetRange("Style No.", rec."Style No.");

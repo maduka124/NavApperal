@@ -40,7 +40,6 @@ page 50662 "Cutting Progress Card"
                         LoginRec: Page "Login Card";
                     begin
 
-
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -58,7 +57,6 @@ page 50662 "Cutting Progress Card"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
-
 
                         LaySheetHeaderRec.Reset();
                         LaySheetHeaderRec.SetRange("LaySheetNo.", rec.LaySheetNo);
@@ -110,6 +108,7 @@ page 50662 "Cutting Progress Card"
                             //Get Roll Issue lines
                             RoleIssuNoteLineRec.Reset();
                             RoleIssuNoteLineRec.SetRange("RoleIssuNo.", RoleIssuNoteHeadRec."RoleIssuNo.");
+                            RoleIssuNoteLineRec.SetFilter(Selected, '=%1', true);
 
                             if RoleIssuNoteLineRec.FindSet() then begin
 
