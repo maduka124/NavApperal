@@ -38,7 +38,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0.3175cm</Top>
-            <Left>6.83219cm</Left>
+            <Left>7.14969cm</Left>
             <Height>1.19062cm</Height>
             <Width>13.67897cm</Width>
             <Style>
@@ -380,40 +380,40 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.26103cm</Width>
+                  <Width>2.12307cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.42528cm</Width>
+                  <Width>7.16621cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.2271cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.78473cm</Width>
+                  <Width>3.2181cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.23469cm</Width>
+                  <Width>3.99974cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.07667cm</Width>
+                  <Width>1.99477cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.13709cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.74344cm</Width>
+                  <Width>1.5741cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.75706cm</Width>
+                  <Width>1.71473cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.58959cm</Width>
+                  <Width>1.52609cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.92828cm</Width>
+                  <Width>1.6077cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.93952cm</Width>
+                  <Width>1.64319cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -432,6 +432,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -475,6 +476,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -522,6 +524,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -564,6 +567,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -606,6 +610,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -648,6 +653,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -690,6 +696,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -732,6 +739,7 @@
                                   <Value>ORDER/RECEIVING</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -782,6 +790,7 @@
                                   <Value>ISSUING</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -835,6 +844,7 @@
                                   <Value>PO NO</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -883,6 +893,7 @@
                                   <Value>ITEM DESCRIPTION</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -927,6 +938,7 @@
                                   <Value>SIZE</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -966,6 +978,7 @@
                                   <Value>COLOUR</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1009,6 +1022,7 @@
                                   <Value>ARTICLE</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1052,6 +1066,7 @@
                                   <Value>DIMENSION</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1095,6 +1110,7 @@
                                   <Value>UNIT</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1138,6 +1154,7 @@
                                   <Value>PO QTY</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1181,6 +1198,7 @@
                                   <Value>GRN QTY</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1224,6 +1242,7 @@
                                   <Value>BALANCE</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1267,6 +1286,7 @@
                                   <Value>ISSUE QTY</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1310,6 +1330,7 @@
                                   <Value>STOCK BAL.</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1905,6 +1926,7 @@
                                   <Value>=Fields!PONo_.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1952,11 +1974,12 @@
                                   <Value>=Fields!Item_Desc.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1999,6 +2022,7 @@
                                   <Value>=Fields!Size.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2045,6 +2069,7 @@
                                   <Value>=Fields!Color.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2091,6 +2116,7 @@
                                   <Value>=Fields!Article.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2137,6 +2163,7 @@
                                   <Value>=Fields!Dimension.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2183,6 +2210,7 @@
                                   <Value>=Fields!Unit.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2229,6 +2257,7 @@
                                   <Value>=Fields!PO_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -2275,6 +2304,7 @@
                                   <Value>=Fields!GRN_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -2321,6 +2351,7 @@
                                   <Value>=Fields!Balance.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -2367,6 +2398,7 @@
                                   <Value>=Fields!IssueQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <Format>#,0.00;(#,0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -2413,6 +2445,7 @@
                                   <Value>=Fields!Stock_Balance.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <Format>n2</Format>
                                   </Style>
                                 </TextRun>
@@ -2501,7 +2534,7 @@
             <Top>4.38891cm</Top>
             <Left>0cm</Left>
             <Height>2.02224cm</Height>
-            <Width>27.10448cm</Width>
+            <Width>28.93189cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -2532,7 +2565,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>27.44825cm</Width>
+      <Width>28.93189cm</Width>
       <Page>
         <PageFooter>
           <Height>1.32292cm</Height>
@@ -2651,7 +2684,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox72</rd:DefaultName>
               <Top>0.17639cm</Top>
-              <Left>25.00114cm</Left>
+              <Left>26.58864cm</Left>
               <Height>1.03188cm</Height>
               <Width>2.21625cm</Width>
               <ZIndex>2</ZIndex>
@@ -2674,8 +2707,8 @@
         </PageFooter>
         <PageHeight>21cm</PageHeight>
         <PageWidth>29.7cm</PageWidth>
-        <LeftMargin>1cm</LeftMargin>
-        <RightMargin>1cm</RightMargin>
+        <LeftMargin>0.4cm</LeftMargin>
+        <RightMargin>0.3cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
