@@ -1944,11 +1944,29 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    //Done By Sachith 10/03/23
+                    action("Delivery Details Washing")
+                    {
+                        Caption = 'Delivery Details';
+                        Enabled = true;
+                        RunObject = report DeliveryInfoProductReport;
+                        ApplicationArea = all;
+                    }
+
                     action("Job Card Report")
                     {
                         Caption = 'Job Card Report';
                         Enabled = true;
                         RunObject = report JobCardReport;
+                        ApplicationArea = all;
+                    }
+
+                    //Done By Sachith 10/03/23
+                    action("Production Plan Report Washing")
+                    {
+                        Caption = 'Production Plan Report';
+                        Enabled = true;
+                        RunObject = report ProductionPlanReport;
                         ApplicationArea = all;
                     }
 
