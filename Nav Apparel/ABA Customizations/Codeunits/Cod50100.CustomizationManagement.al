@@ -521,6 +521,14 @@ codeunit 50100 "Customization Management"
         ProdOrderComponent."Invent. Posting Group" := ItemRec."Inventory Posting Group";
     end;
 
+    procedure PassParameters(PurchaseNo: Code[20]);
+    var
+    begin
+        PurchNo := PurchaseNo;
+    end;
+
+
+
     procedure ImportPurchaseTrackingExcel(PurchHedd: Record "Purchase Header")
     var
         ReservEntry: Record "Reservation Entry";
@@ -577,6 +585,7 @@ codeunit 50100 "Customization Management"
         // if ReservEntry.FindFirst() then
         //     Error('Reservation entry already exists');
 
+
         for RowNo := 2 to Rows do begin
             begin
                 ReservEntry.Reset();
@@ -586,11 +595,27 @@ codeunit 50100 "Customization Management"
                 else
                     EntNo := 1;
 
+
                 Clear(ReservEntry);
 
                 ReservEntry.INIT;
                 ReservEntry."Entry No." := EntNo;
-                EVALUATE(ReservEntry."Item No.", GetValueAtCell(RowNo, 1));
+
+                //Mihiranga 2023/03/09
+                PurchaseLineRec.Reset();
+                PurchaseLineRec.SetRange("Document No.", PurchNo);
+                if PurchaseLineRec.FindSet() then
+                    repeat
+                        if PurchaseLineRec."No." <> GetValueAtCell(RowNo, 1) then
+                            Error('Item number not matching');
+                    until PurchaseLineRec.Next() = 0;
+
+                repeat
+                    if ReservEntry."Item No." = GetValueAtCell(RowNo, 1) then
+                        Error('Record Already Exist');
+                    EVALUATE(ReservEntry."Item No.", GetValueAtCell(RowNo, 1));
+                until ReservEntry.Next() = 0;
+
                 EVALUATE(ReservEntry."Location Code", GetValueAtCell(RowNo, 2));
                 EVALUATE(ReservEntry."Quantity (Base)", GetValueAtCell(RowNo, 3));
                 ReservEntry.Validate("Quantity (Base)");
@@ -601,7 +626,12 @@ codeunit 50100 "Customization Management"
                 EVALUATE(ReservEntry."Source ID", GetValueAtCell(RowNo, 5));
                 EVALUATE(ReservEntry."Source Ref. No.", GetValueAtCell(RowNo, 6));
                 EVALUATE(ReservEntry."Expected Receipt Date", GetValueAtCell(RowNo, 7));
+                // repeat
+                //     if ReservEntry."Lot No." = GetValueAtCell(RowNo, 8) then
+                //         Error('Record Already Exist');
                 EVALUATE(ReservEntry."Lot No.", GetValueAtCell(RowNo, 8));
+                // until ReservEntry.Next() = 0;
+
                 EVALUATE(ReservEntry."Supplier Batch No.", GetValueAtCell(RowNo, 9));
                 EVALUATE(ReservEntry."Shade No", GetValueAtCell(RowNo, 10));
 
@@ -628,12 +658,17 @@ codeunit 50100 "Customization Management"
                 ReservEntry."Created By" := UserId;
                 ReservEntry."Item Tracking" := ReservEntry."Item Tracking"::"Lot No.";
                 ReservEntry.INSERT(TRUE);
+
+
+
             end;
         end;
 
         Message('Import Completed');
 
     end;
+
+
 
     local procedure GetValueAtCell(RowNo: Integer; ColNo: Integer): Text
     var
@@ -644,4 +679,8 @@ codeunit 50100 "Customization Management"
             exit(Rec_ExcelBuffer."Cell Value as Text");
     end;
 
+    var
+        PurchaseLineRec: Record "Purchase Line";
+        PurchNo: Code[20];
+        Location: Code[10];
 }
