@@ -11,6 +11,7 @@ report 51256 lineinoutReport
         dataitem(ProductionOutHeader; ProductionOutHeader)
         {
             DataItemTableView = sorting("No.") where(Type = filter('Saw'));
+
             column(Resource_Name; "Resource Name")
             { }
 
@@ -37,35 +38,42 @@ report 51256 lineinoutReport
 
             column(StDate; StDate)
             { }
+
             column(EndDate; EndDate)
             { }
 
             column(Factory_Name; "Factory Name")
             { }
+
             column(LocationRec; LocationRec.Name)
             { }
 
+            column(Resource_No_; "Resource No.")
+            { }
 
             trigger OnAfterGetRecord()
             begin
 
+                Buyer := '';
                 StyleRec.Reset();
                 StyleRec.SetRange("No.", "Style No.");
 
                 if StyleRec.FindSet() then
                     Buyer := StyleRec."Buyer Name";
 
+                orderQty := 0;
                 StyleMasterPORec.Reset();
                 StyleMasterPORec.SetRange("PO No.", "PO No");
+                StyleMasterPORec.SetRange("Style No.", "Style No.");
 
-                if StyleMasterPORec.FindSet() then begin
+                if StyleMasterPORec.FindSet() then
                     orderQty := StyleMasterPORec.Qty;
-                end;
+
 
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
-                if LocationRec.Get(Factory) then;
+                LocationRec.Get(Factory);
 
             end;
 
@@ -73,12 +81,6 @@ report 51256 lineinoutReport
             begin
                 SetRange("Prod Date", StDate, EndDate);
                 SetRange("Factory Code", Factory);
-
-                // LocationRec.Reset();
-                // LocationRec.SetRange(Code, Factory);
-
-                // if LocationRec.FindSet() then
-                //     "Factory Name" := LocationRec.Name;
             end;
         }
     }
@@ -91,7 +93,6 @@ report 51256 lineinoutReport
             {
                 group(GroupName)
                 {
-
                     field(Factory; Factory)
                     {
                         ApplicationArea = All;
