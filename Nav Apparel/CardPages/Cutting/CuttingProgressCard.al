@@ -34,10 +34,12 @@ page 50662 "Cutting Progress Card"
                         RoleIssuNoteHeadRec: Record RoleIssuingNoteHeader;
                         RoleIssuNoteLineRec: Record RoleIssuingNoteLine;
                         LaySheetLine2Rec: Record LaySheetLine2;
+                        LaySheetLine4Rec: Record LaySheetLine4;
                         CuttProgLineRec: Record CuttingProgressLine;
                         LineNo: Integer;
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        ActualPlies: Decimal;
                     begin
 
                         //Check whether user logged in or not
@@ -114,11 +116,20 @@ page 50662 "Cutting Progress Card"
 
                                 repeat
 
+                                    LaySheetLine4Rec.Reset();
+                                    LaySheetLine4Rec.SetRange("LaySheetNo.", rec.LaySheetNo);
+                                    LaySheetLine4Rec.SetRange("Role ID", RoleIssuNoteLineRec."Role ID");
+                                    if LaySheetLine4Rec.FindSet() then
+                                        ActualPlies := LaySheetLine4Rec."Actual Plies"
+                                    else
+                                        ActualPlies := 0;
+
+
                                     //insert cutting progress lines
                                     LineNo += 1;
                                     CuttProgLineRec.Init();
                                     CuttProgLineRec."CutProNo." := rec."CutProNo.";
-                                    CuttProgLineRec."Actual Plies" := 0;
+                                    CuttProgLineRec."Actual Plies" := ActualPlies;
                                     CuttProgLineRec.InvoiceNo := RoleIssuNoteLineRec.InvoiceNo;
                                     CuttProgLineRec."Item No" := RoleIssuNoteLineRec."Item No";
                                     CuttProgLineRec."Length Act" := RoleIssuNoteLineRec."Length Act";
