@@ -76,6 +76,7 @@ page 50607 "Style Master Card"
                     var
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        "Contract/LCStyleRec": Record "Contract/LCStyle";
                     //NavappPlanLineRec: Record "NavApp Planning Lines";
                     begin
                         // NavappPlanLineRec.Reset();
@@ -100,6 +101,13 @@ page 50607 "Style Master Card"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
+
+                        //Done By Sachith on 10/03/23
+                        "Contract/LCStyleRec".Reset();
+                        "Contract/LCStyleRec".SetRange("Style No.", Rec."No.");
+
+                        if "Contract/LCStyleRec".FindSet() then
+                            Error('Quantity cannot be changed');
                     end;
                 }
 

@@ -382,14 +382,20 @@ page 50502 "Contract/LC Card"
         "Contract/LCStyleRec": Record "Contract/LCStyle";
         "Contract CommisionRec": Record "Contract Commision";
     begin
-        "Contract/LCMasterRec".SetRange("No.", rec."No.");
-        "Contract/LCMasterRec".DeleteAll();
 
-        "Contract/LCStyleRec".SetRange("No.", rec."No.");
-        "Contract/LCStyleRec".DeleteAll();
+        //Done By Sachith On 09/03/23
+        "Contract/LCStyleRec".Reset();
+        "Contract/LCStyleRec".SetRange("No.", Rec."No.");
 
-        "Contract CommisionRec".SetRange("No.", rec."No.");
-        "Contract CommisionRec".DeleteAll();
+        if "Contract/LCStyleRec".FindSet() then
+            Error('Record cannot be deleted')
+        else begin
+            "Contract CommisionRec".SetRange("No.", rec."No.");
+            "Contract CommisionRec".DeleteAll();
+
+            "Contract/LCMasterRec".SetRange("No.", rec."No.");
+            "Contract/LCMasterRec".DeleteAll();
+        end;
     end;
 
     //Done By Sachith 03/01/23
