@@ -321,9 +321,10 @@ page 50101 "Daily Consumption List"
         UserSetup: Record "User Setup";
     begin
         UserSetup.Get(UserId);
-
-        if not UserSetup."Consumption Approve" then
-            Rec.SetRange("Created UserID", UserId);
+        if UserSetup.UserRole <> 'STORE USER' then BEGIN
+            if not UserSetup."Consumption Approve" then
+                Rec.SetRange("Created UserID", UserId);
+        END;
     end;
 
 

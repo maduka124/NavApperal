@@ -3,7 +3,7 @@ page 50102 "Daily Consumption Card"
     Caption = 'Raw Material Requisition Card';
     PageType = Card;
     SourceTable = "Daily Consumption Header";
-
+    Permissions = tabledata "Item Ledger Entry" = rm;
     layout
     {
         area(content)
@@ -11,6 +11,12 @@ page 50102 "Daily Consumption Card"
             group(General)
             {
                 Editable = EditableGB;
+
+                field(DocNumber; DocNumber)
+                {
+                    ApplicationArea = All;
+                }
+
 
                 field("No."; Rec."No.")
                 {
@@ -524,6 +530,73 @@ page 50102 "Daily Consumption Card"
                     //CurrPage.Close();
                 end;
             }
+
+            action("Set Main Cat ledger")
+            {
+                Image = Approve;
+                ApplicationArea = Basic, Suite;
+
+                trigger OnAction()
+                var
+                    ItemLedEntry: Record "Item Ledger Entry";
+                    DailyConDos: Record "Daily Consumption Header";
+                begin
+
+
+                    DailyConDos.Reset();
+                    DailyConDos.SetRange("No.", DocNumber);
+                    if DailyConDos.FindSet() then begin
+
+                        ItemLedEntry.Reset();
+                        ItemLedEntry.SetRange("Daily Consumption Doc. No.", DocNumber);
+                        if ItemLedEntry.FindSet() then begin
+                            repeat
+                                ItemLedEntry.MainCategory := DailyConDos."Main Category";
+                                ItemLedEntry.MainCategoryName := DailyConDos."Main Category Name";
+                                ItemLedEntry.Modify();
+                            until ItemLedEntry.Next() = 0;
+                        end;
+
+                    end;
+
+                    Message('Completed.');
+                end;
+            }
+
+            action("Set Main Ca jrnl")
+            {
+                Image = Approve;
+                ApplicationArea = Basic, Suite;
+                AccessByPermission = TableData "Item Journal Line" = R;
+
+
+                trigger OnAction()
+                var
+                    ItemLedEntry: Record "Item Ledger Entry";
+                    DailyConDos: Record "Daily Consumption Header";
+                    Itemjrnl: Record "Item Journal Line";
+                begin
+
+
+                    DailyConDos.Reset();
+                    DailyConDos.SetRange("No.", DocNumber);
+                    if DailyConDos.FindSet() then begin
+
+                        Itemjrnl.Reset();
+                        Itemjrnl.SetRange("Daily Consumption Doc. No.", DocNumber);
+                        if Itemjrnl.FindSet() then begin
+                            repeat
+                                Itemjrnl.MainCategory := DailyConDos."Main Category";
+                                Itemjrnl.MainCategoryName := DailyConDos."Main Category Name";
+                                Itemjrnl.Modify();
+                            until Itemjrnl.Next() = 0;
+                        end;
+
+                    end;
+
+                    Message('Completed.');
+                end;
+            }
         }
     }
 
@@ -695,4 +768,6 @@ page 50102 "Daily Consumption Card"
         BooVis2: Boolean;
         Vis2: Boolean;
         EditableGB: Boolean;
+
+        DocNumber: Code[20];
 }
