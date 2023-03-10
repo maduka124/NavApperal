@@ -57,6 +57,8 @@ report 51073 DeliveryInfoProductReport
                 { }
                 column(BPCD; BPCD)
                 { }
+                column(Ship_Date; "Ship Date")
+                { }
 
                 trigger OnAfterGetRecord()
                 begin

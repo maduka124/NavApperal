@@ -136,9 +136,12 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
                 trigger OnAction()
                 var
                     ExcelUpload: Codeunit "Customization Management";
+
                 begin
                     if not Confirm('Do you want to upload the Serial lines?', false) then
                         exit;
+                    ExcelUpload.PassParameters(rec."No.");
+                   
 
                     ExcelUpload.ImportPurchaseTrackingExcel(Rec);
                 end;

@@ -51,7 +51,8 @@ report 50614 ManningLevelsReport
             column(CompLogo; comRec.Picture)
             { }
 
-
+            column(Factory; Factory)
+            { }
             dataitem("Maning Levels Line"; "Maning Levels Line")
             {
                 DataItemLinkReference = "Maning Level";
@@ -95,6 +96,7 @@ report 50614 ManningLevelsReport
                 end;
             }
 
+
             trigger OnPreDataItem()
             begin
                 // SetRange("Style No.", StyleFilter);
@@ -105,6 +107,13 @@ report 50614 ManningLevelsReport
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                NavappLine.Reset();
+                NavappLine.SetRange("Style No.", "Style No.");
+
+                if NavappLine.FindSet() then begin
+                    Factory := NavappLine.Factory;
+                end;
             end;
 
         }
@@ -153,4 +162,7 @@ report 50614 ManningLevelsReport
         StyleFilter: Text[50];
         comRec: Record "Company Information";
         LineFilter: Code[20];
+        NavappLine: Record "NavApp Planning Lines";
+        Factory: Code[20];
+
 }
