@@ -90,7 +90,7 @@ page 50503 "Contract/LC List"
         }
     }
 
-    
+
     trigger OnOpenPage()
     var
         LoginRec: Page "Login Card";
@@ -131,14 +131,19 @@ page 50503 "Contract/LC List"
         "Contract/LCStyleRec": Record "Contract/LCStyle";
         "Contract CommisionRec": Record "Contract Commision";
     begin
-        "Contract/LCMasterRec".SetRange("No.", Rec."No.");
-        "Contract/LCMasterRec".DeleteAll();
 
+        "Contract/LCStyleRec".Reset();
         "Contract/LCStyleRec".SetRange("No.", Rec."No.");
-        "Contract/LCStyleRec".DeleteAll();
 
-        "Contract CommisionRec".SetRange("No.", Rec."No.");
-        "Contract CommisionRec".DeleteAll();
+        if "Contract/LCStyleRec".FindSet() then
+            Error('Record cannot be deleted')
+        else begin
+            "Contract/LCMasterRec".SetRange("No.", Rec."No.");
+            "Contract/LCMasterRec".DeleteAll();
+
+            "Contract CommisionRec".SetRange("No.", Rec."No.");
+            "Contract CommisionRec".DeleteAll();
+        end;
     end;
 
 

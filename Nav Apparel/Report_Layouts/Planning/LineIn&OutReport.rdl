@@ -38,7 +38,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0cm</Top>
-            <Left>4.42766cm</Left>
+            <Left>4.74516cm</Left>
             <Height>1.19062cm</Height>
             <Width>9.78959cm</Width>
             <Style>
@@ -1412,16 +1412,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>6.96617cm</Width>
+                  <Width>8.22928cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.27633cm</Width>
+                  <Width>1.50921cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.66876cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.81851cm</Width>
+                  <Width>1.95642cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1437,14 +1437,16 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LINE IN &amp; OUT DETAILS FOR THEDATE RANGE</Value>
+                                  <Value>LINE IN &amp; LINE OUT DETAILS FOR THE DATE RANGE</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox21</rd:DefaultName>
@@ -1478,7 +1480,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1513,7 +1515,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1548,7 +1550,7 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -1584,10 +1586,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>1.36737cm</Top>
-            <Left>4.1275cm</Left>
+            <Top>1.19062cm</Top>
+            <Left>3.4925cm</Left>
             <Height>0.59796cm</Height>
-            <Width>10.72977cm</Width>
+            <Width>12.36367cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
