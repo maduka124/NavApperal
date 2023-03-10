@@ -360,14 +360,12 @@ page 51247 "Buyer Style PO Search"
 
     trigger OnDeleteRecord(): Boolean
     var
-
     begin
         Error('Cannot delete this record.');
     end;
 
 
     var
-
         MaxSeqNo: BigInteger;
         VisiblePO: Boolean;
         VisibleGRN: Boolean;
