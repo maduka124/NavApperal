@@ -757,6 +757,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Sales Order List1")
+                {
+                    Caption = 'Sales Orders';
+                    RunObject = Page "Sales Order List";
+                    ApplicationArea = all;
+                }
+
                 action("Shop Calenders")
                 {
                     Caption = 'Shop Calenders';
