@@ -13,8 +13,6 @@ report 50621 ProductionPlanReport
             DataItemTableView = sorting("No.");
             column(Merchandiser_Name; "Merchandiser Code")
             { }
-            column(Factory_Name; "Factory Name")
-            { }
             column(Buyer_Name; "Buyer Name")
             { }
             column(BPCD; BPCDPo)
@@ -34,6 +32,8 @@ report 50621 ProductionPlanReport
             column(InSpectionDt; InSpectionDt)
             { }
             column(PRDHR; PRDHR)
+            { }
+            column(Factory_Name; FactoryFilter)
             { }
 
             dataitem("NavApp Planning Lines"; "NavApp Planning Lines")
@@ -122,9 +122,11 @@ report 50621 ProductionPlanReport
                 begin
                     if StartDate <> 0D then
                         SetRange("Start Date", stDate, endDate);
+
+                    if FactoryFilter <> '' then
+                        SetRange(Factory, FactoryFilter);
                 end;
             }
-
 
             trigger OnAfterGetRecord()
             begin
@@ -136,13 +138,6 @@ report 50621 ProductionPlanReport
                 if PurchLineRec.FindFirst() then begin
                     LineQty := PurchLineRec.Quantity;
                 end;
-            end;
-
-            //Done By sachith On 14/02/23
-            trigger OnPreDataItem()
-            begin
-                if Factory <> '' then
-                    SetRange("Factory Code", Factory);
             end;
         }
     }
@@ -159,25 +154,23 @@ report 50621 ProductionPlanReport
                     Caption = 'Filter By';
 
                     //Done By sachith On 14/02/23
-                    field(Factory; Factory)
+                    field(FactoryFilter; FactoryFilter)
                     {
                         ApplicationArea = All;
+                        Caption = 'Factory';
                         TableRelation = Location.Code where("Sewing Unit" = filter(true));
-                        // ShowMandatory = true;
                     }
 
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-                        // ShowMandatory = true;
                     }
 
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-                        // ShowMandatory = true;
                     }
                 }
             }
@@ -206,5 +199,5 @@ report 50621 ProductionPlanReport
         PRDHR: Integer;
         NavRec: Record "NavApp Planning Lines";
         //Done By sachith On 14/02/23
-        Factory: Code[20];
+        FactoryFilter: Code[20];
 }

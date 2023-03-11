@@ -3305,7 +3305,7 @@
               </Border>
             </Style>
           </Tablix>
-          <Textbox Name="Textbox7">
+          <Textbox Name="Factory_Name3">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
@@ -3324,18 +3324,19 @@
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>12pt</FontSize>
-                      <FontWeight>Normal</FontWeight>
+                      <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox6</rd:DefaultName>
-            <Top>2.01999cm</Top>
-            <Left>0cm</Left>
-            <Height>0.79905cm</Height>
-            <Width>14.36688cm</Width>
+            <rd:DefaultName>Factory_Name2</rd:DefaultName>
+            <Top>0.88753in</Top>
+            <Height>0.23622in</Height>
+            <Width>4.25569in</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -3571,9 +3572,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Merchandiser_Name">
           <DataField>Merchandiser_Name</DataField>
         </Field>
-        <Field Name="Factory_Name">
-          <DataField>Factory_Name</DataField>
-        </Field>
         <Field Name="Buyer_Name">
           <DataField>Buyer_Name</DataField>
         </Field>
@@ -3606,6 +3604,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="PRDHR">
           <DataField>PRDHR</DataField>
+        </Field>
+        <Field Name="Factory_Name">
+          <DataField>Factory_Name</DataField>
         </Field>
         <Field Name="Order_Qty">
           <DataField>Order_Qty</DataField>
