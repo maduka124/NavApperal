@@ -25,8 +25,6 @@ report 51073 DeliveryInfoProductReport
             { }
             column(Created_User; "Created User")
             { }
-            // column(BPCD; BPCD)
-            // { }
             column(CompLogo; comRec.Picture)
             { }
             column(stDate; stDate)
@@ -39,6 +37,7 @@ report 51073 DeliveryInfoProductReport
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = sorting("Lot No.");
+
                 column(PO_No_; "PO No.")
                 { }
                 column(Qty; Qty)

@@ -81,6 +81,8 @@ report 51256 lineinoutReport
             begin
                 SetRange("Prod Date", StDate, EndDate);
                 SetRange("Factory Code", Factory);
+                if LineName <> '' then
+                    SetRange("Resource Name", LineName);
             end;
         }
     }
@@ -93,13 +95,6 @@ report 51256 lineinoutReport
             {
                 group(GroupName)
                 {
-                    field(Factory; Factory)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Factory';
-                        TableRelation = Location.Code where("Sewing Unit" = filter(true));
-                    }
-
                     field(StDate; StDate)
                     {
                         ApplicationArea = All;
@@ -110,6 +105,35 @@ report 51256 lineinoutReport
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
+                    }
+
+                    field(Factory; Factory)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Factory';
+                        TableRelation = Location.Code where("Sewing Unit" = filter(true));
+                    }
+
+                    field(LineName; LineName)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Line';
+                        //TableRelation = "Work Center".Name where("Factory No." = filter(Factory));
+
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            WorkCentrRec: Record "Work Center";
+                        begin
+                            WorkCentrRec.Reset();
+                            WorkCentrRec.SetFilter(WorkCentrRec."Planning Line", '=%1', true);
+                            WorkCentrRec.SetRange("Factory No.", Factory);
+                            WorkCentrRec.FindSet();
+
+                            if Page.RunModal(51159, WorkCentrRec) = Action::LookupOK then begin
+                                LineNo := WorkCentrRec."No.";
+                                LineName := WorkCentrRec.Name;
+                            end;
+                        end;
                     }
                 }
             }
@@ -126,5 +150,8 @@ report 51256 lineinoutReport
         EndDate: Date;
         comRec: Record "Company Information";
         Factory: Code[10];
+        LineName: Text[100];
+        LineNo: code[20];
         LocationRec: Record Location;
+        WorkCenterRec: Record "Work Center";
 }
