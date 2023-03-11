@@ -100,22 +100,52 @@ report 50621 ProductionPlanReport
                     StartDate := 0D;
                     EndDt := 0D;
                     InSpectionDt := 0D;
-                    NavRec.Reset();
-                    NavRec.SetCurrentKey("Start Date");
-                    NavRec.SetAscending("Start Date", true);
-                    // NavRec.SetRange("Style No.", "Style No.");
-                    NavRec.SetRange("Resource No.", "Resource No.");
-                    NavRec.SetRange("PO No.", "PO No.");
-                    if NavRec.FindFirst() then begin
-                        StartDt := NavRec."Start Date" - 2;
-                        StartDate := NavRec."Start Date";
+
+                    NavAppProdPlanRec.Reset();
+                    NavAppProdPlanRec.SetRange("Line No.", "Line No.");
+                    NavAppProdPlanRec.SetCurrentKey(PlanDate);
+                    NavAppProdPlanRec.Ascending(true);
+                    if NavAppProdPlanRec.FindFirst() then begin
+                        StartDt := NavAppProdPlanRec."PlanDate" - 2;
+                        StartDate := NavAppProdPlanRec."PlanDate";
                     end;
 
-                    if NavRec.FindLast() then begin
-                        EndDt := NavRec."End Date";
-                        InSpectionDt := NavRec."End Date" + 10;
+                    NavAppProdPlanRec.Reset();
+                    NavAppProdPlanRec.SetRange("Line No.", "Line No.");
+                    NavAppProdPlanRec.SetCurrentKey(PlanDate);
+                    NavAppProdPlanRec.Ascending(true);
+                    if NavAppProdPlanRec.FindLast() then begin
+                        EndDt := NavAppProdPlanRec."PlanDate";
+                        InSpectionDt := NavAppProdPlanRec."PlanDate" + 10;
                     end;
+
+                    // NavRec.Reset();
+                    // NavRec.SetCurrentKey("Start Date");
+                    // NavRec.SetAscending("Start Date", true);
+                    // // NavRec.SetRange("Style No.", "Style No.");
+                    // NavRec.SetRange("Resource No.", "Resource No.");
+                    // NavRec.SetRange("PO No.", "PO No.");
+                    // if NavRec.FindFirst() then begin
+                    //     StartDt := NavRec."Start Date" - 2;
+                    //     StartDate := NavRec."Start Date";
+                    // end;
+
+                    // if NavRec.FindLast() then begin
+                    //     EndDt := NavRec."End Date";
+                    //     InSpectionDt := NavRec."End Date" + 10;
+                    // end;
+
                     PRDHR := EndDt - StartDate;
+
+                    LineQty := 0;
+                    PurchLineRec.SetRange(StyleNo, "Style No.");
+                    PurchLineRec.SetRange(PONo, "PO No.");
+                    if PurchLineRec.FindSet() then begin
+                        repeat
+                            LineQty += PurchLineRec.Quantity;
+                        until PurchLineRec.Next() = 0;
+                    end;
+
                 end;
 
                 trigger OnPreDataItem()
@@ -132,12 +162,6 @@ report 50621 ProductionPlanReport
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
-
-                LineQty := 0;
-                PurchLineRec.SetRange(StyleNo, "No.");
-                if PurchLineRec.FindFirst() then begin
-                    LineQty := PurchLineRec.Quantity;
-                end;
             end;
         }
     }
@@ -191,7 +215,7 @@ report 50621 ProductionPlanReport
         PoQty: BigInteger;
         PurchLineRec: Record "Purch. Rcpt. Line";
         LineQty: Decimal;
-        // NavAppRec: Record "NavApp Planning Lines";
+        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
         StartDt: Date;
         EndDt: Date;
         InSpectionDt: Date;

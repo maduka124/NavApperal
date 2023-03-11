@@ -1,7 +1,8 @@
 {
     "version": "0.2.0",
     "configurations": [
-        { //local
+        { 
+            ///////local
             // "type": "al",
             // "request": "launch",
             // "name": "Your own server",
@@ -16,22 +17,22 @@
             // "schemaUpdateMode": "ForceSync"
             
 
-            //Dev SandBox
-            "type": "al",
-            "request": "launch",
-            "name": "Your own server",
-            "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/SL-Developments",
-            "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
-            "dependencyPublishingOption": "Ignore",        
-            "breakOnError": true,
-            "launchBrowser": false,
-            "environmentType": "Sandbox",
-            "environmentName": "SL-Developments",
-            "serverInstance": "SL-Developments",
-            "schemaUpdateMode": "ForceSync"
+            ////Dev SandBox
+            // "type": "al",
+            // "request": "launch",
+            // "name": "Your own server",
+            // "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/SL-Developments",
+            // "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
+            // "dependencyPublishingOption": "Ignore",        
+            // "breakOnError": true,
+            // "launchBrowser": false,
+            // "environmentType": "Sandbox",
+            // "environmentName": "SL-Developments",
+            // "serverInstance": "SL-Developments",
+            // "schemaUpdateMode": "ForceSync"
 
 
-            // Prod SandBox
+            ////////////Prod SandBox
             // "type": "al",
             // "request": "launch",
             // "name": "Your own server",
@@ -44,6 +45,21 @@
             // "environmentName": "Development-Sandbox",
             // "serverInstance": "Development-Sandbox",
             // "schemaUpdateMode": "ForceSync"
+
+
+             ////LiveCopy SandBox
+            "type": "al",
+            "request": "launch",
+            "name": "Your own server",
+            "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/CopyofLive",
+            "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
+            "dependencyPublishingOption": "Ignore",        
+            "breakOnError": true,
+            "launchBrowser": false,
+            "environmentType": "Sandbox",
+            "environmentName": "CopyofLive",
+            "serverInstance": "CopyofLive",
+            "schemaUpdateMode": "ForceSync"
         }
     ] 
 }

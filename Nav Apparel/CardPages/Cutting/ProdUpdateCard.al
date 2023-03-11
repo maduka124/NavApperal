@@ -39,24 +39,24 @@ page 50371 "Prod Update Card"
                 end;
             }
 
-            action("reverse prod update")
-            {
-                Caption = 'reverse prod updatea';
-                Image = RemoveLine;
-                ApplicationArea = All;
+            // action("reverse prod update")
+            // {
+            //     Caption = 'reverse prod updatea';
+            //     Image = RemoveLine;
+            //     ApplicationArea = All;
 
-                trigger OnAction();
-                var
-                    Prod: Record ProductionOutHeader;
-                    Da: Date;
-                begin
-                    Da := DMY2DATE(30, 1, 2023);
-                    Prod.Reset();
-                    Prod.SetRange("Prod Date", da);
-                    Prod.FindSet();
-                    Prod.ModifyAll("Prod Updated", 0);
-                end;
-            }
+            //     trigger OnAction();
+            //     var
+            //         Prod: Record ProductionOutHeader;
+            //         Da: Date;
+            //     begin
+            //         Da := DMY2DATE(30, 1, 2023);
+            //         Prod.Reset();
+            //         Prod.SetRange("Prod Date", da);
+            //         Prod.FindSet();
+            //         Prod.ModifyAll("Prod Updated", 0);
+            //     end;
+            // }
         }
     }
 
