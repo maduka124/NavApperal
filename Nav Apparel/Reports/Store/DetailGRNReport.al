@@ -3,7 +3,7 @@ report 51148 DetailGRNReport
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Detail GRN Report';
-    RDLCLayout = 'Report_Layouts/Warehouse/DetailGRNReport.rdl';
+    RDLCLayout = 'Report_Layouts/Store/DetailGRNReport.rdl';
     DefaultLayout = RDLC;
 
 

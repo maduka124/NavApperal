@@ -383,6 +383,7 @@ page 50606 "Ratio Creation Card"
                                         RatioCreLineRec."UOM Code" := UOMCode;
                                         RatioCreLineRec."Colour No" := rec."Colour No";
                                         RatioCreLineRec."Colour Name" := rec."Colour Name";
+                                        RatioCreLineRec."Color Total" := SewJobCreLine4Rec."Color Total";
                                         RatioCreLineRec."1" := SewJobCreLine4Rec."1";
                                         RatioCreLineRec."2" := SewJobCreLine4Rec."2";
                                         RatioCreLineRec."3" := SewJobCreLine4Rec."3";

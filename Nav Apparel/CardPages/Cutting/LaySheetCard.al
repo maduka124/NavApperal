@@ -702,7 +702,7 @@ page 50656 "LaySheetCard"
             UOMCode := RoleIssHeadeRec."UOM Code";
         end;
 
-        //Get details from FabricRequsitionLine
+        //Get details from FabricRequsitionLine (Table 3)
         RoleIssRec.Reset();
         RoleIssRec.SetRange("RoleIssuNo.", rec."LaySheetNo.");
         RoleIssRec.SetCurrentKey("Shade No");
@@ -710,9 +710,45 @@ page 50656 "LaySheetCard"
         RoleIssRec.Ascending(true);
 
         if RoleIssRec.FindSet() then begin
-
             repeat
+                if Shade <> RoleIssRec.Shade then begin
+                    TotalQty := 0;
+                    LIneNo1 += 1;
+                    LaySheetLine3Rec.Init();
+                    LaySheetLine3Rec."LaySheetNo." := rec."LaySheetNo.";
+                    LaySheetLine3Rec."LineNo." := LIneNo1;
+                    LaySheetLine3Rec."Shade No" := RoleIssRec."Shade No";
+                    LaySheetLine3Rec.Shade := RoleIssRec.Shade;
+                    LaySheetLine3Rec."Shade Wise Total Fab (Meters)" := RoleIssRec."Length Allocated";
+                    LaySheetLine3Rec."No of Plies From Shade" := 0;
+                    LaySheetLine3Rec."Created User" := UserId;
+                    LaySheetLine3Rec.Insert();
+                end
+                else begin
+                    TotalQty += RoleIssRec."Length Allocated";
 
+                    LaySheetLine3Rec.Reset();
+                    LaySheetLine3Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                    LaySheetLine3Rec.SetRange("LineNo.", LIneNo1);
+
+                    if LaySheetLine3Rec.FindSet() then
+                        LaySheetLine3Rec.ModifyAll("Shade Wise Total Fab (Meters)", TotalQty);
+                end;
+
+                Shade := RoleIssRec.Shade;
+            until RoleIssRec.Next() = 0;
+        end;
+
+
+        //Get details from FabricRequsitionLine (Table 4)
+        RoleIssRec.Reset();
+        RoleIssRec.SetRange("RoleIssuNo.", rec."LaySheetNo.");
+        RoleIssRec.SetCurrentKey("Selected Seq");
+        RoleIssRec.SetFilter(Selected, '=%1', true);
+        RoleIssRec.Ascending(true);
+
+        if RoleIssRec.FindSet() then begin
+            repeat
                 LIneNo += 1;
                 LaySheetLine4Rec.Init();
                 LaySheetLine4Rec."LaySheetNo." := rec."LaySheetNo.";
@@ -732,40 +768,8 @@ page 50656 "LaySheetCard"
                 LaySheetLine4Rec.UOM := UOM;
                 LaySheetLine4Rec."UOM Code" := UOMCode;
                 LaySheetLine4Rec."Created User" := UserId;
-                LaySheetLine4Rec.Insert();
-
-                if Shade <> RoleIssRec.Shade then begin
-
-                    TotalQty := 0;
-                    LIneNo1 += 1;
-                    LaySheetLine3Rec.Init();
-                    LaySheetLine3Rec."LaySheetNo." := rec."LaySheetNo.";
-                    LaySheetLine3Rec."LineNo." := LIneNo1;
-                    LaySheetLine3Rec."Shade No" := RoleIssRec."Shade No";
-                    LaySheetLine3Rec.Shade := RoleIssRec.Shade;
-                    LaySheetLine3Rec."Shade Wise Total Fab (Meters)" := RoleIssRec."Length Allocated";
-                    LaySheetLine3Rec."No of Plies From Shade" := 0;
-                    LaySheetLine3Rec."Created User" := UserId;
-                    LaySheetLine3Rec.Insert();
-
-                end
-                else begin
-
-                    TotalQty += RoleIssRec."Length Allocated";
-
-                    LaySheetLine3Rec.Reset();
-                    LaySheetLine3Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
-                    LaySheetLine3Rec.SetRange("LineNo.", LIneNo1);
-
-                    if LaySheetLine3Rec.FindSet() then
-                        LaySheetLine3Rec.ModifyAll("Shade Wise Total Fab (Meters)", TotalQty);
-
-                end;
-
-                Shade := RoleIssRec.Shade;
-
+                LaySheetLine4Rec.Insert();    
             until RoleIssRec.Next() = 0;
-
         end;
 
     end;

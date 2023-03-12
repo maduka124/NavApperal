@@ -3,7 +3,7 @@ report 50711 DepartmentRequisitionReport
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Department Requisition Report';
-    RDLCLayout = 'Report_Layouts/Warehouse/departmentReqReport.rdl';
+    RDLCLayout = 'Report_Layouts/Store/departmentReqReport.rdl';
     DefaultLayout = RDLC;
 
     dataset

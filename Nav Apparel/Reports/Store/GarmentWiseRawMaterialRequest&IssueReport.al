@@ -4,7 +4,7 @@ report 51238 GarmentWiseRawMaterialRequest
     ApplicationArea = All;
     Caption = 'Garment Wise Raw Material Request & Issue Report';
     DefaultLayout = RDLC;
-    RDLCLayout = 'Report_Layouts/Warehouse/GarmentWiseRawMaterialRequest&IssueReport.rdl';
+    RDLCLayout = 'Report_Layouts/Store/GarmentWiseRawMaterialRequest&IssueReport.rdl';
 
     dataset
     {

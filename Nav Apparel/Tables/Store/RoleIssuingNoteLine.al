@@ -99,6 +99,12 @@ table 50637 RoleIssuingNoteLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(19; "Selected Seq"; Integer)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
     }
 
     keys

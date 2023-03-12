@@ -1,9 +1,9 @@
-report 50625 TransferOrder
+report 50631 TransferOrderCardPageReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Transfer Order Report';
-    RDLCLayout = 'Report_Layouts/Warehouse/TransferOrder.rdl';
+    RDLCLayout = 'Report_Layouts/Store/TransferOrder.rdl';
     DefaultLayout = RDLC;
 
     dataset
@@ -35,6 +35,8 @@ report 50625 TransferOrder
             { }
             column(PONo; PONo)
             { }
+            column(PO; PO)
+            { }
             //     column(po)
             // { }
             //     column()
@@ -64,7 +66,6 @@ report 50625 TransferOrder
                 trigger OnAfterGetRecord()
 
                 begin
-                    ItemRec.Reset();
                     ItemRec.SetRange("No.", "Item No.");
                     if ItemRec.FindFirst() then begin
                         ItemColor := ItemRec."Color Name";
@@ -80,8 +81,8 @@ report 50625 TransferOrder
 
                 column(Planned_Order_No_; "No.")
                 { }
-                column(PO; PO)
-                { }
+                // column(PO; PO)
+                // { }
                 // column()
                 // { }
                 dataitem("Prod. Order Line"; "Prod. Order Line")
@@ -100,7 +101,6 @@ report 50625 TransferOrder
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
-                StyleRec.Reset();
                 StyleRec.SetRange("No.", "Style No.");
                 if StyleRec.FindFirst() then begin
                     StyleName := StyleRec."Style No.";
@@ -113,7 +113,6 @@ report 50625 TransferOrder
                 //     PoQty := StylePoRec.Qty;
                 //     PONo := StylePoRec."PO No.";
                 // end;
-
                 // locationRec.Reset();
                 // locationRec.SetRange(Code, "Transfer-from Code");
                 // if locationRec.FindFirst() then begin
@@ -157,31 +156,26 @@ report 50625 TransferOrder
                     {
                         ApplicationArea = All;
                         Caption = 'Transfer Order No';
-                        TableRelation = "Transfer Header"."No.";
+                        Editable = false;
+                        // TableRelation = "Transfer Header"."No.";
 
                     }
                 }
             }
         }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
-                }
-            }
-        }
     }
 
+    procedure Set_Value(TransferOrderFil: Code[20])
+    var
+    begin
+        TransferOrderFilter := TransferOrderFil;
+    end;
 
 
     var
-        TransferFromFilter: Code[20];
-        TransferTo: Code[20];
+
+        // TransferFromFilter: Code[20];
+        // TransferTo: Code[20];
         UserName: Code[50];
         UserRec: Record User;
         TransferOrderFilter: Code[20];

@@ -1552,8 +1552,10 @@ page 50596 "Ratio Creation ListPart"
         MaxLineNo: Integer;
         Number: Decimal;
         Number1: Decimal;
+        ColorTotal: Decimal;
     begin
 
+        ColorTotal := 0;
         if Rec.Plies <> 0 then begin
 
             LineNo1 := Rec.LineNo;
@@ -1670,6 +1672,7 @@ page 50596 "Ratio Creation ListPart"
                 RatioCreationLineRec1.SetRange(LineNo, LineNo1 + 1);
                 RatioCreationLineRec1.FindSet();
 
+                RatioCreationLineRec1."Color Total" := 0;
 
                 //Get Current line
                 RatioCreationLineRec2.Reset();
@@ -1691,6 +1694,7 @@ page 50596 "Ratio Creation ListPart"
                         Evaluate(Number, RatioCreationLineRec."1");
                         Evaluate(Number1, RatioCreationLineRec2."1");
                         RatioCreationLineRec1."1" := format(Number - (RatioCreationLineRec2.Plies * Number1));
+                        RatioCreationLineRec1."Color Total" := RatioCreationLineRec1."Color Total" + Number - (RatioCreationLineRec2.Plies * Number1);
                         Number := 0;
                         Number1 := 0;
                     end
@@ -1702,6 +1706,7 @@ page 50596 "Ratio Creation ListPart"
                         Evaluate(Number, RatioCreationLineRec."2");
                         Evaluate(Number1, RatioCreationLineRec2."2");
                         RatioCreationLineRec1."2" := format(Number - (RatioCreationLineRec2.Plies * Number1));
+                        RatioCreationLineRec1."Color Total" := RatioCreationLineRec1."Color Total" + Number - (RatioCreationLineRec2.Plies * Number1);
                         Number := 0;
                         Number1 := 0;
                     end
@@ -1713,6 +1718,7 @@ page 50596 "Ratio Creation ListPart"
                         Evaluate(Number, RatioCreationLineRec."3");
                         Evaluate(Number1, RatioCreationLineRec2."3");
                         RatioCreationLineRec1."3" := format(Number - (RatioCreationLineRec2.Plies * Number1));
+                        RatioCreationLineRec1."Color Total" := RatioCreationLineRec1."Color Total" + Number - (RatioCreationLineRec2.Plies * Number1);
                         Number := 0;
                         Number1 := 0;
                     end
@@ -1724,6 +1730,7 @@ page 50596 "Ratio Creation ListPart"
                         Evaluate(Number, RatioCreationLineRec."4");
                         Evaluate(Number1, RatioCreationLineRec2."4");
                         RatioCreationLineRec1."4" := format(Number - (RatioCreationLineRec2.Plies * Number1));
+                        RatioCreationLineRec1."Color Total" := RatioCreationLineRec1."Color Total" + Number - (RatioCreationLineRec2.Plies * Number1);
                         Number := 0;
                         Number1 := 0;
                     end
@@ -1735,6 +1742,7 @@ page 50596 "Ratio Creation ListPart"
                         Evaluate(Number, RatioCreationLineRec."5");
                         Evaluate(Number1, RatioCreationLineRec2."5");
                         RatioCreationLineRec1."5" := format(Number - (RatioCreationLineRec2.Plies * Number1));
+                        RatioCreationLineRec1."Color Total" := RatioCreationLineRec1."Color Total" + Number - (RatioCreationLineRec2.Plies * Number1);
                         Number := 0;
                         Number1 := 0;
                     end
@@ -1746,6 +1754,7 @@ page 50596 "Ratio Creation ListPart"
                         Evaluate(Number, RatioCreationLineRec."6");
                         Evaluate(Number1, RatioCreationLineRec2."6");
                         RatioCreationLineRec1."6" := format(Number - (RatioCreationLineRec2.Plies * Number1));
+                        RatioCreationLineRec1."Color Total" := RatioCreationLineRec1."Color Total" + Number - (RatioCreationLineRec2.Plies * Number1);
                         Number := 0;
                         Number1 := 0;
                     end
@@ -1757,6 +1766,7 @@ page 50596 "Ratio Creation ListPart"
                         Evaluate(Number, RatioCreationLineRec."7");
                         Evaluate(Number1, RatioCreationLineRec2."7");
                         RatioCreationLineRec1."7" := format(Number - (RatioCreationLineRec2.Plies * Number1));
+                        RatioCreationLineRec1."Color Total" := RatioCreationLineRec1."Color Total" + Number - (RatioCreationLineRec2.Plies * Number1);
                         Number := 0;
                         Number1 := 0;
                     end

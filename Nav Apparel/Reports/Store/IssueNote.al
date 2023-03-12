@@ -3,7 +3,7 @@ report 50605 IssueNoteReport
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Issue Note';
-    RDLCLayout = 'Report_Layouts/Warehouse/IssueNote.rdl';
+    RDLCLayout = 'Report_Layouts/Store/IssueNote.rdl';
     DefaultLayout = RDLC;
 
     dataset

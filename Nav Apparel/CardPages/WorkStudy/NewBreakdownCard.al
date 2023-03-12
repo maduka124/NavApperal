@@ -147,6 +147,9 @@ page 50459 "New Breakdown Card"
 
                             repeat
 
+                                if (NewOpLine."Department No." = '') or (NewOpLine."Department Name" = '') then
+                                    Error('Department is blank in Operation No : %1', NewOpLine."No.");
+
                                 //Get max line no
                                 LineNo := 0;
                                 NewBrOpLine.Reset();
