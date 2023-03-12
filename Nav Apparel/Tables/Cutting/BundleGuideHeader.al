@@ -62,8 +62,8 @@ table 50664 BundleGuideHeader
         field(10; "Bundle Method"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = Normal,"Roll Wise";
-            OptionCaption = 'Normal,Roll Wise';
+            OptionMembers = "Roll Wise",Normal;
+            OptionCaption = 'Roll Wise,Normal';
         }
 
         field(11; "Created Date"; Date)
@@ -110,26 +110,9 @@ table 50664 BundleGuideHeader
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("BundleGuide Nos.");
-
         "BundleGuideNo." := NoSeriesMngment.GetNextNo(NavAppSetup."BundleGuide Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }

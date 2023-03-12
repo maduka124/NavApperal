@@ -1312,12 +1312,12 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Cutting Progress")
-                {
-                    Caption = 'Cutting Progress';
-                    RunObject = Page "Cutting Progress List";
-                    ApplicationArea = all;
-                }
+                // action("Cutting Progress")
+                // {
+                //     Caption = 'Cutting Progress';
+                //     RunObject = Page "Cutting Progress List";
+                //     ApplicationArea = all;
+                // }
 
                 action("Cut Creation")
                 {

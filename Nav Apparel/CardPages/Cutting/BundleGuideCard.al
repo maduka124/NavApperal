@@ -135,11 +135,13 @@ page 50665 "Bundle Guide Card"
                 field("Bundle Rule"; rec."Bundle Rule")
                 {
                     ApplicationArea = All;
+                    Caption = 'Bundle Qty';
                 }
 
                 field("Bundle Method"; rec."Bundle Method")
                 {
                     ApplicationArea = All;
+                    Caption = 'Bundle Type';
                 }
             }
 
@@ -167,14 +169,15 @@ page 50665 "Bundle Guide Card"
 
                 trigger OnAction()
                 var
-                    CutProgLineRec: Record CuttingProgressLine;
-                    CutProgHeadRec: Record CuttingProgressHeader;
+                    // CutProgLineRec: Record CuttingProgressLine;
+                    // CutProgHeadRec: Record CuttingProgressHeader;
                     BundleGuideLineRec: Record BundleGuideLine;
                     SewJobRec: Record SewingJobCreationLine4;
                     CutCreLine1Rec: Record CutCreationLine;
                     CutCreRec: Record CutCreation;
                     CutCreLineRec: Record CutCreationLine;
                     LaySheetRec: Record LaySheetHeader;
+                    LaySheetLine4Rec: Record LaySheetLine4;
                     StyleMasPoRec: Record "Style Master PO";
                     Plies: Integer;
                     i: Integer;
@@ -786,19 +789,24 @@ page 50665 "Bundle Guide Card"
                                 if not LaySheetRec.FindSet() then
                                     Error('Cannot find matching Laysheet');
 
-                                CutProgHeadRec.Reset();
-                                CutProgHeadRec.SetRange("LaySheetNo", LaySheetRec."LaySheetNo.");
+                                // CutProgHeadRec.Reset();
+                                // CutProgHeadRec.SetRange("LaySheetNo", LaySheetRec."LaySheetNo.");
 
-                                if not CutProgHeadRec.FindSet() then
-                                    Error('Cannot find matching Cutting Progress number');
+                                // if not CutProgHeadRec.FindSet() then
+                                //     Error('Cannot find matching Cutting Progress number');
 
-                                CutProgLineRec.Reset();
-                                CutProgLineRec.SetRange("CutProNo.", CutProgHeadRec."CutProNo.");
+                                // CutProgLineRec.Reset();
+                                // CutProgLineRec.SetRange("CutProNo.", CutProgHeadRec."CutProNo.");
 
-                                if not CutProgLineRec.FindSet() then
-                                    Error('Cannot find matching Cutting Progress lines')
+                                // if not CutProgLineRec.FindSet() then
+
+
+                                LaySheetLine4Rec.Reset();
+                                LaySheetLine4Rec.SetRange("LaySheetNo.", LaySheetRec."LaySheetNo.");
+
+                                if not LaySheetLine4Rec.FindSet() then
+                                    Error('Cannot find Roll/Shade Details in Laysheet Lines')
                                 else begin
-
                                     repeat
 
                                         for i := 1 To 64 do begin
@@ -1176,14 +1184,14 @@ page 50665 "Bundle Guide Card"
                                                         LineNo += 1;
                                                         BundleNo += 1;
 
-                                                        if CutProgLineRec."Actual Plies" <= rec."Bundle Rule" then
-                                                            BundleQty := CutProgLineRec."Actual Plies"
+                                                        if LaySheetLine4Rec."Actual Plies" <= rec."Bundle Rule" then
+                                                            BundleQty := LaySheetLine4Rec."Actual Plies"
                                                         else
                                                             BundleQty := rec."Bundle Rule";
 
                                                         StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
 
-                                                        if TempQty + BundleQty <= CutProgLineRec."Actual Plies" then begin
+                                                        if TempQty + BundleQty <= LaySheetLine4Rec."Actual Plies" then begin
 
                                                             //BundleQty := "Bundle Rule";
                                                             BundleGuideLineRec.Init();
@@ -1200,9 +1208,9 @@ page 50665 "Bundle Guide Card"
                                                             BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
                                                             BundleGuideLineRec."Sticker Sequence" := StickerSeq;
                                                             BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                            BundleGuideLineRec."Role ID" := CutProgLineRec."Role ID";
-                                                            BundleGuideLineRec."Shade Name" := CutProgLineRec.Shade;
-                                                            BundleGuideLineRec."Shade No" := CutProgLineRec."Shade No";
+                                                            BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
+                                                            BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                            BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
                                                             BundleGuideLineRec."Style No" := rec."Style No.";
                                                             BundleGuideLineRec."Style Name" := rec."Style Name";
 
@@ -1224,11 +1232,11 @@ page 50665 "Bundle Guide Card"
 
                                                         end
                                                         else begin
-                                                            BundleQty := CutProgLineRec."Actual Plies" - TempQty;
+                                                            BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty;
 
-                                                            if CutProgLineRec."Actual Plies" - TempQty > rec."Bundle Rule" / 2 then begin
+                                                            if LaySheetLine4Rec."Actual Plies" - TempQty > rec."Bundle Rule" / 2 then begin
 
-                                                                BundleQty := CutProgLineRec."Actual Plies" - TempQty;
+                                                                BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty;
                                                                 StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
 
                                                                 BundleGuideLineRec.Init();
@@ -1245,9 +1253,9 @@ page 50665 "Bundle Guide Card"
                                                                 BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
                                                                 BundleGuideLineRec."Sticker Sequence" := StickerSeq;
                                                                 BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                                BundleGuideLineRec."Role ID" := CutProgLineRec."Role ID";
-                                                                BundleGuideLineRec."Shade Name" := CutProgLineRec.Shade;
-                                                                BundleGuideLineRec."Shade No" := CutProgLineRec."Shade No";
+                                                                BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
+                                                                BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                                BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
                                                                 BundleGuideLineRec."Style No" := rec."Style No.";
                                                                 BundleGuideLineRec."Style Name" := rec."Style Name";
 
@@ -1270,7 +1278,7 @@ page 50665 "Bundle Guide Card"
                                                             end
                                                             else begin
 
-                                                                BundleQty := CutProgLineRec."Actual Plies" - TempQty;
+                                                                BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty;
                                                                 StickerSeq := Format(TempQty - PreviuosBundleQty + 1) + '-' + Format(TempQty + BundleQty);
 
                                                                 //modify previous entry
@@ -1288,7 +1296,7 @@ page 50665 "Bundle Guide Card"
                                                         end;
 
                                                         TempQty := TempQty + BundleQty;
-                                                    until TempQty >= CutProgLineRec."Actual Plies";
+                                                    until TempQty >= LaySheetLine4Rec."Actual Plies";
 
                                                 end;
 
@@ -1296,7 +1304,7 @@ page 50665 "Bundle Guide Card"
 
                                         end;
 
-                                    until CutProgLineRec.Next() = 0;
+                                    until LaySheetLine4Rec.Next() = 0;
 
                                 end;
 
