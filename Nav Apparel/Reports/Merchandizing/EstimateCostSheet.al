@@ -120,6 +120,9 @@ report 50613 EstimateCostSheetReport
             column(Factory_Name; "Factory Name")
             { }
 
+            column(ContractNo; ContractNo)
+            { }
+
             dataitem("BOM Estimate Costing Line"; "BOM Estimate Costing Line")
             {
                 DataItemLinkReference = "BOM Estimate Cost";
@@ -216,6 +219,14 @@ report 50613 EstimateCostSheetReport
 
                 Temp := NavAppSetupRec."Base Efficiency" - "BOM Estimate Cost"."Project Efficiency.";
                 NewCPM := "BOM Estimate Cost".CPM + ("BOM Estimate Cost".CPM * Temp) / 100;
+
+                //Done By Sachith on 13/03/23
+                ContractLCstyleRec.Reset();
+                ContractLCstyleRec.SetRange("Style No.", "Style No.");
+
+                if ContractLCstyleRec.FindSet() then
+                    ContractNo := ContractLCstyleRec."No.";
+
             end;
 
 
@@ -258,5 +269,7 @@ report 50613 EstimateCostSheetReport
         BomRec: Record BOM;
         comRec: Record "Company Information";
         NewCPM: Decimal;
+        ContractLCstyleRec: Record "Contract/LCStyle";
+        ContractNo: Code[20];
 
 }

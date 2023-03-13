@@ -36,10 +36,10 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.5241cm</Width>
+                  <Width>3.28424cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>10.52099cm</Width>
+                  <Width>9.76084cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.97034cm</Width>
@@ -767,7 +767,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>Contract/Master LC</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -794,14 +794,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox475">
+                        <Textbox Name="ContractNo">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!ContractNo.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -812,7 +812,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox475</rd:DefaultName>
+                          <rd:DefaultName>ContractNo</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -918,7 +918,7 @@
             <Top>3.05635cm</Top>
             <Left>0.9525cm</Left>
             <Height>3.55562cm</Height>
-            <Width>26.00618cm</Width>
+            <Width>26.00617cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -15405,6 +15405,9 @@ QAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRR
         </Field>
         <Field Name="Factory_Name">
           <DataField>Factory_Name</DataField>
+        </Field>
+        <Field Name="ContractNo">
+          <DataField>ContractNo</DataField>
         </Field>
         <Field Name="TotFab">
           <DataField>TotFab</DataField>

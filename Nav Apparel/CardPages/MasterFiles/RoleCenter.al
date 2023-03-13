@@ -2187,6 +2187,15 @@ page 50968 "Nav Apperal Role Center"
                         ApplicationArea = all;
                     }
 
+                    //Done By Sachith 13/03/23
+                    action("Estimate Costing Report Commercial")
+                    {
+                        Caption = 'Estimate Costing Report';
+                        Enabled = true;
+                        RunObject = report EstimateCostSheetReport;
+                        ApplicationArea = all;
+                    }
+
                     action("Export Summary Report")
                     {
                         Caption = 'Export Summary Report';
