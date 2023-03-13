@@ -251,6 +251,7 @@ page 50355 "Daily Sewing In/Out Card"
                         NavProdDetRec: Record "NavApp Prod Plans Details";
                         Users: Record "User Setup";
                         Factory: Code[20];
+                        StyleName: text[50];
                     begin
 
                         Users.Reset();
@@ -259,11 +260,30 @@ page 50355 "Daily Sewing In/Out Card"
                         if Users."Factory Code" = '' then
                             Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
+                        // NavProdDetRec.Reset();
+                        // //NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
+                        // NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
+                        // NavProdDetRec.SetFilter(PlanDate, '=%1', rec."Prod Date");
+                        // if not NavProdDetRec.FindSet() then
+                        //     Error('Cannot find planning details');
+
                         NavProdDetRec.Reset();
                         //NavProdDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
-                        NavProdDetRec.SetFilter(PlanDate, '=%1', rec."Prod Date");
-                        if not NavProdDetRec.FindSet() then
+                        NavProdDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
+                        if NavProdDetRec.FindSet() then begin
+                            repeat
+                                if StyleName <> NavProdDetRec."Style Name" then begin
+                                    NavProdDetRec.Mark(true);
+                                    StyleName := NavProdDetRec."Style Name";
+                                end
+                                else
+                                    StyleName := NavProdDetRec."Style Name";
+                            until NavProdDetRec.Next() = 0;
+
+                            NavProdDetRec.MARKEDONLY(TRUE);
+                        end
+                        else
                             Error('Cannot find planning details');
 
                         if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
@@ -341,9 +361,15 @@ page 50355 "Daily Sewing In/Out Card"
 
                     trigger OnValidate()
                     var
+                        StyleMasterPORec: Record "Style Master PO";
                     begin
-                        //Check Input qty with cutting qty
-                        if rec."Output Qty" > rec."Input Qty" then
+                        //Check sewing Input qty with sewing out qty
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", rec."Out Style No.");
+                        StyleMasterPORec.SetRange("Lot No.", rec."Out Lot No.");
+                        StyleMasterPORec.FindSet();
+
+                        if (rec."Output Qty" + StyleMasterPORec."Sawing Out Qty") > StyleMasterPORec."Sawing In Qty" then
                             Error('Output quantity is greater than the input quantity.');
                         CurrPage.Update();
                     end;
