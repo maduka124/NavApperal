@@ -81,7 +81,7 @@ pageextension 50658 WashinBOMList extends "Production BOM Lines"
         LoginSessionsRec: Record LoginSessions;
     begin
 
-        CurrPage.Editable(false);
+       
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());

@@ -4,7 +4,7 @@ page 51025 "BOM Estimate Line List part"
     SourceTable = "BOM Estimate Line";
     SourceTableView = sorting("No.", "Line No.") order(ascending);
     AutoSplitKey = true;
-    InsertAllowed = false;
+    
 
     layout
     {
