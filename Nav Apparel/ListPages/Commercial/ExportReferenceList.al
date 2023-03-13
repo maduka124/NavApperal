@@ -70,8 +70,8 @@ page 51240 "Export Reference List"
 
     trigger OnDeleteRecord(): Boolean
     var
-        SalesInvRec: Record "Sales Invoice Header";
         SalesInvLineRec: Record "Sales Invoice Line";
+        SalesInvRec: Record "Sales Invoice Header";
     begin
         SalesInvLineRec.Reset();
         SalesInvLineRec.SetRange("No.", rec."No.");

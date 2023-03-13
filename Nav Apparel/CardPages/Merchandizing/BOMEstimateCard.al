@@ -451,11 +451,14 @@ page 50985 "BOM Estimate Card"
         EstCostRec: Record "BOM Estimate Cost";
     begin
         EditableGB := true;
-        EstCostRec.Reset();
-        EstCostRec.SetRange("BOM No.", rec."No.");
-        if EstCostRec.FindSet() then begin
-            //if EstCostRec.Status = EstCostRec.Status::Approved then
-            EditableGB := false;
+
+        if rec."No." <> '' then begin
+            EstCostRec.Reset();
+            EstCostRec.SetRange("BOM No.", rec."No.");
+            if EstCostRec.FindSet() then begin
+                //if EstCostRec.Status = EstCostRec.Status::Approved then
+                EditableGB := false;
+            end;
         end;
     end;
 
@@ -465,11 +468,14 @@ page 50985 "BOM Estimate Card"
         EstCostRec: Record "BOM Estimate Cost";
     begin
         EditableGB := true;
-        EstCostRec.Reset();
-        EstCostRec.SetRange("BOM No.", rec."No.");
-        if EstCostRec.FindSet() then begin
-            //if EstCostRec.Status = EstCostRec.Status::Approved then
-            EditableGB := false;
+
+        if rec."No." <> '' then begin
+            EstCostRec.Reset();
+            EstCostRec.SetRange("BOM No.", rec."No.");
+            if EstCostRec.FindSet() then begin
+                //if EstCostRec.Status = EstCostRec.Status::Approved then
+                EditableGB := false;
+            end;
         end;
     end;
 

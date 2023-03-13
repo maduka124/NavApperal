@@ -97,7 +97,7 @@ table 50664 BundleGuideHeader
 
     fieldgroups
     {
-        fieldgroup(DropDown; "BundleGuideNo.", "Style No.", "Color Name", "Group ID", "Component Group", "Cut No")
+        fieldgroup(DropDown; "BundleGuideNo.", "Style Name", "Color Name", "Group ID", "Component Group", "Cut No")
         {
         }
     }

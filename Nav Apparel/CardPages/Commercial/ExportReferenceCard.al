@@ -70,6 +70,15 @@ page 51241 "Export Reference Card"
                         SalesInvLineRec: Record "Sales Invoice Line";
                         ExportRefLineRec: Record ExportReferenceLine;
                     begin
+
+                        if xRec."Invoice No" <> '' then begin
+                            SalesInvRec.Reset();
+                            SalesInvRec.SetRange("No.", xRec."Invoice No");
+                            SalesInvRec.FindSet();
+                            SalesInvRec."Export Ref No." := '';
+                            SalesInvRec.Modify();
+                        end;
+
                         SalesInvRec.Reset();
                         SalesInvRec.SetRange("No.", rec."Invoice No");
 
@@ -146,6 +155,35 @@ page 51241 "Export Reference Card"
         }
     }
 
+
+    // actions
+    // {
+    //     area(Creation)
+    //     {
+    //         action("remove value")
+    //         {
+    //             ApplicationArea = All;
+
+
+    //             trigger OnAction()
+    //             var
+    //                 SalesInvRec: Record "Sales Invoice Header";
+    //             begin
+    //                 SalesInvRec.Reset();
+    //                 SalesInvRec.SetRange("No.", 'VDL-PSI-0009');
+    //                 SalesInvRec.FindSet();
+    //                 SalesInvRec."Export Ref No." := '';
+    //                 SalesInvRec.Modify();
+
+    //                 SalesInvRec.Reset();
+    //                 SalesInvRec.SetRange("No.", 'VDL-PSI-0005');
+    //                 SalesInvRec.FindSet();
+    //                 SalesInvRec."Export Ref No." := '';
+    //                 SalesInvRec.Modify();
+    //             end;
+    //         }
+    //     }
+    // }
 
     procedure AssistEdit(): Boolean
     var

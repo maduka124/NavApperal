@@ -22,7 +22,6 @@ report 50634 BundleGuideReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-
             //Done By sachith on 20/02/23
             column(PO_No_; "PO No.")
             { }
@@ -32,6 +31,7 @@ report 50634 BundleGuideReport
                 DataItemLinkReference = BundleGuideHeader;
                 DataItemLink = "BundleGuideNo." = field("BundleGuideNo.");
                 DataItemTableView = sorting("Line No");
+
                 column(Bundle_No; "Bundle No")
                 { }
                 column(Color_Name; "Color Name")
@@ -52,29 +52,26 @@ report 50634 BundleGuideReport
                 { }
 
                 trigger OnAfterGetRecord()
-
                 begin
                     styleRec.SetRange("No.", BundleGuideHeader."Style No.");
                     if styleRec.FindFirst() then begin
                         Quantity := styleRec."Order Qty";
                         FactoryName := styleRec."Factory Name";
                     end;
-
                 end;
             }
-            trigger OnAfterGetRecord()
 
+            trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
 
             trigger OnPreDataItem()
-
             begin
-                SetRange("Style No.", styleNo);
+                // SetRange("Style No.", styleNo);
 
-                // SetRange("BundleGuideNo.", BundleGuideNo);
+                SetRange("BundleGuideNo.", BundleGuideNo);
             end;
         }
     }
@@ -91,59 +88,45 @@ report 50634 BundleGuideReport
                     Caption = 'Filter By';
 
                     //Done By Sachith On 20/02/23
-                    field(styleNo; styleNo)
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Style';
-
-                        // TableRelation = BundleGuideHeader."Style No.";
-
-                        // trigger OnLookup(var Text: Text): Boolean
-                        // begin
-                        //     if Page.RunModal(50666, BundleGuideHeader) = Action::LookupOK then begin
-                        //         Editable := false;
-                        //         styleNo := BundleGuideHeader."Style No.";
-                        //     end;
-                        // end;
-
-                        TableRelation = "Style Master"."No.";
-
-                        trigger OnValidate()
-                        var
-                            StyleMasterRec: Record "Style Master";
-                        begin
-
-                            StyleMasterRec.Reset();
-                            StyleMasterRec.SetRange("No.", BundleGuideHeader."Style No.");
-
-                            if StyleMasterRec.FindSet() then
-                                styleNo := StyleMasterRec."No.";
-                        end;
-                    }
-
-                    // field(BundleGuideNo; BundleGuideNo)
+                    // field(styleNo; styleNo)
                     // {
                     //     ApplicationArea = All;
-                    //     Caption = 'Bundle Guide No';
-                    //     TableRelation = BundleGuideHeader."BundleGuideNo.";
+                    //     Caption = 'Style';
+
+                    //     // TableRelation = BundleGuideHeader."Style No.";
+
+                    //     // trigger OnLookup(var Text: Text): Boolean
+                    //     // begin
+                    //     //     if Page.RunModal(50666, BundleGuideHeader) = Action::LookupOK then begin
+                    //     //         Editable := false;
+                    //     //         styleNo := BundleGuideHeader."Style No.";
+                    //     //     end;
+                    //     // end;
+
+                    //     TableRelation = "Style Master"."No.";
+
+                    //     trigger OnValidate()
+                    //     var
+                    //         StyleMasterRec: Record "Style Master";
+                    //     begin
+                    //         StyleMasterRec.Reset();
+                    //         StyleMasterRec.SetRange("No.", BundleGuideHeader."Style No.");
+
+                    //         if StyleMasterRec.FindSet() then
+                    //             styleNo := StyleMasterRec."No.";
+                    //     end;
                     // }
-                }
-            }
-        }
 
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
+                    field(BundleGuideNo; BundleGuideNo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Bundle Guide No';
+                        TableRelation = BundleGuideHeader."BundleGuideNo.";
+                    }
                 }
             }
         }
     }
-
 
 
     var
