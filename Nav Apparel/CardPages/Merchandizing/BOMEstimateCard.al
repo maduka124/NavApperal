@@ -463,6 +463,7 @@ page 50985 "BOM Estimate Card"
     end;
 
 
+
     trigger OnAfterGetCurrRecord()
     var
         EstCostRec: Record "BOM Estimate Cost";
