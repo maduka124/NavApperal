@@ -224,8 +224,15 @@ report 50613 EstimateCostSheetReport
                 ContractLCstyleRec.Reset();
                 ContractLCstyleRec.SetRange("Style No.", "Style No.");
 
-                if ContractLCstyleRec.FindSet() then
-                    ContractNo := ContractLCstyleRec."No.";
+                if ContractLCstyleRec.FindSet() then begin
+                    ContractLcNo := ContractLCstyleRec."No.";
+
+                    ContractLcMasterRec.Reset();
+                    ContractLcMasterRec.SetRange("No.", ContractLcNo);
+
+                    if ContractLcMasterRec.FindSet() then
+                        ContractNo := ContractLcMasterRec."Contract No";
+                end;
 
             end;
 
@@ -270,6 +277,8 @@ report 50613 EstimateCostSheetReport
         comRec: Record "Company Information";
         NewCPM: Decimal;
         ContractLCstyleRec: Record "Contract/LCStyle";
-        ContractNo: Code[20];
+        ContractNo: Text[100];
+        ContractLcMasterRec: Record "Contract/LCMaster";
+        ContractLcNo: Code[20];
 
 }
