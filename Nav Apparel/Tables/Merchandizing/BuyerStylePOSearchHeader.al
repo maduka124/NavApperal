@@ -47,5 +47,10 @@ table 51253 BuyerStylePOSearchHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(9; "Style No"; code[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
