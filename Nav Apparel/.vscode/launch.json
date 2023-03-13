@@ -5,7 +5,7 @@
             ///////local
             // "type": "al",
             // "request": "launch",
-            // "name": "Your own server",
+                 // "name": "Your own server",
             // "server": "http://localhost:8080/BC200/",
             // "serverInstance": "BC200",
             // "authentication": "Windows",
@@ -18,18 +18,18 @@
             
 
             ////Dev SandBox
-            // "type": "al",
-            // "request": "launch",
-            // "name": "Your own server",
-            // "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/SL-Developments",
-            // "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
-            // "dependencyPublishingOption": "Ignore",        
-            // "breakOnError": true,
-            // "launchBrowser": false,
-            // "environmentType": "Sandbox",
-            // "environmentName": "SL-Developments",
-            // "serverInstance": "SL-Developments",
-            // "schemaUpdateMode": "ForceSync"
+            "type": "al",
+            "request": "launch",
+            "name": "Your own server",
+            "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/SL-Developments",
+            "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
+            "dependencyPublishingOption": "Ignore",        
+            "breakOnError": true,
+            "launchBrowser": false,
+            "environmentType": "Sandbox",
+            "environmentName": "SL-Developments",
+            "serverInstance": "SL-Developments",
+            "schemaUpdateMode": "ForceSync"
 
 
             ////////////Prod SandBox
@@ -48,18 +48,18 @@
 
 
              ////LiveCopy SandBox
-            "type": "al",
-            "request": "launch",
-            "name": "Your own server",
-            "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/CopyofLive",
-            "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
-            "dependencyPublishingOption": "Ignore",        
-            "breakOnError": true,
-            "launchBrowser": false,
-            "environmentType": "Sandbox",
-            "environmentName": "CopyofLive",
-            "serverInstance": "CopyofLive",
-            "schemaUpdateMode": "ForceSync"
+            // "type": "al",
+            // "request": "launch",
+            // "name": "Your own server",
+            // "server": "https://businesscentral.dynamics.com/c282ded9-870b-48e5-8122-d9e992cff423/CopyofLive",
+            // "tenant": "c282ded9-870b-48e5-8122-d9e992cff423",
+            // "dependencyPublishingOption": "Ignore",        
+            // "breakOnError": true,
+            // "launchBrowser": false,
+            // "environmentType": "Sandbox",
+            // "environmentName": "CopyofLive",
+            // "serverInstance": "CopyofLive",
+            // "schemaUpdateMode": "ForceSync"
         }
     ] 
 }
