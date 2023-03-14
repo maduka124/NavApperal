@@ -63,6 +63,12 @@ report 51073 DeliveryInfoProductReport
                 begin
                     UnitPriceRound := Round("Unit Price", 0.01, '=')
                 end;
+
+                //Done By Sachith on 14/03/23
+                trigger OnPreDataItem()
+                begin
+                    SetRange("Style Master PO"."Ship Date", stDate, endDate);
+                end;
             }
 
             trigger OnAfterGetRecord()
@@ -73,12 +79,9 @@ report 51073 DeliveryInfoProductReport
 
             trigger OnPreDataItem()
             begin
-                SetRange("Created Date", stDate, endDate);
-
                 //Done By Sachith on 28/02/23
                 if "All buyers" = false then
                     SetRange("Buyer No.", Buyer);
-
             end;
         }
     }
