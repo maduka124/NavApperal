@@ -531,6 +531,7 @@ codeunit 50100 "Customization Management"
 
     procedure ImportPurchaseTrackingExcel(PurchHedd: Record "Purchase Header")
     var
+        TrackingRec: Record "Tracking Specification";
         ReservEntry: Record "Reservation Entry";
         ReservEntryFilter: Record "Reservation Entry";
         ColourRec: Record Colour;
@@ -605,7 +606,7 @@ codeunit 50100 "Customization Management"
 
                 ReservEntry.INIT;
                 ReservEntry."Entry No." := EntNo;
-                ReservEntry.INSERT(TRUE);
+
                 //Mihiranga 2023/03/09
                 if PurchHedd."No." <> GetValueAtCell(RowNo, 5) then
                     Error('PO No not matching');
@@ -613,12 +614,15 @@ codeunit 50100 "Customization Management"
                 if PurchaseLineRec."No." <> GetValueAtCell(RowNo, 1) then
                     Error('Item number not matching');
 
+   
                 ReservEntryFilter.Reset();
-                ReservEntryFilter.SetRange("Source ID", GetValueAtCell(RowNo, 5));
-                ReservEntryFilter.SetFilter("Source Ref. No.", GetValueAtCell(RowNo, 6));
+                ReservEntryFilter.SetRange("Source ID", PurchHedd."No.");
+                ReservEntryFilter.SetRange("Item No.", GetValueAtCell(RowNo, 1));
+                ReservEntryFilter.SetFilter("Lot No.", GetValueAtCell(RowNo, 8));
                 if ReservEntry.FindFirst() then
                     Error('Record Already Exist');
-      
+
+                EVALUATE(ReservEntry."Item No.", GetValueAtCell(RowNo, 1));
                 EVALUATE(ReservEntry."Location Code", GetValueAtCell(RowNo, 2));
                 EVALUATE(ReservEntry."Quantity (Base)", GetValueAtCell(RowNo, 3));
                 ReservEntry.Validate("Quantity (Base)");
@@ -652,12 +656,13 @@ codeunit 50100 "Customization Management"
                     EVALUATE(ReservEntry."Color No", ColourRec."No.")
                 else
                     Error('Invalid Color.');
-            
+
                 ReservEntry.Positive := true;
                 ReservEntry.validate("Qty. per Unit of Measure", 1);
                 ReservEntry."Created By" := UserId;
                 ReservEntry."Item Tracking" := ReservEntry."Item Tracking"::"Lot No.";
-                ReservEntry.Modify();
+                ReservEntry.INSERT(TRUE);
+                //ReservEntry.Modify();
                 Commit();
             end;
         end;
