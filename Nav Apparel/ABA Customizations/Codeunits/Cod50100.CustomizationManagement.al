@@ -614,12 +614,12 @@ codeunit 50100 "Customization Management"
                 if PurchaseLineRec."No." <> GetValueAtCell(RowNo, 1) then
                     Error('Item number not matching');
 
-   
+
                 ReservEntryFilter.Reset();
                 ReservEntryFilter.SetRange("Source ID", PurchHedd."No.");
                 ReservEntryFilter.SetRange("Item No.", GetValueAtCell(RowNo, 1));
                 ReservEntryFilter.SetFilter("Lot No.", GetValueAtCell(RowNo, 8));
-                if ReservEntry.FindFirst() then
+                if ReservEntryFilter.FindFirst() then
                     Error('Record Already Exist');
 
                 EVALUATE(ReservEntry."Item No.", GetValueAtCell(RowNo, 1));
