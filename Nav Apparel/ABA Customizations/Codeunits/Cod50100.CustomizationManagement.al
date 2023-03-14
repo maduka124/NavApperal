@@ -531,7 +531,9 @@ codeunit 50100 "Customization Management"
 
     procedure ImportPurchaseTrackingExcel(PurchHedd: Record "Purchase Header")
     var
+        TrackingRec: Record "Tracking Specification";
         ReservEntry: Record "Reservation Entry";
+        ReservEntryFilter: Record "Reservation Entry";
         ColourRec: Record Colour;
         ShadeRec: Record Shade;
         EntNo: Integer;
@@ -550,6 +552,9 @@ codeunit 50100 "Customization Management"
         Rec_ExcelBuffer.DeleteAll();
         Rows := 0;
         Columns := 0;
+        Name := '';
+        Sheetname := '';
+
         DialogCaption := 'Select File to upload';
         UploadResult := UploadIntoStream(DialogCaption, '', '', Name, NVInStream);
 
@@ -590,6 +595,7 @@ codeunit 50100 "Customization Management"
             begin
                 ReservEntry.Reset();
                 ReservEntry.SetCurrentKey("Entry No.");
+                // ReservEntry.SetRange("Entry No.", PurchHedd.);
                 if ReservEntry.FindLast() then
                     EntNo := ReservEntry."Entry No." + 1
                 else
@@ -602,20 +608,21 @@ codeunit 50100 "Customization Management"
                 ReservEntry."Entry No." := EntNo;
 
                 //Mihiranga 2023/03/09
-                PurchaseLineRec.Reset();
-                PurchaseLineRec.SetRange("Document No.", PurchNo);
-                if PurchaseLineRec.FindSet() then
-                    repeat
-                        if PurchaseLineRec."No." <> GetValueAtCell(RowNo, 1) then
-                            Error('Item number not matching');
-                    until PurchaseLineRec.Next() = 0;
+                if PurchHedd."No." <> GetValueAtCell(RowNo, 5) then
+                    Error('PO No not matching');
+                PurchaseLineRec.get(PurchaseLineRec."Document Type"::Order, PurchHedd."No.", GetValueAtCell(RowNo, 6));
+                if PurchaseLineRec."No." <> GetValueAtCell(RowNo, 1) then
+                    Error('Item number not matching');
 
-                repeat
-                    if ReservEntry."Item No." = GetValueAtCell(RowNo, 1) then
-                        Error('Record Already Exist');
-                    EVALUATE(ReservEntry."Item No.", GetValueAtCell(RowNo, 1));
-                until ReservEntry.Next() = 0;
 
+                ReservEntryFilter.Reset();
+                ReservEntryFilter.SetRange("Source ID", PurchHedd."No.");
+                ReservEntryFilter.SetRange("Item No.", GetValueAtCell(RowNo, 1));
+                ReservEntryFilter.SetFilter("Lot No.", GetValueAtCell(RowNo, 8));
+                if ReservEntryFilter.FindFirst() then
+                    Error('Record Already Exist');
+
+                EVALUATE(ReservEntry."Item No.", GetValueAtCell(RowNo, 1));
                 EVALUATE(ReservEntry."Location Code", GetValueAtCell(RowNo, 2));
                 EVALUATE(ReservEntry."Quantity (Base)", GetValueAtCell(RowNo, 3));
                 ReservEntry.Validate("Quantity (Base)");
@@ -626,11 +633,8 @@ codeunit 50100 "Customization Management"
                 EVALUATE(ReservEntry."Source ID", GetValueAtCell(RowNo, 5));
                 EVALUATE(ReservEntry."Source Ref. No.", GetValueAtCell(RowNo, 6));
                 EVALUATE(ReservEntry."Expected Receipt Date", GetValueAtCell(RowNo, 7));
-                // repeat
-                //     if ReservEntry."Lot No." = GetValueAtCell(RowNo, 8) then
-                //         Error('Record Already Exist');
                 EVALUATE(ReservEntry."Lot No.", GetValueAtCell(RowNo, 8));
-                // until ReservEntry.Next() = 0;
+
 
                 EVALUATE(ReservEntry."Supplier Batch No.", GetValueAtCell(RowNo, 9));
                 EVALUATE(ReservEntry."Shade No", GetValueAtCell(RowNo, 10));
@@ -658,9 +662,8 @@ codeunit 50100 "Customization Management"
                 ReservEntry."Created By" := UserId;
                 ReservEntry."Item Tracking" := ReservEntry."Item Tracking"::"Lot No.";
                 ReservEntry.INSERT(TRUE);
-
-
-
+                //ReservEntry.Modify();
+                Commit();
             end;
         end;
 
@@ -682,5 +685,5 @@ codeunit 50100 "Customization Management"
     var
         PurchaseLineRec: Record "Purchase Line";
         PurchNo: Code[20];
-        Location: Code[10];
+
 }
