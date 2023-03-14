@@ -7200,6 +7200,8 @@ page 50984 "BOM Card"
                         BOMLineColorRec.SetRange("Item No.", BOMLIneEstimateRec."Item No.");
                         BOMLineColorRec.SetRange("GMT Color No.", BOMAssortRec."Colour No");
                         BOMLineColorRec.SetRange(Placement, BOMLIneEstimateRec."Placement of GMT");
+                        // Done By Sachith on 14/03/23 
+                        BOMLineColorRec.SetRange("Lot No.", BOMAssortRec."Lot No.");
 
                         if not BOMLineColorRec.FindSet() then begin
                             GrpColor := '';
