@@ -338,6 +338,9 @@ page 50791 "ContractBBLCSummaryCard"
                                     AwaitingPIsRec."Contract No" := Rec."Contract No";
                                     AwaitingPIsRec."No." := Rec."No.";
                                     AwaitingPIsRec."PI No" := PIDetailsRec."No.";
+                                    //Mihiranga 2023/03/15
+                                    AwaitingPIsRec."PI No New" := PIPODetailsRec."PI No.";
+                                    //
                                     AwaitingPIsRec."PI Date" := PIDetailsRec."PI Date";
                                     AwaitingPIsRec."PI Value" := PIDetailsRec."PI Value";
                                     AwaitingPIsRec."Supplier Name" := PIDetailsRec."Supplier Name";

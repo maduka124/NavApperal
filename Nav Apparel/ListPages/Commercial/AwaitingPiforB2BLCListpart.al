@@ -20,6 +20,12 @@ page 51180 AwaitingPiforB2BLC
                 field("PI No"; Rec."PI No")
                 {
                     ApplicationArea = All;
+                    Visible = false;
+                }
+                field("PI No New"; Rec."PI No New")
+                {
+                    ApplicationArea = All;
+                    Caption = 'PI No';
                 }
 
                 field("PI Date"; Rec."PI Date")
