@@ -21,6 +21,7 @@ page 50355 "Daily Sewing In/Out Card"
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
+
                         rec.Type := rec.Type::Saw;
 
                         //Check whether user logged in or not
@@ -70,11 +71,12 @@ page 50355 "Daily Sewing In/Out Card"
                         end;
                     end;
 
-
                     trigger OnValidate()
                     var
                         WorkCenterRec: Record "Work Center";
                     begin
+
+
                         WorkCenterRec.Reset();
                         WorkCenterRec.SetRange(Name, rec."Resource Name");
 
@@ -138,12 +140,16 @@ page 50355 "Daily Sewing In/Out Card"
                             rec."Style Name" := StyleMasterRec."Style No.";
                         end;
                     end;
+
+
                 }
 
                 field("Lot No."; rec."Lot No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Input Lot No';
+
+
 
                     trigger OnLookup(var text: Text): Boolean
                     var
@@ -154,6 +160,7 @@ page 50355 "Daily Sewing In/Out Card"
 
                         // StyleMasterRec.Reset();
                         // StyleMasterRec.SetRange("Style No.", "Style No.");
+
 
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
@@ -185,6 +192,7 @@ page 50355 "Daily Sewing In/Out Card"
                             rec."Ref Line No." := NavAppProdPlansDetRec."Line No.";
 
                     end;
+
                 }
 
                 field("PO No"; rec."PO No")
@@ -203,6 +211,16 @@ page 50355 "Daily Sewing In/Out Card"
                         StyleMasterPORec: Record "Style Master PO";
                     begin
 
+                        ProductionRec.Reset();
+                        ProductionRec.SetRange("Prod Date", Rec."Prod Date");
+                        ProductionRec.SetRange("Resource No.", Rec."Resource Name");
+                        ProductionRec.SetRange("Style Name", Rec."Style Name");
+                        ProductionRec.SetRange("Lot No.", Rec."Lot No.");
+                        if ProductionRec.FindSet() then begin
+                            Error('Record Already Exist');
+                        end;
+
+                        
                         //Check Input qty with cutting qty
                         StyleMasterPORec.Reset();
                         StyleMasterPORec.SetRange("Style No.", rec."Style No.");
@@ -214,6 +232,8 @@ page 50355 "Daily Sewing In/Out Card"
 
                         CurrPage.Update();
                     end;
+
+
                 }
             }
 
@@ -435,6 +455,7 @@ page 50355 "Daily Sewing In/Out Card"
             // }
         }
     }
+
 
 
 
@@ -866,5 +887,6 @@ page 50355 "Daily Sewing In/Out Card"
 
     var
         UserSetupRec: Record "User Setup";
+        ProductionRec: Record ProductionOutHeader;
 
 }
