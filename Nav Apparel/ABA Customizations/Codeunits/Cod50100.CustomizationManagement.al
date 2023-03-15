@@ -521,11 +521,7 @@ codeunit 50100 "Customization Management"
         ProdOrderComponent."Invent. Posting Group" := ItemRec."Inventory Posting Group";
     end;
 
-    procedure PassParameters(PurchaseNo: Code[20]);
-    var
-    begin
-        PurchNo := PurchaseNo;
-    end;
+  
 
 
 
@@ -684,6 +680,6 @@ codeunit 50100 "Customization Management"
 
     var
         PurchaseLineRec: Record "Purchase Line";
-        PurchNo: Code[20];
+       
 
 }

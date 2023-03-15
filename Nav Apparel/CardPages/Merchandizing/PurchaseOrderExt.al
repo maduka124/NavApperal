@@ -140,9 +140,6 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
                 begin
                     if not Confirm('Do you want to upload the Serial lines?', false) then
                         exit;
-                    ExcelUpload.PassParameters(rec."No.");
-                   
-
                     ExcelUpload.ImportPurchaseTrackingExcel(Rec);
                 end;
             }
