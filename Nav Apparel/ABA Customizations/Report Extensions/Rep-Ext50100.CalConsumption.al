@@ -127,7 +127,7 @@ reportextension 50879 CalConsumption extends "Calc. Consumption"
     var
         FilterCat: Code[20];
         BuyerFilter: Text[100];
-        StyleFilter: Code[20];
+        StyleFilter: Code[25];
         PoFilter: Code[20];
         ProdOrderFilter: Code[20];
 
