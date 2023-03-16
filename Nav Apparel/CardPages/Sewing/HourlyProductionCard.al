@@ -58,8 +58,8 @@ page 50515 "Hourly Production Card"
                     var
                         LocationRec: Record "Location";
                         Users: Record "User Setup";
+                        HourlyRec: Record "Hourly Production Master";
                     begin
-
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
                         Users.FindSet();
@@ -70,14 +70,25 @@ page 50515 "Hourly Production Card"
                         if Page.RunModal(50517, LocationRec) = Action::LookupOK then begin
                             rec."Factory No." := LocationRec.Code;
                             rec."Factory Name" := LocationRec.Name;
+
+                            HourlyRec.Reset();
+                            HourlyRec.SetRange("Prod Date", Rec."Prod Date");
+                            HourlyRec.SetRange("Factory Name", Rec."Factory Name");
+                            HourlyRec.SetRange(Type, Rec.Type);
+                            if HourlyRec.FindFirst() then begin
+                                Error('You have put Hourly Production for this Date/Factory/Type');
+                            end;
                         end;
 
                     end;
+
                 }
 
                 field(Type; rec.Type)
                 {
                     ApplicationArea = All;
+
+
                 }
             }
 
