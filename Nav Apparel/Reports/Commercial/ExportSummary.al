@@ -114,7 +114,19 @@ report 50629 ExportSummartReport
 
             trigger OnPreDataItem()
             begin
-                SetRange("Created Date", stDate, endDate);
+
+                //Done By Sachith On 15/03/23
+                if stDate <> 0D then
+                    SetRange("Created Date", stDate, endDate);
+
+                if "Buyer Code" <> '' then
+                    SetRange("Buyer No.", "Buyer Code");
+
+                if "Factory Code" <> '' then
+                    SetRange("Factory No.", "Factory Code");
+
+                if Contract <> '' then
+                    SetRange("No.", Contract);
             end;
         }
     }
@@ -127,17 +139,54 @@ report 50629 ExportSummartReport
             {
                 group(GroupName)
                 {
+                    //Done By Sachith On 15/03/23
+                    field("Buyer Code"; "Buyer Code")
+                    {
+                        ApplicationArea = All;
+                        // ShowMandatory = true;
+                        Caption = 'Buyer';
+                        TableRelation = Customer."No.";
+                    }
+
+                    //Done By Sachith On 15/03/23
+                    field("Factory Code"; "Factory Code")
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Factory';
+                        // ShowMandatory = true;
+                        TableRelation = Location.Code where("Sewing Unit" = filter(true));
+                    }
+
+                    //Done By Sachith On 15/03/23
+                    field(Contract; Contract)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Contract No';
+                        TableRelation = "Contract/LCMaster"."No.";
+                        // ShowMandatory = true;
+                    }
+
+                    //Done By Sachith On 15/03/23
+                    // field("LC No"; "LC No")
+                    // {
+                    //     ShowMandatory = true;
+                    //     ApplicationArea = All;
+                    //     Caption = 'Contract LC No';
+                    //     TableRelation = "Contract/LCMaster"."No.";
+                    // }
+
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
                         Caption = 'Start Date';
-
+                        ShowMandatory = true;
                     }
+
                     field(endDate; endDate)
                     {
                         ApplicationArea = All;
                         Caption = 'End Date';
-
+                        ShowMandatory = true;
                     }
                 }
             }
@@ -177,6 +226,10 @@ report 50629 ExportSummartReport
         LCRec: Record "Contract/LCMaster";
         FactoryName: text[50];
         BuyerName: Text[50];
+        "Contract": code[20];
+        "LC No": Code[20];
+        "Buyer Code": Code[20];
+        "Factory Code": Code[20];
 
 
 }

@@ -62,6 +62,19 @@ table 51239 ExportReferenceHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        // Done By sachith 15/03/23
+        field(12; "Shipping Bill No"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        // Done By sachith 15/03/23
+        field(13; "Shipping Bill Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

@@ -7705,6 +7705,8 @@ page 50984 "BOM Card"
         StyMasterRec: Record "Style Master";
         LoginSessionsRec: Record LoginSessions;
         LoginRec: Page "Login Card";
+        ContractLCStyleRec: Record "Contract/LCStyle";
+        ContractLcMasterRec: Record "Contract/LCMaster";
     begin
 
         //Get Worksheet line no
@@ -7718,6 +7720,17 @@ page 50984 "BOM Card"
 
         if StyMasterRec."Factory Code" = '' then
             Error('Factory is not assigned for the style : #1', StyMasterRec."Style No.");
+
+        // Get Contract No
+        //Done By sachith on 15/03/23
+        ContractLCStyleRec.Reset();
+        ContractLCStyleRec.SetRange("Style No.", Rec."Style No.");
+
+        if ContractLCStyleRec.FindSet() then begin
+            ContractLcMasterRec.Reset();
+            ContractLcMasterRec.SetRange("No.", ContractLCStyleRec."No.");
+            ContractLcMasterRec.FindSet();
+        end;
 
         //Get ship date
         StyMasterPORec.Reset();
@@ -7806,6 +7819,8 @@ page 50984 "BOM Card"
                 SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::FG;
                 SalesHeaderRec.Lot := Lot;
                 SalesHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                //Done By sachith on 15/03/23
+                SalesHeaderRec."Contract No" := ContractLcMasterRec."Contract No";
                 SalesHeaderRec.INSERT();
 
                 //Insert Line

@@ -152,6 +152,12 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
             {
                 ApplicationArea = All;
             }
+
+            // Done by sachith On 15/03/23
+            field("Contract No"; Rec."Contract No")
+            {
+                ApplicationArea = All;
+            }
         }
 
         modify("Shortcut Dimension 1 Code")
