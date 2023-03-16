@@ -38,7 +38,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0.3175cm</Top>
-            <Left>3.04676cm</Left>
+            <Left>3.99926cm</Left>
             <Height>1.19062cm</Height>
             <Width>12.3844cm</Width>
             <Style>
@@ -62,34 +62,34 @@
                   <Width>1.37237cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.07508cm</Width>
+                  <Width>3.67146cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.45936cm</Width>
+                  <Width>3.6228cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.22251cm</Width>
+                  <Width>1.32101cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.52106cm</Width>
+                  <Width>0.96795cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.98911cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.03663cm</Width>
+                  <Width>1.55094cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.14397cm</Width>
+                  <Width>0.94933cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.0287cm</Width>
+                  <Width>0.76094cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.52421cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.41521cm</Width>
+                  <Width>0.8621cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.29993cm</Width>
@@ -97,7 +97,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>1.01865cm</Height>
+                  <Height>1.69598cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -308,7 +308,7 @@ LOT</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>BUNDLE
+                                  <Value>BNDL
 QTY</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
@@ -1388,7 +1388,6 @@ DATE</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2710,8 +2709,8 @@ DATE</Value>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>4.01849cm</Top>
             <Left>0.04974cm</Left>
-            <Height>3.46688cm</Height>
-            <Width>19.81541cm</Width>
+            <Height>4.14421cm</Height>
+            <Width>20.61942cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -2726,7 +2725,7 @@ DATE</Value>
                   <Width>3.41816cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.62025cm</Width>
+                  <Width>5.70747cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.89275cm</Width>
@@ -3186,9 +3185,9 @@ DATE</Value>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
             <Top>2.00766cm</Top>
-            <Left>0cm</Left>
+            <Left>0.3175cm</Left>
             <Height>1.64979cm</Height>
-            <Width>15.43116cm</Width>
+            <Width>14.51838cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -3200,7 +3199,7 @@ DATE</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.89146cm</Width>
+                  <Width>2.12707cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.99729cm</Width>
@@ -3559,9 +3558,9 @@ DATE</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <Top>2.01621cm</Top>
-            <Left>15.9764cm</Left>
+            <Left>16.6114cm</Left>
             <Height>1.72062cm</Height>
-            <Width>3.88875cm</Width>
+            <Width>4.12436cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -3602,7 +3601,7 @@ DATE</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox93</rd:DefaultName>
-            <Top>8.80745cm</Top>
+            <Top>8.17245cm</Top>
             <Left>0.12912cm</Left>
             <Height>0.66146cm</Height>
             <Width>3.88938cm</Width>
@@ -3660,7 +3659,7 @@ DATE</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox93</rd:DefaultName>
-            <Top>10.13037cm</Top>
+            <Top>9.49537cm</Top>
             <Left>0cm</Left>
             <Height>1.13771cm</Height>
             <Width>5.82084cm</Width>
@@ -3718,7 +3717,7 @@ DATE</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox93</rd:DefaultName>
-            <Top>10.13037cm</Top>
+            <Top>9.49537cm</Top>
             <Left>6.74972cm</Left>
             <Height>1.13771cm</Height>
             <Width>6.21772cm</Width>
@@ -3776,7 +3775,7 @@ DATE</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox93</rd:DefaultName>
-            <Top>10.13037cm</Top>
+            <Top>9.49537cm</Top>
             <Left>13.83264cm</Left>
             <Height>1.13771cm</Height>
             <Width>6.03251cm</Width>
@@ -3821,7 +3820,7 @@ DATE</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox93</rd:DefaultName>
-            <Top>12.13294cm</Top>
+            <Top>11.18044cm</Top>
             <Left>0.02328cm</Left>
             <Height>1.13771cm</Height>
             <Width>5.79756cm</Width>
@@ -3879,7 +3878,7 @@ DATE</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox93</rd:DefaultName>
-            <Top>12.13294cm</Top>
+            <Top>11.18044cm</Top>
             <Left>13.83264cm</Left>
             <Height>1.13771cm</Height>
             <Width>6.08225cm</Width>
@@ -3899,7 +3898,7 @@ DATE</Value>
             <Value>=First(Fields!CompLogo.Value, "DataSet_Result")</Value>
             <MIMEType>image/png</MIMEType>
             <Top>0cm</Top>
-            <Left>15.20535cm</Left>
+            <Left>16.47535cm</Left>
             <Height>1.71979cm</Height>
             <Width>3.7073cm</Width>
             <ZIndex>10</ZIndex>
@@ -3910,14 +3909,14 @@ DATE</Value>
             </Style>
           </Image>
         </ReportItems>
-        <Height>13.38706cm</Height>
+        <Height>12.87906cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>19.91489cm</Width>
+      <Width>20.92626cm</Width>
       <Page>
         <PageFooter>
           <Height>1.66159cm</Height>
@@ -4059,8 +4058,8 @@ DATE</Value>
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
-        <LeftMargin>0.5cm</LeftMargin>
-        <RightMargin>0.5cm</RightMargin>
+        <LeftMargin>0cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
         <TopMargin>1cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>1.27cm</ColumnSpacing>
