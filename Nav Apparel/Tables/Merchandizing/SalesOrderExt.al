@@ -75,6 +75,14 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
+        //Done By Sachith On 15/03/23
+        field(50016; "Contract No"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Contract/LCMaster"."Contract No";
+            ValidateTableRelation = false;
+        }
+
         modify("Your Reference")
         {
             Caption = 'Factory Inv. No';

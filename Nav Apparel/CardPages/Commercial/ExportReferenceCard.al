@@ -142,12 +142,24 @@ page 51241 "Export Reference Card"
                     ApplicationArea = All;
                 }
 
+                // Done By sachith 15/03/23
+                field("Shipping Bill No"; Rec."Shipping Bill No")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("DOC Sub Bank Date"; rec."DOC Sub Bank Date")
                 {
                     ApplicationArea = All;
                 }
 
                 field("DOC Sub Buyer Date"; rec."DOC Sub Buyer Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                // Done By sachith 15/03/23
+                field("Shipping Bill Date"; Rec."Shipping Bill Date")
                 {
                     ApplicationArea = All;
                 }
