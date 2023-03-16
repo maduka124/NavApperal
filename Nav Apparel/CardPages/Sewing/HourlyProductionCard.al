@@ -75,11 +75,9 @@ page 50515 "Hourly Production Card"
                             HourlyRec.SetRange("Prod Date", Rec."Prod Date");
                             HourlyRec.SetRange("Factory Name", Rec."Factory Name");
                             HourlyRec.SetRange(Type, Rec.Type);
-                            if HourlyRec.FindFirst() then begin
+                            if HourlyRec.FindFirst() then
                                 Error('You have put Hourly Production for this Date/Factory/Type');
-                            end;
                         end;
-
                     end;
 
                 }
@@ -87,8 +85,6 @@ page 50515 "Hourly Production Card"
                 field(Type; rec.Type)
                 {
                     ApplicationArea = All;
-
-
                 }
             }
 
