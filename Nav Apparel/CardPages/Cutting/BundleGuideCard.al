@@ -797,377 +797,379 @@ page 50665 "Bundle Guide Card"
                                 if not LaySheetLine4Rec.FindSet() then
                                     Error('Cannot find Roll/Shade Details in Laysheet Lines')
                                 else begin
-                                    repeat
 
-                                        if LaySheetLine4Rec."Actual Plies" = 0 then
-                                            Error('Actual Plies is zero in Latsheet.');
+                                    for i := 1 To 64 do begin
 
-                                        for i := 1 To 64 do begin
+                                        Size := '';
+                                        Ratio := 0;
 
-                                            Size := '';
-                                            Ratio := 0;
+                                        case i of
+                                            1:
+                                                if CutCreLineRec."1" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."1");
+                                                    Evaluate(Ratio, CutCreLine1Rec."1");
+                                                end;
 
-                                            case i of
-                                                1:
-                                                    if CutCreLineRec."1" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."1");
-                                                        Evaluate(Ratio, CutCreLine1Rec."1");
-                                                    end;
+                                            2:
+                                                if CutCreLineRec."2" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."2");
+                                                    Evaluate(Ratio, CutCreLine1Rec."2");
+                                                end;
+                                            3:
+                                                if CutCreLineRec."3" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."3");
+                                                    Evaluate(Ratio, CutCreLine1Rec."3");
+                                                end;
 
-                                                2:
-                                                    if CutCreLineRec."2" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."2");
-                                                        Evaluate(Ratio, CutCreLine1Rec."2");
-                                                    end;
-                                                3:
-                                                    if CutCreLineRec."3" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."3");
-                                                        Evaluate(Ratio, CutCreLine1Rec."3");
-                                                    end;
+                                            4:
+                                                if CutCreLineRec."4" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."4");
+                                                    Evaluate(Ratio, CutCreLine1Rec."4");
+                                                end;
+                                            5:
+                                                if CutCreLineRec."5" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."5");
+                                                    Evaluate(Ratio, CutCreLine1Rec."5");
+                                                end;
 
-                                                4:
-                                                    if CutCreLineRec."4" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."4");
-                                                        Evaluate(Ratio, CutCreLine1Rec."4");
-                                                    end;
-                                                5:
-                                                    if CutCreLineRec."5" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."5");
-                                                        Evaluate(Ratio, CutCreLine1Rec."5");
-                                                    end;
+                                            6:
+                                                if CutCreLineRec."6" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."6");
+                                                    Evaluate(Ratio, CutCreLine1Rec."6");
+                                                end;
+                                            7:
+                                                if CutCreLineRec."7" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."7");
+                                                    Evaluate(Ratio, CutCreLine1Rec."7");
+                                                end;
 
-                                                6:
-                                                    if CutCreLineRec."6" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."6");
-                                                        Evaluate(Ratio, CutCreLine1Rec."6");
-                                                    end;
-                                                7:
-                                                    if CutCreLineRec."7" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."7");
-                                                        Evaluate(Ratio, CutCreLine1Rec."7");
-                                                    end;
+                                            8:
+                                                if CutCreLineRec."8" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."8");
+                                                    Evaluate(Ratio, CutCreLine1Rec."8");
+                                                end;
+                                            9:
+                                                if CutCreLineRec."9" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."9");
+                                                    Evaluate(Ratio, CutCreLine1Rec."9");
+                                                end;
 
-                                                8:
-                                                    if CutCreLineRec."8" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."8");
-                                                        Evaluate(Ratio, CutCreLine1Rec."8");
-                                                    end;
-                                                9:
-                                                    if CutCreLineRec."9" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."9");
-                                                        Evaluate(Ratio, CutCreLine1Rec."9");
-                                                    end;
+                                            10:
+                                                if CutCreLineRec."10" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."10");
+                                                    Evaluate(Ratio, CutCreLine1Rec."10");
+                                                end;
 
-                                                10:
-                                                    if CutCreLineRec."10" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."10");
-                                                        Evaluate(Ratio, CutCreLine1Rec."10");
-                                                    end;
+                                            11:
+                                                if CutCreLineRec."11" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."11");
+                                                    Evaluate(Ratio, CutCreLine1Rec."11");
+                                                end;
 
-                                                11:
-                                                    if CutCreLineRec."11" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."11");
-                                                        Evaluate(Ratio, CutCreLine1Rec."11");
-                                                    end;
+                                            12:
+                                                if CutCreLineRec."12" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."12");
+                                                    Evaluate(Ratio, CutCreLine1Rec."12");
+                                                end;
+                                            13:
+                                                if CutCreLineRec."13" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."13");
+                                                    Evaluate(Ratio, CutCreLine1Rec."13");
+                                                end;
 
-                                                12:
-                                                    if CutCreLineRec."12" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."12");
-                                                        Evaluate(Ratio, CutCreLine1Rec."12");
-                                                    end;
-                                                13:
-                                                    if CutCreLineRec."13" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."13");
-                                                        Evaluate(Ratio, CutCreLine1Rec."13");
-                                                    end;
+                                            14:
+                                                if CutCreLineRec."14" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."14");
+                                                    Evaluate(Ratio, CutCreLine1Rec."14");
+                                                end;
+                                            15:
+                                                if CutCreLineRec."15" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."15");
+                                                    Evaluate(Ratio, CutCreLine1Rec."15");
+                                                end;
 
-                                                14:
-                                                    if CutCreLineRec."14" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."14");
-                                                        Evaluate(Ratio, CutCreLine1Rec."14");
-                                                    end;
-                                                15:
-                                                    if CutCreLineRec."15" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."15");
-                                                        Evaluate(Ratio, CutCreLine1Rec."15");
-                                                    end;
+                                            16:
+                                                if CutCreLineRec."16" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."16");
+                                                    Evaluate(Ratio, CutCreLine1Rec."16");
+                                                end;
+                                            17:
+                                                if CutCreLineRec."17" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."17");
+                                                    Evaluate(Ratio, CutCreLine1Rec."17");
+                                                end;
 
-                                                16:
-                                                    if CutCreLineRec."16" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."16");
-                                                        Evaluate(Ratio, CutCreLine1Rec."16");
-                                                    end;
-                                                17:
-                                                    if CutCreLineRec."17" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."17");
-                                                        Evaluate(Ratio, CutCreLine1Rec."17");
-                                                    end;
+                                            18:
+                                                if CutCreLineRec."18" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."18");
+                                                    Evaluate(Ratio, CutCreLine1Rec."18");
+                                                end;
+                                            19:
+                                                if CutCreLineRec."19" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."19");
+                                                    Evaluate(Ratio, CutCreLine1Rec."19");
+                                                end;
 
-                                                18:
-                                                    if CutCreLineRec."18" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."18");
-                                                        Evaluate(Ratio, CutCreLine1Rec."18");
-                                                    end;
-                                                19:
-                                                    if CutCreLineRec."19" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."19");
-                                                        Evaluate(Ratio, CutCreLine1Rec."19");
-                                                    end;
+                                            20:
+                                                if CutCreLineRec."20" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."20");
+                                                    Evaluate(Ratio, CutCreLine1Rec."20");
+                                                end;
+                                            21:
+                                                if CutCreLineRec."21" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."21");
+                                                    Evaluate(Ratio, CutCreLine1Rec."21");
+                                                end;
 
-                                                20:
-                                                    if CutCreLineRec."20" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."20");
-                                                        Evaluate(Ratio, CutCreLine1Rec."20");
-                                                    end;
-                                                21:
-                                                    if CutCreLineRec."21" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."21");
-                                                        Evaluate(Ratio, CutCreLine1Rec."21");
-                                                    end;
+                                            22:
+                                                if CutCreLineRec."22" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."22");
+                                                    Evaluate(Ratio, CutCreLine1Rec."22");
+                                                end;
+                                            23:
+                                                if CutCreLineRec."23" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."23");
+                                                    Evaluate(Ratio, CutCreLine1Rec."23");
+                                                end;
 
-                                                22:
-                                                    if CutCreLineRec."22" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."22");
-                                                        Evaluate(Ratio, CutCreLine1Rec."22");
-                                                    end;
-                                                23:
-                                                    if CutCreLineRec."23" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."23");
-                                                        Evaluate(Ratio, CutCreLine1Rec."23");
-                                                    end;
+                                            24:
+                                                if CutCreLineRec."24" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."24");
+                                                    Evaluate(Ratio, CutCreLine1Rec."24");
+                                                end;
+                                            25:
+                                                if CutCreLineRec."25" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."25");
+                                                    Evaluate(Ratio, CutCreLine1Rec."25");
+                                                end;
 
-                                                24:
-                                                    if CutCreLineRec."24" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."24");
-                                                        Evaluate(Ratio, CutCreLine1Rec."24");
-                                                    end;
-                                                25:
-                                                    if CutCreLineRec."25" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."25");
-                                                        Evaluate(Ratio, CutCreLine1Rec."25");
-                                                    end;
+                                            26:
+                                                if CutCreLineRec."26" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."26");
+                                                    Evaluate(Ratio, CutCreLine1Rec."26");
+                                                end;
+                                            27:
+                                                if CutCreLineRec."27" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."27");
+                                                    Evaluate(Ratio, CutCreLine1Rec."27");
+                                                end;
 
-                                                26:
-                                                    if CutCreLineRec."26" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."26");
-                                                        Evaluate(Ratio, CutCreLine1Rec."26");
-                                                    end;
-                                                27:
-                                                    if CutCreLineRec."27" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."27");
-                                                        Evaluate(Ratio, CutCreLine1Rec."27");
-                                                    end;
+                                            28:
+                                                if CutCreLineRec."28" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."28");
+                                                    Evaluate(Ratio, CutCreLine1Rec."28");
+                                                end;
+                                            29:
+                                                if CutCreLineRec."29" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."29");
+                                                    Evaluate(Ratio, CutCreLine1Rec."29");
+                                                end;
 
-                                                28:
-                                                    if CutCreLineRec."28" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."28");
-                                                        Evaluate(Ratio, CutCreLine1Rec."28");
-                                                    end;
-                                                29:
-                                                    if CutCreLineRec."29" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."29");
-                                                        Evaluate(Ratio, CutCreLine1Rec."29");
-                                                    end;
+                                            30:
+                                                if CutCreLineRec."30" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."30");
+                                                    Evaluate(Ratio, CutCreLine1Rec."30");
+                                                end;
+                                            31:
+                                                if CutCreLineRec."31" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."31");
+                                                    Evaluate(Ratio, CutCreLine1Rec."31");
+                                                end;
 
-                                                30:
-                                                    if CutCreLineRec."30" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."30");
-                                                        Evaluate(Ratio, CutCreLine1Rec."30");
-                                                    end;
-                                                31:
-                                                    if CutCreLineRec."31" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."31");
-                                                        Evaluate(Ratio, CutCreLine1Rec."31");
-                                                    end;
+                                            32:
+                                                if CutCreLineRec."32" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."32");
+                                                    Evaluate(Ratio, CutCreLine1Rec."32");
+                                                end;
+                                            33:
+                                                if CutCreLineRec."33" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."33");
+                                                    Evaluate(Ratio, CutCreLine1Rec."33");
+                                                end;
 
-                                                32:
-                                                    if CutCreLineRec."32" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."32");
-                                                        Evaluate(Ratio, CutCreLine1Rec."32");
-                                                    end;
-                                                33:
-                                                    if CutCreLineRec."33" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."33");
-                                                        Evaluate(Ratio, CutCreLine1Rec."33");
-                                                    end;
+                                            34:
+                                                if CutCreLineRec."34" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."34");
+                                                    Evaluate(Ratio, CutCreLine1Rec."34");
+                                                end;
+                                            35:
+                                                if CutCreLineRec."35" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."35");
+                                                    Evaluate(Ratio, CutCreLine1Rec."35");
+                                                end;
 
-                                                34:
-                                                    if CutCreLineRec."34" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."34");
-                                                        Evaluate(Ratio, CutCreLine1Rec."34");
-                                                    end;
-                                                35:
-                                                    if CutCreLineRec."35" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."35");
-                                                        Evaluate(Ratio, CutCreLine1Rec."35");
-                                                    end;
+                                            36:
+                                                if CutCreLineRec."36" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."36");
+                                                    Evaluate(Ratio, CutCreLine1Rec."36");
+                                                end;
+                                            37:
+                                                if CutCreLineRec."37" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."37");
+                                                    Evaluate(Ratio, CutCreLine1Rec."37");
+                                                end;
 
-                                                36:
-                                                    if CutCreLineRec."36" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."36");
-                                                        Evaluate(Ratio, CutCreLine1Rec."36");
-                                                    end;
-                                                37:
-                                                    if CutCreLineRec."37" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."37");
-                                                        Evaluate(Ratio, CutCreLine1Rec."37");
-                                                    end;
+                                            38:
+                                                if CutCreLineRec."38" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."38");
+                                                    Evaluate(Ratio, CutCreLine1Rec."38");
+                                                end;
+                                            39:
+                                                if CutCreLineRec."39" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."39");
+                                                    Evaluate(Ratio, CutCreLine1Rec."39");
+                                                end;
 
-                                                38:
-                                                    if CutCreLineRec."38" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."38");
-                                                        Evaluate(Ratio, CutCreLine1Rec."38");
-                                                    end;
-                                                39:
-                                                    if CutCreLineRec."39" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."39");
-                                                        Evaluate(Ratio, CutCreLine1Rec."39");
-                                                    end;
+                                            40:
+                                                if CutCreLineRec."40" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."40");
+                                                    Evaluate(Ratio, CutCreLine1Rec."40");
+                                                end;
+                                            41:
+                                                if CutCreLineRec."41" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."41");
+                                                    Evaluate(Ratio, CutCreLine1Rec."41");
+                                                end;
 
-                                                40:
-                                                    if CutCreLineRec."40" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."40");
-                                                        Evaluate(Ratio, CutCreLine1Rec."40");
-                                                    end;
-                                                41:
-                                                    if CutCreLineRec."41" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."41");
-                                                        Evaluate(Ratio, CutCreLine1Rec."41");
-                                                    end;
+                                            42:
+                                                if CutCreLineRec."42" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."42");
+                                                    Evaluate(Ratio, CutCreLine1Rec."42");
+                                                end;
+                                            43:
+                                                if CutCreLineRec."43" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."43");
+                                                    Evaluate(Ratio, CutCreLine1Rec."43");
+                                                end;
 
-                                                42:
-                                                    if CutCreLineRec."42" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."42");
-                                                        Evaluate(Ratio, CutCreLine1Rec."42");
-                                                    end;
-                                                43:
-                                                    if CutCreLineRec."43" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."43");
-                                                        Evaluate(Ratio, CutCreLine1Rec."43");
-                                                    end;
+                                            44:
+                                                if CutCreLineRec."44" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."44");
+                                                    Evaluate(Ratio, CutCreLine1Rec."44");
+                                                end;
+                                            45:
+                                                if CutCreLineRec."45" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."45");
+                                                    Evaluate(Ratio, CutCreLine1Rec."45");
+                                                end;
 
-                                                44:
-                                                    if CutCreLineRec."44" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."44");
-                                                        Evaluate(Ratio, CutCreLine1Rec."44");
-                                                    end;
-                                                45:
-                                                    if CutCreLineRec."45" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."45");
-                                                        Evaluate(Ratio, CutCreLine1Rec."45");
-                                                    end;
+                                            46:
+                                                if CutCreLineRec."46" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."46");
+                                                    Evaluate(Ratio, CutCreLine1Rec."46");
+                                                end;
+                                            47:
+                                                if CutCreLineRec."47" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."47");
+                                                    Evaluate(Ratio, CutCreLine1Rec."47");
+                                                end;
 
-                                                46:
-                                                    if CutCreLineRec."46" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."46");
-                                                        Evaluate(Ratio, CutCreLine1Rec."46");
-                                                    end;
-                                                47:
-                                                    if CutCreLineRec."47" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."47");
-                                                        Evaluate(Ratio, CutCreLine1Rec."47");
-                                                    end;
+                                            48:
+                                                if CutCreLineRec."48" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."48");
+                                                    Evaluate(Ratio, CutCreLine1Rec."48");
+                                                end;
+                                            49:
+                                                if CutCreLineRec."49" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."49");
+                                                    Evaluate(Ratio, CutCreLine1Rec."49");
+                                                end;
 
-                                                48:
-                                                    if CutCreLineRec."48" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."48");
-                                                        Evaluate(Ratio, CutCreLine1Rec."48");
-                                                    end;
-                                                49:
-                                                    if CutCreLineRec."49" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."49");
-                                                        Evaluate(Ratio, CutCreLine1Rec."49");
-                                                    end;
+                                            50:
+                                                if CutCreLineRec."50" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."50");
+                                                    Evaluate(Ratio, CutCreLine1Rec."50");
+                                                end;
+                                            51:
+                                                if CutCreLineRec."51" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."51");
+                                                    Evaluate(Ratio, CutCreLine1Rec."51");
+                                                end;
 
-                                                50:
-                                                    if CutCreLineRec."50" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."50");
-                                                        Evaluate(Ratio, CutCreLine1Rec."50");
-                                                    end;
-                                                51:
-                                                    if CutCreLineRec."51" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."51");
-                                                        Evaluate(Ratio, CutCreLine1Rec."51");
-                                                    end;
+                                            52:
+                                                if CutCreLineRec."52" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."52");
+                                                    Evaluate(Ratio, CutCreLine1Rec."52");
+                                                end;
+                                            53:
+                                                if CutCreLineRec."53" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."53");
+                                                    Evaluate(Ratio, CutCreLine1Rec."53");
+                                                end;
 
-                                                52:
-                                                    if CutCreLineRec."52" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."52");
-                                                        Evaluate(Ratio, CutCreLine1Rec."52");
-                                                    end;
-                                                53:
-                                                    if CutCreLineRec."53" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."53");
-                                                        Evaluate(Ratio, CutCreLine1Rec."53");
-                                                    end;
+                                            54:
+                                                if CutCreLineRec."54" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."54");
+                                                    Evaluate(Ratio, CutCreLine1Rec."54");
+                                                end;
+                                            55:
+                                                if CutCreLineRec."55" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."55");
+                                                    Evaluate(Ratio, CutCreLine1Rec."55");
+                                                end;
 
-                                                54:
-                                                    if CutCreLineRec."54" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."54");
-                                                        Evaluate(Ratio, CutCreLine1Rec."54");
-                                                    end;
-                                                55:
-                                                    if CutCreLineRec."55" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."55");
-                                                        Evaluate(Ratio, CutCreLine1Rec."55");
-                                                    end;
+                                            56:
+                                                if CutCreLineRec."56" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."56");
+                                                    Evaluate(Ratio, CutCreLine1Rec."56");
+                                                end;
+                                            57:
+                                                if CutCreLineRec."57" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."57");
+                                                    Evaluate(Ratio, CutCreLine1Rec."57");
+                                                end;
 
-                                                56:
-                                                    if CutCreLineRec."56" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."56");
-                                                        Evaluate(Ratio, CutCreLine1Rec."56");
-                                                    end;
-                                                57:
-                                                    if CutCreLineRec."57" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."57");
-                                                        Evaluate(Ratio, CutCreLine1Rec."57");
-                                                    end;
+                                            58:
+                                                if CutCreLineRec."58" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."58");
+                                                    Evaluate(Ratio, CutCreLine1Rec."58");
+                                                end;
+                                            59:
+                                                if CutCreLineRec."59" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."59");
+                                                    Evaluate(Ratio, CutCreLine1Rec."59");
+                                                end;
 
-                                                58:
-                                                    if CutCreLineRec."58" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."58");
-                                                        Evaluate(Ratio, CutCreLine1Rec."58");
-                                                    end;
-                                                59:
-                                                    if CutCreLineRec."59" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."59");
-                                                        Evaluate(Ratio, CutCreLine1Rec."59");
-                                                    end;
+                                            60:
+                                                if CutCreLineRec."60" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."60");
+                                                    Evaluate(Ratio, CutCreLine1Rec."60");
+                                                end;
+                                            61:
+                                                if CutCreLineRec."61" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."61");
+                                                    Evaluate(Ratio, CutCreLine1Rec."61");
+                                                end;
 
-                                                60:
-                                                    if CutCreLineRec."60" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."60");
-                                                        Evaluate(Ratio, CutCreLine1Rec."60");
-                                                    end;
-                                                61:
-                                                    if CutCreLineRec."61" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."61");
-                                                        Evaluate(Ratio, CutCreLine1Rec."61");
-                                                    end;
+                                            62:
+                                                if CutCreLineRec."62" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."62");
+                                                    Evaluate(Ratio, CutCreLine1Rec."62");
+                                                end;
+                                            63:
+                                                if CutCreLineRec."63" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."63");
+                                                    Evaluate(Ratio, CutCreLine1Rec."63");
+                                                end;
 
-                                                62:
-                                                    if CutCreLineRec."62" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."62");
-                                                        Evaluate(Ratio, CutCreLine1Rec."62");
-                                                    end;
-                                                63:
-                                                    if CutCreLineRec."63" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."63");
-                                                        Evaluate(Ratio, CutCreLine1Rec."63");
-                                                    end;
+                                            64:
+                                                if CutCreLineRec."64" <> '' then begin
+                                                    Evaluate(Size, CutCreLineRec."64");
+                                                    Evaluate(Ratio, CutCreLine1Rec."64");
+                                                end;
+                                        end;
 
-                                                64:
-                                                    if CutCreLineRec."64" <> '' then begin
-                                                        Evaluate(Size, CutCreLineRec."64");
-                                                        Evaluate(Ratio, CutCreLine1Rec."64");
-                                                    end;
-                                            end;
+                                        if Size <> '' then begin
 
-                                            if Size <> '' then begin
+                                            for j := 1 To Ratio do begin
 
-                                                for j := 1 To Ratio do begin
+                                                Size1 := j + 64;
+                                                LaySheetLine4Rec.FindSet();
 
-                                                    Size1 := j + 64;
+                                                repeat
+
+                                                    if LaySheetLine4Rec."Actual Plies" = 0 then
+                                                        Error('Actual Plies is zero in Latsheet.');
 
                                                     if LaySheetLine4Rec."Actual Plies" <= rec."Bundle Rule" then
                                                         BundleQty := LaySheetLine4Rec."Actual Plies"
@@ -1271,260 +1273,259 @@ page 50665 "Bundle Guide Card"
 
                                                     end;
 
-                                                    // for X := 1 To (LaySheetLine4Rec."Actual Plies" Div BundleQty) do begin
+                                                // for X := 1 To (LaySheetLine4Rec."Actual Plies" Div BundleQty) do begin
 
-                                                    //     if (TempQty + BundleQty) < 10000 then begin
+                                                //     if (TempQty + BundleQty) < 10000 then begin
 
-                                                    //         StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
-                                                    //         LineNo += 1;
-                                                    //         BundleNo += 1;
+                                                //         StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
+                                                //         LineNo += 1;
+                                                //         BundleNo += 1;
 
-                                                    //         BundleGuideLineRec.Init();
-                                                    //         BundleGuideLineRec."Bundle No" := BundleNo;
-                                                    //         BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                    //         BundleGuideLineRec."Color Name" := rec."Color Name";
-                                                    //         BundleGuideLineRec."Color No" := rec."Color No";
-                                                    //         BundleGuideLineRec."Created Date" := Today;
-                                                    //         BundleGuideLineRec."Created User" := UserId;
-                                                    //         BundleGuideLineRec."Cut No" := rec."Cut No";
-                                                    //         BundleGuideLineRec."Line No" := LineNo;
-                                                    //         BundleGuideLineRec.Qty := BundleQty;
+                                                //         BundleGuideLineRec.Init();
+                                                //         BundleGuideLineRec."Bundle No" := BundleNo;
+                                                //         BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                //         BundleGuideLineRec."Color Name" := rec."Color Name";
+                                                //         BundleGuideLineRec."Color No" := rec."Color No";
+                                                //         BundleGuideLineRec."Created Date" := Today;
+                                                //         BundleGuideLineRec."Created User" := UserId;
+                                                //         BundleGuideLineRec."Cut No" := rec."Cut No";
+                                                //         BundleGuideLineRec."Line No" := LineNo;
+                                                //         BundleGuideLineRec.Qty := BundleQty;
 
-                                                    //         if Ratio = 1 then
-                                                    //             BundleGuideLineRec.Size := Size
-                                                    //         else
-                                                    //             BundleGuideLineRec.Size := Size + '-' + Size1;
+                                                //         if Ratio = 1 then
+                                                //             BundleGuideLineRec.Size := Size
+                                                //         else
+                                                //             BundleGuideLineRec.Size := Size + '-' + Size1;
 
-                                                    //         BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
-                                                    //         BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                    //         BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                    //         BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
-                                                    //         BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
-                                                    //         BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
-                                                    //         BundleGuideLineRec."Style No" := rec."Style No.";
-                                                    //         BundleGuideLineRec."Style Name" := rec."Style Name";
+                                                //         BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
+                                                //         BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                //         BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                //         BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
+                                                //         BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                //         BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
+                                                //         BundleGuideLineRec."Style No" := rec."Style No.";
+                                                //         BundleGuideLineRec."Style Name" := rec."Style Name";
 
-                                                    //         TempLot := SewJobRec."Sewing Job No.";
-                                                    //         TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
-                                                    //         BundleGuideLineRec.Lot := TempLot;
+                                                //         TempLot := SewJobRec."Sewing Job No.";
+                                                //         TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
+                                                //         BundleGuideLineRec.Lot := TempLot;
 
-                                                    //         StyleMasPoRec.Reset();
-                                                    //         StyleMasPoRec.SetRange("Style No.", rec."Style No.");
-                                                    //         StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                    //         if not StyleMasPoRec.FindSet() then
-                                                    //             Error('Cannot find Sewing job no.');
+                                                //         StyleMasPoRec.Reset();
+                                                //         StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+                                                //         StyleMasPoRec.SetRange("Lot No.", TempLot);
+                                                //         if not StyleMasPoRec.FindSet() then
+                                                //             Error('Cannot find Sewing job no.');
 
-                                                    //         BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
-                                                    //         BundleGuideLineRec.Insert();
+                                                //         BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
+                                                //         BundleGuideLineRec.Insert();
 
-                                                    //         TempQty := TempQty + BundleQty;
-                                                    //         PreviuosBundleQty := BundleQty;
+                                                //         TempQty := TempQty + BundleQty;
+                                                //         PreviuosBundleQty := BundleQty;
 
-                                                    //     end
-                                                    //     else begin
+                                                //     end
+                                                //     else begin
 
-                                                    //         StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
-                                                    //         LineNo += 1;
-                                                    //         BundleNo += 1;
+                                                //         StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
+                                                //         LineNo += 1;
+                                                //         BundleNo += 1;
 
-                                                    //         if BundleNo = 1087 then
-                                                    //             Message('1087');
+                                                //         if BundleNo = 1087 then
+                                                //             Message('1087');
 
-                                                    //         BundleGuideLineRec.Init();
-                                                    //         BundleGuideLineRec."Bundle No" := BundleNo;
-                                                    //         BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                    //         BundleGuideLineRec."Color Name" := rec."Color Name";
-                                                    //         BundleGuideLineRec."Color No" := rec."Color No";
-                                                    //         BundleGuideLineRec."Created Date" := Today;
-                                                    //         BundleGuideLineRec."Created User" := UserId;
-                                                    //         BundleGuideLineRec."Cut No" := rec."Cut No";
-                                                    //         BundleGuideLineRec."Line No" := LineNo;
-                                                    //         BundleGuideLineRec.Qty := 9999 - TempQty;
+                                                //         BundleGuideLineRec.Init();
+                                                //         BundleGuideLineRec."Bundle No" := BundleNo;
+                                                //         BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                //         BundleGuideLineRec."Color Name" := rec."Color Name";
+                                                //         BundleGuideLineRec."Color No" := rec."Color No";
+                                                //         BundleGuideLineRec."Created Date" := Today;
+                                                //         BundleGuideLineRec."Created User" := UserId;
+                                                //         BundleGuideLineRec."Cut No" := rec."Cut No";
+                                                //         BundleGuideLineRec."Line No" := LineNo;
+                                                //         BundleGuideLineRec.Qty := 9999 - TempQty;
 
-                                                    //         if Ratio = 1 then
-                                                    //             BundleGuideLineRec.Size := Size
-                                                    //         else
-                                                    //             BundleGuideLineRec.Size := Size + '-' + Size1;
+                                                //         if Ratio = 1 then
+                                                //             BundleGuideLineRec.Size := Size
+                                                //         else
+                                                //             BundleGuideLineRec.Size := Size + '-' + Size1;
 
-                                                    //         BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
-                                                    //         BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                    //         BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                    //         BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
-                                                    //         BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
-                                                    //         BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
-                                                    //         BundleGuideLineRec."Style No" := rec."Style No.";
-                                                    //         BundleGuideLineRec."Style Name" := rec."Style Name";
+                                                //         BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
+                                                //         BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                //         BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                //         BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
+                                                //         BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                //         BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
+                                                //         BundleGuideLineRec."Style No" := rec."Style No.";
+                                                //         BundleGuideLineRec."Style Name" := rec."Style Name";
 
-                                                    //         TempLot := SewJobRec."Sewing Job No.";
-                                                    //         TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
-                                                    //         BundleGuideLineRec.Lot := TempLot;
+                                                //         TempLot := SewJobRec."Sewing Job No.";
+                                                //         TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
+                                                //         BundleGuideLineRec.Lot := TempLot;
 
-                                                    //         StyleMasPoRec.Reset();
-                                                    //         StyleMasPoRec.SetRange("Style No.", rec."Style No.");
-                                                    //         StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                    //         if not StyleMasPoRec.FindSet() then
-                                                    //             Error('Cannot find Sewing job no.');
+                                                //         StyleMasPoRec.Reset();
+                                                //         StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+                                                //         StyleMasPoRec.SetRange("Lot No.", TempLot);
+                                                //         if not StyleMasPoRec.FindSet() then
+                                                //             Error('Cannot find Sewing job no.');
 
-                                                    //         BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
-                                                    //         BundleGuideLineRec.Insert();
+                                                //         BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
+                                                //         BundleGuideLineRec.Insert();
 
-                                                    //         TempQty := 0;
-                                                    //         PreviuosBundleQty := 9999 - TempQty;
+                                                //         TempQty := 0;
+                                                //         PreviuosBundleQty := 9999 - TempQty;
 
-                                                    //     end;
-                                                    // end;
+                                                //     end;
+                                                // end;
 
-                                                    // if (LaySheetLine4Rec."Actual Plies" Mod BundleQty) > BundleQty / 2 then begin
+                                                // if (LaySheetLine4Rec."Actual Plies" Mod BundleQty) > BundleQty / 2 then begin
 
-                                                    //     if (TempQty + BundleQty) < 10000 then begin
+                                                //     if (TempQty + BundleQty) < 10000 then begin
 
-                                                    //         StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
-                                                    //         LineNo += 1;
-                                                    //         BundleNo += 1;
+                                                //         StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
+                                                //         LineNo += 1;
+                                                //         BundleNo += 1;
 
-                                                    //         if BundleNo = 1087 then
-                                                    //             Message('1087');
+                                                //         if BundleNo = 1087 then
+                                                //             Message('1087');
 
-                                                    //         BundleGuideLineRec.Init();
-                                                    //         BundleGuideLineRec."Bundle No" := BundleNo;
-                                                    //         BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                    //         BundleGuideLineRec."Color Name" := rec."Color Name";
-                                                    //         BundleGuideLineRec."Color No" := rec."Color No";
-                                                    //         BundleGuideLineRec."Created Date" := Today;
-                                                    //         BundleGuideLineRec."Created User" := UserId;
-                                                    //         BundleGuideLineRec."Cut No" := rec."Cut No";
-                                                    //         BundleGuideLineRec."Line No" := LineNo;
-                                                    //         BundleGuideLineRec.Qty := BundleQty;
+                                                //         BundleGuideLineRec.Init();
+                                                //         BundleGuideLineRec."Bundle No" := BundleNo;
+                                                //         BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                //         BundleGuideLineRec."Color Name" := rec."Color Name";
+                                                //         BundleGuideLineRec."Color No" := rec."Color No";
+                                                //         BundleGuideLineRec."Created Date" := Today;
+                                                //         BundleGuideLineRec."Created User" := UserId;
+                                                //         BundleGuideLineRec."Cut No" := rec."Cut No";
+                                                //         BundleGuideLineRec."Line No" := LineNo;
+                                                //         BundleGuideLineRec.Qty := BundleQty;
 
-                                                    //         if Ratio = 1 then
-                                                    //             BundleGuideLineRec.Size := Size
-                                                    //         else
-                                                    //             BundleGuideLineRec.Size := Size + '-' + Size1;
+                                                //         if Ratio = 1 then
+                                                //             BundleGuideLineRec.Size := Size
+                                                //         else
+                                                //             BundleGuideLineRec.Size := Size + '-' + Size1;
 
-                                                    //         BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
-                                                    //         BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                    //         BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                    //         BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
-                                                    //         BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
-                                                    //         BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
-                                                    //         BundleGuideLineRec."Style No" := rec."Style No.";
-                                                    //         BundleGuideLineRec."Style Name" := rec."Style Name";
+                                                //         BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
+                                                //         BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                //         BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                //         BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
+                                                //         BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                //         BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
+                                                //         BundleGuideLineRec."Style No" := rec."Style No.";
+                                                //         BundleGuideLineRec."Style Name" := rec."Style Name";
 
-                                                    //         TempLot := SewJobRec."Sewing Job No.";
-                                                    //         TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
-                                                    //         BundleGuideLineRec.Lot := TempLot;
+                                                //         TempLot := SewJobRec."Sewing Job No.";
+                                                //         TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
+                                                //         BundleGuideLineRec.Lot := TempLot;
 
-                                                    //         StyleMasPoRec.Reset();
-                                                    //         StyleMasPoRec.SetRange("Style No.", rec."Style No.");
-                                                    //         StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                    //         if not StyleMasPoRec.FindSet() then
-                                                    //             Error('Cannot find Sewing job no.');
+                                                //         StyleMasPoRec.Reset();
+                                                //         StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+                                                //         StyleMasPoRec.SetRange("Lot No.", TempLot);
+                                                //         if not StyleMasPoRec.FindSet() then
+                                                //             Error('Cannot find Sewing job no.');
 
-                                                    //         BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
-                                                    //         BundleGuideLineRec.Insert();
+                                                //         BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
+                                                //         BundleGuideLineRec.Insert();
 
-                                                    //         TempQty := TempQty + BundleQty;
-                                                    //         PreviuosBundleQty := BundleQty;
-                                                    //     end
-                                                    //     else begin
-                                                    //         StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
-                                                    //         LineNo += 1;
-                                                    //         BundleNo += 1;
+                                                //         TempQty := TempQty + BundleQty;
+                                                //         PreviuosBundleQty := BundleQty;
+                                                //     end
+                                                //     else begin
+                                                //         StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
+                                                //         LineNo += 1;
+                                                //         BundleNo += 1;
 
-                                                    //         BundleGuideLineRec.Init();
-                                                    //         BundleGuideLineRec."Bundle No" := BundleNo;
-                                                    //         BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                    //         BundleGuideLineRec."Color Name" := rec."Color Name";
-                                                    //         BundleGuideLineRec."Color No" := rec."Color No";
-                                                    //         BundleGuideLineRec."Created Date" := Today;
-                                                    //         BundleGuideLineRec."Created User" := UserId;
-                                                    //         BundleGuideLineRec."Cut No" := rec."Cut No";
-                                                    //         BundleGuideLineRec."Line No" := LineNo;
-                                                    //         BundleGuideLineRec.Qty := 9999 - TempQty;
+                                                //         BundleGuideLineRec.Init();
+                                                //         BundleGuideLineRec."Bundle No" := BundleNo;
+                                                //         BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                //         BundleGuideLineRec."Color Name" := rec."Color Name";
+                                                //         BundleGuideLineRec."Color No" := rec."Color No";
+                                                //         BundleGuideLineRec."Created Date" := Today;
+                                                //         BundleGuideLineRec."Created User" := UserId;
+                                                //         BundleGuideLineRec."Cut No" := rec."Cut No";
+                                                //         BundleGuideLineRec."Line No" := LineNo;
+                                                //         BundleGuideLineRec.Qty := 9999 - TempQty;
 
-                                                    //         if Ratio = 1 then
-                                                    //             BundleGuideLineRec.Size := Size
-                                                    //         else
-                                                    //             BundleGuideLineRec.Size := Size + '-' + Size1;
+                                                //         if Ratio = 1 then
+                                                //             BundleGuideLineRec.Size := Size
+                                                //         else
+                                                //             BundleGuideLineRec.Size := Size + '-' + Size1;
 
-                                                    //         BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
-                                                    //         BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                    //         BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                    //         BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
-                                                    //         BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
-                                                    //         BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
-                                                    //         BundleGuideLineRec."Style No" := rec."Style No.";
-                                                    //         BundleGuideLineRec."Style Name" := rec."Style Name";
+                                                //         BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
+                                                //         BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                //         BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                //         BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
+                                                //         BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                //         BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
+                                                //         BundleGuideLineRec."Style No" := rec."Style No.";
+                                                //         BundleGuideLineRec."Style Name" := rec."Style Name";
 
-                                                    //         TempLot := SewJobRec."Sewing Job No.";
-                                                    //         TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
-                                                    //         BundleGuideLineRec.Lot := TempLot;
+                                                //         TempLot := SewJobRec."Sewing Job No.";
+                                                //         TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
+                                                //         BundleGuideLineRec.Lot := TempLot;
 
-                                                    //         StyleMasPoRec.Reset();
-                                                    //         StyleMasPoRec.SetRange("Style No.", rec."Style No.");
-                                                    //         StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                    //         if not StyleMasPoRec.FindSet() then
-                                                    //             Error('Cannot find Sewing job no.');
+                                                //         StyleMasPoRec.Reset();
+                                                //         StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+                                                //         StyleMasPoRec.SetRange("Lot No.", TempLot);
+                                                //         if not StyleMasPoRec.FindSet() then
+                                                //             Error('Cannot find Sewing job no.');
 
-                                                    //         BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
-                                                    //         BundleGuideLineRec.Insert();
+                                                //         BundleGuideLineRec.PO := StyleMasPoRec."PO No.";
+                                                //         BundleGuideLineRec.Insert();
 
-                                                    //         TempQty := 0;
-                                                    //         PreviuosBundleQty := 9999 - TempQty;
+                                                //         TempQty := 0;
+                                                //         PreviuosBundleQty := 9999 - TempQty;
 
-                                                    //     end;
-                                                    // end
-                                                    // else begin
+                                                //     end;
+                                                // end
+                                                // else begin
 
-                                                    //     BundleQty := LaySheetLine4Rec."Actual Plies" Mod BundleQty;
-                                                    //     if BundleQty > 0 then begin
-                                                    //         if (TempQty + BundleQty) < 10000 then begin
+                                                //     BundleQty := LaySheetLine4Rec."Actual Plies" Mod BundleQty;
+                                                //     if BundleQty > 0 then begin
+                                                //         if (TempQty + BundleQty) < 10000 then begin
 
-                                                    //             StickerSeq := Format(TempQty - PreviuosBundleQty + 1) + '-' + Format(TempQty + BundleQty);
-                                                    //             TempQty := TempQty + BundleQty;
+                                                //             StickerSeq := Format(TempQty - PreviuosBundleQty + 1) + '-' + Format(TempQty + BundleQty);
+                                                //             TempQty := TempQty + BundleQty;
 
-                                                    //             //modify previous entry
-                                                    //             BundleGuideLineRec.Reset();
-                                                    //             BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
-                                                    //             BundleGuideLineRec.SetRange("Line No", LineNo);
-                                                    //             if BundleGuideLineRec.FindSet() then begin
-                                                    //                 BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
-                                                    //                 BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                    //                 BundleGuideLineRec.Modify();
-                                                    //             end;
-                                                    //         end
-                                                    //         else begin
-                                                    //             StickerSeq := Format(TempQty - PreviuosBundleQty + 1) + '-' + Format(9999);
-                                                    //             //TempQty := TempQty + BundleQty;
+                                                //             //modify previous entry
+                                                //             BundleGuideLineRec.Reset();
+                                                //             BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
+                                                //             BundleGuideLineRec.SetRange("Line No", LineNo);
+                                                //             if BundleGuideLineRec.FindSet() then begin
+                                                //                 BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
+                                                //                 BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                //                 BundleGuideLineRec.Modify();
+                                                //             end;
+                                                //         end
+                                                //         else begin
+                                                //             StickerSeq := Format(TempQty - PreviuosBundleQty + 1) + '-' + Format(9999);
+                                                //             //TempQty := TempQty + BundleQty;
 
-                                                    //             //modify previous entry
-                                                    //             BundleGuideLineRec.Reset();
-                                                    //             BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
-                                                    //             BundleGuideLineRec.SetRange("Line No", LineNo);
-                                                    //             if BundleGuideLineRec.FindSet() then begin
-                                                    //                 BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + 9999 - TempQty;
-                                                    //                 BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                    //                 BundleGuideLineRec.Modify();
-                                                    //             end;
+                                                //             //modify previous entry
+                                                //             BundleGuideLineRec.Reset();
+                                                //             BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
+                                                //             BundleGuideLineRec.SetRange("Line No", LineNo);
+                                                //             if BundleGuideLineRec.FindSet() then begin
+                                                //                 BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + 9999 - TempQty;
+                                                //                 BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                //                 BundleGuideLineRec.Modify();
+                                                //             end;
 
-                                                    //             TempQty := 0;
-                                                    //         end;
-                                                    //     end;
+                                                //             TempQty := 0;
+                                                //         end;
+                                                //     end;
 
-                                                    // end;
-                                                end;
+                                                // end;
 
+                                                until LaySheetLine4Rec.Next() = 0;
                                             end;
 
                                         end;
 
-                                    until LaySheetLine4Rec.Next() = 0;
+                                    end;
+
                                 end;
 
                             end;
                         end;
-
-
 
                         //get Total bundle qty for the 
                         BundleQty := 0;
