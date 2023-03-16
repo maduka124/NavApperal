@@ -87,6 +87,12 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
         {
             Caption = 'Factory Inv. No';
         }
+
+        //Done By Sachith On 15/03/23
+        modify("External Document No.")
+        {
+            Caption = 'LC No';
+        }
     }
 
 
