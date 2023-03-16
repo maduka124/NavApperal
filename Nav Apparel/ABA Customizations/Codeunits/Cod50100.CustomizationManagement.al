@@ -299,7 +299,11 @@ codeunit 50100 "Customization Management"
 
         GenJnalLine.Reset();
         GenJnalLine.SetCurrentKey("Journal Template Name", "Journal Batch Name", "Line No.");
-        GenJnalLine.SetRange("Journal Template Name", GenLedSetup."Bank Charge G/L");
+
+        //Done By Sachith on 16/03/23 
+        //  GenJnalLine.SetRange("Journal Template Name", GenLedSetup."Bank Charge G/L");
+        GenJnalLine.SetRange("Journal Template Name", GenLedSetup."Bank Charge Template");
+
         GenJnalLine.SetRange("Journal Batch Name", GenLedSetup."Bank Charge Batch");
         if GenJnalLine.FindLast() then
             Inx := GenJnalLine."Line No."
@@ -521,7 +525,7 @@ codeunit 50100 "Customization Management"
         ProdOrderComponent."Invent. Posting Group" := ItemRec."Inventory Posting Group";
     end;
 
-  
+
 
 
 
@@ -680,6 +684,6 @@ codeunit 50100 "Customization Management"
 
     var
         PurchaseLineRec: Record "Purchase Line";
-       
+
 
 }
