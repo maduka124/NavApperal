@@ -220,14 +220,28 @@ page 50355 "Daily Sewing In/Out Card"
                             Error('You have put Sewing out for this Date/Line/Style/PO');
 
                         //Check Input qty with cutting qty
-                        StyleMasterPORec.Reset();
-                        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
-                        StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
-                        StyleMasterPORec.FindSet();
+                        // StyleMasterPORec.Reset();
+                        // StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+                        // StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
+                        // StyleMasterPORec.FindSet();
 
-                        if rec."Input Qty" > StyleMasterPORec."Cut Out Qty" then
-                            Error('Input quantity is greater than total cut quantity.');
+                        // if rec."Input Qty" > StyleMasterPORec."Cut Out Qty" then
+                        //     Error('Input quantity is greater than total cut quantity.');
 
+
+                        //Mihiranga 2023/03/16
+                        ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProductionRec.SetRange("Style Name", Rec."Style Name");
+                        ProductionRec.SetRange("PO No", Rec."PO No");
+                        if ProductionRec.FindSet() then
+                            Rec."Input Qty" := ProductionRec."Input Qty";
+
+
+                        if rec."Input Qty" + StyleMasterPORec."Sawing In Qty" > StyleMasterPORec."Cut Out Qty" then
+                            Error('cutting out less than sewing input quantity');
+                        //
                         CurrPage.Update();
                     end;
                 }
@@ -384,19 +398,29 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                         ProductionRec.SetRange("Prod Date", Rec."Prod Date");
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
-                        ProductionRec.SetRange("Style Name", rec."Out Style Name");
-                        ProductionRec.SetRange("PO No", rec."OUT PO No");
+                        ProductionRec.SetRange("Out Style Name", rec."Out Style Name");
+                        ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
                         if ProductionRec.FindSet() then
                             Error('You have put Sewing out for this Date/Line/Style/PO');
 
                         //Check sewing Input qty with sewing out qty
-                        StyleMasterPORec.Reset();
-                        StyleMasterPORec.SetRange("Style No.", rec."Out Style No.");
-                        StyleMasterPORec.SetRange("Lot No.", rec."Out Lot No.");
-                        StyleMasterPORec.FindSet();
+                        // StyleMasterPORec.Reset();
+                        // StyleMasterPORec.SetRange("Style No.", rec."Out Style No.");
+                        // StyleMasterPORec.SetRange("Lot No.", rec."Out Lot No.");
+                        // StyleMasterPORec.FindSet();
+
+                        //Mihiranga 2023/03/16
+                        ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProductionRec.SetRange("Out Style Name", Rec."Out Style Name");
+                        ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
+                        if ProductionRec.FindSet() then
+                            Rec."Output Qty" := ProductionRec."Output Qty";
 
                         if (rec."Output Qty" + StyleMasterPORec."Sawing Out Qty") > StyleMasterPORec."Sawing In Qty" then
                             Error('Output quantity is greater than the input quantity.');
+                        //
                         CurrPage.Update();
                     end;
                 }
