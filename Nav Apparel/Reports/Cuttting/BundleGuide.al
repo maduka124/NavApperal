@@ -50,6 +50,8 @@ report 50634 BundleGuideReport
                 { }
                 column(PO; PO)
                 { }
+                column(Line_No; "Line No")
+                { }
 
                 trigger OnAfterGetRecord()
                 begin
