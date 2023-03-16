@@ -64,14 +64,25 @@ report 50852 SewingProductionDetails
                     Quantity := NavAppProdRec.Qty;
                 end;
 
+                TotalOuput := 0;
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Out Style No.");
                 StylePoRec.SetRange("PO No.", "PO No");
                 if StylePoRec.FindFirst() then begin
-                    TotalOuput += StylePoRec."Sawing Out Qty";
+                    repeat
+                        TotalOuput += StylePoRec."Sawing Out Qty";
+                    until StylePoRec.Next() = 0;
+                end;
+
+
+                StylePoRec.Reset();
+                StylePoRec.SetRange("Style No.", "Out Style No.");
+                StylePoRec.SetRange("PO No.", "PO No");
+                if StylePoRec.FindFirst() then begin
                     ShipDate := StylePoRec."Ship Date";
                     OrderQy := StylePoRec.Qty;
                 end;
+
 
                 StyleRec.Reset();
                 StyleRec.SetRange("No.", "Out Style No.");
