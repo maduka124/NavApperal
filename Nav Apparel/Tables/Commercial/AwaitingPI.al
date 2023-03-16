@@ -38,7 +38,7 @@ table 51182 AwaitingPIs
         {
             DataClassification = ToBeClassified;
         }
-        field(10; "PI No New"; Text[50])
+        field(10; "PI No New"; Code[100])
         {
             DataClassification = ToBeClassified;
         }
