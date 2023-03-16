@@ -166,6 +166,8 @@ page 50355 "Daily Sewing In/Out Card"
 
                         NavAppProdPlansDetRec.Reset();
                         //NavAppProdPlansDetRec.SetRange("Factory No.", Users."Factory Code");
+
+
                         NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
                         NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', rec."Prod Date");
@@ -221,15 +223,6 @@ page 50355 "Daily Sewing In/Out Card"
                         if ProductionRec.FindSet() then
                             Error('You have put Sewing out for this Date/Line/Style/PO');
 
-                        //Check Input qty with cutting qty
-                        // StyleMasterPORec.Reset();
-                        // StyleMasterPORec.SetRange("Style No.", rec."Style No.");
-                        // StyleMasterPORec.SetRange("Lot No.", rec."Lot No.");
-                        // StyleMasterPORec.FindSet();
-
-                        // if rec."Input Qty" > StyleMasterPORec."Cut Out Qty" then
-                        //     Error('Input quantity is greater than total cut quantity.');
-
 
                         //Mihiranga 2023/03/16
                         InputQty := 0;
@@ -242,7 +235,6 @@ page 50355 "Daily Sewing In/Out Card"
                             repeat
                                 InputQty += ProductionRec."Input Qty";
                             until ProductionRec.Next() = 0;
-
 
 
                         OutPutQty := 0;
