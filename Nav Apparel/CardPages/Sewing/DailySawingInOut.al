@@ -208,6 +208,8 @@ page 50355 "Daily Sewing In/Out Card"
                     var
                         StyleMasterPORec: Record "Style Master PO";
                         ProductionRec: Record ProductionOutHeader;
+                        OutPutQty: BigInteger;
+                        InputQty: BigInteger;
                     begin
 
                         ProductionRec.Reset();
@@ -230,19 +232,34 @@ page 50355 "Daily Sewing In/Out Card"
 
 
                         //Mihiranga 2023/03/16
+                        InputQty := 0;
+                        ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProductionRec.SetRange("Style Name", Rec."Style Name");
+                        ProductionRec.SetRange("PO No", Rec."PO No");
+                        if ProductionRec.FindSet() then
+                            repeat
+                                InputQty += ProductionRec."Input Qty";
+                            until ProductionRec.Next() = 0;
+
+
+
+                        OutPutQty := 0;
                         ProductionRec.Reset();
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Style Name", Rec."Style Name");
                         ProductionRec.SetRange("PO No", Rec."PO No");
                         if ProductionRec.FindSet() then
-                            Rec."Input Qty" := ProductionRec."Input Qty";
+                            repeat
+                                OutPutQty += ProductionRec."Output Qty";
+                            until ProductionRec.Next() = 0;
 
 
-                        if rec."Input Qty" + StyleMasterPORec."Sawing In Qty" > StyleMasterPORec."Cut Out Qty" then
+                        if OutPutQty < (Rec."Input Qty" + InputQty) then
                             Error('cutting out less than sewing input quantity');
-                        //
-                        CurrPage.Update();
+
                     end;
                 }
             }
@@ -277,7 +294,7 @@ page 50355 "Daily Sewing In/Out Card"
 
                     trigger OnLookup(var text: Text): Boolean
                     var
-                        StyleMasterRec: Record "Style Master";
+                        ProductionRec: Record ProductionOutHeader;
                         NavProdDetRec: Record "NavApp Prod Plans Details";
                         Users: Record "User Setup";
                         Factory: Code[20];
@@ -319,9 +336,9 @@ page 50355 "Daily Sewing In/Out Card"
                         if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
                             rec."Out Style No." := NavProdDetRec."Style No.";
 
-                            StyleMasterRec.Reset();
-                            StyleMasterRec.get(rec."Out Style No.");
-                            rec."Out Style Name" := StyleMasterRec."Style No.";
+                            ProductionRec.Reset();
+                            ProductionRec.get(rec."Out Style No.");
+                            rec."Out Style Name" := ProductionRec."Style No.";
                         end;
                     end;
                 }
@@ -341,7 +358,7 @@ page 50355 "Daily Sewing In/Out Card"
 
                     trigger OnLookup(var text: Text): Boolean
                     var
-                        StyleMasterRec: Record "Style Master PO";
+
                         NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
                         Users: Record "User Setup";
                     begin
@@ -392,7 +409,8 @@ page 50355 "Daily Sewing In/Out Card"
                     trigger OnValidate()
                     var
                         ProductionRec: Record ProductionOutHeader;
-                        StyleMasterPORec: Record "Style Master PO";
+                        InputQty: BigInteger;
+                        OutPutQty: BigInteger;
                     begin
                         ProductionRec.Reset();
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
@@ -403,24 +421,33 @@ page 50355 "Daily Sewing In/Out Card"
                         if ProductionRec.FindSet() then
                             Error('You have put Sewing out for this Date/Line/Style/PO');
 
-                        //Check sewing Input qty with sewing out qty
-                        // StyleMasterPORec.Reset();
-                        // StyleMasterPORec.SetRange("Style No.", rec."Out Style No.");
-                        // StyleMasterPORec.SetRange("Lot No.", rec."Out Lot No.");
-                        // StyleMasterPORec.FindSet();
-
                         //Mihiranga 2023/03/16
+                        InputQty := 0;
                         ProductionRec.Reset();
-                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Out Style Name", Rec."Out Style Name");
                         ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
                         if ProductionRec.FindSet() then
-                            Rec."Output Qty" := ProductionRec."Output Qty";
+                            repeat
+                                InputQty += ProductionRec."Input Qty";
+                            until ProductionRec.Next() = 0;
 
-                        if (rec."Output Qty" + StyleMasterPORec."Sawing Out Qty") > StyleMasterPORec."Sawing In Qty" then
+
+                        OutPutQty := 0;
+                        ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProductionRec.SetRange("Out Style Name", Rec."Out Style Name");
+                        ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
+                        if ProductionRec.FindSet() then
+                            repeat
+                                OutPutQty += ProductionRec."Output Qty";
+                            until ProductionRec.Next() = 0;
+
+                        if InputQty > (Rec."Output Qty" + OutPutQty) then
                             Error('Output quantity is greater than the input quantity.');
-                        //
+
                         CurrPage.Update();
                     end;
                 }
