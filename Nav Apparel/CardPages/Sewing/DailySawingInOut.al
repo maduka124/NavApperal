@@ -211,6 +211,7 @@ page 50355 "Daily Sewing In/Out Card"
                     begin
 
                         ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                         ProductionRec.SetRange("Prod Date", Rec."Prod Date");
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Style Name", Rec."Style Name");
@@ -380,6 +381,7 @@ page 50355 "Daily Sewing In/Out Card"
                         StyleMasterPORec: Record "Style Master PO";
                     begin
                         ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                         ProductionRec.SetRange("Prod Date", Rec."Prod Date");
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Style Name", rec."Out Style Name");
