@@ -149,8 +149,6 @@ page 50355 "Daily Sewing In/Out Card"
                     ApplicationArea = All;
                     Caption = 'Input Lot No';
 
-
-
                     trigger OnLookup(var text: Text): Boolean
                     var
                         StyleMasterRec: Record "Style Master PO";
@@ -209,18 +207,17 @@ page 50355 "Daily Sewing In/Out Card"
                     trigger OnValidate()
                     var
                         StyleMasterPORec: Record "Style Master PO";
+                        ProductionRec: Record ProductionOutHeader;
                     begin
 
                         ProductionRec.Reset();
                         ProductionRec.SetRange("Prod Date", Rec."Prod Date");
-                        ProductionRec.SetRange("Resource No.", Rec."Resource Name");
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Style Name", Rec."Style Name");
-                        ProductionRec.SetRange("Lot No.", Rec."Lot No.");
-                        if ProductionRec.FindSet() then begin
-                            Error('Record Already Exist');
-                        end;
+                        ProductionRec.SetRange("PO No", Rec."PO No");
+                        if ProductionRec.FindSet() then
+                            Error('You have put Sewing out for this Date/Line/Style/PO');
 
-                        
                         //Check Input qty with cutting qty
                         StyleMasterPORec.Reset();
                         StyleMasterPORec.SetRange("Style No.", rec."Style No.");
@@ -232,8 +229,6 @@ page 50355 "Daily Sewing In/Out Card"
 
                         CurrPage.Update();
                     end;
-
-
                 }
             }
 
@@ -381,8 +376,17 @@ page 50355 "Daily Sewing In/Out Card"
 
                     trigger OnValidate()
                     var
+                        ProductionRec: Record ProductionOutHeader;
                         StyleMasterPORec: Record "Style Master PO";
                     begin
+                        ProductionRec.Reset();
+                        ProductionRec.SetRange("Prod Date", Rec."Prod Date");
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProductionRec.SetRange("Style Name", rec."Out Style Name");
+                        ProductionRec.SetRange("PO No", rec."OUT PO No");
+                        if ProductionRec.FindSet() then
+                            Error('You have put Sewing out for this Date/Line/Style/PO');
+
                         //Check sewing Input qty with sewing out qty
                         StyleMasterPORec.Reset();
                         StyleMasterPORec.SetRange("Style No.", rec."Out Style No.");
@@ -887,6 +891,6 @@ page 50355 "Daily Sewing In/Out Card"
 
     var
         UserSetupRec: Record "User Setup";
-        ProductionRec: Record ProductionOutHeader;
+
 
 }
