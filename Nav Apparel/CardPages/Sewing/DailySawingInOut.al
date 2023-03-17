@@ -220,6 +220,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Style Name", Rec."Style Name");
                         ProductionRec.SetRange("PO No", Rec."PO No");
+                        ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
                             Error('You have put Sewing out for this Date/Line/Style/PO');
 
@@ -410,6 +411,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
                         ProductionRec.SetRange("Out Style Name", rec."Out Style Name");
                         ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
+                        ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
                             Error('You have put Sewing out for this Date/Line/Style/PO');
 
