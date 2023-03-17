@@ -331,7 +331,7 @@ page 50355 "Daily Sewing In/Out Card"
                             rec."Out Style No." := NavProdDetRec."Style No.";
 
                             StyleMasterRec.get(rec."Out Style No.");
-                            rec."Out Style Name" := ProductionRec."Style No.";
+                            rec."Out Style Name" := StyleMasterRec."Style No.";
                         end;
                     end;
                 }
