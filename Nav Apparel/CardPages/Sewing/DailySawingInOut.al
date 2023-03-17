@@ -233,8 +233,8 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.Reset();
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
-                        ProductionRec.SetRange("Out Style Name", Rec."Style Name");
-                        ProductionRec.SetRange("OUT PO No", Rec."PO No");
+                        ProductionRec.SetRange("Style Name", Rec."Style Name");
+                        ProductionRec.SetRange("PO No", Rec."PO No");
                         if ProductionRec.FindSet() then
                             repeat
                                 OutPutQty += ProductionRec."Output Qty";
@@ -429,7 +429,7 @@ page 50355 "Daily Sewing In/Out Card"
                                 OutPutQty += ProductionRec."Output Qty";
                             until ProductionRec.Next() = 0;
 
-                        if InputQty > (Rec."Output Qty" + OutPutQty) then
+                        if InputQty < (Rec."Output Qty" + OutPutQty) then
                             Error('Output quantity is greater than the input quantity.');
 
                         CurrPage.Update();
@@ -593,6 +593,7 @@ page 50355 "Daily Sewing In/Out Card"
                     ProductionOutLine.Reset();
                     ProductionOutLine.SetRange("No.", rec."No.");
                     ProductionOutLine.SetRange("Colour No", AssoRec."Colour No");
+                    ProductionOutLine.SetFilter(In_Out, '=%1', 'IN');
 
                     if not ProductionOutLine.FindSet() then begin
 
@@ -784,6 +785,7 @@ page 50355 "Daily Sewing In/Out Card"
                     ProductionOutLine.Reset();
                     ProductionOutLine.SetRange("No.", rec."No.");
                     ProductionOutLine.SetRange("Colour No", AssoRec."Colour No");
+                    ProductionOutLine.SetFilter(In_Out, '=%1', 'OUT');
 
                     if not ProductionOutLine.FindSet() then begin
 
