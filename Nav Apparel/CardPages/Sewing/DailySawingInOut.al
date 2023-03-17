@@ -140,8 +140,6 @@ page 50355 "Daily Sewing In/Out Card"
                             rec."Style Name" := StyleMasterRec."Style No.";
                         end;
                     end;
-
-
                 }
 
                 field("Lot No."; rec."Lot No.")
@@ -156,18 +154,11 @@ page 50355 "Daily Sewing In/Out Card"
                         Users: Record "User Setup";
                     begin
 
-                        // StyleMasterRec.Reset();
-                        // StyleMasterRec.SetRange("Style No.", "Style No.");
-
-
                         Users.Reset();
                         Users.SetRange("User ID", UserId());
                         Users.FindSet();
 
                         NavAppProdPlansDetRec.Reset();
-                        //NavAppProdPlansDetRec.SetRange("Factory No.", Users."Factory Code");
-
-
                         NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
                         NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', rec."Prod Date");
@@ -179,7 +170,7 @@ page 50355 "Daily Sewing In/Out Card"
                             rec."Lot No." := NavAppProdPlansDetRec."lot No.";
                         end;
 
-                        GridHeader_Insert();
+                        GridHeader_Insert_Input();
 
                         //Get and Set Line No
                         NavAppProdPlansDetRec.Reset();
@@ -372,7 +363,7 @@ page 50355 "Daily Sewing In/Out Card"
                             rec."Out Lot No." := NavAppProdPlansDetRec."lot No.";
                         end;
 
-                        GridHeader_Insert();
+                        GridHeader_Insert_Output();
 
                         //Get and Set Line No
                         NavAppProdPlansDetRec.Reset();
@@ -578,7 +569,7 @@ page 50355 "Daily Sewing In/Out Card"
 
     end;
 
-    procedure GridHeader_Insert()
+    procedure GridHeader_Insert_Input()
     var
         AssoRec: Record AssorColorSizeRatio;
         ProductionOutLine: Record ProductionOutLine;
@@ -761,6 +752,41 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionOutLine."Created Date" := WorkDate();
                         ProductionOutLine.Insert();
 
+                    end;
+                until AssoRec.Next() = 0;
+            end;
+
+        end;
+    end;
+
+
+    procedure GridHeader_Insert_Output()
+    var
+        AssoRec: Record AssorColorSizeRatio;
+        ProductionOutLine: Record ProductionOutLine;
+        LineNo: BigInteger;
+    begin
+        if (rec."out Style No." <> '') and (rec."Out Lot No." <> '') then begin
+
+            ProductionOutLine.Reset();
+            ProductionOutLine.SetRange("No.", rec."No.");
+
+            if ProductionOutLine.FindLast() then
+                LineNo := ProductionOutLine."Line No.";
+
+            AssoRec.Reset();
+            AssoRec.SetRange("Style No.", rec."out Style No.");
+            AssoRec.SetRange("Lot No.", rec."out Lot No.");
+
+            if AssoRec.FindSet() then begin
+                repeat
+                    //Check duplicates beforen inserting
+                    ProductionOutLine.Reset();
+                    ProductionOutLine.SetRange("No.", rec."No.");
+                    ProductionOutLine.SetRange("Colour No", AssoRec."Colour No");
+
+                    if not ProductionOutLine.FindSet() then begin
+
                         //Output
                         LineNo += 1;
                         ProductionOutLine.Init();
@@ -923,6 +949,7 @@ page 50355 "Daily Sewing In/Out Card"
 
         end;
     end;
+
 
     trigger OnDeleteRecord(): Boolean
     var
