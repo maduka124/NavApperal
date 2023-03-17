@@ -3204,6 +3204,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
     }
 
     trigger OnInit()
+    var
+        ProdOutHeaderRec: Record ProductionOutHeader;
     begin
 
         //Filer Criteria - Dates
@@ -3219,7 +3221,18 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         //conVSControlAddIn Settings
         gdtconVSControlAddInStart := CREATEDATETIME(DMY2DATE(DATE2DMY(StartDate, 1), DATE2DMY(StartDate, 2), DATE2DMY(StartDate, 3)), 0T);
         gdtconVSControlAddInEnd := CREATEDATETIME(DMY2DATE(DATE2DMY(FinishDate, 1), DATE2DMY(FinishDate, 2), DATE2DMY(FinishDate, 3)), 0T);
-        gdtconVSControlAddInWorkdate := CREATEDATETIME(WORKDATE(Today()), 0T);
+
+        //Get last production updated header
+        ProdOutHeaderRec.Reset();
+        ProdOutHeaderRec.SetCurrentKey("Prod Date");
+        ProdOutHeaderRec.Ascending(false);
+        ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+
+        if ProdOutHeaderRec.FindFirst() then
+            gdtconVSControlAddInWorkdate := CREATEDATETIME(WORKDATE(ProdOutHeaderRec."Prod Date"), 0T)
+        else
+            gdtconVSControlAddInWorkdate := CREATEDATETIME(WORKDATE(Today()), 0T);
+
         gintconVSControlAddInViewType := goptViewType::ResourceView;
         gtxtconVSControlAddInTitleText := 'Lines';
         gintconVSControlAddInTableWidth := 120;
