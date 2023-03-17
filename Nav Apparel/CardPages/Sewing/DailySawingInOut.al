@@ -289,6 +289,7 @@ page 50355 "Daily Sewing In/Out Card"
                     var
                         ProductionRec: Record ProductionOutHeader;
                         NavProdDetRec: Record "NavApp Prod Plans Details";
+                        StyleMasterRec: Record "Style Master";
                         Users: Record "User Setup";
                         Factory: Code[20];
                         StyleName: text[50];
@@ -329,8 +330,7 @@ page 50355 "Daily Sewing In/Out Card"
                         if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
                             rec."Out Style No." := NavProdDetRec."Style No.";
 
-                            ProductionRec.Reset();
-                            ProductionRec.get(rec."Out Style No.");
+                            StyleMasterRec.get(rec."Out Style No.");
                             rec."Out Style Name" := ProductionRec."Style No.";
                         end;
                     end;
