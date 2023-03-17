@@ -82,6 +82,9 @@ page 50356 "Daily Sewing In/Out"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
+        if rec."Prod Updated" = 1 then
+            Error('Production updated against this entry. You cannot delete it.');
+
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'IN', 'Saw', rec.Type::Saw);
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'OUT', 'Saw', rec.Type::Saw);
     end;

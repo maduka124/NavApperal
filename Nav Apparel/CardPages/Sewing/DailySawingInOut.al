@@ -506,8 +506,6 @@ page 50355 "Daily Sewing In/Out Card"
     }
 
 
-
-
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     var
         ProductionOutLine: Record ProductionOutLine;
@@ -578,7 +576,6 @@ page 50355 "Daily Sewing In/Out Card"
         end;
 
     end;
-
 
     procedure GridHeader_Insert()
     var
@@ -930,12 +927,13 @@ page 50355 "Daily Sewing In/Out Card"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
+        if rec."Prod Updated" = 1 then
+            Error('Production updated against this entry. You cannot delete it.');
+
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'IN', 'Saw', rec.Type::Saw);
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'OUT', 'Saw', rec.Type::Saw);
     end;
 
     var
         UserSetupRec: Record "User Setup";
-
-
 }

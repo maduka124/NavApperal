@@ -247,8 +247,23 @@ page 50515 "Hourly Production Card"
     trigger OnDeleteRecord(): Boolean
     var
         HourlyProdLinesRec: Record "Hourly Production Lines";
+        ProdOutHeaderRec: Record ProductionOutHeader;
     begin
+        //Check whether production updated or not
+        if rec.Type = rec.Type::Sewing then begin
+            ProdOutHeaderRec.Reset();
+            ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
+            ProdOutHeaderRec.SetRange("Factory Code", rec."Factory No.");
+            ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+            ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+            if ProdOutHeaderRec.FindSet() then
+                Error('Production updated against Date : %1 , Factory : %2 has been updates. You cannot delete this entry.', rec."Prod Date", rec."Factory Name");
+        end;
+
+
+        HourlyProdLinesRec.Reset();
         HourlyProdLinesRec.SetRange("No.", rec."No.");
-        HourlyProdLinesRec.DeleteAll();
+        if HourlyProdLinesRec.FindSet() then
+            HourlyProdLinesRec.DeleteAll();
     end;
 }
