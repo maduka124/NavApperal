@@ -351,7 +351,6 @@ page 50355 "Daily Sewing In/Out Card"
 
                     trigger OnLookup(var text: Text): Boolean
                     var
-
                         NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
                         Users: Record "User Setup";
                     begin
@@ -363,7 +362,7 @@ page 50355 "Daily Sewing In/Out Card"
                         NavAppProdPlansDetRec.Reset();
                         //NavAppProdPlansDetRec.SetRange("Factory No.", Users."Factory Code");
                         NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
-                        NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
+                        NavAppProdPlansDetRec.SetRange("Style No.", rec."Out Style No.");
                         NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', rec."Prod Date");
                         if not NavAppProdPlansDetRec.FindSet() then
                             Error('Cannot find planning details');
