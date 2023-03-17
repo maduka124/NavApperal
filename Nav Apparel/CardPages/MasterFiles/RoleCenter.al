@@ -1353,6 +1353,13 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page FabricRequisitionList;
                     ApplicationArea = all;
                 }
+                action("Garment Part List")
+                {
+                    Caption = 'Garment Parts';
+                    RunObject = Page GarmentPartList;
+                    ApplicationArea = all;
+                }
+
 
                 action("Lay Sheet")
                 {
