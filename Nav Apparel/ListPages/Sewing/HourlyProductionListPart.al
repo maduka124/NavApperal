@@ -1142,7 +1142,6 @@ page 50516 HourlyProductionListPart
         if InputQtyVar < rec.Total then
             Error('Hourly Production Total is greater than Sewing In quantity.');
 
-
         CurrPage.Update();
 
     end;
