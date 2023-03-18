@@ -1169,7 +1169,7 @@ page 50665 "Bundle Guide Card"
                                                 repeat
 
                                                     if LaySheetLine4Rec."Actual Plies" = 0 then
-                                                        Error('Actual Plies is zero in Latsheet.');
+                                                        Error('Actual Plies is zero in Laysheet.');
 
                                                     if LaySheetLine4Rec."Actual Plies" <= rec."Bundle Rule" then
                                                         BundleQty := LaySheetLine4Rec."Actual Plies"
