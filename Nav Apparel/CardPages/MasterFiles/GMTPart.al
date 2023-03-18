@@ -27,21 +27,7 @@ page 51265 Garmentpart
         }
     }
 
-    actions
-    {
-        area(Processing)
-        {
-            action(Load)
-            {
-                ApplicationArea = All;
 
-                trigger OnAction()
-                begin
-
-                end;
-            }
-        }
-    }
 
     var
         myInt: Integer;
