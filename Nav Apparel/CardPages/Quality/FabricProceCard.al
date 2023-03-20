@@ -194,7 +194,8 @@ page 50671 "FabricProceCard"
                                 if ItemLedEntryRec.FindSet() then begin
                                     repeat
                                         if ItemLedEntryRec."Lot No." <> '' then
-                                            rec."No of Roll1" := rec."No of Roll1" + ItemLedEntryRec."Remaining Quantity";
+                                            rec."No of Roll1" := rec."No of Roll1" + 1;
+                                    //  rec."No of Roll1" := rec."No of Roll1" + ItemLedEntryRec."Remaining Quantity";
                                     until ItemLedEntryRec.Next() = 0;
                                 end;
 

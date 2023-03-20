@@ -10,7 +10,7 @@ table 50664 BundleGuideHeader
             DataClassification = ToBeClassified;
         }
 
-        field(2; "Style No."; code[20])
+        field(2; "Style No."; code[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -84,6 +84,12 @@ table 50664 BundleGuideHeader
         field(14; "Secondary UserID"; Code[20])
         {
             DataClassification = ToBeClassified;
+        }
+
+        field(15; "LaySheetNo."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = LaySheetHeader."LaySheetNo." where("Style Name" = field("Style Name"));
         }
     }
 

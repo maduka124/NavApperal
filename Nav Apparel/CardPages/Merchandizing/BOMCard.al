@@ -23,6 +23,12 @@ page 50984 "BOM Card"
                     end;
                 }
 
+                // field(con)
+                // {
+                //     ApplicationArea = All;
+                // }
+
+
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;

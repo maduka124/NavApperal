@@ -10,11 +10,11 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
         {
         }
 
-        field(50003; "Assigned PI No."; Code[20])
+        field(50003; "Assigned PI No."; Code[50])
         {
         }
 
-        field(50406; "LC/Contract No."; Code[20])
+        field(50406; "LC/Contract No."; Code[50])
         {
         }
 

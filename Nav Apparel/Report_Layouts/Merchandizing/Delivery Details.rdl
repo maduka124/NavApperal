@@ -836,6 +836,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1993,6 +1994,9 @@
                     <TablixMember />
                     <TablixMember>
                       <Group Name="Group1" />
+                      <Visibility>
+                        <Hidden>=iif(Fields!Qty.Value &lt;=0 , true, false)</Hidden>
+                      </Visibility>
                     </TablixMember>
                     <TablixMember />
                   </TablixMembers>

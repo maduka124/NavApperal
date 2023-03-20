@@ -60,10 +60,37 @@ page 50665 "Bundle Guide Card"
                     end;
                 }
 
+                field("LaySheetNo."; rec."LaySheetNo.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'LaySheet No';
+
+                    trigger OnValidate()
+                    var
+                        LaySheetHeaderRec: Record LaySheetHeader;
+                    begin
+                        LaySheetHeaderRec.Reset();
+                        LaySheetHeaderRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                        if LaySheetHeaderRec.FindSet() then begin
+                            rec."Color Name" := LaySheetHeaderRec.Color;
+                            rec."Color No" := LaySheetHeaderRec."Color No.";
+                            rec."Group ID" := LaySheetHeaderRec."Group ID";
+                            rec."PO No." := LaySheetHeaderRec."PO No.";
+                            rec."Component Group" := LaySheetHeaderRec."Component Group Code";
+                            rec."Cut No" := LaySheetHeaderRec."Cut No.";
+                        end
+                        else
+                            Error('Invalid Layshhet No.');
+
+                        CurrPage.Update();
+                    end;
+                }
+
                 field("Color Name"; rec."Color Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Color';
+                    Editable = false;
 
                     trigger OnLookup(var texts: text): Boolean
                     var
@@ -97,22 +124,23 @@ page 50665 "Bundle Guide Card"
                 field("Group ID"; rec."Group ID")
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
-                    trigger OnValidate()
-                    var
-                        SewJobLine4Rec: Record SewingJobCreationLine4;
-                    begin
-                        SewJobLine4Rec.Reset();
-                        SewJobLine4Rec.SetRange("Style No.", rec."Style No.");
-                        SewJobLine4Rec.SetRange("Colour No", rec."Color No");
-                        SewJobLine4Rec.SetRange("Group ID", rec."Group ID");
-                        if SewJobLine4Rec.FindSet() then
-                            rec."Po No." := SewJobLine4Rec."PO No."
-                        else
-                            Error('Cannot find sewing job details for Style/Color/Group');
+                    // trigger OnValidate()
+                    // var
+                    //     SewJobLine4Rec: Record SewingJobCreationLine4;
+                    // begin
+                    //     SewJobLine4Rec.Reset();
+                    //     SewJobLine4Rec.SetRange("Style No.", rec."Style No.");
+                    //     SewJobLine4Rec.SetRange("Colour No", rec."Color No");
+                    //     SewJobLine4Rec.SetRange("Group ID", rec."Group ID");
+                    //     if SewJobLine4Rec.FindSet() then
+                    //         rec."Po No." := SewJobLine4Rec."PO No."
+                    //     else
+                    //         Error('Cannot find sewing job details for Style/Color/Group');
 
-                        CurrPage.Update();
-                    end;
+                    //     CurrPage.Update();
+                    // end;
                 }
 
                 field("PO No."; rec."PO No.")
@@ -125,11 +153,13 @@ page 50665 "Bundle Guide Card"
                 field("Component Group"; rec."Component Group")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Cut No"; rec."Cut No")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
                 field("Bundle Rule"; rec."Bundle Rule")
@@ -781,11 +811,11 @@ page 50665 "Bundle Guide Card"
                             if rec."Bundle Method" = rec."Bundle Method"::"Roll Wise" then begin
 
                                 LaySheetRec.Reset();
-                                LaySheetRec.SetRange("Style No.", rec."Style No.");
-                                LaySheetRec.SetRange("Color No.", rec."Color No");
-                                LaySheetRec.SetRange("Group ID", rec."Group ID");
-                                LaySheetRec.SetRange("Component Group Code", rec."Component Group");
-                                LaySheetRec.SetRange("Cut No.", rec."Cut No");
+                                LaySheetRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                                // LaySheetRec.SetRange("Color No.", rec."Color No");
+                                // LaySheetRec.SetRange("Group ID", rec."Group ID");
+                                // LaySheetRec.SetRange("Component Group Code", rec."Component Group");
+                                // LaySheetRec.SetRange("Cut No.", rec."Cut No");
 
                                 if not LaySheetRec.FindSet() then
                                     Error('Cannot find matching Laysheet');

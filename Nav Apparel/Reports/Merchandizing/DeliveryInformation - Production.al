@@ -68,6 +68,7 @@ report 51073 DeliveryInfoProductReport
                 trigger OnPreDataItem()
                 begin
                     SetRange("Style Master PO"."Ship Date", stDate, endDate);
+                    SetFilter(Qty, '>%1', 0);
                 end;
             }
 

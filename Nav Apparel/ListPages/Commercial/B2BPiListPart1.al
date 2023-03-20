@@ -55,11 +55,12 @@ page 50523 "B2B PI ListPart1"
                     CodeUnitNav: Codeunit NavAppCodeUnit;
                     LCConRec: Record "Contract/LCMaster";
                     B2BLCPIRec: Record "B2BLCPI";
-                    B2BNo1: Code[20];
+                    B2BNo1: Code[50];
                     B2BRec: Record B2BLCMaster;
                     B2B1Rec: Record B2BLCMaster;
-                    "LC/ContractNo": Code[20];
-                    "LC/ContractNo1": Code[20];
+                    "LC/ContractNo": Code[50];
+                    "LC/ContractNo1": Code[50];
+                    "LC/ContractNo2": text[50];
                     "Tot B2B LC Opened (Value)": Decimal;
                     "LC%": Decimal;
                     PIValue: Decimal;
@@ -89,12 +90,14 @@ page 50523 "B2B PI ListPart1"
                             //Get LC/ContractNo
                             B2B1Rec.Reset();
                             B2B1Rec.SetRange("No.", PIHeaderRec.B2BNo);
-                            if B2B1Rec.FindSet() then
+                            if B2B1Rec.FindSet() then begin
                                 "LC/ContractNo1" := B2B1Rec."LC/Contract No.";
+                                "LC/ContractNo2" := B2B1Rec.LCContractNo;
+                            end;
 
                             //Get LC %                           
                             LCConRec.Reset();
-                            LCConRec.SetRange("Contract No", "LC/ContractNo1");
+                            LCConRec.SetRange("Contract No", "LC/ContractNo2");
                             if LCConRec.FindSet() then
                                 "LC%" := LCConRec.BBLC;
 

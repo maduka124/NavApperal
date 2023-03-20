@@ -25,6 +25,12 @@ page 50666 "Bundle Guide List"
                     Caption = 'Style';
                 }
 
+                field("LaySheetNo."; rec."LaySheetNo.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'LaySheet No';
+                }
+
                 field("Color Name"; Rec."Color Name")
                 {
                     ApplicationArea = All;

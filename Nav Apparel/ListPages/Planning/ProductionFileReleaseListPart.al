@@ -206,6 +206,9 @@ page 51215 ProductionFileReleaseListPart
                                         StyleMasterPORec."Sew Factory No" := ProdFileRelLineRec."Sew Factory No";
                                         StyleMasterPORec."Sew Factory Name" := ProdFileRelLineRec."Sew Factory";
                                         StyleMasterPORec.Modify();
+
+                                        //Get Sales Order for the style/buyer po
+
                                     end;
                                 until NavAppPlanLineRec.Next() = 0;
                             end;

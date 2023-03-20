@@ -53,7 +53,7 @@ page 50525 "B2B PI ListPart2"
                     B2BLCPIRec: Record "B2BLCPI";
                     B2BRec: Record B2BLCMaster;
                     B2B1Rec: Record B2BLCMaster;
-                    "LC/ContractNo": Code[20];
+                    "LC/ContractNo": Code[50];
                     "Tot B2B LC Opened (Value)": Decimal;
                 begin
 
