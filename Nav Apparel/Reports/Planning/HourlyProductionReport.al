@@ -206,8 +206,16 @@ report 50865 HourlyProductionReport
                 // ProductionHeaderRec.SetRange("Ref Line No.", "Line No.");
 
                 if ProductionHeaderRec.Findset() then begin
-                    InputQtyToday := ProductionHeaderRec."Input Qty";
-                    OutputQty := ProductionHeaderRec."Output Qty";
+                    if ProductionHeaderRec."Input Qty" <> 0 then begin
+                        repeat
+                            InputQtyToday += ProductionHeaderRec."Input Qty";
+                            OutputQty += ProductionHeaderRec."Output Qty";
+                        until ProductionHeaderRec.Next() = 0;
+                    end;
+                end;
+
+                if InputQtyToday = 0 then begin
+
                 end;
 
 
