@@ -202,6 +202,25 @@ page 50622 "Fabric Requisition Card"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                        FabRequRec: Record FabricRequsition;
+                    begin
+                        FabRequRec.Reset();
+                        FabRequRec.SetRange("Style No.", rec."Style No.");
+                        FabRequRec.SetRange("Colour No", rec."Colour No");
+                        FabRequRec.SetRange("Group ID", rec."Group ID");
+                        FabRequRec.SetRange("PO No.", rec."PO No.");
+                        FabRequRec.SetRange("Component Group Code", rec."Component Group Code");
+                        FabRequRec.SetRange("Marker Name", rec."Marker Name");
+                        FabRequRec.SetRange("Cut No", rec."Cut No");
+                        FabRequRec.SetFilter("FabReqNo.", '<>%1', rec."FabReqNo.");
+
+                        if FabRequRec.FindSet() then
+                            Error('You have already created Fabric Requisition for this Cut No');
+
+                    end;
                 }
 
                 field("Marker Width"; rec."Marker Width")

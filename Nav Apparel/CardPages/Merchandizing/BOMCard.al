@@ -7733,7 +7733,8 @@ page 50984 "BOM Card"
         if ContractLCStyleRec.FindSet() then begin
             ContractLcMasterRec.Reset();
             ContractLcMasterRec.SetRange("No.", ContractLCStyleRec."No.");
-            ContractLcMasterRec.FindSet();
+            if not ContractLcMasterRec.FindSet() then
+                Error('Cannot find the Contract No : %1', ContractLCStyleRec."No.");
         end;
 
         //Get ship date

@@ -29,7 +29,7 @@ table 50893 "BOM Estimate Line"
             DataClassification = ToBeClassified;
         }
 
-        field(71012585; "Main Category Name"; text[50])
+        field(71012585; "Main Category Name"; text[100])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Main Category"."Main Category Name" where("Main Category Name" = filter(<> 'ALL CATEGORIES'), "Style Related" = filter(1));
@@ -41,7 +41,7 @@ table 50893 "BOM Estimate Line"
             DataClassification = ToBeClassified;
         }
 
-        field(71012587; "Article Name."; text[50])
+        field(71012587; "Article Name."; text[100])
         {
             DataClassification = ToBeClassified;
             TableRelation = Article.Article where("Main Category No." = field("Main Category No."));
@@ -53,7 +53,7 @@ table 50893 "BOM Estimate Line"
             DataClassification = ToBeClassified;
         }
 
-        field(71012589; "Dimension Name."; text[50])
+        field(71012589; "Dimension Name."; text[100])
         {
             DataClassification = ToBeClassified;
             TableRelation = DimensionWidth."Dimension Width" where("Main Category No." = field("Main Category No."));
@@ -108,7 +108,7 @@ table 50893 "BOM Estimate Line"
             DataClassification = ToBeClassified;
         }
 
-        field(71012597; "Supplier Name."; text[50])
+        field(71012597; "Supplier Name."; text[200])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Main Category Vendor"."Vendor Name" where("No." = field("Main Category No."));
@@ -145,7 +145,7 @@ table 50893 "BOM Estimate Line"
             DataClassification = ToBeClassified;
         }
 
-        field(71012604; "Master Category Name"; text[50])
+        field(71012604; "Master Category Name"; text[100])
         {
             DataClassification = ToBeClassified;
         }
