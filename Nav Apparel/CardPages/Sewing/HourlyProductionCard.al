@@ -114,6 +114,7 @@ page 50515 "Hourly Production Card"
                     HourlyProdLines1Rec: Record "Hourly Production Lines";
                     NavAppProdPlanLinesRec: Record "NavApp Prod Plans Details";
                     WorkCenrterRec: Record "Work Center";
+                    ProductionOutHeaderRec: Record ProductionOutHeader;
                     i: Integer;
                     LineNo: Integer;
                     StyleNo: code[20];
@@ -124,6 +125,16 @@ page 50515 "Hourly Production Card"
                         Error('Cannot enter production for previous dates.');
 
                     CurrPage.Update();
+
+                    //Done By sachith on 20/03/23
+                    ProductionOutHeaderRec.Reset();
+                    ProductionOutHeaderRec.SetRange("Prod Date", Rec."Prod Date");
+                    ProductionOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
+                    ProductionOutHeaderRec.SetFilter(Type, '=%1', ProductionOutHeaderRec.Type::Saw);
+
+                    if not ProductionOutHeaderRec.FindSet() then
+                        Error('Daily swing-out is not entered for this factory and date.');
+
                     //Get max lineno
                     HourlyProdLines1Rec.Reset();
                     HourlyProdLines1Rec.SetRange("No.", rec."No.");

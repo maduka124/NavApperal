@@ -1988,6 +1988,9 @@
                     <SortExpression>
                       <Value>=Fields!Buyer_Name.Value</Value>
                     </SortExpression>
+                    <SortExpression>
+                      <Value>=Fields!Ship_Date.Value</Value>
+                    </SortExpression>
                   </SortExpressions>
                   <TablixMembers>
                     <TablixMember />
@@ -1997,7 +2000,7 @@
                     <TablixMember />
                   </TablixMembers>
                   <Visibility>
-                    <Hidden>=Fields!Buyer_Name.Value=""</Hidden>
+                    <Hidden>=Fields!Buyer_Name.Value="" OR Fields!Qty.Value &lt;=0</Hidden>
                   </Visibility>
                 </TablixMember>
                 <TablixMember />
