@@ -136,10 +136,10 @@ page 50503 "Contract/LC List"
         "Contract/LCStyleRec".SetRange("No.", Rec."No.");
 
         if "Contract/LCStyleRec".FindSet() then
-            Error('Record cannot be deleted')
+            Error('Styles addded to the Contract. Contract cannot be deleted.')
         else begin
-            "Contract/LCMasterRec".SetRange("No.", Rec."No.");
-            "Contract/LCMasterRec".DeleteAll();
+            // "Contract/LCMasterRec".SetRange("No.", Rec."No.");
+            // "Contract/LCMasterRec".DeleteAll();
 
             "Contract CommisionRec".SetRange("No.", Rec."No.");
             "Contract CommisionRec".DeleteAll();

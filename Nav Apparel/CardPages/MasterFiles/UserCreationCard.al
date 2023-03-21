@@ -17,6 +17,11 @@ page 50978 "Create User Card"
                 //     Editable = false;
                 // }
 
+                field(contractNo; contractNo)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Secondary UserID"; rec."UserID Secondary")
                 {
                     ApplicationArea = All;
@@ -69,6 +74,32 @@ page 50978 "Create User Card"
         }
     }
 
+    actions
+    {
+        area(Processing)
+        {
+            action("remove contarct/style")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    ContractLCStyle: Record "Contract/LCStyle";
+                begin
+                    ContractLCStyle.Reset();
+                    ContractLCStyle.SetRange("No.", contractNo);
+                    if ContractLCStyle.FindSet() then
+                        ContractLCStyle.DeleteAll();
+
+                    Message('Completed');
+                end;
+            }
+        }
+    }
+
+
     var
         Password: Text[50];
+        contractNo: Text[50];
 }

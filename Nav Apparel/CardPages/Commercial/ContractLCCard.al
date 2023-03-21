@@ -378,7 +378,7 @@ page 50502 "Contract/LC Card"
 
     trigger OnDeleteRecord(): Boolean
     var
-        "Contract/LCMasterRec": Record "Contract/LCMaster";
+        // "Contract/LCMasterRec": Record "Contract/LCMaster";
         "Contract/LCStyleRec": Record "Contract/LCStyle";
         "Contract CommisionRec": Record "Contract Commision";
     begin
@@ -388,13 +388,13 @@ page 50502 "Contract/LC Card"
         "Contract/LCStyleRec".SetRange("No.", Rec."No.");
 
         if "Contract/LCStyleRec".FindSet() then
-            Error('Record cannot be deleted')
+            Error('Styles addded to the Contract. Contract cannot be deleted.')
         else begin
             "Contract CommisionRec".SetRange("No.", rec."No.");
             "Contract CommisionRec".DeleteAll();
 
-            "Contract/LCMasterRec".SetRange("No.", rec."No.");
-            "Contract/LCMasterRec".DeleteAll();
+            // "Contract/LCMasterRec".SetRange("No.", rec."No.");
+            // "Contract/LCMasterRec".DeleteAll();
         end;
     end;
 

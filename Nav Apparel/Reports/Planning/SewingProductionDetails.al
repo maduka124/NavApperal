@@ -48,13 +48,11 @@ report 50852 SewingProductionDetails
             { }
 
             trigger OnPreDataItem()
-
             begin
                 SetRange("Prod Date", stDate);
             end;
 
             trigger OnAfterGetRecord()
-
             begin
 
                 NavAppProdRec.Reset();
@@ -64,21 +62,35 @@ report 50852 SewingProductionDetails
                     Quantity := NavAppProdRec.Qty;
                 end;
 
+                // TotalOuput := 0;
+                // StylePoRec.Reset();
+                // StylePoRec.SetRange("Style No.", "Out Style No.");
+                // StylePoRec.SetRange("PO No.", "OUT PO No");
+                // StylePoRec.SetRange("Lot No.", "Out Lot No.");
+                // if StylePoRec.FindSet() then begin
+                //     repeat
+                //         TotalOuput += StylePoRec."Sawing Out Qty";
+                //     until StylePoRec.Next() = 0;
+                // end;
+
                 TotalOuput := 0;
-                StylePoRec.Reset();
-                StylePoRec.SetRange("Style No.", "Out Style No.");
-                StylePoRec.SetRange("PO No.", "PO No");
-                StylePoRec.SetRange("Lot No.", "Out Lot No.");
-                if StylePoRec.FindSet() then begin
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
+                ProductionHeaderRec.SetFilter("Prod Date", '<=%1', stDate);
+                ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec.SetRange("out Style No.", "Out Style No.");
+                ProductionHeaderRec.SetRange("OUT PO No", "OUT PO No");
+                ProductionHeaderRec.SetRange("out Lot No.", "Out Lot No.");
+                if ProductionHeaderRec.FindSet() then begin
                     repeat
-                        TotalOuput += StylePoRec."Sawing Out Qty";
-                    until StylePoRec.Next() = 0;
+                        TotalOuput += ProductionHeaderRec."Output Qty";
+                    until ProductionHeaderRec.Next() = 0;
                 end;
 
 
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Out Style No.");
-                StylePoRec.SetRange("PO No.", "PO No");
+                StylePoRec.SetRange("PO No.", "out PO No");
                 StylePoRec.SetRange("Lot No.", "Out Lot No.");
                 if StylePoRec.FindFirst() then begin
                     ShipDate := StylePoRec."Ship Date";
@@ -96,7 +108,6 @@ report 50852 SewingProductionDetails
 
                 comRec.Get;
                 comRec.CalcFields(Picture);
-
 
                 NavLinesRec.Reset();
                 NavLinesRec.SetRange("Style No.", "Out Style No.");
@@ -127,21 +138,14 @@ report 50852 SewingProductionDetails
                     {
                         ApplicationArea = All;
                         Caption = 'Date';
-
                     }
-
                 }
             }
         }
-
-
     }
 
 
-
     var
-
-
         Quantity: Decimal;
         NavAppProdRec: Record "NavApp Prod Plans Details";
         ResourceName: Text[100];
