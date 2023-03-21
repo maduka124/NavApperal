@@ -63,26 +63,8 @@ table 50524 "B2BLCPI"
 
     trigger OnInsert()
     var
-
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }
