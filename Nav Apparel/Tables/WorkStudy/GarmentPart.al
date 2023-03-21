@@ -55,6 +55,10 @@ table 50442 GarmentPart
         {
             DataClassification = ToBeClassified;
         }
+        field(10; "Select"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

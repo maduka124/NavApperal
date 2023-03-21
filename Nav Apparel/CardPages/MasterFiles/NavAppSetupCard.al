@@ -653,6 +653,18 @@ page 50964 "NavApp Setup Card"
                     ApplicationArea = All;
                     TableRelation = "No. Series".Code;
                 }
+                field("BundleGuideCard Nos."; Rec."BundleGuideCard Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Cutting Bundle Nos.';
+                    TableRelation = "No. Series".Code;
+                }
+                field("BundleCardGMTType Nos."; Rec."BundleCardGMTType Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Bundle GMT Type Nos.';
+                    TableRelation = "No. Series".Code;
+                }
             }
         }
     }
