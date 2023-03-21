@@ -81,6 +81,8 @@ page 50523 "B2B PI ListPart1"
                             B2BLCPIRec.Init();
                             B2BLCPIRec."B2BNo." := PIHeaderRec.B2BNo;
                             B2BLCPIRec."Suppler No." := PIHeaderRec."Supplier No.";
+                            // Done By Sachith on 21/03/23
+                            B2BLCPIRec."New PI No" := PIHeaderRec."PI No";
                             B2BLCPIRec."PI No." := PIHeaderRec."No.";
                             B2BLCPIRec."PI Date" := PIHeaderRec."PI Date";
                             B2BLCPIRec."PI Value" := PIHeaderRec."PI Value";

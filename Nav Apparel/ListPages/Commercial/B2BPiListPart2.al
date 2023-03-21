@@ -17,9 +17,18 @@ page 50525 "B2B PI ListPart2"
                     Editable = true;
                 }
 
+                //Done By Sachith 21/03/23
+                field("New PI No"; Rec."New PI No")
+                {
+                    ApplicationArea = All;
+                    Caption = 'PI No';
+                    Editable = false;
+                }
+
                 field("PI No."; Rec."PI No.")
                 {
                     ApplicationArea = All;
+                    Caption = 'PI No(System Generated)';
                 }
 
                 field("PI Date"; Rec."PI Date")

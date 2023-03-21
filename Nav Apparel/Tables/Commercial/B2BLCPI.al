@@ -44,6 +44,12 @@ table 50524 "B2BLCPI"
         {
             DataClassification = ToBeClassified;
         }
+
+        // Done By Sachith On 21/03/23
+        field(9; "New PI No"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
