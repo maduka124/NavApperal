@@ -6892,12 +6892,12 @@ page 50984 "BOM Card"
                     //Step 3 : Delete PO
                     PurchLineRec.Reset();
                     PurchLineRec.SetRange(StyleNo, rec."Style No.");
-                    PurchLineRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
+                    PurchLineRec.SetFilter(EntryType, '=%1', PurchLineRec.EntryType::FG);
                     PurchLineRec.SetCurrentKey("Document No.");
                     PurchLineRec.Ascending(true);
 
                     if PurchLineRec.FindSet() then begin
-                        repeat begin
+                        repeat
                             if PONo <> PurchLineRec."Document No." then begin
 
                                 //Delete PO lines
@@ -6913,8 +6913,7 @@ page 50984 "BOM Card"
                                     PurchHeaderRec.DeleteAll();
                             end;
                             PONo := PurchLineRec."Document No.";
-                        end;
-                        until PoPurchReceRec.Next() = 0;
+                        until PurchLineRec.Next() = 0;
                     end;
 
 

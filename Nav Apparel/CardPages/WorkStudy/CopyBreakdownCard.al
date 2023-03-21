@@ -143,21 +143,15 @@ page 50471 "Copy Breakdown Card"
                         LoginSessionsRec.FindSet();
                     end;
 
+                    if SourceStyle = '' then
+                        Error('Source Style cannot be empty');
 
-                    if SourceStyle = '' then begin
-                        Error('Source style cannot be empty');
-                        exit
-                    end;
-
-                    if DestinationStyle = '' then begin
-                        Error('Copy to style cannot be empty');
-                        exit
-                    end;
-
+                    if DestinationStyle = '' then
+                        Error('Copy to Style cannot be empty');
 
                     //Validate
                     if SourceStyle = DestinationStyle then
-                        Error('Source style and copy to style cannot be same')
+                        Error('Source Style and copy to Style cannot be same')
                     else begin
 
                         //Get destination style details
@@ -236,7 +230,6 @@ page 50471 "Copy Breakdown Card"
                                     until NewBrOpLine1Rec.Next() = 0
                                 end;
 
-
                                 //Insert BR Lines                        
                                 NewBrOpLineRec.Reset();
                                 NewBrOpLineRec.SetRange("No.", NewBrRec."No.");
@@ -271,13 +264,10 @@ page 50471 "Copy Breakdown Card"
                                         NewBrOpLineRec1.Insert();
                                     until NewBrOpLineRec.Next() = 0
                                 end;
-
                                 Message('Completed');
-
                             end
                             else
                                 Error('No breakdown assigned for the style : %1', SourceStyle);
-
                         end
                         else
                             Error('Invalid Style.');
