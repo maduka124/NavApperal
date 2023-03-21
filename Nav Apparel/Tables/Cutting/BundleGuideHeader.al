@@ -91,6 +91,11 @@ table 50664 BundleGuideHeader
             DataClassification = ToBeClassified;
             TableRelation = LaySheetHeader."LaySheetNo." where("Style Name" = field("Style Name"));
         }
+        field(16; "Bundle No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

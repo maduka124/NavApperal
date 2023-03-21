@@ -1311,6 +1311,19 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Bundle Guide List";
                     ApplicationArea = all;
                 }
+                action("Bundle List")
+                {
+                    Caption = 'Bundle List';
+                    RunObject = Page "Bundle Card List";
+                    ApplicationArea = all;
+                }
+                action("Bundle GMT Part")
+                {
+                    Caption = 'Bundle GMT Part';
+                    RunObject = Page "Bundle GMT Type";
+                    ApplicationArea = all;
+                }
+
 
                 // action("Cutting Progress")
                 // {
