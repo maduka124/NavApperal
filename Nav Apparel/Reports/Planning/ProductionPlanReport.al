@@ -72,6 +72,8 @@ report 50621 ProductionPlanReport
                 { }
                 column("Resource_Name"; "Resource Name")
                 { }
+                column(WorkcenterNo; WorkcenterNo)
+                { }
 
                 trigger OnAfterGetRecord()
                 var
@@ -145,6 +147,12 @@ report 50621 ProductionPlanReport
                             LineQty += PurchLineRec.Quantity;
                         until PurchLineRec.Next() = 0;
                     end;
+                    WorkcenterNo := 0;
+                    WorkCenterRec.Reset();
+                    WorkCenterRec.SetRange("No.", "Resource No.");
+                    if WorkCenterRec.FindFirst() then begin
+                            WorkcenterNo := WorkCenterRec."Work Center Seq No";
+                    end;
 
                 end;
 
@@ -203,6 +211,8 @@ report 50621 ProductionPlanReport
 
 
     var
+        WorkcenterNo: Integer;
+        WorkCenterRec: Record "Work Center";
         BPCDPo: Date;
         myInt: Integer;
         StyleMasterPoRec: Record "Style Master PO";
