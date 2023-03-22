@@ -1,4 +1,4 @@
-table 51280 BundleGMTPart
+table 51280 GarmentPartsBundleCard
 {
     DataClassification = ToBeClassified;
 
@@ -52,16 +52,9 @@ table 51280 BundleGMTPart
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("BundleGuideCard Nos.");
-
         No := NoSeriesMngment.GetNextNo(NavAppSetup."BundleGuideCard Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    var
-        myInt: Integer;
-
-
 
 }

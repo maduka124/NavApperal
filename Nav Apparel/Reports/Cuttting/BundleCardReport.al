@@ -100,7 +100,7 @@ report 50607 BundleCardReport
 
     var
         GMTPartName: Text[100];
-        GMTPartRec: Record GMTPart2;
+        GMTPartRec: Record GarmentPartsBundleCard2;
         BundleFilter: Code[20];
         myInt: Integer;
         StyleRec: Record "Style Master";

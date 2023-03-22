@@ -1,34 +1,34 @@
-page 51265 Garmentpart
-{
-    PageType = Card;
-    ApplicationArea = All;
-    UsageCategory = Administration;
-    SourceTable = BundleCardGMTType;
-    Caption = 'Garment Parts Card';
+// page 51265 Garmentpart
+// {
+//     PageType = Card;
+//     ApplicationArea = All;
+//     UsageCategory = Administration;
+//     SourceTable = BundleCardGMTType;
+//     Caption = 'Garment Parts Card';
 
-    layout
-    {
-        area(Content)
-        {
-            group(General)
-            {
-                field("Garment Part Code"; Rec."Garment Part Code")
-                {
-                    ApplicationArea = All;
+//     layout
+//     {
+//         area(Content)
+//         {
+//             group(General)
+//             {
+//                 field("Garment Part Code"; Rec."Garment Part Code")
+//                 {
+//                     ApplicationArea = All;
 
-                }
-                field(Description; Rec.Description)
-                {
-                    ApplicationArea = All;
+//                 }
+//                 field(Description; Rec.Description)
+//                 {
+//                     ApplicationArea = All;
 
-                }
-            }
+//                 }
+//             }
 
-        }
-    }
+//         }
+//     }
 
 
 
-    var
-        myInt: Integer;
-}
+//     var
+//         myInt: Integer;
+// }

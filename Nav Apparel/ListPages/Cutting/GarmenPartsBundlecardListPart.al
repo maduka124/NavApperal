@@ -1,7 +1,7 @@
-page 51272 GMTPartListPart
+page 51272 BundleCardGMTPartListPart
 {
     PageType = ListPart;
-    SourceTable = BundleGMTPart;
+    SourceTable = GarmentPartsBundleCard;
     Caption = 'Available Garment Parts';
 
     layout
@@ -13,21 +13,19 @@ page 51272 GMTPartListPart
                 field(Select; Rec."Select")
                 {
                     ApplicationArea = All;
-
                 }
+
                 field("No."; Rec.No)
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Part No';
-
                 }
+
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-
                 }
             }
-
         }
     }
 
@@ -42,8 +40,8 @@ page 51272 GMTPartListPart
 
                 trigger OnAction()
                 var
-                    GMTPartRec: Record GMTPart2;
-                    GMTPart2Rec: Record BundleGMTPart;
+                    GMTPartRec: Record GarmentPartsBundleCard2;
+                    GMTPart2Rec: Record GarmentPartsBundleCard;
                 begin
 
                     GMTPart2Rec.Reset();
@@ -58,27 +56,20 @@ page 51272 GMTPartListPart
                                     GMTPartRec.Description := Rec.Description;
                                     GMTPartRec.BundleCardNo := Rec.BundleCardNo;
                                     GMTPartRec.Insert();
-
                                 until GMTPartRec.Next() = 0;
+
                                 GMTPart2Rec.Select := false;
                                 GMTPart2Rec.Modify();
                                 CurrPage.Update();
                             end
                             else
-                                Error('Record already exist');
+                                Error('Record already exists');
                         until GMTPartRec.Next() = 0;
 
                     end;
 
                 end;
-
-
-
-
             }
         }
     }
-
-    var
-        myInt: Integer;
 }

@@ -1,12 +1,11 @@
-page 51281 "Bundle GMT Type"
+page 51281 "Garment Parts - Bundle Card"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = BundleGMTPart;
-    CardPageId = BundleCardGMTType;
+    SourceTable = GarmentPartsBundleCard;
+    CardPageId = GarmenPartsBundleCard;
     Caption = 'Bundle Card';
-
 
     layout
     {
@@ -17,15 +16,12 @@ page 51281 "Bundle GMT Type"
                 field("No."; Rec.No)
                 {
                     ApplicationArea = All;
-
                 }
+
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-
                 }
-
-
             }
         }
     }

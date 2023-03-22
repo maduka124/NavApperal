@@ -1,17 +1,17 @@
-page 51280 BundleCardGMTType
+page 51280 GarmenPartsBundleCard
 {
     PageType = Card;
     ApplicationArea = All;
     UsageCategory = Administration;
-    SourceTable = BundleGMTPart;
-    Caption = 'Bundle GMT Part Card';
+    SourceTable = GarmentPartsBundleCard;
+    Caption = 'Garment Parts - Bundle Card';
+
     layout
     {
         area(Content)
         {
             group(GroupName)
             {
-
                 field("No."; Rec.No)
                 {
                     ApplicationArea = All;
@@ -21,18 +21,17 @@ page 51280 BundleCardGMTType
                         IF AssistEdit THEN
                             CurrPage.UPDATE;
                     end;
-
                 }
 
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Part Name';
-
                 }
             }
         }
     }
+
     procedure AssistEdit(): Boolean
     var
         NavAppSetup: Record "NavApp Setup";
@@ -43,25 +42,7 @@ page 51280 BundleCardGMTType
             NoSeriesMngment.SetSeries(rec.No);
             CurrPage.Update();
             EXIT(TRUE);
-
         END;
     end;
-    // actions
-    // {
-    //     area(Processing)
-    //     {
-    //         action(ActionName)
-    //         {
-    //             ApplicationArea = All;
 
-    //             trigger OnAction()
-    //             begin
-
-    //             end;
-    //         }
-    //     }
-    // }
-
-    var
-        myInt: Integer;
 }

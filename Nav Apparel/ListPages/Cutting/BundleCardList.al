@@ -5,7 +5,7 @@ page 51267 "Bundle Card List"
     UsageCategory = Lists;
     SourceTable = BundleCardTable;
     CardPageId = Bundlecard;
-    Caption = 'Bundle Card';
+    Caption = 'Bundle Card List';
 
 
     layout
@@ -29,10 +29,7 @@ page 51267 "Bundle Card List"
                 field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
-
                 }
-
-
             }
         }
     }

@@ -6,7 +6,6 @@ page 51276 Bundlecard
     SourceTable = BundleCardTable;
     Caption = 'Bundle Card';
 
-
     layout
     {
         area(Content)
@@ -22,15 +21,15 @@ page 51276 Bundlecard
                             CurrPage.UPDATE;
                     end;
                 }
+
                 field("Bundle Guide Header No"; Rec."Bundle Guide Header No")
                 {
                     ApplicationArea = all;
 
                     trigger OnValidate()
                     var
-                        GMTPartList: Record BundleGMTPart;
-                        BundleGuideHRec: Record BundleGuideHeader;
-
+                        GMTPartList: Record GarmentPartsBundleCard;
+                    // BundleGuideHRec: Record BundleGuideHeader;
                     begin
 
                         GMTPartList.Reset();
@@ -42,44 +41,40 @@ page 51276 Bundlecard
                             CurrPage.Update();
                         end;
 
-                        BundleGuideHRec.Reset();
-                        if BundleGuideHRec.FindSet() then begin
-                            repeat
-                                BundleGuideHRec."Bundle No" := Rec."Bundle Card No";
-                                BundleGuideHRec.Modify();
-                            until BundleGuideHRec.Next() = 0;
-                            CurrPage.Update();
-                        end;
+                        // BundleGuideHRec.Reset();
+                        // if BundleGuideHRec.FindSet() then begin
+                        //     repeat
+                        //         BundleGuideHRec."Bundle No" := Rec."Bundle Card No";
+                        //         BundleGuideHRec.Modify();
+                        //     until BundleGuideHRec.Next() = 0;
+                        //     CurrPage.Update();
+                        // end;
                     end;
                 }
+
                 field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
+
                 field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
-
                 }
-
-
             }
 
             group(" ")
             {
-                part(GMTPartListPart; GMTPartListPart)
+                part(BundleCardGMTPartListPart; BundleCardGMTPartListPart)
                 {
                     ApplicationArea = all;
-
-
                 }
-                part(GMTPartListPart2; GMTPartListPart2)
+
+                part(BundleCardGMTPartListPart2; BundleCardGMTPartListPart2)
                 {
                     ApplicationArea = all;
                     SubPageLink = BundleCardNo = field("Bundle Card No");
-
-
                 }
             }
         }
@@ -105,6 +100,7 @@ page 51276 Bundlecard
             }
         }
     }
+
     procedure AssistEdit(): Boolean
     var
         NavAppSetup: Record "NavApp Setup";
@@ -115,10 +111,7 @@ page 51276 Bundlecard
             NoSeriesMngment.SetSeries(rec."Bundle Card No");
             CurrPage.Update();
             EXIT(TRUE);
-
         END;
     end;
 
-    var
-        myInt: Integer;
 }

@@ -1311,26 +1311,20 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Bundle Guide List";
                     ApplicationArea = all;
                 }
-                action("Bundle List")
+
+                action("Bundle Card")
                 {
-                    Caption = 'Bundle List';
+                    Caption = 'Bundle Card';
                     RunObject = Page "Bundle Card List";
                     ApplicationArea = all;
                 }
+
                 action("Bundle GMT Part")
                 {
-                    Caption = 'Bundle GMT Part';
-                    RunObject = Page "Bundle GMT Type";
+                    Caption = 'Garment Parts - Bundle Card';
+                    RunObject = Page "Garment Parts - Bundle Card";
                     ApplicationArea = all;
                 }
-
-
-                // action("Cutting Progress")
-                // {
-                //     Caption = 'Cutting Progress';
-                //     RunObject = Page "Cutting Progress List";
-                //     ApplicationArea = all;
-                // }
 
                 action("Cut Creation")
                 {
@@ -1366,13 +1360,6 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page FabricRequisitionList;
                     ApplicationArea = all;
                 }
-                action("Garment Part List")
-                {
-                    Caption = 'Garment Parts';
-                    RunObject = Page GarmentPartList;
-                    ApplicationArea = all;
-                }
-
 
                 action("Lay Sheet")
                 {
