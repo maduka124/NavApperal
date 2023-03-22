@@ -10,6 +10,14 @@ pageextension 51154 WorkcenterCardExt extends "Work Center Card"
                 ApplicationArea = All;
             }
         }
+        addafter("Linked To Service Item")
+        {
+            field("Work Center Seq No"; Rec."Work Center Seq No")
+            {
+                ApplicationArea = All;
+
+            }
+        }
 
         addafter(Warehouse)
         {
@@ -110,6 +118,7 @@ pageextension 51154 WorkcenterCardExt extends "Work Center Card"
                 }
             }
         }
+
 
         modify(Name)
         {
