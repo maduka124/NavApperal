@@ -46,14 +46,6 @@ report 50641 WIPReport
                 { }
                 column(Cut_In_Qty; "Cut In Qty")
                 { }
-                column(Emb_Out_Qty; "Emb Out Qty")
-                { }
-                column(Emb_In_Qty; "Emb In Qty")
-                { }
-                column(Print_Out_Qty; "Print Out Qty")
-                { }
-                column(Print_In_Qty; "Print In Qty")
-                { }
                 column(Wash_In_Qty; "Wash In Qty")
                 { }
                 column(Wash_Out_Qty; "Wash Out Qty")
