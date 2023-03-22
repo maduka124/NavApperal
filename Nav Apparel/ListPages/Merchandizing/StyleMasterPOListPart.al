@@ -248,6 +248,7 @@ page 51069 "Style Master PO ListPart"
     trigger OnDeleteRecord(): Boolean
     var
         NavappPlanLineRec: Record "NavApp Planning Lines";
+        AssorColorSizeRatioRec: Record AssorColorSizeRatio;
     begin
         CurrPage.Update();
         NavappPlanLineRec.Reset();
@@ -255,6 +256,12 @@ page 51069 "Style Master PO ListPart"
         NavappPlanLineRec.SetRange("Lot No.", rec."Lot No.");
         if NavappPlanLineRec.FindSet() then
             Error('PO already planned. Cannot delete.');
+
+        AssorColorSizeRatioRec.Reset();
+        AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+        AssorColorSizeRatioRec.SetRange("PO No.", rec."PO No.");
+        if AssorColorSizeRatioRec.FindSet() then
+            Error('Color Size entered for the PO. Cannot delete.');
     end;
 
 }

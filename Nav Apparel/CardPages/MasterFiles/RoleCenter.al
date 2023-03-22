@@ -1312,12 +1312,12 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
-                action("Bundle Card")
-                {
-                    Caption = 'Bundle Card';
-                    RunObject = Page "Bundle Card List";
-                    ApplicationArea = all;
-                }
+                // action("Bundle Card")
+                // {
+                //     Caption = 'Bundle Card';
+                //     RunObject = Page "Bundle Card List";
+                //     ApplicationArea = all;
+                // }
 
                 action("Bundle GMT Part")
                 {

@@ -71,6 +71,7 @@ page 50607 "Style Master Card"
                 field("Order Qty"; rec."Order Qty")
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
                     trigger OnValidate()
                     var
@@ -107,7 +108,7 @@ page 50607 "Style Master Card"
                         "Contract/LCStyleRec".SetRange("Style No.", Rec."No.");
 
                         if "Contract/LCStyleRec".FindSet() then
-                            Error('Quantity cannot be changed');
+                            Error('Style allocated to a Contract. Cannot change the Quantity.');
                     end;
                 }
 

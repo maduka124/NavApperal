@@ -86,7 +86,7 @@ page 51276 Bundlecard
         {
             action(BundleCardReport)
             {
-                Caption = 'Bundle Card Report';
+                Caption = 'Print Bundle Card';
                 Image = Report;
 
                 trigger OnAction()
@@ -95,7 +95,6 @@ page 51276 Bundlecard
                 begin
                     BundleCardReport.PassParameters(Rec."Bundle Guide Header No");
                     BundleCardReport.RunModal();
-
                 end;
             }
         }

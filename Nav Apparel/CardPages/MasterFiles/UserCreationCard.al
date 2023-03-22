@@ -95,6 +95,26 @@ page 50978 "Create User Card"
                     Message('Completed');
                 end;
             }
+
+
+            action("delete daily sewing")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    ProductionOutHeader: Record ProductionOutHeader;
+                begin
+                    ProductionOutHeader.Reset();
+                    ProductionOutHeader.SetFilter(Type, '=%1', ProductionOutHeader.Type::Saw);
+                    ProductionOutHeader.SetRange("No.", 139);
+                    if ProductionOutHeader.FindSet() then
+                        ProductionOutHeader.DeleteAll();
+
+                    Message('Completed');
+                end;
+            }
         }
     }
 

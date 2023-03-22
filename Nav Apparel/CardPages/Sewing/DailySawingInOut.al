@@ -19,8 +19,23 @@ page 50355 "Daily Sewing In/Out Card"
                     trigger OnValidate()
                     var
                         LoginSessionsRec: Record LoginSessions;
+                        ProdOutHeaderRec: Record ProductionOutHeader;
                         LoginRec: Page "Login Card";
                     begin
+
+                        //Check Production already updated not not for the selected date
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                        //ProdOutHeaderRec.SetRange("Factory Code", rec."Factory Code");
+                        ProdOutHeaderRec.SetFilter("Prod Date", '=%1', rec."Prod Date");
+                        //ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
+
+                        if ProdOutHeaderRec.FindSet() then begin
+                            repeat
+                                if ProdOutHeaderRec."Prod Updated" = 1 then
+                                    Error('Production already updated for : %1 . You cannot enter Sewing Out.', rec."Prod Date");
+                            until ProdOutHeaderRec.Next() = 0;
+                        end;
 
                         rec.Type := rec.Type::Saw;
 
@@ -55,6 +70,7 @@ page 50355 "Daily Sewing In/Out Card"
                     var
                         UserSetupRec: Record "User Setup";
                         WorkCentrRec: Record "Work Center";
+                        ProdOutHeaderRec: Record ProductionOutHeader;
                     begin
                         //Mihiranga 2022/12/14
                         UserSetupRec.Get(UserId);
@@ -69,6 +85,19 @@ page 50355 "Daily Sewing In/Out Card"
                             Rec."Factory Code" := WorkCentrRec."Factory No.";
                             Rec."Factory Name" := WorkCentrRec."Factory Name";
                         end;
+
+                        // //Check Production already updated not not for the selected date
+                        // ProdOutHeaderRec.Reset();
+                        // ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                        // ProdOutHeaderRec.SetRange("Factory Code", rec."Factory Code");
+                        // ProdOutHeaderRec.SetFilter("Prod Date", '=%1', rec."Prod Date");
+                        // ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
+                        // if ProdOutHeaderRec.FindSet() then begin
+                        //     repeat
+                        //         if ProdOutHeaderRec."Prod Updated" = 1 then
+                        //             Error('Production already updated for : %1 . You cannot enter Sewing Out.', rec."Prod Date");
+                        //     until ProdOutHeaderRec.Next() = 0;
+                        // end;
                     end;
 
                     trigger OnValidate()

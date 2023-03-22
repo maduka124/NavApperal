@@ -10,7 +10,7 @@ page 51280 GarmenPartsBundleCard
     {
         area(Content)
         {
-            group(GroupName)
+            group(General)
             {
                 field("No."; Rec.No)
                 {
