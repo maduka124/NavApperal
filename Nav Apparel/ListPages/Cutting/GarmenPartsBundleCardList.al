@@ -1,4 +1,4 @@
-page 51281 "Garment Parts - Bundle Card"
+page 51275 "Garment Parts - Bundle Card"
 {
     PageType = List;
     ApplicationArea = All;

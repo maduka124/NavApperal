@@ -1,4 +1,4 @@
-table 51280 GarmentPartsBundleCard
+table 51276 GarmentPartsBundleCard
 {
     DataClassification = ToBeClassified;
 
