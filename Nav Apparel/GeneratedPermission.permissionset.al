@@ -1112,5 +1112,7 @@ permissionset 50100 GeneratedPermission
         page "YY Type Card"=X,
         page "YY Type List"=X,
         query PlanEffDashboardReportTable_Q=X,
-        query StyleMaster_StyleMasterPO_Q=X;
+        query StyleMaster_StyleMasterPO_Q=X,
+        tabledata BundleCardGMTType=RIMD,
+        table BundleCardGMTType=X;
 }

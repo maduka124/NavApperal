@@ -80,7 +80,9 @@ page 50371 "Prod Update Card"
         SHCalHolidayRec: Record "Shop Calendar Holiday";
         SHCalWorkRec: Record "Shop Calendar Working Days";
         LocationRec: Record Location;
+        ProductionOutLine: Record ProductionOutLine;
 
+        LineTotal_Out: Decimal;
         dtStart: Date;
         dtEnd: Date;
         TImeStart: Time;
@@ -219,6 +221,38 @@ page 50371 "Prod Update Card"
                         end;
                         // else
                         //     Error('Sewing out qty not entered for : %1', ProdDate);
+
+
+                        //Validate Line out Qty Vs Color size qty
+                        LineTotal_Out := 0;
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                        ProdOutHeaderRec.SetRange("Factory Code", LocationRec.Code);
+                        ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
+                        ProdOutHeaderRec.SetRange("Resource No.", WorkCenterRec."No.");
+                        if ProdOutHeaderRec.FindSet() then begin
+                            repeat
+
+                                //Line Out Qty
+                                ProductionOutLine.Reset();
+                                ProductionOutLine.SetRange("No.", ProdOutHeaderRec."No.");
+                                ProductionOutLine.SetRange(In_Out, 'OUT');
+
+                                if ProductionOutLine.FindSet() then begin
+                                    repeat
+                                        if ProductionOutLine."Colour No" <> '*' then
+                                            LineTotal_Out += ProductionOutLine.Total;
+                                    until ProductionOutLine.Next() = 0;
+                                end;
+
+                                if LineTotal_Out <> ProdOutHeaderRec."Output Qty" then begin
+                                    Error('Output quantity should match color/size total quantity in Daily Sewing Out No : %1', ProdOutHeaderRec."No.");
+                                    exit;
+                                end;
+
+                            until ProdOutHeaderRec.Next() = 0;
+                        end;
+
 
 
                         //Initialize for the work center line
