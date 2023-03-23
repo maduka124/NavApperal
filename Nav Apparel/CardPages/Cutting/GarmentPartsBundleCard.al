@@ -1,4 +1,4 @@
-page 51280 GarmenPartsBundleCard
+page 51280 GarmentPartsBundleCard
 {
     PageType = Card;
     ApplicationArea = All;
