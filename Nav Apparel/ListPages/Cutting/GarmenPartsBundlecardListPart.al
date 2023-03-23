@@ -2,6 +2,7 @@ page 51272 BundleCardGMTPartListPart
 {
     PageType = ListPart;
     SourceTable = GarmentPartsBundleCard;
+    SourceTableView = sorting(Description) order(ascending);
     Caption = 'Available Garment Parts';
     InsertAllowed = false;
     DeleteAllowed = false;
@@ -42,14 +43,9 @@ page 51272 BundleCardGMTPartListPart
 
                 trigger OnAction()
                 var
-
                     GMTpart1Rec: Record GarmentPartsBundleCard;
                     GMTpart2Rec: Record GarmentPartsBundleCard2;
-
                 begin
-                    // GMTPartRec.Reset();
-                    // GMTPartRec.DeleteAll();
-
                     GMTpart1Rec.Reset();
                     GMTpart1Rec.SetCurrentKey(No);
                     GMTpart1Rec.SetRange(Select, true);

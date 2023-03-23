@@ -32,5 +32,9 @@ table 51269 GarmentPartsBundleCard2
         {
             Clustered = true;
         }
+
+        key(SK; Description)
+        {
+        }
     }
 }

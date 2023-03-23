@@ -60,4 +60,15 @@ page 51267 "Bundle Card List"
 
     end;
 
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        GMTPartsBdlCard2Rec: Record GarmentPartsBundleCard2;
+    begin
+        GMTPartsBdlCard2Rec.reset();
+        GMTPartsBdlCard2Rec.SetRange(BundleCardNo, rec."Bundle Card No");
+        if GMTPartsBdlCard2Rec.FindSet() then
+            GMTPartsBdlCard2Rec.DeleteAll();
+    end;
+
 }

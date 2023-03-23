@@ -1467,21 +1467,22 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     end
                     else begin   //Drag and drop existing allocation
 
+                        HoursPerDay := 0;
+                        ResourceNo := copystr(_newRowObjectID, 3, StrLen(_newRowObjectID) - 2);
+
                         //Check whether pending sawing out quantity is there for the allocation
                         ProdHeaderRec.Reset();
                         ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
-                        ProdHeaderRec.SetRange("Style No.", STYNo);
-                        ProdHeaderRec.SetRange("Lot No.", lotNo);
+                        ProdHeaderRec.SetRange("out Style No.", STYNo);
+                        ProdHeaderRec.SetRange("out Lot No.", lotNo);
+                        ProdHeaderRec.SetRange("OUT PO No", PONo);
                         ProdHeaderRec.SetRange("Ref Line No.", LineNo);
-                        ProdHeaderRec.SetRange(Type, 1);
+                        ProdHeaderRec.SetRange("Resource No.", ResourceNo);
+                        ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
 
-                        if ProdHeaderRec.FindSet() then begin
-                            Message('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
-                            exit;
-                        end;
+                        if ProdHeaderRec.FindSet() then
+                            Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
 
-                        HoursPerDay := 0;
-                        ResourceNo := copystr(_newRowObjectID, 3, StrLen(_newRowObjectID) - 2);
 
                         //Get Resorce line details
                         ResourceRec.Reset();

@@ -29,9 +29,7 @@ page 51276 Bundlecard
                     trigger OnValidate()
                     var
                         GMTPartList: Record GarmentPartsBundleCard;
-                    // BundleGuideHRec: Record BundleGuideHeader;
                     begin
-
                         GMTPartList.Reset();
                         if GMTPartList.FindSet() then begin
                             repeat
@@ -40,15 +38,6 @@ page 51276 Bundlecard
                             until GMTPartList.Next() = 0;
                             CurrPage.Update();
                         end;
-
-                        // BundleGuideHRec.Reset();
-                        // if BundleGuideHRec.FindSet() then begin
-                        //     repeat
-                        //         BundleGuideHRec."Bundle No" := Rec."Bundle Card No";
-                        //         BundleGuideHRec.Modify();
-                        //     until BundleGuideHRec.Next() = 0;
-                        //     CurrPage.Update();
-                        // end;
                     end;
                 }
 
@@ -99,6 +88,18 @@ page 51276 Bundlecard
             }
         }
     }
+
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        GMTPartsBdlCard2Rec: Record GarmentPartsBundleCard2;
+    begin
+        GMTPartsBdlCard2Rec.reset();
+        GMTPartsBdlCard2Rec.SetRange(BundleCardNo, rec."Bundle Card No");
+        if GMTPartsBdlCard2Rec.FindSet() then
+            GMTPartsBdlCard2Rec.DeleteAll();
+    end;
+
 
     procedure AssistEdit(): Boolean
     var

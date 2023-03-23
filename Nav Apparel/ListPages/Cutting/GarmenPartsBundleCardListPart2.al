@@ -2,6 +2,7 @@ page 51273 BundleCardGMTPartListPart2
 {
     PageType = ListPart;
     SourceTable = GarmentPartsBundleCard2;
+    SourceTableView = sorting(Description) order(ascending);
     Caption = 'Selected Garment Parts';
     InsertAllowed = false;
     DeleteAllowed = false;

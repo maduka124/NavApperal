@@ -13,11 +13,13 @@ report 50607 BundleCardReport
         {
             column(GMTPartNo; GMTPartName)
             { }
+
             dataitem(BundleGuideLine; BundleGuideLine)
             {
                 DataItemLinkReference = BundleCardTable;
                 DataItemLink = "BundleGuideNo." = field("Bundle Guide Header No");
                 DataItemTableView = sorting("BundleGuideNo.");
+
                 column(PO; PO)
                 { }
                 column(Color_Name; "Color Name")
@@ -44,18 +46,18 @@ report 50607 BundleCardReport
                 { }
 
                 trigger OnAfterGetRecord()
-
                 begin
+                    StyleRec.Reset();
                     StyleRec.SetRange("Style No.", "Style Name");
-                    if StyleRec.FindFirst() then begin
+                    if StyleRec.FindFirst() then
                         Buyer := StyleRec."Buyer Name";
-                    end;
+
                     comRec.Get;
                     comRec.CalcFields(Picture);
                 end;
             }
-            trigger OnPreDataItem()
 
+            trigger OnPreDataItem()
             begin
                 SetRange("Bundle Guide Header No", BundleFilter);
             end;
@@ -85,7 +87,7 @@ report 50607 BundleCardReport
                     {
                         ApplicationArea = All;
                         Editable = false;
-
+                        Caption = 'Bundle Guide No';
                     }
                 }
             }

@@ -42,6 +42,10 @@ table 51280 GarmentPartsBundleCard
         {
             Clustered = true;
         }
+
+        key(SK; Description)
+        {
+        }
     }
 
 
