@@ -1342,7 +1342,7 @@ page 50968 "Nav Apperal Role Center"
 
                 action("Daily Cutting Out")
                 {
-                    Caption = 'Daily Cutting Out';
+                    Caption = 'Daily Cutting In/Out';
                     RunObject = Page "Daily Cutting Out";
                     ApplicationArea = all;
                 }

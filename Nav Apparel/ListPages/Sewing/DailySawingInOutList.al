@@ -5,7 +5,6 @@ page 50356 "Daily Sewing In/Out"
     UsageCategory = Lists;
     SourceTable = ProductionOutHeader;
     SourceTableView = sorting("No.") order(descending) where(Type = filter('Saw'));
-
     CardPageId = "Daily Sewing In/Out Card";
 
     layout
@@ -45,6 +44,12 @@ page 50356 "Daily Sewing In/Out"
                 field("Output Qty"; rec."Output Qty")
                 {
                     ApplicationArea = All;
+                }
+
+                field("Prod Updated"; rec."Prod Updated")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Prod. Updated Status';
                 }
             }
         }
