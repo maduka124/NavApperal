@@ -1097,11 +1097,11 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = page "Item Ledger Entries";
                 }
 
-                //Done By Sachith 28/02/23
+                //Done By Sachith 22/03/23
                 action("Buyer/Style/VendorPO Details Store")
                 {
                     Caption = 'Buyer/Style/Vendor PO Details';
-                    RunObject = page "Buyer Style PO Search";
+                    RunObject = page "Buyer Style PO Search List";
                     ApplicationArea = All;
                 }
 

@@ -170,10 +170,12 @@ page 51066 "Style Inquiry"
         if UserSetupRec.FindSet() then begin
             if UserSetupRec."Merchandizer All Group" = false then begin
                 if UserSetupRec."Merchandizer Group Name" = '' then
-                    Error('Merchandiser Group Name has not set up for the user : %1', UserId)
-                else
-                    rec.SetFilter("Merchandizer Group Name", '=%1', UserSetupRec."Merchandizer Group Name");
+                    //Done By Sachith on 23/03/23
+                    if UserSetupRec.UserRole <> 'STORE USER' then
+                        Error('Merchandiser Group Name has not set up for the user : %1', UserId)
             end
+            else
+                rec.SetFilter("Merchandizer Group Name", '=%1', UserSetupRec."Merchandizer Group Name");
         end
         else
             Error('Cannot find user details in user setup table');
