@@ -3,6 +3,8 @@ page 51273 BundleCardGMTPartListPart2
     PageType = ListPart;
     SourceTable = GarmentPartsBundleCard2;
     Caption = 'Selected Garment Parts';
+    InsertAllowed = false;
+    DeleteAllowed = false;
 
     layout
     {
@@ -19,6 +21,7 @@ page 51273 BundleCardGMTPartListPart2
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
+                    Caption = 'GMT Part No';
 
                 }
 
@@ -44,11 +47,13 @@ page 51273 BundleCardGMTPartListPart2
                     GMTPartRec: Record GarmentPartsBundleCard2;
                 begin
                     GMTPartRec.Reset();
-                    GMTPartRec.SetRange("No.", Rec."No.");
-                    GMTPartRec.SetFilter(Select, '=%1', true);
+                    // GMTPartRec.SetRange("No.", Rec."No.");
+                    GMTPartRec.SetCurrentKey("No.");
+                    GMTPartRec.SetRange(Select, true);
                     if GMTPartRec.FindSet() then
-                        GMTPartRec.DeleteAll();
-
+                        repeat
+                            GMTPartRec.DeleteAll();
+                        until GMTPartRec.Next() = 0;
                 end;
             }
 
