@@ -33,7 +33,7 @@ page 51272 BundleCardGMTPartListPart
     {
         area(Processing)
         {
-            action(add)
+            action(Add)
             {
                 ApplicationArea = All;
                 Image = Add;
@@ -43,12 +43,16 @@ page 51272 BundleCardGMTPartListPart
                     GMTPartRec: Record GarmentPartsBundleCard2;
                     GMTPart2Rec: Record GarmentPartsBundleCard;
                 begin
+                    // GMTPartRec.Reset();
+                    // GMTPartRec.DeleteAll();
 
                     GMTPart2Rec.Reset();
                     GMTPart2Rec.SetFilter(Select, '=%1', true);
                     if GMTPart2Rec.FindSet() then begin
                         repeat
+                        GMTPartRec.Reset();
                             GMTPartRec.SetRange("No.", Rec.No);
+                            GMTPartRec.SetRange(BundleCardNo, Rec.BundleCardNo);
                             if not GMTPartRec.FindSet() then begin
                                 repeat
                                     GMTPartRec.Init();
@@ -56,16 +60,18 @@ page 51272 BundleCardGMTPartListPart
                                     GMTPartRec.Description := Rec.Description;
                                     GMTPartRec.BundleCardNo := Rec.BundleCardNo;
                                     GMTPartRec.Insert();
+                                    GMTPart2Rec.Select := false;
+                                    GMTPart2Rec.Modify();
+                                    CurrPage.Update();
                                 until GMTPartRec.Next() = 0;
-
+                            end
+                            else begin
                                 GMTPart2Rec.Select := false;
                                 GMTPart2Rec.Modify();
                                 CurrPage.Update();
-                            end
-                            else
                                 Error('Record already exists');
-                        until GMTPartRec.Next() = 0;
-
+                            end;
+                        until GMTPart2Rec.Next() = 0;
                     end;
 
                 end;

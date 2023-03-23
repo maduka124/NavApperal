@@ -14,7 +14,7 @@ table 51269 GarmentPartsBundleCard2
             DataClassification = ToBeClassified;
         }
 
-        field(3; Description; Text[50])
+        field(3; Description; Text[200])
         {
             DataClassification = ToBeClassified;
         }
