@@ -3,6 +3,8 @@ page 51272 BundleCardGMTPartListPart
     PageType = ListPart;
     SourceTable = GarmentPartsBundleCard;
     Caption = 'Available Garment Parts';
+    InsertAllowed = false;
+    DeleteAllowed = false;
 
     layout
     {
@@ -33,41 +35,45 @@ page 51272 BundleCardGMTPartListPart
     {
         area(Processing)
         {
-            action(add)
+            action(Add)
             {
                 ApplicationArea = All;
                 Image = Add;
 
                 trigger OnAction()
                 var
-                    GMTPartRec: Record GarmentPartsBundleCard2;
-                    GMTPart2Rec: Record GarmentPartsBundleCard;
+
+                    GMTpart1Rec: Record GarmentPartsBundleCard;
+                    GMTpart2Rec: Record GarmentPartsBundleCard2;
+
                 begin
+                    // GMTPartRec.Reset();
+                    // GMTPartRec.DeleteAll();
 
-                    GMTPart2Rec.Reset();
-                    GMTPart2Rec.SetFilter(Select, '=%1', true);
-                    if GMTPart2Rec.FindSet() then begin
+                    GMTpart1Rec.Reset();
+                    GMTpart1Rec.SetCurrentKey(No);
+                    GMTpart1Rec.SetRange(Select, true);
+
+                    if GMTpart1Rec.FindSet() then begin
                         repeat
-                            GMTPartRec.SetRange("No.", Rec.No);
-                            if not GMTPartRec.FindSet() then begin
-                                repeat
-                                    GMTPartRec.Init();
-                                    GMTPartRec."No." := Rec.No;
-                                    GMTPartRec.Description := Rec.Description;
-                                    GMTPartRec.BundleCardNo := Rec.BundleCardNo;
-                                    GMTPartRec.Insert();
-                                until GMTPartRec.Next() = 0;
+                            GMTpart2Rec.Reset();
+                            GMTpart2Rec.SetRange("No.", GMTpart1Rec.No);
+                            GMTpart2Rec.SetRange(BundleCardNo, GMTpart1Rec.BundleCardNo);
+                            if not GMTpart2Rec.FindSet() then begin
+                                GMTpart2Rec.Init();
+                                GMTpart2Rec."No." := GMTpart1Rec.No;
+                                GMTpart2Rec.BundleCardNo := GMTpart1Rec.BundleCardNo;
+                                GMTpart2Rec.Description := GMTpart1Rec.Description;
+                                GMTpart2Rec.Insert();
 
-                                GMTPart2Rec.Select := false;
-                                GMTPart2Rec.Modify();
+                                GMTpart1Rec.Select := false;
+                                GMTpart1Rec.Modify();
                                 CurrPage.Update();
-                            end
-                            else
-                                Error('Record already exists');
-                        until GMTPartRec.Next() = 0;
-
-                    end;
-
+                            end;
+                        until GMTpart1Rec.Next() = 0;
+                    end
+                    else
+                        Error('Record Already exist');
                 end;
             }
         }

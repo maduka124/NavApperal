@@ -4,7 +4,7 @@ page 51252 "Buyer Style PO Search List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "BuyerStylePOSearchHeader";
-    CardPageId = "Buyer Style PO Search";  
+    CardPageId = "Buyer Style PO Search";
     Editable = false;
 
     layout
@@ -87,6 +87,7 @@ page 51252 "Buyer Style PO Search List"
                 end;
             until CustomerRec.Next() = 0;
         end;
+
         //Get UserID
         UsersetupRec.Reset();
         UsersetupRec.Get(UserId);
@@ -94,11 +95,16 @@ page 51252 "Buyer Style PO Search List"
         // All Merchandizer Group false
         if UsersetupRec."Merchandizer All Group" = false then begin
 
-            if UsersetupRec."Merchandizer Group Name" = '' then
-                Error('Merchandiser Group Name is not setup in user setup')
-            else begin
+            // if UsersetupRec."Merchandizer Group Name" = '' then
+            //     Error('Merchandiser Group Name is not setup in user setup')
+            // else begin
+            //     Rec.SetRange("Group Name", UsersetupRec."Merchandizer Group Name");
+            // end;
+
+            //Done By Sachith on 23/03/23
+            if UsersetupRec."Merchandizer Group Name" <> '' then
                 Rec.SetRange("Group Name", UsersetupRec."Merchandizer Group Name");
-            end;
+
         end;
     end;
 }

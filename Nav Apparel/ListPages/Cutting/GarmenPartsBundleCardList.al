@@ -4,7 +4,7 @@ page 51281 "Garment Parts - Bundle Card"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = GarmentPartsBundleCard;
-    CardPageId = GarmenPartsBundleCard;
+    CardPageId = GarmentPartsBundleCard;
     Caption = 'Bundle Card';
 
     layout

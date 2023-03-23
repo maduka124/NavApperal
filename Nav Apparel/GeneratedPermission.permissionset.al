@@ -829,7 +829,7 @@ permissionset 50100 GeneratedPermission
         page FacWiseProductplaningPart=X,
         page "Folder Detail Card"=X,
         page "Folder Detail List"=X,
-        page GarmenPartsBundleCard=X,
+        page GarmentPartsBundleCard=X,
         page "Garment Part Card"=X,
         page "Garment Part List"=X,
         page "Garment Parts - Bundle Card"=X,
