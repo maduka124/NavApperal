@@ -598,6 +598,7 @@ page 50355 "Daily Sewing In/Out Card"
 
     end;
 
+
     procedure GridHeader_Insert_Input()
     var
         AssoRec: Record AssorColorSizeRatio;

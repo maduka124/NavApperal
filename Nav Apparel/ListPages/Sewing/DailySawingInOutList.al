@@ -59,6 +59,7 @@ page 50356 "Daily Sewing In/Out"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
     begin
 
         //Check whether user logged in or not
@@ -79,8 +80,25 @@ page 50356 "Daily Sewing In/Out"
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
 
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            rec.SetFilter("Factory Code", '=%1', UserRec."Factory Code");
+        end;
     end;
 
+
+    trigger OnAfterGetRecord()
+    var
+        UserRec: Record "User Setup";
+    begin
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if rec."Factory Code" <> UserRec."Factory Code" then
+                Error('You are not authorized to view other factory information.');
+        end;
+    end;
 
 
     trigger OnDeleteRecord(): Boolean
