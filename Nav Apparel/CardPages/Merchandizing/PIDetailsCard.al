@@ -84,26 +84,77 @@ page 50996 "PI Details Card"
                     ApplicationArea = All;
                     Caption = 'Supplier';
 
-                    trigger OnValidate()
+                    // trigger OnValidate()
+                    // var
+                    //     SupplierRec: Record Vendor;
+                    // // PurchaseHeaderRec: Record "Purchase Header";
+                    // begin
+
+
+
+                    //     // SupplierRec.Reset();
+                    //     // SupplierRec.SetRange(Name, rec."Supplier Name");
+                    //     // if SupplierRec.FindSet() then
+                    //     //     rec."Supplier No." := SupplierRec."No.";
+
+                    //     // PurchaseHeaderRec.Reset();
+                    //     // PurchaseHeaderRec.SetCurrentKey("Buy-from Vendor No.");
+                    //     // PurchaseHeaderRec.SetRange("Buy-from Vendor No.", SupplierRec."No.");
+
+                    //     // if PurchaseHeaderRec.FindSet() then begin
+                    //     //     repeat
+                    //     //         PurchaseHeaderRec."PI No." := rec."No.";
+                    //     //         PurchaseHeaderRec.Modify();
+                    //     //     until PurchaseHeaderRec.Next() = 0;
+                    //     // end;
+                    // end;
+
+                    //Done By Sachith on 24/03/23
+                    trigger OnLookup(var Text: Text): Boolean
                     var
+                        GRNRec: Record "Purch. Rcpt. Line";
                         SupplierRec: Record Vendor;
+                        "Suplier No": Code[20];
                         PurchaseHeaderRec: Record "Purchase Header";
                     begin
 
-                        SupplierRec.Reset();
-                        SupplierRec.SetRange(Name, rec."Supplier Name");
-                        if SupplierRec.FindSet() then
-                            rec."Supplier No." := SupplierRec."No.";
+                        GRNRec.Reset();
+                        GRNRec.SetCurrentKey("Buy-from Vendor No.");
+                        GRNRec.Ascending(true);
+                        GRNRec.SetRange(StyleNo, Rec."Style No.");
 
-                        PurchaseHeaderRec.Reset();
-                        PurchaseHeaderRec.SetCurrentKey("Buy-from Vendor No.");
-                        PurchaseHeaderRec.SetRange("Buy-from Vendor No.", SupplierRec."No.");
-
-                        if PurchaseHeaderRec.FindSet() then begin
+                        if GRNRec.FindSet() then begin
+                            SupplierRec.Reset();
+                            SupplierRec.Ascending(true);
+                            SupplierRec.FindSet();
                             repeat
-                                PurchaseHeaderRec."PI No." := rec."No.";
-                                PurchaseHeaderRec.Modify();
-                            until PurchaseHeaderRec.Next() = 0;
+
+                                if "Suplier No" <> GRNRec."Buy-from Vendor No." then begin
+                                    "Suplier No" := GRNRec."Buy-from Vendor No.";
+                                    SupplierRec.FindFirst();
+                                    repeat
+                                        if GRNRec."Buy-from Vendor No." = SupplierRec."No." then
+                                            SupplierRec.MARK(TRUE);
+                                    until SupplierRec.Next() = 0;
+                                end;
+                            until GRNRec.Next() = 0;
+                        end;
+                        SupplierRec.MarkedOnly(true);
+
+                        if Page.RunModal(51274, SupplierRec) = Action::LookupOK then begin
+                            Rec."Supplier Name" := SupplierRec.Name;
+                            Rec."Supplier No." := SupplierRec."No.";
+
+                            PurchaseHeaderRec.Reset();
+                            PurchaseHeaderRec.SetCurrentKey("Buy-from Vendor No.");
+                            PurchaseHeaderRec.SetRange("Buy-from Vendor No.", SupplierRec."No.");
+
+                            if PurchaseHeaderRec.FindSet() then begin
+                                repeat
+                                    PurchaseHeaderRec."PI No." := rec."No.";
+                                    PurchaseHeaderRec.Modify();
+                                until PurchaseHeaderRec.Next() = 0;
+                            end;
                         end;
                     end;
                 }
