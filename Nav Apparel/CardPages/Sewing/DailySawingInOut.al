@@ -10,6 +10,7 @@ page 50355 "Daily Sewing In/Out Card"
         {
             group(General)
             {
+                Editable = EditableGB;
                 field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
@@ -122,6 +123,8 @@ page 50355 "Daily Sewing In/Out Card"
 
             group("Input Style Detail")
             {
+                Editable = EditableGB;
+
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
@@ -279,6 +282,7 @@ page 50355 "Daily Sewing In/Out Card"
 
             group("Color/Size Input Detail")
             {
+                Editable = EditableGB;
                 part(Input; DailyCuttingOutListPart)
                 {
                     ApplicationArea = All;
@@ -300,6 +304,7 @@ page 50355 "Daily Sewing In/Out Card"
 
             group("Output Style Detail")
             {
+                Editable = EditableGB;
                 field("Out Style Name"; rec."Out Style Name")
                 {
                     ApplicationArea = All;
@@ -468,6 +473,7 @@ page 50355 "Daily Sewing In/Out Card"
 
             group("Color/Size Output Detail")
             {
+                Editable = EditableGB;
                 part(Output; DailyCuttingOutListPart_SawOut)
                 {
                     ApplicationArea = All;
@@ -986,14 +992,89 @@ page 50355 "Daily Sewing In/Out Card"
     trigger OnDeleteRecord(): Boolean
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
+        UserRec: Record "User Setup";
     begin
-        if rec."Prod Updated" = 1 then
-            Error('Production updated against this entry. You cannot delete it.');
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+            else begin
+                if rec."Prod Updated" = 1 then
+                    Error('Production updated against this entry. You cannot delete it.');
+            end;
+        end
+        else
+            Error('You are not authorized to delete records.');
 
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'IN', 'Saw', rec.Type::Saw);
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'OUT', 'Saw', rec.Type::Saw);
     end;
 
+
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" <> rec."Factory Code") then
+                    EditableGB := false
+                else begin
+                    if rec."Prod Updated" = 0 then
+                        EditableGB := true
+                    else
+                        EditableGB := false;
+                end;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        UserRec: Record "User Setup";
+    begin
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" <> rec."Factory Code") then
+                    EditableGB := false
+                else begin
+                    if rec."Prod Updated" = 0 then
+                        EditableGB := true
+                    else
+                        EditableGB := false;
+                end;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
     var
         UserSetupRec: Record "User Setup";
+        EditableGB: Boolean;
 }

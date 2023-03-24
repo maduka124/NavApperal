@@ -37,6 +37,7 @@ page 50518 "Hourly Production List"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
     begin
 
         //Check whether user logged in or not
@@ -47,15 +48,12 @@ page 50518 "Hourly Production List"
             Clear(LoginRec);
             LoginRec.LookupMode(true);
             LoginRec.RunModal();
-
-            // LoginSessionsRec.Reset();
-            // LoginSessionsRec.SetRange(SessionID, SessionId());
-            // if LoginSessionsRec.FindSet() then
-            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-        end
-        else begin   //logged in
-            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then
+            rec.SetFilter("Factory No.", '=%1', UserRec."Factory Code");
 
     end;
 
@@ -63,7 +61,9 @@ page 50518 "Hourly Production List"
     var
         HourlyProdLinesRec: Record "Hourly Production Lines";
         ProdOutHeaderRec: Record ProductionOutHeader;
+        UserRec: Record "User Setup";
     begin
+
         //Check whether production updated or not
         if rec.Type = rec.Type::Sewing then begin
             ProdOutHeaderRec.Reset();
@@ -75,6 +75,15 @@ page 50518 "Hourly Production List"
                 Error('Production updated against Date : %1 , Factory : %2 has been updates. You cannot delete this entry.', rec."Prod Date", rec."Factory Name");
         end;
 
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory No.") then
+                Error('You are not authorized to delete this record.');
+        end
+        else
+            Error('You are not authorized to delete records.');
 
         HourlyProdLinesRec.Reset();
         HourlyProdLinesRec.SetRange("No.", rec."No.");

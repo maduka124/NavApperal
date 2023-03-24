@@ -224,7 +224,6 @@ page 50371 "Prod Update Card"
 
 
                         //Validate Line out Qty Vs Color size qty
-                        LineTotal_Out := 0;
                         ProdOutHeaderRec.Reset();
                         ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
                         ProdOutHeaderRec.SetRange("Factory Code", LocationRec.Code);
@@ -232,18 +231,18 @@ page 50371 "Prod Update Card"
                         ProdOutHeaderRec.SetRange("Resource No.", WorkCenterRec."No.");
                         if ProdOutHeaderRec.FindSet() then begin
                             repeat
-
+                                LineTotal_Out := 0;
                                 //Line Out Qty
                                 ProductionOutLine.Reset();
                                 ProductionOutLine.SetRange("No.", ProdOutHeaderRec."No.");
                                 ProductionOutLine.SetRange(In_Out, 'OUT');
 
-                                if ProductionOutLine.FindSet() then begin
+                                if ProductionOutLine.FindSet() then
                                     repeat
                                         if ProductionOutLine."Colour No" <> '*' then
                                             LineTotal_Out += ProductionOutLine.Total;
                                     until ProductionOutLine.Next() = 0;
-                                end;
+
 
                                 if LineTotal_Out <> ProdOutHeaderRec."Output Qty" then begin
                                     Error('Output quantity should match color/size total quantity in Daily Sewing Out No : %1', ProdOutHeaderRec."No.");

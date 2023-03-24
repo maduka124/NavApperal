@@ -12,6 +12,7 @@ page 50515 "Hourly Production Card"
         {
             group(General)
             {
+                Editable = EditableGB;
                 field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
@@ -90,6 +91,7 @@ page 50515 "Hourly Production Card"
 
             group(" ")
             {
+                Editable = EditableGB;
                 part(HourlyProductionListPart; HourlyProductionListPart)
                 {
                     ApplicationArea = All;
@@ -258,6 +260,7 @@ page 50515 "Hourly Production Card"
     trigger OnDeleteRecord(): Boolean
     var
         HourlyProdLinesRec: Record "Hourly Production Lines";
+        UserRec: Record "User Setup";
         ProdOutHeaderRec: Record ProductionOutHeader;
     begin
         //Check whether production updated or not
@@ -271,10 +274,102 @@ page 50515 "Hourly Production Card"
                 Error('Production updated against Date : %1 , Factory : %2 has been updates. You cannot delete this entry.', rec."Prod Date", rec."Factory Name");
         end;
 
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory No.") then
+                Error('You are not authorized to delete this record.');
+        end
+        else
+            Error('You are not authorized to delete records.');
 
         HourlyProdLinesRec.Reset();
         HourlyProdLinesRec.SetRange("No.", rec."No.");
         if HourlyProdLinesRec.FindSet() then
             HourlyProdLinesRec.DeleteAll();
     end;
+
+
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+        ProdOutHeaderRec: Record ProductionOutHeader;
+    begin
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory No." <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" <> rec."Factory No.") then
+                    EditableGB := false
+                else begin
+
+                    if rec.Type = rec.Type::Sewing then begin
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
+                        ProdOutHeaderRec.SetRange("Factory Code", rec."Factory No.");
+                        ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+                        ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+                        if ProdOutHeaderRec.FindSet() then
+                            EditableGB := false
+                        else
+                            EditableGB := true;
+                    end;
+
+                end;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        UserRec: Record "User Setup";
+        ProdOutHeaderRec: Record ProductionOutHeader;
+    begin
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory No." <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" <> rec."Factory No.") then
+                    EditableGB := false
+                else begin
+                    if rec.Type = rec.Type::Sewing then begin
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetRange("Prod Date", rec."Prod Date");
+                        ProdOutHeaderRec.SetRange("Factory Code", rec."Factory No.");
+                        ProdOutHeaderRec.SetFilter(Type, '=%1', ProdOutHeaderRec.Type::Saw);
+                        ProdOutHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+                        if ProdOutHeaderRec.FindSet() then
+                            EditableGB := false
+                        else
+                            EditableGB := true;
+                    end;
+                end;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+
+    var
+        EditableGB: Boolean;
 }

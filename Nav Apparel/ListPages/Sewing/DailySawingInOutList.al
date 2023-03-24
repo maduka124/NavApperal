@@ -13,6 +13,12 @@ page 50356 "Daily Sewing In/Out"
         {
             repeater(General)
             {
+                field("No."; rec."No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'No';
+                }
+
                 field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
@@ -82,31 +88,29 @@ page 50356 "Daily Sewing In/Out"
 
         UserRec.Reset();
         UserRec.Get(UserId);
-        if UserRec."Factory Code" <> '' then begin
+        if UserRec."Factory Code" <> '' then
             rec.SetFilter("Factory Code", '=%1', UserRec."Factory Code");
-        end;
-    end;
 
-
-    trigger OnAfterGetRecord()
-    var
-        UserRec: Record "User Setup";
-    begin
-        UserRec.Reset();
-        UserRec.Get(UserId);
-        if UserRec."Factory Code" <> '' then begin
-            if rec."Factory Code" <> UserRec."Factory Code" then
-                Error('You are not authorized to view other factory information.');
-        end;
     end;
 
 
     trigger OnDeleteRecord(): Boolean
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
+        UserRec: Record "User Setup";
     begin
-        if rec."Prod Updated" = 1 then
-            Error('Production updated against this entry. You cannot delete it.');
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+            else begin
+                if rec."Prod Updated" = 1 then
+                    Error('Production updated against this entry. You cannot delete it.');
+            end;
+        end
+        else
+            Error('You are not authorized to delete records.');
 
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'IN', 'Saw', rec.Type::Saw);
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'OUT', 'Saw', rec.Type::Saw);
