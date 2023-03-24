@@ -1166,5 +1166,6 @@ page 50516 HourlyProductionListPart
         StyleExprTxt: Text[50];
         ChangeColor: Codeunit NavAppCodeUnit;
         SetEdit: Boolean;
+        
 
 }
