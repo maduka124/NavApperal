@@ -1368,6 +1368,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Roll Picking Cutting")
+                {
+                    Caption = 'Roll Picking';
+                    RunObject = Page "Role Issuing Note List";
+                    ApplicationArea = all;
+                }
+
                 action("Sewing Job Creation")
                 {
                     Caption = 'Sewing Job Creation';
@@ -1558,6 +1565,13 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Daily Shipping In/Out';
                     RunObject = Page "Daily Shipping Out";
+                    ApplicationArea = all;
+                }
+
+                action("Output Journal")
+                {
+                    Caption = 'Output Journal';
+                    RunObject = Page "Output Journal";
                     ApplicationArea = all;
                 }
 
