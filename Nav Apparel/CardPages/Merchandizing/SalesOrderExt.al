@@ -2,6 +2,7 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
 {
     layout
     {
+        //Done By Sachith on 24/03/23
         addafter(Status)
         {
             field("Posting No."; Rec."Posting No.")
