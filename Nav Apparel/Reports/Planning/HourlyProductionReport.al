@@ -3,7 +3,8 @@ report 50865 HourlyProductionReport
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Hourly Production Report';
-    RDLCLayout = 'Report_Layouts/Planning/HourlyProductionReport.rdl';
+    // RDLCLayout = 'Report_Layouts/Planning/HourlyProductionReport.rdl';
+    RDLCLayout = 'Report_Layouts/Planning/HourlyProductionReport2.rdl';
     DefaultLayout = RDLC;
 
     dataset
@@ -102,6 +103,10 @@ report 50865 HourlyProductionReport
             column(TargetProdPlan; TargetProdPlan)
             { }
             column(HourlyTarget; HourlyTarget)
+            { }
+            column(CutInputQtyTotal; CutInputQtyTotal)
+            { }
+            column(CutOutputQtyTotal; CutOutputQtyTotal)
             { }
 
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
@@ -235,6 +240,28 @@ report 50865 HourlyProductionReport
                         OutputQtyTotal := ProductionHeaderRec."Output Qty";
                     until ProductionHeaderRec.Next() = 0;
                 end;
+
+
+                //Cutting
+                CutInputQtyTotal := 0;
+                CutOutputQtyTotal := 0;
+                //Input/Ouput Total (up to date)
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("Style No.", "Style No.");
+                ProductionHeaderRec.SetRange("PO No", "PO No.");
+                ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec.SetFilter("Prod Date", '<=%1', PlanDate);
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Cut);
+
+                if ProductionHeaderRec.Findset() then begin
+                    repeat
+                        CutInputQtyTotal := ProductionHeaderRec."Input Qty";
+                        CutOutputQtyTotal := ProductionHeaderRec."Output Qty";
+                    until ProductionHeaderRec.Next() = 0;
+                end;
+
+
+
 
                 //ActualPlanDT := ProductionHeaderRec."Prod Date";
                 // OutputQty := ProductionHeaderRec."Output Qty";
@@ -420,7 +447,9 @@ report 50865 HourlyProductionReport
         OutputQty: BigInteger;
         InputQtyToday: BigInteger;
         InputQtyTotal: BigInteger;
+        CutInputQtyTotal: BigInteger;
         OutputQtyTotal: BigInteger;
+        CutOutputQtyTotal: BigInteger;
         MerchandizerName: Text[50];
         MC: Integer;
         OutPutStartDate: Date;

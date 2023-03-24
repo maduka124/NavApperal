@@ -87,6 +87,12 @@ page 50515 "Hourly Production Card"
                 {
                     ApplicationArea = All;
                 }
+                //Mihiranga 2023/03/24
+                // field(LineNO; LineNO)
+                // { }
+                // field(DocumentNo; DocumentNo)
+                // { }
+
             }
 
             group(" ")
@@ -253,6 +259,30 @@ page 50515 "Hourly Production Card"
 
                 end;
             }
+            // action(Delete)
+            // {
+            //     trigger OnAction()
+            //     var
+            //         HourlyLineRec: Record "Hourly Production Lines";
+            //         NavRec: Record "NavApp Prod Plans Details";
+
+            //     begin
+            //         // HourlyLineRec.Reset();
+            //         // HourlyLineRec.SetRange("No.", DocumentNo);
+            //         // HourlyLineRec.SetRange("Line No.", LineNO);
+            //         // if HourlyLineRec.FindFirst() then begin
+            //         //     HourlyLineRec.Delete();
+
+            //         NavRec.Reset();
+            //         NavRec.SetRange("No.", DocumentNo);
+            //         NavRec.SetRange("Style No.", LineNO);
+            //         if NavRec.FindFirst() then
+            //             NavRec.Delete();
+            //     end;
+
+            // }
+
+
         }
     }
 
@@ -372,4 +402,9 @@ page 50515 "Hourly Production Card"
 
     var
         EditableGB: Boolean;
+
+    //var
+    // LineNO: Code[20];
+    // DocumentNo: BigInteger;
+
 }
