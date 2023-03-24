@@ -50,8 +50,8 @@ table 51079 "PI Details Header"
         field(71012589; "Supplier Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Vendor.Name;
-            ValidateTableRelation = false;
+            // TableRelation = Vendor.Name;
+            // ValidateTableRelation = false;
         }
 
         field(71012590; "PI No"; text[50])
