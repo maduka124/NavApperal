@@ -2,6 +2,13 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
 {
     layout
     {
+        addafter(Status)
+        {
+            field("Posting No."; Rec."Posting No.")
+            {
+                ApplicationArea = All;
+            }
+        }
         addafter("Work Description")
         {
 
