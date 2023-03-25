@@ -114,8 +114,8 @@ report 50865 HourlyProductionReport
             { }
             column(InputWIP; InputWIP)
             { }
-            column(InputQtyTodayTo;InputQtyTodayTo)
-            {}
+            column(InputQtyTodayTo; InputQtyTodayTo)
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -217,13 +217,13 @@ report 50865 HourlyProductionReport
                 ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
                 // ProductionHeaderRec.SetRange("Ref Line No.", "Line No.");
                 if ProductionHeaderRec.Findset() then begin
-                    if ProductionHeaderRec."Input Qty" <> 0 then begin
-                        repeat
-                            InputQtyTodayTotal += ProductionHeaderRec."Input Qty";
-                            OutputQty += ProductionHeaderRec."Output Qty";
-                        until ProductionHeaderRec.Next() = 0;
-                    end;
+                    // if ProductionHeaderRec."Input Qty" <> 0 then begin
+                    repeat
+                        InputQtyTodayTotal += ProductionHeaderRec."Input Qty";
+                        OutputQty += ProductionHeaderRec."Output Qty";
+                    until ProductionHeaderRec.Next() = 0;
                 end;
+                // end;
 
                 if InputQtyTodayTotal = 0 then begin
 
