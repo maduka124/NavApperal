@@ -54,7 +54,7 @@ report 50865 HourlyProductionReport
             { }
             column(OutputComDate; OutputComDate)
             { }
-            column(InputQtyToday; InputQtyToday)
+            column(InputQtyToday; InputQtyTodayTotal)
             { }
             column(OutputQty; OutputQty)
             { }
@@ -108,7 +108,14 @@ report 50865 HourlyProductionReport
             { }
             column(CutOutputQtyTotal; CutOutputQtyTotal)
             { }
-
+            column(EMBInputQtyTotal; EMBInputQtyTotal)
+            { }
+            column(EMBOutputQtyTotal; EMBOutputQtyTotal)
+            { }
+            column(InputWIP; InputWIP)
+            { }
+            column(InputQtyTodayTo;InputQtyTodayTo)
+            {}
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -199,8 +206,32 @@ report 50865 HourlyProductionReport
                 end;
 
 
-                InputQtyToday := 0;
+                InputQtyTodayTotal := 0;
                 OutputQty := 0;
+                //Input/Output Total
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("Style No.", "Style No.");
+                ProductionHeaderRec.SetRange("PO No", "PO No.");
+                ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                // ProductionHeaderRec.SetRange("Prod Date", PlanDate);
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
+                // ProductionHeaderRec.SetRange("Ref Line No.", "Line No.");
+                if ProductionHeaderRec.Findset() then begin
+                    if ProductionHeaderRec."Input Qty" <> 0 then begin
+                        repeat
+                            InputQtyTodayTotal += ProductionHeaderRec."Input Qty";
+                            OutputQty += ProductionHeaderRec."Output Qty";
+                        until ProductionHeaderRec.Next() = 0;
+                    end;
+                end;
+
+                if InputQtyTodayTotal = 0 then begin
+
+                end;
+
+
+
+                InputQtyTodayTo := 0;
                 //Input/Output Today
                 ProductionHeaderRec.Reset();
                 ProductionHeaderRec.SetRange("Style No.", "Style No.");
@@ -209,18 +240,8 @@ report 50865 HourlyProductionReport
                 ProductionHeaderRec.SetRange("Prod Date", PlanDate);
                 ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
                 // ProductionHeaderRec.SetRange("Ref Line No.", "Line No.");
-
-                if ProductionHeaderRec.Findset() then begin
-                    if ProductionHeaderRec."Input Qty" <> 0 then begin
-                        repeat
-                            InputQtyToday += ProductionHeaderRec."Input Qty";
-                            OutputQty += ProductionHeaderRec."Output Qty";
-                        until ProductionHeaderRec.Next() = 0;
-                    end;
-                end;
-
-                if InputQtyToday = 0 then begin
-
+                if ProductionHeaderRec.FindFirst() then begin
+                    InputQtyTodayTo := ProductionHeaderRec."Input Qty";
                 end;
 
 
@@ -255,12 +276,38 @@ report 50865 HourlyProductionReport
 
                 if ProductionHeaderRec.Findset() then begin
                     repeat
-                        CutInputQtyTotal := ProductionHeaderRec."Input Qty";
-                        CutOutputQtyTotal := ProductionHeaderRec."Output Qty";
+                        CutInputQtyTotal += ProductionHeaderRec."Input Qty";
+                        CutOutputQtyTotal += ProductionHeaderRec."Output Qty";
                     until ProductionHeaderRec.Next() = 0;
                 end;
 
+                //EMB
+                EMBInputQtyTotal := 0;
+                EMBOutputQtyTotal := 0;
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("Style No.", "Style No.");
+                ProductionHeaderRec.SetRange("PO No", "PO No.");
+                ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec.SetFilter("Prod Date", '<=%1', PlanDate);
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Emb);
+                if ProductionHeaderRec.Findset() then begin
+                    repeat
+                        EMBInputQtyTotal += ProductionHeaderRec."Input Qty";
+                        EMBOutputQtyTotal += ProductionHeaderRec."Output Qty";
+                    until ProductionHeaderRec.Next() = 0;
+                end;
 
+                //Input WIP 
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("Style No.", "Style No.");
+                ProductionHeaderRec.SetRange("PO No", "PO No.");
+                ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec.SetFilter("Prod Date", '<=%1', PlanDate);
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Emb);
+                if ProductionHeaderRec."Input Qty" > 0 then
+                    InputWIP := EMBOutputQtyTotal - InputQtyTotal
+                else
+                    InputWIP := CutInputQtyTotal - InputQtyTotal;
 
 
                 //ActualPlanDT := ProductionHeaderRec."Prod Date";
@@ -423,6 +470,7 @@ report 50865 HourlyProductionReport
     }
 
     var
+        InputWIP: decimal;
         HourlyTarget: Decimal;
         TargetProdPlan: BigInteger;
         ActualFinishDate: Date;
@@ -445,8 +493,11 @@ report 50865 HourlyProductionReport
         TodayOutput: BigInteger;
         comRec: Record "Company Information";
         OutputQty: BigInteger;
-        InputQtyToday: BigInteger;
+        InputQtyTodayTotal: BigInteger;
+        InputQtyTodayTo: BigInteger;
         InputQtyTotal: BigInteger;
+        EMBInputQtyTotal: BigInteger;
+        EMBOutputQtyTotal: BigInteger;
         CutInputQtyTotal: BigInteger;
         OutputQtyTotal: BigInteger;
         CutOutputQtyTotal: BigInteger;

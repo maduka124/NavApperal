@@ -5332,6 +5332,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -5388,6 +5389,7 @@
                                   <Value>=Fields!CutInputQtyTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5443,6 +5445,7 @@
                                   <Value>=Sum(Fields!CutInputQtyTotal.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5495,9 +5498,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!CutInputQtyTotal.Value)-Sum(Fields!CutOutputQtyTotal.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5543,16 +5547,18 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox33">
+                        <Textbox Name="EMBInputQtyTotal">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!EMBInputQtyTotal.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5561,7 +5567,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox33</rd:DefaultName>
+                          <rd:DefaultName>EMBInputQtyTotal</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -5598,16 +5604,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox18">
+                        <Textbox Name="CutInputQtyTotal3">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!CutInputQtyTotal.Value)-Fields!EMBInputQtyTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5616,7 +5623,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox18</rd:DefaultName>
+                          <rd:DefaultName>CutInputQtyTotal</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -5653,16 +5660,18 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox38">
+                        <Textbox Name="EMBOutputQtyTotal">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!EMBOutputQtyTotal.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5671,7 +5680,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox38</rd:DefaultName>
+                          <rd:DefaultName>EMBOutputQtyTotal</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -5715,9 +5724,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!EMBInputQtyTotal.Value-Fields!EMBOutputQtyTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5770,7 +5780,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!InputQtyToday.Value</Value>
+                                  <Value>=Fields!InputQtyTodayTo.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5827,7 +5837,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!InputQtyTotal.Value</Value>
+                                  <Value>=Sum(Fields!InputQtyTotal.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5857,16 +5867,18 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox76">
+                        <Textbox Name="InputWIP">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!InputWIP.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5875,7 +5887,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox76</rd:DefaultName>
+                          <rd:DefaultName>InputWIP</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -6479,7 +6491,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OutputQty.Value</Value>
+                                  <Value>=Sum(Fields!Hour_1.Value)+Sum(Fields!Hour_2.Value)+Sum(Fields!Hour_3.Value)+Sum(Fields!Hour_4.Value)+Sum(Fields!Hour_5.Value)+Sum(Fields!Hour_6.Value)+Sum(Fields!Hour_7.Value)+Sum(Fields!Hour_8.Value)+Sum(Fields!Hour_9.Value)+Sum(Fields!Hour_10.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6516,7 +6528,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OutputQtyTotal.Value</Value>
+                                  <Value>=Sum(Fields!OutputQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6553,9 +6565,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!InputQtyTotal.Value-Fields!OutputQtyTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6597,6 +6611,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -6645,7 +6660,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!SendWashQty.Value)</Value>
+                                  <Value>=Sum(Fields!SendWashQty.Value)-Sum(Fields!SendWashQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6682,9 +6697,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!ReceiveWashQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -6811,9 +6827,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Sum(Fields!SendWashQty.Value)-Sum(Fields!SendWashQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -8133,6 +8150,21 @@ End Function
         </Field>
         <Field Name="CutOutputQtyTotal">
           <DataField>CutOutputQtyTotal</DataField>
+        </Field>
+        <Field Name="EMBInputQtyTotal">
+          <DataField>EMBInputQtyTotal</DataField>
+        </Field>
+        <Field Name="EMBOutputQtyTotal">
+          <DataField>EMBOutputQtyTotal</DataField>
+        </Field>
+        <Field Name="InputWIP">
+          <DataField>InputWIP</DataField>
+        </Field>
+        <Field Name="InputWIPFormat">
+          <DataField>InputWIPFormat</DataField>
+        </Field>
+        <Field Name="InputQtyTodayTo">
+          <DataField>InputQtyTodayTo</DataField>
         </Field>
         <Field Name="Hour_1">
           <DataField>Hour_1</DataField>
