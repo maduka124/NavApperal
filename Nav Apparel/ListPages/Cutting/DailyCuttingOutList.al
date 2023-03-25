@@ -49,6 +49,7 @@ page 50352 "Daily Cutting Out"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
     begin
 
         //Check whether user logged in or not
@@ -69,13 +70,28 @@ page 50352 "Daily Cutting Out"
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
 
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then
+            rec.SetFilter("Factory Code", '=%1', UserRec."Factory Code");
+
     end;
 
 
     trigger OnDeleteRecord(): Boolean
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
+        UserRec: Record "User Setup";
     begin
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.');
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."PO No", 'OUT', 'Cut', Rec.Type::Cut);
     end;
 }

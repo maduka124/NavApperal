@@ -97,24 +97,43 @@ page 50978 "Create User Card"
             }
 
 
-            action("delete daily sewing")
-            {
-                ApplicationArea = All;
-                Image = AddAction;
+            // action("delete daily sewing")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
 
-                trigger OnAction()
-                var
-                    ProductionOutHeader: Record ProductionOutHeader;
-                begin
-                    ProductionOutHeader.Reset();
-                    ProductionOutHeader.SetFilter(Type, '=%1', ProductionOutHeader.Type::Saw);
-                    ProductionOutHeader.SetRange("No.", 139);
-                    if ProductionOutHeader.FindSet() then
-                        ProductionOutHeader.DeleteAll();
+            //     trigger OnAction()
+            //     var
+            //         ProductionOutHeader: Record ProductionOutHeader;
+            //     begin
+            //         ProductionOutHeader.Reset();
+            //         ProductionOutHeader.SetFilter(Type, '=%1', ProductionOutHeader.Type::Saw);
+            //         ProductionOutHeader.SetRange("No.", 139);
+            //         if ProductionOutHeader.FindSet() then
+            //             ProductionOutHeader.DeleteAll();
 
-                    Message('Completed');
-                end;
-            }
+            //         Message('Completed');
+            //     end;
+            // }
+
+
+            // action("Update Prod Status")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
+
+            //     trigger OnAction()
+            //     var
+            //         ProductionOutHeader: Record ProductionOutHeader;
+            //     begin
+            //         ProductionOutHeader.Reset();
+            //         ProductionOutHeader.SetRange("No.", 175);
+            //         if ProductionOutHeader.FindSet() then
+            //             ProductionOutHeader.ModifyAll("Prod Updated", 1);
+
+            //         Message('Completed');
+            //     end;
+            // }
         }
     }
 

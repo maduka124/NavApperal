@@ -118,9 +118,8 @@ page 50371 "Prod Update Card"
         Count: Integer;
     begin
 
-        //Get Start and Finish Time
+        //Get all factories
         LocationRec.Reset();
-        //LocationRec.SetRange(code, FactoryNo);
         LocationRec.SetFilter("Sewing Unit", '=%1', true);
 
         if LocationRec.FindSet() then begin
@@ -203,8 +202,6 @@ page 50371 "Prod Update Card"
                                     Error('Production not updated for : %1', dtLastDate);
                             until ProdOutHeaderRec.Next() = 0;
                         end;
-                        // else
-                        //     Error('Sewing out qty not entered for : %1', dtLastDate);
 
 
                         //Check Production already updated not not for the selected date
@@ -219,8 +216,6 @@ page 50371 "Prod Update Card"
                                     Error('Production already updated for : %1', ProdDate);
                             until ProdOutHeaderRec.Next() = 0;
                         end;
-                        // else
-                        //     Error('Sewing out qty not entered for : %1', ProdDate);
 
 
                         //Validate Line out Qty Vs Color size qty
@@ -325,18 +320,31 @@ page 50371 "Prod Update Card"
                             TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
                             TempDate := dtStart;
 
+
+                            //Update Prod status of all lines                                                
+                            ProdOutHeaderRec.Reset();
+                            ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                            ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
+                            ProdOutHeaderRec.SetRange("Resource No.", WorkCenterNo);
+
+                            if ProdOutHeaderRec.FindSet() then
+                                ProdOutHeaderRec.ModifyAll("Prod Updated", 1);
+
+
                             //Get sewing out qty for the prod date
                             OutputQty := 0;
                             ProdOutHeaderRec.Reset();
                             ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
                             ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
                             ProdOutHeaderRec.SetRange("Resource No.", WorkCenterNo);
+                            ProdOutHeaderRec.SetRange("Out Style No.", JobPlaLineRec."Style No.");
+                            ProdOutHeaderRec.SetRange("Out PO No", JobPlaLineRec."PO No.");
+                            ProdOutHeaderRec.SetRange("Out Lot No.", JobPlaLineRec."Lot No.");
 
-                            if ProdOutHeaderRec.FindSet() then begin
-                                OutputQty := ProdOutHeaderRec."Output Qty";
-                                ProdOutHeaderRec."Prod Updated" := 1;
-                                ProdOutHeaderRec.Modify();
-                            end;
+                            if ProdOutHeaderRec.FindSet() then
+                                repeat
+                                    OutputQty += ProdOutHeaderRec."Output Qty";
+                                until ProdOutHeaderRec.Next() = 0;
 
 
                             //Update production status for the selected date
@@ -837,8 +845,6 @@ page 50371 "Prod Update Card"
                     until WorkCenterRec.Next() = 0;
 
                 end;
-            // else
-            //     Error('Cannot find work center details.');
 
             until LocationRec.Next() = 0;
 

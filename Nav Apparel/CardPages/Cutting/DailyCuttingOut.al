@@ -10,6 +10,8 @@ page 50351 "Daily Cutting Out Card"
         {
             group("Input/Output Style Detail")
             {
+                Editable = EditableGB;
+
                 field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
@@ -135,7 +137,9 @@ page 50351 "Daily Cutting Out Card"
                     var
                         NavAppPlanRec: Record "NavApp Planning Lines";
                         BundleGHeaderRec: Record BundleGuideHeader;
+                        NavProdDetRec: Record "NavApp Prod Plans Details";//not navapplanning line
                         Users: Record "User Setup";
+                        StyleMasterRec: Record "Style Master";
                         StyleName: text[50];
                     begin
 
@@ -145,30 +149,57 @@ page 50351 "Daily Cutting Out Card"
                         if Users."Factory Code" = '' then
                             Error('Factory is not setup for the user : %1 in User Setup. Cannot proceed.', UserId);
 
-                        NavAppPlanRec.Reset();
-                        NavAppPlanRec.SetCurrentKey("Style Name");
-                        NavAppPlanRec.Ascending(true);
-                        NavAppPlanRec.SetRange("Factory", Users."Factory Code");
-                        if NavAppPlanRec.Findset() then begin
-                            repeat
-                                if StyleName <> NavAppPlanRec."Style Name" then begin
-                                    BundleGHeaderRec.Reset();
-                                    BundleGHeaderRec.SetRange("Style No.", NavAppPlanRec."Style No.");
-                                    if BundleGHeaderRec.Findset() then
-                                        NavAppPlanRec.Mark(true);
+                        // NavAppPlanRec.Reset();
+                        // NavAppPlanRec.SetCurrentKey("Style Name");
+                        // NavAppPlanRec.Ascending(true);
+                        // NavAppPlanRec.SetRange("Factory", Users."Factory Code");
+                        // NavAppPlanRec.SetRange("Resource No.", rec."Resource No.");
+                        // NavAppPlanRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
+                        // if NavAppPlanRec.Findset() then begin
+                        //     repeat
+                        //         if StyleName <> NavAppPlanRec."Style Name" then begin
+                        //             BundleGHeaderRec.Reset();
+                        //             // BundleGHeaderRec.SetRange("Style No.", NavAppPlanRec."Style No.");
+                        //             // if BundleGHeaderRec.Findset() then
+                        //             NavAppPlanRec.Mark(true);
 
-                                    StyleName := NavAppPlanRec."Style Name";
+                        //             StyleName := NavAppPlanRec."Style Name";
+                        //         end
+                        //         else
+                        //             StyleName := NavAppPlanRec."Style Name";
+                        //     until NavAppPlanRec.Next() = 0;
+
+                        //     NavAppPlanRec.MARKEDONLY(TRUE);
+                        // end;
+
+                        NavProdDetRec.Reset();
+                        NavProdDetRec.SetRange("Resource No.", rec."Resource No.");
+                        NavProdDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
+                        if NavProdDetRec.FindSet() then begin
+                            repeat
+                                if StyleName <> NavProdDetRec."Style Name" then begin
+                                    NavProdDetRec.Mark(true);
+                                    StyleName := NavProdDetRec."Style Name";
                                 end
                                 else
-                                    StyleName := NavAppPlanRec."Style Name";
-                            until NavAppPlanRec.Next() = 0;
+                                    StyleName := NavProdDetRec."Style Name";
+                            until NavProdDetRec.Next() = 0;
 
-                            NavAppPlanRec.MARKEDONLY(TRUE);
-                        end;
+                            NavProdDetRec.MARKEDONLY(TRUE);
+                        end
+                        else
+                            Error('Cannot find planning details');
 
-                        if Page.RunModal(51224, NavAppPlanRec) = Action::LookupOK then begin
-                            rec."Style No." := NavAppPlanRec."Style No.";
-                            rec."Style Name" := NavAppPlanRec."Style Name";
+                        // if Page.RunModal(51224, NavAppPlanRec) = Action::LookupOK then begin
+                        //     rec."Style No." := NavAppPlanRec."Style No.";
+                        //     rec."Style Name" := NavAppPlanRec."Style Name";
+                        // end;
+
+                        if Page.RunModal(50511, NavProdDetRec) = Action::LookupOK then begin
+                            rec."Style No." := NavProdDetRec."Style No.";
+                            StyleMasterRec.Reset();
+                            StyleMasterRec.get(rec."Style No.");
+                            rec."Style Name" := StyleMasterRec."Style No.";
                         end;
 
                     end;
@@ -248,6 +279,8 @@ page 50351 "Daily Cutting Out Card"
 
             group("Color/Size Output Detail")
             {
+                Editable = EditableGB;
+
                 part(DailyCuttingOutListPart; DailyCuttingOutListPart)
                 {
                     ApplicationArea = All;
@@ -335,12 +368,76 @@ page 50351 "Daily Cutting Out Card"
     trigger OnDeleteRecord(): Boolean
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
+        UserRec: Record "User Setup";
     begin
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.');
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'OUT', 'Cut', rec.Type::Cut);
     end;
 
-    procedure GridHeader_Insert()
 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" <> rec."Factory Code") then
+                    EditableGB := false
+                else
+                    EditableGB := true;
+            end
+            else
+                EditableGB := false;
+        end
+        else  //New Mode
+            if (UserRec."Factory Code" = '') then begin
+                EditableGB := false;
+                Error('Factory not assigned for the user.');
+            end
+            else
+                EditableGB := true;
+    end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        UserRec: Record "User Setup";
+    begin
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" <> rec."Factory Code") then
+                    EditableGB := false
+                else
+                    EditableGB := true;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+
+    procedure GridHeader_Insert()
     var
         AssoRec: Record AssorColorSizeRatio;
         ProductionOutLine: Record ProductionOutLine;
@@ -527,4 +624,8 @@ page 50351 "Daily Cutting Out Card"
             end;
         end;
     end;
+
+
+    var
+        EditableGB: Boolean;
 }

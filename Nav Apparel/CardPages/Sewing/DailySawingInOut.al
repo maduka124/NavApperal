@@ -183,6 +183,7 @@ page 50355 "Daily Sewing In/Out Card"
                     var
                         StyleMasterRec: Record "Style Master PO";
                         NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
+                        ProductionRec: Record ProductionOutHeader;
                         Users: Record "User Setup";
                     begin
 
@@ -201,6 +202,18 @@ page 50355 "Daily Sewing In/Out Card"
                             rec."PO No" := NavAppProdPlansDetRec."PO No.";
                             rec."Lot No." := NavAppProdPlansDetRec."lot No.";
                         end;
+
+                        ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                        ProductionRec.SetRange("Prod Date", Rec."Prod Date");
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProductionRec.SetRange("Style No.", rec."Style No.");
+                        ProductionRec.SetRange("PO No", rec."PO No");
+                        ProductionRec.SetRange("lot No.", rec."lot No.");
+                        ProductionRec.SetFilter("No.", '<>%1', rec."No.");
+                        if ProductionRec.FindSet() then
+                            Error('You have put Sewing IN for this Date/Line/Style/PO');
+
 
                         GridHeader_Insert_Input();
 
@@ -241,7 +254,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                         ProductionRec.SetRange("Prod Date", Rec."Prod Date");
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
-                        ProductionRec.SetRange("Style Name", Rec."Style Name");
+                        ProductionRec.SetRange("Style No.", Rec."Style No.");
                         ProductionRec.SetRange("PO No", Rec."PO No");
                         ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
@@ -378,6 +391,7 @@ page 50355 "Daily Sewing In/Out Card"
                     var
                         NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
                         Users: Record "User Setup";
+                        ProductionRec: Record ProductionOutHeader;
                     begin
 
                         Users.Reset();
@@ -396,6 +410,18 @@ page 50355 "Daily Sewing In/Out Card"
                             rec."OUT PO No" := NavAppProdPlansDetRec."PO No.";
                             rec."Out Lot No." := NavAppProdPlansDetRec."lot No.";
                         end;
+
+                        ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                        ProductionRec.SetRange("Prod Date", Rec."Prod Date");
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProductionRec.SetRange("Out Style No.", rec."Out Style No.");
+                        ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
+                        ProductionRec.SetRange("OUT lot No.", rec."OUT lot No.");
+                        ProductionRec.SetFilter("No.", '<>%1', rec."No.");
+                        if ProductionRec.FindSet() then
+                            Error('You have put Sewing Out for this Date/Line/Style/PO');
+
 
                         GridHeader_Insert_Output();
 
@@ -433,11 +459,12 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                         ProductionRec.SetRange("Prod Date", Rec."Prod Date");
                         ProductionRec.SetRange("Resource No.", Rec."Resource No.");
-                        ProductionRec.SetRange("Out Style Name", rec."Out Style Name");
+                        ProductionRec.SetRange("Out Style No.", rec."Out Style No.");
                         ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
                         ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
-                            Error('You have put Sewing out for this Date/Line/Style/PO');
+                            Error('You have put Sewing Out for this Date/Line/Style/PO');
+
 
                         //Mihiranga 2023/03/16
                         InputQty := 0;
