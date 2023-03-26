@@ -189,28 +189,45 @@ page 50983 "Assortment Card"
     }
 
 
-    // actions
-    // {
-    //     area(Processing)
-    //     {
-    //         action("Remove error data")
-    //         {
-    //             Caption = 'Remove error data';
-    //             Image = RemoveLine;
-    //             ApplicationArea = All;
+    actions
+    {
+        area(Processing)
+        {
+            action("Adjust Sales Orders")
+            {
+                Caption = 'Create Sales Order';
+                Image = CreateJobSalesInvoice;
+                ApplicationArea = All;
 
-    //             trigger OnAction();
-    //             var
-    //                 Ass: Record AssorColorSizeRatio;
-    //             begin
-    //                 Ass.Reset();
-    //                 Ass.SetRange("lot No.", 'A_17093054');
-    //                 Ass.FindSet();
-    //                 Ass.DeleteAll();
-    //             end;
-    //         }
-    //     }
-    // }
+                trigger OnAction();
+                var
+                    Ass: Record AssorColorSizeRatio;
+                begin
+                    // Ass.Reset();
+                    // Ass.SetRange("lot No.", 'A_17093054');
+                    // Ass.FindSet();
+                    // Ass.DeleteAll();
+                end;
+            }
+
+            // action("Remove error data")
+            // {
+            //     Caption = 'Remove error data';
+            //     Image = RemoveLine;
+            //     ApplicationArea = All;
+
+            //     trigger OnAction();
+            //     var
+            //         Ass: Record AssorColorSizeRatio;
+            //     begin
+            //         Ass.Reset();
+            //         Ass.SetRange("lot No.", 'A_17093054');
+            //         Ass.FindSet();
+            //         Ass.DeleteAll();
+            //     end;
+            // }
+        }
+    }
 
 
     trigger OnDeleteRecord(): Boolean
