@@ -114,9 +114,19 @@ report 50852 SewingProductionDetails
                 StylePoRec.SetRange("Style No.", "Out Style No.");
                 StylePoRec.SetRange("PO No.", "out PO No");
                 StylePoRec.SetRange("Lot No.", "Out Lot No.");
+                if StylePoRec.FindSet() then begin
+                    repeat
+                        OrderQy += StylePoRec.Qty;
+                    until StylePoRec.Next() = 0;
+                end;
+
+
+                StylePoRec.Reset();
+                StylePoRec.SetRange("Style No.", "Out Style No.");
+                StylePoRec.SetRange("PO No.", "out PO No");
+                StylePoRec.SetRange("Lot No.", "Out Lot No.");
                 if StylePoRec.FindFirst() then begin
                     ShipDate := StylePoRec."Ship Date";
-                    OrderQy := StylePoRec.Qty;
                 end;
 
 
