@@ -11,7 +11,8 @@ report 50852 SewingProductionDetails
     {
         dataitem(ProductionOutHeader; ProductionOutHeader)
         {
-            DataItemTableView = where(Type = filter('Saw'));
+            DataItemTableView = where(Type = filter('Saw'), "Output Qty" = filter(<> 0));
+
             column(TodayOutput; "Output Qty")
             { }
             column(OutPutStartDate; "Prod Date")
@@ -87,6 +88,38 @@ report 50852 SewingProductionDetails
                     until ProductionHeaderRec.Next() = 0;
                 end;
 
+                //Input date first date
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("No.", "No.");
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
+                ProductionHeaderRec.SetRange("Prod Date", "Prod Date");
+                ProductionHeaderRec.SetCurrentKey("Prod Date");
+                ProductionHeaderRec.Ascending(true);
+                if ProductionHeaderRec.FindFirst() then begin
+                    InputDate := ProductionHeaderRec."Prod Date";
+                end;
+
+                //OutPut Complete Date
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("No.", "No.");
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
+                ProductionHeaderRec.SetRange("Prod Date", "Prod Date");
+                ProductionHeaderRec.SetCurrentKey("Prod Date");
+                ProductionHeaderRec.Ascending(true);
+                if ProductionHeaderRec.FindLast() then begin
+                    OutputComDate := ProductionHeaderRec."Prod Date";
+                end;
+
+                StylePoRec.Reset();
+                StylePoRec.SetRange("Style No.", "Out Style No.");
+                StylePoRec.SetRange("PO No.", "out PO No");
+                StylePoRec.SetRange("Lot No.", "Out Lot No.");
+                if StylePoRec.FindSet() then begin
+                    repeat
+                        OrderQy += StylePoRec.Qty;
+                    until StylePoRec.Next() = 0;
+                end;
+
 
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Out Style No.");
@@ -94,7 +127,6 @@ report 50852 SewingProductionDetails
                 StylePoRec.SetRange("Lot No.", "Out Lot No.");
                 if StylePoRec.FindFirst() then begin
                     ShipDate := StylePoRec."Ship Date";
-                    OrderQy := StylePoRec.Qty;
                 end;
 
 
@@ -116,8 +148,8 @@ report 50852 SewingProductionDetails
                 // NavLinesRec.SetRange("Line No.", "Line No.");
                 if NavLinesRec.FindFirst() then begin
                     PlanQty := NavLinesRec.Qty;
-                    InputDate := NavLinesRec.StartDateTime;
-                    OutputComDate := NavLinesRec.FinishDateTime;
+
+
                     ResourceName := NavLinesRec."Resource Name";
                 end;
 
@@ -156,12 +188,12 @@ report 50852 SewingProductionDetails
         comRec: Record "Company Information";
         TodayOutput: BigInteger;
         ShipDate: Date;
-        OutputComDate: DateTime;
+        OutputComDate: Date;
         OutPutStartDate: Date;
         ProductionHeaderRec: Record ProductionOutHeader;
         TotalOuput: BigInteger;
         StylePoRec: Record "Style Master PO";
-        InputDate: DateTime;
+        InputDate: Date;
         PlanQty: BigInteger;
         NavLinesRec: Record "NavApp Planning Lines";
         BuyerName: Text[50];

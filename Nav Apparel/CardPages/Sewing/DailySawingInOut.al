@@ -455,6 +455,19 @@ page 50355 "Daily Sewing In/Out Card"
                         InputQty: BigInteger;
                         OutPutQty: BigInteger;
                     begin
+                        //Mihiranga 2023/03/27
+                        ProductionRec.Reset();
+                        ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
+                        ProductionRec.SetRange("Prod Date", Rec."Prod Date");
+                        ProductionRec.SetRange("Resource No.", Rec."Resource No.");
+                        ProductionRec.SetRange("Out Style No.", rec."Out Style No.");
+                        ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
+                        ProductionRec.SetRange("Out Lot No.", Rec."Out Lot No.");
+                        ProductionRec.SetRange("No.", Rec."No.");
+                        if not ProductionRec.FindSet() then
+                            Error('Please Enter Output Style Name');
+                        //
+
                         ProductionRec.Reset();
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                         ProductionRec.SetRange("Prod Date", Rec."Prod Date");

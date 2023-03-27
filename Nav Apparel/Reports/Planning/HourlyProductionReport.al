@@ -116,6 +116,8 @@ report 50865 HourlyProductionReport
             { }
             column(InputQtyTodayTo; InputQtyTodayTo)
             { }
+            column(CutInputToday; CutInputToday)
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -214,6 +216,7 @@ report 50865 HourlyProductionReport
                 ProductionHeaderRec.SetRange("PO No", "PO No.");
                 ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
                 // ProductionHeaderRec.SetRange("Prod Date", PlanDate);
+                ProductionHeaderRec.SetFilter("Prod Date", '<=%1', PlanDate);
                 ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
                 // ProductionHeaderRec.SetRange("Ref Line No.", "Line No.");
                 if ProductionHeaderRec.Findset() then begin
@@ -279,6 +282,19 @@ report 50865 HourlyProductionReport
                         CutInputQtyTotal += ProductionHeaderRec."Input Qty";
                         CutOutputQtyTotal += ProductionHeaderRec."Output Qty";
                     until ProductionHeaderRec.Next() = 0;
+                end;
+
+
+                CutInputToday := 0;
+                //Input/Ouput Today (up to date)
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("Style No.", "Style No.");
+                ProductionHeaderRec.SetRange("PO No", "PO No.");
+                ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
+                ProductionHeaderRec.SetFilter("Prod Date", '<=%1', PlanDate);
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Cut);
+                if ProductionHeaderRec.FindFirst() then begin
+                    CutInputToday += ProductionHeaderRec."Input Qty";
                 end;
 
                 //EMB
@@ -470,6 +486,7 @@ report 50865 HourlyProductionReport
     }
 
     var
+        CutInputToday: BigInteger;
         InputWIP: decimal;
         HourlyTarget: Decimal;
         TargetProdPlan: BigInteger;
