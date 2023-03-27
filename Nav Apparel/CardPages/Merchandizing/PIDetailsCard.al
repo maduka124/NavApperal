@@ -112,32 +112,40 @@ page 50996 "PI Details Card"
                     //Done By Sachith on 24/03/23
                     trigger OnLookup(var Text: Text): Boolean
                     var
-                        GRNRec: Record "Purch. Rcpt. Line";
+                        // GRNRec: Record "Purch. Rcpt. Line";
                         SupplierRec: Record Vendor;
                         "Suplier No": Code[20];
                         PurchaseHeaderRec: Record "Purchase Header";
+                        BOMAutogenRec: Record "BOM Line AutoGen";
+                        BOMRec: Record bom;
                     begin
 
-                        GRNRec.Reset();
-                        GRNRec.SetCurrentKey("Buy-from Vendor No.");
-                        GRNRec.Ascending(true);
-                        GRNRec.SetRange(StyleNo, Rec."Style No.");
+                        BOMRec.Reset();
+                        BOMRec.SetRange("Style No.", Rec."Style No.");
+                        if not BOMRec.FindSet() then
+                            Error('Cannot find a BOM');
 
-                        if GRNRec.FindSet() then begin
+
+                        BOMAutogenRec.Reset();
+                        BOMAutogenRec.SetCurrentKey("Supplier Name.");
+                        BOMAutogenRec.Ascending(true);
+                        BOMAutogenRec.SetRange("No.", BOMRec.No);
+
+                        if BOMAutogenRec.FindSet() then begin
                             SupplierRec.Reset();
                             SupplierRec.Ascending(true);
                             SupplierRec.FindSet();
                             repeat
 
-                                if "Suplier No" <> GRNRec."Buy-from Vendor No." then begin
-                                    "Suplier No" := GRNRec."Buy-from Vendor No.";
+                                if "Suplier No" <> BOMAutogenRec."Supplier No." then begin
+                                    "Suplier No" := BOMAutogenRec."Supplier No.";
                                     SupplierRec.FindFirst();
                                     repeat
-                                        if GRNRec."Buy-from Vendor No." = SupplierRec."No." then
+                                        if BOMAutogenRec."Supplier No." = SupplierRec."No." then
                                             SupplierRec.MARK(TRUE);
                                     until SupplierRec.Next() = 0;
                                 end;
-                            until GRNRec.Next() = 0;
+                            until BOMAutogenRec.Next() = 0;
                         end;
                         SupplierRec.MarkedOnly(true);
 
