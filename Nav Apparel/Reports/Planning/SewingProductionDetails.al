@@ -87,6 +87,27 @@ report 50852 SewingProductionDetails
                     until ProductionHeaderRec.Next() = 0;
                 end;
 
+                //Input date first date
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("No.", "No.");
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
+                ProductionHeaderRec.SetRange("Prod Date", "Prod Date");
+                ProductionHeaderRec.SetCurrentKey("Prod Date");
+                ProductionHeaderRec.Ascending(true);
+                if ProductionHeaderRec.FindFirst() then begin
+                    InputDate := ProductionHeaderRec."Prod Date";
+                end;
+
+                //OutPut Complete Date
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange("No.", "No.");
+                ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Saw);
+                ProductionHeaderRec.SetRange("Prod Date", "Prod Date");
+                ProductionHeaderRec.SetCurrentKey("Prod Date");
+                ProductionHeaderRec.Ascending(true);
+                if ProductionHeaderRec.FindLast() then begin
+                    OutputComDate := ProductionHeaderRec."Prod Date";
+                end;
 
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Out Style No.");
@@ -116,8 +137,8 @@ report 50852 SewingProductionDetails
                 // NavLinesRec.SetRange("Line No.", "Line No.");
                 if NavLinesRec.FindFirst() then begin
                     PlanQty := NavLinesRec.Qty;
-                    InputDate := NavLinesRec.StartDateTime;
-                    OutputComDate := NavLinesRec.FinishDateTime;
+
+
                     ResourceName := NavLinesRec."Resource Name";
                 end;
 
@@ -156,12 +177,12 @@ report 50852 SewingProductionDetails
         comRec: Record "Company Information";
         TodayOutput: BigInteger;
         ShipDate: Date;
-        OutputComDate: DateTime;
+        OutputComDate: Date;
         OutPutStartDate: Date;
         ProductionHeaderRec: Record ProductionOutHeader;
         TotalOuput: BigInteger;
         StylePoRec: Record "Style Master PO";
-        InputDate: DateTime;
+        InputDate: Date;
         PlanQty: BigInteger;
         NavLinesRec: Record "NavApp Planning Lines";
         BuyerName: Text[50];
