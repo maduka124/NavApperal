@@ -11,7 +11,8 @@ report 50852 SewingProductionDetails
     {
         dataitem(ProductionOutHeader; ProductionOutHeader)
         {
-            DataItemTableView = where(Type = filter('Saw'));
+            DataItemTableView = where(Type = filter('Saw'), "Output Qty" = filter(<> 0));
+
             column(TodayOutput; "Output Qty")
             { }
             column(OutPutStartDate; "Prod Date")
