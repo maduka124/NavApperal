@@ -138,7 +138,7 @@ page 50515 "Hourly Production Card"
 
 
                     //Done By sachith on 20/03/23
-                    
+
                     ProductionOutHeaderRec.Reset();
                     ProductionOutHeaderRec.SetRange("Prod Date", Rec."Prod Date");
                     ProductionOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
@@ -147,7 +147,7 @@ page 50515 "Hourly Production Card"
 
                     if not ProductionOutHeaderRec.FindSet() then
                         Error('Daily swing-out is not entered for this factory and date.');
-                   
+
 
                     //Get max lineno
                     HourlyProdLines1Rec.Reset();
@@ -172,6 +172,16 @@ page 50515 "Hourly Production Card"
                         if NavAppProdPlanLinesRec.FindSet() then begin
 
                             repeat
+
+                                //Mihiranga 2023/03/28
+                                HourlyProdLines1Rec.Reset();
+                                HourlyProdLines1Rec.SetRange("No.", HourlyProdLinesRec."No.");
+                                HourlyProdLines1Rec.SetRange("Prod Date", HourlyProdLinesRec."Prod Date");
+                                HourlyProdLines1Rec.SetRange("Factory No.", HourlyProdLinesRec."Factory No.");
+                                HourlyProdLines1Rec.SetRange(Item, HourlyProdLinesRec.Item);
+                                if HourlyProdLinesRec.FindFirst() then
+                                    break;
+                                //////
 
                                 WorkCenrterRec.Reset();
                                 WorkCenrterRec.SetRange("No.", NavAppProdPlanLinesRec."Resource No.");
@@ -261,8 +271,6 @@ page 50515 "Hourly Production Card"
 
 
                         end;
-
-
                     end
 
 
