@@ -31,6 +31,13 @@ page 50489 "All PO List"
                     Editable = false;
                 }
 
+                //Done By Sachith on 27/03/23
+                field(Brand; Rec.Brand)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
                 field(Style_No; rec.Style_No)
                 {
                     ApplicationArea = All;
@@ -53,6 +60,13 @@ page 50489 "All PO List"
                 }
 
                 field(Qty; Rec.Qty)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                //Done By sachith on 27/03/23
+                field("Sewing Out Qty"; Rec."Sewing Out Qty")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -105,6 +119,39 @@ page 50489 "All PO List"
                     ApplicationArea = All;
                     Editable = false;
                 }
+            }
+
+            //Done By Sachith on 27/03/23
+            group(Total)
+            {
+                field(Amount; Rec.Amount)
+                {
+                    ApplicationArea = All;
+                }
+            }
+        }
+
+    }
+
+    actions
+    {
+        area(Processing)
+        {
+            //Done By Sachith on 27/03/23
+            action("Export")
+            {
+                ApplicationArea = all;
+                Image = Export;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                Caption = 'Export To Excel';
+
+                trigger OnAction()
+                var
+                begin
+                    ExportData(Rec);
+                end;
             }
         }
     }
@@ -238,7 +285,10 @@ page 50489 "All PO List"
         TempQuery: Query StyleMaster_StyleMasterPO_Q;
         TempRec: Record StyleMaster_StyleMasterPO_T;
         LoginRec: Page "Login Card";
+        StyleMasterRec: Record "Style Master";
         LoginSessionsRec: Record LoginSessions;
+        NavAppLineRec: Record "NavApp Planning Lines";
+        ProcutionOutHeaderRec: Record ProductionOutHeader;
     begin
 
         //Check whether user logged in or not
@@ -287,6 +337,29 @@ page 50489 "All PO List"
                 Rec.Status := TempQuery.Status;
                 Rec.Style_No := TempQuery.Style_No;
                 Rec.UnitPrice := TempQuery.UnitPrice;
+
+                // Done By Sachith On 27/03/23
+                StyleMasterRec.Reset();
+                StyleMasterRec.SetRange("No.", TempQuery.No);
+
+                if StyleMasterRec.FindSet() then
+                    Rec.Brand := StyleMasterRec."Brand Name";
+
+                NavAppLineRec.Reset();
+
+                if NavAppLineRec.FindSet() then
+                    ProcutionOutHeaderRec.Reset();
+                repeat
+
+                    ProcutionOutHeaderRec.SetRange("Style No.", NavAppLineRec."Style No.");
+                    ProcutionOutHeaderRec.SetRange("PO No", NavAppLineRec."PO No.");
+                    ProcutionOutHeaderRec.SetRange("Prod Date", NavAppLineRec."Start Date", NavAppLineRec."End Date");
+                    ProcutionOutHeaderRec.SetRange("Factory Code", NavAppLineRec.Factory);
+                    ProcutionOutHeaderRec.SetFilter(Type, '=%1', ProcutionOutHeaderRec.Type::Saw);
+
+                    if ProcutionOutHeaderRec.FindSet() then
+                        Rec."Sewing Out Qty" := ProcutionOutHeaderRec."Output Qty";
+                until NavAppLineRec.Next() = 0;
                 Rec."Production File Handover Date" := TempQuery.Production_File_Handover_Date;
                 Rec.Insert();
 
@@ -298,6 +371,80 @@ page 50489 "All PO List"
     var
         Factory: Code[20];
         learningcurve: integer;
+
+
+    //Done By Sachith on 27/03/23
+    procedure ExportData(var StyleMasterQuaryRec: Record StyleMaster_StyleMasterPO_T)
+    var
+        TempExcelBuffer: Record "Excel Buffer" temporary;
+        Exellable: Label 'All PO List';
+        ExcelFileName: Label 'All Po List';
+    begin
+
+        TempExcelBuffer.Reset();
+        TempExcelBuffer.DeleteAll();
+        TempExcelBuffer.NewRow();
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Buyer), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Brand), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Style_No), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Lot_No), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(PONo), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Qty), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption("Sewing Out Qty"), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Mode), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(SMV), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(BPCD), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(ShipDate), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption("Production File Handover Date"), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(Status), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+        TempExcelBuffer.AddColumn(StyleMasterQuaryRec.FieldCaption(ConfirmDate), false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+
+
+        if StyleMasterQuaryRec.FindSet() then begin
+            repeat
+                TempExcelBuffer.NewRow();
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Buyer, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Brand, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Style_No, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Lot_No, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.PONo, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Qty, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Number);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec."Sewing Out Qty", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Number);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Mode, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.SMV, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Number);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.BPCD, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Date);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.ShipDate, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Date);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec."Production File Handover Date", false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Date);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.Status, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Text);
+                TempExcelBuffer.AddColumn(StyleMasterQuaryRec.ConfirmDate, false, '', false, false, false, '', TempExcelBuffer."Cell Type"::Date);
+            until StyleMasterQuaryRec.Next() = 0;
+        end;
+
+        TempExcelBuffer.CreateNewBook(ExcelFileName);
+        TempExcelBuffer.WriteSheet(ExcelFileName, CompanyName, UserId);
+        TempExcelBuffer.CloseBook();
+        TempExcelBuffer.SetFriendlyFilename(StrSubstNo(ExcelFileName, CurrentDateTime, UserId));
+        TempExcelBuffer.OpenExcel();
+
+    end;
+
+    //Done By Sachith on 27/03/23
+    trigger OnAfterGetCurrRecord()
+    var
+        "StyleMaster_StyleMasterPO_TRec": Record StyleMaster_StyleMasterPO_T;
+    begin
+
+
+        StyleMaster_StyleMasterPO_TRec.Reset();
+        CurrPage.SetSelectionFilter("StyleMaster_StyleMasterPO_TRec");
+        // Rec.GetFilter()
+        // StyleMaster_StyleMasterPO_TRec.GetFilters(xRec);
+        // CurrPage.SetSelectionFilter();
+        // StyleMaster_StyleMasterPO_TRec.SetRecFilter();
+
+        StyleMaster_StyleMasterPO_TRec.CalcSums(Qty);
+        Rec.Amount := StyleMaster_StyleMasterPO_TRec.Qty;
+    end;
 
     procedure PassParameters(FactoryPara: Code[20]; learningcurvePara: Integer);
     var
