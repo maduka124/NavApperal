@@ -5,6 +5,8 @@ page 50516 HourlyProductionListPart
     SourceTable = "Hourly Production Lines";
     DeleteAllowed = false;
     InsertAllowed = false;
+    SourceTableView = sorting("Work Center Seq No");
+
 
     layout
     {
@@ -1166,6 +1168,6 @@ page 50516 HourlyProductionListPart
         StyleExprTxt: Text[50];
         ChangeColor: Codeunit NavAppCodeUnit;
         SetEdit: Boolean;
-        
+
 
 }

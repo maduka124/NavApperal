@@ -141,6 +141,10 @@ table 50514 "Hourly Production Lines"
         {
             DataClassification = ToBeClassified;
         }
+        field(25; "Work Center Seq No"; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -148,6 +152,10 @@ table 50514 "Hourly Production Lines"
         key(PK; "No.", "Line No.")
         {
             Clustered = true;
+        }
+        key(SK; "Work Center Seq No")
+        {
+            
         }
     }
 
