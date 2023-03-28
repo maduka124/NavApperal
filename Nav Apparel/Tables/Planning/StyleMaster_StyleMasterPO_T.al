@@ -92,6 +92,24 @@ table 50773 "StyleMaster_StyleMasterPO_T"
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done By sachith on 27/03/23
+        field(18; Brand; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //Done By sachith on 27/03/23
+        field(19; "Sewing Out Qty"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //Done By sachith on 27/03/23
+        field(20; Amount; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

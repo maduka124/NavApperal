@@ -26,6 +26,7 @@ page 50515 "Hourly Production Card"
                     begin
 
                         //Validate Date
+
                         if rec."Prod Date" < WorkDate() then
                             Error('Cannot enter production for previous dates.');
 
@@ -126,22 +127,27 @@ page 50515 "Hourly Production Card"
                     i: Integer;
                     LineNo: Integer;
                     StyleNo: code[20];
+
                 begin
 
                     //Validate Date
+
                     if rec."Prod Date" < WorkDate() then
                         Error('Cannot enter production for previous dates.');
-
                     CurrPage.Update();
 
+
                     //Done By sachith on 20/03/23
+
                     ProductionOutHeaderRec.Reset();
                     ProductionOutHeaderRec.SetRange("Prod Date", Rec."Prod Date");
                     ProductionOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
                     ProductionOutHeaderRec.SetFilter(Type, '=%1', ProductionOutHeaderRec.Type::Saw);
 
+
                     if not ProductionOutHeaderRec.FindSet() then
                         Error('Daily swing-out is not entered for this factory and date.');
+
 
                     //Get max lineno
                     HourlyProdLines1Rec.Reset();
@@ -166,6 +172,16 @@ page 50515 "Hourly Production Card"
                         if NavAppProdPlanLinesRec.FindSet() then begin
 
                             repeat
+
+                                //Mihiranga 2023/03/28
+                                HourlyProdLines1Rec.Reset();
+                                HourlyProdLines1Rec.SetRange("No.", HourlyProdLinesRec."No.");
+                                HourlyProdLines1Rec.SetRange("Prod Date", HourlyProdLinesRec."Prod Date");
+                                HourlyProdLines1Rec.SetRange("Factory No.", HourlyProdLinesRec."Factory No.");
+                                HourlyProdLines1Rec.SetRange(Item, HourlyProdLinesRec.Item);
+                                if HourlyProdLinesRec.FindFirst() then
+                                    break;
+                                //////
 
                                 WorkCenrterRec.Reset();
                                 WorkCenrterRec.SetRange("No.", NavAppProdPlanLinesRec."Resource No.");
@@ -195,6 +211,7 @@ page 50515 "Hourly Production Card"
                                 HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
                                 HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
                                 HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
+                                HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
                                 HourlyProdLinesRec.Item := 'PASS PCS';
                                 HourlyProdLinesRec.Insert();
 
@@ -209,6 +226,7 @@ page 50515 "Hourly Production Card"
                                 HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
                                 HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
                                 HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
+                                HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
                                 HourlyProdLinesRec.Item := 'DEFECT PCS';
                                 HourlyProdLinesRec.Insert();
 
@@ -223,6 +241,7 @@ page 50515 "Hourly Production Card"
                                 HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
                                 HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
                                 HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
+                                HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
                                 HourlyProdLinesRec.Item := 'DHU';
                                 HourlyProdLinesRec.Insert();
 
@@ -252,8 +271,9 @@ page 50515 "Hourly Production Card"
 
 
                         end;
-
                     end
+
+
                     else
                         Message('Another entry with same Date/Factory/Type exists.');
 
