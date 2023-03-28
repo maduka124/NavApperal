@@ -110,6 +110,16 @@ table 50773 "StyleMaster_StyleMasterPO_T"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(21; PlannedQty; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(22; OutputQty; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -68,7 +68,20 @@ query 50772 "StyleMaster_StyleMasterPO_Q"
                 column(BPCD; BPCD)
                 {
                 }
+
+                column(PlannedQty; PlannedQty)
+                {
+                }
+
+                column(OutputQty; OutputQty)
+                {
+                }
+
             }
         }
     }
+
+    var
+        PO_Qty: BigInteger;
+
 }

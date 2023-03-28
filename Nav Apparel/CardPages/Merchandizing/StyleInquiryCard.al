@@ -492,13 +492,13 @@ page 50602 "Style Inquiry Card"
                 trigger OnAction()
                 var
                 begin
-                    if rec.Status = rec.Status::Confirmed then
-                        Message('This Style already confirmed')
+                    if rec.Status = rec.Status::Confirmed then begin
+                        Message('Style opened for changes.');
+                        rec.Status := rec.Status::Open;
+                    end
                     else
-                        if rec.Status = rec.Status::Rejected then begin
-                            Message('Style opened for changes.');
-                            rec.Status := rec.Status::Open;
-                        end
+                        if rec.Status = rec.Status::Rejected then
+                            Message('Style already rejected')
                         else begin
                             rec.Status := rec.Status::Rejected;
                             CurrPage.Update();

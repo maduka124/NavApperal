@@ -20,7 +20,16 @@ page 50489 "All PO List"
 
                     trigger OnValidate()
                     var
+                        T: Record StyleMaster_StyleMasterPO_T;
                     begin
+                        Rec.Amount := 0;
+                        CurrPage.Update();
+                        T.Reset();
+                        T.FindSet();
+                        repeat
+                            if T.Select = true then
+                                Rec.Amount += T.Qty;
+                        until T.Next() = 0;
                         CurrPage.Update();
                     end;
                 }
@@ -127,6 +136,7 @@ page 50489 "All PO List"
                 field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
+                    Caption = 'Total Qty';
                 }
             }
         }
@@ -153,6 +163,26 @@ page 50489 "All PO List"
                     ExportData(Rec);
                 end;
             }
+
+            // action("Get Total")
+            // {
+            //     ApplicationArea = all;
+            //     Image = Totals;
+            //     Caption = 'Get Total';
+
+            //     trigger OnAction()
+            //     var
+            //         T: Record StyleMaster_StyleMasterPO_T;
+            //     begin
+            //         //CurrPage.SetSelectionFilter(T);
+            //         if T.FindSet() then
+            //             repeat
+            //                 if T.Select then
+            //                     rec.Amount += T.Qty;
+            //             until T.Next() = 0;
+            //         CurrPage.Update();
+            //     end;
+            // }
         }
     }
 
@@ -286,6 +316,7 @@ page 50489 "All PO List"
         TempRec: Record StyleMaster_StyleMasterPO_T;
         LoginRec: Page "Login Card";
         StyleMasterRec: Record "Style Master";
+        StyleMasterPORec: Record "Style Master PO";
         LoginSessionsRec: Record LoginSessions;
         NavAppLineRec: Record "NavApp Planning Lines";
         ProcutionOutHeaderRec: Record ProductionOutHeader;
@@ -329,7 +360,7 @@ page 50489 "All PO List"
                 Rec.No := TempQuery.No;
                 Rec.PlannedStatus := TempQuery.PlannedStatus;
                 Rec.PONo := TempQuery.PONo;
-                Rec.Qty := TempQuery.Qty;
+                Rec.Qty := TempQuery.Qty - TempQuery.PlannedQty - TempQuery.OutputQty;
                 Rec.Select := TempQuery.Select;
                 Rec.ShipDate := TempQuery.ShipDate;
                 Rec.SID := TempQuery.SID;
@@ -341,25 +372,15 @@ page 50489 "All PO List"
                 // Done By Sachith On 27/03/23
                 StyleMasterRec.Reset();
                 StyleMasterRec.SetRange("No.", TempQuery.No);
-
                 if StyleMasterRec.FindSet() then
                     Rec.Brand := StyleMasterRec."Brand Name";
 
-                NavAppLineRec.Reset();
+                StyleMasterPORec.Reset();
+                StyleMasterPORec.SetRange("Style No.", TempQuery.No);
+                StyleMasterPORec.SetRange("Lot No.", TempQuery.Lot_No);
+                if StyleMasterPORec.FindSet() then
+                    Rec."Sewing Out Qty" := StyleMasterPORec."Sawing Out Qty";
 
-                if NavAppLineRec.FindSet() then
-                    ProcutionOutHeaderRec.Reset();
-                repeat
-
-                    ProcutionOutHeaderRec.SetRange("Style No.", NavAppLineRec."Style No.");
-                    ProcutionOutHeaderRec.SetRange("PO No", NavAppLineRec."PO No.");
-                    ProcutionOutHeaderRec.SetRange("Prod Date", NavAppLineRec."Start Date", NavAppLineRec."End Date");
-                    ProcutionOutHeaderRec.SetRange("Factory Code", NavAppLineRec.Factory);
-                    ProcutionOutHeaderRec.SetFilter(Type, '=%1', ProcutionOutHeaderRec.Type::Saw);
-
-                    if ProcutionOutHeaderRec.FindSet() then
-                        Rec."Sewing Out Qty" := ProcutionOutHeaderRec."Output Qty";
-                until NavAppLineRec.Next() = 0;
                 Rec."Production File Handover Date" := TempQuery.Production_File_Handover_Date;
                 Rec.Insert();
 
@@ -367,6 +388,7 @@ page 50489 "All PO List"
             TempQuery.Close();
         end;
     end;
+
 
     var
         Factory: Code[20];
@@ -428,23 +450,6 @@ page 50489 "All PO List"
 
     end;
 
-    //Done By Sachith on 27/03/23
-    trigger OnAfterGetCurrRecord()
-    var
-        "StyleMaster_StyleMasterPO_TRec": Record StyleMaster_StyleMasterPO_T;
-    begin
-
-
-        StyleMaster_StyleMasterPO_TRec.Reset();
-        CurrPage.SetSelectionFilter("StyleMaster_StyleMasterPO_TRec");
-        // Rec.GetFilter()
-        // StyleMaster_StyleMasterPO_TRec.GetFilters(xRec);
-        // CurrPage.SetSelectionFilter();
-        // StyleMaster_StyleMasterPO_TRec.SetRecFilter();
-
-        StyleMaster_StyleMasterPO_TRec.CalcSums(Qty);
-        Rec.Amount := StyleMaster_StyleMasterPO_TRec.Qty;
-    end;
 
     procedure PassParameters(FactoryPara: Code[20]; learningcurvePara: Integer);
     var
