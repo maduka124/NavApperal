@@ -495,8 +495,10 @@ page 50602 "Style Inquiry Card"
                     if rec.Status = rec.Status::Confirmed then
                         Message('This Style already confirmed')
                     else
-                        if rec.Status = rec.Status::Rejected then
-                            Message('This Style already rejected')
+                        if rec.Status = rec.Status::Rejected then begin
+                            Message('Style opened for changes.');
+                            rec.Status := rec.Status::Open;
+                        end
                         else begin
                             rec.Status := rec.Status::Rejected;
                             CurrPage.Update();

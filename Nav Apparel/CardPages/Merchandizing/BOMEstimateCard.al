@@ -213,6 +213,7 @@ page 50985 "BOM Estimate Card"
                 field(Quantity; rec.Quantity)
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
 
                     trigger OnValidate()

@@ -206,6 +206,8 @@ page 50983 "Assortment Card"
                     BOMLineAutoGenRec: Record "BOM Line AutoGen";
                     BOMPOSelectionRec: Record BOMPOSelection;
                     StyleMasterPORec: Record "Style Master PO";
+                    BOMLineEstimateRec: Record "BOM Line Estimate";
+                    BLERec: Record "BOM Line Estimate";
                     BOMRec: Record BOM;
                     LineNo: BigInteger;
                     Description: Text[500];
@@ -213,6 +215,28 @@ page 50983 "Assortment Card"
                     StatusGB: Integer;
                     Count: Integer;
                     Mode: Text[20];
+                    Total: Decimal;
+
+
+                    ConvFactor: Decimal;
+                    UOMRec: Record "Unit of Measure";
+                    BLE1Rec: Record "BOM Line Estimate";
+                    BOMLine1Rec: Record "BOM Line";  //For Color
+                    BOMLine2Rec: Record "BOM Line";  //For Size
+                    BOMLine3Rec: Record "BOM Line";  //For country
+                    BOMLine4Rec: Record "BOM Line";  //For Item PO
+                    BLAutoGenNewRec: Record "BOM Line AutoGen";
+                    BLAutoGenPrBOMRec: Record "BOM Line AutoGen ProdBOM";
+                    AssortDetailsRec: Record AssorColorSizeRatioView;
+                    AssortDetails1Rec: Record AssorColorSizeRatioView;
+                    BOMPOSelecRec: Record BOMPOSelection;
+                    ItemMasterRec: Record Item;
+
+                    Value: Decimal;
+                    Requirment: Decimal;
+                    SubTotal: Decimal;
+                    SubCat: Code[20];
+                    SubCatDesc: Text[250];
                 begin
                     LineNo := 0;
                     Description := '';
@@ -228,6 +252,15 @@ page 50983 "Assortment Card"
                     //Check for the Auto gen line
                     BOMLineAutoGenRec.Reset();
                     BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
+                    if not BOMLineAutoGenRec.FindSet() then
+                        Error('You have not run "Auto Generate" in BOM : %1. Cannot proceed.', BOMRec.No);
+
+
+                    //Check for the Write to MRP 
+                    BOMLineAutoGenRec.Reset();
+                    BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
+                    BOMLineAutoGenRec.SetRange("Lot No.", rec."Lot No.");
+                    BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', false);
                     if not BOMLineAutoGenRec.FindSet() then
                         Error('You have not run "Auto Generate" in BOM : %1. Cannot proceed.', BOMRec.No);
 
@@ -259,7 +292,7 @@ page 50983 "Assortment Card"
                                 BOMPOSelectionRec.Qty := StyleMasterPORec.Qty;
                                 BOMPOSelectionRec.Mode := StyleMasterPORec.Mode;
                                 BOMPOSelectionRec."Ship Date" := StyleMasterPORec."Ship Date";
-                                BOMPOSelectionRec.Selection := false;
+                                BOMPOSelectionRec.Selection := true;
                                 BOMPOSelectionRec."Created User" := UserId;
                                 BOMPOSelectionRec."Created Date" := WorkDate();
                                 BOMPOSelectionRec.Insert();
@@ -282,13 +315,5167 @@ page 50983 "Assortment Card"
                         end;
                     end;
 
-                    //Add Sencitivity
+
+                    //Update Styele Total
+                    Total := 0;
+                    BOMPOSelectionRec.Reset();
+                    BOMPOSelectionRec.SetRange("BOM No.", BOMRec."No");
+                    BOMPOSelectionRec.SetRange(Selection, true);
+
+                    if BOMPOSelectionRec.FindSet() then begin
+                        repeat
+                            Total += BOMPOSelectionRec.Qty;
+                        until BOMPOSelectionRec.Next() = 0;
+                    end;
+
+                    BOMRec.Reset();
+                    BOMRec.SetRange("No", BOMRec."No");
+                    BOMRec.ModifyAll(Quantity, Total);
+
+                    //Update BOM Estimate Line Qty
+                    BOMLineEstimateRec.Reset();
+                    BOMLineEstimateRec.SetRange("No.", BOMRec."No");
+                    BOMLineEstimateRec.ModifyAll("GMT Qty", Total);
+
+
+                    /////////////////////////////////////////////Add Sencitivity
                     ColorSensitivity(BOMRec.No);
                     SizeSensitivity(BOMRec.No);
-                    CountrySensitivity();
-                    ItemPOSensitivity();
+                    CountrySensitivity(BOMRec.No);
+                    ItemPOSensitivity(BOMRec.No);
 
 
+                    ////////////////////////////////////////////Auto Generate
+                    BLERec.Reset();
+                    BLERec.SetRange("No.", BOMRec."No");
+                    Total := 0;
+                    SubTotal := 0;
+                    LineNo := 0;
+                    Value := 0;
+                    Requirment := 0;
+
+                    // //Delete existing records
+                    // BLAutoGenNewRec.Reset();
+                    // BLAutoGenNewRec.SetRange("No.", BOMRec."No");
+                    // BLAutoGenNewRec.SetFilter("Included in PO", '=%1', false);
+                    // if BLAutoGenNewRec.FindSet() then
+                    //     repeat
+
+                    //         BLAutoGenPrBOMRec.Reset();
+                    //         BLAutoGenPrBOMRec.SetRange("No.", BOMRec."No");
+                    //         BLAutoGenPrBOMRec.SetRange("Line No.", BLAutoGenNewRec."Line No.");
+                    //         BLAutoGenPrBOMRec.SetRange("Item No.", BLAutoGenNewRec."Item No.");
+                    //         if BLAutoGenPrBOMRec.FindSet() then
+                    //             BLAutoGenPrBOMRec.Delete();
+
+                    //         BLAutoGenNewRec.Delete();
+
+                    //     until BLAutoGenNewRec.Next() = 0;
+
+
+                    // if BLERec.FindSet() then begin
+                    //     repeat
+
+                    //         SubCat := '';
+                    //         SubCatDesc := '';
+
+                    //         if BLERec."Color Sensitive" = false then begin
+                    //             Message('Color Sensitivity not selected. Cannot proceed.');
+                    //             exit;
+                    //         end;
+
+                    //         if BLERec."Supplier No." = '' then begin
+                    //             Error('Supplier is empty. Cannot proceed.');
+                    //             exit;
+                    //         end;
+
+                    //         ItemMasterRec.Reset();
+                    //         ItemMasterRec.SetRange("No.", BLERec."Item No.");
+
+                    //         if ItemMasterRec.FindSet() then begin
+                    //             SubCat := ItemMasterRec."Sub Category No.";
+                    //             SubCatDesc := ItemMasterRec."Sub Category Name";
+                    //         end
+                    //         else
+                    //             Error('Sub Category is blank for the item : %1', BLERec."Item Name");
+
+
+                    //         //Get Max Lineno
+                    //         BLAutoGenNewRec.Reset();
+                    //         BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //         BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //         //BLE1Rec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+
+                    //         if BLAutoGenNewRec.FindLast() then
+                    //             LineNo := BLAutoGenNewRec."Line No.";
+
+
+                    //         //Color, Size, Country and PO
+                    //         if BLERec."Color Sensitive" and BLERec."Size Sensitive" and BLERec."Country Sensitive" and BLERec."PO Sensitive" then begin
+
+                    //             //Color filter
+                    //             BOMLine1Rec.Reset();
+                    //             BOMLine1Rec.SetRange("No.", rec."No");
+                    //             BOMLine1Rec.SetRange(Type, 1);
+                    //             BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine1Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine1Rec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //Size filter
+                    //                     BOMLine2Rec.Reset();
+                    //                     BOMLine2Rec.SetRange("No.", rec."No");
+                    //                     BOMLine2Rec.SetRange(Type, 2);
+                    //                     BOMLine2Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                     BOMLine2Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                     BOMLine2Rec.SetFilter(Select, '=%1', true);
+
+                    //                     if BOMLine2Rec.FindSet() then begin
+                    //                         repeat
+
+                    //                             BOMPOSelecRec.Reset();
+                    //                             BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                             BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                             if BOMPOSelecRec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     //Item po filter
+                    //                                     BOMLine4Rec.Reset();
+                    //                                     BOMLine4Rec.SetRange("No.", rec."No");
+                    //                                     BOMLine4Rec.SetRange(Type, 4);
+                    //                                     BOMLine4Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                                     BOMLine4Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                                     BOMLine4Rec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                     BOMLine4Rec.SetRange(Select, true);
+
+                    //                                     if BOMLine4Rec.FindSet() then begin
+                    //                                         repeat
+
+                    //                                             //Country filter
+                    //                                             BOMLine3Rec.Reset();
+                    //                                             BOMLine3Rec.SetRange("No.", rec."No");
+                    //                                             BOMLine3Rec.SetRange(Type, 3);
+                    //                                             BOMLine3Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                                             BOMLine3Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                                             BOMLine3Rec.SetRange(Select, true);
+
+                    //                                             if BOMLine3Rec.FindSet() then begin
+
+                    //                                                 repeat
+
+                    //                                                     //Insert new line
+                    //                                                     AssortDetailsRec.Reset();
+                    //                                                     AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                                     AssortDetailsRec.SetRange("Lot No.", BOMLine4Rec."lot No.");
+                    //                                                     AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
+                    //                                                     AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                                     if AssortDetailsRec.FindSet() then begin
+
+                    //                                                         //Find the correct column for the GMT size
+                    //                                                         AssortDetails1Rec.Reset();
+                    //                                                         AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                    //                                                         AssortDetails1Rec.SetRange("Lot No.", BOMLine4Rec."lot No.");
+                    //                                                         AssortDetails1Rec.SetRange("Colour No", '*');
+                    //                                                         AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                                         AssortDetails1Rec.FindSet();
+
+                    //                                                         FOR Count := 1 TO 64 DO begin
+
+                    //                                                             case Count of
+                    //                                                                 1:
+                    //                                                                     if AssortDetails1Rec."1" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."1");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 2:
+                    //                                                                     if AssortDetails1Rec."2" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."2");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 3:
+                    //                                                                     if AssortDetails1Rec."3" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."3");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 4:
+                    //                                                                     if AssortDetails1Rec."4" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."4");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 5:
+                    //                                                                     if AssortDetails1Rec."5" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."5");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 6:
+                    //                                                                     if AssortDetails1Rec."6" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."6");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 7:
+                    //                                                                     if AssortDetails1Rec."7" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."7");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 8:
+                    //                                                                     if AssortDetails1Rec."8" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."8");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 9:
+                    //                                                                     if AssortDetails1Rec."9" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."9");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 10:
+                    //                                                                     if AssortDetails1Rec."10" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."10");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 11:
+                    //                                                                     if AssortDetails1Rec."11" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."11");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 12:
+                    //                                                                     if AssortDetails1Rec."12" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."12");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 13:
+                    //                                                                     if AssortDetails1Rec."13" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."13");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 14:
+                    //                                                                     if AssortDetails1Rec."14" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."14");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 15:
+                    //                                                                     if AssortDetails1Rec."15" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."15");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 16:
+                    //                                                                     if AssortDetails1Rec."16" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."16");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 17:
+                    //                                                                     if AssortDetails1Rec."17" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."17");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 18:
+                    //                                                                     if AssortDetails1Rec."18" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."18");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 19:
+                    //                                                                     if AssortDetails1Rec."19" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."19");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 20:
+                    //                                                                     if AssortDetails1Rec."20" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."20");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 21:
+                    //                                                                     if AssortDetails1Rec."21" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."21");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 22:
+                    //                                                                     if AssortDetails1Rec."22" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."22");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 23:
+                    //                                                                     if AssortDetails1Rec."23" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."23");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 24:
+                    //                                                                     if AssortDetails1Rec."24" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."24");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 25:
+                    //                                                                     if AssortDetails1Rec."25" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."25");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 26:
+                    //                                                                     if AssortDetails1Rec."26" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."26");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 27:
+                    //                                                                     if AssortDetails1Rec."27" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."27");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 28:
+                    //                                                                     if AssortDetails1Rec."28" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."28");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 29:
+                    //                                                                     if AssortDetails1Rec."29" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."29");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 30:
+                    //                                                                     if AssortDetails1Rec."30" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."30");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 31:
+                    //                                                                     if AssortDetails1Rec."31" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."31");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 32:
+                    //                                                                     if AssortDetails1Rec."32" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."32");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 33:
+                    //                                                                     if AssortDetails1Rec."33" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."33");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 34:
+                    //                                                                     if AssortDetails1Rec."34" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."34");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 35:
+                    //                                                                     if AssortDetails1Rec."35" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."35");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 36:
+                    //                                                                     if AssortDetails1Rec."36" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."36");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 37:
+                    //                                                                     if AssortDetails1Rec."37" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."37");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 38:
+                    //                                                                     if AssortDetails1Rec."38" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."38");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 39:
+                    //                                                                     if AssortDetails1Rec."39" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."39");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 40:
+                    //                                                                     if AssortDetails1Rec."40" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."40");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 41:
+                    //                                                                     if AssortDetails1Rec."41" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."41");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 42:
+                    //                                                                     if AssortDetails1Rec."42" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."42");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 43:
+                    //                                                                     if AssortDetails1Rec."43" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."43");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 44:
+                    //                                                                     if AssortDetails1Rec."44" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."44");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 45:
+                    //                                                                     if AssortDetails1Rec."45" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."45");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 46:
+                    //                                                                     if AssortDetails1Rec."46" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."46");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 47:
+                    //                                                                     if AssortDetails1Rec."47" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."47");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 48:
+                    //                                                                     if AssortDetails1Rec."48" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."48");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 49:
+                    //                                                                     if AssortDetails1Rec."49" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."49");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 50:
+                    //                                                                     if AssortDetails1Rec."50" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."50");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 51:
+                    //                                                                     if AssortDetails1Rec."51" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."51");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 52:
+                    //                                                                     if AssortDetails1Rec."52" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."52");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 53:
+                    //                                                                     if AssortDetails1Rec."53" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."53");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 54:
+                    //                                                                     if AssortDetails1Rec."54" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."54");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 55:
+                    //                                                                     if AssortDetails1Rec."55" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."55");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 56:
+                    //                                                                     if AssortDetails1Rec."56" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."56");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 57:
+                    //                                                                     if AssortDetails1Rec."57" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."57");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 58:
+                    //                                                                     if AssortDetails1Rec."58" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."58");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 59:
+                    //                                                                     if AssortDetails1Rec."59" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."59");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 60:
+                    //                                                                     if AssortDetails1Rec."60" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."60");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 61:
+                    //                                                                     if AssortDetails1Rec."61" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."61");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 62:
+                    //                                                                     if AssortDetails1Rec."62" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."62");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 63:
+                    //                                                                     if AssortDetails1Rec."63" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."63");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 64:
+                    //                                                                     if AssortDetails1Rec."64" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(Total, AssortDetailsRec."64");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                             end;
+                    //                                                         end;
+
+                    //                                                         LineNo += 1;
+                    //                                                         Value := 0;
+                    //                                                         Requirment := 0;
+
+                    //                                                         UOMRec.Reset();
+                    //                                                         UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                                         UOMRec.FindSet();
+                    //                                                         ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                                         //Check whether already "po raised"items are there, then do not insert
+                    //                                                         BLAutoGenNewRec.Reset();
+                    //                                                         BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                                         BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                                         BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                                         BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                    //                                                         // BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                    //                                                         BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
+                    //                                                         BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                                                         BLAutoGenNewRec.SetRange(PO, BOMLine4Rec."PO No.");
+                    //                                                         BLAutoGenNewRec.SetRange("Lot No.", BOMLine4Rec."Lot No.");
+                    //                                                         BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                                         BLAutoGenNewRec.SetRange("Dimension No.", BOMLine2Rec."Dimension No.");
+                    //                                                         BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                                         if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                                             if Total <> 0 then begin
+
+                    //                                                                 BLAutoGenNewRec.Init();
+                    //                                                                 BLAutoGenNewRec."No." := rec."No";
+                    //                                                                 BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                                                 BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                                                 BLAutoGenNewRec."Line No." := LineNo;
+                    //                                                                 BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                                                 BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                                                 BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                                                 BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                                                 BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                                                 BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                                                 BLAutoGenNewRec."Dimension No." := BOMLine2Rec."Dimension No.";
+                    //                                                                 BLAutoGenNewRec."Dimension Name." := BOMLine2Rec."Dimension Name";
+                    //                                                                 BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                                                 BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                                                 BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                                                 BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                                                 BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                                                 BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                                                 BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                                                 BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                                                 BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                                                 BLAutoGenNewRec."Created User" := UserId;
+                    //                                                                 BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                                                 BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                                                 BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                                                 BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                                                 BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                                                 BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                                                 BLAutoGenNewRec.Reconfirm := false;
+                    //                                                                 BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                                                 BLAutoGenNewRec."GMT Color No." := BOMLine1Rec."GMT Color No.";
+                    //                                                                 BLAutoGenNewRec."GMT Color Name" := BOMLine1Rec."GMT Color Name.";
+                    //                                                                 BLAutoGenNewRec."Item Color No." := BOMLine1Rec."Item Color No.";
+                    //                                                                 BLAutoGenNewRec."Item Color Name" := BOMLine1Rec."Item Color Name.";
+                    //                                                                 BLAutoGenNewRec."GMT Size Name" := BOMLine2Rec."GMR Size Name";
+                    //                                                                 BLAutoGenNewRec."Country No." := BOMLine3Rec."Country Code";
+                    //                                                                 BLAutoGenNewRec."Country Name" := BOMLine3Rec."Country Name";
+                    //                                                                 BLAutoGenNewRec.PO := BOMLine4Rec."PO No.";
+                    //                                                                 BLAutoGenNewRec."Lot No." := BOMLine4Rec."Lot No.";
+                    //                                                                 BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                                                 if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                                     Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                                                 else
+                    //                                                                     if BLERec.Type = BLERec.Type::Doz then
+                    //                                                                         Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+
+                    //                                                                 if (ConvFactor <> 0) then
+                    //                                                                     Requirment := Requirment / ConvFactor;
+
+                    //                                                                 //Requirment := Round(Requirment, 1);
+
+                    //                                                                 if Requirment < 0 then
+                    //                                                                     Requirment := 1;
+
+                    //                                                                 Value := Requirment * BLERec.Rate;
+
+                    //                                                                 BLAutoGenNewRec.Requirment := Requirment;
+                    //                                                                 BLAutoGenNewRec.Value := Value;
+
+                    //                                                                 BLAutoGenNewRec.Insert();
+
+                    //                                                                 //Insert into AutoGenPRBOM
+                    //                                                                 InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                                                 Total := 0;
+                    //                                                             end;
+                    //                                                         end;
+
+                    //                                                     end;
+
+                    //                                                 until BOMLine3Rec.Next() = 0;
+
+                    //                                             end;
+
+                    //                                         until BOMLine4Rec.Next() = 0;
+                    //                                     end;
+                    //                                 until BOMPOSelecRec.Next() = 0;
+                    //                             end;
+                    //                         until BOMLine2Rec.Next() = 0;
+                    //                     end;
+                    //                 until BOMLine1Rec.Next() = 0;
+                    //             end;
+
+                    //         end;
+
+                    //         //Color, Size and Country
+                    //         if BLERec."Color Sensitive" and BLERec."Size Sensitive" and BLERec."Country Sensitive" and not BLERec."PO Sensitive" then begin
+
+                    //             //Color filter
+                    //             BOMLine1Rec.Reset();
+                    //             BOMLine1Rec.SetRange("No.", rec."No");
+                    //             BOMLine1Rec.SetRange(Type, 1);
+                    //             BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine1Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine1Rec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //Size filter
+                    //                     BOMLine2Rec.Reset();
+                    //                     BOMLine2Rec.SetRange("No.", rec."No");
+                    //                     BOMLine2Rec.SetRange(Type, 2);
+                    //                     BOMLine2Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                     BOMLine2Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                     BOMLine2Rec.SetFilter(Select, '=%1', true);
+
+                    //                     if BOMLine2Rec.FindSet() then begin
+                    //                         repeat
+
+                    //                             //PO filter
+                    //                             BOMPOSelecRec.Reset();
+                    //                             BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                             BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                             if BOMPOSelecRec.FindSet() then begin
+                    //                                 repeat
+
+                    //                                     //Country filter
+                    //                                     BOMLine3Rec.Reset();
+                    //                                     BOMLine3Rec.SetRange("No.", rec."No");
+                    //                                     BOMLine3Rec.SetRange(Type, 3);
+                    //                                     BOMLine3Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                                     BOMLine3Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                                     BOMLine3Rec.SetRange(Select, true);
+
+                    //                                     if BOMLine3Rec.FindSet() then begin
+
+                    //                                         repeat
+
+                    //                                             //Insert new line
+                    //                                             AssortDetailsRec.Reset();
+                    //                                             AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                             AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                             AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
+                    //                                             AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                             if AssortDetailsRec.FindSet() then begin
+
+                    //                                                 //Find the correct column for the GMT size
+                    //                                                 AssortDetails1Rec.Reset();
+                    //                                                 AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                    //                                                 AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                                 AssortDetails1Rec.SetRange("Colour No", '*');
+                    //                                                 AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                                 AssortDetails1Rec.FindSet();
+
+                    //                                                 FOR Count := 1 TO 64 DO begin
+
+                    //                                                     case Count of
+                    //                                                         1:
+                    //                                                             if AssortDetails1Rec."1" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."1");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         2:
+                    //                                                             if AssortDetails1Rec."2" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."2");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         3:
+                    //                                                             if AssortDetails1Rec."3" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."3");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         4:
+                    //                                                             if AssortDetails1Rec."4" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."4");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         5:
+                    //                                                             if AssortDetails1Rec."5" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."5");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         6:
+                    //                                                             if AssortDetails1Rec."6" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."6");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         7:
+                    //                                                             if AssortDetails1Rec."7" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."7");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         8:
+                    //                                                             if AssortDetails1Rec."8" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."8");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         9:
+                    //                                                             if AssortDetails1Rec."9" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."9");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         10:
+                    //                                                             if AssortDetails1Rec."10" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."10");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         11:
+                    //                                                             if AssortDetails1Rec."11" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."11");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         12:
+                    //                                                             if AssortDetails1Rec."12" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."12");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         13:
+                    //                                                             if AssortDetails1Rec."13" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."13");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         14:
+                    //                                                             if AssortDetails1Rec."14" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."14");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         15:
+                    //                                                             if AssortDetails1Rec."15" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."15");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         16:
+                    //                                                             if AssortDetails1Rec."16" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."16");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         17:
+                    //                                                             if AssortDetails1Rec."17" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."17");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         18:
+                    //                                                             if AssortDetails1Rec."18" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."18");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         19:
+                    //                                                             if AssortDetails1Rec."19" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."19");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         20:
+                    //                                                             if AssortDetails1Rec."20" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."20");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         21:
+                    //                                                             if AssortDetails1Rec."21" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."21");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         22:
+                    //                                                             if AssortDetails1Rec."22" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."22");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         23:
+                    //                                                             if AssortDetails1Rec."23" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."23");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         24:
+                    //                                                             if AssortDetails1Rec."24" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."24");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         25:
+                    //                                                             if AssortDetails1Rec."25" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."25");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         26:
+                    //                                                             if AssortDetails1Rec."26" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."26");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         27:
+                    //                                                             if AssortDetails1Rec."27" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."27");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         28:
+                    //                                                             if AssortDetails1Rec."28" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."28");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         29:
+                    //                                                             if AssortDetails1Rec."29" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."29");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         30:
+                    //                                                             if AssortDetails1Rec."30" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."30");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         31:
+                    //                                                             if AssortDetails1Rec."31" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."31");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         32:
+                    //                                                             if AssortDetails1Rec."32" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."32");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         33:
+                    //                                                             if AssortDetails1Rec."33" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."33");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         34:
+                    //                                                             if AssortDetails1Rec."34" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."34");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         35:
+                    //                                                             if AssortDetails1Rec."35" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."35");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         36:
+                    //                                                             if AssortDetails1Rec."36" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."36");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         37:
+                    //                                                             if AssortDetails1Rec."37" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."37");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         38:
+                    //                                                             if AssortDetails1Rec."38" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."38");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         39:
+                    //                                                             if AssortDetails1Rec."39" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."39");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         40:
+                    //                                                             if AssortDetails1Rec."40" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."40");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         41:
+                    //                                                             if AssortDetails1Rec."41" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."41");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         42:
+                    //                                                             if AssortDetails1Rec."42" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."42");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         43:
+                    //                                                             if AssortDetails1Rec."43" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."43");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         44:
+                    //                                                             if AssortDetails1Rec."44" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."44");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         45:
+                    //                                                             if AssortDetails1Rec."45" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."45");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         46:
+                    //                                                             if AssortDetails1Rec."46" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."46");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         47:
+                    //                                                             if AssortDetails1Rec."47" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."47");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         48:
+                    //                                                             if AssortDetails1Rec."48" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."48");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         49:
+                    //                                                             if AssortDetails1Rec."49" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."49");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         50:
+                    //                                                             if AssortDetails1Rec."50" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."50");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         51:
+                    //                                                             if AssortDetails1Rec."51" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."51");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         52:
+                    //                                                             if AssortDetails1Rec."52" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."52");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         53:
+                    //                                                             if AssortDetails1Rec."53" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."53");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         54:
+                    //                                                             if AssortDetails1Rec."54" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."54");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         55:
+                    //                                                             if AssortDetails1Rec."55" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."55");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         56:
+                    //                                                             if AssortDetails1Rec."56" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."56");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         57:
+                    //                                                             if AssortDetails1Rec."57" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."57");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         58:
+                    //                                                             if AssortDetails1Rec."58" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."58");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         59:
+                    //                                                             if AssortDetails1Rec."59" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."59");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         60:
+                    //                                                             if AssortDetails1Rec."60" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."60");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         61:
+                    //                                                             if AssortDetails1Rec."61" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."61");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         62:
+                    //                                                             if AssortDetails1Rec."62" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."62");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         63:
+                    //                                                             if AssortDetails1Rec."63" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."63");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         64:
+                    //                                                             if AssortDetails1Rec."64" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(Total, AssortDetailsRec."64");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                     end;
+                    //                                                 end;
+                    //                                                 //Message(Format(Total));
+
+                    //                                                 LineNo += 1;
+                    //                                                 Value := 0;
+                    //                                                 Requirment := 0;
+
+                    //                                                 UOMRec.Reset();
+                    //                                                 UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                                 UOMRec.FindSet();
+                    //                                                 ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                                 //Check whether already "po raised"items are there, then do not insert
+                    //                                                 BLAutoGenNewRec.Reset();
+                    //                                                 BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                                 BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                    //                                                 //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                    //                                                 BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
+                    //                                                 BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                                                 BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Dimension No.", BOMLine2Rec."Dimension No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                                 if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                                     if Total <> 0 then begin
+
+                    //                                                         BLAutoGenNewRec.Init();
+                    //                                                         BLAutoGenNewRec."No." := rec."No";
+                    //                                                         BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                                         BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                                         BLAutoGenNewRec."Line No." := LineNo;
+                    //                                                         BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                                         BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                                         BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                                         BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                                         BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                                         BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                                         BLAutoGenNewRec."Dimension No." := BOMLine2Rec."Dimension No.";
+                    //                                                         BLAutoGenNewRec."Dimension Name." := BOMLine2Rec."Dimension Name";
+                    //                                                         BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                                         BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                                         BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                                         BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                                         BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                                         BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                                         BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                                         BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                                         BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                                         BLAutoGenNewRec."Created User" := UserId;
+                    //                                                         BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                                         BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                                         BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                                         BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                                         BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                                         BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                                         BLAutoGenNewRec.Reconfirm := false;
+                    //                                                         BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                                         BLAutoGenNewRec."GMT Color No." := BOMLine1Rec."GMT Color No.";
+                    //                                                         BLAutoGenNewRec."GMT Color Name" := BOMLine1Rec."GMT Color Name.";
+                    //                                                         BLAutoGenNewRec."Item Color No." := BOMLine1Rec."Item Color No.";
+                    //                                                         BLAutoGenNewRec."Item Color Name" := BOMLine1Rec."Item Color Name.";
+                    //                                                         BLAutoGenNewRec."GMT Size Name" := BOMLine2Rec."GMR Size Name";
+                    //                                                         BLAutoGenNewRec."Country No." := BOMLine3Rec."Country Code";
+                    //                                                         BLAutoGenNewRec."Country Name" := BOMLine3Rec."Country Name";
+                    //                                                         BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                                         BLAutoGenNewRec."Lot No." := BOMPOSelecRec."Lot No.";
+                    //                                                         BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                                         if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                             Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                                         else
+                    //                                                             if BLERec.Type = BLERec.Type::Doz then
+                    //                                                                 Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                                         if (ConvFactor <> 0) then
+                    //                                                             Requirment := Requirment / ConvFactor;
+
+                    //                                                         //Requirment := Round(Requirment, 1);
+
+                    //                                                         if Requirment < 0 then
+                    //                                                             Requirment := 1;
+
+                    //                                                         Value := Requirment * BLERec.Rate;
+
+                    //                                                         BLAutoGenNewRec.Requirment := Requirment;
+                    //                                                         BLAutoGenNewRec.Value := Value;
+
+                    //                                                         BLAutoGenNewRec.Insert();
+
+                    //                                                         //Insert into AutoGenPRBOM
+                    //                                                         InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                                         Total := 0;
+                    //                                                     end;
+                    //                                                 end;
+                    //                                             end;
+
+                    //                                         until BOMLine3Rec.Next() = 0;
+                    //                                     end;
+
+                    //                                 until BOMPOSelecRec.Next() = 0;
+                    //                             end;
+                    //                         until BOMLine2Rec.Next() = 0;
+                    //                     end;
+                    //                 until BOMLine1Rec.Next() = 0;
+                    //             end;
+                    //         end;
+
+                    //         //Color and Size
+                    //         if BLERec."Color Sensitive" and BLERec."Size Sensitive" and not BLERec."Country Sensitive" and not BLERec."PO Sensitive" then begin
+
+                    //             //Color filter
+                    //             BOMLine1Rec.Reset();
+                    //             BOMLine1Rec.SetRange("No.", rec."No");
+                    //             BOMLine1Rec.SetRange(Type, 1);
+                    //             BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine1Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine1Rec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //Size filter
+                    //                     BOMLine2Rec.Reset();
+                    //                     BOMLine2Rec.SetRange("No.", rec."No");
+                    //                     BOMLine2Rec.SetRange(Type, 2);
+                    //                     BOMLine2Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                     BOMLine2Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                     BOMLine2Rec.SetFilter(Select, '=%1', true);
+
+                    //                     if BOMLine2Rec.FindSet() then begin
+                    //                         repeat
+
+                    //                             //PO filter
+                    //                             BOMPOSelecRec.Reset();
+                    //                             BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                             BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                             if BOMPOSelecRec.FindSet() then begin
+                    //                                 repeat
+
+                    //                                     //Insert new line
+                    //                                     AssortDetailsRec.Reset();
+                    //                                     AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                     AssortDetailsRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                     AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
+
+                    //                                     if AssortDetailsRec.FindSet() then begin
+
+                    //                                         //Find the correct column for the GMT size
+                    //                                         AssortDetails1Rec.Reset();
+                    //                                         AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                    //                                         AssortDetails1Rec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                         AssortDetails1Rec.SetRange("Colour No", '*');
+
+                    //                                         AssortDetails1Rec.FindSet();
+
+                    //                                         FOR Count := 1 TO 64 DO begin
+
+                    //                                             case Count of
+                    //                                                 1:
+                    //                                                     if AssortDetails1Rec."1" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."1");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 2:
+                    //                                                     if AssortDetails1Rec."2" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."2");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 3:
+                    //                                                     if AssortDetails1Rec."3" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."3");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 4:
+                    //                                                     if AssortDetails1Rec."4" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."4");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 5:
+                    //                                                     if AssortDetails1Rec."5" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."5");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 6:
+                    //                                                     if AssortDetails1Rec."6" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."6");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 7:
+                    //                                                     if AssortDetails1Rec."7" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."7");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 8:
+                    //                                                     if AssortDetails1Rec."8" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."8");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 9:
+                    //                                                     if AssortDetails1Rec."9" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."9");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 10:
+                    //                                                     if AssortDetails1Rec."10" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."10");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 11:
+                    //                                                     if AssortDetails1Rec."11" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."11");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 12:
+                    //                                                     if AssortDetails1Rec."12" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."12");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 13:
+                    //                                                     if AssortDetails1Rec."13" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."13");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 14:
+                    //                                                     if AssortDetails1Rec."14" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."14");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 15:
+                    //                                                     if AssortDetails1Rec."15" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."15");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 16:
+                    //                                                     if AssortDetails1Rec."16" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."16");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 17:
+                    //                                                     if AssortDetails1Rec."17" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."17");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 18:
+                    //                                                     if AssortDetails1Rec."18" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."18");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 19:
+                    //                                                     if AssortDetails1Rec."19" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."19");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 20:
+                    //                                                     if AssortDetails1Rec."20" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."20");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 21:
+                    //                                                     if AssortDetails1Rec."21" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."21");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 22:
+                    //                                                     if AssortDetails1Rec."22" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."22");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 23:
+                    //                                                     if AssortDetails1Rec."23" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."23");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 24:
+                    //                                                     if AssortDetails1Rec."24" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."24");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 25:
+                    //                                                     if AssortDetails1Rec."25" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."25");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 26:
+                    //                                                     if AssortDetails1Rec."26" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."26");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 27:
+                    //                                                     if AssortDetails1Rec."27" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."27");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 28:
+                    //                                                     if AssortDetails1Rec."28" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."28");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 29:
+                    //                                                     if AssortDetails1Rec."29" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."29");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 30:
+                    //                                                     if AssortDetails1Rec."30" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."30");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 31:
+                    //                                                     if AssortDetails1Rec."31" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."31");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 32:
+                    //                                                     if AssortDetails1Rec."32" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."32");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 33:
+                    //                                                     if AssortDetails1Rec."33" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."33");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 34:
+                    //                                                     if AssortDetails1Rec."34" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."34");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 35:
+                    //                                                     if AssortDetails1Rec."35" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."35");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 36:
+                    //                                                     if AssortDetails1Rec."36" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."36");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 37:
+                    //                                                     if AssortDetails1Rec."37" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."37");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 38:
+                    //                                                     if AssortDetails1Rec."38" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."38");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 39:
+                    //                                                     if AssortDetails1Rec."39" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."39");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 40:
+                    //                                                     if AssortDetails1Rec."40" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."40");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 41:
+                    //                                                     if AssortDetails1Rec."41" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."41");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 42:
+                    //                                                     if AssortDetails1Rec."42" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."42");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 43:
+                    //                                                     if AssortDetails1Rec."43" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."43");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 44:
+                    //                                                     if AssortDetails1Rec."44" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."44");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 45:
+                    //                                                     if AssortDetails1Rec."45" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."45");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 46:
+                    //                                                     if AssortDetails1Rec."46" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."46");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 47:
+                    //                                                     if AssortDetails1Rec."47" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."47");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 48:
+                    //                                                     if AssortDetails1Rec."48" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."48");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 49:
+                    //                                                     if AssortDetails1Rec."49" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."49");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 50:
+                    //                                                     if AssortDetails1Rec."50" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."50");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 51:
+                    //                                                     if AssortDetails1Rec."51" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."51");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 52:
+                    //                                                     if AssortDetails1Rec."52" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."52");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 53:
+                    //                                                     if AssortDetails1Rec."53" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."53");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 54:
+                    //                                                     if AssortDetails1Rec."54" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."54");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 55:
+                    //                                                     if AssortDetails1Rec."55" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."55");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 56:
+                    //                                                     if AssortDetails1Rec."56" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."56");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 57:
+                    //                                                     if AssortDetails1Rec."57" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."57");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 58:
+                    //                                                     if AssortDetails1Rec."58" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."58");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 59:
+                    //                                                     if AssortDetails1Rec."59" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."59");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 60:
+                    //                                                     if AssortDetails1Rec."60" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."60");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 61:
+                    //                                                     if AssortDetails1Rec."61" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."61");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 62:
+                    //                                                     if AssortDetails1Rec."62" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."62");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 63:
+                    //                                                     if AssortDetails1Rec."63" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."63");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 64:
+                    //                                                     if AssortDetails1Rec."64" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(Total, AssortDetailsRec."64");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                             end;
+                    //                                         end;
+
+                    //                                         LineNo += 1;
+                    //                                         Value := 0;
+                    //                                         Requirment := 0;
+
+                    //                                         UOMRec.Reset();
+                    //                                         UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                         UOMRec.FindSet();
+                    //                                         ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                         //Check whether already "po raised"items are there, then do not insert
+                    //                                         BLAutoGenNewRec.Reset();
+                    //                                         BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                         BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                         BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                         BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                    //                                         //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                    //                                         BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
+                    //                                         BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                                         BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                         BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                         BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                         BLAutoGenNewRec.SetRange("Dimension No.", BOMLine2Rec."Dimension No.");
+                    //                                         BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                         if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                             if Total <> 0 then begin
+
+                    //                                                 BLAutoGenNewRec.Init();
+                    //                                                 BLAutoGenNewRec."No." := rec."No";
+                    //                                                 BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                                 BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                                 BLAutoGenNewRec."Line No." := LineNo;
+                    //                                                 BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                                 BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                                 BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                                 BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                                 BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                                 BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                                 BLAutoGenNewRec."Dimension No." := BOMLine2Rec."Dimension No.";
+                    //                                                 BLAutoGenNewRec."Dimension Name." := BOMLine2Rec."Dimension Name";
+                    //                                                 BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                                 BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                                 BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                                 BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                                 BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                                 BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                                 BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                                 BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                                 BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                                 BLAutoGenNewRec."Created User" := UserId;
+                    //                                                 BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                                 BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                                 BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                                 BLAutoGenNewRec.Reconfirm := false;
+                    //                                                 BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                                 BLAutoGenNewRec."GMT Color No." := BOMLine1Rec."GMT Color No.";
+                    //                                                 BLAutoGenNewRec."GMT Color Name" := BOMLine1Rec."GMT Color Name.";
+                    //                                                 BLAutoGenNewRec."Item Color No." := BOMLine1Rec."Item Color No.";
+                    //                                                 BLAutoGenNewRec."Item Color Name" := BOMLine1Rec."Item Color Name.";
+                    //                                                 BLAutoGenNewRec."GMT Size Name" := BOMLine2Rec."GMR Size Name";
+                    //                                                 BLAutoGenNewRec."Country No." := '';
+                    //                                                 BLAutoGenNewRec."Country Name" := '';
+                    //                                                 BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                                 BLAutoGenNewRec."Lot No." := BOMPOSelecRec."Lot No.";
+                    //                                                 BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                                 if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                     Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                                 else
+                    //                                                     if BLERec.Type = BLERec.Type::Doz then
+                    //                                                         Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                                 if (ConvFactor <> 0) then
+                    //                                                     Requirment := Requirment / ConvFactor;
+
+                    //                                                 //Requirment := Round(Requirment, 1);
+
+                    //                                                 if Requirment < 0 then
+                    //                                                     Requirment := 1;
+
+                    //                                                 Value := Requirment * BLERec.Rate;
+
+                    //                                                 BLAutoGenNewRec.Requirment := Requirment;
+                    //                                                 BLAutoGenNewRec.Value := Value;
+
+                    //                                                 BLAutoGenNewRec.Insert();
+
+                    //                                                 //Insert into AutoGenPRBOM
+                    //                                                 InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                                 Total := 0;
+                    //                                             end;
+                    //                                         end;
+
+                    //                                     end;
+
+                    //                                 until BOMPOSelecRec.Next() = 0;
+                    //                             end;
+                    //                         until BOMLine2Rec.Next() = 0;
+                    //                     end;
+                    //                 until BOMLine1Rec.Next() = 0;
+                    //             end;
+
+                    //         end;
+
+                    //         //Color Only
+                    //         if BLERec."Color Sensitive" and not BLERec."Size Sensitive" and not BLERec."Country Sensitive" and not BLERec."PO Sensitive" then begin
+
+                    //             BOMLine1Rec.Reset();
+                    //             BOMLine1Rec.SetRange("No.", rec."No");
+                    //             BOMLine1Rec.SetRange(Type, 1);
+                    //             BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine1Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine1Rec.FindSet() then begin
+                    //                 repeat
+
+                    //                     BOMPOSelecRec.Reset();
+                    //                     BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                     BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                     if BOMPOSelecRec.FindSet() then begin
+                    //                         repeat
+
+                    //                             AssortDetailsRec.Reset();
+                    //                             AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                             AssortDetailsRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                             AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
+
+                    //                             if AssortDetailsRec.FindSet() then begin
+                    //                                 Total := AssortDetailsRec.Total;
+                    //                                 LineNo += 1;
+                    //                                 Value := 0;
+                    //                                 Requirment := 0;
+
+                    //                                 UOMRec.Reset();
+                    //                                 UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                 UOMRec.FindSet();
+                    //                                 ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                 //Check whether already "po raised"items are there, then do not insert
+                    //                                 BLAutoGenNewRec.Reset();
+                    //                                 BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                 BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                    //                                 //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                    //                                 BLAutoGenNewRec.SetRange("GMT Size Name", '');
+                    //                                 BLAutoGenNewRec.SetRange("Country No.", '');
+                    //                                 BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                 BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                 BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                 BLAutoGenNewRec.SetRange("Dimension No.", BLERec."Dimension No.");
+                    //                                 BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                 if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                     if Total <> 0 then begin
+
+                    //                                         BLAutoGenNewRec.Init();
+                    //                                         BLAutoGenNewRec."No." := rec."No";
+                    //                                         BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                         BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                         BLAutoGenNewRec."Line No." := LineNo;
+                    //                                         BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                         BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                         BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                         BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                         BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                         BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                         BLAutoGenNewRec."Dimension No." := BLERec."Dimension No.";
+                    //                                         BLAutoGenNewRec."Dimension Name." := BLERec."Dimension Name.";
+                    //                                         BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                         BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                         BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                         BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                         BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                         BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                         BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                         BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                         BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                         BLAutoGenNewRec."Created User" := UserId;
+                    //                                         BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                         BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                         BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                         BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                         BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                         BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                         BLAutoGenNewRec.Reconfirm := false;
+                    //                                         BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                         BLAutoGenNewRec."GMT Color No." := BOMLine1Rec."GMT Color No.";
+                    //                                         BLAutoGenNewRec."GMT Color Name" := BOMLine1Rec."GMT Color Name.";
+                    //                                         BLAutoGenNewRec."Item Color No." := BOMLine1Rec."Item Color No.";
+                    //                                         BLAutoGenNewRec."Item Color Name" := BOMLine1Rec."Item Color Name.";
+                    //                                         BLAutoGenNewRec."GMT Size Name" := '';
+                    //                                         BLAutoGenNewRec."Country No." := '';
+                    //                                         BLAutoGenNewRec."Country Name" := '';
+                    //                                         BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                         BLAutoGenNewRec."Lot No." := BOMPOSelecRec."Lot No.";
+                    //                                         BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                         if BLERec.Type = BLERec.Type::Pcs then
+                    //                                             Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                         else
+                    //                                             if BLERec.Type = BLERec.Type::Doz then
+                    //                                                 Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                         if (ConvFactor <> 0) then
+                    //                                             Requirment := Requirment / ConvFactor;
+
+                    //                                         //Requirment := Round(Requirment, 1);
+
+                    //                                         if Requirment < 0 then
+                    //                                             Requirment := 1;
+
+                    //                                         Value := Requirment * BLERec.Rate;
+
+                    //                                         BLAutoGenNewRec.Requirment := Requirment;
+                    //                                         BLAutoGenNewRec.Value := Value;
+
+                    //                                         BLAutoGenNewRec.Insert();
+
+                    //                                         //Insert into AutoGenPRBOM
+                    //                                         InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                     end;
+                    //                                 end;
+                    //                             end;
+
+                    //                         until BOMPOSelecRec.Next() = 0;
+                    //                     end;
+
+                    //                 until BOMLine1Rec.Next() = 0;
+                    //             end;
+
+                    //         end;
+
+                    //         //Size Only
+                    //         if not BLERec."Color Sensitive" and BLERec."Size Sensitive" and not BLERec."Country Sensitive" and not BLERec."PO Sensitive" then begin
+
+                    //             //Size filter
+                    //             BOMLine2Rec.Reset();
+                    //             BOMLine2Rec.SetRange("No.", rec."No");
+                    //             BOMLine2Rec.SetRange(Type, 2);
+                    //             BOMLine2Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine2Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine2Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine2Rec.FindSet() then begin
+                    //                 repeat
+
+                    //                     //PO filter
+                    //                     BOMPOSelecRec.Reset();
+                    //                     BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                     BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                     if BOMPOSelecRec.FindSet() then begin
+
+                    //                         repeat
+
+                    //                             //Insert new line
+                    //                             AssortDetailsRec.Reset();
+                    //                             AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                             AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."Lot No.");
+
+                    //                             if AssortDetailsRec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     if AssortDetailsRec."Colour No" <> '*' then begin
+
+                    //                                         //Find the correct column for the GMT size
+                    //                                         AssortDetails1Rec.Reset();
+                    //                                         AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                    //                                         AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                         AssortDetails1Rec.SetRange("Colour No", '*');
+
+                    //                                         AssortDetails1Rec.FindSet();
+                    //                                         SubTotal := 0;
+
+                    //                                         FOR Count := 1 TO 64 DO begin
+
+                    //                                             case Count of
+                    //                                                 1:
+                    //                                                     if AssortDetails1Rec."1" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."1");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 2:
+                    //                                                     if AssortDetails1Rec."2" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."2");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 3:
+                    //                                                     if AssortDetails1Rec."3" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."3");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 4:
+                    //                                                     if AssortDetails1Rec."4" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."4");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 5:
+                    //                                                     if AssortDetails1Rec."5" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."5");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 6:
+                    //                                                     if AssortDetails1Rec."6" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."6");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 7:
+                    //                                                     if AssortDetails1Rec."7" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."7");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 8:
+                    //                                                     if AssortDetails1Rec."8" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."8");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 9:
+                    //                                                     if AssortDetails1Rec."9" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."9");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 10:
+                    //                                                     if AssortDetails1Rec."10" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."10");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 11:
+                    //                                                     if AssortDetails1Rec."11" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."11");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 12:
+                    //                                                     if AssortDetails1Rec."12" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."12");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 13:
+                    //                                                     if AssortDetails1Rec."13" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."13");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 14:
+                    //                                                     if AssortDetails1Rec."14" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."14");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 15:
+                    //                                                     if AssortDetails1Rec."15" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."15");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 16:
+                    //                                                     if AssortDetails1Rec."16" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."16");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 17:
+                    //                                                     if AssortDetails1Rec."17" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."17");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 18:
+                    //                                                     if AssortDetails1Rec."18" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."18");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 19:
+                    //                                                     if AssortDetails1Rec."19" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."19");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 20:
+                    //                                                     if AssortDetails1Rec."20" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."20");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 21:
+                    //                                                     if AssortDetails1Rec."21" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."21");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 22:
+                    //                                                     if AssortDetails1Rec."22" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."22");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 23:
+                    //                                                     if AssortDetails1Rec."23" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."23");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 24:
+                    //                                                     if AssortDetails1Rec."24" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."24");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 25:
+                    //                                                     if AssortDetails1Rec."25" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."25");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 26:
+                    //                                                     if AssortDetails1Rec."26" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."26");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 27:
+                    //                                                     if AssortDetails1Rec."27" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."27");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 28:
+                    //                                                     if AssortDetails1Rec."28" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."28");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 29:
+                    //                                                     if AssortDetails1Rec."29" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."29");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 30:
+                    //                                                     if AssortDetails1Rec."30" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."30");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 31:
+                    //                                                     if AssortDetails1Rec."31" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."31");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 32:
+                    //                                                     if AssortDetails1Rec."32" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."32");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 33:
+                    //                                                     if AssortDetails1Rec."33" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."33");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 34:
+                    //                                                     if AssortDetails1Rec."34" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."34");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 35:
+                    //                                                     if AssortDetails1Rec."35" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."35");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 36:
+                    //                                                     if AssortDetails1Rec."36" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."36");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 37:
+                    //                                                     if AssortDetails1Rec."37" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."37");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 38:
+                    //                                                     if AssortDetails1Rec."38" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."38");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 39:
+                    //                                                     if AssortDetails1Rec."39" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."39");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 40:
+                    //                                                     if AssortDetails1Rec."40" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."40");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 41:
+                    //                                                     if AssortDetails1Rec."41" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."41");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 42:
+                    //                                                     if AssortDetails1Rec."42" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."42");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 43:
+                    //                                                     if AssortDetails1Rec."43" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."43");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 44:
+                    //                                                     if AssortDetails1Rec."44" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."44");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 45:
+                    //                                                     if AssortDetails1Rec."45" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."45");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 46:
+                    //                                                     if AssortDetails1Rec."46" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."46");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 47:
+                    //                                                     if AssortDetails1Rec."47" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."47");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 48:
+                    //                                                     if AssortDetails1Rec."48" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."48");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 49:
+                    //                                                     if AssortDetails1Rec."49" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."49");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 50:
+                    //                                                     if AssortDetails1Rec."50" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."50");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 51:
+                    //                                                     if AssortDetails1Rec."51" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."51");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 52:
+                    //                                                     if AssortDetails1Rec."52" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."52");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 53:
+                    //                                                     if AssortDetails1Rec."53" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."53");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 54:
+                    //                                                     if AssortDetails1Rec."54" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."54");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 55:
+                    //                                                     if AssortDetails1Rec."55" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."55");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 56:
+                    //                                                     if AssortDetails1Rec."56" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."56");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 57:
+                    //                                                     if AssortDetails1Rec."57" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."57");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 58:
+                    //                                                     if AssortDetails1Rec."58" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."58");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 59:
+                    //                                                     if AssortDetails1Rec."59" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."59");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 60:
+                    //                                                     if AssortDetails1Rec."60" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."60");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 61:
+                    //                                                     if AssortDetails1Rec."61" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."61");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 62:
+                    //                                                     if AssortDetails1Rec."62" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."62");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 63:
+                    //                                                     if AssortDetails1Rec."63" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."63");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                                 64:
+                    //                                                     if AssortDetails1Rec."64" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                         Evaluate(SubTotal, AssortDetailsRec."64");
+                    //                                                         break;
+                    //                                                     end;
+                    //                                             end;
+                    //                                         end;
+
+                    //                                         Total += SubTotal;
+                    //                                     end;
+
+                    //                                 until AssortDetailsRec.Next() = 0;
+
+                    //                                 LineNo += 1;
+                    //                                 Value := 0;
+                    //                                 Requirment := 0;
+
+                    //                                 UOMRec.Reset();
+                    //                                 UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                 UOMRec.FindSet();
+                    //                                 ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                 //Check whether already "po raised"items are there, then do not insert
+                    //                                 BLAutoGenNewRec.Reset();
+                    //                                 BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                 BLAutoGenNewRec.SetRange("Item Color No.", BOMLine2Rec."Item Color No.");
+                    //                                 BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
+                    //                                 BLAutoGenNewRec.SetRange("Country No.", '');
+                    //                                 BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                 BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                 BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                 BLAutoGenNewRec.SetRange("Dimension No.", BOMLine2Rec."Dimension No.");
+                    //                                 BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                 if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                     if Total <> 0 then begin
+
+                    //                                         BLAutoGenNewRec.Init();
+                    //                                         BLAutoGenNewRec."No." := rec."No";
+                    //                                         BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                         BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                         BLAutoGenNewRec."Line No." := LineNo;
+                    //                                         BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                         BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                         BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                         BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                         BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                         BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                         BLAutoGenNewRec."Dimension No." := BOMLine2Rec."Dimension No.";
+                    //                                         BLAutoGenNewRec."Dimension Name." := BOMLine2Rec."Dimension Name";
+                    //                                         BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                         BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                         BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                         BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                         BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                         BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                         BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                         BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                         BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                         BLAutoGenNewRec."Created User" := UserId;
+                    //                                         BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                         BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                         BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                         BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                         BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                         BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                         BLAutoGenNewRec.Reconfirm := false;
+                    //                                         BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                         BLAutoGenNewRec."GMT Color No." := BOMLine2Rec."GMT Color No.";
+                    //                                         BLAutoGenNewRec."GMT Color Name" := BOMLine2Rec."GMT Color Name.";
+                    //                                         BLAutoGenNewRec."Item Color No." := BOMLine2Rec."Item Color No.";
+                    //                                         BLAutoGenNewRec."Item Color Name" := BOMLine2Rec."Item Color Name.";
+                    //                                         BLAutoGenNewRec."GMT Size Name" := BOMLine2Rec."GMR Size Name";
+                    //                                         BLAutoGenNewRec."Country No." := '';
+                    //                                         BLAutoGenNewRec."Country Name" := '';
+                    //                                         BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                         BLAutoGenNewRec."Lot No." := BOMPOSelecRec."lot No.";
+                    //                                         BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                         if BLERec.Type = BLERec.Type::Pcs then
+                    //                                             Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                         else
+                    //                                             if BLERec.Type = BLERec.Type::Doz then
+                    //                                                 Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                         if (ConvFactor <> 0) then
+                    //                                             Requirment := Requirment / ConvFactor;
+
+                    //                                         //Requirment := Round(Requirment, 1);
+
+                    //                                         if Requirment < 0 then
+                    //                                             Requirment := 1;
+
+                    //                                         Value := Requirment * BLERec.Rate;
+
+                    //                                         BLAutoGenNewRec.Requirment := Requirment;
+                    //                                         BLAutoGenNewRec.Value := Value;
+
+                    //                                         BLAutoGenNewRec.Insert();
+
+                    //                                         //Insert into AutoGenPRBOM
+                    //                                         InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                         Total := 0;
+
+                    //                                     end;
+                    //                                 end;
+                    //                             end;
+
+                    //                         until BOMPOSelecRec.Next() = 0;
+                    //                     end;
+                    //                 until BOMLine2Rec.Next() = 0;
+                    //             end;
+                    //         end;
+
+                    //         //Size and country
+                    //         if not BLERec."Color Sensitive" and BLERec."Size Sensitive" and BLERec."Country Sensitive" and not BLERec."PO Sensitive" then begin
+
+                    //             //Size filter
+                    //             BOMLine2Rec.Reset();
+                    //             BOMLine2Rec.SetRange("No.", rec."No");
+                    //             BOMLine2Rec.SetRange(Type, 2);
+                    //             BOMLine2Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine2Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine2Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine2Rec.FindSet() then begin
+                    //                 repeat
+
+                    //                     //PO filter
+                    //                     BOMPOSelecRec.Reset();
+                    //                     BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                     BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                     if BOMPOSelecRec.FindSet() then begin
+
+                    //                         repeat
+
+                    //                             //Country filter
+                    //                             BOMLine3Rec.Reset();
+                    //                             BOMLine3Rec.SetRange("No.", rec."No");
+                    //                             BOMLine3Rec.SetRange(Type, 3);
+                    //                             BOMLine3Rec.SetRange("Item No.", BOMLine2Rec."Item No.");
+                    //                             BOMLine3Rec.SetRange(Placement, BOMLine2Rec."Placement");
+                    //                             BOMLine3Rec.SetRange(Select, true);
+
+                    //                             if BOMLine3Rec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     //Insert new line
+                    //                                     AssortDetailsRec.Reset();
+                    //                                     AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                     AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                     AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                     if AssortDetailsRec.FindSet() then begin
+
+                    //                                         repeat
+
+                    //                                             if AssortDetailsRec."Colour No" <> '*' then begin
+
+                    //                                                 //Find the correct column for the GMT size
+                    //                                                 AssortDetails1Rec.Reset();
+                    //                                                 AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                    //                                                 AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                                 AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
+                    //                                                 AssortDetails1Rec.SetRange("Colour No", '*');
+
+                    //                                                 AssortDetails1Rec.FindSet();
+                    //                                                 SubTotal := 0;
+
+                    //                                                 FOR Count := 1 TO 64 DO begin
+
+                    //                                                     case Count of
+                    //                                                         1:
+                    //                                                             if AssortDetails1Rec."1" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."1");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         2:
+                    //                                                             if AssortDetails1Rec."2" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."2");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         3:
+                    //                                                             if AssortDetails1Rec."3" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."3");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         4:
+                    //                                                             if AssortDetails1Rec."4" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."4");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         5:
+                    //                                                             if AssortDetails1Rec."5" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."5");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         6:
+                    //                                                             if AssortDetails1Rec."6" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."6");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         7:
+                    //                                                             if AssortDetails1Rec."7" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."7");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         8:
+                    //                                                             if AssortDetails1Rec."8" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."8");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         9:
+                    //                                                             if AssortDetails1Rec."9" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."9");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         10:
+                    //                                                             if AssortDetails1Rec."10" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."10");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         11:
+                    //                                                             if AssortDetails1Rec."11" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."11");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         12:
+                    //                                                             if AssortDetails1Rec."12" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."12");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         13:
+                    //                                                             if AssortDetails1Rec."13" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."13");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         14:
+                    //                                                             if AssortDetails1Rec."14" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."14");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         15:
+                    //                                                             if AssortDetails1Rec."15" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."15");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         16:
+                    //                                                             if AssortDetails1Rec."16" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."16");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         17:
+                    //                                                             if AssortDetails1Rec."17" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."17");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         18:
+                    //                                                             if AssortDetails1Rec."18" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."18");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         19:
+                    //                                                             if AssortDetails1Rec."19" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."19");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         20:
+                    //                                                             if AssortDetails1Rec."20" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."20");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         21:
+                    //                                                             if AssortDetails1Rec."21" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."21");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         22:
+                    //                                                             if AssortDetails1Rec."22" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."22");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         23:
+                    //                                                             if AssortDetails1Rec."23" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."23");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         24:
+                    //                                                             if AssortDetails1Rec."24" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."24");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         25:
+                    //                                                             if AssortDetails1Rec."25" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."25");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         26:
+                    //                                                             if AssortDetails1Rec."26" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."26");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         27:
+                    //                                                             if AssortDetails1Rec."27" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."27");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         28:
+                    //                                                             if AssortDetails1Rec."28" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."28");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         29:
+                    //                                                             if AssortDetails1Rec."29" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."29");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         30:
+                    //                                                             if AssortDetails1Rec."30" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."30");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         31:
+                    //                                                             if AssortDetails1Rec."31" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."31");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         32:
+                    //                                                             if AssortDetails1Rec."32" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."32");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         33:
+                    //                                                             if AssortDetails1Rec."33" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."33");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         34:
+                    //                                                             if AssortDetails1Rec."34" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."34");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         35:
+                    //                                                             if AssortDetails1Rec."35" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."35");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         36:
+                    //                                                             if AssortDetails1Rec."36" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."36");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         37:
+                    //                                                             if AssortDetails1Rec."37" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."37");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         38:
+                    //                                                             if AssortDetails1Rec."38" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."38");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         39:
+                    //                                                             if AssortDetails1Rec."39" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."39");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         40:
+                    //                                                             if AssortDetails1Rec."40" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."40");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         41:
+                    //                                                             if AssortDetails1Rec."41" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."41");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         42:
+                    //                                                             if AssortDetails1Rec."42" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."42");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         43:
+                    //                                                             if AssortDetails1Rec."43" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."43");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         44:
+                    //                                                             if AssortDetails1Rec."44" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."44");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         45:
+                    //                                                             if AssortDetails1Rec."45" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."45");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         46:
+                    //                                                             if AssortDetails1Rec."46" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."46");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         47:
+                    //                                                             if AssortDetails1Rec."47" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."47");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         48:
+                    //                                                             if AssortDetails1Rec."48" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."48");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         49:
+                    //                                                             if AssortDetails1Rec."49" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."49");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         50:
+                    //                                                             if AssortDetails1Rec."50" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."50");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         51:
+                    //                                                             if AssortDetails1Rec."51" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."51");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         52:
+                    //                                                             if AssortDetails1Rec."52" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."52");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         53:
+                    //                                                             if AssortDetails1Rec."53" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."53");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         54:
+                    //                                                             if AssortDetails1Rec."54" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."54");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         55:
+                    //                                                             if AssortDetails1Rec."55" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."55");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         56:
+                    //                                                             if AssortDetails1Rec."56" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."56");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         57:
+                    //                                                             if AssortDetails1Rec."57" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."57");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         58:
+                    //                                                             if AssortDetails1Rec."58" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."58");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         59:
+                    //                                                             if AssortDetails1Rec."59" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."59");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         60:
+                    //                                                             if AssortDetails1Rec."60" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."60");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         61:
+                    //                                                             if AssortDetails1Rec."61" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."61");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         62:
+                    //                                                             if AssortDetails1Rec."62" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."62");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         63:
+                    //                                                             if AssortDetails1Rec."63" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."63");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         64:
+                    //                                                             if AssortDetails1Rec."64" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."64");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                     end;
+                    //                                                 end;
+
+                    //                                                 Total += SubTotal;
+                    //                                             end;
+
+                    //                                         until AssortDetailsRec.Next() = 0;
+
+                    //                                         LineNo += 1;
+                    //                                         Value := 0;
+                    //                                         Requirment := 0;
+
+                    //                                         UOMRec.Reset();
+                    //                                         UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                         UOMRec.FindSet();
+                    //                                         ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                         //Check whether already "po raised"items are there, then do not insert
+                    //                                         BLAutoGenNewRec.Reset();
+                    //                                         BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                         BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                         BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                         BLAutoGenNewRec.SetRange("Item Color No.", BOMLine2Rec."Item Color No.");
+                    //                                         BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
+                    //                                         BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                                         BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                         BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                         BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                         BLAutoGenNewRec.SetRange("Dimension No.", BOMLine2Rec."Dimension No.");
+                    //                                         BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                         if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                             if Total <> 0 then begin
+
+                    //                                                 BLAutoGenNewRec.Init();
+                    //                                                 BLAutoGenNewRec."No." := rec."No";
+                    //                                                 BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                                 BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                                 BLAutoGenNewRec."Line No." := LineNo;
+                    //                                                 BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                                 BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                                 BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                                 BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                                 BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                                 BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                                 BLAutoGenNewRec."Dimension No." := BOMLine2Rec."Dimension No.";
+                    //                                                 BLAutoGenNewRec."Dimension Name." := BOMLine2Rec."Dimension Name";
+                    //                                                 BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                                 BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                                 BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                                 BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                                 BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                                 BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                                 BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                                 BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                                 BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                                 BLAutoGenNewRec."Created User" := UserId;
+                    //                                                 BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                                 BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                                 BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                                 BLAutoGenNewRec.Reconfirm := false;
+                    //                                                 BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                                 BLAutoGenNewRec."GMT Color No." := BOMLine2Rec."GMT Color No.";
+                    //                                                 BLAutoGenNewRec."GMT Color Name" := BOMLine2Rec."GMT Color Name.";
+                    //                                                 BLAutoGenNewRec."Item Color No." := BOMLine2Rec."Item Color No.";
+                    //                                                 BLAutoGenNewRec."Item Color Name" := BOMLine2Rec."Item Color Name.";
+                    //                                                 BLAutoGenNewRec."GMT Size Name" := BOMLine2Rec."GMR Size Name";
+                    //                                                 BLAutoGenNewRec."Country No." := BOMLine3Rec."Country Code";
+                    //                                                 BLAutoGenNewRec."Country Name" := BOMLine3Rec."Country Name";
+                    //                                                 BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                                 BLAutoGenNewRec."Lot No." := BOMPOSelecRec."lot No.";
+                    //                                                 BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                                 if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                     Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                                 else
+                    //                                                     if BLERec.Type = BLERec.Type::Doz then
+                    //                                                         Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                                 if (ConvFactor <> 0) then
+                    //                                                     Requirment := Requirment / ConvFactor;
+
+                    //                                                 //Requirment := Round(Requirment, 1);
+
+                    //                                                 if Requirment < 0 then
+                    //                                                     Requirment := 1;
+
+                    //                                                 Value := Requirment * BLERec.Rate;
+
+                    //                                                 BLAutoGenNewRec.Requirment := Requirment;
+                    //                                                 BLAutoGenNewRec.Value := Value;
+
+                    //                                                 BLAutoGenNewRec.Insert();
+
+                    //                                                 //Insert into AutoGenPRBOM
+                    //                                                 InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                                 Total := 0;
+
+                    //                                             end;
+                    //                                         end;
+                    //                                     end;
+
+                    //                                 until BOMLine3Rec.Next() = 0;
+                    //                             end;
+                    //                         until BOMPOSelecRec.Next() = 0;
+                    //                     end;
+                    //                 until BOMLine2Rec.Next() = 0;
+                    //             end;
+                    //         end;
+
+                    //         //country only
+                    //         if not BLERec."Color Sensitive" and not BLERec."Size Sensitive" and BLERec."Country Sensitive" and not BLERec."PO Sensitive" then begin
+
+                    //             //PO filter
+                    //             BOMPOSelecRec.Reset();
+                    //             BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //             BOMPOSelecRec.SetRange(Selection, true);
+
+                    //             if BOMPOSelecRec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //Country filter
+                    //                     BOMLine3Rec.Reset();
+                    //                     BOMLine3Rec.SetRange("No.", rec."No");
+                    //                     BOMLine3Rec.SetRange(Type, 3);
+                    //                     BOMLine3Rec.SetRange("Item No.", BLERec."Item No.");
+                    //                     BOMLine3Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //                     BOMLine3Rec.SetRange(Select, true);
+
+                    //                     if BOMLine3Rec.FindSet() then begin
+
+                    //                         repeat
+
+                    //                             //Insert new line
+                    //                             AssortDetailsRec.Reset();
+                    //                             AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                             AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                             AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                             if AssortDetailsRec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     if AssortDetailsRec."Colour No" <> '*' then begin
+                    //                                         Total += AssortDetailsRec.Total;
+                    //                                     end;
+
+                    //                                 until AssortDetailsRec.Next() = 0;
+
+                    //                                 LineNo += 1;
+                    //                                 Value := 0;
+                    //                                 Requirment := 0;
+
+                    //                                 UOMRec.Reset();
+                    //                                 UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                 UOMRec.FindSet();
+                    //                                 ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                 //Check whether already "po raised"items are there, then do not insert
+                    //                                 BLAutoGenNewRec.Reset();
+                    //                                 BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                 BLAutoGenNewRec.SetRange("Item Color No.", BOMLine3Rec."Item Color No.");
+                    //                                 BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine3Rec."GMR Size Name");
+                    //                                 BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                                 BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                 BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                 BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                 BLAutoGenNewRec.SetRange("Dimension No.", BLERec."Dimension No.");
+                    //                                 BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                 if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                     if Total <> 0 then begin
+
+                    //                                         BLAutoGenNewRec.Init();
+                    //                                         BLAutoGenNewRec."No." := rec."No";
+                    //                                         BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                         BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                         BLAutoGenNewRec."Line No." := LineNo;
+                    //                                         BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                         BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                         BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                         BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                         BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                         BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                         BLAutoGenNewRec."Dimension No." := BLERec."Dimension No.";
+                    //                                         BLAutoGenNewRec."Dimension Name." := BLERec."Dimension Name.";
+                    //                                         BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                         BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                         BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                         BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                         BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                         BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                         BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                         BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                         BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                         BLAutoGenNewRec."Created User" := UserId;
+                    //                                         BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                         BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                         BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                         BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                         BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                         BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                         BLAutoGenNewRec.Reconfirm := false;
+                    //                                         BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                         BLAutoGenNewRec."GMT Color No." := BOMLine3Rec."GMT Color No.";
+                    //                                         BLAutoGenNewRec."GMT Color Name" := BOMLine3Rec."GMT Color Name.";
+                    //                                         BLAutoGenNewRec."Item Color No." := BOMLine3Rec."Item Color No.";
+                    //                                         BLAutoGenNewRec."Item Color Name" := BOMLine3Rec."Item Color Name.";
+                    //                                         BLAutoGenNewRec."GMT Size Name" := BOMLine3Rec."GMR Size Name";
+                    //                                         BLAutoGenNewRec."Country No." := BOMLine3Rec."Country Code";
+                    //                                         BLAutoGenNewRec."Country Name" := BOMLine3Rec."Country Name";
+                    //                                         BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                         BLAutoGenNewRec."Lot No." := BOMPOSelecRec."Lot No.";
+                    //                                         BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                         if BLERec.Type = BLERec.Type::Pcs then
+                    //                                             Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                         else
+                    //                                             if BLERec.Type = BLERec.Type::Doz then
+                    //                                                 Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                         if (ConvFactor <> 0) then
+                    //                                             Requirment := Requirment / ConvFactor;
+
+                    //                                         //Requirment := Round(Requirment, 1);
+
+                    //                                         if Requirment < 0 then
+                    //                                             Requirment := 1;
+
+                    //                                         Value := Requirment * BLERec.Rate;
+
+                    //                                         BLAutoGenNewRec.Requirment := Requirment;
+                    //                                         BLAutoGenNewRec.Value := Value;
+
+                    //                                         BLAutoGenNewRec.Insert();
+
+                    //                                         //Insert into AutoGenPRBOM
+                    //                                         InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                         Total := 0;
+                    //                                     end;
+                    //                                 end;
+
+                    //                             end;
+
+                    //                         until BOMLine3Rec.Next() = 0;
+                    //                     end;
+                    //                 until BOMPOSelecRec.Next() = 0;
+                    //             end;
+
+                    //         end;
+
+                    //         //Color and Country
+                    //         if BLERec."Color Sensitive" and not BLERec."Size Sensitive" and BLERec."Country Sensitive" and not BLERec."PO Sensitive" then begin
+
+                    //             //Color filter
+                    //             BOMLine1Rec.Reset();
+                    //             BOMLine1Rec.SetRange("No.", rec."No");
+                    //             BOMLine1Rec.SetRange(Type, 1);
+                    //             BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine1Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine1Rec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //PO filter
+                    //                     BOMPOSelecRec.Reset();
+                    //                     BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                     BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                     if BOMPOSelecRec.FindSet() then begin
+                    //                         repeat
+
+                    //                             //Country filter
+                    //                             BOMLine3Rec.Reset();
+                    //                             BOMLine3Rec.SetRange("No.", rec."No");
+                    //                             BOMLine3Rec.SetRange(Type, 3);
+                    //                             BOMLine3Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                             BOMLine3Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                             BOMLine3Rec.SetRange(Select, true);
+
+                    //                             if BOMLine3Rec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     //Insert new line
+                    //                                     AssortDetailsRec.Reset();
+                    //                                     AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                     AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                     AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
+                    //                                     AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                     if AssortDetailsRec.FindSet() then begin
+
+                    //                                         Total := AssortDetailsRec.Total;
+                    //                                         LineNo += 1;
+                    //                                         Value := 0;
+                    //                                         Requirment := 0;
+
+                    //                                         UOMRec.Reset();
+                    //                                         UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                         UOMRec.FindSet();
+                    //                                         ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                         //Check whether already "po raised"items are there, then do not insert
+                    //                                         BLAutoGenNewRec.Reset();
+                    //                                         BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                         BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                         BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                         BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                    //                                         //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                    //                                         BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine1Rec."GMR Size Name");
+                    //                                         BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                                         BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                         BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                         BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                         BLAutoGenNewRec.SetRange("Dimension No.", BLERec."Dimension No.");
+                    //                                         BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                         if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                             if Total <> 0 then begin
+
+                    //                                                 BLAutoGenNewRec.Init();
+                    //                                                 BLAutoGenNewRec."No." := rec."No";
+                    //                                                 BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                                 BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                                 BLAutoGenNewRec."Line No." := LineNo;
+                    //                                                 BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                                 BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                                 BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                                 BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                                 BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                                 BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                                 BLAutoGenNewRec."Dimension No." := BLERec."Dimension No.";
+                    //                                                 BLAutoGenNewRec."Dimension Name." := BLERec."Dimension Name.";
+                    //                                                 BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                                 BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                                 BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                                 BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                                 BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                                 BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                                 BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                                 BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                                 BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                                 BLAutoGenNewRec."Created User" := UserId;
+                    //                                                 BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                                 BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                                 BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                                 BLAutoGenNewRec.Reconfirm := false;
+                    //                                                 BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                                 BLAutoGenNewRec."GMT Color No." := BOMLine1Rec."GMT Color No.";
+                    //                                                 BLAutoGenNewRec."GMT Color Name" := BOMLine1Rec."GMT Color Name.";
+                    //                                                 BLAutoGenNewRec."Item Color No." := BOMLine1Rec."Item Color No.";
+                    //                                                 BLAutoGenNewRec."Item Color Name" := BOMLine1Rec."Item Color Name.";
+                    //                                                 BLAutoGenNewRec."GMT Size Name" := BOMLine1Rec."GMR Size Name";
+                    //                                                 BLAutoGenNewRec."Country No." := BOMLine3Rec."Country Code";
+                    //                                                 BLAutoGenNewRec."Country Name" := BOMLine3Rec."Country Name";
+                    //                                                 BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                                 BLAutoGenNewRec."Lot No." := BOMPOSelecRec."lot No.";
+                    //                                                 BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                                 if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                     Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                                 else
+                    //                                                     if BLERec.Type = BLERec.Type::Doz then
+                    //                                                         Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                                 if (ConvFactor <> 0) then
+                    //                                                     Requirment := Requirment / ConvFactor;
+
+                    //                                                 //Requirment := Round(Requirment, 1);
+
+                    //                                                 if Requirment < 0 then
+                    //                                                     Requirment := 1;
+
+                    //                                                 Value := Requirment * BLERec.Rate;
+
+                    //                                                 BLAutoGenNewRec.Requirment := Requirment;
+                    //                                                 BLAutoGenNewRec.Value := Value;
+
+                    //                                                 BLAutoGenNewRec.Insert();
+
+                    //                                                 //Insert into AutoGenPRBOM
+                    //                                                 InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                                 Total := 0;
+                    //                                             end;
+                    //                                         end;
+
+                    //                                     end;
+
+                    //                                 until BOMLine3Rec.Next() = 0;
+                    //                             end;
+
+                    //                         until BOMPOSelecRec.Next() = 0;
+                    //                     end;
+
+                    //                 until BOMLine1Rec.Next() = 0;
+                    //             end;
+                    //         end;
+
+                    //         //PO only
+                    //         if not BLERec."Color Sensitive" and not BLERec."Size Sensitive" and not BLERec."Country Sensitive" and BLERec."PO Sensitive" then begin
+
+                    //             //PO filter
+                    //             BOMPOSelecRec.Reset();
+                    //             BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //             BOMPOSelecRec.SetRange(Selection, true);
+
+                    //             if BOMPOSelecRec.FindSet() then begin
+                    //                 repeat
+
+                    //                     //Item po filter
+                    //                     BOMLine4Rec.Reset();
+                    //                     BOMLine4Rec.SetRange("No.", rec."No");
+                    //                     BOMLine4Rec.SetRange(Type, 4);
+                    //                     BOMLine4Rec.SetRange("Item No.", BLERec."Item No.");
+                    //                     BOMLine4Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //                     BOMLine4Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                     BOMLine4Rec.SetRange(Select, true);
+
+                    //                     if BOMLine4Rec.FindSet() then begin
+
+                    //                         //Insert new line
+                    //                         AssortDetailsRec.Reset();
+                    //                         AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                         AssortDetailsRec.SetRange("lot No.", BOMLine4Rec."lot No.");
+
+                    //                         if AssortDetailsRec.FindSet() then begin
+
+                    //                             repeat
+                    //                                 if AssortDetailsRec."Colour No" <> '*' then
+                    //                                     Total += AssortDetailsRec.Total;
+                    //                             until AssortDetailsRec.Next() = 0;
+
+
+                    //                             LineNo += 1;
+                    //                             Value := 0;
+                    //                             Requirment := 0;
+
+                    //                             UOMRec.Reset();
+                    //                             UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                             UOMRec.FindSet();
+                    //                             ConvFactor := UOMRec."Converion Parameter";
+
+                    //                             //Check whether already "po raised"items are there, then do not insert
+                    //                             BLAutoGenNewRec.Reset();
+                    //                             BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                             //BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                    //                             BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                    //                             BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
+                    //                             BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                             BLAutoGenNewRec.SetRange(PO, BOMLine4Rec."PO No.");
+                    //                             BLAutoGenNewRec.SetRange("Lot No.", BOMLine4Rec."Lot No.");
+                    //                             BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                             BLAutoGenNewRec.SetRange("Dimension No.", BLERec."Dimension No.");
+                    //                             BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                             if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                 if Total <> 0 then begin
+
+                    //                                     BLAutoGenNewRec.Init();
+                    //                                     BLAutoGenNewRec."No." := rec."No";
+                    //                                     BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                     BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                     BLAutoGenNewRec."Line No." := LineNo;
+                    //                                     BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                     BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                     BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                     BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                     BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                     BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                     BLAutoGenNewRec."Dimension No." := BLERec."Dimension No.";
+                    //                                     BLAutoGenNewRec."Dimension Name." := BLERec."Dimension Name.";
+                    //                                     BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                     BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                     BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                     BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                     BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                     BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                     BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                     BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                     BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                     BLAutoGenNewRec."Created User" := UserId;
+                    //                                     BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                     BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                     BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                     BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                     BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                     BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                     BLAutoGenNewRec.Reconfirm := false;
+                    //                                     BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                     BLAutoGenNewRec."GMT Color No." := BOMLine1Rec."GMT Color No.";
+                    //                                     BLAutoGenNewRec."GMT Color Name" := BOMLine1Rec."GMT Color Name.";
+                    //                                     BLAutoGenNewRec."Item Color No." := BOMLine1Rec."Item Color No.";
+                    //                                     BLAutoGenNewRec."Item Color Name" := BOMLine1Rec."Item Color Name.";
+                    //                                     BLAutoGenNewRec."GMT Size Name" := BOMLine2Rec."GMR Size Name";
+                    //                                     BLAutoGenNewRec."Country No." := BOMLine3Rec."Country Code";
+                    //                                     BLAutoGenNewRec."Country Name" := BOMLine3Rec."Country Name";
+                    //                                     BLAutoGenNewRec.PO := BOMLine4Rec."PO No.";
+                    //                                     BLAutoGenNewRec."Lot No." := BOMLine4Rec."lot No.";
+                    //                                     BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                     if BLERec.Type = BLERec.Type::Pcs then
+                    //                                         Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                     else
+                    //                                         if BLERec.Type = BLERec.Type::Doz then
+                    //                                             Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                     if (ConvFactor <> 0) then
+                    //                                         Requirment := Requirment / ConvFactor;
+
+                    //                                     //Requirment := Round(Requirment, 1);
+
+                    //                                     if Requirment < 0 then
+                    //                                         Requirment := 1;
+
+                    //                                     Value := Requirment * BLERec.Rate;
+
+                    //                                     BLAutoGenNewRec.Requirment := Requirment;
+                    //                                     BLAutoGenNewRec.Value := Value;
+
+                    //                                     BLAutoGenNewRec.Insert();
+
+                    //                                     //Insert into AutoGenPRBOM
+                    //                                     InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                     Total := 0;
+                    //                                 end;
+                    //                             end;
+                    //                         end;
+                    //                     end;
+                    //                 until BOMPOSelecRec.Next() = 0;
+                    //             end;
+                    //         end;
+
+                    //         //Size and PO
+                    //         if not BLERec."Color Sensitive" and BLERec."Size Sensitive" and not BLERec."Country Sensitive" and BLERec."PO Sensitive" then begin
+
+                    //             //Size filter
+                    //             BOMLine2Rec.Reset();
+                    //             BOMLine2Rec.SetRange("No.", rec."No");
+                    //             BOMLine2Rec.SetRange(Type, 2);
+                    //             BOMLine2Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine2Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine2Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine2Rec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //PO filter
+                    //                     BOMPOSelecRec.Reset();
+                    //                     BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                     BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                     if BOMPOSelecRec.FindSet() then begin
+
+                    //                         repeat
+
+                    //                             //Item po filter
+                    //                             BOMLine4Rec.Reset();
+                    //                             BOMLine4Rec.SetRange("No.", rec."No");
+                    //                             BOMLine4Rec.SetRange(Type, 4);
+                    //                             BOMLine4Rec.SetRange("Item No.", BOMLine2Rec."Item No.");
+                    //                             BOMLine4Rec.SetRange(Placement, BOMLine2Rec."Placement");
+                    //                             BOMLine4Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                             BOMLine4Rec.SetRange(Select, true);
+
+                    //                             if BOMLine4Rec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     //Insert new line
+                    //                                     AssortDetailsRec.Reset();
+                    //                                     AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                     AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+
+                    //                                     if AssortDetailsRec.FindSet() then begin
+
+                    //                                         repeat
+
+                    //                                             if AssortDetailsRec."Colour No" <> '*' then begin
+
+                    //                                                 //Find the correct column for the GMT size
+                    //                                                 AssortDetails1Rec.Reset();
+                    //                                                 AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                    //                                                 AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                                 AssortDetails1Rec.SetRange("Colour No", '*');
+
+                    //                                                 AssortDetails1Rec.FindSet();
+
+                    //                                                 FOR Count := 1 TO 64 DO begin
+
+                    //                                                     case Count of
+                    //                                                         1:
+                    //                                                             if AssortDetails1Rec."1" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."1");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         2:
+                    //                                                             if AssortDetails1Rec."2" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."2");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         3:
+                    //                                                             if AssortDetails1Rec."3" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."3");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         4:
+                    //                                                             if AssortDetails1Rec."4" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."4");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         5:
+                    //                                                             if AssortDetails1Rec."5" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."5");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         6:
+                    //                                                             if AssortDetails1Rec."6" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."6");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         7:
+                    //                                                             if AssortDetails1Rec."7" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."7");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         8:
+                    //                                                             if AssortDetails1Rec."8" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."8");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         9:
+                    //                                                             if AssortDetails1Rec."9" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."9");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         10:
+                    //                                                             if AssortDetails1Rec."10" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."10");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         11:
+                    //                                                             if AssortDetails1Rec."11" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."11");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         12:
+                    //                                                             if AssortDetails1Rec."12" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."12");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         13:
+                    //                                                             if AssortDetails1Rec."13" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."13");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         14:
+                    //                                                             if AssortDetails1Rec."14" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."14");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         15:
+                    //                                                             if AssortDetails1Rec."15" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."15");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         16:
+                    //                                                             if AssortDetails1Rec."16" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."16");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         17:
+                    //                                                             if AssortDetails1Rec."17" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."17");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         18:
+                    //                                                             if AssortDetails1Rec."18" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."18");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         19:
+                    //                                                             if AssortDetails1Rec."19" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."19");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         20:
+                    //                                                             if AssortDetails1Rec."20" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."20");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         21:
+                    //                                                             if AssortDetails1Rec."21" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."21");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         22:
+                    //                                                             if AssortDetails1Rec."22" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."22");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         23:
+                    //                                                             if AssortDetails1Rec."23" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."23");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         24:
+                    //                                                             if AssortDetails1Rec."24" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."24");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         25:
+                    //                                                             if AssortDetails1Rec."25" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."25");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         26:
+                    //                                                             if AssortDetails1Rec."26" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."26");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         27:
+                    //                                                             if AssortDetails1Rec."27" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."27");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         28:
+                    //                                                             if AssortDetails1Rec."28" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."28");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         29:
+                    //                                                             if AssortDetails1Rec."29" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."29");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         30:
+                    //                                                             if AssortDetails1Rec."30" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."30");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         31:
+                    //                                                             if AssortDetails1Rec."31" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."31");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         32:
+                    //                                                             if AssortDetails1Rec."32" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."32");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         33:
+                    //                                                             if AssortDetails1Rec."33" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."33");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         34:
+                    //                                                             if AssortDetails1Rec."34" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."34");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         35:
+                    //                                                             if AssortDetails1Rec."35" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."35");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         36:
+                    //                                                             if AssortDetails1Rec."36" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."36");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         37:
+                    //                                                             if AssortDetails1Rec."37" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."37");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         38:
+                    //                                                             if AssortDetails1Rec."38" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."38");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         39:
+                    //                                                             if AssortDetails1Rec."39" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."39");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         40:
+                    //                                                             if AssortDetails1Rec."40" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."40");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         41:
+                    //                                                             if AssortDetails1Rec."41" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."41");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         42:
+                    //                                                             if AssortDetails1Rec."42" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."42");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         43:
+                    //                                                             if AssortDetails1Rec."43" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."43");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         44:
+                    //                                                             if AssortDetails1Rec."44" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."44");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         45:
+                    //                                                             if AssortDetails1Rec."45" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."45");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         46:
+                    //                                                             if AssortDetails1Rec."46" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."46");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         47:
+                    //                                                             if AssortDetails1Rec."47" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."47");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         48:
+                    //                                                             if AssortDetails1Rec."48" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."48");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         49:
+                    //                                                             if AssortDetails1Rec."49" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."49");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         50:
+                    //                                                             if AssortDetails1Rec."50" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."50");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         51:
+                    //                                                             if AssortDetails1Rec."51" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."51");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         52:
+                    //                                                             if AssortDetails1Rec."52" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."52");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         53:
+                    //                                                             if AssortDetails1Rec."53" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."53");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         54:
+                    //                                                             if AssortDetails1Rec."54" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."54");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         55:
+                    //                                                             if AssortDetails1Rec."55" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."55");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         56:
+                    //                                                             if AssortDetails1Rec."56" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."56");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         57:
+                    //                                                             if AssortDetails1Rec."57" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."57");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         58:
+                    //                                                             if AssortDetails1Rec."58" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."58");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         59:
+                    //                                                             if AssortDetails1Rec."59" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."59");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         60:
+                    //                                                             if AssortDetails1Rec."60" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."60");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         61:
+                    //                                                             if AssortDetails1Rec."61" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."61");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         62:
+                    //                                                             if AssortDetails1Rec."62" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."62");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         63:
+                    //                                                             if AssortDetails1Rec."63" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."63");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                         64:
+                    //                                                             if AssortDetails1Rec."64" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                 Evaluate(SubTotal, AssortDetailsRec."64");
+                    //                                                                 break;
+                    //                                                             end;
+                    //                                                     end;
+                    //                                                 end;
+
+                    //                                                 Total += SubTotal;
+
+                    //                                             end;
+
+                    //                                         until AssortDetailsRec.Next() = 0;
+
+                    //                                         LineNo += 1;
+                    //                                         Value := 0;
+                    //                                         Requirment := 0;
+
+                    //                                         UOMRec.Reset();
+                    //                                         UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                         UOMRec.FindSet();
+                    //                                         ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                         //Check whether already "po raised"items are there, then do not insert
+                    //                                         BLAutoGenNewRec.Reset();
+                    //                                         BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                         BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                         BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                         BLAutoGenNewRec.SetRange("Item Color No.", BOMLine2Rec."Item Color No.");
+                    //                                         BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
+                    //                                         BLAutoGenNewRec.SetRange("Country No.", BOMLine2Rec."Country Code");
+                    //                                         BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                         BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                         BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                         BLAutoGenNewRec.SetRange("Dimension No.", BOMLine2Rec."Dimension No.");
+                    //                                         BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                         if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                             if Total <> 0 then begin
+
+                    //                                                 BLAutoGenNewRec.Init();
+                    //                                                 BLAutoGenNewRec."No." := rec."No";
+                    //                                                 BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                                 BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                                 BLAutoGenNewRec."Line No." := LineNo;
+                    //                                                 BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                                 BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                                 BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                                 BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                                 BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                                 BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                                 BLAutoGenNewRec."Dimension No." := BOMLine2Rec."Dimension No.";
+                    //                                                 BLAutoGenNewRec."Dimension Name." := BOMLine2Rec."Dimension Name";
+                    //                                                 BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                                 BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                                 BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                                 BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                                 BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                                 BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                                 BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                                 BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                                 BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                                 BLAutoGenNewRec."Created User" := UserId;
+                    //                                                 BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                                 BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                                 BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                                 BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                                 BLAutoGenNewRec.Reconfirm := false;
+                    //                                                 BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                                 BLAutoGenNewRec."GMT Color No." := BOMLine2Rec."GMT Color No.";
+                    //                                                 BLAutoGenNewRec."GMT Color Name" := BOMLine2Rec."GMT Color Name.";
+                    //                                                 BLAutoGenNewRec."Item Color No." := BOMLine2Rec."Item Color No.";
+                    //                                                 BLAutoGenNewRec."Item Color Name" := BOMLine2Rec."Item Color Name.";
+                    //                                                 BLAutoGenNewRec."GMT Size Name" := BOMLine2Rec."GMR Size Name";
+                    //                                                 BLAutoGenNewRec."Country No." := BOMLine2Rec."Country Code";
+                    //                                                 BLAutoGenNewRec."Country Name" := BOMLine2Rec."Country Name";
+                    //                                                 BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                                 BLAutoGenNewRec."Lot No." := BOMPOSelecRec."lot No.";
+                    //                                                 BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                                 if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                     Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                                 else
+                    //                                                     if BLERec.Type = BLERec.Type::Doz then
+                    //                                                         Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                                 if (ConvFactor <> 0) then
+                    //                                                     Requirment := Requirment / ConvFactor;
+
+                    //                                                 //Requirment := Round(Requirment, 1);
+
+                    //                                                 if Requirment < 0 then
+                    //                                                     Requirment := 1;
+
+                    //                                                 Value := Requirment * BLERec.Rate;
+
+                    //                                                 BLAutoGenNewRec.Requirment := Requirment;
+                    //                                                 BLAutoGenNewRec.Value := Value;
+
+                    //                                                 BLAutoGenNewRec.Insert();
+
+                    //                                                 //Insert into AutoGenPRBOM
+                    //                                                 InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                                 Total := 0;
+                    //                                             end;
+                    //                                         end;
+
+                    //                                     end;
+
+                    //                                 until BOMLine4Rec.Next() = 0;
+                    //                             end;
+                    //                         until BOMPOSelecRec.Next() = 0;
+                    //                     end;
+                    //                 until BOMLine2Rec.Next() = 0;
+                    //             end;
+                    //         end;
+
+                    //         //Color and PO
+                    //         if BLERec."Color Sensitive" and not BLERec."Size Sensitive" and not BLERec."Country Sensitive" and BLERec."PO Sensitive" then begin
+
+                    //             //color filter
+                    //             BOMLine1Rec.Reset();
+                    //             BOMLine1Rec.SetRange("No.", rec."No");
+                    //             BOMLine1Rec.SetRange(Type, 1);
+                    //             BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine1Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine1Rec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //PO filter
+                    //                     BOMPOSelecRec.Reset();
+                    //                     BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                     BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                     if BOMPOSelecRec.FindSet() then begin
+
+                    //                         repeat
+
+                    //                             //Item po filter
+                    //                             BOMLine4Rec.Reset();
+                    //                             BOMLine4Rec.SetRange("No.", rec."No");
+                    //                             BOMLine4Rec.SetRange(Type, 4);
+                    //                             BOMLine4Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                             BOMLine4Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                             BOMLine4Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                             BOMLine4Rec.SetRange(Select, true);
+
+                    //                             if BOMLine4Rec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     //Insert new line
+                    //                                     AssortDetailsRec.Reset();
+                    //                                     AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                     AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                     AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
+
+                    //                                     if AssortDetailsRec.FindSet() then begin
+                    //                                         //Message(Format(Total));
+                    //                                         repeat
+
+                    //                                             if AssortDetailsRec."Colour No" <> '*' then begin
+                    //                                                 Total += AssortDetailsRec.Total;
+                    //                                             end;
+
+                    //                                         until AssortDetailsRec.Next() = 0;
+
+                    //                                     end;
+
+                    //                                     LineNo += 1;
+                    //                                     Value := 0;
+                    //                                     Requirment := 0;
+
+                    //                                     UOMRec.Reset();
+                    //                                     UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                     UOMRec.FindSet();
+                    //                                     ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                     //Check whether already "po raised"items are there, then do not insert
+                    //                                     BLAutoGenNewRec.Reset();
+                    //                                     BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                     BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                     BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                     BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                    //                                     //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                    //                                     BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine1Rec."GMR Size Name");
+                    //                                     BLAutoGenNewRec.SetRange("Country No.", BOMLine1Rec."Country Code");
+                    //                                     BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                     BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                     BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                     BLAutoGenNewRec.SetRange("Dimension No.", BLERec."Dimension No.");
+                    //                                     BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                     if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                         if Total <> 0 then begin
+
+                    //                                             BLAutoGenNewRec.Init();
+                    //                                             BLAutoGenNewRec."No." := rec."No";
+                    //                                             BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                             BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                             BLAutoGenNewRec."Line No." := LineNo;
+                    //                                             BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                             BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                             BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                             BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                             BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                             BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                             BLAutoGenNewRec."Dimension No." := BLERec."Dimension No.";
+                    //                                             BLAutoGenNewRec."Dimension Name." := BLERec."Dimension Name.";
+                    //                                             BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                             BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                             BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                             BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                             BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                             BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                             BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                             BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                             BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                             BLAutoGenNewRec."Created User" := UserId;
+                    //                                             BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                             BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                             BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                             BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                             BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                             BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                             BLAutoGenNewRec.Reconfirm := false;
+                    //                                             BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                             BLAutoGenNewRec."GMT Color No." := BOMLine1Rec."GMT Color No.";
+                    //                                             BLAutoGenNewRec."GMT Color Name" := BOMLine1Rec."GMT Color Name.";
+                    //                                             BLAutoGenNewRec."Item Color No." := BOMLine1Rec."Item Color No.";
+                    //                                             BLAutoGenNewRec."Item Color Name" := BOMLine1Rec."Item Color Name.";
+                    //                                             BLAutoGenNewRec."GMT Size Name" := BOMLine1Rec."GMR Size Name";
+                    //                                             BLAutoGenNewRec."Country No." := BOMLine1Rec."Country Code";
+                    //                                             BLAutoGenNewRec."Country Name" := BOMLine1Rec."Country Name";
+                    //                                             BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                             BLAutoGenNewRec."Lot No." := BOMPOSelecRec."lot No.";
+                    //                                             BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                             if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                 Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                             else
+                    //                                                 if BLERec.Type = BLERec.Type::Doz then
+                    //                                                     Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                             if (ConvFactor <> 0) then
+                    //                                                 Requirment := Requirment / ConvFactor;
+
+                    //                                             //Requirment := Round(Requirment, 1);
+
+                    //                                             if Requirment < 0 then
+                    //                                                 Requirment := 1;
+
+                    //                                             Value := Requirment * BLERec.Rate;
+
+                    //                                             BLAutoGenNewRec.Requirment := Requirment;
+                    //                                             BLAutoGenNewRec.Value := Value;
+
+                    //                                             BLAutoGenNewRec.Insert();
+
+                    //                                             //Insert into AutoGenPRBOM
+                    //                                             InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                             Total := 0;
+                    //                                         end;
+                    //                                     end;
+
+                    //                                 until BOMLine4Rec.Next() = 0;
+                    //                             end;
+
+                    //                         until BOMPOSelecRec.Next() = 0;
+                    //                     end;
+                    //                 until BOMLine1Rec.Next() = 0;
+                    //             end;
+                    //         end;
+
+                    //         //Color,size and PO
+                    //         if BLERec."Color Sensitive" and BLERec."Size Sensitive" and not BLERec."Country Sensitive" and BLERec."PO Sensitive" then begin
+
+                    //             //color filter
+                    //             BOMLine1Rec.Reset();
+                    //             BOMLine1Rec.SetRange("No.", rec."No");
+                    //             BOMLine1Rec.SetRange(Type, 1);
+                    //             BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine1Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine1Rec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //Size filter
+                    //                     BOMLine2Rec.Reset();
+                    //                     BOMLine2Rec.SetRange("No.", rec."No");
+                    //                     BOMLine2Rec.SetRange(Type, 2);
+                    //                     BOMLine2Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                     BOMLine2Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                     BOMLine2Rec.SetFilter(Select, '=%1', true);
+
+                    //                     if BOMLine2Rec.FindSet() then begin
+
+                    //                         repeat
+
+                    //                             //PO filter
+                    //                             BOMPOSelecRec.Reset();
+                    //                             BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                             BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                             if BOMPOSelecRec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     //Item po filter
+                    //                                     BOMLine4Rec.Reset();
+                    //                                     BOMLine4Rec.SetRange("No.", rec."No");
+                    //                                     BOMLine4Rec.SetRange(Type, 4);
+                    //                                     BOMLine4Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                                     BOMLine4Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                                     BOMLine4Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                     BOMLine4Rec.SetRange(Select, true);
+
+                    //                                     if BOMLine4Rec.FindSet() then begin
+
+                    //                                         repeat
+
+                    //                                             //Insert new line
+                    //                                             AssortDetailsRec.Reset();
+                    //                                             AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                             AssortDetailsRec.SetRange("lot No.", BOMLine4Rec."lot No.");
+                    //                                             AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
+
+                    //                                             if AssortDetailsRec.FindSet() then begin
+
+                    //                                                 repeat
+
+                    //                                                     //Find the correct column for the GMT size
+                    //                                                     AssortDetails1Rec.Reset();
+                    //                                                     AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                    //                                                     AssortDetails1Rec.SetRange("lot No.", BOMLine4Rec."lot No.");
+                    //                                                     AssortDetails1Rec.SetRange("Colour No", '*');
+
+                    //                                                     AssortDetails1Rec.FindSet();
+
+                    //                                                     FOR Count := 1 TO 64 DO begin
+                    //                                                         case Count of
+                    //                                                             1:
+                    //                                                                 if AssortDetails1Rec."1" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."1");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             2:
+                    //                                                                 if AssortDetails1Rec."2" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."2");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             3:
+                    //                                                                 if AssortDetails1Rec."3" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."3");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             4:
+                    //                                                                 if AssortDetails1Rec."4" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."4");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             5:
+                    //                                                                 if AssortDetails1Rec."5" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."5");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             6:
+                    //                                                                 if AssortDetails1Rec."6" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."6");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             7:
+                    //                                                                 if AssortDetails1Rec."7" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."7");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             8:
+                    //                                                                 if AssortDetails1Rec."8" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."8");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             9:
+                    //                                                                 if AssortDetails1Rec."9" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."9");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             10:
+                    //                                                                 if AssortDetails1Rec."10" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."10");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             11:
+                    //                                                                 if AssortDetails1Rec."11" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."11");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             12:
+                    //                                                                 if AssortDetails1Rec."12" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."12");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             13:
+                    //                                                                 if AssortDetails1Rec."13" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."13");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             14:
+                    //                                                                 if AssortDetails1Rec."14" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."14");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             15:
+                    //                                                                 if AssortDetails1Rec."15" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."15");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             16:
+                    //                                                                 if AssortDetails1Rec."16" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."16");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             17:
+                    //                                                                 if AssortDetails1Rec."17" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."17");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             18:
+                    //                                                                 if AssortDetails1Rec."18" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."18");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             19:
+                    //                                                                 if AssortDetails1Rec."19" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."19");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             20:
+                    //                                                                 if AssortDetails1Rec."20" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."20");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             21:
+                    //                                                                 if AssortDetails1Rec."21" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."21");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             22:
+                    //                                                                 if AssortDetails1Rec."22" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."22");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             23:
+                    //                                                                 if AssortDetails1Rec."23" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."23");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             24:
+                    //                                                                 if AssortDetails1Rec."24" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."24");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             25:
+                    //                                                                 if AssortDetails1Rec."25" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."25");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             26:
+                    //                                                                 if AssortDetails1Rec."26" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."26");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             27:
+                    //                                                                 if AssortDetails1Rec."27" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."27");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             28:
+                    //                                                                 if AssortDetails1Rec."28" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."28");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             29:
+                    //                                                                 if AssortDetails1Rec."29" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."29");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             30:
+                    //                                                                 if AssortDetails1Rec."30" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."30");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             31:
+                    //                                                                 if AssortDetails1Rec."31" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."31");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             32:
+                    //                                                                 if AssortDetails1Rec."32" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."32");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             33:
+                    //                                                                 if AssortDetails1Rec."33" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."33");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             34:
+                    //                                                                 if AssortDetails1Rec."34" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."34");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             35:
+                    //                                                                 if AssortDetails1Rec."35" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."35");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             36:
+                    //                                                                 if AssortDetails1Rec."36" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."36");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             37:
+                    //                                                                 if AssortDetails1Rec."37" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."37");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             38:
+                    //                                                                 if AssortDetails1Rec."38" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."38");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             39:
+                    //                                                                 if AssortDetails1Rec."39" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."39");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             40:
+                    //                                                                 if AssortDetails1Rec."40" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."40");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             41:
+                    //                                                                 if AssortDetails1Rec."41" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."41");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             42:
+                    //                                                                 if AssortDetails1Rec."42" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."42");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             43:
+                    //                                                                 if AssortDetails1Rec."43" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."43");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             44:
+                    //                                                                 if AssortDetails1Rec."44" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."44");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             45:
+                    //                                                                 if AssortDetails1Rec."45" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."45");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             46:
+                    //                                                                 if AssortDetails1Rec."46" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."46");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             47:
+                    //                                                                 if AssortDetails1Rec."47" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."47");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             48:
+                    //                                                                 if AssortDetails1Rec."48" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."48");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             49:
+                    //                                                                 if AssortDetails1Rec."49" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."49");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             50:
+                    //                                                                 if AssortDetails1Rec."50" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."50");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             51:
+                    //                                                                 if AssortDetails1Rec."51" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."51");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             52:
+                    //                                                                 if AssortDetails1Rec."52" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."52");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             53:
+                    //                                                                 if AssortDetails1Rec."53" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."53");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             54:
+                    //                                                                 if AssortDetails1Rec."54" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."54");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             55:
+                    //                                                                 if AssortDetails1Rec."55" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."55");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             56:
+                    //                                                                 if AssortDetails1Rec."56" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."56");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             57:
+                    //                                                                 if AssortDetails1Rec."57" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."57");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             58:
+                    //                                                                 if AssortDetails1Rec."58" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."58");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             59:
+                    //                                                                 if AssortDetails1Rec."59" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."59");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             60:
+                    //                                                                 if AssortDetails1Rec."60" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."60");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             61:
+                    //                                                                 if AssortDetails1Rec."61" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."61");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             62:
+                    //                                                                 if AssortDetails1Rec."62" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."62");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             63:
+                    //                                                                 if AssortDetails1Rec."63" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."63");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                             64:
+                    //                                                                 if AssortDetails1Rec."64" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                     Evaluate(SubTotal, AssortDetailsRec."64");
+                    //                                                                     break;
+                    //                                                                 end;
+                    //                                                         end;
+                    //                                                     end;
+                    //                                                     Total += SubTotal;
+
+                    //                                                 until AssortDetailsRec.Next() = 0;
+                    //                                             end;
+
+                    //                                             LineNo += 1;
+                    //                                             Value := 0;
+                    //                                             Requirment := 0;
+
+                    //                                             UOMRec.Reset();
+                    //                                             UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                             UOMRec.FindSet();
+                    //                                             ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                             //Check whether already "po raised"items are there, then do not insert
+                    //                                             BLAutoGenNewRec.Reset();
+                    //                                             BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                             BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                    //                                             //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                    //                                             BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
+                    //                                             BLAutoGenNewRec.SetRange("Country No.", BOMLine1Rec."Country Code");
+                    //                                             BLAutoGenNewRec.SetRange(PO, BOMLine4Rec."PO No.");
+                    //                                             BLAutoGenNewRec.SetRange("Lot No.", BOMLine4Rec."Lot No.");
+                    //                                             BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                             BLAutoGenNewRec.SetRange("Dimension No.", BOMLine2Rec."Dimension No.");
+                    //                                             BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                             if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                                 if Total <> 0 then begin
+
+                    //                                                     BLAutoGenNewRec.Init();
+                    //                                                     BLAutoGenNewRec."No." := rec."No";
+                    //                                                     BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                                     BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                                     BLAutoGenNewRec."Line No." := LineNo;
+                    //                                                     BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                                     BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                                     BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                                     BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                                     BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                                     BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                                     BLAutoGenNewRec."Dimension No." := BOMLine2Rec."Dimension No.";
+                    //                                                     BLAutoGenNewRec."Dimension Name." := BOMLine2Rec."Dimension Name";
+                    //                                                     BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                                     BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                                     BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                                     BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                                     BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                                     BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                                     BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                                     BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                                     BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                                     BLAutoGenNewRec."Created User" := UserId;
+                    //                                                     BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                                     BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                                     BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                                     BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                                     BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                                     BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                                     BLAutoGenNewRec.Reconfirm := false;
+                    //                                                     BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                                     BLAutoGenNewRec."GMT Color No." := BOMLine1Rec."GMT Color No.";
+                    //                                                     BLAutoGenNewRec."GMT Color Name" := BOMLine1Rec."GMT Color Name.";
+                    //                                                     BLAutoGenNewRec."Item Color No." := BOMLine1Rec."Item Color No.";
+                    //                                                     BLAutoGenNewRec."Item Color Name" := BOMLine1Rec."Item Color Name.";
+                    //                                                     BLAutoGenNewRec."GMT Size Name" := BOMLine2Rec."GMR Size Name";
+                    //                                                     BLAutoGenNewRec."Country No." := BOMLine1Rec."Country Code";
+                    //                                                     BLAutoGenNewRec."Country Name" := BOMLine1Rec."Country Name";
+                    //                                                     BLAutoGenNewRec.PO := BOMLine4Rec."PO No.";
+                    //                                                     BLAutoGenNewRec."Lot No." := BOMLine4Rec."lot No.";
+                    //                                                     BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                                     if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                         Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                                     else
+                    //                                                         if BLERec.Type = BLERec.Type::Doz then
+                    //                                                             Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                                     if (ConvFactor <> 0) then
+                    //                                                         Requirment := Requirment / ConvFactor;
+
+                    //                                                     //Requirment := Round(Requirment, 1);
+
+                    //                                                     if Requirment < 0 then
+                    //                                                         Requirment := 1;
+
+                    //                                                     Value := Requirment * BLERec.Rate;
+
+                    //                                                     BLAutoGenNewRec.Requirment := Requirment;
+                    //                                                     BLAutoGenNewRec.Value := Value;
+
+                    //                                                     BLAutoGenNewRec.Insert();
+
+                    //                                                     //Insert into AutoGenPRBOM
+                    //                                                     InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                                     Total := 0;
+                    //                                                 end;
+                    //                                             end;
+
+                    //                                         until BOMLine4Rec.Next() = 0;
+                    //                                     end;
+                    //                                 until BOMPOSelecRec.Next() = 0;
+                    //                             end;
+                    //                         until BOMLine2Rec.Next() = 0;
+                    //                     end;
+                    //                 until BOMLine1Rec.Next() = 0;
+                    //             end;
+                    //         end;
+
+                    //         //Color,country and PO
+                    //         if BLERec."Color Sensitive" and not BLERec."Size Sensitive" and BLERec."Country Sensitive" and BLERec."PO Sensitive" then begin
+
+                    //             //color filter
+                    //             BOMLine1Rec.Reset();
+                    //             BOMLine1Rec.SetRange("No.", rec."No");
+                    //             BOMLine1Rec.SetRange(Type, 1);
+                    //             BOMLine1Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine1Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine1Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine1Rec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //Country filter
+                    //                     BOMLine3Rec.Reset();
+                    //                     BOMLine3Rec.SetRange("No.", rec."No");
+                    //                     BOMLine3Rec.SetRange(Type, 3);
+                    //                     BOMLine3Rec.SetRange("Item No.", BLERec."Item No.");
+                    //                     BOMLine3Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //                     BOMLine3Rec.SetRange(Select, true);
+                    //                     BOMLine3Rec.SetFilter(Select, '=%1', true);
+
+                    //                     if BOMLine3Rec.FindSet() then begin
+
+                    //                         repeat
+
+                    //                             //PO filter
+                    //                             BOMPOSelecRec.Reset();
+                    //                             BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                             BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                             if BOMPOSelecRec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     //Item po filter
+                    //                                     BOMLine4Rec.Reset();
+                    //                                     BOMLine4Rec.SetRange("No.", rec."No");
+                    //                                     BOMLine4Rec.SetRange(Type, 4);
+                    //                                     BOMLine4Rec.SetRange("Item No.", BOMLine1Rec."Item No.");
+                    //                                     BOMLine4Rec.SetRange(Placement, BOMLine1Rec."Placement");
+                    //                                     BOMLine4Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                     BOMLine4Rec.SetRange(Select, true);
+
+                    //                                     if BOMLine4Rec.FindSet() then begin
+
+                    //                                         repeat
+
+                    //                                             //Insert new line
+                    //                                             AssortDetailsRec.Reset();
+                    //                                             AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                             AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                             AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
+                    //                                             AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                             if AssortDetailsRec.FindSet() then begin
+
+                    //                                                 repeat
+
+                    //                                                     if AssortDetailsRec."Colour No" <> '*' then begin
+                    //                                                         Total += AssortDetailsRec.Total;
+                    //                                                     end;
+
+                    //                                                 until AssortDetailsRec.Next() = 0;
+
+                    //                                             end;
+
+                    //                                             LineNo += 1;
+                    //                                             Value := 0;
+                    //                                             Requirment := 0;
+
+                    //                                             UOMRec.Reset();
+                    //                                             UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                             UOMRec.FindSet();
+                    //                                             ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                             //Check whether already "po raised"items are there, then do not insert
+                    //                                             BLAutoGenNewRec.Reset();
+                    //                                             BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                             BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                             BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                             BLAutoGenNewRec.SetRange("GMT Color No.", BOMLine1Rec."GMT Color No.");
+                    //                                             //BLAutoGenNewRec.SetRange("Item Color No.", BOMLine1Rec."Item Color No.");
+                    //                                             BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine1Rec."GMR Size Name");
+                    //                                             BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                                             BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                             BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                             BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                             BLAutoGenNewRec.SetRange("Dimension No.", BLERec."Dimension No.");
+                    //                                             BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                             if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                                 if Total <> 0 then begin
+
+                    //                                                     BLAutoGenNewRec.Init();
+                    //                                                     BLAutoGenNewRec."No." := rec."No";
+                    //                                                     BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                                     BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                                     BLAutoGenNewRec."Line No." := LineNo;
+                    //                                                     BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                                     BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                                     BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                                     BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                                     BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                                     BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                                     BLAutoGenNewRec."Dimension No." := BLERec."Dimension No.";
+                    //                                                     BLAutoGenNewRec."Dimension Name." := BLERec."Dimension Name.";
+                    //                                                     BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                                     BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                                     BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                                     BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                                     BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                                     BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                                     BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                                     BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                                     BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                                     BLAutoGenNewRec."Created User" := UserId;
+                    //                                                     BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                                     BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                                     BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                                     BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                                     BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                                     BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                                     BLAutoGenNewRec.Reconfirm := false;
+                    //                                                     BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                                     BLAutoGenNewRec."GMT Color No." := BOMLine1Rec."GMT Color No.";
+                    //                                                     BLAutoGenNewRec."GMT Color Name" := BOMLine1Rec."GMT Color Name.";
+                    //                                                     BLAutoGenNewRec."Item Color No." := BOMLine1Rec."Item Color No.";
+                    //                                                     BLAutoGenNewRec."Item Color Name" := BOMLine1Rec."Item Color Name.";
+                    //                                                     BLAutoGenNewRec."GMT Size Name" := BOMLine1Rec."GMR Size Name";
+                    //                                                     BLAutoGenNewRec."Country No." := BOMLine3Rec."Country Code";
+                    //                                                     BLAutoGenNewRec."Country Name" := BOMLine3Rec."Country Name";
+                    //                                                     BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                                     BLAutoGenNewRec."Lot No." := BOMPOSelecRec."lot No.";
+                    //                                                     BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                                     if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                         Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                                     else
+                    //                                                         if BLERec.Type = BLERec.Type::Doz then
+                    //                                                             Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                                     if (ConvFactor <> 0) then
+                    //                                                         Requirment := Requirment / ConvFactor;
+
+                    //                                                     //Requirment := Round(Requirment, 1);
+
+                    //                                                     if Requirment < 0 then
+                    //                                                         Requirment := 1;
+
+                    //                                                     Value := Requirment * BLERec.Rate;
+
+                    //                                                     BLAutoGenNewRec.Requirment := Requirment;
+                    //                                                     BLAutoGenNewRec.Value := Value;
+
+                    //                                                     BLAutoGenNewRec.Insert();
+
+                    //                                                     //Insert into AutoGenPRBOM
+                    //                                                     InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                                     Total := 0;
+                    //                                                 end;
+                    //                                             end;
+
+                    //                                         until BOMLine4Rec.Next() = 0;
+                    //                                     end;
+                    //                                 until BOMPOSelecRec.Next() = 0;
+                    //                             end;
+
+                    //                         until BOMLine3Rec.Next() = 0;
+                    //                     end;
+
+                    //                 until BOMLine1Rec.Next() = 0;
+                    //             end;
+                    //         end;
+
+                    //         //country and PO
+                    //         if not BLERec."Color Sensitive" and not BLERec."Size Sensitive" and BLERec."Country Sensitive" and BLERec."PO Sensitive" then begin
+
+                    //             //Country filter
+                    //             BOMLine3Rec.Reset();
+                    //             BOMLine3Rec.SetRange("No.", rec."No");
+                    //             BOMLine3Rec.SetRange(Type, 3);
+                    //             BOMLine3Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine3Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine3Rec.SetRange(Select, true);
+
+                    //             if BOMLine3Rec.FindSet() then begin
+
+                    //                 repeat
+
+                    //                     //PO filter
+                    //                     BOMPOSelecRec.Reset();
+                    //                     BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                     BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                     if BOMPOSelecRec.FindSet() then begin
+
+                    //                         repeat
+
+                    //                             //Item po filter
+                    //                             BOMLine4Rec.Reset();
+                    //                             BOMLine4Rec.SetRange("No.", rec."No");
+                    //                             BOMLine4Rec.SetRange(Type, 4);
+                    //                             BOMLine4Rec.SetRange("Item No.", BLERec."Item No.");
+                    //                             BOMLine4Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //                             BOMLine4Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                             BOMLine4Rec.SetRange(Select, true);
+
+                    //                             if BOMLine4Rec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     //Insert new line
+                    //                                     AssortDetailsRec.Reset();
+                    //                                     AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                     AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                     AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                     if AssortDetailsRec.FindSet() then begin
+
+                    //                                         repeat
+
+                    //                                             if AssortDetailsRec."Colour No" <> '*' then begin
+                    //                                                 Total += AssortDetailsRec.Total;
+                    //                                             end;
+
+                    //                                         until AssortDetailsRec.Next() = 0;
+
+                    //                                     end;
+
+                    //                                     LineNo += 1;
+                    //                                     Value := 0;
+                    //                                     Requirment := 0;
+
+                    //                                     UOMRec.Reset();
+                    //                                     UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                     UOMRec.FindSet();
+                    //                                     ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                     //Check whether already "po raised"items are there, then do not insert
+                    //                                     BLAutoGenNewRec.Reset();
+                    //                                     BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                     BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                     BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                     BLAutoGenNewRec.SetRange("Item Color No.", BOMLine3Rec."Item Color No.");
+                    //                                     BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine3Rec."GMR Size Name");
+                    //                                     BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                                     BLAutoGenNewRec.SetRange(PO, BOMPOSelecRec."PO No.");
+                    //                                     BLAutoGenNewRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
+                    //                                     BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                     BLAutoGenNewRec.SetRange("Dimension No.", BLERec."Dimension No.");
+                    //                                     BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                     if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                         if Total <> 0 then begin
+
+                    //                                             BLAutoGenNewRec.Init();
+                    //                                             BLAutoGenNewRec."No." := rec."No";
+                    //                                             BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                             BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                             BLAutoGenNewRec."Line No." := LineNo;
+                    //                                             BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                             BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                             BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                             BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                             BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                             BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                             BLAutoGenNewRec."Dimension No." := BLERec."Dimension No.";
+                    //                                             BLAutoGenNewRec."Dimension Name." := BLERec."Dimension Name.";
+                    //                                             BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                             BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                             BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                             BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                             BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                             BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                             BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                             BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                             BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                             BLAutoGenNewRec."Created User" := UserId;
+                    //                                             BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                             BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                             BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                             BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                             BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                             BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                             BLAutoGenNewRec.Reconfirm := false;
+                    //                                             BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                             BLAutoGenNewRec."GMT Color No." := BOMLine3Rec."GMT Color No.";
+                    //                                             BLAutoGenNewRec."GMT Color Name" := BOMLine3Rec."GMT Color Name.";
+                    //                                             BLAutoGenNewRec."Item Color No." := BOMLine3Rec."Item Color No.";
+                    //                                             BLAutoGenNewRec."Item Color Name" := BOMLine3Rec."Item Color Name.";
+                    //                                             BLAutoGenNewRec."GMT Size Name" := BOMLine3Rec."GMR Size Name";
+                    //                                             BLAutoGenNewRec."Country No." := BOMLine3Rec."Country Code";
+                    //                                             BLAutoGenNewRec."Country Name" := BOMLine3Rec."Country Name";
+                    //                                             BLAutoGenNewRec.PO := BOMPOSelecRec."PO No.";
+                    //                                             BLAutoGenNewRec."Lot No." := BOMPOSelecRec."lot No.";
+                    //                                             BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                             if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                 Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                             else
+                    //                                                 if BLERec.Type = BLERec.Type::Doz then
+                    //                                                     Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                             if (ConvFactor <> 0) then
+                    //                                                 Requirment := Requirment / ConvFactor;
+
+                    //                                             //Requirment := Round(Requirment, 1);
+
+                    //                                             if Requirment < 0 then
+                    //                                                 Requirment := 1;
+
+                    //                                             Value := Requirment * BLERec.Rate;
+
+                    //                                             BLAutoGenNewRec.Requirment := Requirment;
+                    //                                             BLAutoGenNewRec.Value := Value;
+
+                    //                                             BLAutoGenNewRec.Insert();
+
+                    //                                             //Insert into AutoGenPRBOM
+                    //                                             InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+
+                    //                                             Total := 0;
+                    //                                         end;
+                    //                                     end;
+
+                    //                                 until BOMLine4Rec.Next() = 0;
+                    //                             end;
+                    //                         until BOMPOSelecRec.Next() = 0;
+                    //                     end;
+
+                    //                 until BOMLine3Rec.Next() = 0;
+                    //             end;
+
+
+                    //         end;
+
+                    //         //Size, Country and PO
+                    //         if not BLERec."Color Sensitive" and BLERec."Size Sensitive" and BLERec."Country Sensitive" and BLERec."PO Sensitive" then begin
+
+                    //             //Size filter
+                    //             BOMLine2Rec.Reset();
+                    //             BOMLine2Rec.SetRange("No.", rec."No");
+                    //             BOMLine2Rec.SetRange(Type, 2);
+                    //             BOMLine2Rec.SetRange("Item No.", BLERec."Item No.");
+                    //             BOMLine2Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //             BOMLine2Rec.SetFilter(Select, '=%1', true);
+
+                    //             if BOMLine2Rec.FindSet() then begin
+
+                    //                 repeat
+                    //                     //Country filter
+                    //                     BOMLine3Rec.Reset();
+                    //                     BOMLine3Rec.SetRange("No.", rec."No");
+                    //                     BOMLine3Rec.SetRange(Type, 3);
+                    //                     BOMLine3Rec.SetRange("Item No.", BLERec."Item No.");
+                    //                     BOMLine3Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //                     BOMLine3Rec.SetRange(Select, true);
+
+                    //                     if BOMLine3Rec.FindSet() then begin
+
+                    //                         repeat
+
+                    //                             //PO filter
+                    //                             BOMPOSelecRec.Reset();
+                    //                             BOMPOSelecRec.SetRange("BOM No.", rec."No");
+                    //                             BOMPOSelecRec.SetRange(Selection, true);
+
+                    //                             if BOMPOSelecRec.FindSet() then begin
+
+                    //                                 repeat
+
+                    //                                     //Item po filter
+                    //                                     BOMLine4Rec.Reset();
+                    //                                     BOMLine4Rec.SetRange("No.", rec."No");
+                    //                                     BOMLine4Rec.SetRange(Type, 4);
+                    //                                     BOMLine4Rec.SetRange("Item No.", BLERec."Item No.");
+                    //                                     BOMLine4Rec.SetRange(Placement, BLERec."Placement of GMT");
+                    //                                     BOMLine4Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
+                    //                                     BOMLine4Rec.SetRange(Select, true);
+
+                    //                                     if BOMLine4Rec.FindSet() then begin
+
+                    //                                         repeat
+
+                    //                                             //Insert new line
+                    //                                             AssortDetailsRec.Reset();
+                    //                                             AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                    //                                             AssortDetailsRec.SetRange("lot No.", BOMLine4Rec."lot No.");
+                    //                                             AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                             if AssortDetailsRec.FindSet() then begin
+
+                    //                                                 repeat
+
+                    //                                                     if AssortDetailsRec."Colour No" <> '*' then begin
+
+                    //                                                         //Find the correct column for the GMT size
+                    //                                                         AssortDetails1Rec.Reset();
+                    //                                                         AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                    //                                                         AssortDetails1Rec.SetRange("lot No.", BOMLine4Rec."lot No.");
+                    //                                                         AssortDetails1Rec.SetRange("Colour No", '*');
+                    //                                                         AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
+
+                    //                                                         AssortDetails1Rec.FindSet();
+
+                    //                                                         FOR Count := 1 TO 64 DO begin
+
+                    //                                                             case Count of
+                    //                                                                 1:
+                    //                                                                     if AssortDetails1Rec."1" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."1");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 2:
+                    //                                                                     if AssortDetails1Rec."2" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."2");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 3:
+                    //                                                                     if AssortDetails1Rec."3" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."3");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 4:
+                    //                                                                     if AssortDetails1Rec."4" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."4");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 5:
+                    //                                                                     if AssortDetails1Rec."5" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."5");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 6:
+                    //                                                                     if AssortDetails1Rec."6" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."6");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 7:
+                    //                                                                     if AssortDetails1Rec."7" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."7");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 8:
+                    //                                                                     if AssortDetails1Rec."8" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."8");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 9:
+                    //                                                                     if AssortDetails1Rec."9" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."9");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 10:
+                    //                                                                     if AssortDetails1Rec."10" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."10");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 11:
+                    //                                                                     if AssortDetails1Rec."11" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."11");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 12:
+                    //                                                                     if AssortDetails1Rec."12" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."12");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 13:
+                    //                                                                     if AssortDetails1Rec."13" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."13");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 14:
+                    //                                                                     if AssortDetails1Rec."14" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."14");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 15:
+                    //                                                                     if AssortDetails1Rec."15" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."15");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 16:
+                    //                                                                     if AssortDetails1Rec."16" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."16");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 17:
+                    //                                                                     if AssortDetails1Rec."17" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."17");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 18:
+                    //                                                                     if AssortDetails1Rec."18" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."18");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 19:
+                    //                                                                     if AssortDetails1Rec."19" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."19");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 20:
+                    //                                                                     if AssortDetails1Rec."20" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."20");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 21:
+                    //                                                                     if AssortDetails1Rec."21" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."21");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 22:
+                    //                                                                     if AssortDetails1Rec."22" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."22");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 23:
+                    //                                                                     if AssortDetails1Rec."23" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."23");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 24:
+                    //                                                                     if AssortDetails1Rec."24" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."24");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 25:
+                    //                                                                     if AssortDetails1Rec."25" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."25");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 26:
+                    //                                                                     if AssortDetails1Rec."26" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."26");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 27:
+                    //                                                                     if AssortDetails1Rec."27" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."27");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 28:
+                    //                                                                     if AssortDetails1Rec."28" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."28");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 29:
+                    //                                                                     if AssortDetails1Rec."29" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."29");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 30:
+                    //                                                                     if AssortDetails1Rec."30" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."30");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 31:
+                    //                                                                     if AssortDetails1Rec."31" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."31");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 32:
+                    //                                                                     if AssortDetails1Rec."32" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."32");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 33:
+                    //                                                                     if AssortDetails1Rec."33" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."33");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 34:
+                    //                                                                     if AssortDetails1Rec."34" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."34");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 35:
+                    //                                                                     if AssortDetails1Rec."35" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."35");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 36:
+                    //                                                                     if AssortDetails1Rec."36" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."36");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 37:
+                    //                                                                     if AssortDetails1Rec."37" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."37");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 38:
+                    //                                                                     if AssortDetails1Rec."38" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."38");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 39:
+                    //                                                                     if AssortDetails1Rec."39" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."39");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 40:
+                    //                                                                     if AssortDetails1Rec."40" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."40");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 41:
+                    //                                                                     if AssortDetails1Rec."41" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."41");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 42:
+                    //                                                                     if AssortDetails1Rec."42" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."42");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 43:
+                    //                                                                     if AssortDetails1Rec."43" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."43");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 44:
+                    //                                                                     if AssortDetails1Rec."44" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."44");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 45:
+                    //                                                                     if AssortDetails1Rec."45" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."45");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 46:
+                    //                                                                     if AssortDetails1Rec."46" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."46");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 47:
+                    //                                                                     if AssortDetails1Rec."47" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."47");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 48:
+                    //                                                                     if AssortDetails1Rec."48" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."48");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 49:
+                    //                                                                     if AssortDetails1Rec."49" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."49");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 50:
+                    //                                                                     if AssortDetails1Rec."50" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."50");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 51:
+                    //                                                                     if AssortDetails1Rec."51" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."51");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 52:
+                    //                                                                     if AssortDetails1Rec."52" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."52");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 53:
+                    //                                                                     if AssortDetails1Rec."53" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."53");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 54:
+                    //                                                                     if AssortDetails1Rec."54" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."54");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 55:
+                    //                                                                     if AssortDetails1Rec."55" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."55");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 56:
+                    //                                                                     if AssortDetails1Rec."56" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."56");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 57:
+                    //                                                                     if AssortDetails1Rec."57" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."57");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 58:
+                    //                                                                     if AssortDetails1Rec."58" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."58");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 59:
+                    //                                                                     if AssortDetails1Rec."59" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."59");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 60:
+                    //                                                                     if AssortDetails1Rec."60" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."60");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 61:
+                    //                                                                     if AssortDetails1Rec."61" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."61");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 62:
+                    //                                                                     if AssortDetails1Rec."62" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."62");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 63:
+                    //                                                                     if AssortDetails1Rec."63" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."63");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                                 64:
+                    //                                                                     if AssortDetails1Rec."64" = BOMLine2Rec."GMR Size Name" then begin
+                    //                                                                         Evaluate(subTotal, AssortDetailsRec."64");
+                    //                                                                         break;
+                    //                                                                     end;
+                    //                                                             end;
+
+                    //                                                             total += SubTotal;
+                    //                                                             SubTotal := 0;
+
+                    //                                                         end;
+
+                    //                                                     end;
+
+                    //                                                 until AssortDetailsRec.Next() = 0;
+
+
+
+                    //                                                 LineNo += 1;
+                    //                                                 Value := 0;
+                    //                                                 Requirment := 0;
+
+                    //                                                 UOMRec.Reset();
+                    //                                                 UOMRec.SetRange(Code, BLERec."Unit N0.");
+                    //                                                 UOMRec.FindSet();
+                    //                                                 ConvFactor := UOMRec."Converion Parameter";
+
+                    //                                                 //Check whether already "po raised"items are there, then do not insert
+                    //                                                 BLAutoGenNewRec.Reset();
+                    //                                                 BLAutoGenNewRec.SetRange("No.", rec."No");
+                    //                                                 BLAutoGenNewRec.SetRange("Item No.", BLERec."Item No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Placement of GMT", BLERec."Placement of GMT");
+                    //                                                 BLAutoGenNewRec.SetRange("Item Color No.", BOMLine2Rec."Item Color No.");
+                    //                                                 BLAutoGenNewRec.SetRange("GMT Size Name", BOMLine2Rec."GMR Size Name");
+                    //                                                 BLAutoGenNewRec.SetRange("Country No.", BOMLine3Rec."Country Code");
+                    //                                                 BLAutoGenNewRec.SetRange(PO, BOMLine4Rec."PO No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Lot No.", BOMLine4Rec."Lot No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Article No.", BLERec."Article No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Dimension No.", BOMLine2Rec."Dimension No.");
+                    //                                                 BLAutoGenNewRec.SetRange("Supplier No.", BLERec."Supplier No.");
+
+                    //                                                 if Not BLAutoGenNewRec.FindSet() then begin
+                    //                                                     if Total <> 0 then begin
+
+                    //                                                         BLAutoGenNewRec.Init();
+                    //                                                         BLAutoGenNewRec."No." := rec."No";
+                    //                                                         BLAutoGenNewRec."Item No." := BLERec."Item No.";
+                    //                                                         BLAutoGenNewRec."Item Name" := BLERec."Item Name";
+                    //                                                         BLAutoGenNewRec."Line No." := LineNo;
+                    //                                                         BLAutoGenNewRec."Main Category No." := BLERec."Main Category No.";
+                    //                                                         BLAutoGenNewRec."Main Category Name" := BLERec."Main Category Name";
+                    //                                                         BLAutoGenNewRec."Sub Category No." := SubCat;
+                    //                                                         BLAutoGenNewRec."Sub Category Name" := SubCatDesc;
+                    //                                                         BLAutoGenNewRec."Article No." := BLERec."Article No.";
+                    //                                                         BLAutoGenNewRec."Article Name." := BLERec."Article Name.";
+                    //                                                         BLAutoGenNewRec."Dimension No." := BOMLine2Rec."Dimension No.";
+                    //                                                         BLAutoGenNewRec."Dimension Name." := BOMLine2Rec."Dimension Name";
+                    //                                                         BLAutoGenNewRec."Unit N0." := BLERec."Unit N0.";
+                    //                                                         BLAutoGenNewRec.Type := BLERec.Type;
+                    //                                                         BLAutoGenNewRec.Consumption := BLERec.Consumption;
+                    //                                                         BLAutoGenNewRec.WST := BLERec.WST;
+                    //                                                         BLAutoGenNewRec.Rate := BLERec.Rate;
+                    //                                                         BLAutoGenNewRec."Supplier No." := BLERec."Supplier No.";
+                    //                                                         BLAutoGenNewRec."Supplier Name." := BLERec."Supplier Name.";
+                    //                                                         BLAutoGenNewRec.AjstReq := BLERec.AjstReq;
+                    //                                                         BLAutoGenNewRec.Qty := BLERec.Qty;
+                    //                                                         BLAutoGenNewRec."Created User" := UserId;
+                    //                                                         BLAutoGenNewRec."Created Date" := WorkDate();
+                    //                                                         BLAutoGenNewRec."Stock Bal" := BLERec."Stock Bal";
+                    //                                                         BLAutoGenNewRec."Size Sensitive" := false;
+                    //                                                         BLAutoGenNewRec."Color Sensitive" := false;
+                    //                                                         BLAutoGenNewRec."Country Sensitive" := false;
+                    //                                                         BLAutoGenNewRec."PO Sensitive" := false;
+                    //                                                         BLAutoGenNewRec.Reconfirm := false;
+                    //                                                         BLAutoGenNewRec."Placement of GMT" := BLERec."Placement of GMT";
+                    //                                                         BLAutoGenNewRec."GMT Color No." := BOMLine2Rec."GMT Color No.";
+                    //                                                         BLAutoGenNewRec."GMT Color Name" := BOMLine2Rec."GMT Color Name.";
+                    //                                                         BLAutoGenNewRec."Item Color No." := BOMLine2Rec."Item Color No.";
+                    //                                                         BLAutoGenNewRec."Item Color Name" := BOMLine2Rec."Item Color Name.";
+                    //                                                         BLAutoGenNewRec."GMT Size Name" := BOMLine2Rec."GMR Size Name";
+                    //                                                         BLAutoGenNewRec."Country No." := BOMLine3Rec."Country Code";
+                    //                                                         BLAutoGenNewRec."Country Name" := BOMLine3Rec."Country Name";
+                    //                                                         BLAutoGenNewRec.PO := BOMLine4Rec."PO No.";
+                    //                                                         BLAutoGenNewRec."Lot No." := BOMLine4Rec."Lot No.";
+                    //                                                         BLAutoGenNewRec."GMT Qty" := Total;
+
+                    //                                                         if BLERec.Type = BLERec.Type::Pcs then
+                    //                                                             Requirment := (BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100
+                    //                                                         else
+                    //                                                             if BLERec.Type = BLERec.Type::Doz then
+                    //                                                                 Requirment := ((BLERec.Consumption * Total) + (BLERec.Consumption * Total) * BLERec.WST / 100) / 12;
+
+                    //                                                         if (ConvFactor <> 0) then
+                    //                                                             Requirment := Requirment / ConvFactor;
+
+                    //                                                         //Requirment := Round(Requirment, 1);
+
+                    //                                                         if Requirment < 0 then
+                    //                                                             Requirment := 1;
+
+                    //                                                         Value := Requirment * BLERec.Rate;
+
+                    //                                                         BLAutoGenNewRec.Requirment := Requirment;
+                    //                                                         BLAutoGenNewRec.Value := Value;
+
+                    //                                                         BLAutoGenNewRec.Insert();
+
+                    //                                                         //Insert into AutoGenPRBOM
+                    //                                                         InsertAutoGenProdBOM(BLERec."Item No.", LineNo);
+                    //                                                         Total := 0;
+                    //                                                     end;
+                    //                                                 end;
+                    //                                             end;
+
+                    //                                         until BOMLine4Rec.Next() = 0;
+
+                    //                                     end;
+
+                    //                                 until BOMPOSelecRec.Next() = 0;
+
+                    //                             end;
+
+                    //                         until BOMLine3Rec.Next() = 0;
+
+                    //                     end;
+
+                    //                 until BOMLine2Rec.Next() = 0;
+
+                    //             end;
+
+                    //         end;
+                    //     //end;
+
+                    //     until BLERec.Next() = 0;
+                    // end;
+
+
+
+
+                    //Write to MRP
                     AssortDetailRec.Reset();
                     AssortDetailRec.SetRange("Style No.", rec."Style No.");
                     AssortDetailRec.SetRange("lot No.", rec."Lot No.");
@@ -1604,7 +6791,7 @@ page 50983 "Assortment Card"
 
     end;
 
-    procedure CountrySensitivity()
+    procedure CountrySensitivity(BOMNo: Code[20])
     var
         BOMLIneEstimateRec: Record "BOM Line Estimate";
         BOMLineCountryRec: Record "BOM Line";
@@ -1612,7 +6799,6 @@ page 50983 "Assortment Card"
         BOMAssortRec: Record AssortmentDetails;
         BOMLInePORec: Record BOMPOSelection;
         LineNo: Integer;
-        BOMNo: Code[20];
     begin
 
         //Delete old records        
@@ -1698,7 +6884,7 @@ page 50983 "Assortment Card"
         end;
     end;
 
-    procedure ItemPOSensitivity()
+    procedure ItemPOSensitivity(BOMNo: Code[20])
     var
         BOMLIneEstimateRec: Record "BOM Line Estimate";
         BOMLineItemPORec: Record "BOM Line";
@@ -1706,7 +6892,6 @@ page 50983 "Assortment Card"
         StyleMasterPORec: Record "Style Master PO";
         BOMLInePORec: Record BOMPOSelection;
         LineNo: Integer;
-        BOMNo: Code[20];
     begin
 
         //Delete old records        

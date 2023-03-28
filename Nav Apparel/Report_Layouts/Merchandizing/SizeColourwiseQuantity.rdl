@@ -8321,9 +8321,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="totFormat">
           <DataField>totFormat</DataField>
         </Field>
-        <Field Name="Size1">
-          <DataField>Size1</DataField>
-        </Field>
       </Fields>
       <Query>
         <DataSourceName>DataSource</DataSourceName>
