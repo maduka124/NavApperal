@@ -1703,13 +1703,13 @@ page 50968 "Nav Apperal Role Center"
                 }
                 group("Sample Reports")
                 {
-                    action("Hourly Production Report Sample")
-                    {
-                        Caption = 'Hourly Production Report';
-                        Enabled = true;
-                        RunObject = report HourlyProductionReport;
-                        ApplicationArea = all;
-                    }
+                    // action("Hourly Production Report Sample")
+                    // {
+                    //     Caption = 'Hourly Production Report';
+                    //     Enabled = true;
+                    //     RunObject = report HourlyProductionReport;
+                    //     ApplicationArea = all;
+                    // }
                 }
             }
 
