@@ -5,7 +5,7 @@ page 50516 HourlyProductionListPart
     SourceTable = "Hourly Production Lines";
     DeleteAllowed = false;
     InsertAllowed = false;
-    SourceTableView = sorting("Work Center Seq No");
+    //SourceTableView = sorting("Work Center Seq No");
 
 
     layout
@@ -1141,7 +1141,7 @@ page 50516 HourlyProductionListPart
             until ProdOutHeaderRec.Next() = 0;
         end;
 
-        if InputQtyVar < rec.Total then
+        if (InputQtyVar) < rec.Total then
             Error('Hourly Production Total is greater than Sewing In quantity.');
 
         CurrPage.Update();
