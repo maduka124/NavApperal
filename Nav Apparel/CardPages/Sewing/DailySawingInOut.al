@@ -645,6 +645,14 @@ page 50355 "Daily Sewing In/Out Card"
     begin
         if (rec."Style No." <> '') and (rec."Lot No." <> '') then begin
 
+            //Delete old records
+            ProductionOutLine.Reset();
+            ProductionOutLine.SetRange("No.", rec."No.");
+            ProductionOutLine.SetFilter(Type, '=%1', rec.Type);
+            ProductionOutLine.SetFilter(In_Out, '=%1', 'IN');
+            if ProductionOutLine.FindSet() then
+                ProductionOutLine.DeleteAll();
+
             ProductionOutLine.Reset();
             ProductionOutLine.SetRange("No.", rec."No.");
 
@@ -837,9 +845,16 @@ page 50355 "Daily Sewing In/Out Card"
     begin
         if (rec."out Style No." <> '') and (rec."Out Lot No." <> '') then begin
 
+            //Delete old records
             ProductionOutLine.Reset();
             ProductionOutLine.SetRange("No.", rec."No.");
+            ProductionOutLine.SetFilter(Type, '=%1', rec.Type);
+            ProductionOutLine.SetFilter(In_Out, '=%1', 'OUT');
+            if ProductionOutLine.FindSet() then
+                ProductionOutLine.DeleteAll();
 
+            ProductionOutLine.Reset();
+            ProductionOutLine.SetRange("No.", rec."No.");
             if ProductionOutLine.FindLast() then
                 LineNo := ProductionOutLine."Line No.";
 
