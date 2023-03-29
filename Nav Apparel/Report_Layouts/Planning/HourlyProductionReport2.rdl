@@ -5404,6 +5404,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -7708,7 +7709,11 @@
                       <KeepWithGroup>After</KeepWithGroup>
                     </TablixMember>
                     <TablixMember>
-                      <Group Name="Details" />
+                      <Group Name="Details">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!Style_Name.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
                       <TablixMembers>
                         <TablixMember />
                       </TablixMembers>
