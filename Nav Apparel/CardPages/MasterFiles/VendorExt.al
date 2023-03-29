@@ -71,7 +71,7 @@ pageextension 50980 VendorCardExt extends "Vendor Card"
         BOMEstimateLineRec.SetRange("Supplier No.", Rec."No.");
 
         if BOMEstimateLineRec.FindSet() then
-            Error('Cannot delete.this vendor use in estimate bom');
+            Error('This Vendor has been used in Estimate BOM. Cannot delete.');
     end;
 
 }

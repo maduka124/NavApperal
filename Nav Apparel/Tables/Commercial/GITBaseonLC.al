@@ -15,7 +15,7 @@ table 50526 "GITBaseonLC"
             DataClassification = ToBeClassified;
         }
 
-        field(3; "Suppler Name"; text[50])
+        field(3; "Suppler Name"; text[100])
         {
             DataClassification = ToBeClassified;
             TableRelation = Vendor.Name;
@@ -38,7 +38,7 @@ table 50526 "GITBaseonLC"
             DataClassification = ToBeClassified;
         }
 
-        field(7; "Invoice No"; Code[20])
+        field(7; "Invoice No"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -78,7 +78,7 @@ table 50526 "GITBaseonLC"
             OptionCaption = 'Sea,Air,"Sea-Air","Air-Sea","By Road"';
         }
 
-        field(14; "BL/AWB NO"; Code[20])
+        field(14; "BL/AWB NO"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -88,22 +88,22 @@ table 50526 "GITBaseonLC"
             DataClassification = ToBeClassified;
         }
 
-        field(16; "Container No"; Code[20])
+        field(16; "Container No"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(17; "Carrier Name"; Code[20])
+        field(17; "Carrier Name"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(18; "Agent"; Code[20])
+        field(18; "Agent"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
 
-        field(19; "M. Vessel Name"; Code[20])
+        field(19; "M. Vessel Name"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -113,7 +113,7 @@ table 50526 "GITBaseonLC"
             DataClassification = ToBeClassified;
         }
 
-        field(21; "F. Vessel Name"; Code[20])
+        field(21; "F. Vessel Name"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -158,13 +158,13 @@ table 50526 "GITBaseonLC"
             DataClassification = ToBeClassified;
         }
 
-        field(30; "B2B LC No. (System)"; Code[20])
+        field(30; "B2B LC No. (System)"; Code[50])
         {
             DataClassification = ToBeClassified;
             TableRelation = B2BLCMaster."No." where(Beneficiary = field("Suppler No."));
         }
 
-        field(31; "AssignedAccNo"; Code[20])
+        field(31; "AssignedAccNo"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
@@ -191,26 +191,9 @@ table 50526 "GITBaseonLC"
     begin
         NavAppSetup.Get('0001');
         NavAppSetup.TestField("GITLC Nos.");
-
         "GITLCNo." := NoSeriesMngment.GetNextNo(NavAppSetup."GITLC Nos.", Today, true);
-
         "Created Date" := WorkDate();
         "Created User" := UserId;
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
     end;
 
 }
