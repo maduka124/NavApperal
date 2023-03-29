@@ -39,6 +39,55 @@ page 51027 "Sample Type List part"
         }
     }
 
+    actions
+    {
+        area(Processing)
+        {
+            // Done By sachith On 29/03/23
+            action("Select All")
+            {
+                ApplicationArea = All;
+                Image = SelectMore;
+
+                trigger OnAction()
+                var
+                    SampleTypeRec: Record "Sample Type";
+                begin
+
+                    SampleTypeRec.Reset();
+                    SampleTypeRec.FindSet();
+                    repeat
+                        SampleTypeRec.Selected := true;
+                        SampleTypeRec.Modify();
+                    until SampleTypeRec.Next() = 0;
+                    CurrPage.Update();
+                end;
+            }
+
+            // Done By sachith On 29/03/23
+            action("De-Select All")
+            {
+                ApplicationArea = All;
+                Image = SelectMore;
+
+                trigger OnAction()
+                var
+                    SampleTypeRec: Record "Sample Type";
+                begin
+
+                    SampleTypeRec.Reset();
+                    SampleTypeRec.FindSet();
+                    repeat
+                        SampleTypeRec.Selected := false;
+                        SampleTypeRec.Modify();
+                    until SampleTypeRec.Next() = 0;
+                    CurrPage.Update();
+                end;
+            }
+        }
+    }
+
+
     var
         BuyerNo: Code[20];
 
