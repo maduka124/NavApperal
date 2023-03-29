@@ -81,6 +81,14 @@ pageextension 50997 PurchaseOrderCardExt extends "Purchase Order"
                 ApplicationArea = all;
                 Editable = false;
             }
+
+            // Done By SAchith on 28/03/23
+            field("Secondary UserID"; Rec."Secondary UserID")
+            {
+                ApplicationArea = All;
+                Caption = 'Merchandiser Name';
+                Editable = false;
+            }
         }
 
         // modify("Invoice Details")
