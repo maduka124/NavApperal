@@ -128,6 +128,7 @@ page 50515 "Hourly Production Card"
                     i: Integer;
                     LineNo: Integer;
                     StyleNo: code[20];
+                    ResourceNo: code[20];
                 begin
 
                     //Validate Date
@@ -172,7 +173,7 @@ page 50515 "Hourly Production Card"
                                 WorkCenrterRec.SetRange("No.", NavAppProdPlanLinesRec."Resource No.");
                                 WorkCenrterRec.FindSet();
 
-                                if StyleNo <> NavAppProdPlanLinesRec."Style No." then begin
+                                if (StyleNo <> NavAppProdPlanLinesRec."Style No.") and (ResourceNo <> NavAppProdPlanLinesRec."Resource No.") then begin
 
                                     LineNo += 1;
                                     HourlyProdLinesRec.Init();
@@ -180,8 +181,10 @@ page 50515 "Hourly Production Card"
                                     HourlyProdLinesRec."Line No." := LineNo;
                                     HourlyProdLinesRec."Style Name" := NavAppProdPlanLinesRec."Style Name";
                                     HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
+                                    HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
                                     HourlyProdLinesRec.Insert();
                                     StyleNo := NavAppProdPlanLinesRec."Style No.";
+                                    ResourceNo := NavAppProdPlanLinesRec."Resource No.";
 
                                 end;
 
