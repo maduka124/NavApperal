@@ -79,7 +79,7 @@ page 50515 "Hourly Production Card"
                             HourlyRec.SetRange("Factory Name", Rec."Factory Name");
                             HourlyRec.SetRange(Type, Rec.Type);
                             if HourlyRec.FindFirst() then
-                                Error('You have put Hourly Production for this Date/Factory/Type');
+                                Error('Record already Exist');
                         end;
                     end;
 
