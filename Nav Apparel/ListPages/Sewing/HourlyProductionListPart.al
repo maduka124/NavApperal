@@ -7,7 +7,6 @@ page 50516 HourlyProductionListPart
     InsertAllowed = false;
     //SourceTableView = sorting("Work Center Seq No");
 
-
     layout
     {
         area(Content)
@@ -949,6 +948,7 @@ page 50516 HourlyProductionListPart
         ProductionOutLine: Record ProductionOutLine;
         ProdOutHeaderRec: Record ProductionOutHeader;
         InputQtyVar: Decimal;
+        OutQtyVar: Decimal;
         TotPassPcsHour1: Integer;
         TotPassPcsHour2: Integer;
         TotPassPcsHour3: Integer;
@@ -1122,8 +1122,9 @@ page 50516 HourlyProductionListPart
         end;
 
 
-        //Get sewing line in qty
+        //Get sewing line in qty/out qty
         InputQtyVar := 0;
+        OutQtyVar := 0;
         ProdOutHeaderRec.Reset();
         ProdOutHeaderRec.SetRange("Resource No.", rec."Work Center No.");
         ProdOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
@@ -1138,11 +1139,12 @@ page 50516 HourlyProductionListPart
         if ProdOutHeaderRec.FindSet() then begin
             repeat
                 InputQtyVar += ProdOutHeaderRec."Input Qty";
+                OutQtyVar += ProdOutHeaderRec."Output Qty";
             until ProdOutHeaderRec.Next() = 0;
         end;
 
-        if (InputQtyVar) < rec.Total then
-            Error('Hourly Production Total is greater than Sewing In quantity.');
+        if (InputQtyVar - OutQtyVar) < rec.Total then
+            Error('Hourly Production Total is greater than balance Sew. In Qty/Sew. Out Qty.');
 
         CurrPage.Update();
 
