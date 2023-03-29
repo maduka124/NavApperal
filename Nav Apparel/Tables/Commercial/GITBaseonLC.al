@@ -33,7 +33,7 @@ table 50526 "GITBaseonLC"
             InitValue = 0;
         }
 
-        field(6; "ContractLC No"; Code[20])
+        field(6; "ContractLC No"; Code[200])
         {
             DataClassification = ToBeClassified;
         }
