@@ -30,6 +30,7 @@ page 50515 "Hourly Production Card"
                         if rec."Prod Date" < WorkDate() then
                             Error('Cannot enter production for previous dates.');
 
+
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
                         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -137,16 +138,17 @@ page 50515 "Hourly Production Card"
                     CurrPage.Update();
 
 
+
                     //Done By sachith on 20/03/23
 
-                    ProductionOutHeaderRec.Reset();
-                    ProductionOutHeaderRec.SetRange("Prod Date", Rec."Prod Date");
-                    ProductionOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
-                    ProductionOutHeaderRec.SetFilter(Type, '=%1', ProductionOutHeaderRec.Type::Saw);
+                    // ProductionOutHeaderRec.Reset();
+                    // ProductionOutHeaderRec.SetRange("Prod Date", Rec."Prod Date");
+                    // ProductionOutHeaderRec.SetRange("Factory Code", Rec."Factory No.");
+                    // ProductionOutHeaderRec.SetFilter(Type, '=%1', ProductionOutHeaderRec.Type::Saw);
 
 
-                    if not ProductionOutHeaderRec.FindSet() then
-                        Error('Daily swing-out is not entered for this factory and date.');
+                    // if not ProductionOutHeaderRec.FindSet() then
+                    //     Error('Daily swing-out is not entered for this factory and date.');
 
 
                     //Get max lineno
@@ -172,17 +174,6 @@ page 50515 "Hourly Production Card"
                         if NavAppProdPlanLinesRec.FindSet() then begin
 
                             repeat
-
-                                //Mihiranga 2023/03/28
-                                HourlyProdLines1Rec.Reset();
-                                HourlyProdLines1Rec.SetRange("No.", HourlyProdLinesRec."No.");
-                                HourlyProdLines1Rec.SetRange("Prod Date", HourlyProdLinesRec."Prod Date");
-                                HourlyProdLines1Rec.SetRange("Factory No.", HourlyProdLinesRec."Factory No.");
-                                HourlyProdLines1Rec.SetRange(Item, HourlyProdLinesRec.Item);
-                                if HourlyProdLinesRec.FindFirst() then
-                                    break;
-                                //////
-
                                 WorkCenrterRec.Reset();
                                 WorkCenrterRec.SetRange("No.", NavAppProdPlanLinesRec."Resource No.");
                                 WorkCenrterRec.FindSet();
@@ -200,51 +191,63 @@ page 50515 "Hourly Production Card"
 
                                 end;
 
-                                LineNo += 1;
+                                //Mihiranga 2023/03/29
+                                HourlyProdLines1Rec.Reset();
+                                HourlyProdLines1Rec.SetRange("No.", HourlyProdLinesRec."No.");
+                                HourlyProdLines1Rec.SetRange("Prod Date", HourlyProdLinesRec."Prod Date");
+                                HourlyProdLines1Rec.SetRange("Factory No.", HourlyProdLinesRec."Factory No.");
+                                HourlyProdLines1Rec.SetRange(Item, HourlyProdLinesRec.Item);
+                                HourlyProdLines1Rec.SetRange("Style No.", HourlyProdLinesRec."Style No.");
+                                HourlyProdLines1Rec.SetRange("Work Center Name", HourlyProdLinesRec."Work Center Name");
+                                if HourlyProdLinesRec.FindFirst() then begin
+                                    //Do nothing when record fond
+                                end
+                                else begin
+                                    LineNo += 1;
 
-                                HourlyProdLinesRec.Init();
-                                HourlyProdLinesRec."No." := rec."No.";
-                                HourlyProdLinesRec."Line No." := LineNo;
-                                HourlyProdLinesRec."Factory No." := rec."Factory No.";
-                                HourlyProdLinesRec."Prod Date" := rec."Prod Date";
-                                HourlyProdLinesRec.Type := rec.Type;
-                                HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
-                                HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
-                                HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
-                                HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
-                                HourlyProdLinesRec.Item := 'PASS PCS';
-                                HourlyProdLinesRec.Insert();
+                                    HourlyProdLinesRec.Init();
+                                    HourlyProdLinesRec."No." := rec."No.";
+                                    HourlyProdLinesRec."Line No." := LineNo;
+                                    HourlyProdLinesRec."Factory No." := rec."Factory No.";
+                                    HourlyProdLinesRec."Prod Date" := rec."Prod Date";
+                                    HourlyProdLinesRec.Type := rec.Type;
+                                    HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
+                                    HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
+                                    HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
+                                    HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
+                                    HourlyProdLinesRec.Item := 'PASS PCS';
+                                    HourlyProdLinesRec.Insert();
 
-                                LineNo += 1;
+                                    LineNo += 1;
 
-                                HourlyProdLinesRec.Init();
-                                HourlyProdLinesRec."No." := rec."No.";
-                                HourlyProdLinesRec."Line No." := LineNo;
-                                HourlyProdLinesRec."Factory No." := rec."Factory No.";
-                                HourlyProdLinesRec."Prod Date" := rec."Prod Date";
-                                HourlyProdLinesRec.Type := rec.Type;
-                                HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
-                                HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
-                                HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
-                                HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
-                                HourlyProdLinesRec.Item := 'DEFECT PCS';
-                                HourlyProdLinesRec.Insert();
+                                    HourlyProdLinesRec.Init();
+                                    HourlyProdLinesRec."No." := rec."No.";
+                                    HourlyProdLinesRec."Line No." := LineNo;
+                                    HourlyProdLinesRec."Factory No." := rec."Factory No.";
+                                    HourlyProdLinesRec."Prod Date" := rec."Prod Date";
+                                    HourlyProdLinesRec.Type := rec.Type;
+                                    HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
+                                    HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
+                                    HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
+                                    HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
+                                    HourlyProdLinesRec.Item := 'DEFECT PCS';
+                                    HourlyProdLinesRec.Insert();
 
-                                LineNo += 1;
+                                    LineNo += 1;
 
-                                HourlyProdLinesRec.Init();
-                                HourlyProdLinesRec."No." := rec."No.";
-                                HourlyProdLinesRec."Line No." := LineNo;
-                                HourlyProdLinesRec."Factory No." := rec."Factory No.";
-                                HourlyProdLinesRec."Prod Date" := rec."Prod Date";
-                                HourlyProdLinesRec.Type := rec.Type;
-                                HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
-                                HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
-                                HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
-                                HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
-                                HourlyProdLinesRec.Item := 'DHU';
-                                HourlyProdLinesRec.Insert();
-
+                                    HourlyProdLinesRec.Init();
+                                    HourlyProdLinesRec."No." := rec."No.";
+                                    HourlyProdLinesRec."Line No." := LineNo;
+                                    HourlyProdLinesRec."Factory No." := rec."Factory No.";
+                                    HourlyProdLinesRec."Prod Date" := rec."Prod Date";
+                                    HourlyProdLinesRec.Type := rec.Type;
+                                    HourlyProdLinesRec."Style No." := NavAppProdPlanLinesRec."Style No.";
+                                    HourlyProdLinesRec."Work Center No." := NavAppProdPlanLinesRec."Resource No.";
+                                    HourlyProdLinesRec."Work Center Name" := WorkCenrterRec.Name;
+                                    HourlyProdLinesRec."Work Center Seq No" := WorkCenrterRec."Work Center Seq No";
+                                    HourlyProdLinesRec.Item := 'DHU';
+                                    HourlyProdLinesRec.Insert();
+                                end;
                             until NavAppProdPlanLinesRec.Next() = 0;
 
                             //Add Sub totals
