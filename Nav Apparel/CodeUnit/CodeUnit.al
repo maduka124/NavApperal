@@ -845,13 +845,14 @@ codeunit 50618 NavAppCodeUnit
         PurchOrderLine."CP Req No" := ReqLine."CP Req Code";
         PurchOrderLine."Buyer Name" := ReqLine."Buyer Name";
         PurchOrderLine."Buyer No." := ReqLine."Buyer No.";
-        // PurchOrderLine."Secondary UserID" := ReqLine."Secondary UserID";
+        PurchOrderLine."Secondary UserID" := ReqLine."Secondary UserID";
 
         PurchOrderHeader1.Reset();
         PurchOrderHeader1.SetRange("Document Type", PurchOrderHeader1."Document Type"::Order);
         PurchOrderHeader1.SetRange("No.", PurchOrderLine."Document No.");
         if PurchOrderHeader1.FindSet() then begin
             PurchOrderHeader1.EntryType := ReqLine.EntryType;
+            PurchOrderHeader1."Secondary UserID" := ReqLine."Secondary UserID";
             PurchOrderHeader1.Modify();
         end;
 
