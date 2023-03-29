@@ -198,22 +198,22 @@ page 50862 FacWiseProductplaningHdrCard
                                 FacWiseProductplaningLineRec.SetRange(Date, SewingProductionOutHeaderRec."Prod Date");
                                 FacWiseProductplaningLineRec.SetRange("No.", rec.No);
 
-                                if not FacWiseProductplaningLineRec.findset then begin
+                                //Done By sachith On 29/03/23
+                                if FacWiseProductplaningLineRec.FindSet() then begin
+                                    FacWiseProductplaningLineRec."Sewing Achieved" := FacWiseProductplaningLineRec."Sewing Achieved" + SewingProductionOutHeaderRec."Output Qty";
+                                    FacWiseProductplaningLineRec."Sewing Difference" := FacWiseProductplaningLineRec."Sewing Achieved" - FacWiseProductplaningLineRec."Sewing Planned";
+                                    FacWiseProductplaningLineRec.Modify();
+                                end
+
+                                else begin
                                     FacWiseProductplaningLineRec.Init();
                                     FacWiseProductplaningLineRec."No." := rec.No;
                                     FacWiseProductplaningLineRec.Date := SewingProductionOutHeaderRec."Prod Date";
                                     FacWiseProductplaningLineRec."Sewing Achieved" := SewingProductionOutHeaderRec."Output Qty";
                                     FacWiseProductplaningLineRec."Sewing Difference" := SewingProductionOutHeaderRec."Output Qty" - FacWiseProductplaningLineRec."Sewing Planned";
                                     FacWiseProductplaningLineRec.Insert();
-
                                 end;
 
-                                if FacWiseProductplaningLineRec.FindSet() then begin
-                                    FacWiseProductplaningLineRec."Sewing Achieved" := SewingProductionOutHeaderRec."Output Qty";
-                                    FacWiseProductplaningLineRec."Sewing Difference" := FacWiseProductplaningLineRec."Sewing Achieved" - FacWiseProductplaningLineRec."Sewing Planned";
-                                    FacWiseProductplaningLineRec.Modify();
-
-                                end;
                             end
                         until SewingProductionOutHeaderRec.Next() = 0;
                     end;
