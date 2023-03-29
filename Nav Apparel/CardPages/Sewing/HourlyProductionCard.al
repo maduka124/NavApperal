@@ -157,6 +157,7 @@ page 50515 "Hourly Production Card"
                     HourlyProdLinesRec.SetRange("Prod Date", rec."Prod Date");
                     HourlyProdLinesRec.SetRange("Factory No.", rec."Factory No.");
                     HourlyProdLinesRec.SetRange(Type, rec.Type);
+                    HourlyProdLinesRec.SetFilter("No.", '<>%1', rec."No.");
 
                     if not HourlyProdLinesRec.FindSet() then begin
 
@@ -173,7 +174,7 @@ page 50515 "Hourly Production Card"
                                 WorkCenrterRec.SetRange("No.", NavAppProdPlanLinesRec."Resource No.");
                                 WorkCenrterRec.FindSet();
 
-                                if (StyleNo <> NavAppProdPlanLinesRec."Style No.") and (ResourceNo <> NavAppProdPlanLinesRec."Resource No.") then begin
+                                if (StyleNo <> NavAppProdPlanLinesRec."Style No.") or (ResourceNo <> NavAppProdPlanLinesRec."Resource No.") then begin
 
                                     LineNo += 1;
                                     HourlyProdLinesRec.Init();
@@ -253,6 +254,7 @@ page 50515 "Hourly Production Card"
                             HourlyProdLinesRec."No." := rec."No.";
                             HourlyProdLinesRec."Line No." := LineNo;
                             HourlyProdLinesRec."Style Name" := 'PASS PCS (Total)';
+                            HourlyProdLinesRec."Work Center Seq No" := 100;
                             HourlyProdLinesRec.Insert();
 
                             LineNo += 1;
@@ -260,6 +262,7 @@ page 50515 "Hourly Production Card"
                             HourlyProdLinesRec."No." := rec."No.";
                             HourlyProdLinesRec."Line No." := LineNo;
                             HourlyProdLinesRec."Style Name" := 'DEFECT PCS (Total)';
+                            HourlyProdLinesRec."Work Center Seq No" := 101;
                             HourlyProdLinesRec.Insert();
 
                             LineNo += 1;
@@ -267,6 +270,7 @@ page 50515 "Hourly Production Card"
                             HourlyProdLinesRec."No." := rec."No.";
                             HourlyProdLinesRec."Line No." := LineNo;
                             HourlyProdLinesRec."Style Name" := 'DHU (Total)';
+                            HourlyProdLinesRec."Work Center Seq No" := 102;
                             HourlyProdLinesRec.Insert();
 
 

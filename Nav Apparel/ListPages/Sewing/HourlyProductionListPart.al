@@ -5,7 +5,7 @@ page 50516 HourlyProductionListPart
     SourceTable = "Hourly Production Lines";
     DeleteAllowed = false;
     InsertAllowed = false;
-    //SourceTableView = sorting("Work Center Seq No");
+    SourceTableView = sorting("Work Center Seq No") order(ascending);
 
     layout
     {
