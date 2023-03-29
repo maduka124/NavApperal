@@ -189,11 +189,20 @@ report 50865 HourlyProductionReport
                 NavLinesRec.SetRange("PO No.", "PO No.");
                 NavLinesRec.SetRange("Line No.", "Line No.");
                 if NavLinesRec.FindFirst() then begin
-                    PlanQty := NavLinesRec.Qty;
                     InputDate := NavLinesRec.StartDateTime;
                     OutputComDate := NavLinesRec.FinishDateTime;
                     PlanTarget := NavLinesRec.Target;
                     MC := NavLinesRec.Carder;
+                end;
+
+                NavLinesRec.Reset();
+                NavLinesRec.SetRange("Style No.", "Style No.");
+                NavLinesRec.SetRange("PO No.", "PO No.");
+                NavLinesRec.SetRange("Line No.", "Line No.");
+                if NavLinesRec.FindFirst() then begin
+                    repeat
+                        PlanQty += NavLinesRec.Qty;
+                    until NavLinesRec.Next() = 0;
                 end;
 
                 StylePoRec.Reset();
