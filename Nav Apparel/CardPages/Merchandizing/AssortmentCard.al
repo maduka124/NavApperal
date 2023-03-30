@@ -5547,7 +5547,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."1";
                                                 Evaluate(Qty, AssortDetailRec."1");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."1");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."1");
                                             end;
 
                                             break;
@@ -5563,7 +5563,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."2";
                                                 Evaluate(Qty, AssortDetailRec."2");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."2");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."2");
                                             end;
 
                                             break;
@@ -5579,7 +5579,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."3";
                                                 Evaluate(Qty, AssortDetailRec."3");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."3");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."3");
                                             end;
 
                                             break;
@@ -5595,7 +5595,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."4";
                                                 Evaluate(Qty, AssortDetailRec."4");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."4");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."4");
                                             end;
 
                                             break;
@@ -5611,7 +5611,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."5";
                                                 Evaluate(Qty, AssortDetailRec."5");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."5");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."5");
                                             end;
 
                                             break;
@@ -5627,7 +5627,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."6";
                                                 Evaluate(Qty, AssortDetailRec."6");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."6");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."6");
                                             end;
 
                                             break;
@@ -5643,7 +5643,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."7";
                                                 Evaluate(Qty, AssortDetailRec."7");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."7");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."7");
                                             end;
 
                                             break;
@@ -5659,7 +5659,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."8";
                                                 Evaluate(Qty, AssortDetailRec."8");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."8");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."8");
                                             end;
 
                                             break;
@@ -5675,7 +5675,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."9";
                                                 Evaluate(Qty, AssortDetailRec."9");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."9");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."9");
                                             end;
 
                                             break;
@@ -5691,7 +5691,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."10";
                                                 Evaluate(Qty, AssortDetailRec."10");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."10");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."10");
                                             end;
 
                                             break;
@@ -5707,7 +5707,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."11";
                                                 Evaluate(Qty, AssortDetailRec."11");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."11");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."11");
                                             end;
 
                                             break;
@@ -5723,7 +5723,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."12";
                                                 Evaluate(Qty, AssortDetailRec."12");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."12");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."12");
                                             end;
 
                                             break;
@@ -5739,7 +5739,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."13";
                                                 Evaluate(Qty, AssortDetailRec."13");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."13");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."13");
                                             end;
 
                                             break;
@@ -5755,7 +5755,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."14";
                                                 Evaluate(Qty, AssortDetailRec."14");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."14");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."14");
                                             end;
 
                                             break;
@@ -5771,7 +5771,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."15";
                                                 Evaluate(Qty, AssortDetailRec."15");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."15");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."15");
                                             end;
 
                                             break;
@@ -5787,7 +5787,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."16";
                                                 Evaluate(Qty, AssortDetailRec."16");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."16");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."16");
                                             end;
 
                                             break;
@@ -5803,7 +5803,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."17";
                                                 Evaluate(Qty, AssortDetailRec."17");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."17");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."17");
                                             end;
 
                                             break;
@@ -5819,7 +5819,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."18";
                                                 Evaluate(Qty, AssortDetailRec."18");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."18");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."18");
                                             end;
 
                                             break;
@@ -5835,7 +5835,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetailRec."19";
                                                 Evaluate(Qty, AssortDetailRec."19");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."19");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."19");
                                             end;
 
                                             break;
@@ -5851,7 +5851,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."20";
                                                 Evaluate(Qty, AssortDetailRec."20");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."20");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."20");
                                             end;
 
                                             break;
@@ -5867,7 +5867,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."21";
                                                 Evaluate(Qty, AssortDetailRec."21");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."21");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."21");
                                             end;
 
                                             break;
@@ -5883,7 +5883,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."22";
                                                 Evaluate(Qty, AssortDetailRec."22");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."22");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."22");
                                             end;
 
                                             break;
@@ -5899,7 +5899,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."23";
                                                 Evaluate(Qty, AssortDetailRec."23");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."23");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."23");
                                             end;
 
                                             break;
@@ -5915,7 +5915,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."24";
                                                 Evaluate(Qty, AssortDetailRec."24");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."24");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."24");
                                             end;
 
                                             break;
@@ -5931,7 +5931,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."25";
                                                 Evaluate(Qty, AssortDetailRec."25");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."25");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."25");
                                             end;
 
                                             break;
@@ -5947,7 +5947,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."26";
                                                 Evaluate(Qty, AssortDetailRec."26");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."26");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."26");
                                             end;
 
                                             break;
@@ -5963,7 +5963,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."27";
                                                 Evaluate(Qty, AssortDetailRec."27");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."27");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."27");
                                             end;
 
                                             break;
@@ -5979,7 +5979,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."28";
                                                 Evaluate(Qty, AssortDetailRec."28");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."28");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."28");
                                             end;
 
                                             break;
@@ -5995,7 +5995,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."29";
                                                 Evaluate(Qty, AssortDetailRec."29");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."29");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."29");
                                             end;
 
                                             break;
@@ -6011,7 +6011,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."30";
                                                 Evaluate(Qty, AssortDetailRec."30");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."30");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."30");
                                             end;
 
                                             break;
@@ -6027,7 +6027,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."31";
                                                 Evaluate(Qty, AssortDetailRec."31");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."31");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."31");
                                             end;
 
                                             break;
@@ -6043,7 +6043,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."32";
                                                 Evaluate(Qty, AssortDetailRec."32");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."32");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."32");
                                             end;
 
                                             break;
@@ -6059,7 +6059,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."33";
                                                 Evaluate(Qty, AssortDetailRec."33");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."33");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."33");
                                             end;
 
                                             break;
@@ -6075,7 +6075,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."34";
                                                 Evaluate(Qty, AssortDetailRec."34");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."34");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."34");
                                             end;
 
                                             break;
@@ -6091,7 +6091,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."35";
                                                 Evaluate(Qty, AssortDetailRec."35");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."35");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."35");
                                             end;
 
                                             break;
@@ -6107,7 +6107,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."36";
                                                 Evaluate(Qty, AssortDetailRec."36");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."36");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."36");
                                             end;
 
                                             break;
@@ -6123,7 +6123,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."37";
                                                 Evaluate(Qty, AssortDetailRec."37");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."37");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."37");
                                             end;
 
                                             break;
@@ -6139,7 +6139,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."38";
                                                 Evaluate(Qty, AssortDetailRec."38");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."38");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."38");
                                             end;
 
                                             break;
@@ -6155,7 +6155,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."39";
                                                 Evaluate(Qty, AssortDetailRec."39");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."39");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."39");
                                             end;
 
                                             break;
@@ -6171,7 +6171,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."40";
                                                 Evaluate(Qty, AssortDetailRec."40");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."40");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."40");
                                             end;
 
                                             break;
@@ -6187,7 +6187,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."41";
                                                 Evaluate(Qty, AssortDetailRec."41");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."41");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."41");
                                             end;
 
                                             break;
@@ -6203,7 +6203,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."42";
                                                 Evaluate(Qty, AssortDetailRec."42");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."42");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."42");
                                             end;
 
                                             break;
@@ -6219,7 +6219,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."43";
                                                 Evaluate(Qty, AssortDetailRec."43");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."43");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."43");
                                             end;
 
                                             break;
@@ -6235,7 +6235,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."44";
                                                 Evaluate(Qty, AssortDetailRec."44");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."44");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."44");
                                             end;
 
                                             break;
@@ -6251,7 +6251,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."45";
                                                 Evaluate(Qty, AssortDetailRec."45");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."45");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."45");
                                             end;
 
                                             break;
@@ -6267,7 +6267,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."46";
                                                 Evaluate(Qty, AssortDetailRec."46");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."46");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."46");
                                             end;
 
                                             break;
@@ -6283,7 +6283,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."47";
                                                 Evaluate(Qty, AssortDetailRec."47");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."47");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."47");
                                             end;
 
                                             break;
@@ -6299,7 +6299,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."48";
                                                 Evaluate(Qty, AssortDetailRec."48");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."48");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."48");
                                             end;
 
                                             break;
@@ -6315,7 +6315,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."49";
                                                 Evaluate(Qty, AssortDetailRec."49");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."49");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."49");
                                             end;
 
                                             break;
@@ -6331,7 +6331,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."50";
                                                 Evaluate(Qty, AssortDetailRec."50");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."50");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."50");
                                             end;
 
                                             break;
@@ -6347,7 +6347,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."51";
                                                 Evaluate(Qty, AssortDetailRec."51");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."51");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."51");
                                             end;
 
                                             break;
@@ -6363,7 +6363,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."52";
                                                 Evaluate(Qty, AssortDetailRec."52");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."52");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."52");
                                             end;
 
                                             break;
@@ -6379,7 +6379,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."53";
                                                 Evaluate(Qty, AssortDetailRec."53");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."53");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."53");
                                             end;
 
                                             break;
@@ -6395,7 +6395,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."54";
                                                 Evaluate(Qty, AssortDetailRec."54");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."54");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."54");
                                             end;
 
                                             break;
@@ -6411,7 +6411,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."55";
                                                 Evaluate(Qty, AssortDetailRec."55");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."55");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."55");
                                             end;
 
                                             break;
@@ -6427,7 +6427,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."56";
                                                 Evaluate(Qty, AssortDetailRec."56");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."56");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."56");
                                             end;
 
                                             break;
@@ -6443,7 +6443,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."57";
                                                 Evaluate(Qty, AssortDetailRec."57");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."57");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."57");
                                             end;
 
                                             break;
@@ -6459,7 +6459,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."58";
                                                 Evaluate(Qty, AssortDetailRec."58");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."58");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."58");
                                             end;
 
                                             break;
@@ -6475,7 +6475,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."59";
                                                 Evaluate(Qty, AssortDetailRec."59");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."59");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."59");
                                             end;
 
                                             break;
@@ -6491,7 +6491,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."60";
                                                 Evaluate(Qty, AssortDetailRec."60");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."60");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."60");
                                             end;
 
                                             break;
@@ -6507,7 +6507,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."61";
                                                 Evaluate(Qty, AssortDetailRec."61");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."61");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."61");
                                             end;
 
                                             break;
@@ -6523,7 +6523,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."62";
                                                 Evaluate(Qty, AssortDetailRec."62");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."62");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."62");
                                             end;
 
                                             break;
@@ -6539,7 +6539,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."63";
                                                 Evaluate(Qty, AssortDetailRec."63");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."63");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."63");
                                             end;
 
                                             break;
@@ -6555,7 +6555,7 @@ page 50983 "Assortment Card"
                                             if AssortDetail1Rec.FindSet() then begin
                                                 Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."64";
                                                 Evaluate(Qty, AssortDetailRec."64");
-                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."64");
+                                                CreateFGItems(BOMRec.No, Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."64");
                                             end;
 
                                             break;
@@ -7001,7 +7001,7 @@ page 50983 "Assortment Card"
     end;
 
 
-    procedure CreateFGItems(ItemDesc: Text[500]; Lot: Code[20]; Qty: Integer; Color: Code[20]; Size: Code[20])
+    procedure CreateFGItems(BOMNo: Code[20]; ItemDesc: Text[500]; Lot: Code[20]; Qty: Integer; Color: Code[20]; Size: Code[20])
     var
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
         NavAppSetupRec: Record "NavApp Setup";
@@ -7077,7 +7077,7 @@ page 50983 "Assortment Card"
             CreateSalesOrder(NextItemNo, Lot, Qty, FOBPcsPrice);
 
             //Create new Prod BOM
-            CreateProdBOM(Color, size, Lot, NextItemNo, ItemDesc);
+            CreateProdBOM(BOMNo, Color, size, Lot, NextItemNo, ItemDesc);
 
         end
         else begin   //If old item - Delete existing data and insert again
@@ -7087,10 +7087,10 @@ page 50983 "Assortment Card"
 
             if ProdBOM = '' then begin
                 CreateSalesOrder(ItemNo, Lot, Qty, FOBPcsPrice);
-                CreateProdBOM(Color, size, Lot, ItemNo, ItemDesc);
-            end
-            else
-                UpdateProdBOM(Color, size, Lot, ItemNo, ProdBOM);
+                CreateProdBOM(BOMNo, Color, size, Lot, ItemNo, ItemDesc);
+            end;
+            //else
+            // UpdateProdBOM(Color, size, Lot, ItemNo, ProdBOM);
 
         end;
     end;
@@ -7253,7 +7253,7 @@ page 50983 "Assortment Card"
     end;
 
 
-    procedure CreateProdBOM(Color: code[20]; Size: Code[20]; Lot: Code[20]; FGItem: Code[20]; ItemDesc: Text[500])
+    procedure CreateProdBOM(BOMNo: code[20]; Color: code[20]; Size: Code[20]; Lot: Code[20]; FGItem: Code[20]; ItemDesc: Text[500])
     var
         NextBOMNo: Code[20];
         ItemCategoryRec: Record "Item Category";
@@ -7332,7 +7332,7 @@ page 50983 "Assortment Card"
         AutoGenRec.Reset();
         AutoGenRec.SetCurrentKey("Main Category No.", "Item No.", "GMT Color No.", "GMT Size Name", "Lot No.");
         AutoGenRec.Ascending(true);
-        AutoGenRec.SetRange("No.", rec."No");
+        AutoGenRec.SetRange("No.", BOMNo);
         AutoGenRec.SetRange("Lot No.", lot);
         AutoGenRec.SetRange("GMT Color No.", Color);
         //AutoGenRec.SetRange("GMT Size Name", Size);
@@ -7351,7 +7351,7 @@ page 50983 "Assortment Card"
                 if (AutoGenRec."Include in PO" = true) or (AutoGenRec."Included in PO" = true) then begin
 
                     BOMLineEstimateRec.Reset();
-                    BOMLineEstimateRec.SetRange("No.", rec."No");
+                    BOMLineEstimateRec.SetRange("No.", BOMNo);
                     BOMLineEstimateRec.SetRange("Item No.", AutoGenRec."Item No.");
                     BOMLineEstimateRec.SetRange("Placement of GMT", AutoGenRec."Placement of GMT");
 
@@ -7562,7 +7562,7 @@ page 50983 "Assortment Card"
                                 end;
 
                                 //Create Worksheet Entry
-                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name");
+                                //CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name");
 
                                 //Update Auto generate
                                 // AutoGenRec."Included in PO" := true;
@@ -7580,7 +7580,7 @@ page 50983 "Assortment Card"
 
 
                                 AutoGenPrBOMRec.Reset();
-                                AutoGenPrBOMRec.SetRange("No.", rec."No");
+                                AutoGenPrBOMRec.SetRange("No.", BOMNo);
                                 AutoGenPrBOMRec.SetRange("Item No.", AutoGenRec."Item No.");
                                 AutoGenPrBOMRec.SetRange("Line No.", AutoGenRec."Line No.");
                                 AutoGenPrBOMRec.SetRange("Production BOM No.", NextBomNo);
@@ -7588,7 +7588,7 @@ page 50983 "Assortment Card"
                                 if not AutoGenPrBOMRec.FindSet() then begin
                                     //insert Autogen prod bom table
                                     AutoGenPrBOMRec.Init();
-                                    AutoGenPrBOMRec."No." := rec."No";
+                                    AutoGenPrBOMRec."No." := BOMNo;
                                     AutoGenPrBOMRec."Item No." := AutoGenRec."Item No.";
                                     AutoGenPrBOMRec."Line No." := AutoGenRec."Line No.";
                                     AutoGenPrBOMRec."Created User" := UserId;
