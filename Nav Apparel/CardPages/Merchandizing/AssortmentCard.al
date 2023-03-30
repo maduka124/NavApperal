@@ -208,6 +208,7 @@ page 50983 "Assortment Card"
                     StyleMasterPORec: Record "Style Master PO";
                     BOMLineEstimateRec: Record "BOM Line Estimate";
                     BLERec: Record "BOM Line Estimate";
+                    SalesLineRec1: Record "Sales Line";
                     BOMRec: Record BOM;
                     LineNo: BigInteger;
                     Description: Text[500];
@@ -5494,6 +5495,24 @@ page 50983 "Assortment Card"
                     if not BOMLineAutoGenRec.FindSet() then
                         Error('Records not selected for processing.');
 
+
+                    //Delete Old Sales order line
+                    AssortDetailRec.Reset();
+                    AssortDetailRec.SetRange("Style No.", rec."Style No.");
+                    AssortDetailRec.SetRange("lot No.", rec."Lot No.");
+                    AssortDetailRec.SetFilter("Colour Name", '<>%1', '*');
+
+                    if AssortDetailRec.FindSet() then begin
+                        if AssortDetailRec.SalesOrderNo <> '' then begin
+                            SalesLineRec1.Reset();
+                            SalesLineRec1.SetRange("Document No.", AssortDetailRec.SalesOrderNo);
+                            SalesLineRec1.SetRange("Document Type", 1);
+                            SalesLineRec1.Findset();
+                            SalesLineRec1.DeleteAll();
+                        end;
+                    end;
+
+
                     AssortDetailRec.Reset();
                     AssortDetailRec.SetRange("Style No.", rec."Style No.");
                     AssortDetailRec.SetRange("lot No.", rec."Lot No.");
@@ -5502,1052 +5521,1052 @@ page 50983 "Assortment Card"
                     if AssortDetailRec.FindSet() then begin
                         repeat
 
-                            if (Mode = 'NEW') then begin // Sales order not created (NEW PO)
-
-                                // //Check for the Auto gen line
-                                // BOMLineAutoGenRec.Reset();
-                                // BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
-                                // BOMLineAutoGenRec.SetRange("Lot No.", AssortDetailRec."lot No.");
-                                // BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', true);
-                                // if BOMLineAutoGenRec.FindSet() then
-                                //     Error('You have already run "Write To MRP" for the BOM : %1. Cannot proceed.', BOMRec.No);
-
-                                StatusGB := 0;
-                                FOR Count := 1 TO 64 DO begin
-                                    Qty := 0;
-
-                                    case Count of
-                                        1:
-                                            if (AssortDetailRec."1" <> '') and (AssortDetailRec."1" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."1";
-                                                    Evaluate(Qty, AssortDetailRec."1");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."1");
-                                                end;
-
-                                                break;
-                                            end;
-                                        2:
-                                            if (AssortDetailRec."2" <> '') and (AssortDetailRec."2" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."2";
-                                                    Evaluate(Qty, AssortDetailRec."2");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."2");
-                                                end;
-
-                                                break;
-                                            end;
-                                        3:
-                                            if (AssortDetailRec."3" <> '') and (AssortDetailRec."3" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."3";
-                                                    Evaluate(Qty, AssortDetailRec."3");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."3");
-                                                end;
-
-                                                break;
-                                            end;
-                                        4:
-                                            if (AssortDetailRec."4" <> '') and (AssortDetailRec."4" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."4";
-                                                    Evaluate(Qty, AssortDetailRec."4");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."4");
-                                                end;
-
-                                                break;
-                                            end;
-                                        5:
-                                            if (AssortDetailRec."5" <> '') and (AssortDetailRec."5" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."5";
-                                                    Evaluate(Qty, AssortDetailRec."5");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."5");
-                                                end;
-
-                                                break;
-                                            end;
-                                        6:
-                                            if (AssortDetailRec."6" <> '') and (AssortDetailRec."6" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."6";
-                                                    Evaluate(Qty, AssortDetailRec."6");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."6");
-                                                end;
-
-                                                break;
+                            //if (Mode = 'NEW') then begin // Sales order not created (NEW PO)
+
+                            // //Check for the Auto gen line
+                            // BOMLineAutoGenRec.Reset();
+                            // BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
+                            // BOMLineAutoGenRec.SetRange("Lot No.", AssortDetailRec."lot No.");
+                            // BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', true);
+                            // if BOMLineAutoGenRec.FindSet() then
+                            //     Error('You have already run "Write To MRP" for the BOM : %1. Cannot proceed.', BOMRec.No);
+
+                            StatusGB := 0;
+                            FOR Count := 1 TO 64 DO begin
+                                Qty := 0;
+
+                                case Count of
+                                    1:
+                                        if (AssortDetailRec."1" <> '') and (AssortDetailRec."1" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."1";
+                                                Evaluate(Qty, AssortDetailRec."1");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."1");
+                                            end;
+
+                                            break;
+                                        end;
+                                    2:
+                                        if (AssortDetailRec."2" <> '') and (AssortDetailRec."2" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."2";
+                                                Evaluate(Qty, AssortDetailRec."2");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."2");
+                                            end;
+
+                                            break;
+                                        end;
+                                    3:
+                                        if (AssortDetailRec."3" <> '') and (AssortDetailRec."3" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."3";
+                                                Evaluate(Qty, AssortDetailRec."3");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."3");
+                                            end;
+
+                                            break;
+                                        end;
+                                    4:
+                                        if (AssortDetailRec."4" <> '') and (AssortDetailRec."4" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."4";
+                                                Evaluate(Qty, AssortDetailRec."4");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."4");
+                                            end;
+
+                                            break;
+                                        end;
+                                    5:
+                                        if (AssortDetailRec."5" <> '') and (AssortDetailRec."5" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."5";
+                                                Evaluate(Qty, AssortDetailRec."5");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."5");
+                                            end;
+
+                                            break;
+                                        end;
+                                    6:
+                                        if (AssortDetailRec."6" <> '') and (AssortDetailRec."6" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."6";
+                                                Evaluate(Qty, AssortDetailRec."6");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."6");
                                             end;
-                                        7:
-                                            if (AssortDetailRec."7" <> '') and (AssortDetailRec."7" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."7";
-                                                    Evaluate(Qty, AssortDetailRec."7");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."7");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    7:
+                                        if (AssortDetailRec."7" <> '') and (AssortDetailRec."7" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."7";
+                                                Evaluate(Qty, AssortDetailRec."7");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."7");
                                             end;
-                                        8:
-                                            if (AssortDetailRec."8" <> '') and (AssortDetailRec."8" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."8";
-                                                    Evaluate(Qty, AssortDetailRec."8");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."8");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    8:
+                                        if (AssortDetailRec."8" <> '') and (AssortDetailRec."8" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."8";
+                                                Evaluate(Qty, AssortDetailRec."8");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."8");
                                             end;
-                                        9:
-                                            if (AssortDetailRec."9" <> '') and (AssortDetailRec."9" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."9";
-                                                    Evaluate(Qty, AssortDetailRec."9");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."9");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    9:
+                                        if (AssortDetailRec."9" <> '') and (AssortDetailRec."9" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."9";
+                                                Evaluate(Qty, AssortDetailRec."9");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."9");
                                             end;
-                                        10:
-                                            if (AssortDetailRec."10" <> '') and (AssortDetailRec."10" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."10";
-                                                    Evaluate(Qty, AssortDetailRec."10");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."10");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    10:
+                                        if (AssortDetailRec."10" <> '') and (AssortDetailRec."10" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."10";
+                                                Evaluate(Qty, AssortDetailRec."10");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."10");
                                             end;
-                                        11:
-                                            if (AssortDetailRec."11" <> '') and (AssortDetailRec."11" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."11";
-                                                    Evaluate(Qty, AssortDetailRec."11");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."11");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    11:
+                                        if (AssortDetailRec."11" <> '') and (AssortDetailRec."11" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."11";
+                                                Evaluate(Qty, AssortDetailRec."11");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."11");
                                             end;
-                                        12:
-                                            if (AssortDetailRec."12" <> '') and (AssortDetailRec."12" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."12";
-                                                    Evaluate(Qty, AssortDetailRec."12");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."12");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    12:
+                                        if (AssortDetailRec."12" <> '') and (AssortDetailRec."12" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."12";
+                                                Evaluate(Qty, AssortDetailRec."12");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."12");
                                             end;
-                                        13:
-                                            if (AssortDetailRec."13" <> '') and (AssortDetailRec."13" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."13";
-                                                    Evaluate(Qty, AssortDetailRec."13");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."13");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    13:
+                                        if (AssortDetailRec."13" <> '') and (AssortDetailRec."13" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."13";
+                                                Evaluate(Qty, AssortDetailRec."13");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."13");
                                             end;
-                                        14:
-                                            if (AssortDetailRec."14" <> '') and (AssortDetailRec."14" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."14";
-                                                    Evaluate(Qty, AssortDetailRec."14");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."14");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    14:
+                                        if (AssortDetailRec."14" <> '') and (AssortDetailRec."14" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."14";
+                                                Evaluate(Qty, AssortDetailRec."14");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."14");
                                             end;
-                                        15:
-                                            if (AssortDetailRec."15" <> '') and (AssortDetailRec."15" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."15";
-                                                    Evaluate(Qty, AssortDetailRec."15");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."15");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    15:
+                                        if (AssortDetailRec."15" <> '') and (AssortDetailRec."15" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."15";
+                                                Evaluate(Qty, AssortDetailRec."15");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."15");
                                             end;
-                                        16:
-                                            if (AssortDetailRec."16" <> '') and (AssortDetailRec."16" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."16";
-                                                    Evaluate(Qty, AssortDetailRec."16");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."16");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    16:
+                                        if (AssortDetailRec."16" <> '') and (AssortDetailRec."16" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."16";
+                                                Evaluate(Qty, AssortDetailRec."16");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."16");
                                             end;
-                                        17:
-                                            if (AssortDetailRec."17" <> '') and (AssortDetailRec."17" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."17";
-                                                    Evaluate(Qty, AssortDetailRec."17");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."17");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    17:
+                                        if (AssortDetailRec."17" <> '') and (AssortDetailRec."17" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."17";
+                                                Evaluate(Qty, AssortDetailRec."17");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."17");
                                             end;
-                                        18:
-                                            if (AssortDetailRec."18" <> '') and (AssortDetailRec."18" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."18";
-                                                    Evaluate(Qty, AssortDetailRec."18");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."18");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    18:
+                                        if (AssortDetailRec."18" <> '') and (AssortDetailRec."18" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."18";
+                                                Evaluate(Qty, AssortDetailRec."18");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."18");
                                             end;
-                                        19:
-                                            if (AssortDetailRec."19" <> '') and (AssortDetailRec."19" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetailRec."19";
-                                                    Evaluate(Qty, AssortDetailRec."19");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."19");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    19:
+                                        if (AssortDetailRec."19" <> '') and (AssortDetailRec."19" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetailRec."19";
+                                                Evaluate(Qty, AssortDetailRec."19");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."19");
                                             end;
-                                        20:
-                                            if (AssortDetailRec."20" <> '') and (AssortDetailRec."20" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."20";
-                                                    Evaluate(Qty, AssortDetailRec."20");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."20");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    20:
+                                        if (AssortDetailRec."20" <> '') and (AssortDetailRec."20" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."20";
+                                                Evaluate(Qty, AssortDetailRec."20");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."20");
                                             end;
-                                        21:
-                                            if (AssortDetailRec."21" <> '') and (AssortDetailRec."21" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."21";
-                                                    Evaluate(Qty, AssortDetailRec."21");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."21");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    21:
+                                        if (AssortDetailRec."21" <> '') and (AssortDetailRec."21" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."21";
+                                                Evaluate(Qty, AssortDetailRec."21");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."21");
                                             end;
-                                        22:
-                                            if (AssortDetailRec."22" <> '') and (AssortDetailRec."22" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."22";
-                                                    Evaluate(Qty, AssortDetailRec."22");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."22");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    22:
+                                        if (AssortDetailRec."22" <> '') and (AssortDetailRec."22" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."22";
+                                                Evaluate(Qty, AssortDetailRec."22");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."22");
                                             end;
-                                        23:
-                                            if (AssortDetailRec."23" <> '') and (AssortDetailRec."23" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."23";
-                                                    Evaluate(Qty, AssortDetailRec."23");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."23");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    23:
+                                        if (AssortDetailRec."23" <> '') and (AssortDetailRec."23" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."23";
+                                                Evaluate(Qty, AssortDetailRec."23");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."23");
                                             end;
-                                        24:
-                                            if (AssortDetailRec."24" <> '') and (AssortDetailRec."24" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."24";
-                                                    Evaluate(Qty, AssortDetailRec."24");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."24");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    24:
+                                        if (AssortDetailRec."24" <> '') and (AssortDetailRec."24" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."24";
+                                                Evaluate(Qty, AssortDetailRec."24");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."24");
                                             end;
-                                        25:
-                                            if (AssortDetailRec."25" <> '') and (AssortDetailRec."25" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."25";
-                                                    Evaluate(Qty, AssortDetailRec."25");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."25");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    25:
+                                        if (AssortDetailRec."25" <> '') and (AssortDetailRec."25" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."25";
+                                                Evaluate(Qty, AssortDetailRec."25");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."25");
                                             end;
-                                        26:
-                                            if (AssortDetailRec."26" <> '') and (AssortDetailRec."26" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."26";
-                                                    Evaluate(Qty, AssortDetailRec."26");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."26");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    26:
+                                        if (AssortDetailRec."26" <> '') and (AssortDetailRec."26" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."26";
+                                                Evaluate(Qty, AssortDetailRec."26");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."26");
                                             end;
-                                        27:
-                                            if (AssortDetailRec."27" <> '') and (AssortDetailRec."27" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."27";
-                                                    Evaluate(Qty, AssortDetailRec."27");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."27");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    27:
+                                        if (AssortDetailRec."27" <> '') and (AssortDetailRec."27" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."27";
+                                                Evaluate(Qty, AssortDetailRec."27");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."27");
                                             end;
-                                        28:
-                                            if (AssortDetailRec."28" <> '') and (AssortDetailRec."28" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."28";
-                                                    Evaluate(Qty, AssortDetailRec."28");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."28");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    28:
+                                        if (AssortDetailRec."28" <> '') and (AssortDetailRec."28" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."28";
+                                                Evaluate(Qty, AssortDetailRec."28");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."28");
                                             end;
-                                        29:
-                                            if (AssortDetailRec."29" <> '') and (AssortDetailRec."29" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."29";
-                                                    Evaluate(Qty, AssortDetailRec."29");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."29");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    29:
+                                        if (AssortDetailRec."29" <> '') and (AssortDetailRec."29" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."29";
+                                                Evaluate(Qty, AssortDetailRec."29");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."29");
                                             end;
-                                        30:
-                                            if (AssortDetailRec."30" <> '') and (AssortDetailRec."30" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."30";
-                                                    Evaluate(Qty, AssortDetailRec."30");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."30");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    30:
+                                        if (AssortDetailRec."30" <> '') and (AssortDetailRec."30" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."30";
+                                                Evaluate(Qty, AssortDetailRec."30");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."30");
                                             end;
-                                        31:
-                                            if (AssortDetailRec."31" <> '') and (AssortDetailRec."31" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."31";
-                                                    Evaluate(Qty, AssortDetailRec."31");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."31");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    31:
+                                        if (AssortDetailRec."31" <> '') and (AssortDetailRec."31" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."31";
+                                                Evaluate(Qty, AssortDetailRec."31");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."31");
                                             end;
-                                        32:
-                                            if (AssortDetailRec."32" <> '') and (AssortDetailRec."32" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."32";
-                                                    Evaluate(Qty, AssortDetailRec."32");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."32");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    32:
+                                        if (AssortDetailRec."32" <> '') and (AssortDetailRec."32" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."32";
+                                                Evaluate(Qty, AssortDetailRec."32");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."32");
                                             end;
-                                        33:
-                                            if (AssortDetailRec."33" <> '') and (AssortDetailRec."33" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."33";
-                                                    Evaluate(Qty, AssortDetailRec."33");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."33");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    33:
+                                        if (AssortDetailRec."33" <> '') and (AssortDetailRec."33" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."33";
+                                                Evaluate(Qty, AssortDetailRec."33");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."33");
                                             end;
-                                        34:
-                                            if (AssortDetailRec."34" <> '') and (AssortDetailRec."34" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."34";
-                                                    Evaluate(Qty, AssortDetailRec."34");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."34");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    34:
+                                        if (AssortDetailRec."34" <> '') and (AssortDetailRec."34" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."34";
+                                                Evaluate(Qty, AssortDetailRec."34");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."34");
                                             end;
-                                        35:
-                                            if (AssortDetailRec."35" <> '') and (AssortDetailRec."35" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."35";
-                                                    Evaluate(Qty, AssortDetailRec."35");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."35");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    35:
+                                        if (AssortDetailRec."35" <> '') and (AssortDetailRec."35" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."35";
+                                                Evaluate(Qty, AssortDetailRec."35");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."35");
                                             end;
-                                        36:
-                                            if (AssortDetailRec."36" <> '') and (AssortDetailRec."36" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."36";
-                                                    Evaluate(Qty, AssortDetailRec."36");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."36");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    36:
+                                        if (AssortDetailRec."36" <> '') and (AssortDetailRec."36" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."36";
+                                                Evaluate(Qty, AssortDetailRec."36");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."36");
                                             end;
-                                        37:
-                                            if (AssortDetailRec."37" <> '') and (AssortDetailRec."37" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."37";
-                                                    Evaluate(Qty, AssortDetailRec."37");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."37");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    37:
+                                        if (AssortDetailRec."37" <> '') and (AssortDetailRec."37" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."37";
+                                                Evaluate(Qty, AssortDetailRec."37");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."37");
                                             end;
-                                        38:
-                                            if (AssortDetailRec."38" <> '') and (AssortDetailRec."38" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."38";
-                                                    Evaluate(Qty, AssortDetailRec."38");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."38");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    38:
+                                        if (AssortDetailRec."38" <> '') and (AssortDetailRec."38" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."38";
+                                                Evaluate(Qty, AssortDetailRec."38");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."38");
                                             end;
-                                        39:
-                                            if (AssortDetailRec."39" <> '') and (AssortDetailRec."39" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."39";
-                                                    Evaluate(Qty, AssortDetailRec."39");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."39");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    39:
+                                        if (AssortDetailRec."39" <> '') and (AssortDetailRec."39" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."39";
+                                                Evaluate(Qty, AssortDetailRec."39");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."39");
                                             end;
-                                        40:
-                                            if (AssortDetailRec."40" <> '') and (AssortDetailRec."40" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."40";
-                                                    Evaluate(Qty, AssortDetailRec."40");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."40");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    40:
+                                        if (AssortDetailRec."40" <> '') and (AssortDetailRec."40" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."40";
+                                                Evaluate(Qty, AssortDetailRec."40");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."40");
                                             end;
-                                        41:
-                                            if (AssortDetailRec."41" <> '') and (AssortDetailRec."41" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."41";
-                                                    Evaluate(Qty, AssortDetailRec."41");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."41");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    41:
+                                        if (AssortDetailRec."41" <> '') and (AssortDetailRec."41" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."41";
+                                                Evaluate(Qty, AssortDetailRec."41");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."41");
                                             end;
-                                        42:
-                                            if (AssortDetailRec."42" <> '') and (AssortDetailRec."42" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."42";
-                                                    Evaluate(Qty, AssortDetailRec."42");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."42");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    42:
+                                        if (AssortDetailRec."42" <> '') and (AssortDetailRec."42" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."42";
+                                                Evaluate(Qty, AssortDetailRec."42");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."42");
                                             end;
-                                        43:
-                                            if (AssortDetailRec."43" <> '') and (AssortDetailRec."43" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."43";
-                                                    Evaluate(Qty, AssortDetailRec."43");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."43");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    43:
+                                        if (AssortDetailRec."43" <> '') and (AssortDetailRec."43" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."43";
+                                                Evaluate(Qty, AssortDetailRec."43");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."43");
                                             end;
-                                        44:
-                                            if (AssortDetailRec."44" <> '') and (AssortDetailRec."44" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."44";
-                                                    Evaluate(Qty, AssortDetailRec."44");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."44");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    44:
+                                        if (AssortDetailRec."44" <> '') and (AssortDetailRec."44" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."44";
+                                                Evaluate(Qty, AssortDetailRec."44");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."44");
                                             end;
-                                        45:
-                                            if (AssortDetailRec."45" <> '') and (AssortDetailRec."45" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."45";
-                                                    Evaluate(Qty, AssortDetailRec."45");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."45");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    45:
+                                        if (AssortDetailRec."45" <> '') and (AssortDetailRec."45" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."45";
+                                                Evaluate(Qty, AssortDetailRec."45");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."45");
                                             end;
-                                        46:
-                                            if (AssortDetailRec."46" <> '') and (AssortDetailRec."46" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."46";
-                                                    Evaluate(Qty, AssortDetailRec."46");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."46");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    46:
+                                        if (AssortDetailRec."46" <> '') and (AssortDetailRec."46" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."46";
+                                                Evaluate(Qty, AssortDetailRec."46");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."46");
                                             end;
-                                        47:
-                                            if (AssortDetailRec."47" <> '') and (AssortDetailRec."47" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."47";
-                                                    Evaluate(Qty, AssortDetailRec."47");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."47");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    47:
+                                        if (AssortDetailRec."47" <> '') and (AssortDetailRec."47" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."47";
+                                                Evaluate(Qty, AssortDetailRec."47");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."47");
                                             end;
-                                        48:
-                                            if (AssortDetailRec."48" <> '') and (AssortDetailRec."48" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."48";
-                                                    Evaluate(Qty, AssortDetailRec."48");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."48");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    48:
+                                        if (AssortDetailRec."48" <> '') and (AssortDetailRec."48" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."48";
+                                                Evaluate(Qty, AssortDetailRec."48");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."48");
                                             end;
-                                        49:
-                                            if (AssortDetailRec."49" <> '') and (AssortDetailRec."49" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."49";
-                                                    Evaluate(Qty, AssortDetailRec."49");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."49");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    49:
+                                        if (AssortDetailRec."49" <> '') and (AssortDetailRec."49" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."49";
+                                                Evaluate(Qty, AssortDetailRec."49");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."49");
                                             end;
-                                        50:
-                                            if (AssortDetailRec."50" <> '') and (AssortDetailRec."50" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."50";
-                                                    Evaluate(Qty, AssortDetailRec."50");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."50");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    50:
+                                        if (AssortDetailRec."50" <> '') and (AssortDetailRec."50" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."50";
+                                                Evaluate(Qty, AssortDetailRec."50");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."50");
                                             end;
-                                        51:
-                                            if (AssortDetailRec."51" <> '') and (AssortDetailRec."51" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."51";
-                                                    Evaluate(Qty, AssortDetailRec."51");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."51");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    51:
+                                        if (AssortDetailRec."51" <> '') and (AssortDetailRec."51" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."51";
+                                                Evaluate(Qty, AssortDetailRec."51");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."51");
                                             end;
-                                        52:
-                                            if (AssortDetailRec."52" <> '') and (AssortDetailRec."52" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."52";
-                                                    Evaluate(Qty, AssortDetailRec."52");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."52");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    52:
+                                        if (AssortDetailRec."52" <> '') and (AssortDetailRec."52" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."52";
+                                                Evaluate(Qty, AssortDetailRec."52");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."52");
                                             end;
-                                        53:
-                                            if (AssortDetailRec."53" <> '') and (AssortDetailRec."53" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."53";
-                                                    Evaluate(Qty, AssortDetailRec."53");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."53");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    53:
+                                        if (AssortDetailRec."53" <> '') and (AssortDetailRec."53" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."53";
+                                                Evaluate(Qty, AssortDetailRec."53");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."53");
                                             end;
-                                        54:
-                                            if (AssortDetailRec."54" <> '') and (AssortDetailRec."54" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."54";
-                                                    Evaluate(Qty, AssortDetailRec."54");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."54");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    54:
+                                        if (AssortDetailRec."54" <> '') and (AssortDetailRec."54" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."54";
+                                                Evaluate(Qty, AssortDetailRec."54");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."54");
                                             end;
-                                        55:
-                                            if (AssortDetailRec."55" <> '') and (AssortDetailRec."55" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."55";
-                                                    Evaluate(Qty, AssortDetailRec."55");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."55");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    55:
+                                        if (AssortDetailRec."55" <> '') and (AssortDetailRec."55" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."55";
+                                                Evaluate(Qty, AssortDetailRec."55");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."55");
                                             end;
-                                        56:
-                                            if (AssortDetailRec."56" <> '') and (AssortDetailRec."56" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."56";
-                                                    Evaluate(Qty, AssortDetailRec."56");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."56");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    56:
+                                        if (AssortDetailRec."56" <> '') and (AssortDetailRec."56" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."56";
+                                                Evaluate(Qty, AssortDetailRec."56");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."56");
                                             end;
-                                        57:
-                                            if (AssortDetailRec."57" <> '') and (AssortDetailRec."57" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."57";
-                                                    Evaluate(Qty, AssortDetailRec."57");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."57");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    57:
+                                        if (AssortDetailRec."57" <> '') and (AssortDetailRec."57" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."57";
+                                                Evaluate(Qty, AssortDetailRec."57");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."57");
                                             end;
-                                        58:
-                                            if (AssortDetailRec."58" <> '') and (AssortDetailRec."58" <> '0') then begin
-
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
-
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."58";
-                                                    Evaluate(Qty, AssortDetailRec."58");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."58");
-                                                end;
 
-                                                break;
+                                            break;
+                                        end;
+                                    58:
+                                        if (AssortDetailRec."58" <> '') and (AssortDetailRec."58" <> '0') then begin
+
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."58";
+                                                Evaluate(Qty, AssortDetailRec."58");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."58");
                                             end;
-                                        59:
-                                            if (AssortDetailRec."59" <> '') and (AssortDetailRec."59" <> '0') then begin
 
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+                                            break;
+                                        end;
+                                    59:
+                                        if (AssortDetailRec."59" <> '') and (AssortDetailRec."59" <> '0') then begin
 
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."59";
-                                                    Evaluate(Qty, AssortDetailRec."59");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."59");
-                                                end;
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
-                                                break;
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."59";
+                                                Evaluate(Qty, AssortDetailRec."59");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."59");
                                             end;
-                                        60:
-                                            if (AssortDetailRec."60" <> '') and (AssortDetailRec."60" <> '0') then begin
 
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+                                            break;
+                                        end;
+                                    60:
+                                        if (AssortDetailRec."60" <> '') and (AssortDetailRec."60" <> '0') then begin
 
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."60";
-                                                    Evaluate(Qty, AssortDetailRec."60");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."60");
-                                                end;
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
-                                                break;
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."60";
+                                                Evaluate(Qty, AssortDetailRec."60");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."60");
                                             end;
-                                        61:
-                                            if (AssortDetailRec."61" <> '') and (AssortDetailRec."61" <> '0') then begin
 
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+                                            break;
+                                        end;
+                                    61:
+                                        if (AssortDetailRec."61" <> '') and (AssortDetailRec."61" <> '0') then begin
 
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."61";
-                                                    Evaluate(Qty, AssortDetailRec."61");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."61");
-                                                end;
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
-                                                break;
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."61";
+                                                Evaluate(Qty, AssortDetailRec."61");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."61");
                                             end;
-                                        62:
-                                            if (AssortDetailRec."62" <> '') and (AssortDetailRec."62" <> '0') then begin
 
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+                                            break;
+                                        end;
+                                    62:
+                                        if (AssortDetailRec."62" <> '') and (AssortDetailRec."62" <> '0') then begin
 
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."62";
-                                                    Evaluate(Qty, AssortDetailRec."62");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."62");
-                                                end;
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
-                                                break;
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."62";
+                                                Evaluate(Qty, AssortDetailRec."62");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."62");
                                             end;
-                                        63:
-                                            if (AssortDetailRec."63" <> '') and (AssortDetailRec."63" <> '0') then begin
 
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+                                            break;
+                                        end;
+                                    63:
+                                        if (AssortDetailRec."63" <> '') and (AssortDetailRec."63" <> '0') then begin
 
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."63";
-                                                    Evaluate(Qty, AssortDetailRec."63");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."63");
-                                                end;
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
-                                                break;
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."63";
+                                                Evaluate(Qty, AssortDetailRec."63");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."63");
                                             end;
-                                        64:
-                                            if (AssortDetailRec."64" <> '') and (AssortDetailRec."64" <> '0') then begin
 
-                                                AssortDetail1Rec.Reset();
-                                                AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
-                                                AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
-                                                AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
+                                            break;
+                                        end;
+                                    64:
+                                        if (AssortDetailRec."64" <> '') and (AssortDetailRec."64" <> '0') then begin
 
-                                                if AssortDetail1Rec.FindSet() then begin
-                                                    Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."64";
-                                                    Evaluate(Qty, AssortDetailRec."64");
-                                                    CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."64");
-                                                end;
+                                            AssortDetail1Rec.Reset();
+                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
+                                            AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
-                                                break;
+                                            if AssortDetail1Rec.FindSet() then begin
+                                                Description := rec."Style No." + '/' + rec."Garment Type Name" + '/' + AssortDetailRec."Lot No." + '/' + AssortDetailRec."Colour Name" + '/' + AssortDetail1Rec."64";
+                                                Evaluate(Qty, AssortDetailRec."64");
+                                                CreateFGItems(Description, AssortDetailRec."Lot No.", Qty, AssortDetailRec."Colour No", AssortDetail1Rec."64");
                                             end;
-                                    end;
 
-                                    StatusGB := 1;
+                                            break;
+                                        end;
                                 end;
-                            end
-                            else
-                                Error('Sales Order already created.');
+
+                                StatusGB := 1;
+                            end;
+                        // end
+                        // else
+                        //     Error('Sales Order already created.');
 
                         until AssortDetailRec.Next() = 0;
 
@@ -7055,10 +7074,10 @@ page 50983 "Assortment Card"
             ItemRec.Insert(true);
 
             //Create new sales order
-            //CreateSalesOrder(NextItemNo, Lot, Qty, FOBPcsPrice);
+            CreateSalesOrder(NextItemNo, Lot, Qty, FOBPcsPrice);
 
             //Create new Prod BOM
-            //CreateProdBOM(Color, size, Lot, NextItemNo, ItemDesc);
+            CreateProdBOM(Color, size, Lot, NextItemNo, ItemDesc);
 
         end
         else begin   //If old item - Delete existing data and insert again
@@ -7067,15 +7086,551 @@ page 50983 "Assortment Card"
             ProdBOM := ItemMasterRec."Production BOM No.";
 
             if ProdBOM = '' then begin
-                // CreateSalesOrder(ItemNo, Lot, Qty, FOBPcsPrice);
-                // CreateProdBOM(Color, size, Lot, ItemNo, ItemDesc);
+                CreateSalesOrder(ItemNo, Lot, Qty, FOBPcsPrice);
+                CreateProdBOM(Color, size, Lot, ItemNo, ItemDesc);
+            end
+            else
+                UpdateProdBOM(Color, size, Lot, ItemNo, ProdBOM);
+
+        end;
+    end;
+
+
+    procedure CreateSalesOrder(Item: code[20]; Lot: Code[20]; Qty: Integer; Price: Decimal)
+    var
+        SalesHeaderRec: Record "Sales Header";
+        AssoRec: Record AssorColorSizeRatio;
+        SalesLineRec: Record "Sales Line";
+        SalesLineRec1: Record "Sales Line";
+        NavAppSetupRec: Record "NavApp Setup";
+        NoSeriesManagementCode: Codeunit NoSeriesManagement;
+        StyMasterPORec: Record "Style Master PO";
+        StyMasterRec: Record "Style Master";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
+        ContractLCStyleRec: Record "Contract/LCStyle";
+        ContractLcMasterRec: Record "Contract/LCMaster";
+    begin
+
+        //Get Worksheet line no
+        NavAppSetupRec.Reset();
+        NavAppSetupRec.FindSet();
+
+        //Get location for the style
+        StyMasterRec.Reset();
+        StyMasterRec.SetRange("No.", rec."Style No.");
+        StyMasterRec.FindSet();
+
+        if StyMasterRec."Factory Code" = '' then
+            Error('Factory is not assigned for the style : #1', StyMasterRec."Style No.");
+
+        // Get Contract No
+        //Done By sachith on 15/03/23
+        ContractLCStyleRec.Reset();
+        ContractLCStyleRec.SetRange("Style No.", Rec."Style No.");
+
+        if ContractLCStyleRec.FindSet() then begin
+            ContractLcMasterRec.Reset();
+            ContractLcMasterRec.SetRange("No.", ContractLCStyleRec."No.");
+            if not ContractLcMasterRec.FindSet() then
+                Error('Cannot find the Contract No : %1', ContractLCStyleRec."No.");
+        end;
+
+        //Get ship date
+        StyMasterPORec.Reset();
+        StyMasterPORec.SetRange("Style No.", rec."Style No.");
+        StyMasterPORec.SetRange("Lot No.", Lot);
+        StyMasterPORec.FindSet();
+
+        AssoRec.Reset();
+        AssoRec.SetRange("Style No.", rec."Style No.");
+        AssoRec.SetRange("Lot No.", Lot);
+        AssoRec.SetFilter("Colour Name", '<>%1', '*');
+
+        if AssoRec.FindSet() then begin
+            if AssoRec.SalesOrderNo <> '' then begin // Sales order already created
+
+                NextOrderNo := AssoRec.SalesOrderNo;
+
+                //Get Max Lineno
+                LineNo := 0;
+                SalesLineRec1.Reset();
+                SalesLineRec1.SetCurrentKey("Document Type", "Document No.");
+                SalesLineRec1.SetRange("Document No.", NextOrderNo);
+                SalesLineRec1.SetRange("Document Type", 1);
+
+                if SalesLineRec1.FindLast() then
+                    LineNo := SalesLineRec1."Line No.";
+
+                //Insert Line
+                LineNo += 10;
+                SalesLineRec.Init();
+                SalesLineRec."Document Type" := SalesLineRec."Document Type"::Order;
+                SalesLineRec."Document No." := NextOrderNo;
+                SalesLineRec."Line No." := LineNo;
+                SalesLineRec.Type := SalesLineRec.Type::Item;
+                SalesLineRec."VAT Bus. Posting Group" := 'ZERO';
+                SalesLineRec."VAT Prod. Posting Group" := 'ZERO';
+                SalesLineRec.validate("No.", Item);
+                SalesLineRec.validate(Quantity, Qty);
+                SalesLineRec."Gen. Prod. Posting Group" := 'RETAIL';
+                SalesLineRec."Gen. Bus. Posting Group" := 'EU';
+                SalesLineRec.validate("Unit Price", Price);
+                SalesLineRec."Planned Delivery Date" := StyMasterPORec."Ship Date";
+                SalesLineRec."Planned Shipment Date" := StyMasterPORec."Ship Date";
+                SalesLineRec."Shipment Date" := StyMasterPORec."Ship Date";
+                SalesLineRec."Tax Group Code" := NavAppSetupRec.TaxGroupCode;
+                SalesLineRec.Validate("Location Code", StyMasterRec."Factory Code");
+                SalesLineRec.INSERT();
+            end
+            else begin  //create new sales order
+
+                //Check whether user logged in or not
+                LoginSessionsRec.Reset();
+                LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                if not LoginSessionsRec.FindSet() then begin  //not logged in
+                    Clear(LoginRec);
+                    LoginRec.LookupMode(true);
+                    LoginRec.RunModal();
+
+                    LoginSessionsRec.Reset();
+                    LoginSessionsRec.SetRange(SessionID, SessionId());
+                    LoginSessionsRec.FindSet();
+                end;
+
+                //Insert Header
+                NextOrderNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."FG SO Nos.", Today(), true);
+                LineNo := 10;
+                SalesHeaderRec.Init();
+                SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
+                SalesHeaderRec."No." := NextOrderNo;
+                SalesHeaderRec."Posting Date" := WorkDate();
+                SalesHeaderRec."Requested Delivery Date" := StyMasterPORec."Ship Date";
+                SalesHeaderRec."Order Date" := WorkDate();
+                SalesHeaderRec.Validate("Sell-to Customer No.", rec."Buyer No.");
+                //SalesHeaderRec.Validate("Bill-to Customer No.", "Buyer No.");                
+                SalesHeaderRec."Document Date" := WORKDATE;
+                SalesHeaderRec."Due Date" := StyMasterPORec."Ship Date";
+                SalesHeaderRec."Shipping No. Series" := 'S-SHPT';
+                SalesHeaderRec."Posting No. Series" := 'S-INV+';
+                SalesHeaderRec."Style No" := rec."No.";
+                SalesHeaderRec."Style Name" := rec."Style No.";
+                SalesHeaderRec."PO No" := StyMasterPORec."PO No.";
+                SalesHeaderRec.Validate("Location Code", StyMasterRec."Factory Code");
+                SalesHeaderRec.EntryType := SalesHeaderRec.EntryType::FG;
+                SalesHeaderRec.Lot := Lot;
+                SalesHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                //Done By sachith on 15/03/23
+                SalesHeaderRec."Contract No" := ContractLcMasterRec."Contract No";
+                SalesHeaderRec.INSERT();
+
+                //Insert Line
+                SalesLineRec.Init();
+                SalesLineRec."Document Type" := SalesLineRec."Document Type"::Order;
+                SalesLineRec."Document No." := NextOrderNo;
+                SalesLineRec."Line No." := LineNo;
+                SalesLineRec.Type := SalesLineRec.Type::Item;
+                SalesLineRec."VAT Bus. Posting Group" := 'ZERO';
+                SalesLineRec."VAT Prod. Posting Group" := 'ZERO';
+                SalesLineRec.validate("No.", Item);
+                SalesLineRec.validate(Quantity, Qty);
+                SalesLineRec."Gen. Prod. Posting Group" := 'RETAIL';
+                SalesLineRec."Gen. Bus. Posting Group" := 'EU';
+                SalesLineRec.validate("Unit Price", Price);
+                SalesLineRec."Planned Delivery Date" := StyMasterPORec."Ship Date";
+                SalesLineRec."Planned Shipment Date" := StyMasterPORec."Ship Date";
+                SalesLineRec."Shipment Date" := StyMasterPORec."Ship Date";
+                SalesLineRec."Tax Group Code" := NavAppSetupRec.TaxGroupCode;
+                SalesLineRec.Validate("Location Code", StyMasterRec."Factory Code");
+                SalesLineRec.INSERT();
+
+                //update with new sales order
+                AssoRec.ModifyAll(SalesOrderNo, NextOrderNo);
+
             end;
-            //else
-            //  // UpdateProdBOM(Color, size, Lot, ItemNo, ProdBOM);
+        end;
+    end;
+
+
+    procedure CreateProdBOM(Color: code[20]; Size: Code[20]; Lot: Code[20]; FGItem: Code[20]; ItemDesc: Text[500])
+    var
+        NextBOMNo: Code[20];
+        ItemCategoryRec: Record "Item Category";
+        NoSeriesManagementCode: Codeunit NoSeriesManagement;
+        ProdBOMHeaderRec: Record "Production BOM Header";
+        ProdBOMLineRec: Record "Production BOM Line";
+        ProdBOMLine1Rec: Record "Production BOM Line";
+        AutoGenRec: Record "BOM Line AutoGen";
+        AutoGenPrBOMRec: Record "BOM Line AutoGen ProdBOM";
+        BOMLineEstimateRec: Record "BOM Line Estimate";
+        MainCateRec: Record "Main Category";
+        NavAppSetupRec: Record "NavApp Setup";
+        ItemUinitRec: Record "Item Unit of Measure";
+        LoginSessionsRec: Record LoginSessions;
+        LoginRec: Page "Login Card";
+        LineNo: Integer;
+        ItemMasterRec: Record item;
+        Description: Text[500];
+        NextItemNo: Code[20];
+        HeaderGenerated: Boolean;
+        UOMRec: Record "Unit of Measure";
+        StyMasterPORec: Record "Style Master PO";
+        ConvFactor: Decimal;
+        ConsumptionTot: Decimal;
+    begin
+
+        //Check whether user logged in or not
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.SetRange(SessionID, SessionId());
+
+        if not LoginSessionsRec.FindSet() then begin  //not logged in
+            Clear(LoginRec);
+            LoginRec.LookupMode(true);
+            LoginRec.RunModal();
+
+            LoginSessionsRec.Reset();
+            LoginSessionsRec.SetRange(SessionID, SessionId());
+            LoginSessionsRec.FindSet();
+        end;
+
+        //Get Worksheet line no
+        NavAppSetupRec.Reset();
+        NavAppSetupRec.FindSet();
+
+        //Generate Prod BOM Header
+        if HeaderGenerated = false then begin
+
+            //Generate Production BOM Header                                            
+            NextBomNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."FG ProdBOM Nos.", Today(), true);
+            ProdBOMHeaderRec.Init();
+            ProdBOMHeaderRec."No." := NextBomNo;
+            ProdBOMHeaderRec.Description := ItemDesc;
+            ProdBOMHeaderRec.Validate("Unit of Measure Code", 'PCS');
+            ProdBOMHeaderRec.Validate("Low-Level Code", 0);
+            ProdBOMHeaderRec.Validate(Status, 0);
+            ProdBOMHeaderRec."Creation Date" := WorkDate();
+            ProdBOMHeaderRec."Last Date Modified" := WorkDate();
+            ProdBOMHeaderRec."No. Series" := 'PRODBOM';
+            ProdBOMHeaderRec."Style No." := rec."No.";
+            ProdBOMHeaderRec."Style Name" := rec."Style No.";
+            ProdBOMHeaderRec.Lot := Lot;
+            ProdBOMHeaderRec.EntryType := ProdBOMHeaderRec.EntryType::FG;
+            ProdBOMHeaderRec."BOM Type" := ProdBOMHeaderRec."BOM Type"::"Bulk";
+            ProdBOMHeaderRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+            ProdBOMHeaderRec.Insert(true);
+            HeaderGenerated := true;
+
+            //Update Prod BOm No in item master
+            ItemMasterRec.Reset();
+            ItemMasterRec.SetRange("No.", FGItem);
+
+            if ItemMasterRec.FindSet() then
+                ItemMasterRec.ModifyAll("Production BOM No.", NextBomNo);
+        end;
+
+        AutoGenRec.Reset();
+        AutoGenRec.SetCurrentKey("Main Category No.", "Item No.", "GMT Color No.", "GMT Size Name", "Lot No.");
+        AutoGenRec.Ascending(true);
+        AutoGenRec.SetRange("No.", rec."No");
+        AutoGenRec.SetRange("Lot No.", lot);
+        AutoGenRec.SetRange("GMT Color No.", Color);
+        //AutoGenRec.SetRange("GMT Size Name", Size);
+
+        if AutoGenRec.FindSet() then begin
+
+            repeat
+
+                if AutoGenRec."Article Name." = '-' then
+                    Error('Invalid Article : %1', AutoGenRec."Article Name.");
+
+                if AutoGenRec."Dimension Name." = '-' then
+                    Error('Invalid Dimension : %1', AutoGenRec."Dimension Name.");
+
+
+                if (AutoGenRec."Include in PO" = true) or (AutoGenRec."Included in PO" = true) then begin
+
+                    BOMLineEstimateRec.Reset();
+                    BOMLineEstimateRec.SetRange("No.", rec."No");
+                    BOMLineEstimateRec.SetRange("Item No.", AutoGenRec."Item No.");
+                    BOMLineEstimateRec.SetRange("Placement of GMT", AutoGenRec."Placement of GMT");
+
+                    if BOMLineEstimateRec.FindSet() then begin
+
+                        if BOMLineEstimateRec.Reconfirm = false then begin
+
+                            if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
+                                //if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
+
+                                //Get Dimenion only status
+                                MainCateRec.Reset();
+                                MainCateRec.SetRange("No.", AutoGenRec."Main Category No.");
+                                if MainCateRec.FindSet() then begin
+                                    if MainCateRec."Inv. Posting Group Code" = '' then
+                                        Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
+
+                                    if MainCateRec."Prod. Posting Group Code" = '' then
+                                        Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
+
+                                end
+                                else
+                                    Error('Cannot find Main Category details.');
+
+
+                                //Generate description
+                                Description := AutoGenRec."Item Name";
+
+                                if AutoGenRec."Item Color Name" <> '' then
+                                    Description := Description + ' / ' + AutoGenRec."Item Color Name";
+
+                                if AutoGenRec."Article Name." <> '' then
+                                    Description := Description + ' / ' + AutoGenRec."Article Name.";
+
+                                if MainCateRec.DimensionOnly then begin
+                                    if AutoGenRec."Dimension Name." <> '' then
+                                        Description := Description + ' / ' + AutoGenRec."Dimension Name.";
+                                end
+                                else begin
+                                    if AutoGenRec."GMT Size Name" <> '' then
+                                        Description := Description + ' / ' + AutoGenRec."GMT Size Name";
+                                end;
+
+                                // if Description = 'COTTON/POLY/STRETCH DENIM / BROOK GREEN / -' then
+                                //     Message(format(AutoGenRec.Requirment));
+
+                                //Check whether item exists
+                                ItemMasterRec.Reset();
+                                ItemMasterRec.SetRange(Description, Description);
+
+                                if ItemMasterRec.FindSet() then begin
+                                    NextItemNo := ItemMasterRec."No.";
+
+                                    ItemUinitRec.Reset();
+                                    ItemUinitRec.SetRange("Item No.", NextItemNo);
+                                    ItemUinitRec.SetRange(Code, AutoGenRec."Unit N0.");
+
+                                    if not ItemUinitRec.FindSet() then begin
+                                        //Insert into Item unit of measure
+                                        ItemUinitRec.Init();
+                                        ItemUinitRec."Item No." := NextItemNo;
+                                        ItemUinitRec.Code := AutoGenRec."Unit N0.";
+                                        ItemUinitRec."Qty. per Unit of Measure" := 1;
+                                        ItemUinitRec.Insert();
+                                    end;
+
+                                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
+                                    ItemMasterRec.Modify();
+                                end
+                                else begin
+
+                                    NextItemNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."RM Nos.", Today(), true);
+
+                                    ItemMasterRec.Init();
+                                    ItemMasterRec."No." := NextItemNo;
+                                    ItemMasterRec.Description := Description;
+                                    ItemMasterRec."Main Category No." := AutoGenRec."Main Category No.";
+                                    ItemMasterRec."Main Category Name" := AutoGenRec."Main Category Name";
+                                    ItemMasterRec."Sub Category No." := AutoGenRec."Sub Category No.";
+                                    ItemMasterRec."Sub Category Name" := AutoGenRec."Sub Category Name";
+                                    ItemMasterRec."Rounding Precision" := 0.00001;
+
+                                    //Check for Item category
+                                    ItemCategoryRec.Reset();
+                                    ItemCategoryRec.SetRange(Code, AutoGenRec."Main Category No.");
+                                    if not ItemCategoryRec.FindSet() then begin
+                                        ItemCategoryRec.Init();
+                                        ItemCategoryRec.Code := AutoGenRec."Main Category No.";
+                                        ItemCategoryRec.Description := AutoGenRec."Main Category Name";
+                                        ItemCategoryRec.Insert();
+                                    end;
+
+                                    ItemMasterRec."Item Category Code" := AutoGenRec."Main Category No.";
+                                    ItemMasterRec."Color No." := AutoGenRec."Item Color No.";
+                                    ItemMasterRec."Color Name" := AutoGenRec."Item Color Name";
+
+                                    if MainCateRec.DimensionOnly then
+                                        ItemMasterRec."Size Range No." := AutoGenRec."Dimension Name."
+                                    else
+                                        ItemMasterRec."Size Range No." := AutoGenRec."GMT Size Name";
+
+                                    ItemMasterRec."Article No." := AutoGenRec."Article No.";
+                                    ItemMasterRec."Article" := AutoGenRec."Article Name.";
+                                    ItemMasterRec."Dimension Width No." := AutoGenRec."Dimension No.";
+                                    ItemMasterRec."Dimension Width" := AutoGenRec."Dimension Name.";
+                                    ItemMasterRec.Type := ItemMasterRec.Type::Inventory;
+                                    ItemMasterRec."Unit Cost" := AutoGenRec.Rate;
+                                    ItemMasterRec."Unit Price" := AutoGenRec.Rate;
+                                    ItemMasterRec."Last Direct Cost" := AutoGenRec.Rate;
+                                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
+                                    //ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
+                                    ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
+                                    //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
+
+
+                                    if MainCateRec.LOTTracking then begin
+                                        ItemMasterRec.Validate("Item Tracking Code", NavAppSetupRec."LOT Tracking Code");
+                                        ItemMasterRec."Lot Nos." := NavAppSetupRec."LOTTracking Nos.";
+                                    end;
+
+                                    //Insert into Item unit of measure
+                                    ItemUinitRec.Init();
+                                    ItemUinitRec."Item No." := NextItemNo;
+                                    ItemUinitRec.Code := AutoGenRec."Unit N0.";
+                                    ItemUinitRec."Qty. per Unit of Measure" := 1;
+
+                                    ItemUinitRec.Insert();
+
+                                    ItemMasterRec.Validate("Base Unit of Measure", AutoGenRec."Unit N0.");
+                                    ItemMasterRec.Validate("Replenishment System", 0);
+                                    ItemMasterRec.Validate("Manufacturing Policy", 1);
+                                    //ItemMasterRec."Location Filter" Validate();
+                                    ItemMasterRec.Insert(true);
+
+                                end;
+
+                                UOMRec.Reset();
+                                UOMRec.SetRange(Code, AutoGenRec."Unit N0.");
+                                UOMRec.FindSet();
+                                ConvFactor := UOMRec."Converion Parameter";
+
+                                if ConvFactor = 0 then
+                                    ConvFactor := 1;
+
+                                if (AutoGenRec.Type = AutoGenRec.Type::Doz) and (AutoGenRec."Unit N0." = 'DOZ') then
+                                    ConvFactor := 1;
+
+
+                                //Generate Production BOM Lines
+                                ProdBOMLineRec.Reset();
+                                ProdBOMLineRec.SetCurrentKey("Production BOM No.", Description);
+                                ProdBOMLineRec.SetRange("Production BOM No.", NextBomNo);
+                                ProdBOMLineRec.SetRange(Description, Description);
+
+                                if not ProdBOMLineRec.FindSet() then begin    //Not existing bom item
+
+                                    LineNo += 10000;
+                                    ProdBOMLine1Rec.Init();
+                                    ProdBOMLine1Rec."Production BOM No." := NextBomNo;
+                                    //ProdBOMLine1Rec.Validate("Main Category Name", AutoGenRec."Main Category Name");
+                                    ProdBOMLine1Rec.Validate("Main Category Code", AutoGenRec."Main Category No.");
+                                    ProdBOMLine1Rec."Line No." := LineNo;
+                                    ProdBOMLine1Rec.Type := ProdBOMLine1Rec.Type::Item;
+                                    ProdBOMLine1Rec.Validate("No.", NextItemNo);
+                                    ProdBOMLine1Rec.Description := Description;
+                                    ProdBOMLine1Rec.Validate("Unit of Measure Code", AutoGenRec."Unit N0.");
+                                    //ProdBOMLine1Rec.Validate(Quantity, AutoGenRec.Consumption);  
+
+                                    if AutoGenRec.Type = AutoGenRec.Type::Pcs then
+                                        ConsumptionTot := AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100
+                                    else
+                                        if AutoGenRec.Type = AutoGenRec.Type::Doz then
+                                            ConsumptionTot := (AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100) / 12;
+
+                                    if ConvFactor <> 0 then
+                                        ConsumptionTot := ConsumptionTot / ConvFactor;
+
+                                    if ConsumptionTot = 0 then
+                                        ConsumptionTot := 1;
+
+                                    ProdBOMLine1Rec.Quantity := ConsumptionTot;
+                                    ProdBOMLine1Rec."Quantity per" := ConsumptionTot;
+                                    ProdBOMLine1Rec.Insert(true);
+
+                                end
+                                else begin  // Update existing item qty
+
+                                    if AutoGenRec.Type = AutoGenRec.Type::Pcs then
+                                        ConsumptionTot := AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100
+                                    else
+                                        if AutoGenRec.Type = AutoGenRec.Type::Doz then
+                                            ConsumptionTot := (AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100) / 12;
+
+                                    if ConvFactor <> 0 then
+                                        ConsumptionTot := ConsumptionTot / ConvFactor;
+
+                                    if ConsumptionTot = 0 then
+                                        ConsumptionTot := 1;
+
+
+                                    //ProdBOMLineRec.Validate(Quantity, ProdBOMLineRec."Quantity" + AutoGenRec.Consumption);
+                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + ConsumptionTot;
+                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + ConsumptionTot;
+                                    ProdBOMLineRec.Modify();
+
+                                end;
+
+                                //Create Worksheet Entry
+                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name");
+
+                                //Update Auto generate
+                                // AutoGenRec."Included in PO" := true;
+                                // AutoGenRec."Include in PO" := false;
+                                //AutoGenRec."Production BOM No." := NextBomNo;
+                                AutoGenRec."New Item No." := NextItemNo;
+                                AutoGenRec.Modify();
+
+                                //Update Prod BOm No in item master
+                                ItemMasterRec.Reset();
+                                ItemMasterRec.SetRange("No.", FGItem);
+
+                                if ItemMasterRec.FindSet() then
+                                    ItemMasterRec.ModifyAll("Production BOM No.", NextBomNo);
+
+
+                                AutoGenPrBOMRec.Reset();
+                                AutoGenPrBOMRec.SetRange("No.", rec."No");
+                                AutoGenPrBOMRec.SetRange("Item No.", AutoGenRec."Item No.");
+                                AutoGenPrBOMRec.SetRange("Line No.", AutoGenRec."Line No.");
+                                AutoGenPrBOMRec.SetRange("Production BOM No.", NextBomNo);
+
+                                if not AutoGenPrBOMRec.FindSet() then begin
+                                    //insert Autogen prod bom table
+                                    AutoGenPrBOMRec.Init();
+                                    AutoGenPrBOMRec."No." := rec."No";
+                                    AutoGenPrBOMRec."Item No." := AutoGenRec."Item No.";
+                                    AutoGenPrBOMRec."Line No." := AutoGenRec."Line No.";
+                                    AutoGenPrBOMRec."Created User" := UserId;
+                                    AutoGenPrBOMRec."Created Date" := WorkDate();
+                                    AutoGenPrBOMRec."Production BOM No." := NextBomNo;
+                                    AutoGenPrBOMRec.Insert();
+                                end;
+
+
+                                // AutoGenPrBOMRec.Insert()();
+                                // AutoGenPrBOMRec.SetRange("No.", AutoGenRec."No.");
+                                // AutoGenPrBOMRec.SetRange("Item No.", AutoGenRec."Item No.");
+                                // AutoGenPrBOMRec.SetRange("Line No.", AutoGenRec."Line No.");
+
+                                // if AutoGenPrBOMRec.FindSet() then begin
+                                //     AutoGenPrBOMRec."Production BOM No." := NextBomNo;
+                                //     AutoGenPrBOMRec.Modify();
+                                // end;                                
+
+                            end;
+                        end;
+
+                    end;
+
+                end;
+
+            until AutoGenRec.Next() = 0;
+
+            //StatusGB := 1;
+
+            //Update Status of the BOM to released
+            ProdBOMHeaderRec.Reset();
+            ProdBOMHeaderRec.SetRange("No.", NextBOMNo);
+            if ProdBOMHeaderRec.FindSet() then begin
+                ProdBOMHeaderRec.Validate(Status, 1);
+                ProdBOMHeaderRec.Modify();
+            end;
 
         end;
 
     end;
+
 
 
     procedure InsertAutoGenProdBOM(ItemNo: Code[20]; LineNo: Integer)
@@ -7121,5 +7676,7 @@ page 50983 "Assortment Card"
         GrpSize: Text[50];
         GrpColor: code[20];
         GrpCountry: code[20];
-
+        NextOrderNo: Code[20];
+        LineNo: Integer;
+        StatusGB: Integer;
 }

@@ -250,6 +250,9 @@ page 50355 "Daily Sewing In/Out Card"
                         InputQty: BigInteger;
                     begin
 
+                        if (Rec."Style Name" = '') or (Rec."Lot No." = '') then
+                            Error('Please enter Input Style Name and Lot');
+
                         ProductionRec.Reset();
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
                         ProductionRec.SetRange("Prod Date", Rec."Prod Date");
@@ -455,9 +458,10 @@ page 50355 "Daily Sewing In/Out Card"
                         InputQty: BigInteger;
                         OutPutQty: BigInteger;
                     begin
+
                         //Mihiranga 2023/03/29
-                        if Rec."Out Style Name" = '' then
-                            Error('Please Enter Output Style Name & Lot');
+                        if (Rec."Out Style Name" = '') or (Rec."Out Lot No." = '') then
+                            Error('Please Enter Output Style Name and Lot');
                         //
 
                         ProductionRec.Reset();

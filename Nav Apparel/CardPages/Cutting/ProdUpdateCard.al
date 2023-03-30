@@ -118,6 +118,20 @@ page 50371 "Prod Update Card"
         Count: Integer;
     begin
 
+        //Check for blank factory / line records
+        ProdOutHeaderRec.Reset();
+        ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+        ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
+        if ProdOutHeaderRec.FindSet() then begin
+            repeat
+                if ProdOutHeaderRec."Factory Name" = '' then
+                    Error('Entries exists with blank Factory. Entry No : %1', ProdOutHeaderRec."No.");
+
+                if ProdOutHeaderRec."Resource Name" = '' then
+                    Error('Entries exists with blank Line. Entry No : %1', ProdOutHeaderRec."No.");
+            until ProdOutHeaderRec.Next() = 0;
+        end;
+
         //Get all factories
         LocationRec.Reset();
         LocationRec.SetFilter("Sewing Unit", '=%1', true);
