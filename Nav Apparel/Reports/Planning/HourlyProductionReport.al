@@ -118,6 +118,8 @@ report 50865 HourlyProductionReport
             { }
             column(CutInputToday; CutInputToday)
             { }
+            column(Lot_No_; "Lot No.")
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
