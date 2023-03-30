@@ -22,7 +22,7 @@ report 51278 SampleProductionReport
             { }
             column(Buyer_Name; "Buyer Name")
             { }
-            column(Garment_Type; "Garment Type")
+            column(Garment_Type;"Sample Name")
             { }
             column(Pattern_Cutter; "Pattern Cutter")
             { }
