@@ -76,10 +76,21 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
         UserSetupRec.SetRange("User ID", UserId);
         if UserSetupRec.FindSet() then begin
 
-            if UserSetupRec."Merchandizer Group Name" = '' then
-                Error('Merchandizer Group not setup in the User Setup.');
+            // if UserSetupRec."Merchandizer Group Name" = '' then
+            //     Error('Merchandizer Group not setup in the User Setup.');
 
-            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+            // "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+
+
+            //Done By Sachith on 30/03/23
+            if UserSetupRec.UserRole <> 'COMMERCIAL USER' then begin
+                // if UserSetupRec."Merchandizer All Group" = false then begin
+                if UserSetupRec."Merchandizer Group Name" = '' then
+                    Error('Merchandizer Group not setup in the User Setup.');
+
+                "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+                // end;
+            end;
 
             WorkflowUserGroupRec.Reset();
             WorkflowUserGroupRec.SetRange(Code, UserSetupRec."Merchandizer Group Name");
