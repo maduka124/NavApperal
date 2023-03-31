@@ -483,7 +483,28 @@ report 50865 HourlyProductionReport
                     {
                         ApplicationArea = All;
                         Caption = 'Factory';
-                        TableRelation = Location.Code where("Sewing Unit" = filter(true));
+                        // TableRelation = Location.Code where("Sewing Unit" = filter(true));
+
+
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            LocationRec: Record Location;
+                            UserRec: Record "User Setup";
+                        begin
+                            LocationRec.Reset();
+                            UserRec.Reset();
+                            UserRec.Get(UserId);
+
+
+                            LocationRec.Reset();
+                            LocationRec.SetRange(Code, UserRec."Factory Code");
+                            LocationRec.SetFilter("Sewing Unit", '=%1', true);
+                            if LocationRec.FindSet() then begin
+                                if Page.RunModal(15, LocationRec) = Action::LookupOK then begin
+                                    FactortFilter := LocationRec.Code;
+                                end;
+                            end;
+                        end;
                     }
 
                     field(FilterDate; FilterDate)
