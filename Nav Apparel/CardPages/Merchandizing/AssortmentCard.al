@@ -252,29 +252,24 @@ page 50983 "Assortment Card"
                     if not BOMRec.FindSet() then
                         Error('You have not created a BOM for this Style.');
 
-
                     //Check for the Auto gen line
                     BOMLineAutoGenRec.Reset();
                     BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
                     if not BOMLineAutoGenRec.FindSet() then
-                        Error('You have not run "Auto Generate" in BOM : %1. Cannot proceed.', BOMRec.No);
+                        Error('You have not yet run "Auto Generate" in BOM : %1. Cannot proceed.', BOMRec.No);
 
-
-                    // //Check for the Write to MRP 
-                    // BOMLineAutoGenRec.Reset();
-                    // BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
-                    // BOMLineAutoGenRec.SetRange("Lot No.", rec."Lot No.");
-                    // BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', false);
-                    // if not BOMLineAutoGenRec.FindSet() then
-                    //     Error('You have not run "Auto Generate" in BOM : %1. Cannot proceed.', BOMRec.No);
-
+                    //Check for Write to MRP status
+                    BOMLineAutoGenRec.Reset();
+                    BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
+                    BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', true);
+                    if not BOMLineAutoGenRec.FindSet() then
+                        Error('You have not yet run "Write to MRP Process" in BOM : %1. Cannot proceed.', BOMRec.No);
 
                     //Add BOM POSeletion record                   
                     StyleMasterPORec.Reset();
                     StyleMasterPORec.SetRange("Style No.", rec."No.");
                     StyleMasterPORec.SetRange("lot No.", rec."Lot No.");
                     StyleMasterPORec.FindSet();
-
 
                     //Check new po or Not
                     BOMPOSelectionRec.Reset();
@@ -319,14 +314,12 @@ page 50983 "Assortment Card"
                         until BOMPOSelectionRec.Next() = 0;
                     end;
 
-                    BOMRec.Reset();
-                    BOMRec.SetRange("No", BOMRec."No");
                     BOMRec.ModifyAll(Quantity, Total);
-
 
                     //Update BOM Estimate Line Qty
                     BOMLineEstimateRec.Reset();
                     BOMLineEstimateRec.SetRange("No.", BOMRec."No");
+                    BOMLineEstimateRec.FindSet();
                     BOMLineEstimateRec.ModifyAll("GMT Qty", Total);
 
 
@@ -354,7 +347,6 @@ page 50983 "Assortment Card"
                         BLAutoGenNewRec.SetFilter("Included in PO", '=%1', false);
                         if BLAutoGenNewRec.FindSet() then
                             repeat
-
                                 BLAutoGenPrBOMRec.Reset();
                                 BLAutoGenPrBOMRec.SetRange("No.", BOMRec."No");
                                 BLAutoGenPrBOMRec.SetRange("Line No.", BLAutoGenNewRec."Line No.");
@@ -363,10 +355,8 @@ page 50983 "Assortment Card"
                                     BLAutoGenPrBOMRec.Delete();
 
                                 BLAutoGenNewRec.Delete();
-
                             until BLAutoGenNewRec.Next() = 0;
                     end;
-
 
                     if BLERec.FindSet() then begin
                         repeat
@@ -5488,13 +5478,11 @@ page 50983 "Assortment Card"
                     end;
 
 
-
                     //////////////////////////////////////Write to MRP
                     BOMLineAutoGenRec.Reset();
                     BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
                     BOMLineAutoGenRec.SetFilter("Include in PO", '=%1', true);
                     BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', false);
-
                     if not BOMLineAutoGenRec.FindSet() then
                         Error('Records not selected for processing.');
 
@@ -5504,14 +5492,14 @@ page 50983 "Assortment Card"
                     AssortDetailRec.SetRange("Style No.", rec."No.");
                     AssortDetailRec.SetRange("lot No.", rec."Lot No.");
                     AssortDetailRec.SetFilter("Colour Name", '<>%1', '*');
-
                     if AssortDetailRec.FindSet() then begin
+
                         if AssortDetailRec.SalesOrderNo <> '' then begin
                             SalesLineRec1.Reset();
                             SalesLineRec1.SetRange("Document No.", AssortDetailRec.SalesOrderNo);
-                            SalesLineRec1.SetRange("Document Type", 1);
-                            SalesLineRec1.Findset();
-                            SalesLineRec1.DeleteAll();
+                            SalesLineRec1.SetFilter("Document Type", '=%1', SalesLineRec1."Document Type"::Order);
+                            if SalesLineRec1.Findset() then
+                                SalesLineRec1.DeleteAll();
                         end;
                     end;
 
@@ -5523,14 +5511,6 @@ page 50983 "Assortment Card"
 
                     if AssortDetailRec.FindSet() then begin
                         repeat
-                            // //Check for the Auto gen line
-                            // BOMLineAutoGenRec.Reset();
-                            // BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
-                            // BOMLineAutoGenRec.SetRange("Lot No.", AssortDetailRec."lot No.");
-                            // BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', true);
-                            // if BOMLineAutoGenRec.FindSet() then
-                            //     Error('You have already run "Write To MRP" for the BOM : %1. Cannot proceed.', BOMRec.No);
-
                             StatusGB := 0;
                             FOR Count := 1 TO 64 DO begin
                                 Qty := 0;
@@ -6579,7 +6559,6 @@ page 50983 "Assortment Card"
                         if AutoGenRec.FindSet() then
                             AutoGenRec.ModifyAll("Include in PO", false);
 
-
                         //Delete Prod orders                      
                         SalesHeaderRec.Reset();
                         SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
@@ -6603,7 +6582,6 @@ page 50983 "Assortment Card"
                                 ProOrderHedRec.Delete();
                             end;
                         end;
-
 
                         //Create Prod orders                       
                         SalesHeaderRec.Reset();
@@ -6653,7 +6631,6 @@ page 50983 "Assortment Card"
         //Delete old records        
         BOMLineColorRec.Reset();
         BOMLineColorRec.SetRange("No.", BOMNo);
-        // BOMLineColorRec.SetRange("Lot No.", rec."Lot No.");
         BOMLineColorRec.SetRange(Type, 1);
         BOMLineColorRec.DeleteAll();
 
@@ -6751,7 +6728,6 @@ page 50983 "Assortment Card"
         //Delete old records        
         BOMLineSizeRec.Reset();
         BOMLineSizeRec.SetRange("No.", BOMNo);
-        //BOMLineSizeRec.SetRange("Lot No.", rec."Lot No.");
         BOMLineSizeRec.SetRange(Type, 2);
         BOMLineSizeRec.DeleteAll();
 
@@ -6767,7 +6743,6 @@ page 50983 "Assortment Card"
         BOMLIneEstimateRec.Reset();
         BOMLIneEstimateRec.SetRange("No.", BOMNo);
         BOMLIneEstimateRec.SetRange("size Sensitive", true);
-
 
         if BOMLIneEstimateRec.FindSet() then begin
             repeat
@@ -6852,7 +6827,6 @@ page 50983 "Assortment Card"
         //Delete old records        
         BOMLineCountryRec.Reset();
         BOMLineCountryRec.SetRange("No.", BOMNo);
-        //BOMLineCountryRec.SetRange("Lot No.", rec."Lot No.");
         BOMLineCountryRec.SetRange(Type, 3);
         BOMLineCountryRec.DeleteAll();
 
@@ -6868,7 +6842,6 @@ page 50983 "Assortment Card"
         BOMLIneEstimateRec.Reset();
         BOMLIneEstimateRec.SetRange("No.", BOMNo);
         BOMLIneEstimateRec.SetRange("Country Sensitive", true);
-
 
         if BOMLIneEstimateRec.FindSet() then begin
             repeat
@@ -6904,7 +6877,6 @@ page 50983 "Assortment Card"
 
                                 if GrpCountry <> BOMAssortRec."Country Code" then begin
                                     GrpCountry := BOMAssortRec."Country Code";
-                                    //Message(Format(BOMAssortRec."Colour No"));
                                     LineNo += 10000;
                                     BOMLineCountryNewRec.Init();
                                     BOMLineCountryNewRec."No." := BOMNo;
@@ -7088,7 +7060,6 @@ page 50983 "Assortment Card"
 
             //Create new sales order
             CreateSalesOrder(NextItemNo, Lot, Qty, FOBPcsPrice);
-
             //Create new Prod BOM
             CreateProdBOM(BOMNo, Color, size, Lot, NextItemNo, ItemDesc);
 
@@ -7104,7 +7075,6 @@ page 50983 "Assortment Card"
             end
             else
                 UpdateProdBOM(BOMNo, Color, size, Lot, ItemNo, ProdBOM);
-
         end;
     end;
 
@@ -7170,7 +7140,7 @@ page 50983 "Assortment Card"
                 SalesLineRec1.Reset();
                 SalesLineRec1.SetCurrentKey("Document Type", "Document No.");
                 SalesLineRec1.SetRange("Document No.", NextOrderNo);
-                SalesLineRec1.SetRange("Document Type", 1);
+                SalesLineRec1.SetFilter("Document Type", '=%!', SalesLineRec1."Document Type"::Order);
 
                 if SalesLineRec1.FindLast() then
                     LineNo := SalesLineRec1."Line No.";
