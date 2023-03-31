@@ -6983,7 +6983,7 @@ page 50984 "BOM Card"
                     //Step 9 : Delete SO header/line
                     SalesOrderHRec.Reset();
                     SalesOrderHRec.SetRange("Style No", rec."Style No.");
-                    SalesOrderHRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
+                    SalesOrderHRec.SetFilter(EntryType, '=%1', SalesOrderHRec.EntryType::FG);
 
                     if SalesOrderHRec.FindSet() then begin
                         repeat begin

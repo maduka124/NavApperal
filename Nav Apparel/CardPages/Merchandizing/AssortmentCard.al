@@ -207,9 +207,15 @@ page 50983 "Assortment Card"
                     BOMPOSelectionRec: Record BOMPOSelection;
                     StyleMasterPORec: Record "Style Master PO";
                     BOMLineEstimateRec: Record "BOM Line Estimate";
+                    AutoGenRec: Record "BOM Line AutoGen";
                     BLERec: Record "BOM Line Estimate";
                     SalesLineRec1: Record "Sales Line";
+                    SalesHeaderRec: Record "Sales Header";
+                    ProOrderHedRec: Record "Production Order";
+                    ProOrderLineRec: Record "Prod. Order Line";
+                    CodeUnitNavApp: Codeunit NavAppCodeUnit;
                     BOMRec: Record BOM;
+                    ProOrderNo: Code[20];
                     LineNo: BigInteger;
                     Description: Text[500];
                     Qty: Decimal;
@@ -217,8 +223,6 @@ page 50983 "Assortment Card"
                     Count: Integer;
                     Mode: Text[20];
                     Total: Decimal;
-
-
                     ConvFactor: Decimal;
                     UOMRec: Record "Unit of Measure";
                     BLE1Rec: Record "BOM Line Estimate";
@@ -232,7 +236,6 @@ page 50983 "Assortment Card"
                     AssortDetails1Rec: Record AssorColorSizeRatioView;
                     BOMPOSelecRec: Record BOMPOSelection;
                     ItemMasterRec: Record Item;
-
                     Value: Decimal;
                     Requirment: Decimal;
                     SubTotal: Decimal;
@@ -245,7 +248,7 @@ page 50983 "Assortment Card"
 
                     //Check for the BOM
                     BOMRec.Reset();
-                    BOMRec.SetRange("Style No.", rec."Style No.");
+                    BOMRec.SetRange("Style No.", rec."No.");
                     if not BOMRec.FindSet() then
                         Error('You have not created a BOM for this Style.');
 
@@ -268,7 +271,7 @@ page 50983 "Assortment Card"
 
                     //Add BOM POSeletion record                   
                     StyleMasterPORec.Reset();
-                    StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+                    StyleMasterPORec.SetRange("Style No.", rec."No.");
                     StyleMasterPORec.SetRange("lot No.", rec."Lot No.");
                     StyleMasterPORec.FindSet();
 
@@ -281,7 +284,7 @@ page 50983 "Assortment Card"
                         Mode := 'NEW';                                                  //insert PO details                                                                                
                         BOMPOSelectionRec.Init();
                         BOMPOSelectionRec."BOM No." := BOMRec."No";
-                        BOMPOSelectionRec."Style No." := rec."Style No.";
+                        BOMPOSelectionRec."Style No." := rec."No.";
                         BOMPOSelectionRec."Lot No." := StyleMasterPORec."Lot No.";
                         BOMPOSelectionRec."PO No." := StyleMasterPORec."PO No.";
                         BOMPOSelectionRec.Qty := StyleMasterPORec.Qty;
@@ -464,7 +467,7 @@ page 50983 "Assortment Card"
 
                                                                         //Insert new line
                                                                         AssortDetailsRec.Reset();
-                                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                                        AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                                         AssortDetailsRec.SetRange("Lot No.", BOMLine4Rec."lot No.");
                                                                         AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
                                                                         AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -473,7 +476,7 @@ page 50983 "Assortment Card"
 
                                                                             //Find the correct column for the GMT size
                                                                             AssortDetails1Rec.Reset();
-                                                                            AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                                                                            AssortDetails1Rec.SetRange("Style No.", rec."No.");
                                                                             AssortDetails1Rec.SetRange("Lot No.", BOMLine4Rec."lot No.");
                                                                             AssortDetails1Rec.SetRange("Colour No", '*');
                                                                             AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -971,7 +974,7 @@ page 50983 "Assortment Card"
 
                                                                 //Insert new line
                                                                 AssortDetailsRec.Reset();
-                                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                                AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                                 AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                 AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
                                                                 AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -980,7 +983,7 @@ page 50983 "Assortment Card"
 
                                                                     //Find the correct column for the GMT size
                                                                     AssortDetails1Rec.Reset();
-                                                                    AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                                                                    AssortDetails1Rec.SetRange("Style No.", rec."No.");
                                                                     AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                     AssortDetails1Rec.SetRange("Colour No", '*');
                                                                     AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -1460,7 +1463,7 @@ page 50983 "Assortment Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                         AssortDetailsRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
                                                         AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
 
@@ -1468,7 +1471,7 @@ page 50983 "Assortment Card"
 
                                                             //Find the correct column for the GMT size
                                                             AssortDetails1Rec.Reset();
-                                                            AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                                                            AssortDetails1Rec.SetRange("Style No.", rec."No.");
                                                             AssortDetails1Rec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
                                                             AssortDetails1Rec.SetRange("Colour No", '*');
 
@@ -1931,7 +1934,7 @@ page 50983 "Assortment Card"
                                             repeat
 
                                                 AssortDetailsRec.Reset();
-                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                 AssortDetailsRec.SetRange("Lot No.", BOMPOSelecRec."Lot No.");
                                                 AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
 
@@ -2069,7 +2072,7 @@ page 50983 "Assortment Card"
 
                                                 //Insert new line
                                                 AssortDetailsRec.Reset();
-                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                 AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."Lot No.");
 
                                                 if AssortDetailsRec.FindSet() then begin
@@ -2080,7 +2083,7 @@ page 50983 "Assortment Card"
 
                                                             //Find the correct column for the GMT size
                                                             AssortDetails1Rec.Reset();
-                                                            AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                                                            AssortDetails1Rec.SetRange("Style No.", rec."No.");
                                                             AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                             AssortDetails1Rec.SetRange("Colour No", '*');
 
@@ -2561,7 +2564,7 @@ page 50983 "Assortment Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                         AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
 
@@ -2573,7 +2576,7 @@ page 50983 "Assortment Card"
 
                                                                     //Find the correct column for the GMT size
                                                                     AssortDetails1Rec.Reset();
-                                                                    AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                                                                    AssortDetails1Rec.SetRange("Style No.", rec."No.");
                                                                     AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                     AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
                                                                     AssortDetails1Rec.SetRange("Colour No", '*');
@@ -3046,7 +3049,7 @@ page 50983 "Assortment Card"
 
                                                 //Insert new line
                                                 AssortDetailsRec.Reset();
-                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                 AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                 AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
 
@@ -3202,7 +3205,7 @@ page 50983 "Assortment Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                         AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
                                                         AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -3345,7 +3348,7 @@ page 50983 "Assortment Card"
 
                                             //Insert new line
                                             AssortDetailsRec.Reset();
-                                            AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetailsRec.SetRange("Style No.", rec."No.");
                                             AssortDetailsRec.SetRange("lot No.", BOMLine4Rec."lot No.");
 
                                             if AssortDetailsRec.FindSet() then begin
@@ -3499,7 +3502,7 @@ page 50983 "Assortment Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
 
                                                         if AssortDetailsRec.FindSet() then begin
@@ -3510,7 +3513,7 @@ page 50983 "Assortment Card"
 
                                                                     //Find the correct column for the GMT size
                                                                     AssortDetails1Rec.Reset();
-                                                                    AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                                                                    AssortDetails1Rec.SetRange("Style No.", rec."No.");
                                                                     AssortDetails1Rec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                     AssortDetails1Rec.SetRange("Colour No", '*');
 
@@ -3995,7 +3998,7 @@ page 50983 "Assortment Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                         AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
 
@@ -4170,7 +4173,7 @@ page 50983 "Assortment Card"
 
                                                                 //Insert new line
                                                                 AssortDetailsRec.Reset();
-                                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                                AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                                 AssortDetailsRec.SetRange("lot No.", BOMLine4Rec."lot No.");
                                                                 AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
 
@@ -4180,7 +4183,7 @@ page 50983 "Assortment Card"
 
                                                                         //Find the correct column for the GMT size
                                                                         AssortDetails1Rec.Reset();
-                                                                        AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                                                                        AssortDetails1Rec.SetRange("Style No.", rec."No.");
                                                                         AssortDetails1Rec.SetRange("lot No.", BOMLine4Rec."lot No.");
                                                                         AssortDetails1Rec.SetRange("Colour No", '*');
 
@@ -4676,7 +4679,7 @@ page 50983 "Assortment Card"
 
                                                                 //Insert new line
                                                                 AssortDetailsRec.Reset();
-                                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                                AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                                 AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                                 AssortDetailsRec.SetRange("Colour No", BOMLine1Rec."GMT Color No.");
                                                                 AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -4839,7 +4842,7 @@ page 50983 "Assortment Card"
 
                                                         //Insert new line
                                                         AssortDetailsRec.Reset();
-                                                        AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                        AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                         AssortDetailsRec.SetRange("lot No.", BOMPOSelecRec."lot No.");
                                                         AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
 
@@ -5010,7 +5013,7 @@ page 50983 "Assortment Card"
 
                                                                 //Insert new line
                                                                 AssortDetailsRec.Reset();
-                                                                AssortDetailsRec.SetRange("Style No.", rec."Style No.");
+                                                                AssortDetailsRec.SetRange("Style No.", rec."No.");
                                                                 AssortDetailsRec.SetRange("lot No.", BOMLine4Rec."lot No.");
                                                                 AssortDetailsRec.SetRange("Country Code", BOMLine3Rec."Country Code");
 
@@ -5022,7 +5025,7 @@ page 50983 "Assortment Card"
 
                                                                             //Find the correct column for the GMT size
                                                                             AssortDetails1Rec.Reset();
-                                                                            AssortDetails1Rec.SetRange("Style No.", rec."Style No.");
+                                                                            AssortDetails1Rec.SetRange("Style No.", rec."No.");
                                                                             AssortDetails1Rec.SetRange("lot No.", BOMLine4Rec."lot No.");
                                                                             AssortDetails1Rec.SetRange("Colour No", '*');
                                                                             AssortDetails1Rec.SetRange("Country Code", BOMLine3Rec."Country Code");
@@ -5486,7 +5489,7 @@ page 50983 "Assortment Card"
 
 
 
-                    //Write to MRP
+                    //////////////////////////////////////Write to MRP
                     BOMLineAutoGenRec.Reset();
                     BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
                     BOMLineAutoGenRec.SetFilter("Include in PO", '=%1', true);
@@ -5498,7 +5501,7 @@ page 50983 "Assortment Card"
 
                     //Delete Old Sales order line
                     AssortDetailRec.Reset();
-                    AssortDetailRec.SetRange("Style No.", rec."Style No.");
+                    AssortDetailRec.SetRange("Style No.", rec."No.");
                     AssortDetailRec.SetRange("lot No.", rec."Lot No.");
                     AssortDetailRec.SetFilter("Colour Name", '<>%1', '*');
 
@@ -5514,15 +5517,12 @@ page 50983 "Assortment Card"
 
 
                     AssortDetailRec.Reset();
-                    AssortDetailRec.SetRange("Style No.", rec."Style No.");
+                    AssortDetailRec.SetRange("Style No.", rec."No.");
                     AssortDetailRec.SetRange("lot No.", rec."Lot No.");
                     AssortDetailRec.SetFilter("Colour Name", '<>%1', '*');
 
                     if AssortDetailRec.FindSet() then begin
                         repeat
-
-                            //if (Mode = 'NEW') then begin // Sales order not created (NEW PO)
-
                             // //Check for the Auto gen line
                             // BOMLineAutoGenRec.Reset();
                             // BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
@@ -5540,7 +5540,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."1" <> '') and (AssortDetailRec."1" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5556,7 +5556,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."2" <> '') and (AssortDetailRec."2" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5572,7 +5572,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."3" <> '') and (AssortDetailRec."3" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5588,7 +5588,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."4" <> '') and (AssortDetailRec."4" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5604,7 +5604,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."5" <> '') and (AssortDetailRec."5" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5620,7 +5620,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."6" <> '') and (AssortDetailRec."6" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5636,7 +5636,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."7" <> '') and (AssortDetailRec."7" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5652,7 +5652,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."8" <> '') and (AssortDetailRec."8" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5668,7 +5668,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."9" <> '') and (AssortDetailRec."9" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5684,7 +5684,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."10" <> '') and (AssortDetailRec."10" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5700,7 +5700,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."11" <> '') and (AssortDetailRec."11" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5716,7 +5716,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."12" <> '') and (AssortDetailRec."12" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5732,7 +5732,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."13" <> '') and (AssortDetailRec."13" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5748,7 +5748,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."14" <> '') and (AssortDetailRec."14" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5764,7 +5764,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."15" <> '') and (AssortDetailRec."15" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5780,7 +5780,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."16" <> '') and (AssortDetailRec."16" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5796,7 +5796,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."17" <> '') and (AssortDetailRec."17" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5812,7 +5812,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."18" <> '') and (AssortDetailRec."18" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5828,7 +5828,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."19" <> '') and (AssortDetailRec."19" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5844,7 +5844,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."20" <> '') and (AssortDetailRec."20" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5860,7 +5860,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."21" <> '') and (AssortDetailRec."21" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5876,7 +5876,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."22" <> '') and (AssortDetailRec."22" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5892,7 +5892,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."23" <> '') and (AssortDetailRec."23" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5908,7 +5908,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."24" <> '') and (AssortDetailRec."24" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5924,7 +5924,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."25" <> '') and (AssortDetailRec."25" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5940,7 +5940,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."26" <> '') and (AssortDetailRec."26" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5956,7 +5956,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."27" <> '') and (AssortDetailRec."27" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5972,7 +5972,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."28" <> '') and (AssortDetailRec."28" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -5988,7 +5988,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."29" <> '') and (AssortDetailRec."29" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6004,7 +6004,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."30" <> '') and (AssortDetailRec."30" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6020,7 +6020,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."31" <> '') and (AssortDetailRec."31" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6036,7 +6036,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."32" <> '') and (AssortDetailRec."32" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6052,7 +6052,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."33" <> '') and (AssortDetailRec."33" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6068,7 +6068,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."34" <> '') and (AssortDetailRec."34" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6084,7 +6084,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."35" <> '') and (AssortDetailRec."35" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6100,7 +6100,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."36" <> '') and (AssortDetailRec."36" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6116,7 +6116,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."37" <> '') and (AssortDetailRec."37" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6132,7 +6132,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."38" <> '') and (AssortDetailRec."38" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6148,7 +6148,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."39" <> '') and (AssortDetailRec."39" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6164,7 +6164,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."40" <> '') and (AssortDetailRec."40" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6180,7 +6180,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."41" <> '') and (AssortDetailRec."41" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6196,7 +6196,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."42" <> '') and (AssortDetailRec."42" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6212,7 +6212,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."43" <> '') and (AssortDetailRec."43" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6228,7 +6228,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."44" <> '') and (AssortDetailRec."44" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6244,7 +6244,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."45" <> '') and (AssortDetailRec."45" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6260,7 +6260,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."46" <> '') and (AssortDetailRec."46" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6276,7 +6276,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."47" <> '') and (AssortDetailRec."47" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6292,7 +6292,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."48" <> '') and (AssortDetailRec."48" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6308,7 +6308,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."49" <> '') and (AssortDetailRec."49" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6324,7 +6324,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."50" <> '') and (AssortDetailRec."50" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6340,7 +6340,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."51" <> '') and (AssortDetailRec."51" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6356,7 +6356,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."52" <> '') and (AssortDetailRec."52" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6372,7 +6372,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."53" <> '') and (AssortDetailRec."53" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6388,7 +6388,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."54" <> '') and (AssortDetailRec."54" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6404,7 +6404,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."55" <> '') and (AssortDetailRec."55" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6420,7 +6420,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."56" <> '') and (AssortDetailRec."56" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6436,7 +6436,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."57" <> '') and (AssortDetailRec."57" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6452,7 +6452,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."58" <> '') and (AssortDetailRec."58" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6468,7 +6468,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."59" <> '') and (AssortDetailRec."59" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6484,7 +6484,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."60" <> '') and (AssortDetailRec."60" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6500,7 +6500,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."61" <> '') and (AssortDetailRec."61" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6516,7 +6516,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."62" <> '') and (AssortDetailRec."62" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6532,7 +6532,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."63" <> '') and (AssortDetailRec."63" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6548,7 +6548,7 @@ page 50983 "Assortment Card"
                                         if (AssortDetailRec."64" <> '') and (AssortDetailRec."64" <> '0') then begin
 
                                             AssortDetail1Rec.Reset();
-                                            AssortDetail1Rec.SetRange("Style No.", rec."Style No.");
+                                            AssortDetail1Rec.SetRange("Style No.", rec."No.");
                                             AssortDetail1Rec.SetRange("Lot No.", AssortDetailRec."Lot No.");
                                             AssortDetail1Rec.SetFilter("Colour Name", '=%1', '*');
 
@@ -6564,42 +6564,55 @@ page 50983 "Assortment Card"
 
                                 StatusGB := 1;
                             end;
-                        // end
-                        // else
-                        //     Error('Sales Order already created.');
-
                         until AssortDetailRec.Next() = 0;
 
-                        // AutoGenRec.Reset();
-                        // AutoGenRec.SetRange("No.", rec."No");
-                        // AutoGenRec.SetFilter("Include in PO", '=%1', true);
-                        // if AutoGenRec.FindSet() then
-                        //     AutoGenRec.ModifyAll("Included in PO", true);
+                        AutoGenRec.Reset();
+                        AutoGenRec.SetRange("No.", BOMRec.No);
+                        AutoGenRec.SetFilter("Include in PO", '=%1', true);
+                        if AutoGenRec.FindSet() then
+                            AutoGenRec.ModifyAll("Included in PO", true);
 
 
-                        // AutoGenRec.Reset();
-                        // AutoGenRec.SetRange("No.", rec."No");
-                        // AutoGenRec.SetFilter("Include in PO", '=%1', true);
-                        // if AutoGenRec.FindSet() then
-                        //     AutoGenRec.ModifyAll("Include in PO", false);
+                        AutoGenRec.Reset();
+                        AutoGenRec.SetRange("No.", BOMRec.No);
+                        AutoGenRec.SetFilter("Include in PO", '=%1', true);
+                        if AutoGenRec.FindSet() then
+                            AutoGenRec.ModifyAll("Include in PO", false);
 
 
-                        // //Create Prod orders                       
-                        // SalesHeaderRec.Reset();
-                        // SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
-                        // SalesHeaderRec.SetRange("Style No", rec."Style No.");
-                        // SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::FG);
-                        // if SalesHeaderRec.FindSet() then begin
+                        //Delete Prod orders                      
+                        SalesHeaderRec.Reset();
+                        SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
+                        SalesHeaderRec.SetRange("Style No", rec."Style No.");
+                        SalesHeaderRec.SetRange(Lot, rec."Lot No.");
+                        SalesHeaderRec.SetFilter(EntryType, '=%1', SalesHeaderRec.EntryType::FG);
 
-                        //     //Window.Open(TextCon1);
-                        //     repeat
-                        //         ProOrderNo := CodeUnitNavApp.CreateProdOrder(SalesHeaderRec."No.", 'Bulk');
-                        //     //Window.Update(1, ProOrderNo);
-                        //     //Sleep(100);
-                        //     until SalesHeaderRec.Next() = 0;
-                        //     //Window.Close();
+                        if SalesHeaderRec.FindSet() then begin
+                            ProOrderHedRec.Reset();
+                            ProOrderHedRec.SetRange("Source Type", ProOrderHedRec."Source Type"::"Sales Header");
+                            ProOrderHedRec.SetRange("Source No.", SalesHeaderRec."No.");
 
-                        //end;
+                            if ProOrderHedRec.FindSet() then begin
+                                //Delete Prod order lines
+                                ProOrderLineRec.Reset();
+                                ProOrderLineRec.SetRange("Prod. Order No.", ProOrderHedRec."No.");
+                                if ProOrderLineRec.FindSet() then
+                                    ProOrderLineRec.DeleteAll();
+
+                                //Delete Prod order header
+                                ProOrderHedRec.Delete();
+                            end;
+                        end;
+
+
+                        //Create Prod orders                       
+                        SalesHeaderRec.Reset();
+                        SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
+                        SalesHeaderRec.SetRange("Style No", rec."Style No.");
+                        SalesHeaderRec.SetRange(Lot, rec."Lot No.");
+                        SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::FG);
+                        if SalesHeaderRec.FindSet() then
+                            ProOrderNo := CodeUnitNavApp.CreateProdOrder(SalesHeaderRec."No.", 'Bulk');
 
                         Message('Completed');
                     end
@@ -6670,7 +6683,7 @@ page 50983 "Assortment Card"
                     repeat
                         //Get Style Colors
                         BOMAssortRec.Reset();
-                        BOMAssortRec.SetRange("Style No.", rec."Style No.");
+                        BOMAssortRec.SetRange("Style No.", rec."No.");
                         BOMAssortRec.SetRange(Type, '1');
                         BOMAssortRec.SetRange("lot No.", BOMLInePORec."lot No.");
                         BOMAssortRec.SetCurrentKey("Style No.", "lot No.", "Colour No");
@@ -6769,7 +6782,7 @@ page 50983 "Assortment Card"
                     repeat
                         //Get Style Sizes
                         BOMAssortRec.Reset();
-                        BOMAssortRec.SetRange("Style No.", rec."Style No.");
+                        BOMAssortRec.SetRange("Style No.", rec."No.");
                         BOMAssortRec.SetRange("lot No.", BOMLInePORec."lot No.");
                         BOMAssortRec.SetCurrentKey("Style No.", "lot No.", "GMT Size");
                         BOMAssortRec.FindSet();
@@ -6870,7 +6883,7 @@ page 50983 "Assortment Card"
                     repeat //    
                            //Get Style country
                         BOMAssortRec.Reset();
-                        BOMAssortRec.SetRange("Style No.", rec."Style No.");
+                        BOMAssortRec.SetRange("Style No.", rec."No.");
                         BOMAssortRec.SetRange(Type, '2');
                         BOMAssortRec.SetRange("lot No.", BOMLInePORec."lot No."); //
                         BOMAssortRec.SetCurrentKey("Style No.", "lot No.", "Country Code");  //     
@@ -6961,7 +6974,7 @@ page 50983 "Assortment Card"
                     repeat //    
                            //Get Style country
                         StyleMasterPORec.Reset();
-                        StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+                        StyleMasterPORec.SetRange("Style No.", rec."No.");
                         StyleMasterPORec.SetRange("lot No.", BOMLInePORec."lot No."); //
                         StyleMasterPORec.SetCurrentKey("Style No.", "lot No.");  //     
                         StyleMasterPORec.FindSet();
@@ -7022,7 +7035,7 @@ page 50983 "Assortment Card"
 
         //Get unit price
         StyleMasPORec.Reset();
-        StyleMasPORec.SetRange("Style No.", rec."Style No.");
+        StyleMasPORec.SetRange("Style No.", rec."No.");
         StyleMasPORec.SetRange("Lot No.", Lot);
         if StyleMasPORec.FindSet() then
             FOBPcsPrice := StyleMasPORec."Unit Price";
@@ -7088,9 +7101,9 @@ page 50983 "Assortment Card"
             if ProdBOM = '' then begin
                 CreateSalesOrder(ItemNo, Lot, Qty, FOBPcsPrice);
                 CreateProdBOM(BOMNo, Color, size, Lot, ItemNo, ItemDesc);
-            end;
-            //else
-            // UpdateProdBOM(Color, size, Lot, ItemNo, ProdBOM);
+            end
+            else
+                UpdateProdBOM(BOMNo, Color, size, Lot, ItemNo, ProdBOM);
 
         end;
     end;
@@ -7118,7 +7131,7 @@ page 50983 "Assortment Card"
 
         //Get location for the style
         StyMasterRec.Reset();
-        StyMasterRec.SetRange("No.", rec."Style No.");
+        StyMasterRec.SetRange("No.", rec."No.");
         StyMasterRec.FindSet();
 
         if StyMasterRec."Factory Code" = '' then
@@ -7127,7 +7140,7 @@ page 50983 "Assortment Card"
         // Get Contract No
         //Done By sachith on 15/03/23
         ContractLCStyleRec.Reset();
-        ContractLCStyleRec.SetRange("Style No.", Rec."Style No.");
+        ContractLCStyleRec.SetRange("Style No.", Rec."No.");
 
         if ContractLCStyleRec.FindSet() then begin
             ContractLcMasterRec.Reset();
@@ -7138,12 +7151,12 @@ page 50983 "Assortment Card"
 
         //Get ship date
         StyMasterPORec.Reset();
-        StyMasterPORec.SetRange("Style No.", rec."Style No.");
+        StyMasterPORec.SetRange("Style No.", rec."No.");
         StyMasterPORec.SetRange("Lot No.", Lot);
         StyMasterPORec.FindSet();
 
         AssoRec.Reset();
-        AssoRec.SetRange("Style No.", rec."Style No.");
+        AssoRec.SetRange("Style No.", rec."No.");
         AssoRec.SetRange("Lot No.", Lot);
         AssoRec.SetFilter("Colour Name", '<>%1', '*');
 
@@ -7347,7 +7360,6 @@ page 50983 "Assortment Card"
                 if AutoGenRec."Dimension Name." = '-' then
                     Error('Invalid Dimension : %1', AutoGenRec."Dimension Name.");
 
-
                 if (AutoGenRec."Include in PO" = true) or (AutoGenRec."Included in PO" = true) then begin
 
                     BOMLineEstimateRec.Reset();
@@ -7371,11 +7383,9 @@ page 50983 "Assortment Card"
 
                                     if MainCateRec."Prod. Posting Group Code" = '' then
                                         Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
-
                                 end
                                 else
                                     Error('Cannot find Main Category details.');
-
 
                                 //Generate description
                                 Description := AutoGenRec."Item Name";
@@ -7394,9 +7404,6 @@ page 50983 "Assortment Card"
                                     if AutoGenRec."GMT Size Name" <> '' then
                                         Description := Description + ' / ' + AutoGenRec."GMT Size Name";
                                 end;
-
-                                // if Description = 'COTTON/POLY/STRETCH DENIM / BROOK GREEN / -' then
-                                //     Message(format(AutoGenRec.Requirment));
 
                                 //Check whether item exists
                                 ItemMasterRec.Reset();
@@ -7423,7 +7430,6 @@ page 50983 "Assortment Card"
                                     ItemMasterRec.Modify();
                                 end
                                 else begin
-
                                     NextItemNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."RM Nos.", Today(), true);
 
                                     ItemMasterRec.Init();
@@ -7464,10 +7470,7 @@ page 50983 "Assortment Card"
                                     ItemMasterRec."Last Direct Cost" := AutoGenRec.Rate;
                                     ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
                                     ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
-                                    //ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
                                     ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
-                                    //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
-
 
                                     if MainCateRec.LOTTracking then begin
                                         ItemMasterRec.Validate("Item Tracking Code", NavAppSetupRec."LOT Tracking Code");
@@ -7485,9 +7488,7 @@ page 50983 "Assortment Card"
                                     ItemMasterRec.Validate("Base Unit of Measure", AutoGenRec."Unit N0.");
                                     ItemMasterRec.Validate("Replenishment System", 0);
                                     ItemMasterRec.Validate("Manufacturing Policy", 1);
-                                    //ItemMasterRec."Location Filter" Validate();
                                     ItemMasterRec.Insert(true);
-
                                 end;
 
                                 UOMRec.Reset();
@@ -7500,7 +7501,6 @@ page 50983 "Assortment Card"
 
                                 if (AutoGenRec.Type = AutoGenRec.Type::Doz) and (AutoGenRec."Unit N0." = 'DOZ') then
                                     ConvFactor := 1;
-
 
                                 //Generate Production BOM Lines
                                 ProdBOMLineRec.Reset();
@@ -7520,7 +7520,6 @@ page 50983 "Assortment Card"
                                     ProdBOMLine1Rec.Validate("No.", NextItemNo);
                                     ProdBOMLine1Rec.Description := Description;
                                     ProdBOMLine1Rec.Validate("Unit of Measure Code", AutoGenRec."Unit N0.");
-                                    //ProdBOMLine1Rec.Validate(Quantity, AutoGenRec.Consumption);  
 
                                     if AutoGenRec.Type = AutoGenRec.Type::Pcs then
                                         ConsumptionTot := AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100
@@ -7553,21 +7552,16 @@ page 50983 "Assortment Card"
                                     if ConsumptionTot = 0 then
                                         ConsumptionTot := 1;
 
-
                                     //ProdBOMLineRec.Validate(Quantity, ProdBOMLineRec."Quantity" + AutoGenRec.Consumption);
                                     ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + ConsumptionTot;
                                     ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + ConsumptionTot;
                                     ProdBOMLineRec.Modify();
-
                                 end;
 
                                 //Create Worksheet Entry
                                 //CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name");
 
-                                //Update Auto generate
-                                // AutoGenRec."Included in PO" := true;
-                                // AutoGenRec."Include in PO" := false;
-                                //AutoGenRec."Production BOM No." := NextBomNo;
+                                //Update Auto generate                               
                                 AutoGenRec."New Item No." := NextItemNo;
                                 AutoGenRec.Modify();
 
@@ -7577,7 +7571,6 @@ page 50983 "Assortment Card"
 
                                 if ItemMasterRec.FindSet() then
                                     ItemMasterRec.ModifyAll("Production BOM No.", NextBomNo);
-
 
                                 AutoGenPrBOMRec.Reset();
                                 AutoGenPrBOMRec.SetRange("No.", BOMNo);
@@ -7596,25 +7589,10 @@ page 50983 "Assortment Card"
                                     AutoGenPrBOMRec."Production BOM No." := NextBomNo;
                                     AutoGenPrBOMRec.Insert();
                                 end;
-
-
-                                // AutoGenPrBOMRec.Insert()();
-                                // AutoGenPrBOMRec.SetRange("No.", AutoGenRec."No.");
-                                // AutoGenPrBOMRec.SetRange("Item No.", AutoGenRec."Item No.");
-                                // AutoGenPrBOMRec.SetRange("Line No.", AutoGenRec."Line No.");
-
-                                // if AutoGenPrBOMRec.FindSet() then begin
-                                //     AutoGenPrBOMRec."Production BOM No." := NextBomNo;
-                                //     AutoGenPrBOMRec.Modify();
-                                // end;                                
-
                             end;
                         end;
-
                     end;
-
                 end;
-
             until AutoGenRec.Next() = 0;
 
             //StatusGB := 1;
@@ -7631,7 +7609,300 @@ page 50983 "Assortment Card"
 
     end;
 
+    procedure UpdateProdBOM(BOMNo: code[20]; Color: code[20]; Size: Code[20]; Lot: Code[20]; FGItem: Code[20]; ProdBOM: Code[20])
+    var
+        ItemCategoryRec: Record "Item Category";
+        NoSeriesManagementCode: Codeunit NoSeriesManagement;
+        ProdBOMHeaderRec: Record "Production BOM Header";
+        ProdBOMLineRec: Record "Production BOM Line";
+        ProdBOMLine1Rec: Record "Production BOM Line";
+        AutoGenRec: Record "BOM Line AutoGen";
+        AutoGenPrBOMRec: Record "BOM Line AutoGen ProdBOM";
+        BOMLineEstimateRec: Record "BOM Line Estimate";
+        MainCateRec: Record "Main Category";
+        NavAppSetupRec: Record "NavApp Setup";
+        ItemUinitRec: Record "Item Unit of Measure";
+        LineNo: Integer;
+        ItemMasterRec: Record item;
+        Description: Text[500];
+        NextItemNo: Code[20];
+        UOMRec: Record "Unit of Measure";
+        ConvFactor: Decimal;
+        ConsumptionTot: Decimal;
+    begin
+        //Get Worksheet line no
+        NavAppSetupRec.Reset();
+        NavAppSetupRec.FindSet();
 
+        AutoGenRec.Reset();
+        AutoGenRec.SetCurrentKey("Main Category No.", "Item No.", "GMT Color No.", "GMT Size Name", "Lot No.");
+        AutoGenRec.Ascending(true);
+        AutoGenRec.SetRange("No.", BOMNo);
+        AutoGenRec.SetRange("Lot No.", lot);
+        AutoGenRec.SetRange("GMT Color No.", Color);
+        //AutoGenRec.SetRange("GMT Size Name", Size);
+
+        if AutoGenRec.FindSet() then begin
+
+            repeat
+
+                if (AutoGenRec."Include in PO" = true) and (AutoGenRec."Included in PO" = false) then begin
+
+                    BOMLineEstimateRec.Reset();
+                    BOMLineEstimateRec.SetRange("No.", BOMNo);
+                    BOMLineEstimateRec.SetRange("Item No.", AutoGenRec."Item No.");
+                    BOMLineEstimateRec.SetRange("Placement of GMT", AutoGenRec."Placement of GMT");
+
+                    if BOMLineEstimateRec.FindSet() then begin
+
+                        if BOMLineEstimateRec.Reconfirm = false then begin
+
+                            if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
+
+                                //Get Dimenion only status
+                                MainCateRec.Reset();
+                                MainCateRec.SetRange("No.", AutoGenRec."Main Category No.");
+                                if MainCateRec.FindSet() then begin
+                                    if MainCateRec."Inv. Posting Group Code" = '' then
+                                        Error('Inventory Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
+
+                                    if MainCateRec."Prod. Posting Group Code" = '' then
+                                        Error('Product Posting Group is not setup for the Main Category : %1. Cannot proceed.', AutoGenRec."Main Category Name");
+                                end
+                                else
+                                    Error('Cannot find Main Category details.');
+
+                                //Generate description
+                                Description := AutoGenRec."Item Name";
+
+                                if AutoGenRec."Item Color Name" <> '' then
+                                    Description := Description + ' / ' + AutoGenRec."Item Color Name";
+
+                                if AutoGenRec."Article Name." <> '' then
+                                    Description := Description + ' / ' + AutoGenRec."Article Name.";
+
+                                if MainCateRec.DimensionOnly then begin
+                                    if AutoGenRec."Dimension Name." <> '' then
+                                        Description := Description + ' / ' + AutoGenRec."Dimension Name.";
+                                end
+                                else begin
+                                    if AutoGenRec."GMT Size Name" <> '' then
+                                        Description := Description + ' / ' + AutoGenRec."GMT Size Name";
+                                end;
+
+                                //Check whether item exists
+                                ItemMasterRec.Reset();
+                                ItemMasterRec.SetRange(Description, Description);
+
+                                if ItemMasterRec.FindSet() then begin
+                                    NextItemNo := ItemMasterRec."No.";
+
+                                    ItemUinitRec.Reset();
+                                    ItemUinitRec.SetRange("Item No.", NextItemNo);
+                                    ItemUinitRec.SetRange(Code, AutoGenRec."Unit N0.");
+
+                                    if not ItemUinitRec.FindSet() then begin
+                                        //Insert into Item unit of measure
+                                        ItemUinitRec.Init();
+                                        ItemUinitRec."Item No." := NextItemNo;
+                                        ItemUinitRec.Code := AutoGenRec."Unit N0.";
+                                        ItemUinitRec."Qty. per Unit of Measure" := 1;
+                                        ItemUinitRec.Insert();
+                                    end;
+
+                                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
+                                    ItemMasterRec.Modify();
+                                end
+                                else begin
+
+                                    NextItemNo := NoSeriesManagementCode.GetNextNo(NavAppSetupRec."RM Nos.", Today(), true);
+
+                                    ItemMasterRec.Init();
+                                    ItemMasterRec."No." := NextItemNo;
+                                    ItemMasterRec.Description := Description;
+                                    ItemMasterRec."Main Category No." := AutoGenRec."Main Category No.";
+                                    ItemMasterRec."Main Category Name" := AutoGenRec."Main Category Name";
+                                    ItemMasterRec."Rounding Precision" := 0.00001;
+
+                                    //Check for Item category
+                                    ItemCategoryRec.Reset();
+                                    ItemCategoryRec.SetRange(Code, AutoGenRec."Main Category No.");
+                                    if not ItemCategoryRec.FindSet() then begin
+                                        ItemCategoryRec.Init();
+                                        ItemCategoryRec.Code := AutoGenRec."Main Category No.";
+                                        ItemCategoryRec.Description := AutoGenRec."Main Category Name";
+                                        ItemCategoryRec.Insert();
+                                    end;
+
+                                    ItemMasterRec."Item Category Code" := AutoGenRec."Main Category No.";
+
+                                    ItemMasterRec."Sub Category No." := AutoGenRec."Sub Category No.";
+                                    ItemMasterRec."Sub Category Name" := AutoGenRec."Sub Category Name";
+                                    ItemMasterRec."Color No." := AutoGenRec."Item Color No.";
+                                    ItemMasterRec."Color Name" := AutoGenRec."Item Color Name";
+
+                                    if MainCateRec.DimensionOnly then
+                                        ItemMasterRec."Size Range No." := AutoGenRec."Dimension Name."
+                                    else
+                                        ItemMasterRec."Size Range No." := AutoGenRec."GMT Size Name";
+
+                                    ItemMasterRec."Article No." := AutoGenRec."Article No.";
+                                    ItemMasterRec."Dimension Width No." := AutoGenRec."Dimension No.";
+                                    ItemMasterRec.Type := ItemMasterRec.Type::Inventory;
+                                    ItemMasterRec."Unit Cost" := AutoGenRec.Rate;
+                                    ItemMasterRec."Unit Price" := AutoGenRec.Rate;
+                                    ItemMasterRec."Last Direct Cost" := AutoGenRec.Rate;
+                                    ItemMasterRec.validate("Gen. Prod. Posting Group", MainCateRec."Prod. Posting Group Code");
+                                    ItemMasterRec.validate("Inventory Posting Group", MainCateRec."Inv. Posting Group Code");
+                                    //ItemMasterRec."Inventory Posting Group" := NavAppSetupRec."Inventory Posting Group-RM";
+                                    ItemMasterRec."VAT Prod. Posting Group" := 'ZERO';
+                                    //ItemMasterRec."VAT Bus. Posting Gr. (Price)" := 'ZERO';
+
+                                    if MainCateRec.LOTTracking then begin
+                                        ItemMasterRec.Validate("Item Tracking Code", NavAppSetupRec."LOT Tracking Code");
+                                        ItemMasterRec."Lot Nos." := NavAppSetupRec."LOTTracking Nos.";
+                                    end;
+
+                                    //Insert into Item unit of measure
+                                    ItemUinitRec.Init();
+                                    ItemUinitRec."Item No." := NextItemNo;
+                                    ItemUinitRec.Code := AutoGenRec."Unit N0.";
+                                    ItemUinitRec."Qty. per Unit of Measure" := 1;
+
+                                    ItemUinitRec.Insert();
+
+                                    ItemMasterRec.Validate("Base Unit of Measure", AutoGenRec."Unit N0.");
+                                    ItemMasterRec.Validate("Replenishment System", 0);
+                                    ItemMasterRec.Validate("Manufacturing Policy", 1);
+                                    ItemMasterRec.Insert(true);
+
+                                end;
+
+
+                                //Update Status of the BOM to New
+                                ProdBOMHeaderRec.Reset();
+                                ProdBOMHeaderRec.SetRange("No.", ProdBOM);
+                                if ProdBOMHeaderRec.FindSet() then begin
+                                    ProdBOMHeaderRec.Validate(Status, 0);
+                                    ProdBOMHeaderRec.Modify();
+                                end;
+
+                                //get max line no
+                                ProdBOMLineRec.Reset();
+                                ProdBOMLineRec.SetRange("Production BOM No.", ProdBOM);
+
+                                if ProdBOMLineRec.FindLast() then
+                                    LineNo := ProdBOMLineRec."Line No.";
+
+                                UOMRec.Reset();
+                                UOMRec.SetRange(Code, AutoGenRec."Unit N0.");
+                                UOMRec.FindSet();
+                                ConvFactor := UOMRec."Converion Parameter";
+
+                                if ConvFactor = 0 then
+                                    ConvFactor := 1;
+
+                                if (AutoGenRec.Type = AutoGenRec.Type::Doz) and (AutoGenRec."Unit N0." = 'DOZ') then
+                                    ConvFactor := 1;
+
+                                //Generate Production BOM Lines
+                                ProdBOMLineRec.Reset();
+                                ProdBOMLineRec.SetCurrentKey("Production BOM No.", Description);
+                                ProdBOMLineRec.SetRange("Production BOM No.", ProdBOM);
+                                ProdBOMLineRec.SetRange(Description, Description);
+
+                                if not ProdBOMLineRec.FindSet() then begin    //Not existing bom item
+
+                                    LineNo += 10000;
+                                    ProdBOMLine1Rec.Init();
+                                    ProdBOMLine1Rec."Production BOM No." := ProdBOM;
+                                    ProdBOMLine1Rec."Line No." := LineNo;
+                                    ProdBOMLine1Rec.Type := ProdBOMLine1Rec.Type::Item;
+                                    ProdBOMLine1Rec.Validate("Main Category Code", AutoGenRec."Main Category No.");
+                                    ProdBOMLine1Rec.Validate("No.", NextItemNo);
+                                    ProdBOMLine1Rec.Description := Description;
+                                    ProdBOMLine1Rec.Validate("Unit of Measure Code", AutoGenRec."Unit N0.");
+
+                                    if AutoGenRec.Type = AutoGenRec.Type::Pcs then
+                                        ConsumptionTot := AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100
+                                    else
+                                        if AutoGenRec.Type = AutoGenRec.Type::Doz then
+                                            ConsumptionTot := (AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100) / 12;
+
+                                    if ConvFactor <> 0 then
+                                        ConsumptionTot := ConsumptionTot / ConvFactor;
+
+                                    if ConsumptionTot = 0 then
+                                        ConsumptionTot := 1;
+
+                                    ProdBOMLine1Rec.Quantity := ConsumptionTot;
+                                    ProdBOMLine1Rec."Quantity per" := ConsumptionTot;
+                                    ProdBOMLine1Rec.Insert(true);
+
+                                end
+                                else begin  // Update existing item qty
+
+                                    if AutoGenRec.Type = AutoGenRec.Type::Pcs then
+                                        ConsumptionTot := AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100
+                                    else
+                                        if AutoGenRec.Type = AutoGenRec.Type::Doz then
+                                            ConsumptionTot := (AutoGenRec.Consumption + (AutoGenRec.Consumption * AutoGenRec.WST) / 100) / 12;
+
+                                    if ConvFactor <> 0 then
+                                        ConsumptionTot := ConsumptionTot / ConvFactor;
+
+                                    if ConsumptionTot = 0 then
+                                        ConsumptionTot := 1;
+
+                                    ProdBOMLineRec."Quantity" := ProdBOMLineRec."Quantity" + ConsumptionTot;
+                                    ProdBOMLineRec."Quantity per" := ProdBOMLineRec."Quantity per" + ConsumptionTot;
+                                    ProdBOMLineRec.Modify();
+
+                                end;
+
+                                //Set status to release
+                                ProdBOMHeaderRec.Reset();
+                                ProdBOMHeaderRec.SetRange("No.", ProdBOM);
+                                if ProdBOMHeaderRec.FindSet() then begin
+                                    ProdBOMHeaderRec.Validate(Status, 1);
+                                    ProdBOMHeaderRec.Modify();
+                                end;
+
+                                //Create Worksheet Entry
+                                //CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name");
+
+                                //Update Auto generate                              
+                                AutoGenRec."New Item No." := NextItemNo;
+                                AutoGenRec.Modify();
+
+
+                                //insert Autogen prod bom table
+                                AutoGenPrBOMRec.Reset();
+                                AutoGenPrBOMRec.SetRange("No.", BOMNo);
+                                AutoGenPrBOMRec.SetRange("Item No.", AutoGenRec."Item No.");
+                                AutoGenPrBOMRec.SetRange("Line No.", AutoGenRec."Line No.");
+                                AutoGenPrBOMRec.SetRange("Production BOM No.", ProdBOM);
+
+                                if not AutoGenPrBOMRec.FindSet() then begin
+                                    AutoGenPrBOMRec.Init();
+                                    AutoGenPrBOMRec."No." := BOMNo;
+                                    AutoGenPrBOMRec."Item No." := AutoGenRec."Item No.";
+                                    AutoGenPrBOMRec."Line No." := AutoGenRec."Line No.";
+                                    AutoGenPrBOMRec."Created User" := UserId;
+                                    AutoGenPrBOMRec."Created Date" := WorkDate();
+                                    AutoGenPrBOMRec."Production BOM No." := ProdBOM;
+                                    AutoGenPrBOMRec.Insert();
+                                end;
+                                //StatusGB := 1;
+
+                            end;
+                        end;
+                    end;
+                end;
+            until AutoGenRec.Next() = 0;
+        end;
+    end;
 
     procedure InsertAutoGenProdBOM(ItemNo: Code[20]; LineNo: Integer)
     var
