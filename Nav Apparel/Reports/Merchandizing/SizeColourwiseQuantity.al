@@ -358,16 +358,63 @@ report 51077 SizeColourwiseQuantity
                     {
                         ApplicationArea = all;
                         Caption = 'Buyer';
-                        TableRelation = Customer."No.";
                         ShowMandatory = true;
+
+                        //Done by Sachith 30/03/23
+                        trigger OnLookup(var Tex: Text): Boolean
+                        var
+                            CustomerRec: Record Customer;
+                            UserRec: Record "User Setup";
+                            StyleReportRec: Record StyleReport;
+                        begin
+
+                            UserRec.Reset();
+                            UserRec.get(UserId);
+
+                            CustomerRec.Reset();
+                            if UserRec."Merchandizer All Group" = false then begin
+
+                                if UserRec."Merchandizer Group Name" <> '' then begin
+                                    CustomerRec.SetRange("Group Name", UserRec."Merchandizer Group Name");
+
+                                    if CustomerRec.FindSet() then begin
+                                        if Page.RunModal(22, CustomerRec) = Action::LookupOK then
+                                            BuyerNo := CustomerRec."No.";
+                                    end;
+                                end
+                                else
+                                    if Page.RunModal(22, CustomerRec) = Action::LookupOK then
+                                        BuyerNo := CustomerRec."No.";
+                            end
+                            else
+                                if Page.RunModal(22, CustomerRec) = Action::LookupOK then
+                                    BuyerNo := CustomerRec."No.";
+
+                        end;
                     }
 
                     field(StyleNum; StyleNum)
                     {
                         ApplicationArea = All;
                         Caption = 'Style';
-                        TableRelation = "Style Master"."No.";
                         ShowMandatory = true;
+
+                        // done By sachith On 31/02/23
+                        trigger OnLookup(var Text: Text): Boolean
+                        var
+                            StyleReportRec: Record StyleReport;
+                        begin
+
+                            StyleReportRec.Reset();
+                            StyleReportRec.SetCurrentKey("Style No");
+                            StyleReportRec.SetRange("Buyer No", BuyerNo);
+                            StyleReportRec.Ascending(false);
+
+                            if StyleReportRec.FindSet() then begin
+                                if Page.RunModal(51281, StyleReportRec) = Action::LookupOK then
+                                    StyleNum := StyleReportRec."Style No";
+                            end;
+                        end;
 
                     }
 
@@ -397,6 +444,55 @@ report 51077 SizeColourwiseQuantity
         }
     }
 
+    //Done By Sachith on 30/03/23
+    trigger OnInitReport()
+    var
+
+        StyleMasterRec: Record "Style Master";
+        UserSetupRec: Record "User Setup";
+        StyleReportRec: Record StyleReport;
+        StyleReport2Rec: Record StyleReport;
+        LoginSessionsRec: Record LoginSessions;
+
+    begin
+
+        LoginSessionsRec.Reset();
+        LoginSessionsRec.FindSet();
+
+        StyleReportRec.Reset();
+        StyleMasterRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+        if StyleReportRec.FindSet() then
+            StyleReportRec.DeleteAll();
+
+
+        UserSetupRec.Reset();
+        UserSetupRec.Get(UserId);
+
+        StyleMasterRec.Reset();
+
+        if UserSetupRec."Merchandizer Group Name" <> '' then
+            StyleMasterRec.SetRange("Merchandizer Group Name", UserSetupRec."Merchandizer Group Name");
+
+        if StyleMasterRec.FindSet() then begin
+            repeat
+
+                StyleReportRec.Reset();
+                StyleReportRec.SetRange("Style No", StyleMasterRec."No.");
+
+                if not StyleReportRec.FindSet() then begin
+
+                    StyleReport2Rec.Init();
+                    StyleReport2Rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                    StyleReport2Rec."Style Name" := StyleMasterRec."Style No.";
+                    StyleReport2Rec."Style No" := StyleMasterRec."No.";
+                    StyleReport2Rec."Buyer No" := StyleMasterRec."Buyer No.";
+                    StyleReport2Rec.Insert();
+
+                end;
+            until StyleMasterRec.Next() = 0;
+        end;
+        Commit();
+    end;
 
     var
 

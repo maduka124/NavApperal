@@ -1712,9 +1712,65 @@ page 50968 "Nav Apperal Role Center"
                     // }
                     action("Sample Prodcution Report")
                     {
-                        Caption = 'Sample Prodcution Report';
+                        Caption = 'Pattern Report';
                         Enabled = true;
-                        RunObject = report SampleProductionReport;
+                        RunObject = report PatternReport;
+                        ApplicationArea = all;
+                    }
+                    action("Pattern Cutting Report")
+                    {
+                        Caption = 'Pattern Cutting Report';
+                        Enabled = true;
+                        RunObject = report PatternCuttingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Fabric Cutting Report")
+                    {
+                        Caption = 'Fabric Cutting Report';
+                        Enabled = true;
+                        RunObject = report FabricCuttingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Sewing Report")
+                    {
+                        Caption = 'Sewing Report';
+                        Enabled = true;
+                        RunObject = report SewingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Quality Checking Report")
+                    {
+                        Caption = 'Quality Checking Report';
+                        Enabled = true;
+                        RunObject = report QualityCheckingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Send Merchant for Washing Report")
+                    {
+                        Caption = 'Send Merchant for Washing Report';
+                        Enabled = true;
+                        RunObject = report SendWashingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Receieve from Washing Report")
+                    {
+                        Caption = 'Receieve from Washing Report';
+                        Enabled = true;
+                        RunObject = report ReceieveFromWashingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Sample Finishing Report")
+                    {
+                        Caption = 'Sample Finishing Report';
+                        Enabled = true;
+                        RunObject = report SampleFinishingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Finishing Quality Report")
+                    {
+                        Caption = 'Finishing Quality Report';
+                        Enabled = true;
+                        RunObject = report FinishingQualityReport;
                         ApplicationArea = all;
                     }
 
