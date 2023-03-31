@@ -1710,7 +1710,7 @@ page 50968 "Nav Apperal Role Center"
                     //     RunObject = report HourlyProductionReport;
                     //     ApplicationArea = all;
                     // }
-                    action("Sample Prodcution Report")
+                    action("Pattern Report")
                     {
                         Caption = 'Pattern Report';
                         Enabled = true;

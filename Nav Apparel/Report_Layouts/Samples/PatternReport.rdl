@@ -38,7 +38,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>FINISHING FROM QUALITY</Value>
+                    <Value>PATTERN MAKER</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>16pt</FontSize>
@@ -55,7 +55,7 @@
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>0.00564cm</Top>
             <Left>4.01161cm</Left>
-            <Height>2.01466cm</Height>
+            <Height>1.91029cm</Height>
             <Width>10.11238cm</Width>
             <Style>
               <Border>
@@ -83,17 +83,17 @@
               </Border>
             </Style>
           </Image>
-          <Tablix Name="Tablix9">
+          <Tablix Name="Tablix1">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.64916cm</Width>
+                  <Width>5.67033cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>5.08234cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.60448cm</Width>
+                  <Width>3.62564cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.16133cm</Width>
@@ -105,7 +105,7 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox42">
+                        <Textbox Name="Textbox1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -161,7 +161,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox43">
+                        <Textbox Name="Textbox7">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -217,7 +217,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox45">
+                        <Textbox Name="Textbox12">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -273,7 +273,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox29">
+                        <Textbox Name="Textbox14">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -330,11 +330,11 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.58208cm</Height>
+                  <Height>0.51858cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Buyer_Name9">
+                        <Textbox Name="Buyer_Name">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -390,7 +390,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Brand_Name9">
+                        <Textbox Name="Brand_Name">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -446,7 +446,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Garment_Type9">
+                        <Textbox Name="Garment_Type">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -502,7 +502,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Qty9">
+                        <Textbox Name="Qty">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -513,6 +513,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -563,14 +564,14 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox129">
+                        <Textbox Name="Textbox73">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Quality_Finish_Checker.Value</Value>
+                                  <Value>=Fields!Pattern_Maker.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -591,7 +592,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox129</rd:DefaultName>
+                          <rd:DefaultName>Textbox73</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -614,7 +615,7 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Qty18">
+                        <Textbox Name="Qty11">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -686,16 +687,16 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>3.3255cm</Size>
+                    <Size>3.30434cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox126">
+                      <Textbox Name="Textbox67">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>FINISHING QUALITY</Value>
+                                <Value>PATTERN MAKER</Value>
                                 <Style>
                                   <FontFamily>Calibri</FontFamily>
                                   <FontWeight>Bold</FontWeight>
@@ -707,7 +708,7 @@
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox126</rd:DefaultName>
+                        <rd:DefaultName>Textbox67</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>Solid</Style>
@@ -748,27 +749,27 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Quality_Finish_Checker">
+                  <Group Name="Pattern_Maker">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!Quality_Finish_Checker.Value</GroupExpression>
+                      <GroupExpression>=Fields!Pattern_Maker.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Quality_Finish_Checker.Value</Value>
+                      <Value>=Fields!Pattern_Maker.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>3.3255cm</Size>
+                    <Size>3.30434cm</Size>
                     <CellContents>
-                      <Textbox Name="Quality_Finish_Checker">
+                      <Textbox Name="Pattern_Maker1">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>=Fields!Quality_Finish_Checker.Value</Value>
+                                <Value>=Fields!Pattern_Maker.Value</Value>
                                 <Style>
                                   <FontFamily>Calibri</FontFamily>
                                   <FontSize>9pt</FontSize>
@@ -781,7 +782,7 @@
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Quality_Finish_Checker</rd:DefaultName>
+                        <rd:DefaultName>Pattern_Maker1</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>Solid</Style>
@@ -801,7 +802,7 @@
                   </TablixHeader>
                   <TablixMembers>
                     <TablixMember>
-                      <Group Name="Details9" />
+                      <Group Name="Details" />
                     </TablixMember>
                     <TablixMember>
                       <KeepWithGroup>Before</KeepWithGroup>
@@ -811,10 +812,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>3.26803cm</Top>
-            <Left>0cm</Left>
-            <Height>1.6795cm</Height>
-            <Width>19.82281cm</Width>
+            <Top>3.2512cm</Top>
+            <Left>0.01258cm</Left>
+            <Height>1.616cm</Height>
+            <Width>19.84398cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -921,7 +922,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>5.0957cm</Height>
+        <Height>5.20153cm</Height>
         <Style />
       </Body>
       <Width>19.87773cm</Width>
@@ -1132,6 +1133,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="CompLogo">
           <DataField>CompLogo</DataField>
         </Field>
+        <Field Name="Pattern_Maker">
+          <DataField>Pattern_Maker</DataField>
+        </Field>
         <Field Name="Qty">
           <DataField>Qty</DataField>
         </Field>
@@ -1143,9 +1147,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Garment_Type">
           <DataField>Garment_Type</DataField>
-        </Field>
-        <Field Name="Finishing_Operator">
-          <DataField>Finishing_Operator</DataField>
         </Field>
         <Field Name="stDate">
           <DataField>stDate</DataField>
