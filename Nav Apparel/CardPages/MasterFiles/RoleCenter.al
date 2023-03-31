@@ -1759,6 +1759,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report ReceieveFromWashingReport;
                         ApplicationArea = all;
                     }
+                    action("Sample Finishing Report")
+                    {
+                        Caption = 'Sample Finishing Report';
+                        Enabled = true;
+                        RunObject = report SampleFinishingReport;
+                        ApplicationArea = all;
+                    }
                     action("Finishing Quality Report")
                     {
                         Caption = 'Finishing Quality Report';
