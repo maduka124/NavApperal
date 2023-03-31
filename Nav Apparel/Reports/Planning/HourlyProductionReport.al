@@ -118,6 +118,8 @@ report 50865 HourlyProductionReport
             { }
             column(CutInputToday; CutInputToday)
             { }
+            column(Lot_No_; "Lot No.")
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -481,7 +483,33 @@ report 50865 HourlyProductionReport
                     {
                         ApplicationArea = All;
                         Caption = 'Factory';
-                        TableRelation = Location.Code where("Sewing Unit" = filter(true));
+                        // TableRelation = Location.Code where("Sewing Unit" = filter(true));
+
+
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            LocationRec: Record Location;
+                            LocationRec2: Record Location;
+                            UserRec: Record "User Setup";
+                        begin
+                            LocationRec.Reset();
+                            UserRec.Reset();
+                            UserRec.Get(UserId);
+
+                            LocationRec2.Reset();
+                            LocationRec.Reset();
+                            LocationRec.SetRange(Code, UserRec."Factory Code");
+                            LocationRec.SetFilter("Sewing Unit", '=%1', true);
+                            if LocationRec.FindSet() then begin
+                                if Page.RunModal(15, LocationRec) = Action::LookupOK then begin
+                                    FactortFilter := LocationRec.Code;
+                                end;
+                            end
+                            else
+                                if Page.RunModal(15, LocationRec2) = Action::LookupOK then begin
+                                    FactortFilter := LocationRec2.Code;
+                                end;
+                        end;
                     }
 
                     field(FilterDate; FilterDate)
