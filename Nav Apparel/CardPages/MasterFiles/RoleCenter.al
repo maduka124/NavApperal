@@ -1712,9 +1712,23 @@ page 50968 "Nav Apperal Role Center"
                     // }
                     action("Sample Prodcution Report")
                     {
-                        Caption = 'Sample Prodcution Report';
+                        Caption = 'Pattern Report';
                         Enabled = true;
-                        RunObject = report SampleProductionReport;
+                        RunObject = report PatternReport;
+                        ApplicationArea = all;
+                    }
+                    action("Pattern Cutting Report")
+                    {
+                        Caption = 'Pattern Cutting Report';
+                        Enabled = true;
+                        RunObject = report PatternCuttingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Fabric Cutting Report")
+                    {
+                        Caption = 'Fabric Cutting Report';
+                        Enabled = true;
+                        RunObject = report FabricCuttingReport;
                         ApplicationArea = all;
                     }
 
