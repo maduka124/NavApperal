@@ -1,9 +1,9 @@
-report 51278 SampleProductionReport
+report 51278 SampleProductionReportALL
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Sample Production Report';
-    RDLCLayout = 'Report_Layouts/Samples/SampleProductionReport.rdl';
+    Caption = 'Pattern Report';
+    RDLCLayout = 'Report_Layouts/Samples/SampleProductionReportALL.rdl';
     DefaultLayout = RDLC;
 
 
