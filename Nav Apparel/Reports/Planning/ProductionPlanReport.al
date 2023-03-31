@@ -151,7 +151,7 @@ report 50621 ProductionPlanReport
                     WorkCenterRec.Reset();
                     WorkCenterRec.SetRange("No.", "Resource No.");
                     if WorkCenterRec.FindFirst() then begin
-                            WorkcenterNo := WorkCenterRec."Work Center Seq No";
+                        WorkcenterNo := WorkCenterRec."Work Center Seq No";
                     end;
 
                 end;
@@ -190,7 +190,32 @@ report 50621 ProductionPlanReport
                     {
                         ApplicationArea = All;
                         Caption = 'Factory';
-                        TableRelation = Location.Code where("Sewing Unit" = filter(true));
+
+
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            LocationRec: Record Location;
+                            LocationRec2: Record Location;
+                            UserRec: Record "User Setup";
+                        begin
+                            LocationRec.Reset();
+                            UserRec.Reset();
+                            UserRec.Get(UserId);
+
+                            LocationRec2.Reset();
+                            LocationRec.Reset();
+                            LocationRec.SetRange(Code, UserRec."Factory Code");
+                            LocationRec.SetFilter("Sewing Unit", '=%1', true);
+                            if LocationRec.FindSet() then begin
+                                if Page.RunModal(15, LocationRec) = Action::LookupOK then begin
+                                    FactoryFilter := LocationRec.Code;
+                                end;
+                            end
+                            else
+                                if Page.RunModal(15, LocationRec2) = Action::LookupOK then begin
+                                    FactoryFilter := LocationRec2.Code;
+                                end;
+                        end;
                     }
 
                     field(stDate; stDate)
