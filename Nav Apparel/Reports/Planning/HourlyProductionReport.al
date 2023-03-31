@@ -489,13 +489,14 @@ report 50865 HourlyProductionReport
                         trigger OnLookup(var texts: text): Boolean
                         var
                             LocationRec: Record Location;
+                            LocationRec2: Record Location;
                             UserRec: Record "User Setup";
                         begin
                             LocationRec.Reset();
                             UserRec.Reset();
                             UserRec.Get(UserId);
 
-
+                            LocationRec2.Reset();
                             LocationRec.Reset();
                             LocationRec.SetRange(Code, UserRec."Factory Code");
                             LocationRec.SetFilter("Sewing Unit", '=%1', true);
@@ -503,7 +504,11 @@ report 50865 HourlyProductionReport
                                 if Page.RunModal(15, LocationRec) = Action::LookupOK then begin
                                     FactortFilter := LocationRec.Code;
                                 end;
-                            end;
+                            end
+                            else
+                                if Page.RunModal(15, LocationRec2) = Action::LookupOK then begin
+                                    FactortFilter := LocationRec2.Code;
+                                end;
                         end;
                     }
 
