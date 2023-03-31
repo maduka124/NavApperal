@@ -1738,11 +1738,32 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report SewingReport;
                         ApplicationArea = all;
                     }
-                        action("Quality Checking Report")
+                    action("Quality Checking Report")
                     {
                         Caption = 'Quality Checking Report';
                         Enabled = true;
                         RunObject = report QualityCheckingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Send Merchant for Washing Report")
+                    {
+                        Caption = 'Send Merchant for Washing Report';
+                        Enabled = true;
+                        RunObject = report SendWashingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Receieve from Washing Report")
+                    {
+                        Caption = 'Receieve from Washing Report';
+                        Enabled = true;
+                        RunObject = report ReceieveFromWashingReport;
+                        ApplicationArea = all;
+                    }
+                    action("Finishing Quality Report")
+                    {
+                        Caption = 'Finishing Quality Report';
+                        Enabled = true;
+                        RunObject = report FinishingQualityReport;
                         ApplicationArea = all;
                     }
 

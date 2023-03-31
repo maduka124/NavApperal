@@ -38,7 +38,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>SEWING</Value>
+                    <Value>SEND MERCHANT FOR WASHING</Value>
                     <Style>
                       <FontFamily>Calibri</FontFamily>
                       <FontSize>16pt</FontSize>
@@ -53,9 +53,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
-            <Top>0cm</Top>
+            <Top>0.00564cm</Top>
             <Left>4.01161cm</Left>
-            <Height>1.82562cm</Height>
+            <Height>1.86795cm</Height>
             <Width>10.11238cm</Width>
             <Style>
               <Border>
@@ -83,7 +83,7 @@
               </Border>
             </Style>
           </Image>
-          <Tablix Name="Tablix4">
+          <Tablix Name="Tablix6">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
@@ -93,7 +93,7 @@
                   <Width>5.08234cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.64681cm</Width>
+                  <Width>3.60448cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.16133cm</Width>
@@ -105,7 +105,7 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox4">
+                        <Textbox Name="Textbox6">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -161,7 +161,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox20">
+                        <Textbox Name="Textbox28">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -217,7 +217,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox22">
+                        <Textbox Name="Textbox30">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -273,7 +273,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox19">
+                        <Textbox Name="Textbox23">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -334,7 +334,7 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Buyer_Name4">
+                        <Textbox Name="Buyer_Name6">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -379,19 +379,18 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
+                            <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Brand_Name4">
+                        <Textbox Name="Brand_Name6">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -436,7 +435,7 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
+                            <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -447,7 +446,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Garment_Type4">
+                        <Textbox Name="Garment_Type6">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -492,7 +491,7 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
+                            <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -503,7 +502,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Qty4">
+                        <Textbox Name="Qty6">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -549,7 +548,7 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
+                            <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -565,14 +564,14 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox97">
+                        <Textbox Name="Textbox105">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Sewing_Operator.Value</Value>
+                                  <Value>=Fields!Wash_Sender.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -593,7 +592,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox97</rd:DefaultName>
+                          <rd:DefaultName>Textbox105</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -602,7 +601,7 @@
                             <LeftBorder>
                               <Style>None</Style>
                             </LeftBorder>
-                            <VerticalAlign>Middle</VerticalAlign>
+                            <VerticalAlign>Top</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -616,7 +615,7 @@
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Qty14">
+                        <Textbox Name="Qty15">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -690,14 +689,14 @@
                   <TablixHeader>
                     <Size>3.3255cm</Size>
                     <CellContents>
-                      <Textbox Name="Textbox94">
+                      <Textbox Name="Textbox102">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>SAMPLE SEWING</Value>
+                                <Value>SEND TO WASH</Value>
                                 <Style>
                                   <FontFamily>Calibri</FontFamily>
                                   <FontWeight>Bold</FontWeight>
@@ -709,7 +708,7 @@
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Textbox94</rd:DefaultName>
+                        <rd:DefaultName>Textbox102</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>Solid</Style>
@@ -750,27 +749,27 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Sewing_Operator">
+                  <Group Name="Wash_Sender">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!Sewing_Operator.Value</GroupExpression>
+                      <GroupExpression>=Fields!Wash_Sender.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!Sewing_Operator.Value</Value>
+                      <Value>=Fields!Wash_Sender.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
                     <Size>3.3255cm</Size>
                     <CellContents>
-                      <Textbox Name="Sewing_Operator">
+                      <Textbox Name="Wash_Sender">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>=Fields!Sewing_Operator.Value</Value>
+                                <Value>=Fields!Wash_Sender.Value</Value>
                                 <Style>
                                   <FontFamily>Calibri</FontFamily>
                                   <FontSize>9pt</FontSize>
@@ -783,7 +782,7 @@
                             </Style>
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Sewing_Operator</rd:DefaultName>
+                        <rd:DefaultName>Wash_Sender</rd:DefaultName>
                         <Style>
                           <Border>
                             <Style>Solid</Style>
@@ -803,7 +802,7 @@
                   </TablixHeader>
                   <TablixMembers>
                     <TablixMember>
-                      <Group Name="Details4" />
+                      <Group Name="Details6" />
                     </TablixMember>
                     <TablixMember>
                       <KeepWithGroup>Before</KeepWithGroup>
@@ -813,10 +812,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>2.94555cm</Top>
+            <Top>3.10261cm</Top>
             <Left>0.01258cm</Left>
             <Height>1.6795cm</Height>
-            <Width>19.86514cm</Width>
+            <Width>19.82281cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -911,7 +910,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>1.87919cm</Top>
+            <Top>2.19669cm</Top>
             <Left>0.01258cm</Left>
             <Height>0.63147cm</Height>
             <Width>10.66759cm</Width>
@@ -923,7 +922,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>4.94255cm</Height>
+        <Height>4.99378cm</Height>
         <Style />
       </Body>
       <Width>19.87773cm</Width>
@@ -1146,8 +1145,8 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Garment_Type">
           <DataField>Garment_Type</DataField>
         </Field>
-        <Field Name="Sewing_Operator">
-          <DataField>Sewing_Operator</DataField>
+        <Field Name="Wash_Sender">
+          <DataField>Wash_Sender</DataField>
         </Field>
         <Field Name="stDate">
           <DataField>stDate</DataField>

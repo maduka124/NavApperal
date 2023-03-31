@@ -746,9 +746,6 @@
                   <TablixMembers>
                     <TablixMember />
                   </TablixMembers>
-                  <Visibility>
-                    <Hidden>=Fields!Cutter.Value="" OR Fields!Buyer_Name.Value=""</Hidden>
-                  </Visibility>
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
@@ -806,17 +803,11 @@
                   <TablixMembers>
                     <TablixMember>
                       <Group Name="Details3" />
-                      <Visibility>
-                        <Hidden>=Fields!Cutter.Value=""</Hidden>
-                      </Visibility>
                     </TablixMember>
                     <TablixMember>
                       <KeepWithGroup>Before</KeepWithGroup>
                     </TablixMember>
                   </TablixMembers>
-                  <Visibility>
-                    <Hidden>=Fields!Cutter.Value=""</Hidden>
-                  </Visibility>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
