@@ -1731,6 +1731,20 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report FabricCuttingReport;
                         ApplicationArea = all;
                     }
+                    action("Sewing Report")
+                    {
+                        Caption = 'Sewing Report';
+                        Enabled = true;
+                        RunObject = report SewingReport;
+                        ApplicationArea = all;
+                    }
+                        action("Quality Checking Report")
+                    {
+                        Caption = 'Quality Checking Report';
+                        Enabled = true;
+                        RunObject = report QualityCheckingReport;
+                        ApplicationArea = all;
+                    }
 
                 }
             }
