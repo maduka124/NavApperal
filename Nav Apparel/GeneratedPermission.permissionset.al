@@ -1114,5 +1114,18 @@ permissionset 50100 GeneratedPermission
         query PlanEffDashboardReportTable_Q=X,
         query StyleMaster_StyleMasterPO_Q=X,
         tabledata BundleCardGMTType=RIMD,
-        table BundleCardGMTType=X;
+        table BundleCardGMTType=X,
+        tabledata StyleReport=RIMD,
+        table StyleReport=X,
+        report FabricCuttingReport=X,
+        report FinishingQualityReport=X,
+        report PatternCuttingReport=X,
+        report QualityCheckingReport=X,
+        report ReceieveFromWashingReport=X,
+        report SampleFinishingReport=X,
+        report SampleProductionReport=X,
+        report SendWashingReport=X,
+        report SewingReport=X,
+        page StyleReportLookupage=X,
+        page VendorLookUpPage=X;
 }
