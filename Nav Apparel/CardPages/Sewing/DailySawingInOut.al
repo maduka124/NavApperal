@@ -23,13 +23,12 @@ page 50355 "Daily Sewing In/Out Card"
                         ProdOutHeaderRec: Record ProductionOutHeader;
                         LoginRec: Page "Login Card";
                     begin
+                        rec.Type := rec.Type::Saw;
 
                         //Check Production already updated not not for the selected date
                         ProdOutHeaderRec.Reset();
                         ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
-                        //ProdOutHeaderRec.SetRange("Factory Code", rec."Factory Code");
                         ProdOutHeaderRec.SetFilter("Prod Date", '=%1', rec."Prod Date");
-                        //ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
 
                         if ProdOutHeaderRec.FindSet() then begin
                             repeat
@@ -38,7 +37,36 @@ page 50355 "Daily Sewing In/Out Card"
                             until ProdOutHeaderRec.Next() = 0;
                         end;
 
-                        rec.Type := rec.Type::Saw;
+
+                        //Check for duplicates for the day (input)
+                        if (rec."Resource No." <> '') and (rec."Style Name" <> '') and (rec."Lot No." <> '') then begin
+                            ProdOutHeaderRec.Reset();
+                            ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                            ProdOutHeaderRec.SetFilter("Prod Date", '=%1', rec."Prod Date");
+                            ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
+                            ProdOutHeaderRec.SetRange("Style No.", rec."Style No.");
+                            ProdOutHeaderRec.SetRange("lot No.", rec."lot No.");
+                            ProdOutHeaderRec.SetFilter("No.", '<>%1', rec."No.");
+
+                            if ProdOutHeaderRec.FindSet() then
+                                Error('You have put Sewing input for this Date/Line/Style/PO');
+                        end;
+
+
+                        //Check for duplicates for the day (output)
+                        if (rec."Resource No." <> '') and (rec."out Style Name" <> '') and (rec."Out Lot No." <> '') then begin
+                            ProdOutHeaderRec.Reset();
+                            ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                            ProdOutHeaderRec.SetFilter("Prod Date", '=%1', rec."Prod Date");
+                            ProdOutHeaderRec.SetRange("Resource No.", rec."Resource No.");
+                            ProdOutHeaderRec.SetRange("Out Style No.", rec."out Style No.");
+                            ProdOutHeaderRec.SetRange("Out lot No.", rec."out lot No.");
+                            ProdOutHeaderRec.SetFilter("No.", '<>%1', rec."No.");
+
+                            if ProdOutHeaderRec.FindSet() then
+                                Error('You have put Sewing out for this Date/Line/Style/PO');
+                        end;
+
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
