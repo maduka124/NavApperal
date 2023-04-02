@@ -29,12 +29,24 @@ page 51276 Bundlecard
                     trigger OnValidate()
                     var
                         GMTPartList: Record GarmentPartsBundleCard;
+                        GMTPartListLeft: Record GarmentPartsBundleCardLeft;
                     begin
                         GMTPartList.Reset();
                         if GMTPartList.FindSet() then begin
                             repeat
-                                GMTPartList.BundleCardNo := Rec."Bundle Card No";
-                                GMTPartList.Modify();
+                                GMTPartListLeft.Reset();
+                                GMTPartListLeft.SetRange(BundleCardNo, Rec."Bundle Card No");
+                                GMTPartListLeft.SetRange(No, GMTPartList.No);
+                                if not GMTPartListLeft.FindSet() then begin
+                                    GMTPartListLeft.Init();
+                                    GMTPartListLeft.BundleCardNo := Rec."Bundle Card No";
+                                    GMTPartListLeft.No := GMTPartList.No;
+                                    GMTPartListLeft.Description := GMTPartList.Description;
+                                    GMTPartListLeft.Select := false;
+                                    GMTPartListLeft."Created Date" := WorkDate();
+                                    GMTPartListLeft."Created User" := UserId;
+                                    GMTPartListLeft.Insert();
+                                end;
                             until GMTPartList.Next() = 0;
                             CurrPage.Update();
                         end;
@@ -47,9 +59,10 @@ page 51276 Bundlecard
                     Editable = false;
                 }
 
-                field(Type; Rec.Type)
+                field(Type1; Rec.Type1)
                 {
                     ApplicationArea = All;
+                    Caption = 'Type';
                 }
             }
 
@@ -58,6 +71,7 @@ page 51276 Bundlecard
                 part(BundleCardGMTPartListPart; BundleCardGMTPartListPart)
                 {
                     ApplicationArea = all;
+                    SubPageLink = BundleCardNo = field("Bundle Card No");
                 }
 
                 part(BundleCardGMTPartListPart2; BundleCardGMTPartListPart2)
@@ -92,12 +106,18 @@ page 51276 Bundlecard
 
     trigger OnDeleteRecord(): Boolean
     var
-        GMTPartsBdlCard2Rec: Record GarmentPartsBundleCard2;
+        GMTPartsBdlCard2Rec: Record GarmentPartsBundleCard2Right;
+        GMTPartsBdlCardLeftRec: Record GarmentPartsBundleCardLeft;
     begin
         GMTPartsBdlCard2Rec.reset();
         GMTPartsBdlCard2Rec.SetRange(BundleCardNo, rec."Bundle Card No");
         if GMTPartsBdlCard2Rec.FindSet() then
             GMTPartsBdlCard2Rec.DeleteAll();
+
+        GMTPartsBdlCardLeftRec.reset();
+        GMTPartsBdlCardLeftRec.SetRange(BundleCardNo, rec."Bundle Card No");
+        if GMTPartsBdlCardLeftRec.FindSet() then
+            GMTPartsBdlCardLeftRec.DeleteAll();
     end;
 
 

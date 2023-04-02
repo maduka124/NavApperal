@@ -1,7 +1,7 @@
 page 51272 BundleCardGMTPartListPart
 {
     PageType = ListPart;
-    SourceTable = GarmentPartsBundleCard;
+    SourceTable = GarmentPartsBundleCardLeft;
     SourceTableView = sorting(Description) order(ascending);
     Caption = 'Available Garment Parts';
     InsertAllowed = false;
@@ -43,12 +43,13 @@ page 51272 BundleCardGMTPartListPart
 
                 trigger OnAction()
                 var
-                    GMTpart1Rec: Record GarmentPartsBundleCard;
-                    GMTpart2Rec: Record GarmentPartsBundleCard2;
+                    GMTpart1Rec: Record GarmentPartsBundleCardLeft;
+                    GMTpart2Rec: Record GarmentPartsBundleCard2Right;
                 begin
                     GMTpart1Rec.Reset();
                     GMTpart1Rec.SetCurrentKey(No);
                     GMTpart1Rec.SetRange(Select, true);
+                    GMTpart1Rec.SetRange(BundleCardNo, rec.BundleCardNo);
 
                     if GMTpart1Rec.FindSet() then begin
                         repeat
@@ -69,7 +70,7 @@ page 51272 BundleCardGMTPartListPart
                         until GMTpart1Rec.Next() = 0;
                     end
                     else
-                        Error('Record Already exist');
+                        Error('Please select a record.');
                 end;
             }
         }

@@ -1,7 +1,7 @@
 page 51273 BundleCardGMTPartListPart2
 {
     PageType = ListPart;
-    SourceTable = GarmentPartsBundleCard2;
+    SourceTable = GarmentPartsBundleCard2Right;
     SourceTableView = sorting(Description) order(ascending);
     Caption = 'Selected Garment Parts';
     InsertAllowed = false;
@@ -45,24 +45,17 @@ page 51273 BundleCardGMTPartListPart2
 
                 trigger OnAction()
                 var
-                    GMTPartRec: Record GarmentPartsBundleCard2;
+                    GMTPartRec: Record GarmentPartsBundleCard2Right;
                 begin
                     GMTPartRec.Reset();
-                    // GMTPartRec.SetRange("No.", Rec."No.");
-                    GMTPartRec.SetCurrentKey("No.");
+                    GMTPartRec.SetRange(BundleCardNo, Rec.BundleCardNo);
                     GMTPartRec.SetRange(Select, true);
                     if GMTPartRec.FindSet() then
-                        repeat
-                            GMTPartRec.DeleteAll();
-                        until GMTPartRec.Next() = 0;
+                        GMTPartRec.DeleteAll()
+                    else
+                        Error('Please select a record.');
                 end;
             }
-
-            // action("Bundle Card Report")
-            // {
-            //     ApplicationArea = all;
-            //     Image = Report;
-            // }
         }
     }
 }

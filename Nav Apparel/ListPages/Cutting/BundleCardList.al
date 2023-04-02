@@ -26,9 +26,10 @@ page 51267 "Bundle Card List"
                     Caption = 'Style';
                 }
 
-                field(Type; Rec.Type)
+                field(Type1; Rec.Type1)
                 {
                     ApplicationArea = All;
+                    Caption = 'Type';
                 }
             }
         }
@@ -63,12 +64,18 @@ page 51267 "Bundle Card List"
 
     trigger OnDeleteRecord(): Boolean
     var
-        GMTPartsBdlCard2Rec: Record GarmentPartsBundleCard2;
+        GMTPartsBdlCard2Rec: Record GarmentPartsBundleCard2Right;
+        GMTPartsBdlCardLeftRec: Record GarmentPartsBundleCardLeft;
     begin
         GMTPartsBdlCard2Rec.reset();
         GMTPartsBdlCard2Rec.SetRange(BundleCardNo, rec."Bundle Card No");
         if GMTPartsBdlCard2Rec.FindSet() then
             GMTPartsBdlCard2Rec.DeleteAll();
+
+        GMTPartsBdlCardLeftRec.reset();
+        GMTPartsBdlCardLeftRec.SetRange(BundleCardNo, rec."Bundle Card No");
+        if GMTPartsBdlCardLeftRec.FindSet() then
+            GMTPartsBdlCardLeftRec.DeleteAll();
     end;
 
 }

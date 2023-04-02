@@ -60,6 +60,14 @@ table 51268 BundleCardTable
         {
             DataClassification = ToBeClassified;
         }
+
+        field(9; Type1; text[50])
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Type';
+            TableRelation = MarkerCategory."Marker Category";
+            ValidateTableRelation = false;
+        }
     }
 
     keys
