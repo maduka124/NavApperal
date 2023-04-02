@@ -41,7 +41,7 @@ report 50852 SewingProductionDetails
             { }
             column(Style; "Out Style Name")
             { }
-            column(Factory; Factory)
+            column(Factory; "Factory Name")
             { }
             column(OrderQy; OrderQy)
             { }
