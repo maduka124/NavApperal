@@ -8,61 +8,62 @@ report 50627 ProductionAndShipmentDetails
 
     dataset
     {
-        dataitem("Style Master"; "Style Master")
+        dataitem("Style Master PO"; "Style Master PO")
         {
-            DataItemTableView = sorting("No.");
 
-            column(Buyer; "Buyer Name")
+            DataItemTableView = where("Cut Out Qty" = filter(> 0));
+            column(cutting; "Cut Out Qty")
             { }
-            column(StyleNo; "Style No.")
+            column(Sewing; "Sawing Out Qty")
             { }
-            column(SMV; SMV)
+            column(Finishing; "Finish Qty")
             { }
-            column(OrderQty; "Order Qty")
+            column(ShipDate; "Ship Date")
+            { }
+            column(PoNo; "PO No.")
             { }
             column(stDate; stDate)
             { }
             column(endDate; endDate)
             { }
-            column(AssignedContractNo; AssignedContractNo)
+            column(Buyer; Buyer)
+            { }
+            column(StyleNo; StyleName)
+            { }
+            column(SMV; SMV)
+            { }
+            column(OrderQty; OrderQty)
+            { }
+            column(AssignedContractNo; AssignContrantNo)
             { }
             column(CompLogo; comRec.Picture)
             { }
 
-            // column()
-            // { }
 
-
-            dataitem("Style Master PO"; "Style Master PO")
-            {
-                DataItemLinkReference = "Style Master";
-                DataItemLink = "Style No." = field("No.");
-                DataItemTableView = sorting("Style No.");
-                column(cutting; "Cut Out Qty")
-                { }
-                column(Sewing; "Sawing Out Qty")
-                { }
-                column(Finishing; "Finish Qty")
-                { }
-                column(ShipDate; "Ship Date")
-                { }
-                column(PoNo; "PO No.")
-                { }
-
-
-                trigger OnPreDataItem()
-                begin
-                    SetRange("Ship Date", stDate, endDate);
-                end;
-            }
+            trigger OnPreDataItem()
+            begin
+                SetRange("Ship Date", stDate, endDate);
+            end;
 
             trigger OnAfterGetRecord()
 
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                StyleMasterRec.Reset();
+                StyleMasterRec.SetRange("No.", "Style No.");
+                if StyleMasterRec.FindFirst() then begin
+                    Buyer := StyleMasterRec."Buyer Name";
+                    StyleName := StyleMasterRec."Style No.";
+                    SMV := StyleMasterRec.SMV;
+                    OrderQty := StyleMasterRec."Order Qty";
+                    AssignContrantNo := StyleMasterRec.AssignedContractNo;
+                end;
             end;
         }
+
+
     }
 
     requestpage
@@ -104,7 +105,12 @@ report 50627 ProductionAndShipmentDetails
     }
 
     var
-
+        AssignContrantNo: Code[20];
+        OrderQty: BigInteger;
+        SMV: Decimal;
+        StyleName: Text[50];
+        Buyer: Text[50];
+        StyleMasterRec: Record "Style Master";
         stDate: Date;
         endDate: Date;
         comRec: Record "Company Information";
