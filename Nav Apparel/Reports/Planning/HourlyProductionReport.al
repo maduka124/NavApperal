@@ -38,7 +38,7 @@ report 50865 HourlyProductionReport
             { }
             column(PlanTarget; PlanTarget)
             { }
-            column(TodayTarget; DayTarget)
+            column(TodayTarget; Qty)
             { }
             column(PlanQty; PlanQty)
             { }
@@ -158,10 +158,10 @@ report 50865 HourlyProductionReport
             trigger OnAfterGetRecord()
             begin
 
-                if Qty > 0 then
-                    DayTarget := Qty
-                else
-                    DayTarget := Qty * -1;
+                // if Qty > 0 then
+                //     DayTarget := Qty
+                // else
+                //     DayTarget := Qty * -1;
 
 
                 if HoursPerDay > 0 then
