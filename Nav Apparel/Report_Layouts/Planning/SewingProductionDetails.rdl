@@ -1496,7 +1496,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TodayTarget.Value</Value>
+                                  <Value>=Sum(Fields!TodayTarget.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1553,7 +1553,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TodayOutput.Value</Value>
+                                  <Value>=Sum(Fields!TodayOutput.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1610,7 +1610,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TotalOuput.Value</Value>
+                                  <Value>=Sum(Fields!TotalOuput.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2190,7 +2190,13 @@
                       <KeepWithGroup>After</KeepWithGroup>
                     </TablixMember>
                     <TablixMember>
-                      <Group Name="Details" />
+                      <Group Name="Details">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!Style.Value</GroupExpression>
+                          <GroupExpression>=Fields!PO_No_.Value</GroupExpression>
+                          <GroupExpression>=Fields!BuyerName.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
                       <SortExpressions>
                         <SortExpression>
                           <Value>=Fields!Resource_No_.Value</Value>
