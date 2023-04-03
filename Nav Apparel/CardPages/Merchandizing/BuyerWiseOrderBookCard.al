@@ -341,7 +341,15 @@ page 51165 "BuyerWiseOrderBooking"
                                     end;
 
                                 2:
-                                    BuyWisOdrBookAllBookRec.FEB := BuyWisOdrBookAllBookRec.FEB + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.FEB := BuyWisOdrBookAllBookRec.FEB + BuyWisOdrBookAllBook1Rec.FEB;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                                 3:
                                     begin
                                         BuyWisOdrBookAllBook1Rec.Reset();
@@ -353,23 +361,95 @@ page 51165 "BuyerWiseOrderBooking"
                                             until BuyWisOdrBookAllBook1Rec.Next() = 0;
                                     end;
                                 4:
-                                    BuyWisOdrBookAllBookRec.APR := BuyWisOdrBookAllBookRec.APR + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.APR := BuyWisOdrBookAllBookRec.APR + BuyWisOdrBookAllBook1Rec.APR;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                                 5:
-                                    BuyWisOdrBookAllBookRec.MAY := BuyWisOdrBookAllBookRec.MAY + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.MAY := BuyWisOdrBookAllBookRec.MAY + BuyWisOdrBookAllBook1Rec.MAY;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                                 6:
-                                    BuyWisOdrBookAllBookRec.JUN := BuyWisOdrBookAllBookRec.JUN + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.JUN := BuyWisOdrBookAllBookRec.JUN + BuyWisOdrBookAllBook1Rec.JUN;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                                 7:
-                                    BuyWisOdrBookAllBookRec.JUL := BuyWisOdrBookAllBookRec.JUL + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.JUL := BuyWisOdrBookAllBookRec.JUL + BuyWisOdrBookAllBook1Rec.JUL;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                                 8:
-                                    BuyWisOdrBookAllBookRec.AUG := BuyWisOdrBookAllBookRec.AUG + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.AUG := BuyWisOdrBookAllBookRec.AUG + BuyWisOdrBookAllBook1Rec.AUG;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                                 9:
-                                    BuyWisOdrBookAllBookRec.SEP := BuyWisOdrBookAllBookRec.SEP + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.SEP := BuyWisOdrBookAllBookRec.SEP + BuyWisOdrBookAllBook1Rec.SEP;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                                 10:
-                                    BuyWisOdrBookAllBookRec.OCT := BuyWisOdrBookAllBookRec.OCT + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.OCT := BuyWisOdrBookAllBookRec.OCT + BuyWisOdrBookAllBook1Rec.OCT;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                                 11:
-                                    BuyWisOdrBookAllBookRec.NOV := BuyWisOdrBookAllBookRec.NOV + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.NOV := BuyWisOdrBookAllBookRec.NOV + BuyWisOdrBookAllBook1Rec.NOV;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                                 12:
-                                    BuyWisOdrBookAllBookRec.DEC := BuyWisOdrBookAllBookRec.DEC + StyleMasterPORec.Qty;
+                                    begin
+                                        BuyWisOdrBookAllBook1Rec.Reset();
+                                        BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                                        BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                                        if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                            repeat
+                                                BuyWisOdrBookAllBookRec.DEC := BuyWisOdrBookAllBookRec.DEC + BuyWisOdrBookAllBook1Rec.DEC;
+                                            until BuyWisOdrBookAllBook1Rec.Next() = 0;
+                                    end;
                             end;
 
                             BuyWisOdrBookAllBookRec.Modify();
