@@ -23,7 +23,22 @@ page 50515 "Hourly Production Card"
                     var
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+
+                        HourlyRec: Record "Hourly Production Master";
+                        HourlyLinesRec: Record "Hourly Production Lines";
                     begin
+
+                        HourlyRec.Reset();
+                        HourlyLinesRec.Reset();
+                        HourlyRec.SetRange("No.", Rec."No.");
+                        if HourlyRec.FindSet() then begin
+                            HourlyLinesRec.SetRange("No.", HourlyRec."No.");
+                            HourlyLinesRec.SetFilter(Item, '=%1', 'PASS PCS');
+                            if HourlyLinesRec.FindSet() then begin
+                                if Rec."Prod Date" <> HourlyLinesRec."Prod Date" then
+                                    Error('Please Check Production Date');
+                            end;
+                        end;
 
                         //Validate Date
 
@@ -382,6 +397,25 @@ page 50515 "Hourly Production Card"
             else
                 EditableGB := true;
     end;
+
+    // trigger OnClosePage()
+    // var
+    //     HourlyRec: Record "Hourly Production Master";
+    //     HourlyLinesRec: Record "Hourly Production Lines";
+    // begin
+    //     HourlyRec.Reset();
+    //     HourlyLinesRec.Reset();
+    //     HourlyRec.SetRange("No.", Rec."No.");
+    //     if HourlyRec.FindSet() then begin
+    //         HourlyLinesRec.SetRange("No.", HourlyRec."No.");
+    //         HourlyLinesRec.SetFilter(Item, '=%1', 'PASS PCS');
+    //         if HourlyLinesRec.FindSet() then begin
+    //             if Rec."Prod Date" <> HourlyLinesRec."Prod Date" then
+    //                 Error('Please Check Production Date');
+    //         end;
+
+    //     end;
+    // end;
 
 
     trigger OnAfterGetCurrRecord()
