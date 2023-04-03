@@ -208,7 +208,7 @@ table 50820 DeptReqSheetLine
             ValidateTableRelation = false;
         }
 
-        field(30; "Size Range No."; code[20])
+        field(30; "Size Range No."; code[250])
         {
             DataClassification = ToBeClassified;
 
