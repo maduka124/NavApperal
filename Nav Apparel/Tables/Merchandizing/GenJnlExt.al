@@ -2,7 +2,8 @@ tableextension 50910 "Gen. Jnl. Extension" extends "Gen. Journal Line"
 {
     fields
     {
-        field(50001; "LC/Contract No."; Code[20])
+        //Done By Sachith on 03/04/23(length increase 20 to 200)
+        field(50001; "LC/Contract No."; Code[200])
         {
         }
 
