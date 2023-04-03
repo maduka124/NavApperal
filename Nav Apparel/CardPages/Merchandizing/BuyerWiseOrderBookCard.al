@@ -194,6 +194,8 @@ page 51165 "BuyerWiseOrderBooking"
                                     //Get buyer Name/Code
                                     StyleMasterRec.Reset();
                                     StyleMasterRec.SetRange("No.", StyleMasterPORec."Style No.");
+                                    StyleMasterRec.SetFilter("Buyer Name", '<>%1', '');
+                                    //StyleMasterRec.SetFilter(Status, '=%1', StyleMasterRec.Status::Confirmed);
                                     if StyleMasterRec.FindSet() then begin
 
                                         //Done By Sachith on 16/02/23 (insert brand filter line)
@@ -225,7 +227,10 @@ page 51165 "BuyerWiseOrderBooking"
                                                 3:
                                                     BuyWisOdrBookAllBookRec.MAR := StyleMasterPORec.Qty;
                                                 4:
-                                                    BuyWisOdrBookAllBookRec.APR := StyleMasterPORec.Qty;
+                                                    begin
+                                                        if (StyleMasterRec."Brand Name" = 'Zara') or (StyleMasterRec."Brand Name" = 'STRAVARIUS') then
+                                                            BuyWisOdrBookAllBookRec.APR := StyleMasterPORec.Qty;
+                                                    end;
                                                 5:
                                                     BuyWisOdrBookAllBookRec.MAY := StyleMasterPORec.Qty;
                                                 6:
