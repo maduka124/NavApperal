@@ -836,7 +836,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1998,13 +1997,13 @@
                     <TablixMember>
                       <Group Name="Group1" />
                       <Visibility>
-                        <Hidden>=iif(Fields!Qty.Value &lt;=0 , true, false)</Hidden>
+                        <Hidden>=iif(IsNothing(Fields!Qty.Value),true,false)</Hidden>
                       </Visibility>
                     </TablixMember>
                     <TablixMember />
                   </TablixMembers>
                   <Visibility>
-                    <Hidden>=Fields!Buyer_Name.Value="" OR Fields!Qty.Value &lt;=0</Hidden>
+                    <Hidden>=iif(IsNothing(Sum(Fields!Qty.Value)),true,false)</Hidden>
                   </Visibility>
                 </TablixMember>
                 <TablixMember />

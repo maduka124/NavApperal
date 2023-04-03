@@ -38,6 +38,7 @@ report 51073 DeliveryInfoProductReport
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = sorting("Lot No.");
 
+
                 column(PO_No_; "PO No.")
                 { }
                 column(Qty; Qty)
@@ -83,6 +84,8 @@ report 51073 DeliveryInfoProductReport
                 //Done By Sachith on 28/02/23
                 if "All buyers" = false then
                     SetRange("Buyer No.", Buyer);
+
+                SetFilter("Buyer Name", '<>%1', '');
             end;
         }
     }
