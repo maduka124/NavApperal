@@ -1046,11 +1046,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Qty.Value * Fields!CMPcs.Value</Value>
+                                  <Value>=Fields!PlanQty.Value*Fields!CM.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>0;(0);''</Format>
+                                    <Format>#,0;(#,0);''</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1979,11 +1979,11 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OutputQtyTotal.Value * Fields!CMPcs.Value</Value>
+                                  <Value>=(Sum(Fields!Hour_1.Value)+Sum(Fields!Hour_2.Value)+Sum(Fields!Hour_3.Value)+Sum(Fields!Hour_4.Value)+Sum(Fields!Hour_5.Value)+Sum(Fields!Hour_6.Value)+Sum(Fields!Hour_7.Value)+Sum(Fields!Hour_8.Value)+Sum(Fields!Hour_9.Value)+Sum(Fields!Hour_10.Value))*Fields!CM.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>0;(0);''</Format>
+                                    <Format>#,0;(#,0);''</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2009,6 +2009,7 @@
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -2948,7 +2949,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
-                                    <Format>0;-0;''</Format>
+                                    <Format>#,0;-#,0;''</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -5404,7 +5405,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -8361,6 +8361,12 @@ End Function
         </Field>
         <Field Name="Lot_No_">
           <DataField>Lot_No_</DataField>
+        </Field>
+        <Field Name="CM">
+          <DataField>CM</DataField>
+        </Field>
+        <Field Name="CMFormat">
+          <DataField>CMFormat</DataField>
         </Field>
         <Field Name="Hour_1">
           <DataField>Hour_1</DataField>
