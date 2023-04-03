@@ -120,6 +120,8 @@ report 50865 HourlyProductionReport
             { }
             column(Lot_No_; "Lot No.")
             { }
+            column(CM; CM)
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -184,6 +186,8 @@ report 50865 HourlyProductionReport
                     GarmentType := StyleRec."Garment Type Name";
                     MerchandizerName := StyleRec."Merchandiser Name";
                     BrandName := StyleRec."Brand Name";
+                    CM := StyleRec."CM Price (Doz)";
+
                 end;
 
                 WorkcenterRec.Reset();
@@ -529,6 +533,7 @@ report 50865 HourlyProductionReport
     }
 
     var
+        CM: Decimal;
         DayTarget: Decimal;
         CutInputToday: BigInteger;
         InputWIP: decimal;
