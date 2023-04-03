@@ -27,7 +27,7 @@ page 50515 "Hourly Production Card"
                         HourlyRec: Record "Hourly Production Master";
                         HourlyLinesRec: Record "Hourly Production Lines";
                     begin
-
+                        //Validate Production Line date and Header date
                         HourlyRec.Reset();
                         HourlyLinesRec.Reset();
                         HourlyRec.SetRange("No.", Rec."No.");
