@@ -2009,7 +2009,6 @@
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -5836,7 +5835,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_1.Value)</Value>
+                                  <Value>=Fields!Hour_1.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5874,7 +5873,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_2.Value)</Value>
+                                  <Value>=Fields!Hour_2.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5912,7 +5911,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_3.Value)</Value>
+                                  <Value>=Fields!Hour_3.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5950,7 +5949,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_4.Value)</Value>
+                                  <Value>=Fields!Hour_4.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5988,7 +5987,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_5.Value)</Value>
+                                  <Value>=Fields!Hour_5.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6026,7 +6025,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_6.Value)</Value>
+                                  <Value>=Fields!Hour_6.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6064,7 +6063,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_7.Value)</Value>
+                                  <Value>=Fields!Hour_7.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6102,7 +6101,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_8.Value)</Value>
+                                  <Value>=Fields!Hour_8.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6140,7 +6139,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_9.Value)</Value>
+                                  <Value>=Fields!Hour_9.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6178,7 +6177,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_10.Value)</Value>
+                                  <Value>=Fields!Hour_10.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6216,7 +6215,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_1.Value)+Sum(Fields!Hour_2.Value)+Sum(Fields!Hour_3.Value)+Sum(Fields!Hour_4.Value)+Sum(Fields!Hour_5.Value)+Sum(Fields!Hour_6.Value)+Sum(Fields!Hour_7.Value)+Sum(Fields!Hour_8.Value)+Sum(Fields!Hour_9.Value)+Sum(Fields!Hour_10.Value)</Value>
+                                  <Value>=Fields!Hour_1.Value+Fields!Hour_2.Value+Fields!Hour_3.Value+Fields!Hour_4.Value+Fields!Hour_5.Value+Fields!Hour_6.Value+Fields!Hour_7.Value+Fields!Hour_8.Value+Fields!Hour_9.Value+Fields!Hour_10.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -6243,6 +6242,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
