@@ -34,12 +34,13 @@ page 50356 "Daily Sewing In/Out"
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Style';
+                    Caption = 'Input Style';
                 }
 
                 field("PO No"; rec."PO No")
                 {
                     ApplicationArea = All;
+                    Caption = 'Input PO No';
                 }
                 //Mihiranga 2023/02/26
                 field("Input Qty"; Rec."Input Qty")
@@ -47,6 +48,16 @@ page 50356 "Daily Sewing In/Out"
                     ApplicationArea = All;
                 }
                 //
+                field("Out Style Name"; Rec."Out Style Name")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Output Style';
+                }
+                field("OUT PO No"; Rec."OUT PO No")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Output PO No';
+                }
                 field("Output Qty"; rec."Output Qty")
                 {
                     ApplicationArea = All;
