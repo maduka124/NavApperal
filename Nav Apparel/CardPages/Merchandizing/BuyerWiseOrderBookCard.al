@@ -186,6 +186,8 @@ page 51165 "BuyerWiseOrderBooking"
 
                             //Get styles within the period
                             StyleMasterPORec.Reset();
+                            StyleMasterPORec.SetCurrentKey("Style No.");
+                            StyleMasterPORec.Ascending(true);
                             StyleMasterPORec.SetRange("Ship Date", StartDate, FinishDate);
                             if StyleMasterPORec.FindSet() then begin
 
@@ -197,6 +199,9 @@ page 51165 "BuyerWiseOrderBooking"
                                     StyleMasterRec.SetFilter("Buyer Name", '<>%1', '');
                                     StyleMasterRec.SetFilter(Status, '=%1', StyleMasterRec.Status::Confirmed);
                                     if StyleMasterRec.FindSet() then begin
+
+                                        // if StyleMasterRec."Buyer Name" = 'AMAZON' then
+                                        //     Message('AMAZON');
 
                                         //Done By Sachith on 16/02/23 (insert brand filter line)
                                         //Check for existing records            
@@ -227,10 +232,7 @@ page 51165 "BuyerWiseOrderBooking"
                                                 3:
                                                     BuyWisOdrBookAllBookRec.MAR := StyleMasterPORec.Qty;
                                                 4:
-                                                    begin
-                                                        if (StyleMasterRec."Brand Name" = 'Zara') or (StyleMasterRec."Brand Name" = 'STRAVARIUS') then
-                                                            BuyWisOdrBookAllBookRec.APR := StyleMasterPORec.Qty;
-                                                    end;
+                                                    BuyWisOdrBookAllBookRec.APR := StyleMasterPORec.Qty;
                                                 5:
                                                     BuyWisOdrBookAllBookRec.MAY := StyleMasterPORec.Qty;
                                                 6:
@@ -456,6 +458,14 @@ page 51165 "BuyerWiseOrderBooking"
                                             until BuyWisOdrBookAllBook1Rec.Next() = 0;
                                     end;
                             end;
+
+                            BuyWisOdrBookAllBook1Rec.Reset();
+                            BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
+                            BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
+                            if BuyWisOdrBookAllBook1Rec.FindSet() then
+                                repeat
+                                    BuyWisOdrBookAllBookRec.Total := BuyWisOdrBookAllBookRec.Total + BuyWisOdrBookAllBook1Rec.Total;
+                                until BuyWisOdrBookAllBook1Rec.Next() = 0;
 
                             BuyWisOdrBookAllBookRec.Modify();
 
