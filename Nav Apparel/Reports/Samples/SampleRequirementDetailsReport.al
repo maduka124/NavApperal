@@ -28,6 +28,8 @@ report 51289 SampleRequirementDetails
             { }
             column(endDate; endDate)
             { }
+            column()
+            {}
             // column()
             // {}
             // column()
