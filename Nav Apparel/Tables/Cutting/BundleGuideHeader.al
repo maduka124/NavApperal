@@ -96,6 +96,12 @@ table 50664 BundleGuideHeader
             DataClassification = ToBeClassified;
         }
 
+        //Done by Sachith on 03/04/23 
+        field(17; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

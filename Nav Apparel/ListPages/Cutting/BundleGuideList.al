@@ -94,7 +94,19 @@ page 50666 "Bundle Guide List"
     trigger OnDeleteRecord(): Boolean
     var
         BundleGuideLineRec: Record BundleGuideLine;
+        UserRec: Record "User Setup";
     begin
+
+        // Done By sachith on 03/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         BundleGuideLineRec.reset();
         BundleGuideLineRec.SetRange("BundleGuideNo.", Rec."BundleGuideNo.");
         BundleGuideLineRec.DeleteAll();

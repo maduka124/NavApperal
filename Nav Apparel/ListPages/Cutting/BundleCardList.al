@@ -66,7 +66,22 @@ page 51267 "Bundle Card List"
     var
         GMTPartsBdlCard2Rec: Record GarmentPartsBundleCard2Right;
         GMTPartsBdlCardLeftRec: Record GarmentPartsBundleCardLeft;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 03/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         GMTPartsBdlCard2Rec.reset();
         GMTPartsBdlCard2Rec.SetRange(BundleCardNo, rec."Bundle Card No");
         if GMTPartsBdlCard2Rec.FindSet() then

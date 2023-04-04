@@ -12,6 +12,10 @@ page 51276 Bundlecard
         {
             group(General)
             {
+
+                //Done By sachith on 03/04/23
+                Editable = EditableGB;
+
                 field("Bundle Card No"; Rec."Bundle Card No")
                 {
                     ApplicationArea = All;
@@ -30,6 +34,7 @@ page 51276 Bundlecard
                     var
                         GMTPartList: Record GarmentPartsBundleCard;
                         GMTPartListLeft: Record GarmentPartsBundleCardLeft;
+                        UserRec: Record "User Setup";
                     begin
                         GMTPartList.Reset();
                         if GMTPartList.FindSet() then begin
@@ -50,6 +55,19 @@ page 51276 Bundlecard
                             until GMTPartList.Next() = 0;
                             CurrPage.Update();
                         end;
+
+                        UserRec.Reset();
+
+                        //Done By Sachith on 03/04/23 
+                        UserRec.Reset();
+                        UserRec.Get(UserId);
+
+                        if UserRec."Factory Code" <> '' then begin
+                            Rec."Factory Code" := UserRec."Factory Code";
+                            Rec.Modify()
+                        end
+                        else
+                            Error('Factory not assigned for the user.');
                     end;
                 }
 
@@ -71,12 +89,14 @@ page 51276 Bundlecard
                 part(BundleCardGMTPartListPart; BundleCardGMTPartListPart)
                 {
                     ApplicationArea = all;
+                    Editable = EditableGB;
                     SubPageLink = BundleCardNo = field("Bundle Card No");
                 }
 
                 part(BundleCardGMTPartListPart2; BundleCardGMTPartListPart2)
                 {
                     ApplicationArea = all;
+                    Editable = EditableGB;
                     SubPageLink = BundleCardNo = field("Bundle Card No");
                 }
             }
@@ -108,7 +128,22 @@ page 51276 Bundlecard
     var
         GMTPartsBdlCard2Rec: Record GarmentPartsBundleCard2Right;
         GMTPartsBdlCardLeftRec: Record GarmentPartsBundleCardLeft;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 03/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         GMTPartsBdlCard2Rec.reset();
         GMTPartsBdlCard2Rec.SetRange(BundleCardNo, rec."Bundle Card No");
         if GMTPartsBdlCard2Rec.FindSet() then
@@ -133,5 +168,36 @@ page 51276 Bundlecard
             EXIT(TRUE);
         END;
     end;
+
+    //Done By Sachith on 03/04/23 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Factory Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+    var
+        EditableGB: Boolean;
 
 }
