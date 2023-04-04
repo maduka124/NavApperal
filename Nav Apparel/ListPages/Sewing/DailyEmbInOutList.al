@@ -75,7 +75,22 @@ page 50359 "Daily Embroidary In/Out"
     trigger OnDeleteRecord(): Boolean
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 03/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'IN', 'Emb', rec.Type::Emb);
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'OUT', 'Emb', rec.Type::Emb);
     end;

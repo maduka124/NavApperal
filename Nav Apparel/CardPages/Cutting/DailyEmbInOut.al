@@ -10,6 +10,8 @@ page 50360 "Daily Embroidary In/Out Card"
         {
             group(General)
             {
+                //Done By sachith on 04/04.23
+                Editable = EditableGB;
                 field("Prod Date"; rec."Prod Date")
                 {
                     ApplicationArea = All;
@@ -258,6 +260,8 @@ page 50360 "Daily Embroidary In/Out Card"
 
             group("Color/Size Input Detail")
             {
+                //Done By sachith on 04/04.23
+                Editable = EditableGB;
                 part(Input; DailyCuttingOutListPart)
                 {
                     ApplicationArea = All;
@@ -268,6 +272,8 @@ page 50360 "Daily Embroidary In/Out Card"
 
             group("Color/Size Output Detail")
             {
+                //Done By sachith on 04/04.23
+                Editable = EditableGB;
                 part(Output; DailyCuttingOutListPart)
                 {
                     ApplicationArea = All;
@@ -714,8 +720,53 @@ page 50360 "Daily Embroidary In/Out Card"
     trigger OnDeleteRecord(): Boolean
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
+        UserRec: Record "User Setup";
     begin
+        //Done By sachith on 04/04.23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'IN', 'Emb', rec.Type::Emb);
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'OUT', 'Emb', rec.Type::Emb);
     end;
+
+    //Done By Sachith on 04/04/23 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Factory Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+    var
+        EditableGB: Boolean;
 }

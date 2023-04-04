@@ -2190,13 +2190,7 @@
                       <KeepWithGroup>After</KeepWithGroup>
                     </TablixMember>
                     <TablixMember>
-                      <Group Name="Details">
-                        <GroupExpressions>
-                          <GroupExpression>=Fields!Style.Value</GroupExpression>
-                          <GroupExpression>=Fields!PO_No_.Value</GroupExpression>
-                          <GroupExpression>=Fields!BuyerName.Value</GroupExpression>
-                        </GroupExpressions>
-                      </Group>
+                      <Group Name="Details" />
                       <SortExpressions>
                         <SortExpression>
                           <Value>=Fields!Resource_No_.Value</Value>

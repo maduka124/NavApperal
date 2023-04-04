@@ -68,6 +68,11 @@ table 51268 BundleCardTable
             TableRelation = MarkerCategory."Marker Category";
             ValidateTableRelation = false;
         }
+
+        field(10; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

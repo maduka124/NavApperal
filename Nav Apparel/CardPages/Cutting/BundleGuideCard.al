@@ -10,6 +10,8 @@ page 50665 "Bundle Guide Card"
         {
             group(General)
             {
+                //Done By sachith on 03/04/23
+                Editable = EditableGB;
                 field("BundleGuideNo."; rec."BundleGuideNo.")
                 {
                     ApplicationArea = All;
@@ -32,6 +34,7 @@ page 50665 "Bundle Guide Card"
                         StyleMasterRec: Record "Style Master";
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        UserRec: Record "User Setup";
                     begin
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style Name");
@@ -55,8 +58,19 @@ page 50665 "Bundle Guide Card"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
-
                         CurrPage.Update();
+
+                        //Done By Sachith on 03/04/23 
+                        UserRec.Reset();
+                        UserRec.Get(UserId);
+
+                        if UserRec."Factory Code" <> '' then begin
+                            Rec."Factory Code" := UserRec."Factory Code";
+                            Rec.Modify()
+                        end
+                        else
+                            Error('Factory not assigned for the user.');
+
                     end;
                 }
 
@@ -177,6 +191,9 @@ page 50665 "Bundle Guide Card"
 
             group("Bundle Details")
             {
+                //Done By sachith on 03/04/23
+                Editable = EditableGB;
+
                 part(BundleGuideLineListpart; BundleGuideLineListpart)
                 {
                     ApplicationArea = All;
@@ -1595,7 +1612,22 @@ page 50665 "Bundle Guide Card"
     trigger OnDeleteRecord(): Boolean
     var
         BundleGuideLineRec: Record BundleGuideLine;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 04/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         BundleGuideLineRec.reset();
         BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
         BundleGuideLineRec.DeleteAll();
@@ -1613,4 +1645,35 @@ page 50665 "Bundle Guide Card"
             EXIT(TRUE);
         END;
     end;
+
+    //Done By Sachith on 03/04/23 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Factory Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+    var
+        EditableGB: Boolean;
 }
