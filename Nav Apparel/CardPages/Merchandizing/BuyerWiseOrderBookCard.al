@@ -459,6 +459,16 @@ page 51165 "BuyerWiseOrderBooking"
                                     end;
                             end;
 
+                            BuyWisOdrBookAllBookRec.Modify();
+                        end;
+
+
+                        //Update Grand total of last column
+                        BuyWisOdrBookAllBookRec.Reset();
+                        BuyWisOdrBookAllBookRec.SetRange(Year, rec.Year);
+                        BuyWisOdrBookAllBookRec.SetFilter(Type, '=%1', 'T');
+                        if BuyWisOdrBookAllBookRec.FindSet() then begin
+
                             BuyWisOdrBookAllBook1Rec.Reset();
                             BuyWisOdrBookAllBook1Rec.SetRange(Year, rec.Year);
                             BuyWisOdrBookAllBook1Rec.SetFilter(Type, '<>%1', 'T');
@@ -470,7 +480,6 @@ page 51165 "BuyerWiseOrderBooking"
                             BuyWisOdrBookAllBookRec.Modify();
 
                         end;
-
 
 
                         /////////////////////////////////Balance to Sew

@@ -28,25 +28,14 @@ report 51289 SampleRequirementDetails
             { }
             column(endDate; endDate)
             { }
-            column()
-            {}
-            // column()
-            // {}
-            // column()
-            // {}
-            // column()
-            // {}
-            // column()
-            // {}
+
 
             trigger OnPreDataItem()
-
             begin
                 SetRange("QC/Finishing Date", stDate, endDate)
             end;
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -76,7 +65,6 @@ report 51289 SampleRequirementDetails
                 }
             }
         }
-
     }
 
 
