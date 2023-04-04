@@ -98,10 +98,10 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.03039cm</Width>
+                  <Width>2.5801cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.78563cm</Width>
+                  <Width>1.60091cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>4.02406cm</Width>
@@ -119,16 +119,16 @@
                   <Width>1.73271cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.25646cm</Width>
+                  <Width>1.52262cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.26692cm</Width>
+                  <Width>1.45109cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.32293cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.28289cm</Width>
+                  <Width>1.46757cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.19116cm</Width>
@@ -2565,7 +2565,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
