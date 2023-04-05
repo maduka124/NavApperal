@@ -783,12 +783,12 @@ page 50343 "Planning Line Property Card"
                         JobPlaLineRec.Reset();
                         JobPlaLineRec.SetRange("Resource No.", rec."Resource No.");
                         JobPlaLineRec.SetFilter("Start Date", '>=%1', WorkDate());
-                        JobPlaLineRec.FindSet();
-
-                        repeat
-                            JobPlaLineRec.StartDateTime := CREATEDATETIME(JobPlaLineRec."Start Date", JobPlaLineRec."Start Time");
-                            JobPlaLineRec.Modify();
-                        until JobPlaLineRec.Next() = 0;
+                        if JobPlaLineRec.FindSet() then begin
+                            repeat
+                                JobPlaLineRec.StartDateTime := CREATEDATETIME(JobPlaLineRec."Start Date", JobPlaLineRec."Start Time");
+                                JobPlaLineRec.Modify();
+                            until JobPlaLineRec.Next() = 0;
+                        end;
 
                         Message('Completed');
 
