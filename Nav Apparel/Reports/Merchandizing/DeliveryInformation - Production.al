@@ -31,6 +31,8 @@ report 51073 DeliveryInfoProductReport
             { }
             column(endDate; endDate)
             { }
+            column(Brand_Name; "Brand Name")
+            { }
 
             dataitem("Style Master PO"; "Style Master PO")
             {

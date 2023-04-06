@@ -10,6 +10,9 @@ page 50656 "LaySheetCard"
         {
             group(General)
             {
+
+                Editable = EditableGB;
+
                 field("LaySheetNo."; rec."LaySheetNo.")
                 {
                     ApplicationArea = All;
@@ -21,6 +24,7 @@ page 50656 "LaySheetCard"
                         LaySheetHeadRec: Record LaySheetHeader;
                         RoleIssuNo: Code[20];
                         colorRec: Record Colour;
+                        UserRec: Record "User Setup";
                     begin
                         RoleIssuHeadRec.RESET;
                         RoleIssuHeadRec.SetCurrentKey("RoleIssuNo.");
@@ -35,8 +39,21 @@ page 50656 "LaySheetCard"
 
                             RoleIssuHeadRec.MARKEDONLY(TRUE);
 
-                            if Page.RunModal(50826, RoleIssuHeadRec) = Action::LookupOK then
+                            if Page.RunModal(50826, RoleIssuHeadRec) = Action::LookupOK then begin
                                 rec."LaySheetNo." := RoleIssuHeadRec."RoleIssuNo.";
+
+                                //Done By Sachith on 03/04/23 
+                                UserRec.Reset();
+                                UserRec.Get(UserId);
+
+                                if UserRec."Factory Code" <> '' then begin
+                                    Rec."Factory Code" := UserRec."Factory Code";
+                                    CurrPage.Update();
+                                end
+                                else
+                                    Error('Factory not assigned for the user.');
+                            end;
+
 
                         END;
                     END;
@@ -192,6 +209,9 @@ page 50656 "LaySheetCard"
 
             group("Size/Ratio/Qty")
             {
+
+                Editable = EditableGB;
+
                 part("Lay Sheet Line1"; "Lay Sheet Line1")
                 {
                     ApplicationArea = All;
@@ -202,6 +222,9 @@ page 50656 "LaySheetCard"
 
             group("Fabric Width/Length")
             {
+
+                Editable = EditableGB;
+
                 part("Lay Sheet Line2"; "Lay Sheet Line2")
                 {
                     ApplicationArea = All;
@@ -212,6 +235,9 @@ page 50656 "LaySheetCard"
 
             group("Roll/Shade Summary")
             {
+
+                Editable = EditableGB;
+
                 part("Lay Sheet Line3"; "Lay Sheet Line3")
                 {
                     ApplicationArea = All;
@@ -232,6 +258,7 @@ page 50656 "LaySheetCard"
 
             group(" ")
             {
+                Editable = EditableGB;
                 part("Lay Sheet Line5"; "Lay Sheet Line5")
                 {
                     ApplicationArea = All;
@@ -266,7 +293,21 @@ page 50656 "LaySheetCard"
         LaySheetLine5Rec: Record LaySheetLine5;
         CutProRec: Record CuttingProgressHeader;
         BundleGuideRec: Record BundleGuideHeader;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 06/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
 
         //Check in the cutting progress
         CutProRec.Reset();
@@ -768,7 +809,7 @@ page 50656 "LaySheetCard"
                 LaySheetLine4Rec.UOM := UOM;
                 LaySheetLine4Rec."UOM Code" := UOMCode;
                 LaySheetLine4Rec."Created User" := UserId;
-                LaySheetLine4Rec.Insert();    
+                LaySheetLine4Rec.Insert();
             until RoleIssRec.Next() = 0;
         end;
 
@@ -843,6 +884,35 @@ page 50656 "LaySheetCard"
 
     end;
 
-    Var
+    //Done By Sachith on 03/04/23 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Factory Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+    var
+        EditableGB: Boolean;
         PlyHieght: Decimal;
 }

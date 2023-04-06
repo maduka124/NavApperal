@@ -10,6 +10,9 @@ page 50587 "Sewing Job Creation Card"
         {
             group(General)
             {
+
+                Editable = EditableGB;
+
                 field(SJCNo; rec.SJCNo)
                 {
                     ApplicationArea = All;
@@ -130,6 +133,9 @@ page 50587 "Sewing Job Creation Card"
 
             group("PO/Lot Details")
             {
+
+                Editable = EditableGB;
+
                 part("Sewing Job Creation ListPart1"; "Sewing Job Creation ListPart1")
                 {
                     ApplicationArea = All;
@@ -150,6 +156,9 @@ page 50587 "Sewing Job Creation Card"
 
             group("Sub Scheduling")
             {
+
+                Editable = EditableGB;
+
                 part("Sewing Job Creation ListPart3"; "Sewing Job Creation ListPart3")
                 {
                     ApplicationArea = All;
@@ -160,6 +169,9 @@ page 50587 "Sewing Job Creation Card"
 
             group("Daily Line Requirement")
             {
+
+                Editable = EditableGB;
+
                 part("Sewing Job Creation ListPart4"; "Sewing Job Creation ListPart4")
                 {
                     ApplicationArea = All;
@@ -192,7 +204,22 @@ page 50587 "Sewing Job Creation Card"
         SJC4: Record SewingJobCreationLine4;
         GroupMasterRec: Record GroupMaster;
         RatioRec: Record RatioCreation;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 06/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
 
         //Check whether ratio created or not
         SJC4.Reset();
@@ -236,4 +263,35 @@ page 50587 "Sewing Job Creation Card"
             SJC2.DeleteAll();
 
     end;
+
+    //Done By Sachith on 03/04/23 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Factory Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+    var
+        EditableGB: Boolean;
 }

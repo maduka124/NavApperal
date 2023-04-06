@@ -12,6 +12,9 @@ page 51277 GarmentPartsBundleCard
         {
             group(General)
             {
+
+                Editable = EditableGB;
+
                 field("No."; Rec.No)
                 {
                     ApplicationArea = All;
@@ -27,6 +30,23 @@ page 51277 GarmentPartsBundleCard
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Part Name';
+
+                    trigger OnValidate()
+                    var
+                        UserRec: Record "User Setup";
+                    begin
+
+                        //Done By Sachith on 03/04/23 
+                        UserRec.Reset();
+                        UserRec.Get(UserId);
+
+                        if UserRec."Factory Code" <> '' then begin
+                            Rec."Factory Code" := UserRec."Factory Code";
+                            CurrPage.Update();
+                        end
+                        else
+                            Error('Factory not assigned for the user.');
+                    end;
                 }
             }
         }
@@ -45,4 +65,53 @@ page 51277 GarmentPartsBundleCard
         END;
     end;
 
+    //Done By Sachith on 03/04/23 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Factory Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+
+    //Done By sachith on 06/04/23
+    trigger OnDeleteRecord(): Boolean
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
+    end;
+
+    var
+        EditableGB: Boolean;
 }

@@ -52,4 +52,21 @@ page 51275 "Garment Parts - Bundle Card"
 
     end;
 
+    //Done By sachith on 06/04/23
+    trigger OnDeleteRecord(): Boolean
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+    end;
+
 }

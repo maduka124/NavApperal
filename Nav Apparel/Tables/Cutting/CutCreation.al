@@ -80,6 +80,12 @@ table 50600 CutCreation
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done by Sachith on 06/04/23
+        field(15; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

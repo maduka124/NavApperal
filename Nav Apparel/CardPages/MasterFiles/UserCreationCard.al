@@ -4,6 +4,7 @@ page 50978 "Create User Card"
     SourceTable = LoginDetails;
     Caption = 'User Creation';
     //AutoSplitKey = true;
+    Permissions = tabledata "Sales Invoice Header" = rmID;
 
     layout
     {
@@ -134,6 +135,31 @@ page 50978 "Create User Card"
             //         Message('Completed');
             //     end;
             // }
+
+            // actions
+
+
+            action("remove Export Reference No")
+            {
+                ApplicationArea = All;
+                Image = RemoveLine;
+
+
+                trigger OnAction()
+                var
+                    SalesInvRec: Record "Sales Invoice Header";
+                begin
+                    SalesInvRec.Reset();
+                    SalesInvRec.FindSet();
+                    repeat
+                        SalesInvRec."Export Ref No." := '';
+                        SalesInvRec.Modify();
+                    until SalesInvRec.Next() = 0;
+                    Message('Completed');
+                end;
+            }
+
+
         }
     }
 

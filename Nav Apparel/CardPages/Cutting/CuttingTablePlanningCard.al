@@ -10,6 +10,9 @@ page 50616 "Table Creation Card"
         {
             group(General)
             {
+
+                Editable = EditableGB;
+
                 field(TableCreNo; rec.TableCreNo)
                 {
                     ApplicationArea = All;
@@ -31,6 +34,7 @@ page 50616 "Table Creation Card"
                     var
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        UserRec: Record "User Setup";
                     begin
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -49,6 +53,18 @@ page 50616 "Table Creation Card"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
+
+                        //Done By Sachith on 03/04/23 
+                        UserRec.Reset();
+                        UserRec.Get(UserId);
+
+                        if UserRec."Factory Code" <> '' then begin
+                            Rec."Factory Code" := UserRec."Factory Code";
+                            CurrPage.Update();
+                        end
+                        else
+                            Error('Factory not assigned for the user.');
+
                     end;
                 }
 
@@ -72,6 +88,7 @@ page 50616 "Table Creation Card"
 
             group("Tables")
             {
+                Editable = EditableGB;
                 part("Table Creation Line ListPart"; "Table Creation Line ListPart")
                 {
                     ApplicationArea = All;
@@ -100,8 +117,54 @@ page 50616 "Table Creation Card"
     trigger OnDeleteRecord(): Boolean
     var
         TableCreLineRec: Record TableCreartionLine;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 06/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         TableCreLineRec.SetRange("TableCreNo.", rec.TableCreNo);
         TableCreLineRec.DeleteAll();
     end;
+
+    //Done By Sachith on 03/04/23 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Factory Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+    var
+        EditableGB: Boolean;
 }

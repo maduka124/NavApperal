@@ -32,7 +32,12 @@ table 51276 GarmentPartsBundleCard
         field(6; "Created User"; Text[200])
         {
             DataClassification = ToBeClassified;
+        }
 
+        //Done by sachith on 06/04/23
+        field(7; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 
