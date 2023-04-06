@@ -94,7 +94,22 @@ page 50586 "Sewing Job Creation"
         SJC4: Record SewingJobCreationLine4;
         GroupMasterRec: Record GroupMaster;
         RatioRec: Record RatioCreation;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 06/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
 
         //Check whether ratio created or not
         SJC4.Reset();

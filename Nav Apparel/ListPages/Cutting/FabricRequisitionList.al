@@ -104,7 +104,20 @@ page 50621 "FabricRequisitionList"
         FabricRequLine: Record FabricRequsitionLine;
         LaySheetRec: Record LaySheetHeader;
         RoleIssueRec: Record RoleIssuingNoteHeader;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 03/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Location Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
 
         //Check in the laysheet
         LaySheetRec.Reset();

@@ -10,6 +10,9 @@ page 50599 "Cut Creation Card"
         {
             group(General)
             {
+
+                Editable = EditableGB;
+
                 field(CutCreNo; rec.CutCreNo)
                 {
                     ApplicationArea = All;
@@ -33,6 +36,7 @@ page 50599 "Cut Creation Card"
                         StyleMasterRec: Record "Style Master";
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        UserRec: Record "User Setup";
                     begin
                         StyleMasterRec.Reset();
                         StyleMasterRec.SetRange("Style No.", rec."Style Name");
@@ -57,6 +61,16 @@ page 50599 "Cut Creation Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
+                        //Done By Sachith on 03/04/23 
+                        UserRec.Reset();
+                        UserRec.Get(UserId);
+
+                        if UserRec."Factory Code" <> '' then begin
+                            Rec."Factory Code" := UserRec."Factory Code";
+                            CurrPage.Update();
+                        end
+                        else
+                            Error('Factory not assigned for the user.');
                     end;
                 }
 
@@ -1433,7 +1447,21 @@ page 50599 "Cut Creation Card"
         FabRec: Record FabricRequsition;
         TableRec: Record TableCreartionLine;
         LaySheetRec: Record LaySheetHeader;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 06/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
 
         //Check fabric requsition
         CurCreLineRec.Reset();
@@ -1517,4 +1545,35 @@ page 50599 "Cut Creation Card"
         if CurCreLineRec.FindSet() then
             CurCreLineRec.DeleteAll();
     end;
+
+    //Done By Sachith on 03/04/23 
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Factory Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+    var
+        EditableGB: Boolean;
 }

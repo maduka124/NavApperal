@@ -148,6 +148,12 @@ table 50645 LaySheetHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done By Sachith on 06/04/23
+        field(29; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

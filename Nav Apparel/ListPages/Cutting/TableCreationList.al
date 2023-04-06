@@ -63,7 +63,22 @@ page 50615 "Table Creation"
     trigger OnDeleteRecord(): Boolean
     var
         TableCreLineRec: Record TableCreartionLine;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 06/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         TableCreLineRec.SetRange("TableCreNo.", Rec.TableCreNo);
         TableCreLineRec.DeleteAll();
     end;

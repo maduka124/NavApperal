@@ -43,6 +43,13 @@ table 50611 TableCreation
         {
             DataClassification = ToBeClassified;
         }
+
+        //Done by Sachith on 06/04/23
+        field(21; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

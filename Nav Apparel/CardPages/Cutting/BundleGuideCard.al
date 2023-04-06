@@ -66,7 +66,7 @@ page 50665 "Bundle Guide Card"
 
                         if UserRec."Factory Code" <> '' then begin
                             Rec."Factory Code" := UserRec."Factory Code";
-                            Rec.Modify()
+                            CurrPage.Update();
                         end
                         else
                             Error('Factory not assigned for the user.');

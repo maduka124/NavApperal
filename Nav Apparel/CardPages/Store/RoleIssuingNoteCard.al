@@ -10,6 +10,9 @@ page 50635 "Roll Issuing Note Card"
         {
             group(General)
             {
+
+                Editable = EditableGB;
+
                 field("RoleIssuNo."; rec."RoleIssuNo.")
                 {
                     ApplicationArea = All;
@@ -219,6 +222,8 @@ page 50635 "Roll Issuing Note Card"
 
             group("Items")
             {
+
+                Editable = EditableGB;
                 part("Roll Issuing Note ListPart"; "Roll Issuing Note ListPart")
                 {
                     ApplicationArea = All;
@@ -234,7 +239,20 @@ page 50635 "Roll Issuing Note Card"
     var
         RoleIssuingNoteLineRec: Record RoleIssuingNoteLine;
         LaysheetRec: Record LaySheetHeader;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 06/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Location Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         //Check in the laysheet
         LaySheetRec.Reset();
         LaySheetRec.SetRange("LaySheetNo.", rec."RoleIssuNo.");
@@ -319,4 +337,35 @@ page 50635 "Roll Issuing Note Card"
             Error('Cannot find Fabric Processing details.');
 
     end;
+
+    //Done By sachith on 06/04/23
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Location Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Location Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+    var
+        EditableGB: Boolean;
 }

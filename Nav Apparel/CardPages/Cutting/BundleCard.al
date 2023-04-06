@@ -64,7 +64,7 @@ page 51276 Bundlecard
 
                         if UserRec."Factory Code" <> '' then begin
                             Rec."Factory Code" := UserRec."Factory Code";
-                            Rec.Modify()
+                            CurrPage.Update();
                         end
                         else
                             Error('Factory not assigned for the user.');
@@ -135,8 +135,6 @@ page 51276 Bundlecard
         UserRec.Reset();
         UserRec.Get(UserId);
 
-        UserRec.Reset();
-        UserRec.Get(UserId);
         if UserRec."Factory Code" <> '' then begin
             if (UserRec."Factory Code" <> rec."Factory Code") then
                 Error('You are not authorized to delete this record.')

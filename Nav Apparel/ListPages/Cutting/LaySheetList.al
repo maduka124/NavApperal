@@ -111,7 +111,22 @@ page 50651 "Lay Sheet List"
         LaySheetLine5Rec: Record LaySheetLine5;
         CutProRec: Record CuttingProgressHeader;
         BundleGuideRec: Record BundleGuideHeader;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 06/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
 
         //Check in the cutting progress
         CutProRec.Reset();
