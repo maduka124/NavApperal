@@ -1983,16 +1983,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 end;
                             end;
 
-                            // if i = 1 then
-                            //     ProdPlansDetails."Start Time" := TImeStart
-                            // else
-                            //     ProdPlansDetails."Start Time" := LocationRec."Start Time";
-
-                            // if TempHours = 0 then
-                            //     ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                            // else
-                            //     ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
-
                             ProdPlansDetails.Qty := xQty;
                             ProdPlansDetails.Target := TargetPerDay;
 
@@ -2032,8 +2022,17 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                         if TempHours = 0 then
                             JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
-                        else
-                            JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                        else begin
+                            if i = 1 then
+                                JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                            else
+                                JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                        end;
+
+                        // if TempHours = 0 then
+                        //     JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                        // else
+                        //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                         JobPlaLineRec."Created User" := UserId;
                         JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
@@ -2481,8 +2480,17 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                 if TempHours = 0 then
                                     JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
-                                else
-                                    JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                else begin
+                                    if i = 1 then
+                                        JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                    else
+                                        JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                end;
+
+                                // if TempHours = 0 then
+                                //     JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                // else
+                                //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                                 JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                                 JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
