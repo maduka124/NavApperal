@@ -55,7 +55,7 @@ report 50852 SewingProductionDetails
 
             trigger OnAfterGetRecord()
             begin
-
+                Quantity := 0;
                 NavAppProdRec.Reset();
                 NavAppProdRec.SetRange("Style No.", "Out Style No.");
                 NavAppProdRec.SetRange(PlanDate, "Prod Date");
@@ -63,7 +63,9 @@ report 50852 SewingProductionDetails
                 NavAppProdRec.SetRange("PO No.", "PO No");
                 NavAppProdRec.SetRange("Lot No.", "Lot No.");
                 if NavAppProdRec.FindSet() then begin
-                    Quantity := NavAppProdRec.Qty;
+                    repeat
+                        Quantity += NavAppProdRec.Qty;
+                    until NavAppProdRec.Next() = 0;
                 end;
 
                 // TotalOuput := 0;
