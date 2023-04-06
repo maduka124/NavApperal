@@ -59,7 +59,8 @@ report 50852 SewingProductionDetails
                 NavAppProdRec.Reset();
                 NavAppProdRec.SetRange("Style No.", "Out Style No.");
                 NavAppProdRec.SetRange(PlanDate, "Prod Date");
-                NavAppProdRec.SetRange("Resource No.","Resource No.");
+                NavAppProdRec.SetRange("Resource No.", "Resource No.");
+                NavAppProdRec.SetRange("PO No.", "PO No");
                 if NavAppProdRec.FindSet() then begin
                     repeat
                         Quantity += NavAppProdRec.Qty;
