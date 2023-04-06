@@ -918,8 +918,17 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                     if TempHours = 0 then
                                         ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                                    else
-                                        ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    else begin
+                                        if i = 1 then
+                                            ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                        else
+                                            ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    end;
+
+                                    // if TempHours = 0 then
+                                    //     ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                    // else
+                                    //     ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                 end;
 
                                 ProdPlansDetails.Qty := xQty;
@@ -978,10 +987,23 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             JobPlaLineRec."Start Date" := dtStart;
                             JobPlaLineRec."End Date" := TempDate;
                             JobPlaLineRec."Start Time" := TImeStart;
+
                             if TempHours = 0 then
                                 JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
-                            else
-                                JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            else begin
+                                if i = 1 then
+                                    if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                        JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                    else
+                                        JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                else
+                                    JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            end;
+
+                            // if TempHours = 0 then
+                            //     JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                            // else
+                            //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                             JobPlaLineRec.Carder := Carder;
                             JobPlaLineRec.Target := TargetPerDay;
@@ -1421,10 +1443,22 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     JobPlaLineRec."Start Date" := dtStart;
                                     JobPlaLineRec."End Date" := TempDate;
                                     JobPlaLineRec."Start Time" := TImeStart;
+
                                     if TempHours = 0 then
                                         JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
-                                    else
-                                        JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    else begin
+                                        if i = 1 then
+                                            JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                        else
+                                            JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    end;
+
+
+                                    // if TempHours = 0 then
+                                    //     JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                    // else
+                                    //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+
                                     JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                                     JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
                                     JobPlaLineRec.Modify();
@@ -2024,7 +2058,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
                         else begin
                             if i = 1 then
-                                JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                    JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                else
+                                    JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                             else
                                 JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                         end;
