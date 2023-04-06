@@ -1,4 +1,4 @@
-report 51283 SendWashingReport
+report 51294 SendWashingReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

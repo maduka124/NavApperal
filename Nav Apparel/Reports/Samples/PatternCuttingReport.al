@@ -1,4 +1,4 @@
-report 51279 PatternCuttingReport
+report 51289 PatternCuttingReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

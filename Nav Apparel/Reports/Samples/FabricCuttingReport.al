@@ -1,4 +1,4 @@
-report 51280 FabricCuttingReport
+report 51286 FabricCuttingReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

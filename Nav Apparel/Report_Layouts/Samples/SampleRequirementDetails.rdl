@@ -1133,7 +1133,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Top>2.84903cm</Top>
+            <Top>2.53153cm</Top>
             <Left>0.0127cm</Left>
             <Height>1.12183cm</Height>
             <Width>19.86503cm</Width>
@@ -1145,7 +1145,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>4.31253cm</Height>
+        <Height>3.9527cm</Height>
         <Style />
       </Body>
       <Width>19.87773cm</Width>

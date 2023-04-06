@@ -1,4 +1,4 @@
-report 51287 PatternReport
+report 51290 PatternReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

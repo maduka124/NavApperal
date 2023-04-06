@@ -1,4 +1,4 @@
-report 51285 FinishingQualityReport
+report 51287 FinishingQualityReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
@@ -20,7 +20,7 @@ report 51285 FinishingQualityReport
             { }
             column(Buyer_Name; "Buyer Name")
             { }
-            column(Garment_Type;"Sample Name")
+            column(Garment_Type; "Sample Name")
             { }
             column(Finishing_Operator; "Finishing Operator")
             { }

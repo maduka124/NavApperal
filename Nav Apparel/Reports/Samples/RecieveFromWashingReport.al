@@ -1,4 +1,4 @@
-report 51284 ReceieveFromWashingReport
+report 51292 ReceieveFromWashingReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
