@@ -79,23 +79,23 @@ page 50978 "Create User Card"
     {
         area(Processing)
         {
-            action("remove contarct/style")
-            {
-                ApplicationArea = All;
-                Image = AddAction;
+            // action("remove contarct/style")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
 
-                trigger OnAction()
-                var
-                    ContractLCStyle: Record "Contract/LCStyle";
-                begin
-                    ContractLCStyle.Reset();
-                    ContractLCStyle.SetRange("No.", contractNo);
-                    if ContractLCStyle.FindSet() then
-                        ContractLCStyle.DeleteAll();
+            //     trigger OnAction()
+            //     var
+            //         ContractLCStyle: Record "Contract/LCStyle";
+            //     begin
+            //         ContractLCStyle.Reset();
+            //         ContractLCStyle.SetRange("No.", contractNo);
+            //         if ContractLCStyle.FindSet() then
+            //             ContractLCStyle.DeleteAll();
 
-                    Message('Completed');
-                end;
-            }
+            //         Message('Completed');
+            //     end;
+            // }
 
 
             // action("delete daily sewing")
@@ -139,25 +139,25 @@ page 50978 "Create User Card"
             // actions
 
 
-            action("remove Export Reference No")
-            {
-                ApplicationArea = All;
-                Image = RemoveLine;
+            // action("remove Export Reference No")
+            // {
+            //     ApplicationArea = All;
+            //     Image = RemoveLine;
 
 
-                trigger OnAction()
-                var
-                    SalesInvRec: Record "Sales Invoice Header";
-                begin
-                    SalesInvRec.Reset();
-                    SalesInvRec.FindSet();
-                    repeat
-                        SalesInvRec."Export Ref No." := '';
-                        SalesInvRec.Modify();
-                    until SalesInvRec.Next() = 0;
-                    Message('Completed');
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         SalesInvRec: Record "Sales Invoice Header";
+            //     begin
+            //         SalesInvRec.Reset();
+            //         SalesInvRec.FindSet();
+            //         repeat
+            //             SalesInvRec."Export Ref No." := '';
+            //             SalesInvRec.Modify();
+            //         until SalesInvRec.Next() = 0;
+            //         Message('Completed');
+            //     end;
+            // }
 
 
         }
