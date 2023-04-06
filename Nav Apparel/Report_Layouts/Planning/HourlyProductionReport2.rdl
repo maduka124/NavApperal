@@ -989,7 +989,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>PLANNED</Value>
+                                  <Value>MINUTES PLANNED</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1046,7 +1046,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PlanQty.Value*Fields!CM.Value</Value>
+                                  <Value>=Fields!PlanQty.Value*Fields!SMV.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1871,7 +1871,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>EARNINGS $</Value>
+                                  <Value>EARNINGS</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1922,7 +1922,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ACHIEVED</Value>
+                                  <Value>MINUTES EARNED</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1979,7 +1979,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Hour_1.Value+Fields!Hour_2.Value+Fields!Hour_3.Value+Fields!Hour_4.Value+Fields!Hour_5.Value+Fields!Hour_6.Value+Fields!Hour_7.Value+Fields!Hour_8.Value+Fields!Hour_9.Value+Fields!Hour_10.Value)*Fields!CM.Value</Value>
+                                  <Value>=(Fields!Hour_1.Value+Fields!Hour_2.Value+Fields!Hour_3.Value+Fields!Hour_4.Value+Fields!Hour_5.Value+Fields!Hour_6.Value+Fields!Hour_7.Value+Fields!Hour_8.Value+Fields!Hour_9.Value+Fields!Hour_10.Value)*Fields!SMV.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2944,7 +2944,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!OutputQtyTotal.Value * Fields!CMPcs.Value) - (Fields!Qty.Value * Fields!CMPcs.Value)</Value>
+                                  <Value>=(Fields!Hour_1.Value+Fields!Hour_2.Value+Fields!Hour_3.Value+Fields!Hour_4.Value+Fields!Hour_5.Value+Fields!Hour_6.Value+Fields!Hour_7.Value+Fields!Hour_8.Value+Fields!Hour_9.Value+Fields!Hour_10.Value)*Fields!SMV.Value - (Fields!PlanQty.Value*Fields!SMV.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
