@@ -6,7 +6,6 @@ report 50641 WIPReport
     RDLCLayout = 'Report_Layouts/Merchandizing/WIPReport.rdl';
     DefaultLayout = RDLC;
 
-
     dataset
     {
         dataitem("Style Master"; "Style Master")
@@ -34,14 +33,13 @@ report 50641 WIPReport
             { }
             column(LC_No_Contract; ContractNo)
             { }
-            // column()
-            // {}
+
             dataitem("Style Master PO"; "Style Master PO")
             {
-
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = sorting("Style No.");
+
                 column(SHMode; SHMode)
                 { }
                 column(Cut_In_Qty; "Cut In Qty")
@@ -76,9 +74,9 @@ report 50641 WIPReport
                 { }
                 column(RoundUnitPrice; RoundUnitPrice)
                 { }
+
                 trigger OnAfterGetRecord()
                 var
-
                 begin
                     ShipMode := Mode;
                     SHMode := '';
@@ -114,7 +112,6 @@ report 50641 WIPReport
             }
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -130,10 +127,8 @@ report 50641 WIPReport
 
             trigger OnPreDataItem()
             begin
-
-                UserReC.Get(UserId);
-
-                "Style Master".SetRange("Factory Code", UserReC."Factory Code");
+                //UserReC.Get(UserId);
+                //"Style Master".SetRange("Factory Code", UserReC."Factory Code");
                 SetRange("No.", STFilter);
             end;
         }
@@ -152,33 +147,45 @@ report 50641 WIPReport
                     {
                         ApplicationArea = All;
                         Caption = 'Style';
-                        TableRelation = "Style Master"."No.";
+                        //TableRelation = "Style Master"."No.";
 
+                        trigger OnLookup(var Text: Text): Boolean
+                        var
+                            StyleMasterRec: Record "Style Master";
+                            Users: Record "User Setup";
+                        begin
+                            StyleMasterRec.Reset();
+                            Users.Reset();
+                            Users.SetRange("User ID", UserId());
+                            Users.FindSet();
+                            if Users."Factory Code" <> '' then
+                                StyleMasterRec.SetRange("Factory Code", Users."Factory Code");
+
+                            if Page.RunModal(51067, StyleMasterRec) = Action::LookupOK then
+                                STFilter := StyleMasterRec."No.";
+                        end;
                     }
                 }
             }
         }
-
-
     }
 
-    procedure PassParameters(StyleNoPara: Code[20])
+    procedure PassParameters(StyleNoPara: Code[200])
     var
     begin
         STFilter := StyleNoPara;
     end;
 
     var
-        myInt: Integer;
         ShipMode: Option;
         SHMode: Text[50];
         comRec: Record "Company Information";
         UserReC: Record "User Setup";
-        STFilter: Code[20];
+        STFilter: Code[200];
         SalesInvoiceRec: Record "Sales Invoice Header";
         ExtDate: Date;
         ContractRec: Record "Contract/LCMaster";
-        ContractNo: Text[50];
+        ContractNo: Text[100];
         LcStyleRec: Record "Contract/LCStyle";
         RoundUnitPrice: Decimal;
 
