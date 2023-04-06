@@ -1,4 +1,4 @@
-report 51281 SewingReport
+report 51295 SewingReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

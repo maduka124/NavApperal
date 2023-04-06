@@ -1,4 +1,4 @@
-report 51286 SampleFinishingReport
+report 51288 SampleFinishingReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

@@ -1,4 +1,4 @@
-report 51289 SampleRequirementDetails
+report 51285 SampleRequirementDetails
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
