@@ -14,12 +14,7 @@ report 50629 ExportSummartReport
             { }
             column(CompLogo; comRec.Picture)
             { }
-            // column()
-            //     { }
-            // column()
-            //     { }
-            //     column()
-            // {}
+
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
             {
                 DataItemLinkReference = "Contract/LCMaster";
@@ -56,7 +51,26 @@ report 50629 ExportSummartReport
                 { }
 
                 trigger OnAfterGetRecord()
+                var
+                    SaledInvoiceHeaderRec: Record "Sales Invoice Header";
+                    SalesInvoiceLineRec: Record "Sales Invoice Line";
                 begin
+
+                    SaledInvoiceHeaderRec.Reset();
+                    SaledInvoiceHeaderRec.SetRange("Style No", "Style No.");
+                    SaledInvoiceHeaderRec.SetRange("PO No", PoNo);
+
+                    if SaledInvoiceHeaderRec.FindSet() then begin
+                        SalesInvoiceLineRec.Reset();
+                        SalesInvoiceLineRec.SetRange("Order No.", SaledInvoiceHeaderRec."Order No.");
+
+                        if SalesInvoiceLineRec.FindSet() then begin
+                            ShipQty := SalesInvoiceLineRec.Quantity;
+                            // Rec.ShipValue := SalesInvoiceLineRec."Line Amount";
+
+                        end;
+                    end;
+
 
                     StylePoRec.SetRange("Style No.", "Style No.");
                     if StylePoRec.FindFirst() then begin

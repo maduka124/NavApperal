@@ -16,6 +16,7 @@ page 50665 "Bundle Guide Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Bundle Guide No';
+                    Editable = EditableGB;
 
                     trigger OnAssistEdit()
                     begin
