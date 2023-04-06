@@ -321,8 +321,8 @@ page 50371 "Prod Update Card"
 
                         if JobPlaLineRec.FindSet() then begin
 
-                            if WorkCenterName = 'AFL-02' then
-                                Message(Format(JobPlaLineRec.Count));
+                            // if WorkCenterName = 'AFL-02' then
+                            //     Message(Format(JobPlaLineRec.Count));
 
                             if JobPlaLineRec.Carder <> 0 then
                                 Carder := JobPlaLineRec.Carder;
@@ -529,8 +529,20 @@ page 50371 "Prod Update Card"
 
                                     if TempHours = 0 then
                                         ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                                    else
-                                        ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    else begin
+                                        if i = 1 then
+                                            if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                            else
+                                                ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                        else
+                                            ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    end;
+
+                                    // if TempHours = 0 then
+                                    //     ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                    // else
+                                    //     ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                                     ProdPlansDetails.Qty := xQty;
                                     ProdPlansDetails.Target := TargetPerDay;
@@ -559,8 +571,20 @@ page 50371 "Prod Update Card"
 
                             if TempHours = 0 then
                                 JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
-                            else
-                                JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            else begin
+                                if i = 1 then
+                                    if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                        JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                                    else
+                                        JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                else
+                                    JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            end;
+
+                            // if TempHours = 0 then
+                            //     JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
+                            // else
+                            //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                             JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                             JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
@@ -855,6 +879,7 @@ page 50371 "Prod Update Card"
                                         ProdPlansDetails.Eff := Eff;
                                         ProdPlansDetails."Learning Curve No." := JobPlaLine1Rec."Learning Curve No.";
                                         ProdPlansDetails.SMV := JobPlaLine1Rec.SMV;
+
                                         if i = 1 then
                                             ProdPlansDetails."Start Time" := TImeStart
                                         else
@@ -862,8 +887,21 @@ page 50371 "Prod Update Card"
 
                                         if TempHours = 0 then
                                             ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                                        else
-                                            ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                        else begin
+                                            if i = 1 then
+                                                if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                else
+                                                    ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                            else
+                                                ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                        end;
+
+                                        // if TempHours = 0 then
+                                        //     ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                        // else
+                                        //     ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+
                                         ProdPlansDetails.Qty := xQty;
                                         ProdPlansDetails.Target := TargetPerDay;
                                         ProdPlansDetails.HoursPerDay := HoursPerDay;
@@ -892,10 +930,24 @@ page 50371 "Prod Update Card"
                                     JobPlaLine1Rec."Start Date" := dtStart;
                                     JobPlaLine1Rec."End Date" := TempDate;
                                     JobPlaLine1Rec."Start Time" := TImeStart;
+
                                     if TempHours = 0 then
                                         JobPlaLine1Rec."Finish Time" := LocationRec."Finish Time"
-                                    else
-                                        JobPlaLine1Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    else begin
+                                        if i = 1 then
+                                            if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                JobPlaLine1Rec."Finish Time" := LocationRec."Finish Time"
+                                            else
+                                                JobPlaLine1Rec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                        else
+                                            JobPlaLine1Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    end;
+
+                                    // if TempHours = 0 then
+                                    //     JobPlaLine1Rec."Finish Time" := LocationRec."Finish Time"
+                                    // else
+                                    //     JobPlaLine1Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+
                                     JobPlaLine1Rec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                                     JobPlaLine1Rec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
                                     JobPlaLine1Rec.Qty := Qty - OutputQty;
