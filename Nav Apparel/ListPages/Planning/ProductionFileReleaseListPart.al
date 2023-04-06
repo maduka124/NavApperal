@@ -307,8 +307,8 @@ page 51215 ProductionFileReleaseListPart
                 //get Factory name
                 LocationRec.Reset();
                 LocationRec.SetRange(code, StyleMasRec."Factory Code");
-                LocationRec.FindSet();
-                ProdFileRelLineRec."LCFactory Name" := LocationRec."Name";
+                if LocationRec.FindSet() then
+                    ProdFileRelLineRec."LCFactory Name" := LocationRec."Name";
 
                 ProdFileRelLineRec.Merchandiser := StyleMasRec."Merchandiser Name";
                 ProdFileRelLineRec."Merchandizer Group Name" := StyleMasRec."Merchandizer Group Name";
@@ -333,8 +333,8 @@ page 51215 ProductionFileReleaseListPart
                 //get Factory name
                 LocationRec.Reset();
                 LocationRec.SetRange(code, NavAppPlanLineRec."Factory");
-                LocationRec.FindSet();
-                ProdFileRelLineRec."Sew Factory" := LocationRec.Name;
+                if LocationRec.FindSet() then
+                    ProdFileRelLineRec."Sew Factory" := LocationRec.Name;
 
                 //Get Po details
                 StyleMasPoRec.Reset();
@@ -400,8 +400,8 @@ page 51215 ProductionFileReleaseListPart
                         //get Factory name
                         LocationRec.Reset();
                         LocationRec.SetRange(code, StyleMasRec."Factory Code");
-                        LocationRec.FindSet();
-                        ProdFileRelLineRec."LCFactory Name" := LocationRec."Name";
+                        if LocationRec.FindSet() then
+                            ProdFileRelLineRec."LCFactory Name" := LocationRec."Name";
 
                         ProdFileRelLineRec.Merchandiser := StyleMasRec."Merchandiser Name";
                         ProdFileRelLineRec."Merchandizer Group Name" := StyleMasRec."Merchandizer Group Name";
@@ -426,8 +426,8 @@ page 51215 ProductionFileReleaseListPart
                         //get Factory name
                         LocationRec.Reset();
                         LocationRec.SetRange(code, NavAppPlanLineRec."Factory");
-                        LocationRec.FindSet();
-                        ProdFileRelLineRec."Sew Factory" := LocationRec.Name;
+                        if LocationRec.FindSet() then
+                            ProdFileRelLineRec."Sew Factory" := LocationRec.Name;
 
                         //Get Po details
                         StyleMasPoRec.Reset();
