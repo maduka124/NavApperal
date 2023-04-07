@@ -1076,7 +1076,6 @@
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -2945,7 +2944,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=(Fields!Hour_1.Value+Fields!Hour_2.Value+Fields!Hour_3.Value+Fields!Hour_4.Value+Fields!Hour_5.Value+Fields!Hour_6.Value+Fields!Hour_7.Value+Fields!Hour_8.Value+Fields!Hour_9.Value+Fields!Hour_10.Value)*Fields!SMV.Value - (Fields!PlanQty.Value*Fields!SMV.Value)</Value>
+                                  <Value>=(Fields!Hour_1.Value+Fields!Hour_2.Value+Fields!Hour_3.Value+Fields!Hour_4.Value+Fields!Hour_5.Value+Fields!Hour_6.Value+Fields!Hour_7.Value+Fields!Hour_8.Value+Fields!Hour_9.Value+Fields!Hour_10.Value)*Fields!SMV.Value - (Fields!TodayTarget.Value*Fields!SMV.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2975,6 +2974,7 @@
                           </Style>
                         </Textbox>
                         <ColSpan>2</ColSpan>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
