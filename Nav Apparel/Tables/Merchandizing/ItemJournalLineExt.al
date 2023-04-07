@@ -50,7 +50,7 @@ tableextension 50913 "ItemJournalLineExt" extends "Item Journal Line"
 
         }
 
-        field(50011; "Color"; Code[20])
+        field(50011; "Color"; Code[50])
         {
 
         }

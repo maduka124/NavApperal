@@ -50,7 +50,7 @@ tableextension 50926 "ReservationEntry" extends "Reservation Entry"
 
         }
 
-        field(50011; "Color"; Code[20])
+        field(50011; "Color"; Code[50])
         {
             TableRelation = Colour."Colour Name";
             ValidateTableRelation = false;

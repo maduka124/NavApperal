@@ -50,7 +50,7 @@ tableextension 50914 "ItemLedgerEntryExt" extends "Item Ledger Entry"
 
         }
 
-        field(50011; "Color"; Code[20])
+        field(50011; "Color"; Code[50])
         {
 
         }
@@ -175,7 +175,7 @@ tableextension 50914 "ItemLedgerEntryExt" extends "Item Ledger Entry"
             DataClassification = ToBeClassified;
             Editable = false;
         }
-        
+
         field(50124; "MainCategoryName"; Text[50]) //to identify item Issuing per main category wise
         {
             Caption = 'Main Category';

@@ -2639,9 +2639,6 @@
                           <KeepWithGroup>Before</KeepWithGroup>
                         </TablixMember>
                       </TablixMembers>
-                      <Visibility>
-                        <Hidden>=Fields!Qty.Value=0</Hidden>
-                      </Visibility>
                     </TablixMember>
                     <TablixMember>
                       <TablixHeader>
@@ -2687,9 +2684,6 @@
                       <KeepWithGroup>Before</KeepWithGroup>
                     </TablixMember>
                   </TablixMembers>
-                  <Visibility>
-                    <Hidden>=Fields!Qty.Value=0</Hidden>
-                  </Visibility>
                 </TablixMember>
                 <TablixMember>
                   <TablixHeader>

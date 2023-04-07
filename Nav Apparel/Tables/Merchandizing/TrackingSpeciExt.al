@@ -50,7 +50,7 @@ tableextension 50936 "TrackingSpec" extends "Tracking Specification"
 
         }
 
-        field(50011; "Color"; Code[20])
+        field(50011; "Color"; Code[50])
         {
             TableRelation = Colour."Colour Name";
             ValidateTableRelation = false;
