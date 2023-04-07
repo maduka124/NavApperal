@@ -3301,6 +3301,11 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
+            <SortExpressions>
+              <SortExpression>
+                <Value>=Fields!StartDt.Value</Value>
+              </SortExpression>
+            </SortExpressions>
             <Top>4.16137cm</Top>
             <Left>0cm</Left>
             <Height>2.90066cm</Height>
