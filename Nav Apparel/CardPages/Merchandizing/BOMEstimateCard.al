@@ -328,28 +328,34 @@ page 50985 "BOM Estimate Card"
 
                 begin
                     x := 0;
+                    Total := 0;
+
+                    //Mihiranga 2023/04/07
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", rec."Style No.");
+                    if StyleRec.FindFirst() then begin
+                        if StyleRec."Order Qty" = 0 then
+                            Error('Style quantity is zero. Cannot proceed.');
+
+                        Rec.Quantity := StyleRec."Order Qty";
+                        // UpdatedQuantity := StyleRec."Order Qty";
+                    end;
 
                     if rec.Quantity = 0 then
                         Error('Quantity is zero. Cannot proceed.');
 
-                    Total := 0;
+
                     BOMEstLineRec.Reset();
                     BOMEstLineRec.SetCurrentKey("No.");
                     BOMEstLineRec.SetRange("No.", rec."No.");
-
-
-                    //Mihiranga 2023/04/07
-                    StyleRec.Reset();
-                    StyleRec.SetRange("Style No.", Rec."Style Name");
-                    if StyleRec.FindFirst() then begin
-                        Rec.Quantity := StyleRec."Order Qty";
-                        UpdatedQuantity := StyleRec."Order Qty";
-                        CurrPage.Update();
-                    end;
-                    ///
-
                     IF (BOMEstLineRec.FINDSET) THEN
                         repeat
+
+                            if BOMEstLineRec."Article Name." = '' then
+                                Error('Article is blank.');
+
+                            if BOMEstLineRec."Dimension Name." = '' then
+                                Error('Dimension is blank.');
 
                             ConvFactor := 0;
                             UOMRec.Reset();
@@ -357,26 +363,11 @@ page 50985 "BOM Estimate Card"
                             if UOMRec.FindSet() then
                                 ConvFactor := UOMRec."Converion Parameter";
 
-                            // if BOMEstLineRec.Type = BOMEstLineRec.Type::Pcs then
-                            //     if BOMEstLineRec.AjstReq = 0 then
-                            //         BOMEstLineRec.WST := (100 * BOMEstLineRec.Requirment) / (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) - 100
-                            //     else
-                            //         BOMEstLineRec.WST := (100 * BOMEstLineRec.AjstReq) / (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) - 100
-                            // else
-                            //     if BOMEstLineRec.Type = BOMEstLineRec.Type::Doz then
-                            //         if BOMEstLineRec.AjstReq = 0 then
-                            //             BOMEstLineRec.WST := (100 * BOMEstLineRec.Requirment * 12) / (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) - 100
-                            //         else
-                            //             BOMEstLineRec.WST := (100 * BOMEstLineRec.AjstReq * 12) / (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) - 100;
-
-
                             if BOMEstLineRec.Type = BOMEstLineRec.Type::Pcs then
-                                BOMEstLineRec.Requirment := (BOMEstLineRec.Consumption * BOMEstLineRec.Qty) + (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) * BOMEstLineRec.WST / 100
+                                BOMEstLineRec.Requirment := (BOMEstLineRec.Consumption * StyleRec."Order Qty") + (StyleRec."Order Qty" * BOMEstLineRec.Consumption) * BOMEstLineRec.WST / 100
                             else
                                 if BOMEstLineRec.Type = BOMEstLineRec.Type::Doz then
-                                    BOMEstLineRec.Requirment := ((BOMEstLineRec.Consumption * BOMEstLineRec.Qty) + (BOMEstLineRec.Qty * BOMEstLineRec.Consumption) * BOMEstLineRec.WST / 100) / 12;
-
-                            //BOMEstLineRec.Requirment := Round(BOMEstLineRec.Requirment, 1);
+                                    BOMEstLineRec.Requirment := ((BOMEstLineRec.Consumption * StyleRec."Order Qty") + (StyleRec."Order Qty" * BOMEstLineRec.Consumption) * BOMEstLineRec.WST / 100) / 12;
 
                             if ConvFactor <> 0 then
                                 BOMEstLineRec.Requirment := BOMEstLineRec.Requirment / ConvFactor;
@@ -386,36 +377,34 @@ page 50985 "BOM Estimate Card"
 
                             BOMEstLineRec.Value := BOMEstLineRec.Requirment * BOMEstLineRec.Rate;
                             Total += BOMEstLineRec.Value;
+                            BOMEstLineRec.Qty := StyleRec."Order Qty";
+
                             BOMEstLineRec.Modify();
 
 
-                            ////////Mihiranga 2023/04/07
-                            if BOMEstLineRec.Type = BOMEstLineRec.type::Pcs then
-                                BOMEstLineRec.Requirment := (BOMEstLineRec.Consumption * UpdatedQuantity) + (BOMEstLineRec.Consumption * UpdatedQuantity) * BOMEstLineRec.WST / 100
-                            else
-                                if BOMEstLineRec.Type = BOMEstLineRec.type::Doz then
-                                    BOMEstLineRec.Requirment := ((BOMEstLineRec.Consumption * UpdatedQuantity) + (BOMEstLineRec.Consumption * UpdatedQuantity) * BOMEstLineRec.WST / 100) / 12;
+                        // ////////Mihiranga 2023/04/07
+                        // if BOMEstLineRec.Type = BOMEstLineRec.type::Pcs then
+                        //     BOMEstLineRec.Requirment := (BOMEstLineRec.Consumption * UpdatedQuantity) + (BOMEstLineRec.Consumption * UpdatedQuantity) * BOMEstLineRec.WST / 100
+                        // else
+                        //     if BOMEstLineRec.Type = BOMEstLineRec.type::Doz then
+                        //         BOMEstLineRec.Requirment := ((BOMEstLineRec.Consumption * UpdatedQuantity) + (BOMEstLineRec.Consumption * UpdatedQuantity) * BOMEstLineRec.WST / 100) / 12;
 
-                            if (x = 0) and (ConvFactor <> 0) then
-                                BOMEstLineRec.Requirment := BOMEstLineRec.Requirment / ConvFactor;
+                        // if (x = 0) and (ConvFactor <> 0) then
+                        //     BOMEstLineRec.Requirment := BOMEstLineRec.Requirment / ConvFactor;
 
-                            if BOMEstLineRec.Requirment = 0 then
-                                BOMEstLineRec.Requirment := 1;
+                        // if BOMEstLineRec.Requirment = 0 then
+                        //     BOMEstLineRec.Requirment := 1;
 
-                            //Requirment := Round(Requirment, 1);
-                            BOMEstLineRec.Value := BOMEstLineRec.Requirment * BOMEstLineRec.Rate;
-                            /////////
-                            BOMEstLineRec.Modify();
-                            CurrPage.Update();
+                        // BOMEstLineRec.Value := BOMEstLineRec.Requirment * BOMEstLineRec.Rate;
+
+                        //BOMEstLineRec.Qty := StyleRec."Order Qty";
+                        // BOMEstLineRec.Modify();
 
                         until BOMEstLineRec.Next() = 0;
 
-                    // rec."Material Cost Pcs." := (Total / rec.Quantity);(Old Calcuation)
-                    //Updated Order Qty From Style Master  (Mihiranga 2023/04/7)
-                    rec."Material Cost Pcs." := (Total / UpdatedQuantity);
+                    rec."Material Cost Pcs." := (Total / StyleRec."Order Qty");
                     rec."Material Cost Doz." := rec."Material Cost Pcs." * 12;
                     CurrPage.Update();
-
 
                     Message('Calculation completed');
 
