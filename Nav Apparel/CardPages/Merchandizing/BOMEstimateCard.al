@@ -322,7 +322,12 @@ page 50985 "BOM Estimate Card"
                     ConvFactor: Decimal;
                     UOMRec: Record "Unit of Measure";
                     Total: Decimal;
+                    StyleRec: Record "Style Master";
+                    UpdatedQuantity: Integer;
+                    x: Integer;
+
                 begin
+                    x := 0;
 
                     if rec.Quantity = 0 then
                         Error('Quantity is zero. Cannot proceed.');
@@ -331,6 +336,17 @@ page 50985 "BOM Estimate Card"
                     BOMEstLineRec.Reset();
                     BOMEstLineRec.SetCurrentKey("No.");
                     BOMEstLineRec.SetRange("No.", rec."No.");
+
+
+                    //Mihiranga 2023/04/07
+                    StyleRec.Reset();
+                    StyleRec.SetRange("Style No.", Rec."Style Name");
+                    if StyleRec.FindFirst() then begin
+                        Rec.Quantity := StyleRec."Order Qty";
+                        UpdatedQuantity := StyleRec."Order Qty";
+                        CurrPage.Update();
+                    end;
+                    ///
 
                     IF (BOMEstLineRec.FINDSET) THEN
                         repeat
@@ -372,11 +388,34 @@ page 50985 "BOM Estimate Card"
                             Total += BOMEstLineRec.Value;
                             BOMEstLineRec.Modify();
 
+
+                            ////////Mihiranga 2023/04/07
+                            if BOMEstLineRec.Type = BOMEstLineRec.type::Pcs then
+                                BOMEstLineRec.Requirment := (BOMEstLineRec.Consumption * UpdatedQuantity) + (BOMEstLineRec.Consumption * UpdatedQuantity) * BOMEstLineRec.WST / 100
+                            else
+                                if BOMEstLineRec.Type = BOMEstLineRec.type::Doz then
+                                    BOMEstLineRec.Requirment := ((BOMEstLineRec.Consumption * UpdatedQuantity) + (BOMEstLineRec.Consumption * UpdatedQuantity) * BOMEstLineRec.WST / 100) / 12;
+
+                            if (x = 0) and (ConvFactor <> 0) then
+                                BOMEstLineRec.Requirment := BOMEstLineRec.Requirment / ConvFactor;
+
+                            if BOMEstLineRec.Requirment = 0 then
+                                BOMEstLineRec.Requirment := 1;
+
+                            //Requirment := Round(Requirment, 1);
+                            BOMEstLineRec.Value := BOMEstLineRec.Requirment * BOMEstLineRec.Rate;
+                            /////////
+                            BOMEstLineRec.Modify();
+                            CurrPage.Update();
+
                         until BOMEstLineRec.Next() = 0;
 
-                    rec."Material Cost Pcs." := (Total / rec.Quantity);
+                    // rec."Material Cost Pcs." := (Total / rec.Quantity);(Old Calcuation)
+                    //Updated Order Qty From Style Master  (Mihiranga 2023/04/7)
+                    rec."Material Cost Pcs." := (Total / UpdatedQuantity);
                     rec."Material Cost Doz." := rec."Material Cost Pcs." * 12;
                     CurrPage.Update();
+
 
                     Message('Calculation completed');
 
