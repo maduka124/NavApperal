@@ -6859,7 +6859,7 @@ page 50984 "BOM Card"
                             PurchCMRec.Reset();
                             PurchCMRec.SetRange("Applies-to Doc. No.", PoPurchInvLRec."Document No.");
                             if not PurchCMRec.FindSet() then
-                                Error('Cannot reveres MRP. Purchase Invoice : %1 is not cancelled.', PoPurchInvLRec."Document No.");
+                                Error('Cannot reveres MRP. Posted Purchase Invoice : %1 is not cancelled.', PoPurchInvLRec."Document No.");
 
 
                             // PoPurchInvHRec.Reset();
@@ -6885,7 +6885,7 @@ page 50984 "BOM Card"
                         until PoPurchReceRec.Next() = 0;
 
                         if GRNQty > 0 then
-                            Error('Cannot reveres MRP. GRN :  %1 is not reversed.', PoPurchReceRec."Document No.");
+                            Error('Cannot reveres MRP. GRN is not reversed.');
                     end;
 
 

@@ -195,8 +195,8 @@ page 50983 "Assortment Card"
         {
             action("Adjust Sales Orders")
             {
-                Caption = '  ';
-                // Caption = 'Adjust Sales Orders';
+                // Caption = '  ';
+                Caption = 'Adjust Sales Orders';
                 Image = CreateJobSalesInvoice;
                 ApplicationArea = All;
 
@@ -891,7 +891,6 @@ page 50983 "Assortment Card"
 
                                                                                         BLAutoGenNewRec.Requirment := Requirment;
                                                                                         BLAutoGenNewRec.Value := Value;
-
                                                                                         BLAutoGenNewRec.Insert();
 
                                                                                         //Insert into AutoGenPRBOM
@@ -900,7 +899,6 @@ page 50983 "Assortment Card"
                                                                                         Total := 0;
                                                                                     end;
                                                                                 end;
-
                                                                             end;
 
                                                                         until BOMLine3Rec.Next() = 0;
@@ -5483,6 +5481,406 @@ page 50983 "Assortment Card"
                     until StyleMasterPORec.Next() = 0;
 
 
+                    //Recalculate GMT Qty and requirment
+                    BOMLineAutoGenRec.Reset();
+                    BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
+                    if BOMLineAutoGenRec.FindSet() then
+                        repeat
+                            StyleMasterPORec.Reset();
+                            StyleMasterPORec.SetRange("Style No.", rec."No.");
+                            StyleMasterPORec.SetRange("Lot No.", BOMLineAutoGenRec."Lot No.");
+                            StyleMasterPORec.FindSet();
+
+                            UOMRec.Reset();
+                            UOMRec.SetRange(Code, BOMLineAutoGenRec."Unit N0.");
+                            UOMRec.FindSet();
+                            ConvFactor := UOMRec."Converion Parameter";
+
+                            if BOMLineAutoGenRec."GMT Size Name" <> '' then begin
+                                //Find the correct column for the GMT size
+                                AssortDetails1Rec.Reset();
+                                AssortDetails1Rec.SetRange("Style No.", rec."No.");
+                                AssortDetails1Rec.SetRange("lot No.", BOMLineAutoGenRec."lot No.");
+                                AssortDetails1Rec.SetRange("Colour No", '*');
+
+                                if BOMLineAutoGenRec."Country No." <> '' then
+                                    AssortDetails1Rec.SetRange("Country Code", BOMLineAutoGenRec."Country No.");
+
+                                AssortDetails1Rec.FindSet();
+
+                                AssortDetailsRec.Reset();
+                                AssortDetailsRec.SetRange("Style No.", rec."No.");
+                                AssortDetailsRec.SetRange("lot No.", BOMLineAutoGenRec."lot No.");
+                                AssortDetailsRec.SetRange("Colour No", BOMLineAutoGenRec."GMT Color No.");
+
+                                if BOMLineAutoGenRec."Country No." <> '' then
+                                    AssortDetailsRec.SetRange("Country Code", BOMLineAutoGenRec."Country No.");
+
+                                AssortDetailsRec.FindSet();
+
+                                FOR Count := 1 TO 64 DO begin
+
+                                    case Count of
+                                        1:
+                                            if AssortDetails1Rec."1" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."1");
+                                                break;
+                                            end;
+                                        2:
+                                            if AssortDetails1Rec."2" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."2");
+                                                break;
+                                            end;
+                                        3:
+                                            if AssortDetails1Rec."3" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."3");
+                                                break;
+                                            end;
+                                        4:
+                                            if AssortDetails1Rec."4" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."4");
+                                                break;
+                                            end;
+                                        5:
+                                            if AssortDetails1Rec."5" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."5");
+                                                break;
+                                            end;
+                                        6:
+                                            if AssortDetails1Rec."6" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."6");
+                                                break;
+                                            end;
+                                        7:
+                                            if AssortDetails1Rec."7" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."7");
+                                                break;
+                                            end;
+                                        8:
+                                            if AssortDetails1Rec."8" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."8");
+                                                break;
+                                            end;
+                                        9:
+                                            if AssortDetails1Rec."9" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."9");
+                                                break;
+                                            end;
+                                        10:
+                                            if AssortDetails1Rec."10" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."10");
+                                                break;
+                                            end;
+                                        11:
+                                            if AssortDetails1Rec."11" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."11");
+                                                break;
+                                            end;
+                                        12:
+                                            if AssortDetails1Rec."12" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."12");
+                                                break;
+                                            end;
+                                        13:
+                                            if AssortDetails1Rec."13" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."13");
+                                                break;
+                                            end;
+                                        14:
+                                            if AssortDetails1Rec."14" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."14");
+                                                break;
+                                            end;
+                                        15:
+                                            if AssortDetails1Rec."15" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."15");
+                                                break;
+                                            end;
+                                        16:
+                                            if AssortDetails1Rec."16" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."16");
+                                                break;
+                                            end;
+                                        17:
+                                            if AssortDetails1Rec."17" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."17");
+                                                break;
+                                            end;
+                                        18:
+                                            if AssortDetails1Rec."18" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."18");
+                                                break;
+                                            end;
+                                        19:
+                                            if AssortDetails1Rec."19" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."19");
+                                                break;
+                                            end;
+                                        20:
+                                            if AssortDetails1Rec."20" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."20");
+                                                break;
+                                            end;
+                                        21:
+                                            if AssortDetails1Rec."21" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."21");
+                                                break;
+                                            end;
+                                        22:
+                                            if AssortDetails1Rec."22" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."22");
+                                                break;
+                                            end;
+                                        23:
+                                            if AssortDetails1Rec."23" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."23");
+                                                break;
+                                            end;
+                                        24:
+                                            if AssortDetails1Rec."24" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."24");
+                                                break;
+                                            end;
+                                        25:
+                                            if AssortDetails1Rec."25" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."25");
+                                                break;
+                                            end;
+                                        26:
+                                            if AssortDetails1Rec."26" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."26");
+                                                break;
+                                            end;
+                                        27:
+                                            if AssortDetails1Rec."27" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."27");
+                                                break;
+                                            end;
+                                        28:
+                                            if AssortDetails1Rec."28" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."28");
+                                                break;
+                                            end;
+                                        29:
+                                            if AssortDetails1Rec."29" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."29");
+                                                break;
+                                            end;
+                                        30:
+                                            if AssortDetails1Rec."30" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."30");
+                                                break;
+                                            end;
+                                        31:
+                                            if AssortDetails1Rec."31" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."31");
+                                                break;
+                                            end;
+                                        32:
+                                            if AssortDetails1Rec."32" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."32");
+                                                break;
+                                            end;
+                                        33:
+                                            if AssortDetails1Rec."33" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."33");
+                                                break;
+                                            end;
+                                        34:
+                                            if AssortDetails1Rec."34" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."34");
+                                                break;
+                                            end;
+                                        35:
+                                            if AssortDetails1Rec."35" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."35");
+                                                break;
+                                            end;
+                                        36:
+                                            if AssortDetails1Rec."36" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."36");
+                                                break;
+                                            end;
+                                        37:
+                                            if AssortDetails1Rec."37" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."37");
+                                                break;
+                                            end;
+                                        38:
+                                            if AssortDetails1Rec."38" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."38");
+                                                break;
+                                            end;
+                                        39:
+                                            if AssortDetails1Rec."39" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."39");
+                                                break;
+                                            end;
+                                        40:
+                                            if AssortDetails1Rec."40" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."40");
+                                                break;
+                                            end;
+                                        41:
+                                            if AssortDetails1Rec."41" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."41");
+                                                break;
+                                            end;
+                                        42:
+                                            if AssortDetails1Rec."42" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."42");
+                                                break;
+                                            end;
+                                        43:
+                                            if AssortDetails1Rec."43" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."43");
+                                                break;
+                                            end;
+                                        44:
+                                            if AssortDetails1Rec."44" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."44");
+                                                break;
+                                            end;
+                                        45:
+                                            if AssortDetails1Rec."45" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."45");
+                                                break;
+                                            end;
+                                        46:
+                                            if AssortDetails1Rec."46" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."46");
+                                                break;
+                                            end;
+                                        47:
+                                            if AssortDetails1Rec."47" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."47");
+                                                break;
+                                            end;
+                                        48:
+                                            if AssortDetails1Rec."48" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."48");
+                                                break;
+                                            end;
+                                        49:
+                                            if AssortDetails1Rec."49" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."49");
+                                                break;
+                                            end;
+                                        50:
+                                            if AssortDetails1Rec."50" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."50");
+                                                break;
+                                            end;
+                                        51:
+                                            if AssortDetails1Rec."51" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."51");
+                                                break;
+                                            end;
+                                        52:
+                                            if AssortDetails1Rec."52" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."52");
+                                                break;
+                                            end;
+                                        53:
+                                            if AssortDetails1Rec."53" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."53");
+                                                break;
+                                            end;
+                                        54:
+                                            if AssortDetails1Rec."54" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."54");
+                                                break;
+                                            end;
+                                        55:
+                                            if AssortDetails1Rec."55" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."55");
+                                                break;
+                                            end;
+                                        56:
+                                            if AssortDetails1Rec."56" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."56");
+                                                break;
+                                            end;
+                                        57:
+                                            if AssortDetails1Rec."57" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."57");
+                                                break;
+                                            end;
+                                        58:
+                                            if AssortDetails1Rec."58" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."58");
+                                                break;
+                                            end;
+                                        59:
+                                            if AssortDetails1Rec."59" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."59");
+                                                break;
+                                            end;
+                                        60:
+                                            if AssortDetails1Rec."60" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."60");
+                                                break;
+                                            end;
+                                        61:
+                                            if AssortDetails1Rec."61" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."61");
+                                                break;
+                                            end;
+                                        62:
+                                            if AssortDetails1Rec."62" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."62");
+                                                break;
+                                            end;
+                                        63:
+                                            if AssortDetails1Rec."63" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."63");
+                                                break;
+                                            end;
+                                        64:
+                                            if AssortDetails1Rec."64" = BOMLineAutoGenRec."GMT Size Name" then begin
+                                                Evaluate(subTotal, AssortDetailsRec."64");
+                                                break;
+                                            end;
+                                    end;
+
+                                end;
+                            end
+                            else begin
+                                AssortDetailsRec.Reset();
+                                AssortDetailsRec.SetRange("Style No.", rec."No.");
+                                AssortDetailsRec.SetRange("lot No.", BOMLineAutoGenRec."lot No.");
+                                AssortDetailsRec.SetRange("Colour No", BOMLineAutoGenRec."GMT Color No.");
+
+                                if BOMLineAutoGenRec."Country No." <> '' then
+                                    AssortDetailsRec.SetRange("Country Code", BOMLineAutoGenRec."Country No.");
+
+                                AssortDetailsRec.FindSet();
+                                SubTotal := AssortDetailsRec.Total;
+                            end;
+
+
+                            BOMLineAutoGenRec."GMT Qty" := SubTotal;
+                            Requirment := 0;
+
+                            if BOMLineAutoGenRec.Type = BOMLineAutoGenRec.Type::Pcs then
+                                Requirment := (BOMLineAutoGenRec.Consumption * SubTotal) + (BOMLineAutoGenRec.Consumption * SubTotal) * BOMLineAutoGenRec.WST / 100
+                            else
+                                if BOMLineAutoGenRec.Type = BOMLineAutoGenRec.Type::Doz then
+                                    Requirment := ((BOMLineAutoGenRec.Consumption * SubTotal) + (BOMLineAutoGenRec.Consumption * SubTotal) * BOMLineAutoGenRec.WST / 100) / 12;
+
+                            if (ConvFactor <> 0) then
+                                Requirment := Requirment / ConvFactor;
+
+                            if Requirment < 0 then
+                                Requirment := 1;
+
+                            BOMLineAutoGenRec.Requirment := Requirment;
+                            BOMLineAutoGenRec.Value := Requirment * BOMLineAutoGenRec.Rate;
+                            BOMLineAutoGenRec.Modify();
+
+                        until BOMLineAutoGenRec.Next() = 0;
+
+
                     //////////////////////////////////////Write to MRP
                     BOMLineAutoGenRec.Reset();
                     BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
@@ -7154,7 +7552,7 @@ page 50983 "Assortment Card"
                 SalesLineRec1.Reset();
                 SalesLineRec1.SetCurrentKey("Document Type", "Document No.");
                 SalesLineRec1.SetRange("Document No.", NextOrderNo);
-                SalesLineRec1.SetFilter("Document Type", '=%!', SalesLineRec1."Document Type"::Order);
+                SalesLineRec1.SetFilter("Document Type", '=%1', SalesLineRec1."Document Type"::Order);
 
                 if SalesLineRec1.FindLast() then
                     LineNo := SalesLineRec1."Line No.";
@@ -7593,6 +7991,7 @@ page 50983 "Assortment Card"
 
     end;
 
+
     procedure UpdateProdBOM(BOMNo: code[20]; Color: code[20]; Size: Code[20]; Lot: Code[20]; FGItem: Code[20]; ProdBOM: Code[20])
     var
         ItemCategoryRec: Record "Item Category";
@@ -7887,6 +8286,7 @@ page 50983 "Assortment Card"
             until AutoGenRec.Next() = 0;
         end;
     end;
+
 
     procedure InsertAutoGenProdBOM(ItemNo: Code[20]; LineNo: Integer)
     var
