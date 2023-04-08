@@ -422,6 +422,7 @@ report 50865 HourlyProductionReport
                 NavAppProdRec.SetRange("Style No.", "Style No.");
                 NavAppProdRec.SetRange("Resource No.", "Resource No.");
                 NavAppProdRec.SetRange("Factory No.", "Factory No.");
+                NavAppProdRec.SetFilter("PlanDate", '<=%1', PlanDate);
                 if NavAppProdRec.FindSet() then begin
                     repeat
                         TargetProdPlan += NavAppProdRec.Qty;
