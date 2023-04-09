@@ -6817,6 +6817,8 @@ page 50984 "BOM Card"
 
                 trigger OnAction()
                 var
+                    PurchLineArchiveRec: Record "Purchase Line Archive";
+                    PurchHeaderArchiveRec: Record "Purchase Header Archive";
                     PurchLineRec: Record "Purchase Line";
                     PurchLine1Rec: Record "Purchase Line";
                     PurchHeaderRec: Record "Purchase Header";
@@ -6851,6 +6853,8 @@ page 50984 "BOM Card"
 
                     //Step 1 : Check Purchase invoice Reversal (credit note)
                     PoPurchInvLRec.Reset();
+                    PoPurchInvLRec.SetCurrentKey("Document No.");
+                    PoPurchInvLRec.Ascending(true);
                     PoPurchInvLRec.SetRange(StyleNo, rec."Style No.");
                     PoPurchInvLRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
 
@@ -6860,14 +6864,6 @@ page 50984 "BOM Card"
                             PurchCMRec.SetRange("Applies-to Doc. No.", PoPurchInvLRec."Document No.");
                             if not PurchCMRec.FindSet() then
                                 Error('Cannot reveres MRP. Posted Purchase Invoice : %1 is not cancelled.', PoPurchInvLRec."Document No.");
-
-
-                            // PoPurchInvHRec.Reset();
-                            // PoPurchInvHRec.SetRange("No.", PoPurchInvLRec."Document No.");
-                            // if PoPurchInvHRec.FindSet() then begin
-                            //     if PoPurchInvHRec.Cancelled = false then
-                            //         Error('Cannot reveres MRP. Purchase Invoice : %1 is not cancelled.', PoPurchInvLRec."Document No.");
-                            // end;
                         end;
                         until PoPurchInvLRec.Next() = 0;
                     end;
@@ -6875,6 +6871,8 @@ page 50984 "BOM Card"
 
                     //Step 2 : Check GRN /GRN Reversal
                     PoPurchReceRec.Reset();
+                    PoPurchReceRec.SetCurrentKey("Document No.");
+                    PoPurchReceRec.Ascending(true);
                     PoPurchReceRec.SetRange(StyleNo, rec."Style No.");
                     PoPurchReceRec.SetFilter(EntryType, '=%1', PoPurchReceRec.EntryType::FG);
 
@@ -6887,6 +6885,38 @@ page 50984 "BOM Card"
                         if GRNQty > 0 then
                             Error('Cannot reveres MRP. GRN is not reversed.');
                     end;
+
+
+                    //Step 2.1 : Delete PO Archieve 
+                    PurchLineArchiveRec.Reset();
+                    PurchLineArchiveRec.SetRange(StyleName, rec."Style Name");
+                    PurchLineArchiveRec.SetFilter(EntryType, '=%1', PurchLineArchiveRec.EntryType::FG);
+                    PurchLineArchiveRec.SetCurrentKey("Document No.");
+                    PurchLineArchiveRec.Ascending(true);
+
+                    if PurchLineArchiveRec.FindSet() then begin
+                        //repeat
+                        //if PONo <> PurchLineArchiveRec."Document No." then begin
+
+                        //Delete PO lines
+                        // PurchLineArchiveRec.Reset();
+                        // PurchLineArchiveRec.SetRange("Document No.", PurchLineArchiveRec."Document No.");
+                        // if PurchLineArchiveRec.FindSet() then
+
+                        PONo := PurchLineArchiveRec."Document No.";
+                        PurchLineArchiveRec.DeleteAll();
+
+                        //Delete PO Header
+                        PurchHeaderArchiveRec.Reset();
+                        PurchHeaderArchiveRec.SetRange("No.", PONo);
+                        PurchHeaderArchiveRec.SetFilter("Document Type", '=%1', PurchHeaderArchiveRec."Document Type"::Order);
+                        if PurchHeaderArchiveRec.FindSet() then
+                            PurchHeaderArchiveRec.DeleteAll();
+                        // end;
+                        // PONo := PurchLineArchiveRec."Document No.";
+                        // until PurchLineArchiveRec.Next() = 0;
+                    end;
+
 
 
                     //Step 3 : Delete PO
@@ -6909,6 +6939,7 @@ page 50984 "BOM Card"
                                 //Delete PO Header
                                 PurchHeaderRec.Reset();
                                 PurchHeaderRec.SetRange("No.", PurchLineRec."Document No.");
+                                PurchHeaderRec.SetFilter("Document Type", '=%1', PurchHeaderRec."Document Type"::Order);
                                 if PurchHeaderRec.FindSet() then
                                     PurchHeaderRec.DeleteAll();
                             end;
@@ -6942,15 +6973,6 @@ page 50984 "BOM Card"
                                 Error('Cannot reveres MRP. Sales Invoice : %1 is not cancelled.', SalesInvHeRec."No.");
                         end;
                         until SalesInvHeRec.Next() = 0;
-
-                    // SalesInvHeRec.Reset();
-                    // SalesInvHeRec.SetRange("Style No", "Style No.");
-                    // SalesInvHeRec.SetFilter(EntryType, '=%1', SalesInvHeRec.EntryType::FG);
-                    // SalesInvHeRec.SetFilter(Cancelled, '=%1', false);
-                    // if SalesInvHeRec.FindSet() then
-                    //     Error('Cannot reveres MRP. Sales Invoice is not reversed.');
-
-
 
 
                     //Step 6 : Check shipment /shipment Reversal
