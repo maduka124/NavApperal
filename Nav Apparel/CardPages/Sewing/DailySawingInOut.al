@@ -294,6 +294,7 @@ page 50355 "Daily Sewing In/Out Card"
 
 
                         //Mihiranga 2023/03/16
+                        //Sew input qty
                         InputQty := 0;
                         ProductionRec.Reset();
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Saw);
@@ -306,6 +307,7 @@ page 50355 "Daily Sewing In/Out Card"
                             until ProductionRec.Next() = 0;
 
 
+                        //Cut out Qty
                         OutPutQty := 0;
                         ProductionRec.Reset();
                         ProductionRec.SetFilter(Type, '=%1', ProductionRec.Type::Cut);
