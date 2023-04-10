@@ -3209,14 +3209,26 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Style_No_">
           <DataField>Style_No_</DataField>
         </Field>
-        <Field Name="InvoiceDate">
-          <DataField>InvoiceDate</DataField>
+        <Field Name="Mode">
+          <DataField>Mode</DataField>
         </Field>
         <Field Name="Factory">
           <DataField>Factory</DataField>
         </Field>
         <Field Name="Buyer_Name">
           <DataField>Buyer_Name</DataField>
+        </Field>
+        <Field Name="PO_No">
+          <DataField>PO_No</DataField>
+        </Field>
+        <Field Name="Order_Qty">
+          <DataField>Order_Qty</DataField>
+        </Field>
+        <Field Name="UnitPrice">
+          <DataField>UnitPrice</DataField>
+        </Field>
+        <Field Name="UnitPriceFormat">
+          <DataField>UnitPriceFormat</DataField>
         </Field>
         <Field Name="No_">
           <DataField>No_</DataField>
@@ -3232,24 +3244,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="ShipQty">
           <DataField>ShipQty</DataField>
-        </Field>
-        <Field Name="PO_No">
-          <DataField>PO_No</DataField>
-        </Field>
-        <Field Name="UnitPrice">
-          <DataField>UnitPrice</DataField>
-        </Field>
-        <Field Name="UnitPriceFormat">
-          <DataField>UnitPriceFormat</DataField>
-        </Field>
-        <Field Name="Mode">
-          <DataField>Mode</DataField>
-        </Field>
-        <Field Name="Order_Qty">
-          <DataField>Order_Qty</DataField>
-        </Field>
-        <Field Name="Buyer_Code">
-          <DataField>Buyer_Code</DataField>
         </Field>
       </Fields>
       <Query>
