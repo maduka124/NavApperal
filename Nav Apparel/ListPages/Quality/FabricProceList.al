@@ -65,6 +65,7 @@ page 50673 "FabricProceList"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
     begin
 
         //Check whether user logged in or not
@@ -85,12 +86,32 @@ page 50673 "FabricProceList"
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
 
+        //Done by Sachith 10/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then
+            rec.SetFilter("Factory Code", '=%1', UserRec."Factory Code");
+
     end;
 
     trigger OnDeleteRecord(): Boolean
     var
         FabricProLineRec: Record FabricProceLine;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 10/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
         FabricProLineRec.reset();
         FabricProLineRec.SetRange("FabricProceNo.", rec."FabricProceNo.");
         if FabricProLineRec.FindSet() then

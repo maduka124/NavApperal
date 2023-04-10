@@ -99,6 +99,11 @@ table 50670 "FabricProceHeader"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(18; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

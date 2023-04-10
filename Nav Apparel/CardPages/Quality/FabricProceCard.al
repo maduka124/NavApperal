@@ -10,6 +10,9 @@ page 50671 "FabricProceCard"
         {
             group(General)
             {
+
+                Editable = EditableGB;
+
                 field("FabricProceNo."; rec."FabricProceNo.")
                 {
                     ApplicationArea = All;
@@ -32,6 +35,7 @@ page 50671 "FabricProceCard"
                         CustomerRec: Record Customer;
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
+                        UserRec: Record "User Setup";
                     begin
 
                         //Check whether user logged in or not
@@ -51,6 +55,17 @@ page 50671 "FabricProceCard"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
+
+                        //Done By Sachith on 10/04/23 
+                        UserRec.Reset();
+                        UserRec.Get(UserId);
+
+                        if UserRec."Factory Code" <> '' then begin
+                            Rec."Factory Code" := UserRec."Factory Code";
+                            CurrPage.Update();
+                        end
+                        else
+                            Error('Factory not assigned for the user.');
 
 
                         CustomerRec.Reset();
@@ -264,7 +279,9 @@ page 50671 "FabricProceCard"
 
             group("Roll Details")
             {
-                part(FabricProceListPart; FabricProceListPart)
+                Editable = EditableGB;
+                part(FabricProceListPart;
+                FabricProceListPart)
                 {
                     ApplicationArea = All;
                     Caption = 'Roll Details';
@@ -290,7 +307,22 @@ page 50671 "FabricProceCard"
     trigger OnDeleteRecord(): Boolean
     var
         FabricProLineRec: Record FabricProceLine;
+        UserRec: Record "User Setup";
     begin
+
+        //Done By sachith on 10/04/23
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> rec."Factory Code") then
+                Error('You are not authorized to delete this record.')
+        end
+        else
+            Error('You are not authorized to delete records.');
+
         FabricProLineRec.reset();
         FabricProLineRec.SetRange("FabricProceNo.", rec."FabricProceNo.");
         if FabricProLineRec.FindSet() then
@@ -359,4 +391,34 @@ page 50671 "FabricProceCard"
             until ItemLedEntryRec.Next() = 0;
         end;
     end;
+
+    trigger OnOpenPage()
+    var
+        UserRec: Record "User Setup";
+    begin
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if rec."Factory Code" <> '' then begin
+            if (UserRec."Factory Code" <> '') then begin
+                if (UserRec."Factory Code" = rec."Factory Code") then
+                    EditableGB := true
+                else
+                    EditableGB := false;
+            end
+            else
+                EditableGB := false;
+        end
+        else
+            if (UserRec."Factory Code" = '') then begin
+                Error('Factory not assigned for the user.');
+                EditableGB := false;
+            end
+            else
+                EditableGB := true;
+    end;
+
+    var
+        EditableGB: Boolean;
 }
