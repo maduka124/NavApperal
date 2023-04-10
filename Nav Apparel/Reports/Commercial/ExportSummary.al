@@ -76,7 +76,7 @@ report 50629 ExportSummartReport
                     dataitem("Sales Invoice Header"; "Sales Invoice Header")
                     {
                         DataItemLinkReference = "Style Master PO";
-                        DataItemLink = "Style No" = field("Style No.");
+                        DataItemLink = "Style No" = field("Style No."), "PO No" = field("PO No.");
 
                         column(No_; "No.")
                         { }
@@ -126,7 +126,7 @@ report 50629 ExportSummartReport
                                 until SalesInvoiceLineRec.Next() = 0;
                             end;
 
-                            CalcFields("Amount Including VAT");
+                            "Sales Invoice Header".CalcFields("Amount Including VAT");
 
                         end;
                     }
