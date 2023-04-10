@@ -222,7 +222,7 @@ page 50456 "New Operation Card"
 
             NewOperationRec.Reset();
             NewOperationRec.SetRange(Code1, rec.Code1);
-            NewOperationRec.SetCurrentKey(Code1);
+            NewOperationRec.SetCurrentKey(Code2);
             NewOperationRec.Ascending(true);
 
             if NewOperationRec.FindLast() then
