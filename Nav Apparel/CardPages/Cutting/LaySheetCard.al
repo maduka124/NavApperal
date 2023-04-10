@@ -248,6 +248,7 @@ page 50656 "LaySheetCard"
 
             group("Roll/Shade Details")
             {
+                Editable = EditableGB;
                 part("Lay Sheet Line4"; "Lay Sheet Line4")
                 {
                     ApplicationArea = All;
