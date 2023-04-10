@@ -161,6 +161,10 @@ table 50930 "Sample Requsition Header"
         {
             DataClassification = ToBeClassified;
         }
+        field(71012607; "Sample Type"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

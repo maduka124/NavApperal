@@ -32,8 +32,11 @@ page 51063 "Sample Request"
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
-
-                field(Type; rec.Type)
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                }
+                field("Sample Type"; Rec."Sample Type")
                 {
                     ApplicationArea = All;
                 }
@@ -49,6 +52,7 @@ page 51063 "Sample Request"
                 {
                     ApplicationArea = All;
                 }
+
             }
         }
     }

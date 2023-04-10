@@ -95,7 +95,12 @@ page 51062 SampleReqLineListPart
                             //Done By Sachith 09/02/23
                             Rec."Brand Name" := SampleReqHeaderRec."Brand Name";
                             Rec."Brand No" := SampleReqHeaderRec."Brand No";
+                            //add sample type to Header Table (Mihiranga 2023/04/10)
+                            SampleReqHeaderRec."Sample Type" := Rec."Sample Name";
                         end;
+                        SampleReqHeaderRec.Modify();
+                        CurrPage.Update();
+
                     end;
                 }
 
