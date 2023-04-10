@@ -198,11 +198,14 @@ page 50996 "PI Details Card"
                     var
                         PaymentMethodRec: Record "Payment Method";
                     begin
+
                         PaymentMethodRec.Reset();
                         PaymentMethodRec.SetRange(Description, rec."Payment Mode Name");
                         if PaymentMethodRec.FindSet() then
                             rec."Payment Mode" := PaymentMethodRec.Code;
                     end;
+
+
                 }
 
                 field("Shipment Date"; rec."Shipment Date")
@@ -304,6 +307,8 @@ page 50996 "PI Details Card"
                 until PurchaseHeaderRec.Next() = 0;
             end;
         end;
+
+
     end;
 
 
@@ -325,6 +330,13 @@ page 50996 "PI Details Card"
         end;
     end;
 
+    trigger OnNewRecord(BelowxRec: Boolean)
+    var
+       
+    begin
+        Rec.Validate("Payment Mode Name", 'Letter of Credit');
+        Rec.Validate(Currency, 'United States Dollars');
+    end;
 
     trigger OnClosePage()
     var
