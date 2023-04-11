@@ -84,6 +84,11 @@ table 51263 "AccessoriesStatusReportNew"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012597; "FromPOLine"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

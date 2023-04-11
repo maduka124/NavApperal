@@ -164,6 +164,7 @@ report 51262 AccessoriesStatusReportNew
                         AcceRec.Size := ItemRec."Size Range No.";
                         AcceRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         AcceRec."PO Qty" := PurchLineRec.Quantity;
+                        AcceRec.FromPOLine := true;
                         AcceRec.Insert();
                     end
                     else
@@ -192,12 +193,13 @@ report 51262 AccessoriesStatusReportNew
                     AcceRec.SetRange("PONo.", PurchaseArchiveRec."Document No.");
                     AcceRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
                     if AcceRec.FindSet() then begin
-                        //Modify item line
-                        AcceRec."PO Qty" := AcceRec."PO Qty" + PurchaseArchiveRec.Quantity;
-                        AcceRec.Modify();
+                        // if AcceRec.FromPOLine = false then begin
+                        //     //Modify item line
+                        //     AcceRec."PO Qty" := AcceRec."PO Qty" + PurchaseArchiveRec.Quantity;
+                        //     AcceRec.Modify();
+                        // end;
                     end
                     else begin
-
                         //insert item line
                         AcceRec.Init();
                         AcceRec.SeqNo := MaxSeqNo;
@@ -212,8 +214,10 @@ report 51262 AccessoriesStatusReportNew
                         AcceRec.Size := ItemRec."Size Range No.";
                         AcceRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         AcceRec."PO Qty" := PurchaseArchiveRec.Quantity;
+                        AcceRec.FromPOLine := false;
                         AcceRec.Insert();
                     end;
+
                 end
                 else
                     Error('Cannot find Item details for : %1', PurchaseArchiveRec."No.");
@@ -223,6 +227,7 @@ report 51262 AccessoriesStatusReportNew
         //Get GRN Lines                  
         PurchRcptLineRec.Reset();
         PurchRcptLineRec.SetRange(StyleNo, FilterNo);
+        PurchRcptLineRec.SetFilter("Type", '=%1', PurchRcptLineRec."Type"::Item);
         if PurchRcptLineRec.FindSet() then begin
             repeat
                 MaxSeqNo += 1;
@@ -232,7 +237,7 @@ report 51262 AccessoriesStatusReportNew
                 ItemRec.SetRange("No.", PurchRcptLineRec."No.");
                 if ItemRec.FindSet() then begin
 
-                    //Check existance of the item
+                    //Check existance of the PO doc
                     PurchHDRec.Reset();
                     PurchHDRec.SetRange("No.", PurchRcptLineRec."Document No.");
                     if PurchHDRec.FindFirst() then
@@ -244,12 +249,13 @@ report 51262 AccessoriesStatusReportNew
                     AcceRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
                     if AcceRec.FindSet() then begin
                         //Modify item line
-                        AcceRec."GRN Qty" := AcceRec."GRN Qty" + PurchRcptLineRec.Quantity;
-                        AcceRec.Balance := AcceRec."PO Qty" - AcceRec."GRN Qty";
-                        AcceRec.Modify();
+                        if PurchRcptLineRec.Quantity > 0 then begin
+                            AcceRec."GRN Qty" := AcceRec."GRN Qty" + PurchRcptLineRec.Quantity;
+                            AcceRec.Balance := AcceRec."PO Qty" - AcceRec."GRN Qty";
+                            AcceRec.Modify();
+                        end;
                     end
                     else begin
-
                         //insert item line
                         AcceRec.Init();
                         AcceRec.SeqNo := MaxSeqNo;
