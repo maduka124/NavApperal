@@ -796,6 +796,14 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Planning Reports';
 
+                    action("Accessory Status Planning")
+                    {
+                        Caption = 'Accessory Status Report';
+                        Enabled = true;
+                        RunObject = report AccessoriesStatusReportNew;
+                        ApplicationArea = all;
+                    }
+
                     action("Capacity Gap Details Report")
                     {
                         Caption = 'Capacity Gap Details Report';

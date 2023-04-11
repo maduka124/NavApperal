@@ -301,7 +301,7 @@ report 51262 AccessoriesStatusReportNew
         end
     end;
 
-    procedure PassParameters(StyleNoPara: Code[20])
+    procedure PassParameters(StyleNoPara: Code[50])
     var
     begin
         FilterNo := StyleNoPara;
@@ -321,6 +321,6 @@ report 51262 AccessoriesStatusReportNew
         OrderNO: code[50];
         PurchaseArchiveRec: Record "Purchase Line Archive";
         comRec: Record "Company Information";
-        FilterNo: Code[30];
+        FilterNo: Code[50];
         ItemLedgerRec: Record "Item Ledger Entry";
 }

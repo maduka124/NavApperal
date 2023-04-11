@@ -223,7 +223,7 @@ page 50355 "Daily Sewing In/Out Card"
                         NavAppProdPlansDetRec.Reset();
                         NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
                         NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
-                        NavAppProdPlansDetRec.SetFilter(PlanDate, '%1', rec."Prod Date");
+                        NavAppProdPlansDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
                         if not NavAppProdPlansDetRec.FindSet() then
                             Error('Cannot find planning details');
 

@@ -217,34 +217,21 @@ page 50351 "Daily Cutting Out Card"
                         NavAppProdPlansDetRec: Record "NavApp Prod Plans Details";
                     begin
 
-                        // StyleMasterRec.Reset();
-                        // StyleMasterRec.SetRange("Style No.", rec."Style No.");
+                        StyleMasterRec.Reset();
+                        StyleMasterRec.SetRange("Style No.", rec."Style No.");
 
-                        // if Page.RunModal(51068, StyleMasterRec) = Action::LookupOK then begin
-                        //     rec."Lot No." := StyleMasterRec."Lot No.";
-                        //     rec."PO No" := StyleMasterRec."PO No.";
-                        // end;
-
-                        NavAppProdPlansDetRec.Reset();
-                        NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
-                        NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
-                        NavAppProdPlansDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
-                        if not NavAppProdPlansDetRec.FindSet() then
-                            Error('Cannot find planning details');
-
-                        if Page.RunModal(50519, NavAppProdPlansDetRec) = Action::LookupOK then begin
-                            rec."PO No" := NavAppProdPlansDetRec."PO No.";
-                            rec."Lot No." := NavAppProdPlansDetRec."lot No.";
+                        if Page.RunModal(51068, StyleMasterRec) = Action::LookupOK then begin
+                            rec."Lot No." := StyleMasterRec."Lot No.";
+                            rec."PO No" := StyleMasterRec."PO No.";
                         end;
-
 
                         GridHeader_Insert();
 
                         //Get and Set Line No
                         NavAppProdPlansDetRec.Reset();
                         NavAppProdPlansDetRec.SetRange("Style No.", rec."Style No.");
-                        NavAppProdPlansDetRec.SetRange("Lot No.", rec."Lot No.");
-                        NavAppProdPlansDetRec.SetFilter(PlanDate, '%1..%2', rec."Prod Date", rec."Prod Date" + 3);
+                        NavAppProdPlansDetRec.SetRange("Lot No.", StyleMasterRec."Lot No.");
+                        NavAppProdPlansDetRec.SetRange(PlanDate, rec."Prod Date");
                         NavAppProdPlansDetRec.SetRange("Resource No.", rec."Resource No.");
 
                         if NavAppProdPlansDetRec.FindSet() then
