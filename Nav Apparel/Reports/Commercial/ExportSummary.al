@@ -14,9 +14,13 @@ report 50629 ExportSummartReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+
             column(stDate; stDate)
             { }
             column(endDate; endDate)
+            { }
+
+            column(Factory; "Factory Name")
             { }
 
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
@@ -28,31 +32,7 @@ report 50629 ExportSummartReport
                 column(Style_No_; "Style Name")
                 { }
 
-                // column(Order_Qty; OrderQt)
-                // { }
-
-                // column(PO_No; PoNo)
-                // { }
-
                 column(Mode; Mode)
-                { }
-
-                // column(ShipQty; ShipQty)
-                // { }
-
-                // column(Balance; OrderQt - ShipQty)
-                // { }
-
-                // column(ShipValue; UnitPrice * ShipQty)
-                // { }
-
-                // column(UnitPrice; UnitPrice)
-                // { }
-
-                // column(InvoiceDate; InvoiceDate)
-                // { }
-
-                column(Factory; FactoryName)
                 { }
 
                 column(Buyer_Name; BuyerName)
@@ -62,7 +42,6 @@ report 50629 ExportSummartReport
                 {
                     DataItemLinkReference = "Contract/LCStyle";
                     DataItemLink = "Style No." = field("Style No.");
-
 
                     column(PO_No; "PO No.")
                     { }
@@ -77,6 +56,7 @@ report 50629 ExportSummartReport
                     {
                         DataItemLinkReference = "Style Master PO";
                         DataItemLink = "Style No" = field("Style No."), "PO No" = field("PO No.");
+                        DataItemTableView = where("No." = filter(<> ''));
 
                         column(No_; "No.")
                         { }
@@ -90,32 +70,15 @@ report 50629 ExportSummartReport
                         column(ShipQty; ShipQty)
                         { }
 
+                        column(Shipment_Date; "Shipment Date")
+                        { }
+
                         trigger OnAfterGetRecord()
                         var
                             SalesInvoiceLineRec: Record "Sales Invoice Line";
-                        // StyleMasterPoRec: Record "Style Master PO";
                         begin
 
-                            // StyleMasterPoRec.Reset();
-                            // StyleMasterPoRec.SetRange("Style No.", "Style No");
-                            // if StyleMasterPoRec.FindSet() then begin
-
-                            //     OrderQt := StyleMasterPoRec.Qty;
-                            //     PoNo := StyleMasterPoRec."PO No.";
-                            //     UnitPrice := StyleMasterPoRec."Unit Price";
-                            // end;
-
                             ShipQty := 0;
-
-                            // SalesInvoiceLineRec.Reset();
-                            // SalesInvoiceLineRec.SetRange("Document No.", "No.");
-                            // SalesInvoiceLineRec.SetFilter(Type, '=%1', SalesInvoiceLineRec.Type::Item);
-
-                            // if SalesInvoiceLineRec.FindSet() then begin
-                            //     repeat
-                            //         ShipQty += SalesInvoiceLineRec.Quantity;
-                            //     until SalesInvoiceLineRec.Next() = 0;
-                            // end;
 
                             SalesInvoiceLineRec.Reset();
                             SalesInvoiceLineRec.SetRange("Document No.", "No.");
@@ -127,50 +90,35 @@ report 50629 ExportSummartReport
                             end;
 
                             "Sales Invoice Header".CalcFields("Amount Including VAT");
+                        end;
 
+                        trigger OnPreDataItem()
+                        begin
+                            if stDate <> 0D then
+                                SetRange("Shipment Date", stDate, endDate);
                         end;
                     }
                 }
+
+                trigger OnPreDataItem()
+                begin
+                    if "Buyer Code" <> '' then
+                        SetRange("Buyer No.", "Buyer Code");
+                end;
 
                 trigger OnAfterGetRecord()
                 var
                     SalesInvoiceLineRec: Record "Sales Invoice Line";
                 begin
 
-                    // StylePoRec.SetRange("Style No.", "Style No.");
-                    // if StylePoRec.FindFirst() then begin
-                    //     UnitPrice := StylePoRec."Unit Price";
-                    // end;
-
-                    // InvoiceRec.SetRange("Style No", "Style No.");
-                    // if InvoiceRec.FindFirst() then begin
-                    //     InvoiceNO := InvoiceRec."No.";
-                    //     InvoiceDate := InvoiceRec."Document Date";
-                    // end;
-                    // StyleMasterPoRec.Reset();
-                    // StyleMasterPoRec.SetRange("Style No.", "Style No.");
-                    // if StyleMasterPoRec.FindSet() then begin
-                    //     repeat
-                    //         OrderQt := StyleMasterPoRec.Qty;
-                    //         // PoNo := StyleMasterPoRec."PO No.";
-                    //         UnitPrice := StyleMasterPoRec."Unit Price";
-                    //     // BuyerName := StyleRec.;
-                    //     until StyleMasterPoRec.Next() = 0;
-                    // end;
-
                     StyleMasterRec.Reset();
                     StyleMasterRec.SetRange("No.", "Style No.");
 
                     if StyleMasterRec.FindSet() then
                         BuyerName := StyleMasterRec."Buyer Name";
-
-                    LCRec.SetRange("No.", "No.");
-                    if LCRec.FindFirst() then begin
-                        FactoryName := LCRec.Factory;
-                    end;
-
                 end;
             }
+
             trigger OnAfterGetRecord()
             var
 
@@ -198,24 +146,19 @@ report 50629 ExportSummartReport
                                 end;
                 comRec.Get;
                 comRec.CalcFields(Picture);
-
             end;
 
             trigger OnPreDataItem()
+            var
+                InvoiceRec: Record "Sales Invoice Header";
+                LocationRec: Record Location;
             begin
-
-                //Done By Sachith On 15/03/23
-                if stDate <> 0D then
-                    SetRange("Created Date", stDate, endDate);
-
-                if "Buyer Code" <> '' then
-                    SetRange("Buyer No.", "Buyer Code");
-
-                if "Factory Code" <> '' then
-                    SetRange("Factory No.", "Factory Code");
 
                 if Contract <> '' then
                     SetRange("No.", Contract);
+
+                if "Factory Name" <> '' then
+                    SetRange(Factory, "Factory Name");
             end;
         }
     }
@@ -238,12 +181,27 @@ report 50629 ExportSummartReport
                     }
 
                     //Done By Sachith On 15/03/23
-                    field("Factory Code"; "Factory Code")
+                    field("Factory Name"; "Factory Name")
                     {
                         ApplicationArea = All;
                         Caption = 'Factory';
                         // ShowMandatory = true;
-                        TableRelation = Location.Code where("Sewing Unit" = filter(true));
+
+                        trigger OnLookup(Var Text: Text): Boolean
+                        var
+                            LocationRec: Record Location;
+                        begin
+
+                            LocationRec.Reset();
+                            LocationRec.SetFilter("Sewing Unit", '=%1', true);
+
+                            if LocationRec.FindSet() then begin
+                                if page.RunModal(15, LocationRec) = Action::LookupOK then
+                                    "Factory Name" := LocationRec.Name
+
+                            end;
+
+                        end;
                     }
 
                     //Done By Sachith On 15/03/23
@@ -294,10 +252,8 @@ report 50629 ExportSummartReport
         }
     }
 
-
     var
 
-        // InvoiceNO: Code[50];
         InvoiceDate: Date;
         ShipMode: Option;
         Mode: Text[50];
@@ -318,6 +274,7 @@ report 50629 ExportSummartReport
         "Contract": code[20];
         "LC No": Code[20];
         "Buyer Code": Code[20];
+        "Factory Name": Text[100];
         "Factory Code": Code[20];
 
 
