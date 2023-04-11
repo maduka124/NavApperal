@@ -261,7 +261,35 @@ page 50351 "Daily Cutting Out Card"
                 {
                     ApplicationArea = All;
                     Editable = true;
-                    Caption = 'Bundle Guide Qty';
+                    Caption = 'Bundle Guide Qty (Input Qty)';
+
+                    trigger OnValidate()
+                    var
+                        ProdOutHeaderRec: Record ProductionOutHeader;
+                        LineTotal: BigInteger;
+                        StyleMasterPORec: Record "Style Master PO";
+                    begin
+                        CurrPage.Update();
+                        //Get Input Total for the style and lot for all days
+                        LineTotal := 0;
+                        ProdOutHeaderRec.Reset();
+                        ProdOutHeaderRec.SetRange("Style No.", Rec."Style No.");
+                        ProdOutHeaderRec.SetRange("Lot No.", Rec."Lot No.");
+                        ProdOutHeaderRec.SetRange(Type, Rec.Type);
+
+                        if ProdOutHeaderRec.FindSet() then begin
+                            repeat
+                                LineTotal += ProdOutHeaderRec."Input Qty";
+                            until ProdOutHeaderRec.Next() = 0;
+                        end;
+
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", Rec."Style No.");
+                        StyleMasterPORec.SetRange("Lot No.", Rec."Lot No.");
+                        StyleMasterPORec.FindSet();
+
+                        StyleMasterPORec.ModifyAll("Cut In Qty", LineTotal);
+                    end;
                 }
 
                 field("Output Qty"; rec."Output Qty")
