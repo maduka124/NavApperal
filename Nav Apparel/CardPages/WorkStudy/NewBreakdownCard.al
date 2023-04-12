@@ -296,7 +296,7 @@ page 50459 "New Breakdown Card"
                         NewBreakOpLine2Rec.Init();
                         NewBreakOpLine2Rec."No." := rec."No.";
                         NewBreakOpLine2Rec."GPart Position" := "GPart Position1";
-                        NewBreakOpLine2Rec."Line No." := LineNo + 1;
+                        NewBreakOpLine2Rec."Line No." := LineNo + 1000;
                         NewBreakOpLine2Rec."Line Position" := LineNo + 1;
                         NewBreakOpLine2Rec.Description := rec."Garment Part Name";
                         NewBreakOpLine2Rec.LineType := 'H';
