@@ -89,6 +89,11 @@ table 51263 "AccessoriesStatusReportNew"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012598; "Master Category Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

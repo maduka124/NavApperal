@@ -55,6 +55,8 @@ report 51262 AccessoriesStatusReportNew
                 { }
                 column(Stock_Balance; "Stock Balance")
                 { }
+                column(Master_Category_Name; "Master Category Name")
+                { }
 
                 trigger OnPreDataItem()
                 begin
@@ -101,6 +103,7 @@ report 51262 AccessoriesStatusReportNew
     var
         AcceRec: Record AccessoriesStatusReportNew;
         LoginRec: Page "Login Card";
+        MainCatRec: Record "Main Category";
     begin
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
@@ -150,6 +153,11 @@ report 51262 AccessoriesStatusReportNew
                     ItemRec.Reset();
                     ItemRec.SetRange("No.", PurchLineRec."No.");
                     if ItemRec.FindSet() then begin
+
+                        //get Master Category
+                        MainCatRec.Reset();
+                        MainCatRec.SetRange("No.", ItemRec."Main Category No.");
+
                         //insert lines
                         AcceRec.Init();
                         AcceRec.SeqNo := MaxSeqNo;
@@ -165,6 +173,12 @@ report 51262 AccessoriesStatusReportNew
                         AcceRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         AcceRec."PO Qty" := PurchLineRec.Quantity;
                         AcceRec.FromPOLine := true;
+
+                        if MainCatRec.FindSet() then
+                            AcceRec."Master Category Name" := MainCatRec."Master Category Name"
+                        else
+                            AcceRec."Master Category Name" := '-';
+
                         AcceRec.Insert();
                     end
                     else
@@ -186,6 +200,10 @@ report 51262 AccessoriesStatusReportNew
                 ItemRec.Reset();
                 ItemRec.SetRange("No.", PurchaseArchiveRec."No.");
                 if ItemRec.FindSet() then begin
+
+                    //get Master Category
+                    MainCatRec.Reset();
+                    MainCatRec.SetRange("No.", ItemRec."Main Category No.");
 
                     //Check existance of the item
                     AcceRec.Reset();
@@ -215,6 +233,12 @@ report 51262 AccessoriesStatusReportNew
                         AcceRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         AcceRec."PO Qty" := PurchaseArchiveRec.Quantity;
                         AcceRec.FromPOLine := false;
+
+                        if MainCatRec.FindSet() then
+                            AcceRec."Master Category Name" := MainCatRec."Master Category Name"
+                        else
+                            AcceRec."Master Category Name" := '-';
+
                         AcceRec.Insert();
                     end;
 
@@ -236,6 +260,10 @@ report 51262 AccessoriesStatusReportNew
                 ItemRec.Reset();
                 ItemRec.SetRange("No.", PurchRcptLineRec."No.");
                 if ItemRec.FindSet() then begin
+
+                    //get Master Category
+                    MainCatRec.Reset();
+                    MainCatRec.SetRange("No.", ItemRec."Main Category No.");
 
                     //Check existance of the PO doc
                     PurchHDRec.Reset();
@@ -272,6 +300,12 @@ report 51262 AccessoriesStatusReportNew
                         AcceRec."PO Qty" := 0;
                         AcceRec."GRN Qty" := PurchRcptLineRec.Quantity;
                         AcceRec.Balance := AcceRec."PO Qty" - AcceRec."GRN Qty";
+
+                        if MainCatRec.FindSet() then
+                            AcceRec."Master Category Name" := MainCatRec."Master Category Name"
+                        else
+                            AcceRec."Master Category Name" := '-';
+
                         AcceRec.Insert();
                     end;
                 end
