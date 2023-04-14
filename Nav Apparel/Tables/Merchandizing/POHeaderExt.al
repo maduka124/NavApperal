@@ -83,7 +83,7 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
 
 
             //Done By Sachith on 30/03/23
-            if UserSetupRec.UserRole <> 'COMMERCIAL USER' then begin
+            if (UserSetupRec.UserRole <> 'COMMERCIAL USER') And (UserSetupRec.UserRole <> 'STORE USER') then begin
                 // if UserSetupRec."Merchandizer All Group" = false then begin
                 if UserSetupRec."Merchandizer Group Name" = '' then
                     Error('Merchandizer Group not setup in the User Setup.');
@@ -99,7 +99,7 @@ tableextension 50917 "PO Extension" extends "Purchase Header"
                 "Workflow User Group" := WorkflowUserGroupRec.Code;
         end
         else
-            Error('Merchandizer Group not setup in the User Setup.');
+            Error('Current User not setup in the User Setup Card.');
 
     end;
 }

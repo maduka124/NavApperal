@@ -5881,13 +5881,13 @@ page 50983 "Assortment Card"
                         until BOMLineAutoGenRec.Next() = 0;
 
 
-                    //////////////////////////////////////Write to MRP
-                    BOMLineAutoGenRec.Reset();
-                    BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
-                    BOMLineAutoGenRec.SetFilter("Include in PO", '=%1', true);
-                    BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', false);
-                    if not BOMLineAutoGenRec.FindSet() then
-                        Error('Records not selected for processing.');
+                    //////////////////////////////////////Write to MRP (Adjust sales order)
+                    // BOMLineAutoGenRec.Reset();
+                    // BOMLineAutoGenRec.SetRange("No.", BOMRec.No);
+                    // BOMLineAutoGenRec.SetFilter("Include in PO", '=%1', true);
+                    // BOMLineAutoGenRec.SetFilter("Included in PO", '=%1', false);
+                    // if not BOMLineAutoGenRec.FindSet() then
+                    //     Error('Records not selected for processing.');
 
                     StyleMasterPORec.Reset();
                     StyleMasterPORec.SetRange("Style No.", rec."No.");
@@ -6953,56 +6953,56 @@ page 50983 "Assortment Card"
                             end;
                         until AssortDetailRec.Next() = 0;
 
-                        AutoGenRec.Reset();
-                        AutoGenRec.SetRange("No.", BOMRec.No);
-                        AutoGenRec.SetFilter("Include in PO", '=%1', true);
-                        if AutoGenRec.FindSet() then
-                            AutoGenRec.ModifyAll("Included in PO", true);
+                        // AutoGenRec.Reset();
+                        // AutoGenRec.SetRange("No.", BOMRec.No);
+                        // AutoGenRec.SetFilter("Include in PO", '=%1', true);
+                        // if AutoGenRec.FindSet() then
+                        //     AutoGenRec.ModifyAll("Included in PO", true);
 
 
-                        AutoGenRec.Reset();
-                        AutoGenRec.SetRange("No.", BOMRec.No);
-                        AutoGenRec.SetFilter("Include in PO", '=%1', true);
-                        if AutoGenRec.FindSet() then
-                            AutoGenRec.ModifyAll("Include in PO", false);
+                        // AutoGenRec.Reset();
+                        // AutoGenRec.SetRange("No.", BOMRec.No);
+                        // AutoGenRec.SetFilter("Include in PO", '=%1', true);
+                        // if AutoGenRec.FindSet() then
+                        //     AutoGenRec.ModifyAll("Include in PO", false);
 
-                        //Delete Prod orders                      
-                        SalesHeaderRec.Reset();
-                        SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
-                        SalesHeaderRec.SetRange("Style No", rec."Style No.");
-                        //SalesHeaderRec.SetRange(Lot, StyleMasterPORec."lot No.");
-                        SalesHeaderRec.SetFilter(EntryType, '=%1', SalesHeaderRec.EntryType::FG);
+                        // //Delete Prod orders                      
+                        // SalesHeaderRec.Reset();
+                        // SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
+                        // SalesHeaderRec.SetRange("Style No", rec."Style No.");
+                        // //SalesHeaderRec.SetRange(Lot, StyleMasterPORec."lot No.");
+                        // SalesHeaderRec.SetFilter(EntryType, '=%1', SalesHeaderRec.EntryType::FG);
 
-                        if SalesHeaderRec.FindSet() then begin
-                            repeat
-                                ProOrderHedRec.Reset();
-                                ProOrderHedRec.SetRange("Source Type", ProOrderHedRec."Source Type"::"Sales Header");
-                                ProOrderHedRec.SetRange("Source No.", SalesHeaderRec."No.");
+                        // if SalesHeaderRec.FindSet() then begin
+                        //     repeat
+                        //         ProOrderHedRec.Reset();
+                        //         ProOrderHedRec.SetRange("Source Type", ProOrderHedRec."Source Type"::"Sales Header");
+                        //         ProOrderHedRec.SetRange("Source No.", SalesHeaderRec."No.");
 
-                                if ProOrderHedRec.FindSet() then begin
-                                    //Delete Prod order lines
-                                    ProOrderLineRec.Reset();
-                                    ProOrderLineRec.SetRange("Prod. Order No.", ProOrderHedRec."No.");
-                                    if ProOrderLineRec.FindSet() then
-                                        ProOrderLineRec.DeleteAll();
+                        //         if ProOrderHedRec.FindSet() then begin
+                        //             //Delete Prod order lines
+                        //             ProOrderLineRec.Reset();
+                        //             ProOrderLineRec.SetRange("Prod. Order No.", ProOrderHedRec."No.");
+                        //             if ProOrderLineRec.FindSet() then
+                        //                 ProOrderLineRec.DeleteAll();
 
-                                    //Delete Prod order header
-                                    ProOrderHedRec.Delete();
-                                end;
-                            until SalesHeaderRec.Next() = 0;
-                        end;
+                        //             //Delete Prod order header
+                        //             ProOrderHedRec.Delete();
+                        //         end;
+                        //     until SalesHeaderRec.Next() = 0;
+                        // end;
 
-                        //Create Prod orders                       
-                        SalesHeaderRec.Reset();
-                        SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
-                        SalesHeaderRec.SetRange("Style No", rec."Style No.");
-                        //SalesHeaderRec.SetRange(Lot, StyleMasterPORec."lot No.");
-                        SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::FG);
+                        // //Create Prod orders                       
+                        // SalesHeaderRec.Reset();
+                        // SalesHeaderRec."Document Type" := SalesHeaderRec."Document Type"::Order;
+                        // SalesHeaderRec.SetRange("Style No", rec."Style No.");
+                        // //SalesHeaderRec.SetRange(Lot, StyleMasterPORec."lot No.");
+                        // SalesHeaderRec.SetRange(EntryType, SalesHeaderRec.EntryType::FG);
 
-                        if SalesHeaderRec.FindSet() then
-                            repeat
-                                ProOrderNo := CodeUnitNavApp.CreateProdOrder(SalesHeaderRec."No.", 'Bulk');
-                            until SalesHeaderRec.Next() = 0;
+                        // if SalesHeaderRec.FindSet() then
+                        //     repeat
+                        //         ProOrderNo := CodeUnitNavApp.CreateProdOrder(SalesHeaderRec."No.", 'Bulk');
+                        //     until SalesHeaderRec.Next() = 0;
 
                         Message('Completed');
                     end
@@ -7473,7 +7473,7 @@ page 50983 "Assortment Card"
             //Create new sales order
             CreateSalesOrder(NextItemNo, Lot, Qty, FOBPcsPrice);
             //Create new Prod BOM
-            CreateProdBOM(BOMNo, Color, size, Lot, NextItemNo, ItemDesc);
+            //CreateProdBOM(BOMNo, Color, size, Lot, NextItemNo, ItemDesc);
 
         end
         else begin   //If old item - Delete existing data and insert again
@@ -7483,10 +7483,10 @@ page 50983 "Assortment Card"
 
             if ProdBOM = '' then begin
                 CreateSalesOrder(ItemNo, Lot, Qty, FOBPcsPrice);
-                CreateProdBOM(BOMNo, Color, size, Lot, ItemNo, ItemDesc);
-            end
-            else
-                UpdateProdBOM(BOMNo, Color, size, Lot, ItemNo, ProdBOM);
+                //CreateProdBOM(BOMNo, Color, size, Lot, ItemNo, ItemDesc);
+            end;
+            //else
+            //UpdateProdBOM(BOMNo, Color, size, Lot, ItemNo, ProdBOM);
         end;
     end;
 

@@ -151,6 +151,7 @@ page 51247 "Buyer Style PO Search"
 
                                     BuyerStylePoSearchRec.Reset();
                                     BuyerStylePoSearchRec.SetRange("PO No", purchaseLineRec."Document No.");
+                                    BuyerStylePoSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
 
                                     if not BuyerStylePoSearchRec.FindSet() then begin
 
@@ -197,6 +198,7 @@ page 51247 "Buyer Style PO Search"
 
                                     BuyerStyleGRNSearchRec.Reset();
                                     BuyerStyleGRNSearchRec.SetRange("GRN No", purchaseLineArchivedRec."Document No.");
+                                    BuyerStyleGRNSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
 
                                     if not BuyerStyleGRNSearchRec.FindSet() then begin
                                         MaxSeqNo += 1;
@@ -244,6 +246,7 @@ page 51247 "Buyer Style PO Search"
 
                                     BuyerStylePoSearchRec.Reset();
                                     BuyerStylePoSearchRec.SetRange("PO No", purchaseLineRec."Document No.");
+                                    BuyerStylePoSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
 
                                     if not BuyerStylePoSearchRec.FindSet() then begin
                                         MaxSeqNo += 1;
@@ -293,6 +296,7 @@ page 51247 "Buyer Style PO Search"
 
                                     BuyerStyleGRNSearchRec.Reset();
                                     BuyerStyleGRNSearchRec.SetRange("GRN No", purchaseLineArchivedRec."Document No.");
+                                    BuyerStyleGRNSearchRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
 
                                     if not BuyerStyleGRNSearchRec.FindSet() then begin
                                         MaxSeqNo += 1;
