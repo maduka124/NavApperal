@@ -351,39 +351,42 @@ page 50489 "All PO List"
         if TempQuery.Open() then begin
             while TempQuery.Read() do begin
 
-                Rec.Init();
-                Rec.BPCD := TempQuery.BPCD;
-                Rec.Buyer := TempQuery.Buyer_Name;
-                Rec.ConfirmDate := TempQuery.ConfirmDate;
-                Rec.Lot_No := TempQuery.Lot_No;
-                Rec.Mode := TempQuery.Mode;
-                Rec.No := TempQuery.No;
-                Rec.PlannedStatus := TempQuery.PlannedStatus;
-                Rec.PONo := TempQuery.PONo;
-                Rec.Qty := TempQuery.Qty - TempQuery.PlannedQty - TempQuery.OutputQty;
-                Rec.Select := TempQuery.Select;
-                Rec.ShipDate := TempQuery.ShipDate;
-                Rec.SID := TempQuery.SID;
-                Rec.SMV := TempQuery.SMV;
-                Rec.Status := TempQuery.Status;
-                Rec.Style_No := TempQuery.Style_No;
-                Rec.UnitPrice := TempQuery.UnitPrice;
+                if (TempQuery.Qty - TempQuery.PlannedQty - TempQuery.OutputQty) > 0 then begin
 
-                // Done By Sachith On 27/03/23
-                StyleMasterRec.Reset();
-                StyleMasterRec.SetRange("No.", TempQuery.No);
-                if StyleMasterRec.FindSet() then
-                    Rec.Brand := StyleMasterRec."Brand Name";
+                    Rec.Init();
+                    Rec.BPCD := TempQuery.BPCD;
+                    Rec.Buyer := TempQuery.Buyer_Name;
+                    Rec.ConfirmDate := TempQuery.ConfirmDate;
+                    Rec.Lot_No := TempQuery.Lot_No;
+                    Rec.Mode := TempQuery.Mode;
+                    Rec.No := TempQuery.No;
+                    Rec.PlannedStatus := TempQuery.PlannedStatus;
+                    Rec.PONo := TempQuery.PONo;
+                    Rec.Qty := TempQuery.Qty - TempQuery.PlannedQty - TempQuery.OutputQty;
+                    Rec.Select := TempQuery.Select;
+                    Rec.ShipDate := TempQuery.ShipDate;
+                    Rec.SID := TempQuery.SID;
+                    Rec.SMV := TempQuery.SMV;
+                    Rec.Status := TempQuery.Status;
+                    Rec.Style_No := TempQuery.Style_No;
+                    Rec.UnitPrice := TempQuery.UnitPrice;
 
-                StyleMasterPORec.Reset();
-                StyleMasterPORec.SetRange("Style No.", TempQuery.No);
-                StyleMasterPORec.SetRange("Lot No.", TempQuery.Lot_No);
-                if StyleMasterPORec.FindSet() then
-                    Rec."Sewing Out Qty" := StyleMasterPORec."Sawing Out Qty";
+                    // Done By Sachith On 27/03/23
+                    StyleMasterRec.Reset();
+                    StyleMasterRec.SetRange("No.", TempQuery.No);
+                    if StyleMasterRec.FindSet() then
+                        Rec.Brand := StyleMasterRec."Brand Name";
 
-                Rec."Production File Handover Date" := TempQuery.Production_File_Handover_Date;
-                Rec.Insert();
+                    StyleMasterPORec.Reset();
+                    StyleMasterPORec.SetRange("Style No.", TempQuery.No);
+                    StyleMasterPORec.SetRange("Lot No.", TempQuery.Lot_No);
+                    if StyleMasterPORec.FindSet() then
+                        Rec."Sewing Out Qty" := StyleMasterPORec."Sawing Out Qty";
 
+                    Rec."Production File Handover Date" := TempQuery.Production_File_Handover_Date;
+                    Rec.Insert();
+
+                end;
             end;
             TempQuery.Close();
         end;
