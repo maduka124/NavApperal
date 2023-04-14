@@ -1504,18 +1504,18 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         HoursPerDay := 0;
                         ResourceNo := copystr(_newRowObjectID, 3, StrLen(_newRowObjectID) - 2);
 
-                        //Check whether pending sawing out quantity is there for the allocation
-                        ProdHeaderRec.Reset();
-                        ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
-                        ProdHeaderRec.SetRange("out Style No.", STYNo);
-                        ProdHeaderRec.SetRange("out Lot No.", lotNo);
-                        ProdHeaderRec.SetRange("OUT PO No", PONo);
-                        ProdHeaderRec.SetRange("Ref Line No.", LineNo);
-                        ProdHeaderRec.SetRange("Resource No.", ResourceNo);
-                        ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
+                        // //Check whether pending sawing out quantity is there for the allocation
+                        // ProdHeaderRec.Reset();
+                        // ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
+                        // ProdHeaderRec.SetRange("out Style No.", STYNo);
+                        // ProdHeaderRec.SetRange("out Lot No.", lotNo);
+                        // ProdHeaderRec.SetRange("OUT PO No", PONo);
+                        // ProdHeaderRec.SetRange("Ref Line No.", LineNo);
+                        // ProdHeaderRec.SetRange("Resource No.", ResourceNo);
+                        // ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
 
-                        if ProdHeaderRec.FindSet() then
-                            Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
+                        // if ProdHeaderRec.FindSet() then
+                        //     Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
 
 
                         //Get Resorce line details
@@ -2844,18 +2844,18 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             //Check for not prod. updated sewing out enties
                             //Check whether pending sawing out quantity is there for the allocation
-                            ProdHeaderRec.Reset();
-                            ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
-                            ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
-                            ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
-                            ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
-                            ProdHeaderRec.SetFilter("Prod Date", '>=%1', dtEnd);
-                            ProdHeaderRec.SetRange("Ref Line No.", LineNo);
-                            ProdHeaderRec.SetRange("Resource No.", ResourceNo);
-                            ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
+                            // ProdHeaderRec.Reset();
+                            // ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
+                            // ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
+                            // ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
+                            // ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
+                            // ProdHeaderRec.SetFilter("Prod Date", '>=%1', dtEnd);
+                            // ProdHeaderRec.SetRange("Ref Line No.", LineNo);
+                            // ProdHeaderRec.SetRange("Resource No.", ResourceNo);
+                            // ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
 
-                            if ProdHeaderRec.FindSet() then
-                                Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
+                            // if ProdHeaderRec.FindSet() then
+                            //     Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
 
 
                             QTY := 0;
@@ -2972,19 +2972,19 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 ResourceNo := PlanningLinesRec."Resource No.";
 
 
-                            //Check for not prod. updated sewing out enties
-                            //Check whether pending sawing out quantity is there for the allocation
-                            ProdHeaderRec.Reset();
-                            ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
-                            ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
-                            ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
-                            ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
-                            ProdHeaderRec.SetRange("Ref Line No.", LineNo);
-                            ProdHeaderRec.SetRange("Resource No.", ResourceNo);
-                            ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
+                            // //Check for not prod. updated sewing out enties
+                            // //Check whether pending sawing out quantity is there for the allocation
+                            // ProdHeaderRec.Reset();
+                            // ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
+                            // ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
+                            // ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
+                            // ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
+                            // ProdHeaderRec.SetRange("Ref Line No.", LineNo);
+                            // ProdHeaderRec.SetRange("Resource No.", ResourceNo);
+                            // ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
 
-                            if ProdHeaderRec.FindSet() then
-                                Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
+                            // if ProdHeaderRec.FindSet() then
+                            //     Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
 
 
 

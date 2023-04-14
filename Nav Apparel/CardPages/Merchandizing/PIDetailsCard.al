@@ -181,12 +181,12 @@ page 50996 "PI Details Card"
                 {
                     ApplicationArea = All;
 
-                    trigger OnValidate()
-                    var
-                    begin
-                        if rec."PO Total" <> rec."PI Value" then
-                            Error('Total PO value and PI value does not match.');
-                    end;
+                    // trigger OnValidate()
+                    // var
+                    // begin
+                    //     if rec."PO Total" <> rec."PI Value" then
+                    //         Error('Total PO value and PI value does not match.');
+                    // end;
                 }
 
                 field("Payment Mode Name"; rec."Payment Mode Name")
@@ -332,7 +332,7 @@ page 50996 "PI Details Card"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     var
-       
+
     begin
         Rec.Validate("Payment Mode Name", 'Letter of Credit');
         Rec.Validate(Currency, 'United States Dollars');
