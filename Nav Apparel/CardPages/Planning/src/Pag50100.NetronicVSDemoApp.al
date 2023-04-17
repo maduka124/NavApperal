@@ -1020,6 +1020,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             JobPlaLineRec.Qty := PlanningQueueeRec.Qty;
                             JobPlaLineRec.Factory := PlanningQueueeRec.Factory;
                             JobPlaLineRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                            JobPlaLineRec."Created Date" := WorkDate();
                             JobPlaLineRec.Insert();
                             IsInserted := true;
 
@@ -2072,6 +2073,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                         JobPlaLineRec."Created User" := UserId;
+                        JobPlaLineRec."Created Date" := WorkDate();
                         JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                         JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
                         JobPlaLineRec.Modify();
