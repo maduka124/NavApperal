@@ -116,6 +116,7 @@ page 51165 "BuyerWiseOrderBooking"
                     StartDate: date;
                     FinishDate: Date;
                     SeqNo: BigInteger;
+                    StyleNo: Code[20];
                 begin
 
                     if rec.Year > 0 then begin
@@ -503,7 +504,7 @@ page 51165 "BuyerWiseOrderBooking"
                         //BuyWisOdrBookAllBookRec.SetFilter(Type, '=%1', 'L');
                         if BuyWisOdrBookAllBookRec.FindSet() then begin
                             repeat
-
+                                //
                                 //Insert new line
                                 //Done By Sachith on 16/02/23 (insert Brand No and Name)
                                 SeqNo += 1;
@@ -571,6 +572,7 @@ page 51165 "BuyerWiseOrderBooking"
                                     FinishDate := DMY2DATE(31, i, rec.Year);
                             end;
 
+
                             //Get sewing out
                             ProductionOutHeaderRec.Reset();
                             ProductionOutHeaderRec.SetRange("Prod Date", StartDate, FinishDate);
@@ -579,7 +581,9 @@ page 51165 "BuyerWiseOrderBooking"
                                 repeat
 
                                     StyleMasterRec.Reset();
-                                    StyleMasterRec.SetRange("No.", ProductionOutHeaderRec."Style No.");
+                                    //Add output Style 2023/04/18
+                                    StyleMasterRec.SetRange("No.", ProductionOutHeaderRec."Out Style No.");
+                                    StyleMasterRec.SetFilter(Status, '=%1', StyleMasterRec.Status::Confirmed);
                                     if StyleMasterRec.FindSet() then begin
 
                                         //Check existance
@@ -589,13 +593,20 @@ page 51165 "BuyerWiseOrderBooking"
                                         BuyerWiseOdrBookinBalatoSewRec.SetRange("Brand No", StyleMasterRec."Brand No.");
                                         if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
 
+
+                                            // if (BuyerWiseOdrBookinBalatoSewRec."Buyer Name" = 'H&M') and (BuyerWiseOdrBookinBalatoSewRec."Brand Name" = 'DIVIDED') then
+                                            //     Message('Minus');
+
+
                                             case i of
                                                 1:
                                                     BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
+
                                                 2:
                                                     BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
                                                 3:
                                                     BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
+
                                                 4:
                                                     BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
                                                 5:
@@ -615,11 +626,12 @@ page 51165 "BuyerWiseOrderBooking"
                                                 12:
                                                     BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
                                             end;
-
+                                            // Message('=%1', BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty");
                                             BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
                                             BuyerWiseOdrBookinBalatoSewRec.Modify();
 
                                         end;
+
 
                                         //Update Grand total
                                         BuyerWiseOdrBookinBalatoSewRec.Reset();
@@ -652,6 +664,7 @@ page 51165 "BuyerWiseOrderBooking"
                                                 12:
                                                     BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
                                             end;
+
                                             BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
                                             BuyerWiseOdrBookinBalatoSewRec.Modify();
                                         end;
