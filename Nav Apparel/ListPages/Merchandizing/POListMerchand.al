@@ -40,6 +40,10 @@ page 51197 "PO List Merchand"
                     ApplicationArea = Suite;
                     ToolTip = 'Specifies the name of the vendor that you’re buying from. By default, the same vendor is suggested as the pay-to vendor. If needed, you can specify a different pay-to vendor on the document.';
                 }
+                field("Merchandizer Group Name"; Rec."Merchandizer Group Name")
+                {
+                    ApplicationArea = Suite;
+                }
                 field("Vendor Authorization No."; Rec."Vendor Authorization No.")
                 {
                     ApplicationArea = Suite;
