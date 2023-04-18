@@ -636,12 +636,12 @@ page 50102 "Daily Consumption Card"
             BooVis2 := true;
             EditableGB := true;
         end;
-
-        if UserSetup.UserRole = 'STORE USER' then begin
-            BooVis1 := false;
-            BooVis2 := false;
-            EditableGB := false;
-        end;
+        //Mihiranga 2023/4/18
+        // if UserSetup.UserRole = 'STORE USER' then begin
+        //     BooVis1 := false;
+        //     BooVis2 := false;
+        //     EditableGB := false;
+        // end;
 
         Vis2 := false;
         ItemLedRec.Reset();
