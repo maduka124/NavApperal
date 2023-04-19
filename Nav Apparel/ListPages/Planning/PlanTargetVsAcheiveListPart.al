@@ -35,6 +35,11 @@ page 50348 "Plan Target Vs Acheive"
                     ApplicationArea = All;
                     Caption = 'Style';
                 }
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Brand Name';
+                }
 
                 field("Lot No."; rec."Lot No.")
                 {
@@ -78,6 +83,8 @@ page 50348 "Plan Target Vs Acheive"
     trigger OnAfterGetRecord()
     var
         WorkCEnterRec: Record "Work Center";
+        StyleRec: Record "Style Master";
+       
     begin
         Variance := rec.ProdUpdQty - rec.qty;
 
@@ -86,14 +93,24 @@ page 50348 "Plan Target Vs Acheive"
         WorkCEnterRec.SetRange("No.", rec."Resource No.");
         if WorkCEnterRec.FindSet() then
             ResourceName := WorkCEnterRec.Name;
+
+        StyleRec.Reset();
+        StyleRec.SetRange("No.", Rec."Style No.");
+        if StyleRec.FindFirst() then begin
+            repeat
+                Rec."Brand Name" := StyleRec."Brand Name";
+            until StyleRec.Next() = 0;
+        end;
     end;
 
 
     trigger OnOpenPage()
     var
+
     begin
         //SetFilter("Resource No.", ResourceNo);
         rec.SetFilter("Line No.", LineNo);
+
     end;
 
 

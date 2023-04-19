@@ -116,6 +116,10 @@ table 50345 "NavApp Prod Plans Details"
         {
             DataClassification = ToBeClassified;
         }
+        field(23; "Brand Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
