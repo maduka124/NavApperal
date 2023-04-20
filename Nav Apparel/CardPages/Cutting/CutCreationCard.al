@@ -197,7 +197,19 @@ page 50599 "Cut Creation Card"
                     Balance: Integer;
                     Count: Integer;
                     Plies: Integer;
+                    UserRec: Record "User Setup";
                 begin
+
+                    //Done By sachith on 18/04/23
+                    UserRec.Reset();
+                    UserRec.Get(UserId);
+
+                    if UserRec."Factory Code" <> '' then begin
+                        if (UserRec."Factory Code" <> rec."Factory Code") then
+                            Error('You are not authorized to Cut Creation.')
+                    end
+                    else
+                        Error('Factory not assigned for the user.');
 
                     if (rec."Style Name" = '') then
                         Error('Invalid Style');

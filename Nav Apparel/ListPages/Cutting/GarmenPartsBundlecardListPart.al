@@ -45,7 +45,25 @@ page 51272 BundleCardGMTPartListPart
                 var
                     GMTpart1Rec: Record GarmentPartsBundleCardLeft;
                     GMTpart2Rec: Record GarmentPartsBundleCard2Right;
+                    BundleCardTableRec: Record BundleCardTable;
+                    UserRec: Record "User Setup";
                 begin
+
+                    //Done By sachith on 18/04/23
+                    UserRec.Reset();
+                    UserRec.Get(UserId);
+
+                    if UserRec."Factory Code" <> '' then begin
+                        BundleCardTableRec.Reset();
+                        BundleCardTableRec.SetRange("Bundle Card No", Rec.BundleCardNo);
+                        if BundleCardTableRec.FindSet() then begin
+                            if (UserRec."Factory Code" <> BundleCardTableRec."Factory Code") then
+                                Error('You are not authorized to Add.')
+                        end;
+                    end
+                    else
+                        Error('Factory not assigned for the user.');
+
                     GMTpart1Rec.Reset();
                     GMTpart1Rec.SetCurrentKey(No);
                     GMTpart1Rec.SetRange(Select, true);
