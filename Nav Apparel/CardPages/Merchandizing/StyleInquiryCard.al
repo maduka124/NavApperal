@@ -732,25 +732,24 @@ page 50602 "Style Inquiry Card"
         //StyleRec: Record "Style Master";
         StylePORec: Record "Style Master PO";
         SpecialOpRec: Record "Special Operation Style";
+        NavAppPlanLineRec: Record "NavApp Planning Lines";
     begin
         if rec.Status = rec.status::Confirmed then
-            Error('Style already confirmed. Cannot delete.')
-        else begin
+            Error('Style already confirmed. Cannot delete.');
 
-            // StyleRec.SetRange("No.", "No.");
-            // if StyleRec.FindSet() then
-            //     StyleRec.DeleteAll();
+        NavAppPlanLineRec.Reset();
+        NavAppPlanLineRec.SetRange("Style No.", rec."No.");
+        if NavAppPlanLineRec.FindSet() then
+            Error('Style already planned. Cannot delete.');
 
-            SpecialOpRec.SetRange("Style No.", rec."No.");
-            if SpecialOpRec.FindSet() then
-                SpecialOpRec.DeleteAll();
+        SpecialOpRec.SetRange("Style No.", rec."No.");
+        if SpecialOpRec.FindSet() then
+            SpecialOpRec.DeleteAll();
 
-            StylePORec.SetRange("Style No.", rec."No.");
-            if StylePORec.FindSet() then
-                StylePORec.DeleteAll();
+        StylePORec.SetRange("Style No.", rec."No.");
+        if StylePORec.FindSet() then
+            StylePORec.DeleteAll();
 
-
-        end;
     end;
 
 

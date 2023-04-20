@@ -1,4 +1,4 @@
-page 50371 "Prod Update Card"
+page 51298 "Prod Update Card"
 {
     PageType = Card;
     Caption = 'Production Update';
@@ -121,6 +121,8 @@ page 50371 "Prod Update Card"
         TempTIme: Time;
         TimeEnd1: Time;
         dtEnd1: Date;
+        RowCount: Integer;
+        N: Integer;
     begin
 
         //Check for blank factory / line records
@@ -283,7 +285,8 @@ page 50371 "Prod Update Card"
                         // TImeStart := 0T;
                         TimeEnd1 := 0T;
                         dtEnd1 := 0D;
-
+                        RowCount := 0;
+                        N := 0;
 
                         //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                         repeat
@@ -320,16 +323,29 @@ page 50371 "Prod Update Card"
 
                         until HoursPerDay > 0;
 
-                        //Get existing all planning lines for the work center line
+                        //Get no of existing all planning lines for the work center line
                         JobPlaLineRec.Reset();
                         JobPlaLineRec.SetCurrentKey(StartDateTime);
                         JobPlaLineRec.Ascending(true);
                         JobPlaLineRec.SetRange("Resource No.", WorkCenterNo);
                         JobPlaLineRec.SetFilter("Start Date", '<=%1', ProdDate);
 
-                        if JobPlaLineRec.FindSet() then begin
+                        if JobPlaLineRec.FindFirst() then
+                            RowCount := JobPlaLineRec.Count;
 
-                            repeat
+                        if RowCount > 0 then begin
+
+                            for N := 1 To RowCount do begin
+
+                                //Get existing all planning lines for the work center line
+                                JobPlaLineRec.Reset();
+                                JobPlaLineRec.SetCurrentKey(StartDateTime);
+                                JobPlaLineRec.Ascending(true);
+                                JobPlaLineRec.SetRange("Resource No.", WorkCenterNo);
+                                JobPlaLineRec.SetFilter("Start Date", '<=%1', ProdDate);
+                                JobPlaLineRec.FindFirst();
+
+                                TempQty := 0;
 
                                 if JobPlaLineRec.Carder <> 0 then
                                     Carder := JobPlaLineRec.Carder;
@@ -339,6 +355,7 @@ page 50371 "Prod Update Card"
 
                                 SMV := JobPlaLineRec.SMV;
                                 LineNo := JobPlaLineRec."Line No.";
+
 
                                 TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
                                 TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
@@ -393,6 +410,9 @@ page 50371 "Prod Update Card"
                                     TempDate := dtEnd1;
                                     dtStart := dtEnd1;
                                 end;
+
+                                // if LineNo = 1028 then
+                                //     Message('1028');
 
                                 repeat
 
@@ -551,14 +571,13 @@ page 50371 "Prod Update Card"
                                                     ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
                                                 else
                                                     ProdPlansDetails."Finish Time" := ProdPlansDetails."Start Time" + 60 * 60 * 1000 * TempHours
-                                            else
-                                                ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                            else begin
+                                                if TimeEnd1 = 0T then
+                                                    ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours
+                                                else
+                                                    ProdPlansDetails."Finish Time" := ProdPlansDetails."Start Time" + 60 * 60 * 1000 * TempHours;
+                                            end;
                                         end;
-
-                                        // if TempHours = 0 then
-                                        //     ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                                        // else
-                                        //     ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                                         ProdPlansDetails.Qty := xQty;
                                         ProdPlansDetails.Target := TargetPerDay;
@@ -597,8 +616,13 @@ page 50371 "Prod Update Card"
                                             JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
                                         else
                                             JobPlaLineRec."Finish Time" := JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours
-                                    else
-                                        JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    else begin
+                                        if TimeEnd1 = 0T then
+                                            JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours
+                                        else
+                                            JobPlaLineRec."Finish Time" := JobPlaLineRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                    end;
+
                                 end;
 
 
@@ -691,6 +715,7 @@ page 50371 "Prod Update Card"
                                         if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
                                             TImeStart := LocationRec."Start Time";
                                             dtStart := dtStart + 1;
+                                            TempDate := dtStart;
                                         end;
 
                                         //Get working hours for the start date. If start date is a holiday, shift start date to next date.
@@ -812,6 +837,9 @@ page 50371 "Prod Update Card"
                                                 //Calculate hours for the first day (substracti hours if delay start)
                                                 HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                             end;
+
+                                            if LineNo = 1018 then
+                                                Message('1018');
 
                                             if JobPlaLine1Rec."Learning Curve No." <> 0 then begin
 
@@ -994,7 +1022,7 @@ page 50371 "Prod Update Card"
                                         JobPlaLine1Rec.SetRange("Resource No.", WorkCenterNo);
                                         JobPlaLine1Rec.SetRange("StartDateTime", CreateDateTime(dtStart, TImeStart), CreateDateTime(TempDate, TempTIme));
                                         JobPlaLine1Rec.SetCurrentKey(StartDateTime);
-                                        JobPlaLine1Rec.SetAscending(StartDateTime, false);
+                                        JobPlaLine1Rec.Ascending(true);
                                         JobPlaLine1Rec.SetFilter("Line No.", '<>%1', LineNo);
 
                                         if JobPlaLine1Rec.FindSet() then begin
@@ -1014,7 +1042,7 @@ page 50371 "Prod Update Card"
 
                                 status := 1;
 
-                            until JobPlaLineRec.Next() = 0;
+                            end;
                         end;
 
                     until WorkCenterRec.Next() = 0;
