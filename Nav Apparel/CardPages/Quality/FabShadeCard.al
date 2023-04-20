@@ -417,6 +417,7 @@ page 50695 "FabShadeCard"
 
 
         //Get Rolldetails for the item and GRN
+        //Done By Sachith on 19/04/23
         FabProHeaderRec.Reset();
         FabProHeaderRec.SetRange("Style No.", Rec."Style No.");
         FabProHeaderRec.SetRange("PO No.", Rec."PO No.");
@@ -473,6 +474,7 @@ page 50695 "FabShadeCard"
     var
         FabProLineRec: Record FabricProceLine;
         FabShadeLine3Rec: Record FabShadeLine3;
+        FabProHeaderRec: Record FabricProceHeader;
         Lineno: Integer;
         Pattern: Code[20];
     begin
@@ -490,44 +492,58 @@ page 50695 "FabShadeCard"
         if FabShadeLine3Rec.FindSet() then
             FabShadeLine3Rec.DeleteAll();
 
+        // FabProLineRec.Reset();
+        // FabProLineRec.SetRange("Item No", rec."Item No");
+        // FabProLineRec.SetRange(GRN, rec.GRN);
+        // FabProLineRec.SetCurrentKey("PTTN GRP");
 
-        //Get Rolldetails for the item and GRN
-        FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", rec."Item No");
-        FabProLineRec.SetRange(GRN, rec.GRN);
-        FabProLineRec.SetCurrentKey("PTTN GRP");
+        //done by sachith on 20/04/23(Add filters)
+        FabProHeaderRec.Reset();
+        FabProHeaderRec.SetRange("Style No.", Rec."Style No.");
+        FabProHeaderRec.SetRange("PO No.", Rec."PO No.");
+        FabProHeaderRec.SetRange(GRN, Rec.GRN);
+        FabProHeaderRec.SetRange("Color No", Rec."Color No");
+        FabProHeaderRec.SetRange("Item No", Rec."Item No");
 
-        if FabProLineRec.FindSet() then begin
-            repeat
-                Lineno += 1;
+        if FabProHeaderRec.FindFirst() then begin
 
-                IF Pattern <> FabProLineRec."PTTN GRP" THEN BEGIN
-                    Pattern := FabProLineRec."PTTN GRP";
+            FabProLineRec.Reset();
+            FabProLineRec.SetRange("FabricProceNo.", FabProHeaderRec."FabricProceNo.");
+            FabProLineRec.SetCurrentKey("PTTN GRP");
+            FabProLineRec.Ascending(true);
 
-                    FabShadeLine3Rec.Init();
-                    FabShadeLine3Rec."FabShadeNo." := rec."FabShadeNo.";
-                    FabShadeLine3Rec."Line No." := Lineno;
-                    FabShadeLine3Rec."Total Rolls" := FabProLineRec.Qty;
-                    FabShadeLine3Rec."Total YDS" := FabProLineRec.YDS;
-                    FabShadeLine3Rec.Pattern := FabProLineRec."PTTN GRP";
-                    FabShadeLine3Rec.Insert();
+            if FabProLineRec.FindSet() then begin
+                repeat
 
-                end
-                else begin
 
-                    FabShadeLine3Rec.Reset();
-                    FabShadeLine3Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
-                    FabShadeLine3Rec.SetRange(Pattern, Pattern);
+                    IF Pattern <> FabProLineRec."PTTN GRP" THEN BEGIN
+                        Pattern := FabProLineRec."PTTN GRP";
 
-                    if FabShadeLine3Rec.FindSet() then begin
-                        FabShadeLine3Rec."Total Rolls" := FabShadeLine3Rec."Total Rolls" + FabProLineRec.Qty;
-                        FabShadeLine3Rec."Total YDS" := FabShadeLine3Rec."Total YDS" + FabProLineRec.YDS;
-                        FabShadeLine3Rec.Modify();
+                        Lineno += 1;
+
+                        FabShadeLine3Rec.Init();
+                        FabShadeLine3Rec."FabShadeNo." := rec."FabShadeNo.";
+                        FabShadeLine3Rec."Line No." := Lineno;
+                        FabShadeLine3Rec."Total Rolls" := FabProLineRec.Qty;
+                        FabShadeLine3Rec."Total YDS" := FabProLineRec.YDS;
+                        FabShadeLine3Rec.Pattern := FabProLineRec."PTTN GRP";
+                        FabShadeLine3Rec.Insert();
+
+                    end
+                    else begin
+
+                        FabShadeLine3Rec.Reset();
+                        FabShadeLine3Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
+                        FabShadeLine3Rec.SetRange(Pattern, Pattern);
+
+                        if FabShadeLine3Rec.FindSet() then begin
+                            FabShadeLine3Rec."Total Rolls" := FabShadeLine3Rec."Total Rolls" + FabProLineRec.Qty;
+                            FabShadeLine3Rec."Total YDS" := FabShadeLine3Rec."Total YDS" + FabProLineRec.YDS;
+                            FabShadeLine3Rec.Modify();
+                        end;
                     end;
-
-                end;
-
-            until FabProLineRec.Next() = 0;
+                until FabProLineRec.Next() = 0;
+            end;
         end;
     end;
 }
