@@ -346,6 +346,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Workers List";
                     ApplicationArea = all;
                 }
+                action("Style Master Master")
+                {
+                    Caption = 'WIP Order QTY Change';
+                    RunObject = Page "WIP Order QTY Change List";
+                    ApplicationArea = all;
+                }
             }
 
             //Merchandizing Group
@@ -709,6 +715,13 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'WIP Report';
                         Enabled = true;
                         RunObject = report WIPReport;
+                        ApplicationArea = all;
+                    }
+                    action("Export Summary Report Merchandizing")
+                    {
+                        Caption = 'Export Summary Report';
+                        Enabled = true;
+                        RunObject = report ExportSummartReport;
                         ApplicationArea = all;
                     }
                 }

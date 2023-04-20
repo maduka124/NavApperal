@@ -4,7 +4,9 @@ page 50978 "Create User Card"
     SourceTable = LoginDetails;
     Caption = 'User Creation';
     //AutoSplitKey = true;
-    Permissions = tabledata "Sales Invoice Header" = rmID;
+    Permissions = tabledata "Purch. Rcpt. Line" = rmID;
+
+    // Permissions = tabledata "Purch. Rcpt. Line"  = rmID;
 
     layout
     {
@@ -183,7 +185,47 @@ page 50978 "Create User Card"
             //     end;
             // }
 
+            //Done By Sachithon 20/04/23
+            action("Update Colors")
+            {
+                ApplicationArea = all;
 
+                trigger OnAction()
+                var
+                    PurchRcptLine: Record "Purch. Rcpt. Line";
+                    ItemRec: Record Item;
+                begin
+
+                    PurchRcptLine.Reset();
+                    if PurchRcptLine.FindSet() then begin
+                        repeat
+                            if PurchRcptLine."Color No." = '' then begin
+
+                                // ItemRec.Reset();
+                                // if ItemRec.FindSet() then begin
+                                //     repeat
+                                //         if PurchRcptLine."No." = ItemRec."No." then begin
+                                //             PurchRcptLine."Color No." := ItemRec."Color No.";
+                                //             PurchRcptLine."Color Name" := ItemRec."Color Name";
+                                //             PurchRcptLine.Modify()
+                                //         end;
+                                //     until ItemRec.Next() = 0;
+                                // end;
+
+
+                                ItemRec.Reset();
+                                ItemRec.SetRange("No.", PurchRcptLine."No.");
+                                if ItemRec.FindFirst() then begin
+                                    PurchRcptLine."Color No." := ItemRec."Color No.";
+                                    PurchRcptLine."Color Name" := ItemRec."Color Name";
+                                    PurchRcptLine.Modify()
+                                end;
+
+                            end;
+                        until PurchRcptLine.Next() = 0;
+                    end;
+                end;
+            }
         }
     }
 

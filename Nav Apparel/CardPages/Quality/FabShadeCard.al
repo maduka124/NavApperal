@@ -396,6 +396,7 @@ page 50695 "FabShadeCard"
     var
         FabProLineRec: Record FabricProceLine;
         FabShadeLine2Rec: Record FabShadeLine2;
+        FabProHeaderRec: Record FabricProceHeader;
         Lineno: Integer;
         Shade: text[50];
         ShadeNo: Code[20];
@@ -416,43 +417,54 @@ page 50695 "FabShadeCard"
 
 
         //Get Rolldetails for the item and GRN
-        FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", rec."Item No");
-        FabProLineRec.SetRange(GRN, rec.GRN);
-        FabProLineRec.SetCurrentKey(Shade);
+        FabProHeaderRec.Reset();
+        FabProHeaderRec.SetRange("Style No.", Rec."Style No.");
+        FabProHeaderRec.SetRange("PO No.", Rec."PO No.");
+        FabProHeaderRec.SetRange(GRN, Rec.GRN);
+        FabProHeaderRec.SetRange("Color No", Rec."Color No");
+        FabProHeaderRec.SetRange("Item No", Rec."Item No");
 
-        if FabProLineRec.FindSet() then begin
-            repeat
-                Lineno += 1;
+        if FabProHeaderRec.FindFirst() then begin
 
-                IF Shade <> FabProLineRec.Shade THEN BEGIN
-                    Shade := FabProLineRec.Shade;
+            FabProLineRec.Reset();
+            FabProLineRec.SetRange("FabricProceNo.", FabProHeaderRec."FabricProceNo.");
+            FabProLineRec.SetCurrentKey(Shade);
+            FabProLineRec.Ascending(true);
 
-                    FabShadeLine2Rec.Init();
-                    FabShadeLine2Rec."FabShadeNo." := rec."FabShadeNo.";
-                    FabShadeLine2Rec."Line No." := Lineno;
-                    FabShadeLine2Rec."Total Rolls" := FabProLineRec.Qty;
-                    FabShadeLine2Rec."Total YDS" := FabProLineRec.YDS;
-                    FabShadeLine2Rec.Shade := FabProLineRec.Shade;
-                    FabShadeLine2Rec."Shade No" := FabProLineRec."Shade No";
-                    FabShadeLine2Rec.Insert();
+            if FabProLineRec.FindSet() then begin
+                repeat
 
-                end
-                else begin
+                    IF Shade <> FabProLineRec.Shade THEN BEGIN
+                        Shade := FabProLineRec.Shade;
 
-                    FabShadeLine2Rec.Reset();
-                    FabShadeLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
-                    FabShadeLine2Rec.SetRange("Shade No", ShadeNo);
+                        Lineno += 1;
 
-                    if FabShadeLine2Rec.FindSet() then begin
-                        FabShadeLine2Rec."Total Rolls" := FabShadeLine2Rec."Total Rolls" + FabProLineRec.Qty;
-                        FabShadeLine2Rec."Total YDS" := FabShadeLine2Rec."Total YDS" + FabProLineRec.YDS;
-                        FabShadeLine2Rec.Modify();
+                        FabShadeLine2Rec.Init();
+                        FabShadeLine2Rec."FabShadeNo." := rec."FabShadeNo.";
+                        FabShadeLine2Rec."Line No." := Lineno;
+                        FabShadeLine2Rec."Total Rolls" := FabProLineRec.Qty;
+                        FabShadeLine2Rec."Total YDS" := FabProLineRec.YDS;
+                        FabShadeLine2Rec.Shade := FabProLineRec.Shade;
+                        FabShadeLine2Rec."Shade No" := FabProLineRec."Shade No";
+                        FabShadeLine2Rec.Insert();
+
+                    end
+                    else begin
+
+                        FabShadeLine2Rec.Reset();
+                        FabShadeLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
+                        FabShadeLine2Rec.SetRange("Shade No", FabProLineRec."Shade No");
+
+                        if FabShadeLine2Rec.FindSet() then begin
+                            FabShadeLine2Rec."Total Rolls" := FabShadeLine2Rec."Total Rolls" + FabProLineRec.Qty;
+                            FabShadeLine2Rec."Total YDS" := FabShadeLine2Rec."Total YDS" + FabProLineRec.YDS;
+                            FabShadeLine2Rec.Modify();
+                        end;
+
                     end;
 
-                end;
-
-            until FabProLineRec.Next() = 0;
+                until FabProLineRec.Next() = 0;
+            end;
         end;
     end;
 

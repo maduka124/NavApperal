@@ -243,7 +243,19 @@ page 50665 "Bundle Guide Card"
                     StyleVar: Code[50];
                     LotVar: Code[50];
                     X: Integer;
+                    UserRec: Record "User Setup";
                 begin
+
+                    //Done By sachith on 18/04/23
+                    UserRec.Reset();
+                    UserRec.Get(UserId);
+
+                    if UserRec."Factory Code" <> '' then begin
+                        if (UserRec."Factory Code" <> rec."Factory Code") then
+                            Error('You are not authorized to Create Bundles.')
+                    end
+                    else
+                        Error('Factory not assigned for the user.');
 
                     i := 1;
                     TempQty := 0;
@@ -1620,8 +1632,6 @@ page 50665 "Bundle Guide Card"
         UserRec.Reset();
         UserRec.Get(UserId);
 
-        UserRec.Reset();
-        UserRec.Get(UserId);
         if UserRec."Factory Code" <> '' then begin
             if (UserRec."Factory Code" <> rec."Factory Code") then
                 Error('You are not authorized to delete this record.')

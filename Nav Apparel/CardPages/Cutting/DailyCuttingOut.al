@@ -344,7 +344,20 @@ page 50351 "Daily Cutting Out Card"
                 trigger OnAction()
                 var
                     CodeUnitNavapp: Codeunit NavAppCodeUnit;
+                    UserRec: Record "User Setup";
                 begin
+
+                    //Done By sachith on 18/04/23
+                    UserRec.Reset();
+                    UserRec.Get(UserId);
+
+                    if UserRec."Factory Code" <> '' then begin
+                        if (UserRec."Factory Code" <> rec."Factory Code") then
+                            Error('You are not authorized to Update Runtime.')
+                    end
+                    else
+                        Error('Factory not assigned for the user.');
+
                     CodeUnitNavapp.Update_Runtime(rec."Style Name", rec."Style No.", 'CUTTING');
                     Message('Cutting Runtime Updated');
                 end;

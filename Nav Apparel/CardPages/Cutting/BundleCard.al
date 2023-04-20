@@ -115,7 +115,20 @@ page 51276 Bundlecard
                 trigger OnAction()
                 var
                     BundleCardReport: Report BundleCardReport;
+                    UserRec: Record "User Setup";
                 begin
+
+                    //Done By sachith on 18/04/23
+                    UserRec.Reset();
+                    UserRec.Get(UserId);
+
+                    if UserRec."Factory Code" <> '' then begin
+                        if (UserRec."Factory Code" <> rec."Factory Code") then
+                            Error('You are not authorized to Print Bundle Card.')
+                    end
+                    else
+                        Error('Factory not assigned for the user.');
+
                     BundleCardReport.PassParameters(Rec."Bundle Guide Header No");
                     BundleCardReport.RunModal();
                 end;

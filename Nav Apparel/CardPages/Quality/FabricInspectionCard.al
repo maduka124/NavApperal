@@ -136,16 +136,28 @@ page 50561 "Fabric Inspection Card"
                     var
                         PurchRcpLineRec: Record "Purch. Rcpt. Line";
                         DocNo: Code[20];
+                        ItemRec: Record Item;
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Document No.");
                         PurchRcpLineRec.SetRange(StyleNo, rec."Style No");
 
+
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
+
+                                ItemRec.Reset();
+                                ItemRec.SetRange("No.", PurchRcpLineRec."No.");
+                                
                                 IF DocNo <> PurchRcpLineRec."Document No." THEN BEGIN
-                                    DocNo := PurchRcpLineRec."Document No.";
-                                    PurchRcpLineRec.MARK(TRUE);
+                                    if ItemRec.FindFirst() then begin
+                                        if ItemRec."Main Category Name" = 'FABRIC' then begin
+                                            DocNo := PurchRcpLineRec."Document No.";
+                                            PurchRcpLineRec.MARK(TRUE);
+                                            ItemRec.Mark(true);
+
+                                        end;
+                                    end;
                                 END;
                             UNTIL PurchRcpLineRec.NEXT = 0;
                             PurchRcpLineRec.MARKEDONLY(TRUE);
@@ -154,9 +166,11 @@ page 50561 "Fabric Inspection Card"
                                 rec.GRN := PurchRcpLineRec."Document No.";
                         END;
                     END;
+                    //
                 }
 
-                field("Item Name"; rec."Item Name")
+                field("Item Name";
+                rec."Item Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Item';
