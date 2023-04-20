@@ -870,7 +870,8 @@ codeunit 50618 NavAppCodeUnit
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePurchRcptLineInsert', '', true, true)]
     local procedure UpdateGRNLine(VAR PurchRcptLine: Record "Purch. Rcpt. Line"; VAR PurchRcptHeader: Record "Purch. Rcpt. Header"; VAR PurchLine: Record "Purchase Line"; CommitIsSupressed: Boolean)
-
+    var
+        ItemRec: Record Item;
     begin
         PurchRcptLine.StyleNo := PurchLine.StyleNo;
         PurchRcptLine.StyleName := PurchLine.StyleName;
@@ -881,6 +882,17 @@ codeunit 50618 NavAppCodeUnit
         PurchRcptLine."CP Req No" := PurchLine."CP Req No";
         PurchRcptLine."Buyer Name" := PurchLine."Buyer Name";
         PurchRcptLine."Buyer No." := PurchLine."Buyer No.";
+
+        //Done By Sachith on 19/04/23
+        ItemRec.Reset();
+        ItemRec.SetRange("No.", PurchLine."No.");
+
+        if ItemRec.FindSet() then begin
+            PurchRcptLine."Color No." := ItemRec."Color No.";
+            PurchRcptLine."Color Name" := ItemRec."Color Name";
+        end;
+
+
         // PurchRcptLine."Secondary UserID" := PurchLine."Secondary UserID";
     end;
 
