@@ -94,6 +94,7 @@ page 50699 FabShadeShrinkageCard
                         PolineRec.RESET;
                         PolineRec.SetCurrentKey("Order No.");
                         PolineRec.SetRange(StyleNo, rec."Style No.");
+                        PolineRec.SetFilter("Document Type", '=%1', PolineRec."Document Type"::Order);
 
                         IF PolineRec.FINDFIRST THEN BEGIN
                             REPEAT
