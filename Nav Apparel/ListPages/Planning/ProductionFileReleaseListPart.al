@@ -99,6 +99,15 @@ page 51215 ProductionFileReleaseListPart
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Visible = false;
+                }
+
+                //Done by sachith on 21/04/23
+                field("Secondary UserID"; Rec."Secondary UserID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Secondary User';
                 }
 
                 field(BPCD; rec.BPCD)
@@ -347,6 +356,10 @@ page 51215 ProductionFileReleaseListPart
                 ProdFileRelLineRec.Status := false;
                 ProdFileRelLineRec."Style Name" := NavAppPlanLineRec."Style Name";
                 ProdFileRelLineRec."Style No." := NavAppPlanLineRec."Style No.";
+
+                //Done by sachith on 21/04/23
+                ProdFileRelLineRec."Secondary UserID" := StyleMasRec."Secondary UserID";
+
                 ProdFileRelLineRec.Insert();
 
             end;
@@ -404,6 +417,10 @@ page 51215 ProductionFileReleaseListPart
                             ProdFileRelLineRec."LCFactory Name" := LocationRec."Name";
 
                         ProdFileRelLineRec.Merchandiser := StyleMasRec."Merchandiser Name";
+
+                        //Done by sachith on 21/04/23
+                        ProdFileRelLineRec."Secondary UserID" := StyleMasRec."Secondary UserID";
+
                         ProdFileRelLineRec."Merchandizer Group Name" := StyleMasRec."Merchandizer Group Name";
                         ProdFileRelLineRec."Order Qty" := StyleMasRec."Order Qty";
 

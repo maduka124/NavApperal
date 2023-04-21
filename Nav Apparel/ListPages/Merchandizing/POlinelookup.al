@@ -1,9 +1,10 @@
-page 51301 POlist
+page 51301 POlistLookupPage
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Purchase Line";
+    Caption = 'PO List';
 
     layout
     {
