@@ -54,6 +54,12 @@ tableextension 50918 "POLine Extension" extends "Purchase Line"
         {
             DataClassification = ToBeClassified;
         }
+
+        // Done By Sachith on 21/04/23
+        field(50012; "Buy From Vendor Name"; Text[200])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 
