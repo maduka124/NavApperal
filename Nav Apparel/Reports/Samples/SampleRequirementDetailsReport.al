@@ -10,6 +10,7 @@ report 51285 SampleRequirementDetails
     {
         dataitem("Sample Requsition Line"; "Sample Requsition Line")
         {
+            DataItemTableView = sorting("No.", "Line No.");
             column(Group_Head; "Group Head")
             { }
             column(Style_Name; "Style Name")
@@ -28,18 +29,21 @@ report 51285 SampleRequirementDetails
             { }
             column(endDate; endDate)
             { }
+            column(Qty; Qty)
+            { }
 
-
-            trigger OnPreDataItem()
-            begin
-                SetRange("QC/Finishing Date", stDate, endDate)
-            end;
 
             trigger OnAfterGetRecord()
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
             end;
+
+            trigger OnPreDataItem()
+            begin
+                SetRange("QC/Finishing Date", stDate, endDate)
+            end;
+
         }
     }
 
