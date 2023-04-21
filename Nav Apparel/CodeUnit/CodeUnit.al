@@ -835,6 +835,7 @@ codeunit 50618 NavAppCodeUnit
     local procedure UpdatePOLine(VAR PurchOrderHeader: Record "Purchase Header"; VAR PurchOrderLine: Record "Purchase Line"; VAR ReqLine: Record "Requisition Line"; CommitIsSuppressed: Boolean)
     var
         PurchOrderHeader1: Record "Purchase Header";
+        VendorRec: Record Vendor;
     begin
         PurchOrderLine.StyleNo := ReqLine.StyleNo;
         PurchOrderLine.StyleName := ReqLine.StyleName;
@@ -846,6 +847,9 @@ codeunit 50618 NavAppCodeUnit
         PurchOrderLine."Buyer Name" := ReqLine."Buyer Name";
         PurchOrderLine."Buyer No." := ReqLine."Buyer No.";
         PurchOrderLine."Secondary UserID" := ReqLine."Secondary UserID";
+
+        //Done Buy Sachith on 21/04/23
+        PurchOrderLine."Buy From Vendor Name" := ReqLine."Vendor Name";
 
         PurchOrderHeader1.Reset();
         PurchOrderHeader1.SetRange("Document Type", PurchOrderHeader1."Document Type"::Order);
