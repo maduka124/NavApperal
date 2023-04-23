@@ -150,7 +150,7 @@ page 50371 "Prod Update Card"
         //Get all factories
         LocationRec.Reset();
         LocationRec.SetFilter("Sewing Unit", '=%1', true);
-        LocationRec.SetRange(Code, 'VDSL');
+        // LocationRec.SetRange(Code, 'VDSL');
 
         if LocationRec.FindSet() then begin
             repeat
@@ -159,7 +159,7 @@ page 50371 "Prod Update Card"
                 WorkCenterRec.Reset();
                 WorkCenterRec.SetRange("Factory No.", LocationRec.Code);
                 WorkCenterRec.SetFilter("Planning Line", '=%1', true);
-                WorkCenterRec.SetRange("No.", 'VDSL-TEAM-01');
+                // WorkCenterRec.SetRange("No.", 'VDSL-TEAM-01');
 
                 if WorkCenterRec.FindSet() then begin
 
@@ -511,8 +511,7 @@ page 50371 "Prod Update Card"
                                                 if (TempHours IN [0.0001 .. 0.99]) then
                                                     TempHours := 1;
 
-                                                TempHours := round(TempHours, 1);
-
+                                                TempHours := round(TempHours, 1, '>');
                                             end;
                                         end
                                         else begin
@@ -530,7 +529,7 @@ page 50371 "Prod Update Card"
                                                 if (TempHours IN [0.0001 .. 0.99]) then
                                                     TempHours := 1;
 
-                                                TempHours := round(TempHours, 1);
+                                                TempHours := round(TempHours, 1, '>');
                                             end;
 
                                         end;
@@ -638,6 +637,12 @@ page 50371 "Prod Update Card"
                                     else
                                         JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
 
+                                    //Get previuos finish time;
+                                    if N = 1 then
+                                        Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime
+                                    else
+                                        Prev_FinishedDateTime := 0DT;
+
                                     JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLineRec."Finish Time");
                                     JobPlaLineRec.ProdUpdDays := JobPlaLineRec.ProdUpdDays + 1;
                                     JobPlaLineRec.Qty := JobPlaLineRec.Qty - OutputQty;
@@ -712,6 +717,7 @@ page 50371 "Prod Update Card"
                                                 N1 := 0;
                                                 for N1 := 1 To RowCount1 do begin
 
+                                                    HoursGap := 0;
                                                     JobPlaLine1Rec.Reset();
                                                     JobPlaLine1Rec.SetRange("Resource No.", WorkCenterNo);
                                                     JobPlaLine1Rec.SetFilter("Line No.", '=%1', ArrayOfAllocations[N1]);
@@ -730,14 +736,32 @@ page 50371 "Prod Update Card"
 
                                                         dtStart := TempDate;
                                                         TImeStart := TempTIme;
+
+                                                        // if LineNo = 1018 then
+                                                        //     Message('1010');
+
                                                         Curr_StartDateTime := JobPlaLine1Rec.StartDateTime;
 
-                                                        if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then
-                                                            HoursGap := Curr_StartDateTime - Prev_FinishedDateTime
-                                                        else begin
-                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime;
-                                                            HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"));
-                                                        end;
+                                                        if Prev_FinishedDateTime <> 0DT then
+                                                            if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then begin
+                                                                HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
+                                                                HoursGap := HoursGap / 3600000;
+
+                                                                if (HoursGap IN [0.0001 .. 0.99]) then
+                                                                    HoursGap := 1;
+
+                                                                HoursGap := round(HoursGap, 1, '>');
+                                                            end
+                                                            else begin
+                                                                HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime;
+                                                                HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"));
+                                                                HoursGap := HoursGap / 3600000;
+
+                                                                if (HoursGap IN [0.0001 .. 0.99]) then
+                                                                    HoursGap := 1;
+
+                                                                HoursGap := round(HoursGap, 1, '>');
+                                                            end;
 
                                                         //Add Hour Gap between two allocations to the start time of current allocation 
                                                         TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
@@ -865,8 +889,8 @@ page 50371 "Prod Update Card"
                                                                 HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                                             end;
 
-                                                            // if LineNo = 1018 then
-                                                            //     Message('1018');
+                                                            // if LineNo = 1100 then
+                                                            //     Message('1100');
 
                                                             if JobPlaLine1Rec."Learning Curve No." <> 0 then begin
 
@@ -911,7 +935,7 @@ page 50371 "Prod Update Card"
                                                                     if (TempHours IN [0.0001 .. 0.99]) then
                                                                         TempHours := 1;
 
-                                                                    TempHours := round(TempHours, 1);
+                                                                    TempHours := round(TempHours, 1, '>');
 
                                                                 end;
                                                             end
@@ -930,7 +954,7 @@ page 50371 "Prod Update Card"
                                                                     if (TempHours IN [0.0001 .. 0.99]) then
                                                                         TempHours := 1;
 
-                                                                    TempHours := round(TempHours, 1);
+                                                                    TempHours := round(TempHours, 1, '>');
                                                                 end;
 
                                                             end;

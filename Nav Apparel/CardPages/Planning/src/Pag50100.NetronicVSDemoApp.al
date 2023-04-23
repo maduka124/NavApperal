@@ -482,7 +482,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             LineNo += 1;
 
-
                             if PlanningQueueeRec.Carder <> 0 then
                                 Carder := PlanningQueueeRec.Carder;
 
@@ -499,7 +498,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             if SMV = 0 then
                                 Error('SMV for Style : %1 is zero. Cannot proceed.', PlanningQueueeRec."Style Name");
-
 
                             //if start time earlier than parameter start time, set start time as parameter time
                             if ((LocationRec."Start Time" - TImeStart) > 0) then begin
@@ -566,7 +564,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             until HoursPerDay > 0;
 
-
                             //Check whether resource line is occupied in the date                        
                             Found := false;
                             repeat
@@ -614,12 +611,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                             until (not Found);
 
-
                             TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1, '>');
                             TargetPerHour := TargetPerDay / HoursPerDay;
                             // TargetPerHour := round(TargetPerDay / HoursPerDay, 1, '>');
                             TempDate := dtStart;
-
 
                             //Check learning curve                        
                             LCurveFinishDate := dtStart;
@@ -998,12 +993,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         JobPlaLineRec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
                                 else
                                     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
-                            end;
-
-                            // if TempHours = 0 then
-                            //     JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
-                            // else
-                            //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                            end;                            
 
                             JobPlaLineRec.Carder := Carder;
                             JobPlaLineRec.Target := TargetPerDay;
@@ -1016,14 +1006,13 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             JobPlaLineRec.SMV := SMV;
                             JobPlaLineRec."Created User" := UserId;
                             JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                            JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                            JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLineRec."Finish Time");
                             JobPlaLineRec.Qty := PlanningQueueeRec.Qty;
                             JobPlaLineRec.Factory := PlanningQueueeRec.Factory;
                             JobPlaLineRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                             JobPlaLineRec."Created Date" := WorkDate();
                             JobPlaLineRec.Insert();
                             IsInserted := true;
-
 
                             //Update StyleMsterPO table
                             StyleMasterPORec.Reset();
@@ -1461,7 +1450,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                                     JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                                    JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                                    JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLineRec."Finish Time");
                                     JobPlaLineRec.Modify();
 
 
@@ -2075,7 +2064,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         JobPlaLineRec."Created User" := UserId;
                         JobPlaLineRec."Created Date" := WorkDate();
                         JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                        JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                        JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLineRec."Finish Time");
                         JobPlaLineRec.Modify();
                         IsInserted := true;
 
@@ -2532,7 +2521,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
 
                                 JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                                JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, LocationRec."Start Time" + 60 * 60 * 1000 * TempHours);
+                                JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLineRec."Finish Time");
                                 JobPlaLineRec.Modify();
 
 
