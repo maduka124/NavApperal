@@ -4,9 +4,9 @@ page 50978 "Create User Card"
     SourceTable = LoginDetails;
     Caption = 'User Creation';
     //AutoSplitKey = true;
-    Permissions = tabledata "Purch. Rcpt. Line" = rmID;
-
+    // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
     // Permissions = tabledata "Purch. Rcpt. Line"  = rmID;
+    Permissions = tabledata "Purchase Line" = rmID;
 
     layout
     {
@@ -186,43 +186,74 @@ page 50978 "Create User Card"
             // }
 
             //Done By Sachithon 20/04/23
-            action("Update Colors")
+            // action("Update Colors")
+            // {
+            //     ApplicationArea = all;
+
+            //     trigger OnAction()
+            //     var
+            //         PurchRcptLine: Record "Purch. Rcpt. Line";
+            //         ItemRec: Record Item;
+            //     begin
+
+            //         PurchRcptLine.Reset();
+            //         if PurchRcptLine.FindSet() then begin
+            //             repeat
+            //                 if PurchRcptLine."Color No." = '' then begin
+
+            //                     // ItemRec.Reset();
+            //                     // if ItemRec.FindSet() then begin
+            //                     //     repeat
+            //                     //         if PurchRcptLine."No." = ItemRec."No." then begin
+            //                     //             PurchRcptLine."Color No." := ItemRec."Color No.";
+            //                     //             PurchRcptLine."Color Name" := ItemRec."Color Name";
+            //                     //             PurchRcptLine.Modify()
+            //                     //         end;
+            //                     //     until ItemRec.Next() = 0;
+            //                     // end;
+
+
+            //                     ItemRec.Reset();
+            //                     ItemRec.SetRange("No.", PurchRcptLine."No.");
+            //                     if ItemRec.FindFirst() then begin
+            //                         PurchRcptLine."Color No." := ItemRec."Color No.";
+            //                         PurchRcptLine."Color Name" := ItemRec."Color Name";
+            //                         PurchRcptLine.Modify()
+            //                     end;
+
+            //                 end;
+            //             until PurchRcptLine.Next() = 0;
+            //         end;
+            //     end;
+            // }
+
+            //Done By Sachith on 21/04/23
+            action("PO Line vendor Add")
             {
-                ApplicationArea = all;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
-                    PurchRcptLine: Record "Purch. Rcpt. Line";
-                    ItemRec: Record Item;
+                    VendorRec: Record Vendor;
+                    PolineRec: Record "Purchase Line";
                 begin
 
-                    PurchRcptLine.Reset();
-                    if PurchRcptLine.FindSet() then begin
+                    PolineRec.Reset();
+                    PolineRec.SetFilter("Document Type", '=%1', PolineRec."Document Type"::Order);
+                    if PolineRec.FindSet() then begin
                         repeat
-                            if PurchRcptLine."Color No." = '' then begin
+                            if PolineRec."Buy-from Vendor No." <> '' then begin
+                                VendorRec.Reset();
+                                VendorRec.SetRange("No.", PolineRec."Buy-from Vendor No.");
 
-                                // ItemRec.Reset();
-                                // if ItemRec.FindSet() then begin
-                                //     repeat
-                                //         if PurchRcptLine."No." = ItemRec."No." then begin
-                                //             PurchRcptLine."Color No." := ItemRec."Color No.";
-                                //             PurchRcptLine."Color Name" := ItemRec."Color Name";
-                                //             PurchRcptLine.Modify()
-                                //         end;
-                                //     until ItemRec.Next() = 0;
-                                // end;
-
-
-                                ItemRec.Reset();
-                                ItemRec.SetRange("No.", PurchRcptLine."No.");
-                                if ItemRec.FindFirst() then begin
-                                    PurchRcptLine."Color No." := ItemRec."Color No.";
-                                    PurchRcptLine."Color Name" := ItemRec."Color Name";
-                                    PurchRcptLine.Modify()
+                                if VendorRec.FindSet() then begin
+                                    if PolineRec."Buy From Vendor Name" = '' then begin
+                                        PolineRec."Buy From Vendor Name" := VendorRec.Name;
+                                        PolineRec.Modify();
+                                    end;
                                 end;
-
                             end;
-                        until PurchRcptLine.Next() = 0;
+                        until PolineRec.Next() = 0;
                     end;
                 end;
             }

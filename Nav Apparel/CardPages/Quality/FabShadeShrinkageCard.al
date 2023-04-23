@@ -84,26 +84,29 @@ page 50699 FabShadeShrinkageCard
                     ApplicationArea = All;
                     Caption = 'PO No';
 
+                    // Done By Sachith on 21/04/23
                     trigger OnLookup(var texts: text): Boolean
                     var
-                        PurchRcpLineRec: Record "Purch. Rcpt. Line";
+                        // PolineRec: Record "Purch. Rcpt. Line";
+                        PolineRec: Record "Purchase Line";
                         PO: Code[20];
                     begin
-                        PurchRcpLineRec.RESET;
-                        PurchRcpLineRec.SetCurrentKey("Order No.");
-                        PurchRcpLineRec.SetRange(StyleNo, rec."Style No.");
+                        PolineRec.RESET;
+                        PolineRec.SetCurrentKey("Order No.");
+                        PolineRec.SetRange(StyleNo, rec."Style No.");
+                        PolineRec.SetFilter("Document Type", '=%1', PolineRec."Document Type"::Order);
 
-                        IF PurchRcpLineRec.FINDFIRST THEN BEGIN
+                        IF PolineRec.FINDFIRST THEN BEGIN
                             REPEAT
-                                IF PO <> PurchRcpLineRec."Order No." THEN BEGIN
-                                    PO := PurchRcpLineRec."Order No.";
-                                    PurchRcpLineRec.MARK(TRUE);
+                                IF PO <> PolineRec."Document No." THEN BEGIN
+                                    PO := PolineRec."Document No.";
+                                    PolineRec.MARK(TRUE);
                                 END;
-                            UNTIL PurchRcpLineRec.NEXT = 0;
-                            PurchRcpLineRec.MARKEDONLY(TRUE);
+                            UNTIL PolineRec.NEXT = 0;
+                            PolineRec.MARKEDONLY(TRUE);
 
-                            if Page.RunModal(50675, PurchRcpLineRec) = Action::LookupOK then
-                                rec."PO No." := PurchRcpLineRec."Order No.";
+                            if Page.RunModal(51301, PolineRec) = Action::LookupOK then
+                                rec."PO No." := PolineRec."Document No.";
                         END;
                     END;
                 }

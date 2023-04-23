@@ -632,6 +632,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report EstimateCostSheetReport;
                         ApplicationArea = all;
                     }
+                    action("Export Summary Report Merchandizing")
+                    {
+                        Caption = 'Export Summary Report';
+                        Enabled = true;
+                        RunObject = report ExportSummartReport;
+                        ApplicationArea = all;
+                    }
 
                     action("Fabric & Trims requiremts - Marchandizingn")
                     {
@@ -717,13 +724,7 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report WIPReport;
                         ApplicationArea = all;
                     }
-                    action("Export Summary Report Merchandizing")
-                    {
-                        Caption = 'Export Summary Report';
-                        Enabled = true;
-                        RunObject = report ExportSummartReport;
-                        ApplicationArea = all;
-                    }
+
                 }
             }
 

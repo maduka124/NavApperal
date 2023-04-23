@@ -1,4 +1,4 @@
-page 51298 "WIP Style PO Listpart"
+page 51300 "WIP Style PO Listpart"
 {
     PageType = ListPart;
     SourceTable = "Style Master PO";
