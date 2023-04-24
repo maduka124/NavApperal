@@ -11,20 +11,21 @@ report 51259 TrimInspectionReport
     {
         dataitem("Purch. Rcpt. Header"; "Purch. Rcpt. Header")
         {
+            DataItemTableView = where("Bal. Account Type" = filter('G/L Account'));
             column(CompLogo; comRec.Picture)
             { }
             column(Buy_from_Vendor_Name; "Buy-from Vendor Name")
             { }
-            //  column()
-            // { }
-            //  column()
-            // { }
-            //  column()
-            // { }
-            //  column()
-            // { }
-            //  column()
-            // { }
+            column(No_; "No.")
+            { }
+            column(Posting_Description; "Posting Description")
+            { }
+            column(PoQty; PoQty)
+            { }
+            column(Factory; "Ship-to Name")
+            { }
+            column(Supplier; "Pay-to Name")
+            { }
             dataitem(TrimInspectionLine; TrimInspectionLine)
             {
                 DataItemLinkReference = "Purch. Rcpt. Header";
@@ -37,9 +38,23 @@ report 51259 TrimInspectionReport
                 { }
                 column(Size; Size)
                 { }
-                //  column()
+                column(Item_No_; "Item No.")
+                { }
+                column(Sample_Qty; "Sample Qty")
+                { }
+                column(GRN_Qty; "GRN Qty")
+                { }
+                column(Accept; Accept)
+                { }
+                column(Reject; Reject)
+                { }
+                column(Status; Status)
+                { }
+                // column()
                 // { }
-                //  column()
+                // column()
+                // { }
+                // column()
                 // { }
 
 
@@ -49,6 +64,22 @@ report 51259 TrimInspectionReport
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                PoQty := 0;
+                StylePORec.Reset();
+                StylePORec.SetRange("PO No.", "Posting Description");
+                if StylePORec.FindSet() then begin
+                    repeat
+                        PoQty := StylePORec.Qty;
+                    until StylePORec.Next() = 0;
+                end;
+            end;
+
+            trigger OnPreDataItem()
+            var
+                myInt: Integer;
+            begin
+                SetRange("No.", GRNNo);
             end;
 
         }
@@ -62,11 +93,13 @@ report 51259 TrimInspectionReport
             {
                 group(GroupName)
                 {
-                    // field(Name; SourceExpression)
-                    // {
-                    //     ApplicationArea = All;
+                    field(GRNNo; GRNNo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'GRN No';
+                        TableRelation = "Purch. Rcpt. Header"."No.";
 
-                    // }
+                    }
                 }
             }
         }
@@ -87,5 +120,8 @@ report 51259 TrimInspectionReport
 
 
     var
+        GRNNo: Code[20];
+        PoQty: BigInteger;
         comRec: Record "Company Information";
+        StylePORec: Record "Style Master PO";
 }

@@ -2455,7 +2455,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report SizeColourwiseQuantity;
                         ApplicationArea = all;
                     }
-
+                    action("Trim Inspection Report")
+                    {
+                        Caption = 'Trim Inspection Report';
+                        Enabled = true;
+                        RunObject = report TrimInspectionReport;
+                        ApplicationArea = all;
+                    }
                     action("WIP4")
                     {
                         Caption = 'WIP Report';
