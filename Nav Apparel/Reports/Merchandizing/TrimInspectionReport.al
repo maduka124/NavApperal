@@ -26,6 +26,10 @@ report 51259 TrimInspectionReport
             { }
             column(Supplier; "Pay-to Name")
             { }
+            column(StyleName; StyleName)
+            { }
+            column(GarmentType; GarmentType)
+            { }
             dataitem(TrimInspectionLine; TrimInspectionLine)
             {
                 DataItemLinkReference = "Purch. Rcpt. Header";
@@ -72,6 +76,13 @@ report 51259 TrimInspectionReport
                     repeat
                         PoQty := StylePORec.Qty;
                     until StylePORec.Next() = 0;
+                end;
+
+                StyleRec.Reset();
+                StyleRec.SetRange("PO No", "Posting Description");
+                if StyleRec.FindFirst() then begin
+                    StyleName := StyleRec."Style No.";
+                    GarmentType := StyleRec."Garment Type Name";
                 end;
             end;
 
@@ -120,6 +131,9 @@ report 51259 TrimInspectionReport
 
 
     var
+        GarmentType: Text[50];
+        StyleName: Text[50];
+        StyleRec: Record "Style Master";
         GRNNo: Code[20];
         PoQty: BigInteger;
         comRec: Record "Company Information";
