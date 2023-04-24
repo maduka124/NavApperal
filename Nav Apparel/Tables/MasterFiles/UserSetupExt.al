@@ -100,6 +100,10 @@ tableextension 51141 "User Setup Extension" extends "User Setup"
             ValidateTableRelation = false;
         }
         //
+          field(50111; "Estimate Costing Approve"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 

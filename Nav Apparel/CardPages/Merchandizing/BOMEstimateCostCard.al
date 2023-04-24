@@ -1188,14 +1188,50 @@ page 50986 "BOM Estimate Cost Card"
 
                 trigger OnAction()
                 var
+                    UserSetupRec: Record "User Setup";
+                    EmailMessage: Codeunit "Email Message";
+                    Email: Codeunit Email;
+                    Recipients: List of [Text];
+                    Subject: Text;
+                    Body: Text;
+                    SalesPostedMsg: Label 'Dear %1,<br><br>Estimate Cost No <b>%2</b> requires your approval.<br><br>Thanks & regards.';
+
                 begin
                     if rec.Status = rec.Status::Approved then begin
                         Message('This BOM Costing is already approved');
                     end
                     else begin
-                        rec.Status := rec.Status::"Pending Approval";
-                        CurrPage.Update();
-                        Message('BOM Costing sent to approvel');
+
+                        UserSetupRec.Reset();
+                        UserSetupRec.SetFilter("Estimate Costing Approve", '=%1', true);
+                        UserSetupRec.FindSet();
+                        if not UserSetupRec.FindFirst() then
+                            Error('Please select assigned user in User setup');
+
+                        repeat
+                            if UserSetupRec."E-Mail" <> '' then begin
+
+                                Clear(Recipients);
+                                UserSetupRec.TestField("E-Mail");
+                                Recipients.Add(UserSetupRec."E-Mail");
+                                Subject := StrSubstNo('Estimate Costing Approval');
+                                Body := StrSubstNo(SalesPostedMsg, UserSetupRec."User ID", Rec."No.");
+                                EmailMessage.Create(Recipients, Subject, Body, true);
+                                Email.Send(EmailMessage, Enum::"Email Scenario"::"Service Order");
+
+                                // Message('Approval request sent successfully');
+                                rec.Status := rec.Status::"Pending Approval";
+                                CurrPage.Update();
+                                Message('BOM Costing sent to approvel');
+
+                                UserSetupRec.FindFirst();
+                            end
+                            else
+                                Error('Please Add mail to Assigned User');
+
+                        until UserSetupRec.Next() = 0;
+
+
                     end;
                 end;
             }
