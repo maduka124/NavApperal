@@ -382,6 +382,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     dtSt: Date;
                     dtEd: Date;
                     Count: Integer;
+                    X: Integer;
+                    XX: Integer;
+                    HoursPerDay1: Decimal;
+                    HoursPerDay2: Decimal;
                     JobPlaLine2Rec: Record "NavApp Planning Lines";
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
@@ -1525,6 +1529,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             //Found := true;
                             dtStart := JobPlaLineRec."End Date";
                             TImeStart := JobPlaLineRec."Finish Time";
+                            Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
 
                             //if start time equal to the parameter Finish time, set start time next day morning
                             if ((TImeStart - LocationRec."Finish Time") = 0) then begin
@@ -1966,7 +1971,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         //     JobPlaLineRec."Finish Time" := LocationRec."Finish Time"
                         // else
                         //     JobPlaLineRec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
-                        Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
 
                         JobPlaLineRec."Created User" := UserId;
                         JobPlaLineRec."Created Date" := WorkDate();
@@ -2053,14 +2057,42 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     HoursGap := round(HoursGap, 1, '>');
                                                 end
                                                 else begin
-                                                    HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime;
-                                                    HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"));
+
+                                                    XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
+                                                    HoursPerDay2 := 0;
+
+                                                    for X := 1 To XX do begin
+                                                        HoursPerDay1 := 0;
+                                                        ResCapacityEntryRec.Reset();
+                                                        ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
+                                                        ResCapacityEntryRec.SETRANGE(Date, DT2DATE(Prev_FinishedDateTime + (X - 1)));
+
+                                                        if ResCapacityEntryRec.FindSet() then begin
+                                                            repeat
+                                                                HoursPerDay1 += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                                                            until ResCapacityEntryRec.Next() = 0;
+                                                        end;
+
+                                                        if HoursPerDay1 > 0 then begin
+
+                                                            if X = 1 then
+                                                                HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
+                                                            else
+                                                                if X = XX then
+                                                                    HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
+                                                                else
+                                                                    HoursPerDay2 := HoursPerDay2 + HoursPerDay1;
+                                                        end;
+                                                    end;
+
                                                     HoursGap := HoursGap / 3600000;
 
                                                     if (HoursGap IN [0.0001 .. 0.99]) then
                                                         HoursGap := 1;
 
                                                     HoursGap := round(HoursGap, 1, '>');
+
+                                                    HoursGap := HoursGap + HoursPerDay2;
                                                 end;
 
                                             //Add Hour Gap between two allocations to the start time of current allocation 

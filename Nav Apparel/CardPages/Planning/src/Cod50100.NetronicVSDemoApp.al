@@ -387,8 +387,8 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
 
                 tempEntries.Add(tempEntry);
                 ldnAllocation.Add('Entries', tempEntries);
-                // ldnAllocation.Add('AddIn_BarText', lrecJobPlanningLine."Style Name" + '/' + lrecJobPlanningLine."Lot No." + '/' + lrecJobPlanningLine."PO No." + '/' + FORMAT(lrecJobPlanningLine."Line No."));
-                ldnAllocation.Add('AddIn_BarText', FORMAT(lrecJobPlanningLine."Line No."));
+                ldnAllocation.Add('AddIn_BarText', lrecJobPlanningLine."Style Name" + '/' + lrecJobPlanningLine."Lot No." + '/' + lrecJobPlanningLine."PO No." + '/' + FORMAT(lrecJobPlanningLine."Line No."));
+                //ldnAllocation.Add('AddIn_BarText', FORMAT(lrecJobPlanningLine."Line No."));
                 ldnAllocation.Add('AddIn_TooltipText', 'Style : ' + FORMAT(lrecJobPlanningLine."Style Name") +
                   '<br>PO No : ' + FORMAT(lrecJobPlanningLine."PO No.") +
                   '<br>Qty : ' + FORMAT(lrecJobPlanningLine.Qty) +
