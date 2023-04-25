@@ -90,18 +90,28 @@ page 50699 FabShadeShrinkageCard
                         // PolineRec: Record "Purch. Rcpt. Line";
                         PolineRec: Record "Purchase Line";
                         PO: Code[20];
+                        itemRec: Record Item;
                     begin
                         PolineRec.RESET;
                         PolineRec.SetCurrentKey("Order No.");
                         PolineRec.SetRange(StyleNo, rec."Style No.");
                         PolineRec.SetFilter("Document Type", '=%1', PolineRec."Document Type"::Order);
 
+
+
                         IF PolineRec.FINDFIRST THEN BEGIN
                             REPEAT
-                                IF PO <> PolineRec."Document No." THEN BEGIN
-                                    PO := PolineRec."Document No.";
-                                    PolineRec.MARK(TRUE);
-                                END;
+                                itemRec.Reset();
+                                itemRec.SetRange("No.", PolineRec."No.");
+
+                                if itemRec.FindSet() then begin
+                                    if itemRec."Main Category Name" = 'FABRIC' then begin
+                                        IF PO <> PolineRec."Document No." THEN BEGIN
+                                            PO := PolineRec."Document No.";
+                                            PolineRec.MARK(TRUE);
+                                        END;
+                                    end;
+                                end;
                             UNTIL PolineRec.NEXT = 0;
                             PolineRec.MARKEDONLY(TRUE);
 
