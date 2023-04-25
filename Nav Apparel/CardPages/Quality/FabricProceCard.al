@@ -104,6 +104,7 @@ page 50671 "FabricProceCard"
                     var
                         PurchRcpLineRec: Record "Purch. Rcpt. Line";
                         PO: Code[20];
+                        ItemRec: Record Item;
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("Order No.");
@@ -111,10 +112,16 @@ page 50671 "FabricProceCard"
 
                         IF PurchRcpLineRec.FINDFIRST THEN BEGIN
                             REPEAT
-                                IF PO <> PurchRcpLineRec."Order No." THEN BEGIN
-                                    PO := PurchRcpLineRec."Order No.";
-                                    PurchRcpLineRec.MARK(TRUE);
-                                END;
+                                itemRec.Reset();
+                                itemRec.SetRange("No.", PurchRcpLineRec."No.");
+                                if ItemRec.FindFirst() then begin
+                                    if itemRec."Main Category Name" = 'FABRIC' then begin
+                                        IF PO <> PurchRcpLineRec."Order No." THEN BEGIN
+                                            PO := PurchRcpLineRec."Order No.";
+                                            PurchRcpLineRec.MARK(TRUE);
+                                        END;
+                                    end
+                                end;
                             UNTIL PurchRcpLineRec.NEXT = 0;
                             PurchRcpLineRec.MARKEDONLY(TRUE);
 

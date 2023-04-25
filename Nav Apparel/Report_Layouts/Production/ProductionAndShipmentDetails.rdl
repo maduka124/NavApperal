@@ -3658,6 +3658,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
+        <Field Name="Buyer_Name">
+          <DataField>Buyer_Name</DataField>
+        </Field>
         <Field Name="cutting">
           <DataField>cutting</DataField>
         </Field>
