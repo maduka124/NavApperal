@@ -105,8 +105,7 @@ page 50371 "Prod Update Card"
         TempDate: Date;
         TempHours: Decimal;
         i: Integer;
-        Rate: Decimal;
-        Found: Boolean;
+        Rate: Decimal;        
         Qty: BigInteger;
         MaxLineNo: BigInteger;
         xQty: Decimal;
@@ -691,8 +690,7 @@ page 50371 "Prod Update Card"
                                         JobPlaLine1Rec.SetFilter("Line No.", '<>%1', LineNo);
 
                                         if JobPlaLine1Rec.FindSet() then begin
-
-                                            Found := false;
+                                           
                                             HoursPerDay := 0;
                                             i := 0;
                                             N1 := 0;
@@ -1073,6 +1071,7 @@ page 50371 "Prod Update Card"
                                             end;
                                         end;
                                     end;
+
                                 end;
 
                                 status := 1;

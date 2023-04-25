@@ -81,29 +81,29 @@ page 50978 "Create User Card"
     {
         area(Processing)
         {
-            action("remove navapp plan/Prod")
-            {
-                ApplicationArea = All;
-                Image = AddAction;
+            // action("remove navapp plan/Prod")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
 
-                trigger OnAction()
-                var
-                    NavApp: Record "NavApp Planning Lines";
-                    NavAppprod: Record "NavApp Prod Plans Details";
-                begin
-                    NavApp.Reset();
-                    NavApp.SetRange("Style No.", '02367');
-                    if NavApp.FindSet() then
-                        NavApp.Delete();
+            //     trigger OnAction()
+            //     var
+            //         NavApp: Record "NavApp Planning Lines";
+            //         NavAppprod: Record "NavApp Prod Plans Details";
+            //     begin
+            //         NavApp.Reset();
+            //         NavApp.SetRange("Style No.", '02367');
+            //         if NavApp.FindSet() then
+            //             NavApp.Delete();
 
-                    NavAppprod.Reset();
-                    NavAppprod.SetRange("Style No.", '02367');
-                    if NavAppprod.FindSet() then
-                        NavAppprod.DeleteAll();
+            //         NavAppprod.Reset();
+            //         NavAppprod.SetRange("Style No.", '02367');
+            //         if NavAppprod.FindSet() then
+            //             NavAppprod.DeleteAll();
 
-                    Message('Completed');
-                end;
-            }
+            //         Message('Completed');
+            //     end;
+            // }
 
             // action("remove contarct/style")
             // {
@@ -228,35 +228,35 @@ page 50978 "Create User Card"
             // }
 
             //Done By Sachith on 21/04/23
-            action("PO Line vendor Add")
-            {
-                ApplicationArea = All;
+            // action("PO Line vendor Add")
+            // {
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    VendorRec: Record Vendor;
-                    PolineRec: Record "Purchase Line";
-                begin
+            //     trigger OnAction()
+            //     var
+            //         VendorRec: Record Vendor;
+            //         PolineRec: Record "Purchase Line";
+            //     begin
 
-                    PolineRec.Reset();
-                    PolineRec.SetFilter("Document Type", '=%1', PolineRec."Document Type"::Order);
-                    if PolineRec.FindSet() then begin
-                        repeat
-                            if PolineRec."Buy-from Vendor No." <> '' then begin
-                                VendorRec.Reset();
-                                VendorRec.SetRange("No.", PolineRec."Buy-from Vendor No.");
+            //         PolineRec.Reset();
+            //         PolineRec.SetFilter("Document Type", '=%1', PolineRec."Document Type"::Order);
+            //         if PolineRec.FindSet() then begin
+            //             repeat
+            //                 if PolineRec."Buy-from Vendor No." <> '' then begin
+            //                     VendorRec.Reset();
+            //                     VendorRec.SetRange("No.", PolineRec."Buy-from Vendor No.");
 
-                                if VendorRec.FindSet() then begin
-                                    if PolineRec."Buy From Vendor Name" = '' then begin
-                                        PolineRec."Buy From Vendor Name" := VendorRec.Name;
-                                        PolineRec.Modify();
-                                    end;
-                                end;
-                            end;
-                        until PolineRec.Next() = 0;
-                    end;
-                end;
-            }
+            //                     if VendorRec.FindSet() then begin
+            //                         if PolineRec."Buy From Vendor Name" = '' then begin
+            //                             PolineRec."Buy From Vendor Name" := VendorRec.Name;
+            //                             PolineRec.Modify();
+            //                         end;
+            //                     end;
+            //                 end;
+            //             until PolineRec.Next() = 0;
+            //         end;
+            //     end;
+            // }
         }
     }
 
