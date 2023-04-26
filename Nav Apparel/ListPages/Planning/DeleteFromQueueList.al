@@ -5,6 +5,7 @@ page 51306 "Delete From Queue List"
     SourceTable = "Planning Queue";
     InsertAllowed = false;
     //ModifyAllowed = false;
+    DeleteAllowed = false;
 
     layout
     {
@@ -156,14 +157,8 @@ page 51306 "Delete From Queue List"
 
     trigger OnOpenPage()
     var
-        TempQuery: Query StyleMaster_StyleMasterPO_Q;
-        TempRec: Record StyleMaster_StyleMasterPO_T;
         LoginRec: Page "Login Card";
-        StyleMasterRec: Record "Style Master";
-        StyleMasterPORec: Record "Style Master PO";
         LoginSessionsRec: Record LoginSessions;
-        NavAppLineRec: Record "NavApp Planning Lines";
-        ProcutionOutHeaderRec: Record ProductionOutHeader;
     begin
 
         //Check whether user logged in or not

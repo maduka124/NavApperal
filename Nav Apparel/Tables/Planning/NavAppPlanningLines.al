@@ -152,6 +152,10 @@ table 50342 "NavApp Planning Lines"
             DataClassification = ToBeClassified;
         }
 
+        field(30; "Select"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -159,6 +163,11 @@ table 50342 "NavApp Planning Lines"
         key(PK; "Style No.", "Lot No.", "Line No.")
         {
             Clustered = true;
+        }
+
+        key(SK; "Resource Name", StartDateTime)
+        {
+
         }
     }
 
@@ -169,27 +178,9 @@ table 50342 "NavApp Planning Lines"
         }
     }
 
-
-
     trigger OnInsert()
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }
