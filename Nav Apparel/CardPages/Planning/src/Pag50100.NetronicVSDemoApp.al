@@ -148,7 +148,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 begin
                     // Message('OnRequestSettings!');
 
-                    _settings.Add('LicenseKey', 'Mjk2MjA3LTM0Nzk3OS02MTIyODYteyJ3IjoiIiwiaWQiOiJWU0NBSUV2YWwiLCJuIjoiTkVUUk9OSUMiLCJ1IjoiIiwiZSI6MjMwNCwidiI6IjQuMCIsImYiOlsxMDAxXSwiZWQiOiJCYXNlIn0=');
+                    _settings.Add('LicenseKey', 'MzY4Njk0LTYxMjY2LTgwMTg3LXsidyI6IiIsImlkIjoiVlNDQUlFdmFsIiwibiI6Ik5FVFJPTklDIiwidSI6IiIsImUiOjIzMDUsInYiOiI0LjAiLCJmIjpbMTAwMV0sImVkIjoiQmFzZSJ9');
 
                     _settings.Add('Start', gdtconVSControlAddInStart);
                     _settings.Add('End', gdtconVSControlAddInEnd);
@@ -255,7 +255,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                     ResourceList: Page "Resource List part";
                     objectID: Text;
-
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -2370,7 +2369,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     _objectType: Integer;
                     _objectID: Text;
                     _visualType: Integer;
-
                 begin
                     if (eventArgs.Get('ObjectType', _jsonToken)) then
                         _objectType := _jsonToken.AsValue().AsInteger()
@@ -2444,7 +2442,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     FullQty: BigInteger;
                     QueueNo: BigInteger;
                     TempQty: BigInteger;
-
                 begin
                     if (eventArgs.Get('ContextMenuID', _jsonToken)) then
                         _contextMenuID := _jsonToken.AsValue().AsText()
@@ -2580,13 +2577,33 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         end;
 
                         if _contextMenuItemCode = 'E_04' then begin   //Properties
-
                             Evaluate(ID, _objectID);
                             PlanningQueueRec.Reset();
                             PlanningQueueRec.SetRange("Queue No.", ID);
                             PlanningQueueRec.FindSet();
                             Page.RunModal(50340, PlanningQueueRec);
+                        end;
 
+                        if _contextMenuItemCode = 'E_05' then begin   //Accessories Status  
+                            Evaluate(ID, _objectID);
+                            PlanningQueueRec.Reset();
+                            PlanningQueueRec.SetRange("Queue No.", ID);
+                            PlanningQueueRec.FindSet();
+
+                            STY := PlanningQueueRec."Style No.";
+                            AccessoriesStatusReportNew.PassParameters(STY);
+                            AccessoriesStatusReportNew.RunModal();
+                        end;
+
+                        if _contextMenuItemCode = 'E_06' then begin   //WIP  
+                            Evaluate(ID, _objectID);
+                            PlanningQueueRec.Reset();
+                            PlanningQueueRec.SetRange("Queue No.", ID);
+                            PlanningQueueRec.FindSet();
+
+                            STY := PlanningQueueRec."Style No.";
+                            WIPReport.PassParameters(STY);
+                            WIPReport.RunModal();
                         end;
 
                     end;
@@ -2979,6 +2996,44 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     end;
                 }
 
+                action("Delete From Queue")
+                {
+                    ToolTip = 'Delete From Queue';
+                    Image = TaskList;
+                    ApplicationArea = All;
+
+                    trigger OnAction()
+                    var
+                        DeleteFromQueueListPage: Page "Delete From Queue List";
+                    begin
+                        if FactoryNo = '' then
+                            Error('Select a factory');
+
+                        Clear(DeleteFromQueueListPage);
+                        DeleteFromQueueListPage.LookupMode(true);
+                        //  DeleteFromQueueListPage.PassParameters(FactoryNo);
+                        DeleteFromQueueListPage.RunModal();
+                        LoadData();
+                        SetconVSControlAddInSettings();
+                    end;
+                }
+
+                action("Show/Hide Plannnig Queue")
+                {
+                    ToolTip = 'Show/Hide Plannnig Queue';
+                    Image = ShowList;
+                    ApplicationArea = All;
+
+                    trigger OnAction()
+                    var
+                        _settings: JsonObject;
+                    begin
+                        gbShowEntities := NOT gbShowEntities;
+                        _settings.Add('EntitiesTableVisible', gbShowEntities);
+                        CurrPage.conVSControlAddIn.SetSettings(_settings);
+                    end;
+                }
+
                 // action("Generate Queue")
                 // {
                 //     ToolTip = 'Generate Queue';
@@ -2992,23 +3047,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 //         SetconVSControlAddInSettings();
                 //     end;
                 // }
-
-                action("Show/Hide Plannnig Queue")
-                {
-                    ToolTip = 'Executes the Show/HideEntities action';
-                    Image = ShowList;
-                    ApplicationArea = All;
-
-                    trigger OnAction()
-                    var
-                        _settings: JsonObject;
-
-                    begin
-                        gbShowEntities := NOT gbShowEntities;
-                        _settings.Add('EntitiesTableVisible', gbShowEntities);
-                        CurrPage.conVSControlAddIn.SetSettings(_settings);
-                    end;
-                }
 
             }
             group(Miscellaneous)
@@ -3193,9 +3231,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         ldnEntitiesJSON: JsonArray;
         ldnCurvesJSON: JsonArray;
         ldnContextMenusJSON: JsonArray;
-
         tempJsonToken: JsonToken;
-
     begin
         gbAddInReady := true;
         IF (gbAddInReady) THEN BEGIN
@@ -3249,7 +3285,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
     local procedure ScrollToActivity()
     var
         _jsonArray: JsonArray;
-
     begin
         if (gbAddInReady) then begin
             CurrPage.conVSControlAddIn.ScrollToObject(1, 'Act_SIL_SO000001_10000', 0, false);
@@ -3326,7 +3361,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         Temp: Decimal;
         Status: Integer;
     begin
-
         if StyleNo = '' then
             Error('Select a Style to proceed.');
 
@@ -3447,8 +3481,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         else
             Error('Cannot find PO details for the Style : %1', StyleName);
     end;
-
-
 
 }
 

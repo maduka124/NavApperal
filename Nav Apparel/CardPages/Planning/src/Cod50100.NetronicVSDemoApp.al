@@ -627,6 +627,18 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         ldnContextMenuItem.Add('SortCode', 'd');
         tempEntries.Add(ldnContextMenuItem);
 
+        ldnContextMenuItem := createJsonObject();
+        ldnContextMenuItem.Add('Text', 'Accessories Status');
+        ldnContextMenuItem.Add('Code', 'E_05');
+        ldnContextMenuItem.Add('SortCode', 'e');
+        tempEntries.Add(ldnContextMenuItem);
+
+        ldnContextMenuItem := createJsonObject();
+        ldnContextMenuItem.Add('Text', 'WIP');
+        ldnContextMenuItem.Add('Code', 'E_06');
+        ldnContextMenuItem.Add('SortCode', 'f');
+        tempEntries.Add(ldnContextMenuItem);
+
         ldnContextMenu.Add('Items', tempEntries);
         pContextMenus.Add(ldnContextMenu);
 

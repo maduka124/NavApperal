@@ -759,6 +759,13 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("Hourly Production Planning")
+                {
+                    Caption = 'Hourly Production';
+                    RunObject = Page "Hourly Production Plan list";
+                    ApplicationArea = all;
+                }
+
                 action("Pre-Production Follow Up")
                 {
                     RunObject = page PreProductionfollowupList;

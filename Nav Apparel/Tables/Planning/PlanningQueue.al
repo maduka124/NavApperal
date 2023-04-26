@@ -159,6 +159,11 @@ table 50332 "Planning Queue"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(29; "Select"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
