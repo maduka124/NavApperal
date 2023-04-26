@@ -437,6 +437,14 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                //Done By Sachith on 24/04/23
+                action("Copy Sample Requisition")
+                {
+                    Caption = 'Copy Sample Requisition';
+                    RunObject = Page "Copy Sample Requisition Card";
+                    ApplicationArea = all;
+                }
+
                 action("Dependency Parameters")
                 {
                     Caption = 'Dependency Parameters';
