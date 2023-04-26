@@ -148,7 +148,7 @@ page 50489 "All PO List"
         area(Processing)
         {
             //Done By Sachith on 27/03/23
-            action("Export")
+            action("Export To Excel")
             {
                 ApplicationArea = all;
                 Image = Export;

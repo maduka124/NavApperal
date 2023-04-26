@@ -2972,7 +2972,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
     {
         area(processing)
         {
-            group(Queue)
+            group(Functions)
             {
                 action("Select POs")
                 {
@@ -3018,27 +3018,27 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     end;
                 }
 
-                action("Return To Queue")
-                {
-                    ToolTip = 'Return To Queue';
-                    Image = TaskList;
-                    ApplicationArea = All;
+                // action("Return To Queue")
+                // {
+                //     ToolTip = 'Return To Queue';
+                //     Image = TaskList;
+                //     ApplicationArea = All;
 
-                    trigger OnAction()
-                    var
-                        ReturnToQueueListPage: Page "Return To Queue List";
-                    begin
-                        if FactoryNo = '' then
-                            Error('Select a factory');
+                //     trigger OnAction()
+                //     var
+                //         ReturnToQueueListPage: Page "Return To Queue List";
+                //     begin
+                //         if FactoryNo = '' then
+                //             Error('Select a factory');
 
-                        Clear(ReturnToQueueListPage);
-                        ReturnToQueueListPage.LookupMode(true);
-                        ReturnToQueueListPage.PassParameters(FactoryNo);
-                        ReturnToQueueListPage.RunModal();
-                        LoadData();
-                        SetconVSControlAddInSettings();
-                    end;
-                }
+                //         Clear(ReturnToQueueListPage);
+                //         ReturnToQueueListPage.LookupMode(true);
+                //         ReturnToQueueListPage.PassParameters(FactoryNo);
+                //         ReturnToQueueListPage.RunModal();
+                //         LoadData();
+                //         SetconVSControlAddInSettings();
+                //     end;
+                // }
 
                 action("Show/Hide Plannnig Queue")
                 {
@@ -3056,24 +3056,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     end;
                 }
 
-                // action("Generate Queue")
-                // {
-                //     ToolTip = 'Generate Queue';
-                //     Image = TaskList;
-                //     ApplicationArea = All;
-
-                //     trigger OnAction()
-                //     begin
-                //         GenerateQueue();
-                //         LoadData();
-                //         SetconVSControlAddInSettings();
-                //     end;
-                // }
-
-            }
-            group(Miscellaneous)
-            {
-                action("Search By Style")
+                action("Search By Style/Return To Queue")
                 {
                     Image = Find;
                     ApplicationArea = All;
@@ -3082,16 +3065,15 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     var
                         PlanHistoryListPage: Page "Plan Lines - Search List";
                     begin
+                        if FactoryNo = '' then
+                            Error('Select a factory');
+
                         Clear(PlanHistoryListPage);
                         PlanHistoryListPage.LookupMode(true);
+                        PlanHistoryListPage.PassParameters(FactoryNo);
                         PlanHistoryListPage.RunModal();
                         LoadData();
                         SetconVSControlAddInSettings();
-
-                        // if PlanHistoryListPage.RunModal() = Action::LookupOK then begin
-                        //     LoadData();
-                        //     SetconVSControlAddInSettings();
-                        // end;
                     end;
                 }
 
@@ -3116,17 +3098,31 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     end;
                 }
 
-                action(Reload)
-                {
-                    Image = RefreshLines;
-                    ApplicationArea = All;
+                // action(Reload)
+                // {
+                //     Image = RefreshLines;
+                //     ApplicationArea = All;
 
-                    trigger OnAction()
+                //     trigger OnAction()
 
-                    begin
-                        LoadData();
-                    end;
-                }
+                //     begin
+                //         LoadData();
+                //     end;
+                // }
+
+                // action("Generate Queue")
+                // {
+                //     ToolTip = 'Generate Queue';
+                //     Image = TaskList;
+                //     ApplicationArea = All;
+
+                //     trigger OnAction()
+                //     begin
+                //         GenerateQueue();
+                //         LoadData();
+                //         SetconVSControlAddInSettings();
+                //     end;
+                // }
 
                 action("Save as PDF")
                 {
@@ -3137,9 +3133,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     trigger OnAction()
                     var
                         _options: JsonObject;
-
                     begin
-
                         CurrPage.conVSControlAddIn.SaveAsPDF('VSCAI_SavedChart', _options);
                     end;
                 }
