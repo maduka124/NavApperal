@@ -1195,45 +1195,47 @@ page 50986 "BOM Estimate Cost Card"
                     Subject: Text;
                     Body: Text;
                     SalesPostedMsg: Label 'Dear %1,<br><br>Estimate Cost No <b>%2</b> requires your approval.<br><br>Thanks & regards.';
-
+                    MerchandizeRec: Record MerchandizingGroupTable;
                 begin
                     if rec.Status = rec.Status::Approved then begin
                         Message('This BOM Costing is already approved');
                     end
                     else begin
 
-                        UserSetupRec.Reset();
-                        UserSetupRec.SetFilter("Estimate Costing Approve", '=%1', true);
-                        UserSetupRec.FindSet();
-                        if not UserSetupRec.FindFirst() then
-                            Error('Please select assigned user in User setup');
+                        MerchandizeRec.Reset();
+                        MerchandizeRec.SetRange("Group Name", Rec."Merchandizer Group Name");
+                        if MerchandizeRec.FindFirst() then begin
 
-                        repeat
-                            if UserSetupRec."E-Mail" <> '' then begin
+                            UserSetupRec.Reset();
+                            UserSetupRec.SetFilter("Estimate Costing Approve", '=%1', true);
+                            UserSetupRec.SetRange("User ID", MerchandizeRec."Group Head");
+                            if UserSetupRec.FindSet() then begin
 
-                                Clear(Recipients);
-                                UserSetupRec.TestField("E-Mail");
-                                Recipients.Add(UserSetupRec."E-Mail");
-                                Subject := StrSubstNo('Estimate Costing Approval');
-                                Body := StrSubstNo(SalesPostedMsg, UserSetupRec."User ID", Rec."No.");
-                                EmailMessage.Create(Recipients, Subject, Body, true);
-                                Email.Send(EmailMessage, Enum::"Email Scenario"::"Service Order");
+                                if UserSetupRec."E-Mail" <> '' then begin
 
-                                // Message('Approval request sent successfully');
-                                rec.Status := rec.Status::"Pending Approval";
-                                CurrPage.Update();
-                                Message('BOM Costing sent to approvel');
+                                    Clear(Recipients);
+                                    UserSetupRec.TestField("E-Mail");
+                                    Recipients.Add(UserSetupRec."E-Mail");
+                                    Subject := StrSubstNo('Bom Estimate Costing Approval');
+                                    Body := StrSubstNo(SalesPostedMsg, UserSetupRec."User ID", Rec."No.");
+                                    EmailMessage.Create(Recipients, Subject, Body, true);
+                                    Email.Send(EmailMessage, Enum::"Email Scenario"::"Service Order");
 
-                                UserSetupRec.FindFirst();
+                                    // Message('Approval request sent successfully');
+                                    rec.Status := rec.Status::"Pending Approval";
+                                    CurrPage.Update();
+                                    Message('BOM Estimate Costing sent to approval');
+                                end
+                                else
+                                    Error('Please Setup Email Adderess For the Approval User');
                             end
                             else
-                                Error('Please Add mail to Assigned User');
-
-                        until UserSetupRec.Next() = 0;
-
+                                Error('Permission not given for the Merchandizing Group Head');
+                        end;
 
                     end;
                 end;
+
             }
 
             action(Approve)
