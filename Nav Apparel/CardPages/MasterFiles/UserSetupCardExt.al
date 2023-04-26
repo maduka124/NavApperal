@@ -101,6 +101,7 @@ pageextension 50979 UserSetupCardExt extends "User Setup"
             field("Estimate Costing Approve"; Rec."Estimate Costing Approve")
             {
                 ApplicationArea = All;
+               
             }
             field("Daily Requirement Approver"; rec."Daily Requirement Approver")
             {
