@@ -332,7 +332,7 @@ page 50699 FabShadeShrinkageCard
                     SubPageLink = "FabShadeNo." = FIELD("FabShadeNo.");
                 }
             }
-
+            //
             group("LENGTH SHRINKAGE")
             {
                 part(FabShdaeShrinkageListPart3; FabShadeShrinkageListPart3)
@@ -456,10 +456,13 @@ page 50699 FabShadeShrinkageCard
 
     procedure Get_Roll_details2()
     var
+
         FabProLineRec: Record FabricProceLine;
         FabShadeShriLine2Rec: Record FabShadeBandShriLine2;
         Lineno: Integer;
         ActWidth: Decimal;
+        FabProHeaderRec: Record FabricProceHeader;
+        LineCount: Integer;
     begin
 
         //Get Max line no
@@ -477,42 +480,60 @@ page 50699 FabShadeShrinkageCard
 
 
         //Get Rolldetails for the item and GRN
-        FabProLineRec.Reset();
-        FabProLineRec.SetRange("Item No", rec."Item No");
-        FabProLineRec.SetRange(GRN, rec.GRN);
-        FabProLineRec.SetCurrentKey("Act. Width");
+        // FabProLineRec.Reset();
+        // FabProLineRec.SetRange("Item No", rec."Item No");
+        // FabProLineRec.SetRange(GRN, rec.GRN);
+        // FabProLineRec.SetCurrentKey("Act. Width");
 
-        if FabProLineRec.FindSet() then begin
-            repeat
-                Lineno += 1;
+        FabProHeaderRec.Reset();
+        FabProHeaderRec.SetRange("Style No.", Rec."Style No.");
+        FabProHeaderRec.SetRange("PO No.", Rec."PO No.");
+        FabProHeaderRec.SetRange(GRN, Rec.GRN);
+        FabProHeaderRec.SetRange("Color No", Rec."Color No");
+        FabProHeaderRec.SetRange("Item No", Rec."Item No");
 
-                IF ActWidth <> FabProLineRec."Act. Width" THEN BEGIN
-                    ActWidth := FabProLineRec."Act. Width";
+        if FabProHeaderRec.FindSet() then begin
 
-                    FabShadeShriLine2Rec.Init();
-                    FabShadeShriLine2Rec."FabShadeNo." := rec."FabShadeNo.";
-                    FabShadeShriLine2Rec."Line No." := Lineno;
-                    FabShadeShriLine2Rec."Total Rolls" := FabProLineRec.Qty;
-                    FabShadeShriLine2Rec."Total YDS" := FabProLineRec.YDS;
-                    FabShadeShriLine2Rec.Width := FabProLineRec."Act. Width";
-                    FabShadeShriLine2Rec.Insert();
+            FabProLineRec.Reset();
+            FabProLineRec.SetRange("FabricProceNo.", FabProHeaderRec."FabricProceNo.");
+            FabProLineRec.SetCurrentKey(Shade);
+            FabProLineRec.Ascending(true);
 
-                end
-                else begin
+            if FabProLineRec.FindSet() then begin
+                repeat
+                    Lineno += 1;
+                    LineCount := 1;
 
-                    FabShadeShriLine2Rec.Reset();
-                    FabShadeShriLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
-                    FabShadeShriLine2Rec.SetRange(Width, FabProLineRec."Act. Width");
+                    IF ActWidth <> FabProLineRec."Act. Width" THEN BEGIN
+                        ActWidth := FabProLineRec."Act. Width";
 
-                    if FabShadeShriLine2Rec.FindSet() then begin
-                        FabShadeShriLine2Rec."Total Rolls" := FabShadeShriLine2Rec."Total Rolls" + FabProLineRec.Qty;
-                        FabShadeShriLine2Rec."Total YDS" := FabShadeShriLine2Rec."Total YDS" + FabProLineRec.YDS;
-                        FabShadeShriLine2Rec.Modify();
+                        FabShadeShriLine2Rec.Init();
+                        FabShadeShriLine2Rec."FabShadeNo." := rec."FabShadeNo.";
+                        FabShadeShriLine2Rec."Line No." := Lineno;
+                        // FabShadeShriLine2Rec."Total Rolls" := FabProLineRec.Qty;
+                        FabShadeShriLine2Rec."Total YDS" := FabProLineRec.YDS;
+                        FabShadeShriLine2Rec.Width := FabProLineRec."Act. Width";
+                        FabShadeShriLine2Rec.Insert();
+
+                    end
+                    else begin
+
+                        FabShadeShriLine2Rec.Reset();
+                        FabShadeShriLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
+                        FabShadeShriLine2Rec.SetRange(Width, FabProLineRec."Act. Width");
+
+                        if FabShadeShriLine2Rec.FindSet() then begin
+                            LineCount += 1;
+                            FabShadeShriLine2Rec."Total Rolls" := LineCount;
+                            // FabShadeShriLine2Rec."Total Rolls" := FabShadeShriLine2Rec."Total Rolls" + FabProLineRec.Qty;
+                            FabShadeShriLine2Rec."Total YDS" := FabShadeShriLine2Rec."Total YDS" + FabProLineRec.YDS;
+                            FabShadeShriLine2Rec.Modify();
+                        end;
+
                     end;
 
-                end;
-
-            until FabProLineRec.Next() = 0;
+                until FabProLineRec.Next() = 0;
+            end;
         end;
     end;
 
