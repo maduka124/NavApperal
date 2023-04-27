@@ -42,7 +42,13 @@ page 50570 "Trim Inspection Card"
                 field("Trim Inspected"; rec."Trim Inspected")
                 {
                     ApplicationArea = All;
-                    Editable = false;
+                    // Editable = false;
+                    //2023/04/27 Mihiranga 
+                }
+                field("Quality Inspector Name"; Rec."Quality Inspector Name")
+                {
+                    ApplicationArea = all;
+
                 }
             }
 
@@ -84,6 +90,8 @@ page 50570 "Trim Inspection Card"
 
             PurchLineRec.Reset();
             PurchLineRec.SetRange("Document No.", rec."No.");
+            PurchLineRec.SetFilter(Type, '=%1', PurchLineRec.Type::Item);
+
 
             if PurchLineRec.FindSet() then begin
 
@@ -164,6 +172,7 @@ page 50570 "Trim Inspection Card"
                                 TrimInsRec.Accept := 0;
                                 TrimInsRec.RejectLevel := RejectLevel;
                                 TrimInsRec.Insert();
+
 
                             end;
                         end;
