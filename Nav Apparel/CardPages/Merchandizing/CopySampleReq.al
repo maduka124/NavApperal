@@ -186,6 +186,7 @@ page 51303 "Copy Sample Requisition Card"
             {
                 ApplicationArea = All;
                 Caption = 'Copy Sample Requisition';
+                Image = CopyGLtoCostBudget;
 
                 trigger OnAction()
                 var

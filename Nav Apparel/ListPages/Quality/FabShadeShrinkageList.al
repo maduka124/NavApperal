@@ -68,7 +68,7 @@ page 50698 FabShadeShrinkageList
                     ApplicationArea = All;
                 }
 
-                field("No of Roll"; rec."No of Roll")
+                field("No of Roll New"; Rec."No of Roll New")
                 {
                     ApplicationArea = All;
                     Caption = 'No of Rolls';

@@ -116,6 +116,12 @@ table 50697 FabShadeBandShriHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        // Done By Sachith On 27/04/23
+        field(22; "No of Roll New"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

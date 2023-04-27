@@ -31,7 +31,12 @@ report 50616 FabricShadeBandandShrinkage
             { }
             column(Construction; Construction)
             { }
-            column(No_of_Roll; "No of Roll")
+
+            // column(No_of_Roll; "No of Roll")
+            // { }
+
+            //Done By Sachith on 27/04/23 
+            column(No_of_Roll_New; "No of Roll New")
             { }
             column(Fab_Twist_Avg; "Fab Twist Avg")
             { }

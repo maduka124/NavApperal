@@ -221,7 +221,7 @@ page 50699 FabShadeShrinkageCard
 
                             if Page.RunModal(50677, PurchRcpLineRec) = Action::LookupOK then begin
                                 rec."Item No" := PurchRcpLineRec."No.";
-                                rec."No of Roll" := 0;
+                                rec."No of Roll New" := 0;
                                 CurrPage.Update();
 
                                 ItemRec.Reset();
@@ -236,7 +236,7 @@ page 50699 FabShadeShrinkageCard
 
                                 if ItemLedEntryRec.FindSet() then begin
                                     repeat
-                                        rec."No of Roll" := rec."No of Roll" + ItemLedEntryRec."Remaining Quantity";
+                                        rec."No of Roll New" := rec."No of Roll New" + ItemLedEntryRec."Remaining Quantity";
                                     until ItemLedEntryRec.Next() = 0;
                                 end;
 
@@ -294,7 +294,7 @@ page 50699 FabShadeShrinkageCard
                     Editable = false;
                 }
 
-                field("No of Roll"; rec."No of Roll")
+                field("No of Roll New"; Rec."No of Roll New")
                 {
                     ApplicationArea = All;
                     Caption = 'No of Rolls';
