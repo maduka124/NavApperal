@@ -258,6 +258,35 @@ page 50978 "Create User Card"
             //         end;
             //     end;
             // }
+
+
+            // action("Update Main Category Mater Categeory Name")
+            // {
+            //     ApplicationArea = All;
+            //     Image = RemoveLine;
+
+
+            //     trigger OnAction()
+            //     var
+            //         // MasterCatRec: Record "Master Category";
+            //         MainCat: Record "Main Category";
+            //     begin
+
+            //         MainCat.Reset();
+            //         MainCat.FindSet();
+
+            //         repeat
+            //             if MainCat."Master Category Name" = 'SEWING TRIM' then begin
+
+            //                 MainCat."Master Category Name" := 'SEWING TRIMS';
+            //                 MainCat.Modify();
+
+            //             end;
+            //         until MainCat.Next() = 0;
+
+            //         Message('Completed');
+            //     end;
+            // }
         }
     }
 
