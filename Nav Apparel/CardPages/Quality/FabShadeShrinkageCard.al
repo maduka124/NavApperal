@@ -242,7 +242,8 @@ page 50699 FabShadeShrinkageCard
                                 // end;
 
 
-                                //Get No of rolls     
+                                //Get No of rolls 
+                                //doneBy Sachith on 28/04/23    
                                 FabricProcHeaderRec.Reset();
                                 FabricProcHeaderRec.SetRange("Style No.", Rec."Style No.");
                                 FabricProcHeaderRec.SetRange("PO No.", Rec."PO No.");
@@ -434,6 +435,7 @@ page 50699 FabShadeShrinkageCard
         // FabProLineRec.SetRange(GRN, rec.GRN);
         // FabProLineRec.SetCurrentKey(Shade);
 
+        //doneBy Sachith on 28/04/23    
         FabricProcHeaderRec.Reset();
         FabricProcHeaderRec.SetRange("Style No.", Rec."Style No.");
         FabricProcHeaderRec.SetRange("PO No.", Rec."PO No.");
@@ -460,7 +462,7 @@ page 50699 FabShadeShrinkageCard
                         FabShadeShriLine1Rec.Init();
                         FabShadeShriLine1Rec."FabShadeNo." := rec."FabShadeNo.";
                         FabShadeShriLine1Rec."Line No." := Lineno;
-                        FabShadeShriLine1Rec."Total Rolls" := FabProLineRec.Qty;
+                        // FabShadeShriLine1Rec."Total Rolls" := FabProLineRec.Qty;
                         FabShadeShriLine1Rec."Total YDS" := FabProLineRec.YDS;
                         FabShadeShriLine1Rec.Shade := FabProLineRec.Shade;
                         FabShadeShriLine1Rec."Shade No" := FabProLineRec."Shade No";
