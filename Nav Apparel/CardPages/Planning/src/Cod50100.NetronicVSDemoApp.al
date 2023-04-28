@@ -395,6 +395,8 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                   '<br>Ship Date : ' + FORMAT(CreateDateTime(ShiDate, 0T)) +
                   '<br>Start D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."Start Date", lrecJobPlanningLine."Start Time")) +
                   '<br>Finish D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."End Date", lrecJobPlanningLine."Finish Time")));
+                //   '<br>StartDateTime  : ' + FORMAT(lrecJobPlanningLine.StartDateTime) +
+                //   '<br>FinishtDateTime : ' + FORMAT(lrecJobPlanningLine.FinishDateTime));
                 ldnAllocation.Add('AddIn_ContextMenuID', 'CM_Allocation');
 
                 ldnAllocation.Add('PM_BarHeight', '15');
@@ -594,6 +596,12 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         ldnContextMenuItem.Add('SortCode', 'l');
         tempEntries.Add(ldnContextMenuItem);
 
+        ldnContextMenuItem := createJsonObject();
+        ldnContextMenuItem.Add('Text', 'Search By Style/Return To Queue');
+        ldnContextMenuItem.Add('Code', 'Al_12');
+        ldnContextMenuItem.Add('SortCode', 'm');
+        tempEntries.Add(ldnContextMenuItem);
+
         ldnContextMenu.Add('Items', tempEntries);
         pContextMenus.Add(ldnContextMenu);
 
@@ -637,6 +645,12 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         ldnContextMenuItem.Add('Text', 'WIP');
         ldnContextMenuItem.Add('Code', 'E_06');
         ldnContextMenuItem.Add('SortCode', 'f');
+        tempEntries.Add(ldnContextMenuItem);
+
+        ldnContextMenuItem := createJsonObject();
+        ldnContextMenuItem.Add('Text', 'Delete From Queue');
+        ldnContextMenuItem.Add('Code', 'E_07');
+        ldnContextMenuItem.Add('SortCode', 'h');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenu.Add('Items', tempEntries);
