@@ -351,10 +351,10 @@ page 50671 "FabricProceCard"
             Lineno := FabricProLineRec."Line No.";
 
         // //Deleet old records
-        // FabricProLineRec.Reset();
-        // FabricProLineRec.SetRange("FabricProceNo.", "FabricProceNo.");
-        // if FabricProLineRec.FindSet() then
-        //     FabricProLineRec.DeleteAll();
+        FabricProLineRec.Reset();
+        FabricProLineRec.SetRange("FabricProceNo.", Rec."FabricProceNo.");
+        if FabricProLineRec.FindSet() then
+            FabricProLineRec.DeleteAll();
 
 
         //Get Rolldetails for the item and GRN
@@ -364,35 +364,37 @@ page 50671 "FabricProceCard"
 
         if ItemLedEntryRec.FindSet() then begin
             repeat
-                FabricProLineRec.Reset();
-                FabricProLineRec.SetRange("FabricProceNo.", rec."FabricProceNo.");
-                FabricProLineRec.SetRange("Item No", rec."Item No");
-                FabricProLineRec.SetRange("Roll No", ItemLedEntryRec."Lot No.");
+                if ItemLedEntryRec."Remaining Quantity" > 0 then begin
+                    FabricProLineRec.Reset();
+                    FabricProLineRec.SetRange("FabricProceNo.", rec."FabricProceNo.");
+                    FabricProLineRec.SetRange("Item No", rec."Item No");
+                    FabricProLineRec.SetRange("Roll No", ItemLedEntryRec."Lot No.");
 
-                if not FabricProLineRec.FindSet() then begin
+                    if not FabricProLineRec.FindSet() then begin
 
-                    if ItemLedEntryRec."Lot No." <> '' then begin
-                        Lineno += 1;
-                        FabricProLineRec.Init();
-                        FabricProLineRec."FabricProceNo." := rec."FabricProceNo.";
-                        FabricProLineRec."Line No." := Lineno;
-                        FabricProLineRec."Roll No" := ItemLedEntryRec."Lot No.";
-                        FabricProLineRec.YDS := ItemLedEntryRec."Length Tag";
-                        FabricProLineRec.Width := ItemLedEntryRec."Width Tag";
-                        FabricProLineRec."Act. Legth" := ItemLedEntryRec."Length Act";
-                        FabricProLineRec."Act. Width" := ItemLedEntryRec."Width Act";
-                        FabricProLineRec.MFShade := ItemLedEntryRec.Shade;
-                        FabricProLineRec."MFShade No" := ItemLedEntryRec."Shade No";
-                        FabricProLineRec.Shade := ItemLedEntryRec.Shade;
-                        FabricProLineRec."Shade No" := ItemLedEntryRec."Shade No";
-                        FabricProLineRec.Status := FabricProLineRec.Status::Active;
-                        FabricProLineRec."Item No" := rec."Item No";
-                        FabricProLineRec."Item Name" := rec."Item Name";
-                        FabricProLineRec.GRN := rec.GRN;
-                        FabricProLineRec.Qty := ItemLedEntryRec."Remaining Quantity";
-                        FabricProLineRec."Color Name" := rec."Color Name";
-                        FabricProLineRec."Color No" := rec."Color No";
-                        FabricProLineRec.Insert();
+                        if ItemLedEntryRec."Lot No." <> '' then begin
+                            Lineno += 1;
+                            FabricProLineRec.Init();
+                            FabricProLineRec."FabricProceNo." := rec."FabricProceNo.";
+                            FabricProLineRec."Line No." := Lineno;
+                            FabricProLineRec."Roll No" := ItemLedEntryRec."Lot No.";
+                            FabricProLineRec.YDS := ItemLedEntryRec."Length Tag";
+                            FabricProLineRec.Width := ItemLedEntryRec."Width Tag";
+                            FabricProLineRec."Act. Legth" := ItemLedEntryRec."Length Act";
+                            FabricProLineRec."Act. Width" := ItemLedEntryRec."Width Act";
+                            FabricProLineRec.MFShade := ItemLedEntryRec.Shade;
+                            FabricProLineRec."MFShade No" := ItemLedEntryRec."Shade No";
+                            FabricProLineRec.Shade := ItemLedEntryRec.Shade;
+                            FabricProLineRec."Shade No" := ItemLedEntryRec."Shade No";
+                            FabricProLineRec.Status := FabricProLineRec.Status::Active;
+                            FabricProLineRec."Item No" := rec."Item No";
+                            FabricProLineRec."Item Name" := rec."Item Name";
+                            FabricProLineRec.GRN := rec.GRN;
+                            FabricProLineRec.Qty := ItemLedEntryRec."Remaining Quantity";
+                            FabricProLineRec."Color Name" := rec."Color Name";
+                            FabricProLineRec."Color No" := rec."Color No";
+                            FabricProLineRec.Insert();
+                        end;
                     end;
                 end;
             until ItemLedEntryRec.Next() = 0;

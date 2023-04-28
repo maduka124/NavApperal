@@ -179,9 +179,11 @@ page 50695 "FabShadeCard"
                     trigger OnLookup(var texts: text): Boolean
                     var
                         PurchRcpLineRec: Record "Purch. Rcpt. Line";
+                        FabShadeLine1Rec: Record FabShadeLine1;
                         ItemRec: Record Item;
                         ItemLedEntryRec: Record "Item Ledger Entry";
                         ItemNo: Code[20];
+                        LineheaderCount: Integer;
                     begin
                         PurchRcpLineRec.RESET;
                         PurchRcpLineRec.SetCurrentKey("No.");
@@ -216,20 +218,36 @@ page 50695 "FabShadeCard"
                                 if ItemRec.FindSet() then
                                     rec."Item Name" := ItemRec.Description;
 
-                                //Get No of rolls
-                                ItemLedEntryRec.Reset();
-                                ItemLedEntryRec.SetRange("Item No.", rec."Item No");
-                                ItemLedEntryRec.SetRange("Document No.", rec.GRN);
+                                // //Get No of rolls
+                                // ItemLedEntryRec.Reset();
+                                // ItemLedEntryRec.SetRange("Item No.", rec."Item No");
+                                // ItemLedEntryRec.SetRange("Document No.", rec.GRN);
 
-                                if ItemLedEntryRec.FindSet() then begin
-                                    repeat
-                                        rec."No of Roll" := rec."No of Roll" + ItemLedEntryRec."Remaining Quantity";
-                                    until ItemLedEntryRec.Next() = 0;
-                                end;
+                                // if ItemLedEntryRec.FindSet() then begin
+                                //     repeat
+                                //         rec."No of Roll" := rec."No of Roll" + ItemLedEntryRec."Remaining Quantity";
+                                //     until ItemLedEntryRec.Next() = 0;
+                                // end;
 
                                 Get_Roll_details1();
                                 Get_Roll_details2();
                                 Get_Roll_details3();
+
+                                //Done By sachith on 26/04/23 to Get Total No of Roll
+                                FabShadeLine1Rec.Reset();
+                                FabShadeLine1Rec.SetRange("FabShadeNo.", Rec."FabShadeNo.");
+                                FabShadeLine1Rec.SetCurrentKey(Shade);
+                                FabShadeLine1Rec.Ascending(true);
+
+                                if FabShadeLine1Rec.FindFirst() then begin
+                                    LineheaderCount := 0;
+                                    repeat
+                                        if FabShadeLine1Rec.Shade <> '' then
+                                            LineheaderCount := FabShadeLine1Rec.Count
+                                    until FabShadeLine1Rec.Next() = 0;
+
+                                    Rec."No of Roll" := LineheaderCount;
+                                end;
                                 CurrPage.Update();
                             end;
                         END;
@@ -397,9 +415,11 @@ page 50695 "FabShadeCard"
         FabProLineRec: Record FabricProceLine;
         FabShadeLine2Rec: Record FabShadeLine2;
         FabProHeaderRec: Record FabricProceHeader;
+        FabShadeLine1Rec: Record FabShadeLine1;
         Lineno: Integer;
         Shade: text[50];
         ShadeNo: Code[20];
+        LineCount: Integer;
     begin
 
         //Get Max line no
@@ -439,12 +459,13 @@ page 50695 "FabShadeCard"
                         Shade := FabProLineRec.Shade;
 
                         Lineno += 1;
+                        LineCount := 1;
 
                         FabShadeLine2Rec.Init();
                         FabShadeLine2Rec."FabShadeNo." := rec."FabShadeNo.";
                         FabShadeLine2Rec."Line No." := Lineno;
-                        FabShadeLine2Rec."Total Rolls" := FabProLineRec.Qty;
                         FabShadeLine2Rec."Total YDS" := FabProLineRec.YDS;
+                        FabShadeLine2Rec."Total Rolls" := Lineno;
                         FabShadeLine2Rec.Shade := FabProLineRec.Shade;
                         FabShadeLine2Rec."Shade No" := FabProLineRec."Shade No";
                         FabShadeLine2Rec.Insert();
@@ -456,14 +477,14 @@ page 50695 "FabShadeCard"
                         FabShadeLine2Rec.SetRange("FabShadeNo.", rec."FabShadeNo.");
                         FabShadeLine2Rec.SetRange("Shade No", FabProLineRec."Shade No");
 
+                        // Done By Sachith on 27/04/23 add Total Row 
                         if FabShadeLine2Rec.FindSet() then begin
-                            FabShadeLine2Rec."Total Rolls" := FabShadeLine2Rec."Total Rolls" + FabProLineRec.Qty;
                             FabShadeLine2Rec."Total YDS" := FabShadeLine2Rec."Total YDS" + FabProLineRec.YDS;
+                            LineCount += 1;
+                            FabShadeLine2Rec."Total Rolls" := LineCount;
                             FabShadeLine2Rec.Modify();
                         end;
-
                     end;
-
                 until FabProLineRec.Next() = 0;
             end;
         end;
