@@ -144,6 +144,7 @@ page 50683 "FabShrinkageTestCard"
 
                     trigger OnLookup(var texts: text): Boolean
                     var
+                        FabricProcHeaderRec: Record FabricProceHeader;
                         PurchRcpLineRec: Record "Purch. Rcpt. Line";
                         ItemRec: Record Item;
                         ItemLedEntryRec: Record "Item Ledger Entry";
@@ -186,15 +187,26 @@ page 50683 "FabShrinkageTestCard"
                                 end;
 
                                 //Get No of rolls
-                                ItemLedEntryRec.Reset();
-                                ItemLedEntryRec.SetRange("Item No.", rec."Item No");
-                                ItemLedEntryRec.SetRange("Document No.", rec.GRN);
+                                //                                 ItemLedEntryRec.Reset();
+                                //                                 ItemLedEntryRec.SetRange("Item No.", rec."Item No");
+                                //                                 ItemLedEntryRec.SetRange("Document No.", rec.GRN);
+                                // //
+                                //                                 if ItemLedEntryRec.FindSet() then begin
+                                //                                     repeat
+                                //                                         rec."No of Roll" := rec."No of Roll" + ItemLedEntryRec."Remaining Quantity";
+                                //                                     until ItemLedEntryRec.Next() = 0;
+                                //                                 end;
 
-                                if ItemLedEntryRec.FindSet() then begin
-                                    repeat
-                                        rec."No of Roll" := rec."No of Roll" + ItemLedEntryRec."Remaining Quantity";
-                                    until ItemLedEntryRec.Next() = 0;
-                                end;
+                                //Mihiranga 2023/04/28
+                                FabricProcHeaderRec.Reset();
+                                FabricProcHeaderRec.SetRange("Style No.", Rec."Style No.");
+                                FabricProcHeaderRec.SetRange("PO No.", Rec."PO No.");
+                                FabricProcHeaderRec.SetRange(GRN, Rec.GRN);
+                                FabricProcHeaderRec.SetRange("Color No", Rec."Color No");
+                                FabricProcHeaderRec.SetRange("Item No", Rec."Item No");
+
+                                if FabricProcHeaderRec.FindSet() then
+                                    Rec."No of Roll" := FabricProcHeaderRec."No of Roll1";
 
                                 CurrPage.Update();
                             end;
