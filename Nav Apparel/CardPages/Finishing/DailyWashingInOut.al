@@ -270,25 +270,25 @@ page 50358 "Daily Washing In/Out Card"
     }
 
 
-    actions
-    {
-        area(Processing)
-        {
-            action("Update Runtime")
-            {
-                ApplicationArea = All;
-                Image = UpdateDescription;
+    // actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action("Update Runtime")
+    //         {
+    //             ApplicationArea = All;
+    //             Image = UpdateDescription;
 
-                trigger OnAction()
-                var
-                    CodeUnitNavapp: Codeunit NavAppCodeUnit;
-                begin
-                    CodeUnitNavapp.Update_Runtime(rec."Style Name", rec."Style No.", 'WASHING');
-                    Message('Washing Runtime Updated');
-                end;
-            }
-        }
-    }
+    //             trigger OnAction()
+    //             var
+    //                 CodeUnitNavapp: Codeunit NavAppCodeUnit;
+    //             begin
+    //                 CodeUnitNavapp.Update_Runtime(rec."Style Name", rec."Style No.", 'WASHING');
+    //                 Message('Washing Runtime Updated');
+    //             end;
+    //         }
+    //     }
+    // }
 
 
     trigger OnInit()
