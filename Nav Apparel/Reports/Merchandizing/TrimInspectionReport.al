@@ -18,7 +18,7 @@ report 51259 TrimInspectionReport
             { }
             column(No_; "No.")
             { }
-            column(Posting_Description; "Posting Description")
+            column(Posting_Description; "Order No.")
             { }
             column(PoQty; PoQty)
             { }
@@ -29,6 +29,16 @@ report 51259 TrimInspectionReport
             column(StyleName; StyleName)
             { }
             column(GarmentType; GarmentType)
+            { }
+            column(Vendor_Shipment_No_; "Vendor Shipment No.")
+            { }
+            column(PurchQty; PurchQty)
+            { }
+            column(Quality_Inspector_Name; "Quality Inspector Name")
+            { }
+            column(SystemCreatedAt; SystemCreatedAt)
+            { }
+            column(RecievedQty; RecievedQty)
             { }
             dataitem(TrimInspectionLine; TrimInspectionLine)
             {
@@ -60,7 +70,26 @@ report 51259 TrimInspectionReport
                 // { }
                 // column()
                 // { }
+                trigger OnAfterGetRecord()
+                var
 
+                begin
+                    PoQty := 0;
+                    StylePORec.Reset();
+                    StylePORec.SetRange("Style No.", StyleNo);
+                    if StylePORec.FindSet() then begin
+                        repeat
+                            PoQty += StylePORec.Qty;
+                        until StylePORec.Next() = 0;
+                    end;
+
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", StyleNo);
+                    if StyleRec.FindFirst() then begin
+                        StyleName := StyleRec."Style No.";
+                        GarmentType := StyleRec."Garment Type Name";
+                    end;
+                end;
 
             }
             trigger OnAfterGetRecord()
@@ -69,20 +98,17 @@ report 51259 TrimInspectionReport
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
-                PoQty := 0;
-                StylePORec.Reset();
-                StylePORec.SetRange("PO No.", "Posting Description");
-                if StylePORec.FindSet() then begin
-                    repeat
-                        PoQty := StylePORec.Qty;
-                    until StylePORec.Next() = 0;
-                end;
 
-                StyleRec.Reset();
-                StyleRec.SetRange("PO No", "Posting Description");
-                if StyleRec.FindFirst() then begin
-                    StyleName := StyleRec."Style No.";
-                    GarmentType := StyleRec."Garment Type Name";
+
+                PurchRcptLineRec.Reset();
+                PurchRcptLineRec.SetRange("Document No.", "No.");
+                if PurchRcptLineRec.FindSet() then begin
+                    repeat
+                        PurchQty += PurchRcptLineRec.Quantity;
+                    until PurchRcptLineRec.Next() = 0;
+
+                    RecievedQty := PurchRcptLineRec."Qty. Rcd. Not Invoiced";
+                    
                 end;
             end;
 
@@ -131,6 +157,9 @@ report 51259 TrimInspectionReport
 
 
     var
+        RecievedQty: Decimal;
+        PurchQty: Decimal;
+        PurchRcptLineRec: Record "Purch. Rcpt. Line";
         GarmentType: Text[50];
         StyleName: Text[50];
         StyleRec: Record "Style Master";
