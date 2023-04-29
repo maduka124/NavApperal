@@ -11,94 +11,6 @@
       <rd:DataSourceID>009d7a42-8bd4-492b-8cd2-bb32da60c4cb</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="Buy_from_Vendor_Name">
-          <DataField>Buy_from_Vendor_Name</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
-        <Field Name="Posting_Description">
-          <DataField>Posting_Description</DataField>
-        </Field>
-        <Field Name="PoQty">
-          <DataField>PoQty</DataField>
-        </Field>
-        <Field Name="Factory">
-          <DataField>Factory</DataField>
-        </Field>
-        <Field Name="Supplier">
-          <DataField>Supplier</DataField>
-        </Field>
-        <Field Name="StyleName">
-          <DataField>StyleName</DataField>
-        </Field>
-        <Field Name="GarmentType">
-          <DataField>GarmentType</DataField>
-        </Field>
-        <Field Name="Vendor_Shipment_No_">
-          <DataField>Vendor_Shipment_No_</DataField>
-        </Field>
-        <Field Name="PurchQty">
-          <DataField>PurchQty</DataField>
-        </Field>
-        <Field Name="PurchQtyFormat">
-          <DataField>PurchQtyFormat</DataField>
-        </Field>
-        <Field Name="Quality_Inspector_Name">
-          <DataField>Quality_Inspector_Name</DataField>
-        </Field>
-        <Field Name="SystemCreatedAt">
-          <DataField>SystemCreatedAt</DataField>
-        </Field>
-        <Field Name="RecievedQty">
-          <DataField>RecievedQty</DataField>
-        </Field>
-        <Field Name="RecievedQtyFormat">
-          <DataField>RecievedQtyFormat</DataField>
-        </Field>
-        <Field Name="Item_Name">
-          <DataField>Item_Name</DataField>
-        </Field>
-        <Field Name="Color_Name">
-          <DataField>Color_Name</DataField>
-        </Field>
-        <Field Name="Size">
-          <DataField>Size</DataField>
-        </Field>
-        <Field Name="Item_No_">
-          <DataField>Item_No_</DataField>
-        </Field>
-        <Field Name="Sample_Qty">
-          <DataField>Sample_Qty</DataField>
-        </Field>
-        <Field Name="GRN_Qty">
-          <DataField>GRN_Qty</DataField>
-        </Field>
-        <Field Name="GRN_QtyFormat">
-          <DataField>GRN_QtyFormat</DataField>
-        </Field>
-        <Field Name="Accept">
-          <DataField>Accept</DataField>
-        </Field>
-        <Field Name="Reject">
-          <DataField>Reject</DataField>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -2646,12 +2558,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -2703,4 +2609,92 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="Buy_from_Vendor_Name">
+          <DataField>Buy_from_Vendor_Name</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
+        </Field>
+        <Field Name="Posting_Description">
+          <DataField>Posting_Description</DataField>
+        </Field>
+        <Field Name="PoQty">
+          <DataField>PoQty</DataField>
+        </Field>
+        <Field Name="Factory">
+          <DataField>Factory</DataField>
+        </Field>
+        <Field Name="Supplier">
+          <DataField>Supplier</DataField>
+        </Field>
+        <Field Name="StyleName">
+          <DataField>StyleName</DataField>
+        </Field>
+        <Field Name="GarmentType">
+          <DataField>GarmentType</DataField>
+        </Field>
+        <Field Name="Vendor_Shipment_No_">
+          <DataField>Vendor_Shipment_No_</DataField>
+        </Field>
+        <Field Name="PurchQty">
+          <DataField>PurchQty</DataField>
+        </Field>
+        <Field Name="PurchQtyFormat">
+          <DataField>PurchQtyFormat</DataField>
+        </Field>
+        <Field Name="Quality_Inspector_Name">
+          <DataField>Quality_Inspector_Name</DataField>
+        </Field>
+        <Field Name="SystemCreatedAt">
+          <DataField>SystemCreatedAt</DataField>
+        </Field>
+        <Field Name="RecievedQty">
+          <DataField>RecievedQty</DataField>
+        </Field>
+        <Field Name="RecievedQtyFormat">
+          <DataField>RecievedQtyFormat</DataField>
+        </Field>
+        <Field Name="Item_Name">
+          <DataField>Item_Name</DataField>
+        </Field>
+        <Field Name="Color_Name">
+          <DataField>Color_Name</DataField>
+        </Field>
+        <Field Name="Size">
+          <DataField>Size</DataField>
+        </Field>
+        <Field Name="Item_No_">
+          <DataField>Item_No_</DataField>
+        </Field>
+        <Field Name="Sample_Qty">
+          <DataField>Sample_Qty</DataField>
+        </Field>
+        <Field Name="GRN_Qty">
+          <DataField>GRN_Qty</DataField>
+        </Field>
+        <Field Name="GRN_QtyFormat">
+          <DataField>GRN_QtyFormat</DataField>
+        </Field>
+        <Field Name="Accept">
+          <DataField>Accept</DataField>
+        </Field>
+        <Field Name="Reject">
+          <DataField>Reject</DataField>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

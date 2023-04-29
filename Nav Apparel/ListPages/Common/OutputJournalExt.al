@@ -362,6 +362,7 @@ pageextension 50806 "Output Jrnl List Ext" extends "Output Journal"
                             //Update Journal line                            
                             ItemJrnlLineRec."Run Time" := Qty * TotalSMV;
                             ItemJrnlLineRec."Output Quantity" := Qty;
+                            ItemJrnlLineRec.Finished := true;
                             ItemJrnlLineRec.Modify();
 
                         end
