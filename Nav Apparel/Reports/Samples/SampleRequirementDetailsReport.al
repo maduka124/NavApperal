@@ -31,7 +31,8 @@ report 51285 SampleRequirementDetails
             { }
             column(Qty; Qty)
             { }
-
+            column(ReqQty; ReqQty)
+            { }
 
             trigger OnAfterGetRecord()
             begin
@@ -44,6 +45,7 @@ report 51285 SampleRequirementDetails
                 if SampleReqHeadRec.FindFirst() then begin
                     GroupHD := SampleReqHeadRec."Group HD";
                     BrandName := SampleReqHeadRec."Brand Name";
+                    ReqQty := SampleReqHeadRec.Qty;
                 end;
             end;
 
@@ -81,6 +83,7 @@ report 51285 SampleRequirementDetails
 
 
     var
+        ReqQty: BigInteger;
         BrandName: Text[50];
         GroupHD: Code[20];
         SampleReqHeadRec: Record "Sample Requsition Header";
