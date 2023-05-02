@@ -11,13 +11,13 @@ report 51285 SampleRequirementDetails
         dataitem("Sample Requsition Line"; "Sample Requsition Line")
         {
             DataItemTableView = sorting("No.", "Line No.");
-            column(Group_Head; "Group Head")
+            column(Group_Head; GroupHD)
             { }
             column(Style_Name; "Style Name")
             { }
             column(Sample_Name; "Sample Name")
             { }
-            column(Brand_Name; "Brand Name")
+            column(Brand_Name; BrandName)
             { }
             column(Buyer_Name; "Buyer Name")
             { }
@@ -37,6 +37,14 @@ report 51285 SampleRequirementDetails
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                SampleReqHeadRec.Reset();
+                SampleReqHeadRec.SetFilter(Type, '=%1', SampleReqHeadRec.Type::Development);
+                SampleReqHeadRec.SetRange("No.", "No.");
+                if SampleReqHeadRec.FindFirst() then begin
+                    GroupHD := SampleReqHeadRec."Group HD";
+                    BrandName := SampleReqHeadRec."Brand Name";
+                end;
             end;
 
             trigger OnPreDataItem()
@@ -73,6 +81,9 @@ report 51285 SampleRequirementDetails
 
 
     var
+        BrandName: Text[50];
+        GroupHD: Code[20];
+        SampleReqHeadRec: Record "Sample Requsition Header";
         comRec: Record "Company Information";
         stDate: Date;
         endDate: Date;
