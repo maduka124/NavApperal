@@ -894,9 +894,13 @@ codeunit 50618 NavAppCodeUnit
         if ItemRec.FindSet() then begin
             PurchRcptLine."Color No." := ItemRec."Color No.";
             PurchRcptLine."Color Name" := ItemRec."Color Name";
+
+            //Done By Sachith on 03/05/23
+            if ItemRec."Main Category Name" = 'FABRIC' then begin
+                PurchRcptHeader.FabricPO := true;
+                PurchRcptHeader.Modify();
+            end
         end;
-
-
         // PurchRcptLine."Secondary UserID" := PurchLine."Secondary UserID";
     end;
 

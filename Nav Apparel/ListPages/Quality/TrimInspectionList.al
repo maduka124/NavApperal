@@ -4,7 +4,7 @@ page 50571 "Trim Inspection List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Purch. Rcpt. Header";
-    SourceTableView = sorting("No.") order(descending);
+    SourceTableView = sorting("No.") order(descending) where(FabricPO = filter(false));
     //where("Trim Inspected" = filter(true));
     CardPageId = "Trim Inspection Card";
     DeleteAllowed = false;

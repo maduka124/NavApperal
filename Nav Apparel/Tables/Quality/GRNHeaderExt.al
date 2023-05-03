@@ -21,6 +21,12 @@ tableextension 50569 "GRN Extension" extends "Purch. Rcpt. Header"
         {
         }
 
+        //Done By Sachith 02/03/23
+        field(50412; FabricPO; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
 
