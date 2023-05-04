@@ -81,6 +81,26 @@ page 50978 "Create User Card"
     {
         area(Processing)
         {
+            // action("update prod update status")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
+
+            //     trigger OnAction()
+            //     var
+            //         Prodout: Record ProductionOutHeader;
+            //         dtStart: Date;
+            //     begin
+            //         dtStart := DMY2DATE(2, 5, 2023);
+            //         Prodout.Reset();
+            //         Prodout.SetRange("Prod Date", dtStart);
+            //         Prodout.FindSet();
+            //         Prodout.ModifyAll("Prod Updated", 0);
+
+
+            //     end;
+            // }
+
             // action("remove navapp plan/Prod")
             // {
             //     ApplicationArea = All;
