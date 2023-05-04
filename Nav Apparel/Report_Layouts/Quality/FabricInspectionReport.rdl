@@ -1372,14 +1372,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Two2_PointFormat">
+                        <Textbox Name="Two2_Point">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Two2_PointFormat.Value</Value>
+                                  <Value>=Fields!Two2_Point.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -1390,7 +1390,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Two2_PointFormat</rd:DefaultName>
+                          <rd:DefaultName>Two2_Point</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>

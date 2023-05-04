@@ -88,7 +88,8 @@ report 51308 FabricInspectionReportQuality
             var
                 myInt: Integer;
             begin
-                SetRange("InsNo.", INsFilter);
+                if INsFilter <> '' then
+                    SetRange("InsNo.", INsFilter);
             end;
         }
     }
