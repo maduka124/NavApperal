@@ -70,6 +70,10 @@ report 50865 HourlyProductionReport
             { }
             column(HoursPerDay; HoursPerDay)
             { }
+            column(Start_Time; "Start Time")
+            { }
+            column(Finish_Time; "Finish Time")
+            { }
             column(Factory_No_; "Factory No.")
             { }
             column(BrandName; BrandName)
@@ -534,6 +538,7 @@ report 50865 HourlyProductionReport
     }
 
     var
+
         CM: Decimal;
         DayTarget: Decimal;
         CutInputToday: BigInteger;

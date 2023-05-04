@@ -16,6 +16,22 @@ page 50675 GRNPOListPart
                     ApplicationArea = All;
                     Caption = 'Order No';
                 }
+                field(VendorName; VendorName)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Vendor Name';
+                }
+                field(Quantity; Rec.Quantity)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Quantity';
+                }
+                field("Unit of Measure"; Rec."Unit of Measure")
+                {
+                    ApplicationArea = All;
+                    Caption = 'UOM';
+                }
+
             }
         }
     }
@@ -24,6 +40,7 @@ page 50675 GRNPOListPart
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        VendorRec: Record Vendor;
     begin
 
         //Check whether user logged in or not
@@ -44,5 +61,14 @@ page 50675 GRNPOListPart
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
 
+        VendorRec.Reset();
+        VendorRec.SetRange("No.", Rec."Buy-from Vendor No.");
+        if VendorRec.FindFirst() then begin
+            VendorName := VendorRec.Name;
+        end;
+
     end;
+
+    var
+        VendorName: Text[100];
 }

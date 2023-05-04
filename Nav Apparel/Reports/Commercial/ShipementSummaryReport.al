@@ -80,7 +80,14 @@ report 51244 ShipementSummaryReport
 
             trigger OnPreDataItem()
             begin
-                SetRange("Buyer No.", BuyerFilter);
+                if BuyerFilter <> '' then
+                    SetRange("Buyer No.", BuyerFilter);
+                if ContractFilter <> '' then
+                    SetRange("LC/Contract No.", ContractFilter);
+                if UdFilter <> '' then
+                    SetRange("No.", UdFilter);
+                if (Stdate <> 0D) and (EndDate <> 0D) then
+                    SetRange("Created Date", Stdate, EndDate);
             end;
 
         }
@@ -94,11 +101,35 @@ report 51244 ShipementSummaryReport
             {
                 group(GroupName)
                 {
+                    field(UdFilter; UdFilter)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'UD No';
+                        TableRelation = UDHeader."No.";
+                    }
                     field(BuyerFilter; BuyerFilter)
                     {
                         ApplicationArea = All;
                         Caption = 'Buyer';
                         TableRelation = Customer."No.";
+                    }
+                    field(ContractFilter; ContractFilter)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Contract No';
+                        TableRelation = "Contract/LCMaster"."No.";
+                    }
+                    field(Stdate; Stdate)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Start Date';
+
+                    }
+                    field(EndDate; EndDate)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'End Date';
+
                     }
                 }
             }
@@ -107,6 +138,10 @@ report 51244 ShipementSummaryReport
 
 
     var
+        Stdate: Date;
+        EndDate: Date;
+        UdFilter: Code[20];
+        ContractFilter: Text[50];
         ContractValue: Decimal;
         LcMasterRec: Record "Contract/LCMaster";
         BuyerFilter: Code[20];

@@ -601,6 +601,7 @@
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2317,7 +2318,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -8268,6 +8268,12 @@ End Function
         </Field>
         <Field Name="HoursPerDayFormat">
           <DataField>HoursPerDayFormat</DataField>
+        </Field>
+        <Field Name="Start_Time">
+          <DataField>Start_Time</DataField>
+        </Field>
+        <Field Name="Finish_Time">
+          <DataField>Finish_Time</DataField>
         </Field>
         <Field Name="Factory_No_">
           <DataField>Factory_No_</DataField>

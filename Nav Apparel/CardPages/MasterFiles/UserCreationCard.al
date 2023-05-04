@@ -307,6 +307,46 @@ page 50978 "Create User Card"
             //         Message('Completed');
             //     end;
             // }
+
+            //Done By Sachith on 03/05/23
+            action("Update Fabric PO In GRN")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    GRNHeaderRec: Record "Purch. Rcpt. Header";
+                    GRNLineRec: Record "Purch. Rcpt. Line";
+                    ItemRec: Record Item;
+                begin
+
+                    GRNHeaderRec.Reset();
+                    if GRNHeaderRec.FindSet() then begin
+                        repeat
+
+                            GRNLineRec.Reset();
+                            GRNLineRec.SetRange("Document No.", GRNHeaderRec."No.");
+
+                            if GRNLineRec.FindSet() then begin
+                                repeat
+
+                                    ItemRec.Reset();
+                                    ItemRec.SetRange("No.", GRNLineRec."No.");
+
+                                    if ItemRec.FindSet() then begin
+                                        if ItemRec."Main Category Name" = 'FABRIC' then begin
+                                            GRNHeaderRec.FabricPO := true;
+                                            GRNHeaderRec.Modify();
+                                        end
+                                    end;
+
+                                until GRNLineRec.Next() = 0;
+                            end;
+
+                        until GRNHeaderRec.Next() = 0;
+                    end;
+                end;
+            }
         }
     }
 
