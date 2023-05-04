@@ -2455,6 +2455,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report FabricTwistReport;
                         ApplicationArea = all;
                     }
+                    action("Fabric Inspection Report")
+                    {
+                        Caption = 'Fabric Inspection Report';
+                        Enabled = true;
+                        RunObject = report FabricInspectionReportQuality;
+                        ApplicationArea = all;
+                    }
                     action("Hourly Production Report Quality")
                     {
                         Caption = 'Hourly Production Report';
