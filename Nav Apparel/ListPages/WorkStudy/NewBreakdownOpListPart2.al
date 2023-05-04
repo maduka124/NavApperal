@@ -136,19 +136,65 @@ page 50466 "New Breakdown Op Listpart2"
                     NewBrOpLine2Rec: Record "New Breakdown Op Line2";
                     NewBreakdownRec: Record "New Breakdown";
                     StyleRec: Record "Style Master";
+                    EstimateCostRec: Record "BOM Estimate Cost";
+                    SwingProductionRec: Record ProductionOutHeader;
+                    SwingProduction2Rec: Record ProductionOutHeader;
                     SMV: Decimal;
                     MachineTotal: Decimal;
                     HelperTotal: Decimal;
-                    Status: code[50];
+                    Stage: code[50];
                     Style: code[20];
+                    DateRange: Integer;
                 begin
 
                     NewBreakdownRec.Reset();
                     NewBreakdownRec.SetRange("No.", rec."No.");
                     NewBreakdownRec.FindSet();
-                    Status := NewBreakdownRec."Style Stage";
+                    // Status := NewBreakdownRec."Style Stage";
                     Style := NewBreakdownRec."Style No.";
 
+                    //Done By Sachith on 04/05/23
+                    SwingProduction2Rec.Reset();
+                    SwingProduction2Rec.SetRange("Style No.", Style);
+                    SwingProduction2Rec.SetRange(Type, SwingProduction2Rec.Type::Saw);
+
+                    if SwingProduction2Rec.FindSet() then begin
+                        if SwingProduction2Rec."Input Qty" <> 0 then begin
+
+                            DateRange := Today - SwingProduction2Rec."Prod Date";
+                            if DateRange >= 10 then
+                                Error('Can not caculate SMV.because of more than ten days after Production');
+                        end;
+                    end;
+
+                    EstimateCostRec.Reset();
+                    EstimateCostRec.SetRange("Style No.", Style);
+                    EstimateCostRec.SetRange(Status, EstimateCostRec.Status::Approved);
+
+                    if EstimateCostRec.FindSet() then begin
+
+                        Stage := 'COSTING';
+
+                        SwingProductionRec.Reset();
+                        SwingProductionRec.SetRange("Style No.", Style);
+                        SwingProductionRec.SetRange(Type, SwingProductionRec.Type::Saw);
+
+                        if SwingProductionRec.FindSet() then begin
+
+                            Stage := 'PLANNING';
+
+                            if SwingProductionRec."Input Qty" <> 0 then begin
+                                Stage := 'PRODUCTION';
+
+                            end
+                            else
+                                Stage := 'PLANNING';
+                        end
+                        else
+                            Stage := 'COSTING';
+                    end
+                    else
+                        Stage := 'COSTING';
 
                     //Get SMV total/Machine SMV TOTAL/Helper SMV Total
                     NewBrOpLine2Rec.Reset();
@@ -181,14 +227,23 @@ page 50466 "New Breakdown Op Listpart2"
 
                     if StyleRec.FindSet() then begin
 
-                        if Status = 'COSTING' then
-                            StyleRec.CostingSMV := SMV
+                        if Stage = 'COSTING' then begin
+                            StyleRec.CostingSMV := SMV;
+                            NewBreakdownRec."Style Stage" := Stage;
+                            NewBreakdownRec.Modify();
+                        end
                         else
-                            if Status = 'PRODUCTION' then
-                                StyleRec.ProductionSMV := SMV
+                            if Stage = 'PLANNING' then begin
+                                StyleRec.PlanningSMV := SMV;
+                                NewBreakdownRec."Style Stage" := Stage;
+                                NewBreakdownRec.Modify();
+                            end
                             else
-                                if Status = 'PLANNING' then
-                                    StyleRec.PlanningSMV := SMV;
+                                if Stage = 'PRODUCTION' then begin
+                                    StyleRec.ProductionSMV := SMV;
+                                    NewBreakdownRec."Style Stage" := Stage;
+                                    NewBreakdownRec.Modify();
+                                end;
 
                         StyleRec.SMV := SMV;
                         StyleRec.Modify();
