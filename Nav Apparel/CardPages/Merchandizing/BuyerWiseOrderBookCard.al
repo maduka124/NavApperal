@@ -612,32 +612,83 @@ page 51165 "BuyerWiseOrderBooking"
 
                                                         case i of
                                                             1:
-                                                                BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.JAN < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.JAN := 0;
+                                                                end;
                                                             2:
-                                                                BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.FEB < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.FEB := 0;
+                                                                end;
                                                             3:
-                                                                BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.MAR < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.MAR := 0;
+                                                                end;
                                                             4:
-                                                                BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.APR < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.APR := 0;
+                                                                end;
                                                             5:
-                                                                BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.MAY < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.MAY := 0;
+                                                                end;
                                                             6:
-                                                                BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.JUN < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.JUN := 0;
+                                                                end;
                                                             7:
-                                                                BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.JUL < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.JUL := 0;
+                                                                end;
                                                             8:
-                                                                BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.AUG < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.AUG := 0;
+                                                                end;
                                                             9:
-                                                                BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.SEP < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.SEP := 0;
+                                                                end;
                                                             10:
-                                                                BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.OCT < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.OCT := 0;
+                                                                end;
                                                             11:
-                                                                BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.NOV < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.NOV := 0;
+                                                                end;
                                                             12:
-                                                                BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.DEC < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.DEC := 0;
+                                                                end;
                                                         end;
 
                                                         BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
+                                                        if BuyerWiseOdrBookinBalatoSewRec.Total < 0 then
+                                                            BuyerWiseOdrBookinBalatoSewRec.Total := 0;
+
                                                         BuyerWiseOdrBookinBalatoSewRec.Modify();
 
                                                     end;
@@ -650,32 +701,83 @@ page 51165 "BuyerWiseOrderBooking"
 
                                                         case i of
                                                             1:
-                                                                BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.JAN < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.JAN := 0;
+                                                                end;
                                                             2:
-                                                                BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.FEB < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.FEB := 0;
+                                                                end;
                                                             3:
-                                                                BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.MAR < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.MAR := 0;
+                                                                end;
                                                             4:
-                                                                BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.APR < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.APR := 0;
+                                                                end;
                                                             5:
-                                                                BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.MAY < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.MAY := 0;
+                                                                end;
                                                             6:
-                                                                BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.JUN < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.JUN := 0;
+                                                                end;
                                                             7:
-                                                                BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.JUL < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.JUL := 0;
+                                                                end;
                                                             8:
-                                                                BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.AUG < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.AUG := 0;
+                                                                end;
                                                             9:
-                                                                BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.SEP < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.SEP := 0;
+                                                                end;
                                                             10:
-                                                                BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.OCT < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.OCT := 0;
+                                                                end;
                                                             11:
-                                                                BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.NOV < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.NOV := 0;
+                                                                end;
                                                             12:
-                                                                BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
+                                                                begin
+                                                                    BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
+                                                                    if BuyerWiseOdrBookinBalatoSewRec.DEC < 0 then
+                                                                        BuyerWiseOdrBookinBalatoSewRec.DEC := 0;
+                                                                end;
                                                         end;
 
                                                         BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
+                                                        if BuyerWiseOdrBookinBalatoSewRec.Total < 0 then
+                                                            BuyerWiseOdrBookinBalatoSewRec.Total := 0;
+
                                                         BuyerWiseOdrBookinBalatoSewRec.Modify();
                                                     end;
 
