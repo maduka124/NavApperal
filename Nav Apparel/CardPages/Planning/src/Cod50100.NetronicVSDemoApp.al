@@ -142,7 +142,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
 
         //Create Calendars by Resource Capacity 
         WorkCenterRec.SETCURRENTKEY(WorkCenterRec.Name);
-        WorkCenterRec.SETRANGE(WorkCenterRec.Name);
+        //WorkCenterRec.SETRANGE(WorkCenterRec.Name);
         WorkCenterRec.SetFilter("Planning Line", '=%1', true);
         WorkCenterRec.SETRANGE("Factory No.", FactoryNo);
 

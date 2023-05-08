@@ -8031,6 +8031,8 @@ page 50984 "BOM Card"
                                 // if Description = 'COTTON/POLY/STRETCH DENIM / BROOK GREEN / -' then
                                 //     Message(format(AutoGenRec.Requirment));
 
+                                Description := Description.Substring(1, 100);
+
                                 //Check whether item exists
                                 ItemMasterRec.Reset();
                                 ItemMasterRec.SetRange(Description, Description);

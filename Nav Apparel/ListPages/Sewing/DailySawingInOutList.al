@@ -25,6 +25,18 @@ page 50356 "Daily Sewing In/Out"
                     Caption = 'Production Date';
                 }
 
+                // field(buyer; buyer)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'buyer';
+                // }
+
+                // field(brand; brand)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'brand';
+                // }
+
                 field("Resource Name"; rec."Resource Name")
                 {
                     ApplicationArea = All;
@@ -47,8 +59,8 @@ page 50356 "Daily Sewing In/Out"
                 field("Input Qty"; Rec."Input Qty")
                 {
                     ApplicationArea = All;
-                }         
-         
+                }
+
                 field("Out Style Name"; Rec."Out Style Name")
                 {
                     ApplicationArea = all;
@@ -60,7 +72,7 @@ page 50356 "Daily Sewing In/Out"
                     ApplicationArea = all;
                     Caption = 'Output PO No';
                 }
-                
+
                 field("Output Qty"; rec."Output Qty")
                 {
                     ApplicationArea = All;
@@ -108,6 +120,25 @@ page 50356 "Daily Sewing In/Out"
     end;
 
 
+    trigger OnAfterGetRecord()
+    var
+        sty: Record "Style Master";
+        custo: Record Customer;
+    begin
+        sty.Reset();
+        sty.SetRange("No.", Rec."Out Style No.");
+        if sty.FindSet() then begin
+
+            custo.Reset();
+            custo.SetRange("No.", sty."Buyer No.");
+            if custo.FindSet() then begin
+                buyer := custo.Name;
+                brand := sty."Brand Name";
+            end;
+        end;
+    end;
+
+
     trigger OnDeleteRecord(): Boolean
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
@@ -129,4 +160,8 @@ page 50356 "Daily Sewing In/Out"
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'IN', 'Saw', rec.Type::Saw);
         NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'OUT', 'Saw', rec.Type::Saw);
     end;
+
+    var
+        buyer: Text[200];
+        brand: Text[200];
 }

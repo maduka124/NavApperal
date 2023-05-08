@@ -25,7 +25,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         LocationRec.get("FactoryNo");
                         "FactoryName" := LocationRec.Name;
 
-                        LoadData();
+                        LoadData(true, true, true, true, true);
                         // SetconVSControlAddInSettings();
                     end;
                 }
@@ -103,12 +103,13 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                     trigger OnValidate()
                     var
-                        myInt: Integer;
                     begin
+                        if FactoryName = '' then
+                            Error('Select a Factory.');
 
                         gdtconVSControlAddInStart := CREATEDATETIME(DMY2DATE(DATE2DMY(StartDate, 1), DATE2DMY(StartDate, 2), DATE2DMY(StartDate, 3)), 0T);
                         gdtconVSControlAddInEnd := CREATEDATETIME(DMY2DATE(DATE2DMY(FinishDate, 1), DATE2DMY(FinishDate, 2), DATE2DMY(FinishDate, 3)), 0T);
-                        LoadData();
+                        LoadData(true, false, false, false, false);
                         SetconVSControlAddInSettings();
                     end;
                 }
@@ -120,12 +121,13 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                     trigger OnValidate()
                     var
-                        myInt: Integer;
                     begin
+                        if FactoryName = '' then
+                            Error('Select a Factory.');
 
                         gdtconVSControlAddInStart := CREATEDATETIME(DMY2DATE(DATE2DMY(StartDate, 1), DATE2DMY(StartDate, 2), DATE2DMY(StartDate, 3)), 0T);
                         gdtconVSControlAddInEnd := CREATEDATETIME(DMY2DATE(DATE2DMY(FinishDate, 1), DATE2DMY(FinishDate, 2), DATE2DMY(FinishDate, 3)), 0T);
-                        LoadData();
+                        LoadData(true, false, false, false, false);
                         SetconVSControlAddInSettings();
                     end;
                 }
@@ -1512,6 +1514,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 PlanningQueueeRec.SetRange("Queue No.", ID);
                                 PlanningQueueeRec.DeleteAll();
                             end;
+
+                            //LoadDataFromQ();
+                            LoadData(false, false, true, true, false);
                         end;
                     end
                     else begin   //Drag and drop existing allocation
@@ -2540,9 +2545,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             end;
                         end;
 
-                    end;
+                        LoadData(false, false, true, true, false);
 
-                    LoadData();
+                    end;
                 end;
 
 
@@ -2672,7 +2677,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             SplitCard.LookupMode(true);
                             SplitCard.PassParameters(_objectID);
                             SplitCard.RunModal();
-                            LoadData();
+                            LoadData(false, false, false, true, false);
                             SetconVSControlAddInSettings();
 
                         end;
@@ -2683,7 +2688,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             SplitMoreCard.LookupMode(true);
                             SplitMoreCard.PassParameters(_objectID);
                             SplitMoreCard.RunModal();
-                            LoadData();
+                            LoadData(false, false, false, true, false);
                             SetconVSControlAddInSettings();
 
                             // gcodconVSControlAddIn.LoadEntities(ldnEntitiesJSON);
@@ -2754,7 +2759,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                                 end;
 
-                                LoadData();
+                                LoadData(false, false, false, true, false);
                                 SetconVSControlAddInSettings();
 
                             end;
@@ -2798,7 +2803,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             Clear(DeleteFromQueueListPage);
                             DeleteFromQueueListPage.LookupMode(true);
                             DeleteFromQueueListPage.RunModal();
-                            LoadData();
+                            LoadData(false, false, false, true, false);
                             SetconVSControlAddInSettings();
                         end;
 
@@ -2963,6 +2968,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + TempQty;
                             StyleMasterPORec.Modify();
 
+                            LoadData(false, false, true, true, false);
+
                         end;
 
                         if _contextMenuItemCode = 'Al_03' then begin   //Return to Queue
@@ -3084,6 +3091,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             if ProdPlanDetRec.FindSet() then
                                 ProdPlanDetRec.DeleteAll();
 
+                            LoadData(false, false, true, true, false);
+
                         end;
 
                         if _contextMenuItemCode = 'Al_04' then begin   //Plan Targets
@@ -3163,9 +3172,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanHistoryListPage.LookupMode(true);
                             PlanHistoryListPage.PassParameters(FactoryNo);
                             PlanHistoryListPage.RunModal();
+
+                            LoadData(false, false, true, true, false);
                         end;
 
-                        LoadData();
+                        //LoadData();
                         SetconVSControlAddInSettings();
 
                     end;
@@ -3197,7 +3208,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         AllPOListPage.LookupMode(true);
                         AllPOListPage.PassParameters(FactoryNo, LearningCurveNo);
                         AllPOListPage.RunModal();
-                        LoadData();
+                        LoadData(false, false, false, true, false);
                         SetconVSControlAddInSettings();
                     end;
                 }
@@ -3219,7 +3230,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         DeleteFromQueueListPage.LookupMode(true);
                         //  DeleteFromQueueListPage.PassParameters(FactoryNo);
                         DeleteFromQueueListPage.RunModal();
-                        LoadData();
+                        LoadData(false, false, false, true, false);
                         SetconVSControlAddInSettings();
                     end;
                 }
@@ -3278,7 +3289,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         PlanHistoryListPage.LookupMode(true);
                         PlanHistoryListPage.PassParameters(FactoryNo);
                         PlanHistoryListPage.RunModal();
-                        LoadData();
+                        LoadData(false, false, true, true, false);
                         SetconVSControlAddInSettings();
                     end;
                 }
@@ -3299,7 +3310,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             ProdUpdateCard.LookupMode(true);
                             ProdUpdateCard.PassParameters(FactoryNo);
                             ProdUpdateCard.RunModal();
-                            LoadData();
+                            LoadData(false, false, true, false, false);
                         end;
                     end;
                 }
@@ -3354,7 +3365,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
         //Filer Criteria - Dates
         StartDate := CALCDATE('-1D', Today());
-        FinishDate := CALCDATE('+3M', Today());
+        FinishDate := CALCDATE('+1M', Today());
 
         //Session Settings
         gbAddInInitialized := FALSE;
@@ -3444,7 +3455,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         END;
     end;
 
-    local procedure LoadData()
+    local procedure LoadData(blnCal: Boolean; blnRes: Boolean; blnAllo: Boolean; blnQue: Boolean; blnMenu: Boolean)
     var
         ldnResourcesJSON: JsonArray;
         ldnCalendarsJSON: JsonArray;
@@ -3457,15 +3468,14 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
     begin
         gbAddInReady := true;
         IF (gbAddInReady) THEN BEGIN
+
             CASE gintconVSControlAddInViewType OF
                 goptViewType::ActivityView:
                     BEGIN
                         //ldnActivities := ldnActivities.List();
                         gcodconVSControlAddIn.LoadActivities(ldnActivitiesJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd));
                         //ldnContextMenus := ldnContextMenus.List();
-
                         gcodconVSControlAddIn.LoadContextMenus(ldnContextMenusJSON);
-
                         CurrPage.conVSControlAddIn.RemoveAll();
                         CurrPage.conVSControlAddIn.AddContextMenus(ldnContextMenusJSON);
                         CurrPage.conVSControlAddIn.AddActivities(ldnActivitiesJSON);
@@ -3474,24 +3484,55 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                 goptViewType::ResourceView:
                     BEGIN
+
                         gcodconVSControlAddIn.LoadCalendars(FactoryNo, ldnCalendarsJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd));
-
                         gcodconVSControlAddIn.LoadResources(ldnResourcesJSON, ldnCurvesJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd), FactoryNo);
-
                         gcodconVSControlAddIn.LoadAllocations(ldnActivitiesJSON, ldnAllocationsJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd));
-
                         gcodconVSControlAddIn.LoadEntities(ldnEntitiesJSON);
-
                         gcodconVSControlAddIn.LoadContextMenus(ldnContextMenusJSON);
+
+                        // if blnCal then begin
+                        //     gcodconVSControlAddIn.LoadCalendars(FactoryNo, ldnCalendarsJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd));
+                        //     CurrPage.conVSControlAddIn.RemoveCalendars(ldnCalendarsJSON);
+                        //     CurrPage.conVSControlAddIn.AddCalendars(ldnCalendarsJSON);
+                        // end;
+
+                        // if blnRes then begin
+                        //     gcodconVSControlAddIn.LoadResources(ldnResourcesJSON, ldnCurvesJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd), FactoryNo);
+                        //     CurrPage.conVSControlAddIn.RemoveResources(ldnResourcesJSON);
+                        //     CurrPage.conVSControlAddIn.AddResources(ldnResourcesJSON);
+                        // end;
+
+                        // if blnAllo then begin
+                        //     gcodconVSControlAddIn.LoadAllocations(ldnActivitiesJSON, ldnAllocationsJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd));
+                        //     CurrPage.conVSControlAddIn.RemoveAllocations(ldnAllocationsJSON);
+                        //     CurrPage.conVSControlAddIn.AddAllocations(ldnAllocationsJSON);
+                        // end;
+
+                        // if blnQue then begin
+                        //     gcodconVSControlAddIn.LoadEntities(ldnEntitiesJSON);
+                        //     CurrPage.conVSControlAddIn.RemoveEntities(ldnEntitiesJSON);
+                        //     CurrPage.conVSControlAddIn.AddEntities(ldnEntitiesJSON);
+                        // end;
+
+                        // if blnMenu then begin
+                        //     gcodconVSControlAddIn.LoadContextMenus(ldnContextMenusJSON);
+                        //     CurrPage.conVSControlAddIn.RemoveContextMenus(ldnContextMenusJSON);
+                        //     CurrPage.conVSControlAddIn.AddContextMenus(ldnContextMenusJSON);
+                        // end;
+
+                        // CurrPage.conVSControlAddIn.Render();
+
 
                         CurrPage.conVSControlAddIn.RemoveAll();
                         CurrPage.conVSControlAddIn.AddContextMenus(ldnContextMenusJSON);
                         CurrPage.conVSControlAddIn.AddCalendars(ldnCalendarsJSON);
-                        CurrPage.conVSControlAddIn.AddCurves(ldnCurvesJSON);
+                        // CurrPage.conVSControlAddIn.AddCurves(ldnCurvesJSON);
                         CurrPage.conVSControlAddIn.AddResources(ldnResourcesJSON);
-                        CurrPage.conVSControlAddIn.AddActivities(ldnActivitiesJSON);
+                        // CurrPage.conVSControlAddIn.AddActivities(ldnActivitiesJSON);
                         CurrPage.conVSControlAddIn.AddAllocations(ldnAllocationsJSON);
                         CurrPage.conVSControlAddIn.AddEntities(ldnEntitiesJSON);
+
                         CurrPage.conVSControlAddIn.Render();
 
                         //ldnAllocationsJSON.Get(0, tempJsonToken);
@@ -3503,6 +3544,43 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
             END;
         END;
     end;
+
+    local procedure LoadDataFromQ()
+    var
+        ldnResourcesJSON: JsonArray;
+        ldnCalendarsJSON: JsonArray;
+        ldnActivitiesJSON: JsonArray;
+        ldnAllocationsJSON: JsonArray;
+        ldnEntitiesJSON: JsonArray;
+        ldnCurvesJSON: JsonArray;
+        ldnContextMenusJSON: JsonArray;
+        tempJsonToken: JsonToken;
+    begin
+        gbAddInReady := true;
+        IF (gbAddInReady) THEN BEGIN
+
+            CASE gintconVSControlAddInViewType OF
+
+                goptViewType::ResourceView:
+                    BEGIN
+
+                        gcodconVSControlAddIn.LoadCalendars(FactoryNo, ldnCalendarsJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd));
+                        gcodconVSControlAddIn.LoadResources(ldnResourcesJSON, ldnCurvesJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd), FactoryNo);
+                        gcodconVSControlAddIn.LoadAllocations(ldnActivitiesJSON, ldnAllocationsJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd));
+                        gcodconVSControlAddIn.LoadEntities(ldnEntitiesJSON);
+                        gcodconVSControlAddIn.LoadContextMenus(ldnContextMenusJSON);
+
+                        CurrPage.conVSControlAddIn.RemoveAllocations(ldnAllocationsJSON);
+                        CurrPage.conVSControlAddIn.RemoveEntities(ldnEntitiesJSON);
+                        CurrPage.conVSControlAddIn.AddAllocations(ldnAllocationsJSON);
+                        CurrPage.conVSControlAddIn.AddEntities(ldnEntitiesJSON);
+                        CurrPage.conVSControlAddIn.Render();
+
+                    END;
+            END;
+        END;
+    end;
+
 
     local procedure ScrollToActivity()
     var
@@ -3544,26 +3622,26 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         end;
     end;
 
-    local procedure SetView(pViewType: Integer)
-    begin
-        CASE pViewType OF
-            goptViewType::ActivityView:
-                BEGIN
-                    gintconVSControlAddInViewType := pViewType;
-                    gtxtconVSControlAddInTitleText := 'Activity View';
-                    SetconVSControlAddInSettings();
-                    LoadData();
-                END;
+    // local procedure SetView(pViewType: Integer)
+    // begin
+    //     CASE pViewType OF
+    //         goptViewType::ActivityView:
+    //             BEGIN
+    //                 gintconVSControlAddInViewType := pViewType;
+    //                 gtxtconVSControlAddInTitleText := 'Activity View';
+    //                 SetconVSControlAddInSettings();
+    //                 LoadData(false, false, false, false, false);
+    //             END;
 
-            goptViewType::ResourceView:
-                BEGIN
-                    gintconVSControlAddInViewType := pViewType;
-                    gtxtconVSControlAddInTitleText := 'Resource View';
-                    SetconVSControlAddInSettings();
-                    LoadData();
-                END;
-        END;
-    end;
+    //         goptViewType::ResourceView:
+    //             BEGIN
+    //                 gintconVSControlAddInViewType := pViewType;
+    //                 gtxtconVSControlAddInTitleText := 'Resource View';
+    //                 SetconVSControlAddInSettings();
+    //                 LoadData(false, false, false, true, false);
+    //             END;
+    //     END;
+    // end;
 
     local procedure GenerateQueue()
     var
