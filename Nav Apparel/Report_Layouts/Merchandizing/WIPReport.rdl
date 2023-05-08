@@ -3266,6 +3266,11 @@
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Details" />
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!Ship_Date.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
                 </TablixMember>
                 <TablixMember>
                   <KeepWithGroup>Before</KeepWithGroup>

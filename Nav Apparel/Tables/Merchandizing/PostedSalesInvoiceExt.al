@@ -76,7 +76,7 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
             DataClassification = ToBeClassified;
         }
 
-        field(50016; "Export Ref No."; code[20])
+        field(50016; "Export Ref No."; code[50])
         {
             DataClassification = ToBeClassified;
         }
