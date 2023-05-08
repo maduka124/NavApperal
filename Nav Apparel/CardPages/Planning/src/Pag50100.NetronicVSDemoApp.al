@@ -3564,17 +3564,16 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 goptViewType::ResourceView:
                     BEGIN
 
-                        gcodconVSControlAddIn.LoadCalendars(FactoryNo, ldnCalendarsJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd));
-                        gcodconVSControlAddIn.LoadResources(ldnResourcesJSON, ldnCurvesJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd), FactoryNo);
                         gcodconVSControlAddIn.LoadAllocations(ldnActivitiesJSON, ldnAllocationsJSON, DT2DATE(gdtconVSControlAddInStart), DT2DATE(gdtconVSControlAddInEnd));
                         gcodconVSControlAddIn.LoadEntities(ldnEntitiesJSON);
-                        gcodconVSControlAddIn.LoadContextMenus(ldnContextMenusJSON);
 
-                        CurrPage.conVSControlAddIn.RemoveAllocations(ldnAllocationsJSON);
-                        CurrPage.conVSControlAddIn.RemoveEntities(ldnEntitiesJSON);
+                        // CurrPage.conVSControlAddIn.RemoveAllOfType(2);
+                        // CurrPage.conVSControlAddIn.RemoveAllOfType(13);
+
                         CurrPage.conVSControlAddIn.AddAllocations(ldnAllocationsJSON);
                         CurrPage.conVSControlAddIn.AddEntities(ldnEntitiesJSON);
                         CurrPage.conVSControlAddIn.Render();
+
 
                     END;
             END;
