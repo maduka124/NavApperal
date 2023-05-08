@@ -139,6 +139,8 @@ page 50466 "New Breakdown Op Listpart2"
                     EstimateCostRec: Record "BOM Estimate Cost";
                     SwingProductionRec: Record ProductionOutHeader;
                     SwingProduction2Rec: Record ProductionOutHeader;
+                    NavapPlaningLineRec: Record "NavApp Planning Lines";
+                    NavapProductionplandetails: Record "NavApp Prod Plans Details";
                     SMV: Decimal;
                     MachineTotal: Decimal;
                     HelperTotal: Decimal;
@@ -222,6 +224,7 @@ page 50466 "New Breakdown Op Listpart2"
                     NewBreakdownRec.Manual := HelperTotal;
                     NewBreakdownRec.Modify();
 
+                    //Done By Sachith on 04/05/23
                     StyleRec.Reset();
                     StyleRec.SetRange("No.", Style);
 
@@ -247,8 +250,30 @@ page 50466 "New Breakdown Op Listpart2"
 
                         StyleRec.SMV := SMV;
                         StyleRec.Modify();
-                    end;
 
+                        //Done By Sachith on 08/05/23
+                        NavapPlaningLineRec.Reset();
+                        NavapPlaningLineRec.SetRange("Style No.", Style);
+
+                        if NavapPlaningLineRec.FindFirst() then begin
+                            repeat
+
+                                NavapPlaningLineRec.SMV := SMV;
+                                NavapPlaningLineRec.Modify();
+
+                                NavapProductionplandetails.Reset();
+                                NavapProductionplandetails.SetRange("Line No.", NavapPlaningLineRec."Line No.");
+
+                                if NavapProductionplandetails.FindFirst() then begin
+                                    repeat
+                                        NavapProductionplandetails.SMV := SMV;
+                                        NavapProductionplandetails.Modify();
+                                    until NavapProductionplandetails.Next() = 0;
+                                end;
+
+                            until NavapPlaningLineRec.Next() = 0;
+                        end;
+                    end;
                     Message('Calculation completed.');
 
 
