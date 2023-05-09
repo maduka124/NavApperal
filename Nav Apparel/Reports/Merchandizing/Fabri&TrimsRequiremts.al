@@ -39,17 +39,8 @@ report 50610 FabricAndTrimsRequiremts
                 //Done By Sachith on 17/02/23 
                 column(Brand_Name; "Brand Name")
                 { }
-
-
-                // column(Order_Qty; "Order Qty")
-                // { }
-                // column(No_; "No.")
-                // { }
                 column(PO_Total; "PO Total")
                 { }
-                // column(styleNO_p; styleNO_p)
-                // { }
-
 
                 dataitem("Style Master PO"; "Style Master PO")
                 {
@@ -67,9 +58,6 @@ report 50610 FabricAndTrimsRequiremts
                 }
 
 
-
-
-
                 trigger OnAfterGetRecord()
                 var
 
@@ -82,8 +70,6 @@ report 50610 FabricAndTrimsRequiremts
                     if BomRec.FindFirst() then begin
                         Revishion := BomRec.Revision;
                     end;
-
-
                 end;
 
 
@@ -104,7 +90,7 @@ report 50610 FabricAndTrimsRequiremts
                 { }
                 column(Unit_N0_; "Unit N0.")
                 { }
-                column(Qty; "GMT Qty")
+                column(Qty; POQty)
                 { }
                 column(WST; WST)
                 { }
@@ -132,6 +118,19 @@ report 50610 FabricAndTrimsRequiremts
                 { }
                 column(Main_Category_Name; "Main Category Name")
                 { }
+                trigger OnAfterGetRecord()
+                var
+                    myInt: Integer;
+                begin
+                    StyleMasterPoRec.Reset();
+                    StyleMasterPoRec.SetRange("PO No.", PO);
+                    if StyleMasterPoRec.FindSet() then begin
+                        repeat
+                            POQty += StyleMasterPoRec.Qty
+                        until StyleMasterPoRec.Next() = 0;
+                    end;
+
+                end;
 
             }
 
@@ -186,6 +185,7 @@ report 50610 FabricAndTrimsRequiremts
         }
     }
     var
+        POQty: BigInteger;
         myInt: Integer;
         NoFilter: Code[20];
         StyleMasterPoRec: Record "Style Master PO";
