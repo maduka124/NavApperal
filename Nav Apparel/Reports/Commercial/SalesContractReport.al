@@ -18,6 +18,22 @@ report 51245 SalesContractReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+            column(BBLC; BBLC)
+            { }
+            column(Freight_Value; "Freight Value")
+            { }
+            column(Total_Commission; "Total Commission")
+            { }
+            column(Amend_Date; "Amend Date")
+            { }
+            column(Expiry_Date; "Expiry Date")
+            { }
+            column(Factory; Factory)
+            { }
+            column(OrderQty; OrderQty)
+            { }
+            column(Contract_Value; "Contract Value")
+            { }
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
             {
                 DataItemLinkReference = "Contract/LCMaster";
@@ -25,6 +41,8 @@ report 51245 SalesContractReport
                 DataItemTableView = sorting("No.");
 
                 column(Style_Name; "Style Name")
+                { }
+                column(Qty; QTYG)
                 { }
                 dataitem("Style Master PO"; "Style Master PO")
                 {
@@ -74,6 +92,8 @@ report 51245 SalesContractReport
                         StyleRec.SetRange("No.", "Style No.");
                         if StyleRec.FindFirst() then begin
                             GarmentType := StyleRec."Garment Type Name";
+                            OrderQty := StyleRec."Order Qty";
+
                         end;
 
                         AssormentDetailRec.Reset();
@@ -82,6 +102,15 @@ report 51245 SalesContractReport
                         if AssormentDetailRec.FindFirst() then begin
                             Color := AssormentDetailRec."Colour Name";
                         end;
+
+                        "Contract/LCStyle".Reset();
+                        "Contract/LCStyle".SetRange("No.", "Contract/LCStyle"."No.");
+                        if "Contract/LCStyle".FindFirst() then begin
+                            repeat
+                                QTYG += "Contract/LCStyle".Qty;
+                            until "Contract/LCStyle".Next() = 0;
+                        end;
+
                     end;
                 }
             }
@@ -127,7 +156,8 @@ report 51245 SalesContractReport
 
 
     var
-
+        QTYG: BigInteger;
+        OrderQty: BigInteger;
         AssormentDetailRec: Record AssortmentDetails;
         AssormentQty: Integer;
         AssorColorRationRec: Record AssorColorSizeRatio;
