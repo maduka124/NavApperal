@@ -38,6 +38,16 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
             // }
         }
 
+        //Done By Sachith On 09/05/23
+        modify(Quantity)
+        {
+            trigger OnAfterValidate()
+            begin
+                if rec.Quantity > xRec.Quantity then
+                    Error('You can not request more than %1', xRec.Quantity);
+            end;
+        }
+
         addafter(Description)
         {
             field("Stock Before Issue"; rec."Stock Before Issue")
