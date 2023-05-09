@@ -44,60 +44,6 @@ report 50610 FabricAndTrimsRequiremts
                 { }
                 column(shipDate; "Ship Date")
                 { }
-                dataitem("BOM Line AutoGen"; "BOM Line AutoGen")
-                {
-                    DataItemLinkReference = BOMPOSelection;
-                    DataItemLink = "No." = field("BOM No.");
-                    DataItemTableView = sorting("No.");
-
-                    column(Placement_of_GMT; "Placement of GMT")
-                    { }
-                    column(GMT_Color_Name; "GMT Color Name")
-                    { }
-                    column(Article_Name_; "Article Name.")
-                    { }
-                    column(Item_Color_Name; "Item Color Name")
-                    { }
-                    column(Unit_N0_; "Unit N0.")
-                    { }
-                    column(Qty; "GMT Qty")
-                    { }
-                    column(WST; WST)
-                    { }
-                    column(Type; Type)
-                    { }
-                    column(Consumption; Consumption)
-                    { }
-                    column(RequirmentQTY; Requirment)
-                    { }
-                    column(AjstReq; AjstReq)
-                    { }
-                    column(Dimension_Name_; "Dimension Name.")
-                    { }
-                    column(GMT_Size_Name; "GMT Size Name")
-                    { }
-                    column(Revishion; Revishion)
-                    { }
-                    column(Item_Name; "Item Name")
-                    { }
-                    column(Main_Category_Name; "Main Category Name")
-                    { }
-                    column(Lot_No_; "Lot No.")
-                    { }
-                    column(PO; PO)
-                    { }
-                    trigger OnAfterGetRecord()
-                    var
-                        myInt: Integer;
-                    begin
-                        StyleMasterPoRec.Reset();
-                        StyleMasterPoRec.SetRange("PO No.", PO);
-                        if StyleMasterPoRec.FindSet() then begin
-                            POQty := StyleMasterPoRec.Qty
-                        end;
-
-                    end;
-                }
                 trigger OnAfterGetRecord()
                 var
                 begin
@@ -116,6 +62,63 @@ report 50610 FabricAndTrimsRequiremts
                     end;
                 end;
             }
+
+            dataitem("BOM Line AutoGen"; "BOM Line AutoGen")
+            {
+                DataItemLinkReference = BOM;
+                DataItemLink = "No." = field(No);
+                DataItemTableView = sorting("No.");
+
+                column(Placement_of_GMT; "Placement of GMT")
+                { }
+                column(GMT_Color_Name; "GMT Color Name")
+                { }
+                column(Article_Name_; "Article Name.")
+                { }
+                column(Item_Color_Name; "Item Color Name")
+                { }
+                column(Unit_N0_; "Unit N0.")
+                { }
+                column(Qty; "GMT Qty")
+                { }
+                column(WST; WST)
+                { }
+                column(Type; Type)
+                { }
+                column(Consumption; Consumption)
+                { }
+                column(RequirmentQTY; Requirment)
+                { }
+                column(AjstReq; AjstReq)
+                { }
+                column(Dimension_Name_; "Dimension Name.")
+                { }
+                column(GMT_Size_Name; "GMT Size Name")
+                { }
+                column(Revishion; Revishion)
+                { }
+                column(Item_Name; "Item Name")
+                { }
+                column(Main_Category_Name; "Main Category Name")
+                { }
+                column(Lot_No_; "Lot No.")
+                { }
+                column(PO; PO)
+                { }
+                trigger OnAfterGetRecord()
+                var
+                    myInt: Integer;
+                begin
+                    StyleMasterPoRec.Reset();
+                    StyleMasterPoRec.SetRange("PO No.", PO);
+                    if StyleMasterPoRec.FindSet() then begin
+                        POQty := StyleMasterPoRec.Qty
+                    end;
+
+                end;
+            }
+
+
 
             trigger OnAfterGetRecord()
 
