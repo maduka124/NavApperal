@@ -81,6 +81,23 @@ page 50978 "Create User Card"
     {
         area(Processing)
         {
+            action("Remove minus Planned Qty")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    Sty: Record "Style Master PO";
+                begin
+                    Sty.Reset();
+                    Sty.SetFilter(PlannedQty, '<%1', 0);
+                    Sty.FindSet();
+                    Sty.ModifyAll(PlannedQty, 0);
+                    Message('Completed');
+                end;
+            }
+
             // action("update prod update status")
             // {
             //     ApplicationArea = All;

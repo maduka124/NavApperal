@@ -105,7 +105,7 @@ page 50371 "Prod Update Card"
         TempDate: Date;
         TempHours: Decimal;
         i: Integer;
-        Rate: Decimal;        
+        Rate: Decimal;
         Qty: BigInteger;
         MaxLineNo: BigInteger;
         xQty: Decimal;
@@ -656,6 +656,10 @@ page 50371 "Prod Update Card"
                                     StyleMasterPORec.SetRange("Style No.", JobPlaLineRec."Style No.");
                                     StyleMasterPORec.SetRange("lot No.", JobPlaLineRec."lot No.");
                                     StyleMasterPORec.FindSet();
+
+                                    if (StyleMasterPORec.PlannedQty - OutputQty) < 0 then
+                                        Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+
                                     StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - OutputQty;
                                     StyleMasterPORec.OutputQty := StyleMasterPORec.OutputQty + OutputQty;
                                     StyleMasterPORec.Modify();
@@ -690,7 +694,7 @@ page 50371 "Prod Update Card"
                                         JobPlaLine1Rec.SetFilter("Line No.", '<>%1', LineNo);
 
                                         if JobPlaLine1Rec.FindSet() then begin
-                                           
+
                                             HoursPerDay := 0;
                                             i := 0;
                                             N1 := 0;

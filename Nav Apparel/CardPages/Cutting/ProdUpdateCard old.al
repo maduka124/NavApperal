@@ -640,6 +640,10 @@ page 51299 "Prod Update Card old"
                                     StyleMasterPORec.SetRange("Style No.", JobPlaLineRec."Style No.");
                                     StyleMasterPORec.SetRange("lot No.", JobPlaLineRec."lot No.");
                                     StyleMasterPORec.FindSet();
+
+                                    if (StyleMasterPORec.PlannedQty - OutputQty) < 0 then
+                                      Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+
                                     StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - OutputQty;
                                     StyleMasterPORec.OutputQty := StyleMasterPORec.OutputQty + OutputQty;
                                     StyleMasterPORec.Modify();

@@ -73,7 +73,7 @@ query 50772 "StyleMaster_StyleMasterPO_Q"
                 {
                 }
 
-                column(OutputQty; OutputQty)
+                column(SawingOutQty; "Sawing Out Qty")
                 {
                 }
 

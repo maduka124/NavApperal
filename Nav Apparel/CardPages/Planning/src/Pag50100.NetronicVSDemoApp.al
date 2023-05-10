@@ -1061,6 +1061,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             StyleMasterPORec.SetRange("Style No.", PlanningQueueeRec."Style No.");
                             StyleMasterPORec.SetRange("Lot No.", PlanningQueueeRec."Lot No.");
                             StyleMasterPORec.FindSet();
+
+                            if (StyleMasterPORec.PlannedQty + PlanningQueueeRec.Qty) < 0 then
+                                Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+
                             StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty + PlanningQueueeRec.Qty;
                             StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty - PlanningQueueeRec.Qty;
                             StyleMasterPORec.Modify();
@@ -2964,6 +2968,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             StyleMasterPORec.SetRange("Style No.", PlanningLinesRec."Style No.");
                             StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
                             StyleMasterPORec.FindSet();
+
+                            if (StyleMasterPORec.PlannedQty - TempQty) < 0 then
+                                Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+
+
                             StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - TempQty;
                             StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + TempQty;
                             StyleMasterPORec.Modify();
@@ -3072,6 +3081,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             StyleMasterPORec.SetRange("Style No.", PlanningLinesRec."Style No.");
                             StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
                             StyleMasterPORec.FindSet();
+
+                            if (StyleMasterPORec.PlannedQty - QTY) < 0 then
+                                Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+
+
                             StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - QTY;
                             StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + QTY;
                             StyleMasterPORec.Modify();
@@ -3704,10 +3718,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 if StyleMasterPORec.PlannedStatus = false then begin
 
                     QueueNo += 1;
-                    Temp := StyleMasterPORec.Qty - StyleMasterPORec.PlannedQty - StyleMasterPORec.OutputQty;
+                    Temp := StyleMasterPORec.Qty - StyleMasterPORec.PlannedQty - StyleMasterPORec."Sawing Out Qty";
                     QtyWithWaistage := Temp + (Temp * Waistage) / 100;
                     QtyWithWaistage := Round(QtyWithWaistage, 1);
-                    x := StyleMasterPORec.PlannedQty + StyleMasterPORec.OutputQty + StyleMasterPORec.QueueQty + StyleMasterPORec.Waistage;
+                    x := StyleMasterPORec.PlannedQty + StyleMasterPORec."Sawing Out Qty" + StyleMasterPORec.QueueQty + StyleMasterPORec.Waistage;
 
                     if StyleMasterPORec.Qty > x then begin
 

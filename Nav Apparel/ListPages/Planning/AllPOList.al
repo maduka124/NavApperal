@@ -72,6 +72,7 @@ page 50489 "All PO List"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Qty - Output';
                 }
 
                 //Done By sachith on 27/03/23
@@ -163,26 +164,6 @@ page 50489 "All PO List"
                     ExportData(Rec);
                 end;
             }
-
-            // action("Get Total")
-            // {
-            //     ApplicationArea = all;
-            //     Image = Totals;
-            //     Caption = 'Get Total';
-
-            //     trigger OnAction()
-            //     var
-            //         T: Record StyleMaster_StyleMasterPO_T;
-            //     begin
-            //         //CurrPage.SetSelectionFilter(T);
-            //         if T.FindSet() then
-            //             repeat
-            //                 if T.Select then
-            //                     rec.Amount += T.Qty;
-            //             until T.Next() = 0;
-            //         CurrPage.Update();
-            //     end;
-            // }
         }
     }
 
@@ -219,94 +200,94 @@ page 50489 "All PO List"
         end;
 
 
-        //if CloseAction = Action::OK then begin
+        if CloseAction = Action::LookupOK then begin
 
-        //Get Max Lineno
-        PlanningQueueRec.Reset();
+            //Get Max Lineno
+            PlanningQueueRec.Reset();
 
-        if PlanningQueueRec.FindLast() then
-            QueueNo := PlanningQueueRec."Queue No.";
+            if PlanningQueueRec.FindLast() then
+                QueueNo := PlanningQueueRec."Queue No.";
 
-        Waistage := 0;
-        QtyWithWaistage := 0;
+            Waistage := 0;
+            QtyWithWaistage := 0;
 
-        TempRec.Reset();
-        TempRec.SetRange(select, true);
-        TempRec.SetFilter(PlannedStatus, '=%1', false);
-        TempRec.SetFilter(Status, '=%1', TempRec.Status::Confirm);
+            TempRec.Reset();
+            TempRec.SetRange(select, true);
+            TempRec.SetFilter(PlannedStatus, '=%1', false);
+            //TempRec.SetFilter(Status, '=%1', TempRec.Status::Confirm); //Nevil asked to remove this
 
-        if TempRec.FindSet() then begin
+            if TempRec.FindSet() then begin
 
-            repeat
+                repeat
 
-                if TempRec.PlannedStatus = false then begin
+                    if TempRec.PlannedStatus = false then begin
 
-                    StyleMasterPORec.Reset();
-                    StyleMasterPORec.SetRange("Style No.", TempRec.No);
-                    StyleMasterPORec.SetRange("Lot No.", TempRec.Lot_No);
-                    if not StyleMasterPORec.FindSet() then
-                        Error('Cannot find PO details.');
+                        StyleMasterPORec.Reset();
+                        StyleMasterPORec.SetRange("Style No.", TempRec.No);
+                        StyleMasterPORec.SetRange("Lot No.", TempRec.Lot_No);
+                        if not StyleMasterPORec.FindSet() then
+                            Error('Cannot find PO details.');
 
-                    StyleMasterRec.Reset();
-                    StyleMasterRec.SetRange("No.", StyleMasterPORec."Style No.");
-                    if not StyleMasterRec.FindSet() then
-                        Error('Cannot find Style details.');
+                        StyleMasterRec.Reset();
+                        StyleMasterRec.SetRange("No.", StyleMasterPORec."Style No.");
+                        if not StyleMasterRec.FindSet() then
+                            Error('Cannot find Style details.');
 
-                    //Get the wastage from wastage table
-                    WastageRec.Reset();
-                    WastageRec.SetFilter("Start Qty", '<=%1', StyleMasterPORec.Qty);
-                    WastageRec.SetFilter("Finish Qty", '>=%1', StyleMasterPORec.Qty);
+                        //Get the wastage from wastage table
+                        WastageRec.Reset();
+                        WastageRec.SetFilter("Start Qty", '<=%1', StyleMasterPORec.Qty);
+                        WastageRec.SetFilter("Finish Qty", '>=%1', StyleMasterPORec.Qty);
 
-                    if WastageRec.FindSet() then
-                        Waistage := WastageRec.Percentage;
+                        if WastageRec.FindSet() then
+                            Waistage := WastageRec.Percentage;
 
-                    QueueNo += 1;
-                    Temp := StyleMasterPORec.Qty - StyleMasterPORec.PlannedQty - StyleMasterPORec.OutputQty;
-                    QtyWithWaistage := Temp + (Temp * Waistage) / 100;
-                    QtyWithWaistage := Round(QtyWithWaistage, 1);
-                    x := StyleMasterPORec.PlannedQty + StyleMasterPORec.OutputQty + StyleMasterPORec.QueueQty + StyleMasterPORec.Waistage;
+                        QueueNo += 1;
+                        Temp := StyleMasterPORec.Qty - StyleMasterPORec.PlannedQty - StyleMasterPORec."Sawing Out Qty";
+                        QtyWithWaistage := Temp + (Temp * Waistage) / 100;
+                        QtyWithWaistage := Round(QtyWithWaistage, 1);
+                        x := StyleMasterPORec.PlannedQty + StyleMasterPORec."Sawing Out Qty" + StyleMasterPORec.QueueQty + StyleMasterPORec.Waistage;
 
-                    if StyleMasterPORec.Qty > x then begin
+                        if StyleMasterPORec.Qty > x then begin
 
-                        //Insert new line to Queue
-                        PlanningQueueNewRec.Init();
-                        PlanningQueueNewRec."Queue No." := QueueNo;
-                        PlanningQueueNewRec."Style No." := StyleMasterPORec."Style No.";
-                        PlanningQueueNewRec."Style Name" := StyleMasterRec."Style No.";
-                        PlanningQueueNewRec."PO No." := StyleMasterPORec."PO No.";
-                        PlanningQueueNewRec."Lot No." := StyleMasterPORec."Lot No.";
-                        PlanningQueueNewRec.Qty := QtyWithWaistage;
-                        PlanningQueueNewRec.Waistage := (Temp * Waistage) / 100;
-                        PlanningQueueNewRec.SMV := StyleMasterRec.SMV;
-                        PlanningQueueNewRec.Factory := Factory;
-                        PlanningQueueNewRec."TGTSEWFIN Date" := StyleMasterPORec."Ship Date";
-                        PlanningQueueNewRec."Learning Curve No." := learningcurve;
-                        PlanningQueueNewRec."Resource No" := '';
-                        PlanningQueueNewRec.Front := StyleMasterRec.Front;
-                        PlanningQueueNewRec.Back := StyleMasterRec.Back;
-                        PlanningQueueNewRec."User ID" := UserId;
-                        PlanningQueueNewRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                        PlanningQueueNewRec."Created Date" := WorkDate();
-                        PlanningQueueNewRec."Created User" := UserId;
-                        PlanningQueueNewRec.Insert();
+                            //Insert new line to Queue
+                            PlanningQueueNewRec.Init();
+                            PlanningQueueNewRec."Queue No." := QueueNo;
+                            PlanningQueueNewRec."Style No." := StyleMasterRec."No.";
+                            PlanningQueueNewRec."Style Name" := StyleMasterRec."Style No.";
+                            PlanningQueueNewRec."PO No." := StyleMasterPORec."PO No.";
+                            PlanningQueueNewRec."Lot No." := StyleMasterPORec."Lot No.";
+                            PlanningQueueNewRec.Qty := QtyWithWaistage;
+                            PlanningQueueNewRec.Waistage := (Temp * Waistage) / 100;
+                            PlanningQueueNewRec.SMV := StyleMasterRec.SMV;
+                            PlanningQueueNewRec.Factory := Factory;
+                            PlanningQueueNewRec."TGTSEWFIN Date" := StyleMasterPORec."Ship Date";
+                            PlanningQueueNewRec."Learning Curve No." := learningcurve;
+                            PlanningQueueNewRec."Resource No" := '';
+                            PlanningQueueNewRec.Front := StyleMasterRec.Front;
+                            PlanningQueueNewRec.Back := StyleMasterRec.Back;
+                            PlanningQueueNewRec."User ID" := UserId;
+                            PlanningQueueNewRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                            PlanningQueueNewRec."Created Date" := WorkDate();
+                            PlanningQueueNewRec."Created User" := UserId;
+                            PlanningQueueNewRec.Insert();
 
 
-                        //Update Style Master PO
-                        StyleMasterPONewRec.Reset();
-                        StyleMasterPONewRec.SetRange("Style No.", StyleMasterPORec."Style No.");
-                        StyleMasterPONewRec.SetRange("Lot No.", StyleMasterPORec."Lot No.");
-                        StyleMasterPONewRec.FindSet();
-                        StyleMasterPONewRec.PlannedStatus := true;
-                        StyleMasterPONewRec.QueueQty := QtyWithWaistage;
-                        StyleMasterPONewRec.Waistage := (Temp * Waistage) / 100;
-                        StyleMasterPONewRec.Modify();
+                            //Update Style Master PO
+                            StyleMasterPONewRec.Reset();
+                            StyleMasterPONewRec.SetRange("Style No.", StyleMasterPORec."Style No.");
+                            StyleMasterPONewRec.SetRange("Lot No.", StyleMasterPORec."Lot No.");
+                            StyleMasterPONewRec.FindSet();
+                            StyleMasterPONewRec.PlannedStatus := true;
+                            StyleMasterPONewRec.QueueQty := QtyWithWaistage;
+                            StyleMasterPONewRec.Waistage := (Temp * Waistage) / 100;
+                            StyleMasterPONewRec.Modify();
 
+                        end;
                     end;
-                end;
-            until TempRec.Next = 0;
-        end;
+                until TempRec.Next = 0;
+            end;
 
-        //end;
+        end;
     end;
 
 
@@ -320,6 +301,7 @@ page 50489 "All PO List"
         LoginSessionsRec: Record LoginSessions;
         NavAppLineRec: Record "NavApp Planning Lines";
         ProcutionOutHeaderRec: Record ProductionOutHeader;
+        x: Integer;
     begin
 
         //Check whether user logged in or not
@@ -340,8 +322,6 @@ page 50489 "All PO List"
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
 
-
-
         //Delete old records
         TempRec.Reset();
         if TempRec.FindSet() then
@@ -351,7 +331,7 @@ page 50489 "All PO List"
         if TempQuery.Open() then begin
             while TempQuery.Read() do begin
 
-                if (TempQuery.Qty - TempQuery.PlannedQty - TempQuery.OutputQty) > 0 then begin
+                if (TempQuery.Qty - TempQuery.PlannedQty - TempQuery.SawingOutQty) > 0 then begin
 
                     Rec.Init();
                     Rec.BPCD := TempQuery.BPCD;
@@ -362,7 +342,8 @@ page 50489 "All PO List"
                     Rec.No := TempQuery.No;
                     Rec.PlannedStatus := TempQuery.PlannedStatus;
                     Rec.PONo := TempQuery.PONo;
-                    Rec.Qty := TempQuery.Qty - TempQuery.PlannedQty - TempQuery.OutputQty;
+                    // Rec.Qty := TempQuery.Qty - TempQuery.PlannedQty - TempQuery.SawingOutQty;   
+                    Rec.Qty := TempQuery.Qty - TempQuery.SawingOutQty;  //Nevil asked to remove paln qty
                     Rec.Select := TempQuery.Select;
                     Rec.ShipDate := TempQuery.ShipDate;
                     Rec.SID := TempQuery.SID;
