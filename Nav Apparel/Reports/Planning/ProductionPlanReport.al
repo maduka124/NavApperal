@@ -166,6 +166,14 @@ report 50621 ProductionPlanReport
                 end;
             }
 
+            trigger OnPreDataItem()
+            var
+                myInt: Integer;
+            begin
+                if BuyerNo <> '' then
+                    SetRange("Buyer No.", BuyerNo);
+            end;
+
             trigger OnAfterGetRecord()
             begin
                 comRec.Get;
@@ -217,7 +225,12 @@ report 50621 ProductionPlanReport
                                 end;
                         end;
                     }
-
+                    field(BuyerNo; BuyerNo)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Buyer No';
+                        TableRelation = Customer."No.";
+                    }
                     field(stDate; stDate)
                     {
                         ApplicationArea = All;
@@ -236,6 +249,7 @@ report 50621 ProductionPlanReport
 
 
     var
+        BuyerNo: Code[20];
         WorkcenterNo: Integer;
         WorkCenterRec: Record "Work Center";
         BPCDPo: Date;
