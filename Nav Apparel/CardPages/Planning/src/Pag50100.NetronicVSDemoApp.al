@@ -1062,8 +1062,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             StyleMasterPORec.SetRange("Lot No.", PlanningQueueeRec."Lot No.");
                             StyleMasterPORec.FindSet();
 
-                            if (StyleMasterPORec.PlannedQty + PlanningQueueeRec.Qty) < 0 then
-                                Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+                            // if (StyleMasterPORec.PlannedQty + PlanningQueueeRec.Qty) < 0 then
+                            //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
 
                             StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty + PlanningQueueeRec.Qty;
                             StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty - PlanningQueueeRec.Qty;
@@ -2969,8 +2969,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
                             StyleMasterPORec.FindSet();
 
-                            if (StyleMasterPORec.PlannedQty - TempQty) < 0 then
-                                Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+                            // if (StyleMasterPORec.PlannedQty - TempQty) < 0 then
+                            //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
 
 
                             StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - TempQty;
@@ -3016,7 +3016,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             //get remaining qty
                             ProdPlanDetRec.Reset();
                             ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
-                            ProdPlanDetRec.SetFilter(ProdUpd, '=0');
+                            ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
                             ProdPlanDetRec.SetRange("Line No.", LineNo);
 
 
@@ -3082,8 +3082,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
                             StyleMasterPORec.FindSet();
 
-                            if (StyleMasterPORec.PlannedQty - QTY) < 0 then
-                                Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+                            // if (StyleMasterPORec.PlannedQty - QTY) < 0 then
+                            //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
 
 
                             StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - QTY;

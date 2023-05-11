@@ -181,8 +181,8 @@ page 51307 "Return To Queue List"
                                 StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
                                 StyleMasterPORec.FindSet();
 
-                                if (StyleMasterPORec.PlannedQty - QTY) < 0 then
-                                    Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+                                // if (StyleMasterPORec.PlannedQty - QTY) < 0 then
+                                //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
 
                                 StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - QTY;
                                 StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + QTY;
