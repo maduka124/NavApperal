@@ -126,6 +126,8 @@ report 50865 HourlyProductionReport
             { }
             column(CM; CM)
             { }
+            column(TOtalTarget; TOtalTarget)
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -158,16 +160,210 @@ report 50865 HourlyProductionReport
                 { }
                 column(Factory_No_1; "Factory No.")
                 { }
+                column(Hour1Tot; Hour1Tot)
+                { }
+                column(Hour2Tot; Hour2Tot)
+                { }
+                column(Hour3Tot; Hour3Tot)
+                { }
+                column(Hour4Tot; Hour4Tot)
+                { }
+                column(Hour5Tot; Hour5Tot)
+                { }
+                column(Hour6Tot; Hour6Tot)
+                { }
+                column(Hour7Tot; Hour7Tot)
+                { }
+                column(Hour8Tot; Hour8Tot)
+                { }
+                column(Hour9Tot; Hour9Tot)
+                { }
+                column(Hour10Tot; Hour10Tot)
+                { }
+                column(TotalAchiveHours; TotalAchiveHours)
+                { }
 
             }
 
+            dataitem("Hourly Production Lines Finishing"; "Hourly Production Lines")
+            {
+                DataItemLinkReference = "NavApp Prod Plans Details";
+                DataItemLink = "Factory No." = field("Factory No."), "Work Center No." = field("Resource No."), "Prod Date" = field(PlanDate), "Style No." = field("Style No.");
+                DataItemTableView = where(Type = filter('Finishing'), Item = filter('PASS PCS'));
+
+                column(Hour_1F; "Hour 01")
+                { }
+                column(Hour_2F; "Hour 02")
+                { }
+                column(Hour_3F; "Hour 03")
+                { }
+                column(Hour_4F; "Hour 04")
+                { }
+                column(Hour_5F; "Hour 05")
+                { }
+                column(Hour_6F; "Hour 06")
+                { }
+                column(Hour_7F; "Hour 07")
+                { }
+                column(Hour_8F; "Hour 08")
+                { }
+                column(Hour_9F; "Hour 09")
+                { }
+                column(Hour_10F; "Hour 10")
+                { }
+                column(Line_No_1F; "Work Center Name")
+                { }
+                column(ItemF; Item)
+                { }
+                column(Factory_No_1F; "Factory No.")
+                { }
+                column(StyleNameFinishing;StyleName)
+                { }
+                column(Hour1TotFin; Hour1TotFin)
+                { }
+                column(Hour2TotFin; Hour2TotFin)
+                { }
+                column(Hour3TotFin; Hour3TotFin)
+                { }
+                column(Hour4TotFin; Hour4TotFin)
+                { }
+                column(Hour5TotFin; Hour5TotFin)
+                { }
+                column(Hour6TotFin; Hour6TotFin)
+                { }
+                column(Hour7TotFin; Hour7TotFin)
+                { }
+                column(Hour8TotFin; Hour8TotFin)
+                { }
+                column(Hour9TotFin; Hour9TotFin)
+                { }
+                column(Hour10TotFin; Hour10TotFin)
+                { }
+                column(TotalAchiveHoursFin; TotalAchiveHoursFin)
+                { }
+
+                trigger OnAfterGetRecord()
+                var
+                    myInt: Integer;
+                begin
+
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", "Style No.");
+                    if StyleRec.FindFirst() then begin
+                        StyleName := StyleRec."Style No.";
+                    end;
+
+                    // HoFinLineRec.Reset();
+                    // HoFinLineRec.SetRange("Prod Date", PlanDate);
+                    // HoFinLineRec.SetRange(Type, HoFinLineRec.Type::Finishing);
+                    // // HoFinLineRec.SetRange("Style No.", "Style No.");
+                    // HoFinLineRec.SetRange("Factory No.", "Factory No.");
+                    // // HoFinLineRec.SetRange("Work Center No.", "Resource No.");
+                    // HoFinLineRec.SetFilter(Item, '=%1', 'PASS PCS');
+                    // if HoFinLineRec.FindSet() then begin
+                    //     Hour1F := HoFinLineRec."Hour 01";
+                    //     Hour2F := HoFinLineRec."Hour 02";
+                    //     Hour3F := HoFinLineRec."Hour 03";
+                    //     Hour4F := HoFinLineRec."Hour 04";
+                    //     Hour5F := HoFinLineRec."Hour 05";
+                    //     Hour6F := HoFinLineRec."Hour 06";
+                    //     Hour7F := HoFinLineRec."Hour 07";
+                    //     Hour8F := HoFinLineRec."Hour 08";
+                    //     Hour9F := HoFinLineRec."Hour 09";
+                    //     Hour10F := HoFinLineRec."Hour 10";
+                    //     LineNOFIn := HoFinLineRec."Work Center Name";
+                    //     ItemFin := HoFinLineRec.Item;
+                    //     FactoryNoFin := HoFinLineRec."Factory No.";
+                    //     StylenameFIn := HoFinLineRec."Style No.";
+                    // end;
+
+                    HoProLiRec.Reset();
+                    HoProLiRec.SetRange("No.", "No.");
+                    // HoProLiRec.SetRange("Prod Date", PlanDate);
+                    // HoProLiRec.SetRange("Factory No.", "Factory No.");
+                    HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
+                    HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                    if HoProLiRec.FindSet() then begin
+
+                        HoProLiRec.CalcSums("Hour 01");
+                        Hour1TotFin := HoProLiRec."Hour 01";
+
+                        HoProLiRec.CalcSums("Hour 02");
+                        Hour2TotFin := HoProLiRec."Hour 02";
+
+                        HoProLiRec.CalcSums("Hour 03");
+                        Hour3TotFin := HoProLiRec."Hour 03";
+
+                        HoProLiRec.CalcSums("Hour 04");
+                        Hour4TotFin := HoProLiRec."Hour 04";
+
+                        HoProLiRec.CalcSums("Hour 05");
+                        Hour5TotFin := HoProLiRec."Hour 05";
+
+                        HoProLiRec.CalcSums("Hour 06");
+                        Hour6TotFin := HoProLiRec."Hour 06";
+
+                        HoProLiRec.CalcSums("Hour 07");
+                        Hour7TotFin := HoProLiRec."Hour 07";
+
+                        HoProLiRec.CalcSums("Hour 08");
+                        Hour8TotFin := HoProLiRec."Hour 08";
+
+                        HoProLiRec.CalcSums("Hour 09");
+                        Hour9TotFin := HoProLiRec."Hour 09";
+
+                        HoProLiRec.CalcSums("Hour 10");
+                        Hour10TotFin := HoProLiRec."Hour 10";
+
+                        TotalAchiveHoursFin := Hour1TotFin + Hour2TotFin + Hour3TotFin + Hour4TotFin + Hour5TotFin + Hour6TotFin + Hour7TotFin + Hour8TotFin + Hour9TotFin + Hour10TotFin;
+                    end;
+                end;
+            }
             trigger OnAfterGetRecord()
             begin
 
-                // if Qty > 0 then
-                //     DayTarget := Qty
-                // else
-                //     DayTarget := Qty * -1;
+
+
+                HoProLiRec.Reset();
+                HoProLiRec.SetRange("Prod Date", PlanDate);
+                HoProLiRec.SetRange("Factory No.", "Factory No.");
+                HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
+                HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                if HoProLiRec.FindSet() then begin
+
+                    HoProLiRec.CalcSums("Hour 01");
+                    Hour1Tot := HoProLiRec."Hour 01";
+
+                    HoProLiRec.CalcSums("Hour 02");
+                    Hour2Tot := HoProLiRec."Hour 02";
+
+                    HoProLiRec.CalcSums("Hour 03");
+                    Hour3Tot := HoProLiRec."Hour 03";
+
+                    HoProLiRec.CalcSums("Hour 04");
+                    Hour4Tot := HoProLiRec."Hour 04";
+
+                    HoProLiRec.CalcSums("Hour 05");
+                    Hour5Tot := HoProLiRec."Hour 05";
+
+                    HoProLiRec.CalcSums("Hour 06");
+                    Hour6Tot := HoProLiRec."Hour 06";
+
+                    HoProLiRec.CalcSums("Hour 07");
+                    Hour7Tot := HoProLiRec."Hour 07";
+
+                    HoProLiRec.CalcSums("Hour 08");
+                    Hour8Tot := HoProLiRec."Hour 08";
+
+                    HoProLiRec.CalcSums("Hour 09");
+                    Hour9Tot := HoProLiRec."Hour 09";
+
+                    HoProLiRec.CalcSums("Hour 10");
+                    Hour10Tot := HoProLiRec."Hour 10";
+
+                    TotalAchiveHours := Hour1Tot + Hour2Tot + Hour3Tot + Hour4Tot + Hour5Tot + Hour6Tot + Hour7Tot + Hour8Tot + Hour9Tot + Hour10Tot;
+                end;
+
 
 
                 if HoursPerDay > 0 then
@@ -175,7 +371,7 @@ report 50865 HourlyProductionReport
                 else
                     HourlyTarget := 0;
 
-
+                TOtalTarget := HourlyTarget;
 
                 variance := TodayOutput - Qty;
                 comRec.Get;
@@ -538,7 +734,46 @@ report 50865 HourlyProductionReport
     }
 
     var
-
+        TOtalTarget: Decimal;
+        TotalAchiveHoursFin: Integer;
+        Hour1TotFin: Integer;
+        Hour2TotFin: Integer;
+        Hour3TotFin: Integer;
+        Hour4TotFin: Integer;
+        Hour5TotFin: Integer;
+        Hour6TotFin: Integer;
+        Hour7TotFin: Integer;
+        Hour8TotFin: Integer;
+        Hour9TotFin: Integer;
+        Hour10TotFin: Integer;
+        FactoryNoFin: Code[20];
+        LineNOFIn: Text[50];
+        ItemFin: Text[50];
+        StylenameFIn: Text[100];
+        Hour1F: Integer;
+        Hour2F: Integer;
+        Hour3F: Integer;
+        Hour4F: Integer;
+        Hour5F: Integer;
+        Hour6F: Integer;
+        Hour7F: Integer;
+        Hour8F: Integer;
+        Hour9F: Integer;
+        Hour10F: Integer;
+        HoFinLineRec: Record "Hourly Production Lines";
+        TotalAchiveHours: Integer;
+        Hour1Tot: Integer;
+        Hour2Tot: Integer;
+        Hour3Tot: Integer;
+        Hour4Tot: Integer;
+        Hour5Tot: Integer;
+        Hour6Tot: Integer;
+        Hour7Tot: Integer;
+        Hour8Tot: Integer;
+        Hour9Tot: Integer;
+        Hour10Tot: Integer;
+        HoProLiRec: Record "Hourly Production Lines";
+        StyleName: Text[100];
         CM: Decimal;
         DayTarget: Decimal;
         CutInputToday: BigInteger;

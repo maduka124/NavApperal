@@ -848,7 +848,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report DayWiseSewingTarget;
                         ApplicationArea = all;
                     }
-
+                    action("Export Summary Report Planning")
+                    {
+                        Caption = 'Export Summary Report';
+                        Enabled = true;
+                        RunObject = report ExportSummartReport;
+                        ApplicationArea = all;
+                    }
                     action("Day Wise Production Report")
                     {
                         Caption = 'Day Wise Production Report';
