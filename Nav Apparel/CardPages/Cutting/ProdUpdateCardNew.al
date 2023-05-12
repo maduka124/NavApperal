@@ -84,6 +84,7 @@ page 50371 "Prod Update Card"
         LocationRec: Record Location;
         ProductionOutLine: Record ProductionOutLine;
 
+        Holiday: code[10];
         Flag: Integer;
         LineTotal_Out: Decimal;
         dtStart: Date;
@@ -368,14 +369,14 @@ page 50371 "Prod Update Card"
                                     TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
                                     TempDate := dtStart;
 
-                                    //Update Prod status of all lines                                                
-                                    ProdOutHeaderRec.Reset();
-                                    ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
-                                    ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
-                                    ProdOutHeaderRec.SetRange("Resource No.", WorkCenterNo);
+                                    // //Update Prod status of all lines                                                
+                                    // ProdOutHeaderRec.Reset();
+                                    // ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+                                    // ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
+                                    // ProdOutHeaderRec.SetRange("Resource No.", WorkCenterNo);
 
-                                    if ProdOutHeaderRec.FindSet() then
-                                        ProdOutHeaderRec.ModifyAll("Prod Updated", 1);
+                                    // if ProdOutHeaderRec.FindSet() then
+                                    //     ProdOutHeaderRec.ModifyAll("Prod Updated", 1);
 
 
                                     //Get sewing out qty for the prod date
@@ -424,7 +425,13 @@ page 50371 "Prod Update Card"
 
                                         //Get working hours for the day
                                         HoursPerDay := 0;
+                                        Holiday := 'No';
                                         Rate := 0;
+
+                                        // ResourceRec.Reset();
+                                        // ResourceRec.SetRange("No.", WorkCenterNo);
+                                        // ResourceRec.FindSet();
+
                                         WorkCenCapacityEntryRec.Reset();
                                         WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
                                         WorkCenCapacityEntryRec.SETRANGE(Date, TempDate);
@@ -457,6 +464,45 @@ page 50371 "Prod Update Card"
                                             i := JobPlaLineRec.ProdUpdDays;
                                         // else
                                         //     i := 0;
+
+                                        if HoursPerDay = 0 then begin
+
+                                            //Validate the day (Holiday or Weekend)
+                                            SHCalHolidayRec.Reset();
+                                            SHCalHolidayRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+                                            SHCalHolidayRec.SETRANGE(Date, TempDate);
+
+                                            if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                                DayForWeek.Get(DayForWeek."Period Type"::Date, TempDate);
+
+                                                case DayForWeek."Period No." of
+                                                    1:
+                                                        Day := 0;
+                                                    2:
+                                                        Day := 1;
+                                                    3:
+                                                        Day := 2;
+                                                    4:
+                                                        Day := 3;
+                                                    5:
+                                                        Day := 4;
+                                                    6:
+                                                        Day := 5;
+                                                    7:
+                                                        Day := 6;
+                                                end;
+
+                                                SHCalWorkRec.Reset();
+                                                SHCalWorkRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+                                                SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                                if SHCalWorkRec.FindSet() then   //If not weekend
+                                                    Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, WorkCenterRec.Name)
+                                                else
+                                                    Holiday := 'Yes';
+                                            end
+                                            else
+                                                Holiday := 'Yes';
+                                        end;
 
                                         //No learning curve for holidays
                                         if HoursPerDay > 0 then
@@ -586,7 +632,16 @@ page 50371 "Prod Update Card"
 
                                             ProdPlansDetails.Qty := xQty;
                                             ProdPlansDetails.Target := TargetPerDay;
-                                            ProdPlansDetails.HoursPerDay := HoursPerDay;
+                                            // ProdPlansDetails.HoursPerDay := HoursPerDay;
+
+                                            if Holiday = 'NO' then
+                                                if TempHours > 0 then
+                                                    ProdPlansDetails.HoursPerDay := TempHours
+                                                else
+                                                    ProdPlansDetails.HoursPerDay := HoursPerDay
+                                            else
+                                                ProdPlansDetails.HoursPerDay := 0;
+
                                             ProdPlansDetails.ProdUpd := 0;
                                             ProdPlansDetails.ProdUpdQty := 0;
                                             ProdPlansDetails."Created User" := UserId;
@@ -854,6 +909,8 @@ page 50371 "Prod Update Card"
                                                             //Get working hours for the day
                                                             HoursPerDay := 0;
                                                             Rate := 0;
+                                                            Holiday := 'No';
+
                                                             WorkCenCapacityEntryRec.Reset();
                                                             WorkCenCapacityEntryRec.SETRANGE("No.", WorkCenterNo);
                                                             WorkCenCapacityEntryRec.SETRANGE(Date, TempDate);
@@ -880,7 +937,44 @@ page 50371 "Prod Update Card"
                                                                     Error('Calender is not setup for the Line : %1', WorkCenterName);
                                                             end;
 
+                                                            if HoursPerDay = 0 then begin
 
+                                                                //Validate the day (Holiday or Weekend)
+                                                                SHCalHolidayRec.Reset();
+                                                                SHCalHolidayRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+                                                                SHCalHolidayRec.SETRANGE(Date, TempDate);
+
+                                                                if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                                                    DayForWeek.Get(DayForWeek."Period Type"::Date, TempDate);
+
+                                                                    case DayForWeek."Period No." of
+                                                                        1:
+                                                                            Day := 0;
+                                                                        2:
+                                                                            Day := 1;
+                                                                        3:
+                                                                            Day := 2;
+                                                                        4:
+                                                                            Day := 3;
+                                                                        5:
+                                                                            Day := 4;
+                                                                        6:
+                                                                            Day := 5;
+                                                                        7:
+                                                                            Day := 6;
+                                                                    end;
+
+                                                                    SHCalWorkRec.Reset();
+                                                                    SHCalWorkRec.SETRANGE("Shop Calendar Code", WorkCenterRec."Shop Calendar Code");
+                                                                    SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                                                    if SHCalWorkRec.FindSet() then   //If not weekend
+                                                                        Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, WorkCenterRec.Name)
+                                                                    else
+                                                                        Holiday := 'Yes';
+                                                                end
+                                                                else
+                                                                    Holiday := 'Yes';
+                                                            end;
 
                                                             //No learning curve for holidays
                                                             if HoursPerDay > 0 then
@@ -1010,7 +1104,16 @@ page 50371 "Prod Update Card"
 
                                                             ProdPlansDetails.Qty := xQty;
                                                             ProdPlansDetails.Target := TargetPerDay;
-                                                            ProdPlansDetails.HoursPerDay := HoursPerDay;
+                                                            // ProdPlansDetails.HoursPerDay := HoursPerDay;
+
+                                                            if Holiday = 'NO' then
+                                                                if TempHours > 0 then
+                                                                    ProdPlansDetails.HoursPerDay := TempHours
+                                                                else
+                                                                    ProdPlansDetails.HoursPerDay := HoursPerDay
+                                                            else
+                                                                ProdPlansDetails.HoursPerDay := 0;
+
                                                             ProdPlansDetails.ProdUpd := 0;
                                                             ProdPlansDetails.ProdUpdQty := 0;
                                                             ProdPlansDetails."Created User" := UserId;
@@ -1088,6 +1191,14 @@ page 50371 "Prod Update Card"
                 end;
 
             until LocationRec.Next() = 0;
+
+            //Update Prod status of all lines                                                
+            ProdOutHeaderRec.Reset();
+            ProdOutHeaderRec.SetRange(Type, ProdOutHeaderRec.Type::Saw);
+            ProdOutHeaderRec.SetFilter("Prod Date", '=%1', ProdDate);
+
+            if ProdOutHeaderRec.FindSet() then
+                ProdOutHeaderRec.ModifyAll("Prod Updated", 1);
 
             if status = 1 then
                 Message('Production updated')

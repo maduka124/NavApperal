@@ -483,6 +483,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             ResourceRec.Reset();
                             ResourceRec.SetRange("No.", ResourceNo);
                             ResourceRec.FindSet();
+
                             Carder := ResourceRec.Carder;
                             eff := ResourceRec.PlanEff;
                             ResourceName := ResourceRec.Name;

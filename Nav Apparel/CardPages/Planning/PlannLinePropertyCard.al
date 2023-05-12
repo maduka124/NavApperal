@@ -250,7 +250,8 @@ page 50343 "Planning Line Property Card"
                     JobPlaLineRec.SetCurrentKey(StartDateTime);
                     JobPlaLineRec.Ascending(true);
 
-                    if JobPlaLineRec.FindSet() then begin
+                    if JobPlaLineRec.FindSet() then 
+                    begin
 
                         dtStart := JobPlaLineRec."Start Date";
                         TImeStart := JobPlaLineRec."Start Time";
