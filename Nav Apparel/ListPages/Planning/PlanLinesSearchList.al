@@ -134,7 +134,7 @@ page 50840 "Plan Lines - Search List"
                                 //get remaining qty
                                 ProdPlanDetRec.Reset();
                                 ProdPlanDetRec.SetRange("Resource No.", PlanningLinesRec."Resource No.");
-                                ProdPlanDetRec.SetFilter(ProdUpd, '=0');
+                                ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
                                 ProdPlanDetRec.SetRange("Line No.", PlanningLinesRec."Line No.");
 
                                 if ProdPlanDetRec.FindSet() then begin
@@ -195,7 +195,7 @@ page 50840 "Plan Lines - Search List"
                                 ProdPlanDetRec.Reset();
                                 ProdPlanDetRec.SetRange("Resource No.", PlanningLinesRec."Resource No.");
                                 ProdPlanDetRec.SetRange("Line No.", PlanningLinesRec."Line No.");
-                                ProdPlanDetRec.SetRange(ProdUpd, 0);
+                                ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
                                 if ProdPlanDetRec.FindSet() then
                                     ProdPlanDetRec.DeleteAll();
 
