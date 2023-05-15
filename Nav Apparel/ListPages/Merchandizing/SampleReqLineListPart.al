@@ -46,6 +46,9 @@ page 51062 SampleReqLineListPart
                             //Done By Maduka 13/02/23
                             Rec."Brand Name" := SampleReqHeaderRec."Brand Name";
                             Rec."Brand No" := SampleReqHeaderRec."Brand No";
+                            //Done By sachith 15/05/23
+                            Rec."Group Head" := SampleReqHeaderRec."Group HD";
+
                         end;
 
                         //done by sachith on 10/02/23
