@@ -14202,6 +14202,9 @@ End Function
         <Field Name="TargetProdPlan">
           <DataField>TargetProdPlan</DataField>
         </Field>
+        <Field Name="TargetProdPlanFormat">
+          <DataField>TargetProdPlanFormat</DataField>
+        </Field>
         <Field Name="HourlyTarget">
           <DataField>HourlyTarget</DataField>
         </Field>

@@ -1700,10 +1700,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                         until HoursPerDay > 0;
 
-                        // //Check whether resource line is occupied in the date                        
-                        // Found := false;
-                        // repeat
-
+                        // Check whether resource line is occupied in the date                             
                         JobPlaLineRec.Reset();
                         JobPlaLineRec.SetRange("Resource No.", ResourceNo);
                         JobPlaLineRec.SetFilter("StartDateTime", '<=%1', CreateDateTime(dtStart, TImeStart));
@@ -1779,11 +1776,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             until HoursPerDay > 0;
 
                         end;
-                        // else begin
-                        //     Found := false;
-                        // end;
-
-                        // until (not Found);
 
                         //Get Existing line details
                         JobPlaLineRec.Reset();
@@ -2954,6 +2946,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             PlanningLinesRec.SetRange("Line No.", LineNo);
                             PlanningLinesRec.FindSet();
                             Page.RunModal(50343, PlanningLinesRec);
+                            LoadData(false, false, true, true, false);
 
                         end;
 
