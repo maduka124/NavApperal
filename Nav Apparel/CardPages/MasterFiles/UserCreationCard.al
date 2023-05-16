@@ -326,41 +326,71 @@ page 50978 "Create User Card"
             // }
 
             //Done By Sachith on 03/05/23
-            action("Update Fabric PO In GRN")
+            // action("Update Fabric PO In GRN")
+            // {
+            //     ApplicationArea = All;
+
+            //     trigger OnAction()
+            //     var
+            //         GRNHeaderRec: Record "Purch. Rcpt. Header";
+            //         GRNLineRec: Record "Purch. Rcpt. Line";
+            //         ItemRec: Record Item;
+            //     begin
+
+            //         GRNHeaderRec.Reset();
+            //         if GRNHeaderRec.FindSet() then begin
+            //             repeat
+
+            //                 GRNLineRec.Reset();
+            //                 GRNLineRec.SetRange("Document No.", GRNHeaderRec."No.");
+
+            //                 if GRNLineRec.FindSet() then begin
+            //                     repeat
+
+            //                         ItemRec.Reset();
+            //                         ItemRec.SetRange("No.", GRNLineRec."No.");
+
+            //                         if ItemRec.FindSet() then begin
+            //                             if ItemRec."Main Category Name" = 'FABRIC' then begin
+            //                                 GRNHeaderRec.FabricPO := true;
+            //                                 GRNHeaderRec.Modify();
+            //                             end
+            //                         end;
+
+            //                     until GRNLineRec.Next() = 0;
+            //                 end;
+
+            //             until GRNHeaderRec.Next() = 0;
+            //         end;
+            //     end;
+            // }
+
+            // Done By sachith on 15/05/23
+            action("UpDate Sample Req Line Group HD")
             {
                 ApplicationArea = All;
+                Caption = 'Update Group Head';
 
                 trigger OnAction()
                 var
-                    GRNHeaderRec: Record "Purch. Rcpt. Header";
-                    GRNLineRec: Record "Purch. Rcpt. Line";
-                    ItemRec: Record Item;
+                    SampleReqHeaderRec: Record "Sample Requsition Header";
+                    SampleReqLinRec: REcord "Sample Requsition Line";
                 begin
 
-                    GRNHeaderRec.Reset();
-                    if GRNHeaderRec.FindSet() then begin
+                    SampleReqHeaderRec.Reset();
+
+                    if SampleReqHeaderRec.FindFirst() then begin
                         repeat
 
-                            GRNLineRec.Reset();
-                            GRNLineRec.SetRange("Document No.", GRNHeaderRec."No.");
+                            SampleReqLinRec.Reset();
+                            SampleReqLinRec.SetRange("No.", SampleReqHeaderRec."No.");
 
-                            if GRNLineRec.FindSet() then begin
-                                repeat
-
-                                    ItemRec.Reset();
-                                    ItemRec.SetRange("No.", GRNLineRec."No.");
-
-                                    if ItemRec.FindSet() then begin
-                                        if ItemRec."Main Category Name" = 'FABRIC' then begin
-                                            GRNHeaderRec.FabricPO := true;
-                                            GRNHeaderRec.Modify();
-                                        end
-                                    end;
-
-                                until GRNLineRec.Next() = 0;
+                            if SampleReqLinRec.FindFirst() then begin
+                                SampleReqLinRec."Group Head" := SampleReqHeaderRec."Group HD";
+                                SampleReqLinRec.Modify();
                             end;
 
-                        until GRNHeaderRec.Next() = 0;
+                        until SampleReqHeaderRec.Next() = 0;
                     end;
                 end;
             }

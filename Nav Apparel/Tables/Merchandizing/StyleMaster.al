@@ -243,7 +243,8 @@ table 50934 "Style Master"
             DataClassification = ToBeClassified;
         }
 
-        field(71012621; "ContractNo"; Code[20])
+        //Done By sachith On 15/05/23 (increase length 20 to 50)
+        field(71012621; "ContractNo"; Code[50])
         {
             DataClassification = ToBeClassified;
         }
