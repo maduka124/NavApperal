@@ -74,7 +74,8 @@ report 50621 ProductionPlanReport
                 { }
                 column(WorkcenterNo; WorkcenterNo)
                 { }
-
+                column(StartDate; StartDate)
+                { }
                 trigger OnAfterGetRecord()
                 var
                 begin
@@ -103,14 +104,27 @@ report 50621 ProductionPlanReport
                     EndDt := 0D;
                     InSpectionDt := 0D;
 
+
+
                     NavAppProdPlanRec.Reset();
                     NavAppProdPlanRec.SetRange("Line No.", "Line No.");
                     NavAppProdPlanRec.SetCurrentKey(PlanDate);
                     NavAppProdPlanRec.Ascending(true);
                     if NavAppProdPlanRec.FindFirst() then begin
                         StartDt := NavAppProdPlanRec."PlanDate" - 2;
+                        // StartDate := NavAppProdPlanRec."PlanDate";
+                    end;
+
+                    
+                    NavAppProdPlanRec.Reset();
+                    NavAppProdPlanRec.SetRange("Line No.", "Line No.");
+                    NavAppProdPlanRec.SetRange("PO No.","PO No.");
+                    NavAppProdPlanRec.SetCurrentKey(PlanDate);
+                    NavAppProdPlanRec.Ascending(true);
+                    if NavAppProdPlanRec.FindFirst() then begin
                         StartDate := NavAppProdPlanRec."PlanDate";
                     end;
+
 
                     NavAppProdPlanRec.Reset();
                     NavAppProdPlanRec.SetRange("Line No.", "Line No.");
