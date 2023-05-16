@@ -118,17 +118,17 @@ page 50840 "Plan Lines - Search List"
 
                                 //Check for not prod. updated sewing out enties
                                 //Check whether pending sawing out quantity is there for the allocation
-                                ProdHeaderRec.Reset();
-                                ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
-                                ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
-                                ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
-                                ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
-                                ProdHeaderRec.SetRange("Ref Line No.", PlanningLinesRec."Line No.");
-                                ProdHeaderRec.SetRange("Resource No.", PlanningLinesRec."Resource No.");
-                                ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
+                                // ProdHeaderRec.Reset();
+                                // ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
+                                // ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
+                                // ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
+                                // ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
+                                // ProdHeaderRec.SetRange("Ref Line No.", PlanningLinesRec."Line No.");
+                                // ProdHeaderRec.SetRange("Resource No.", PlanningLinesRec."Resource No.");
+                                // ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
 
-                                if ProdHeaderRec.FindSet() then
-                                    Error('Sewing Production Output has entered but not processed yet for the date : %1 and Line : %2 . Cannot change the allocation.', ProdHeaderRec."Prod Date", PlanningLinesRec."Resource No.");
+                                // if ProdHeaderRec.FindSet() then
+                                //     Error('Sewing Production Output has entered but not processed yet for the date : %1 and Line : %2 . Cannot change the allocation.', ProdHeaderRec."Prod Date", PlanningLinesRec."Resource No.");
 
                                 QTY := 0;
                                 //get remaining qty
