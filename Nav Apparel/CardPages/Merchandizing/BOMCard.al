@@ -498,7 +498,7 @@ page 50984 "BOM Card"
                                 SubCatDesc := ItemMasterRec."Sub Category Name";
                             end
                             else
-                                Error('Sub Category is blank for the item : %1', BLERec."Item Name");
+                                Error('item : %1 not in item master.', BLERec."Item Name");
 
                             // else begin
                             //     SubCat := '';
