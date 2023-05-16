@@ -373,93 +373,92 @@ page 51215 ProductionFileReleaseListPart
                     //Check the style master status
                     StyleMasRec.Reset();
                     StyleMasRec.SetRange("No.", NavAppPlanLineRec."Style No.");
-                    StyleMasRec.FindSet();
+                    if StyleMasRec.FindSet() then
+                        if StyleMasRec."Prod File Handover Status" = false then begin
 
-                    if StyleMasRec."Prod File Handover Status" = false then begin
+                            SeqNo += 1;
 
-                        SeqNo += 1;
+                            //Get Po details
+                            StyleMasPoRec.Reset();
+                            StyleMasPoRec.SetCurrentKey(BPCD);
+                            StyleMasPoRec.Ascending(true);
+                            StyleMasPoRec.SetRange("Style No.", NavAppPlanLineRec."Style No.");
+                            StyleMasPoRec.FindFirst();
 
-                        //Get Po details
-                        StyleMasPoRec.Reset();
-                        StyleMasPoRec.SetCurrentKey(BPCD);
-                        StyleMasPoRec.Ascending(true);
-                        StyleMasPoRec.SetRange("Style No.", NavAppPlanLineRec."Style No.");
-                        StyleMasPoRec.FindFirst();
+                            //get style details
+                            StyleMasRec.Reset();
+                            StyleMasRec.SetRange("No.", NavAppPlanLineRec."Style No.");
+                            StyleMasRec.FindSet();
 
-                        //get style details
-                        StyleMasRec.Reset();
-                        StyleMasRec.SetRange("No.", NavAppPlanLineRec."Style No.");
-                        StyleMasRec.FindSet();
+                            ProdFileRelLineRec.Init();
+                            ProdFileRelLineRec.BPCD := StyleMasPoRec.BPCD;
+                            ProdFileRelLineRec."Buyer Name" := StyleMasRec."Buyer Name";
+                            ProdFileRelLineRec."Buyer No" := StyleMasRec."Buyer No.";
+                            ProdFileRelLineRec."Created Date" := WorkDate();
+                            ProdFileRelLineRec."Created User" := UserId;
 
-                        ProdFileRelLineRec.Init();
-                        ProdFileRelLineRec.BPCD := StyleMasPoRec.BPCD;
-                        ProdFileRelLineRec."Buyer Name" := StyleMasRec."Buyer Name";
-                        ProdFileRelLineRec."Buyer No" := StyleMasRec."Buyer No.";
-                        ProdFileRelLineRec."Created Date" := WorkDate();
-                        ProdFileRelLineRec."Created User" := UserId;
+                            //Get min input date
+                            NavAppPlanLineRec1.Reset();
+                            NavAppPlanLineRec1.SetRange("Style Name", NavAppPlanLineRec."Style Name");
+                            NavAppPlanLineRec1.SetRange("Factory", NavAppPlanLineRec."Factory");
+                            NavAppPlanLineRec1.SetCurrentKey("Start Date");
+                            NavAppPlanLineRec1.Ascending(true);
+                            NavAppPlanLineRec1.FindFirst();
+                            ProdFileRelLineRec."Input Date" := NavAppPlanLineRec1."Start Date" - 2;
 
-                        //Get min input date
-                        NavAppPlanLineRec1.Reset();
-                        NavAppPlanLineRec1.SetRange("Style Name", NavAppPlanLineRec."Style Name");
-                        NavAppPlanLineRec1.SetRange("Factory", NavAppPlanLineRec."Factory");
-                        NavAppPlanLineRec1.SetCurrentKey("Start Date");
-                        NavAppPlanLineRec1.Ascending(true);
-                        NavAppPlanLineRec1.FindFirst();
-                        ProdFileRelLineRec."Input Date" := NavAppPlanLineRec1."Start Date" - 2;
+                            ProdFileRelLineRec."Days After" := WorkDate() - (NavAppPlanLineRec1."Start Date" - 2);
+                            ProdFileRelLineRec."LCFactory No" := NavAppPlanLineRec."Factory";
 
-                        ProdFileRelLineRec."Days After" := WorkDate() - (NavAppPlanLineRec1."Start Date" - 2);
-                        ProdFileRelLineRec."LCFactory No" := NavAppPlanLineRec."Factory";
+                            //get Factory name
+                            LocationRec.Reset();
+                            LocationRec.SetRange(code, StyleMasRec."Factory Code");
+                            if LocationRec.FindSet() then
+                                ProdFileRelLineRec."LCFactory Name" := LocationRec."Name";
 
-                        //get Factory name
-                        LocationRec.Reset();
-                        LocationRec.SetRange(code, StyleMasRec."Factory Code");
-                        if LocationRec.FindSet() then
-                            ProdFileRelLineRec."LCFactory Name" := LocationRec."Name";
+                            ProdFileRelLineRec.Merchandiser := StyleMasRec."Merchandiser Name";
 
-                        ProdFileRelLineRec.Merchandiser := StyleMasRec."Merchandiser Name";
+                            //Done by sachith on 21/04/23
+                            ProdFileRelLineRec."Secondary UserID" := StyleMasRec."Secondary UserID";
 
-                        //Done by sachith on 21/04/23
-                        ProdFileRelLineRec."Secondary UserID" := StyleMasRec."Secondary UserID";
+                            ProdFileRelLineRec."Merchandizer Group Name" := StyleMasRec."Merchandizer Group Name";
+                            ProdFileRelLineRec."Order Qty" := StyleMasRec."Order Qty";
 
-                        ProdFileRelLineRec."Merchandizer Group Name" := StyleMasRec."Merchandizer Group Name";
-                        ProdFileRelLineRec."Order Qty" := StyleMasRec."Order Qty";
+                            //Get total plan qty
+                            NavAppPlanLineRec1.Reset();
+                            NavAppPlanLineRec1.SetRange("Style Name", NavAppPlanLineRec."Style Name");
+                            NavAppPlanLineRec1.SetRange("Factory", NavAppPlanLineRec."Factory");
+                            NavAppPlanLineRec1.FindSet();
+                            repeat
+                                ProdFileRelLineRec."Plan Qty" += NavAppPlanLineRec1."Qty";
+                            until NavAppPlanLineRec1.Next() = 0;
 
-                        //Get total plan qty
-                        NavAppPlanLineRec1.Reset();
-                        NavAppPlanLineRec1.SetRange("Style Name", NavAppPlanLineRec."Style Name");
-                        NavAppPlanLineRec1.SetRange("Factory", NavAppPlanLineRec."Factory");
-                        NavAppPlanLineRec1.FindSet();
-                        repeat
-                            ProdFileRelLineRec."Plan Qty" += NavAppPlanLineRec1."Qty";
-                        until NavAppPlanLineRec1.Next() = 0;
+                            ProdFileRelLineRec."Resource Name" := NavAppPlanLineRec."Resource Name";
+                            ProdFileRelLineRec."Resource No." := NavAppPlanLineRec."Resource No.";
+                            //ProdFileRelLineRec."Secondary UserID" := ProdFileRelLineRec."Secondary UserID";
+                            ProdFileRelLineRec.Select := false;
+                            ProdFileRelLineRec."Seq No" := SeqNo;
+                            ProdFileRelLineRec."Sew Factory No" := NavAppPlanLineRec."Factory";
 
-                        ProdFileRelLineRec."Resource Name" := NavAppPlanLineRec."Resource Name";
-                        ProdFileRelLineRec."Resource No." := NavAppPlanLineRec."Resource No.";
-                        //ProdFileRelLineRec."Secondary UserID" := ProdFileRelLineRec."Secondary UserID";
-                        ProdFileRelLineRec.Select := false;
-                        ProdFileRelLineRec."Seq No" := SeqNo;
-                        ProdFileRelLineRec."Sew Factory No" := NavAppPlanLineRec."Factory";
+                            //get Factory name
+                            LocationRec.Reset();
+                            LocationRec.SetRange(code, NavAppPlanLineRec."Factory");
+                            if LocationRec.FindSet() then
+                                ProdFileRelLineRec."Sew Factory" := LocationRec.Name;
 
-                        //get Factory name
-                        LocationRec.Reset();
-                        LocationRec.SetRange(code, NavAppPlanLineRec."Factory");
-                        if LocationRec.FindSet() then
-                            ProdFileRelLineRec."Sew Factory" := LocationRec.Name;
+                            //Get Po details
+                            StyleMasPoRec.Reset();
+                            StyleMasPoRec.SetCurrentKey("Ship Date");
+                            StyleMasPoRec.Ascending(true);
+                            StyleMasPoRec.SetRange("Style No.", NavAppPlanLineRec."Style No.");
+                            StyleMasPoRec.FindFirst();
+                            ProdFileRelLineRec."Ship Date" := StyleMasPoRec."Ship Date";
 
-                        //Get Po details
-                        StyleMasPoRec.Reset();
-                        StyleMasPoRec.SetCurrentKey("Ship Date");
-                        StyleMasPoRec.Ascending(true);
-                        StyleMasPoRec.SetRange("Style No.", NavAppPlanLineRec."Style No.");
-                        StyleMasPoRec.FindFirst();
-                        ProdFileRelLineRec."Ship Date" := StyleMasPoRec."Ship Date";
+                            ProdFileRelLineRec.Status := false;
+                            ProdFileRelLineRec."Style Name" := NavAppPlanLineRec."Style Name";
+                            ProdFileRelLineRec."Style No." := NavAppPlanLineRec."Style No.";
+                            ProdFileRelLineRec.Insert();
 
-                        ProdFileRelLineRec.Status := false;
-                        ProdFileRelLineRec."Style Name" := NavAppPlanLineRec."Style Name";
-                        ProdFileRelLineRec."Style No." := NavAppPlanLineRec."Style No.";
-                        ProdFileRelLineRec.Insert();
-
-                    end;
+                        end;
 
                     StyleName := NavAppPlanLineRec."Style Name";
                     Factory := NavAppPlanLineRec.Factory;

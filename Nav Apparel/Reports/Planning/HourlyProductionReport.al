@@ -217,7 +217,7 @@ report 50865 HourlyProductionReport
                 { }
                 column(Factory_No_1F; "Factory No.")
                 { }
-                column(StyleNameFinishing;StyleName)
+                column(StyleNameFinishing; StyleName)
                 { }
                 column(Hour1TotFin; Hour1TotFin)
                 { }
@@ -779,7 +779,7 @@ report 50865 HourlyProductionReport
         CutInputToday: BigInteger;
         InputWIP: decimal;
         HourlyTarget: Decimal;
-        TargetProdPlan: BigInteger;
+        TargetProdPlan: Decimal;
         ActualFinishDate: Date;
         ProductionHeaderRec4: Record ProductionOutHeader;
         ProductionHeaderRec3: Record ProductionOutHeader;
