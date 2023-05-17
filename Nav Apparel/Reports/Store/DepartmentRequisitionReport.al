@@ -114,7 +114,37 @@ report 50711 DepartmentRequisitionReport
                     {
                         ApplicationArea = All;
                         Caption = 'Factory';
-                        TableRelation = location.Code;
+                        // TableRelation = location.Code;
+
+
+                        // Done By Sachith on 17/50/23
+                        trigger OnLookup(var TEXT: Text): Boolean
+                        var
+                            LocationRec: Record Location;
+                            UserRec: Record "User Setup";
+                        begin
+
+                            UserRec.Reset();
+                            UserRec.get(UserId);
+
+                            if UserRec."Factory Code" <> '' then begin
+                                LocationRec.Reset();
+                                LocationRec.SetRange(Code, UserRec."Factory Code");
+
+                                if Page.RunModal(15, LocationRec) = Action::LookupOK then
+                                    Factory := LocationRec.Code;
+                            end
+                            else begin
+
+                                LocationRec.Reset();
+                                LocationRec.FindSet();
+
+                                if LocationRec.FindSet() then begin
+                                    if Page.RunModal(15, LocationRec) = Action::LookupOK then
+                                        Factory := LocationRec.Code;
+                                end;
+                            end;
+                        end;
                     }
 
                     field(stDate; stDate)
