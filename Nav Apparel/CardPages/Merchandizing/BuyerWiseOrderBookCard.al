@@ -104,6 +104,7 @@ page 51165 "BuyerWiseOrderBooking"
                     BuyWisOdrBookAllBookRec: Record BuyerWiseOdrBookingAllBook;
                     BuyWisOdrBookAllBook1Rec: Record BuyerWiseOdrBookingAllBook;
                     BuyerWiseOdrBookinBalatoSewRec: Record BuyerWiseOrderBookinBalatoSew;
+                    BuyerWiseOdrBookinBalatoSewTotRec: Record BuyerWiseOrderBookinBalatoSew;
                     BuyerWiseOdrBookinBalatoShipRec: Record BuyerWiseOrderBookinBalatoShip;
                     BuyerWiseOdrBookinGRWiseBookRec: Record BuyerWiseOrderBookinGRWiseBook;
                     ProductionOutHeaderRec: Record ProductionOutHeader;
@@ -503,7 +504,7 @@ page 51165 "BuyerWiseOrderBooking"
                         BuyWisOdrBookAllBookRec.SetCurrentKey("No.", "Buyer Name");
                         BuyWisOdrBookAllBookRec.Ascending(false);
                         BuyWisOdrBookAllBookRec.SetRange(Year, rec.Year);
-                        //BuyWisOdrBookAllBookRec.SetFilter(Type, '=%1', 'L');
+                        BuyWisOdrBookAllBookRec.SetFilter(Type, '<>%1', 'T');
                         if BuyWisOdrBookAllBookRec.FindSet() then begin
                             repeat
                                 //
@@ -693,93 +694,93 @@ page 51165 "BuyerWiseOrderBooking"
 
                                                     end;
 
-                                                    //Update Grand total
-                                                    BuyerWiseOdrBookinBalatoSewRec.Reset();
-                                                    BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, rec.Year);
-                                                    BuyerWiseOdrBookinBalatoSewRec.SetFilter(Type, '=%1', 'T');
-                                                    if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
+                                                // //Update Grand total
+                                                // BuyerWiseOdrBookinBalatoSewRec.Reset();
+                                                // BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, rec.Year);
+                                                // BuyerWiseOdrBookinBalatoSewRec.SetFilter(Type, '=%1', 'T');
+                                                // if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
 
-                                                        case i of
-                                                            1:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.JAN < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.JAN := 0;
-                                                                end;
-                                                            2:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.FEB < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.FEB := 0;
-                                                                end;
-                                                            3:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.MAR < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.MAR := 0;
-                                                                end;
-                                                            4:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.APR < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.APR := 0;
-                                                                end;
-                                                            5:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.MAY < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.MAY := 0;
-                                                                end;
-                                                            6:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.JUN < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.JUN := 0;
-                                                                end;
-                                                            7:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.JUL < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.JUL := 0;
-                                                                end;
-                                                            8:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.AUG < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.AUG := 0;
-                                                                end;
-                                                            9:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.SEP < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.SEP := 0;
-                                                                end;
-                                                            10:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.OCT < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.OCT := 0;
-                                                                end;
-                                                            11:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.NOV < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.NOV := 0;
-                                                                end;
-                                                            12:
-                                                                begin
-                                                                    BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
-                                                                    if BuyerWiseOdrBookinBalatoSewRec.DEC < 0 then
-                                                                        BuyerWiseOdrBookinBalatoSewRec.DEC := 0;
-                                                                end;
-                                                        end;
+                                                //     case i of
+                                                //         1:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.JAN < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.JAN := 0;
+                                                //             end;
+                                                //         2:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.FEB < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.FEB := 0;
+                                                //             end;
+                                                //         3:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.MAR < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.MAR := 0;
+                                                //             end;
+                                                //         4:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.APR < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.APR := 0;
+                                                //             end;
+                                                //         5:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.MAY < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.MAY := 0;
+                                                //             end;
+                                                //         6:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.JUN < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.JUN := 0;
+                                                //             end;
+                                                //         7:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.JUL < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.JUL := 0;
+                                                //             end;
+                                                //         8:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.AUG < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.AUG := 0;
+                                                //             end;
+                                                //         9:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.SEP < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.SEP := 0;
+                                                //             end;
+                                                //         10:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.OCT < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.OCT := 0;
+                                                //             end;
+                                                //         11:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.NOV < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.NOV := 0;
+                                                //             end;
+                                                //         12:
+                                                //             begin
+                                                //                 BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
+                                                //                 if BuyerWiseOdrBookinBalatoSewRec.DEC < 0 then
+                                                //                     BuyerWiseOdrBookinBalatoSewRec.DEC := 0;
+                                                //             end;
+                                                //     end;
 
-                                                        BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
-                                                        if BuyerWiseOdrBookinBalatoSewRec.Total < 0 then
-                                                            BuyerWiseOdrBookinBalatoSewRec.Total := 0;
+                                                //     BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
+                                                //     if BuyerWiseOdrBookinBalatoSewRec.Total < 0 then
+                                                //         BuyerWiseOdrBookinBalatoSewRec.Total := 0;
 
-                                                        BuyerWiseOdrBookinBalatoSewRec.Modify();
-                                                    end;
+                                                //     BuyerWiseOdrBookinBalatoSewRec.Modify();
+                                                // end;
 
                                                 until ProductionOutHeaderRec.Next() = 0;
                                             end;
@@ -794,146 +795,46 @@ page 51165 "BuyerWiseOrderBooking"
                         end;
 
 
-                        // for i := 1 to 12 do 
-                        // begin
+                        //Insert total record
+                        SeqNo += 1;
+                        BuyerWiseOdrBookinBalatoSewTotRec.Init();
+                        BuyerWiseOdrBookinBalatoSewTotRec."No." := SeqNo;
+                        BuyerWiseOdrBookinBalatoSewTotRec.Year := rec.Year;
+                        BuyerWiseOdrBookinBalatoSewTotRec."Buyer Code" := ' ';
+                        BuyerWiseOdrBookinBalatoSewTotRec."Buyer Name" := 'Total';
+                        BuyerWiseOdrBookinBalatoSewTotRec.Type := 'T';
+                        BuyerWiseOdrBookinBalatoSewTotRec."Created User" := UserId;
+                        BuyerWiseOdrBookinBalatoSewTotRec."Created Date" := WorkDate();
+                        BuyerWiseOdrBookinBalatoSewTotRec.Insert();
 
-                        //     StartDate := DMY2DATE(1, i, rec.Year);
+                        //Update Grand total
+                        BuyerWiseOdrBookinBalatoSewTotRec.Reset();
+                        BuyerWiseOdrBookinBalatoSewTotRec.SetRange(Year, rec.Year);
+                        BuyerWiseOdrBookinBalatoSewTotRec.SetFilter(Type, '=%1', 'T');
+                        BuyerWiseOdrBookinBalatoSewTotRec.FindSet();
 
-                        //     case i of
-                        //         1:
-                        //             FinishDate := DMY2DATE(31, i, rec.Year);
-                        //         2:
-                        //             begin
-                        //                 if rec.Year mod 4 = 0 then
-                        //                     FinishDate := DMY2DATE(29, i, rec.Year)
-                        //                 else
-                        //                     FinishDate := DMY2DATE(28, i, rec.Year);
-                        //             end;
-                        //         3:
-                        //             FinishDate := DMY2DATE(31, i, rec.Year);
-                        //         4:
-                        //             FinishDate := DMY2DATE(30, i, rec.Year);
-                        //         5:
-                        //             FinishDate := DMY2DATE(31, i, rec.Year);
-                        //         6:
-                        //             FinishDate := DMY2DATE(30, i, rec.Year);
-                        //         7:
-                        //             FinishDate := DMY2DATE(31, i, rec.Year);
-                        //         8:
-                        //             FinishDate := DMY2DATE(31, i, rec.Year);
-                        //         9:
-                        //             FinishDate := DMY2DATE(30, i, rec.Year);
-                        //         10:
-                        //             FinishDate := DMY2DATE(31, i, rec.Year);
-                        //         11:
-                        //             FinishDate := DMY2DATE(30, i, rec.Year);
-                        //         12:
-                        //             FinishDate := DMY2DATE(31, i, rec.Year);
-                        //     end;
+                        BuyerWiseOdrBookinBalatoSewRec.Reset();
+                        BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, rec.Year);
+                        BuyerWiseOdrBookinBalatoSewRec.SetFilter(Type, '<>%1', 'T');
+                        if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
+                            repeat
+                                BuyerWiseOdrBookinBalatoSewTotRec.JAN := BuyerWiseOdrBookinBalatoSewTotRec.JAN + BuyerWiseOdrBookinBalatoSewRec.JAN;
+                                BuyerWiseOdrBookinBalatoSewTotRec.FEB := BuyerWiseOdrBookinBalatoSewTotRec.FEB + BuyerWiseOdrBookinBalatoSewRec.FEB;
+                                BuyerWiseOdrBookinBalatoSewTotRec.MAR := BuyerWiseOdrBookinBalatoSewTotRec.MAR + BuyerWiseOdrBookinBalatoSewRec.MAR;
+                                BuyerWiseOdrBookinBalatoSewTotRec.APR := BuyerWiseOdrBookinBalatoSewTotRec.APR + BuyerWiseOdrBookinBalatoSewRec.APR;
+                                BuyerWiseOdrBookinBalatoSewTotRec.MAY := BuyerWiseOdrBookinBalatoSewTotRec.MAY + BuyerWiseOdrBookinBalatoSewRec.MAY;
+                                BuyerWiseOdrBookinBalatoSewTotRec.JUN := BuyerWiseOdrBookinBalatoSewTotRec.JUN + BuyerWiseOdrBookinBalatoSewRec.JUN;
+                                BuyerWiseOdrBookinBalatoSewTotRec.JUL := BuyerWiseOdrBookinBalatoSewTotRec.JUL + BuyerWiseOdrBookinBalatoSewRec.JUL;
+                                BuyerWiseOdrBookinBalatoSewTotRec.AUG := BuyerWiseOdrBookinBalatoSewTotRec.AUG + BuyerWiseOdrBookinBalatoSewRec.AUG;
+                                BuyerWiseOdrBookinBalatoSewTotRec.SEP := BuyerWiseOdrBookinBalatoSewTotRec.SEP + BuyerWiseOdrBookinBalatoSewRec.sep;
+                                BuyerWiseOdrBookinBalatoSewTotRec.OCT := BuyerWiseOdrBookinBalatoSewTotRec.OCT + BuyerWiseOdrBookinBalatoSewRec.OCT;
+                                BuyerWiseOdrBookinBalatoSewTotRec.NOV := BuyerWiseOdrBookinBalatoSewTotRec.NOV + BuyerWiseOdrBookinBalatoSewRec.NOV;
+                                BuyerWiseOdrBookinBalatoSewTotRec.DEC := BuyerWiseOdrBookinBalatoSewTotRec.DEC + BuyerWiseOdrBookinBalatoSewRec.DEC;
+                                BuyerWiseOdrBookinBalatoSewTotRec.Total := BuyerWiseOdrBookinBalatoSewTotRec.Total + BuyerWiseOdrBookinBalatoSewRec.Total;
+                            until BuyerWiseOdrBookinBalatoSewRec.Next() = 0;
+                        end;
 
-
-                        //     //Get sewing out
-                        //     ProductionOutHeaderRec.Reset();
-                        //     ProductionOutHeaderRec.SetRange("Prod Date", StartDate, FinishDate);
-                        //     ProductionOutHeaderRec.SetFilter(Type, '=%1', ProductionOutHeaderRec.Type::Saw);
-                        //     if ProductionOutHeaderRec.FindSet() then begin
-                        //         repeat
-
-                        //             StyleMasterRec.Reset();
-                        //             //Add output Style 2023/04/18
-                        //             StyleMasterRec.SetRange("No.", ProductionOutHeaderRec."Out Style No.");
-                        //             StyleMasterRec.SetFilter(Status, '=%1', StyleMasterRec.Status::Confirmed);
-                        //             if StyleMasterRec.FindSet() then begin
-
-                        //                 //Check existance
-                        //                 BuyerWiseOdrBookinBalatoSewRec.Reset();
-                        //                 BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, rec.Year);
-                        //                 BuyerWiseOdrBookinBalatoSewRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
-                        //                 BuyerWiseOdrBookinBalatoSewRec.SetRange("Brand No", StyleMasterRec."Brand No.");
-                        //                 if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
-
-
-                        //                     // if (BuyerWiseOdrBookinBalatoSewRec."Buyer Name" = 'H&M') and (BuyerWiseOdrBookinBalatoSewRec."Brand Name" = 'DIVIDED') then
-                        //                     //     Message('Minus');
-
-
-                        //                     case i of
-                        //                         1:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
-
-                        //                         2:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
-                        //                         3:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
-
-                        //                         4:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
-                        //                         5:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
-                        //                         6:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
-                        //                         7:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
-                        //                         8:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
-                        //                         9:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
-                        //                         10:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
-                        //                         11:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
-                        //                         12:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
-                        //                     end;
-                        //                     // Message('=%1', BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty");
-                        //                     BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
-                        //                     BuyerWiseOdrBookinBalatoSewRec.Modify();
-
-                        //                 end;
-
-
-                        //                 //Update Grand total
-                        //                 BuyerWiseOdrBookinBalatoSewRec.Reset();
-                        //                 BuyerWiseOdrBookinBalatoSewRec.SetRange(Year, rec.Year);
-                        //                 BuyerWiseOdrBookinBalatoSewRec.SetFilter(Type, '=%1', 'T');
-                        //                 if BuyerWiseOdrBookinBalatoSewRec.FindSet() then begin
-                        //                     case i of
-                        //                         1:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.JAN := BuyerWiseOdrBookinBalatoSewRec.JAN - ProductionOutHeaderRec."Output Qty";
-                        //                         2:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.FEB := BuyerWiseOdrBookinBalatoSewRec.FEB - ProductionOutHeaderRec."Output Qty";
-                        //                         3:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.MAR := BuyerWiseOdrBookinBalatoSewRec.MAR - ProductionOutHeaderRec."Output Qty";
-                        //                         4:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.APR := BuyerWiseOdrBookinBalatoSewRec.APR - ProductionOutHeaderRec."Output Qty";
-                        //                         5:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.MAY := BuyerWiseOdrBookinBalatoSewRec.MAY - ProductionOutHeaderRec."Output Qty";
-                        //                         6:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.JUN := BuyerWiseOdrBookinBalatoSewRec.JUN - ProductionOutHeaderRec."Output Qty";
-                        //                         7:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.JUL := BuyerWiseOdrBookinBalatoSewRec.JUL - ProductionOutHeaderRec."Output Qty";
-                        //                         8:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.AUG := BuyerWiseOdrBookinBalatoSewRec.AUG - ProductionOutHeaderRec."Output Qty";
-                        //                         9:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.SEP := BuyerWiseOdrBookinBalatoSewRec.SEP - ProductionOutHeaderRec."Output Qty";
-                        //                         10:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.OCT := BuyerWiseOdrBookinBalatoSewRec.OCT - ProductionOutHeaderRec."Output Qty";
-                        //                         11:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.NOV := BuyerWiseOdrBookinBalatoSewRec.NOV - ProductionOutHeaderRec."Output Qty";
-                        //                         12:
-                        //                             BuyerWiseOdrBookinBalatoSewRec.DEC := BuyerWiseOdrBookinBalatoSewRec.DEC - ProductionOutHeaderRec."Output Qty";
-                        //                     end;
-
-                        //                     BuyerWiseOdrBookinBalatoSewRec.Total := BuyerWiseOdrBookinBalatoSewRec.Total - ProductionOutHeaderRec."Output Qty";
-                        //                     BuyerWiseOdrBookinBalatoSewRec.Modify();
-                        //                 end;
-
-                        //             end;
-
-                        //         until ProductionOutHeaderRec.Next() = 0;
-                        //     end;
-
-                        // end;
+                        BuyerWiseOdrBookinBalatoSewTotRec.Modify();
 
 
 
