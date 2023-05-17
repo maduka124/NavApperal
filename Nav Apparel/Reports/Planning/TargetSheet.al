@@ -36,6 +36,10 @@ report 50624 TargetSheetReport
                 { }
                 column(Qty; Qty)
                 { }
+
+                //Done by sachith on 17/05/23
+                column(ProdUpdQty; ProdUpdQty)
+                { }
                 column(HoursPerDay; HoursPerDay)
                 { }
                 column(LineName; LineName)

@@ -1553,7 +1553,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Qty.Value</Value>
+                                  <Value>=Fields!ProdUpdQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -1834,7 +1834,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Qty.Value)</Value>
+                                  <Value>=Sum(Fields!ProdUpdQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Color>Teal</Color>
@@ -2120,7 +2120,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Qty.Value)</Value>
+                                  <Value>=Sum(Fields!ProdUpdQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2819,6 +2819,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="QtyFormat">
           <DataField>QtyFormat</DataField>
+        </Field>
+        <Field Name="ProdUpdQty">
+          <DataField>ProdUpdQty</DataField>
         </Field>
         <Field Name="HoursPerDay">
           <DataField>HoursPerDay</DataField>
