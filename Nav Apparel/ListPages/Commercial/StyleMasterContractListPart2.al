@@ -120,12 +120,15 @@ page 50505 "StyleMasterContract ListPart 2"
                     if "Contract/LCStyleRec".FindSet() then begin
                         repeat
                             //Update Purchase order pi no
+                            // Done By Sachith on 18/05/23 add if condition to StylemasterRec
                             StyleMasterRec.Reset();
                             StyleMasterRec.SetRange("No.", "Contract/LCStyleRec"."Style No.");
-                            StyleMasterRec.FindSet();
-                            StyleMasterRec.Select := false;
-                            StyleMasterRec.AssignedContractNo := '';
-                            StyleMasterRec.Modify();
+                            if StyleMasterRec.FindSet() then begin
+                                StyleMasterRec.Select := false;
+                                StyleMasterRec.AssignedContractNo := '';
+                                StyleMasterRec.Modify();
+                            end;
+
                         until "Contract/LCStyleRec".Next() = 0;
                     end;
 
