@@ -11,382 +11,6 @@
       <rd:DataSourceID>44fc1aaf-7add-4da3-b7ed-99ac58943d2e</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="FactoryName">
-          <DataField>FactoryName</DataField>
-        </Field>
-        <Field Name="PlanDate">
-          <DataField>PlanDate</DataField>
-        </Field>
-        <Field Name="Qty">
-          <DataField>Qty</DataField>
-        </Field>
-        <Field Name="QtyFormat">
-          <DataField>QtyFormat</DataField>
-        </Field>
-        <Field Name="Style_Name">
-          <DataField>Style_Name</DataField>
-        </Field>
-        <Field Name="ResourceName">
-          <DataField>ResourceName</DataField>
-        </Field>
-        <Field Name="ResourceNo">
-          <DataField>ResourceNo</DataField>
-        </Field>
-        <Field Name="EffProdPlan">
-          <DataField>EffProdPlan</DataField>
-        </Field>
-        <Field Name="EffProdPlanFormat">
-          <DataField>EffProdPlanFormat</DataField>
-        </Field>
-        <Field Name="BuyerName">
-          <DataField>BuyerName</DataField>
-        </Field>
-        <Field Name="Style">
-          <DataField>Style</DataField>
-        </Field>
-        <Field Name="Factory">
-          <DataField>Factory</DataField>
-        </Field>
-        <Field Name="GarmentType">
-          <DataField>GarmentType</DataField>
-        </Field>
-        <Field Name="SMV">
-          <DataField>SMV</DataField>
-        </Field>
-        <Field Name="SMVFormat">
-          <DataField>SMVFormat</DataField>
-        </Field>
-        <Field Name="PlanTarget">
-          <DataField>PlanTarget</DataField>
-        </Field>
-        <Field Name="TodayTarget">
-          <DataField>TodayTarget</DataField>
-        </Field>
-        <Field Name="TodayTargetFormat">
-          <DataField>TodayTargetFormat</DataField>
-        </Field>
-        <Field Name="PlanQty">
-          <DataField>PlanQty</DataField>
-        </Field>
-        <Field Name="PlanDt">
-          <DataField>PlanDt</DataField>
-        </Field>
-        <Field Name="ActualPlanDt">
-          <DataField>ActualPlanDt</DataField>
-        </Field>
-        <Field Name="MC">
-          <DataField>MC</DataField>
-        </Field>
-        <Field Name="OutPutStartDate">
-          <DataField>OutPutStartDate</DataField>
-        </Field>
-        <Field Name="MerchandizerName">
-          <DataField>MerchandizerName</DataField>
-        </Field>
-        <Field Name="OutputComDate">
-          <DataField>OutputComDate</DataField>
-        </Field>
-        <Field Name="InputQtyToday">
-          <DataField>InputQtyToday</DataField>
-        </Field>
-        <Field Name="OutputQty">
-          <DataField>OutputQty</DataField>
-        </Field>
-        <Field Name="Line_No_">
-          <DataField>Line_No_</DataField>
-        </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
-        </Field>
-        <Field Name="TodayOutput">
-          <DataField>TodayOutput</DataField>
-        </Field>
-        <Field Name="variance">
-          <DataField>variance</DataField>
-        </Field>
-        <Field Name="varianceFormat">
-          <DataField>varianceFormat</DataField>
-        </Field>
-        <Field Name="HoursPerDay">
-          <DataField>HoursPerDay</DataField>
-        </Field>
-        <Field Name="HoursPerDayFormat">
-          <DataField>HoursPerDayFormat</DataField>
-        </Field>
-        <Field Name="Start_Time">
-          <DataField>Start_Time</DataField>
-        </Field>
-        <Field Name="Finish_Time">
-          <DataField>Finish_Time</DataField>
-        </Field>
-        <Field Name="Factory_No_">
-          <DataField>Factory_No_</DataField>
-        </Field>
-        <Field Name="BrandName">
-          <DataField>BrandName</DataField>
-        </Field>
-        <Field Name="PlanInput">
-          <DataField>PlanInput</DataField>
-        </Field>
-        <Field Name="Planfinish">
-          <DataField>Planfinish</DataField>
-        </Field>
-        <Field Name="ActualInputDate">
-          <DataField>ActualInputDate</DataField>
-        </Field>
-        <Field Name="ActualFinishDate">
-          <DataField>ActualFinishDate</DataField>
-        </Field>
-        <Field Name="EffProdOut">
-          <DataField>EffProdOut</DataField>
-        </Field>
-        <Field Name="EffProdOutFormat">
-          <DataField>EffProdOutFormat</DataField>
-        </Field>
-        <Field Name="InputQtyTotal">
-          <DataField>InputQtyTotal</DataField>
-        </Field>
-        <Field Name="OutputQtyTotal">
-          <DataField>OutputQtyTotal</DataField>
-        </Field>
-        <Field Name="CMPcs">
-          <DataField>CMPcs</DataField>
-        </Field>
-        <Field Name="CMPcsFormat">
-          <DataField>CMPcsFormat</DataField>
-        </Field>
-        <Field Name="SendWashQty">
-          <DataField>SendWashQty</DataField>
-        </Field>
-        <Field Name="SendWashQtyFormat">
-          <DataField>SendWashQtyFormat</DataField>
-        </Field>
-        <Field Name="ReceiveWashQty">
-          <DataField>ReceiveWashQty</DataField>
-        </Field>
-        <Field Name="ReceiveWashQtyFormat">
-          <DataField>ReceiveWashQtyFormat</DataField>
-        </Field>
-        <Field Name="PO_No_">
-          <DataField>PO_No_</DataField>
-        </Field>
-        <Field Name="ShipDate">
-          <DataField>ShipDate</DataField>
-        </Field>
-        <Field Name="OrderQy">
-          <DataField>OrderQy</DataField>
-        </Field>
-        <Field Name="TargetProdPlan">
-          <DataField>TargetProdPlan</DataField>
-        </Field>
-        <Field Name="TargetProdPlanFormat">
-          <DataField>TargetProdPlanFormat</DataField>
-        </Field>
-        <Field Name="HourlyTarget">
-          <DataField>HourlyTarget</DataField>
-        </Field>
-        <Field Name="HourlyTargetFormat">
-          <DataField>HourlyTargetFormat</DataField>
-        </Field>
-        <Field Name="CutInputQtyTotal">
-          <DataField>CutInputQtyTotal</DataField>
-        </Field>
-        <Field Name="CutOutputQtyTotal">
-          <DataField>CutOutputQtyTotal</DataField>
-        </Field>
-        <Field Name="EMBInputQtyTotal">
-          <DataField>EMBInputQtyTotal</DataField>
-        </Field>
-        <Field Name="EMBOutputQtyTotal">
-          <DataField>EMBOutputQtyTotal</DataField>
-        </Field>
-        <Field Name="InputWIP">
-          <DataField>InputWIP</DataField>
-        </Field>
-        <Field Name="InputWIPFormat">
-          <DataField>InputWIPFormat</DataField>
-        </Field>
-        <Field Name="InputQtyTodayTo">
-          <DataField>InputQtyTodayTo</DataField>
-        </Field>
-        <Field Name="CutInputToday">
-          <DataField>CutInputToday</DataField>
-        </Field>
-        <Field Name="Lot_No_">
-          <DataField>Lot_No_</DataField>
-        </Field>
-        <Field Name="CM">
-          <DataField>CM</DataField>
-        </Field>
-        <Field Name="CMFormat">
-          <DataField>CMFormat</DataField>
-        </Field>
-        <Field Name="TOtalTarget">
-          <DataField>TOtalTarget</DataField>
-        </Field>
-        <Field Name="TOtalTargetFormat">
-          <DataField>TOtalTargetFormat</DataField>
-        </Field>
-        <Field Name="VarienceNew">
-          <DataField>VarienceNew</DataField>
-        </Field>
-        <Field Name="Hour_1">
-          <DataField>Hour_1</DataField>
-        </Field>
-        <Field Name="Hour_2">
-          <DataField>Hour_2</DataField>
-        </Field>
-        <Field Name="Hour_3">
-          <DataField>Hour_3</DataField>
-        </Field>
-        <Field Name="Hour_4">
-          <DataField>Hour_4</DataField>
-        </Field>
-        <Field Name="Hour_5">
-          <DataField>Hour_5</DataField>
-        </Field>
-        <Field Name="Hour_6">
-          <DataField>Hour_6</DataField>
-        </Field>
-        <Field Name="Hour_7">
-          <DataField>Hour_7</DataField>
-        </Field>
-        <Field Name="Hour_8">
-          <DataField>Hour_8</DataField>
-        </Field>
-        <Field Name="Hour_9">
-          <DataField>Hour_9</DataField>
-        </Field>
-        <Field Name="Hour_10">
-          <DataField>Hour_10</DataField>
-        </Field>
-        <Field Name="Line_No_1">
-          <DataField>Line_No_1</DataField>
-        </Field>
-        <Field Name="Item">
-          <DataField>Item</DataField>
-        </Field>
-        <Field Name="Factory_No_1">
-          <DataField>Factory_No_1</DataField>
-        </Field>
-        <Field Name="Hour1Tot">
-          <DataField>Hour1Tot</DataField>
-        </Field>
-        <Field Name="Hour2Tot">
-          <DataField>Hour2Tot</DataField>
-        </Field>
-        <Field Name="Hour3Tot">
-          <DataField>Hour3Tot</DataField>
-        </Field>
-        <Field Name="Hour4Tot">
-          <DataField>Hour4Tot</DataField>
-        </Field>
-        <Field Name="Hour5Tot">
-          <DataField>Hour5Tot</DataField>
-        </Field>
-        <Field Name="Hour6Tot">
-          <DataField>Hour6Tot</DataField>
-        </Field>
-        <Field Name="Hour7Tot">
-          <DataField>Hour7Tot</DataField>
-        </Field>
-        <Field Name="Hour8Tot">
-          <DataField>Hour8Tot</DataField>
-        </Field>
-        <Field Name="Hour9Tot">
-          <DataField>Hour9Tot</DataField>
-        </Field>
-        <Field Name="Hour10Tot">
-          <DataField>Hour10Tot</DataField>
-        </Field>
-        <Field Name="TotalAchiveHours">
-          <DataField>TotalAchiveHours</DataField>
-        </Field>
-        <Field Name="Hour_1F">
-          <DataField>Hour_1F</DataField>
-        </Field>
-        <Field Name="Hour_2F">
-          <DataField>Hour_2F</DataField>
-        </Field>
-        <Field Name="Hour_3F">
-          <DataField>Hour_3F</DataField>
-        </Field>
-        <Field Name="Hour_4F">
-          <DataField>Hour_4F</DataField>
-        </Field>
-        <Field Name="Hour_5F">
-          <DataField>Hour_5F</DataField>
-        </Field>
-        <Field Name="Hour_6F">
-          <DataField>Hour_6F</DataField>
-        </Field>
-        <Field Name="Hour_7F">
-          <DataField>Hour_7F</DataField>
-        </Field>
-        <Field Name="Hour_8F">
-          <DataField>Hour_8F</DataField>
-        </Field>
-        <Field Name="Hour_9F">
-          <DataField>Hour_9F</DataField>
-        </Field>
-        <Field Name="Hour_10F">
-          <DataField>Hour_10F</DataField>
-        </Field>
-        <Field Name="Line_No_1F">
-          <DataField>Line_No_1F</DataField>
-        </Field>
-        <Field Name="ItemF">
-          <DataField>ItemF</DataField>
-        </Field>
-        <Field Name="Factory_No_1F">
-          <DataField>Factory_No_1F</DataField>
-        </Field>
-        <Field Name="StyleNameFinishing">
-          <DataField>StyleNameFinishing</DataField>
-        </Field>
-        <Field Name="Hour1TotFin">
-          <DataField>Hour1TotFin</DataField>
-        </Field>
-        <Field Name="Hour2TotFin">
-          <DataField>Hour2TotFin</DataField>
-        </Field>
-        <Field Name="Hour3TotFin">
-          <DataField>Hour3TotFin</DataField>
-        </Field>
-        <Field Name="Hour4TotFin">
-          <DataField>Hour4TotFin</DataField>
-        </Field>
-        <Field Name="Hour5TotFin">
-          <DataField>Hour5TotFin</DataField>
-        </Field>
-        <Field Name="Hour6TotFin">
-          <DataField>Hour6TotFin</DataField>
-        </Field>
-        <Field Name="Hour7TotFin">
-          <DataField>Hour7TotFin</DataField>
-        </Field>
-        <Field Name="Hour8TotFin">
-          <DataField>Hour8TotFin</DataField>
-        </Field>
-        <Field Name="Hour9TotFin">
-          <DataField>Hour9TotFin</DataField>
-        </Field>
-        <Field Name="Hour10TotFin">
-          <DataField>Hour10TotFin</DataField>
-        </Field>
-        <Field Name="TotalAchiveHoursFin">
-          <DataField>TotalAchiveHoursFin</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -1030,7 +654,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>INPUT DATE</Value>
+                                  <Value>PLAN INPUT DATE</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5900,7 +5524,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -14371,12 +13994,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -14416,4 +14033,377 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FactoryName">
+          <DataField>FactoryName</DataField>
+        </Field>
+        <Field Name="PlanDate">
+          <DataField>PlanDate</DataField>
+        </Field>
+        <Field Name="Qty">
+          <DataField>Qty</DataField>
+        </Field>
+        <Field Name="QtyFormat">
+          <DataField>QtyFormat</DataField>
+        </Field>
+        <Field Name="Style_Name">
+          <DataField>Style_Name</DataField>
+        </Field>
+        <Field Name="ResourceName">
+          <DataField>ResourceName</DataField>
+        </Field>
+        <Field Name="ResourceNo">
+          <DataField>ResourceNo</DataField>
+        </Field>
+        <Field Name="EffProdPlan">
+          <DataField>EffProdPlan</DataField>
+        </Field>
+        <Field Name="EffProdPlanFormat">
+          <DataField>EffProdPlanFormat</DataField>
+        </Field>
+        <Field Name="BuyerName">
+          <DataField>BuyerName</DataField>
+        </Field>
+        <Field Name="Style">
+          <DataField>Style</DataField>
+        </Field>
+        <Field Name="Factory">
+          <DataField>Factory</DataField>
+        </Field>
+        <Field Name="GarmentType">
+          <DataField>GarmentType</DataField>
+        </Field>
+        <Field Name="SMV">
+          <DataField>SMV</DataField>
+        </Field>
+        <Field Name="SMVFormat">
+          <DataField>SMVFormat</DataField>
+        </Field>
+        <Field Name="PlanTarget">
+          <DataField>PlanTarget</DataField>
+        </Field>
+        <Field Name="TodayTarget">
+          <DataField>TodayTarget</DataField>
+        </Field>
+        <Field Name="TodayTargetFormat">
+          <DataField>TodayTargetFormat</DataField>
+        </Field>
+        <Field Name="PlanQty">
+          <DataField>PlanQty</DataField>
+        </Field>
+        <Field Name="PlanDt">
+          <DataField>PlanDt</DataField>
+        </Field>
+        <Field Name="ActualPlanDt">
+          <DataField>ActualPlanDt</DataField>
+        </Field>
+        <Field Name="MC">
+          <DataField>MC</DataField>
+        </Field>
+        <Field Name="OutPutStartDate">
+          <DataField>OutPutStartDate</DataField>
+        </Field>
+        <Field Name="MerchandizerName">
+          <DataField>MerchandizerName</DataField>
+        </Field>
+        <Field Name="OutputComDate">
+          <DataField>OutputComDate</DataField>
+        </Field>
+        <Field Name="InputQtyToday">
+          <DataField>InputQtyToday</DataField>
+        </Field>
+        <Field Name="OutputQty">
+          <DataField>OutputQty</DataField>
+        </Field>
+        <Field Name="Line_No_">
+          <DataField>Line_No_</DataField>
+        </Field>
+        <Field Name="CompLogo">
+          <DataField>CompLogo</DataField>
+        </Field>
+        <Field Name="TodayOutput">
+          <DataField>TodayOutput</DataField>
+        </Field>
+        <Field Name="variance">
+          <DataField>variance</DataField>
+        </Field>
+        <Field Name="varianceFormat">
+          <DataField>varianceFormat</DataField>
+        </Field>
+        <Field Name="HoursPerDay">
+          <DataField>HoursPerDay</DataField>
+        </Field>
+        <Field Name="HoursPerDayFormat">
+          <DataField>HoursPerDayFormat</DataField>
+        </Field>
+        <Field Name="Start_Time">
+          <DataField>Start_Time</DataField>
+        </Field>
+        <Field Name="Finish_Time">
+          <DataField>Finish_Time</DataField>
+        </Field>
+        <Field Name="Factory_No_">
+          <DataField>Factory_No_</DataField>
+        </Field>
+        <Field Name="BrandName">
+          <DataField>BrandName</DataField>
+        </Field>
+        <Field Name="PlanInput">
+          <DataField>PlanInput</DataField>
+        </Field>
+        <Field Name="Planfinish">
+          <DataField>Planfinish</DataField>
+        </Field>
+        <Field Name="ActualInputDate">
+          <DataField>ActualInputDate</DataField>
+        </Field>
+        <Field Name="ActualFinishDate">
+          <DataField>ActualFinishDate</DataField>
+        </Field>
+        <Field Name="EffProdOut">
+          <DataField>EffProdOut</DataField>
+        </Field>
+        <Field Name="EffProdOutFormat">
+          <DataField>EffProdOutFormat</DataField>
+        </Field>
+        <Field Name="CMPcs">
+          <DataField>CMPcs</DataField>
+        </Field>
+        <Field Name="CMPcsFormat">
+          <DataField>CMPcsFormat</DataField>
+        </Field>
+        <Field Name="SendWashQty">
+          <DataField>SendWashQty</DataField>
+        </Field>
+        <Field Name="SendWashQtyFormat">
+          <DataField>SendWashQtyFormat</DataField>
+        </Field>
+        <Field Name="ReceiveWashQty">
+          <DataField>ReceiveWashQty</DataField>
+        </Field>
+        <Field Name="ReceiveWashQtyFormat">
+          <DataField>ReceiveWashQtyFormat</DataField>
+        </Field>
+        <Field Name="PO_No_">
+          <DataField>PO_No_</DataField>
+        </Field>
+        <Field Name="ShipDate">
+          <DataField>ShipDate</DataField>
+        </Field>
+        <Field Name="OrderQy">
+          <DataField>OrderQy</DataField>
+        </Field>
+        <Field Name="TargetProdPlan">
+          <DataField>TargetProdPlan</DataField>
+        </Field>
+        <Field Name="TargetProdPlanFormat">
+          <DataField>TargetProdPlanFormat</DataField>
+        </Field>
+        <Field Name="HourlyTarget">
+          <DataField>HourlyTarget</DataField>
+        </Field>
+        <Field Name="HourlyTargetFormat">
+          <DataField>HourlyTargetFormat</DataField>
+        </Field>
+        <Field Name="CutInputQtyTotal">
+          <DataField>CutInputQtyTotal</DataField>
+        </Field>
+        <Field Name="CutOutputQtyTotal">
+          <DataField>CutOutputQtyTotal</DataField>
+        </Field>
+        <Field Name="EMBInputQtyTotal">
+          <DataField>EMBInputQtyTotal</DataField>
+        </Field>
+        <Field Name="EMBOutputQtyTotal">
+          <DataField>EMBOutputQtyTotal</DataField>
+        </Field>
+        <Field Name="InputWIP">
+          <DataField>InputWIP</DataField>
+        </Field>
+        <Field Name="InputWIPFormat">
+          <DataField>InputWIPFormat</DataField>
+        </Field>
+        <Field Name="InputQtyTodayTo">
+          <DataField>InputQtyTodayTo</DataField>
+        </Field>
+        <Field Name="CutInputToday">
+          <DataField>CutInputToday</DataField>
+        </Field>
+        <Field Name="Lot_No_">
+          <DataField>Lot_No_</DataField>
+        </Field>
+        <Field Name="CM">
+          <DataField>CM</DataField>
+        </Field>
+        <Field Name="CMFormat">
+          <DataField>CMFormat</DataField>
+        </Field>
+        <Field Name="TOtalTarget">
+          <DataField>TOtalTarget</DataField>
+        </Field>
+        <Field Name="TOtalTargetFormat">
+          <DataField>TOtalTargetFormat</DataField>
+        </Field>
+        <Field Name="VarienceNew">
+          <DataField>VarienceNew</DataField>
+        </Field>
+        <Field Name="VarienceNewFormat">
+          <DataField>VarienceNewFormat</DataField>
+        </Field>
+        <Field Name="Hour_1">
+          <DataField>Hour_1</DataField>
+        </Field>
+        <Field Name="Hour_2">
+          <DataField>Hour_2</DataField>
+        </Field>
+        <Field Name="Hour_3">
+          <DataField>Hour_3</DataField>
+        </Field>
+        <Field Name="Hour_4">
+          <DataField>Hour_4</DataField>
+        </Field>
+        <Field Name="Hour_5">
+          <DataField>Hour_5</DataField>
+        </Field>
+        <Field Name="Hour_6">
+          <DataField>Hour_6</DataField>
+        </Field>
+        <Field Name="Hour_7">
+          <DataField>Hour_7</DataField>
+        </Field>
+        <Field Name="Hour_8">
+          <DataField>Hour_8</DataField>
+        </Field>
+        <Field Name="Hour_9">
+          <DataField>Hour_9</DataField>
+        </Field>
+        <Field Name="Hour_10">
+          <DataField>Hour_10</DataField>
+        </Field>
+        <Field Name="Line_No_1">
+          <DataField>Line_No_1</DataField>
+        </Field>
+        <Field Name="Item">
+          <DataField>Item</DataField>
+        </Field>
+        <Field Name="Factory_No_1">
+          <DataField>Factory_No_1</DataField>
+        </Field>
+        <Field Name="Hour1Tot">
+          <DataField>Hour1Tot</DataField>
+        </Field>
+        <Field Name="Hour2Tot">
+          <DataField>Hour2Tot</DataField>
+        </Field>
+        <Field Name="Hour3Tot">
+          <DataField>Hour3Tot</DataField>
+        </Field>
+        <Field Name="Hour4Tot">
+          <DataField>Hour4Tot</DataField>
+        </Field>
+        <Field Name="Hour5Tot">
+          <DataField>Hour5Tot</DataField>
+        </Field>
+        <Field Name="Hour6Tot">
+          <DataField>Hour6Tot</DataField>
+        </Field>
+        <Field Name="Hour7Tot">
+          <DataField>Hour7Tot</DataField>
+        </Field>
+        <Field Name="Hour8Tot">
+          <DataField>Hour8Tot</DataField>
+        </Field>
+        <Field Name="Hour9Tot">
+          <DataField>Hour9Tot</DataField>
+        </Field>
+        <Field Name="Hour10Tot">
+          <DataField>Hour10Tot</DataField>
+        </Field>
+        <Field Name="TotalAchiveHours">
+          <DataField>TotalAchiveHours</DataField>
+        </Field>
+        <Field Name="Hour_1F">
+          <DataField>Hour_1F</DataField>
+        </Field>
+        <Field Name="Hour_2F">
+          <DataField>Hour_2F</DataField>
+        </Field>
+        <Field Name="Hour_3F">
+          <DataField>Hour_3F</DataField>
+        </Field>
+        <Field Name="Hour_4F">
+          <DataField>Hour_4F</DataField>
+        </Field>
+        <Field Name="Hour_5F">
+          <DataField>Hour_5F</DataField>
+        </Field>
+        <Field Name="Hour_6F">
+          <DataField>Hour_6F</DataField>
+        </Field>
+        <Field Name="Hour_7F">
+          <DataField>Hour_7F</DataField>
+        </Field>
+        <Field Name="Hour_8F">
+          <DataField>Hour_8F</DataField>
+        </Field>
+        <Field Name="Hour_9F">
+          <DataField>Hour_9F</DataField>
+        </Field>
+        <Field Name="Hour_10F">
+          <DataField>Hour_10F</DataField>
+        </Field>
+        <Field Name="Line_No_1F">
+          <DataField>Line_No_1F</DataField>
+        </Field>
+        <Field Name="ItemF">
+          <DataField>ItemF</DataField>
+        </Field>
+        <Field Name="Factory_No_1F">
+          <DataField>Factory_No_1F</DataField>
+        </Field>
+        <Field Name="StyleNameFinishing">
+          <DataField>StyleNameFinishing</DataField>
+        </Field>
+        <Field Name="Hour1TotFin">
+          <DataField>Hour1TotFin</DataField>
+        </Field>
+        <Field Name="Hour2TotFin">
+          <DataField>Hour2TotFin</DataField>
+        </Field>
+        <Field Name="Hour3TotFin">
+          <DataField>Hour3TotFin</DataField>
+        </Field>
+        <Field Name="Hour4TotFin">
+          <DataField>Hour4TotFin</DataField>
+        </Field>
+        <Field Name="Hour5TotFin">
+          <DataField>Hour5TotFin</DataField>
+        </Field>
+        <Field Name="Hour6TotFin">
+          <DataField>Hour6TotFin</DataField>
+        </Field>
+        <Field Name="Hour7TotFin">
+          <DataField>Hour7TotFin</DataField>
+        </Field>
+        <Field Name="Hour8TotFin">
+          <DataField>Hour8TotFin</DataField>
+        </Field>
+        <Field Name="Hour9TotFin">
+          <DataField>Hour9TotFin</DataField>
+        </Field>
+        <Field Name="Hour10TotFin">
+          <DataField>Hour10TotFin</DataField>
+        </Field>
+        <Field Name="TotalAchiveHoursFin">
+          <DataField>TotalAchiveHoursFin</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>
