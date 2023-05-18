@@ -1363,7 +1363,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>EFF%</Value>
+                                  <Value>PLAN EFF%</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1569,6 +1569,7 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2292,7 +2293,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!OutputQty.Value) - Fields!TargetProdPlan.Value</Value>
+                                  <Value>=Fields!VarienceNew.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2311,6 +2312,7 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2329,7 +2331,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>MAC</Value>
+                                  <Value>M/C</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -2534,6 +2536,7 @@
                               <Style>Solid</Style>
                               <Width>0.5pt</Width>
                             </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -5494,7 +5497,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!CutInputQtyTotal.Value)</Value>
+                                  <Value>=Fields!CutInputQtyTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -5532,12 +5535,12 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!CutInputQtyTotal.Value)-Sum(Fields!CutOutputQtyTotal.Value)</Value>
+                                  <Value>=Fields!PlanQty.Value-Fields!CutInputQtyTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
-                                    <Format>#,0;(#,0);''</Format>
+                                    <Format>#,0;-#,0;''</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -12880,7 +12883,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -14249,6 +14251,9 @@ End Function
         </Field>
         <Field Name="TOtalTargetFormat">
           <DataField>TOtalTargetFormat</DataField>
+        </Field>
+        <Field Name="VarienceNew">
+          <DataField>VarienceNew</DataField>
         </Field>
         <Field Name="Hour_1">
           <DataField>Hour_1</DataField>

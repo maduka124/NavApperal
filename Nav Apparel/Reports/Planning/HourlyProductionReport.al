@@ -128,6 +128,8 @@ report 50865 HourlyProductionReport
             { }
             column(TOtalTarget; TOtalTarget)
             { }
+            column(VarienceNew; VarienceNew)
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -364,6 +366,47 @@ report 50865 HourlyProductionReport
                     TotalAchiveHours := Hour1Tot + Hour2Tot + Hour3Tot + Hour4Tot + Hour5Tot + Hour6Tot + Hour7Tot + Hour8Tot + Hour9Tot + Hour10Tot;
                 end;
 
+                // NavAppProdRec.Reset();
+                // NavAppProdRec.SetRange("No.", "No.");
+                // if NavAppProdRec.FindFirst() then begin
+                //     repeat
+                //         if NavAppProdRec.ProdUpdQty <> 0 then begin
+                //             VarienceNew += ProdUpdQty - Qty;
+                //         end;
+                //     until NavAppProdRec.Next() = 0;
+                // end;
+                ProdoutDate := 0D;
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange(Type, ProductionHeaderRec.Type::Saw);
+                ProductionHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+                ProductionHeaderRec.SetCurrentKey("Prod Date");
+                ProductionHeaderRec.Ascending(true);
+                if ProductionHeaderRec.FindLast() then begin
+                    ProdoutDate := ProductionHeaderRec."Prod Date";
+                end;
+
+                ProdOutFirstDate := 0D;
+                ProductionHeaderRec.Reset();
+                ProductionHeaderRec.SetRange(Type, ProductionHeaderRec.Type::Saw);
+                ProductionHeaderRec.SetFilter("Prod Updated", '=%1', 1);
+                ProductionHeaderRec.SetCurrentKey("Prod Date");
+                ProductionHeaderRec.Ascending(true);
+                if ProductionHeaderRec.FindFirst() then begin
+                    ProdOutFirstDate := ProductionHeaderRec."Prod Date";
+                end;
+
+
+                VarienceNew := 0;
+                NavAppProdRec.Reset();
+                NavAppProdRec.SetRange("Style No.", "Style No.");
+                NavAppProdRec.SetRange("Resource No.", "Resource No.");
+                NavAppProdRec.SetRange("PO No.", "PO No.");
+                NavAppProdRec.SetFilter(PlanDate, '%1..%2', ProdOutFirstDate, ProdoutDate);
+                if NavAppProdRec.FindSet() then begin
+                    repeat
+                        VarienceNew += ProdUpdQty - Qty;
+                    until NavAppProdRec.Next() = 0;
+                end;
 
 
                 if HoursPerDay > 0 then
@@ -407,15 +450,30 @@ report 50865 HourlyProductionReport
                     MC := NavLinesRec.Carder;
                 end;
 
+
+                AchieveQty := 0;
+                NavAppProdRec.Reset();
+                NavAppProdRec.SetRange("Style No.", "Style No.");
+                NavAppProdRec.SetRange("Lot No.", "Lot No.");
+                NavAppProdRec.SetRange("PO No.", "PO No.");
+                NavAppProdRec.SetRange("Resource No.", "Resource No.");
+                if NavAppProdRec.FindSet() then begin
+                    repeat
+                        AchieveQty += NavAppProdRec.ProdUpdQty;
+                    until NavAppProdRec.Next() = 0;
+                end;
+
+                PlanedQty := 0;
                 NavLinesRec.Reset();
                 NavLinesRec.SetRange("Style No.", "Style No.");
-                NavLinesRec.SetRange("PO No.", "PO No.");
-                NavLinesRec.SetRange("Line No.", "Line No.");
-                if NavLinesRec.FindFirst() then begin
+                NavLinesRec.SetRange("Resource No.", "Resource No.");
+                if NavLinesRec.FindSet() then begin
                     repeat
-                        PlanQty += NavLinesRec.Qty;
+                        PlanedQty += NavLinesRec.Qty;
                     until NavLinesRec.Next() = 0;
                 end;
+
+                PlanQty := PlanedQty + AchieveQty;
 
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Style No.");
@@ -493,12 +551,11 @@ report 50865 HourlyProductionReport
                 //Input/Ouput Total (up to date)
                 ProductionHeaderRec.Reset();
                 ProductionHeaderRec.SetRange("Style No.", "Style No.");
-                ProductionHeaderRec.SetRange("PO No", "PO No.");
+                // ProductionHeaderRec.SetRange("PO No", "PO No.");
                 ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
-                ProductionHeaderRec.SetFilter("Prod Date", '<=%1', PlanDate);
+                // ProductionHeaderRec.SetFilter("Prod Date", '>=%1', PlanDate);
                 ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Cut);
-
-                if ProductionHeaderRec.Findset() then begin
+                if ProductionHeaderRec.FindSet() then begin
                     repeat
                         CutInputQtyTotal += ProductionHeaderRec."Input Qty";
                         CutOutputQtyTotal += ProductionHeaderRec."Output Qty";
@@ -510,12 +567,14 @@ report 50865 HourlyProductionReport
                 //Input/Ouput Today (up to date)
                 ProductionHeaderRec.Reset();
                 ProductionHeaderRec.SetRange("Style No.", "Style No.");
-                ProductionHeaderRec.SetRange("PO No", "PO No.");
+                // ProductionHeaderRec.SetRange("PO No", "PO No.");
                 ProductionHeaderRec.SetRange("Resource No.", "Resource No.");
-                ProductionHeaderRec.SetFilter("Prod Date", '<=%1', PlanDate);
+                ProductionHeaderRec.SetFilter("Prod Date", '=%1', PlanDate);
                 ProductionHeaderRec.SetFilter(Type, '=%1', ProductionHeaderRec.Type::Cut);
                 if ProductionHeaderRec.FindFirst() then begin
+                    // repeat
                     CutInputToday += ProductionHeaderRec."Input Qty";
+                    // until ProductionHeaderRec.Next() = 0;
                 end;
 
                 //EMB
@@ -673,6 +732,8 @@ report 50865 HourlyProductionReport
             begin
                 SetRange(PlanDate, FilterDate);
                 SetRange("Factory No.", FactortFilter);
+
+
             end;
 
         }
@@ -734,6 +795,11 @@ report 50865 HourlyProductionReport
     }
 
     var
+        ProdOutFirstDate: Date;
+        ProdoutDate: Date;
+        AchieveQty: Integer;
+        PlanedQty: Decimal;
+        VarienceNew: BigInteger;
         TOtalTarget: Decimal;
         TotalAchiveHoursFin: Integer;
         Hour1TotFin: Integer;
