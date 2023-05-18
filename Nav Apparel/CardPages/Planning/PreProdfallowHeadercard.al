@@ -115,63 +115,63 @@ page 50835 PreProductionfollowup
                 //Get style details
                 StyleMasterRec.Reset();
                 StyleMasterRec.SetRange("No.", NavPlaningLineRec."Style No.");
-                StyleMasterRec.FindSet();
+                if StyleMasterRec.FindSet() then begin
 
-                //Get min date (start date)
-                NavPlaningLine2Rec.Reset();
-                NavPlaningLine2Rec.SetRange(Factory, rec."Factory Code");
-                NavPlaningLine2Rec.SetRange("Style No.", StyleMasterRec."No.");
-                NavPlaningLine2Rec.SetCurrentKey("Start Date");
-                NavPlaningLine2Rec.Ascending(true);
+                    //Get min date (start date)
+                    NavPlaningLine2Rec.Reset();
+                    NavPlaningLine2Rec.SetRange(Factory, rec."Factory Code");
+                    NavPlaningLine2Rec.SetRange("Style No.", StyleMasterRec."No.");
+                    NavPlaningLine2Rec.SetCurrentKey("Start Date");
+                    NavPlaningLine2Rec.Ascending(true);
 
-                if NavPlaningLine2Rec.FindFirst() then
-                    "Min Date" := NavPlaningLine2Rec."Start Date";
+                    if NavPlaningLine2Rec.FindFirst() then
+                        "Min Date" := NavPlaningLine2Rec."Start Date";
 
-                //Get max date (finish date)
-                NavPlaningLine2Rec.Reset();
-                NavPlaningLine2Rec.SetRange(Factory, rec."Factory Code");
-                NavPlaningLine2Rec.SetRange("Style No.", StyleMasterRec."No.");
-                NavPlaningLine2Rec.SetCurrentKey("End Date");
-                NavPlaningLine2Rec.Ascending(false);
+                    //Get max date (finish date)
+                    NavPlaningLine2Rec.Reset();
+                    NavPlaningLine2Rec.SetRange(Factory, rec."Factory Code");
+                    NavPlaningLine2Rec.SetRange("Style No.", StyleMasterRec."No.");
+                    NavPlaningLine2Rec.SetCurrentKey("End Date");
+                    NavPlaningLine2Rec.Ascending(false);
 
-                if NavPlaningLine2Rec.FindFirst() then
-                    "Max Date" := NavPlaningLine2Rec."End Date";
+                    if NavPlaningLine2Rec.FindFirst() then
+                        "Max Date" := NavPlaningLine2Rec."End Date";
 
-                //Get max line no for the factory and style
-                MaxNo := 0;
-                PreProductionFallowline1.Reset();
-                PreProductionFallowline1.SetRange("Factory Code", rec."Factory Code");
-                PreProductionFallowline1.SetRange("Style No", NavPlaningLineRec."Style No.");
-                if PreProductionFallowline1.FindLast() then
-                    MaxNo := PreProductionFallowline1."Line No";
+                    //Get max line no for the factory and style
+                    MaxNo := 0;
+                    PreProductionFallowline1.Reset();
+                    PreProductionFallowline1.SetRange("Factory Code", rec."Factory Code");
+                    PreProductionFallowline1.SetRange("Style No", NavPlaningLineRec."Style No.");
+                    if PreProductionFallowline1.FindLast() then
+                        MaxNo := PreProductionFallowline1."Line No";
 
-                MaxNo += 1;
+                    MaxNo += 1;
 
-                PreProductionFallowline.Reset();
-                PreProductionFallowline.SetRange("Factory Code", rec."Factory Code");
-                PreProductionFallowline.SetRange("Style No", NavPlaningLineRec."Style No.");
+                    PreProductionFallowline.Reset();
+                    PreProductionFallowline.SetRange("Factory Code", rec."Factory Code");
+                    PreProductionFallowline.SetRange("Style No", NavPlaningLineRec."Style No.");
 
-                if not PreProductionFallowline.FindSet() then begin
-                    PreProductionFallowline.Init();
-                    PreProductionFallowline."Line No" := MaxNo;
-                    PreProductionFallowline."Factory Name" := rec."Factory Name";
-                    PreProductionFallowline."Factory Code" := rec."Factory Code";
-                    PreProductionFallowline.Buyer := StyleMasterRec."Buyer Name";
-                    PreProductionFallowline."Buyer No" := StyleMasterRec."Buyer No.";
-                    PreProductionFallowline.Style := StyleMasterRec."Style No.";
-                    PreProductionFallowline."Style No" := StyleMasterRec."No.";
-                    PreProductionFallowline."Order Qty" := StyleMasterRec."Order Qty";
-                    PreProductionFallowline."Ship Date" := StyleMasterRec."Ship Date";
-                    PreProductionFallowline."Start Date" := "Min Date";
-                    PreProductionFallowline."End Date" := "Max Date";
-                    PreProductionFallowline.Insert();
-                end
-                else begin
-                    PreProductionFallowline."Start Date" := "Min Date";
-                    PreProductionFallowline."End Date" := "Max Date";
-                    PreProductionFallowline.Modify();
+                    if not PreProductionFallowline.FindSet() then begin
+                        PreProductionFallowline.Init();
+                        PreProductionFallowline."Line No" := MaxNo;
+                        PreProductionFallowline."Factory Name" := rec."Factory Name";
+                        PreProductionFallowline."Factory Code" := rec."Factory Code";
+                        PreProductionFallowline.Buyer := StyleMasterRec."Buyer Name";
+                        PreProductionFallowline."Buyer No" := StyleMasterRec."Buyer No.";
+                        PreProductionFallowline.Style := StyleMasterRec."Style No.";
+                        PreProductionFallowline."Style No" := StyleMasterRec."No.";
+                        PreProductionFallowline."Order Qty" := StyleMasterRec."Order Qty";
+                        PreProductionFallowline."Ship Date" := StyleMasterRec."Ship Date";
+                        PreProductionFallowline."Start Date" := "Min Date";
+                        PreProductionFallowline."End Date" := "Max Date";
+                        PreProductionFallowline.Insert();
+                    end
+                    else begin
+                        PreProductionFallowline."Start Date" := "Min Date";
+                        PreProductionFallowline."End Date" := "Max Date";
+                        PreProductionFallowline.Modify();
+                    end;
                 end;
-
             until NavPlaningLineRec.Next() = 0;
         end
     end;
