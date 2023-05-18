@@ -125,6 +125,7 @@ page 51066 "Style Inquiry"
         //StyleRec: Record "Style Master";
         StylePORec: Record "Style Master PO";
         SpecialOpRec: Record "Special Operation Style";
+        ContractLCStyleRec: Record "Contract/LCStyle";
     begin
         if rec.Status = rec.status::Confirmed then
             Error('Style already confirmed. Cannot delete.')
@@ -141,6 +142,13 @@ page 51066 "Style Inquiry"
             StylePORec.SetRange("Style No.", rec."No.");
             if StylePORec.FindSet() then
                 StylePORec.DeleteAll();
+
+            //Done By Sachith on 18/05/23
+            ContractLCStyleRec.Reset();
+            ContractLCStyleRec.SetRange("Style No.", Rec."No.");
+
+            if ContractLCStyleRec.FindFirst() then
+                Error('Style already added to Contract.Cannot delete');
 
 
         end;

@@ -733,6 +733,7 @@ page 50602 "Style Inquiry Card"
         StylePORec: Record "Style Master PO";
         SpecialOpRec: Record "Special Operation Style";
         NavAppPlanLineRec: Record "NavApp Planning Lines";
+        ContractLCStyleRec: Record "Contract/LCStyle";
     begin
         if rec.Status = rec.status::Confirmed then
             Error('Style already confirmed. Cannot delete.');
@@ -750,8 +751,13 @@ page 50602 "Style Inquiry Card"
         if StylePORec.FindSet() then
             StylePORec.DeleteAll();
 
-    end;
+        //Done By Sachith on 18/05/23
+        ContractLCStyleRec.Reset();
+        ContractLCStyleRec.SetRange("Style No.", Rec."No.");
 
+        if ContractLCStyleRec.FindFirst() then
+            Error('Style already added to Contract.Cannot delete');
+    end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     var

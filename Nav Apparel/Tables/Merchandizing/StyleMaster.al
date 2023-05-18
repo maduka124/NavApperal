@@ -395,7 +395,13 @@ table 50934 "Style Master"
     var
         BOMRec: Record BOM;
         BOMEstRec: Record "BOM Estimate";
+        ContractLCStyleRec: Record "Contract/LCStyle";
     begin
+
+        // Done By Sachith on 18/05/23
+        if rec.Status = rec.status::Confirmed then
+            Error('Style already confirmed. Cannot delete.');
+
         //Check for Exsistance
         BOMRec.Reset();
         BOMRec.SetRange("Style No.", "No.");
@@ -406,6 +412,13 @@ table 50934 "Style Master"
         BOMEstRec.SetRange("Style No.", "No.");
         if BOMEstRec.FindSet() then
             Error('Style : %1 already used in BOM. Cannot delete.', "Style No.");
+
+        //Done By Sachith on 18/05/23
+        ContractLCStyleRec.Reset();
+        ContractLCStyleRec.SetRange("Style No.", Rec."No.");
+
+        if ContractLCStyleRec.FindFirst() then
+            Error('Style already added to Contract.Cannot delete');
 
     end;
 
