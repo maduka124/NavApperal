@@ -91,7 +91,7 @@ page 50362 "Daily Printing In/Out"
         else
             Error('You are not authorized to delete records.');
 
-        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."PO No", 'IN', 'Print', Rec.Type::Print);
-        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."PO No", 'OUT', 'Print', Rec.Type::Print);
+        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."Lot No.", 'IN', 'Print', Rec.Type::Print);
+        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."Lot No.", 'OUT', 'Print', Rec.Type::Print);
     end;
 }

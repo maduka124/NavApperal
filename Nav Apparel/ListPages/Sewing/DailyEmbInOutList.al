@@ -91,7 +91,7 @@ page 50359 "Daily Embroidary In/Out"
         else
             Error('You are not authorized to delete records.');
 
-        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'IN', 'Emb', rec.Type::Emb);
-        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'OUT', 'Emb', rec.Type::Emb);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'IN', 'Emb', rec.Type::Emb);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'OUT', 'Emb', rec.Type::Emb);
     end;
 }

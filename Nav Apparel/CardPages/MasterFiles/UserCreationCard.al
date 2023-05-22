@@ -14,11 +14,15 @@ page 50978 "Create User Card"
         {
             group(General)
             {
-                // field("No."; rec."No.")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-                // }
+                field(Type1; Type1)
+                {
+                    ApplicationArea = All;
+                }
+
+                field(In_Out; In_Out)
+                {
+                    ApplicationArea = All;
+                }
 
                 field(contractNo; contractNo)
                 {
@@ -81,6 +85,20 @@ page 50978 "Create User Card"
     {
         area(Processing)
         {
+            action("Update WIP Qty")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+
+                begin
+                    Update_Sty_Master_PO();
+                    Message('Completed');
+                end;
+            }
+
             action("Remove minus Planned Qty")
             {
                 ApplicationArea = All;
@@ -398,7 +416,110 @@ page 50978 "Create User Card"
     }
 
 
+    procedure Update_Sty_Master_PO()
+    var
+        StyleMasterRec: Record "Style Master";
+        StyleMasterPORec: Record "Style Master PO";
+        StyleMasterPO1Rec: Record "Style Master PO";
+        ProductionOutLine: Record ProductionOutLine;
+        LineTotal: BigInteger;
+    begin
+
+        if (In_Out <> 'IN') and (In_Out <> 'OUT') then
+            Error('Invalid In Out Type');
+
+        StyleMasterRec.Reset();
+        if StyleMasterRec.FindSet() then begin
+            repeat
+                StyleMasterPORec.Reset();
+                StyleMasterPORec.SetRange("Style No.", StyleMasterRec."No.");
+                if StyleMasterPORec.FindSet() then begin
+                    repeat
+                        LineTotal := 0;
+                        //Get out Total
+                        ProductionOutLine.Reset();
+                        ProductionOutLine.SetRange("Style No.", StyleMasterRec."No.");
+                        ProductionOutLine.SetRange("Lot No.", StyleMasterPORec."Lot No.");
+                        ProductionOutLine.SetRange(Type, Type1);
+                        ProductionOutLine.SetRange(In_Out, In_Out);
+
+                        if ProductionOutLine.FindSet() then begin
+                            repeat
+                                if ProductionOutLine."Colour No" <> '*' then
+                                    LineTotal += ProductionOutLine.Total;
+                            until ProductionOutLine.Next() = 0;
+                        end;
+
+                        StyleMasterPO1Rec.Reset();
+                        StyleMasterPO1Rec.SetRange("Style No.", StyleMasterRec."No.");
+                        StyleMasterPO1Rec.SetRange("Lot No.", StyleMasterPORec."Lot No.");
+                        if StyleMasterPO1Rec.FindSet() then begin
+
+                            if Type1 = Type1::Saw then BEGIN
+                                if In_Out = 'IN' then
+                                    StyleMasterPO1Rec.ModifyAll("Sawing In Qty", LineTotal)
+                                else
+                                    if In_Out = 'OUT' then
+                                        StyleMasterPO1Rec.ModifyAll("Sawing Out Qty", LineTotal);
+                            END;
+
+
+                            if Type1 = Type1::Wash then begin
+                                if In_Out = 'IN' then
+                                    StyleMasterPO1Rec.ModifyAll("Wash In Qty", LineTotal)
+                                else
+                                    if In_Out = 'OUT' then
+                                        StyleMasterPO1Rec.ModifyAll("Wash Out Qty", LineTotal);
+                            end;
+
+
+                            if Type1 = Type1::Cut then begin
+                                StyleMasterPO1Rec.ModifyAll("Cut Out Qty", LineTotal);
+                            end;
+
+
+                            if Type1 = Type1::Emb then begin
+                                if In_Out = 'IN' then
+                                    StyleMasterPO1Rec.ModifyAll("Emb In Qty", LineTotal)
+                                else
+                                    if In_Out = 'OUT' then
+                                        StyleMasterPO1Rec.ModifyAll("Emb Out Qty", LineTotal);
+                            end;
+
+
+                            if Type1 = Type1::Print then begin
+                                if In_Out = 'IN' then
+                                    StyleMasterPO1Rec.ModifyAll("Print In Qty", LineTotal)
+                                else
+                                    if In_Out = 'OUT' then
+                                        StyleMasterPO1Rec.ModifyAll("print Out Qty", LineTotal);
+                            end;
+
+
+                            if Type1 = Type1::Fin then begin
+                                StyleMasterPO1Rec.ModifyAll("Finish Qty", LineTotal);
+                            end;
+
+
+                            if Type1 = Type1::Ship then BEGIN
+                                begin
+                                    StyleMasterPO1Rec.ModifyAll("Shipped Qty", LineTotal);
+                                end;
+                            END;
+
+                        end;
+
+                    until StyleMasterPORec.Next() = 0;
+                end;
+            until StyleMasterRec.Next() = 0;
+        end;
+    end;
+
+
     var
         Password: Text[50];
         contractNo: Text[50];
+        Type1: Option Saw,Cut,Wash,Emb,Print,Fin,Ship;
+        In_Out: code[10];
+
 }

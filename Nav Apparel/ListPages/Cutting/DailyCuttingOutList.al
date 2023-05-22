@@ -92,6 +92,6 @@ page 50352 "Daily Cutting Out"
         else
             Error('You are not authorized to delete records.');
 
-        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."PO No", 'OUT', 'Cut', Rec.Type::Cut);
+        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."Lot No.", 'OUT', 'Cut', Rec.Type::Cut);
     end;
 }

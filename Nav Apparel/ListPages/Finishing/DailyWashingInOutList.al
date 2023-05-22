@@ -76,7 +76,7 @@ page 50357 "Daily Washing In/Out"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
-        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."PO No", 'IN', 'Wash', Rec.Type::Wash);
-        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."PO No", 'OUT', 'Wash', Rec.Type::Wash);
+        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."Lot No.", 'IN', 'Wash', Rec.Type::Wash);
+        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."Lot No.", 'OUT', 'Wash', Rec.Type::Wash);
     end;
 }

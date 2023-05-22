@@ -75,6 +75,6 @@ page 50365 "Daily Shipping Out"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
-        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."PO No", 'OUT', 'Ship', Rec.Type::Ship);
+        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."Lot No.", 'OUT', 'Ship', Rec.Type::Ship);
     end;
 }

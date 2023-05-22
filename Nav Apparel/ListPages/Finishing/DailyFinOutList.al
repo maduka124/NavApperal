@@ -77,6 +77,6 @@ page 50363 "Daily Finishing Out"
     var
         NavAppCodeUnit: Codeunit NavAppCodeUnit;
     begin
-        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."PO No", 'OUT', 'Fin', Rec.Type::Fin);
+        NavAppCodeUnit.Delete_Prod_Records(Rec."No.", Rec."Style No.", Rec."Lot No.", 'OUT', 'Fin', Rec.Type::Fin);
     end;
 }

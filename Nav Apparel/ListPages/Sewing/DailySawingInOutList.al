@@ -157,8 +157,8 @@ page 50356 "Daily Sewing In/Out"
         else
             Error('You are not authorized to delete records.');
 
-        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'IN', 'Saw', rec.Type::Saw);
-        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."PO No", 'OUT', 'Saw', rec.Type::Saw);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'IN', 'Saw', rec.Type::Saw);
+        NavAppCodeUnit.Delete_Prod_Records(rec."No.", rec."Style No.", rec."Lot No.", 'OUT', 'Saw', rec.Type::Saw);
     end;
 
     var
