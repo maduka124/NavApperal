@@ -301,6 +301,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
         GrpItemNo: Code[20];
         CheckTransLine: Record "Transfer Line";
         LoginSessionsRec: Record LoginSessions;
+        Nosmangemnt: Codeunit NoSeriesManagement;
         LoginRec: Page "Login Card";
         TotQty: Decimal;
     begin
@@ -357,8 +358,8 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
             PassItemJnalRec.SetRange("Journal Batch Name", rec."Journal Batch Name");
             PassItemJnalRec.FindFirst();
             TransHedd.Init();
-            //TransHedd."No." := Nosmangemnt.GetNextNo(InvSetup."Transfer Order Nos.", WorkDate(), true);
-
+            TransHedd."No." := Nosmangemnt.GetNextNo(InvSetup."Transfer Order Nos.", WorkDate(), true);
+            TransHedd.Insert(true);
             TransHedd.Validate("Transfer-from Code", LocRec."Transfer-from Location");
             TransHedd.Validate("Transfer-to Code", PassItemJnalRec."Location Code");
             TransHedd.TestField("In-Transit Code");
@@ -367,7 +368,7 @@ pageextension 50805 "Consumption Jrnl List Ext" extends "Consumption Journal"
             TransHedd."Style Name" := PassItemJnalRec."Style Name";
             TransHedd."Style No." := PassItemJnalRec."Style No.";
             TransHedd."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-            TransHedd.Insert(true);
+            TransHedd.Modify();
             Window.Update(1, TransHedd."No.");
 
             repeat

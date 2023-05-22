@@ -38,7 +38,7 @@ report 50865 HourlyProductionReport
             { }
             column(PlanTarget; PlanTarget)
             { }
-            column(TodayTarget; Qty)
+            column(TodayTarget; DayTarget)
             { }
             column(PlanQty; PlanQty)
             { }
@@ -180,6 +180,32 @@ report 50865 HourlyProductionReport
                 { }
                 column(TotalAchiveHours; TotalAchiveHours)
                 { }
+                column(FactoryHour1Tot; FactoryHour1Tot)
+                { }
+                column(FactoryHour2Tot; FactoryHour2Tot)
+                { }
+                column(FactoryHour3Tot; FactoryHour3Tot)
+                { }
+                column(FactoryHour4Tot; FactoryHour4Tot)
+                { }
+                column(FactoryHour5Tot; FactoryHour5Tot)
+                { }
+                column(FactoryHour6Tot; FactoryHour6Tot)
+                { }
+                column(FactoryHour7Tot; FactoryHour7Tot)
+                { }
+                column(FactoryHour8Tot; FactoryHour8Tot)
+                { }
+                column(FactoryHour9Tot; FactoryHour9Tot)
+                { }
+                column(FactoryHour10Tot; FactoryHour10Tot)
+                { }
+                column(TotalFactoryAchiveHours; TotalFactoryAchiveHours)
+                { }
+                column(FactoryCodeTotal; FactoryCodeTotal)
+                { }
+
+
 
             }
 
@@ -239,6 +265,28 @@ report 50865 HourlyProductionReport
                 { }
                 column(TotalAchiveHoursFin; TotalAchiveHoursFin)
                 { }
+                column(FactoryHour1TotFin; FactoryHour1TotFin)
+                { }
+                column(FactoryHour2TotFin; FactoryHour2TotFin)
+                { }
+                column(FactoryHour3TotFin; FactoryHour3TotFin)
+                { }
+                column(FactoryHour4TotFin; FactoryHour4TotFin)
+                { }
+                column(FactoryHour5TotFin; FactoryHour5TotFin)
+                { }
+                column(FactoryHour6TotFin; FactoryHour6TotFin)
+                { }
+                column(FactoryHour7TotFin; FactoryHour7TotFin)
+                { }
+                column(FactoryHour8TotFin; FactoryHour8TotFin)
+                { }
+                column(FactoryHour9TotFin; FactoryHour9TotFin)
+                { }
+                column(FactoryHour10TotFin; FactoryHour10TotFin)
+                { }
+                column(FactoryTotalAchiveHoursFin; FactoryTotalAchiveHoursFin)
+                { }
 
                 trigger OnAfterGetRecord()
                 var
@@ -277,8 +325,8 @@ report 50865 HourlyProductionReport
 
                     HoProLiRec.Reset();
                     HoProLiRec.SetRange("No.", "No.");
-                    // HoProLiRec.SetRange("Prod Date", PlanDate);
-                    // HoProLiRec.SetRange("Factory No.", "Factory No.");
+                    HoProLiRec.SetRange("Prod Date", "Prod Date");
+                    HoProLiRec.SetRange("Factory No.", "Factory No.");
                     HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
                     HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
                     if HoProLiRec.FindSet() then begin
@@ -314,6 +362,47 @@ report 50865 HourlyProductionReport
                         Hour10TotFin := HoProLiRec."Hour 10";
 
                         TotalAchiveHoursFin := Hour1TotFin + Hour2TotFin + Hour3TotFin + Hour4TotFin + Hour5TotFin + Hour6TotFin + Hour7TotFin + Hour8TotFin + Hour9TotFin + Hour10TotFin;
+                    end;
+
+
+                    HoProLiRec.Reset();
+                    HoProLiRec.SetRange("No.", "No.");
+                    HoProLiRec.SetRange("Prod Date", "Prod Date");
+                    HoProLiRec.SetRange(Type, HoProLiRec.Type::Finishing);
+                    HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                    if HoProLiRec.FindSet() then begin
+
+                        HoProLiRec.CalcSums("Hour 01");
+                        FactoryHour1TotFin := HoProLiRec."Hour 01";
+
+                        HoProLiRec.CalcSums("Hour 02");
+                        FactoryHour2TotFin := HoProLiRec."Hour 02";
+
+                        HoProLiRec.CalcSums("Hour 03");
+                        FactoryHour3TotFin := HoProLiRec."Hour 03";
+
+                        HoProLiRec.CalcSums("Hour 04");
+                        FactoryHour4TotFin := HoProLiRec."Hour 04";
+
+                        HoProLiRec.CalcSums("Hour 05");
+                        FactoryHour5TotFin := HoProLiRec."Hour 05";
+
+                        HoProLiRec.CalcSums("Hour 06");
+                        FactoryHour6TotFin := HoProLiRec."Hour 06";
+
+                        HoProLiRec.CalcSums("Hour 07");
+                        FactoryHour7TotFin := HoProLiRec."Hour 07";
+
+                        HoProLiRec.CalcSums("Hour 08");
+                        FactoryHour8TotFin := HoProLiRec."Hour 08";
+
+                        HoProLiRec.CalcSums("Hour 09");
+                        FactoryHour9TotFin := HoProLiRec."Hour 09";
+
+                        HoProLiRec.CalcSums("Hour 10");
+                        FactoryHour10TotFin := HoProLiRec."Hour 10";
+
+                        FactoryTotalAchiveHoursFin := FactoryHour1TotFin + FactoryHour2TotFin + FactoryHour3TotFin + FactoryHour4TotFin + FactoryHour5TotFin + FactoryHour6TotFin + FactoryHour7TotFin + FactoryHour8TotFin + FactoryHour9TotFin + FactoryHour10TotFin;
                     end;
                 end;
             }
@@ -360,6 +449,46 @@ report 50865 HourlyProductionReport
                     TotalAchiveHours := Hour1Tot + Hour2Tot + Hour3Tot + Hour4Tot + Hour5Tot + Hour6Tot + Hour7Tot + Hour8Tot + Hour9Tot + Hour10Tot;
                 end;
 
+                HoProLiRec.Reset();
+                HoProLiRec.SetRange("Prod Date", PlanDate);
+                HoProLiRec.SetRange(Type, HoProLiRec.Type::Sewing);
+                HoProLiRec.SetFilter(Item, '=%1', 'PASS PCS');
+                if HoProLiRec.FindSet() then begin
+
+
+                    HoProLiRec.CalcSums("Hour 01");
+                    FactoryHour1Tot := HoProLiRec."Hour 01";
+
+                    HoProLiRec.CalcSums("Hour 02");
+                    FactoryHour2Tot := HoProLiRec."Hour 02";
+
+                    HoProLiRec.CalcSums("Hour 03");
+                    FactoryHour3Tot := HoProLiRec."Hour 03";
+
+                    HoProLiRec.CalcSums("Hour 04");
+                    FactoryHour4Tot := HoProLiRec."Hour 04";
+
+                    HoProLiRec.CalcSums("Hour 05");
+                    FactoryHour5Tot := HoProLiRec."Hour 05";
+
+                    HoProLiRec.CalcSums("Hour 06");
+                    FactoryHour6Tot := HoProLiRec."Hour 06";
+
+                    HoProLiRec.CalcSums("Hour 07");
+                    FactoryHour7Tot := HoProLiRec."Hour 07";
+
+                    HoProLiRec.CalcSums("Hour 08");
+                    FactoryHour8Tot := HoProLiRec."Hour 08";
+
+                    HoProLiRec.CalcSums("Hour 09");
+                    FactoryHour9Tot := HoProLiRec."Hour 09";
+
+                    HoProLiRec.CalcSums("Hour 10");
+                    FactoryHour10Tot := HoProLiRec."Hour 10";
+
+                    TotalFactoryAchiveHours := FactoryHour1Tot + FactoryHour2Tot + FactoryHour3Tot + FactoryHour4Tot + FactoryHour5Tot + FactoryHour6Tot + FactoryHour7Tot + FactoryHour8Tot + FactoryHour9Tot + FactoryHour10Tot;
+                end;
+
                 ProdoutDate := 0D;
                 ProductionHeaderRec.Reset();
                 ProductionHeaderRec.SetRange(Type, ProductionHeaderRec.Type::Saw);
@@ -404,16 +533,32 @@ report 50865 HourlyProductionReport
                     until NavAppProdRec.Next() = 0;
                 end;
 
-                //Working Hours
-                Hours := ("Finish Time" - "Start Time") / (60 * 60 * 1000);
+                Hours := 0;
+                HourlyTarget := 0;
+                DayTarget := 0;
+                NavAppProdRec.Reset();
+                NavAppProdRec.SetRange(PlanDate, PlanDate);
+                NavAppProdRec.SetRange("Style No.", "Style No.");
+                // NavAppProdRec.SetRange("PO No.", "PO No.");
+                NavAppProdRec.SetRange("Resource No.", "Resource No.");
+                if NavAppProdRec.FindSet() then begin
+                    repeat
+                        Hours += (NavAppProdRec."Finish Time" - NavAppProdRec."Start Time") / (60 * 60 * 1000);
+                        DayTarget += NavAppProdRec.Qty;
+                    // Hours += NavAppProdRec.HoursPerDay;
+                    until NavAppProdRec.Next() = 0;
 
-                //Hourly Target
-                if Hours > 0 then
-                    HourlyTarget := Qty / Hours
-                else
-                    HourlyTarget := 0;
+                end;
+                //Working Hours
+                // if Hours > 0 then
+                HourlyTarget += DayTarget / Hours;
+                // else
+                //     HourlyTarget := 0;
 
                 TOtalTarget := HourlyTarget;
+
+                //Hourly Target
+
 
 
                 //Company Logo
@@ -756,6 +901,30 @@ report 50865 HourlyProductionReport
     }
 
     var
+
+        FactoryTotalAchiveHoursFin: Integer;
+        FactoryHour1TotFin: Integer;
+        FactoryHour2TotFin: Integer;
+        FactoryHour3TotFin: Integer;
+        FactoryHour4TotFin: Integer;
+        FactoryHour5TotFin: Integer;
+        FactoryHour6TotFin: Integer;
+        FactoryHour7TotFin: Integer;
+        FactoryHour8TotFin: Integer;
+        FactoryHour9TotFin: Integer;
+        FactoryHour10TotFin: Integer;
+        FactoryCodeTotal: Code[20];
+        TotalFactoryAchiveHours: Integer;
+        FactoryHour1Tot: Integer;
+        FactoryHour2Tot: Integer;
+        FactoryHour3Tot: Integer;
+        FactoryHour4Tot: Integer;
+        FactoryHour5Tot: Integer;
+        FactoryHour6Tot: Integer;
+        FactoryHour7Tot: Integer;
+        FactoryHour8Tot: Integer;
+        FactoryHour9Tot: Integer;
+        FactoryHour10Tot: Integer;
         NavappfirstDate: Date;
         SendWashTotal: BigInteger;
         RCVWashTotal: BigInteger;
