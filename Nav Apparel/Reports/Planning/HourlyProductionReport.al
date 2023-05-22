@@ -38,7 +38,7 @@ report 50865 HourlyProductionReport
             { }
             column(PlanTarget; PlanTarget)
             { }
-            column(TodayTarget; Qty)
+            column(TodayTarget; DayTarget)
             { }
             column(PlanQty; PlanQty)
             { }
@@ -533,16 +533,32 @@ report 50865 HourlyProductionReport
                     until NavAppProdRec.Next() = 0;
                 end;
 
-                //Working Hours
-                Hours := ("Finish Time" - "Start Time") / (60 * 60 * 1000);
+                Hours := 0;
+                HourlyTarget := 0;
+                DayTarget := 0;
+                NavAppProdRec.Reset();
+                NavAppProdRec.SetRange(PlanDate, PlanDate);
+                NavAppProdRec.SetRange("Style No.", "Style No.");
+                // NavAppProdRec.SetRange("PO No.", "PO No.");
+                NavAppProdRec.SetRange("Resource No.", "Resource No.");
+                if NavAppProdRec.FindSet() then begin
+                    repeat
+                        Hours += (NavAppProdRec."Finish Time" - NavAppProdRec."Start Time") / (60 * 60 * 1000);
+                        DayTarget += NavAppProdRec.Qty;
+                    // Hours += NavAppProdRec.HoursPerDay;
+                    until NavAppProdRec.Next() = 0;
 
-                //Hourly Target
-                if Hours > 0 then
-                    HourlyTarget := Qty / Hours
-                else
-                    HourlyTarget := 0;
+                end;
+                //Working Hours
+                // if Hours > 0 then
+                HourlyTarget += DayTarget / Hours;
+                // else
+                //     HourlyTarget := 0;
 
                 TOtalTarget := HourlyTarget;
+
+                //Hourly Target
+
 
 
                 //Company Logo
@@ -885,6 +901,7 @@ report 50865 HourlyProductionReport
     }
 
     var
+
         FactoryTotalAchiveHoursFin: Integer;
         FactoryHour1TotFin: Integer;
         FactoryHour2TotFin: Integer;
