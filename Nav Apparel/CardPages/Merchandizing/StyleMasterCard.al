@@ -257,8 +257,21 @@ page 50607 "Style Master Card"
 
     trigger OnDeleteRecord(): Boolean
     var
+        NavAppPlanLineRec: Record "NavApp Planning Lines";
+        PlanningQueueRec: Record "Planning Queue";
     begin
         if rec.Status = rec.Status::Confirmed then
             Error('Style already confirmed. Cannot delete.');
+
+        PlanningQueueRec.Reset();
+        PlanningQueueRec.SetRange("Style No.", rec."No.");
+        if PlanningQueueRec.FindSet() then
+            Error('Style already in the Queue. Cannot delete.');
+
+
+        NavAppPlanLineRec.Reset();
+        NavAppPlanLineRec.SetRange("Style No.", rec."No.");
+        if NavAppPlanLineRec.FindSet() then
+            Error('Style already planned. Cannot delete.');
     end;
 }

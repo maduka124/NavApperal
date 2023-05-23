@@ -136,7 +136,8 @@ page 51306 "Delete From Queue List"
                                             //Delete old record from Queue
                                             PlanningQueueNewRec.Reset();
                                             PlanningQueueNewRec.SetRange("Queue No.", PlanningQueueRec."Queue No.");
-                                            PlanningQueueNewRec.DeleteAll();
+                                            if PlanningQueueNewRec.FindSet() then
+                                                PlanningQueueNewRec.DeleteAll();
                                             break;
                                         end
                                     until PlanningQueue1Rec.Next() = 0;

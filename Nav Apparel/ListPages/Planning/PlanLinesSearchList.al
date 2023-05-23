@@ -130,20 +130,21 @@ page 50840 "Plan Lines - Search List"
                                 // if ProdHeaderRec.FindSet() then
                                 //     Error('Sewing Production Output has entered but not processed yet for the date : %1 and Line : %2 . Cannot change the allocation.', ProdHeaderRec."Prod Date", PlanningLinesRec."Resource No.");
 
-                                QTY := 0;
-                                //get remaining qty
-                                ProdPlanDetRec.Reset();
-                                ProdPlanDetRec.SetRange("Resource No.", PlanningLinesRec."Resource No.");
-                                ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
-                                ProdPlanDetRec.SetRange("Line No.", PlanningLinesRec."Line No.");
+                                // QTY := 0;
+                                // //get remaining qty
+                                // ProdPlanDetRec.Reset();
+                                // ProdPlanDetRec.SetRange("Resource No.", PlanningLinesRec."Resource No.");
+                                // ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
+                                // ProdPlanDetRec.SetRange("Line No.", PlanningLinesRec."Line No.");
 
-                                if ProdPlanDetRec.FindSet() then begin
-                                    repeat
-                                        QTY += ProdPlanDetRec.Qty;
-                                    until ProdPlanDetRec.Next() = 0;
-                                end;
+                                // if ProdPlanDetRec.FindSet() then begin
+                                //     repeat
+                                //         QTY += ProdPlanDetRec.Qty;
+                                //     until ProdPlanDetRec.Next() = 0;
+                                // end;
 
-                                QTY := Round(QTY, 1);
+                                // QTY := Round(QTY, 1);
+                                QTY := PlanningLinesRec.Qty;
 
                                 //Get Max QueueNo
                                 PlanningQueueRec.Reset();
@@ -181,15 +182,17 @@ page 50840 "Plan Lines - Search List"
                                 StyleMasterPORec.Reset();
                                 StyleMasterPORec.SetRange("Style No.", PlanningLinesRec."Style No.");
                                 StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
-                                StyleMasterPORec.FindSet();
+                                if StyleMasterPORec.FindSet() then begin
+                                    StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - QTY;
+                                    StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + QTY;
+                                    StyleMasterPORec.Modify();
+                                end
+                                else
+                                    Error('Cannot find PO : %1 in Style PO Details.', PlanningLinesRec."PO No.");
 
                                 // if (StyleMasterPORec.PlannedQty - QTY) < 0 then
                                 //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
 
-
-                                StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - QTY;
-                                StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + QTY;
-                                StyleMasterPORec.Modify();
 
                                 //Delete remaining line from the Prod Plan Det table
                                 ProdPlanDetRec.Reset();
@@ -199,10 +202,14 @@ page 50840 "Plan Lines - Search List"
                                 if ProdPlanDetRec.FindSet() then
                                     ProdPlanDetRec.DeleteAll();
 
-                                //Delete Planning line                            
-                                PlanningLinesRec.Delete();
-
                             until PlanningLinesRec.Next() = 0;
+
+                            //Delete Planning lines
+                            PlanningLinesRec.Reset();
+                            PlanningLinesRec.SetFilter(Select, '=%1', true);
+                            PlanningLinesRec.SetRange(Factory, FactoryCode);
+                            if PlanningLinesRec.FindSet() then
+                                PlanningLinesRec.DeleteAll();
 
                             Message('Completed');
                         end;
@@ -309,6 +316,17 @@ page 50840 "Plan Lines - Search List"
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
         //rec.SetFilter(Factory, '=%1', FactoryCode);
+    end;
+
+
+    trigger OnQueryClosePage(CloseAction: Action): Boolean
+    var
+        NavAppPlanningRec: Record "NavApp Planning Lines";
+    begin
+        NavAppPlanningRec.Reset();
+        NavAppPlanningRec.SetRange(Factory, FactoryCode);
+        if NavAppPlanningRec.FindSet() then
+            NavAppPlanningRec.ModifyAll(Select, false);
     end;
 
 

@@ -3107,9 +3107,10 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             //Get resource No, Start Date
                             PlanningLinesRec.Reset();
                             PlanningLinesRec.SetRange("Line No.", LineNo);
-
-                            if PlanningLinesRec.FindSet() then
+                            if PlanningLinesRec.FindSet() then begin
+                                QTY := PlanningLinesRec.Qty;
                                 ResourceNo := PlanningLinesRec."Resource No.";
+                            end;
 
 
                             // //Check for not prod. updated sewing out enties
@@ -3126,24 +3127,21 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             // if ProdHeaderRec.FindSet() then
                             //     Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
 
+                            // QTY := 0;
+                            // //get remaining qty
+                            // ProdPlanDetRec.Reset();
+                            // ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
+                            // ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
+                            // ProdPlanDetRec.SetRange("Line No.", LineNo);
 
 
-                            QTY := 0;
-                            //get remaining qty
-                            ProdPlanDetRec.Reset();
-                            ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
-                            ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
-                            ProdPlanDetRec.SetRange("Line No.", LineNo);
+                            // if ProdPlanDetRec.FindSet() then begin
+                            //     repeat
+                            //         QTY += ProdPlanDetRec.Qty;
+                            //     until ProdPlanDetRec.Next() = 0;
+                            // end;
 
-
-                            if ProdPlanDetRec.FindSet() then begin
-                                repeat
-                                    QTY += ProdPlanDetRec.Qty;
-                                until ProdPlanDetRec.Next() = 0;
-                            end;
-
-                            QTY := Round(QTY, 1);
-
+                            // QTY := Round(QTY, 1);
 
                             //Check whether user logged in or not
                             LoginSessionsRec.Reset();
@@ -3159,10 +3157,8 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 LoginSessionsRec.FindSet();
                             end;
 
-
                             //Get Max QueueNo
                             PlanningQueueRec.Reset();
-
                             if PlanningQueueRec.FindLast() then
                                 QueueNo := PlanningQueueRec."Queue No.";
 
@@ -3196,16 +3192,16 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             StyleMasterPORec.Reset();
                             StyleMasterPORec.SetRange("Style No.", PlanningLinesRec."Style No.");
                             StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
-                            StyleMasterPORec.FindSet();
+                            if StyleMasterPORec.FindSet() then begin
+                                StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - QTY;
+                                StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + QTY;
+                                StyleMasterPORec.Modify();
+                            end
+                            else
+                                Error('Cannot find PO : %1 in Style PO Details.', PlanningLinesRec."PO No.");
 
                             // if (StyleMasterPORec.PlannedQty - QTY) < 0 then
                             //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
-
-
-                            StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - QTY;
-                            StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + QTY;
-                            StyleMasterPORec.Modify();
-
 
                             //Delete Planning line
                             PlanningLinesRec.Reset();

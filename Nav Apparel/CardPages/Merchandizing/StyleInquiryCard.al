@@ -8,23 +8,23 @@ page 50602 "Style Inquiry Card"
     {
         area(Content)
         {
-            // group(General1)
-            // {
-            //     field("LC No/Contract"; rec."LC No/Contract")
-            //     {
-            //         ApplicationArea = All;
-            //     }
+            group(General1)
+            {
+                field("LC No/Contract"; rec."LC No/Contract")
+                {
+                    ApplicationArea = All;
+                }
 
-            //     field(ContractNo; rec.ContractNo)
-            //     {
-            //         ApplicationArea = All;
-            //     }
+                field(ContractNo; rec.ContractNo)
+                {
+                    ApplicationArea = All;
+                }
 
-            //     field(AssignedContractNo; rec.AssignedContractNo)
-            //     {
-            //         ApplicationArea = All;
-            //     }
-            // }
+                field(AssignedContractNo; rec.AssignedContractNo)
+                {
+                    ApplicationArea = All;
+                }
+            }
 
             group(General)
             {
@@ -734,9 +734,15 @@ page 50602 "Style Inquiry Card"
         SpecialOpRec: Record "Special Operation Style";
         NavAppPlanLineRec: Record "NavApp Planning Lines";
         ContractLCStyleRec: Record "Contract/LCStyle";
+        PlanningQueueRec: Record "Planning Queue";
     begin
         if rec.Status = rec.status::Confirmed then
             Error('Style already confirmed. Cannot delete.');
+
+        PlanningQueueRec.Reset();
+        PlanningQueueRec.SetRange("Style No.", rec."No.");
+        if PlanningQueueRec.FindSet() then
+            Error('Style already in the Queue. Cannot delete.');
 
         NavAppPlanLineRec.Reset();
         NavAppPlanLineRec.SetRange("Style No.", rec."No.");

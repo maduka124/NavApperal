@@ -217,14 +217,28 @@ page 51300 "WIP Style PO Listpart"
                     end;
                 }
 
+                field(PlannedQty; rec.PlannedQty)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Planned Qty';
+                }
+
+                field(QueueQty; rec.QueueQty)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Queue Qty';
+                }
+
                 field("Cut In Qty"; Rec."Cut In Qty")
                 {
                     ApplicationArea = All;
                 }
+
                 field("Sawing In Qty"; Rec."Sawing In Qty")
                 {
                     ApplicationArea = All;
                 }
+
                 field("Sawing Out Qty"; Rec."Sawing Out Qty")
                 {
                     ApplicationArea = All;
@@ -246,6 +260,10 @@ page 51300 "WIP Style PO Listpart"
                     ApplicationArea = All;
                 }
 
+                field(PlannedStatus; rec.PlannedStatus)
+                {
+                    ApplicationArea = All;
+                }
             }
         }
     }

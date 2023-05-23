@@ -122,14 +122,26 @@ page 51066 "Style Inquiry"
 
     trigger OnDeleteRecord(): Boolean
     var
-        //StyleRec: Record "Style Master";
         StylePORec: Record "Style Master PO";
         SpecialOpRec: Record "Special Operation Style";
         ContractLCStyleRec: Record "Contract/LCStyle";
+        NavAppPlanLineRec: Record "NavApp Planning Lines";
+        PlanningQueueRec: Record "Planning Queue";
     begin
         if rec.Status = rec.status::Confirmed then
             Error('Style already confirmed. Cannot delete.')
         else begin
+
+            PlanningQueueRec.Reset();
+            PlanningQueueRec.SetRange("Style No.", rec."No.");
+            if PlanningQueueRec.FindSet() then
+                Error('Style already in the Queue. Cannot delete.');
+
+            NavAppPlanLineRec.Reset();
+            NavAppPlanLineRec.SetRange("Style No.", rec."No.");
+            if NavAppPlanLineRec.FindSet() then
+                Error('Style already planned. Cannot delete.');
+
 
             // StyleRec.SetRange("No.", "No.");
             // if StyleRec.FindSet() then

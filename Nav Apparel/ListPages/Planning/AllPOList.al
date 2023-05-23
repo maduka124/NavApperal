@@ -72,7 +72,7 @@ page 50489 "All PO List"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Qty - Output';
+                    Caption = 'Qty';
                 }
 
                 //Done By sachith on 27/03/23
