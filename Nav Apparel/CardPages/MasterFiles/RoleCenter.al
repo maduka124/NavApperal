@@ -1312,6 +1312,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = Report "Inventory Valuation";
                         ApplicationArea = All;
                     }
+                    action("Inventory Balance Report")
+                    {
+                        Caption = 'Inventory Balance Report';
+                        Enabled = true;
+                        RunObject = report InventotyBalanceReport;
+                        ApplicationArea = All;
+                    }
 
                     action("Material Issue Report")
                     {
