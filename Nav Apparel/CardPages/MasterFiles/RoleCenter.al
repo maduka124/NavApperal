@@ -493,7 +493,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page MerchandizingGroupPage;
                     ApplicationArea = all;
                 }
-
+                action("MerchantWiseStockBalance")
+                {
+                    Caption = 'Merchant Wise Stock Balance';
+                    RunObject = Page MerchantWiseStockBalance;
+                    ApplicationArea = all;
+                }
                 action("Planning Worksheet")
                 {
                     Caption = 'Planning Worksheet';
@@ -1184,6 +1189,12 @@ page 50968 "Nav Apperal Role Center"
                 {
                     Caption = 'Item';
                     RunObject = Page "Item List";
+                    ApplicationArea = all;
+                }
+                action("GroupWiseStockBalance")
+                {
+                    Caption = 'Group Wise Stock Balance';
+                    RunObject = Page GroupWiseStockBalance;
                     ApplicationArea = all;
                 }
 
@@ -3022,7 +3033,18 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page FacWiseProductplaningHdrList;
                     ApplicationArea = all;
                 }
-
+                action("GroupWiseStockBalanceDashboard")
+                {
+                    Caption = 'Group Wise Stock Balance';
+                    RunObject = Page GroupWiseStockBalance;
+                    ApplicationArea = all;
+                }
+                action("MerchantWiseStockBalanceDashboard")
+                {
+                    Caption = 'Merchant Wise Stock Balance';
+                    RunObject = Page MerchantWiseStockBalance;
+                    ApplicationArea = all;
+                }
                 action("Planning Efficiency Dashboard1")
                 {
                     Caption = 'Planning Efficiency Dashboard';
