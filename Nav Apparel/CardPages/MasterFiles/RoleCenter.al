@@ -493,7 +493,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page MerchandizingGroupPage;
                     ApplicationArea = all;
                 }
-
+                action("MerchantWiseStockBalance")
+                {
+                    Caption = 'Merchant Wise Stock Balance';
+                    RunObject = Page MerchantWiseStockBalance;
+                    ApplicationArea = all;
+                }
                 action("Planning Worksheet")
                 {
                     Caption = 'Planning Worksheet';
@@ -1186,6 +1191,12 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page "Item List";
                     ApplicationArea = all;
                 }
+                action("GroupWiseStockBalance")
+                {
+                    Caption = 'Group Wise Stock Balance';
+                    RunObject = Page GroupWiseStockBalance;
+                    ApplicationArea = all;
+                }
 
                 // action("General Issuing")
                 // {
@@ -1288,6 +1299,13 @@ page 50968 "Nav Apperal Role Center"
                         Caption = 'General Issue Note Report';
                         Enabled = true;
                         RunObject = report GeneralIssueReport;
+                        ApplicationArea = all;
+                    }
+                    action("General Items Report")
+                    {
+                        Caption = 'General Item Report';
+                        Enabled = true;
+                        RunObject = report GeneralItemesReport;
                         ApplicationArea = all;
                     }
 
@@ -3015,7 +3033,18 @@ page 50968 "Nav Apperal Role Center"
                     RunObject = Page FacWiseProductplaningHdrList;
                     ApplicationArea = all;
                 }
-
+                action("GroupWiseStockBalanceDashboard")
+                {
+                    Caption = 'Group Wise Stock Balance';
+                    RunObject = Page GroupWiseStockBalance;
+                    ApplicationArea = all;
+                }
+                action("MerchantWiseStockBalanceDashboard")
+                {
+                    Caption = 'Merchant Wise Stock Balance';
+                    RunObject = Page MerchantWiseStockBalance;
+                    ApplicationArea = all;
+                }
                 action("Planning Efficiency Dashboard1")
                 {
                     Caption = 'Planning Efficiency Dashboard';

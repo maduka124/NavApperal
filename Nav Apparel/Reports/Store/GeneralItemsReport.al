@@ -1,9 +1,9 @@
-report 51310 InventotyBalanceReport
+report 50311 GeneralItemesReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    Caption = 'Inventory Balance Report';
-    RDLCLayout = 'Report_Layouts/Store/InventoryBalanceReport.rdl';
+    Caption = 'General Item Report';
+    RDLCLayout = 'Report_Layouts/Store/GeneralItemsReport.rdl';
     DefaultLayout = RDLC;
 
     dataset
@@ -11,13 +11,10 @@ report 51310 InventotyBalanceReport
         dataitem("Style Master"; "Style Master")
         {
             DataItemTableView = sorting("No.");
-            column(Buyer; "Buyer Name")
-            { }
+
             column(CompLogo; comRec.Picture)
             { }
             column(Factory_Name; "Factory Name")
-            { }
-            column(ContractNo; ContractNo)
             { }
             column(Style_Name; "Style No.")
             { }
@@ -28,13 +25,16 @@ report 51310 InventotyBalanceReport
                 DataItemLinkReference = "Style Master";
                 DataItemLink = StyleNo = field("No.");
                 DataItemTableView = where(Type = filter(item));
+
                 dataitem("Item Ledger Entry"; "Item Ledger Entry")
                 {
-                    DataItemLinkReference = "Style Master";
-                    DataItemLink = "Style No." = field("No.");
-                    DataItemTableView = where("Entry Type" = filter(Consumption));
+                    DataItemLinkReference = "Purch. Rcpt. Line";
+                    DataItemLink = "Document No." = field("Document No.");
+                    // DataItemTableView = where("Entry Type" = filter(Consumption));
+
                     column(Quantity; Quantity * -1)
                     { }
+
                 }
                 dataitem(Item; Item)
                 {
@@ -68,6 +68,8 @@ report 51310 InventotyBalanceReport
                             SetRange("Main Category Name", MAinCatFilter);
                     end;
                 }
+
+
             }
             trigger OnAfterGetRecord()
 
@@ -82,14 +84,9 @@ report 51310 InventotyBalanceReport
                 if FactoryFilter <> '' then
                     SetRange("Factory Code", FactoryFilter);
 
-                if BuyerFilter <> '' then
-                    SetRange("Buyer No.", BuyerFilter);
 
-                if ContractFilter <> '' then
-                    SetRange(ContractNo, ContractFilter);
             end;
         }
-
     }
 
     requestpage
@@ -120,7 +117,7 @@ report 51310 InventotyBalanceReport
 
                         begin
                             MainCat.Reset();
-                            MainCat.SetFilter("Style Related", '=%1', true);
+                            MainCat.SetFilter("Style Related", '=%1', false);
                             if MainCat.FindSet() then begin
                                 if Page.RunModal(50641, MainCat) = Action::LookupOK then begin
                                     MAinCatFilter := MainCat."Master Category Name";
@@ -134,26 +131,6 @@ report 51310 InventotyBalanceReport
 
 
                     }
-                    field(BuyerFilter; BuyerFilter)
-                    {
-                        ApplicationArea = All;
-                        TableRelation = Customer."No.";
-                        Caption = 'Buyer';
-
-
-                    }
-                    field(ContractFilter; ContractFilter)
-                    {
-                        ApplicationArea = All;
-                        TableRelation = "Contract/LCMaster"."No.";
-                        Caption = 'Contract No';
-
-                    }
-                    // field(Name; SourceExpression)
-                    // {
-                    //     ApplicationArea = All;
-
-                    // }
 
                 }
             }
@@ -176,8 +153,6 @@ report 51310 InventotyBalanceReport
         ColorItem: Code[20];
         TotalValue: Decimal;
         Unitprice: Decimal;
-        ContractFilter: Code[20];
-        BuyerFilter: Code[20];
         MAinCatFilter: Text[50];
         FactoryFilter: Code[20];
         comRec: Record "Company Information";
