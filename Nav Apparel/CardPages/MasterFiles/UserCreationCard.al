@@ -85,19 +85,19 @@ page 50978 "Create User Card"
     {
         area(Processing)
         {
-            action("Update WIP Qty")
-            {
-                ApplicationArea = All;
-                Image = AddAction;
+            // action("Update WIP Qty")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
 
-                trigger OnAction()
-                var
+            //     trigger OnAction()
+            //     var
 
-                begin
-                    Update_Sty_Master_PO();
-                    Message('Completed');
-                end;
-            }
+            //     begin
+            //         Update_Sty_Master_PO();
+            //         Message('Completed');
+            //     end;
+            // }
 
             action("Remove minus Planned Qty")
             {

@@ -90,61 +90,50 @@ page 51306 "Delete From Queue List"
                     PlanningQueue1Rec: Record "Planning Queue";
                     PlanningQueueNewRec: Record "Planning Queue";
                     StyleMasterPORec: Record "Style Master PO";
-                    QTY: Decimal;
+                    QTYVar: Decimal;
                 begin
 
                     if (Dialog.CONFIRM('Do you want to delete?', true) = true) then begin
 
-                        QTY := 0;
+                        QTYVar := 0;
                         PlanningQueueRec.Reset();
                         PlanningQueueRec.SetFilter(Select, '=%1', true);
                         PlanningQueueRec.SetFilter("User ID", '=%1', rec."User ID");
-                        //PlanningQueueRec.SetRange(Factory, FactoryCode);
                         if PlanningQueueRec.FindSet() then begin
                             repeat
+
                                 PlanningQueue1Rec.Reset();
                                 PlanningQueue1Rec.SetRange("Style No.", PlanningQueueRec."Style No.");
                                 PlanningQueue1Rec.SetRange("Lot No.", PlanningQueueRec."Lot No.");
-                                PlanningQueue1Rec.FindSet();
-
-                                if PlanningQueue1Rec.Count = 1 then begin  //Last record of the queue
+                                PlanningQueue1Rec.SetFilter("Queue No.", '<>%1', PlanningQueueRec."Queue No.");
+                                PlanningQueue1Rec.SetFilter("User ID", '=%1', rec."User ID");
+                                if not PlanningQueue1Rec.FindSet() then begin  //Last record of the queue
 
                                     //Update PO table
                                     StyleMasterPORec.Reset();
                                     StyleMasterPORec.SetRange("Style No.", PlanningQueueRec."Style No.");
                                     StyleMasterPORec.SetRange("Lot No.", PlanningQueueRec."Lot No.");
-                                    StyleMasterPORec.FindSet();
+                                    if StyleMasterPORec.FindSet() then begin
 
-                                    StyleMasterPORec.PlannedStatus := false;
-                                    StyleMasterPORec.QueueQty := 0;
-                                    StyleMasterPORec.Waistage := 0;
-                                    StyleMasterPORec.Modify();
-
-                                    //Delete from Queue                                    
-                                    PlanningQueueRec.Delete();
+                                        StyleMasterPORec.PlannedStatus := false;
+                                        StyleMasterPORec.QueueQty := 0;
+                                        StyleMasterPORec.Waistage := 0;
+                                        StyleMasterPORec.Modify();
+                                    end
+                                    else
+                                        Error('Cannot find PO : %1', PlanningQueueRec."PO No.");
                                 end
-                                else begin   //Many records in the queue
-                                    repeat
-                                        if PlanningQueue1Rec."Queue No." <> PlanningQueueRec."Queue No." then begin
-
-                                            //Add qty to existing record
-                                            PlanningQueueNewRec.Reset();
-                                            PlanningQueueNewRec.SetRange("Queue No.", PlanningQueue1Rec."Queue No.");
-                                            PlanningQueueNewRec.FindSet();
-                                            PlanningQueueNewRec.ModifyAll(Qty, (PlanningQueueRec.Qty + PlanningQueue1Rec.Qty));
-
-                                            //Delete old record from Queue
-                                            PlanningQueueNewRec.Reset();
-                                            PlanningQueueNewRec.SetRange("Queue No.", PlanningQueueRec."Queue No.");
-                                            if PlanningQueueNewRec.FindSet() then
-                                                PlanningQueueNewRec.DeleteAll();
-                                            break;
-                                        end
-                                    until PlanningQueue1Rec.Next() = 0;
+                                else begin
+                                    //Add qty to existing record      
+                                    QTYVar := PlanningQueue1Rec.Qty + PlanningQueueRec.Qty;
+                                    PlanningQueue1Rec.Qty := QTYVar;
+                                    PlanningQueue1Rec.Modify();
                                 end;
 
-                            until PlanningQueueRec.Next() = 0;
+                                //Delete from Queue                                    
+                                PlanningQueueRec.Delete();
 
+                            until PlanningQueueRec.Next() = 0;
                             Message('Completed');
                         end
                         else

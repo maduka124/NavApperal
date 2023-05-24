@@ -204,7 +204,6 @@ page 50489 "All PO List"
 
             //Get Max Lineno
             PlanningQueueRec.Reset();
-
             if PlanningQueueRec.FindLast() then
                 QueueNo := PlanningQueueRec."Queue No.";
 
@@ -242,10 +241,19 @@ page 50489 "All PO List"
                             Waistage := WastageRec.Percentage;
 
                         QueueNo += 1;
-                        Temp := StyleMasterPORec.Qty - StyleMasterPORec.PlannedQty - StyleMasterPORec."Sawing Out Qty";
-                        QtyWithWaistage := Temp + (Temp * Waistage) / 100;
-                        QtyWithWaistage := Round(QtyWithWaistage, 1);
-                        x := StyleMasterPORec.PlannedQty + StyleMasterPORec."Sawing Out Qty" + StyleMasterPORec.QueueQty + StyleMasterPORec.Waistage;
+                        if StyleMasterPORec."Cut In Qty" <= (StyleMasterPORec.Qty + (StyleMasterPORec.Qty * Waistage) / 100) then begin
+                            Temp := StyleMasterPORec.Qty - StyleMasterPORec.PlannedQty - StyleMasterPORec."Sawing Out Qty";
+                            QtyWithWaistage := Temp + (Temp * Waistage) / 100;
+                            QtyWithWaistage := Round(QtyWithWaistage, 1);
+                            x := StyleMasterPORec.PlannedQty + StyleMasterPORec."Sawing Out Qty" + StyleMasterPORec.QueueQty + StyleMasterPORec.Waistage;
+                        end
+                        else begin
+                            Waistage := 0;
+                            Temp := StyleMasterPORec."Cut In Qty" - StyleMasterPORec.PlannedQty - StyleMasterPORec."Sawing Out Qty";
+                            QtyWithWaistage := Temp;
+                            QtyWithWaistage := Round(QtyWithWaistage, 1);
+                            x := StyleMasterPORec.PlannedQty + StyleMasterPORec."Sawing Out Qty" + StyleMasterPORec.QueueQty + StyleMasterPORec.Waistage;
+                        end;
 
                         if StyleMasterPORec.Qty > x then begin
 
@@ -257,7 +265,7 @@ page 50489 "All PO List"
                             PlanningQueueNewRec."PO No." := StyleMasterPORec."PO No.";
                             PlanningQueueNewRec."Lot No." := StyleMasterPORec."Lot No.";
                             PlanningQueueNewRec.Qty := QtyWithWaistage;
-                            PlanningQueueNewRec.Waistage := (Temp * Waistage) / 100;
+                            PlanningQueueNewRec.Waistage := 0;
                             PlanningQueueNewRec.SMV := StyleMasterRec.SMV;
                             PlanningQueueNewRec.Factory := Factory;
                             PlanningQueueNewRec."TGTSEWFIN Date" := StyleMasterPORec."Ship Date";

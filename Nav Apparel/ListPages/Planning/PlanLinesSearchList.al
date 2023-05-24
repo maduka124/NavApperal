@@ -148,7 +148,6 @@ page 50840 "Plan Lines - Search List"
 
                                 //Get Max QueueNo
                                 PlanningQueueRec.Reset();
-
                                 if PlanningQueueRec.FindLast() then
                                     QueueNo := PlanningQueueRec."Queue No.";
 

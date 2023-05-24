@@ -8,23 +8,23 @@ page 50602 "Style Inquiry Card"
     {
         area(Content)
         {
-            group(General1)
-            {
-                field("LC No/Contract"; rec."LC No/Contract")
-                {
-                    ApplicationArea = All;
-                }
+            // group(General1)
+            // {
+            //     field("LC No/Contract"; rec."LC No/Contract")
+            //     {
+            //         ApplicationArea = All;
+            //     }
 
-                field(ContractNo; rec.ContractNo)
-                {
-                    ApplicationArea = All;
-                }
+            //     field(ContractNo; rec.ContractNo)
+            //     {
+            //         ApplicationArea = All;
+            //     }
 
-                field(AssignedContractNo; rec.AssignedContractNo)
-                {
-                    ApplicationArea = All;
-                }
-            }
+            //     field(AssignedContractNo; rec.AssignedContractNo)
+            //     {
+            //         ApplicationArea = All;
+            //     }
+            // }
 
             group(General)
             {

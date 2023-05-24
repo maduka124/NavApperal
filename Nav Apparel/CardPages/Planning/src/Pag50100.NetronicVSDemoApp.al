@@ -3407,13 +3407,22 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     trigger OnAction()
                     var
                         PlanHistoryListPage: Page "Plan Lines - Search List";
+                        FactoryNoVar: code[20];
+                        userRec: Record "User Setup";
                     begin
-                        if FactoryNo = '' then
-                            Error('Select a factory');
+
+                        userRec.Reset();
+                        userRec.SetRange("User ID", UserId);
+
+                        if userRec.FindSet() then
+                            FactoryNoVar := userRec."Factory Code";
+
+                        if FactoryNoVar = '' then
+                            Error('Factory not setup for the User.');
 
                         Clear(PlanHistoryListPage);
                         PlanHistoryListPage.LookupMode(true);
-                        PlanHistoryListPage.PassParameters(FactoryNo);
+                        PlanHistoryListPage.PassParameters(FactoryNoVar);
                         PlanHistoryListPage.RunModal();
                         LoadData(false, false, true, true, false);
                         SetconVSControlAddInSettings();

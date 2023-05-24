@@ -234,6 +234,11 @@ page 51300 "WIP Style PO Listpart"
                     ApplicationArea = All;
                 }
 
+                field("Cut Out Qty"; rec."Cut Out Qty")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Sawing In Qty"; Rec."Sawing In Qty")
                 {
                     ApplicationArea = All;
