@@ -25,12 +25,8 @@ report 50311 GeneralItemesReport
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = where("Entry Type" = filter(Consumption));
 
-               
+
                 column(Location_Code; "Location Code")
-                { }
-                column(Item_No_; "Item No.")
-                { }
-                column(ItemName; ItemName)
                 { }
                 column(Color; ColorItem)
                 { }
@@ -55,6 +51,10 @@ report 50311 GeneralItemesReport
                     DataItemTableView = sorting("No.");
 
                     column(Main_Category_Name; "Main Category Name")
+                    { }
+                    column(ItemName; Description)
+                    { }
+                    column(Item_No_; "No.")
                     { }
                     trigger OnPreDataItem()
                     var

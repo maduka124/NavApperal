@@ -28,13 +28,9 @@ report 51310 InventotyBalanceReport
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = where("Entry Type" = filter(Consumption));
 
-
                 column(Location_Code; "Location Code")
                 { }
-                column(Item_No_; "Item No.")
-                { }
-                column(ItemName; ItemName)
-                { }
+
                 column(Color; ColorItem)
                 { }
                 column(Size; Size)
@@ -58,6 +54,10 @@ report 51310 InventotyBalanceReport
                     DataItemTableView = sorting("No.");
 
                     column(Main_Category_Name; "Main Category Name")
+                    { }
+                    column(ItemName; Description)
+                    { }
+                    column(Item_No_; "No.")
                     { }
                     trigger OnPreDataItem()
                     var
@@ -144,7 +144,7 @@ report 51310 InventotyBalanceReport
 
                         begin
                             MainCat.Reset();
-                            MainCat.SetFilter("Style Related", '=%1', false);
+                            MainCat.SetFilter("Style Related", '=%1', true);
                             if MainCat.FindSet() then begin
                                 if Page.RunModal(50641, MainCat) = Action::LookupOK then begin
                                     MAinCatFilter := MainCat."Master Category Name";
