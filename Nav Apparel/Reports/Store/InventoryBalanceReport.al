@@ -21,38 +21,39 @@ report 51310 InventotyBalanceReport
             { }
             column(Style_Name; "Style No.")
             { }
-
-            dataitem("Item Ledger Entry"; "Item Ledger Entry")
+            column(Location_Code; "Factory Code")
+            { }
+            dataitem("Purch. Rcpt. Line"; "Purch. Rcpt. Line")
             {
                 DataItemLinkReference = "Style Master";
-                DataItemLink = "Style No." = field("No.");
-                DataItemTableView = where("Entry Type" = filter(Consumption));
-
-                column(Location_Code; "Location Code")
-                { }
-
-                column(Color; ColorItem)
-                { }
-                column(Size; Size)
-                { }
-                column(Article; Article)
-                { }
-                column(Dimension; Dimension)
-                { }
-                column(Unit_of_Measure_Code; "Unit of Measure Code")
-                { }
-                column(Quantity; Quantity * -1)
-                { }
-                column(Unitprice; Unitprice)
-                { }
-                column(TotalValue; TotalValue)
-                { }
+                DataItemLink = StyleNo = field("No.");
+                DataItemTableView = where(Type = filter(item));
+                dataitem("Item Ledger Entry"; "Item Ledger Entry")
+                {
+                    DataItemLinkReference = "Style Master";
+                    DataItemLink = "Style No." = field("No.");
+                    DataItemTableView = where("Entry Type" = filter(Consumption));
+                    column(Quantity; Quantity * -1)
+                    { }
+                }
                 dataitem(Item; Item)
                 {
-                    DataItemLinkReference = "Item Ledger Entry";
-                    DataItemLink = "No." = field("Item No.");
+                    DataItemLinkReference = "Purch. Rcpt. Line";
+                    DataItemLink = "No." = field("No.");
                     DataItemTableView = sorting("No.");
 
+                    column(Unitprice; "Unit Price")
+                    { }
+                    column(Unit_of_Measure_Code; "Base Unit of Measure")
+                    { }
+                    column(Color; "Color No.")
+                    { }
+                    column(Size; "Size Range No.")
+                    { }
+                    column(Article; Article)
+                    { }
+                    column(Dimension; "Dimension Width No.")
+                    { }
                     column(Main_Category_Name; "Main Category Name")
                     { }
                     column(ItemName; Description)
@@ -67,32 +68,6 @@ report 51310 InventotyBalanceReport
                             SetRange("Main Category Name", MAinCatFilter);
                     end;
                 }
-
-
-                trigger OnAfterGetRecord()
-
-                begin
-                    ItemRec.Reset();
-                    ItemRec.SetRange("No.", "Item No.");
-                    if ItemRec.FindFirst() then begin
-                        ItemName := ItemRec.Description;
-                        Size := ItemRec."Size Range No.";
-                        Article := ItemRec.Article;
-                        Dimension := ItemRec."Dimension Width";
-                        Unitprice := ItemRec."Unit Price";
-                        ColorItem := ItemRec."Color No.";
-                    end;
-
-
-                    TotalValue := (Quantity * -1) * Unitprice
-                end;
-
-                trigger OnPreDataItem()
-
-                begin
-                    if MAinCatFilter <> '' then
-                        SetRange(MainCategory, MAinCatFilter);
-                end;
             }
             trigger OnAfterGetRecord()
 
@@ -114,6 +89,7 @@ report 51310 InventotyBalanceReport
                     SetRange(ContractNo, ContractFilter);
             end;
         }
+
     }
 
     requestpage

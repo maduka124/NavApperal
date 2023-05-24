@@ -2225,21 +2225,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Location_Code">
           <DataField>Location_Code</DataField>
         </Field>
-        <Field Name="Color">
-          <DataField>Color</DataField>
-        </Field>
-        <Field Name="Size">
-          <DataField>Size</DataField>
-        </Field>
-        <Field Name="Article">
-          <DataField>Article</DataField>
-        </Field>
-        <Field Name="Dimension">
-          <DataField>Dimension</DataField>
-        </Field>
-        <Field Name="Unit_of_Measure_Code">
-          <DataField>Unit_of_Measure_Code</DataField>
-        </Field>
         <Field Name="Quantity">
           <DataField>Quantity</DataField>
         </Field>
@@ -2252,11 +2237,20 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="UnitpriceFormat">
           <DataField>UnitpriceFormat</DataField>
         </Field>
-        <Field Name="TotalValue">
-          <DataField>TotalValue</DataField>
+        <Field Name="Unit_of_Measure_Code">
+          <DataField>Unit_of_Measure_Code</DataField>
         </Field>
-        <Field Name="TotalValueFormat">
-          <DataField>TotalValueFormat</DataField>
+        <Field Name="Color">
+          <DataField>Color</DataField>
+        </Field>
+        <Field Name="Size">
+          <DataField>Size</DataField>
+        </Field>
+        <Field Name="Article">
+          <DataField>Article</DataField>
+        </Field>
+        <Field Name="Dimension">
+          <DataField>Dimension</DataField>
         </Field>
         <Field Name="Main_Category_Name">
           <DataField>Main_Category_Name</DataField>
