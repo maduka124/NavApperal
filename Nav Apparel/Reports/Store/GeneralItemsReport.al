@@ -118,12 +118,6 @@ report 50311 GeneralItemesReport
 
                     }
               
-                    // field(Name; SourceExpression)
-                    // {
-                    //     ApplicationArea = All;
-
-                    // }
-
                 }
             }
         }
