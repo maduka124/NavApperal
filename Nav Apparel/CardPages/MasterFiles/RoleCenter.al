@@ -1290,6 +1290,13 @@ page 50968 "Nav Apperal Role Center"
                         RunObject = report GeneralIssueReport;
                         ApplicationArea = all;
                     }
+                    action("General Items Report")
+                    {
+                        Caption = 'General Item Report';
+                        Enabled = true;
+                        RunObject = report GeneralItemesReport;
+                        ApplicationArea = all;
+                    }
 
                     action("Good Reciept Report")
                     {
