@@ -946,94 +946,209 @@ page 51165 "BuyerWiseOrderBooking"
                                     FinishDate := DMY2DATE(31, i, rec.Year);
                             end;
 
-                            //Get sewing out
-                            ProductionOutHeaderRec.Reset();
-                            ProductionOutHeaderRec.SetRange("Prod Date", StartDate, FinishDate);
-                            ProductionOutHeaderRec.SetFilter(Type, '=%1', ProductionOutHeaderRec.Type::Ship);
-                            if ProductionOutHeaderRec.FindSet() then begin
-                                repeat
+                            // //Get styles within the period
+                            // StyleMasterPORec.Reset();
+                            // StyleMasterPORec.SetCurrentKey("Style No.");
+                            // StyleMasterPORec.Ascending(true);
+                            // StyleMasterPORec.SetRange("Ship Date", StartDate, FinishDate);
+                            // if StyleMasterPORec.FindSet() then begin
 
-                                    StyleMasterRec.Reset();
-                                    StyleMasterRec.SetRange("No.", ProductionOutHeaderRec."Style No.");
-                                    if StyleMasterRec.FindSet() then begin
+                            //     repeat
 
-                                        //Check existance
-                                        BuyerWiseOdrBookinBalatoShipRec.Reset();
-                                        BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
-                                        BuyerWiseOdrBookinBalatoShipRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
-                                        BuyerWiseOdrBookinBalatoShipRec.SetRange("Brand No", StyleMasterRec."Brand No.");
-                                        if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
+                            //         //Get buyer Name/Code
+                            //         StyleMasterRec.Reset();
+                            //         StyleMasterRec.SetRange("No.", StyleMasterPORec."Style No.");
+                            //         StyleMasterRec.SetFilter("Buyer Name", '<>%1', '');
+                            //         StyleMasterRec.SetFilter(Status, '=%1', StyleMasterRec.Status::Confirmed);
 
-                                            case i of
-                                                1:
-                                                    BuyerWiseOdrBookinBalatoShipRec.JAN := BuyerWiseOdrBookinBalatoShipRec.JAN - ProductionOutHeaderRec."Output Qty";
-                                                2:
-                                                    BuyerWiseOdrBookinBalatoShipRec.FEB := BuyerWiseOdrBookinBalatoShipRec.FEB - ProductionOutHeaderRec."Output Qty";
-                                                3:
-                                                    BuyerWiseOdrBookinBalatoShipRec.MAR := BuyerWiseOdrBookinBalatoShipRec.MAR - ProductionOutHeaderRec."Output Qty";
-                                                4:
-                                                    BuyerWiseOdrBookinBalatoShipRec.APR := BuyerWiseOdrBookinBalatoShipRec.APR - ProductionOutHeaderRec."Output Qty";
-                                                5:
-                                                    BuyerWiseOdrBookinBalatoShipRec.MAY := BuyerWiseOdrBookinBalatoShipRec.MAY - ProductionOutHeaderRec."Output Qty";
-                                                6:
-                                                    BuyerWiseOdrBookinBalatoShipRec.JUN := BuyerWiseOdrBookinBalatoShipRec.JUN - ProductionOutHeaderRec."Output Qty";
-                                                7:
-                                                    BuyerWiseOdrBookinBalatoShipRec.JUL := BuyerWiseOdrBookinBalatoShipRec.JUL - ProductionOutHeaderRec."Output Qty";
-                                                8:
-                                                    BuyerWiseOdrBookinBalatoShipRec.AUG := BuyerWiseOdrBookinBalatoShipRec.AUG - ProductionOutHeaderRec."Output Qty";
-                                                9:
-                                                    BuyerWiseOdrBookinBalatoShipRec.SEP := BuyerWiseOdrBookinBalatoShipRec.SEP - ProductionOutHeaderRec."Output Qty";
-                                                10:
-                                                    BuyerWiseOdrBookinBalatoShipRec.OCT := BuyerWiseOdrBookinBalatoShipRec.OCT - ProductionOutHeaderRec."Output Qty";
-                                                11:
-                                                    BuyerWiseOdrBookinBalatoShipRec.NOV := BuyerWiseOdrBookinBalatoShipRec.NOV - ProductionOutHeaderRec."Output Qty";
-                                                12:
-                                                    BuyerWiseOdrBookinBalatoShipRec.DEC := BuyerWiseOdrBookinBalatoShipRec.DEC - ProductionOutHeaderRec."Output Qty";
-                                            end;
+                            //         if StyleMasterRec.FindSet() then begin
 
-                                            BuyerWiseOdrBookinBalatoShipRec.Total := BuyerWiseOdrBookinBalatoShipRec.Total - ProductionOutHeaderRec."Output Qty";
-                                            BuyerWiseOdrBookinBalatoShipRec.Modify();
+                            //             //Check existance
+                            //             BuyerWiseOdrBookinBalatoShipRec.Reset();
+                            //             BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
+                            //             BuyerWiseOdrBookinBalatoShipRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
+                            //             BuyerWiseOdrBookinBalatoShipRec.SetRange("Brand No", StyleMasterRec."Brand No.");
+                            //             if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
 
-                                        end;
-                                    end;
+                            //                 case i of
+                            //                     1:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.JAN := BuyerWiseOdrBookinBalatoShipRec.JAN - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.JAN < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.JAN := 0;
+                            //                         end;
+                            //                     2:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.FEB := BuyerWiseOdrBookinBalatoShipRec.FEB - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.FEB < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.FEB := 0;
+                            //                         end;
+                            //                     3:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.MAR := BuyerWiseOdrBookinBalatoShipRec.MAR - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.MAR < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.MAR := 0;
+                            //                         end;
+                            //                     4:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.APR := BuyerWiseOdrBookinBalatoShipRec.APR - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.APR < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.APR := 0;
+                            //                         end;
+                            //                     5:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.MAY := BuyerWiseOdrBookinBalatoShipRec.MAY - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.MAY < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.MAY := 0;
+                            //                         end;
+                            //                     6:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.JUN := BuyerWiseOdrBookinBalatoShipRec.JUN - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.JUN < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.JUN := 0;
+                            //                         end;
+                            //                     7:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.JUL := BuyerWiseOdrBookinBalatoShipRec.JUL - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.JUL < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.JUL := 0;
+                            //                         end;
+                            //                     8:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.AUG := BuyerWiseOdrBookinBalatoShipRec.AUG - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.AUG < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.AUG := 0;
+                            //                         end;
+                            //                     9:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.SEP := BuyerWiseOdrBookinBalatoShipRec.SEP - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.SEP < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.SEP := 0;
+                            //                         end;
+                            //                     10:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.OCT := BuyerWiseOdrBookinBalatoShipRec.OCT - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.OCT < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.OCT := 0;
+                            //                         end;
+                            //                     11:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.NOV := BuyerWiseOdrBookinBalatoShipRec.NOV - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.NOV < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.NOV := 0;
+                            //                         end;
+                            //                     12:
+                            //                         begin
+                            //                             BuyerWiseOdrBookinBalatoShipRec.DEC := BuyerWiseOdrBookinBalatoShipRec.DEC - StyleMasterPORec."Sawing Out Qty";
+                            //                             if BuyerWiseOdrBookinBalatoShipRec.DEC < 0 then
+                            //                                 BuyerWiseOdrBookinBalatoShipRec.DEC := 0;
+                            //                         end;
+                            //                 end;
 
-                                    //Update Grand total
-                                    BuyerWiseOdrBookinBalatoShipRec.Reset();
-                                    BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
-                                    BuyerWiseOdrBookinBalatoShipRec.SetFilter(Type, '=%1', 'T');
-                                    if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
-                                        case i of
-                                            1:
-                                                BuyerWiseOdrBookinBalatoShipRec.JAN := BuyerWiseOdrBookinBalatoShipRec.JAN - ProductionOutHeaderRec."Output Qty";
-                                            2:
-                                                BuyerWiseOdrBookinBalatoShipRec.FEB := BuyerWiseOdrBookinBalatoShipRec.FEB - ProductionOutHeaderRec."Output Qty";
-                                            3:
-                                                BuyerWiseOdrBookinBalatoShipRec.MAR := BuyerWiseOdrBookinBalatoShipRec.MAR - ProductionOutHeaderRec."Output Qty";
-                                            4:
-                                                BuyerWiseOdrBookinBalatoShipRec.APR := BuyerWiseOdrBookinBalatoShipRec.APR - ProductionOutHeaderRec."Output Qty";
-                                            5:
-                                                BuyerWiseOdrBookinBalatoShipRec.MAY := BuyerWiseOdrBookinBalatoShipRec.MAY - ProductionOutHeaderRec."Output Qty";
-                                            6:
-                                                BuyerWiseOdrBookinBalatoShipRec.JUN := BuyerWiseOdrBookinBalatoShipRec.JUN - ProductionOutHeaderRec."Output Qty";
-                                            7:
-                                                BuyerWiseOdrBookinBalatoShipRec.JUL := BuyerWiseOdrBookinBalatoShipRec.JUL - ProductionOutHeaderRec."Output Qty";
-                                            8:
-                                                BuyerWiseOdrBookinBalatoShipRec.AUG := BuyerWiseOdrBookinBalatoShipRec.AUG - ProductionOutHeaderRec."Output Qty";
-                                            9:
-                                                BuyerWiseOdrBookinBalatoShipRec.SEP := BuyerWiseOdrBookinBalatoShipRec.SEP - ProductionOutHeaderRec."Output Qty";
-                                            10:
-                                                BuyerWiseOdrBookinBalatoShipRec.OCT := BuyerWiseOdrBookinBalatoShipRec.OCT - ProductionOutHeaderRec."Output Qty";
-                                            11:
-                                                BuyerWiseOdrBookinBalatoShipRec.NOV := BuyerWiseOdrBookinBalatoShipRec.NOV - ProductionOutHeaderRec."Output Qty";
-                                            12:
-                                                BuyerWiseOdrBookinBalatoShipRec.DEC := BuyerWiseOdrBookinBalatoShipRec.DEC - ProductionOutHeaderRec."Output Qty";
-                                        end;
-                                        BuyerWiseOdrBookinBalatoShipRec.Total := BuyerWiseOdrBookinBalatoShipRec.Total - ProductionOutHeaderRec."Output Qty";
-                                        BuyerWiseOdrBookinBalatoShipRec.Modify();
-                                    end;
+                            //                 BuyerWiseOdrBookinBalatoShipRec.Total := BuyerWiseOdrBookinBalatoShipRec.Total - StyleMasterPORec."Sawing Out Qty";
+                            //                 if BuyerWiseOdrBookinBalatoShipRec.Total < 0 then
+                            //                     BuyerWiseOdrBookinBalatoShipRec.Total := 0;
 
-                                until ProductionOutHeaderRec.Next() = 0;
-                            end;
+                            //                 BuyerWiseOdrBookinBalatoShipRec.Modify();
+
+                            //             end
+                            //             else
+                            //                 Error('cannot find record');
+
+                            //         end;
+
+                            //     until StyleMasterPORec.Next() = 0;
+                            // end;
+
+
+                            // //Get sewing out
+                            // ProductionOutHeaderRec.Reset();
+                            // ProductionOutHeaderRec.SetRange("Prod Date", StartDate, FinishDate);
+                            // ProductionOutHeaderRec.SetFilter(Type, '=%1', ProductionOutHeaderRec.Type::Ship);
+                            // if ProductionOutHeaderRec.FindSet() then begin
+                            //     repeat
+
+                            //         StyleMasterRec.Reset();
+                            //         StyleMasterRec.SetRange("No.", ProductionOutHeaderRec."Style No.");
+                            //         if StyleMasterRec.FindSet() then begin
+
+                            //             //Check existance
+                            //             BuyerWiseOdrBookinBalatoShipRec.Reset();
+                            //             BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
+                            //             BuyerWiseOdrBookinBalatoShipRec.SetRange("Buyer Code", StyleMasterRec."Buyer No.");
+                            //             BuyerWiseOdrBookinBalatoShipRec.SetRange("Brand No", StyleMasterRec."Brand No.");
+                            //             if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
+
+                            //                 case i of
+                            //                     1:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.JAN := BuyerWiseOdrBookinBalatoShipRec.JAN - ProductionOutHeaderRec."Output Qty";
+                            //                     2:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.FEB := BuyerWiseOdrBookinBalatoShipRec.FEB - ProductionOutHeaderRec."Output Qty";
+                            //                     3:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.MAR := BuyerWiseOdrBookinBalatoShipRec.MAR - ProductionOutHeaderRec."Output Qty";
+                            //                     4:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.APR := BuyerWiseOdrBookinBalatoShipRec.APR - ProductionOutHeaderRec."Output Qty";
+                            //                     5:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.MAY := BuyerWiseOdrBookinBalatoShipRec.MAY - ProductionOutHeaderRec."Output Qty";
+                            //                     6:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.JUN := BuyerWiseOdrBookinBalatoShipRec.JUN - ProductionOutHeaderRec."Output Qty";
+                            //                     7:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.JUL := BuyerWiseOdrBookinBalatoShipRec.JUL - ProductionOutHeaderRec."Output Qty";
+                            //                     8:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.AUG := BuyerWiseOdrBookinBalatoShipRec.AUG - ProductionOutHeaderRec."Output Qty";
+                            //                     9:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.SEP := BuyerWiseOdrBookinBalatoShipRec.SEP - ProductionOutHeaderRec."Output Qty";
+                            //                     10:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.OCT := BuyerWiseOdrBookinBalatoShipRec.OCT - ProductionOutHeaderRec."Output Qty";
+                            //                     11:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.NOV := BuyerWiseOdrBookinBalatoShipRec.NOV - ProductionOutHeaderRec."Output Qty";
+                            //                     12:
+                            //                         BuyerWiseOdrBookinBalatoShipRec.DEC := BuyerWiseOdrBookinBalatoShipRec.DEC - ProductionOutHeaderRec."Output Qty";
+                            //                 end;
+
+                            //                 BuyerWiseOdrBookinBalatoShipRec.Total := BuyerWiseOdrBookinBalatoShipRec.Total - ProductionOutHeaderRec."Output Qty";
+                            //                 BuyerWiseOdrBookinBalatoShipRec.Modify();
+
+                            //             end;
+                            //         end;
+
+                            //         //Update Grand total
+                            //         BuyerWiseOdrBookinBalatoShipRec.Reset();
+                            //         BuyerWiseOdrBookinBalatoShipRec.SetRange(Year, rec.Year);
+                            //         BuyerWiseOdrBookinBalatoShipRec.SetFilter(Type, '=%1', 'T');
+                            //         if BuyerWiseOdrBookinBalatoShipRec.FindSet() then begin
+                            //             case i of
+                            //                 1:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.JAN := BuyerWiseOdrBookinBalatoShipRec.JAN - ProductionOutHeaderRec."Output Qty";
+                            //                 2:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.FEB := BuyerWiseOdrBookinBalatoShipRec.FEB - ProductionOutHeaderRec."Output Qty";
+                            //                 3:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.MAR := BuyerWiseOdrBookinBalatoShipRec.MAR - ProductionOutHeaderRec."Output Qty";
+                            //                 4:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.APR := BuyerWiseOdrBookinBalatoShipRec.APR - ProductionOutHeaderRec."Output Qty";
+                            //                 5:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.MAY := BuyerWiseOdrBookinBalatoShipRec.MAY - ProductionOutHeaderRec."Output Qty";
+                            //                 6:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.JUN := BuyerWiseOdrBookinBalatoShipRec.JUN - ProductionOutHeaderRec."Output Qty";
+                            //                 7:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.JUL := BuyerWiseOdrBookinBalatoShipRec.JUL - ProductionOutHeaderRec."Output Qty";
+                            //                 8:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.AUG := BuyerWiseOdrBookinBalatoShipRec.AUG - ProductionOutHeaderRec."Output Qty";
+                            //                 9:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.SEP := BuyerWiseOdrBookinBalatoShipRec.SEP - ProductionOutHeaderRec."Output Qty";
+                            //                 10:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.OCT := BuyerWiseOdrBookinBalatoShipRec.OCT - ProductionOutHeaderRec."Output Qty";
+                            //                 11:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.NOV := BuyerWiseOdrBookinBalatoShipRec.NOV - ProductionOutHeaderRec."Output Qty";
+                            //                 12:
+                            //                     BuyerWiseOdrBookinBalatoShipRec.DEC := BuyerWiseOdrBookinBalatoShipRec.DEC - ProductionOutHeaderRec."Output Qty";
+                            //             end;
+                            //             BuyerWiseOdrBookinBalatoShipRec.Total := BuyerWiseOdrBookinBalatoShipRec.Total - ProductionOutHeaderRec."Output Qty";
+                            //             BuyerWiseOdrBookinBalatoShipRec.Modify();
+                            //         end;
+
+                            //     until ProductionOutHeaderRec.Next() = 0;
+                            // end;
 
                         end;
 
