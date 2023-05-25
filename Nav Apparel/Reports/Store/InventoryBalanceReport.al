@@ -104,8 +104,35 @@ report 51310 InventotyBalanceReport
                     field(FactoryFilter; FactoryFilter)
                     {
                         ApplicationArea = All;
-                        TableRelation = Location.Code;
+                        // TableRelation = Location.Code;
                         Caption = 'Factory';
+
+
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            LocationRec: Record Location;
+                            LocationRec2: Record Location;
+                            UserRec: Record "User Setup";
+                        begin
+                            LocationRec.Reset();
+                            UserRec.Reset();
+                            UserRec.Get(UserId);
+
+                            LocationRec2.Reset();
+                            LocationRec.Reset();
+                            LocationRec.SetRange(Code, UserRec."Factory Code");
+                            // LocationRec.SetFilter("Sewing Unit", '=%1', true);
+                            // LocationRec.SetFilter("Plant Type Name", '=%1', 'Sewing');
+                            if LocationRec.FindSet() then begin
+                                if Page.RunModal(15, LocationRec) = Action::LookupOK then begin
+                                    FactoryFilter := LocationRec.Code;
+                                end;
+                            end
+                            // else
+                            //     if Page.RunModal(15, LocationRec2) = Action::LookupOK then begin
+                            //         FactortFilter := LocationRec2.Code;
+                            //     end;
+                        end;
 
                     }
                     field(MAinCatFilter; MAinCatFilter)
@@ -126,10 +153,10 @@ report 51310 InventotyBalanceReport
                                     MAinCatFilter := MainCat."Master Category Name";
                                 end;
                             end
-                            else
-                                if Page.RunModal(50641, MainCat) = Action::LookupOK then begin
-                                    MAinCatFilter := MainCat."Master Category Name";
-                                end;
+                            // else
+                            // if Page.RunModal(50641, MainCat) = Action::LookupOK then begin
+                            //     MAinCatFilter := MainCat."Master Category Name";
+                            // end;
                         end;
 
 
@@ -147,6 +174,26 @@ report 51310 InventotyBalanceReport
                         ApplicationArea = All;
                         TableRelation = "Contract/LCMaster"."No.";
                         Caption = 'Contract No';
+
+
+                        trigger OnLookup(var Text: Text): Boolean
+                        var
+                            ContracRec: Record "Contract/LCMaster";
+                        begin
+
+                            ContracRec.Reset();
+                            // ContracRec.SetCurrentKey("No.");
+                            ContracRec.SetRange("Buyer No.", BuyerFilter);
+                            // ContracRec.Ascending(false);
+
+                            if ContracRec.FindSet() then begin
+                                if Page.RunModal(50503, ContracRec) = Action::LookupOK then
+                                    ContractFilter := ContracRec."No.";
+                            end
+                            else
+                                if Page.RunModal(50503, ContracRec) = Action::LookupOK then
+                                    ContractFilter := ContracRec."No.";
+                        end;
 
                     }
                     // field(Name; SourceExpression)
@@ -179,7 +226,7 @@ report 51310 InventotyBalanceReport
         ContractFilter: Code[20];
         BuyerFilter: Code[20];
         MAinCatFilter: Text[50];
-        FactoryFilter: Code[20];
+        FactoryFilter: Code[10];
         comRec: Record "Company Information";
         Dimension: Text[100];
         Article: Text[250];
