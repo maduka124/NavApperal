@@ -56,10 +56,14 @@ page 50313 StockSummary
 
     trigger OnOpenPage()
     var
+
+
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
         UserRec: Record "User Setup";
     begin
+
+
 
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
@@ -101,23 +105,35 @@ page 50313 StockSummary
         // if styleRec.FindSet() then begin
 
         // end;
+        // styleRec.Reset();
+        // styleRec.SetRange("No.", Rec."No.");
+        // styleRec.SetRange(AssignedContractNo, Rec.AssignedContractNo);
+        // styleRec.SetRange("Factory Code", Rec."Factory Code");
+        // styleRec.SetRange("Buyer No.", Rec."Buyer No.");
+        // if styleRec.FindFirst() then begin
+        //     repeat
+        //         Rec."Factory Name" := styleRec."Factory Name";
+        //         rec."Buyer Name" := styleRec."Buyer Name";
+        //         Rec.AssignedContractNo := styleRec.AssignedContractNo;
+        //     until styleRec.Next() = 0;
+        // end;
 
 
         LcRec.Reset();
         LcRec.SetRange("No.", Rec.AssignedContractNo);
-        if LcRec.FindSet() then begin
+        if LcRec.FindFirst() then begin
             ContractNoLC := LcRec."Contract No";
         end;
 
         GRNRec.Reset();
         GRNRec.SetRange(StyleNo, Rec."No.");
-        if GRNRec.FindSet() then begin
+        if GRNRec.FindFirst() then begin
 
             ItemLedgRec.Reset();
             ItemLedgRec.SetRange("Document No.", GRNRec."Document No.");
-            if ItemLedgRec.FindSet() then begin
-                Value := ItemLedgRec.Quantity * 3.2;
-                Quantity := ItemLedgRec.Quantity;
+            if ItemLedgRec.FindFirst() then begin
+                Value += ItemLedgRec.Quantity * 3.2;
+                Quantity += ItemLedgRec.Quantity;
 
                 ItemRec.Reset();
                 ItemRec.SetRange("No.", ItemLedgRec."Item No.");
@@ -138,8 +154,8 @@ page 50313 StockSummary
         Quantity: Decimal;
         Value: Decimal;
         UOM: Code[20];
-    // Merchandizer: Text[200];
-    // FactoryName: Text[200];
-    // BuyerName: Text[200];
+        // Merchandizer: Text[200];
+        FactoryName: Text[200];
+        BuyerName: Text[200];
     // ContractNo: Text[50];
 }
