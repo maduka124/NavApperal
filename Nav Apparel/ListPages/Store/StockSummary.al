@@ -121,23 +121,23 @@ page 50313 StockSummary
 
         LcRec.Reset();
         LcRec.SetRange("No.", Rec.AssignedContractNo);
-        if LcRec.FindFirst() then begin
+        if LcRec.FindSet() then begin
             ContractNoLC := LcRec."Contract No";
         end;
 
         GRNRec.Reset();
         GRNRec.SetRange(StyleNo, Rec."No.");
-        if GRNRec.FindFirst() then begin
+        if GRNRec.FindSet() then begin
 
             ItemLedgRec.Reset();
             ItemLedgRec.SetRange("Document No.", GRNRec."Document No.");
-            if ItemLedgRec.FindFirst() then begin
-                Value += ItemLedgRec.Quantity * 3.2;
-                Quantity += ItemLedgRec.Quantity;
+            if ItemLedgRec.FindSet() then begin
+                Value := ItemLedgRec.Quantity * 3.2;
+                Quantity := ItemLedgRec.Quantity;
 
                 ItemRec.Reset();
                 ItemRec.SetRange("No.", ItemLedgRec."Item No.");
-                if ItemRec.FindFirst() then begin
+                if ItemRec.FindSet() then begin
                     UOM := ItemRec."Base Unit of Measure";
                     MainCatName := ItemRec."Main Category Name";
                 end;
