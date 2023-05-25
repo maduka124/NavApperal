@@ -878,15 +878,16 @@ report 50865 HourlyProductionReport
                             LocationRec.Reset();
                             LocationRec.SetRange(Code, UserRec."Factory Code");
                             LocationRec.SetFilter("Sewing Unit", '=%1', true);
+                            LocationRec.SetFilter("Plant Type Name", '=%1', 'Sewing');
                             if LocationRec.FindSet() then begin
                                 if Page.RunModal(15, LocationRec) = Action::LookupOK then begin
                                     FactortFilter := LocationRec.Code;
                                 end;
                             end
-                            else
-                                if Page.RunModal(15, LocationRec2) = Action::LookupOK then begin
-                                    FactortFilter := LocationRec2.Code;
-                                end;
+                            // else
+                            //     if Page.RunModal(15, LocationRec2) = Action::LookupOK then begin
+                            //         FactortFilter := LocationRec2.Code;
+                            //     end;
                         end;
                     }
 
