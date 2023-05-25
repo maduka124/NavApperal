@@ -1,4 +1,4 @@
-page 50313 MerchantWiseStockBalance
+page 50313 StockSummary
 {
     PageType = List;
     ApplicationArea = All;
@@ -8,7 +8,7 @@ page 50313 MerchantWiseStockBalance
     DeleteAllowed = false;
     ModifyAllowed = false;
     InsertAllowed = false;
-    Caption = 'Merchant Wise Stock Balance';
+    Caption = 'Stock Summary';
 
     layout
     {
@@ -26,7 +26,7 @@ page 50313 MerchantWiseStockBalance
                     ApplicationArea = All;
                     Caption = 'Buyer Name';
                 }
-                field(ContractNo; Rec.AssignedContractNo)
+                field(ContractNo; ContractNoLC)
                 {
                     ApplicationArea = All;
                     Caption = 'Contract No';
@@ -91,16 +91,23 @@ page 50313 MerchantWiseStockBalance
         ItemRec: Record Item;
         GRNRec: Record "Purch. Rcpt. Line";
         styleRec: Record "Style Master";
+        LcRec: Record "Contract/LCMaster";
 
     begin
-        styleRec.Reset();
-        styleRec.SetRange("Merchandizer Group Name", rec."Merchandizer Group Name");
-        styleRec.SetRange(ContractNo, Rec.ContractNo);
-        styleRec.SetRange("Buyer No.", Rec."Buyer No.");
-        if styleRec.FindSet() then begin
+        // styleRec.Reset();
+        // styleRec.SetRange("Merchandizer Group Name", rec."Merchandizer Group Name");
+        // styleRec.SetRange(ContractNo, Rec.ContractNo);
+        // styleRec.SetRange("Buyer No.", Rec."Buyer No.");
+        // if styleRec.FindSet() then begin
 
+        // end;
+
+
+        LcRec.Reset();
+        LcRec.SetRange("No.", Rec.AssignedContractNo);
+        if LcRec.FindSet() then begin
+            ContractNoLC := LcRec."Contract No";
         end;
-
 
         GRNRec.Reset();
         GRNRec.SetRange(StyleNo, Rec."No.");
@@ -126,6 +133,7 @@ page 50313 MerchantWiseStockBalance
 
 
     var
+        ContractNoLC: Text[50];
         MainCatName: Text[50];
         Quantity: Decimal;
         Value: Decimal;
