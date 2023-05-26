@@ -77,12 +77,20 @@ page 50978 "Create User Card"
                     ApplicationArea = All;
                     Caption = 'Active Status';
                 }
+
+                field(ExportRefNo; ExportRefNo)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Export Ref No';
+                }
             }
         }
     }
 
     actions
     {
+
+
         area(Processing)
         {
             // action("Update WIP Qty")
@@ -99,6 +107,23 @@ page 50978 "Create User Card"
             //     end;
             // }
 
+
+            action("remove value Export Reference")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    SalesInvRec: Record "Sales Invoice Header";
+                begin
+                    SalesInvRec.Reset();
+                    SalesInvRec.SetRange("No.", ExportRefNo);
+                    if SalesInvRec.FindSet() then begin
+                        SalesInvRec."Export Ref No." := '';
+                        SalesInvRec.Modify();
+                    end;
+                end;
+            }
             action("Remove minus Planned Qty")
             {
                 ApplicationArea = All;
@@ -115,6 +140,12 @@ page 50978 "Create User Card"
                     Message('Completed');
                 end;
             }
+
+
+
+
+
+
 
             // action("update prod update status")
             // {
@@ -517,6 +548,7 @@ page 50978 "Create User Card"
 
 
     var
+        ExportRefNo: Code[50];
         Password: Text[50];
         contractNo: Text[50];
         Type1: Option Saw,Cut,Wash,Emb,Print,Fin,Ship;
