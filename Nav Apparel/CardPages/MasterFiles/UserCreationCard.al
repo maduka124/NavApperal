@@ -5,8 +5,9 @@ page 50978 "Create User Card"
     Caption = 'User Creation';
     //AutoSplitKey = true;
     // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
-    Permissions = tabledata "Purch. Rcpt. Line" = rmID;
+    // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
     // Permissions = tabledata "Purchase Line" = rmID;
+    Permissions = tabledata "Sales Invoice Header" = rmID;
 
     layout
     {
@@ -77,12 +78,20 @@ page 50978 "Create User Card"
                     ApplicationArea = All;
                     Caption = 'Active Status';
                 }
+
+                field(ExportRefNo; ExportRefNo)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Posted Sales Invoice No';
+                }
             }
         }
     }
 
     actions
     {
+
+
         area(Processing)
         {
             // action("Update WIP Qty")
@@ -99,6 +108,23 @@ page 50978 "Create User Card"
             //     end;
             // }
 
+
+            action("remove value Export Reference")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    SalesInvRec: Record "Sales Invoice Header";
+                begin
+                    SalesInvRec.Reset();
+                    SalesInvRec.SetRange("No.", ExportRefNo);
+                    SalesInvRec.FindSet();
+                    SalesInvRec.ModifyAll("Export Ref No.", '');
+                    Message('Export Ref No Removed');
+
+                end;
+            }
             action("Remove minus Planned Qty")
             {
                 ApplicationArea = All;
@@ -115,6 +141,12 @@ page 50978 "Create User Card"
                     Message('Completed');
                 end;
             }
+
+
+
+
+
+
 
             // action("update prod update status")
             // {
@@ -517,6 +549,7 @@ page 50978 "Create User Card"
 
 
     var
+        ExportRefNo: Code[50];
         Password: Text[50];
         contractNo: Text[50];
         Type1: Option Saw,Cut,Wash,Emb,Print,Fin,Ship;

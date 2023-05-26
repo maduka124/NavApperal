@@ -115,6 +115,7 @@ page 51241 "Export Reference Card"
                             //Assign "Export Ref No."
                             SalesInvRec."Export Ref No." := rec."No.";
                             SalesInvRec.Modify();
+
                         end;
                     end;
                 }
@@ -212,19 +213,25 @@ page 51241 "Export Reference Card"
 
     trigger OnDeleteRecord(): Boolean
     var
-        SalesInvLineRec: Record "Sales Invoice Line";
+        ExportRefRec: Record ExportReferenceLine;
+        // SalesInvLineRec: Record "Sales Invoice Line";
         SalesInvRec: Record "Sales Invoice Header";
     begin
-        SalesInvLineRec.Reset();
-        SalesInvLineRec.SetRange("No.", rec."No.");
-        if SalesInvLineRec.FindSet() then
-            SalesInvLineRec.DeleteAll();
+        // SalesInvLineRec.Reset();
+        // SalesInvLineRec.SetRange("No.", rec."No.");
+        // if SalesInvLineRec.FindSet() then
+        //     SalesInvLineRec.DeleteAll();
+
+        ExportRefRec.Reset();
+        ExportRefRec.SetRange("No.", Rec."No.");
+        if ExportRefRec.FindSet() then
+            ExportRefRec.DeleteAll();
 
         SalesInvRec.Reset();
         SalesInvRec.SetRange("Export Ref No.", rec."No.");
         if SalesInvRec.FindSet() then begin
-            SalesInvRec."Export Ref No." := '';
-            SalesInvRec.Modify();
+            // SalesInvRec."Export Ref No." := '';
+            SalesInvRec.ModifyAll("Export Ref No.", '');
         end;
     end;
 }
