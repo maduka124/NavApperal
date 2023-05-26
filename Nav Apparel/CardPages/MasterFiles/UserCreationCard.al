@@ -5,8 +5,9 @@ page 50978 "Create User Card"
     Caption = 'User Creation';
     //AutoSplitKey = true;
     // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
-    Permissions = tabledata "Purch. Rcpt. Line" = rmID;
+    // Permissions = tabledata "Purch. Rcpt. Line" = rmID;
     // Permissions = tabledata "Purchase Line" = rmID;
+    Permissions = tabledata "Sales Invoice Header" = rmID;
 
     layout
     {
