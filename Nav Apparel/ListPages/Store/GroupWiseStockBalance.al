@@ -31,7 +31,7 @@ page 50312 GroupWiseStockBalance
                     ApplicationArea = All;
                     Caption = 'Buyer Name';
                 }
-                field(ContractNo; Rec.AssignedContractNo)
+                field(ContractNo; ContractNoLC)
                 {
                     ApplicationArea = All;
                     Caption = 'Contract No';
@@ -96,16 +96,21 @@ page 50312 GroupWiseStockBalance
         ItemRec: Record Item;
         GRNRec: Record "Purch. Rcpt. Line";
         styleRec: Record "Style Master";
-
+        LcRec: Record "Contract/LCMaster";
     begin
-        styleRec.Reset();
-        styleRec.SetRange("Merchandizer Group Name", rec."Merchandizer Group Name");
-        styleRec.SetRange(ContractNo, Rec.ContractNo);
-        styleRec.SetRange("Buyer No.", Rec."Buyer No.");
-        if styleRec.FindSet() then begin
+        // styleRec.Reset();
+        // styleRec.SetRange("Merchandizer Group Name", rec."Merchandizer Group Name");
+        // styleRec.SetRange(ContractNo, Rec.ContractNo);
+        // styleRec.SetRange("Buyer No.", Rec."Buyer No.");
+        // if styleRec.FindSet() then begin
 
+        // end;
+
+        LcRec.Reset();
+        LcRec.SetRange("No.", Rec.AssignedContractNo);
+        if LcRec.FindSet() then begin
+            ContractNoLC := LcRec."Contract No";
         end;
-
 
         GRNRec.Reset();
         GRNRec.SetRange(StyleNo, Rec."No.");
@@ -131,12 +136,13 @@ page 50312 GroupWiseStockBalance
 
 
     var
+
         MainCatName: Text[50];
         Quantity: Decimal;
         Value: Decimal;
         UOM: Code[20];
-    // Merchandizer: Text[200];
-    // FactoryName: Text[200];
-    // BuyerName: Text[200];
-    // ContractNo: Text[50];
+        // Merchandizer: Text[200];
+        // FactoryName: Text[200];
+        // BuyerName: Text[200];
+        ContractNoLC: Text[50];
 }

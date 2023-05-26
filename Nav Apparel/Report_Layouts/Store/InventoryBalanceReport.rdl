@@ -1939,7 +1939,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1966,15 +1965,9 @@
                   <KeepWithGroup>After</KeepWithGroup>
                 </TablixMember>
                 <TablixMember>
-                  <Group Name="Details">
-                    <GroupExpressions>
-                      <GroupExpression>=Fields!Buyer.Value</GroupExpression>
-                      <GroupExpression>=Fields!Factory_Name.Value</GroupExpression>
-                      <GroupExpression>=Fields!Style_Name.Value</GroupExpression>
-                    </GroupExpressions>
-                  </Group>
+                  <Group Name="Details" />
                   <Visibility>
-                    <Hidden>=Fields!Style_Name.Value=""</Hidden>
+                    <Hidden>=Fields!ItemName.Value=""</Hidden>
                   </Visibility>
                 </TablixMember>
                 <TablixMember>
@@ -2216,14 +2209,14 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="Factory_Name">
           <DataField>Factory_Name</DataField>
         </Field>
-        <Field Name="ContractNo">
-          <DataField>ContractNo</DataField>
-        </Field>
         <Field Name="Style_Name">
           <DataField>Style_Name</DataField>
         </Field>
         <Field Name="Location_Code">
           <DataField>Location_Code</DataField>
+        </Field>
+        <Field Name="ContractNo">
+          <DataField>ContractNo</DataField>
         </Field>
         <Field Name="Quantity">
           <DataField>Quantity</DataField>
