@@ -82,7 +82,7 @@ page 50978 "Create User Card"
                 field(ExportRefNo; ExportRefNo)
                 {
                     ApplicationArea = All;
-                    Caption = 'Export Ref No';
+                    Caption = 'Posted Sales Invoice No';
                 }
             }
         }
@@ -118,7 +118,7 @@ page 50978 "Create User Card"
                     SalesInvRec: Record "Sales Invoice Header";
                 begin
                     SalesInvRec.Reset();
-                    SalesInvRec.SetRange("Export Ref No.", ExportRefNo);
+                    SalesInvRec.SetRange("No.", ExportRefNo);
                     SalesInvRec.FindSet();
                     SalesInvRec.ModifyAll("Export Ref No.", '');
                     Message('Export Ref No Removed');
