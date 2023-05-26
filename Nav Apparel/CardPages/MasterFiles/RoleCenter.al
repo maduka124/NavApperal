@@ -1601,6 +1601,13 @@ page 50968 "Nav Apperal Role Center"
                 }
                 group("Sewing Reports")
                 {
+                    action("Daily Cutting Report")
+                    {
+                        Caption = 'Daily Cutting Production Report';
+                        Enabled = true;
+                        RunObject = report DailyCuttingReport;
+                        ApplicationArea = All;
+                    }
                     //Done By Sachith on 08/03/23
                     action("Line in Out Report Sewing")
                     {
