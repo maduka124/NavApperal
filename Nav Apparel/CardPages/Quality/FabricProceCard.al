@@ -287,8 +287,7 @@ page 50671 "FabricProceCard"
             group("Roll Details")
             {
                 Editable = EditableGB;
-                part(FabricProceListPart;
-                FabricProceListPart)
+                part(FabricProceListPart;FabricProceListPart)
                 {
                     ApplicationArea = All;
                     Caption = 'Roll Details';
@@ -394,6 +393,7 @@ page 50671 "FabricProceCard"
                             FabricProLineRec."Color Name" := rec."Color Name";
                             FabricProLineRec."Color No" := rec."Color No";
                             FabricProLineRec.Insert();
+                            
                         end;
                     end;
                 end;
