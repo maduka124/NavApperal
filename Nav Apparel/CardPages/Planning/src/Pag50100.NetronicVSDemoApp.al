@@ -150,7 +150,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                 begin
                     // Message('OnRequestSettings!');
 
-                    _settings.Add('LicenseKey', 'MzY4Njk0LTYxMjY2LTgwMTg3LXsidyI6IiIsImlkIjoiVlNDQUlFdmFsIiwibiI6Ik5FVFJPTklDIiwidSI6IiIsImUiOjIzMDUsInYiOiI0LjAiLCJmIjpbMTAwMV0sImVkIjoiQmFzZSJ9');
+                    _settings.Add('LicenseKey', 'ODk5ODE4LTM0NzA0MS01ODc4NTcteyJ3IjoiIiwiaWQiOiJWU0NBSUV2YWwiLCJuIjoiTkVUUk9OSUMiLCJ1IjoiIiwiZSI6MjMwNiwidiI6IjQuMCIsImYiOlsxMDAxXSwiZWQiOiJCYXNlIn0=');
 
                     _settings.Add('Start', gdtconVSControlAddInStart);
                     _settings.Add('End', gdtconVSControlAddInEnd);

@@ -229,6 +229,8 @@ page 50343 "Planning Line Property Card"
                     ResourceRec.Reset();
                     ResourceRec.SetRange("No.", rec."Resource No.");
                     ResourceRec.FindSet();
+                    if ResourceRec."LV Days" = 0 then
+                        Error('LV Days not setup for the Sewing Line : %1', ResourceRec.Name);
 
                     HrsPerDay := rec.HoursPerDay;
                     Prev_FinishedDateTime := rec.FinishDateTime;
@@ -245,7 +247,7 @@ page 50343 "Planning Line Property Card"
 
                         //validate lCurve applying
                         ProdPlansDetails.Reset();
-                        ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - 30, dtStart - 1);
+                        ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
                         ProdPlansDetails.SetFilter("Style No.", rec."Style No.");
                         ProdPlansDetails.SetFilter("Line No.", '<>%1', rec."Line No.");
                         if ProdPlansDetails.FindSet() then
@@ -253,7 +255,7 @@ page 50343 "Planning Line Property Card"
                         else begin
                             //Validate same style same allocation
                             ProdPlansDetails.Reset();
-                            ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - 30, dtStart - 1);
+                            ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
                             ProdPlansDetails.SetFilter("Style No.", rec."Style No.");
                             ProdPlansDetails.SetFilter("Line No.", '=%1', rec."Line No.");
                             if not ProdPlansDetails.FindSet() then begin
@@ -283,8 +285,6 @@ page 50343 "Planning Line Property Card"
                         end;
                     end;
 
-
-
                     //Delete old lines
                     ProdPlansDetails.Reset();
                     ProdPlansDetails.SetRange("Line No.", rec."Line No.");
@@ -297,13 +297,13 @@ page 50343 "Planning Line Property Card"
                     LCurveFinishTime := TImeStart;
                     LCurveStartTime := TImeStart;
 
-                    if rec."Learning Curve No." <> 0 then begin
+                    if (rec."Learning Curve No." <> 0) and (ApplyLCurve = true) then begin
                         LearningCurveRec.Reset();
                         LearningCurveRec.SetRange("No.", rec."Learning Curve No.");
+                        if LearningCurveRec.FindSet() then begin
 
-                        if LearningCurveRec.FindSet() then
                             if LearningCurveRec.Type = LearningCurveRec.Type::Hourly then begin
-                                LcurveTemp := LearningCurveRec.Day1;
+                                LcurveTemp := LearningCurveRec.Day1 - PordUpdQty;
                                 repeat
                                     if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
                                         LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
@@ -372,6 +372,9 @@ page 50343 "Planning Line Property Card"
 
                                 LCurveFinishTime := LCurveStartTime;
                             end;
+                        end
+                        else
+                            Error('Cannot find L Curve : %1', rec."Learning Curve No.");
                     end;
 
                     repeat
@@ -439,7 +442,7 @@ page 50343 "Planning Line Property Card"
                         end;
 
 
-                        if rec."Learning Curve No." <> 0 then begin
+                        if (rec."Learning Curve No." <> 0) and (ApplyLCurve = true) then begin
 
                             //Aplly learning curve
                             LearningCurveRec.Reset();
@@ -557,7 +560,6 @@ page 50343 "Planning Line Property Card"
                         //Get Max Lineno
                         MaxLineNo := 0;
                         ProdPlansDetails.Reset();
-
                         if ProdPlansDetails.FindLast() then
                             MaxLineNo := ProdPlansDetails."No.";
 
@@ -575,8 +577,12 @@ page 50343 "Planning Line Property Card"
                         ProdPlansDetails."Resource No." := rec."Resource No.";
                         ProdPlansDetails.Carder := rec.Carder;
                         ProdPlansDetails.Eff := rec.Eff;
-                        ProdPlansDetails."Learning Curve No." := rec."Learning Curve No.";
                         ProdPlansDetails.SMV := rec.SMV;
+
+                        if ApplyLCurve = true then
+                            ProdPlansDetails."Learning Curve No." := rec."Learning Curve No."
+                        else
+                            ProdPlansDetails."Learning Curve No." := 0;
 
                         if Holiday = 'NO' then begin
                             if i = 1 then
@@ -611,6 +617,9 @@ page 50343 "Planning Line Property Card"
                         ProdPlansDetails."Created Date" := WorkDate();
                         ProdPlansDetails."Factory No." := rec.Factory;
                         ProdPlansDetails.Insert();
+
+                        if LCurveFinishDate = TempDate then
+                            ApplyLCurve := false;
 
                         TempDate := TempDate + 1;
 
@@ -648,10 +657,8 @@ page 50343 "Planning Line Property Card"
                     JobPlaLineRec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                     JobPlaLineRec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLineRec."Finish Time");
                     JobPlaLineRec.Modify();
-                    // IsInserted := true;
+
                     TempTIme := JobPlaLineRec."Finish Time";
-
-
 
                     ///////////////////get all allocations aftert the selected allocation 
                     JobPlaLineRec.Reset();
@@ -696,66 +703,87 @@ page 50343 "Planning Line Property Card"
                                     i := 0;
                                     Qty := JobPlaLineRec.Qty;
                                     LineNo := JobPlaLineRec."Line No.";
-                                    SMV := JobPlaLineRec.SMV;
 
-                                    if JobPlaLineRec.Carder <> 0 then
-                                        Carder := JobPlaLineRec.Carder;
+                                    if rec."Style No." = JobPlaLineRec."Style No." then begin  //Same as initial style
+                                        SMV := rec.SMV;
+                                        Carder := rec.Carder;
+                                        Eff := rec.Eff;
 
-                                    if JobPlaLineRec.Eff <> 0 then
-                                        Eff := JobPlaLineRec.Eff;
+                                        if ApplyLCurve = true then
+                                            ApplyLCurve := true
+                                        else
+                                            ApplyLCurve := false;
+                                    end
+                                    else begin              //Different Style
+                                        ApplyLCurve := false;
+                                        SMV := JobPlaLineRec.SMV;
+
+                                        if JobPlaLineRec.Carder <> 0 then
+                                            Carder := JobPlaLineRec.Carder;
+
+                                        if JobPlaLineRec.Eff <> 0 then
+                                            Eff := JobPlaLineRec.Eff;
+                                    end;
 
                                     dtStart := TempDate;
                                     TImeStart := TempTIme;
                                     Curr_StartDateTime := JobPlaLineRec.StartDateTime;
 
                                     //Calculate hourly gap between prevous and current allocation
-                                    if Prev_FinishedDateTime <> 0DT then
+                                    if Prev_FinishedDateTime <> 0DT then begin
                                         if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then begin
-                                            HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
-                                            HoursGap := HoursGap / 3600000;
+                                            // HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
+                                            // HoursGap := HoursGap / 3600000;
 
-                                            if (HoursGap IN [0.0001 .. 0.99]) then
-                                                HoursGap := 1;
+                                            // if (HoursGap IN [0.0001 .. 0.99]) then
+                                            //     HoursGap := 1;
 
-                                            HoursGap := round(HoursGap, 1, '>');
+                                            // HoursGap := round(HoursGap, 1, '>');
+
+                                            HoursGap := 0; //HoursGap is  zero since dateas are same  
                                         end
                                         else begin
 
-                                            XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
-                                            HoursPerDay2 := 0;
+                                            if (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1) > 48 then begin
+                                                XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
+                                                HoursPerDay2 := 0;
 
-                                            for X := 1 To XX do begin
-                                                HoursPerDay1 := 0;
-                                                ResCapacityEntryRec.Reset();
-                                                ResCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
-                                                ResCapacityEntryRec.SETRANGE(Date, DT2DATE(Prev_FinishedDateTime) + (X - 1));
+                                                for X := 1 To XX do begin
+                                                    HoursPerDay1 := 0;
+                                                    ResCapacityEntryRec.Reset();
+                                                    ResCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
+                                                    ResCapacityEntryRec.SETRANGE(Date, DT2DATE(Prev_FinishedDateTime) + (X - 1));
 
-                                                if ResCapacityEntryRec.FindSet() then begin
-                                                    repeat
-                                                        HoursPerDay1 += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
-                                                    until ResCapacityEntryRec.Next() = 0;
-                                                end;
+                                                    if ResCapacityEntryRec.FindSet() then begin
+                                                        repeat
+                                                            HoursPerDay1 += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                                                        until ResCapacityEntryRec.Next() = 0;
+                                                    end;
 
-                                                if HoursPerDay1 > 0 then begin
+                                                    if HoursPerDay1 > 0 then begin
 
-                                                    if X = 1 then  //First Date
-                                                        HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
-                                                    else
-                                                        if X = XX then  //Last date
-                                                            HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
+                                                        if X = 1 then  //First Date
+                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
                                                         else
-                                                            HoursPerDay2 := HoursPerDay2 + HoursPerDay1;
+                                                            if X = XX then  //Last date
+                                                                HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
+                                                            else
+                                                                HoursPerDay2 := HoursPerDay2 + HoursPerDay1;
+                                                    end;
                                                 end;
-                                            end;
 
-                                            HoursGap := HoursGap / 3600000;
+                                                HoursGap := HoursGap / 3600000;
 
-                                            if (HoursGap IN [0.0001 .. 0.99]) then
-                                                HoursGap := 1;
+                                                if (HoursGap IN [0.0001 .. 0.99]) then
+                                                    HoursGap := 1;
 
-                                            HoursGap := round(HoursGap, 1, '>');
-                                            HoursGap := HoursGap + HoursPerDay2;
+                                                HoursGap := round(HoursGap, 1, '>');
+                                                HoursGap := HoursGap + HoursPerDay2;
+                                            end
+                                            else   //If HoursGap less than 48 hours, no Gap
+                                                HoursGap := 0;
                                         end;
+                                    end;
 
                                     //Based on Hourly Gap, calculate start Date/time of current allocation 
                                     if HoursGap > 0 then begin
@@ -868,7 +896,11 @@ page 50343 "Planning Line Property Card"
 
                                     until HrsPerDay > 0;
 
-                                    TargetPerDay := round(((60 / SMV) * Carder * HrsPerDay * Eff) / 100, 1);
+                                    if rec."Style No." = JobPlaLineRec."Style No." then   //Same as initial style 
+                                        TargetPerDay := rec.Target
+                                    else
+                                        TargetPerDay := round(((60 / SMV) * Carder * HrsPerDay * Eff) / 100, 1);
+
                                     TargetPerHour := round(TargetPerDay / HrsPerDay, 1);
                                     TempQty := 0;
 
@@ -964,55 +996,94 @@ page 50343 "Planning Line Property Card"
                                             HrsPerDay := HrsPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
                                         end;
 
-                                        if JobPlaLineRec."Learning Curve No." <> 0 then begin
+                                        if (rec."Learning Curve No." <> 0) and (ApplyLCurve = true) and (rec."Style No." = JobPlaLineRec."Style No.") then begin
 
                                             //Aplly learning curve
                                             LearningCurveRec.Reset();
                                             LearningCurveRec.SetRange("No.", JobPlaLineRec."Learning Curve No.");
-
                                             if LearningCurveRec.FindSet() then begin
-                                                case i of
-                                                    1:
-                                                        Rate := LearningCurveRec.Day1;
-                                                    2:
-                                                        Rate := LearningCurveRec.Day2;
-                                                    3:
-                                                        Rate := LearningCurveRec.Day3;
-                                                    4:
-                                                        Rate := LearningCurveRec.Day4;
-                                                    5:
-                                                        Rate := LearningCurveRec.Day5;
-                                                    6:
-                                                        Rate := LearningCurveRec.Day6;
-                                                    7:
-                                                        Rate := LearningCurveRec.Day7;
-                                                    else
+
+                                                if LearningCurveRec.Type = LearningCurveRec.Type::"Efficiency Wise" then begin
+                                                    case i of
+                                                        1:
+                                                            Rate := LearningCurveRec.Day1;
+                                                        2:
+                                                            Rate := LearningCurveRec.Day2;
+                                                        3:
+                                                            Rate := LearningCurveRec.Day3;
+                                                        4:
+                                                            Rate := LearningCurveRec.Day4;
+                                                        5:
+                                                            Rate := LearningCurveRec.Day5;
+                                                        6:
+                                                            Rate := LearningCurveRec.Day6;
+                                                        7:
+                                                            Rate := LearningCurveRec.Day7;
+                                                        else
+                                                            Rate := 100;
+                                                    end;
+
+                                                    if Rate = 0 then
                                                         Rate := 100;
+
+                                                    if (TempQty + round((TargetPerHour * HrsPerDay) * Rate / 100, 1) < Qty) then begin
+                                                        TempQty += round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
+                                                        xQty := round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
+                                                    end
+                                                    else begin
+                                                        TempQty1 := Qty - TempQty;
+                                                        TempQty := TempQty + TempQty1;
+                                                        TempHours := TempQty1 / TargetPerHour;
+                                                        xQty := TempQty1;
+
+                                                        if (TempHours IN [0.0001 .. 0.99]) then
+                                                            TempHours := 1;
+
+                                                        TempHours := round(TempHours, 1, '>');
+                                                    end;
+                                                end
+                                                else begin  //Hourly
+
+                                                    Rate := 100;
+
+                                                    if LCurveFinishDate > TempDate then
+                                                        HrsPerDay := 0
+                                                    else begin
+                                                        if LCurveFinishDate = TempDate then begin
+                                                            if i = 1 then begin
+                                                                if ((LCurveFinishTime - TImeStart) / 3600000) < 0 then
+                                                                    HrsPerDay := HrsPerDay - (TImeStart - LCurveFinishTime) / 3600000
+                                                                else
+                                                                    HrsPerDay := HrsPerDay - (LCurveFinishTime - TImeStart) / 3600000;
+                                                            end
+                                                            else begin
+                                                                if ((LCurveFinishTime - LocationRec."Start Time") / 3600000) < 0 then
+                                                                    HrsPerDay := HrsPerDay - (LocationRec."Start Time" - LCurveFinishTime) / 3600000
+                                                                else
+                                                                    HrsPerDay := HrsPerDay - (LCurveFinishTime - LocationRec."Start Time") / 3600000;
+                                                            end;
+                                                        end;
+                                                    end;
+
+                                                    if (TempQty + round((TargetPerHour * HrsPerDay) * Rate / 100, 1) < Qty) then begin
+                                                        TempQty += round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
+                                                        xQty := round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
+                                                    end
+                                                    else begin
+                                                        TempQty1 := Qty - TempQty;
+                                                        xQty := TempQty1;
+                                                        TempQty := TempQty + TempQty1;
+                                                        TempHours := TempQty1 / TargetPerHour;
+
+                                                        if (TempHours IN [0.0001 .. 0.99]) then
+                                                            TempHours := 1;
+
+                                                        TempHours := round(TempHours, 1, '>');
+                                                    end;
                                                 end;
-                                            end;
-
-                                            if Rate = 0 then
-                                                Rate := 100;
-
-                                            if (TempQty + round((TargetPerHour * HrsPerDay) * Rate / 100, 1) < Qty) then begin
-                                                TempQty += round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
-                                                xQty := round((TargetPerHour * HrsPerDay) * Rate / 100, 1);
-                                            end
-                                            else begin
-                                                TempQty1 := Qty - TempQty;
-                                                TempQty := TempQty + TempQty1;
-                                                TempHours := TempQty1 / TargetPerHour;
-                                                xQty := TempQty1;
-
-                                                if (TempHours IN [0.0001 .. 0.99]) then
-                                                    TempHours := 1;
-
-                                                TempHours := round(TempHours, 1, '>');
-
                                             end;
                                         end
                                         else begin
-
                                             if (TempQty + (TargetPerHour * HrsPerDay)) < Qty then begin
                                                 TempQty += round((TargetPerHour * HrsPerDay), 1);
                                                 xQty := TargetPerHour * HrsPerDay;
@@ -1028,13 +1099,11 @@ page 50343 "Planning Line Property Card"
 
                                                 TempHours := round(TempHours, 1, '>');
                                             end;
-
                                         end;
 
                                         //Get Max Lineno
                                         MaxLineNo := 0;
                                         ProdPlansDetails.Reset();
-
                                         if ProdPlansDetails.FindLast() then
                                             MaxLineNo := ProdPlansDetails."No.";
 
@@ -1052,8 +1121,12 @@ page 50343 "Planning Line Property Card"
                                         ProdPlansDetails."Resource No." := rec."Resource No.";
                                         ProdPlansDetails.Carder := Carder;
                                         ProdPlansDetails.Eff := Eff;
-                                        ProdPlansDetails."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
                                         ProdPlansDetails.SMV := JobPlaLineRec.SMV;
+
+                                        if ApplyLCurve = true then
+                                            ProdPlansDetails."Learning Curve No." := JobPlaLineRec."Learning Curve No."
+                                        else
+                                            ProdPlansDetails."Learning Curve No." := 0;
 
                                         if i = 1 then
                                             ProdPlansDetails."Start Time" := TImeStart
@@ -1074,7 +1147,6 @@ page 50343 "Planning Line Property Card"
 
                                         ProdPlansDetails.Qty := xQty;
                                         ProdPlansDetails.Target := TargetPerDay;
-                                        // ProdPlansDetails.HoursPerDay := HoursPerDay;
 
                                         if Holiday = 'NO' then
                                             if TempHours > 0 then
@@ -1090,6 +1162,9 @@ page 50343 "Planning Line Property Card"
                                         ProdPlansDetails."Created Date" := WorkDate();
                                         ProdPlansDetails."Factory No." := JobPlaLineRec.Factory;
                                         ProdPlansDetails.Insert();
+
+                                        if LCurveFinishDate = TempDate then
+                                            ApplyLCurve := false;
 
                                         TempDate := TempDate + 1;
 
@@ -1121,6 +1196,15 @@ page 50343 "Planning Line Property Card"
                                             JobPlaLine2Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
                                     end;
 
+                                    if ApplyLCurve = false then
+                                        JobPlaLine2Rec."Learning Curve No." := 0
+                                    else begin
+                                        if rec."Style No." = JobPlaLine2Rec."Style No." then
+                                            JobPlaLine2Rec."Learning Curve No." := rec."Learning Curve No."
+                                        else
+                                            JobPlaLine2Rec."Learning Curve No." := 0;
+                                    end;
+
                                     JobPlaLine2Rec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                                     JobPlaLine2Rec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLine2Rec."Finish Time");
                                     JobPlaLine2Rec.Qty := Qty;
@@ -1148,17 +1232,6 @@ page 50343 "Planning Line Property Card"
                     end;
 
                     Message('Completed');
-
-
-
-
-
-
-
-
-
-
-
 
 
                     // //Get all allocations after the start date                                   
@@ -1734,7 +1807,7 @@ page 50343 "Planning Line Property Card"
         StyeMasteRec: Record "Style Master";
     begin
         StyeMasteRec.Reset();
-        StyeMasteRec.SetRange("Style No.", rec."Style No.");
+        StyeMasteRec.SetRange("No.", rec."Style No.");
         if StyeMasteRec.FindSet() then
             Buyer := StyeMasteRec."Buyer Name"
         else
@@ -1758,6 +1831,6 @@ page 50343 "Planning Line Property Card"
     var
         OrderQty: BigInteger;
         Buyer: Text[500];
-        HourlyTarget: BigInteger;
+        HourlyTarget: Decimal;
 
 }
