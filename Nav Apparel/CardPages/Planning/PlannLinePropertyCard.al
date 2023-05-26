@@ -35,30 +35,30 @@ page 50343 "Planning Line Property Card"
                     Caption = 'PO No';
                 }
 
+                field(buyer; Buyer)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Buyer';
+                }
+                field(OrderQty; OrderQty)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Order Qty';
+                }
+
                 field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Planned Qty';
                 }
 
                 field(SMV; rec.SMV)
                 {
                     ApplicationArea = All;
                     Editable = false;
-                }
-
-                field(HoursPerDay; rec.HoursPerDay)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Working Hours Per Day';
-                    Editable = false;
-
-                    trigger OnValidate()
-                    var
-
-                    begin
-                        Cal();
-                    end;
                 }
 
                 field(Carder; rec.Carder)
@@ -68,7 +68,6 @@ page 50343 "Planning Line Property Card"
 
                     trigger OnValidate()
                     var
-
                     begin
                         Cal();
                     end;
@@ -81,16 +80,22 @@ page 50343 "Planning Line Property Card"
 
                     trigger OnValidate()
                     var
-
                     begin
                         Cal();
                     end;
                 }
 
-                field("Learning Curve No."; rec."Learning Curve No.")
+                field(HoursPerDay; rec.HoursPerDay)
                 {
                     ApplicationArea = All;
-                    Caption = 'Learning Curve';
+                    Caption = 'Working Hours Per Day';
+                    Editable = false;
+
+                    trigger OnValidate()
+                    var
+                    begin
+                        Cal();
+                    end;
                 }
 
                 field(Target; rec.Target)
@@ -106,6 +111,19 @@ page 50343 "Planning Line Property Card"
                         else
                             rec.Eff := (rec.Target * 100 * rec.SMV) / (60 * rec.Carder * rec.HoursPerDay);
                     end;
+                }
+
+                field(HourlyTarget; HourlyTarget)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Hourly Target';
+                    Editable = false;
+                }
+
+                field("Learning Curve No."; rec."Learning Curve No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Learning Curve';
                 }
 
                 field("TGTSEWFIN Date"; rec."TGTSEWFIN Date")
@@ -196,6 +214,10 @@ page 50343 "Planning Line Property Card"
                     dtEd: Date;
                     Count: Integer;
                     JobPlaLine2Rec: Record "NavApp Planning Lines";
+                    SameStyle: Code[20];
+                    ApplyLCurve: Boolean;
+                    dtTemp: date;
+                    PordUpdQty: BigInteger;
                 begin
 
                     //Get Start and Finish Time
@@ -203,71 +225,65 @@ page 50343 "Planning Line Property Card"
                     LocationRec.SetRange(code, rec.Factory);
                     LocationRec.FindSet();
 
-                    HrsPerDay := 0;
-                    Prev_FinishedDateTime := rec.FinishDateTime;
-                    dtStart := rec."Start Date";
-                    TImeStart := rec."Start Time";
-
                     //Get Resorce line details
                     ResourceRec.Reset();
                     ResourceRec.SetRange("No.", rec."Resource No.");
                     ResourceRec.FindSet();
 
-                    //Get working hours for the start date. If start date is a holiday, shift start date to next date.
-                    repeat
-
-                        ResCapacityEntryRec.Reset();
-                        ResCapacityEntryRec.SETRANGE("No.", rec."Resource No.");
-                        ResCapacityEntryRec.SETRANGE(Date, dtStart);
-
-                        if ResCapacityEntryRec.FindSet() then begin
-                            repeat
-                                HrsPerDay += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
-                            until ResCapacityEntryRec.Next() = 0;
-                        end;
-
-                        if HrsPerDay = 0 then begin
-
-                            //Validate the day (Holiday or Weekend)
-                            SHCalHolidayRec.Reset();
-                            SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
-                            SHCalHolidayRec.SETRANGE(Date, dtStart);
-
-                            if not SHCalHolidayRec.FindSet() then begin  //If not holiday
-                                DayForWeek.Get(DayForWeek."Period Type"::Date, dtStart);
-
-                                case DayForWeek."Period No." of
-                                    1:
-                                        Day := 0;
-                                    2:
-                                        Day := 1;
-                                    3:
-                                        Day := 2;
-                                    4:
-                                        Day := 3;
-                                    5:
-                                        Day := 4;
-                                    6:
-                                        Day := 5;
-                                    7:
-                                        Day := 6;
-                                end;
-
-                                SHCalWorkRec.Reset();
-                                SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
-                                SHCalWorkRec.SetFilter(Day, '=%1', Day);
-                                if SHCalWorkRec.FindSet() then   //If not weekend
-                                    Error('Calender for date : %1  Work center : %2 has not calculated', dtStart, ResourceRec.Name);
-                            end;
-                        end;
-
-                        if HrsPerDay = 0 then
-                            dtStart := dtStart + 1;
-
-                    until HrsPerDay > 0;
-
+                    HrsPerDay := rec.HoursPerDay;
+                    Prev_FinishedDateTime := rec.FinishDateTime;
+                    dtStart := rec."Start Date";
+                    TImeStart := rec."Start Time";
+                    SameStyle := rec."Style No.";
                     TargetPerHour := rec.Target / HrsPerDay;
                     TempDate := dtStart;
+
+                    if rec."Learning Curve No." = 0 then
+                        ApplyLCurve := false
+                    else begin
+                        ApplyLCurve := true;
+
+                        //validate lCurve applying
+                        ProdPlansDetails.Reset();
+                        ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - 30, dtStart - 1);
+                        ProdPlansDetails.SetFilter("Style No.", rec."Style No.");
+                        ProdPlansDetails.SetFilter("Line No.", '<>%1', rec."Line No.");
+                        if ProdPlansDetails.FindSet() then
+                            ApplyLCurve := false
+                        else begin
+                            //Validate same style same allocation
+                            ProdPlansDetails.Reset();
+                            ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - 30, dtStart - 1);
+                            ProdPlansDetails.SetFilter("Style No.", rec."Style No.");
+                            ProdPlansDetails.SetFilter("Line No.", '=%1', rec."Line No.");
+                            if not ProdPlansDetails.FindSet() then begin
+                                ApplyLCurve := true
+                            end
+                            else begin
+                                ApplyLCurve := true;
+                                PordUpdQty := 0;
+                                //Get completed lCurve hours
+                                repeat
+                                    if ProdPlansDetails.ProdUpd = 1 then
+                                        PordUpdQty += ProdPlansDetails.ProdUpdQty;
+                                until ProdPlansDetails.Next() = 0;
+
+                                //Check for completed lCurve hours
+                                LearningCurveRec.Reset();
+                                LearningCurveRec.SetRange("No.", rec."Learning Curve No.");
+                                if LearningCurveRec.FindSet() then begin
+                                    if LearningCurveRec.Day1 > PordUpdQty then
+                                        ApplyLCurve := true
+                                    else
+                                        ApplyLCurve := false;
+                                end
+                                else
+                                    ApplyLCurve := true;
+                            end;
+                        end;
+                    end;
+
+
 
                     //Delete old lines
                     ProdPlansDetails.Reset();
@@ -1710,5 +1726,38 @@ page 50343 "Planning Line Property Card"
         else
             Message('SMV is zero. Cannot continue.');
     end;
+
+
+    trigger OnAfterGetCurrRecord()
+    var
+        StyeMastePORec: Record "Style Master PO";
+        StyeMasteRec: Record "Style Master";
+    begin
+        StyeMasteRec.Reset();
+        StyeMasteRec.SetRange("Style No.", rec."Style No.");
+        if StyeMasteRec.FindSet() then
+            Buyer := StyeMasteRec."Buyer Name"
+        else
+            Buyer := '';
+
+        StyeMastePORec.Reset();
+        StyeMastePORec.SetRange("Style No.", rec."Style No.");
+        StyeMastePORec.SetRange("PO No.", rec."PO No.");
+        if StyeMastePORec.FindSet() then
+            OrderQty := StyeMastePORec.Qty
+        else
+            OrderQty := 0;
+
+        if rec.HoursPerDay > 0 then
+            HourlyTarget := rec.Target / rec.HoursPerDay
+        else
+            HourlyTarget := 0;
+    end;
+
+
+    var
+        OrderQty: BigInteger;
+        Buyer: Text[500];
+        HourlyTarget: BigInteger;
 
 }

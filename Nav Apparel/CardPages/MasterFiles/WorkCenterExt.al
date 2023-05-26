@@ -15,7 +15,11 @@ pageextension 51154 WorkcenterCardExt extends "Work Center Card"
             field("Work Center Seq No"; Rec."Work Center Seq No")
             {
                 ApplicationArea = All;
+            }
 
+            field("LV Days"; rec."LV Days")
+            {
+                ApplicationArea = All;
             }
         }
 

@@ -58,11 +58,16 @@ tableextension 51142 "Work Center Extension" extends "Work Center"
         {
             DataClassification = ToBeClassified;
         }
+
         field(50015; "Work Center Seq No"; Integer)
         {
             DataClassification = ToBeClassified;
         }
 
+        field(50016; "LV Days"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 }
 
