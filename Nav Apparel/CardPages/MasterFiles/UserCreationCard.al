@@ -117,12 +117,11 @@ page 50978 "Create User Card"
                     SalesInvRec: Record "Sales Invoice Header";
                 begin
                     SalesInvRec.Reset();
-                    SalesInvRec.SetRange("No.", ExportRefNo);
-                    if SalesInvRec.FindSet() then begin
-                        // SalesInvRec."Export Ref No." := '';
-                        SalesInvRec.ModifyAll("Export Ref No.", '');
-                        Message('Export Ref No Removed');
-                    end;
+                    SalesInvRec.SetRange("Export Ref No.", ExportRefNo);
+                    SalesInvRec.FindSet();
+                    SalesInvRec.ModifyAll("Export Ref No.", '');
+                    Message('Export Ref No Removed');
+
                 end;
             }
             action("Remove minus Planned Qty")
