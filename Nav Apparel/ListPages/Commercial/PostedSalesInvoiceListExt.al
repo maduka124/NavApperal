@@ -9,7 +9,11 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
             {
                 ApplicationArea = all;
             }
+            field("Your Reference"; Rec."Your Reference")
+            {
+                ApplicationArea = all;
 
+            }
         }
 
     }
