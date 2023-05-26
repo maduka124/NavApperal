@@ -119,8 +119,9 @@ page 50978 "Create User Card"
                     SalesInvRec.Reset();
                     SalesInvRec.SetRange("No.", ExportRefNo);
                     if SalesInvRec.FindSet() then begin
-                        SalesInvRec."Export Ref No." := '';
-                        SalesInvRec.Modify();
+                        // SalesInvRec."Export Ref No." := '';
+                        SalesInvRec.ModifyAll("Export Ref No.", '');
+                        Message('Export Ref No Removed');
                     end;
                 end;
             }
