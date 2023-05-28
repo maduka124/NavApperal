@@ -1712,7 +1712,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             //Found := true;
                             dtStart := JobPlaLineRec."End Date";
                             TImeStart := JobPlaLineRec."Finish Time";
-                            Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
+                            //Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
 
                             //if start time equal to the parameter Finish time, set start time next day morning
                             if ((TImeStart - LocationRec."Finish Time") = 0) then begin
@@ -1774,7 +1774,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     dtStart := dtStart + 1;
 
                             until HoursPerDay > 0;
-
                         end;
 
                         //Get Existing line details
@@ -2158,511 +2157,525 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         JobPlaLineRec.Modify();
                         IsInserted := true;
                         TempTIme := JobPlaLineRec."Finish Time";
+                        Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
 
 
-                        ///////////////////Check whether new allocation conflicts other allocation  
+                        // ///////////////////Check whether new allocation conflicts other allocation  
+                        // JobPlaLineRec.Reset();
+                        // JobPlaLineRec.SetRange("Resource No.", ResourceNo);
+                        // JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(dtStart, JobPlaLineRec."Start Time"), CreateDateTime(TempDate, JobPlaLineRec."Finish Time"));
+                        // JobPlaLineRec.SetCurrentKey(StartDateTime);
+                        // JobPlaLineRec.Ascending(true);
+                        // JobPlaLineRec.SetFilter("Line No.", '<>%1', LineNo);
+
+                        // if JobPlaLineRec.FindSet() then begin         //conflicts yes, then get all allocations for the line
+
                         JobPlaLineRec.Reset();
                         JobPlaLineRec.SetRange("Resource No.", ResourceNo);
-                        JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(dtStart, JobPlaLineRec."Start Time"), CreateDateTime(TempDate, JobPlaLineRec."Finish Time"));
+                        JobPlaLineRec.SetFilter("StartDateTime", '>=%1', CreateDateTime(dtStart, JobPlaLineRec."Start Time"));
                         JobPlaLineRec.SetCurrentKey(StartDateTime);
                         JobPlaLineRec.Ascending(true);
                         JobPlaLineRec.SetFilter("Line No.", '<>%1', LineNo);
 
-                        if JobPlaLineRec.FindSet() then begin         //conflicts yes, then get all allocations for the line
+                        if JobPlaLineRec.FindSet() then begin
 
-                            JobPlaLineRec.Reset();
-                            JobPlaLineRec.SetRange("Resource No.", ResourceNo);
-                            JobPlaLineRec.SetFilter("StartDateTime", '>=%1', CreateDateTime(dtStart, JobPlaLineRec."Start Time"));
-                            JobPlaLineRec.SetCurrentKey(StartDateTime);
-                            JobPlaLineRec.Ascending(true);
-                            JobPlaLineRec.SetFilter("Line No.", '<>%1', LineNo);
+                            HoursPerDay := 0;
+                            i := 0;
+                            N1 := 0;
+                            TempQty := 0;
+                            RowCount1 := JobPlaLineRec.Count;
+                            StartTime2 := JobPlaLineRec."Start Time";
 
-                            if JobPlaLineRec.FindSet() then begin
+                            if RowCount1 > 0 then begin
 
-                                HoursPerDay := 0;
-                                i := 0;
+                                //Clear all Array data
+                                for N1 := 1 To 100 do begin
+                                    ArrayOfAllocations[N1] := 0;
+                                end;
+
                                 N1 := 0;
-                                TempQty := 0;
-                                RowCount1 := JobPlaLineRec.Count;
-                                StartTime2 := JobPlaLineRec."Start Time";
-
-                                if RowCount1 > 0 then begin
-
-                                    //Clear all Array data
-                                    for N1 := 1 To 100 do begin
-                                        ArrayOfAllocations[N1] := 0;
-                                    end;
-
-                                    N1 := 0;
-                                    //Assign all line no of the work center line
-                                    repeat
-                                        N1 += 1;
-                                        ArrayOfAllocations[N1] := JobPlaLineRec."Line No.";
-                                    until JobPlaLineRec.Next() = 0;
-
-                                    N1 := 0;
-                                    for N1 := 1 To RowCount1 do begin
-
-                                        HoursGap := 0;
-                                        JobPlaLineRec.Reset();
-                                        JobPlaLineRec.SetRange("Resource No.", ResourceNo);
-                                        JobPlaLineRec.SetFilter("Line No.", '=%1', ArrayOfAllocations[N1]);
-
-                                        if JobPlaLineRec.FindSet() then begin
-                                            i := 0;
-                                            Qty := JobPlaLineRec.Qty;
-                                            LineNo := JobPlaLineRec."Line No.";
-                                            SMV := JobPlaLineRec.SMV;
-
-                                            if JobPlaLineRec.Carder <> 0 then
-                                                Carder := JobPlaLineRec.Carder;
-
-                                            if JobPlaLineRec.Eff <> 0 then
-                                                Eff := JobPlaLineRec.Eff;
-
-                                            dtStart := TempDate;
-                                            TImeStart := TempTIme;
-                                            Curr_StartDateTime := JobPlaLineRec.StartDateTime;
-
-                                            //Calculate hourly gap between prevous and current allocation
-                                            if Prev_FinishedDateTime <> 0DT then
-                                                if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then begin
-                                                    HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
-                                                    HoursGap := HoursGap / 3600000;
-
-                                                    if (HoursGap IN [0.0001 .. 0.99]) then
-                                                        HoursGap := 1;
-
-                                                    HoursGap := round(HoursGap, 1, '>');
-                                                end
-                                                else begin
-
-                                                    XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
-                                                    HoursPerDay2 := 0;
-
-                                                    for X := 1 To XX do begin
-                                                        HoursPerDay1 := 0;
-                                                        ResCapacityEntryRec.Reset();
-                                                        ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
-                                                        ResCapacityEntryRec.SETRANGE(Date, DT2DATE(Prev_FinishedDateTime) + (X - 1));
-
-                                                        if ResCapacityEntryRec.FindSet() then begin
-                                                            repeat
-                                                                HoursPerDay1 += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
-                                                            until ResCapacityEntryRec.Next() = 0;
-                                                        end;
-
-                                                        if HoursPerDay1 > 0 then begin
-
-                                                            if X = 1 then  //First Date
-                                                                HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
-                                                            else
-                                                                if X = XX then  //Last date
-                                                                    HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
-                                                                else
-                                                                    HoursPerDay2 := HoursPerDay2 + HoursPerDay1;
-                                                        end;
-                                                    end;
-
-                                                    HoursGap := HoursGap / 3600000;
-
-                                                    if (HoursGap IN [0.0001 .. 0.99]) then
-                                                        HoursGap := 1;
-
-                                                    HoursGap := round(HoursGap, 1, '>');
-                                                    HoursGap := HoursGap + HoursPerDay2;
-                                                end;
-
-                                            //Based on Hourly Gap, calculate start Date/time of current allocation 
-                                            if HoursGap > 0 then begin
-
-                                                ddddddtttt := CREATEDATETIME(dtStart, TImeStart);
-
-                                                if (CREATEDATETIME(dtStart, LocationRec."Finish Time") <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
-
-                                                    HoursGap := HoursGap - (LocationRec."Finish Time" - TImeStart) / 3600000;
-                                                    TImeStart := LocationRec."Start Time";
-                                                    dtStart := dtStart + 1;
-
-                                                    if HoursGap > 0 then begin
-                                                        repeat
-
-                                                            //Get working hours for the start date. If start date is a holiday, shift start date to next date.
-                                                            repeat
-
-                                                                HoursPerDay := 0;
-                                                                WorkCenCapacityEntryRec.Reset();
-                                                                WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
-                                                                WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
-
-                                                                if WorkCenCapacityEntryRec.FindSet() then begin
-                                                                    repeat
-                                                                        HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
-                                                                    until WorkCenCapacityEntryRec.Next() = 0;
-                                                                end
-                                                                else begin
-                                                                    Count := 0;
-                                                                    dtNextMonth := CalcDate('<+1M>', dtStart);
-                                                                    dtSt := CalcDate('<-CM>', dtNextMonth);
-                                                                    dtEd := CalcDate('<+CM>', dtNextMonth);
-
-                                                                    WorkCenCapacityEntryRec.Reset();
-                                                                    WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
-                                                                    WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
-
-                                                                    if WorkCenCapacityEntryRec.FindSet() then
-                                                                        Count += WorkCenCapacityEntryRec.Count;
-
-                                                                    if Count < 14 then
-                                                                        Error('Calender is not setup for the Line : %1', ResourceName);
-                                                                end;
-
-                                                                if HoursPerDay = 0 then
-                                                                    dtStart := dtStart + 1;
-
-                                                            until HoursPerDay > 0;
-
-                                                            if (HoursPerDay > HoursGap) then begin
-                                                                TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
-                                                                HoursGap := 0;
-                                                            end
-                                                            else begin
-                                                                HoursGap := HoursGap - HoursPerDay;
-                                                                dtStart := dtStart + 1;
-                                                            end;
-
-                                                        until HoursGap = 0;
-                                                    end
-                                                end
-                                                else begin
-                                                    TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
-                                                    HoursGap := 0;
-                                                end;
-
-                                                TempDate := dtStart;
-                                            end;
-
-                                            HoursPerDay := 0;
-                                            //if start time greater than parameter Finish time, set start time next day morning
-                                            if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
-                                                TImeStart := LocationRec."Start Time";
-                                                dtStart := dtStart + 1;
-                                                TempDate := dtStart;
-                                            end;
-
-                                            //Get working hours for the start date. If start date is a holiday, shift start date to next date.
-                                            repeat
-
-                                                WorkCenCapacityEntryRec.Reset();
-                                                WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
-                                                WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
-
-                                                if WorkCenCapacityEntryRec.FindSet() then begin
-                                                    repeat
-                                                        HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
-                                                    until WorkCenCapacityEntryRec.Next() = 0;
-                                                end
-                                                else begin
-                                                    Count := 0;
-                                                    dtNextMonth := CalcDate('<+1M>', dtStart);
-                                                    dtSt := CalcDate('<-CM>', dtNextMonth);
-                                                    dtEd := CalcDate('<+CM>', dtNextMonth);
-
-                                                    WorkCenCapacityEntryRec.Reset();
-                                                    WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
-                                                    WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
-
-                                                    if WorkCenCapacityEntryRec.FindSet() then
-                                                        Count += WorkCenCapacityEntryRec.Count;
-
-                                                    if Count < 14 then
-                                                        Error('Calender is not setup for the Line : %1', ResourceName);
-                                                end;
-
-                                                if HoursPerDay = 0 then
-                                                    dtStart := dtStart + 1;
-
-                                            until HoursPerDay > 0;
-
-                                            TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
-                                            TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
-                                            TempQty := 0;
-
-                                            //Delete old lines
-                                            ProdPlansDetails.Reset();
-                                            ProdPlansDetails.SetRange("Line No.", LineNo);
-                                            ProdPlansDetails.SetFilter(ProdUpd, '=%1', 0);
-                                            if ProdPlansDetails.FindSet() then
-                                                ProdPlansDetails.DeleteAll();
-
-                                            repeat
-
-                                                ResourceRec.Reset();
-                                                ResourceRec.SetRange("No.", ResourceNo);
-                                                ResourceRec.FindSet();
-
-                                                //Get working hours for the day
-                                                HoursPerDay := 0;
-                                                Rate := 0;
-                                                Holiday := 'No';
-
-                                                WorkCenCapacityEntryRec.Reset();
-                                                WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
-                                                WorkCenCapacityEntryRec.SETRANGE(Date, TempDate);
-
-                                                if WorkCenCapacityEntryRec.FindSet() then begin
-                                                    repeat
-                                                        HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
-                                                    until WorkCenCapacityEntryRec.Next() = 0;
-                                                end
-                                                else begin
-                                                    Count := 0;
-                                                    dtNextMonth := CalcDate('<+1M>', TempDate);
-                                                    dtSt := CalcDate('<-CM>', dtNextMonth);
-                                                    dtEd := CalcDate('<+CM>', dtNextMonth);
-
-                                                    WorkCenCapacityEntryRec.Reset();
-                                                    WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
-                                                    WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
-
-                                                    if WorkCenCapacityEntryRec.FindSet() then
-                                                        Count += WorkCenCapacityEntryRec.Count;
-
-                                                    if Count < 14 then
-                                                        Error('Calender is not setup for the Line : %1', ResourceName);
-                                                end;
-
-                                                if HoursPerDay = 0 then begin
-
-                                                    //Validate the day (Holiday or Weekend)
-                                                    SHCalHolidayRec.Reset();
-                                                    SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
-                                                    SHCalHolidayRec.SETRANGE(Date, TempDate);
-
-                                                    if not SHCalHolidayRec.FindSet() then begin  //If not holiday
-                                                        DayForWeek.Get(DayForWeek."Period Type"::Date, TempDate);
-
-                                                        case DayForWeek."Period No." of
-                                                            1:
-                                                                Day := 0;
-                                                            2:
-                                                                Day := 1;
-                                                            3:
-                                                                Day := 2;
-                                                            4:
-                                                                Day := 3;
-                                                            5:
-                                                                Day := 4;
-                                                            6:
-                                                                Day := 5;
-                                                            7:
-                                                                Day := 6;
-                                                        end;
-
-                                                        SHCalWorkRec.Reset();
-                                                        SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
-                                                        SHCalWorkRec.SetFilter(Day, '=%1', Day);
-                                                        if SHCalWorkRec.FindSet() then   //If not weekend
-                                                            Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, ResourceRec.Name)
-                                                        else
-                                                            Holiday := 'Yes';
-                                                    end
-                                                    else
-                                                        Holiday := 'Yes';
-                                                end;
-
-                                                //No learning curve for holidays
-                                                if HoursPerDay > 0 then
-                                                    i += 1;
-
-                                                if (i = 1) and (HoursPerDay > 0) then begin
-                                                    //Calculate hours for the first day (substracti hours if delay start)
-                                                    HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
-                                                end;
-
-                                                if JobPlaLineRec."Learning Curve No." <> 0 then begin
-
-                                                    //Aplly learning curve
-                                                    LearningCurveRec.Reset();
-                                                    LearningCurveRec.SetRange("No.", JobPlaLineRec."Learning Curve No.");
-
-                                                    if LearningCurveRec.FindSet() then begin
-                                                        case i of
-                                                            1:
-                                                                Rate := LearningCurveRec.Day1;
-                                                            2:
-                                                                Rate := LearningCurveRec.Day2;
-                                                            3:
-                                                                Rate := LearningCurveRec.Day3;
-                                                            4:
-                                                                Rate := LearningCurveRec.Day4;
-                                                            5:
-                                                                Rate := LearningCurveRec.Day5;
-                                                            6:
-                                                                Rate := LearningCurveRec.Day6;
-                                                            7:
-                                                                Rate := LearningCurveRec.Day7;
-                                                            else
-                                                                Rate := 100;
-                                                        end;
-                                                    end;
-
-                                                    if Rate = 0 then
-                                                        Rate := 100;
-
-                                                    if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < Qty) then begin
-                                                        TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
-                                                        xQty := round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
-                                                    end
-                                                    else begin
-                                                        TempQty1 := Qty - TempQty;
-                                                        TempQty := TempQty + TempQty1;
-                                                        TempHours := TempQty1 / TargetPerHour;
-                                                        xQty := TempQty1;
-
-                                                        if (TempHours IN [0.0001 .. 0.99]) then
-                                                            TempHours := 1;
-
-                                                        TempHours := round(TempHours, 1, '>');
-
-                                                    end;
-                                                end
-                                                else begin
-
-                                                    if (TempQty + (TargetPerHour * HoursPerDay)) < Qty then begin
-                                                        TempQty += (TargetPerHour * HoursPerDay);
-                                                        xQty := TargetPerHour * HoursPerDay;
-                                                    end
-                                                    else begin
-                                                        TempQty1 := Qty - TempQty;
-                                                        TempQty := TempQty + TempQty1;
-                                                        TempHours := TempQty1 / TargetPerHour;
-                                                        xQty := TempQty1;
-
-                                                        if (TempHours IN [0.0001 .. 0.99]) then
-                                                            TempHours := 1;
-
-                                                        TempHours := round(TempHours, 1, '>');
-                                                    end;
-
-                                                end;
-
-                                                //Get Max Lineno
-                                                MaxLineNo := 0;
-                                                ProdPlansDetails.Reset();
-
-                                                if ProdPlansDetails.FindLast() then
-                                                    MaxLineNo := ProdPlansDetails."No.";
-
-                                                MaxLineNo += 1;
-
-                                                //insert to ProdPlansDetails
-                                                ProdPlansDetails.Init();
-                                                ProdPlansDetails."No." := MaxLineNo;
-                                                ProdPlansDetails.PlanDate := TempDate;
-                                                ProdPlansDetails."Style No." := JobPlaLineRec."Style No.";
-                                                ProdPlansDetails."Style Name" := JobPlaLineRec."Style Name";
-                                                ProdPlansDetails."PO No." := JobPlaLineRec."PO No.";
-                                                ProdPlansDetails."Lot No." := JobPlaLineRec."Lot No.";
-                                                ProdPlansDetails."Line No." := LineNo;
-                                                ProdPlansDetails."Resource No." := ResourceNo;
-                                                ProdPlansDetails.Carder := Carder;
-                                                ProdPlansDetails.Eff := Eff;
-                                                ProdPlansDetails."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
-                                                ProdPlansDetails.SMV := JobPlaLineRec.SMV;
-
-                                                if i = 1 then
-                                                    ProdPlansDetails."Start Time" := TImeStart
-                                                else
-                                                    ProdPlansDetails."Start Time" := LocationRec."Start Time";
-
-                                                if TempHours = 0 then
-                                                    ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                                                else begin
-                                                    if i = 1 then
-                                                        if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                            ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
-                                                        else
-                                                            ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
-                                                    else
-                                                        ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
-                                                end;
-
-                                                ProdPlansDetails.Qty := xQty;
-                                                ProdPlansDetails.Target := TargetPerDay;
-                                                // ProdPlansDetails.HoursPerDay := HoursPerDay;
-
-                                                if Holiday = 'NO' then
-                                                    if TempHours > 0 then
-                                                        ProdPlansDetails.HoursPerDay := TempHours
-                                                    else
-                                                        ProdPlansDetails.HoursPerDay := HoursPerDay
-                                                else
-                                                    ProdPlansDetails.HoursPerDay := 0;
-
-                                                ProdPlansDetails.ProdUpd := 0;
-                                                ProdPlansDetails.ProdUpdQty := 0;
-                                                ProdPlansDetails."Created User" := UserId;
-                                                ProdPlansDetails."Created Date" := WorkDate();
-                                                ProdPlansDetails."Factory No." := JobPlaLineRec.Factory;
-                                                ProdPlansDetails.Insert();
-
-                                                TempDate := TempDate + 1;
-
-                                            until (TempQty >= Qty);
-
-                                            TempDate := TempDate - 1;
-
-                                            if TempHours = 0 then
-                                                TempDate := TempDate - 1;
-
-                                            //modift the line
-                                            JobPlaLine2Rec.Reset();
-                                            JobPlaLine2Rec.SetRange("Line No.", LineNo);
-                                            JobPlaLine2Rec.FindSet();
-
-                                            JobPlaLine2Rec."Start Date" := dtStart;
-                                            JobPlaLine2Rec."End Date" := TempDate;
-                                            JobPlaLine2Rec."Start Time" := TImeStart;
-
-                                            if TempHours = 0 then
-                                                JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                //Assign all line no of the work center line
+                                repeat
+                                    N1 += 1;
+                                    ArrayOfAllocations[N1] := JobPlaLineRec."Line No.";
+                                until JobPlaLineRec.Next() = 0;
+
+                                N1 := 0;
+                                for N1 := 1 To RowCount1 do begin
+
+                                    HoursGap := 0;
+                                    JobPlaLineRec.Reset();
+                                    JobPlaLineRec.SetRange("Resource No.", ResourceNo);
+                                    JobPlaLineRec.SetFilter("Line No.", '=%1', ArrayOfAllocations[N1]);
+
+                                    if JobPlaLineRec.FindSet() then begin
+                                        i := 0;
+                                        Qty := JobPlaLineRec.Qty;
+                                        LineNo := JobPlaLineRec."Line No.";
+                                        SMV := JobPlaLineRec.SMV;
+
+                                        if JobPlaLineRec.Carder <> 0 then
+                                            Carder := JobPlaLineRec.Carder;
+
+                                        if JobPlaLineRec.Eff <> 0 then
+                                            Eff := JobPlaLineRec.Eff;
+
+                                        dtStart := TempDate;
+                                        TImeStart := TempTIme;
+                                        Curr_StartDateTime := JobPlaLineRec.StartDateTime;
+
+                                        //Calculate hourly gap between prevous and current allocation
+                                        if Prev_FinishedDateTime <> 0DT then begin
+                                            if DT2DATE(Prev_FinishedDateTime) = DT2DATE(Curr_StartDateTime) then begin
+                                                // HoursGap := Curr_StartDateTime - Prev_FinishedDateTime;
+                                                // HoursGap := HoursGap / 3600000;
+
+                                                // if (HoursGap IN [0.0001 .. 0.99]) then
+                                                //     HoursGap := 1;
+
+                                                // HoursGap := round(HoursGap, 1, '>');
+
+                                                HoursGap := 0;
+                                            end
                                             else begin
-                                                if i = 1 then
-                                                    if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
-                                                        JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
-                                                    else
-                                                        JobPlaLine2Rec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
-                                                else
-                                                    JobPlaLine2Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
-                                            end;
 
-                                            JobPlaLine2Rec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
-                                            JobPlaLine2Rec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLine2Rec."Finish Time");
-                                            JobPlaLine2Rec.Qty := Qty;
+                                                XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
+                                                //Message(Format((Curr_StartDateTime - Prev_FinishedDateTime) / 3600000));
+                                                //if (Curr_StartDateTime - Prev_FinishedDateTime) / 3600000 > 48 then begin
+                                                HoursPerDay2 := 0;
 
-                                            Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
-                                            JobPlaLine2Rec.Modify();
+                                                for X := 1 To XX do begin
+                                                    HoursPerDay1 := 0;
+                                                    ResCapacityEntryRec.Reset();
+                                                    ResCapacityEntryRec.SETRANGE("No.", ResourceNo);
+                                                    ResCapacityEntryRec.SETRANGE(Date, DT2DATE(Prev_FinishedDateTime) + (X - 1));
 
-                                            TempTIme := JobPlaLine2Rec."Finish Time";
+                                                    if ResCapacityEntryRec.FindSet() then begin
+                                                        repeat
+                                                            HoursPerDay1 += (ResCapacityEntryRec."Capacity (Total)") / ResCapacityEntryRec.Capacity;
+                                                        until ResCapacityEntryRec.Next() = 0;
+                                                    end;
 
-                                            //delete allocation if remaining qty is 0 or less than 0
-                                            JobPlaLine2Rec.Reset();
-                                            JobPlaLine2Rec.SetRange("Line No.", LineNo);
+                                                    if HoursPerDay1 > 0 then begin
 
-                                            if JobPlaLine2Rec.FindSet() then begin
-                                                if JobPlaLine2Rec.Qty <= 0 then
-                                                    JobPlaLine2Rec.DeleteAll();
+                                                        if X = 1 then  //First Date
+                                                            HoursGap := CREATEDATETIME(DT2DATE(Prev_FinishedDateTime), LocationRec."Finish Time") - Prev_FinishedDateTime
+                                                        else
+                                                            if X = XX then  //Last date
+                                                                HoursGap := HoursGap + (Curr_StartDateTime - CREATEDATETIME(DT2DATE(Curr_StartDateTime), LocationRec."start Time"))
+                                                            else
+                                                                HoursPerDay2 := HoursPerDay2 + HoursPerDay1;
+                                                    end;
+                                                end;
+
+                                                HoursGap := HoursGap / 3600000;
+
+                                                if (HoursGap IN [0.0001 .. 0.99]) then
+                                                    HoursGap := 1;
+
+                                                HoursGap := round(HoursGap, 1, '>');
+                                                HoursGap := HoursGap + HoursPerDay2;
+                                                //end
+                                                //else
+                                                //    HoursGap := 0;
                                             end;
 
                                         end;
 
-                                        StartTime2 := JobPlaLine2Rec."Start Time";
-                                        LineNo := JobPlaLineRec."Line No.";
+                                        if HoursGap < 20 then
+                                            HoursGap := 0;
+
+                                        //Based on Hourly Gap, calculate start Date/time of current allocation 
+                                        if HoursGap > 0 then begin
+
+                                            ddddddtttt := CREATEDATETIME(dtStart, TImeStart);
+
+                                            if (CREATEDATETIME(dtStart, LocationRec."Finish Time") <= (ddddddtttt + (60 * 60 * 1000 * HoursGap))) then begin
+
+                                                HoursGap := HoursGap - (LocationRec."Finish Time" - TImeStart) / 3600000;
+                                                TImeStart := LocationRec."Start Time";
+                                                dtStart := dtStart + 1;
+
+                                                if HoursGap > 0 then begin
+                                                    repeat
+
+                                                        //Get working hours for the start date. If start date is a holiday, shift start date to next date.
+                                                        repeat
+
+                                                            HoursPerDay := 0;
+                                                            WorkCenCapacityEntryRec.Reset();
+                                                            WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
+                                                            WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
+
+                                                            if WorkCenCapacityEntryRec.FindSet() then begin
+                                                                repeat
+                                                                    HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
+                                                                until WorkCenCapacityEntryRec.Next() = 0;
+                                                            end
+                                                            else begin
+                                                                Count := 0;
+                                                                dtNextMonth := CalcDate('<+1M>', dtStart);
+                                                                dtSt := CalcDate('<-CM>', dtNextMonth);
+                                                                dtEd := CalcDate('<+CM>', dtNextMonth);
+
+                                                                WorkCenCapacityEntryRec.Reset();
+                                                                WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
+                                                                WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
+
+                                                                if WorkCenCapacityEntryRec.FindSet() then
+                                                                    Count += WorkCenCapacityEntryRec.Count;
+
+                                                                if Count < 14 then
+                                                                    Error('Calender is not setup for the Line : %1', ResourceName);
+                                                            end;
+
+                                                            if HoursPerDay = 0 then
+                                                                dtStart := dtStart + 1;
+
+                                                        until HoursPerDay > 0;
+
+                                                        if (HoursPerDay > HoursGap) then begin
+                                                            TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
+                                                            HoursGap := 0;
+                                                        end
+                                                        else begin
+                                                            HoursGap := HoursGap - HoursPerDay;
+                                                            dtStart := dtStart + 1;
+                                                        end;
+
+                                                    until HoursGap = 0;
+                                                end
+                                            end
+                                            else begin
+                                                TImeStart := TImeStart + (60 * 60 * 1000 * HoursGap);
+                                                HoursGap := 0;
+                                            end;
+
+                                            TempDate := dtStart;
+                                        end;
+
+                                        HoursPerDay := 0;
+                                        //if start time greater than parameter Finish time, set start time next day morning
+                                        if ((TImeStart - LocationRec."Finish Time") >= 0) then begin
+                                            TImeStart := LocationRec."Start Time";
+                                            dtStart := dtStart + 1;
+                                            TempDate := dtStart;
+                                        end;
+
+                                        //Get working hours for the start date. If start date is a holiday, shift start date to next date.
+                                        repeat
+
+                                            WorkCenCapacityEntryRec.Reset();
+                                            WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
+                                            WorkCenCapacityEntryRec.SETRANGE(Date, dtStart);
+
+                                            if WorkCenCapacityEntryRec.FindSet() then begin
+                                                repeat
+                                                    HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
+                                                until WorkCenCapacityEntryRec.Next() = 0;
+                                            end
+                                            else begin
+                                                Count := 0;
+                                                dtNextMonth := CalcDate('<+1M>', dtStart);
+                                                dtSt := CalcDate('<-CM>', dtNextMonth);
+                                                dtEd := CalcDate('<+CM>', dtNextMonth);
+
+                                                WorkCenCapacityEntryRec.Reset();
+                                                WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
+                                                WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
+
+                                                if WorkCenCapacityEntryRec.FindSet() then
+                                                    Count += WorkCenCapacityEntryRec.Count;
+
+                                                if Count < 14 then
+                                                    Error('Calender is not setup for the Line : %1', ResourceName);
+                                            end;
+
+                                            if HoursPerDay = 0 then
+                                                dtStart := dtStart + 1;
+
+                                        until HoursPerDay > 0;
+
+                                        TargetPerDay := round(((60 / SMV) * Carder * HoursPerDay * Eff) / 100, 1);
+                                        TargetPerHour := round(TargetPerDay / HoursPerDay, 1);
+                                        TempQty := 0;
+
+                                        //Delete old lines
+                                        ProdPlansDetails.Reset();
+                                        ProdPlansDetails.SetRange("Line No.", LineNo);
+                                        ProdPlansDetails.SetFilter(ProdUpd, '=%1', 0);
+                                        if ProdPlansDetails.FindSet() then
+                                            ProdPlansDetails.DeleteAll();
+
+                                        repeat
+
+                                            ResourceRec.Reset();
+                                            ResourceRec.SetRange("No.", ResourceNo);
+                                            ResourceRec.FindSet();
+
+                                            //Get working hours for the day
+                                            HoursPerDay := 0;
+                                            Rate := 0;
+                                            Holiday := 'No';
+
+                                            WorkCenCapacityEntryRec.Reset();
+                                            WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
+                                            WorkCenCapacityEntryRec.SETRANGE(Date, TempDate);
+
+                                            if WorkCenCapacityEntryRec.FindSet() then begin
+                                                repeat
+                                                    HoursPerDay += (WorkCenCapacityEntryRec."Capacity (Total)") / WorkCenCapacityEntryRec.Capacity;
+                                                until WorkCenCapacityEntryRec.Next() = 0;
+                                            end
+                                            else begin
+                                                Count := 0;
+                                                dtNextMonth := CalcDate('<+1M>', TempDate);
+                                                dtSt := CalcDate('<-CM>', dtNextMonth);
+                                                dtEd := CalcDate('<+CM>', dtNextMonth);
+
+                                                WorkCenCapacityEntryRec.Reset();
+                                                WorkCenCapacityEntryRec.SETRANGE("No.", ResourceNo);
+                                                WorkCenCapacityEntryRec.SetFilter(Date, '%1..%2', dtSt, dtEd);
+
+                                                if WorkCenCapacityEntryRec.FindSet() then
+                                                    Count += WorkCenCapacityEntryRec.Count;
+
+                                                if Count < 14 then
+                                                    Error('Calender is not setup for the Line : %1', ResourceName);
+                                            end;
+
+                                            if HoursPerDay = 0 then begin
+
+                                                //Validate the day (Holiday or Weekend)
+                                                SHCalHolidayRec.Reset();
+                                                SHCalHolidayRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                                SHCalHolidayRec.SETRANGE(Date, TempDate);
+
+                                                if not SHCalHolidayRec.FindSet() then begin  //If not holiday
+                                                    DayForWeek.Get(DayForWeek."Period Type"::Date, TempDate);
+
+                                                    case DayForWeek."Period No." of
+                                                        1:
+                                                            Day := 0;
+                                                        2:
+                                                            Day := 1;
+                                                        3:
+                                                            Day := 2;
+                                                        4:
+                                                            Day := 3;
+                                                        5:
+                                                            Day := 4;
+                                                        6:
+                                                            Day := 5;
+                                                        7:
+                                                            Day := 6;
+                                                    end;
+
+                                                    SHCalWorkRec.Reset();
+                                                    SHCalWorkRec.SETRANGE("Shop Calendar Code", ResourceRec."Shop Calendar Code");
+                                                    SHCalWorkRec.SetFilter(Day, '=%1', Day);
+                                                    if SHCalWorkRec.FindSet() then   //If not weekend
+                                                        Error('Calender for date : %1  Work center : %2 has not calculated', TempDate, ResourceRec.Name)
+                                                    else
+                                                        Holiday := 'Yes';
+                                                end
+                                                else
+                                                    Holiday := 'Yes';
+                                            end;
+
+                                            //No learning curve for holidays
+                                            if HoursPerDay > 0 then
+                                                i += 1;
+
+                                            if (i = 1) and (HoursPerDay > 0) then begin
+                                                //Calculate hours for the first day (substracti hours if delay start)
+                                                HoursPerDay := HoursPerDay - (TImeStart - LocationRec."Start Time") / 3600000;
+                                            end;
+
+                                            if JobPlaLineRec."Learning Curve No." <> 0 then begin
+
+                                                //Aplly learning curve
+                                                LearningCurveRec.Reset();
+                                                LearningCurveRec.SetRange("No.", JobPlaLineRec."Learning Curve No.");
+
+                                                if LearningCurveRec.FindSet() then begin
+                                                    case i of
+                                                        1:
+                                                            Rate := LearningCurveRec.Day1;
+                                                        2:
+                                                            Rate := LearningCurveRec.Day2;
+                                                        3:
+                                                            Rate := LearningCurveRec.Day3;
+                                                        4:
+                                                            Rate := LearningCurveRec.Day4;
+                                                        5:
+                                                            Rate := LearningCurveRec.Day5;
+                                                        6:
+                                                            Rate := LearningCurveRec.Day6;
+                                                        7:
+                                                            Rate := LearningCurveRec.Day7;
+                                                        else
+                                                            Rate := 100;
+                                                    end;
+                                                end;
+
+                                                if Rate = 0 then
+                                                    Rate := 100;
+
+                                                if (TempQty + round((TargetPerHour * HoursPerDay) * Rate / 100, 1) < Qty) then begin
+                                                    TempQty += round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
+                                                    xQty := round((TargetPerHour * HoursPerDay) * Rate / 100, 1);
+                                                end
+                                                else begin
+                                                    TempQty1 := Qty - TempQty;
+                                                    TempQty := TempQty + TempQty1;
+                                                    TempHours := TempQty1 / TargetPerHour;
+                                                    xQty := TempQty1;
+
+                                                    if (TempHours IN [0.0001 .. 0.99]) then
+                                                        TempHours := 1;
+
+                                                    TempHours := round(TempHours, 1, '>');
+
+                                                end;
+                                            end
+                                            else begin
+
+                                                if (TempQty + (TargetPerHour * HoursPerDay)) < Qty then begin
+                                                    TempQty += (TargetPerHour * HoursPerDay);
+                                                    xQty := TargetPerHour * HoursPerDay;
+                                                end
+                                                else begin
+                                                    TempQty1 := Qty - TempQty;
+                                                    TempQty := TempQty + TempQty1;
+                                                    TempHours := TempQty1 / TargetPerHour;
+                                                    xQty := TempQty1;
+
+                                                    if (TempHours IN [0.0001 .. 0.99]) then
+                                                        TempHours := 1;
+
+                                                    TempHours := round(TempHours, 1, '>');
+                                                end;
+
+                                            end;
+
+                                            //Get Max Lineno
+                                            MaxLineNo := 0;
+                                            ProdPlansDetails.Reset();
+
+                                            if ProdPlansDetails.FindLast() then
+                                                MaxLineNo := ProdPlansDetails."No.";
+
+                                            MaxLineNo += 1;
+
+                                            //insert to ProdPlansDetails
+                                            ProdPlansDetails.Init();
+                                            ProdPlansDetails."No." := MaxLineNo;
+                                            ProdPlansDetails.PlanDate := TempDate;
+                                            ProdPlansDetails."Style No." := JobPlaLineRec."Style No.";
+                                            ProdPlansDetails."Style Name" := JobPlaLineRec."Style Name";
+                                            ProdPlansDetails."PO No." := JobPlaLineRec."PO No.";
+                                            ProdPlansDetails."Lot No." := JobPlaLineRec."Lot No.";
+                                            ProdPlansDetails."Line No." := LineNo;
+                                            ProdPlansDetails."Resource No." := ResourceNo;
+                                            ProdPlansDetails.Carder := Carder;
+                                            ProdPlansDetails.Eff := Eff;
+                                            ProdPlansDetails."Learning Curve No." := JobPlaLineRec."Learning Curve No.";
+                                            ProdPlansDetails.SMV := JobPlaLineRec.SMV;
+
+                                            if i = 1 then
+                                                ProdPlansDetails."Start Time" := TImeStart
+                                            else
+                                                ProdPlansDetails."Start Time" := LocationRec."Start Time";
+
+                                            if TempHours = 0 then
+                                                ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                            else begin
+                                                if i = 1 then
+                                                    if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                        ProdPlansDetails."Finish Time" := LocationRec."Finish Time"
+                                                    else
+                                                        ProdPlansDetails."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                                else
+                                                    ProdPlansDetails."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                            end;
+
+                                            ProdPlansDetails.Qty := xQty;
+                                            ProdPlansDetails.Target := TargetPerDay;
+                                            // ProdPlansDetails.HoursPerDay := HoursPerDay;
+
+                                            if Holiday = 'NO' then
+                                                if TempHours > 0 then
+                                                    ProdPlansDetails.HoursPerDay := TempHours
+                                                else
+                                                    ProdPlansDetails.HoursPerDay := HoursPerDay
+                                            else
+                                                ProdPlansDetails.HoursPerDay := 0;
+
+                                            ProdPlansDetails.ProdUpd := 0;
+                                            ProdPlansDetails.ProdUpdQty := 0;
+                                            ProdPlansDetails."Created User" := UserId;
+                                            ProdPlansDetails."Created Date" := WorkDate();
+                                            ProdPlansDetails."Factory No." := JobPlaLineRec.Factory;
+                                            ProdPlansDetails.Insert();
+
+                                            TempDate := TempDate + 1;
+
+                                        until (TempQty >= Qty);
+
+                                        TempDate := TempDate - 1;
+
+                                        if TempHours = 0 then
+                                            TempDate := TempDate - 1;
+
+                                        //modift the line
+                                        JobPlaLine2Rec.Reset();
+                                        JobPlaLine2Rec.SetRange("Line No.", LineNo);
+                                        JobPlaLine2Rec.FindSet();
+
+                                        JobPlaLine2Rec."Start Date" := dtStart;
+                                        JobPlaLine2Rec."End Date" := TempDate;
+                                        JobPlaLine2Rec."Start Time" := TImeStart;
+
+                                        if TempHours = 0 then
+                                            JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                        else begin
+                                            if i = 1 then
+                                                if (LocationRec."Finish Time" < TImeStart + 60 * 60 * 1000 * TempHours) then
+                                                    JobPlaLine2Rec."Finish Time" := LocationRec."Finish Time"
+                                                else
+                                                    JobPlaLine2Rec."Finish Time" := TImeStart + 60 * 60 * 1000 * TempHours
+                                            else
+                                                JobPlaLine2Rec."Finish Time" := LocationRec."Start Time" + 60 * 60 * 1000 * TempHours;
+                                        end;
+
+                                        JobPlaLine2Rec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
+                                        JobPlaLine2Rec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLine2Rec."Finish Time");
+                                        JobPlaLine2Rec.Qty := Qty;
+
+                                        Prev_FinishedDateTime := JobPlaLine2Rec.FinishDateTime;
+                                        // Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
+                                        JobPlaLine2Rec.Modify();
+
+                                        TempTIme := JobPlaLine2Rec."Finish Time";
+
+                                        //delete allocation if remaining qty is 0 or less than 0
+                                        JobPlaLine2Rec.Reset();
+                                        JobPlaLine2Rec.SetRange("Line No.", LineNo);
+
+                                        if JobPlaLine2Rec.FindSet() then begin
+                                            if JobPlaLine2Rec.Qty <= 0 then
+                                                JobPlaLine2Rec.DeleteAll();
+                                        end;
+
                                     end;
+
+                                    StartTime2 := JobPlaLine2Rec."Start Time";
+                                    LineNo := JobPlaLineRec."Line No.";
                                 end;
                             end;
                         end;
+                        //end;
 
                         LoadData(false, false, true, true, false);
 

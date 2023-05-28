@@ -112,6 +112,11 @@ page 50343 "Planning Line Property Card"
                         end
                         else
                             rec.Eff := (rec.Target * 100 * rec.SMV) / (60 * rec.Carder * rec.HoursPerDay);
+
+                        if rec.HoursPerDay > 0 then
+                            HourlyTarget := rec.Target / rec.HoursPerDay
+                        else
+                            HourlyTarget := 0;
                     end;
                 }
 
@@ -754,7 +759,7 @@ page 50343 "Planning Line Property Card"
                                         end
                                         else begin
 
-                                            if (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1) > 48 then begin
+                                            if (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1) > 2 then begin
                                                 XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
                                                 HoursPerDay2 := 0;
 
@@ -1809,11 +1814,15 @@ page 50343 "Planning Line Property Card"
     procedure Cal();
     var
     begin
-        if rec.SMV <> 0 then begin
-            rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>');
-        end
+        if rec.SMV <> 0 then
+            rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>')
         else
             Message('SMV is zero. Cannot continue.');
+
+        if rec.HoursPerDay > 0 then
+            HourlyTarget := rec.Target / rec.HoursPerDay
+        else
+            HourlyTarget := 0;
     end;
 
 
