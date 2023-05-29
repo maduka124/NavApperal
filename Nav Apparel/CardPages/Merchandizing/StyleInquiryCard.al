@@ -284,15 +284,15 @@ page 50602 "Style Inquiry Card"
                     ApplicationArea = All;
                     ShowMandatory = true;
 
-                    trigger OnValidate()
-                    var
-                        NavappPlanLineRec: Record "NavApp Planning Lines";
-                    begin
-                        NavappPlanLineRec.Reset();
-                        NavappPlanLineRec.SetRange("Style No.", rec."No.");
-                        if NavappPlanLineRec.FindSet() then
-                            Error('Style already planned. Cannot change quantity.');
-                    end;
+                    // trigger OnValidate()
+                    // var
+                    //     NavappPlanLineRec: Record "NavApp Planning Lines";
+                    // begin
+                    //     NavappPlanLineRec.Reset();
+                    //     NavappPlanLineRec.SetRange("Style No.", rec."No.");
+                    //     if NavappPlanLineRec.FindSet() then
+                    //         Error('Style already planned. Cannot change quantity.');
+                    // end;
                 }
 
                 field("Ship Date"; rec."Ship Date")
