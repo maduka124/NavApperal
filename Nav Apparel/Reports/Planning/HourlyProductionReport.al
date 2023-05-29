@@ -599,14 +599,13 @@ report 50865 HourlyProductionReport
                 AchieveQty := 0;
                 NavAppProdRec.Reset();
                 NavAppProdRec.SetRange("Style No.", "Style No.");
-                NavAppProdRec.SetRange("Lot No.", "Lot No.");
-                NavAppProdRec.SetRange("PO No.", "PO No.");
                 NavAppProdRec.SetRange("Resource No.", "Resource No.");
                 if NavAppProdRec.FindSet() then begin
                     repeat
                         AchieveQty += NavAppProdRec.ProdUpdQty;
                     until NavAppProdRec.Next() = 0;
                 end;
+
 
                 PlanedQty := 0;
                 NavLinesRec.Reset();
