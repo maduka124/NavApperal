@@ -115,6 +115,7 @@ report 50852 SewingProductionDetails
                     OutputComDate := ProductionHeaderRec."Prod Date";
                 end;
 
+                OrderQy := 0;
                 StylePoRec.Reset();
                 StylePoRec.SetRange("Style No.", "Out Style No.");
                 StylePoRec.SetRange("PO No.", "out PO No");

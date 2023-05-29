@@ -8,56 +8,48 @@ report 51310 InventotyBalanceReport
 
     dataset
     {
-
-
         dataitem("Purch. Rcpt. Line"; "Purch. Rcpt. Line")
         {
-            // DataItemLinkReference = "Style Master";
-            // DataItemLink = StyleNo = field("No.");
-            DataItemTableView = where(Type = filter(item));
 
+            DataItemTableView = where(Type = filter(item));
             column(Buyer; "Buyer Name")
             { }
             column(CompLogo; comRec.Picture)
             { }
             column(Factory_Name; LocationName)
             { }
-            // column(ContractNo; ContractNo)
-            // { }
             column(Style_Name; StyleName)
             { }
             column(Location_Code; "Location Code")
             { }
+
             dataitem("Contract/LCStyle"; "Contract/LCStyle")
             {
                 DataItemLinkReference = "Purch. Rcpt. Line";
                 DataItemLink = "Style No." = field(StyleNo);
 
-                column(ContractNo; "No.")
+                column(ContractNo; ContractNo)
                 { }
                 trigger OnPreDataItem()
-                var
-
                 begin
                     if ContractFilter <> '' then
                         SetRange("No.", ContractFilter);
                 end;
-            }
-            dataitem("Item Ledger Entry"; "Item Ledger Entry")
-            {
-                DataItemLinkReference = "Purch. Rcpt. Line";
-                DataItemLink = "Item No." = field("No.");
-                DataItemTableView = where("Entry Type" = filter(Consumption));
-                column(Quantity; Quantity * -1)
-                { }
 
+                trigger OnAfterGetRecord()
+                begin
+                    ContractRec.Reset();
+                    ContractRec.SetRange("No.", "No.");
+                    if ContractRec.FindFirst() then begin
+                        ContractNo := ContractRec."Contract No";
+                    end;
+                end;
             }
             dataitem(Item; Item)
             {
                 DataItemLinkReference = "Purch. Rcpt. Line";
                 DataItemLink = "No." = field("No.");
                 DataItemTableView = sorting("No.");
-
 
                 column(Unitprice; "Unit Price")
                 { }
@@ -71,18 +63,38 @@ report 51310 InventotyBalanceReport
                 { }
                 column(Dimension; "Dimension Width No.")
                 { }
-                column(Main_Category_Name; "Main Category Name")
+                column(Main_Category_Name; MAinCatFilter)
                 { }
                 column(ItemName; Description)
                 { }
                 column(Item_No_; "No.")
                 { }
+                column(Quantity; Qty)
+                { }
+                column(TotalValue; TotalValue)
+                { }
                 trigger OnPreDataItem()
-                var
-                    myInt: Integer;
                 begin
                     if MAinCatFilter <> '' then
                         SetRange("Main Category Name", MAinCatFilter);
+                end;
+
+                trigger OnAfterGetRecord()
+
+                begin
+                    Qty := 0;
+                    ItemLeRec.Reset();
+                    ItemLeRec.SetRange("Item No.", "No.");
+                    // ItemLeRec.SetFilter("Entry Type", '=%1', 5);
+                    if ItemLeRec.FindSet() then begin
+                        repeat
+                            Qty += ItemLeRec.Quantity;
+                        until ItemLeRec.Next() = 0;
+                        TotalValue := Qty * "Unit Price";
+                    end;
+
+                    if Qty = 0 then
+                        CurrReport.Skip();
                 end;
             }
             trigger OnAfterGetRecord()
@@ -116,9 +128,6 @@ report 51310 InventotyBalanceReport
 
             end;
         }
-
-
-
     }
 
     requestpage
@@ -133,7 +142,6 @@ report 51310 InventotyBalanceReport
                     field(FactoryFilter; FactoryFilter)
                     {
                         ApplicationArea = All;
-                        // TableRelation = Location.Code;
                         Caption = 'Factory';
 
 
@@ -186,20 +194,17 @@ report 51310 InventotyBalanceReport
                             // end;
                         end;
 
-
                     }
                     field(BuyerFilter; BuyerFilter)
                     {
                         ApplicationArea = All;
                         TableRelation = Customer."No.";
                         Caption = 'Buyer';
-
-
                     }
                     field(ContractFilter; ContractFilter)
                     {
                         ApplicationArea = All;
-                        TableRelation = "Contract/LCMaster"."No.";
+                        // TableRelation = "Contract/LCMaster"."No.";
                         Caption = 'Contract No';
 
 
@@ -211,8 +216,6 @@ report 51310 InventotyBalanceReport
                             ContracRec.Reset();
 
                             ContracRec.SetRange("Buyer No.", BuyerFilter);
-
-
                             if ContracRec.FindSet() then begin
                                 if Page.RunModal(50503, ContracRec) = Action::LookupOK then
                                     ContractFilter := ContracRec."No.";
@@ -223,31 +226,17 @@ report 51310 InventotyBalanceReport
                         end;
 
                     }
-                    // field(Name; SourceExpression)
-                    // {
-                    //     ApplicationArea = All;
-
-                    // }
-
-                }
-            }
-        }
-
-        actions
-        {
-            area(processing)
-            {
-                action(ActionName)
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
     }
 
     var
-
+        TotalValue: Decimal;
+        ContractNo: Text[50];
+        ContractRec: Record "Contract/LCMaster";
+        Qty: Decimal;
+        ItemLeRec: Record "Item Ledger Entry";
         StyleRec: Record "Style Master";
         LocationName: Text[100];
         LocationRec: Record Location;
