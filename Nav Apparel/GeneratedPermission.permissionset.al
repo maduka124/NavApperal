@@ -1132,5 +1132,22 @@ permissionset 50100 GeneratedPermission
         query PlanEffDashboardReportTable_Q=X,
         query StyleMaster_StyleMasterPO_Q=X,
         tabledata GarmentPartsBundleCard2=RIMD,
-        table GarmentPartsBundleCard2=X;
+        table GarmentPartsBundleCard2=X,
+        report FabricInspectionReportQuality=X,
+        report GeneralItemesReport=X,
+        report InventotyBalanceReport=X,
+        report OMSReport=X,
+        report SampleRequirementDetails=X,
+        page "Copy Sample Requisition Card"=X,
+        page "Delete From Queue List"=X,
+        page GroupWiseStockBalance=X,
+        page "Hourly Production Plan Card"=X,
+        page "Hourly Production Plan List"=X,
+        page POlistLookupPage=X,
+        page "Prod Update Card old"=X,
+        page "Return To Queue List"=X,
+        page StockSummary=X,
+        page "WIP Order QTY Change Card"=X,
+        page "WIP Order QTY Change List"=X,
+        page "WIP Style PO Listpart"=X;
 }

@@ -178,6 +178,7 @@ page 50489 "All PO List"
         StyleMasterPONewRec: Record "Style Master PO";
         LoginSessionsRec: Record LoginSessions;
         LoginRec: Page "Login Card";
+        NavAppSetupRec: Record "NavApp Setup";
         Waistage: Decimal;
         QtyWithWaistage: Decimal;
         QueueNo: Decimal;
@@ -201,6 +202,9 @@ page 50489 "All PO List"
 
 
         if CloseAction = Action::LookupOK then begin
+
+            NavAppSetupRec.Reset();
+            NavAppSetupRec.FindSet();
 
             //Get Max Lineno
             PlanningQueueRec.Reset();
@@ -268,7 +272,7 @@ page 50489 "All PO List"
                             PlanningQueueNewRec.Waistage := 0;
                             PlanningQueueNewRec.SMV := StyleMasterRec.SMV;
                             PlanningQueueNewRec.Factory := Factory;
-                            PlanningQueueNewRec."TGTSEWFIN Date" := StyleMasterPORec."Ship Date";
+                            PlanningQueueNewRec."TGTSEWFIN Date" := StyleMasterPORec."Ship Date" - NavAppSetupRec."Sewing Finished";
                             PlanningQueueNewRec."Learning Curve No." := learningcurve;
                             PlanningQueueNewRec."Resource No" := '';
                             PlanningQueueNewRec.Front := StyleMasterRec.Front;

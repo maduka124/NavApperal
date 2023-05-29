@@ -14,6 +14,14 @@ page 50343 "Planning Line Property Card"
         {
             group(Properties)
             {
+
+                field(buyer; Buyer)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Buyer';
+                }
+
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
@@ -35,12 +43,6 @@ page 50343 "Planning Line Property Card"
                     Caption = 'PO No';
                 }
 
-                field(buyer; Buyer)
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Buyer';
-                }
                 field(OrderQty; OrderQty)
                 {
                     ApplicationArea = All;
@@ -110,6 +112,11 @@ page 50343 "Planning Line Property Card"
                         end
                         else
                             rec.Eff := (rec.Target * 100 * rec.SMV) / (60 * rec.Carder * rec.HoursPerDay);
+
+                        if rec.HoursPerDay > 0 then
+                            HourlyTarget := rec.Target / rec.HoursPerDay
+                        else
+                            HourlyTarget := 0;
                     end;
                 }
 
@@ -130,6 +137,12 @@ page 50343 "Planning Line Property Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Req. Saw. Finish Date';
+                    Editable = false;
+                }
+
+                field(BPCD; BPCD)
+                {
+                    ApplicationArea = All;
                     Editable = false;
                 }
             }
@@ -214,7 +227,7 @@ page 50343 "Planning Line Property Card"
                     dtEd: Date;
                     Count: Integer;
                     JobPlaLine2Rec: Record "NavApp Planning Lines";
-                    SameStyle: Code[20];
+                    //SameStyle: Code[20];
                     ApplyLCurve: Boolean;
                     dtTemp: date;
                     PordUpdQty: BigInteger;
@@ -236,7 +249,7 @@ page 50343 "Planning Line Property Card"
                     Prev_FinishedDateTime := rec.FinishDateTime;
                     dtStart := rec."Start Date";
                     TImeStart := rec."Start Time";
-                    SameStyle := rec."Style No.";
+                    //SameStyle := rec."Style No.";
                     TargetPerHour := rec.Target / HrsPerDay;
                     TempDate := dtStart;
 
@@ -248,7 +261,7 @@ page 50343 "Planning Line Property Card"
                         //validate lCurve applying
                         ProdPlansDetails.Reset();
                         ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
-                        ProdPlansDetails.SetFilter("Style No.", rec."Style No.");
+                        ProdPlansDetails.SetRange("Style No.", rec."Style No.");
                         ProdPlansDetails.SetFilter("Line No.", '<>%1', rec."Line No.");
                         if ProdPlansDetails.FindSet() then
                             ApplyLCurve := false
@@ -256,13 +269,13 @@ page 50343 "Planning Line Property Card"
                             //Validate same style same allocation
                             ProdPlansDetails.Reset();
                             ProdPlansDetails.SetFilter(PlanDate, '%1..%2', dtStart - ResourceRec."LV Days", dtStart - 1);
-                            ProdPlansDetails.SetFilter("Style No.", rec."Style No.");
+                            ProdPlansDetails.SetRange("Style No.", rec."Style No.");
                             ProdPlansDetails.SetFilter("Line No.", '=%1', rec."Line No.");
                             if not ProdPlansDetails.FindSet() then begin
                                 ApplyLCurve := true
                             end
                             else begin
-                                ApplyLCurve := true;
+                                //ApplyLCurve := true;
                                 PordUpdQty := 0;
                                 //Get completed lCurve hours
                                 repeat
@@ -308,7 +321,9 @@ page 50343 "Planning Line Property Card"
                                     if ((LocationRec."Finish Time" - LCurveStartTime) / 3600000 <= LcurveTemp) then begin
                                         LcurveTemp -= (LocationRec."Finish Time" - LCurveStartTime) / 3600000;
                                         LCurveStartTime := LocationRec."Start Time";
-                                        LCurveFinishDate += 1;
+
+                                        if LcurveTemp > 0 then
+                                            LCurveFinishDate += 1;
 
                                         //Get working hours for the start date. If start date is a holiday, shift start date to next date.
                                         HrsPerDay := 0;
@@ -718,11 +733,11 @@ page 50343 "Planning Line Property Card"
                                         ApplyLCurve := false;
                                         SMV := JobPlaLineRec.SMV;
 
-                                        if JobPlaLineRec.Carder <> 0 then
-                                            Carder := JobPlaLineRec.Carder;
+                                        //if JobPlaLineRec.Carder <> 0 then
+                                        Carder := JobPlaLineRec.Carder;
 
-                                        if JobPlaLineRec.Eff <> 0 then
-                                            Eff := JobPlaLineRec.Eff;
+                                        //if JobPlaLineRec.Eff <> 0 then
+                                        Eff := JobPlaLineRec.Eff;
                                     end;
 
                                     dtStart := TempDate;
@@ -744,7 +759,7 @@ page 50343 "Planning Line Property Card"
                                         end
                                         else begin
 
-                                            if (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1) > 48 then begin
+                                            if (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1) > 2 then begin
                                                 XX := (DT2DATE(Curr_StartDateTime) - DT2DATE(Prev_FinishedDateTime) + 1);
                                                 HoursPerDay2 := 0;
 
@@ -1205,9 +1220,15 @@ page 50343 "Planning Line Property Card"
                                             JobPlaLine2Rec."Learning Curve No." := 0;
                                     end;
 
+                                    JobPlaLine2Rec.eff := Eff;
+                                    JobPlaLine2Rec.SMV := SMV;
+                                    JobPlaLine2Rec.Carder := Carder;
                                     JobPlaLine2Rec.StartDateTime := CREATEDATETIME(dtStart, TImeStart);
                                     JobPlaLine2Rec.FinishDateTime := CREATEDATETIME(TempDate, JobPlaLine2Rec."Finish Time");
                                     JobPlaLine2Rec.Qty := Qty;
+
+                                    if rec."Style No." = JobPlaLine2Rec."Style No." then
+                                        JobPlaLine2Rec.Target := TargetPerDay;
 
                                     Prev_FinishedDateTime := JobPlaLineRec.FinishDateTime;
                                     JobPlaLine2Rec.Modify();
@@ -1793,11 +1814,15 @@ page 50343 "Planning Line Property Card"
     procedure Cal();
     var
     begin
-        if rec.SMV <> 0 then begin
-            rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>');
-        end
+        if rec.SMV <> 0 then
+            rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>')
         else
             Message('SMV is zero. Cannot continue.');
+
+        if rec.HoursPerDay > 0 then
+            HourlyTarget := rec.Target / rec.HoursPerDay
+        else
+            HourlyTarget := 0;
     end;
 
 
@@ -1816,10 +1841,14 @@ page 50343 "Planning Line Property Card"
         StyeMastePORec.Reset();
         StyeMastePORec.SetRange("Style No.", rec."Style No.");
         StyeMastePORec.SetRange("PO No.", rec."PO No.");
-        if StyeMastePORec.FindSet() then
-            OrderQty := StyeMastePORec.Qty
-        else
+        if StyeMastePORec.FindSet() then begin
+            OrderQty := StyeMastePORec.Qty;
+            BPCD := StyeMastePORec.BPCD;
+        end
+        else begin
+            BPCD := 0D;
             OrderQty := 0;
+        end;
 
         if rec.HoursPerDay > 0 then
             HourlyTarget := rec.Target / rec.HoursPerDay
@@ -1832,5 +1861,5 @@ page 50343 "Planning Line Property Card"
         OrderQty: BigInteger;
         Buyer: Text[500];
         HourlyTarget: Decimal;
-
+        BPCD: Date;
 }

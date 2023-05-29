@@ -407,6 +407,7 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                   '<br>Order Qty : ' + FORMAT(StyleMasPoRec.Qty) +
                   '<br>Plan Qty : ' + FORMAT(lrecJobPlanningLine.Qty) +
                   '<br>Ship Date : ' + FORMAT(CreateDateTime(ShiDate, 0T)) +
+                  '<br>BPCD : ' + FORMAT(StyleMasPoRec.BPCD) +
                   '<br>Start D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."Start Date", lrecJobPlanningLine."Start Time")) +
                   '<br>Finish D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."End Date", lrecJobPlanningLine."Finish Time")));
                 //   '<br>StartDateTime  : ' + FORMAT(lrecJobPlanningLine.StartDateTime) +
