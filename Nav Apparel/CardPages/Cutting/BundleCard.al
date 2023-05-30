@@ -129,7 +129,7 @@ page 51276 Bundlecard
                     else
                         Error('Factory not assigned for the user.');
 
-                    BundleCardReport.PassParameters(Rec."Bundle Guide Header No");
+                    BundleCardReport.PassParameters(Rec."Bundle Card No");
                     BundleCardReport.RunModal();
                 end;
             }

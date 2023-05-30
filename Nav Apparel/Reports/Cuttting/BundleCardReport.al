@@ -9,68 +9,75 @@ report 50607 BundleCardReport
 
     dataset
     {
-        dataitem(BundleCardTable; BundleCardTable)
+        dataitem(GarmentPartsBundleCard2Right; GarmentPartsBundleCard2Right)
         {
-            column(GMTPartNo; GMTPartName)
-            { }
-
-            dataitem(BundleGuideLine; BundleGuideLine)
+            DataItemTableView = sorting(BundleCardNo, "No.");
+            dataitem(BundleCardTable; BundleCardTable)
             {
-                DataItemLinkReference = BundleCardTable;
-                DataItemLink = "BundleGuideNo." = field("Bundle Guide Header No");
-                DataItemTableView = sorting("BundleGuideNo.");
+                DataItemLinkReference = GarmentPartsBundleCard2Right;
+                DataItemLink = "Bundle Card No" = field(BundleCardNo);
+                DataItemTableView = sorting("Bundle Card No");
+                column(GMTPartNo; GMTPartName)
+                { }
+                dataitem(BundleGuideLine; BundleGuideLine)
+                {
+                    DataItemLinkReference = BundleCardTable;
+                    DataItemLink = "BundleGuideNo." = field("Bundle Guide Header No");
+                    DataItemTableView = sorting("BundleGuideNo.");
 
-                column(PO; PO)
-                { }
-                column(Color_Name; "Color Name")
-                { }
-                column(Lot; Lot)
-                { }
-                column(Size; Size)
-                { }
-                column(Qty; Qty)
-                { }
-                column(Bundle_No; "Bundle No")
-                { }
-                column(Sticker_Sequence; "Sticker Sequence")
-                { }
-                column(Cut_No; "Cut No")
-                { }
-                column(Style_Name; "Style Name")
-                { }
-                column(Buyer; Buyer)
-                { }
-                column(Barcode; Barcode)
-                { }
-                column(CompLogo; comRec.Picture)
-                { }
+                    column(PO; PO)
+                    { }
+                    column(Color_Name; "Color Name")
+                    { }
+                    column(Lot; Lot)
+                    { }
+                    column(Size; Size)
+                    { }
+                    column(Qty; Qty)
+                    { }
+                    column(Bundle_No; "Bundle No")
+                    { }
+                    column(Sticker_Sequence; "Sticker Sequence")
+                    { }
+                    column(Cut_No; "Cut No")
+                    { }
+                    column(Style_Name; "Style Name")
+                    { }
+                    column(Buyer; Buyer)
+                    { }
+                    column(Barcode; Barcode)
+                    { }
+                    column(CompLogo; comRec.Picture)
+                    { }
+
+                    trigger OnAfterGetRecord()
+                    begin
+                        StyleRec.Reset();
+                        StyleRec.SetRange("Style No.", "Style Name");
+                        if StyleRec.FindFirst() then
+                            Buyer := StyleRec."Buyer Name";
+
+                        comRec.Get;
+                        comRec.CalcFields(Picture);
+                    end;
+                }
+
+
 
                 trigger OnAfterGetRecord()
                 begin
-                    StyleRec.Reset();
-                    StyleRec.SetRange("Style No.", "Style Name");
-                    if StyleRec.FindFirst() then
-                        Buyer := StyleRec."Buyer Name";
-
-                    comRec.Get;
-                    comRec.CalcFields(Picture);
+                    GMTPartRec.Reset();
+                    GMTPartRec.SetRange(BundleCardNo, "Bundle Card No");
+                    if GMTPartRec.FindSet() then begin
+                        repeat
+                            GMTPartName := GMTPartRec.Description;
+                        until GMTPartRec.Next() = 0;
+                    end;
                 end;
             }
-
             trigger OnPreDataItem()
             begin
-                SetRange("Bundle Guide Header No", BundleFilter);
-            end;
-
-            trigger OnAfterGetRecord()
-            begin
-                GMTPartRec.Reset();
-                GMTPartRec.SetRange(BundleCardNo, "Bundle Card No");
-                if GMTPartRec.FindSet() then begin
-                    repeat
-                        GMTPartName := GMTPartRec.Description;
-                    until GMTPartRec.Next() = 0;
-                end;
+                SetRange(BundleCardNo, BundleFilter);
             end;
         }
     }
