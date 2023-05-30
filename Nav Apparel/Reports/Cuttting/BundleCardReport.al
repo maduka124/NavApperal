@@ -12,11 +12,9 @@ report 50607 BundleCardReport
 
         dataitem(BundleCardTable; BundleCardTable)
         {
-            // DataItemLinkReference = GarmentPartsBundleCard2Right;
-            // DataItemLink = "Bundle Card No" = field(BundleCardNo);
+
             DataItemTableView = sorting("Bundle Card No");
-            // column(GMTPartNo; GMTPartName)
-            // { }
+         
             dataitem(GarmentPartsBundleCard2Right; GarmentPartsBundleCard2Right)
             {
                 DataItemLinkReference = BundleCardTable;
@@ -72,17 +70,6 @@ report 50607 BundleCardReport
                 }
             }
 
-
-            // trigger OnAfterGetRecord()
-            // begin
-            //     GMTPartRec.Reset();
-            //     GMTPartRec.SetRange(BundleCardNo, "Bundle Card No");
-            //     if GMTPartRec.FindSet() then begin
-            //         repeat
-            //             GMTPartName := GMTPartRec.Description;
-            //         until GMTPartRec.Next() = 0;
-            //     end;
-            // end;
 
             trigger OnPreDataItem()
             begin
