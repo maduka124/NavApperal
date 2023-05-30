@@ -9,19 +9,28 @@ report 50607 BundleCardReport
 
     dataset
     {
-        dataitem(GarmentPartsBundleCard2Right; GarmentPartsBundleCard2Right)
+
+        dataitem(BundleCardTable; BundleCardTable)
         {
-            DataItemTableView = sorting(BundleCardNo, "No.");
-            dataitem(BundleCardTable; BundleCardTable)
+            // DataItemLinkReference = GarmentPartsBundleCard2Right;
+            // DataItemLink = "Bundle Card No" = field(BundleCardNo);
+            DataItemTableView = sorting("Bundle Card No");
+            // column(GMTPartNo; GMTPartName)
+            // { }
+            dataitem(GarmentPartsBundleCard2Right; GarmentPartsBundleCard2Right)
             {
-                DataItemLinkReference = GarmentPartsBundleCard2Right;
-                DataItemLink = "Bundle Card No" = field(BundleCardNo);
-                DataItemTableView = sorting("Bundle Card No");
-                column(GMTPartNo; GMTPartName)
+                DataItemLinkReference = BundleCardTable;
+                DataItemLink = BundleCardNo = field("Bundle Card No");
+                DataItemTableView = sorting(BundleCardNo, "No.");
+                column(GMTPartNo; Description)
                 { }
+                column(No_; "No.")
+                { }
+
+
                 dataitem(BundleGuideLine; BundleGuideLine)
                 {
-                    DataItemLinkReference = BundleCardTable;
+                    DataItemLinkReference = GarmentPartsBundleCard2Right;
                     DataItemLink = "BundleGuideNo." = field("Bundle Guide Header No");
                     DataItemTableView = sorting("BundleGuideNo.");
 
@@ -61,25 +70,27 @@ report 50607 BundleCardReport
                         comRec.CalcFields(Picture);
                     end;
                 }
-
-
-
-                trigger OnAfterGetRecord()
-                begin
-                    GMTPartRec.Reset();
-                    GMTPartRec.SetRange(BundleCardNo, "Bundle Card No");
-                    if GMTPartRec.FindSet() then begin
-                        repeat
-                            GMTPartName := GMTPartRec.Description;
-                        until GMTPartRec.Next() = 0;
-                    end;
-                end;
             }
+
+
+            // trigger OnAfterGetRecord()
+            // begin
+            //     GMTPartRec.Reset();
+            //     GMTPartRec.SetRange(BundleCardNo, "Bundle Card No");
+            //     if GMTPartRec.FindSet() then begin
+            //         repeat
+            //             GMTPartName := GMTPartRec.Description;
+            //         until GMTPartRec.Next() = 0;
+            //     end;
+            // end;
+
             trigger OnPreDataItem()
             begin
-                SetRange(BundleCardNo, BundleFilter);
+                SetRange("Bundle Card No", BundleFilter);
             end;
+
         }
+
     }
 
     requestpage

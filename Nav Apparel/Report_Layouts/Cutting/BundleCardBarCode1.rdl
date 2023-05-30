@@ -95,6 +95,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -327,6 +328,7 @@
                           </Style>
                         </Textbox>
                         <ColSpan>6</ColSpan>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -393,6 +395,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -514,6 +517,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -635,6 +639,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -975,6 +980,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1205,6 +1211,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1417,6 +1424,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1614,6 +1622,7 @@
                 <TablixMember>
                   <Group Name="Details">
                     <GroupExpressions>
+                      <GroupExpression>=Fields!No_.Value</GroupExpression>
                       <GroupExpression>=Fields!Bundle_No.Value</GroupExpression>
                     </GroupExpressions>
                     <PageBreak>
@@ -1722,6 +1731,9 @@ End Function
       <Fields>
         <Field Name="GMTPartNo">
           <DataField>GMTPartNo</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
         </Field>
         <Field Name="PO">
           <DataField>PO</DataField>

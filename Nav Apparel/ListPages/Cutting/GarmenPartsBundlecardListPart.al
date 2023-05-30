@@ -79,6 +79,7 @@ page 51272 BundleCardGMTPartListPart
                                 GMTpart2Rec."No." := GMTpart1Rec.No;
                                 GMTpart2Rec.BundleCardNo := GMTpart1Rec.BundleCardNo;
                                 GMTpart2Rec.Description := GMTpart1Rec.Description;
+                                GMTpart2Rec."Bundle Guide Header No" := BundleCardTableRec."Bundle Guide Header No";
                                 GMTpart2Rec.Insert();
 
                                 GMTpart1Rec.Select := false;

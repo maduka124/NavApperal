@@ -39,6 +39,7 @@ page 51267 "Bundle Card List"
     var
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
+        UserRec: Record "User Setup";
     begin
 
         //Check whether user logged in or not
@@ -58,6 +59,12 @@ page 51267 "Bundle Card List"
         else begin   //logged in
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
+
+
+        UserRec.Reset();
+        UserRec.Get(UserId);
+        if UserRec."Factory Code" <> '' then
+            rec.SetFilter("Factory Code", '=%1', UserRec."Factory Code");
 
     end;
 

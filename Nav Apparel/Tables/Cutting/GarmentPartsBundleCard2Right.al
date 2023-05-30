@@ -23,6 +23,10 @@ table 51284 GarmentPartsBundleCard2Right
         {
             DataClassification = ToBeClassified;
         }
+        field(5; "Bundle Guide Header No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
