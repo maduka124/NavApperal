@@ -258,7 +258,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1694,7 +1693,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Order_Qty.Value)</Value>
+                                  <Value>=Fields!Order_Qty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>12pt</FontSize>

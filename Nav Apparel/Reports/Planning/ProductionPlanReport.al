@@ -94,9 +94,10 @@ report 50621 ProductionPlanReport
                     stylePORec.Reset();
                     stylePORec.SetRange("Style No.", "Style No.");
                     stylePORec.SetRange("PO No.", "PO No.");
-                    if stylePORec.FindFirst() then begin
+                    stylePORec.SetRange("Lot No.", "Lot No.");
+                    if stylePORec.FindSet() then begin
                         PoNo := stylePORec."PO No.";
-                        PoQty := stylePORec.Qty
+                        PoQty += stylePORec.Qty
                     end;
 
                     StartDt := 0D;
@@ -115,10 +116,10 @@ report 50621 ProductionPlanReport
                         // StartDate := NavAppProdPlanRec."PlanDate";
                     end;
 
-                    
+
                     NavAppProdPlanRec.Reset();
                     NavAppProdPlanRec.SetRange("Line No.", "Line No.");
-                    NavAppProdPlanRec.SetRange("PO No.","PO No.");
+                    NavAppProdPlanRec.SetRange("PO No.", "PO No.");
                     NavAppProdPlanRec.SetCurrentKey(PlanDate);
                     NavAppProdPlanRec.Ascending(true);
                     if NavAppProdPlanRec.FindFirst() then begin
