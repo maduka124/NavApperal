@@ -550,10 +550,10 @@ report 50865 HourlyProductionReport
 
                 end;
                 //Working Hours
-                // if Hours > 0 then
-                HourlyTarget += DayTarget / Hours;
-                // else
-                //     HourlyTarget := 0;
+                if Hours > 0 then
+                HourlyTarget += DayTarget / Hours
+                else
+                    HourlyTarget := 0;
 
                 TOtalTarget := HourlyTarget;
 
