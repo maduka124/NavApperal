@@ -34,7 +34,7 @@ table 51253 BuyerStylePOSearchHeader
         field(6; "Style Name"; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"));
+            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"), Status = filter(Confirmed));
             ValidateTableRelation = false;
         }
 
