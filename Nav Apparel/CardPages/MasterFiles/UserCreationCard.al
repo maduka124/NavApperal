@@ -143,7 +143,24 @@ page 50978 "Create User Card"
             }
 
 
+            action("Update Estimate Bom")
+            {
+                ApplicationArea = all;
+                Image = AddAction;
 
+                trigger OnAction()
+                var
+                    StyleRec: Record "Style Master";
+                begin
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", '00484');
+                    if StyleRec.FindSet() then begin
+                        StyleRec.EstimateBOM := '00623';
+                        StyleRec.Modify();
+                        Message('Estimate Bom Updated');
+                    end;
+                end;
+            }
 
 
 
