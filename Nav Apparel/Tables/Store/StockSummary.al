@@ -2,6 +2,7 @@ table 51316 StockSummary
 {
     DataClassification = ToBeClassified;
 
+
     fields
     {
         field(1; "Factory Name"; Text[50])
@@ -60,27 +61,6 @@ table 51316 StockSummary
         }
     }
 
-    var
-        myInt: Integer;
 
-    trigger OnInsert()
-    begin
-
-    end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
 
 }
