@@ -3,8 +3,9 @@ page 50313 StockSummary
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Style Master";
-    SourceTableView = where(Status = filter(Confirmed));
+    // SourceTable = "Style Master";
+    SourceTable = StockSummary;
+    // SourceTableView = where(Status = filter(Confirmed));
     DeleteAllowed = false;
     ModifyAllowed = false;
     InsertAllowed = false;
@@ -14,6 +15,7 @@ page 50313 StockSummary
     {
         area(Content)
         {
+
             repeater(General)
             {
                 field(FactoryName; Rec."Factory Name")
@@ -26,25 +28,25 @@ page 50313 StockSummary
                     ApplicationArea = All;
                     Caption = 'Buyer Name';
                 }
-                field(ContractNo; ContractNoLC)
+                field(ContractNo; Rec."Contract Lc No")
                 {
                     ApplicationArea = All;
                     Caption = 'Contract No';
                 }
-                field(MainCatName; MainCatName)
+                field(MainCatName; Rec."Main Category Name")
                 {
                     ApplicationArea = all;
                     Caption = 'Main Category Name';
                 }
-                field(UOM; UOM)
+                field(UOM; Rec.UOM)
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
-                field(Value; Value)
+                field(Value; Rec.Value)
                 {
                     ApplicationArea = all;
                 }
@@ -56,15 +58,17 @@ page 50313 StockSummary
 
     trigger OnOpenPage()
     var
-
-
+        StockSumRec2: Record StockSummary;
+        StockSumRec: Record StockSummary;
         LoginRec: Page "Login Card";
         LoginSessionsRec: Record LoginSessions;
         UserRec: Record "User Setup";
+        styleRec: Record "Style Master";
+        LcRec: Record "Contract/LCMaster";
+        GRNRec: Record "Purch. Rcpt. Line";
+        ItemLedgRec: Record "Item Ledger Entry";
+        ItemRec: Record Item;
     begin
-
-
-
         //Check whether user logged in or not
         LoginSessionsRec.Reset();
         LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -73,82 +77,140 @@ page 50313 StockSummary
             Clear(LoginRec);
             LoginRec.LookupMode(true);
             LoginRec.RunModal();
-
-            // LoginSessionsRec.Reset();
-            // LoginSessionsRec.SetRange(SessionID, SessionId());
-            // if LoginSessionsRec.FindSet() then
-            //     rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
-        end
-        else begin   //logged in
-            //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
-        UserRec.Reset();
-        UserRec.Get(UserId);
-        if UserRec."Merchandizer Group Name" <> '' then
-            rec.SetFilter("Merchandizer Group Name", '=%1', UserRec."Merchandizer Group Name");
+
+        // UserRec.Reset();
+        // UserRec.Get(UserId);
+        // if UserRec."Merchandizer Group Name" <> '' then
+        //     rec.SetFilter("Merchandizer Group Name", '=%1', UserRec."Merchandizer Group Name");
+
+        // Delete Old Records
+        StockSumRec.Reset();
+        StockSumRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
+        if StockSumRec.FindSet() then
+            StockSumRec.DeleteAll();
+
+        //Get Max Seq No
+        StockSumRec.Reset();
+        if StockSumRec.FindLast() then
+            MaxSeqNo := StockSumRec."SeqNo";
+
+        styleRec.Reset();
+        // styleRec.SetRange("No.", Rec."No.");
+        styleRec.SetRange(Status, styleRec.Status::Confirmed);
+        // StockSumRec2.Reset();
+        // StockSumRec2.SetRange();
+        if styleRec.FindSet() then begin
+            repeat
+
+                // StockSumRec2.Reset();
+                // StockSumRec2.SetRange(SeqNo, StockSumRec.SeqNo);
+                // StockSumRec2.SetRange("Buyer Name", StockSumRec."Buyer Name");
+                // StockSumRec2.SetRange("Factory Name", StockSumRec."Factory Name");
+                // StockSumRec2.SetRange("Main Category Name", StockSumRec."Main Category Name");
+                // StockSumRec2.SetRange("Contract Lc No", StockSumRec."Contract Lc No");
+
+                // if not StockSumRec2.FindSet() then begin
+                // repeat
+                MaxSeqNo += 1;
+                StockSumRec.Init();
+                StockSumRec.SeqNo := MaxSeqNo;
+                StockSumRec."Style No" := styleRec."No.";
+                StockSumRec."Style Name" := styleRec."Style No.";
+                StockSumRec."Buyer Name" := styleRec."Buyer Name";
+                StockSumRec."Factory Name" := styleRec."Factory Name";
+
+                LcRec.Reset();
+                LcRec.SetRange("No.", styleRec.AssignedContractNo);
+                if LcRec.FindSet() then
+                    StockSumRec."Contract Lc No" := LcRec."Contract No";
+
+
+                GRNRec.Reset();
+                GRNRec.SetRange(StyleNo, styleRec."No.");
+                if GRNRec.FindSet() then begin
+                    ItemLedgRec.Reset();
+                    ItemLedgRec.SetRange("Document No.", GRNRec."Document No.");
+                    if ItemLedgRec.FindSet() then begin
+                        StockSumRec.Value := ItemLedgRec.Quantity * 3.2;
+                        StockSumRec.Quantity := ItemLedgRec.Quantity;
+                    end;
+
+                    ItemRec.Reset();
+                    ItemRec.SetRange("No.", ItemLedgRec."Item No.");
+                    if ItemRec.FindSet() then begin
+                        StockSumRec.UOM := ItemRec."Base Unit of Measure";
+                        StockSumRec."Main Category Name" := ItemRec."Main Category Name";
+                    end;
+
+                end;
+                StockSumRec.Insert();
+            // until StockSumRec2.Next() = 0;
+            // end;
+            until styleRec.Next() = 0;
+        end;
+
+
     end;
 
 
     trigger OnAfterGetRecord()
     var
-        ItemLedgRec: Record "Item Ledger Entry";
-        ItemRec: Record Item;
-        GRNRec: Record "Purch. Rcpt. Line";
-        styleRec: Record "Style Master";
-        LcRec: Record "Contract/LCMaster";
+        // ItemLedgRec: Record "Item Ledger Entry";
+        // ItemRec: Record Item;
+        // GRNRec: Record "Purch. Rcpt. Line";
+        // styleRec: Record "Style Master";
+        // LcRec: Record "Contract/LCMaster";
+
+        StockSumRec: Record StockSummary;
 
     begin
-        // styleRec.Reset();
-        // styleRec.SetRange("Merchandizer Group Name", rec."Merchandizer Group Name");
-        // styleRec.SetRange(ContractNo, Rec.ContractNo);
-        // styleRec.SetRange("Buyer No.", Rec."Buyer No.");
-        // if styleRec.FindSet() then begin
 
-        // end;
-        // styleRec.Reset();
-        // styleRec.SetRange("No.", Rec."No.");
-        // styleRec.SetRange(AssignedContractNo, Rec.AssignedContractNo);
-        // styleRec.SetRange("Factory Code", Rec."Factory Code");
-        // styleRec.SetRange("Buyer No.", Rec."Buyer No.");
-        // if styleRec.FindFirst() then begin
-        //     repeat
-        //         Rec."Factory Name" := styleRec."Factory Name";
-        //         rec."Buyer Name" := styleRec."Buyer Name";
-        //         Rec.AssignedContractNo := styleRec.AssignedContractNo;
-        //     until styleRec.Next() = 0;
+
+        // LcRec.Reset();
+        // LcRec.SetRange("No.", Rec.AssignedContractNo);
+        // if LcRec.FindSet() then begin
+        //     ContractNoLC := LcRec."Contract No";
         // end;
 
+        // GRNRec.Reset();
+        // GRNRec.SetRange(StyleNo, Rec."No.");
+        // if GRNRec.FindSet() then begin
 
-        LcRec.Reset();
-        LcRec.SetRange("No.", Rec.AssignedContractNo);
-        if LcRec.FindSet() then begin
-            ContractNoLC := LcRec."Contract No";
-        end;
+        //     ItemLedgRec.Reset();
+        //     ItemLedgRec.SetRange("Document No.", GRNRec."Document No.");
+        //     if ItemLedgRec.FindSet() then begin
+        //         Value := ItemLedgRec.Quantity * 3.2;
+        //         Quantity := ItemLedgRec.Quantity;
 
-        GRNRec.Reset();
-        GRNRec.SetRange(StyleNo, Rec."No.");
-        if GRNRec.FindSet() then begin
+        //         ItemRec.Reset();
+        //         ItemRec.SetRange("No.", ItemLedgRec."Item No.");
+        //         if ItemRec.FindSet() then begin
+        //             UOM := ItemRec."Base Unit of Measure";
+        //             MainCatName := ItemRec."Main Category Name";
+        //         end;
+        //     end;
 
-            ItemLedgRec.Reset();
-            ItemLedgRec.SetRange("Document No.", GRNRec."Document No.");
-            if ItemLedgRec.FindSet() then begin
-                Value := ItemLedgRec.Quantity * 3.2;
-                Quantity := ItemLedgRec.Quantity;
+        // end;
 
-                ItemRec.Reset();
-                ItemRec.SetRange("No.", ItemLedgRec."Item No.");
-                if ItemRec.FindSet() then begin
-                    UOM := ItemRec."Base Unit of Measure";
-                    MainCatName := ItemRec."Main Category Name";
-                end;
-            end;
+        // StockSumRec.Reset();
+        // StockSumRec.SetRange("Style No", Rec."No.");
+        // if StockSumRec.FindFirst() then begin
+        //     FactoryName := StockSumRec."Factory Name";
+        //     BuyerName := StockSumRec."Buyer Name";
+        //     ContractNoLC := StockSumRec."Contract Lc No";
+        //     MainCatName := StockSumRec."Main Category Name";
+        //     UOM := StockSumRec.UOM;
+        //     Value := StockSumRec.Value;
+        //     Quantity := StockSumRec.Quantity;
+        // end;
 
-        end;
     end;
 
 
 
     var
+        MaxSeqNo: BigInteger;
         ContractNoLC: Text[50];
         MainCatName: Text[50];
         Quantity: Decimal;
