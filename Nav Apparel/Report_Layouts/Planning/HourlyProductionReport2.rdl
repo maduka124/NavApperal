@@ -2544,7 +2544,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -9702,14 +9701,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour_10">
+                        <Textbox Name="Hour_10F">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Hour_10.Value</Value>
+                                  <Value>=Fields!Hour_10F.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -9721,7 +9720,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Hour_10</rd:DefaultName>
+                          <rd:DefaultName>Hour_10F</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -9821,9 +9820,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!Hour_1F.Value+Fields!Hour_2F.Value+Fields!Hour_3F.Value+Fields!Hour_4F.Value+Fields!Hour_5F.Value+Fields!Hour_6F.Value+Fields!Hour_7F.Value+Fields!Hour_8F.Value+Fields!Hour_9F.Value+Fields!Hour_10F.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -10438,14 +10438,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Hour_21">
+                        <Textbox Name="Hour_10F2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Hour_10.Value)</Value>
+                                  <Value>=Sum(Fields!Hour_10F.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -10457,7 +10457,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Hour_10</rd:DefaultName>
+                          <rd:DefaultName>Hour_10F</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -10550,16 +10550,17 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox216">
+                        <Textbox Name="Textbox113">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!Hour_1F.Value + Fields!Hour_2F.Value + Fields!Hour_3F.Value + Fields!Hour_4F.Value + Fields!Hour_5F.Value + Fields!Hour_6F.Value + Fields!Hour_7F.Value + Fields!Hour_8F.Value + Fields!Hour_9F.Value + Fields!Hour_10F.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
+                                    <Format>n0</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -10568,7 +10569,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox216</rd:DefaultName>
+                          <rd:DefaultName>Textbox112</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
