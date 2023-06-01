@@ -3,9 +3,7 @@ page 50313 StockSummary
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    // SourceTable = "Style Master";
     SourceTable = StockSummary;
-    // SourceTableView = where(Status = filter(Confirmed));
     DeleteAllowed = false;
     ModifyAllowed = false;
     InsertAllowed = false;
@@ -154,60 +152,7 @@ page 50313 StockSummary
     end;
 
 
-    trigger OnAfterGetRecord()
-    var
-        // ItemLedgRec: Record "Item Ledger Entry";
-        // ItemRec: Record Item;
-        // GRNRec: Record "Purch. Rcpt. Line";
-        // styleRec: Record "Style Master";
-        // LcRec: Record "Contract/LCMaster";
-
-        StockSumRec: Record StockSummary;
-
-    begin
-
-
-        // LcRec.Reset();
-        // LcRec.SetRange("No.", Rec.AssignedContractNo);
-        // if LcRec.FindSet() then begin
-        //     ContractNoLC := LcRec."Contract No";
-        // end;
-
-        // GRNRec.Reset();
-        // GRNRec.SetRange(StyleNo, Rec."No.");
-        // if GRNRec.FindSet() then begin
-
-        //     ItemLedgRec.Reset();
-        //     ItemLedgRec.SetRange("Document No.", GRNRec."Document No.");
-        //     if ItemLedgRec.FindSet() then begin
-        //         Value := ItemLedgRec.Quantity * 3.2;
-        //         Quantity := ItemLedgRec.Quantity;
-
-        //         ItemRec.Reset();
-        //         ItemRec.SetRange("No.", ItemLedgRec."Item No.");
-        //         if ItemRec.FindSet() then begin
-        //             UOM := ItemRec."Base Unit of Measure";
-        //             MainCatName := ItemRec."Main Category Name";
-        //         end;
-        //     end;
-
-        // end;
-
-        // StockSumRec.Reset();
-        // StockSumRec.SetRange("Style No", Rec."No.");
-        // if StockSumRec.FindFirst() then begin
-        //     FactoryName := StockSumRec."Factory Name";
-        //     BuyerName := StockSumRec."Buyer Name";
-        //     ContractNoLC := StockSumRec."Contract Lc No";
-        //     MainCatName := StockSumRec."Main Category Name";
-        //     UOM := StockSumRec.UOM;
-        //     Value := StockSumRec.Value;
-        //     Quantity := StockSumRec.Quantity;
-        // end;
-
-    end;
-
-
+    
 
     var
         MaxSeqNo: BigInteger;
