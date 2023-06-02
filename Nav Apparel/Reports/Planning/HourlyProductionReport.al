@@ -126,6 +126,8 @@ report 50865 HourlyProductionReport
             { }
             column(VarienceNew; VarienceNew)
             { }
+            column(HourlyTarger2; HourlyTarger2)
+            { }
             dataitem("Hourly Production Lines"; "Hourly Production Lines")
             {
                 DataItemLinkReference = "NavApp Prod Plans Details";
@@ -535,6 +537,7 @@ report 50865 HourlyProductionReport
 
                 Hours := 0;
                 HourlyTarget := 0;
+                // HourlyTarger2 := 0;
                 DayTarget := 0;
                 NavAppProdRec.Reset();
                 NavAppProdRec.SetRange(PlanDate, PlanDate);
@@ -551,13 +554,18 @@ report 50865 HourlyProductionReport
                 end;
                 //Working Hours
                 if Hours > 0 then
-                HourlyTarget += DayTarget / Hours
+                    HourlyTarget += DayTarget / Hours
                 else
                     HourlyTarget := 0;
 
                 TOtalTarget := HourlyTarget;
 
+                // HourlyCal := Eff / 100;
+
                 //Hourly Target
+
+                HourlyTarger2 := (60 / SMV) * (Eff / 100.00) * MC;
+
 
 
 
@@ -901,7 +909,8 @@ report 50865 HourlyProductionReport
     }
 
     var
-
+        HourlyCal: Decimal;
+        HourlyTarger2: Decimal;
         FactoryTotalAchiveHoursFin: Integer;
         FactoryHour1TotFin: Integer;
         FactoryHour2TotFin: Integer;

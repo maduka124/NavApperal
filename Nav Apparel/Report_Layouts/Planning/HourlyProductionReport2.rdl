@@ -1530,7 +1530,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!HourlyTarget.Value</Value>
+                                  <Value>=(60/Fields!SMV.Value)*(Fields!EffProdPlan.Value/100)*Fields!MC.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1577,6 +1577,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -16190,6 +16191,12 @@ End Function
         </Field>
         <Field Name="VarienceNewFormat">
           <DataField>VarienceNewFormat</DataField>
+        </Field>
+        <Field Name="HourlyTarger2">
+          <DataField>HourlyTarger2</DataField>
+        </Field>
+        <Field Name="HourlyTarger2Format">
+          <DataField>HourlyTarger2Format</DataField>
         </Field>
         <Field Name="Hour_1">
           <DataField>Hour_1</DataField>
