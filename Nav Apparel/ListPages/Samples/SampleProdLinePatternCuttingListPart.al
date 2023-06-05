@@ -3,7 +3,7 @@ page 51193 SampleProdLinePattCuttListPart
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Pattern Date" = filter(<> ''), "Pattern/Cutting Date" = filter(''));
+    SourceTableView = where("Pattern Date" = filter(<> ''), "Pattern/Cutting Date" = filter(''), Qty = filter(<> 0));
 
     layout
     {

@@ -3,7 +3,7 @@ page 50439 SampleProdLineReceWashListPart
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Send Wash Date" = filter(<> ''), "Received Wash Date" = filter(''));
+    SourceTableView = where("Send Wash Date" = filter(<> ''), "Received Wash Date" = filter(''), Qty = filter(<> 0));
 
     layout
     {

@@ -3,7 +3,7 @@ page 50800 SampleProdLineFinishListPart
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Received Wash Date" = filter(<> ''), "Finishing Date" = filter(''));
+    SourceTableView = where("Received Wash Date" = filter(<> ''), "Finishing Date" = filter(''), Qty = filter(<> 0));
 
     layout
     {

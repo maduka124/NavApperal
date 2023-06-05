@@ -3,7 +3,7 @@ page 50437 SampleProdLineSewListPart
     PageType = ListPart;
     AutoSplitKey = true;
     SourceTable = "Sample Requsition Line";
-    SourceTableView = where("Cutting Date" = filter(<> ''), "Sewing Date" = filter(''));
+    SourceTableView = where("Cutting Date" = filter(<> ''), "Sewing Date" = filter(''), Qty = filter(<> 0));
 
     layout
     {
