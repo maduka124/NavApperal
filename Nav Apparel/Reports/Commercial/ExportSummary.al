@@ -14,6 +14,7 @@ report 50629 ExportSummartReport
             { }
             column(CompLogo; comRec.Picture)
             { }
+
             column(stDate; stDate)
             { }
             column(endDate; endDate)
@@ -27,33 +28,11 @@ report 50629 ExportSummartReport
 
                 column(Style_No_; "Style Name")
                 { }
+
                 column(Mode; Mode)
                 { }
+
                 column(Buyer_Name; BuyerName)
-                { }
-                column(Factory; FactoryName)
-                { }
-                column(PO_No; PoNo)
-                { }
-                column(Order_Qty; PoQty)
-                { }
-                column(UnitPrice; UnitPrice)
-                { }
-                column(No_; InvNo)
-                { }
-                column(Posting_Date; PostingDate)
-                { }
-
-                column(Amount_Including_VAT; AMTIncVat)
-                { }
-
-                column(ShipQty; ShipQty)
-                { }
-
-                column(Shipment_Date; "Shipment Date")
-                { }
-
-                column(POBalance; POBalance)
                 { }
 
                 dataitem("Style Master"; "Style Master")
@@ -61,12 +40,22 @@ report 50629 ExportSummartReport
                     DataItemLinkReference = "Contract/LCStyle";
                     DataItemLink = "No." = field("Style No.");
 
+                    column(Factory; "Factory Name")
+                    { }
+
                     dataitem("Style Master PO"; "Style Master PO")
                     {
                         DataItemLinkReference = "Style Master";
                         DataItemLink = "Style No." = field("No.");
 
+                        column(PO_No; "PO No.")
+                        { }
 
+                        column(Order_Qty; Qty)
+                        { }
+
+                        column(UnitPrice; "Unit Price")
+                        { }
 
                         dataitem("Sales Invoice Header"; "Sales Invoice Header")
                         {
@@ -74,7 +63,15 @@ report 50629 ExportSummartReport
                             DataItemLink = "Style No" = field("Style No."), "PO No" = field("PO No.");
                             DataItemTableView = where("No." = filter(<> ''));
 
-                     
+                            column(No_; "No.")
+                            { }
+
+                            column(Posting_Date; "Posting Date")
+                            { }
+
+                            column(Amount_Including_VAT; "Amount Including VAT")
+                            { }
+
                             column(ShipQty; ShipQty)
                             { }
 
@@ -84,6 +81,39 @@ report 50629 ExportSummartReport
                             column(POBalance; POBalance)
                             { }
 
+                            trigger OnAfterGetRecord()
+                            var
+                                SalesInvoiceLineRec: Record "Sales Invoice Line";
+                                POLc: Code[20];
+                                StyleNoLc: Code[20];
+                            begin
+
+
+                                ShipQty := 0;
+
+                                SalesInvoiceLineRec.Reset();
+                                SalesInvoiceLineRec.SetRange("Document No.", "No.");
+                                SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                                if SalesInvoiceLineRec.FindFirst() then begin
+                                    repeat
+                                        ShipQty += SalesInvoiceLineRec.Quantity;
+                                    until SalesInvoiceLineRec.Next() = 0;
+
+                                end;
+
+                                if "PO No" = POLc then
+                                    POBalance := POBalance + ShipQty
+                                else begin
+                                    POBalance := 0;
+                                    POBalance := POBalance + ShipQty
+                                end;
+
+                                POLc := "PO No";
+                                StyleNoLc := "Style No";
+
+                                "Sales Invoice Header".CalcFields("Amount Including VAT");
+
+                            end;
 
                             trigger OnPreDataItem()
                             begin
@@ -108,57 +138,15 @@ report 50629 ExportSummartReport
 
                 trigger OnAfterGetRecord()
                 var
-
-                    POLc: Code[20];
-                    StyleNoLc: Code[20];
+                    SalesInvoiceLineRec: Record "Sales Invoice Line";
                 begin
 
                     StyleMasterRec.Reset();
                     StyleMasterRec.SetRange("No.", "Style No.");
-                    if StyleMasterRec.FindFirst() then begin
+
+                    if StyleMasterRec.FindSet() then
                         BuyerName := StyleMasterRec."Buyer Name";
-                        FactoryName := StyleMasterRec."Factory Name";
-
-                        StylePoRec.Reset();
-                        StylePoRec.SetRange("Style No.", StyleMasterRec."No.");
-                        if StylePoRec.FindSet() then begin
-                            UnitPrice := StylePoRec."Unit Price";
-                            PoQty := StylePoRec.Qty;
-                            PoNo := StylePoRec."PO No.";
-
-                            InvoiceRec.Reset();
-                            InvoiceRec.SetRange("Style No", StylePoRec."Style No.");
-                            InvoiceRec.SetRange("PO No", StylePoRec."PO No.");
-                            if InvoiceRec.FindSet() then begin
-                                InvNo := InvoiceRec."No.";
-                                PostingDate := InvoiceRec."Posting Date";
-                                AMTIncVat := InvoiceRec."Amount Including VAT";
-
-                                ShipQty := 0;
-                                SalesInvoiceLineRec.Reset();
-                                SalesInvoiceLineRec.SetRange("Document No.", InvoiceRec."No.");
-                                SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
-                                if SalesInvoiceLineRec.FindFirst() then begin
-                                    repeat
-                                        ShipQty += SalesInvoiceLineRec.Quantity;
-                                    until SalesInvoiceLineRec.Next() = 0;
-
-                                    if InvoiceRec."PO No" = POLc then
-                                        POBalance := POBalance + ShipQty
-                                    else begin
-                                        POBalance := 0;
-                                        POBalance := POBalance + ShipQty
-                                    end;
-
-                                    POLc := InvoiceRec."PO No";
-                                    StyleNoLc := InvoiceRec."Style No";
-
-                                    InvoiceRec.CalcFields("Amount Including VAT");
-                                end;
-                            end;
-                        end;
-
-                    end;
+                end;
             }
 
             trigger OnAfterGetRecord()
@@ -292,28 +280,30 @@ report 50629 ExportSummartReport
     }
 
     var
-        AMTIncVat: Decimal;
-        PostingDate: Date;
-        InvNo: Code[20];
-        SalesInvoiceLineRec: Record "Sales Invoice Line";
-        PoNo: Code[20];
-        PoQty: BigInteger;
-        StylePoRec: Record "Style Master PO";
+
+        InvoiceDate: Date;
         ShipMode: Option;
         Mode: Text[50];
         stDate: Date;
         endDate: Date;
+        OrderQt: BigInteger;
+        PoNo: Code[20];
+        // StylePoRec: Record "Style Master PO";
         ShipQty: BigInteger;
         UnitPrice: Decimal;
         FilterDate: Date;
         comRec: Record "Company Information";
-        InvoiceRec: Record "Sales Invoice Header";
+        // InvoiceRec: Record "Sales Invoice Header";
         StyleMasterRec: Record "Style Master";
+        LCRec: Record "Contract/LCMaster";
         FactoryName: text[50];
         BuyerName: Text[50];
         "Contract": code[20];
+        "LC No": Code[20];
         "Buyer Code": Code[20];
         "Factory": Text[100];
+        "Factory Code": Code[20];
+        POQty: BigInteger;
         POBalance: BigInteger;
 
 
