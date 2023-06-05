@@ -3370,6 +3370,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         <Field Name="endDate">
           <DataField>endDate</DataField>
         </Field>
+        <Field Name="Factory">
+          <DataField>Factory</DataField>
+        </Field>
         <Field Name="Style_No_">
           <DataField>Style_No_</DataField>
         </Field>
@@ -3378,9 +3381,6 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Buyer_Name">
           <DataField>Buyer_Name</DataField>
-        </Field>
-        <Field Name="Factory">
-          <DataField>Factory</DataField>
         </Field>
         <Field Name="PO_No">
           <DataField>PO_No</DataField>
