@@ -157,12 +157,18 @@ report 50641 WIPReport
                             StyleMasterRec.Reset();
                             Users.Reset();
                             Users.SetRange("User ID", UserId());
-                            Users.FindSet();
-                            if Users."Factory Code" <> '' then
-                                StyleMasterRec.SetRange("Factory Code", Users."Factory Code");
-
-                            if Page.RunModal(51067, StyleMasterRec) = Action::LookupOK then
-                                STFilter := StyleMasterRec."No.";
+                            if Users.FindSet() then begin
+                                if Users."Factory Code" <> '' then
+                                    StyleMasterRec.SetRange("Factory Code", Users."Factory Code");
+                                if StyleMasterRec.FindSet() then begin
+                                    if Page.RunModal(51067, StyleMasterRec) = Action::LookupOK then
+                                        STFilter := StyleMasterRec."No.";
+                                end
+                                else begin
+                                    if Page.RunModal(51067, StyleMasterRec) = Action::LookupOK then
+                                        STFilter := StyleMasterRec."No.";
+                                end;
+                            end;
                         end;
                     }
                 }
