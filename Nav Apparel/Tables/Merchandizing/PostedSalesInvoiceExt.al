@@ -1,5 +1,6 @@
 tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Header"
 {
+    
     fields
     {
         field(50001; "Style No"; Code[20])
@@ -84,6 +85,10 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
         modify("Your Reference")
         {
             Caption = 'Factory Inv. No';
+        }
+        field(50017; "External Doc No Sales"; Code[20])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 }

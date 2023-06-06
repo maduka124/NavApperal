@@ -1,7 +1,9 @@
 pageextension 50999 SalesOrderCardExt extends "Sales Order"
 {
+
     layout
     {
+
         //Done By Sachith on 24/03/23
         addafter(Status)
         {
@@ -134,6 +136,7 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
             end;
         }
 
+
         addafter(Lot)
         {
             field("No of Cartons"; rec."No of Cartons")
@@ -228,6 +231,32 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
                 rec.Validate("Location Code", rec."Shortcut Dimension 1 Code");
                 rec."Shortcut Dimension 1 Code" := Temp;
 
+            end;
+
+
+        }
+
+    }
+
+    actions
+    {
+        modify(Post)
+        {
+
+            trigger OnAfterAction()
+            var
+                salesRec: Record "Sales Invoice Header";
+            begin
+                salesRec.Reset();
+                salesRec.SetRange("Sell-to Customer No.", Rec."Sell-to Customer No.");
+                salesRec.SetRange(EntryType, salesRec.EntryType::FG);
+                salesRec.SetRange("Bal. Account Type", salesRec."Bal. Account Type"::"G/L Account");
+                salesRec.SetRange("Order No.", Rec."No.");
+                salesRec.SetRange("No.", Rec."Last Posting No.");
+                if salesRec.FindSet() then begin
+                    salesRec."External Doc No Sales" := Rec."External Document No.";
+                    // salesRec.Modify();
+                end;
             end;
         }
     }
