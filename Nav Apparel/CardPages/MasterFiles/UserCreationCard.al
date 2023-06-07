@@ -84,6 +84,11 @@ page 50978 "Create User Card"
                     ApplicationArea = All;
                     Caption = 'Posted Sales Invoice No';
                 }
+                field(PurchaseNo; PurchaseNo)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Purchase Order No';
+                }
             }
         }
     }
@@ -123,6 +128,24 @@ page 50978 "Create User Card"
                     SalesInvRec.ModifyAll("Export Ref No.", '');
                     Message('Export Ref No Removed');
 
+                end;
+            }
+
+            action("Remove value from Purchase Header")
+            {
+                ApplicationArea = All;
+                Image = Add;
+                trigger OnAction()
+                var
+                    PurchaseRec: Record "Purchase Header";
+                begin
+                    PurchaseRec.Reset();
+                    PurchaseRec.SetRange("No.", PurchaseNo);
+                    if PurchaseRec.FindSet() then begin
+                        PurchaseRec.ModifyAll("Assigned PI No.", '');
+                        PurchaseRec.ModifyAll(Status, PurchaseRec.Status::Released);
+                        Message('Purchase Header Record Updated');
+                    end;
                 end;
             }
             action("Remove minus Planned Qty")
@@ -566,6 +589,7 @@ page 50978 "Create User Card"
 
 
     var
+        PurchaseNo: Code[20];
         ExportRefNo: Code[50];
         Password: Text[50];
         contractNo: Text[50];
