@@ -114,7 +114,7 @@ page 50343 "Planning Line Property Card"
                             rec.Eff := (rec.Target * 100 * rec.SMV) / (60 * rec.Carder * rec.HoursPerDay);
 
                         if rec.HoursPerDay > 0 then
-                            HourlyTarget := rec.Target / rec.HoursPerDay
+                            HourlyTarget := round(rec.Target / rec.HoursPerDay, 1)
                         else
                             HourlyTarget := 0;
                     end;
@@ -125,6 +125,7 @@ page 50343 "Planning Line Property Card"
                     ApplicationArea = All;
                     Caption = 'Hourly Target';
                     Editable = false;
+                    DecimalPlaces = 0;
                 }
 
                 field("Learning Curve No."; rec."Learning Curve No.")
@@ -144,6 +145,13 @@ page 50343 "Planning Line Property Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field(ShipDate; ShipDate)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Ship Date';
                 }
             }
 
@@ -250,7 +258,8 @@ page 50343 "Planning Line Property Card"
                     dtStart := rec."Start Date";
                     TImeStart := rec."Start Time";
                     //SameStyle := rec."Style No.";
-                    TargetPerHour := rec.Target / HrsPerDay;
+                    // TargetPerHour := rec.Target / HrsPerDay;
+                    TargetPerHour := HourlyTarget;
                     TempDate := dtStart;
 
                     if rec."Learning Curve No." = 0 then
@@ -911,12 +920,15 @@ page 50343 "Planning Line Property Card"
 
                                     until HrsPerDay > 0;
 
-                                    if rec."Style No." = JobPlaLineRec."Style No." then   //Same as initial style 
-                                        TargetPerDay := rec.Target
-                                    else
-                                        TargetPerDay := round(((60 / SMV) * Carder * HrsPerDay * Eff) / 100, 1);
+                                    if rec."Style No." = JobPlaLineRec."Style No." then begin   //Same as initial style 
+                                        TargetPerDay := rec.Target;
+                                        TargetPerHour := round(TargetPerDay / HrsPerDay, 1);
+                                    end
+                                    else begin
+                                        TargetPerHour := round(((60 / SMV) * Carder * Eff) / 100, 1);
+                                        TargetPerDay := round(TargetPerHour * HrsPerDay, 1);
+                                    end;
 
-                                    TargetPerHour := round(TargetPerDay / HrsPerDay, 1);
                                     TempQty := 0;
 
                                     //Delete old lines
@@ -1814,15 +1826,18 @@ page 50343 "Planning Line Property Card"
     procedure Cal();
     var
     begin
-        if rec.SMV <> 0 then
-            rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>')
+        if rec.SMV <> 0 then begin
+            // rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>')
+            HourlyTarget := round(((60 / rec.SMV) * rec.Carder * rec.Eff) / 100, 1);
+            rec.Target := round(HourlyTarget * rec.HoursPerDay, 1);
+        end
         else
             Message('SMV is zero. Cannot continue.');
 
-        if rec.HoursPerDay > 0 then
-            HourlyTarget := rec.Target / rec.HoursPerDay
-        else
-            HourlyTarget := 0;
+        // if rec.HoursPerDay > 0 then
+        //     HourlyTarget := rec.Target / rec.HoursPerDay
+        // else
+        //     HourlyTarget := 0;
     end;
 
 
@@ -1830,7 +1845,17 @@ page 50343 "Planning Line Property Card"
     var
         StyeMastePORec: Record "Style Master PO";
         StyeMasteRec: Record "Style Master";
+        NavAppSetupRec: Record "NavApp Setup";
     begin
+
+        NavAppSetupRec.Reset();
+        NavAppSetupRec.FindSet();
+
+        rec.HoursPerDay := 10;
+        // rec.Target := round(((60 / rec.SMV) * rec.Carder * rec.HoursPerDay * rec.Eff) / 100, 1, '>');
+        HourlyTarget := round(((60 / rec.SMV) * rec.Carder * rec.Eff) / 100, 1);
+        rec.Target := round(HourlyTarget * rec.HoursPerDay, 1);
+
         StyeMasteRec.Reset();
         StyeMasteRec.SetRange("No.", rec."Style No.");
         if StyeMasteRec.FindSet() then
@@ -1844,16 +1869,14 @@ page 50343 "Planning Line Property Card"
         if StyeMastePORec.FindSet() then begin
             OrderQty := StyeMastePORec.Qty;
             BPCD := StyeMastePORec.BPCD;
+            ShipDate := StyeMastePORec."Ship Date";
+            rec."TGTSEWFIN Date" := ShipDate - NavAppSetupRec."Sewing Finished"
         end
         else begin
             BPCD := 0D;
             OrderQty := 0;
+            ShipDate := 0D;
         end;
-
-        if rec.HoursPerDay > 0 then
-            HourlyTarget := rec.Target / rec.HoursPerDay
-        else
-            HourlyTarget := 0;
     end;
 
 
@@ -1862,4 +1885,5 @@ page 50343 "Planning Line Property Card"
         Buyer: Text[500];
         HourlyTarget: Decimal;
         BPCD: Date;
+        ShipDate: Date;
 }

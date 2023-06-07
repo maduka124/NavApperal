@@ -392,24 +392,31 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                 tempEntry.Add('Start', CREATEDATETIME(lrecJobPlanningLine."Start Date", lrecJobPlanningLine."Start Time"));
                 tempEntry.Add('End', CREATEDATETIME(lrecJobPlanningLine."End Date", lrecJobPlanningLine."Finish Time"));
 
-                if lrecJobPlanningLine."End Date" > lrecJobPlanningLine."TGTSEWFIN Date" - NavAppSetupRec."Sewing Finished" then
+                if lrecJobPlanningLine."End Date" > lrecJobPlanningLine."TGTSEWFIN Date" then
                     tempEntry.Add('PM_Color', '#e11f1f')
-                else
-                    tempEntry.Add('PM_Color', '#28e554');
+                else begin
+                    if lrecJobPlanningLine."Start Date" < StyleMasPoRec.BPCD then
+                        tempEntry.Add('PM_Color', '#09479b')
+                    else
+                        tempEntry.Add('PM_Color', '#28e554');
+                end;
 
                 tempEntries.Add(tempEntry);
                 ldnAllocation.Add('Entries', tempEntries);
                 ldnAllocation.Add('AddIn_BarText', lrecJobPlanningLine."Style Name" + '/' + lrecJobPlanningLine."Lot No." + '/' + lrecJobPlanningLine."PO No." + '/' + FORMAT(lrecJobPlanningLine."Line No."));
                 //ldnAllocation.Add('AddIn_BarText', FORMAT(lrecJobPlanningLine."Line No."));
-                ldnAllocation.Add('AddIn_TooltipText', 'Style : ' + FORMAT(lrecJobPlanningLine."Style Name") +
+                ldnAllocation.Add('AddIn_TooltipText', 'Buyer : ' + FORMAT(StyleMasRec."Buyer Name") +
                   '<br>Brand : ' + FORMAT(Brand) +
+                  '<br>Style : ' + FORMAT(lrecJobPlanningLine."Style Name") +
                   '<br>PO No : ' + FORMAT(lrecJobPlanningLine."PO No.") +
                   '<br>Order Qty : ' + FORMAT(StyleMasPoRec.Qty) +
                   '<br>Plan Qty : ' + FORMAT(lrecJobPlanningLine.Qty) +
-                  '<br>Ship Date : ' + FORMAT(CreateDateTime(ShiDate, 0T)) +
                   '<br>BPCD : ' + FORMAT(StyleMasPoRec.BPCD) +
+                  '<br>SMV : ' + FORMAT(lrecJobPlanningLine.SMV) +
+                  '<br>Learning Curve : ' + FORMAT(lrecJobPlanningLine."Learning Curve No.") +
                   '<br>Start D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."Start Date", lrecJobPlanningLine."Start Time")) +
-                  '<br>Finish D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."End Date", lrecJobPlanningLine."Finish Time")));
+                  '<br>Finish D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."End Date", lrecJobPlanningLine."Finish Time")) +
+                  '<br>Ship Date : ' + FORMAT(CreateDateTime(ShiDate, 0T)));
                 //   '<br>StartDateTime  : ' + FORMAT(lrecJobPlanningLine.StartDateTime) +
                 //   '<br>FinishtDateTime : ' + FORMAT(lrecJobPlanningLine.FinishDateTime));
                 ldnAllocation.Add('AddIn_ContextMenuID', 'CM_Allocation');

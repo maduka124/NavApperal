@@ -3511,7 +3511,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
     //ProdOutHeaderRec: Record ProductionOutHeader;
     begin
 
-        //Filer Criteria - Dates
+        //Filter Criteria - Dates
         StartDate := CALCDATE('-1D', Today());
         FinishDate := CALCDATE('+1M', Today());
 
