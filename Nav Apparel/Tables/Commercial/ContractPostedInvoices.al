@@ -48,6 +48,14 @@ table 51219 ContractPostedInvoices
         {
             DataClassification = ToBeClassified;
         }
+        field(10; "Order No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(11; "Factory Inv No"; text[35])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

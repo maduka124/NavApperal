@@ -49,7 +49,7 @@ page 50355 "Daily Sewing In/Out Card"
                             ProdOutHeaderRec.SetFilter("No.", '<>%1', rec."No.");
 
                             if ProdOutHeaderRec.FindSet() then
-                                Error('You have put Sewing input for this Date/Line/Style/PO');
+                                Error('You Already Put Sewing In For Date/Line/Style/PO');
                         end;
 
 
@@ -64,7 +64,7 @@ page 50355 "Daily Sewing In/Out Card"
                             ProdOutHeaderRec.SetFilter("No.", '<>%1', rec."No.");
 
                             if ProdOutHeaderRec.FindSet() then
-                                Error('You have put Sewing out for this Date/Line/Style/PO');
+                                Error('You Already Put Sewing In For Date/Line/Style/PO');
                         end;
 
 
@@ -241,7 +241,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetRange("lot No.", rec."lot No.");
                         ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
-                            Error('You have put Sewing IN for this Date/Line/Style/PO');
+                            Error('You Already Put Sewing In For Date/Line/Style/PO');
 
 
                         GridHeader_Insert_Input();
@@ -290,7 +290,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetRange("PO No", Rec."PO No");
                         ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
-                            Error('You have put Sewing out for this Date/Line/Style/PO');
+                            Error('You Already Put Sewing In For Date/Line/Style/PO');
 
 
                         //Mihiranga 2023/03/16
@@ -455,7 +455,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetRange("OUT lot No.", rec."OUT lot No.");
                         ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
-                            Error('You have put Sewing Out for this Date/Line/Style/PO');
+                            Error('You Already Put Sewing In For Date/Line/Style/PO');
 
 
                         GridHeader_Insert_Output();
@@ -504,7 +504,7 @@ page 50355 "Daily Sewing In/Out Card"
                         ProductionRec.SetRange("OUT PO No", rec."OUT PO No");
                         ProductionRec.SetFilter("No.", '<>%1', rec."No.");
                         if ProductionRec.FindSet() then
-                            Error('You have put Sewing Out for this Date/Line/Style/PO');
+                            Error('You Already Put Sewing In For Date/Line/Style/PO');
 
 
                         //Mihiranga 2023/03/16

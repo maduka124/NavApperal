@@ -279,14 +279,39 @@ page 50996 "PI Details Card"
 
     trigger OnDeleteRecord(): Boolean
     var
+        PIDetailHRec: Record "PI Details Header";
+        PurchaseHeadRec: Record "Purchase Header";
         PIPoDetailsRec: Record "PI Po Details";
         PIPoItemsDetailsRec: Record "PI Po Item Details";
     begin
-        PIPoDetailsRec.SetRange("PI No.", rec."PI No");
-        PIPoDetailsRec.DeleteAll();
+
+        PIDetailHRec.Reset();
+        PIDetailHRec.SetRange("No.", Rec."No.");
+        if PIDetailHRec.FindSet() then begin
+            if PIDetailHRec.AssignedB2BNo <> '' then
+                Error('This Record Cannot be delete.Record Assigned to the B2BLC');
+        end;
+
+        PurchaseHeadRec.Reset();
+        PurchaseHeadRec.SetRange("PI No.", Rec."No.");
+        if PurchaseHeadRec.FindSet() then begin
+            repeat
+                PurchaseHeadRec."Assigned PI No." := '';
+                PurchaseHeadRec.Modify();
+            until PurchaseHeadRec.Next() = 0;
+        end;
+
+        PIPoDetailsRec.Reset();
+        PIPoDetailsRec.SetRange("PI No.", rec."No.");
+        if PIPoDetailsRec.FindSet() then begin
+            repeat
+                PIPoDetailsRec.DeleteAll();
+            until PIPoDetailsRec.Next() = 0;
+        end;
 
         PIPoItemsDetailsRec.SetRange("PI No.", rec."PI No");
         PIPoItemsDetailsRec.DeleteAll();
+
     end;
 
 

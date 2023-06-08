@@ -21,6 +21,13 @@ page 51241 "Export Reference Card"
                         IF AssistEdit THEN
                             CurrPage.UPDATE;
                     end;
+
+                    trigger OnValidate()
+                    var
+                        myInt: Integer;
+                    begin
+
+                    end;
                 }
 
                 field("Buyer Name"; Rec."Buyer Name")
@@ -30,6 +37,7 @@ page 51241 "Export Reference Card"
 
                     trigger OnValidate()
                     var
+                        SalesInvRec: Record "Sales Invoice Header";
                         CustomerRec: Record Customer;
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
@@ -57,6 +65,10 @@ page 51241 "Export Reference Card"
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
+                        //Assign "Export Ref No."
+
+
+
                     end;
                 }
 
@@ -112,12 +124,29 @@ page 51241 "Export Reference Card"
 
                             ExportRefLineRec.Insert();
 
-                            //Assign "Export Ref No."
+                            // //Assign "Export Ref No."
                             SalesInvRec."Export Ref No." := rec."No.";
                             SalesInvRec.Modify();
 
+                            Rec."Factory Inv No" := SalesInvRec."Your Reference";
+                            Rec."Order No" := SalesInvRec."PO No";
+
+
                         end;
                     end;
+
+
+                }
+
+                field("Factory Inv No"; Rec."Factory Inv No")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Factory Invoice No';
+
+                }
+                field("Order No"; Rec."Order No")
+                {
+                    ApplicationArea = All;
                 }
             }
 
@@ -234,4 +263,7 @@ page 51241 "Export Reference Card"
             SalesInvRec.ModifyAll("Export Ref No.", '');
         end;
     end;
+
+    var
+
 }

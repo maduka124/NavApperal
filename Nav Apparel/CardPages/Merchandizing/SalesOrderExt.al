@@ -246,16 +246,30 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
             trigger OnAfterAction()
             var
                 salesRec: Record "Sales Invoice Header";
+                PaymentRec: Record "Payment Terms";
+                contracRec: Record "Contract/LCMaster";
             begin
-                salesRec.Reset();
-                salesRec.SetRange("Sell-to Customer No.", Rec."Sell-to Customer No.");
-                salesRec.SetRange(EntryType, salesRec.EntryType::FG);
-                salesRec.SetRange("Bal. Account Type", salesRec."Bal. Account Type"::"G/L Account");
-                salesRec.SetRange("Order No.", Rec."No.");
-                salesRec.SetRange("No.", Rec."Last Posting No.");
-                if salesRec.FindSet() then begin
-                    salesRec."External Doc No Sales" := Rec."External Document No.";
-                    // salesRec.Modify();
+
+                contracRec.Reset();
+                contracRec.SetRange("Contract No", Rec."Contract No");
+                if contracRec.FindSet() then begin
+
+                    PaymentRec.Reset();
+                    PaymentRec.SetRange(Code, contracRec."Payment Terms (Days) No.");
+                    if PaymentRec.FindSet() then begin
+
+                        salesRec.Reset();
+                        salesRec.SetRange("Sell-to Customer No.", Rec."Sell-to Customer No.");
+                        salesRec.SetRange(EntryType, salesRec.EntryType::FG);
+                        salesRec.SetRange("Bal. Account Type", salesRec."Bal. Account Type"::"G/L Account");
+                        salesRec.SetRange("Order No.", Rec."No.");
+                        salesRec.SetRange("No.", Rec."Last Posting No.");
+                        if salesRec.FindSet() then begin
+                            salesRec."External Doc No Sales" := Rec."External Document No.";
+                            salesRec."Payment Due Date" := CalcDate(PaymentRec."Due Date Calculation", Rec."Due Date");
+                            // salesRec.Modify();
+                        end;
+                    end;
                 end;
             end;
         }

@@ -21,8 +21,20 @@ page 50765 "Bank Ref Invoice ListPart2"
                 field("Invoice No"; Rec."Invoice No")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
-
+                field("Order No"; Rec."Order No")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Po No';
+                }
+                field("Factory Inv No"; Rec."Factory Inv No")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Factory Inv No';
+                }
                 field("Ship Value"; Rec."Ship Value")
                 {
                     ApplicationArea = All;
@@ -42,6 +54,9 @@ page 50765 "Bank Ref Invoice ListPart2"
 
                 trigger OnAction()
                 var
+
+                    BankRefInvRec1: Record BankReferenceInvoice;
+                    BankRefHeadRec: Record BankReferenceHeader;
                     ContPostedInvRec: Record ContractPostedInvoices;
                     BankRefInvRec: Record BankReferenceInvoice;
                     CodeUnitNav: Codeunit NavAppCodeUnit;
@@ -52,6 +67,8 @@ page 50765 "Bank Ref Invoice ListPart2"
 
                     if BankRefInvRec.FindSet() then begin
                         repeat
+
+
                             //Update Purchase order pi no
                             ContPostedInvRec.Reset();
                             ContPostedInvRec.SetRange("Inv No.", BankRefInvRec."Invoice No");
@@ -71,6 +88,27 @@ page 50765 "Bank Ref Invoice ListPart2"
 
                     CodeUnitNav.CalQtyBankRef(Rec."No.");
                     CurrPage.Update();
+
+
+                    BankRefInvRec1.Reset();
+                    BankRefInvRec1.SetRange("No.", rec."No.");
+                    BankRefHeadRec.Reset();
+                    BankRefHeadRec.SetRange("No.", rec."No.");
+                    if BankRefHeadRec.FindSet() then begin
+                        if not BankRefInvRec1.FindSet() then begin
+                            BankRefHeadRec."Row Count" := BankRefInvRec1.Count();
+                            BankRefHeadRec.Modify();
+                        end;
+                        if BankRefInvRec1.FindSet() then begin
+                            repeat
+                                BankRefHeadRec."Row Count" := BankRefInvRec1.Count();
+                                BankRefHeadRec.Modify();
+                            until BankRefHeadRec.Next() = 0;
+                            // CurrPage.Update();
+                        end;
+                    end;
+
+
                 end;
             }
         }

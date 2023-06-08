@@ -79,6 +79,12 @@ table 50761 BankReferenceHeader
             TableRelation = "Contract/LCMaster"."Contract No" where("Buyer No." = field("Buyer No"), "Status of LC" = filter(Active));
             ValidateTableRelation = false;
         }
+        field(15; "Row Count"; Integer)
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
     }
 
     keys

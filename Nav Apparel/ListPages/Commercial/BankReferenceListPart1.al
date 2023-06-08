@@ -8,6 +8,7 @@ page 50764 "Bank Ref Invoice ListPart1"
     DeleteAllowed = false;
     InsertAllowed = false;
     //Permissions = tabledata "Sales Invoice Header" = rm;
+    // Permissions = tabledata BankReferenceHeader = rimd;
 
 
     layout
@@ -26,14 +27,28 @@ page 50764 "Bank Ref Invoice ListPart1"
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Invoice No';
+                    Visible = false;
                 }
-
+                field("Order No"; Rec."Order No")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Po No';
+                }
+                field("Factory Inv No"; Rec."Factory Inv No")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Factory Inv No';
+                }
                 field("Inv Value"; Rec."Inv Value")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     Caption = 'Ship Value';
+
                 }
+
             }
         }
     }
@@ -64,27 +79,33 @@ page 50764 "Bank Ref Invoice ListPart1"
 
                             BankRefHeadRec.Reset();
                             BankRefHeadRec.SetRange("No.", ContPostedInvRec.BankRefNo);
-                            BankRefHeadRec.FindSet();
+                            if BankRefHeadRec.FindSet() then begin
 
-                            //add new Invoice to the Bankref
-                            BankRefNo1 := ContPostedInvRec.BankRefNo;
-                            BankRefInvRec.Init();
-                            BankRefInvRec.BankRefNo := BankRefHeadRec."BankRefNo.";
-                            BankRefInvRec."No." := ContPostedInvRec.BankRefNo;  //System no series
-                            BankRefInvRec."Invoice No" := ContPostedInvRec."Inv No.";
-                            BankRefInvRec."Ship Value" := ContPostedInvRec."Inv Value";
-                            BankRefInvRec."Invoice Date" := ContPostedInvRec."Inv Date";
-                            BankRefInvRec."Created User" := UserId;
-                            BankRefInvRec."Created Date" := WorkDate();
-                            BankRefInvRec.Insert();
 
-                            //Update Style master contractno
-                            ContPostedInvRec.AssignedBankRefNo := Rec.BankRefNo;
-                            ContPostedInvRec.Modify();
+                                //add new Invoice to the Bankref
+                                BankRefNo1 := ContPostedInvRec.BankRefNo;
+                                BankRefInvRec.Init();
 
+                                BankRefInvRec.BankRefNo := BankRefHeadRec."BankRefNo.";
+                                BankRefInvRec."No." := ContPostedInvRec.BankRefNo;  //System no series
+                                BankRefInvRec."Invoice No" := ContPostedInvRec."Inv No.";
+                                BankRefInvRec."Ship Value" := ContPostedInvRec."Inv Value";
+                                BankRefInvRec."Invoice Date" := ContPostedInvRec."Inv Date";
+                                BankRefInvRec."Order No" := ContPostedInvRec."Order No";
+                                BankRefInvRec."Factory Inv No" := ContPostedInvRec."Factory Inv No";
+                                BankRefInvRec."Created User" := UserId;
+                                BankRefInvRec."Created Date" := WorkDate();
+                                BankRefInvRec.Insert();
+
+
+                                //Update Style master contractno
+                                ContPostedInvRec.AssignedBankRefNo := Rec.BankRefNo;
+                                ContPostedInvRec.Modify();
+                            end;
                         until ContPostedInvRec.Next() = 0;
 
                     end;
+
 
                     //Update Select as false
                     ContPostedInvRec.Reset();
@@ -96,6 +117,20 @@ page 50764 "Bank Ref Invoice ListPart1"
 
                     CodeUnitNav.CalQtyBankRef(BankRefNo1);
                     CurrPage.Update();
+
+
+
+                    BankRefInvRec.Reset();
+                    BankRefInvRec.SetRange("No.", rec.BankRefNo);
+                    if BankRefInvRec.FindSet() then begin
+                        BankRefHeadRec.Reset();
+                        BankRefHeadRec.SetRange("No.", rec.BankRefNo);
+                        if BankRefHeadRec.FindSet() then begin
+                            BankRefHeadRec."Row Count" := BankRefInvRec.Count();
+                            BankRefHeadRec.Modify();
+                            // CurrPage.Update();
+                        end;
+                    end;
                 end;
             }
         }
