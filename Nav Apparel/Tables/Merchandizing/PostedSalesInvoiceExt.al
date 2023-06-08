@@ -1,6 +1,6 @@
 tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Header"
 {
-    
+
     fields
     {
         field(50001; "Style No"; Code[20])
@@ -90,7 +90,18 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
         {
             DataClassification = ToBeClassified;
         }
+        field(50018; "Payment Due Date"; date)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
+    fieldgroups
+    {
+        addlast(DropDown; "Your Reference")
+        { }
+    }
+
+
 }
 
 

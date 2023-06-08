@@ -31,7 +31,10 @@ page 50503 "Contract/LC List"
                 {
                     ApplicationArea = All;
                 }
-
+                field("UD No"; Rec."UD No")
+                {
+                    ApplicationArea = All;
+                }
                 field(Buyer; Rec.Buyer)
                 {
                     ApplicationArea = All;

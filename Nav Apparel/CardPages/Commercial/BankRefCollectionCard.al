@@ -18,6 +18,7 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+
                         BankRefCollLineRec: Record BankRefCollectionLine;
                         BankRefHeaderRec: Record BankReferenceHeader;
                         BankRefInvRec: Record BankReferenceInvoice;
@@ -73,9 +74,12 @@ page 50770 "Bank Ref Collection Card"
                                         BankRefCollLineRec."LineNo." := LineNo;
                                         BankRefCollLineRec."Maturity Date" := BankRefHeaderRec."Maturity Date";
                                         BankRefCollLineRec."Reference Date" := BankRefHeaderRec."Reference Date";
+                                        BankRefCollLineRec."Factory Invoice No" := BankRefInvRec."Factory Inv No";
                                         BankRefCollLineRec.Insert();
                                     until BankRefInvRec.Next() = 0;
                                 end;
+
+
                             end;
 
                             //Assign template 

@@ -27,12 +27,13 @@ page 50771 "Bank Ref Collection ListPart"
                 field(AirwayBillNo; Rec.AirwayBillNo)
                 {
                     ApplicationArea = All;
-                    Caption = 'AirWay Bill No';
+                    Caption = 'BL/AirWay Bill No';
                 }
 
                 field("Airway Bill Date"; Rec."Airway Bill Date")
                 {
                     ApplicationArea = All;
+                    Caption = 'BL/AirWay Bill Date';
                 }
 
                 field("Maturity Date"; Rec."Maturity Date")
@@ -50,10 +51,15 @@ page 50771 "Bank Ref Collection ListPart"
                     ApplicationArea = All;
                 }
 
-
+                field("Factory Invoice No"; Rec."Factory Invoice No")
+                {
+                    ApplicationArea = All;
+                    
+                }
                 field("Invoice No"; Rec."Invoice No")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
 
                 field("Invoice Date"; Rec."Invoice Date")

@@ -44,6 +44,14 @@ table 50762 BankReferenceInvoice
         {
             DataClassification = ToBeClassified;
         }
+        field(9; "Order No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(10; "Factory Inv No"; text[35])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

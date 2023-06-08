@@ -114,6 +114,10 @@ table 50768 BankRefCollectionLine
         {
             DataClassification = ToBeClassified;
         }
+        field(23; "Factory Invoice No"; Text[35])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

@@ -75,7 +75,10 @@ page 50763 "Bank Reference Card"
                     ApplicationArea = All;
                     Caption = 'Airway Bill No';
                 }
-
+                field("Airway Bill Date"; rec."Airway Bill Date")
+                {
+                    ApplicationArea = All;
+                }
                 //Done By Sachith 10/01/23
                 field("Buyer Name"; Rec."Buyer Name")
                 {
@@ -105,6 +108,7 @@ page 50763 "Bank Reference Card"
                         ContractStyleRec: Record "Contract/LCStyle";
                         SalesInvoiceRec: Record "Sales Invoice Header";
                         ContPostedInvRec: Record ContractPostedInvoices;
+                        PayRec: Record "Payment Terms";
                     begin
                         //Validate contract no
                         LCContractRec.Reset();
@@ -114,12 +118,19 @@ page 50763 "Bank Reference Card"
                             Error('Invalid Contract No.')
                         else begin
 
+                            // PayRec.Reset();
+                            // PayRec.SetRange(Code, LCContractRec."Payment Terms (Days) No.");
+                            // if PayRec.FindSet() then begin
+                            //     Rec."Maturity Date" := CalcDate(PayRec."Due Date Calculation", Rec."Airway Bill Date");
+                            // end;
+
                             ContractStyleRec.Reset();
                             ContractStyleRec.SetRange("No.", LCContractRec."No.");
 
                             if ContractStyleRec.FindSet() then begin
 
                                 repeat
+
                                     //Get invoices for the  Style
                                     SalesInvoiceRec.Reset();
                                     SalesInvoiceRec.SetRange("Style No", ContractStyleRec."Style No.");
@@ -128,7 +139,6 @@ page 50763 "Bank Reference Card"
                                     if SalesInvoiceRec.FindSet() then begin
 
                                         repeat
-
                                             //Check duplicates
                                             ContPostedInvRec.Reset();
                                             ContPostedInvRec.SetRange("LC/Contract No.", rec."LC/Contract No.");
@@ -143,6 +153,8 @@ page 50763 "Bank Reference Card"
                                                 ContPostedInvRec."Created User" := UserId;
                                                 ContPostedInvRec."Inv No." := SalesInvoiceRec."No.";
                                                 SalesInvoiceRec.CalcFields(SalesInvoiceRec."Amount Including VAT");
+                                                ContPostedInvRec."Order No" := SalesInvoiceRec."PO No";
+                                                ContPostedInvRec."Factory Inv No" := SalesInvoiceRec."Your Reference";
                                                 ContPostedInvRec."Inv Value" := SalesInvoiceRec."Amount Including VAT";
                                                 ContPostedInvRec."LC/Contract No." := rec."LC/Contract No.";
                                                 ContPostedInvRec."Inv Date" := SalesInvoiceRec."Document Date";
@@ -161,14 +173,11 @@ page 50763 "Bank Reference Card"
                     end;
                 }
 
-                field("Airway Bill Date"; rec."Airway Bill Date")
-                {
-                    ApplicationArea = All;
-                }
 
                 field("Maturity Date"; rec."Maturity Date")
                 {
                     ApplicationArea = All;
+                    // Editable = false;
                 }
 
                 field(Remarks; rec.Remarks)
@@ -180,6 +189,12 @@ page 50763 "Bank Reference Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+                field("Row Count"; Rec."Row Count")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'No of Invoices';
                 }
             }
 
@@ -246,7 +261,15 @@ page 50763 "Bank Reference Card"
         //     //Delete Line records
         //     BankRefeInvRec.Delete();
         // end;
+        BankRefeInvRec.Reset();
+        BankRefeInvRec.SetRange("No.", Rec."No.");
+        if BankRefeInvRec.FindSet() then begin
+            Error('Please Remove Selected Invoices');
+            // BankRefeInvRec."No." := '';
+            // // BankRefeInvRec."Invoice No" := '';
+            // BankRefeInvRec.Modify();
 
+        end;
 
         ContPostedInvRec.Reset();
         ContPostedInvRec.SetRange("BankRefNo", rec."BankRefNo.");
@@ -274,4 +297,7 @@ page 50763 "Bank Reference Card"
             end;
         end;
     end;
+
+    var
+
 }
