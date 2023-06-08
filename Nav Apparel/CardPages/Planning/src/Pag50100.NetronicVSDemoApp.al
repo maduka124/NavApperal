@@ -2855,18 +2855,18 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     StyleMasterPORec.Reset();
                                     StyleMasterPORec.SetRange("Style No.", STY);
                                     StyleMasterPORec.SetRange("Lot No.", LOT);
-                                    StyleMasterPORec.FindSet();
+                                    if StyleMasterPORec.FindSet() then begin
 
-                                    StyleMasterPORec.PlannedStatus := false;
-                                    StyleMasterPORec.QueueQty := 0;
-                                    StyleMasterPORec.Waistage := 0;
-                                    StyleMasterPORec.Modify();
+                                        StyleMasterPORec.PlannedStatus := false;
+                                        StyleMasterPORec.QueueQty := 0;
+                                        StyleMasterPORec.Waistage := 0;
+                                        StyleMasterPORec.Modify();
 
-                                    //Delete from Queue
-                                    PlanningQueueRec.Reset();
-                                    PlanningQueueRec.SetRange("Queue No.", ID);
-                                    PlanningQueueRec.DeleteAll();
-
+                                        //Delete from Queue
+                                        PlanningQueueRec.Reset();
+                                        PlanningQueueRec.SetRange("Queue No.", ID);
+                                        PlanningQueueRec.DeleteAll();
+                                    end;
                                 end
                                 else begin   //Many records in the queue
 
