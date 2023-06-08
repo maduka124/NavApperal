@@ -856,7 +856,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     TempHours := 1;
 
                                                 TempHours := round(TempHours, 1, '>');
-
+                                                //TempHours := round(TempHours, 0.01);
                                             end;
                                         end
                                         else begin  //Hourly
@@ -900,6 +900,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     TempHours := 1;
 
                                                 TempHours := round(TempHours, 1, '>');
+                                                //TempHours := round(TempHours, 0.01);
 
                                             end;
                                         end;
@@ -921,6 +922,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             TempHours := 1;
 
                                         TempHours := round(TempHours, 1, '>');
+                                        // TempHours := round(TempHours, 0.01);
                                     end;
 
                                 end;
