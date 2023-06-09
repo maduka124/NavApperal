@@ -852,11 +852,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 TempHours := TempQty1 / TargetPerHour;
                                                 xQty := TempQty1;
 
-                                                if (TempHours IN [0.0001 .. 0.99]) then
-                                                    TempHours := 1;
+                                                // if (TempHours IN [0.0001 .. 0.99]) then
+                                                //     TempHours := 1;
 
-                                                TempHours := round(TempHours, 1, '>');
-                                                //TempHours := round(TempHours, 0.01);
+                                                //TempHours := round(TempHours, 1, '>');  
+                                                TempHours := round(TempHours, 0.01);
                                             end;
                                         end
                                         else begin  //Hourly
@@ -896,11 +896,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                 TempQty := TempQty + TempQty1;
                                                 TempHours := TempQty1 / TargetPerHour;
 
-                                                if (TempHours IN [0.0001 .. 0.99]) then
-                                                    TempHours := 1;
+                                                // if (TempHours IN [0.0001 .. 0.99]) then
+                                                //     TempHours := 1;
 
-                                                TempHours := round(TempHours, 1, '>');
-                                                //TempHours := round(TempHours, 0.01);
+                                                // TempHours := round(TempHours, 1, '>');
+                                                TempHours := round(TempHours, 0.01);
 
                                             end;
                                         end;
@@ -918,11 +918,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                         TempHours := TempQty1 / TargetPerHour;
                                         xQty := TempQty1;
 
-                                        if (TempHours IN [0.0001 .. 0.99]) then
-                                            TempHours := 1;
+                                        // if (TempHours IN [0.0001 .. 0.99]) then
+                                        //     TempHours := 1;
 
-                                        TempHours := round(TempHours, 1, '>');
-                                        // TempHours := round(TempHours, 0.01);
+                                        // TempHours := round(TempHours, 1, '>');
+                                        TempHours := round(TempHours, 0.01);
                                     end;
 
                                 end;
@@ -1432,10 +1432,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                             TempHours := TempQty1 / TargetPerHour;
                                                             xQty := TempQty1;
 
-                                                            if (TempHours IN [0.0001 .. 0.99]) then
-                                                                TempHours := 1;
+                                                            // if (TempHours IN [0.0001 .. 0.99]) then
+                                                            //     TempHours := 1;
 
-                                                            TempHours := round(TempHours, 1, '>');
+                                                            // TempHours := round(TempHours, 1, '>');
+                                                            TempHours := round(TempHours, 0.01);
 
                                                         end;
                                                     end
@@ -1451,10 +1452,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                             TempHours := TempQty1 / TargetPerHour;
                                                             xQty := TempQty1;
 
-                                                            if (TempHours IN [0.0001 .. 0.99]) then
-                                                                TempHours := 1;
+                                                            // if (TempHours IN [0.0001 .. 0.99]) then
+                                                            //     TempHours := 1;
 
-                                                            TempHours := round(TempHours, 1, '>');
+                                                            // TempHours := round(TempHours, 1, '>');
+                                                            TempHours := round(TempHours, 0.01);
                                                         end;
 
                                                     end;
@@ -1983,10 +1985,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             TempHours := TempQty1 / TargetPerHour;
                                             xQty := TempQty1;
 
-                                            if (TempHours IN [0.0001 .. 0.99]) then
-                                                TempHours := 1;
+                                            // if (TempHours IN [0.0001 .. 0.99]) then
+                                            //     TempHours := 1;
 
-                                            TempHours := round(TempHours, 1, '>');
+                                            // TempHours := round(TempHours, 1, '>');
+                                            TempHours := round(TempHours, 0.01);
 
                                         end;
                                     end
@@ -2027,10 +2030,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                             TempQty := TempQty + TempQty1;
                                             TempHours := TempQty1 / TargetPerHour;
 
-                                            if (TempHours IN [0.0001 .. 0.99]) then
-                                                TempHours := 1;
+                                            // if (TempHours IN [0.0001 .. 0.99]) then
+                                            //     TempHours := 1;
 
-                                            TempHours := round(TempHours, 1, '>');
+                                            // TempHours := round(TempHours, 1, '>');
+                                            TempHours := round(TempHours, 0.01);
 
                                         end;
                                     end;
@@ -2048,10 +2052,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                     TempHours := TempQty1 / TargetPerHour;
                                     xQty := TempQty1;
 
-                                    if (TempHours IN [0.0001 .. 0.99]) then
-                                        TempHours := 1;
+                                    // if (TempHours IN [0.0001 .. 0.99]) then
+                                    //     TempHours := 1;
 
-                                    TempHours := round(TempHours, 1, '>');
+                                    // TempHours := round(TempHours, 1, '>');
+                                    TempHours := round(TempHours, 0.01);
                                 end;
 
                             end;
@@ -2534,10 +2539,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     TempHours := TempQty1 / TargetPerHour;
                                                     xQty := TempQty1;
 
-                                                    if (TempHours IN [0.0001 .. 0.99]) then
-                                                        TempHours := 1;
+                                                    // if (TempHours IN [0.0001 .. 0.99]) then
+                                                    //     TempHours := 1;
 
-                                                    TempHours := round(TempHours, 1, '>');
+                                                    // TempHours := round(TempHours, 1, '>');
+                                                    TempHours := round(TempHours, 0.01);
 
                                                 end;
                                             end
@@ -2553,10 +2559,11 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                                     TempHours := TempQty1 / TargetPerHour;
                                                     xQty := TempQty1;
 
-                                                    if (TempHours IN [0.0001 .. 0.99]) then
-                                                        TempHours := 1;
+                                                    // if (TempHours IN [0.0001 .. 0.99]) then
+                                                    //     TempHours := 1;
 
-                                                    TempHours := round(TempHours, 1, '>');
+                                                    // TempHours := round(TempHours, 1, '>');
+                                                    TempHours := round(TempHours, 0.01);
                                                 end;
 
                                             end;

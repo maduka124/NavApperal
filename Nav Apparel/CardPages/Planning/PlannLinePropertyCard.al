@@ -509,7 +509,8 @@ page 50343 "Planning Line Property Card"
                                         if (TempHours IN [0.0001 .. 0.99]) then
                                             TempHours := 1;
 
-                                        TempHours := round(TempHours, 1, '>');
+                                        // TempHours := round(TempHours, 1, '>');
+                                        TempHours := round(TempHours, 0.01);
 
                                     end;
                                 end
@@ -553,7 +554,8 @@ page 50343 "Planning Line Property Card"
                                         if (TempHours IN [0.0001 .. 0.99]) then
                                             TempHours := 1;
 
-                                        TempHours := round(TempHours, 1, '>');
+                                        // TempHours := round(TempHours, 1, '>');
+                                        TempHours := round(TempHours, 0.01);
 
                                     end;
                                 end;
@@ -574,7 +576,8 @@ page 50343 "Planning Line Property Card"
                                 if (TempHours IN [0.0001 .. 0.99]) then
                                     TempHours := 1;
 
-                                TempHours := round(TempHours, 1, '>');
+                                // TempHours := round(TempHours, 1, '>');
+                                TempHours := round(TempHours, 0.01);
                             end;
 
                         end;
@@ -1066,7 +1069,8 @@ page 50343 "Planning Line Property Card"
                                                         if (TempHours IN [0.0001 .. 0.99]) then
                                                             TempHours := 1;
 
-                                                        TempHours := round(TempHours, 1, '>');
+                                                        // TempHours := round(TempHours, 1, '>');
+                                                        TempHours := round(TempHours, 0.01);
                                                     end;
                                                 end
                                                 else begin  //Hourly
@@ -1105,7 +1109,8 @@ page 50343 "Planning Line Property Card"
                                                         if (TempHours IN [0.0001 .. 0.99]) then
                                                             TempHours := 1;
 
-                                                        TempHours := round(TempHours, 1, '>');
+                                                        // TempHours := round(TempHours, 1, '>');
+                                                        TempHours := round(TempHours, 0.01);
                                                     end;
                                                 end;
                                             end;
@@ -1124,7 +1129,8 @@ page 50343 "Planning Line Property Card"
                                                 if (TempHours IN [0.0001 .. 0.99]) then
                                                     TempHours := 1;
 
-                                                TempHours := round(TempHours, 1, '>');
+                                                // TempHours := round(TempHours, 1, '>');
+                                                TempHours := round(TempHours, 0.01);
                                             end;
                                         end;
 

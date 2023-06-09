@@ -413,7 +413,10 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
                   '<br>Plan Qty : ' + FORMAT(lrecJobPlanningLine.Qty) +
                   '<br>BPCD : ' + FORMAT(StyleMasPoRec.BPCD) +
                   '<br>SMV : ' + FORMAT(lrecJobPlanningLine.SMV) +
+                  '<br>MC : ' + FORMAT(lrecJobPlanningLine.Carder) +
+                  '<br>Plan Eff% : ' + FORMAT(lrecJobPlanningLine.Eff) +
                   '<br>Learning Curve : ' + FORMAT(lrecJobPlanningLine."Learning Curve No.") +
+                  '<br>PBCD : ' + FORMAT(StyleMasPoRec.BPCD) +
                   '<br>Start D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."Start Date", lrecJobPlanningLine."Start Time")) +
                   '<br>Finish D/T : ' + FORMAT(CREATEDATETIME(lrecJobPlanningLine."End Date", lrecJobPlanningLine."Finish Time")) +
                   '<br>Ship Date : ' + FORMAT(CreateDateTime(ShiDate, 0T)));
