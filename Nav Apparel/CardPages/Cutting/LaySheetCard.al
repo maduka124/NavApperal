@@ -276,12 +276,30 @@ page 50656 "LaySheetCard"
                 {
                     ApplicationArea = All;
                     Caption = 'Component Group';
+
+                    trigger OnValidate()
+                    var
+                        MarkerCategoryRec: Record MarkerCategory;
+                    begin
+                        MarkerCategoryRec.Reset();
+                        MarkerCategoryRec.SetRange("Marker Category", rec."Component Group Name");
+                        if MarkerCategoryRec.FindSet() then
+                            rec."Component Group Code" := MarkerCategoryRec."No.";
+                    end;
                 }
 
                 field("Marker Name"; rec."Marker Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Marker';
+                }
+
+                field(TotalPies; rec.TotalPies)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Total Plies';
+                    Editable = false;
+                    DecimalPlaces = 0;
                 }
 
                 // field("Item Name"; rec."Item Name")
@@ -391,10 +409,6 @@ page 50656 "LaySheetCard"
         BundleGuideRec: Record BundleGuideHeader;
         UserRec: Record "User Setup";
     begin
-
-        //Done By sachith on 06/04/23
-        UserRec.Reset();
-        UserRec.Get(UserId);
 
         UserRec.Reset();
         UserRec.Get(UserId);

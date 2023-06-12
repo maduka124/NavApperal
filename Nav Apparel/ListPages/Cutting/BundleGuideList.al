@@ -31,16 +31,16 @@ page 50666 "Bundle Guide List"
                     Caption = 'LaySheet No';
                 }
 
-                field("Color Name"; Rec."Color Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Color';
-                }
+                // field("Color Name"; Rec."Color Name")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Color';
+                // }
 
-                field("Group ID"; Rec."Group ID")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Group ID"; Rec."Group ID")
+                // {
+                //     ApplicationArea = All;
+                // }
 
                 field("Component Group"; Rec."Component Group")
                 {

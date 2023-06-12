@@ -3,8 +3,10 @@ page 50655 "Lay Sheet Line4"
     PageType = ListPart;
     SourceTable = LaySheetLine4;
     SourceTableView = sorting("LaySheetNo.", "Line No.");
-    InsertAllowed = false;
-    DeleteAllowed = false;
+    InsertAllowed = true;
+    DeleteAllowed = true;
+    ModifyAllowed = true;
+    AutoSplitKey = true;
 
     layout
     {
@@ -76,6 +78,27 @@ page 50655 "Lay Sheet Line4"
                 {
                     ApplicationArea = All;
                     Caption = 'Plies';
+
+                    trigger OnValidate()
+                    var
+                        LaysheetRec: Record LaySheetHeader;
+                        LaysheetLine4Rec: Record LaySheetLine4;
+                        Tot: Decimal;
+                    begin
+                        CurrPage.Update();
+                        LaysheetLine4Rec.Reset();
+                        LaysheetLine4Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                        if LaysheetLine4Rec.FindSet() then begin
+                            repeat
+                                Tot += LaysheetLine4Rec."Actual Plies";
+                            until LaysheetLine4Rec.Next() = 0;
+                        end;
+
+                        LaysheetRec.Reset();
+                        LaysheetRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                        if LaysheetRec.FindSet() then
+                            LaysheetRec.ModifyAll(TotalPies, Tot);
+                    end;
                 }
 
                 // field(Damages; Rec.Damages)
@@ -114,4 +137,33 @@ page 50655 "Lay Sheet Line4"
             }
         }
     }
+
+    trigger OnDeleteRecord(): Boolean
+    var
+        LaysheetRec: Record LaySheetHeader;
+        LaysheetLine4Rec: Record LaySheetLine4;
+        Tot: Decimal;
+    begin
+        LaysheetLine4Rec.Reset();
+        LaysheetLine4Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        LaysheetLine4Rec.SetRange("Line No.", rec."Line No.");
+        if LaysheetLine4Rec.FindSet() then
+            LaysheetLine4Rec.Delete();
+
+        CurrPage.Update();
+
+        LaysheetLine4Rec.Reset();
+        LaysheetLine4Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        if LaysheetLine4Rec.FindSet() then begin
+            repeat
+                Tot += LaysheetLine4Rec."Actual Plies";
+            until LaysheetLine4Rec.Next() = 0;
+        end;
+
+        LaysheetRec.Reset();
+        LaysheetRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        if LaysheetRec.FindSet() then
+            LaysheetRec.ModifyAll(TotalPies, Tot);
+
+    end;
 }

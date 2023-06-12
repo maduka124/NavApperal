@@ -30,7 +30,7 @@ page 50665 "Bundle Guide Card"
                     ApplicationArea = All;
                     Caption = 'LaySheet No';
 
-                    trigger OnValidate()
+                    trigger OnLookup(var texts: text): Boolean
                     var
                         LaySheetHeaderRec: Record LaySheetHeader;
                         LoginSessionsRec: Record LoginSessions;
@@ -61,23 +61,39 @@ page 50665 "Bundle Guide Card"
                         else
                             Error('Factory not assigned for the user.');
 
-                        LaySheetHeaderRec.Reset();
-                        LaySheetHeaderRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
-                        if LaySheetHeaderRec.FindSet() then begin
-                            rec."Color Name" := LaySheetHeaderRec.Color;
-                            rec."Color No" := LaySheetHeaderRec."Color No.";
-                            rec."Style Name" := LaySheetHeaderRec."Style Name";
-                            rec."Style No." := LaySheetHeaderRec."Style No.";
-                            rec."Group ID" := LaySheetHeaderRec."Group ID";
-                            rec."PO No." := LaySheetHeaderRec."PO No.";
-                            rec."Component Group" := LaySheetHeaderRec."Component Group Code";
-                            rec."Cut No New" := LaySheetHeaderRec."Cut No New";
-                        end
-                        else
-                            Error('Invalid Layshhet No.');
+                        LaySheetHeaderRec.RESET;
+                        LaySheetHeaderRec.SetCurrentKey("LaySheetNo.");
+                        LaySheetHeaderRec.Ascending(false);
+                        LaySheetHeaderRec.SetRange("Factory Code", rec."Factory Code");
 
-                        CurrPage.Update();
-                    end;
+                        IF LaySheetHeaderRec.FINDFIRST THEN BEGIN
+                            REPEAT
+                                LaySheetHeaderRec.MARK(TRUE);
+                            UNTIL LaySheetHeaderRec.NEXT = 0;
+                            LaySheetHeaderRec.MARKEDONLY(TRUE);
+
+                            if Page.RunModal(51320, LaySheetHeaderRec) = Action::LookupOK then begin
+                                rec."LaySheetNo." := LaySheetHeaderRec."LaySheetNo.";
+
+                                LaySheetHeaderRec.Reset();
+                                LaySheetHeaderRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+                                if LaySheetHeaderRec.FindSet() then begin
+                                    // rec."Color Name" := LaySheetHeaderRec.Color;
+                                    // rec."Color No" := LaySheetHeaderRec."Color No.";
+                                    rec."Style Name" := LaySheetHeaderRec."Style Name";
+                                    rec."Style No." := LaySheetHeaderRec."Style No.";
+                                    // rec."Group ID" := LaySheetHeaderRec."Group ID";
+                                    rec."PO No." := LaySheetHeaderRec."PO No.";
+                                    rec."Component Group" := LaySheetHeaderRec."Component Group Name";
+                                    rec."Cut No New" := LaySheetHeaderRec."Cut No New";
+                                end
+                                else
+                                    Error('Invalid Layshhet No.');
+
+                                CurrPage.Update();
+                            end;
+                        END;
+                    END;
                 }
 
                 field("Style Name"; rec."Style Name")
@@ -207,6 +223,7 @@ page 50665 "Bundle Guide Card"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Cut No';
                 }
 
                 field("Bundle Rule"; rec."Bundle Rule")
@@ -421,355 +438,419 @@ page 50665 "Bundle Guide Card"
                                     1:
                                         if LaySheetLine1Rec."1" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."1");
-                                            Evaluate(Ratio, LaySheetLine2Rec."1");
+                                            if LaySheetLine2Rec."1" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."1");
                                         end;
 
                                     2:
                                         if LaySheetLine1Rec."2" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."2");
-                                            Evaluate(Ratio, LaySheetLine2Rec."2");
+                                            if LaySheetLine2Rec."2" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."2");
                                         end;
                                     3:
                                         if LaySheetLine1Rec."3" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."3");
-                                            Evaluate(Ratio, LaySheetLine2Rec."3");
+                                            if LaySheetLine2Rec."3" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."3");
                                         end;
 
                                     4:
                                         if LaySheetLine1Rec."4" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."4");
-                                            Evaluate(Ratio, LaySheetLine2Rec."4");
+                                            if LaySheetLine2Rec."4" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."4");
                                         end;
                                     5:
                                         if LaySheetLine1Rec."5" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."5");
-                                            Evaluate(Ratio, LaySheetLine2Rec."5");
+                                            if LaySheetLine2Rec."5" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."5");
                                         end;
 
                                     6:
                                         if LaySheetLine1Rec."6" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."6");
-                                            Evaluate(Ratio, LaySheetLine2Rec."6");
+                                            if LaySheetLine2Rec."6" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."6");
                                         end;
                                     7:
                                         if LaySheetLine1Rec."7" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."7");
-                                            Evaluate(Ratio, LaySheetLine2Rec."7");
+                                            if LaySheetLine2Rec."7" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."7");
                                         end;
 
                                     8:
                                         if LaySheetLine1Rec."8" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."8");
-                                            Evaluate(Ratio, LaySheetLine2Rec."8");
+                                            if LaySheetLine2Rec."8" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."8");
                                         end;
                                     9:
                                         if LaySheetLine1Rec."9" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."9");
-                                            Evaluate(Ratio, LaySheetLine2Rec."9");
+                                            if LaySheetLine2Rec."9" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."9");
                                         end;
 
                                     10:
                                         if LaySheetLine1Rec."10" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."10");
-                                            Evaluate(Ratio, LaySheetLine2Rec."10");
+                                            if LaySheetLine2Rec."10" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."10");
                                         end;
 
                                     11:
                                         if LaySheetLine1Rec."11" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."11");
-                                            Evaluate(Ratio, LaySheetLine2Rec."11");
+                                            if LaySheetLine2Rec."11" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."11");
                                         end;
 
                                     12:
                                         if LaySheetLine1Rec."12" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."12");
-                                            Evaluate(Ratio, LaySheetLine2Rec."12");
+                                            if LaySheetLine2Rec."12" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."12");
                                         end;
                                     13:
                                         if LaySheetLine1Rec."13" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."13");
-                                            Evaluate(Ratio, LaySheetLine2Rec."13");
+                                            if LaySheetLine2Rec."13" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."13");
                                         end;
 
                                     14:
                                         if LaySheetLine1Rec."14" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."14");
-                                            Evaluate(Ratio, LaySheetLine2Rec."14");
+                                            if LaySheetLine2Rec."4" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."14");
                                         end;
                                     15:
                                         if LaySheetLine1Rec."15" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."15");
-                                            Evaluate(Ratio, LaySheetLine2Rec."15");
+                                            if LaySheetLine2Rec."15" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."15");
                                         end;
 
                                     16:
                                         if LaySheetLine1Rec."16" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."16");
-                                            Evaluate(Ratio, LaySheetLine2Rec."16");
+                                            if LaySheetLine2Rec."16" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."16");
                                         end;
                                     17:
                                         if LaySheetLine1Rec."17" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."17");
-                                            Evaluate(Ratio, LaySheetLine2Rec."17");
+                                            if LaySheetLine2Rec."17" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."17");
                                         end;
 
                                     18:
                                         if LaySheetLine1Rec."18" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."18");
-                                            Evaluate(Ratio, LaySheetLine2Rec."18");
+                                            if LaySheetLine2Rec."18" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."18");
                                         end;
                                     19:
                                         if LaySheetLine1Rec."19" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."19");
-                                            Evaluate(Ratio, LaySheetLine2Rec."19");
+                                            if LaySheetLine2Rec."19" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."19");
                                         end;
 
                                     20:
                                         if LaySheetLine1Rec."20" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."20");
-                                            Evaluate(Ratio, LaySheetLine2Rec."20");
+                                            if LaySheetLine2Rec."20" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."20");
                                         end;
                                     21:
                                         if LaySheetLine1Rec."21" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."21");
-                                            Evaluate(Ratio, LaySheetLine2Rec."21");
+                                            if LaySheetLine2Rec."21" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."21");
                                         end;
 
                                     22:
                                         if LaySheetLine1Rec."22" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."22");
-                                            Evaluate(Ratio, LaySheetLine2Rec."22");
+                                            if LaySheetLine2Rec."22" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."22");
                                         end;
                                     23:
                                         if LaySheetLine1Rec."23" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."23");
-                                            Evaluate(Ratio, LaySheetLine2Rec."23");
+                                            if LaySheetLine2Rec."23" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."23");
                                         end;
 
                                     24:
                                         if LaySheetLine1Rec."24" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."24");
-                                            Evaluate(Ratio, LaySheetLine2Rec."24");
+                                            if LaySheetLine2Rec."24" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."24");
                                         end;
                                     25:
                                         if LaySheetLine1Rec."25" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."25");
-                                            Evaluate(Ratio, LaySheetLine2Rec."25");
+                                            if LaySheetLine2Rec."25" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."25");
                                         end;
 
                                     26:
                                         if LaySheetLine1Rec."26" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."26");
-                                            Evaluate(Ratio, LaySheetLine2Rec."26");
+                                            if LaySheetLine2Rec."26" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."26");
                                         end;
                                     27:
                                         if LaySheetLine1Rec."27" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."27");
-                                            Evaluate(Ratio, LaySheetLine2Rec."27");
+                                            if LaySheetLine2Rec."27" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."27");
                                         end;
 
                                     28:
                                         if LaySheetLine1Rec."28" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."28");
-                                            Evaluate(Ratio, LaySheetLine2Rec."28");
+                                            if LaySheetLine2Rec."28" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."28");
                                         end;
                                     29:
                                         if LaySheetLine1Rec."29" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."29");
-                                            Evaluate(Ratio, LaySheetLine2Rec."29");
+                                            if LaySheetLine2Rec."29" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."29");
                                         end;
 
                                     30:
                                         if LaySheetLine1Rec."30" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."30");
-                                            Evaluate(Ratio, LaySheetLine2Rec."30");
+                                            if LaySheetLine2Rec."30" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."30");
                                         end;
                                     31:
                                         if LaySheetLine1Rec."31" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."31");
-                                            Evaluate(Ratio, LaySheetLine2Rec."31");
+                                            if LaySheetLine2Rec."31" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."31");
                                         end;
 
                                     32:
                                         if LaySheetLine1Rec."32" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."32");
-                                            Evaluate(Ratio, LaySheetLine2Rec."32");
+                                            if LaySheetLine2Rec."32" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."32");
                                         end;
                                     33:
                                         if LaySheetLine1Rec."33" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."33");
-                                            Evaluate(Ratio, LaySheetLine2Rec."33");
+                                            if LaySheetLine2Rec."33" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."33");
                                         end;
 
                                     34:
                                         if LaySheetLine1Rec."34" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."34");
-                                            Evaluate(Ratio, LaySheetLine2Rec."34");
+                                            if LaySheetLine2Rec."34" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."34");
                                         end;
                                     35:
                                         if LaySheetLine1Rec."35" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."35");
-                                            Evaluate(Ratio, LaySheetLine2Rec."35");
+                                            if LaySheetLine2Rec."35" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."35");
                                         end;
 
                                     36:
                                         if LaySheetLine1Rec."36" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."36");
-                                            Evaluate(Ratio, LaySheetLine2Rec."36");
+                                            if LaySheetLine2Rec."36" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."36");
                                         end;
                                     37:
                                         if LaySheetLine1Rec."37" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."37");
-                                            Evaluate(Ratio, LaySheetLine2Rec."37");
+                                            if LaySheetLine2Rec."37" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."37");
                                         end;
 
                                     38:
                                         if LaySheetLine1Rec."38" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."38");
-                                            Evaluate(Ratio, LaySheetLine2Rec."38");
+                                            if LaySheetLine2Rec."38" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."38");
                                         end;
                                     39:
                                         if LaySheetLine1Rec."39" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."39");
-                                            Evaluate(Ratio, LaySheetLine2Rec."39");
+                                            if LaySheetLine2Rec."39" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."39");
                                         end;
 
                                     40:
                                         if LaySheetLine1Rec."40" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."40");
-                                            Evaluate(Ratio, LaySheetLine2Rec."40");
+                                            if LaySheetLine2Rec."40" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."40");
                                         end;
                                     41:
                                         if LaySheetLine1Rec."41" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."41");
-                                            Evaluate(Ratio, LaySheetLine2Rec."41");
+                                            if LaySheetLine2Rec."41" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."41");
                                         end;
 
                                     42:
                                         if LaySheetLine1Rec."42" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."42");
-                                            Evaluate(Ratio, LaySheetLine2Rec."42");
+                                            if LaySheetLine2Rec."42" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."42");
                                         end;
                                     43:
                                         if LaySheetLine1Rec."43" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."43");
-                                            Evaluate(Ratio, LaySheetLine2Rec."43");
+                                            if LaySheetLine2Rec."43" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."43");
                                         end;
 
                                     44:
                                         if LaySheetLine1Rec."44" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."44");
-                                            Evaluate(Ratio, LaySheetLine2Rec."44");
+                                            if LaySheetLine2Rec."44" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."44");
                                         end;
                                     45:
                                         if LaySheetLine1Rec."45" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."45");
-                                            Evaluate(Ratio, LaySheetLine2Rec."45");
+                                            if LaySheetLine2Rec."45" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."45");
                                         end;
 
                                     46:
                                         if LaySheetLine1Rec."46" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."46");
-                                            Evaluate(Ratio, LaySheetLine2Rec."46");
+                                            if LaySheetLine2Rec."46" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."46");
                                         end;
                                     47:
                                         if LaySheetLine1Rec."47" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."47");
-                                            Evaluate(Ratio, LaySheetLine2Rec."47");
+                                            if LaySheetLine2Rec."47" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."47");
                                         end;
 
                                     48:
                                         if LaySheetLine1Rec."48" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."48");
-                                            Evaluate(Ratio, LaySheetLine2Rec."48");
+                                            if LaySheetLine2Rec."48" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."48");
                                         end;
                                     49:
                                         if LaySheetLine1Rec."49" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."49");
-                                            Evaluate(Ratio, LaySheetLine2Rec."49");
+                                            if LaySheetLine2Rec."49" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."49");
                                         end;
 
                                     50:
                                         if LaySheetLine1Rec."50" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."50");
-                                            Evaluate(Ratio, LaySheetLine2Rec."50");
+                                            if LaySheetLine2Rec."50" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."50");
                                         end;
                                     51:
                                         if LaySheetLine1Rec."51" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."51");
-                                            Evaluate(Ratio, LaySheetLine2Rec."51");
+                                            if LaySheetLine2Rec."51" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."51");
                                         end;
 
                                     52:
                                         if LaySheetLine1Rec."52" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."52");
-                                            Evaluate(Ratio, LaySheetLine2Rec."52");
+                                            if LaySheetLine2Rec."52" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."52");
                                         end;
                                     53:
                                         if LaySheetLine1Rec."53" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."53");
-                                            Evaluate(Ratio, LaySheetLine2Rec."53");
+                                            if LaySheetLine2Rec."53" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."53");
                                         end;
 
                                     54:
                                         if LaySheetLine1Rec."54" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."54");
-                                            Evaluate(Ratio, LaySheetLine2Rec."54");
+                                            if LaySheetLine2Rec."54" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."54");
                                         end;
                                     55:
                                         if LaySheetLine1Rec."55" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."55");
-                                            Evaluate(Ratio, LaySheetLine2Rec."55");
+                                            if LaySheetLine2Rec."55" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."55");
                                         end;
 
                                     56:
                                         if LaySheetLine1Rec."56" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."56");
-                                            Evaluate(Ratio, LaySheetLine2Rec."56");
+                                            if LaySheetLine2Rec."56" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."56");
                                         end;
                                     57:
                                         if LaySheetLine1Rec."57" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."57");
-                                            Evaluate(Ratio, LaySheetLine2Rec."57");
+                                            if LaySheetLine2Rec."57" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."57");
                                         end;
 
                                     58:
                                         if LaySheetLine1Rec."58" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."58");
-                                            Evaluate(Ratio, LaySheetLine2Rec."58");
+                                            if LaySheetLine2Rec."58" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."58");
                                         end;
                                     59:
                                         if LaySheetLine1Rec."59" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."59");
-                                            Evaluate(Ratio, LaySheetLine2Rec."59");
+                                            if LaySheetLine2Rec."59" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."59");
                                         end;
 
                                     60:
                                         if LaySheetLine1Rec."60" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."60");
-                                            Evaluate(Ratio, LaySheetLine2Rec."60");
+                                            if LaySheetLine2Rec."60" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."60");
                                         end;
                                     61:
                                         if LaySheetLine1Rec."61" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."61");
-                                            Evaluate(Ratio, LaySheetLine2Rec."61");
+                                            if LaySheetLine2Rec."61" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."61");
                                         end;
 
                                     62:
                                         if LaySheetLine1Rec."62" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."62");
-                                            Evaluate(Ratio, LaySheetLine2Rec."62");
+                                            if LaySheetLine2Rec."62" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."62");
                                         end;
                                     63:
                                         if LaySheetLine1Rec."63" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."63");
-                                            Evaluate(Ratio, LaySheetLine2Rec."63");
+                                            if LaySheetLine2Rec."63" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."63");
                                         end;
 
                                     64:
                                         if LaySheetLine1Rec."64" <> '' then begin
                                             Evaluate(Size, LaySheetLine1Rec."64");
-                                            Evaluate(Ratio, LaySheetLine2Rec."64");
+                                            if LaySheetLine2Rec."64" <> '' then
+                                                Evaluate(Ratio, LaySheetLine2Rec."64");
                                         end;
                                 end;
 
@@ -802,8 +883,8 @@ page 50665 "Bundle Guide Card"
                                                 BundleGuideLineRec.Init();
                                                 BundleGuideLineRec."Bundle No" := BundleNo;
                                                 BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                BundleGuideLineRec."Color Name" := rec."Color Name";
-                                                BundleGuideLineRec."Color No" := rec."Color No";
+                                                BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
                                                 BundleGuideLineRec."Created Date" := Today;
                                                 BundleGuideLineRec."Created User" := UserId;
                                                 BundleGuideLineRec."Cut No New" := rec."Cut No New";
@@ -846,8 +927,8 @@ page 50665 "Bundle Guide Card"
                                                 BundleGuideLineRec.Init();
                                                 BundleGuideLineRec."Bundle No" := BundleNo;
                                                 BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                BundleGuideLineRec."Color Name" := rec."Color Name";
-                                                BundleGuideLineRec."Color No" := rec."Color No";
+                                                BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
                                                 BundleGuideLineRec."Created Date" := Today;
                                                 BundleGuideLineRec."Created User" := UserId;
                                                 BundleGuideLineRec."Cut No New" := rec."Cut No New";
@@ -928,355 +1009,419 @@ page 50665 "Bundle Guide Card"
                                         1:
                                             if LaySheetLine1Rec."1" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."1");
-                                                Evaluate(Ratio, LaySheetLine2Rec."1");
+                                                if LaySheetLine2Rec."1" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."1");
                                             end;
 
                                         2:
                                             if LaySheetLine1Rec."2" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."2");
-                                                Evaluate(Ratio, LaySheetLine2Rec."2");
+                                                if LaySheetLine2Rec."2" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."2");
                                             end;
                                         3:
                                             if LaySheetLine1Rec."3" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."3");
-                                                Evaluate(Ratio, LaySheetLine2Rec."3");
+                                                if LaySheetLine2Rec."3" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."3");
                                             end;
 
                                         4:
                                             if LaySheetLine1Rec."4" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."4");
-                                                Evaluate(Ratio, LaySheetLine2Rec."4");
+                                                if LaySheetLine2Rec."4" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."4");
                                             end;
                                         5:
                                             if LaySheetLine1Rec."5" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."5");
-                                                Evaluate(Ratio, LaySheetLine2Rec."5");
+                                                if LaySheetLine2Rec."5" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."5");
                                             end;
 
                                         6:
                                             if LaySheetLine1Rec."6" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."6");
-                                                Evaluate(Ratio, LaySheetLine2Rec."6");
+                                                if LaySheetLine2Rec."6" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."6");
                                             end;
                                         7:
                                             if LaySheetLine1Rec."7" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."7");
-                                                Evaluate(Ratio, LaySheetLine2Rec."7");
+                                                if LaySheetLine2Rec."7" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."7");
                                             end;
 
                                         8:
                                             if LaySheetLine1Rec."8" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."8");
-                                                Evaluate(Ratio, LaySheetLine2Rec."8");
+                                                if LaySheetLine2Rec."8" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."8");
                                             end;
                                         9:
                                             if LaySheetLine1Rec."9" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."9");
-                                                Evaluate(Ratio, LaySheetLine2Rec."9");
+                                                if LaySheetLine2Rec."9" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."9");
                                             end;
 
                                         10:
                                             if LaySheetLine1Rec."10" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."10");
-                                                Evaluate(Ratio, LaySheetLine2Rec."10");
+                                                if LaySheetLine2Rec."10" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."10");
                                             end;
 
                                         11:
                                             if LaySheetLine1Rec."11" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."11");
-                                                Evaluate(Ratio, LaySheetLine2Rec."11");
+                                                if LaySheetLine2Rec."11" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."11");
                                             end;
 
                                         12:
                                             if LaySheetLine1Rec."12" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."12");
-                                                Evaluate(Ratio, LaySheetLine2Rec."12");
+                                                if LaySheetLine2Rec."12" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."12");
                                             end;
                                         13:
                                             if LaySheetLine1Rec."13" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."13");
-                                                Evaluate(Ratio, LaySheetLine2Rec."13");
+                                                if LaySheetLine2Rec."13" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."13");
                                             end;
 
                                         14:
                                             if LaySheetLine1Rec."14" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."14");
-                                                Evaluate(Ratio, LaySheetLine2Rec."14");
+                                                if LaySheetLine2Rec."4" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."14");
                                             end;
                                         15:
                                             if LaySheetLine1Rec."15" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."15");
-                                                Evaluate(Ratio, LaySheetLine2Rec."15");
+                                                if LaySheetLine2Rec."15" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."15");
                                             end;
 
                                         16:
                                             if LaySheetLine1Rec."16" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."16");
-                                                Evaluate(Ratio, LaySheetLine2Rec."16");
+                                                if LaySheetLine2Rec."16" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."16");
                                             end;
                                         17:
                                             if LaySheetLine1Rec."17" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."17");
-                                                Evaluate(Ratio, LaySheetLine2Rec."17");
+                                                if LaySheetLine2Rec."17" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."17");
                                             end;
 
                                         18:
                                             if LaySheetLine1Rec."18" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."18");
-                                                Evaluate(Ratio, LaySheetLine2Rec."18");
+                                                if LaySheetLine2Rec."18" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."18");
                                             end;
                                         19:
                                             if LaySheetLine1Rec."19" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."19");
-                                                Evaluate(Ratio, LaySheetLine2Rec."19");
+                                                if LaySheetLine2Rec."19" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."19");
                                             end;
 
                                         20:
                                             if LaySheetLine1Rec."20" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."20");
-                                                Evaluate(Ratio, LaySheetLine2Rec."20");
+                                                if LaySheetLine2Rec."20" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."20");
                                             end;
                                         21:
                                             if LaySheetLine1Rec."21" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."21");
-                                                Evaluate(Ratio, LaySheetLine2Rec."21");
+                                                if LaySheetLine2Rec."21" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."21");
                                             end;
 
                                         22:
                                             if LaySheetLine1Rec."22" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."22");
-                                                Evaluate(Ratio, LaySheetLine2Rec."22");
+                                                if LaySheetLine2Rec."22" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."22");
                                             end;
                                         23:
                                             if LaySheetLine1Rec."23" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."23");
-                                                Evaluate(Ratio, LaySheetLine2Rec."23");
+                                                if LaySheetLine2Rec."23" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."23");
                                             end;
 
                                         24:
                                             if LaySheetLine1Rec."24" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."24");
-                                                Evaluate(Ratio, LaySheetLine2Rec."24");
+                                                if LaySheetLine2Rec."24" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."24");
                                             end;
                                         25:
                                             if LaySheetLine1Rec."25" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."25");
-                                                Evaluate(Ratio, LaySheetLine2Rec."25");
+                                                if LaySheetLine2Rec."25" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."25");
                                             end;
 
                                         26:
                                             if LaySheetLine1Rec."26" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."26");
-                                                Evaluate(Ratio, LaySheetLine2Rec."26");
+                                                if LaySheetLine2Rec."26" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."26");
                                             end;
                                         27:
                                             if LaySheetLine1Rec."27" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."27");
-                                                Evaluate(Ratio, LaySheetLine2Rec."27");
+                                                if LaySheetLine2Rec."27" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."27");
                                             end;
 
                                         28:
                                             if LaySheetLine1Rec."28" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."28");
-                                                Evaluate(Ratio, LaySheetLine2Rec."28");
+                                                if LaySheetLine2Rec."28" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."28");
                                             end;
                                         29:
                                             if LaySheetLine1Rec."29" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."29");
-                                                Evaluate(Ratio, LaySheetLine2Rec."29");
+                                                if LaySheetLine2Rec."29" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."29");
                                             end;
 
                                         30:
                                             if LaySheetLine1Rec."30" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."30");
-                                                Evaluate(Ratio, LaySheetLine2Rec."30");
+                                                if LaySheetLine2Rec."30" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."30");
                                             end;
                                         31:
                                             if LaySheetLine1Rec."31" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."31");
-                                                Evaluate(Ratio, LaySheetLine2Rec."31");
+                                                if LaySheetLine2Rec."31" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."31");
                                             end;
 
                                         32:
                                             if LaySheetLine1Rec."32" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."32");
-                                                Evaluate(Ratio, LaySheetLine2Rec."32");
+                                                if LaySheetLine2Rec."32" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."32");
                                             end;
                                         33:
                                             if LaySheetLine1Rec."33" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."33");
-                                                Evaluate(Ratio, LaySheetLine2Rec."33");
+                                                if LaySheetLine2Rec."33" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."33");
                                             end;
 
                                         34:
                                             if LaySheetLine1Rec."34" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."34");
-                                                Evaluate(Ratio, LaySheetLine2Rec."34");
+                                                if LaySheetLine2Rec."34" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."34");
                                             end;
                                         35:
                                             if LaySheetLine1Rec."35" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."35");
-                                                Evaluate(Ratio, LaySheetLine2Rec."35");
+                                                if LaySheetLine2Rec."35" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."35");
                                             end;
 
                                         36:
                                             if LaySheetLine1Rec."36" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."36");
-                                                Evaluate(Ratio, LaySheetLine2Rec."36");
+                                                if LaySheetLine2Rec."36" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."36");
                                             end;
                                         37:
                                             if LaySheetLine1Rec."37" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."37");
-                                                Evaluate(Ratio, LaySheetLine2Rec."37");
+                                                if LaySheetLine2Rec."37" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."37");
                                             end;
 
                                         38:
                                             if LaySheetLine1Rec."38" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."38");
-                                                Evaluate(Ratio, LaySheetLine2Rec."38");
+                                                if LaySheetLine2Rec."38" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."38");
                                             end;
                                         39:
                                             if LaySheetLine1Rec."39" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."39");
-                                                Evaluate(Ratio, LaySheetLine2Rec."39");
+                                                if LaySheetLine2Rec."39" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."39");
                                             end;
 
                                         40:
                                             if LaySheetLine1Rec."40" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."40");
-                                                Evaluate(Ratio, LaySheetLine2Rec."40");
+                                                if LaySheetLine2Rec."40" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."40");
                                             end;
                                         41:
                                             if LaySheetLine1Rec."41" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."41");
-                                                Evaluate(Ratio, LaySheetLine2Rec."41");
+                                                if LaySheetLine2Rec."41" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."41");
                                             end;
 
                                         42:
                                             if LaySheetLine1Rec."42" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."42");
-                                                Evaluate(Ratio, LaySheetLine2Rec."42");
+                                                if LaySheetLine2Rec."42" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."42");
                                             end;
                                         43:
                                             if LaySheetLine1Rec."43" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."43");
-                                                Evaluate(Ratio, LaySheetLine2Rec."43");
+                                                if LaySheetLine2Rec."43" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."43");
                                             end;
 
                                         44:
                                             if LaySheetLine1Rec."44" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."44");
-                                                Evaluate(Ratio, LaySheetLine2Rec."44");
+                                                if LaySheetLine2Rec."44" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."44");
                                             end;
                                         45:
                                             if LaySheetLine1Rec."45" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."45");
-                                                Evaluate(Ratio, LaySheetLine2Rec."45");
+                                                if LaySheetLine2Rec."45" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."45");
                                             end;
 
                                         46:
                                             if LaySheetLine1Rec."46" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."46");
-                                                Evaluate(Ratio, LaySheetLine2Rec."46");
+                                                if LaySheetLine2Rec."46" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."46");
                                             end;
                                         47:
                                             if LaySheetLine1Rec."47" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."47");
-                                                Evaluate(Ratio, LaySheetLine2Rec."47");
+                                                if LaySheetLine2Rec."47" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."47");
                                             end;
 
                                         48:
                                             if LaySheetLine1Rec."48" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."48");
-                                                Evaluate(Ratio, LaySheetLine2Rec."48");
+                                                if LaySheetLine2Rec."48" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."48");
                                             end;
                                         49:
                                             if LaySheetLine1Rec."49" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."49");
-                                                Evaluate(Ratio, LaySheetLine2Rec."49");
+                                                if LaySheetLine2Rec."49" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."49");
                                             end;
 
                                         50:
                                             if LaySheetLine1Rec."50" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."50");
-                                                Evaluate(Ratio, LaySheetLine2Rec."50");
+                                                if LaySheetLine2Rec."50" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."50");
                                             end;
                                         51:
                                             if LaySheetLine1Rec."51" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."51");
-                                                Evaluate(Ratio, LaySheetLine2Rec."51");
+                                                if LaySheetLine2Rec."51" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."51");
                                             end;
 
                                         52:
                                             if LaySheetLine1Rec."52" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."52");
-                                                Evaluate(Ratio, LaySheetLine2Rec."52");
+                                                if LaySheetLine2Rec."52" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."52");
                                             end;
                                         53:
                                             if LaySheetLine1Rec."53" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."53");
-                                                Evaluate(Ratio, LaySheetLine2Rec."53");
+                                                if LaySheetLine2Rec."53" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."53");
                                             end;
 
                                         54:
                                             if LaySheetLine1Rec."54" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."54");
-                                                Evaluate(Ratio, LaySheetLine2Rec."54");
+                                                if LaySheetLine2Rec."54" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."54");
                                             end;
                                         55:
                                             if LaySheetLine1Rec."55" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."55");
-                                                Evaluate(Ratio, LaySheetLine2Rec."55");
+                                                if LaySheetLine2Rec."55" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."55");
                                             end;
 
                                         56:
                                             if LaySheetLine1Rec."56" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."56");
-                                                Evaluate(Ratio, LaySheetLine2Rec."56");
+                                                if LaySheetLine2Rec."56" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."56");
                                             end;
                                         57:
                                             if LaySheetLine1Rec."57" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."57");
-                                                Evaluate(Ratio, LaySheetLine2Rec."57");
+                                                if LaySheetLine2Rec."57" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."57");
                                             end;
 
                                         58:
                                             if LaySheetLine1Rec."58" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."58");
-                                                Evaluate(Ratio, LaySheetLine2Rec."58");
+                                                if LaySheetLine2Rec."58" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."58");
                                             end;
                                         59:
                                             if LaySheetLine1Rec."59" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."59");
-                                                Evaluate(Ratio, LaySheetLine2Rec."59");
+                                                if LaySheetLine2Rec."59" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."59");
                                             end;
 
                                         60:
                                             if LaySheetLine1Rec."60" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."60");
-                                                Evaluate(Ratio, LaySheetLine2Rec."60");
+                                                if LaySheetLine2Rec."60" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."60");
                                             end;
                                         61:
                                             if LaySheetLine1Rec."61" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."61");
-                                                Evaluate(Ratio, LaySheetLine2Rec."61");
+                                                if LaySheetLine2Rec."61" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."61");
                                             end;
 
                                         62:
                                             if LaySheetLine1Rec."62" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."62");
-                                                Evaluate(Ratio, LaySheetLine2Rec."62");
+                                                if LaySheetLine2Rec."62" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."62");
                                             end;
                                         63:
                                             if LaySheetLine1Rec."63" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."63");
-                                                Evaluate(Ratio, LaySheetLine2Rec."63");
+                                                if LaySheetLine2Rec."63" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."63");
                                             end;
 
                                         64:
                                             if LaySheetLine1Rec."64" <> '' then begin
                                                 Evaluate(Size, LaySheetLine1Rec."64");
-                                                Evaluate(Ratio, LaySheetLine2Rec."64");
+                                                if LaySheetLine2Rec."64" <> '' then
+                                                    Evaluate(Ratio, LaySheetLine2Rec."64");
                                             end;
                                     end;
 
@@ -1306,8 +1451,8 @@ page 50665 "Bundle Guide Card"
                                                     BundleGuideLineRec.Init();
                                                     BundleGuideLineRec."Bundle No" := BundleNo;
                                                     BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                    BundleGuideLineRec."Color Name" := rec."Color Name";
-                                                    BundleGuideLineRec."Color No" := rec."Color No";
+                                                    BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                    BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
                                                     BundleGuideLineRec."Created Date" := Today;
                                                     BundleGuideLineRec."Created User" := UserId;
                                                     BundleGuideLineRec."Cut No New" := rec."Cut No New";
@@ -1354,8 +1499,8 @@ page 50665 "Bundle Guide Card"
                                                     BundleGuideLineRec.Init();
                                                     BundleGuideLineRec."Bundle No" := BundleNo;
                                                     BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                    BundleGuideLineRec."Color Name" := rec."Color Name";
-                                                    BundleGuideLineRec."Color No" := rec."Color No";
+                                                    BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                    BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
                                                     BundleGuideLineRec."Created Date" := Today;
                                                     BundleGuideLineRec."Created User" := UserId;
                                                     BundleGuideLineRec."Cut No New" := rec."Cut No New";

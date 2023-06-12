@@ -20,21 +20,21 @@ page 50651 "Lay Sheet List"
                     Caption = 'Lay Sheet No';
                 }
 
-                field("FabReqNo."; Rec."FabReqNo.")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Fab. Req. No';
-                }
+                // field("FabReqNo."; Rec."FabReqNo.")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Fab. Req. No';
+                // }
 
-                field("Plan Date"; Rec."Plan Date")
-                {
-                    ApplicationArea = All;
-                }
+                // field("Plan Date"; Rec."Plan Date")
+                // {
+                //     ApplicationArea = All;
+                // }
 
-                field("Cut No."; Rec."Cut No New")
+                field("Buyer Name"; rec."Buyer Name")
                 {
                     ApplicationArea = All;
-                    Caption = 'Cut No';
+                    Caption = 'Buyer';
                 }
 
                 field("Style Name"; Rec."Style Name")
@@ -43,16 +43,28 @@ page 50651 "Lay Sheet List"
                     Caption = 'Style';
                 }
 
-                field("Group ID"; Rec."Group ID")
+                field("PO No."; rec."PO No.")
                 {
                     ApplicationArea = All;
-                    Caption = 'Sew. Job Group';
+                    Caption = 'PO No';
                 }
 
-                field(Color; Rec.Color)
+                field("Cut No."; Rec."Cut No New")
                 {
                     ApplicationArea = All;
+                    Caption = 'Cut No';
                 }
+
+                // field("Group ID"; Rec."Group ID")
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Sew. Job Group';
+                // }
+
+                // field(Color; Rec.Color)
+                // {
+                //     ApplicationArea = All;
+                // }
 
                 field("Component Group Name"; Rec."Component Group Name")
                 {
@@ -66,11 +78,10 @@ page 50651 "Lay Sheet List"
                     Caption = 'Marker';
                 }
 
-                field("Fab Direction"; Rec."Fab Direction")
-                {
-                    ApplicationArea = All;
-                }
-
+                // field("Fab Direction"; Rec."Fab Direction")
+                // {
+                //     ApplicationArea = All;
+                // }
             }
         }
     }
@@ -114,10 +125,7 @@ page 50651 "Lay Sheet List"
         UserRec: Record "User Setup";
     begin
 
-        //Done By sachith on 06/04/23
-        UserRec.Reset();
-        UserRec.Get(UserId);
-
+        //Done By sachith on 06/04/23      
         UserRec.Reset();
         UserRec.Get(UserId);
         if UserRec."Factory Code" <> '' then begin
@@ -128,23 +136,22 @@ page 50651 "Lay Sheet List"
             Error('You are not authorized to delete records.');
 
 
-        //Check in the cutting progress
-        CutProRec.Reset();
-        CutProRec.SetRange(LaySheetNo, Rec."LaySheetNo.");
-
-        if CutProRec.FindSet() then begin
-            Message('Cannot delete. Lay Sheet No already used in the Cutting Progress No : %1', CutProRec."CutProNo.");
-            exit(false);
-        end;
+        // //Check in the cutting progress
+        // CutProRec.Reset();
+        // CutProRec.SetRange(LaySheetNo, Rec."LaySheetNo.");
+        // if CutProRec.FindSet() then begin
+        //     Message('Cannot delete. Lay Sheet No already used in the Cutting Progress No : %1', CutProRec."CutProNo.");
+        //     exit(false);
+        // end;
 
 
         //Check in the Lay SHeet
         BundleGuideRec.Reset();
-        BundleGuideRec.SetRange("Style No.", Rec."Style No.");
-        BundleGuideRec.SetRange("Color No", Rec."Color No.");
-        BundleGuideRec.SetRange("Group ID", Rec."Group ID");
-        BundleGuideRec.SetRange("Component Group", Rec."Component Group Code");
-        BundleGuideRec.SetRange("Cut No New", Rec."Cut No New");
+        BundleGuideRec.SetRange("Style No.", rec."Style No.");
+        BundleGuideRec.SetRange("Color No", rec."Color No.");
+        // BundleGuideRec.SetRange("Group ID", rec."Group ID");
+        BundleGuideRec.SetRange("Component Group", rec."Component Group Code");
+        BundleGuideRec.SetRange("Cut No New", rec."Cut No New");
 
         if BundleGuideRec.FindSet() then begin
             Message('Cannot delete. Lay Sheet details already used in the Bundle Guide No : %1', BundleGuideRec."BundleGuideNo.");
@@ -152,21 +159,30 @@ page 50651 "Lay Sheet List"
         end;
 
 
+        LaySheetLine1Rec.Reset();
+        LaySheetLine1Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        if LaySheetLine1Rec.FindSet() then
+            LaySheetLine1Rec.DeleteAll();
 
-        LaySheetLine1Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
-        LaySheetLine1Rec.DeleteAll();
+        LaySheetLine2Rec.Reset();
+        LaySheetLine2Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        if LaySheetLine2Rec.FindSet() then
+            LaySheetLine2Rec.DeleteAll();
 
-        LaySheetLine2Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
-        LaySheetLine2Rec.DeleteAll();
+        LaySheetLine3Rec.Reset();
+        LaySheetLine3Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        if LaySheetLine3Rec.FindSet() then
+            LaySheetLine3Rec.DeleteAll();
 
-        LaySheetLine3Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
-        LaySheetLine3Rec.DeleteAll();
+        LaySheetLine4Rec.Reset();
+        LaySheetLine4Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        if LaySheetLine4Rec.FindSet() then
+            LaySheetLine4Rec.DeleteAll();
 
-        LaySheetLine4Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
-        LaySheetLine4Rec.DeleteAll();
-
-        LaySheetLine5Rec.SetRange("LaySheetNo.", Rec."LaySheetNo.");
-        LaySheetLine5Rec.DeleteAll();
+        LaySheetLine5Rec.Reset();
+        LaySheetLine5Rec.SetRange("LaySheetNo.", rec."LaySheetNo.");
+        if LaySheetLine5Rec.FindSet() then
+            LaySheetLine5Rec.DeleteAll();
     end;
 
 
