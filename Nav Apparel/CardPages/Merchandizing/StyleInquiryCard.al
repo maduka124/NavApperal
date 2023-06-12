@@ -2,6 +2,7 @@ page 50602 "Style Inquiry Card"
 {
     PageType = Card;
     SourceTable = "Style Master";
+    // SourceTableView = where(Status = filter(Confirmed));
     Caption = 'Style Inquiry';
 
     layout
