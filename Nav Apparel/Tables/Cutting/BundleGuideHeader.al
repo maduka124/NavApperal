@@ -47,12 +47,12 @@ table 50664 BundleGuideHeader
             ValidateTableRelation = false;
         }
 
-        // field(8; "Cut No"; Integer)
-        // {
-        //     DataClassification = ToBeClassified;
-        //     TableRelation = CutCreationLine."Cut No" where("Style No." = field("Style No."), "Group ID" = field("Group ID"), "Component Group Code" = field("Component Group"), "Colour No" = field("Color No"), "Cut No" = filter(<> 0));
-        //     ValidateTableRelation = false;
-        // }
+        field(8; "Cut No"; Integer)
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = CutCreationLine."Cut No" where("Style No." = field("Style No."), "Group ID" = field("Group ID"), "Component Group Code" = field("Component Group"), "Colour No" = field("Color No"), "Cut No" = filter(<> 0));
+            ValidateTableRelation = false;
+        }
 
         field(9; "Bundle Rule"; Integer)
         {
@@ -108,7 +108,6 @@ table 50664 BundleGuideHeader
             TableRelation = CutCreationLine."Cut No" where("Style No." = field("Style No."), "Group ID" = field("Group ID"), "Component Group Code" = field("Component Group"), "Colour No" = field("Color No"), "Cut No" = filter(<> 0));
             ValidateTableRelation = false;
         }
-
     }
 
     keys

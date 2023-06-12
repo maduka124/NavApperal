@@ -249,8 +249,17 @@ page 51069 "Style Master PO ListPart"
     var
         NavappPlanLineRec: Record "NavApp Planning Lines";
         AssorColorSizeRatioRec: Record AssorColorSizeRatio;
+        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
+        PlanningQueueRec: Record "Planning Queue";
     begin
         CurrPage.Update();
+
+        PlanningQueueRec.Reset();
+        PlanningQueueRec.SetRange("Style No.", rec."Style No.");
+        PlanningQueueRec.SetRange("Lot No.", rec."Lot No.");
+        if PlanningQueueRec.FindSet() then
+            Error('PO already in the Queue. Cannot delete.');
+
         NavappPlanLineRec.Reset();
         NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
         NavappPlanLineRec.SetRange("Lot No.", rec."Lot No.");
@@ -262,6 +271,13 @@ page 51069 "Style Master PO ListPart"
         AssorColorSizeRatioRec.SetRange("PO No.", rec."PO No.");
         if AssorColorSizeRatioRec.FindSet() then
             Error('Color Size entered for the PO. Cannot delete.');
+
+        NavAppProdPlanRec.Reset();
+        NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
+        NavAppProdPlanRec.SetRange("Lot No.", rec."Lot No.");
+        if NavAppProdPlanRec.FindSet() then
+            Error('PO already planned. Cannot delete.');
+
     end;
 
 }

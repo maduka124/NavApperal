@@ -145,11 +145,28 @@ page 51067 "Style Master"
 
     trigger OnDeleteRecord(): Boolean
     var
-    // StyleMasterPORec: Record "Style Master PO";
+        NavAppPlanLineRec: Record "NavApp Planning Lines";
+        PlanningQueueRec: Record "Planning Queue";
+        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
     begin
-        //StyleMasterPORec.SetRange("Style No.", "No.");
-        //StyleMasterPORec.DeleteAll();
-        Error('Style already confirmed. Cannot delete.');
+        if rec.Status = rec.Status::Confirmed then
+            Error('Style already confirmed. Cannot delete.');
+
+        PlanningQueueRec.Reset();
+        PlanningQueueRec.SetRange("Style No.", rec."No.");
+        if PlanningQueueRec.FindSet() then
+            Error('Style already in the Queue. Cannot delete.');
+
+
+        NavAppPlanLineRec.Reset();
+        NavAppPlanLineRec.SetRange("Style No.", rec."No.");
+        if NavAppPlanLineRec.FindSet() then
+            Error('Style already planned. Cannot delete.');
+
+        NavAppProdPlanRec.Reset();
+        NavAppProdPlanRec.SetRange("Style No.", rec."No.");
+        if NavAppProdPlanRec.FindSet() then
+            Error('Style already planned. Cannot delete.');
 
     end;
 

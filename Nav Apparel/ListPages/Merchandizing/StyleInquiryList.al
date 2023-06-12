@@ -126,6 +126,7 @@ page 51066 "Style Inquiry"
         SpecialOpRec: Record "Special Operation Style";
         ContractLCStyleRec: Record "Contract/LCStyle";
         NavAppPlanLineRec: Record "NavApp Planning Lines";
+        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
         PlanningQueueRec: Record "Planning Queue";
     begin
         if rec.Status = rec.status::Confirmed then
@@ -142,6 +143,10 @@ page 51066 "Style Inquiry"
             if NavAppPlanLineRec.FindSet() then
                 Error('Style already planned. Cannot delete.');
 
+            NavAppProdPlanRec.Reset();
+            NavAppProdPlanRec.SetRange("Style No.", rec."No.");
+            if NavAppProdPlanRec.FindSet() then
+                Error('Style already planned. Cannot delete.');
 
             // StyleRec.SetRange("No.", "No.");
             // if StyleRec.FindSet() then

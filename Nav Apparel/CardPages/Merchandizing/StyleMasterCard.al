@@ -259,6 +259,7 @@ page 50607 "Style Master Card"
     var
         NavAppPlanLineRec: Record "NavApp Planning Lines";
         PlanningQueueRec: Record "Planning Queue";
+        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
     begin
         if rec.Status = rec.Status::Confirmed then
             Error('Style already confirmed. Cannot delete.');
@@ -273,5 +274,11 @@ page 50607 "Style Master Card"
         NavAppPlanLineRec.SetRange("Style No.", rec."No.");
         if NavAppPlanLineRec.FindSet() then
             Error('Style already planned. Cannot delete.');
+
+        NavAppProdPlanRec.Reset();
+        NavAppProdPlanRec.SetRange("Style No.", rec."No.");
+        if NavAppProdPlanRec.FindSet() then
+            Error('Style already planned. Cannot delete.');
+
     end;
 }

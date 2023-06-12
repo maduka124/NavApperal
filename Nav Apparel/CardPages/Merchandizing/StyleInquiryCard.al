@@ -734,6 +734,7 @@ page 50602 "Style Inquiry Card"
         StylePORec: Record "Style Master PO";
         SpecialOpRec: Record "Special Operation Style";
         NavAppPlanLineRec: Record "NavApp Planning Lines";
+        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
         ContractLCStyleRec: Record "Contract/LCStyle";
         PlanningQueueRec: Record "Planning Queue";
     begin
@@ -749,6 +750,12 @@ page 50602 "Style Inquiry Card"
         NavAppPlanLineRec.SetRange("Style No.", rec."No.");
         if NavAppPlanLineRec.FindSet() then
             Error('Style already planned. Cannot delete.');
+
+        NavAppProdPlanRec.Reset();
+        NavAppProdPlanRec.SetRange("Style No.", rec."No.");
+        if NavAppProdPlanRec.FindSet() then
+            Error('Style already planned. Cannot delete.');
+
 
         SpecialOpRec.SetRange("Style No.", rec."No.");
         if SpecialOpRec.FindSet() then
