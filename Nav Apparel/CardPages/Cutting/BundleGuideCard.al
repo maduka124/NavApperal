@@ -279,6 +279,7 @@ page 50665 "Bundle Guide Card"
                     LaySheetLine4Rec: Record LaySheetLine4;
                     StyleMasPoRec: Record "Style Master PO";
                     //Plies: Integer;
+                    TempQty1: BigInteger;
                     i: Integer;
                     j: Integer;
                     Size: Code[20];
@@ -858,131 +859,151 @@ page 50665 "Bundle Guide Card"
 
                                     for j := 1 To Ratio do begin
 
-                                        TempQty := 0;
-                                        BundleQty := 0;
+                                        // TempQty := 0;
+                                        // BundleQty := 0;
                                         Size1 := j + 64;
+                                        LaySheetLine4Rec.FindSet();
 
                                         repeat
-                                            if LaySheetLine4Rec."Actual Plies" = 0 then
-                                                Error('Actual Plies is zero in Laysheet.');
+                                            TempQty1 := 0;
+                                            repeat
+                                                if LaySheetLine4Rec."Actual Plies" = 0 then
+                                                    Error('Actual Plies is zero in Laysheet.');
 
-                                            if LaySheetLine4Rec."Actual Plies" <= rec."Bundle Rule" then
-                                                BundleQty := LaySheetLine4Rec."Actual Plies"
-                                            else
-                                                BundleQty := rec."Bundle Rule";
-
-                                            //insert
-                                            LineNo += 1;
-                                            BundleNo += 1;
-                                            StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
-                                            //StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + rec."Bundle Rule");
-                                            // if TempQty + rec."Bundle Rule" < Plies then begin
-
-                                            if (TempQty + BundleQty) < 10000 then begin
-                                                //BundleQty := rec."Bundle Rule";
-                                                BundleGuideLineRec.Init();
-                                                BundleGuideLineRec."Bundle No" := BundleNo;
-                                                BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
-                                                BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
-                                                BundleGuideLineRec."Created Date" := Today;
-                                                BundleGuideLineRec."Created User" := UserId;
-                                                BundleGuideLineRec."Cut No New" := rec."Cut No New";
-                                                BundleGuideLineRec."Line No" := LineNo;
-                                                BundleGuideLineRec.Qty := BundleQty;
-                                                BundleGuideLineRec.Size := Size + '-' + Size1;
-                                                //BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
-                                                BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                BundleGuideLineRec."Role ID" := '';
-                                                BundleGuideLineRec."Style No" := rec."Style No.";
-                                                BundleGuideLineRec."Style Name" := rec."Style Name";
-
-                                                //TempLot := SewJobRec."Sewing Job No.";
-                                                //TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
-                                                BundleGuideLineRec.Lot := '';
-
-                                                // StyleMasPoRec.Reset();
-                                                // StyleMasPoRec.SetRange("Style No.", rec."Style No.");
-                                                // StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                // if not StyleMasPoRec.FindSet() then
-                                                //     Error('Cannot find Sewing job no.');
-
-                                                BundleGuideLineRec.PO := LaySheetRec."PO No.";
-                                                BundleGuideLineRec.Insert();
-
-                                                TempQty := TempQty + BundleQty;
-                                                PreviuosBundleQty := BundleQty;
-                                            end
-                                            else begin
-                                                //BundleQty := Plies - TempQty;
-                                                //if Plies - TempQty > rec."Bundle Rule" / 2 then begin
-                                                // BundleQty := Plies - TempQty;
-                                                // StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
-
-                                                StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
-                                                LineNo += 1;
-                                                BundleNo += 1;
-
-                                                BundleGuideLineRec.Init();
-                                                BundleGuideLineRec."Bundle No" := BundleNo;
-                                                BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
-                                                BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
-                                                BundleGuideLineRec."Created Date" := Today;
-                                                BundleGuideLineRec."Created User" := UserId;
-                                                BundleGuideLineRec."Cut No New" := rec."Cut No New";
-                                                BundleGuideLineRec."Line No" := LineNo;
-                                                //BundleGuideLineRec.Qty := BundleQty;
-                                                //BundleGuideLineRec.Size := Size + '-' + Size1;
-                                                //BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
-
-                                                BundleGuideLineRec.Qty := 9999 - TempQty;
-
-                                                if Ratio = 1 then
-                                                    BundleGuideLineRec.Size := Size
+                                                if LaySheetLine4Rec."Actual Plies" <= rec."Bundle Rule" then
+                                                    BundleQty := LaySheetLine4Rec."Actual Plies"
                                                 else
-                                                    BundleGuideLineRec.Size := Size + '-' + Size1;
+                                                    BundleQty := rec."Bundle Rule";
 
-                                                BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                BundleGuideLineRec."Style No" := rec."Style No.";
-                                                BundleGuideLineRec."Style Name" := rec."Style Name";
-                                                BundleGuideLineRec."Role ID" := '';
+                                                if TempQty1 + BundleQty < LaySheetLine4Rec."Actual Plies" then begin
+                                                    BundleQty := BundleQty;
+                                                end
+                                                else begin
+                                                    BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                end;
 
-                                                //TempLot := SewJobRec."Sewing Job No.";
-                                                //TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
-                                                BundleGuideLineRec.Lot := '';
+                                                //insert
+                                                //StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + rec."Bundle Rule");
+                                                // if TempQty + rec."Bundle Rule" < Plies then begin
 
-                                                // StyleMasPoRec.Reset();
-                                                // StyleMasPoRec.SetRange("Style No.", rec."Style No.");
-                                                // StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                // if not StyleMasPoRec.FindSet() then
-                                                //     Error('Cannot find Sewing job no.');
+                                                if (TempQty + BundleQty) < 10000 then begin
 
-                                                BundleGuideLineRec.PO := LaySheetRec."PO No.";
-                                                BundleGuideLineRec.Insert();
-                                                // end
-                                                // else begin
-                                                //     BundleQty := Plies - TempQty;
-                                                StickerSeq := Format(TempQty - rec."Bundle Rule" + 1) + '-' + Format(TempQty + BundleQty);
+                                                    LineNo += 1;
+                                                    BundleNo += 1;
+                                                    StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
 
-                                                ////modify previous entry
-                                                // BundleGuideLineRec.Reset();
-                                                // BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
-                                                // BundleGuideLineRec.SetRange("Line No", LineNo - 1);
-                                                // BundleGuideLineRec.FindSet();
-                                                // BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
-                                                // BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                // BundleGuideLineRec.Modify();
+                                                    //BundleQty := rec."Bundle Rule";
+                                                    BundleGuideLineRec.Init();
+                                                    BundleGuideLineRec."Bundle No" := BundleNo;
+                                                    BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                    BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                    BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
+                                                    BundleGuideLineRec."Created Date" := Today;
+                                                    BundleGuideLineRec."Created User" := UserId;
+                                                    BundleGuideLineRec."Cut No New" := rec."Cut No New";
+                                                    BundleGuideLineRec."Line No" := LineNo;
+                                                    BundleGuideLineRec.Qty := BundleQty;
 
-                                                //end;
-                                                //end;
-                                                //TempQty := TempQty + BundleQty;
-                                                TempQty := 0;
-                                                PreviuosBundleQty := 9999 - TempQty;
-                                            end;
-                                        //until TempQty >= Plies;
+                                                    if Ratio = 1 then
+                                                        BundleGuideLineRec.Size := Size
+                                                    else
+                                                        BundleGuideLineRec.Size := Size + '-' + Size1;
+
+                                                    //BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
+                                                    BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                    BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                    BundleGuideLineRec."Role ID" := '';
+                                                    BundleGuideLineRec."Style No" := rec."Style No.";
+                                                    BundleGuideLineRec."Style Name" := rec."Style Name";
+
+                                                    //TempLot := SewJobRec."Sewing Job No.";
+                                                    //TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
+                                                    BundleGuideLineRec.Lot := '';
+
+                                                    // StyleMasPoRec.Reset();
+                                                    // StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+                                                    // StyleMasPoRec.SetRange("Lot No.", TempLot);
+                                                    // if not StyleMasPoRec.FindSet() then
+                                                    //     Error('Cannot find Sewing job no.');
+
+                                                    BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                    BundleGuideLineRec.Insert();
+
+                                                    TempQty := TempQty + BundleQty;
+                                                    PreviuosBundleQty := BundleQty;
+                                                    TempQty1 := TempQty1 + BundleQty;
+                                                end
+                                                else begin
+                                                    //BundleQty := Plies - TempQty;
+                                                    //if Plies - TempQty > rec."Bundle Rule" / 2 then begin
+                                                    // BundleQty := Plies - TempQty;
+                                                    // StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
+
+                                                    StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
+                                                    LineNo += 1;
+                                                    BundleNo += 1;
+
+                                                    BundleGuideLineRec.Init();
+                                                    BundleGuideLineRec."Bundle No" := BundleNo;
+                                                    BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                    BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                    BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
+                                                    BundleGuideLineRec."Created Date" := Today;
+                                                    BundleGuideLineRec."Created User" := UserId;
+                                                    BundleGuideLineRec."Cut No New" := rec."Cut No New";
+                                                    BundleGuideLineRec."Line No" := LineNo;
+                                                    //BundleGuideLineRec.Qty := BundleQty;
+                                                    //BundleGuideLineRec.Size := Size + '-' + Size1;
+                                                    //BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
+
+                                                    BundleGuideLineRec.Qty := 9999 - TempQty;
+
+                                                    if Ratio = 1 then
+                                                        BundleGuideLineRec.Size := Size
+                                                    else
+                                                        BundleGuideLineRec.Size := Size + '-' + Size1;
+
+                                                    BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                    BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                    BundleGuideLineRec."Style No" := rec."Style No.";
+                                                    BundleGuideLineRec."Style Name" := rec."Style Name";
+                                                    BundleGuideLineRec."Role ID" := '';
+
+                                                    //TempLot := SewJobRec."Sewing Job No.";
+                                                    //TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
+                                                    BundleGuideLineRec.Lot := '';
+
+                                                    // StyleMasPoRec.Reset();
+                                                    // StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+                                                    // StyleMasPoRec.SetRange("Lot No.", TempLot);
+                                                    // if not StyleMasPoRec.FindSet() then
+                                                    //     Error('Cannot find Sewing job no.');
+
+                                                    BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                    BundleGuideLineRec.Insert();
+                                                    // end
+                                                    // else begin
+                                                    //     BundleQty := Plies - TempQty;
+                                                    //StickerSeq := Format(TempQty - rec."Bundle Rule" + 1) + '-' + Format(TempQty + BundleQty);
+
+                                                    ////modify previous entry
+                                                    // BundleGuideLineRec.Reset();
+                                                    // BundleGuideLineRec.SetRange("BundleGuideNo.", rec."BundleGuideNo.");
+                                                    // BundleGuideLineRec.SetRange("Line No", LineNo - 1);
+                                                    // BundleGuideLineRec.FindSet();
+                                                    // BundleGuideLineRec.Qty := BundleGuideLineRec.Qty + BundleQty;
+                                                    // BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                    // BundleGuideLineRec.Modify();
+
+                                                    //end;
+                                                    //end;
+                                                    //TempQty := TempQty + BundleQty;
+                                                    TempQty := 0;
+                                                    PreviuosBundleQty := 9999 - TempQty;
+                                                    TempQty1 := TempQty1 + (9999 - TempQty);
+                                                end;
+
+                                            until TempQty1 >= LaySheetLine4Rec."Actual Plies";
                                         until LaySheetLine4Rec.Next() = 0;
                                     end;
                                 end;
@@ -1433,110 +1454,122 @@ page 50665 "Bundle Guide Card"
                                             LaySheetLine4Rec.FindSet();
 
                                             repeat
+                                                TempQty1 := 0;
+                                                repeat
+                                                    if LaySheetLine4Rec."Actual Plies" = 0 then
+                                                        Error('Actual Plies is zero in Laysheet.');
 
-                                                if LaySheetLine4Rec."Actual Plies" = 0 then
-                                                    Error('Actual Plies is zero in Laysheet.');
-
-                                                if LaySheetLine4Rec."Actual Plies" <= rec."Bundle Rule" then
-                                                    BundleQty := LaySheetLine4Rec."Actual Plies"
-                                                else
-                                                    BundleQty := rec."Bundle Rule";
-
-                                                if (TempQty + BundleQty) < 10000 then begin
-
-                                                    StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
-                                                    LineNo += 1;
-                                                    BundleNo += 1;
-
-                                                    BundleGuideLineRec.Init();
-                                                    BundleGuideLineRec."Bundle No" := BundleNo;
-                                                    BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                    BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
-                                                    BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
-                                                    BundleGuideLineRec."Created Date" := Today;
-                                                    BundleGuideLineRec."Created User" := UserId;
-                                                    BundleGuideLineRec."Cut No New" := rec."Cut No New";
-                                                    BundleGuideLineRec."Line No" := LineNo;
-                                                    BundleGuideLineRec.Qty := BundleQty;
-
-                                                    if Ratio = 1 then
-                                                        BundleGuideLineRec.Size := Size
+                                                    if LaySheetLine4Rec."Actual Plies" <= rec."Bundle Rule" then
+                                                        BundleQty := LaySheetLine4Rec."Actual Plies"
                                                     else
-                                                        BundleGuideLineRec.Size := Size + '-' + Size1;
+                                                        BundleQty := rec."Bundle Rule";
 
-                                                    //BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
-                                                    BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                    BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                    BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
-                                                    BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
-                                                    BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
-                                                    BundleGuideLineRec."Style No" := rec."Style No.";
-                                                    BundleGuideLineRec."Style Name" := rec."Style Name";
 
-                                                    //TempLot := SewJobRec."Sewing Job No.";
-                                                    //TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
-                                                    BundleGuideLineRec.Lot := '';
+                                                    if TempQty1 + BundleQty < LaySheetLine4Rec."Actual Plies" then begin
+                                                        BundleQty := BundleQty;
+                                                    end
+                                                    else begin
+                                                        BundleQty := LaySheetLine4Rec."Actual Plies" - TempQty1;
+                                                    end;
 
-                                                    // StyleMasPoRec.Reset();
-                                                    // StyleMasPoRec.SetRange("Style No.", rec."Style No.");
-                                                    // StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                    // if not StyleMasPoRec.FindSet() then
-                                                    //     Error('Cannot find Sewing job no.');
+                                                    if (TempQty + BundleQty) < 10000 then begin
 
-                                                    BundleGuideLineRec.PO := LaySheetRec."PO No.";
-                                                    BundleGuideLineRec.Insert();
+                                                        StickerSeq := Format(TempQty + 1) + '-' + Format(TempQty + BundleQty);
+                                                        LineNo += 1;
+                                                        BundleNo += 1;
 
-                                                    TempQty := TempQty + BundleQty;
-                                                    PreviuosBundleQty := BundleQty;
+                                                        BundleGuideLineRec.Init();
+                                                        BundleGuideLineRec."Bundle No" := BundleNo;
+                                                        BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                        BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                        BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
+                                                        BundleGuideLineRec."Created Date" := Today;
+                                                        BundleGuideLineRec."Created User" := UserId;
+                                                        BundleGuideLineRec."Cut No New" := rec."Cut No New";
+                                                        BundleGuideLineRec."Line No" := LineNo;
+                                                        BundleGuideLineRec.Qty := BundleQty;
 
-                                                end
-                                                else begin
+                                                        if Ratio = 1 then
+                                                            BundleGuideLineRec.Size := Size
+                                                        else
+                                                            BundleGuideLineRec.Size := Size + '-' + Size1;
 
-                                                    StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
-                                                    LineNo += 1;
-                                                    BundleNo += 1;
+                                                        //BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
+                                                        BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                        BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                        BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
+                                                        BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                        BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
+                                                        BundleGuideLineRec."Style No" := rec."Style No.";
+                                                        BundleGuideLineRec."Style Name" := rec."Style Name";
 
-                                                    BundleGuideLineRec.Init();
-                                                    BundleGuideLineRec."Bundle No" := BundleNo;
-                                                    BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
-                                                    BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
-                                                    BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
-                                                    BundleGuideLineRec."Created Date" := Today;
-                                                    BundleGuideLineRec."Created User" := UserId;
-                                                    BundleGuideLineRec."Cut No New" := rec."Cut No New";
-                                                    BundleGuideLineRec."Line No" := LineNo;
-                                                    BundleGuideLineRec.Qty := 9999 - TempQty;
+                                                        //TempLot := SewJobRec."Sewing Job No.";
+                                                        //TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
+                                                        BundleGuideLineRec.Lot := '';
 
-                                                    if Ratio = 1 then
-                                                        BundleGuideLineRec.Size := Size
-                                                    else
-                                                        BundleGuideLineRec.Size := Size + '-' + Size1;
+                                                        // StyleMasPoRec.Reset();
+                                                        // StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+                                                        // StyleMasPoRec.SetRange("Lot No.", TempLot);
+                                                        // if not StyleMasPoRec.FindSet() then
+                                                        //     Error('Cannot find Sewing job no.');
 
-                                                    //BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
-                                                    BundleGuideLineRec."Sticker Sequence" := StickerSeq;
-                                                    BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
-                                                    BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
-                                                    BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
-                                                    BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
-                                                    BundleGuideLineRec."Style No" := rec."Style No.";
-                                                    BundleGuideLineRec."Style Name" := rec."Style Name";
+                                                        BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                        BundleGuideLineRec.Insert();
 
-                                                    //TempLot := SewJobRec."Sewing Job No.";
-                                                    //TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
-                                                    BundleGuideLineRec.Lot := '';
+                                                        TempQty := TempQty + BundleQty;
+                                                        PreviuosBundleQty := BundleQty;
+                                                        TempQty1 := TempQty1 + BundleQty;
+                                                    end
+                                                    else begin
 
-                                                    // StyleMasPoRec.Reset();
-                                                    // StyleMasPoRec.SetRange("Style No.", rec."Style No.");
-                                                    // StyleMasPoRec.SetRange("Lot No.", TempLot);
-                                                    // if not StyleMasPoRec.FindSet() then
-                                                    //     Error('Cannot find Sewing job no.');
+                                                        StickerSeq := Format(TempQty + 1) + '-' + Format(9999);
+                                                        LineNo += 1;
+                                                        BundleNo += 1;
 
-                                                    BundleGuideLineRec.PO := LaySheetRec."PO No.";
-                                                    BundleGuideLineRec.Insert();
+                                                        BundleGuideLineRec.Init();
+                                                        BundleGuideLineRec."Bundle No" := BundleNo;
+                                                        BundleGuideLineRec."BundleGuideNo." := rec."BundleGuideNo.";
+                                                        BundleGuideLineRec."Color Name" := LaySheetLine4Rec.Color;
+                                                        BundleGuideLineRec."Color No" := LaySheetLine4Rec."Color No.";
+                                                        BundleGuideLineRec."Created Date" := Today;
+                                                        BundleGuideLineRec."Created User" := UserId;
+                                                        BundleGuideLineRec."Cut No New" := rec."Cut No New";
+                                                        BundleGuideLineRec."Line No" := LineNo;
+                                                        BundleGuideLineRec.Qty := 9999 - TempQty;
 
-                                                    TempQty := 0;
-                                                    PreviuosBundleQty := 9999 - TempQty;
-                                                end;
+                                                        if Ratio = 1 then
+                                                            BundleGuideLineRec.Size := Size
+                                                        else
+                                                            BundleGuideLineRec.Size := Size + '-' + Size1;
+
+                                                        //BundleGuideLineRec.SJCNo := SewJobRec."Sewing Job No.";
+                                                        BundleGuideLineRec."Sticker Sequence" := StickerSeq;
+                                                        BundleGuideLineRec."Bundle Method" := rec."Bundle Method"::Normal;
+                                                        BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
+                                                        BundleGuideLineRec."Shade Name" := LaySheetLine4Rec.Shade;
+                                                        BundleGuideLineRec."Shade No" := LaySheetLine4Rec."Shade No";
+                                                        BundleGuideLineRec."Style No" := rec."Style No.";
+                                                        BundleGuideLineRec."Style Name" := rec."Style Name";
+
+                                                        //TempLot := SewJobRec."Sewing Job No.";
+                                                        //TempLot := TempLot.Substring(1, TempLot.IndexOfAny('-') - 1);
+                                                        BundleGuideLineRec.Lot := '';
+
+                                                        // StyleMasPoRec.Reset();
+                                                        // StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+                                                        // StyleMasPoRec.SetRange("Lot No.", TempLot);
+                                                        // if not StyleMasPoRec.FindSet() then
+                                                        //     Error('Cannot find Sewing job no.');
+
+                                                        BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                        BundleGuideLineRec.Insert();
+
+                                                        TempQty := 0;
+                                                        PreviuosBundleQty := 9999 - TempQty;
+                                                        TempQty1 := TempQty1 + (9999 - TempQty);
+                                                    end;
+
+                                                until TempQty1 >= LaySheetLine4Rec."Actual Plies";
                                             until LaySheetLine4Rec.Next() = 0;
                                         end;
                                     end;
