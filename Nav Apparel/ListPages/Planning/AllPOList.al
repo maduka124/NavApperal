@@ -6,6 +6,7 @@ page 50489 "All PO List"
     SourceTableView = where(PlannedStatus = filter(false), smv = filter(> 0));
     DeleteAllowed = false;
     InsertAllowed = false;
+    Caption = 'Pending PO Plan';
 
     layout
     {

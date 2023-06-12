@@ -1150,5 +1150,10 @@ permissionset 50100 GeneratedPermission
         page "WIP Order QTY Change Card"=X,
         page "WIP Order QTY Change List"=X,
         page "WIP Style PO Listpart"=X,
-        report DailyCuttingReport=X;
+        report DailyCuttingReport=X,
+        tabledata StockSummary=RIMD,
+        table StockSummary=X,
+        report ExportSummartReport2=X,
+        tabledata LaySheetColor=RIMD,
+        table LaySheetColor=X;
 }

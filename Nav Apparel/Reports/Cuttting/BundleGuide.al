@@ -14,7 +14,7 @@ report 50634 BundleGuideReport
 
             column(Style_Name; "Style Name")
             { }
-            column(Cut_No; "Cut No")
+            column(Cut_No; "Cut No New")
             { }
             column(Created_Date; "Created Date")
             { }

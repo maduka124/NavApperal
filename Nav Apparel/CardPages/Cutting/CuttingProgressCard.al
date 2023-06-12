@@ -67,7 +67,7 @@ page 50662 "Cutting Progress Card"
                             rec."FabReqNo." := LaySheetHeaderRec."FabReqNo.";
                             rec."Item No" := LaySheetHeaderRec."Item No.";
                             rec."Item Name" := LaySheetHeaderRec."Item Name";
-                            rec."Cut No." := LaySheetHeaderRec."Cut No.";
+                            rec."Cut No New" := LaySheetHeaderRec."Cut No New";
                             rec."Created Date" := Today;
                             rec."Created User" := UserId;
                             rec."Style Name" := LaySheetHeaderRec."Style Name";

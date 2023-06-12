@@ -47,7 +47,7 @@ page 50666 "Bundle Guide List"
                     ApplicationArea = All;
                 }
 
-                field("Cut No"; Rec."Cut No")
+                field("Cut No"; Rec."Cut No New")
                 {
                     ApplicationArea = All;
                 }

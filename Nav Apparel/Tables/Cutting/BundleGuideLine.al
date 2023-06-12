@@ -20,7 +20,7 @@ table 50668 BundleGuideLine
             DataClassification = ToBeClassified;
         }
 
-        field(4; "Cut No"; Integer)
+        field(4; "Cut No"; Integer)  //Not using anymore
         {
             DataClassification = ToBeClassified;
         }
@@ -111,6 +111,11 @@ table 50668 BundleGuideLine
             DataClassification = ToBeClassified;
         }
         field(21; "Barcode"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(22; "Cut No New"; text[20])
         {
             DataClassification = ToBeClassified;
         }

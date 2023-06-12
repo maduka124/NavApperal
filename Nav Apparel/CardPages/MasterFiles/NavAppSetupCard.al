@@ -665,6 +665,13 @@ page 50964 "NavApp Setup Card"
                     Caption = 'GMT Parts - Bundle Card';
                     TableRelation = "No. Series".Code;
                 }
+
+                field("LaySheetNo."; Rec."LaySheet Nos.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'LaySheet Nos';
+                    TableRelation = "No. Series".Code;
+                }
             }
         }
     }

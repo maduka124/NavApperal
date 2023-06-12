@@ -23,12 +23,12 @@ page 50669 BundleGuideLineListpart
                     Editable = false;
                 }
 
-                field(SJCNo; Rec.SJCNo)
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Sew. Job No';
-                }
+                // field(SJCNo; Rec.SJCNo)
+                // {
+                //     ApplicationArea = All;
+                //     Editable = false;
+                //     Caption = 'Sew. Job No';
+                // }
 
                 field("Color Name"; Rec."Color Name")
                 {
@@ -41,12 +41,13 @@ page 50669 BundleGuideLineListpart
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Caption = 'Roll ID';
+                    Caption = 'Roll No';
                 }
 
                 field("Shade Name"; Rec."Shade Name")
                 {
                     ApplicationArea = All;
+                    Caption = 'Shade';
 
                     trigger OnValidate()
                     var
@@ -79,10 +80,11 @@ page 50669 BundleGuideLineListpart
                     ApplicationArea = All;
                     Editable = false;
                 }
-
             }
         }
     }
+
+
     actions
     {
         area(Processing)
@@ -117,6 +119,4 @@ page 50669 BundleGuideLineListpart
     var
 
         EncodedText: Text;
-
-
 }

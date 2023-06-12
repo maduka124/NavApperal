@@ -172,7 +172,7 @@ page 50601 "Cut Creation"
                 LaySheetRec.SetRange("Color No.", Rec."Colour No");
                 LaySheetRec.SetRange("Group ID", Rec."Group ID");
                 LaySheetRec.SetRange("Component Group Code", Rec."Component Group");
-                LaySheetRec.SetRange("Cut No.", CurCreLineRec."Cut No");
+                LaySheetRec.SetRange("Cut No New", CurCreLineRec."Cut No New");
 
                 if LaySheetRec.FindSet() then begin
                     Message('Cannot delete. Cut No already used in the Laysheet No : %1', LaySheetRec."LaySheetNo.");

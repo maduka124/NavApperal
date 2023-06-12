@@ -3339,9 +3339,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
         {
             group(Functions)
             {
-                action("Select POs")
+                action("Pending PO Plan")
                 {
-                    ToolTip = 'Select POs';
+                    ToolTip = 'Pending PO Plan';
                     Image = SelectMore;
                     ApplicationArea = All;
 

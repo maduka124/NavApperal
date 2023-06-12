@@ -12,6 +12,16 @@ page 50347 "Plan History List part"
         {
             repeater(General)
             {
+                field("Resource Name"; rec."Resource Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Line';
+                }
+                field(Buyer; Buyer)
+                {
+                    ApplicationArea = All;
+                }
+
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
@@ -29,21 +39,27 @@ page 50347 "Plan History List part"
                     Caption = 'PO No';
                 }
 
-                field("Line No."; rec."Line No.")
+                field(OrderQty; OrderQty)
                 {
                     ApplicationArea = All;
-                    Caption = 'Sub PO No';
+                    Caption = 'Order Qty';
                 }
 
                 field(Qty; rec.Qty)
                 {
                     ApplicationArea = All;
+                    Caption = 'Plan Qty';
                 }
 
                 field(ShipDate; ShipDate)
                 {
                     ApplicationArea = All;
                     Caption = 'Ship Date';
+                }
+
+                field(BPCD; BPCD)
+                {
+                    ApplicationArea = All;
                 }
 
                 field(StartDateTime; rec.StartDateTime)
@@ -56,12 +72,6 @@ page 50347 "Plan History List part"
                 {
                     ApplicationArea = All;
                     Caption = 'Finish Date/Time';
-                }
-
-                field("Resource Name"; rec."Resource Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Machine Line';
                 }
 
                 field(Carder; rec.Carder)
@@ -99,12 +109,28 @@ page 50347 "Plan History List part"
     trigger OnAfterGetRecord()
     var
         StyleMasPoRec: Record "Style Master PO";
+        StyleMasRec: Record "Style Master";
     begin
         StyleMasPoRec.Reset();
         StyleMasPoRec.SetRange("Style No.", rec."Style No.");
         StyleMasPoRec.SetRange("PO No.", rec."PO No.");
-        if StyleMasPoRec.FindSet() then
+        if StyleMasPoRec.FindSet() then begin
             ShipDate := StyleMasPoRec."Ship Date";
+            OrderQty := StyleMasPoRec.Qty;
+            BPCD := StyleMasPoRec.BPCD;
+        end
+        else begin
+            ShipDate := 0D;
+            OrderQty := 0;
+            BPCD := 0D;
+        end;
+
+        StyleMasRec.Reset();
+        StyleMasRec.SetRange("No.", rec."Style No.");
+        if StyleMasRec.FindSet() then
+            Buyer := StyleMasRec."Buyer Name"
+        else
+            Buyer := '';
     end;
 
 
@@ -117,5 +143,7 @@ page 50347 "Plan History List part"
     var
         StyleNo: Text;
         ShipDate: Date;
-
+        Buyer: Text[500];
+        OrderQty: BigInteger;
+        BPCD: Date;
 }

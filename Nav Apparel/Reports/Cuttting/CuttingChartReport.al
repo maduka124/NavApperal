@@ -12,7 +12,7 @@ report 50626 CuttingChartReport
             DataItemTableView = sorting("BundleGuideNo.");
             column(Style_No_; "Style Name")
             { }
-            column(Cut_No; "Cut No")
+            column(Cut_No; "Cut No New")
             { }
             column(Color_Name; "Color Name")
             { }
@@ -48,7 +48,7 @@ report 50626 CuttingChartReport
                 if StyleRec.FindFirst() then begin
                     StoreName := StyleRec."Store Name";
                 end;
-                  comRec.Get;
+                comRec.Get;
                 comRec.CalcFields(Picture);
             end;
 
@@ -58,7 +58,7 @@ report 50626 CuttingChartReport
                 SetRange("BundleGuideNo.", BundleGuideNo);
             end;
         }
-      
+
     }
     requestpage
     {
@@ -68,7 +68,7 @@ report 50626 CuttingChartReport
             {
                 group(GroupName)
                 {
-                    Caption='Filter By';
+                    Caption = 'Filter By';
                     field(BundleGuideNo; BundleGuideNo)
                     {
                         ApplicationArea = All;
@@ -98,5 +98,5 @@ report 50626 CuttingChartReport
         BundleGuideNo: code[50];
         StyleRec: Record "Style Master";
         StoreName: Text[50];
-         comRec: Record "Company Information";
+        comRec: Record "Company Information";
 }

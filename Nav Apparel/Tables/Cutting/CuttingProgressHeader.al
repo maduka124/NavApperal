@@ -33,7 +33,7 @@ table 50659 CuttingProgressHeader
             DataClassification = ToBeClassified;
         }
 
-        field(6; "Cut No."; Integer)
+        field(6; "Cut No."; Integer) //Not using any more
         {
             DataClassification = ToBeClassified;
         }
@@ -84,6 +84,11 @@ table 50659 CuttingProgressHeader
         }
 
         field(16; "Secondary UserID"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(17; "Cut No New"; Text[20])
         {
             DataClassification = ToBeClassified;
         }

@@ -23,6 +23,8 @@ table 50654 LaySheetLine4
         field(4; "Shade"; Text[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = Shade.Shade;
+            ValidateTableRelation = false;
         }
 
         field(5; "Batch"; Code[50])
@@ -131,6 +133,18 @@ table 50654 LaySheetLine4
         {
             DataClassification = ToBeClassified;
             InitValue = 0;
+        }
+
+        field(24; "Color No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(25; "Color"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = LaySheetColor.Color where("LaySheetNo." = field("LaySheetNo."));
+            ValidateTableRelation = false;
         }
     }
 

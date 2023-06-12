@@ -47,12 +47,12 @@ table 50664 BundleGuideHeader
             ValidateTableRelation = false;
         }
 
-        field(8; "Cut No"; Integer)
-        {
-            DataClassification = ToBeClassified;
-            TableRelation = CutCreationLine."Cut No" where("Style No." = field("Style No."), "Group ID" = field("Group ID"), "Component Group Code" = field("Component Group"), "Colour No" = field("Color No"), "Cut No" = filter(<> 0));
-            ValidateTableRelation = false;
-        }
+        // field(8; "Cut No"; Integer)
+        // {
+        //     DataClassification = ToBeClassified;
+        //     TableRelation = CutCreationLine."Cut No" where("Style No." = field("Style No."), "Group ID" = field("Group ID"), "Component Group Code" = field("Component Group"), "Colour No" = field("Color No"), "Cut No" = filter(<> 0));
+        //     ValidateTableRelation = false;
+        // }
 
         field(9; "Bundle Rule"; Integer)
         {
@@ -62,8 +62,8 @@ table 50664 BundleGuideHeader
         field(10; "Bundle Method"; Option)
         {
             DataClassification = ToBeClassified;
-            OptionMembers = "Roll Wise",Normal;
-            OptionCaption = 'Roll Wise,Normal';
+            OptionMembers = Normal,"Roll Wise";
+            OptionCaption = 'Normal,Roll Wise';
         }
 
         field(11; "Created Date"; Date)
@@ -102,6 +102,13 @@ table 50664 BundleGuideHeader
             DataClassification = ToBeClassified;
         }
 
+        field(18; "Cut No New"; Text[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = CutCreationLine."Cut No" where("Style No." = field("Style No."), "Group ID" = field("Group ID"), "Component Group Code" = field("Component Group"), "Colour No" = field("Color No"), "Cut No" = filter(<> 0));
+            ValidateTableRelation = false;
+        }
+
     }
 
     keys
@@ -114,7 +121,7 @@ table 50664 BundleGuideHeader
 
     fieldgroups
     {
-        fieldgroup(DropDown; "BundleGuideNo.", "Style Name", "Color Name", "Group ID", "Component Group", "Cut No")
+        fieldgroup(DropDown; "BundleGuideNo.", "Style Name", "Color Name", "Group ID", "Component Group", "Cut No New")
         {
         }
     }

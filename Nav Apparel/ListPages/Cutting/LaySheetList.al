@@ -31,7 +31,7 @@ page 50651 "Lay Sheet List"
                     ApplicationArea = All;
                 }
 
-                field("Cut No."; Rec."Cut No.")
+                field("Cut No."; Rec."Cut No New")
                 {
                     ApplicationArea = All;
                     Caption = 'Cut No';
@@ -144,7 +144,7 @@ page 50651 "Lay Sheet List"
         BundleGuideRec.SetRange("Color No", Rec."Color No.");
         BundleGuideRec.SetRange("Group ID", Rec."Group ID");
         BundleGuideRec.SetRange("Component Group", Rec."Component Group Code");
-        BundleGuideRec.SetRange("Cut No", Rec."Cut No.");
+        BundleGuideRec.SetRange("Cut No New", Rec."Cut No New");
 
         if BundleGuideRec.FindSet() then begin
             Message('Cannot delete. Lay Sheet details already used in the Bundle Guide No : %1', BundleGuideRec."BundleGuideNo.");

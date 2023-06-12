@@ -411,7 +411,7 @@ table 50597 CutCreationLine
             InitValue = 0;
         }
 
-        field(83; "Cut No"; Integer)
+        field(83; "Cut No"; Integer)  //Not using anymore
         {
             DataClassification = ToBeClassified;
             InitValue = 0;
@@ -426,6 +426,11 @@ table 50597 CutCreationLine
         {
             DataClassification = ToBeClassified;
             InitValue = 0;
+        }
+
+        field(86; "Cut No New"; Text[20])
+        {
+            DataClassification = ToBeClassified;
         }
     }
 

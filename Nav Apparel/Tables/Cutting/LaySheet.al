@@ -18,11 +18,11 @@ table 50645 LaySheetHeader
             ValidateTableRelation = false;
         }
 
-        field(3; "Cut No."; Integer)
-        {
-            DataClassification = ToBeClassified;
-            InitValue = 0;
-        }
+        // field(3; "Cut No."; Integer)
+        // {
+        //     DataClassification = ToBeClassified;
+        //     InitValue = 0;
+        // }
 
         field(4; "Plan Date"; date)
         {
@@ -57,6 +57,8 @@ table 50645 LaySheetHeader
         field(10; "Color"; Text[50])
         {
             DataClassification = ToBeClassified;
+            TableRelation = AssortmentDetails."Colour Name" where("Style No." = field("Style No."), "PO No." = field("PO No."), Type = filter(1));
+            ValidateTableRelation = false;
         }
 
         field(11; "Component Group Code"; Code[50])
@@ -67,6 +69,8 @@ table 50645 LaySheetHeader
         field(12; "Component Group Name"; Code[50])
         {
             DataClassification = ToBeClassified;
+            TableRelation = MarkerCategory."Marker Category";
+            ValidateTableRelation = false;
         }
 
         field(13; "Item No."; Code[20])
@@ -142,6 +146,8 @@ table 50645 LaySheetHeader
         field(27; "PO No."; Code[20])
         {
             DataClassification = ToBeClassified;
+            TableRelation = "Style Master PO"."PO No." where("Style No." = field("Style No."));
+            ValidateTableRelation = false;
         }
 
         field(28; "Secondary UserID"; Code[20])
@@ -151,6 +157,23 @@ table 50645 LaySheetHeader
 
         //Done By Sachith on 06/04/23
         field(29; "Factory Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(30; "Buyer No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(31; "Buyer Name"; text[100])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Customer.Name;
+            ValidateTableRelation = false;
+        }
+
+        field(32; "Cut No New"; Text[20])
         {
             DataClassification = ToBeClassified;
         }
@@ -175,13 +198,21 @@ table 50645 LaySheetHeader
 
     trigger OnInsert()
     var
-    // NavAppSetup: Record "NavApp Setup";
-    // NoSeriesMngment: Codeunit NoSeriesManagement;
+        NavAppSetup: Record "NavApp Setup";
+        NoSeriesMngment: Codeunit NoSeriesManagement;
+        UserRec: Record "User Setup";
     begin
-        // NavAppSetup.Get('0001');
-        // NavAppSetup.TestField("LaySheet Nos.");
+        NavAppSetup.Get('0001');
+        NavAppSetup.TestField("LaySheet Nos.");
+        "LaySheetNo." := NoSeriesMngment.GetNextNo(NavAppSetup."LaySheet Nos.", Today, true);
 
-        // "LaySheetNo." := NoSeriesMngment.GetNextNo(NavAppSetup."LaySheet Nos.", Today, true);
+        UserRec.Reset();
+        UserRec.Get(UserId);
+
+        if UserRec."Factory Code" <> '' then
+            Rec."Factory Code" := UserRec."Factory Code"
+        else
+            Error('Factory not assigned for the user.');
 
         "Created Date" := WorkDate();
         "Created User" := UserId;

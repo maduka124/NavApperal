@@ -662,6 +662,12 @@ table 51139 "NavApp Setup"
             DataClassification = ToBeClassified;
             TableRelation = "No. Series";
         }
+
+        field(71012697; "LaySheet Nos."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "No. Series";
+        }
     }
 
     keys
