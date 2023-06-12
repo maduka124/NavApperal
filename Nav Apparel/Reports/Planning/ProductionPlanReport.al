@@ -76,6 +76,8 @@ report 50621 ProductionPlanReport
                 { }
                 column(StartDate; StartDate)
                 { }
+                column(color; color)
+                { }
                 trigger OnAfterGetRecord()
                 var
                 begin
@@ -135,6 +137,12 @@ report 50621 ProductionPlanReport
                         EndDt := NavAppProdPlanRec."PlanDate";
                         InSpectionDt := NavAppProdPlanRec."PlanDate" + 10;
                     end;
+
+
+                    color := 0;
+                    if EndDt > shDate then
+                        color := 1;
+
 
                     // NavRec.Reset();
                     // NavRec.SetCurrentKey("Start Date");
@@ -264,6 +272,7 @@ report 50621 ProductionPlanReport
 
 
     var
+        color: Integer;
         BuyerNo: Code[20];
         WorkcenterNo: Integer;
         WorkCenterRec: Record "Work Center";
