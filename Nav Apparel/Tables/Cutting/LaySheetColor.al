@@ -23,7 +23,7 @@ table 51319 LaySheetColor
 
     keys
     {
-        key(PK; "LaySheetNo.", "Color No.")
+        key(PK; "LaySheetNo.", "Color")
         {
             Clustered = true;
         }
@@ -31,7 +31,7 @@ table 51319 LaySheetColor
 
     fieldgroups
     {
-        fieldgroup(DropDown; "LaySheetNo.", Color)
+        fieldgroup(DropDown; Color)
         {
 
         }

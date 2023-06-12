@@ -160,7 +160,6 @@ table 50654 LaySheetLine4
     // {
     //     fieldgroup(DropDown; "Marker Name", "Cut No")
     //     {
-
     //     }
     // }
 
@@ -169,20 +168,4 @@ table 50654 LaySheetLine4
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

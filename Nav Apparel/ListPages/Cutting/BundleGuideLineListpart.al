@@ -17,10 +17,11 @@ page 50669 BundleGuideLineListpart
                     Editable = false;
                 }
 
-                field("Cut No"; Rec."Cut No")
+                field("Cut No"; Rec."Cut No New")
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Caption = 'Cut No';
                 }
 
                 // field(SJCNo; Rec.SJCNo)

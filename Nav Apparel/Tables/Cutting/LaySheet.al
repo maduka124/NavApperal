@@ -177,6 +177,11 @@ table 50645 LaySheetHeader
         {
             DataClassification = ToBeClassified;
         }
+
+        field(33; "TotalPies"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
