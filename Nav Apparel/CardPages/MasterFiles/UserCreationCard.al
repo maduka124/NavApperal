@@ -114,6 +114,22 @@ page 50978 "Create User Card"
             // }
 
 
+            action("Remove Export Bank Ref Available Invoices")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    ContractPostedRec: Record ContractPostedInvoices;
+                begin
+                    ContractPostedRec.Reset();
+                    if ContractPostedRec.FindSet() then begin
+                        ContractPostedRec.DeleteAll();
+                        Message('Export Bank Ref Available Invoices Removed');
+                    end;
+
+                end;
+            }
             action("remove value Export Reference")
             {
                 ApplicationArea = All;
