@@ -8,6 +8,11 @@ pageextension 50958 LocationCardExt extends "Location Card"
             {
                 ApplicationArea = All;
             }
+
+            field("Bundle Guide Sequence"; rec."Bundle Guide Sequence")
+            {
+                ApplicationArea = All;
+            }
         }
 
         addafter("Use As In-Transit")
