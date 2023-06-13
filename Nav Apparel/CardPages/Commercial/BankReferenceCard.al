@@ -161,10 +161,8 @@ page 50763 "Bank Reference Card"
                                                 ContPostedInvRec."Inv Date" := SalesInvoiceRec."Document Date";
                                                 ContPostedInvRec.Insert();
 
-                                            end
-                                            else begin
-                                                Error('This Contract Assigned for Export Bank Reference');
                                             end;
+
 
                                         until SalesInvoiceRec.Next() = 0;
 
@@ -282,6 +280,22 @@ page 50763 "Bank Reference Card"
         //     //Delete Line records
         //     BankRefeInvRec.Delete();
         // end;
+
+
+        BankRefeInvRec.Reset();
+        BankRefeInvRec.SetRange("No.", Rec."No.");
+        if BankRefeInvRec.FindSet() then begin
+            repeat
+                ContPostedInvRec.Reset();
+                ContPostedInvRec.SetRange("Inv No.", BankRefeInvRec."Invoice No");
+                if ContPostedInvRec.FindSet() then begin
+                    ContPostedInvRec.AssignedBankRefNo := '';
+                    ContPostedInvRec.Modify();
+                end;
+            until BankRefeInvRec.Next() = 0;
+        end;
+
+
         BankRefeInvRec.Reset();
         BankRefeInvRec.SetRange("No.", Rec."No.");
         if BankRefeInvRec.FindSet() then begin
@@ -295,17 +309,7 @@ page 50763 "Bank Reference Card"
 
         end;
 
-        ContPostedInvRec.Reset();
-        ContPostedInvRec.SetRange("BankRefNo", rec."No.");
-        if ContPostedInvRec.FindSet() then begin
-            repeat
-                ContPostedInvRec.DeleteAll();
-            // ContPostedInvRec.AssignedBankRefNo := '';
-            // ContPostedInvRec."LC/Contract No." := '';
-            // ContPostedInvRec."Inv No." := '';
-            // ContPostedInvRec.Modify();
-            until ContPostedInvRec.Next() = 0;
-        end;
+
 
     end;
 

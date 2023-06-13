@@ -43,11 +43,11 @@ page 50766 "Bank Reference List"
                     ApplicationArea = All;
                     Caption = 'Contract No';
                 }
-                field("Factory Inv No"; Rec."Factory Inv No")
-                {
-                    ApplicationArea = All;
+                // field("Factory Inv No"; Rec."Factory Inv No")
+                // {
+                //     ApplicationArea = All;
 
-                }
+                // }
                 field(AirwayBillNo; Rec.AirwayBillNo)
                 {
                     ApplicationArea = All;
