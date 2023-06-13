@@ -79,16 +79,16 @@ page 50978 "Create User Card"
                     Caption = 'Active Status';
                 }
 
-                field(ExportRefNo; ExportRefNo)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Posted Sales Invoice No';
-                }
-                field(PurchaseNo; PurchaseNo)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Purchase Order No';
-                }
+                // field(ExportRefNo; ExportRefNo)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Posted Sales Invoice No';
+                // }
+                // field(PurchaseNo; PurchaseNo)
+                // {
+                //     ApplicationArea = All;
+                //     Caption = 'Purchase Order No';
+                // }
             }
         }
     }
@@ -130,76 +130,76 @@ page 50978 "Create User Card"
 
                 end;
             }
-            action("remove value Export Reference")
-            {
-                ApplicationArea = All;
+            // action("remove value Export Reference")
+            // {
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    SalesInvRec: Record "Sales Invoice Header";
-                begin
-                    SalesInvRec.Reset();
-                    SalesInvRec.SetRange("No.", ExportRefNo);
-                    SalesInvRec.FindSet();
-                    SalesInvRec.ModifyAll("Export Ref No.", '');
-                    Message('Export Ref No Removed');
+            //     trigger OnAction()
+            //     var
+            //         SalesInvRec: Record "Sales Invoice Header";
+            //     begin
+            //         SalesInvRec.Reset();
+            //         SalesInvRec.SetRange("No.", ExportRefNo);
+            //         SalesInvRec.FindSet();
+            //         SalesInvRec.ModifyAll("Export Ref No.", '');
+            //         Message('Export Ref No Removed');
 
-                end;
-            }
+            //     end;
+            // }
 
-            action("Remove value from Purchase Header")
-            {
-                ApplicationArea = All;
-                Image = Add;
-                trigger OnAction()
-                var
-                    PurchaseRec: Record "Purchase Header";
-                begin
-                    PurchaseRec.Reset();
-                    PurchaseRec.SetRange("No.", PurchaseNo);
-                    if PurchaseRec.FindSet() then begin
-                        PurchaseRec.ModifyAll("Assigned PI No.", '');
-                        PurchaseRec.ModifyAll(Status, PurchaseRec.Status::Released);
-                        Message('Purchase Header Record Updated');
-                    end;
-                end;
-            }
-            action("Remove minus Planned Qty")
-            {
-                ApplicationArea = All;
-                Image = AddAction;
+            // action("Remove value from Purchase Header")
+            // {
+            //     ApplicationArea = All;
+            //     Image = Add;
+            //     trigger OnAction()
+            //     var
+            //         PurchaseRec: Record "Purchase Header";
+            //     begin
+            //         PurchaseRec.Reset();
+            //         PurchaseRec.SetRange("No.", PurchaseNo);
+            //         if PurchaseRec.FindSet() then begin
+            //             PurchaseRec.ModifyAll("Assigned PI No.", '');
+            //             PurchaseRec.ModifyAll(Status, PurchaseRec.Status::Released);
+            //             Message('Purchase Header Record Updated');
+            //         end;
+            //     end;
+            // }
+            // action("Remove minus Planned Qty")
+            // {
+            //     ApplicationArea = All;
+            //     Image = AddAction;
 
-                trigger OnAction()
-                var
-                    Sty: Record "Style Master PO";
-                begin
-                    Sty.Reset();
-                    Sty.SetFilter(PlannedQty, '<%1', 0);
-                    Sty.FindSet();
-                    Sty.ModifyAll(PlannedQty, 0);
-                    Message('Completed');
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         Sty: Record "Style Master PO";
+            //     begin
+            //         Sty.Reset();
+            //         Sty.SetFilter(PlannedQty, '<%1', 0);
+            //         Sty.FindSet();
+            //         Sty.ModifyAll(PlannedQty, 0);
+            //         Message('Completed');
+            //     end;
+            // }
 
 
-            action("Update Estimate Bom")
-            {
-                ApplicationArea = all;
-                Image = AddAction;
+            // action("Update Estimate Bom")
+            // {
+            //     ApplicationArea = all;
+            //     Image = AddAction;
 
-                trigger OnAction()
-                var
-                    StyleRec: Record "Style Master";
-                begin
-                    StyleRec.Reset();
-                    StyleRec.SetRange("No.", '00484');
-                    if StyleRec.FindSet() then begin
-                        StyleRec.EstimateBOM := '00623';
-                        StyleRec.Modify();
-                        Message('Estimate Bom Updated');
-                    end;
-                end;
-            }
+            //     trigger OnAction()
+            //     var
+            //         StyleRec: Record "Style Master";
+            //     begin
+            //         StyleRec.Reset();
+            //         StyleRec.SetRange("No.", '00484');
+            //         if StyleRec.FindSet() then begin
+            //             StyleRec.EstimateBOM := '00623';
+            //             StyleRec.Modify();
+            //             Message('Estimate Bom Updated');
+            //         end;
+            //     end;
+            // }
 
 
 
@@ -472,34 +472,34 @@ page 50978 "Create User Card"
             // }
 
             // Done By sachith on 15/05/23
-            action("UpDate Sample Req Line Group HD")
-            {
-                ApplicationArea = All;
-                Caption = 'Update Group Head';
+            // action("UpDate Sample Req Line Group HD")
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Update Group Head';
 
-                trigger OnAction()
-                var
-                    SampleReqHeaderRec: Record "Sample Requsition Header";
-                    SampleReqLinRec: REcord "Sample Requsition Line";
-                begin
+            //     trigger OnAction()
+            //     var
+            //         SampleReqHeaderRec: Record "Sample Requsition Header";
+            //         SampleReqLinRec: REcord "Sample Requsition Line";
+            //     begin
 
-                    SampleReqHeaderRec.Reset();
+            //         SampleReqHeaderRec.Reset();
 
-                    if SampleReqHeaderRec.FindFirst() then begin
-                        repeat
+            //         if SampleReqHeaderRec.FindFirst() then begin
+            //             repeat
 
-                            SampleReqLinRec.Reset();
-                            SampleReqLinRec.SetRange("No.", SampleReqHeaderRec."No.");
+            //                 SampleReqLinRec.Reset();
+            //                 SampleReqLinRec.SetRange("No.", SampleReqHeaderRec."No.");
 
-                            if SampleReqLinRec.FindFirst() then begin
-                                SampleReqLinRec."Group Head" := SampleReqHeaderRec."Group HD";
-                                SampleReqLinRec.Modify();
-                            end;
+            //                 if SampleReqLinRec.FindFirst() then begin
+            //                     SampleReqLinRec."Group Head" := SampleReqHeaderRec."Group HD";
+            //                     SampleReqLinRec.Modify();
+            //                 end;
 
-                        until SampleReqHeaderRec.Next() = 0;
-                    end;
-                end;
-            }
+            //             until SampleReqHeaderRec.Next() = 0;
+            //         end;
+            //     end;
+            // }
         }
     }
 
