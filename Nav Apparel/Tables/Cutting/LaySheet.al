@@ -18,11 +18,11 @@ table 50645 LaySheetHeader
             ValidateTableRelation = false;
         }
 
-        // field(3; "Cut No."; Integer)
-        // {
-        //     DataClassification = ToBeClassified;
-        //     InitValue = 0;
-        // }
+        field(3; "Cut No."; Integer)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 0;
+        }
 
         field(4; "Plan Date"; date)
         {

@@ -2398,14 +2398,14 @@ DATE</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Quantity">
+                        <Textbox Name="BQty1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Quantity.Value</Value>
+                                  <Value>=Sum((Fields!BQty.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <Format>n0</Format>
@@ -2417,7 +2417,7 @@ DATE</Value>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Quantity</rd:DefaultName>
+                          <rd:DefaultName>BQty1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2429,6 +2429,7 @@ DATE</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>

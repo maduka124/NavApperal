@@ -123,7 +123,23 @@ report 50634 BundleGuideReport
                     {
                         ApplicationArea = All;
                         Caption = 'Bundle Guide No';
-                        TableRelation = BundleGuideHeader."BundleGuideNo.";
+                        //   TableRelation = BundleGuideHeader."BundleGuideNo.";
+
+                        trigger OnLookup(var texts: text): Boolean
+                        var
+                            BundleGuideHeader: Record BundleGuideHeader;
+                            UserRec: Record "User Setup";
+                        begin
+                            UserRec.Reset();
+                            UserRec.Get(UserId);
+
+                            BundleGuideHeader.Reset();
+                            BundleGuideHeader.SetRange("Factory Code", UserRec."Factory Code");
+                            if BundleGuideHeader.FindSet() then begin
+                                if Page.RunModal(51322, BundleGuideHeader) = Action::LookupOK then
+                                    BundleGuideNo := BundleGuideHeader."BundleGuideNo.";
+                            end;
+                        end;
                     }
                 }
             }

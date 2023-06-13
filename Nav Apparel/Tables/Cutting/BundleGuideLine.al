@@ -120,6 +120,10 @@ table 50668 BundleGuideLine
             DataClassification = ToBeClassified;
         }
 
+        field(23; TempQty; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

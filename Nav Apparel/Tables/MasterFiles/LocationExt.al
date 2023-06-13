@@ -40,6 +40,13 @@ tableextension 51099 "Location Extension" extends Location
             DataClassification = ToBeClassified;
         }
 
+        field(50008; "Bundle Guide Sequence"; Option)
+        {
+            DataClassification = ToBeClassified;
+            OptionMembers = Continue,"Start From 1";
+            OptionCaption = 'Continue,Start From 1';
+        }
+
     }
 
     trigger OnBeforeDelete()
