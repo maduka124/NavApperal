@@ -76,12 +76,33 @@ page 51241 "Export Reference Card"
                 {
                     ApplicationArea = All;
 
-                    trigger OnValidate()
+                    trigger OnLookup(var texts: text): Boolean
                     var
                         SalesInvRec: Record "Sales Invoice Header";
+                        ContracStRec: Record "Contract/LCStyle";
+                        LcMaterRec: Record "Contract/LCMaster";
+                        // SalesInvRec: Record "Sales Invoice Header";
                         SalesInvLineRec: Record "Sales Invoice Line";
                         ExportRefLineRec: Record ExportReferenceLine;
                     begin
+                        SalesInvRec.Reset();
+                        SalesInvRec.SetRange("Sell-to Customer No.", Rec."Buyer No");
+                        SalesInvRec.SetFilter("Export Ref No.", '=%1', '');
+                        if SalesInvRec.FindSet() then begin
+                            if Page.RunModal(53000, SalesInvRec) = Action::LookupOK then begin
+                                Rec."Invoice No" := SalesInvRec."No.";
+                            end;
+                        end;
+                        // end;
+
+                        // trigger OnValidate()
+                        // var
+                        // ContracStRec: Record "Contract/LCStyle";
+                        // LcMaterRec: Record "Contract/LCMaster";
+                        // SalesInvRec: Record "Sales Invoice Header";
+                        // SalesInvLineRec: Record "Sales Invoice Line";
+                        // ExportRefLineRec: Record ExportReferenceLine;
+                        // begin
 
                         if xRec."Invoice No" <> '' then begin
                             SalesInvRec.Reset();
@@ -114,6 +135,7 @@ page 51241 "Export Reference Card"
                             ExportRefLineRec."Invoice No" := rec."Invoice No";
                             ExportRefLineRec."Line No." := 1;
 
+
                             //Get qty 
                             SalesInvLineRec.Reset();
                             SalesInvLineRec.SetRange("Document No.", rec."Invoice No");
@@ -131,7 +153,18 @@ page 51241 "Export Reference Card"
                             Rec."Factory Inv No" := SalesInvRec."Your Reference";
                             Rec."Order No" := SalesInvRec."PO No";
 
+                            ContracStRec.Reset();
+                            ContracStRec.SetRange("Style No.", SalesInvRec."Style No");
+                            ContracStRec.SetRange("Buyer No.", SalesInvRec."Sell-to Customer No.");
+                            if ContracStRec.FindSet() then begin
 
+                                LcMaterRec.Reset();
+                                LcMaterRec.SetRange("No.", ContracStRec."No.");
+                                if LcMaterRec.FindSet() then begin
+                                    Rec."Contract No" := LcMaterRec."Contract No"
+                                end;
+
+                            end;
                         end;
                     end;
 

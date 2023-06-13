@@ -94,14 +94,14 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
         {
             DataClassification = ToBeClassified;
         }
+
     }
+
     fieldgroups
     {
-        addlast(DropDown; "Your Reference")
+        addlast(DropDown; "Order No.", "Your Reference")
         { }
     }
 
-
 }
-
 

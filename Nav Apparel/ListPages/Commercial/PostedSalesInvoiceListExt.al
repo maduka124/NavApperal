@@ -3,6 +3,11 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
 
     layout
     {
+        // modify("External Document No.")
+        // {
+        //     ApplicationArea = all;
+        //     Visible = false;
+        // }
         modify("No.")
         {
             Visible = false;
@@ -89,8 +94,5 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
 
     var
         // PaymentDueDate: Date;
-        LcNo: Code[20];
-        myInt: Integer;
-        SalesRec: Record "Sales Header";
-        salesInvRec: Record "Sales Invoice Header";
+   
 }
