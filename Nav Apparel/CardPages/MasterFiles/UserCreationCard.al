@@ -114,22 +114,22 @@ page 50978 "Create User Card"
             // }
 
 
-            action("Remove Export Bank Ref Available Invoices")
-            {
-                ApplicationArea = All;
+            // action("Remove Export Bank Ref Available Invoices")
+            // {
+            //     ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    ContractPostedRec: Record ContractPostedInvoices;
-                begin
-                    ContractPostedRec.Reset();
-                    if ContractPostedRec.FindSet() then begin
-                        ContractPostedRec.DeleteAll();
-                        Message('Export Bank Ref Available Invoices Removed');
-                    end;
+            //     trigger OnAction()
+            //     var
+            //         ContractPostedRec: Record ContractPostedInvoices;
+            //     begin
+            //         ContractPostedRec.Reset();
+            //         if ContractPostedRec.FindSet() then begin
+            //             ContractPostedRec.DeleteAll();
+            //             Message('Export Bank Ref Available Invoices Removed');
+            //         end;
 
-                end;
-            }
+            //     end;
+            // }
             // action("remove value Export Reference")
             // {
             //     ApplicationArea = All;
@@ -180,28 +180,6 @@ page 50978 "Create User Card"
             //         Message('Completed');
             //     end;
             // }
-
-
-            // action("Update Estimate Bom")
-            // {
-            //     ApplicationArea = all;
-            //     Image = AddAction;
-
-            //     trigger OnAction()
-            //     var
-            //         StyleRec: Record "Style Master";
-            //     begin
-            //         StyleRec.Reset();
-            //         StyleRec.SetRange("No.", '00484');
-            //         if StyleRec.FindSet() then begin
-            //             StyleRec.EstimateBOM := '00623';
-            //             StyleRec.Modify();
-            //             Message('Estimate Bom Updated');
-            //         end;
-            //     end;
-            // }
-
-
 
 
             // action("update prod update status")

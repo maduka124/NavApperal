@@ -1155,5 +1155,8 @@ permissionset 50100 GeneratedPermission
         table StockSummary=X,
         report ExportSummartReport2=X,
         tabledata LaySheetColor=RIMD,
-        table LaySheetColor=X;
+        table LaySheetColor=X,
+        page BundleGuideReportLookup=X,
+        page LaysheetLookupList=X,
+        page "Sales Invoice Header List"=X;
 }
