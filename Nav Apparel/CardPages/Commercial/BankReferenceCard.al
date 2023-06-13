@@ -104,6 +104,7 @@ page 50763 "Bank Reference Card"
 
                     trigger OnValidate()
                     var
+
                         LCContractRec: Record "Contract/LCMaster";
                         ContractStyleRec: Record "Contract/LCStyle";
                         SalesInvoiceRec: Record "Sales Invoice Header";
@@ -159,6 +160,10 @@ page 50763 "Bank Reference Card"
                                                 ContPostedInvRec."LC/Contract No." := rec."LC/Contract No.";
                                                 ContPostedInvRec."Inv Date" := SalesInvoiceRec."Document Date";
                                                 ContPostedInvRec.Insert();
+
+                                            end
+                                            else begin
+                                                Error('This Contract Assigned for Export Bank Reference');
                                             end;
 
                                         until SalesInvoiceRec.Next() = 0;
@@ -169,6 +174,22 @@ page 50763 "Bank Reference Card"
                             end
                             else
                                 Error('No Styles assigned for the Contract  : %1', rec."LC/Contract No.");
+                        end;
+
+                        ContPostedInvRec.Reset();
+                        ContPostedInvRec.SetRange(BankRefNo, Rec."No.");
+                        if ContPostedInvRec.FindSet() then begin
+                            Rec."Factory Inv No" := ContPostedInvRec."Factory Inv No";
+                        end;
+
+                        LCContractRec.Reset();
+                        ContPostedInvRec.Reset();
+                        if ContractStyleRec.FindSet() then begin
+                            LCContractRec.SetRange("Contract No", ContPostedInvRec."LC/Contract No.");
+                            if LCContractRec.FindSet() then begin
+                                Rec."Factory No" := LCContractRec."Factory No.";
+                                Rec."Factory Name" := LCContractRec.Factory;
+                            end;
                         end;
                     end;
                 }
@@ -264,19 +285,25 @@ page 50763 "Bank Reference Card"
         BankRefeInvRec.Reset();
         BankRefeInvRec.SetRange("No.", Rec."No.");
         if BankRefeInvRec.FindSet() then begin
-            Error('Please Remove Selected Invoices');
+            // Error('Please Remove Selected Invoices');
+            BankRefeInvRec.DeleteAll();
             // BankRefeInvRec."No." := '';
             // // BankRefeInvRec."Invoice No" := '';
             // BankRefeInvRec.Modify();
 
+
+
         end;
 
         ContPostedInvRec.Reset();
-        ContPostedInvRec.SetRange("BankRefNo", rec."BankRefNo.");
+        ContPostedInvRec.SetRange("BankRefNo", rec."No.");
         if ContPostedInvRec.FindSet() then begin
             repeat
-                ContPostedInvRec.AssignedBankRefNo := '';
-                ContPostedInvRec.Modify();
+                ContPostedInvRec.DeleteAll();
+            // ContPostedInvRec.AssignedBankRefNo := '';
+            // ContPostedInvRec."LC/Contract No." := '';
+            // ContPostedInvRec."Inv No." := '';
+            // ContPostedInvRec.Modify();
             until ContPostedInvRec.Next() = 0;
         end;
 

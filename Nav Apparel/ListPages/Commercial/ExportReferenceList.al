@@ -24,8 +24,25 @@ page 51240 "Export Reference List"
                 field("Invoice No"; Rec."Invoice No")
                 {
                     ApplicationArea = All;
+                    Visible = false;
                 }
+                field("Buyer Name"; Rec."Buyer Name")
+                {
+                    ApplicationArea = All;
 
+                }
+                field("Contract No"; Rec."Contract No")
+                {
+                    ApplicationArea = All;
+                }
+                field("Order No"; Rec."Order No")
+                {
+                    ApplicationArea = All;
+                }
+                field("Factory Inv No"; Rec."Factory Inv No")
+                {
+                    ApplicationArea = All;
+                }
                 field("BL No"; Rec."BL No")
                 {
                     ApplicationArea = All;
@@ -35,12 +52,10 @@ page 51240 "Export Reference List"
                 {
                     ApplicationArea = All;
                 }
-
                 field("DOC Sub Bank Date"; Rec."DOC Sub Bank Date")
                 {
                     ApplicationArea = All;
                 }
-
                 field("DOC Sub Buyer Date"; Rec."DOC Sub Buyer Date")
                 {
                     ApplicationArea = All;

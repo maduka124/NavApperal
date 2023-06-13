@@ -25,7 +25,7 @@ table 51239 ExportReferenceHeader
         field(4; "Invoice No"; Code[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Buyer No"), "Export Ref No." = filter(''));
+            // TableRelation = "Sales Invoice Header"."No." where("Sell-to Customer No." = field("Buyer No"), "Export Ref No." = filter(''));
 
         }
 
@@ -86,7 +86,11 @@ table 51239 ExportReferenceHeader
             DataClassification = ToBeClassified;
             Editable = false;
         }
-
+        field(16; "Contract No"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
     }
 
     keys

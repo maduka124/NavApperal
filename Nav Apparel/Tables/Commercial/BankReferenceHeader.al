@@ -84,6 +84,21 @@ table 50761 BankReferenceHeader
             DataClassification = ToBeClassified;
 
         }
+        field(16; "Factory No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+        field(17; "Factory Name"; text[100])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+        field(18; "Factory Inv No"; text[35])
+        {
+            DataClassification = ToBeClassified;
+
+        }
 
     }
 
