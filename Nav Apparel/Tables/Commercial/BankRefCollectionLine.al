@@ -118,6 +118,10 @@ table 50768 BankRefCollectionLine
         {
             DataClassification = ToBeClassified;
         }
+        field(24; "Type"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

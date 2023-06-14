@@ -217,6 +217,13 @@ codeunit 50618 NavAppCodeUnit
             exit('StrongAccent');
     end;
 
+    procedure ChangeColorBooking2(OpList: Record BankRefCollectionLine): Text[50]
+    var
+    begin
+        if OpList.Type = 'T' then
+            exit('StrongAccent');
+    end;
+
     procedure ChangeColorBooking3(OpList: Record BuyerWiseOrderBookinBalatoShip): Text[50]
 
     begin

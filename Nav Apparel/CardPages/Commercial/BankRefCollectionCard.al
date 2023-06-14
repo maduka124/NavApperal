@@ -30,6 +30,7 @@ page 50770 "Bank Ref Collection Card"
                         CurrencyFactor: Decimal;
                         ExchangeRateDate: Date;
                         LCMasterRec: Record "Contract/LCMaster";
+                        InvoiceAmt: Decimal;
                     begin
 
                         ExchangeRateDate := Today();
@@ -61,6 +62,7 @@ page 50770 "Bank Ref Collection Card"
                                 if BankRefInvRec.FindSet() then begin
                                     repeat
                                         LineNo += 1;
+                                        InvoiceAmt += BankRefInvRec."Ship Value";
                                         BankRefCollLineRec.Init();
                                         BankRefCollLineRec."BankRefNo." := rec."BankRefNo.";
                                         BankRefCollLineRec."Airway Bill Date" := BankRefHeaderRec."Airway Bill Date";
@@ -75,10 +77,26 @@ page 50770 "Bank Ref Collection Card"
                                         BankRefCollLineRec."Maturity Date" := BankRefHeaderRec."Maturity Date";
                                         BankRefCollLineRec."Reference Date" := BankRefHeaderRec."Reference Date";
                                         BankRefCollLineRec."Factory Invoice No" := BankRefInvRec."Factory Inv No";
+                                        BankRefCollLineRec.Type := 'R';
                                         BankRefCollLineRec.Insert();
                                     until BankRefInvRec.Next() = 0;
-                                end;
 
+                                end;
+                                BankRefCollLineRec.Reset();
+                                BankRefCollLineRec.SetRange("BankRefNo.", Rec."BankRefNo.");
+                                BankRefCollLineRec.SetFilter(Type, '=%1', 'T');
+                                if not BankRefCollLineRec.FindSet() then begin
+
+                                    LineNo += 1;
+                                    BankRefCollLineRec.Init();
+                                    BankRefCollLineRec."LineNo." := LineNo;
+                                    BankRefCollLineRec."BankRefNo." := rec."BankRefNo.";
+                                    BankRefCollLineRec.AirwayBillNo := 'Total';
+                                    BankRefCollLineRec."Invoice Amount" := InvoiceAmt;
+                                    BankRefCollLineRec.Type := 'T';
+                                    BankRefCollLineRec.Insert();
+
+                                end;
 
                             end;
 
@@ -128,6 +146,9 @@ page 50770 "Bank Ref Collection Card"
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
+                        if Rec."Release Amount" > Rec.Total then
+                            Error('Release Amount cannot be greater than total');
+
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
@@ -300,6 +321,12 @@ page 50770 "Bank Ref Collection Card"
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
+
+                        "Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+
+                        if "Total Distribution" > Rec.Total then
+                            Error('Please check enter values Total Distribution cannot be greater than Total ');
+
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
@@ -343,7 +370,14 @@ page 50770 "Bank Ref Collection Card"
                             rec."Cash Receipt Bank Name" := BankAccountRec.Name;
                             rec."Cash Receipt Bank No" := BankAccountRec."No.";
                         end;
+
+
                     end;
+                }
+                field("Total Distribution"; "Total Distribution")
+                {
+                    ApplicationArea = All;
+
                 }
             }
 
@@ -527,6 +561,7 @@ page 50770 "Bank Ref Collection Card"
     trigger OnDeleteRecord(): Boolean
     var
         BankRefeCollRec: Record BankRefCollectionLine;
+
     begin
         if rec."Cash Rece. Updated" then
             Error('Cash Receipt Journal updated for this Bank Ref. Cannot delete.');
@@ -535,6 +570,7 @@ page 50770 "Bank Ref Collection Card"
         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
         if BankRefeCollRec.FindSet() then
             BankRefeCollRec.Delete();
+
     end;
 
 
@@ -552,5 +588,7 @@ page 50770 "Bank Ref Collection Card"
         exit(InvoiceTotal);
     end;
 
+    var
+        "Total Distribution": Decimal;
 
 }
