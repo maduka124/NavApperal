@@ -167,11 +167,15 @@ page 51195 SampleProdLineQCListPart
                     trigger OnValidate()
                     var
                     begin
+
                         if rec."Quality Checker" = '' then
                             Error('Select a Quality Checker');
 
                         if rec."QC Hours" = 0 then
                             Error('QC Minutes is zero');
+
+                        if Rec."Sewing Date" > Rec."QC Date" then
+                            Error('QC Date should be greater than Sewing Date');
 
                         CurrPage.Update();
                     end;

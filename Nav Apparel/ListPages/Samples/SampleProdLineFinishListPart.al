@@ -222,6 +222,9 @@ page 50800 SampleProdLineFinishListPart
                         if rec."Finishing Work center Name" = '' then
                             Error('Select a Router/Work Center');
 
+                        if Rec."Received Wash Date" > Rec."Finishing Date" then
+                            Error('Finishing Date should be greater than Received Wash Date');
+
                         if format(rec."Finishing Date") <> '' then begin
                             RouterlineRec.Reset();
                             RouterlineRec.SetRange("Routing No.", rec."Routing Code");

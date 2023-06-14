@@ -195,6 +195,9 @@ page 50438 SampleProdLineSendWashListPart
                         if rec."Wash Sender" = '' then
                             Error('Select a wash sender name');
 
+                        if Rec."QC Date" > Rec."Send Wash Date" then
+                            Error('Send Wash Date should be greater than QC Date');
+
                         CurrPage.Update();
 
                         // if "Wash Send Hours" = 0 then

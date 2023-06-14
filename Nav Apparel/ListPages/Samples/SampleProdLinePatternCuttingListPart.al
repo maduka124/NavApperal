@@ -148,11 +148,15 @@ page 51193 SampleProdLinePattCuttListPart
                     trigger OnValidate()
                     var
                     begin
+
                         if rec."Pattern Cutter" = '' then
                             Error('Select a Pattern Cutter');
 
                         if rec."Pattern Cuting Hours" = 0 then
                             Error('Pattern Cutting Minutes is zero');
+
+                        if Rec."Pattern Date" > Rec."Pattern/Cutting Date" then
+                            Error('Pattern/Cutting Date should be greater than Pattern Date');
 
                         CurrPage.Update();
                     end;

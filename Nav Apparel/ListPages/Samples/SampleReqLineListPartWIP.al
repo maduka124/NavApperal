@@ -78,6 +78,7 @@ page 50431 SampleReqLineListPartWIP
                         if rec."Plan Start Date" < WorkDate() then
                             Error('Start date should be greater than todays date');
                     end;
+                    
                 }
 
                 field("Plan End Date"; rec."Plan End Date")

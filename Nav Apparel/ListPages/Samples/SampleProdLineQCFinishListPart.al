@@ -199,6 +199,9 @@ page 51196 SampleProdLineQCFinishListPart
                         if rec."QC Finish Hours" = 0 then
                             Error('QC Finish Minutes is zero');
 
+                        if Rec."Finishing Date" > Rec."QC/Finishing Date" then
+                            Error('QC/Finishing Date should be greater than Finishing Date');
+
                         CurrPage.Update();
                     end;
                 }

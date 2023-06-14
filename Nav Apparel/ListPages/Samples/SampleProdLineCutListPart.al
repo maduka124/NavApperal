@@ -175,6 +175,7 @@ page 50436 SampleProdLineCutListPart
                     var
                         RouterlineRec: Record "Routing Line";
                     begin
+
                         if rec.Cutter = '' then
                             Error('Select a cutter name');
 
@@ -183,6 +184,9 @@ page 50436 SampleProdLineCutListPart
 
                         if rec."Cut Work center Name" = '' then
                             Error('Select a Router/Work Center');
+
+                        if Rec."Pattern/Cutting Date" > Rec."Cutting Date" then
+                            Error('Cutting Date should be greater than Pattern/Cutting Date');
 
                         if format(rec."Cutting Date") <> '' then begin
                             RouterlineRec.Reset();

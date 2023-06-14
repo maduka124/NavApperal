@@ -202,6 +202,9 @@ page 50439 SampleProdLineReceWashListPart
                         if rec."Wash Receiver" = '' then
                             Error('Select a wash Receiver name');
 
+                        if Rec."Send Wash Date" > Rec."Received Wash Date" then
+                            Error('Received Wash Date should be greater than Send Wash Date');
+
                         CurrPage.Update();
 
                         // if "Wash Receive Hours" = 0 then

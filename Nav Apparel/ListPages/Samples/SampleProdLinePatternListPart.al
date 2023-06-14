@@ -162,6 +162,7 @@ page 50435 SampleProdLinePatternListPart
                     var
                         RouterlineRec: Record "Routing Line";
                     begin
+
                         if rec."Pattern Maker" = '' then
                             Error('Select a Pattern Maker');
 
@@ -170,6 +171,9 @@ page 50435 SampleProdLinePatternListPart
 
                         if rec."Pattern Work center Name" = '' then
                             Error('Select a Router/Work Center');
+
+                        if Rec."Plan Start Date" > Rec."Pattern Date" then
+                            Error('Pattern Date should be greater than Start date');
 
                         if format(rec."Pattern Date") <> '' then begin
                             RouterlineRec.Reset();
