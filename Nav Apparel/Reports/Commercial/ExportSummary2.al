@@ -235,10 +235,10 @@ report 51318 ExportSummartReport2
                             LocationRec.SetFilter("Sewing Unit", '=%1', true);
 
                             if LocationRec.FindSet() then begin
-                                if page.RunModal(15, LocationRec) = Action::LookupOK then
+                                if page.RunModal(15, LocationRec) = Action::LookupOK then begin
                                     FactoryFilter := LocationRec.Name;
-                                LocationCode := LocationRec.Code;
-
+                                    LocationCode := LocationRec.Code;
+                                end;
                             end;
 
                         end;
