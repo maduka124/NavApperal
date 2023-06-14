@@ -164,7 +164,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>TOTA L SHIPQTY</Value>
+                                  <Value>TOTAL SHIPQTY</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -525,7 +525,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ShipQty.Value - Fields!Order_Qty.Value</Value>
+                                  <Value>=code.AddTotal(Fields!Order_Qty.Value)-Sum(Fields!ShipQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -915,7 +915,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=SUM(IIF(Fields!No_.Value="",0,(Fields!ShipQty.Value-Fields!Order_Qty.Value)))</Value>
+                                  <Value>=Sum(code.AddTotal(Fields!Order_Qty.Value)-Sum(Fields!ShipQty.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2953,7 +2953,11 @@
                   </TablixHeader>
                   <TablixMembers>
                     <TablixMember>
-                      <Group Name="Details2" />
+                      <Group Name="Details2">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!Factory.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
                       <TablixMembers>
                         <TablixMember />
                       </TablixMembers>
