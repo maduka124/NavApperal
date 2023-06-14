@@ -377,6 +377,7 @@ page 50770 "Bank Ref Collection Card"
                 field("Total Distribution"; "Total Distribution")
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
                 }
             }
