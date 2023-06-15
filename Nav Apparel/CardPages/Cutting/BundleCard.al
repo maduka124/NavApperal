@@ -32,10 +32,14 @@ page 51276 Bundlecard
                     trigger OnValidate()
                     var
                         BundleGRec: Record BundleGuideHeader;
+                        BundleCardRec: Record BundleCardTable;
                         GMTPartList: Record GarmentPartsBundleCard;
                         GMTPartListLeft: Record GarmentPartsBundleCardLeft;
+                        GMTPartListRight1Rec: Record GarmentPartsBundleCard2Right;
+                        GMTPartListRight2Rec: Record GarmentPartsBundleCard2Right;
                         UserRec: Record "User Setup";
                     begin
+                        //Fill Header fields
                         BundleGRec.Reset();
                         BundleGRec.SetRange("BundleGuideNo.", rec."Bundle Guide Header No");
                         if BundleGRec.FindSet() then begin
@@ -45,6 +49,37 @@ page 51276 Bundlecard
                             rec.Type1 := BundleGRec."Component Group";
                         end;
 
+
+                        //Get the latets bundle no for the style
+                        BundleCardRec.Reset();
+                        BundleCardRec.SetRange("Style No", rec."Style No");
+                        BundleCardRec.SetFilter("Bundle Card No", '<>%1', rec."Bundle Card No");
+                        BundleCardRec.SetCurrentKey("Bundle Card No");
+                        BundleCardRec.Ascending(false);
+                        if BundleCardRec.FindFirst() then begin
+
+                            //Fill right side listpart with same style gparts
+                            GMTPartListRight1Rec.Reset();
+                            GMTPartListRight1Rec.SetRange(BundleCardNo, BundleCardRec."Bundle Card No");
+                            if GMTPartListRight1Rec.FindSet() then begin
+                                repeat
+                                    GMTPartListRight2Rec.Reset();
+                                    GMTPartListRight2Rec.SetRange("No.", GMTPartListRight1Rec."No.");
+                                    GMTPartListRight2Rec.SetRange(BundleCardNo, rec."Bundle Card No");
+                                    if not GMTPartListRight2Rec.FindSet() then begin
+                                        GMTPartListRight2Rec.Init();
+                                        GMTPartListRight2Rec."No." := GMTPartListRight1Rec."No.";
+                                        GMTPartListRight2Rec.BundleCardNo := rec."Bundle Card No";
+                                        GMTPartListRight2Rec.Description := GMTPartListRight1Rec.Description;
+                                        GMTPartListRight2Rec."Bundle Guide Header No" := rec."Bundle Guide Header No";
+                                        GMTPartListRight2Rec.Insert();
+                                    end;
+                                until GMTPartListRight1Rec.Next() = 0;
+                            end
+                        end;
+
+
+                        //Fil left side listpart
                         GMTPartList.Reset();
                         if GMTPartList.FindSet() then begin
                             repeat
@@ -65,12 +100,9 @@ page 51276 Bundlecard
                             CurrPage.Update();
                         end;
 
-                        UserRec.Reset();
-
                         //Done By Sachith on 03/04/23 
                         UserRec.Reset();
                         UserRec.Get(UserId);
-
                         if UserRec."Factory Code" <> '' then begin
                             Rec."Factory Code" := UserRec."Factory Code";
                             CurrPage.Update();
@@ -133,11 +165,9 @@ page 51276 Bundlecard
                     BundleCardReport: Report BundleCardReport;
                     UserRec: Record "User Setup";
                 begin
-
                     //Done By sachith on 18/04/23
                     UserRec.Reset();
                     UserRec.Get(UserId);
-
                     if UserRec."Factory Code" <> '' then begin
                         if (UserRec."Factory Code" <> rec."Factory Code") then
                             Error('You are not authorized to Print Bundle Card.')
@@ -204,7 +234,6 @@ page 51276 Bundlecard
     begin
         UserRec.Reset();
         UserRec.Get(UserId);
-
         if rec."Factory Code" <> '' then begin
             if (UserRec."Factory Code" <> '') then begin
                 if (UserRec."Factory Code" = rec."Factory Code") then

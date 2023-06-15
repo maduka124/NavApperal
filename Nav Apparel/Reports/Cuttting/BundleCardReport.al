@@ -9,75 +9,66 @@ report 50607 BundleCardReport
 
     dataset
     {
-
         dataitem(BundleCardTable; BundleCardTable)
         {
-
             DataItemTableView = sorting("Bundle Card No");
-         
-            dataitem(GarmentPartsBundleCard2Right; GarmentPartsBundleCard2Right)
+
+            dataitem(BundleGuideLine; BundleGuideLine)
             {
                 DataItemLinkReference = BundleCardTable;
-                DataItemLink = BundleCardNo = field("Bundle Card No");
-                DataItemTableView = sorting(BundleCardNo, "No.");
-                column(GMTPartNo; Description)
+                DataItemLink = "BundleGuideNo." = field("Bundle Guide Header No");
+                DataItemTableView = sorting("Bundle No");
+
+                column(PO; PO)
                 { }
-                column(No_; "No.")
+                column(Color_Name; "Color Name")
+                { }
+                column(Lot; Lot)
+                { }
+                column(Size; Size)
+                { }
+                column(Qty; Qty)
+                { }
+                column(Bundle_No; "Bundle No")
+                { }
+                column(Sticker_Sequence; "Sticker Sequence")
+                { }
+                column(Cut_No; "Cut No New")
+                { }
+                column(Style_Name; "Style Name")
+                { }
+                column(Buyer; Buyer)
+                { }
+                column(Barcode; Barcode)
+                { }
+                column(Shade_Name; "Shade Name")
                 { }
 
-
-                dataitem(BundleGuideLine; BundleGuideLine)
+                dataitem(GarmentPartsBundleCard2Right; GarmentPartsBundleCard2Right)
                 {
-                    DataItemLinkReference = GarmentPartsBundleCard2Right;
-                    DataItemLink = "BundleGuideNo." = field("Bundle Guide Header No");
-                    DataItemTableView = sorting("BundleGuideNo.");
+                    DataItemLinkReference = BundleCardTable;
+                    DataItemLink = BundleCardNo = field("Bundle Card No");
 
-                    column(PO; PO)
+                    column(GMTPartNo; Description)
                     { }
-                    column(Color_Name; "Color Name")
+                    column(No_; "No.")
                     { }
-                    column(Lot; Lot)
-                    { }
-                    column(Size; Size)
-                    { }
-                    column(Qty; Qty)
-                    { }
-                    column(Bundle_No; "Bundle No")
-                    { }
-                    column(Sticker_Sequence; "Sticker Sequence")
-                    { }
-                    column(Cut_No; "Cut No")
-                    { }
-                    column(Style_Name; "Style Name")
-                    { }
-                    column(Buyer; Buyer)
-                    { }
-                    column(Barcode; Barcode)
-                    { }
-                    column(CompLogo; comRec.Picture)
-                    { }
-
-                    trigger OnAfterGetRecord()
-                    begin
-                        StyleRec.Reset();
-                        StyleRec.SetRange("Style No.", "Style Name");
-                        if StyleRec.FindFirst() then
-                            Buyer := StyleRec."Buyer Name";
-
-                        comRec.Get;
-                        comRec.CalcFields(Picture);
-                    end;
                 }
-            }
 
+                trigger OnAfterGetRecord()
+                begin
+                    StyleRec.Reset();
+                    StyleRec.SetRange("Style No.", "Style Name");
+                    if StyleRec.FindFirst() then
+                        Buyer := StyleRec."Buyer Name";
+                end;
+            }
 
             trigger OnPreDataItem()
             begin
                 SetRange("Bundle Card No", BundleFilter);
             end;
-
         }
-
     }
 
     requestpage
@@ -109,8 +100,6 @@ report 50607 BundleCardReport
         GMTPartName: Text[100];
         GMTPartRec: Record GarmentPartsBundleCard2Right;
         BundleFilter: Code[20];
-        myInt: Integer;
         StyleRec: Record "Style Master";
         Buyer: Text[50];
-        comRec: Record "Company Information";
 }

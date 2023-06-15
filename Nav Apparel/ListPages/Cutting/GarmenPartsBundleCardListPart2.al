@@ -16,20 +16,17 @@ page 51273 BundleCardGMTPartListPart2
                 field(Select; Rec."Select")
                 {
                     ApplicationArea = All;
-
                 }
 
                 field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Caption = 'GMT Part No';
-
                 }
 
                 field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
-
                 }
             }
         }
@@ -53,7 +50,6 @@ page 51273 BundleCardGMTPartListPart2
                     //Done By sachith on 18/04/23
                     UserRec.Reset();
                     UserRec.Get(UserId);
-
                     if UserRec."Factory Code" <> '' then begin
                         BundleCardTableRec.Reset();
                         BundleCardTableRec.SetRange("Bundle Card No", Rec.BundleCardNo);

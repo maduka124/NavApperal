@@ -31,10 +31,10 @@
                   <Width>0.34375in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.35417in</Width>
+                  <Width>0.40417in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59375in</Width>
+                  <Width>0.51875in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1044,7 +1044,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>LOT</Value>
+                                  <Value>SAHDE</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1100,7 +1100,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Lot.Value</Value>
+                                  <Value>=Fields!Shade_Name.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1658,7 +1658,7 @@
             <Top>0.05961in</Top>
             <Left>0.06667in</Left>
             <Height>1.94872in</Height>
-            <Width>2.72569in</Width>
+            <Width>2.70069in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1724,12 +1724,6 @@ End Function
   <DataSets>
     <DataSet Name="DataSet_Result">
       <Fields>
-        <Field Name="GMTPartNo">
-          <DataField>GMTPartNo</DataField>
-        </Field>
-        <Field Name="No_">
-          <DataField>No_</DataField>
-        </Field>
         <Field Name="PO">
           <DataField>PO</DataField>
         </Field>
@@ -1763,8 +1757,14 @@ End Function
         <Field Name="Barcode">
           <DataField>Barcode</DataField>
         </Field>
-        <Field Name="CompLogo">
-          <DataField>CompLogo</DataField>
+        <Field Name="Shade_Name">
+          <DataField>Shade_Name</DataField>
+        </Field>
+        <Field Name="GMTPartNo">
+          <DataField>GMTPartNo</DataField>
+        </Field>
+        <Field Name="No_">
+          <DataField>No_</DataField>
         </Field>
       </Fields>
       <Query>

@@ -132,6 +132,10 @@ table 50668 BundleGuideLine
         {
             Clustered = true;
         }
+
+        key(SK; "Bundle No")
+        {
+        }
     }
 
 
@@ -140,20 +144,4 @@ table 50668 BundleGuideLine
         "Created Date" := WorkDate();
         "Created User" := UserId;
     end;
-
-    trigger OnModify()
-    begin
-
-    end;
-
-    trigger OnDelete()
-    begin
-
-    end;
-
-    trigger OnRename()
-    begin
-
-    end;
-
 }

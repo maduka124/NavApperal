@@ -52,7 +52,6 @@ page 51272 BundleCardGMTPartListPart
                     //Done By sachith on 18/04/23
                     UserRec.Reset();
                     UserRec.Get(UserId);
-
                     if UserRec."Factory Code" <> '' then begin
                         BundleCardTableRec.Reset();
                         BundleCardTableRec.SetRange("Bundle Card No", Rec.BundleCardNo);

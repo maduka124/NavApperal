@@ -4,6 +4,7 @@ page 51267 "Bundle Card List"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = BundleCardTable;
+    SourceTableView = sorting("Bundle Card No") order(descending);
     CardPageId = Bundlecard;
     Caption = 'Bundle Card List';
 
