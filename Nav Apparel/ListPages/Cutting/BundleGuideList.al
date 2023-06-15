@@ -19,10 +19,22 @@ page 50666 "Bundle Guide List"
                     Caption = 'Bundle Guide No';
                 }
 
+                field(Buyer; Buyer)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Buyer';
+                }
+
                 field("Style Name"; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
+                }
+
+                field("PO No."; rec."PO No.")
+                {
+                    ApplicationArea = All;
+                    Caption = 'PO No';
                 }
 
                 field("LaySheetNo."; rec."LaySheetNo.")
@@ -30,17 +42,6 @@ page 50666 "Bundle Guide List"
                     ApplicationArea = All;
                     Caption = 'LaySheet No';
                 }
-
-                // field("Color Name"; Rec."Color Name")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Color';
-                // }
-
-                // field("Group ID"; Rec."Group ID")
-                // {
-                //     ApplicationArea = All;
-                // }
 
                 field("Component Group"; Rec."Component Group")
                 {
@@ -88,15 +89,27 @@ page 50666 "Bundle Guide List"
         else begin   //logged in
             //rec.SetFilter("Secondary UserID", '=%1', LoginSessionsRec."Secondary UserID");
         end;
-
     end;
+
+
+    trigger OnAfterGetRecord()
+    var
+        StyleMasterRec: Record "Style Master";
+    begin
+        StyleMasterRec.Reset();
+        StyleMasterRec.SetRange("No.", rec."Style No.");
+        if StyleMasterRec.FindSet() then
+            Buyer := StyleMasterRec."Buyer Name"
+        else
+            Buyer := '';
+    end;
+
 
     trigger OnDeleteRecord(): Boolean
     var
         BundleGuideLineRec: Record BundleGuideLine;
         UserRec: Record "User Setup";
     begin
-
         // Done By sachith on 03/04/23
         UserRec.Reset();
         UserRec.Get(UserId);
@@ -111,5 +124,8 @@ page 50666 "Bundle Guide List"
         BundleGuideLineRec.SetRange("BundleGuideNo.", Rec."BundleGuideNo.");
         BundleGuideLineRec.DeleteAll();
     end;
+
+    var
+        Buyer: Text[200];
 
 }

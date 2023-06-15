@@ -204,14 +204,21 @@ page 50656 "LaySheetCard"
 
                         NavProdDetRec.Reset();
                         NavProdDetRec.SetRange("Factory No.", rec."Factory Code");
+                        NavProdDetRec.SetCurrentKey("Style Name");
+                        NavProdDetRec.Ascending(true);
                         if NavProdDetRec.FindSet() then begin
                             repeat
                                 if StyleName <> NavProdDetRec."Style Name" then begin
-                                    NavProdDetRec.Mark(true);
-                                    StyleName := NavProdDetRec."Style Name";
-                                end
-                                else
-                                    StyleName := NavProdDetRec."Style Name";
+                                    StyleMasterRec.Reset();
+                                    StyleMasterRec.SetRange("No.", NavProdDetRec."Style No.");
+                                    StyleMasterRec.SetRange("Buyer No.", rec."Buyer No.");
+                                    if StyleMasterRec.FindSet() then begin
+                                        NavProdDetRec.Mark(true);
+                                        StyleName := NavProdDetRec."Style Name";
+                                    end;
+                                end;
+                            // else
+                            //     StyleName := NavProdDetRec."Style Name";
                             until NavProdDetRec.Next() = 0;
 
                             NavProdDetRec.MARKEDONLY(TRUE);

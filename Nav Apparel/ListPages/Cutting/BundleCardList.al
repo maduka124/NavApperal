@@ -20,10 +20,22 @@ page 51267 "Bundle Card List"
                     Caption = 'Bundle Card No';
                 }
 
+                field(Buyer; Buyer)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Buyer';
+                }
+
                 field(StyleNo; Rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
+                }
+
+                field("PO No."; rec."PoNo")
+                {
+                    ApplicationArea = All;
+                    Caption = 'PO No';
                 }
 
                 field(Type1; Rec.Type1)
@@ -69,6 +81,19 @@ page 51267 "Bundle Card List"
     end;
 
 
+    trigger OnAfterGetRecord()
+    var
+        StyleMasterRec: Record "Style Master";
+    begin
+        StyleMasterRec.Reset();
+        StyleMasterRec.SetRange("No.", rec."Style No");
+        if StyleMasterRec.FindSet() then
+            Buyer := StyleMasterRec."Buyer Name"
+        else
+            Buyer := '';
+    end;
+
+
     trigger OnDeleteRecord(): Boolean
     var
         GMTPartsBdlCard2Rec: Record GarmentPartsBundleCard2Right;
@@ -100,4 +125,7 @@ page 51267 "Bundle Card List"
             GMTPartsBdlCardLeftRec.DeleteAll();
     end;
 
+
+    var
+        Buyer: Text[200];
 }

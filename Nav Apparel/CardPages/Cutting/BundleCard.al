@@ -12,7 +12,6 @@ page 51276 Bundlecard
         {
             group(General)
             {
-
                 //Done By sachith on 03/04/23
                 Editable = EditableGB;
 
@@ -32,10 +31,20 @@ page 51276 Bundlecard
 
                     trigger OnValidate()
                     var
+                        BundleGRec: Record BundleGuideHeader;
                         GMTPartList: Record GarmentPartsBundleCard;
                         GMTPartListLeft: Record GarmentPartsBundleCardLeft;
                         UserRec: Record "User Setup";
                     begin
+                        BundleGRec.Reset();
+                        BundleGRec.SetRange("BundleGuideNo.", rec."Bundle Guide Header No");
+                        if BundleGRec.FindSet() then begin
+                            rec."Style Name" := BundleGRec."Style Name";
+                            rec."Style No" := BundleGRec."Style No.";
+                            rec.PoNo := BundleGRec."PO No.";
+                            rec.Type1 := BundleGRec."Component Group";
+                        end;
+
                         GMTPartList.Reset();
                         if GMTPartList.FindSet() then begin
                             repeat
@@ -75,6 +84,13 @@ page 51276 Bundlecard
                 {
                     ApplicationArea = All;
                     Editable = false;
+                }
+
+                field(PoNo; rec.PoNo)
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'PO No';
                 }
 
                 field(Type1; Rec.Type1)
@@ -180,12 +196,12 @@ page 51276 Bundlecard
         END;
     end;
 
+
     //Done By Sachith on 03/04/23 
     trigger OnOpenPage()
     var
         UserRec: Record "User Setup";
     begin
-
         UserRec.Reset();
         UserRec.Get(UserId);
 
@@ -208,7 +224,7 @@ page 51276 Bundlecard
                 EditableGB := true;
     end;
 
+
     var
         EditableGB: Boolean;
-
 }

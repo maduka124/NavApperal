@@ -34,6 +34,7 @@ page 50665 "Bundle Guide Card"
                     var
                         LaySheetHeaderRec: Record LaySheetHeader;
                         LoginSessionsRec: Record LoginSessions;
+                        BundleGRec: Record BundleGuideHeader;
                         LoginRec: Page "Login Card";
                         UserRec: Record "User Setup";
                     begin
@@ -68,7 +69,10 @@ page 50665 "Bundle Guide Card"
 
                         IF LaySheetHeaderRec.FINDFIRST THEN BEGIN
                             REPEAT
-                                LaySheetHeaderRec.MARK(TRUE);
+                                BundleGRec.Reset();
+                                BundleGRec.SetRange("LaySheetNo.", LaySheetHeaderRec."LaySheetNo.");
+                                if not BundleGRec.FindSet() then
+                                    LaySheetHeaderRec.MARK(TRUE);
                             UNTIL LaySheetHeaderRec.NEXT = 0;
                             LaySheetHeaderRec.MARKEDONLY(TRUE);
 
@@ -78,11 +82,8 @@ page 50665 "Bundle Guide Card"
                                 LaySheetHeaderRec.Reset();
                                 LaySheetHeaderRec.SetRange("LaySheetNo.", rec."LaySheetNo.");
                                 if LaySheetHeaderRec.FindSet() then begin
-                                    // rec."Color Name" := LaySheetHeaderRec.Color;
-                                    // rec."Color No" := LaySheetHeaderRec."Color No.";
                                     rec."Style Name" := LaySheetHeaderRec."Style Name";
                                     rec."Style No." := LaySheetHeaderRec."Style No.";
-                                    // rec."Group ID" := LaySheetHeaderRec."Group ID";
                                     rec."PO No." := LaySheetHeaderRec."PO No.";
                                     rec."Component Group" := LaySheetHeaderRec."Component Group Name";
                                     rec."Cut No New" := LaySheetHeaderRec."Cut No New";
@@ -101,110 +102,7 @@ page 50665 "Bundle Guide Card"
                     ApplicationArea = All;
                     Caption = 'Style';
                     Editable = false;
-
-                    // trigger OnValidate()
-                    // var
-                    //     StyleMasterRec: Record "Style Master";
-                    //     LoginSessionsRec: Record LoginSessions;
-                    //     LoginRec: Page "Login Card";
-                    //     UserRec: Record "User Setup";
-                    // begin
-                    //     StyleMasterRec.Reset();
-                    //     StyleMasterRec.SetRange("Style No.", rec."Style Name");
-                    //     if StyleMasterRec.FindSet() then
-                    //         rec."Style No." := StyleMasterRec."No.";
-
-                    //     //Check whether user logged in or not
-                    //     LoginSessionsRec.Reset();
-                    //     LoginSessionsRec.SetRange(SessionID, SessionId());
-
-                    //     if not LoginSessionsRec.FindSet() then begin  //not logged in
-                    //         Clear(LoginRec);
-                    //         LoginRec.LookupMode(true);
-                    //         LoginRec.RunModal();
-
-                    //         LoginSessionsRec.Reset();
-                    //         LoginSessionsRec.SetRange(SessionID, SessionId());
-                    //         if LoginSessionsRec.FindSet() then
-                    //             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                    //     end
-                    //     else begin   //logged in
-                    //         rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                    //     end;
-                    //     CurrPage.Update();
-
-                    //     //Done By Sachith on 03/04/23 
-                    //     UserRec.Reset();
-                    //     UserRec.Get(UserId);
-
-                    //     if UserRec."Factory Code" <> '' then begin
-                    //         Rec."Factory Code" := UserRec."Factory Code";
-                    //         CurrPage.Update();
-                    //     end
-                    //     else
-                    //         Error('Factory not assigned for the user.');
-
-                    // end;
                 }
-
-
-
-                // field("Color Name"; rec."Color Name")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Color';
-                //     Editable = false;
-
-                //     trigger OnLookup(var texts: text): Boolean
-                //     var
-                //         AssoDetailsRec: Record AssortmentDetails;
-                //         Colour: Code[20];
-                //         colorRec: Record Colour;
-                //     begin
-                //         AssoDetailsRec.RESET;
-                //         AssoDetailsRec.SetCurrentKey("Colour No");
-                //         AssoDetailsRec.SetRange("Style No.", rec."Style No.");
-
-                //         IF AssoDetailsRec.FINDFIRST THEN BEGIN
-                //             REPEAT
-                //                 IF Colour <> AssoDetailsRec."Colour No" THEN BEGIN
-                //                     Colour := AssoDetailsRec."Colour No";
-
-                //                     AssoDetailsRec.MARK(TRUE);
-                //                 END;
-                //             UNTIL AssoDetailsRec.NEXT = 0;
-                //             AssoDetailsRec.MARKEDONLY(TRUE);
-
-                //             if Page.RunModal(51014, AssoDetailsRec) = Action::LookupOK then begin
-                //                 rec."Color No" := AssoDetailsRec."Colour No";
-                //                 rec."Color Name" := AssoDetailsRec."Colour Name";
-                //             end;
-
-                //         END;
-                //     END;
-                // }
-
-                // field("Group ID"; rec."Group ID")
-                // {
-                //     ApplicationArea = All;
-                //     Editable = false;
-
-                //     // trigger OnValidate()
-                //     // var
-                //     //     SewJobLine4Rec: Record SewingJobCreationLine4;
-                //     // begin
-                //     //     SewJobLine4Rec.Reset();
-                //     //     SewJobLine4Rec.SetRange("Style No.", rec."Style No.");
-                //     //     SewJobLine4Rec.SetRange("Colour No", rec."Color No");
-                //     //     SewJobLine4Rec.SetRange("Group ID", rec."Group ID");
-                //     //     if SewJobLine4Rec.FindSet() then
-                //     //         rec."Po No." := SewJobLine4Rec."PO No."
-                //     //     else
-                //     //         Error('Cannot find sewing job details for Style/Color/Group');
-
-                //     //     CurrPage.Update();
-                //     // end;
-                // }
 
                 field("PO No."; rec."PO No.")
                 {
