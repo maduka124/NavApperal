@@ -133,6 +133,10 @@ table 50767 BankRefCollectionHeader
         {
             DataClassification = ToBeClassified;
         }
+        field(25; "Total Distribution"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

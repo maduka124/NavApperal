@@ -200,14 +200,16 @@ page 50770 "Bank Ref Collection Card"
                     trigger OnValidate()
                     var
                         BankRefeCollRec: Record BankRefCollectionLine;
+                        BankRefHRec: Record BankRefCollectionHeader;
                     begin
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
                         BankRefeCollRec.SetFilter(Type, '=%1', 'R');
                         if BankRefeCollRec.FindSet() then
                             BankRefeCollRec.ModifyAll("Exchange Rate", rec."Exchange Rate");
-
                         CurrPage.Update();
+
+
                     end;
                 }
 
@@ -217,10 +219,13 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+                        BankRefHRec: Record BankRefCollectionHeader;
                         BankRefeCollRec1: Record BankRefCollectionLine;
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
+                        Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
@@ -253,10 +258,14 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+                        BankRefHRec: Record BankRefCollectionHeader;
                         BankRefeCollRec1: Record BankRefCollectionLine;
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
+
+                        Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
@@ -292,6 +301,8 @@ page 50770 "Bank Ref Collection Card"
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
+                        Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
@@ -316,6 +327,7 @@ page 50770 "Bank Ref Collection Card"
                             end;
 
                         end;
+
                     end;
                 }
 
@@ -329,6 +341,8 @@ page 50770 "Bank Ref Collection Card"
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
+                        Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
@@ -351,6 +365,7 @@ page 50770 "Bank Ref Collection Card"
                                 CurrPage.Update();
                             end;
                         end;
+
                     end;
                 }
 
@@ -364,6 +379,9 @@ page 50770 "Bank Ref Collection Card"
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
+
+                        Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+
                         InvoiceTotal := get_InvoiceTotal();
 
                         BankRefeCollRec.Reset();
@@ -387,6 +405,7 @@ page 50770 "Bank Ref Collection Card"
                                 CurrPage.Update();
                             end;
                         end;
+
                     end;
                 }
 
@@ -401,9 +420,9 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal: Decimal;
                     begin
 
-                        "Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+                        Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
 
-                        if "Total Distribution" > Rec.Total then
+                        if Rec."Total Distribution" > Rec.Total then
                             Error('Please check enter values Total Distribution cannot be greater than Total ');
 
                         InvoiceTotal := get_InvoiceTotal();
@@ -464,7 +483,7 @@ page 50770 "Bank Ref Collection Card"
 
                     end;
                 }
-                field("Total Distribution"; "Total Distribution")
+                field("Total Distribution"; Rec."Total Distribution")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -681,6 +700,6 @@ page 50770 "Bank Ref Collection Card"
     end;
 
     var
-        "Total Distribution": Decimal;
+
 
 }
