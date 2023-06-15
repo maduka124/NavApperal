@@ -143,6 +143,7 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+                        BankRefeCollRec1: Record BankRefCollectionLine;
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
@@ -153,13 +154,24 @@ page 50770 "Bank Ref Collection Card"
 
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                        if BankRefeCollRec.FindSet() then
+                        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
+                        if BankRefeCollRec.FindSet() then begin
                             repeat
                                 BankRefeCollRec."Release Amount" := (rec."Release Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
+                            CurrPage.Update();
 
-                        CurrPage.Update();
+                            BankRefeCollRec1.Reset();
+                            BankRefeCollRec1.SetRange("BankRefNo.", rec."BankRefNo.");
+                            BankRefeCollRec1.SetFilter(Type, '=%1', 'T');
+                            if BankRefeCollRec1.FindSet() then begin
+                                BankRefeCollRec.CalcSums("Release Amount");
+                                BankRefeCollRec1."Release Amount" := BankRefeCollRec."Release Amount";
+                                BankRefeCollRec1.Modify();
+                                CurrPage.Update();
+                            end;
+                        end;
                     end;
                 }
 
@@ -173,6 +185,7 @@ page 50770 "Bank Ref Collection Card"
                     begin
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
+                        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
                         if BankRefeCollRec.FindSet() then
                             BankRefeCollRec.ModifyAll("Release Date", rec."Release Date");
 
@@ -190,6 +203,7 @@ page 50770 "Bank Ref Collection Card"
                     begin
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
+                        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
                         if BankRefeCollRec.FindSet() then
                             BankRefeCollRec.ModifyAll("Exchange Rate", rec."Exchange Rate");
 
@@ -203,6 +217,7 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+                        BankRefeCollRec1: Record BankRefCollectionLine;
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
@@ -210,13 +225,25 @@ page 50770 "Bank Ref Collection Card"
 
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                        if BankRefeCollRec.FindSet() then
+                        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
+                        if BankRefeCollRec.FindSet() then begin
                             repeat
                                 BankRefeCollRec."Margin A/C Amount" := (rec."Margin A/C Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
+                            CurrPage.Update();
 
-                        CurrPage.Update();
+                            BankRefeCollRec1.Reset();
+                            BankRefeCollRec1.SetRange("BankRefNo.", rec."BankRefNo.");
+                            BankRefeCollRec1.SetFilter(Type, '=%1', 'T');
+                            if BankRefeCollRec1.FindSet() then begin
+                                BankRefeCollRec.CalcSums("Margin A/C Amount");
+                                BankRefeCollRec1."Margin A/C Amount" := BankRefeCollRec."Margin A/C Amount";
+                                BankRefeCollRec1.Modify();
+                                CurrPage.Update();
+                            end;
+                        end;
+
                     end;
                 }
 
@@ -226,6 +253,7 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+                        BankRefeCollRec1: Record BankRefCollectionLine;
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
@@ -233,13 +261,24 @@ page 50770 "Bank Ref Collection Card"
 
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                        if BankRefeCollRec.FindSet() then
+                        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
+                        if BankRefeCollRec.FindSet() then begin
                             repeat
                                 BankRefeCollRec."Bank Charges" := (rec."Bank Charges" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
+                            CurrPage.Update();
 
-                        CurrPage.Update();
+                            BankRefeCollRec1.Reset();
+                            BankRefeCollRec1.SetRange("BankRefNo.", rec."BankRefNo.");
+                            BankRefeCollRec1.SetFilter(Type, '=%1', 'T');
+                            if BankRefeCollRec1.FindSet() then begin
+                                BankRefeCollRec.CalcSums("Bank Charges");
+                                BankRefeCollRec1."Bank Charges" := BankRefeCollRec."Bank Charges";
+                                BankRefeCollRec1.Modify();
+                                CurrPage.Update();
+                            end;
+                        end;
                     end;
                 }
 
@@ -249,6 +288,7 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+                        BankRefeCollRec1: Record BankRefCollectionLine;
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
@@ -256,13 +296,26 @@ page 50770 "Bank Ref Collection Card"
 
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                        if BankRefeCollRec.FindSet() then
+                        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
+                        if BankRefeCollRec.FindSet() then begin
                             repeat
                                 BankRefeCollRec."Tax" := (rec."Tax" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
 
-                        CurrPage.Update();
+                            CurrPage.Update();
+
+                            BankRefeCollRec1.Reset();
+                            BankRefeCollRec1.SetRange("BankRefNo.", rec."BankRefNo.");
+                            BankRefeCollRec1.SetFilter(Type, '=%1', 'T');
+                            if BankRefeCollRec1.FindSet() then begin
+                                BankRefeCollRec.CalcSums(Tax);
+                                BankRefeCollRec1.Tax := BankRefeCollRec.Tax;
+                                BankRefeCollRec1.Modify();
+                                CurrPage.Update();
+                            end;
+
+                        end;
                     end;
                 }
 
@@ -272,6 +325,7 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+                        BankRefeCollRec1: Record BankRefCollectionLine;
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
@@ -279,13 +333,24 @@ page 50770 "Bank Ref Collection Card"
 
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                        if BankRefeCollRec.FindSet() then
+                        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
+                        if BankRefeCollRec.FindSet() then begin
                             repeat
                                 BankRefeCollRec."Currier Charges" := (rec."Currier Charges" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
+                            CurrPage.Update();
 
-                        CurrPage.Update();
+                            BankRefeCollRec1.Reset();
+                            BankRefeCollRec1.SetRange("BankRefNo.", rec."BankRefNo.");
+                            BankRefeCollRec1.SetFilter(Type, '=%1', 'T');
+                            if BankRefeCollRec1.FindSet() then begin
+                                BankRefeCollRec.CalcSums("Currier Charges");
+                                BankRefeCollRec1."Currier Charges" := BankRefeCollRec."Currier Charges";
+                                BankRefeCollRec1.Modify();
+                                CurrPage.Update();
+                            end;
+                        end;
                     end;
                 }
 
@@ -295,6 +360,7 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+                        BankRefeCollRec1: Record BankRefCollectionLine;
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
@@ -302,13 +368,25 @@ page 50770 "Bank Ref Collection Card"
 
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                        if BankRefeCollRec.FindSet() then
+                        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
+                        if BankRefeCollRec.FindSet() then begin
                             repeat
                                 BankRefeCollRec."FC A/C Amount" := (rec."FC A/C Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
+                            CurrPage.Update();
 
-                        CurrPage.Update();
+
+                            BankRefeCollRec1.Reset();
+                            BankRefeCollRec1.SetRange("BankRefNo.", rec."BankRefNo.");
+                            BankRefeCollRec1.SetFilter(Type, '=%1', 'T');
+                            if BankRefeCollRec1.FindSet() then begin
+                                BankRefeCollRec.CalcSums("FC A/C Amount");
+                                BankRefeCollRec1."FC A/C Amount" := BankRefeCollRec."FC A/C Amount";
+                                BankRefeCollRec1.Modify();
+                                CurrPage.Update();
+                            end;
+                        end;
                     end;
                 }
 
@@ -318,6 +396,7 @@ page 50770 "Bank Ref Collection Card"
 
                     trigger OnValidate()
                     var
+                        BankRefeCollRec1: Record BankRefCollectionLine;
                         BankRefeCollRec: Record BankRefCollectionLine;
                         InvoiceTotal: Decimal;
                     begin
@@ -331,13 +410,24 @@ page 50770 "Bank Ref Collection Card"
 
                         BankRefeCollRec.Reset();
                         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
-                        if BankRefeCollRec.FindSet() then
+                        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
+                        if BankRefeCollRec.FindSet() then begin
                             repeat
                                 BankRefeCollRec."Current A/C Amount" := (rec."Current A/C Amount" / InvoiceTotal) * BankRefeCollRec."Invoice Amount";
                                 BankRefeCollRec.Modify();
                             until BankRefeCollRec.Next() = 0;
 
-                        CurrPage.Update();
+                            CurrPage.Update();
+                            BankRefeCollRec1.Reset();
+                            BankRefeCollRec1.SetRange("BankRefNo.", rec."BankRefNo.");
+                            BankRefeCollRec1.SetFilter(Type, '=%1', 'T');
+                            if BankRefeCollRec1.FindSet() then begin
+                                BankRefeCollRec.CalcSums("Current A/C Amount");
+                                BankRefeCollRec1."Current A/C Amount" := BankRefeCollRec."Current A/C Amount";
+                                BankRefeCollRec1.Modify();
+                                CurrPage.Update();
+                            end;
+                        end;
                     end;
                 }
 
@@ -582,6 +672,7 @@ page 50770 "Bank Ref Collection Card"
     begin
         BankRefeCollRec.Reset();
         BankRefeCollRec.SetRange("BankRefNo.", rec."BankRefNo.");
+        BankRefeCollRec.SetFilter(Type, '=%1', 'R');
         if BankRefeCollRec.FindSet() then
             repeat
                 InvoiceTotal += BankRefeCollRec."Invoice Amount";

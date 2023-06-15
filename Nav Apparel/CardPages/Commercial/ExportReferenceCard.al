@@ -89,7 +89,7 @@ page 51241 "Export Reference Card"
                         SalesInvRec.SetRange("Sell-to Customer No.", Rec."Buyer No");
                         SalesInvRec.SetFilter("Export Ref No.", '=%1', '');
                         if SalesInvRec.FindSet() then begin
-                            if Page.RunModal(53000, SalesInvRec) = Action::LookupOK then begin
+                            if Page.RunModal(51321, SalesInvRec) = Action::LookupOK then begin
                                 Rec."Invoice No" := SalesInvRec."No.";
                             end;
                         end;

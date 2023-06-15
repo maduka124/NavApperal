@@ -89,20 +89,6 @@ page 50771 "Bank Ref Collection ListPart"
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
 
-                    trigger OnValidate()
-                    var
-                        BankRefLineRec: Record BankRefCollectionLine;
-                    begin
-                        BankRefLineRec.Reset();
-                        BankRefLineRec.SetRange("BankRefNo.", Rec."BankRefNo.");
-                        BankRefLineRec.SetFilter(Type, '=%1', 'T');
-                        if BankRefLineRec.FindSet() then begin
-                            BankRefLineRec."Release Amount" += Rec."Release Amount";
-                            BankRefLineRec.Modify();
-                            CurrPage.Update();
-
-                        end;
-                    end;
                 }
 
                 field("Margin A/C Amount"; Rec."Margin A/C Amount")
@@ -110,21 +96,6 @@ page 50771 "Bank Ref Collection ListPart"
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
 
-
-                    trigger OnValidate()
-                    var
-                        BankRefLineRec: Record BankRefCollectionLine;
-                    begin
-                        BankRefLineRec.Reset();
-                        BankRefLineRec.SetRange("BankRefNo.", Rec."BankRefNo.");
-                        BankRefLineRec.SetFilter(Type, '=%1', 'T');
-                        if BankRefLineRec.FindSet() then begin
-                            BankRefLineRec."Margin A/C Amount" += Rec."Margin A/C Amount";
-                            BankRefLineRec.Modify();
-                            CurrPage.Update();
-
-                        end;
-                    end;
                 }
 
                 field("FC A/C Amount"; Rec."FC A/C Amount")
@@ -132,65 +103,18 @@ page 50771 "Bank Ref Collection ListPart"
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
 
-
-                    trigger OnValidate()
-                    var
-                        BankRefLineRec: Record BankRefCollectionLine;
-                    begin
-                        BankRefLineRec.Reset();
-                        BankRefLineRec.SetRange("BankRefNo.", Rec."BankRefNo.");
-                        BankRefLineRec.SetFilter(Type, '=%1', 'T');
-                        if BankRefLineRec.FindSet() then begin
-                            BankRefLineRec."FC A/C Amount" += Rec."FC A/C Amount";
-                            BankRefLineRec.Modify();
-                            CurrPage.Update();
-
-                        end;
-                    end;
                 }
 
                 field("Current A/C Amount"; Rec."Current A/C Amount")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
-
-
-                    trigger OnValidate()
-                    var
-                        BankRefLineRec: Record BankRefCollectionLine;
-                    begin
-                        BankRefLineRec.Reset();
-                        BankRefLineRec.SetRange("BankRefNo.", Rec."BankRefNo.");
-                        BankRefLineRec.SetFilter(Type, '=%1', 'T');
-                        if BankRefLineRec.FindSet() then begin
-                            BankRefLineRec."Current A/C Amount" += Rec."Current A/C Amount";
-                            BankRefLineRec.Modify();
-                            CurrPage.Update();
-
-                        end;
-                    end;
                 }
 
                 field("Bank Charges"; Rec."Bank Charges")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
-
-
-                    trigger OnValidate()
-                    var
-                        BankRefLineRec: Record BankRefCollectionLine;
-                    begin
-                        BankRefLineRec.Reset();
-                        BankRefLineRec.SetRange("BankRefNo.", Rec."BankRefNo.");
-                        BankRefLineRec.SetFilter(Type, '=%1', 'T');
-                        if BankRefLineRec.FindSet() then begin
-                            BankRefLineRec."Bank Charges" += Rec."Bank Charges";
-                            BankRefLineRec.Modify();
-                            CurrPage.Update();
-
-                        end;
-                    end;
                 }
 
                 field(Tax; Rec.Tax)
@@ -199,20 +123,6 @@ page 50771 "Bank Ref Collection ListPart"
                     StyleExpr = StyleExprTxt;
 
 
-                    trigger OnValidate()
-                    var
-                        BankRefLineRec: Record BankRefCollectionLine;
-                    begin
-                        BankRefLineRec.Reset();
-                        BankRefLineRec.SetRange("BankRefNo.", Rec."BankRefNo.");
-                        BankRefLineRec.SetFilter(Type, '=%1', 'T');
-                        if BankRefLineRec.FindSet() then begin
-                            BankRefLineRec.Tax += Rec.Tax;
-                            BankRefLineRec.Modify();
-                            CurrPage.Update();
-
-                        end;
-                    end;
                 }
 
                 field("Currier Charges"; Rec."Currier Charges")
@@ -220,21 +130,6 @@ page 50771 "Bank Ref Collection ListPart"
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
 
-
-                    trigger OnValidate()
-                    var
-                        BankRefLineRec: Record BankRefCollectionLine;
-                    begin
-                        BankRefLineRec.Reset();
-                        BankRefLineRec.SetRange("BankRefNo.", Rec."BankRefNo.");
-                        BankRefLineRec.SetFilter(Type, '=%1', 'T');
-                        if BankRefLineRec.FindSet() then begin
-                            BankRefLineRec."Currier Charges" += Rec."Currier Charges";
-                            BankRefLineRec.Modify();
-                            CurrPage.Update();
-
-                        end;
-                    end;
                 }
 
                 field("Transferred To Cash Receipt"; rec."Transferred To Cash Receipt")

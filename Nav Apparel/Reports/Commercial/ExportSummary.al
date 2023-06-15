@@ -152,8 +152,8 @@ report 50629 ExportSummartReport
             trigger OnPreDataItem()
 
             begin
-                // if "Buyer Code" <> '' then
-                SetRange("Buyer No.", "Buyer Code");
+                if "Buyer Code" <> '' then
+                    SetRange("Buyer No.", "Buyer Code");
 
                 if Contract <> '' then
                     SetRange("No.", Contract);
