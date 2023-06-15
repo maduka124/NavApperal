@@ -525,7 +525,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=code.AddTotal(Fields!Order_Qty.Value)-Sum(Fields!ShipQty.Value)</Value>
+                                  <Value>=Sum(Fields!ShipQty.Value)-code.AddTotal(Fields!Order_Qty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -915,7 +915,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(code.AddTotal(Fields!Order_Qty.Value)-Sum(Fields!ShipQty.Value))</Value>
+                                  <Value>=Sum(Sum(Fields!ShipQty.Value)-code.AddTotal(Fields!Order_Qty.Value))</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>8pt</FontSize>

@@ -77,10 +77,6 @@ page 50313 StockSummary
             LoginRec.RunModal();
         end;
 
-        // UserRec.Reset();
-        // UserRec.Get(UserId);
-        // if UserRec."Merchandizer Group Name" <> '' then
-        //     rec.SetFilter("Merchandizer Group Name", '=%1', UserRec."Merchandizer Group Name");
 
         // Delete Old Records
         StockSumRec.Reset();
@@ -94,22 +90,9 @@ page 50313 StockSummary
             MaxSeqNo := StockSumRec."SeqNo";
 
         styleRec.Reset();
-        // styleRec.SetRange("No.", Rec."No.");
         styleRec.SetRange(Status, styleRec.Status::Confirmed);
-        // StockSumRec2.Reset();
-        // StockSumRec2.SetRange();
         if styleRec.FindSet() then begin
             repeat
-
-                // StockSumRec2.Reset();
-                // StockSumRec2.SetRange(SeqNo, StockSumRec.SeqNo);
-                // StockSumRec2.SetRange("Buyer Name", StockSumRec."Buyer Name");
-                // StockSumRec2.SetRange("Factory Name", StockSumRec."Factory Name");
-                // StockSumRec2.SetRange("Main Category Name", StockSumRec."Main Category Name");
-                // StockSumRec2.SetRange("Contract Lc No", StockSumRec."Contract Lc No");
-
-                // if not StockSumRec2.FindSet() then begin
-                // repeat
                 MaxSeqNo += 1;
                 StockSumRec.Init();
                 StockSumRec.SeqNo := MaxSeqNo;
@@ -143,8 +126,6 @@ page 50313 StockSummary
 
                 end;
                 StockSumRec.Insert();
-            // until StockSumRec2.Next() = 0;
-            // end;
             until styleRec.Next() = 0;
         end;
 
@@ -152,7 +133,7 @@ page 50313 StockSummary
     end;
 
 
-    
+
 
     var
         MaxSeqNo: BigInteger;
@@ -161,8 +142,7 @@ page 50313 StockSummary
         Quantity: Decimal;
         Value: Decimal;
         UOM: Code[20];
-        // Merchandizer: Text[200];
         FactoryName: Text[200];
         BuyerName: Text[200];
-    // ContractNo: Text[50];
+    
 }
