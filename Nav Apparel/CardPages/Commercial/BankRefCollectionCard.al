@@ -225,6 +225,8 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal: Decimal;
                     begin
                         Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+                        if Rec."Total Distribution" > Rec."Release Amount" then
+                            Error('Please check enter values,values cannot be greater than Release Amount');
 
                         InvoiceTotal := get_InvoiceTotal();
 
@@ -265,6 +267,9 @@ page 50770 "Bank Ref Collection Card"
                     begin
 
                         Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+                        if Rec."Total Distribution" > Rec."Release Amount" then
+                            Error('Please check enter values,values cannot be greater than Release Amount');
+
 
                         InvoiceTotal := get_InvoiceTotal();
 
@@ -302,6 +307,8 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal: Decimal;
                     begin
                         Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+                        if Rec."Total Distribution" > Rec."Release Amount" then
+                            Error('Please check enter values,values cannot be greater than Release Amount');
 
                         InvoiceTotal := get_InvoiceTotal();
 
@@ -342,6 +349,9 @@ page 50770 "Bank Ref Collection Card"
                         InvoiceTotal: Decimal;
                     begin
                         Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+                        if Rec."Total Distribution" > Rec."Release Amount" then
+                            Error('Please check enter values,values cannot be greater than Release Amount');
+
 
                         InvoiceTotal := get_InvoiceTotal();
 
@@ -381,6 +391,9 @@ page 50770 "Bank Ref Collection Card"
                     begin
 
                         Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
+                        if Rec."Total Distribution" > Rec."Release Amount" then
+                            Error('Please check enter values,values cannot be greater than Release Amount');
+
 
                         InvoiceTotal := get_InvoiceTotal();
 
@@ -422,8 +435,8 @@ page 50770 "Bank Ref Collection Card"
 
                         Rec."Total Distribution" := Rec."Margin A/C Amount" + Rec."Bank Charges" + Rec.Tax + Rec."Currier Charges" + Rec."FC A/C Amount" + Rec."Current A/C Amount";
 
-                        if Rec."Total Distribution" > Rec.Total then
-                            Error('Please check enter values Total Distribution cannot be greater than Total ');
+                        if Rec."Total Distribution" > Rec."Release Amount" then
+                            Error('Please check enter values,values cannot be greater than Release Amount');
 
                         InvoiceTotal := get_InvoiceTotal();
 
