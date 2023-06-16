@@ -74,6 +74,7 @@ page 50763 "Bank Reference Card"
                 {
                     ApplicationArea = All;
                     Caption = 'Airway Bill No';
+
                 }
                 field("Airway Bill Date"; rec."Airway Bill Date")
                 {
@@ -159,6 +160,8 @@ page 50763 "Bank Reference Card"
                                                 ContPostedInvRec."Inv Value" := SalesInvoiceRec."Amount Including VAT";
                                                 ContPostedInvRec."LC/Contract No." := rec."LC/Contract No.";
                                                 ContPostedInvRec."Inv Date" := SalesInvoiceRec."Document Date";
+                                                ContPostedInvRec."Style No" := SalesInvoiceRec."Style No";
+                                                ContPostedInvRec."Style Name" := SalesInvoiceRec."Style Name";
                                                 ContPostedInvRec.Insert();
 
                                             end;
@@ -173,7 +176,17 @@ page 50763 "Bank Reference Card"
                             else
                                 Error('No Styles assigned for the Contract  : %1', rec."LC/Contract No.");
                         end;
-
+                        ContPostedInvRec.Reset();
+                        ContPostedInvRec.SetRange(BankRefNo, Rec."No.");
+                        if ContPostedInvRec.FindSet() then begin
+                            SalesInvoiceRec.Reset();
+                            SalesInvoiceRec.SetRange(BankRefNo, ContPostedInvRec.BankRefNo);
+                            if SalesInvoiceRec.FindSet() then begin
+                                SalesInvoiceRec."BL No" := Rec.AirwayBillNo;
+                                SalesInvoiceRec."BL Date" := Rec."Airway Bill Date";
+                                SalesInvoiceRec.Modify();
+                            end;
+                        end;
                         ContPostedInvRec.Reset();
                         ContPostedInvRec.SetRange(BankRefNo, Rec."No.");
                         if ContPostedInvRec.FindSet() then begin
