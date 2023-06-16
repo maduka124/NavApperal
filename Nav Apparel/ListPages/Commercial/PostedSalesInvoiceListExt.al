@@ -30,7 +30,11 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
         }
         addafter("Sell-to Customer Name")
         {
-            field("Sell-to Contact No."; Rec."Sell-to Contact No.")
+            field("Contract No"; Rec."Contract No")
+            {
+                ApplicationArea = all;
+            }
+            field("Style Name"; Rec."Style Name")
             {
                 ApplicationArea = all;
             }
@@ -93,6 +97,6 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
 
 
     var
-        // PaymentDueDate: Date;
-   
+    // PaymentDueDate: Date;
+
 }
