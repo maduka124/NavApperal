@@ -56,6 +56,14 @@ table 51219 ContractPostedInvoices
         {
             DataClassification = ToBeClassified;
         }
+        field(12; "Style No"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(13; "Style Name"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
