@@ -96,23 +96,23 @@ tableextension 50566 "SalesOrder Extension" extends "Sales Header"
     }
 
 
-    trigger OnInsert()
-    var
-        UserSetupRec: Record "User Setup";
-    begin
+    // trigger OnInsert()
+    // var
+    //     UserSetupRec: Record "User Setup";
+    // begin
 
-        UserSetupRec.Reset();
-        UserSetupRec.SetRange("User ID", UserId);
-        if UserSetupRec.FindSet() then begin
+    //     UserSetupRec.Reset();
+    //     UserSetupRec.SetRange("User ID", UserId);
+    //     if UserSetupRec.FindSet() then begin
 
-            if UserSetupRec."Merchandizer Group Name" = '' then
-                Error('Merchandizer Group not setup in the User Setup.');
+    //         if UserSetupRec."Merchandizer Group Name" = '' then
+    //             Error('Merchandizer Group not setup in the User Setup.');
 
-            "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
-        end
-        else
-            Error('Merchandizer Group not setup in the User Setup.');
-    end;
+    //         "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
+    //     end
+    //     else
+    //         Error('Merchandizer Group not setup in the User Setup.');
+    // end;
 }
 
 
