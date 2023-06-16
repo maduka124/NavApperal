@@ -94,6 +94,20 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
         {
             DataClassification = ToBeClassified;
         }
+        field(50019; "Contract No"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50020; "BL No"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50021; "BL Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
 
     }
 
