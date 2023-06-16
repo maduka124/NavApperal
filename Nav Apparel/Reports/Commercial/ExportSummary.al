@@ -58,6 +58,20 @@ report 50629 ExportSummartReport
                     { }
                     column(UnitPrice; UnitPrice)
                     { }
+                    column(UD_No; "UD No")
+                    { }
+                    column(Exp_No; "Exp No")
+                    { }
+                    column(Exp_Date; "Exp Date")
+                    { }
+                    column(No_of_Cartons; "No of Cartons")
+                    { }
+                    column(BL_Date; "BL Date")
+                    { }
+                    column(BL_No; "BL No")
+                    { }
+                    // column()
+
 
                     trigger OnAfterGetRecord()
                     var

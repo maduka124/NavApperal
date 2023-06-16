@@ -3,7 +3,7 @@ report 51318 ExportSummartReport2
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     Caption = 'Export Summary Report 2';
-    RDLCLayout = 'Report_Layouts/Commercial/Export Summary Report.rdl';
+    // RDLCLayout = 'Report_Layouts/Commercial/Export Summary Report.rdl';
     DefaultLayout = RDLC;
     dataset
     {
