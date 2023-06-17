@@ -153,17 +153,11 @@ page 51241 "Export Reference Card"
                             Rec."Factory Inv No" := SalesInvRec."Your Reference";
                             Rec."Order No" := SalesInvRec."PO No";
 
-                            ContracStRec.Reset();
-                            ContracStRec.SetRange("Style No.", SalesInvRec."Style No");
-                            ContracStRec.SetRange("Buyer No.", SalesInvRec."Sell-to Customer No.");
-                            if ContracStRec.FindSet() then begin
-
-                                LcMaterRec.Reset();
-                                LcMaterRec.SetRange("No.", ContracStRec."No.");
-                                if LcMaterRec.FindSet() then begin
-                                    Rec."Contract No" := LcMaterRec."Contract No"
-                                end;
-
+                            SalesInvRec.Reset();
+                            SalesInvRec.SetRange("No.", Rec."Invoice No");
+                            if SalesInvRec.FindSet() then begin
+                                Rec."Contract No" := SalesInvRec."Contract No";
+                                CurrPage.Update();
                             end;
                         end;
                     end;
