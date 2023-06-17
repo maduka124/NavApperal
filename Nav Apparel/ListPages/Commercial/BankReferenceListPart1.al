@@ -7,7 +7,7 @@ page 50764 "Bank Ref Invoice ListPart1"
     SourceTableView = where(AssignedBankRefNo = filter(''));
     DeleteAllowed = false;
     InsertAllowed = false;
-    //Permissions = tabledata "Sales Invoice Header" = rm;
+    Permissions = tabledata "Sales Invoice Header" = rm;
     // Permissions = tabledata BankReferenceHeader = rimd;
 
 
@@ -64,6 +64,8 @@ page 50764 "Bank Ref Invoice ListPart1"
 
                 trigger OnAction()
                 var
+                    SalesInvRec: Record "Sales Invoice Header";
+                    ContPostedInvRec1: Record ContractPostedInvoices;
                     ContPostedInvRec: Record ContractPostedInvoices;
                     BankRefInvRec: Record BankReferenceInvoice;
                     BankRefHeadRec: Record BankReferenceHeader;
@@ -95,12 +97,21 @@ page 50764 "Bank Ref Invoice ListPart1"
                                 BankRefInvRec."Factory Inv No" := ContPostedInvRec."Factory Inv No";
                                 BankRefInvRec."Created User" := UserId;
                                 BankRefInvRec."Created Date" := WorkDate();
+                                BankRefInvRec."Contract No" := ContPostedInvRec."LC/Contract No.";
                                 BankRefInvRec.Insert();
 
 
                                 //Update Style master contractno
                                 ContPostedInvRec.AssignedBankRefNo := Rec.BankRefNo;
                                 ContPostedInvRec.Modify();
+                                CurrPage.Update();
+
+                                // SalesInvRec.Reset();
+                                // SalesInvRec.SetRange("No.", BankRefInvRec."Invoice No");
+                                // if SalesInvRec.FindSet() then begin
+                                //     SalesInvRec.Status := 1;
+                                //     SalesInvRec.Modify();
+                                // end;
                             end;
                         until ContPostedInvRec.Next() = 0;
 

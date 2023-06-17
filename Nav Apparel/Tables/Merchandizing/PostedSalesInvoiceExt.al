@@ -106,6 +106,15 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
         {
             DataClassification = ToBeClassified;
         }
+        field(50022; "LC No"; Code[35])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50023; Status; Integer)
+        {
+            DataClassification = ToBeClassified;
+        }
+
 
 
 

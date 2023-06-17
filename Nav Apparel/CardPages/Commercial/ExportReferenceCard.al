@@ -198,11 +198,37 @@ page 51241 "Export Reference Card"
                 field("BL No"; rec."BL No")
                 {
                     ApplicationArea = All;
+                    trigger OnValidate()
+                    var
+                        SalesInvRec: Record "Sales Invoice Header";
+                    begin
+                        SalesInvRec.Reset();
+                        SalesInvRec.SetRange("No.", Rec."Invoice No");
+                        if SalesInvRec.FindSet() then begin
+                            SalesInvRec."BL No" := Rec."BL No";
+                            SalesInvRec.Modify();
+                        end;
+
+                    end;
                 }
 
                 field("BL Date"; rec."BL Date")
                 {
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    var
+                        SalesInvRec: Record "Sales Invoice Header";
+                    begin
+                        SalesInvRec.Reset();
+                        SalesInvRec.SetRange("No.", Rec."Invoice No");
+                        if SalesInvRec.FindSet() then begin
+                            SalesInvRec."BL Date" := Rec."BL Date";
+                            SalesInvRec.Modify();
+                        end;
+
+                    end;
+
                 }
 
                 // Done By sachith 15/03/23

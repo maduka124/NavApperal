@@ -79,11 +79,11 @@ page 50978 "Create User Card"
                     Caption = 'Active Status';
                 }
 
-                // field(ExportRefNo; ExportRefNo)
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Posted Sales Invoice No';
-                // }
+                field(ExportRefNo; ExportRefNo)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Posted Sales Invoice No';
+                }
                 // field(PurchaseNo; PurchaseNo)
                 // {
                 //     ApplicationArea = All;
@@ -130,22 +130,22 @@ page 50978 "Create User Card"
 
             //     end;
             // }
-            // action("remove value Export Reference")
-            // {
-            //     ApplicationArea = All;
+            action("remove value Export Reference")
+            {
+                ApplicationArea = All;
 
-            //     trigger OnAction()
-            //     var
-            //         SalesInvRec: Record "Sales Invoice Header";
-            //     begin
-            //         SalesInvRec.Reset();
-            //         SalesInvRec.SetRange("No.", ExportRefNo);
-            //         SalesInvRec.FindSet();
-            //         SalesInvRec.ModifyAll("Export Ref No.", '');
-            //         Message('Export Ref No Removed');
+                trigger OnAction()
+                var
+                    SalesInvRec: Record "Sales Invoice Header";
+                begin
+                    SalesInvRec.Reset();
+                    SalesInvRec.SetRange("No.", ExportRefNo);
+                    SalesInvRec.FindSet();
+                    SalesInvRec.ModifyAll("Export Ref No.", '');
+                    Message('Export Ref No Removed');
 
-            //     end;
-            // }
+                end;
+            }
 
             // action("Remove value from Purchase Header")
             // {

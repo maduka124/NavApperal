@@ -52,6 +52,10 @@ table 50762 BankReferenceInvoice
         {
             DataClassification = ToBeClassified;
         }
+        field(11; "Contract No"; text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

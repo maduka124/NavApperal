@@ -949,6 +949,8 @@ codeunit 50618 NavAppCodeUnit
         SalesInvHeader.EntryType := SalesHeader.EntryType;
         SalesInvHeader."Secondary UserID" := SalesHeader."Secondary UserID";
         SalesInvHeader."Merchandizer Group Name" := SalesHeader."Merchandizer Group Name";
+        SalesInvHeader."Contract No" := SalesHeader."Contract No";
+        SalesInvHeader."LC No" := SalesHeader."External Document No.";
 
     end;
 

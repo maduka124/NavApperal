@@ -71,6 +71,7 @@ page 50765 "Bank Ref Invoice ListPart2"
 
                             //Update Purchase order pi no
                             ContPostedInvRec.Reset();
+                            ContPostedInvRec.SetRange(BankRefNo, Rec."No.");
                             ContPostedInvRec.SetRange("Inv No.", BankRefInvRec."Invoice No");
                             if ContPostedInvRec.FindSet() then begin
                                 ContPostedInvRec.Select := false;

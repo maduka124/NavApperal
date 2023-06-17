@@ -245,6 +245,7 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
 
             trigger OnAfterAction()
             var
+            
                 salesRec: Record "Sales Invoice Header";
                 PaymentRec: Record "Payment Terms";
                 contracRec: Record "Contract/LCMaster";
@@ -267,7 +268,9 @@ pageextension 50999 SalesOrderCardExt extends "Sales Order"
                         if salesRec.FindSet() then begin
                             salesRec."External Doc No Sales" := Rec."External Document No.";
                             salesRec."Payment Due Date" := CalcDate(PaymentRec."Due Date Calculation", Rec."Due Date");
+                            // salesRec."Contract No" := Rec."Contract No";
                             // salesRec.Modify();
+
                         end;
                     end;
                 end;
