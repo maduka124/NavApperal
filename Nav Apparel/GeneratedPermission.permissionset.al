@@ -1158,5 +1158,7 @@ permissionset 50100 GeneratedPermission
         table LaySheetColor=X,
         page BundleGuideReportLookup=X,
         page LaysheetLookupList=X,
-        page "Sales Invoice Header List"=X;
+        page "Sales Invoice Header List"=X,
+        tabledata "Order Shipping Export"=RIMD,
+        table "Order Shipping Export"=X;
 }
