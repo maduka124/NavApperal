@@ -166,9 +166,43 @@ table 50893 "BOM Estimate Line"
 
 
     trigger OnInsert()
+    var
+        BOMEstimateRec: Record "BOM Estimate";
     begin
         "Created Date" := WorkDate();
         "Created User" := UserId;
+
+        BOMEstimateRec.Reset();
+        BOMEstimateRec.SetRange("No.", rec."No.");
+        if BOMEstimateRec.FindSet() then begin
+            BOMEstimateRec.CalDone := false;
+            BOMEstimateRec.Modify();
+        end;
     end;
 
+
+    trigger OnModify()
+    var
+        BOMEstimateRec: Record "BOM Estimate";
+    begin
+        BOMEstimateRec.Reset();
+        BOMEstimateRec.SetRange("No.", rec."No.");
+        if BOMEstimateRec.FindSet() then begin
+            BOMEstimateRec.CalDone := false;
+            BOMEstimateRec.Modify();
+        end;
+    end;
+
+
+    trigger OnDelete()
+    var
+        BOMEstimateRec: Record "BOM Estimate";
+    begin
+        BOMEstimateRec.Reset();
+        BOMEstimateRec.SetRange("No.", rec."No.");
+        if BOMEstimateRec.FindSet() then begin
+            BOMEstimateRec.CalDone := false;
+            BOMEstimateRec.Modify();
+        end;
+    end;
 }

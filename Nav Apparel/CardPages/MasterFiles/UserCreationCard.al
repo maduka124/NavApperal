@@ -202,29 +202,29 @@ page 50978 "Create User Card"
             //     end;
             // }
 
-            // action("remove navapp plan/Prod")
-            // {
-            //     ApplicationArea = All;
-            //     Image = AddAction;
+            action("Remove navapp plan/Prod from board")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
 
-            //     trigger OnAction()
-            //     var
-            //         NavApp: Record "NavApp Planning Lines";
-            //         NavAppprod: Record "NavApp Prod Plans Details";
-            //     begin
-            //         NavApp.Reset();
-            //         NavApp.SetRange("Style No.", '02367');
-            //         if NavApp.FindSet() then
-            //             NavApp.Delete();
+                trigger OnAction()
+                var
+                    NavApp: Record "NavApp Planning Lines";
+                    NavAppprod: Record "NavApp Prod Plans Details";
+                begin
+                    NavApp.Reset();
+                    NavApp.SetRange("Line No.", 3162);
+                    if NavApp.FindSet() then
+                        NavApp.Delete();
 
-            //         NavAppprod.Reset();
-            //         NavAppprod.SetRange("Style No.", '02367');
-            //         if NavAppprod.FindSet() then
-            //             NavAppprod.DeleteAll();
+                    NavAppprod.Reset();
+                    NavAppprod.SetRange("Line No.", 3162);
+                    if NavAppprod.FindSet() then
+                        NavAppprod.DeleteAll();
 
-            //         Message('Completed');
-            //     end;
-            // }
+                    Message('Completed');
+                end;
+            }
 
             // action("remove contarct/style")
             // {

@@ -83,6 +83,12 @@ page 50356 "Daily Sewing In/Out"
                     ApplicationArea = All;
                     Caption = 'Prod. Updated Status';
                 }
+
+                field("Secondary UserID"; rec."Secondary UserID")
+                {
+                    ApplicationArea = All;
+                    Caption = 'User ID';
+                }
             }
         }
     }

@@ -160,6 +160,12 @@ table 50888 "BOM Estimate"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012608; "CalDone"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+            InitValue = false;
+        }
     }
 
     keys

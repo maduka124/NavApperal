@@ -35,12 +35,19 @@ page 50986 "BOM Estimate Cost Card"
                         BOMRec: Record "BOM Estimate";
                         CustomerRec: Record Customer;
                         BOMEstCostRec: Record "BOM Estimate Cost";
+                        BOMEstimateRec: Record "BOM Estimate";
                         StyleRec: Record "Style Master";
                         NavAppSetup: Record "NavApp Setup";
                         CostPlanParaLineRec: Record CostingPlanningParaLine;
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
                     begin
+
+                        BOMEstimateRec.Reset();
+                        BOMEstimateRec.SetRange("No.", rec."BOM No.");
+                        BOMEstimateRec.SetFilter(CalDone, '=%1', false);
+                        if BOMEstimateRec.FindSet() then
+                            Error('BOM calculation not done.');
 
                         NavAppSetup.Get('0001');
                         rec."Risk factor %" := NavAppSetup."Risk Factor";
@@ -69,10 +76,8 @@ page 50986 "BOM Estimate Cost Card"
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
                         end;
 
-
                         if rec."FOB Pcs" = 0 then
                             rec."FOB Pcs" := 1;
-
 
                         //Check for duplicates
                         BOMEstCostRec.Reset();
@@ -298,6 +303,7 @@ page 50986 "BOM Estimate Cost Card"
                 field("Raw Material (Dz.)"; rec."Raw Material (Dz.)")
                 {
                     ApplicationArea = All;
+                    Editable = false;
 
                     trigger OnValidate()
                     var

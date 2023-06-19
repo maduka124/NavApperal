@@ -404,8 +404,8 @@ page 50985 "BOM Estimate Card"
 
                     rec."Material Cost Pcs." := (Total / StyleRec."Order Qty");
                     rec."Material Cost Doz." := rec."Material Cost Pcs." * 12;
+                    rec.CalDone := true;
                     CurrPage.Update();
-
                     Message('Calculation completed');
 
                 end;
