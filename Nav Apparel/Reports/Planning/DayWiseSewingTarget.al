@@ -334,10 +334,14 @@ report 50646 DayWiseSewingTarget
 
             trigger OnPreDataItem()
             begin
-                SetRange(PlanDate, stDate, endDate);
-                SetRange("Factory No.", FTY);
-                SetRange("Style No.", Style);
-                SetRange("Lot No.", LotFilter);
+                if stDate <> 0D then
+                    SetRange(PlanDate, stDate, endDate);
+                if FTY <> '' then
+                    SetRange("Factory No.", FTY);
+                if Style <> '' then
+                    SetRange("Style No.", Style);
+                if LotFilter <> '' then
+                    SetRange("Lot No.", LotFilter);
             end;
 
 
@@ -422,37 +426,37 @@ report 50646 DayWiseSewingTarget
         MonthNo: Integer;
         DayQty: Decimal;
         DayNo: Integer;
-        one: BigInteger;
-        two: BigInteger;
-        three: BigInteger;
-        four: BigInteger;
-        five: BigInteger;
-        six: BigInteger;
-        seven: BigInteger;
-        eight: BigInteger;
-        nine: BigInteger;
-        ten: BigInteger;
-        eleven: BigInteger;
-        twelve: BigInteger;
-        thirteen: BigInteger;
-        fourteen: BigInteger;
-        fifteen: BigInteger;
-        sixteen: BigInteger;
-        seventeen: BigInteger;
-        eighteen: BigInteger;
-        nineteen: BigInteger;
-        twenty: BigInteger;
-        twentyone: BigInteger;
-        twentytwo: BigInteger;
-        twenythree: BigInteger;
-        twentyfour: BigInteger;
-        twentyfive: BigInteger;
-        twentysix: BigInteger;
-        twentyseven: BigInteger;
-        twentyeight: BigInteger;
-        twentynine: BigInteger;
-        thirty: BigInteger;
-        thirtyone: BigInteger;
+        one: Decimal;
+        two: Decimal;
+        three: Decimal;
+        four: Decimal;
+        five: Decimal;
+        six: Decimal;
+        seven: Decimal;
+        eight: Decimal;
+        nine: Decimal;
+        ten: Decimal;
+        eleven: Decimal;
+        twelve: Decimal;
+        thirteen: Decimal;
+        fourteen: Decimal;
+        fifteen: Decimal;
+        sixteen: Decimal;
+        seventeen: Decimal;
+        eighteen: Decimal;
+        nineteen: Decimal;
+        twenty: Decimal;
+        twentyone: Decimal;
+        twentytwo: Decimal;
+        twenythree: Decimal;
+        twentyfour: Decimal;
+        twentyfive: Decimal;
+        twentysix: Decimal;
+        twentyseven: Decimal;
+        twentyeight: Decimal;
+        twentynine: Decimal;
+        thirty: Decimal;
+        thirtyone: Decimal;
         comRec: Record "Company Information";
         Year: Integer;
         FTY: Code[20];
