@@ -130,6 +130,46 @@ page 50978 "Create User Card"
 
             //     end;
             // }
+            action("Update Contract No ")
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    SaleIncRec: Record "Sales Invoice Header";
+                    LcRec: Record "Contract/LCMaster";
+                begin
+                    SaleIncRec.Reset();
+                    LcRec.Reset();
+                    if LcRec.FindSet() then begin
+                        repeat
+                            SaleIncRec.SetRange("Export Ref No.", LcRec."Contract No");
+                            if SaleIncRec.FindSet() then begin
+                                repeat
+                                    SaleIncRec."Contract No" := SaleIncRec."Export Ref No.";
+                                    SaleIncRec.Modify();
+                                until SaleIncRec.Next() = 0;
+                            end;
+                        until LcRec.Next() = 0;
+                    end;
+
+                    SaleIncRec.Reset();
+                    LcRec.Reset();
+                    if LcRec.FindSet() then begin
+                        repeat
+                            SaleIncRec.SetRange("Export Ref No.", LcRec."Contract No");
+                            if SaleIncRec.FindSet() then begin
+                                repeat
+                                    SaleIncRec."Export Ref No." := '';
+                                    SaleIncRec.Modify();
+                                until SaleIncRec.Next() = 0;
+                            end;
+                        until LcRec.Next() = 0;
+                    end;
+
+                    Message('Contract No Updated');
+                end;
+            }
             action("remove value Export Reference")
             {
                 ApplicationArea = All;

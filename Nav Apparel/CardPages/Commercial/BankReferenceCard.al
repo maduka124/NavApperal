@@ -137,6 +137,8 @@ page 50763 "Bank Reference Card"
                                     SalesInvoiceRec.Reset();
                                     SalesInvoiceRec.SetRange("Style No", ContractStyleRec."Style No.");
                                     SalesInvoiceRec.SetRange("Sell-to Customer No.", rec."Buyer No");
+                                    //New 
+                                    SalesInvoiceRec.SetRange("Contract No", LCContractRec."Contract No");
 
                                     if SalesInvoiceRec.FindSet() then begin
 

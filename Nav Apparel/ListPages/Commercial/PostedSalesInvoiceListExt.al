@@ -8,10 +8,10 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
         //     ApplicationArea = all;
         //     Visible = false;
         // }
-        modify("No.")
-        {
-            Visible = false;
-        }
+        // modify("No.")
+        // {
+        //     Visible = false;
+        // }
         modify("Sell-to Customer No.")
         {
             Visible = false;
