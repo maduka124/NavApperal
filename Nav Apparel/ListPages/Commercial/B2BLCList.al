@@ -45,6 +45,12 @@ page 50521 "B2B LC List"
                     ApplicationArea = All;
                 }
 
+                field(Beneficiary; Rec."Beneficiary Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Supplier';
+                }
+
                 field(Season; Rec.Season)
                 {
                     ApplicationArea = All;
@@ -78,6 +84,17 @@ page 50521 "B2B LC List"
                 field("Payment Terms (Days)"; Rec."Payment Terms (Days)")
                 {
                     ApplicationArea = All;
+                }
+
+                field("Created Date"; rec."Created Date")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Secondary UserID"; rec."Secondary UserID")
+                {
+                    ApplicationArea = All;
+                    Caption = 'User ID';
                 }
             }
         }
