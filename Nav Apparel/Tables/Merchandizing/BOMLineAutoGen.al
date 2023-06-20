@@ -245,6 +245,12 @@ table 50895 "BOM Line AutoGen"
         {
             DataClassification = ToBeClassified;
         }
+
+        // field(71012627; "Planning Wksht Updated"; Boolean)
+        // {
+        //     DataClassification = ToBeClassified;
+        //     InitValue = false;
+        // }
     }
 
     keys

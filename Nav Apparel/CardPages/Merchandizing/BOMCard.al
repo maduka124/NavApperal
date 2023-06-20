@@ -6839,6 +6839,7 @@ page 50984 "BOM Card"
                     AssoRec: Record AssorColorSizeRatio;
                     PurchCMRec: Record "Purch. Cr. Memo Hdr.";
                     SalesCMRec: Record "Sales Cr.Memo Header";
+                    BOMLineAutoGenPlWkshtRec: Record BOMLineAutoGenPlWksht;
                     ItemRec: Record Item;
                     GRNQty: Decimal;
                     ShippedQty: Decimal;
@@ -7086,7 +7087,7 @@ page 50984 "BOM Card"
                     //BOM Header
                     BOMLineAutoGenPRBOMRec.Reset();
                     BOMLineAutoGenPRBOMRec.SetRange("No.", rec.No);
-                    if BOMLineAutoGenPRBOMRec.FindSet() then
+                    if BOMLineAutoGenPRBOMRec.FindSet() then begin
                         repeat begin
                             if BOMLineAutoGenPRBOMRec."Production BOM No." <> '' then begin
                                 ProdBOMHeaderRec.Reset();
@@ -7110,15 +7111,21 @@ page 50984 "BOM Card"
                         until BOMLineAutoGenPRBOMRec.Next() = 0;
 
 
-                    BOMLineAutoGenRec.Reset();
-                    BOMLineAutoGenRec.SetRange("No.", rec.No);
-                    if BOMLineAutoGenRec.FindSet() then begin
-                        repeat
-                            BOMLineAutoGenRec."Include in PO" := false;
-                            BOMLineAutoGenRec."Included in PO" := false;
-                            BOMLineAutoGenRec.Modify();
-                        until BOMLineAutoGenRec.Next() = 0;
+                        BOMLineAutoGenRec.Reset();
+                        BOMLineAutoGenRec.SetRange("No.", rec.No);
+                        if BOMLineAutoGenRec.FindSet() then begin
+                            repeat
+                                BOMLineAutoGenRec."Include in PO" := false;
+                                BOMLineAutoGenRec."Included in PO" := false;
+                                BOMLineAutoGenRec.Modify();
+                            until BOMLineAutoGenRec.Next() = 0;
+                        end;
                     end;
+
+                    BOMLineAutoGenPlWkshtRec.Reset();
+                    BOMLineAutoGenPlWkshtRec.SetRange("No.", rec.No);
+                    if BOMLineAutoGenPlWkshtRec.FindSet() then
+                        BOMLineAutoGenPlWkshtRec.DeleteAll();
 
                     Message('Completed');
 
@@ -7992,6 +7999,10 @@ page 50984 "BOM Card"
 
                         if BOMLineEstimateRec.Reconfirm = false then begin
 
+
+                            // if (AutoGenRec."Main Category Name" = 'ELASTIC') and (AutoGenRec."GMT Color Name" = 'IRON GATE') then
+                            //     Message('ELASTIC');
+
                             if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
                                 //if (AutoGenRec."GMT Size Name" = Size) or ((AutoGenRec."GMT Size Name" = '') and (StatusGB = 0)) then begin
 
@@ -8201,7 +8212,9 @@ page 50984 "BOM Card"
                                 end;
 
                                 //Create Worksheet Entry
-                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name");
+                                Message(FGItem);
+                                Message(ItemDesc);
+                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name", AutoGenRec."Item No.", AutoGenRec."Line No.");
 
                                 //Update Auto generate
                                 // AutoGenRec."Included in PO" := true;
@@ -8338,6 +8351,9 @@ page 50984 "BOM Card"
                             //     HeaderGenerated := true;
 
                             // end;
+
+                            // if AutoGenRec."Main Category Name" = 'ELASTIC' then
+                            //     Message('ELASTIC');
 
                             if (AutoGenRec."GMT Size Name" = Size) or (AutoGenRec."GMT Size Name" = '') then begin
 
@@ -8568,7 +8584,7 @@ page 50984 "BOM Card"
 
 
                                 //Create Worksheet Entry
-                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name");
+                                CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name", AutoGenRec."Item No.", AutoGenRec."Line No.");
 
                                 //Update Auto generate
                                 // AutoGenRec."Included in PO" := true;
@@ -8622,9 +8638,12 @@ page 50984 "BOM Card"
 
     end;
 
-    procedure CreateWorksheetEntry(Item: code[20]; Supplier: Code[20]; Qty: Decimal; Rate: Decimal; Lot: Code[20]; PONo: Code[20]; MainCat: Code[20]; GMTSizeName: text[50])
+    procedure CreateWorksheetEntry(Item: code[20]; Supplier: Code[20]; Qty: Decimal; Rate: Decimal; Lot: Code[20]; PONo: Code[20]; MainCat: Code[20];
+     GMTSizeName: text[50]; ItemNoPara: code[20]; LineNoPara: BigInteger)
     var
         NoSeriesManagementCode: Codeunit NoSeriesManagement;
+        //BOMLineAutoGenNew1Rec: Record "BOM Line AutoGen";
+        BOMLineAutoGenPlWkshtRec: Record BOMLineAutoGenPlWksht;
         NavAppSetupRec: Record "NavApp Setup";
         RequLineRec: Record "Requisition Line";
         RequLineRec1: Record "Requisition Line";
@@ -8636,10 +8655,8 @@ page 50984 "BOM Card"
         LoginRec: Page "Login Card";
         UserSetupRec: Record "User Setup";
     begin
-
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
-
         if not UserSetupRec.FindSet() then
             Error('Cannot find user setup details');
 
@@ -8654,10 +8671,8 @@ page 50984 "BOM Card"
         StyMasterRec.Reset();
         StyMasterRec.SetRange("No.", rec."Style No.");
         StyMasterRec.FindSet();
-
         if StyMasterRec."Factory Code" = '' then
             Error('Factory is not assigned for the Style : %1', StyMasterRec."Style No.");
-
 
         //Get max line no
         RequLineRec.Reset();
@@ -8666,7 +8681,6 @@ page 50984 "BOM Card"
 
         if RequLineRec.FindLast() then
             ReqLineNo := RequLineRec."Line No.";
-
 
         RequLineRec.Reset();
         RequLineRec.SetCurrentKey("Worksheet Template Name", "Journal Batch Name", "No.");
@@ -8740,10 +8754,25 @@ page 50984 "BOM Card"
             if GMTSizeName <> '' then begin
                 RequLineRec."Quantity" := RequLineRec."Quantity" + Qty;
                 RequLineRec.Modify();
+            end
+            else begin
+                BOMLineAutoGenPlWkshtRec.Reset();
+                BOMLineAutoGenPlWkshtRec.SetRange("No.", rec.No);
+                BOMLineAutoGenPlWkshtRec.SetRange("Item No.", ItemNoPara);
+                BOMLineAutoGenPlWkshtRec.SetRange("Line No.", LineNoPara);
+                if not BOMLineAutoGenPlWkshtRec.FindSet() then begin
+                    Message(Lot);
+                    RequLineRec."Quantity" := RequLineRec."Quantity" + Qty;
+                    RequLineRec.Modify();
+
+                    BOMLineAutoGenPlWkshtRec.Init();
+                    BOMLineAutoGenPlWkshtRec."No." := rec.No;
+                    BOMLineAutoGenPlWkshtRec."Item No." := ItemNoPara;
+                    BOMLineAutoGenPlWkshtRec."Line No." := LineNoPara;
+                    BOMLineAutoGenPlWkshtRec.Insert();
+                end;
             end;
         end;
-
-
 
         // //Get No series for LOT
         // ItemRec.Reset();
