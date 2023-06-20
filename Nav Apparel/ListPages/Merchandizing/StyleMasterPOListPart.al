@@ -21,13 +21,36 @@ page 51069 "Style Master PO ListPart"
                         StyleMasRec: Record "Style Master";
                         LOTVar: Text[20];
                         NavappPlanLineRec: Record "NavApp Planning Lines";
+                        AssorColorSizeRatioRec: Record AssorColorSizeRatio;
+                        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
+                        PlanningQueueRec: Record "Planning Queue";
                     begin
                         CurrPage.Update();
                         NavappPlanLineRec.Reset();
                         NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
                         NavappPlanLineRec.SetRange("Lot No.", xrec."Lot No.");
                         if NavappPlanLineRec.FindSet() then
-                            Error('PO already planned. Cannot change Lot No.');
+                            Error('LOT already planned. Cannot change Lot No.');
+
+                        PlanningQueueRec.Reset();
+                        PlanningQueueRec.SetRange("Style No.", rec."Style No.");
+                        PlanningQueueRec.SetRange("Lot No.", xrec."Lot No.");
+                        if PlanningQueueRec.FindSet() then
+                            Error('LOT already in the Queue. Cannot change Lot No.');
+
+
+                        AssorColorSizeRatioRec.Reset();
+                        AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+                        AssorColorSizeRatioRec.SetRange("Lot No.", xrec."Lot No.");
+                        if AssorColorSizeRatioRec.FindSet() then
+                            Error('Color Size entered for the LOT. Cannot change Lot No.');
+
+                        NavAppProdPlanRec.Reset();
+                        NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
+                        NavAppProdPlanRec.SetRange("Lot No.", xrec."Lot No.");
+                        if NavAppProdPlanRec.FindSet() then
+                            Error('LOT already planned. Cannot change Lot No.');
+
 
                         LOTVar := rec."Lot No.";
 
@@ -66,12 +89,34 @@ page 51069 "Style Master PO ListPart"
                         SalesHeaderRec: Record "Sales Header";
                         PONOVar: Text[50];
                         NavappPlanLineRec: Record "NavApp Planning Lines";
+                        AssorColorSizeRatioRec: Record AssorColorSizeRatio;
+                        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
+                        PlanningQueueRec: Record "Planning Queue";
                     begin
 
                         NavappPlanLineRec.Reset();
                         NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
                         NavappPlanLineRec.SetRange("PO No.", xrec."PO No.");
                         if NavappPlanLineRec.FindSet() then
+                            Error('PO already planned. Cannot change PO No.');
+
+                        PlanningQueueRec.Reset();
+                        PlanningQueueRec.SetRange("Style No.", rec."Style No.");
+                        PlanningQueueRec.SetRange("PO No.", xrec."PO No.");
+                        if PlanningQueueRec.FindSet() then
+                            Error('PO already in the Queue. Cannot change PO No.');
+
+
+                        AssorColorSizeRatioRec.Reset();
+                        AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+                        AssorColorSizeRatioRec.SetRange("PO No.", xrec."PO No.");
+                        if AssorColorSizeRatioRec.FindSet() then
+                            Error('Color Size entered for the PO. Cannot change PO No.');
+
+                        NavAppProdPlanRec.Reset();
+                        NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
+                        NavAppProdPlanRec.SetRange("PO No.", xrec."PO No.");
+                        if NavAppProdPlanRec.FindSet() then
                             Error('PO already planned. Cannot change PO No.');
 
                         PONOVar := rec."PO No.";
@@ -100,6 +145,9 @@ page 51069 "Style Master PO ListPart"
                         StyleMasterPORec: Record "Style Master PO";
                         Tot: BigInteger;
                         NavappPlanLineRec: Record "NavApp Planning Lines";
+                        AssorColorSizeRatioRec: Record AssorColorSizeRatio;
+                        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
+                        PlanningQueueRec: Record "Planning Queue";
                     begin
 
                         NavappPlanLineRec.Reset();
@@ -108,6 +156,24 @@ page 51069 "Style Master PO ListPart"
                         if NavappPlanLineRec.FindSet() then
                             Error('PO already planned. Cannot change quantity.');
 
+                        PlanningQueueRec.Reset();
+                        PlanningQueueRec.SetRange("Style No.", rec."Style No.");
+                        PlanningQueueRec.SetRange("PO No.", rec."PO No.");
+                        if PlanningQueueRec.FindSet() then
+                            Error('PO already planned. Cannot change quantity.');
+
+
+                        AssorColorSizeRatioRec.Reset();
+                        AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+                        AssorColorSizeRatioRec.SetRange("PO No.", rec."PO No.");
+                        if AssorColorSizeRatioRec.FindSet() then
+                            Error('PO already planned. Cannot change quantity.');
+
+                        NavAppProdPlanRec.Reset();
+                        NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
+                        NavAppProdPlanRec.SetRange("PO No.", rec."PO No.");
+                        if NavAppProdPlanRec.FindSet() then
+                            Error('PO already planned. Cannot change quantity.');
 
                         CurrPage.Update();
                         StyleMasterPORec.Reset();
@@ -154,6 +220,9 @@ page 51069 "Style Master PO ListPart"
                         NavappRec: Record "NavApp Setup";
                         StyleMasRec: Record "Style Master";
                         NavappPlanLineRec: Record "NavApp Planning Lines";
+                        AssorColorSizeRatioRec: Record AssorColorSizeRatio;
+                        NavAppProdPlanRec: Record "NavApp Prod Plans Details";
+                        PlanningQueueRec: Record "Planning Queue";
                     begin
 
                         NavappPlanLineRec.Reset();
@@ -161,6 +230,25 @@ page 51069 "Style Master PO ListPart"
                         NavappPlanLineRec.SetRange("PO No.", rec."PO No.");
                         if NavappPlanLineRec.FindSet() then
                             Error('Style already planned. Cannot change Ship Date.');
+
+                        PlanningQueueRec.Reset();
+                        PlanningQueueRec.SetRange("Style No.", rec."Style No.");
+                        PlanningQueueRec.SetRange("PO No.", rec."PO No.");
+                        if PlanningQueueRec.FindSet() then
+                            Error('Style already planned. Cannot change Ship Date.');
+
+                        AssorColorSizeRatioRec.Reset();
+                        AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+                        AssorColorSizeRatioRec.SetRange("PO No.", rec."PO No.");
+                        if AssorColorSizeRatioRec.FindSet() then
+                            Error('Style already planned. Cannot change Ship Date.');
+
+                        NavAppProdPlanRec.Reset();
+                        NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
+                        NavAppProdPlanRec.SetRange("PO No.", rec."PO No.");
+                        if NavAppProdPlanRec.FindSet() then
+                            Error('Style already planned. Cannot change Ship Date.');
+
 
                         NavappRec.Reset();
                         NavappRec.FindSet();
