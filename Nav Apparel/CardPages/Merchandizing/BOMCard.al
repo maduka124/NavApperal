@@ -8212,8 +8212,8 @@ page 50984 "BOM Card"
                                 end;
 
                                 //Create Worksheet Entry
-                                Message(FGItem);
-                                Message(ItemDesc);
+                                // Message(FGItem);
+                                // Message(ItemDesc);
                                 CreateWorksheetEntry(NextItemNo, AutoGenRec."Supplier No.", AutoGenRec.Requirment, AutoGenRec.Rate, Lot, AutoGenRec.PO, AutoGenRec."Main Category Name", AutoGenRec."GMT Size Name", AutoGenRec."Item No.", AutoGenRec."Line No.");
 
                                 //Update Auto generate
@@ -8747,7 +8747,13 @@ page 50984 "BOM Card"
                 RequLineRec1."Direct Unit Cost" := Rate;
                 RequLineRec1."Unit Cost" := Rate;
                 RequLineRec1.Modify();
-            end
+            end;
+
+            BOMLineAutoGenPlWkshtRec.Init();
+            BOMLineAutoGenPlWkshtRec."No." := rec.No;
+            BOMLineAutoGenPlWkshtRec."Item No." := ItemNoPara;
+            BOMLineAutoGenPlWkshtRec."Line No." := LineNoPara;
+            BOMLineAutoGenPlWkshtRec.Insert();
 
         end
         else begin  // Update existing item
@@ -8761,7 +8767,6 @@ page 50984 "BOM Card"
                 BOMLineAutoGenPlWkshtRec.SetRange("Item No.", ItemNoPara);
                 BOMLineAutoGenPlWkshtRec.SetRange("Line No.", LineNoPara);
                 if not BOMLineAutoGenPlWkshtRec.FindSet() then begin
-                    Message(Lot);
                     RequLineRec."Quantity" := RequLineRec."Quantity" + Qty;
                     RequLineRec.Modify();
 
