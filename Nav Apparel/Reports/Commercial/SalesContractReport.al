@@ -34,92 +34,90 @@ report 51245 SalesContractReport
             { }
             column(Contract_Value; "Contract Value")
             { }
-            dataitem("Contract/LCStyle"; "Contract/LCStyle")
+            dataitem("Sales Invoice Header"; "Sales Invoice Header")
             {
                 DataItemLinkReference = "Contract/LCMaster";
-                DataItemLink = "No." = field("No.");
+                DataItemLink = "Contract No" = field("Contract No");
                 DataItemTableView = sorting("No.");
 
                 column(Style_Name; "Style Name")
                 { }
                 column(Qty; QTYG)
                 { }
-                dataitem("Style Master PO"; "Style Master PO")
-                {
-                    DataItemLinkReference = "Contract/LCStyle";
-                    DataItemLink = "Style No." = field("Style No.");
-                    DataItemTableView = sorting("Style No.", "Lot No.");
-                    column(GarmentType; GarmentType)
-                    { }
-                    column(UnitPrice; "Unit Price")
-                    { }
-                    column(PoQty; Qty)
-                    { }
-                    column(ShippedQty; "Shipped Qty")
-                    { }
-                    column(PoNo; "PO No.")
-                    { }
-                    column(ShipDate; "Ship Date")
-                    { }
-                    column(Color; Color)
-                    { }
-                    // dataitem(AssortmentDetails; AssortmentDetails)
-                    // {
-                    //     DataItemLinkReference = "Style Master PO";
-                    //     DataItemLink = "Style No." = field("Style No."), "PO No." = field("PO No.");
-                    //     DataItemTableView = sorting("Style No.", "Lot No.");
+                column(GarmentType; GarmentType)
+                { }
+                column(UnitPrice; UnitPrice)
+                { }
+                column(PoQty; PoQty)
+                { }
+                column(ShippedQty; ShipQty)
+                { }
+                column(PoNo; "PO No")
+                { }
+                column(ShipDate; ShipDate)
+                { }
+                column(Color; Color)
+                { }
+                trigger OnAfterGetRecord()
+                begin
 
-                    //     column(Color; "Colour Name")
-                    //     { }
-                    //     column(AssormentQty; AssormentQty)
-                    //     { }
-                    //     trigger OnAfterGetRecord()
+                    StylePoRec.Reset();
+                    StylePoRec.SetRange("Style No.", "Style No");
+                    if StylePoRec.FindSet() then begin
+                        UnitPrice := StylePoRec."Unit Price";
+                        PoQty := StylePoRec.Qty;
+                        ShipDate := StylePoRec."Ship Date";
+                    end;
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", "Style No");
+                    if StyleRec.FindFirst() then begin
+                        GarmentType := StyleRec."Garment Type Name";
+                    end;
 
-                    //     begin
-                    //         AssorColorRationRec.Reset();
-                    //         AssorColorRationRec.SetRange("Style No.", "Style No.");
-                    //         AssorColorRationRec.SetRange("PO No.", "PO No.");
-                    //         AssorColorRationRec.SetRange("Colour No", "Colour No");
-                    //         if AssorColorRationRec.FindFirst() then begin
-                    //             AssormentQty := AssorColorRationRec.Total;
-                    //         end;
-                    //     end;
-                    // }
-                    trigger OnAfterGetRecord()
-                    begin
+                    StyleRec.Reset();
+                    StyleRec.SetRange("No.", "Style No");
+                    if StyleRec.FindFirst() then begin
+                        repeat
+                            OrderQty += StyleRec."Order Qty";
+                        until StyleRec.Next() = 0;
+                    end;
 
-                        StyleRec.Reset();
-                        StyleRec.SetRange("No.", "Style No.");
-                        if StyleRec.FindFirst() then begin
-                            GarmentType := StyleRec."Garment Type Name";
-                            OrderQty := StyleRec."Order Qty";
 
-                        end;
+                    AssormentDetailRec.Reset();
+                    AssormentDetailRec.SetRange("Style No.", "Style No");
+                    AssormentDetailRec.SetRange("PO No.", "PO No");
+                    if AssormentDetailRec.FindFirst() then begin
+                        Color := AssormentDetailRec."Colour Name";
+                    end;
 
-                        AssormentDetailRec.Reset();
-                        AssormentDetailRec.SetRange("Style No.", "Style No.");
-                        AssormentDetailRec.SetRange("PO No.", "PO No.");
-                        if AssormentDetailRec.FindFirst() then begin
-                            Color := AssormentDetailRec."Colour Name";
-                        end;
-
-                        "Contract/LCStyle".Reset();
-                        "Contract/LCStyle".SetRange("No.", "Contract/LCStyle"."No.");
-                        if "Contract/LCStyle".FindFirst() then begin
-                            repeat
-                                QTYG += "Contract/LCStyle".Qty;
-                            until "Contract/LCStyle".Next() = 0;
-                        end;
+                    ShipQty := 0;
+                    SalesInvoiceLineRec.Reset();
+                    SalesInvoiceLineRec.SetRange("Document No.", "No.");
+                    SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+                    if SalesInvoiceLineRec.FindFirst() then begin
+                        repeat
+                            ShipQty += SalesInvoiceLineRec.Quantity;
+                        until SalesInvoiceLineRec.Next() = 0;
 
                     end;
-                }
+                end;
+
             }
             trigger OnAfterGetRecord()
 
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
+
+                ContracStyleRec.Reset();
+                ContracStyleRec.SetRange("No.", ContracStyleRec."No.");
+                if ContracStyleRec.FindFirst() then begin
+                    repeat
+                        QTYG += ContracStyleRec.Qty;
+                    until ContracStyleRec.Next() = 0;
+                end;
             end;
+
 
         }
     }
@@ -156,6 +154,11 @@ report 51245 SalesContractReport
 
 
     var
+        ShipDate: Date;
+        PoQty: BigInteger;
+        SalesInvoiceLineRec: Record "Sales Invoice Line";
+        ContracStyleRec: Record "Contract/LCStyle";
+        StylePoRec: Record "Style Master PO";
         QTYG: BigInteger;
         OrderQty: BigInteger;
         AssormentDetailRec: Record AssortmentDetails;
@@ -165,4 +168,6 @@ report 51245 SalesContractReport
         Color: Text[50];
         GarmentType: text[50];
         StyleRec: Record "Style Master";
+        ShipQty: BigInteger;
+        UnitPrice: Decimal;
 }
