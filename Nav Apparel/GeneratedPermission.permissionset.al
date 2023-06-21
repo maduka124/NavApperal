@@ -1160,5 +1160,9 @@ permissionset 50100 GeneratedPermission
         page LaysheetLookupList=X,
         page "Sales Invoice Header List"=X,
         tabledata "Order Shipping Export"=RIMD,
-        table "Order Shipping Export"=X;
+        table "Order Shipping Export"=X,
+        tabledata BOMLineAutoGenPlWksht=RIMD,
+        table BOMLineAutoGenPlWksht=X,
+        page PostedSalesInvoiceTemp=X,
+        page SalesInvoiceTemp=X;
 }

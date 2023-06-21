@@ -184,29 +184,30 @@ page 51031 "BOM Line Estimate ListPart"
                     end;
                 }
 
-                // field("GMT Qty"; rec."GMT Qty")
-                // {
-                //     ApplicationArea = All;
-                //     StyleExpr = StyleExprTxt;
-
-                //     trigger OnValidate()
-                //     var
-                //     begin
-                //         if rec."Article Name." = '' then
-                //             Error('Article is blank.');
-
-                //         if rec."Dimension Name." = '' then
-                //             Error('Dimension is blank.');
-                //     end;
-                // }
-
-                field(Qty; rec.Qty)
+                field("GMT Qty"; rec."GMT Qty")
                 {
                     ApplicationArea = All;
                     StyleExpr = StyleExprTxt;
-                    Caption = 'GMT Qty';
                     Editable = false;
+
+                    // trigger OnValidate()
+                    // var
+                    // begin
+                    //     if rec."Article Name." = '' then
+                    //         Error('Article is blank.');
+
+                    //     if rec."Dimension Name." = '' then
+                    //         Error('Dimension is blank.');
+                    // end;
                 }
+
+                // field(Qty; rec.Qty)
+                // {
+                //     ApplicationArea = All;
+                //     StyleExpr = StyleExprTxt;
+                //     Caption = 'GMT Qty';
+                //     Editable = false;
+                // }
 
                 field(Consumption; rec.Consumption)
                 {

@@ -51,7 +51,6 @@ page 51034 "BOM PO Selection ListPart"
 
                     trigger OnValidate()
                     var
-                        myInt: Integer;
                     begin
                         CurrPage.Update();
                         Calculate();
@@ -110,14 +109,11 @@ page 51034 "BOM PO Selection ListPart"
         BOMPOSelectionRec: Record BOMPOSelection;
         BOMRec: Record BOM;
         BOMLineEstimateRec: Record "BOM Line Estimate";
-
     begin
-
         Total := 0;
         BOMPOSelectionRec.Reset();
         BOMPOSelectionRec.SetRange("BOM No.", rec."BOM No.");
         BOMPOSelectionRec.SetRange(Selection, true);
-
         if BOMPOSelectionRec.FindSet() then begin
             repeat
                 Total += BOMPOSelectionRec.Qty;
@@ -128,10 +124,11 @@ page 51034 "BOM PO Selection ListPart"
         BOMRec.SetRange("No", rec."BOM No.");
         BOMRec.ModifyAll(Quantity, Total);
 
-        //Update BOM Estimate Line Qty
+        //Update BOM Estimate Line Hidden GMT Qty field
         BOMLineEstimateRec.Reset();
         BOMLineEstimateRec.SetRange("No.", rec."BOM No.");
-        BOMLineEstimateRec.ModifyAll("GMT Qty", Total);
+        if BOMLineEstimateRec.FindSet() then
+            BOMLineEstimateRec.ModifyAll("GMT Qty", Total);        
 
         CurrPage.Update();
     end;

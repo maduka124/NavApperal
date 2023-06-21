@@ -23,12 +23,6 @@ page 50984 "BOM Card"
                     end;
                 }
 
-                // field(con)
-                // {
-                //     ApplicationArea = All;
-                // }
-
-
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
@@ -399,6 +393,65 @@ page 50984 "BOM Card"
     {
         area(Processing)
         {
+            action("Add New PO")
+            {
+                ApplicationArea = All;
+                Image = AddAction;
+
+                trigger OnAction()
+                var
+                    BOMPOSelectionRec: Record BOMPOSelection;
+                    BOMPOSelectionNewRec: Record BOMPOSelection;
+                    StyleMasterPORec: Record "Style Master PO";
+                    StyleMasterRec: Record "Style Master";
+                    BOMLineEstimateRec: Record "BOM Line Estimate";
+                begin
+                    if rec."Style No." = '' then
+                        Error('Select a Style.');
+
+                    rec.Quantity := 0;
+
+                    StyleMasterRec.Reset();
+                    StyleMasterRec.SetRange("No.", rec."Style No.");
+                    StyleMasterRec.FindSet();
+
+                    //insert all PO details
+                    StyleMasterPORec.Reset();
+                    StyleMasterPORec.SetRange("Style No.", rec."Style No.");
+                    if StyleMasterPORec.FindSet() then begin
+                        //Delete old records
+                        BOMPOSelectionRec.Reset();
+                        BOMPOSelectionRec.SetRange("BOM No.", rec."No");
+                        if BOMPOSelectionRec.FindSet() then
+                            BOMPOSelectionRec.DeleteAll();
+
+                        repeat
+                            BOMPOSelectionNewRec.Init();
+                            BOMPOSelectionNewRec."BOM No." := rec."No";
+                            BOMPOSelectionNewRec."Style No." := rec."Style No.";
+                            BOMPOSelectionNewRec."Lot No." := StyleMasterPORec."Lot No.";
+                            BOMPOSelectionNewRec."PO No." := StyleMasterPORec."PO No.";
+                            BOMPOSelectionNewRec.Qty := StyleMasterPORec.Qty;
+                            BOMPOSelectionNewRec.Mode := StyleMasterPORec.Mode;
+                            BOMPOSelectionNewRec."Ship Date" := StyleMasterPORec."Ship Date";
+                            BOMPOSelectionNewRec.Selection := false;
+                            BOMPOSelectionNewRec."Created User" := UserId;
+                            BOMPOSelectionNewRec."Created Date" := WorkDate();
+                            BOMPOSelectionNewRec.Insert();
+                        until StyleMasterPORec.Next() = 0;
+
+                        //Update BOM Estimate Line visible GMT Qty field
+                        BOMLineEstimateRec.Reset();
+                        BOMLineEstimateRec.SetRange("No.", rec."No");
+                        if BOMLineEstimateRec.FindSet() then
+                            BOMLineEstimateRec.ModifyAll("Qty", StyleMasterRec."Order Qty");
+                    end;
+
+                    CurrPage.Update();
+                    Message('Completed');
+                end;
+            }
+
             action("Add Sensitivity")
             {
                 ApplicationArea = All;
