@@ -59,50 +59,96 @@ report 50629 ExportSummartReport
             { }
             column(Buyer_Name; "Sell-to Customer Name")
             { }
-            dataitem("Contract/LCMaster"; "Contract/LCMaster")
+            column(Mode; Mode)
+            { }
 
+            dataitem("Style Master"; "Style Master")
             {
                 DataItemLinkReference = "Sales Invoice Header";
-                DataItemLink = "Contract No" = field("Contract No");
+                DataItemLink = "Style No." = field("Style Name");
                 DataItemTableView = sorting("No.");
 
-                column(Mode; Mode)
+                column(Brand_Name; "Brand Name")
                 { }
-
-                trigger OnAfterGetRecord()
+                trigger OnPreDataItem()
                 var
-
+                    myInt: Integer;
                 begin
-                    ShipMode := "Shipment Mode";
-                    Mode := '';
-                    if ShipMode = 0 then begin
-                        Mode := 'Sea';
-                    end
-                    else
-                        if ShipMode = 1 then begin
-                            Mode := 'Air';
-                        end
-                        else
-                            if ShipMode = 2 then begin
-                                Mode := 'Sea-Air';
-                            end
-                            else
-                                if ShipMode = 3 then begin
-                                    Mode := 'Air-Sea';
-                                end
-                                else
-                                    if ShipMode = 4 then begin
-                                        Mode := 'By-Road';
-                                    end;
-
+                    if BrandNameFilter <> '' then
+                        SetRange("Brand Name", BrandNameFilter);
                 end;
             }
+            // dataitem("Contract/LCMaster"; "Contract/LCMaster")
+
+            // {
+            //     DataItemLinkReference = "Sales Invoice Header";
+            //     DataItemLink = "Contract No" = field("Contract No");
+            //     DataItemTableView = sorting("No.");
+
+
+
+            //     trigger OnAfterGetRecord()
+            //     var
+
+            //     begin
+            //         ShipMode := "Shipment Mode";
+            //         Mode := '';
+            //         if ShipMode = 0 then begin
+            //             Mode := 'Sea';
+            //         end
+            //         else
+            //             if ShipMode = 1 then begin
+            //                 Mode := 'Air';
+            //             end
+            //             else
+            //                 if ShipMode = 2 then begin
+            //                     Mode := 'Sea-Air';
+            //                 end
+            //                 else
+            //                     if ShipMode = 3 then begin
+            //                         Mode := 'Air-Sea';
+            //                     end
+            //                     else
+            //                         if ShipMode = 4 then begin
+            //                             Mode := 'By-Road';
+            //                         end;
+
+            //     end;
+            // }
             trigger OnAfterGetRecord()
             var
                 SalesInvoiceLineRec: Record "Sales Invoice Line";
                 POLc: Code[20];
                 StyleNoLc: Code[20];
             begin
+
+                ContractRec.Reset();
+                ContractRec.SetRange("Contract No", "Contract No");
+                if ContractRec.FindSet() then begin
+                    ShipMode := ContractRec."Shipment Mode";
+                end;
+
+                Mode := '';
+                if ShipMode = 0 then begin
+                    Mode := 'Sea';
+                end
+                else
+                    if ShipMode = 1 then begin
+                        Mode := 'Air';
+                    end
+                    else
+                        if ShipMode = 2 then begin
+                            Mode := 'Sea-Air';
+                        end
+                        else
+                            if ShipMode = 3 then begin
+                                Mode := 'Air-Sea';
+                            end
+                            else
+                                if ShipMode = 4 then begin
+                                    Mode := 'By-Road';
+                                end;
+
                 comRec.Get;
                 comRec.CalcFields(Picture);
 
@@ -143,7 +189,7 @@ report 50629 ExportSummartReport
             trigger OnPreDataItem()
             begin
                 if stDate <> 0D then
-                SetRange("Shipment Date", stDate, endDate);
+                    SetRange("Shipment Date", stDate, endDate);
 
                 if UDFilter <> '' then
                     SetRange("UD No", UDFilter);
@@ -181,7 +227,35 @@ report 50629 ExportSummartReport
                         Caption = 'Buyer';
                         TableRelation = Customer."No.";
                     }
+                    field(BrandNameFilter; BrandNameFilter)
+                    {
+                        ApplicationArea = All;
+                        Caption = 'Brand Name';
 
+                        trigger OnLookup(Var Text: Text): Boolean
+                        var
+                            StyleRec: Record "Style Master";
+                            StyleRec1: Record "Style Master";
+                        begin
+
+                            StyleRec.Reset();
+                            StyleRec1.Reset();
+                            StyleRec1.FindSet();
+                            StyleRec.SetRange("Buyer No.", "Buyer Code");
+                            if StyleRec.FindSet() then begin
+                                if page.RunModal(51067, StyleRec) = Action::LookupOK then begin
+                                    BrandNameFilter := StyleRec."Brand Name";
+                                end
+                            end
+                            else begin
+                                if page.RunModal(51067, StyleRec) = Action::LookupOK then begin
+                                    BrandNameFilter := StyleRec."Brand Name";
+                                end
+                            end
+
+                        end;
+
+                    }
                     //Done By Sachith On 15/03/23
                     field(Factory; FactoryFilter)
                     {
@@ -201,13 +275,14 @@ report 50629 ExportSummartReport
                                 if page.RunModal(15, LocationRec) = Action::LookupOK then begin
                                     FactoryFilter := LocationRec.Code;
                                     LocationCode := LocationRec.Code;
-                                end;
+                                end
                             end
-                            else
+                            else begin
                                 if page.RunModal(15, LocationRec) = Action::LookupOK then begin
                                     FactoryFilter := LocationRec.Code;
                                     LocationCode := LocationRec.Code;
                                 end;
+                            end
 
                         end;
                     }
@@ -233,8 +308,8 @@ report 50629 ExportSummartReport
                                 if page.RunModal(143, SalesInv) = Action::LookupOK then begin
                                     FactoryInvFilter := SalesInv."Your Reference";
                                 end;
+                            end
 
-                            end;
                         end;
                     }
                     field(UDFilter; UDFilter)
@@ -245,9 +320,12 @@ report 50629 ExportSummartReport
                         trigger OnLookup(Var Text: Text): Boolean
                         var
                             SalesInv: Record "Sales Invoice Header";
+                            SalesInv1: Record "Sales Invoice Header";
                         begin
 
                             SalesInv.Reset();
+                            SalesInv1.Reset();
+                            SalesInv1.FindSet();
                             SalesInv.SetRange("Location Code", LocationCode);
                             SalesInv.SetRange("Your Reference", FactoryInvFilter);
                             if SalesInv.FindSet() then begin
@@ -256,11 +334,11 @@ report 50629 ExportSummartReport
                                 end
                             end
                             else begin
-                                if page.RunModal(143, SalesInv) = Action::LookupOK then begin
-                                    UDFilter := SalesInv."UD No";
+                                if page.RunModal(143, SalesInv1) = Action::LookupOK then begin
+                                    UDFilter := SalesInv1."UD No";
                                 end;
+                            end
 
-                            end;
                         end;
                     }
                     field(Contract; Contract)
@@ -273,9 +351,12 @@ report 50629 ExportSummartReport
                         trigger OnLookup(Var Text: Text): Boolean
                         var
                             SalesInv: Record "Sales Invoice Header";
+                            SalesInv1: Record "Sales Invoice Header";
                         begin
 
                             SalesInv.Reset();
+                            SalesInv1.Reset();
+                            SalesInv1.FindSet();
                             SalesInv.SetRange("Location Code", LocationCode);
                             SalesInv.SetRange("Your Reference", FactoryInvFilter);
                             if SalesInv.FindSet() then begin
@@ -284,11 +365,11 @@ report 50629 ExportSummartReport
                                 end
                             end
                             else begin
-                                if page.RunModal(143, SalesInv) = Action::LookupOK then begin
-                                    Contract := SalesInv."Contract No";
+                                if page.RunModal(143, SalesInv1) = Action::LookupOK then begin
+                                    Contract := SalesInv1."Contract No";
                                 end;
+                            end
 
-                            end;
                         end;
                     }
                     field(stDate; stDate)
@@ -322,6 +403,8 @@ report 50629 ExportSummartReport
     }
 
     var
+        BrandNameFilter: Text[50];
+        ContractRec: Record "Contract/LCMaster";
         FactoryInvFilter: Text[35];
         POQty: BigInteger;
         StylePoRec: Record "Style Master PO";
