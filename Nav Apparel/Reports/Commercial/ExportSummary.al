@@ -68,6 +68,8 @@ report 50629 ExportSummartReport
                 DataItemLink = "Style No." = field("Style Name");
                 DataItemTableView = sorting("No.");
 
+                column(Brand_Name; "Brand Name")
+                { }
                 trigger OnPreDataItem()
                 var
                     myInt: Integer;
@@ -233,9 +235,12 @@ report 50629 ExportSummartReport
                         trigger OnLookup(Var Text: Text): Boolean
                         var
                             StyleRec: Record "Style Master";
+                            StyleRec1: Record "Style Master";
                         begin
 
                             StyleRec.Reset();
+                            StyleRec1.Reset();
+                            StyleRec1.FindSet();
                             StyleRec.SetRange("Buyer No.", "Buyer Code");
                             if StyleRec.FindSet() then begin
                                 if page.RunModal(51067, StyleRec) = Action::LookupOK then begin
@@ -246,8 +251,8 @@ report 50629 ExportSummartReport
                                 if page.RunModal(51067, StyleRec) = Action::LookupOK then begin
                                     BrandNameFilter := StyleRec."Brand Name";
                                 end
+                            end
 
-                            end;
                         end;
 
                     }
@@ -270,13 +275,14 @@ report 50629 ExportSummartReport
                                 if page.RunModal(15, LocationRec) = Action::LookupOK then begin
                                     FactoryFilter := LocationRec.Code;
                                     LocationCode := LocationRec.Code;
-                                end;
+                                end
                             end
-                            else
+                            else begin
                                 if page.RunModal(15, LocationRec) = Action::LookupOK then begin
                                     FactoryFilter := LocationRec.Code;
                                     LocationCode := LocationRec.Code;
                                 end;
+                            end
 
                         end;
                     }
@@ -302,8 +308,8 @@ report 50629 ExportSummartReport
                                 if page.RunModal(143, SalesInv) = Action::LookupOK then begin
                                     FactoryInvFilter := SalesInv."Your Reference";
                                 end;
+                            end
 
-                            end;
                         end;
                     }
                     field(UDFilter; UDFilter)
@@ -314,9 +320,12 @@ report 50629 ExportSummartReport
                         trigger OnLookup(Var Text: Text): Boolean
                         var
                             SalesInv: Record "Sales Invoice Header";
+                            SalesInv1: Record "Sales Invoice Header";
                         begin
 
                             SalesInv.Reset();
+                            SalesInv1.Reset();
+                            SalesInv1.FindSet();
                             SalesInv.SetRange("Location Code", LocationCode);
                             SalesInv.SetRange("Your Reference", FactoryInvFilter);
                             if SalesInv.FindSet() then begin
@@ -325,11 +334,11 @@ report 50629 ExportSummartReport
                                 end
                             end
                             else begin
-                                if page.RunModal(143, SalesInv) = Action::LookupOK then begin
-                                    UDFilter := SalesInv."UD No";
+                                if page.RunModal(143, SalesInv1) = Action::LookupOK then begin
+                                    UDFilter := SalesInv1."UD No";
                                 end;
+                            end
 
-                            end;
                         end;
                     }
                     field(Contract; Contract)
@@ -342,9 +351,12 @@ report 50629 ExportSummartReport
                         trigger OnLookup(Var Text: Text): Boolean
                         var
                             SalesInv: Record "Sales Invoice Header";
+                            SalesInv1: Record "Sales Invoice Header";
                         begin
 
                             SalesInv.Reset();
+                            SalesInv1.Reset();
+                            SalesInv1.FindSet();
                             SalesInv.SetRange("Location Code", LocationCode);
                             SalesInv.SetRange("Your Reference", FactoryInvFilter);
                             if SalesInv.FindSet() then begin
@@ -353,11 +365,11 @@ report 50629 ExportSummartReport
                                 end
                             end
                             else begin
-                                if page.RunModal(143, SalesInv) = Action::LookupOK then begin
-                                    Contract := SalesInv."Contract No";
+                                if page.RunModal(143, SalesInv1) = Action::LookupOK then begin
+                                    Contract := SalesInv1."Contract No";
                                 end;
+                            end
 
-                            end;
                         end;
                     }
                     field(stDate; stDate)
