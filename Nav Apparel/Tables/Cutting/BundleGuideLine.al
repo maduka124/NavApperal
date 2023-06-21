@@ -124,6 +124,11 @@ table 50668 BundleGuideLine
         {
             DataClassification = ToBeClassified;
         }
+
+        field(24; SizeSeq; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -134,6 +139,10 @@ table 50668 BundleGuideLine
         }
 
         key(SK; "Bundle No")
+        {
+        }
+
+        key(SK1; Size)
         {
         }
     }

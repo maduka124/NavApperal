@@ -167,7 +167,7 @@ page 51069 "Style Master PO ListPart"
                         AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
                         AssorColorSizeRatioRec.SetRange("PO No.", rec."PO No.");
                         if AssorColorSizeRatioRec.FindSet() then
-                            Error('PO already planned. Cannot change quantity.');
+                            Message('Color Size entered for the PO. Cannot change quantity.');
 
                         NavAppProdPlanRec.Reset();
                         NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
@@ -229,25 +229,25 @@ page 51069 "Style Master PO ListPart"
                         NavappPlanLineRec.SetRange("Style No.", rec."Style No.");
                         NavappPlanLineRec.SetRange("PO No.", rec."PO No.");
                         if NavappPlanLineRec.FindSet() then
-                            Error('Style already planned. Cannot change Ship Date.');
+                            Error('PO already planned. Cannot change Ship Date.');
 
                         PlanningQueueRec.Reset();
                         PlanningQueueRec.SetRange("Style No.", rec."Style No.");
                         PlanningQueueRec.SetRange("PO No.", rec."PO No.");
                         if PlanningQueueRec.FindSet() then
-                            Error('Style already planned. Cannot change Ship Date.');
+                            Error('PO already planned. Cannot change Ship Date.');
 
-                        AssorColorSizeRatioRec.Reset();
-                        AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
-                        AssorColorSizeRatioRec.SetRange("PO No.", rec."PO No.");
-                        if AssorColorSizeRatioRec.FindSet() then
-                            Error('Style already planned. Cannot change Ship Date.');
+                        // AssorColorSizeRatioRec.Reset();
+                        // AssorColorSizeRatioRec.SetRange("Style No.", rec."Style No.");
+                        // AssorColorSizeRatioRec.SetRange("PO No.", rec."PO No.");
+                        // if AssorColorSizeRatioRec.FindSet() then
+                        //     Error('Color Size entered for the LOT. Cannot change Ship Date.');
 
                         NavAppProdPlanRec.Reset();
                         NavAppProdPlanRec.SetRange("Style No.", rec."Style No.");
                         NavAppProdPlanRec.SetRange("PO No.", rec."PO No.");
                         if NavAppProdPlanRec.FindSet() then
-                            Error('Style already planned. Cannot change Ship Date.');
+                            Error('PO already planned. Cannot change Ship Date.');
 
 
                         NavappRec.Reset();

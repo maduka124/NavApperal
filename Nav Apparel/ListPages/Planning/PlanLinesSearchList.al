@@ -195,11 +195,13 @@ page 50840 "Plan Lines - Search List"
 
                                 //Delete remaining line from the Prod Plan Det table
                                 ProdPlanDetRec.Reset();
-                                ProdPlanDetRec.SetRange("Resource No.", PlanningLinesRec."Resource No.");
+                                //ProdPlanDetRec.SetRange("Resource No.", PlanningLinesRec."Resource No.");
                                 ProdPlanDetRec.SetRange("Line No.", PlanningLinesRec."Line No.");
                                 ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
                                 if ProdPlanDetRec.FindSet() then
                                     ProdPlanDetRec.DeleteAll();
+                            // else
+                            //     Error('No records deleted.');
 
                             until PlanningLinesRec.Next() = 0;
 
@@ -211,7 +213,9 @@ page 50840 "Plan Lines - Search List"
                                 PlanningLinesRec.DeleteAll();
 
                             Message('Completed');
-                        end;
+                        end
+                        else
+                            Error('No records selected for the Factory : %1', FactoryCode);
                     end;
                 end;
             }

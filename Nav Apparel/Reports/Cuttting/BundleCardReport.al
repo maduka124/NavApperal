@@ -12,56 +12,58 @@ report 50607 BundleCardReport
         dataitem(BundleCardTable; BundleCardTable)
         {
             DataItemTableView = sorting("Bundle Card No");
-
-            dataitem(BundleGuideLine; BundleGuideLine)
+            dataitem(GarmentPartsBundleCard2Right; GarmentPartsBundleCard2Right)
             {
                 DataItemLinkReference = BundleCardTable;
-                DataItemLink = "BundleGuideNo." = field("Bundle Guide Header No");
-                DataItemTableView = sorting("Bundle No");
+                DataItemLink = BundleCardNo = field("Bundle Card No");
+                //DataItemTableView = sorting(BundleCardNo, "No.");
 
-                column(PO; PO)
+                column(GMTPartNo; Description)
                 { }
-                column(Color_Name; "Color Name")
-                { }
-                column(Lot; Lot)
-                { }
-                column(Size; Size)
-                { }
-                column(Qty; Qty)
-                { }
-                column(Bundle_No; "Bundle No")
-                { }
-                column(Sticker_Sequence; "Sticker Sequence")
-                { }
-                column(Cut_No; "Cut No New")
-                { }
-                column(Style_Name; "Style Name")
-                { }
-                column(Buyer; Buyer)
-                { }
-                column(Barcode; Barcode)
-                { }
-                column(Shade_Name; "Shade Name")
+                column(No_; "No.")
                 { }
 
-                dataitem(GarmentPartsBundleCard2Right; GarmentPartsBundleCard2Right)
+                dataitem(BundleGuideLine; BundleGuideLine)
                 {
-                    DataItemLinkReference = BundleCardTable;
-                    DataItemLink = BundleCardNo = field("Bundle Card No");
+                    DataItemLinkReference = GarmentPartsBundleCard2Right;
+                    DataItemLink = "BundleGuideNo." = field("Bundle Guide Header No");
+                    //DataItemTableView = sorting(Size);
 
-                    column(GMTPartNo; Description)
+                    column(PO; PO)
                     { }
-                    column(No_; "No.")
+                    column(Color_Name; "Color Name")
                     { }
+                    column(Lot; Lot)
+                    { }
+                    column(Size; Size)
+                    { }
+                    column(Qty; Qty)
+                    { }
+                    column(Bundle_No; "Bundle No")
+                    { }
+                    column(Sticker_Sequence; "Sticker Sequence")
+                    { }
+                    column(Cut_No; "Cut No New")
+                    { }
+                    column(Style_Name; "Style Name")
+                    { }
+                    column(Buyer; Buyer)
+                    { }
+                    column(Barcode; Barcode)
+                    { }
+                    column(Shade_Name; "Shade Name")
+                    { }
+                    column(SizeSeq; SizeSeq)
+                    { }
+
+                    trigger OnAfterGetRecord()
+                    begin
+                        StyleRec.Reset();
+                        StyleRec.SetRange("Style No.", "Style Name");
+                        if StyleRec.FindFirst() then
+                            Buyer := StyleRec."Buyer Name";
+                    end;
                 }
-
-                trigger OnAfterGetRecord()
-                begin
-                    StyleRec.Reset();
-                    StyleRec.SetRange("Style No.", "Style Name");
-                    if StyleRec.FindFirst() then
-                        Buyer := StyleRec."Buyer Name";
-                end;
             }
 
             trigger OnPreDataItem()

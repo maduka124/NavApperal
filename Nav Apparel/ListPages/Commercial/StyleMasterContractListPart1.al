@@ -52,16 +52,13 @@ page 50504 "Style Master Contract ListPart"
                     ContractNo1: Code[20];
                     "B2BLC%": Decimal;
                 begin
-
                     StyleMasterRec.Reset();
                     StyleMasterRec.SetCurrentKey("Buyer No.");
                     StyleMasterRec.SetRange("Buyer No.", Rec."Buyer No.");
                     StyleMasterRec.SetFilter(Select, '=%1', true);
-
                     if StyleMasterRec.FindSet() then begin
 
                         repeat
-
                             //add new po to the PI
                             ContractNo1 := StyleMasterRec.ContractNo;
                             "Contract/LCStyleRec".Init();

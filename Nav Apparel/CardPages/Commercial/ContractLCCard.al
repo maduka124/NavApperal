@@ -130,7 +130,6 @@ page 50502 "Contract/LC Card"
                     var
                         ContractLCRec: Record "Contract/LCMaster";
                     begin
-
                         ContractLCRec.Reset();
                         ContractLCRec.FindSet();
                         begin

@@ -188,6 +188,7 @@ page 50665 "Bundle Guide Card"
                     LotVar: Code[50];
                     X: Integer;
                     UserRec: Record "User Setup";
+                    SizeSeq: BigInteger;
                 begin
                     //Done By sachith on 18/04/23
                     UserRec.Reset();
@@ -711,6 +712,7 @@ page 50665 "Bundle Guide Card"
                                     for j := 1 To Ratio do begin
 
                                         Size1 := j + 64;
+                                        SizeSeq += 1;
                                         LaySheetLine4Rec.FindSet();
 
                                         repeat
@@ -758,6 +760,7 @@ page 50665 "Bundle Guide Card"
                                                         BundleGuideLineRec."Style Name" := rec."Style Name";
                                                         BundleGuideLineRec.Lot := '';
                                                         BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                        BundleGuideLineRec.SizeSeq := SizeSeq;
                                                         BundleGuideLineRec.Insert();
 
                                                         TempQty := TempQty + BundleQty;
@@ -796,6 +799,7 @@ page 50665 "Bundle Guide Card"
                                                         BundleGuideLineRec."Role ID" := '';
                                                         BundleGuideLineRec.Lot := '';
                                                         BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                        BundleGuideLineRec.SizeSeq := SizeSeq;
                                                         BundleGuideLineRec.Insert();
 
                                                         PreviuosBundleQty := 9999 - TempQty;
@@ -837,6 +841,7 @@ page 50665 "Bundle Guide Card"
                                                             BundleGuideLineRec."Style Name" := rec."Style Name";
                                                             BundleGuideLineRec.Lot := '';
                                                             BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                            BundleGuideLineRec.SizeSeq := SizeSeq;
                                                             BundleGuideLineRec.Insert();
 
                                                             TempQty := TempQty + LaySheetLine4Rec."Actual Plies" - TempQty1;
@@ -875,6 +880,7 @@ page 50665 "Bundle Guide Card"
                                                             BundleGuideLineRec."Role ID" := '';
                                                             BundleGuideLineRec.Lot := '';
                                                             BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                            BundleGuideLineRec.SizeSeq := SizeSeq;
                                                             BundleGuideLineRec.Insert();
 
                                                             PreviuosBundleQty := 9999 - TempQty;
@@ -1348,6 +1354,7 @@ page 50665 "Bundle Guide Card"
                                         for j := 1 To Ratio do begin
 
                                             Size1 := j + 64;
+                                            SizeSeq += 1;
                                             LaySheetLine4Rec.FindSet();
 
                                             repeat
@@ -1395,6 +1402,7 @@ page 50665 "Bundle Guide Card"
                                                             BundleGuideLineRec."Style Name" := rec."Style Name";
                                                             BundleGuideLineRec.Lot := LaySheetLine4Rec."Role ID";
                                                             BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                            BundleGuideLineRec.SizeSeq := SizeSeq;
                                                             BundleGuideLineRec.Insert();
 
                                                             TempQty := TempQty + BundleQty;
@@ -1433,6 +1441,7 @@ page 50665 "Bundle Guide Card"
                                                             BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
                                                             BundleGuideLineRec.Lot := '';
                                                             BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                            BundleGuideLineRec.SizeSeq := SizeSeq;
                                                             BundleGuideLineRec.Insert();
 
                                                             PreviuosBundleQty := 9999 - TempQty;
@@ -1474,6 +1483,7 @@ page 50665 "Bundle Guide Card"
                                                                 BundleGuideLineRec."Style Name" := rec."Style Name";
                                                                 BundleGuideLineRec.Lot := '';
                                                                 BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                                BundleGuideLineRec.SizeSeq := SizeSeq;
                                                                 BundleGuideLineRec.Insert();
 
                                                                 TempQty := TempQty + LaySheetLine4Rec."Actual Plies" - TempQty1;
@@ -1512,6 +1522,7 @@ page 50665 "Bundle Guide Card"
                                                                 BundleGuideLineRec."Role ID" := LaySheetLine4Rec."Role ID";
                                                                 BundleGuideLineRec.Lot := '';
                                                                 BundleGuideLineRec.PO := LaySheetRec."PO No.";
+                                                                BundleGuideLineRec.SizeSeq := SizeSeq;
                                                                 BundleGuideLineRec.Insert();
 
                                                                 PreviuosBundleQty := 9999 - TempQty;

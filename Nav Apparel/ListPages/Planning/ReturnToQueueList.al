@@ -1,5 +1,5 @@
 
-page 51307 "Return To Queue List"
+page 51307 "Return To Queue List"         ///Not using any more
 {
     PageType = Card;
     SourceTable = "NavApp Planning Lines";
@@ -91,7 +91,6 @@ page 51307 "Return To Queue List"
                     LoginRec: Page "Login Card";
                     QueueNo: BigInteger;
                 begin
-
                     //Check whether user logged in or not
                     LoginSessionsRec.Reset();
                     LoginSessionsRec.SetRange(SessionID, SessionId());
@@ -202,7 +201,9 @@ page 51307 "Return To Queue List"
                             until PlanningLinesRec.Next() = 0;
 
                             Message('Completed');
-                        end;
+                        end
+                        else
+                            Error('No records selected for the Factory : %1', FactoryCode);
                     end;
                 end;
             }
