@@ -18,7 +18,7 @@ table 51079 "PI Details Header"
         field(71012583; "Style Name"; text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Style Master"."Style No." where("Merchandizer Group Name" = field("Merchandizer Group Name"));
+            TableRelation = "Style Master"."Style No." where("Merchandizer Group Name" = field("Merchandizer Group Name"), "Buyer No." = field("Buyer No."));
             ValidateTableRelation = false;
         }
 
@@ -149,6 +149,18 @@ table 51079 "PI Details Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012608; "Buyer No."; Code[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(71012609; "Buyer"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = Customer.Name where("Group Name" = field("Merchandizer Group Name"));
+            ValidateTableRelation = false;
+        }
     }
 
 
@@ -175,7 +187,6 @@ table 51079 "PI Details Header"
 
         UserSetupRec.Reset();
         UserSetupRec.SetRange("User ID", UserId);
-
         if UserSetupRec.FindSet() then begin
             "Merchandizer Group Name" := UserSetupRec."Merchandizer Group Name";
         end;

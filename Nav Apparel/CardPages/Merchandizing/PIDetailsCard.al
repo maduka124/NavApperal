@@ -22,28 +22,21 @@ page 50996 "PI Details Card"
                     end;
                 }
 
-                field("Style Name"; rec."Style Name")
+                field(Buyer; rec.Buyer)
                 {
                     ApplicationArea = All;
-                    Caption = 'Style';
 
                     trigger OnValidate()
                     var
+                        CustomerRec: Record Customer;
                         LoginSessionsRec: Record LoginSessions;
                         LoginRec: Page "Login Card";
-                        StyleMasterRec: Record "Style Master";
                     begin
-                        StyleMasterRec.Reset();
-                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
-                        if StyleMasterRec.FindSet() then begin
 
-                            rec."Style No." := StyleMasterRec."No.";
-                            rec."Season No." := StyleMasterRec."Season No.";
-                            rec."Season Name" := StyleMasterRec."Season Name";
-                            rec."Store No." := StyleMasterRec."Store No.";
-                            rec."Store Name" := StyleMasterRec."Store Name";
-                        end;
-
+                        CustomerRec.Reset();
+                        CustomerRec.SetRange(Name, rec.Buyer);
+                        if CustomerRec.FindSet() then
+                            rec."Buyer No." := CustomerRec."No.";
 
                         //Check whether user logged in or not
                         LoginSessionsRec.Reset();
@@ -61,6 +54,27 @@ page 50996 "PI Details Card"
                         end
                         else begin   //logged in
                             rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                        end;
+                    end;
+                }
+
+                field("Style Name"; rec."Style Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Style';
+
+                    trigger OnValidate()
+                    var
+                        StyleMasterRec: Record "Style Master";
+                    begin
+                        StyleMasterRec.Reset();
+                        StyleMasterRec.SetRange("Style No.", rec."Style Name");
+                        if StyleMasterRec.FindSet() then begin
+                            rec."Style No." := StyleMasterRec."No.";
+                            rec."Season No." := StyleMasterRec."Season No.";
+                            rec."Season Name" := StyleMasterRec."Season Name";
+                            rec."Store No." := StyleMasterRec."Store No.";
+                            rec."Store Name" := StyleMasterRec."Store Name";
                         end;
                     end;
                 }

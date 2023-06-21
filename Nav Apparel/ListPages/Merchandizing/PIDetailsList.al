@@ -51,6 +51,12 @@ page 51052 "Proforma Invoice Details List"
                     ApplicationArea = All;
                 }
 
+                field(Buyer; rec.Buyer)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Buyer';
+                }
+
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
