@@ -405,6 +405,13 @@ page 50984 "BOM Card"
                     StyleMasterPORec: Record "Style Master PO";
                     StyleMasterRec: Record "Style Master";
                     BOMLineEstimateRec: Record "BOM Line Estimate";
+                    ContractLCMasRec: Record "Contract/LCMaster";
+                    ContractLCStyleRec: Record "Contract/LCStyle";
+                    CodeUnitNav: Codeunit NavAppCodeUnit;
+                    CodeUnit2Nav: Codeunit NavAppCodeUnit2;
+                    ContractCommisionRec: Record "Contract Commision";
+                    "B2BLC%": Decimal;
+                    CommPercentage: Decimal;
                 begin
                     if rec."Style No." = '' then
                         Error('Select a Style.');
@@ -446,6 +453,34 @@ page 50984 "BOM Card"
                         if BOMLineEstimateRec.FindSet() then
                             BOMLineEstimateRec.ModifyAll("Qty", StyleMasterRec."Order Qty");
                     end;
+
+                    //Update Style Qty in LcContract card and Recalculate %
+                    ContractLCStyleRec.Reset();
+                    ContractLCStyleRec.SetRange("Style No.", rec."Style No.");
+                    if ContractLCStyleRec.FindSet() then begin
+                        ContractLCStyleRec.Qty := StyleMasterRec."Order Qty";
+                        ContractLCStyleRec.Modify();
+
+                        CodeUnitNav.CalQty(ContractLCStyleRec."No.");
+
+                        //Calculate B2BLC %
+                        "B2BLC%" := CodeUnit2Nav.CalB2BLC_Perccentage(ContractLCStyleRec."No.");
+                        ContractLCMasRec.Reset();
+                        ContractLCMasRec.SetRange("No.", ContractLCStyleRec."No.");
+                        ContractLCMasRec.FindSet();
+                        ContractLCMasRec.BBLC := "B2BLC%";
+                        ContractLCMasRec.Modify();
+                    end;
+
+                    //Update commission values
+                    ContractCommisionRec.Reset();
+                    ContractCommisionRec.SetRange("No.", ContractLCStyleRec."No.");
+                    if ContractCommisionRec.FindSet() then
+                        repeat
+                            ContractCommisionRec.Amount := (ContractLCMasRec."Auto Calculate Value" * ContractCommisionRec.Percentage) / 100;
+                            ContractCommisionRec.Modify();
+                        until ContractCommisionRec.Next() = 0;
+
 
                     CurrPage.Update();
                     Message('Completed');
