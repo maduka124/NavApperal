@@ -137,45 +137,45 @@ page 50763 "Bank Reference Card"
                                     SalesInvoiceRec.Reset();
                                     SalesInvoiceRec.SetRange("Style No", ContractStyleRec."Style No.");
                                     SalesInvoiceRec.SetRange("Sell-to Customer No.", rec."Buyer No");
+
                                     //New 
-                                    SalesInvoiceRec.SetRange("Contract No", LCContractRec."Contract No");
+                                    SalesInvoiceRec.SetRange("Contract No", Rec."LC/Contract No.");
 
                                     if SalesInvoiceRec.FindSet() then begin
+                                        repeat
+                                            //Check duplicates
 
-                                        //Check duplicates
+                                            ContPostedInvRec.Reset();
+                                            // BankrefInveRec.Reset();
+                                            // if BankrefInveRec.FindSet() then begin
 
-                                        ContPostedInvRec.Reset();
-                                        // BankrefInveRec.Reset();
-                                        // if BankrefInveRec.FindSet() then begin
+                                            ContPostedInvRec.SetRange("LC/Contract No.", Rec."LC/Contract No.");
+                                            ContPostedInvRec.SetRange("Inv No.", SalesInvoiceRec."No.");
+                                            ContPostedInvRec.SetRange(BankRefNo, Rec."No.");
 
-                                        ContPostedInvRec.SetRange("LC/Contract No.", Rec."LC/Contract No.");
-                                        ContPostedInvRec.SetRange("Inv No.", SalesInvoiceRec."No.");
-                                        ContPostedInvRec.SetRange(BankRefNo, Rec."No.");
-                                        // ContPostedInvRec.SetRange("LC/Contract No.", BankrefInveRec."Contract No");
-                                        // ContPostedInvRec.SetRange("Inv No.", BankrefInveRec."Invoice No");
 
-                                        if not ContPostedInvRec.FindSet() then begin
-                                            //Insert 
-                                            ContPostedInvRec.Init();
-                                            ContPostedInvRec.BankRefNo := rec."No.";
-                                            ContPostedInvRec.AssignedBankRefNo := '';
-                                            ContPostedInvRec."Created Date" := WorkDate();
-                                            ContPostedInvRec."Created User" := UserId;
-                                            ContPostedInvRec."Inv No." := SalesInvoiceRec."No.";
-                                            SalesInvoiceRec.CalcFields(SalesInvoiceRec."Amount Including VAT");
-                                            ContPostedInvRec."Order No" := SalesInvoiceRec."PO No";
-                                            ContPostedInvRec."Factory Inv No" := SalesInvoiceRec."Your Reference";
-                                            ContPostedInvRec."Inv Value" := SalesInvoiceRec."Amount Including VAT";
-                                            ContPostedInvRec."LC/Contract No." := rec."LC/Contract No.";
-                                            ContPostedInvRec."Inv Date" := SalesInvoiceRec."Document Date";
-                                            ContPostedInvRec."Style No" := SalesInvoiceRec."Style No";
-                                            ContPostedInvRec."Style Name" := SalesInvoiceRec."Style Name";
-                                            ContPostedInvRec.Insert();
-                                        end;
+                                            if not ContPostedInvRec.FindSet() then begin
+                                                //Insert 
+                                                ContPostedInvRec.Init();
+                                                ContPostedInvRec.BankRefNo := rec."No.";
+                                                ContPostedInvRec.AssignedBankRefNo := '';
+                                                ContPostedInvRec."Created Date" := WorkDate();
+                                                ContPostedInvRec."Created User" := UserId;
+                                                ContPostedInvRec."Inv No." := SalesInvoiceRec."No.";
+                                                SalesInvoiceRec.CalcFields(SalesInvoiceRec."Amount Including VAT");
+                                                ContPostedInvRec."Order No" := SalesInvoiceRec."PO No";
+                                                ContPostedInvRec."Factory Inv No" := SalesInvoiceRec."Your Reference";
+                                                ContPostedInvRec."Inv Value" := SalesInvoiceRec."Amount Including VAT";
+                                                ContPostedInvRec."LC/Contract No." := rec."LC/Contract No.";
+                                                ContPostedInvRec."Inv Date" := SalesInvoiceRec."Document Date";
+                                                ContPostedInvRec."Style No" := SalesInvoiceRec."Style No";
+                                                ContPostedInvRec."Style Name" := SalesInvoiceRec."Style Name";
+                                                ContPostedInvRec.Insert();
+                                            end;
 
                                         // end;
 
-
+                                        until SalesInvoiceRec.Next() = 0;
                                     end;
                                 until ContractStyleRec.Next() = 0;
 
@@ -332,8 +332,11 @@ page 50763 "Bank Reference Card"
         BankRefeInvRec.Reset();
         BankRefeInvRec.SetRange("No.", Rec."No.");
         if BankRefeInvRec.FindSet() then begin
-            // Error('Please Remove Selected Invoices');
-            BankRefeInvRec.DeleteAll();
+            Error('Please Remove Selected Invoices');
+
+
+
+            // BankRefeInvRec.DeleteAll();
             // BankRefeInvRec."No." := '';
             // // BankRefeInvRec."Invoice No" := '';
             // BankRefeInvRec.Modify();
