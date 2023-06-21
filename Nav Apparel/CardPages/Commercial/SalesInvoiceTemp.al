@@ -75,7 +75,7 @@ page 51325 "SalesInvoiceTemp"
                     salesInvRec.Reset();
                     salesInvRec.SetRange("No.", No);
                     if salesInvRec.FindSet() then begin
-                        salesInvRec."Contract No" := ContractNo;
+                        salesInvRec."Contract No" := Rec."Contract No";
                         salesInvRec.Modify();
                         Message('Contract No Added');
                     end;
@@ -84,7 +84,7 @@ page 51325 "SalesInvoiceTemp"
         }
     }
     var
-        ContractNo: Text[50];
+
         No: Code[20];
         "Lc Contract No": Code[20];
 }
