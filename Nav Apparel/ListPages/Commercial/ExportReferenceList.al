@@ -43,15 +43,27 @@ page 51240 "Export Reference List"
                 {
                     ApplicationArea = All;
                 }
+                field("Invoice Date"; Rec."Invoice Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Invoice Value"; Rec."Invoice Value")
+                {
+                    ApplicationArea = All;
+                }
                 field("BL No"; Rec."BL No")
                 {
                     ApplicationArea = All;
                 }
-
                 field("BL Date"; Rec."BL Date")
                 {
                     ApplicationArea = All;
                 }
+                field("X Factory Date"; Rec."X Factory Date")
+                {
+                    ApplicationArea = All;
+                }
+
                 field("DOC Sub Bank Date"; Rec."DOC Sub Bank Date")
                 {
                     ApplicationArea = All;

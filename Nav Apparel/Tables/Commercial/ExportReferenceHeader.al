@@ -91,6 +91,22 @@ table 51239 ExportReferenceHeader
             DataClassification = ToBeClassified;
             Editable = false;
         }
+        field(17; "Invoice Value"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
+        field(18; "Invoice Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
+        field(19; "X Factory Date"; Date)
+        {
+            DataClassification = ToBeClassified;
+            Editable = false;
+        }
+
     }
 
     keys

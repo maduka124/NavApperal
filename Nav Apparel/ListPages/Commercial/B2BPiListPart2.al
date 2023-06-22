@@ -4,6 +4,7 @@ page 50525 "B2B PI ListPart2"
     SourceTable = "B2BLCPI";
     DeleteAllowed = false;
     InsertAllowed = false;
+    Editable = false;
 
     layout
     {

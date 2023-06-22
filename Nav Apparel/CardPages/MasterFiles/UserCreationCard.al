@@ -130,46 +130,74 @@ page 50978 "Create User Card"
 
             //     end;
             // }
-            action("Update Contract No ")
+            action("Brand Name Update In Sales Invoice Header")
             {
                 ApplicationArea = All;
 
                 trigger OnAction()
                 var
-                    SaleIncRec: Record "Sales Invoice Header";
-                    LcRec: Record "Contract/LCMaster";
+                    SalesInvRec: Record "Sales Invoice Header";
+                    StyleRec: Record "Style Master";
                 begin
-                    SaleIncRec.Reset();
-                    LcRec.Reset();
-                    if LcRec.FindSet() then begin
+
+                    StyleRec.Reset();
+                    if StyleRec.FindSet() then begin
                         repeat
-                            SaleIncRec.SetRange("Export Ref No.", LcRec."Contract No");
-                            if SaleIncRec.FindSet() then begin
+                            SalesInvRec.Reset();
+                            SalesInvRec.SetRange("Style Name", StyleRec."Style No.");
+                            if SalesInvRec.FindSet() then begin
                                 repeat
-                                    SaleIncRec."Contract No" := SaleIncRec."Export Ref No.";
-                                    SaleIncRec.Modify();
-                                until SaleIncRec.Next() = 0;
+                                    SalesInvRec."Brand Name" := StyleRec."Brand Name";
+                                    SalesInvRec.Modify();
+                                until SalesInvRec.Next() = 0;
                             end;
-                        until LcRec.Next() = 0;
+                        until StyleRec.Next() = 0;
+                        Message('Brand Name Updated');
                     end;
 
-                    SaleIncRec.Reset();
-                    LcRec.Reset();
-                    if LcRec.FindSet() then begin
-                        repeat
-                            SaleIncRec.SetRange("Export Ref No.", LcRec."Contract No");
-                            if SaleIncRec.FindSet() then begin
-                                repeat
-                                    SaleIncRec."Export Ref No." := '';
-                                    SaleIncRec.Modify();
-                                until SaleIncRec.Next() = 0;
-                            end;
-                        until LcRec.Next() = 0;
-                    end;
 
-                    Message('Contract No Updated');
                 end;
             }
+            // action("Update Contract No ")
+            // {
+            //     ApplicationArea = All;
+
+            //     trigger OnAction()
+            //     var
+            //         SaleIncRec: Record "Sales Invoice Header";
+            //         LcRec: Record "Contract/LCMaster";
+            //     begin
+            //         SaleIncRec.Reset();
+            //         LcRec.Reset();
+            //         if LcRec.FindSet() then begin
+            //             repeat
+            //                 SaleIncRec.SetRange("Export Ref No.", LcRec."Contract No");
+            //                 if SaleIncRec.FindSet() then begin
+            //                     repeat
+            //                         SaleIncRec."Contract No" := SaleIncRec."Export Ref No.";
+            //                         SaleIncRec.Modify();
+            //                     until SaleIncRec.Next() = 0;
+            //                 end;
+            //             until LcRec.Next() = 0;
+            //         end;
+
+            //         SaleIncRec.Reset();
+            //         LcRec.Reset();
+            //         if LcRec.FindSet() then begin
+            //             repeat
+            //                 SaleIncRec.SetRange("Export Ref No.", LcRec."Contract No");
+            //                 if SaleIncRec.FindSet() then begin
+            //                     repeat
+            //                         SaleIncRec."Export Ref No." := '';
+            //                         SaleIncRec.Modify();
+            //                     until SaleIncRec.Next() = 0;
+            //                 end;
+            //             until LcRec.Next() = 0;
+            //         end;
+
+            //         Message('Contract No Updated');
+            //     end;
+            // }
             action("remove value Export Reference")
             {
                 ApplicationArea = All;

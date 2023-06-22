@@ -394,7 +394,7 @@ table 50101 "Daily Consumption Header"
         {
             DataClassification = ToBeClassified;
             Caption = 'Style Name';
-            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"));
+            TableRelation = "Style Master"."Style No." where("Buyer No." = field("Buyer Code"), Status = filter(Confirmed));
             ValidateTableRelation = false;
         }
 

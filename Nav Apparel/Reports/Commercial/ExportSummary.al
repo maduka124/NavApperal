@@ -61,23 +61,8 @@ report 50629 ExportSummartReport
             { }
             column(Mode; Mode)
             { }
-
-            dataitem("Style Master"; "Style Master")
-            {
-                DataItemLinkReference = "Sales Invoice Header";
-                DataItemLink = "Style No." = field("Style Name");
-                DataItemTableView = sorting("No.");
-
-                column(Brand_Name; "Brand Name")
-                { }
-                trigger OnPreDataItem()
-                var
-                    myInt: Integer;
-                begin
-                    if BrandNameFilter <> '' then
-                        SetRange("Brand Name", BrandNameFilter);
-                end;
-            }
+            column(Brand_Name; "Brand Name")
+            { }
             // dataitem("Contract/LCMaster"; "Contract/LCMaster")
 
             // {
@@ -205,6 +190,9 @@ report 50629 ExportSummartReport
 
                 if FactoryFilter <> '' then
                     SetRange("Location Code", FactoryFilter);
+
+                if BrandNameFilter <> '' then
+                    SetRange("Brand Name", BrandNameFilter);
             end;
 
 
@@ -239,8 +227,8 @@ report 50629 ExportSummartReport
                         begin
 
                             StyleRec.Reset();
-                            StyleRec1.Reset();
-                            StyleRec1.FindSet();
+                            // StyleRec.SetFilter("Buyer No.", '<>%1', '');
+                            StyleRec.SetRange(Status, StyleRec.Status::Confirmed);
                             StyleRec.SetRange("Buyer No.", "Buyer Code");
                             if StyleRec.FindSet() then begin
                                 if page.RunModal(51067, StyleRec) = Action::LookupOK then begin
@@ -248,11 +236,14 @@ report 50629 ExportSummartReport
                                 end
                             end
                             else begin
-                                if page.RunModal(51067, StyleRec) = Action::LookupOK then begin
-                                    BrandNameFilter := StyleRec."Brand Name";
-                                end
-                            end
-
+                                StyleRec.Reset();
+                                StyleRec.SetRange(Status, StyleRec.Status::Confirmed);
+                                if StyleRec.FindSet() then begin
+                                    if page.RunModal(51067, StyleRec) = Action::LookupOK then begin
+                                        BrandNameFilter := StyleRec."Brand Name";
+                                    end;
+                                end;
+                            end;
                         end;
 
                     }
@@ -305,8 +296,11 @@ report 50629 ExportSummartReport
                                 end
                             end
                             else begin
-                                if page.RunModal(143, SalesInv) = Action::LookupOK then begin
-                                    FactoryInvFilter := SalesInv."Your Reference";
+                                SalesInv.Reset();
+                                if SalesInv.FindSet() then begin
+                                    if page.RunModal(143, SalesInv) = Action::LookupOK then begin
+                                        FactoryInvFilter := SalesInv."Your Reference";
+                                    end;
                                 end;
                             end
 
@@ -324,8 +318,6 @@ report 50629 ExportSummartReport
                         begin
 
                             SalesInv.Reset();
-                            SalesInv1.Reset();
-                            SalesInv1.FindSet();
                             SalesInv.SetRange("Location Code", LocationCode);
                             SalesInv.SetRange("Your Reference", FactoryInvFilter);
                             if SalesInv.FindSet() then begin
@@ -334,11 +326,13 @@ report 50629 ExportSummartReport
                                 end
                             end
                             else begin
-                                if page.RunModal(143, SalesInv1) = Action::LookupOK then begin
-                                    UDFilter := SalesInv1."UD No";
-                                end;
-                            end
-
+                                SalesInv.Reset();
+                                if SalesInv.FindSet() then begin
+                                    if page.RunModal(143, SalesInv1) = Action::LookupOK then begin
+                                        UDFilter := SalesInv1."UD No";
+                                    end;
+                                end
+                            end;
                         end;
                     }
                     field(Contract; Contract)
@@ -355,8 +349,6 @@ report 50629 ExportSummartReport
                         begin
 
                             SalesInv.Reset();
-                            SalesInv1.Reset();
-                            SalesInv1.FindSet();
                             SalesInv.SetRange("Location Code", LocationCode);
                             SalesInv.SetRange("Your Reference", FactoryInvFilter);
                             if SalesInv.FindSet() then begin
@@ -365,11 +357,13 @@ report 50629 ExportSummartReport
                                 end
                             end
                             else begin
-                                if page.RunModal(143, SalesInv1) = Action::LookupOK then begin
-                                    Contract := SalesInv1."Contract No";
-                                end;
-                            end
-
+                                SalesInv.Reset();
+                                if SalesInv.FindSet() then begin
+                                    if page.RunModal(143, SalesInv) = Action::LookupOK then begin
+                                        Contract := SalesInv."Contract No";
+                                    end;
+                                end
+                            end;
                         end;
                     }
                     field(stDate; stDate)
