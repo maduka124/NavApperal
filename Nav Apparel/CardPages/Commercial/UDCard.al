@@ -174,6 +174,7 @@ page 51207 "UD Card"
 
     procedure Load_Style_PO_Detail()
     var
+        StyleRec: Record "Style Master";
         UDStylePOinfoRec: Record UDStylePOinformation;
         ContLCMasRec: Record "Contract/LCMaster";
         "Contract/LCStyleRec": Record "Contract/LCStyle";
@@ -209,29 +210,36 @@ page 51207 "UD Card"
                     StyleMasterPORec.SetRange("Style No.", "Contract/LCStyleRec"."Style No.");
 
                     if StyleMasterPORec.FindSet() then begin
-                        repeat
-                            LineNo += 1;
-                            //Insert po
-                            UDStylePOinfoRec.Init();
-                            UDStylePOinfoRec."No." := rec."No.";
-                            UDStylePOinfoRec."Line No" := LineNo;
-                            UDStylePOinfoRec."Order Qty" := StyleMasterPORec.Qty;
-                            UDStylePOinfoRec."PO No" := StyleMasterPORec."PO No.";
-                            UDStylePOinfoRec."Ship Date" := StyleMasterPORec."Ship Date";
-                            UDStylePOinfoRec."Ship Qty" := StyleMasterPORec."Shipped Qty";
-                            UDStylePOinfoRec."Ship Values" := StyleMasterPORec."Shipped Qty" * StyleMasterPORec."Unit Price";
-                            UDStylePOinfoRec."Style Name" := StyleMasterPORec."Style Name";
-                            UDStylePOinfoRec."Style No" := StyleMasterPORec."Style No.";
-                            UDStylePOinfoRec."Unit Price" := StyleMasterPORec."Unit Price";
-                            UDStylePOinfoRec.Values := StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
-                            UDStylePOinfoRec.Insert();
 
-                            TotOrderQty += StyleMasterPORec.Qty;
-                            TotShipQty += StyleMasterPORec."Shipped Qty";
-                            TotValue += StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
-                            TotShipValue += StyleMasterPORec."Shipped Qty" * StyleMasterPORec."Unit Price";
+                        StyleRec.Reset();
+                        StyleRec.SetRange("No.", StyleMasterPORec."Style No.");
+                        if StyleRec.FindSet() then begin
 
-                        until StyleMasterPORec.Next() = 0;
+
+                            repeat
+                                LineNo += 1;
+                                //Insert po
+                                UDStylePOinfoRec.Init();
+                                UDStylePOinfoRec."No." := rec."No.";
+                                UDStylePOinfoRec."Line No" := LineNo;
+                                UDStylePOinfoRec."Order Qty" := StyleMasterPORec.Qty;
+                                UDStylePOinfoRec."PO No" := StyleMasterPORec."PO No.";
+                                UDStylePOinfoRec."Ship Date" := StyleMasterPORec."Ship Date";
+                                UDStylePOinfoRec."Ship Qty" := StyleMasterPORec."Shipped Qty";
+                                UDStylePOinfoRec."Ship Values" := StyleMasterPORec."Shipped Qty" * StyleMasterPORec."Unit Price";
+                                UDStylePOinfoRec."Style Name" := StyleRec."Style No.";
+                                UDStylePOinfoRec."Style No" := StyleMasterPORec."Style No.";
+                                UDStylePOinfoRec."Unit Price" := StyleMasterPORec."Unit Price";
+                                UDStylePOinfoRec.Values := StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
+                                UDStylePOinfoRec.Insert();
+
+                                TotOrderQty += StyleMasterPORec.Qty;
+                                TotShipQty += StyleMasterPORec."Shipped Qty";
+                                TotValue += StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
+                                TotShipValue += StyleMasterPORec."Shipped Qty" * StyleMasterPORec."Unit Price";
+
+                            until StyleMasterPORec.Next() = 0;
+                        end;
                     end;
 
                 until "Contract/LCStyleRec".Next() = 0;
