@@ -940,7 +940,8 @@ codeunit 50618 NavAppCodeUnit
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeSalesInvHeaderInsert', '', true, true)]
     local procedure UpdatSalesInvoiceHeader(VAR SalesInvHeader: Record "Sales Invoice Header"; SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean)
-
+    var
+        Stylerec: Record "Style Master";
     begin
         SalesInvHeader."Style No" := SalesHeader."Style No";
         SalesInvHeader."Style Name" := SalesHeader."Style Name";
@@ -951,6 +952,13 @@ codeunit 50618 NavAppCodeUnit
         SalesInvHeader."Merchandizer Group Name" := SalesHeader."Merchandizer Group Name";
         SalesInvHeader."Contract No" := SalesHeader."Contract No";
         SalesInvHeader."LC No" := SalesHeader."External Document No.";
+
+
+        Stylerec.Reset();
+        Stylerec.SetRange("Style No.", SalesHeader."Style Name");
+        if Stylerec.FindSet() then begin
+            SalesInvHeader."Brand Name" := Stylerec."Brand Name";
+        end;
 
     end;
 
