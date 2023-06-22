@@ -303,7 +303,7 @@ page 51207 "UD Card"
         PIItemsRec: Record "PI Po Item Details";
         B2BLCPIRec: Record B2BLCPI;
         LineNo: Integer;
-        TotOrderQty: BigInteger;
+        TotOrderQty: Decimal;
         TotValue: Decimal;
     begin
 
