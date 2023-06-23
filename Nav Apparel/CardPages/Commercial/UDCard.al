@@ -174,6 +174,8 @@ page 51207 "UD Card"
 
     procedure Load_Style_PO_Detail()
     var
+        SalesInVRec: Record "Sales Invoice Header";
+        SalesInVLine: Record "Sales Invoice Line";
         StyleRec: Record "Style Master";
         UDStylePOinfoRec: Record UDStylePOinformation;
         ContLCMasRec: Record "Contract/LCMaster";
@@ -215,30 +217,40 @@ page 51207 "UD Card"
                         StyleRec.SetRange("No.", StyleMasterPORec."Style No.");
                         if StyleRec.FindSet() then begin
 
+                            SalesInVRec.Reset();
+                            SalesInVRec.SetRange("Style No", StyleRec."No.");
+                            if SalesInVRec.FindSet() then begin
+                                SalesInVLine.Reset();
+                                SalesInVLine.SetRange("Document No.", SalesInVRec."No.");
+                                SalesInVLine.SetRange(Type, SalesInVLine.Type::Item);
+                                if SalesInVLine.FindSet() then begin
+                                    repeat
+                                        repeat
+                                            LineNo += 1;
+                                            //Insert po
+                                            UDStylePOinfoRec.Init();
+                                            UDStylePOinfoRec."No." := rec."No.";
+                                            UDStylePOinfoRec."Line No" := LineNo;
+                                            UDStylePOinfoRec."Order Qty" := StyleMasterPORec.Qty;
+                                            UDStylePOinfoRec."PO No" := StyleMasterPORec."PO No.";
+                                            UDStylePOinfoRec."Ship Date" := StyleMasterPORec."Ship Date";
+                                            UDStylePOinfoRec."Ship Qty" += SalesInVLine.Quantity;
+                                            UDStylePOinfoRec."Ship Values" := SalesInVLine.Quantity * StyleMasterPORec."Unit Price";
+                                            UDStylePOinfoRec."Style Name" := StyleRec."Style No.";
+                                            UDStylePOinfoRec."Style No" := StyleMasterPORec."Style No.";
+                                            UDStylePOinfoRec."Unit Price" := StyleMasterPORec."Unit Price";
+                                            UDStylePOinfoRec.Values := StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
+                                            UDStylePOinfoRec.Insert();
 
-                            repeat
-                                LineNo += 1;
-                                //Insert po
-                                UDStylePOinfoRec.Init();
-                                UDStylePOinfoRec."No." := rec."No.";
-                                UDStylePOinfoRec."Line No" := LineNo;
-                                UDStylePOinfoRec."Order Qty" := StyleMasterPORec.Qty;
-                                UDStylePOinfoRec."PO No" := StyleMasterPORec."PO No.";
-                                UDStylePOinfoRec."Ship Date" := StyleMasterPORec."Ship Date";
-                                UDStylePOinfoRec."Ship Qty" := StyleMasterPORec."Shipped Qty";
-                                UDStylePOinfoRec."Ship Values" := StyleMasterPORec."Shipped Qty" * StyleMasterPORec."Unit Price";
-                                UDStylePOinfoRec."Style Name" := StyleRec."Style No.";
-                                UDStylePOinfoRec."Style No" := StyleMasterPORec."Style No.";
-                                UDStylePOinfoRec."Unit Price" := StyleMasterPORec."Unit Price";
-                                UDStylePOinfoRec.Values := StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
-                                UDStylePOinfoRec.Insert();
+                                            TotOrderQty += StyleMasterPORec.Qty;
+                                            TotShipQty += SalesInVLine.Quantity;
+                                            TotValue += StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
+                                            TotShipValue += SalesInVLine.Quantity * StyleMasterPORec."Unit Price";
 
-                                TotOrderQty += StyleMasterPORec.Qty;
-                                TotShipQty += StyleMasterPORec."Shipped Qty";
-                                TotValue += StyleMasterPORec.Qty * StyleMasterPORec."Unit Price";
-                                TotShipValue += StyleMasterPORec."Shipped Qty" * StyleMasterPORec."Unit Price";
-
-                            until StyleMasterPORec.Next() = 0;
+                                        until StyleMasterPORec.Next() = 0;
+                                    until SalesInVLine.Next() = 0;
+                                end;
+                            end;
                         end;
                     end;
 
