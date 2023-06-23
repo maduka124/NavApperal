@@ -162,6 +162,11 @@ page 50435 SampleProdLinePatternListPart
                     var
                         RouterlineRec: Record "Routing Line";
                     begin
+                        if Rec."Plan Start Date" = 0D then
+                            Error('Please Enter Plan Start Date');
+
+                        if Rec."Plan End Date" = 0D then
+                            Error('Please Enter Plan End Date');
 
                         if rec."Pattern Maker" = '' then
                             Error('Select a Pattern Maker');
