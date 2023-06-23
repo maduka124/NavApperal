@@ -942,6 +942,8 @@ codeunit 50618 NavAppCodeUnit
     local procedure UpdatSalesInvoiceHeader(VAR SalesInvHeader: Record "Sales Invoice Header"; SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean)
     var
         Stylerec: Record "Style Master";
+        StylePoRec: Record "Style Master PO";
+        SalesInvoiceLineRec: Record "Sales Invoice Line";
     begin
         SalesInvHeader."Style No" := SalesHeader."Style No";
         SalesInvHeader."Style Name" := SalesHeader."Style Name";
@@ -960,6 +962,15 @@ codeunit 50618 NavAppCodeUnit
             SalesInvHeader."Brand Name" := Stylerec."Brand Name";
         end;
 
+        StylePoRec.Reset();
+        StylePoRec.SetRange("PO No.", SalesHeader."PO No");
+        if StylePoRec.FindSet() then begin
+            SalesInvHeader."PO QTY" := StylePoRec.Qty;
+            SalesInvHeader."Unit Price" := StylePoRec."Unit Price";
+
+        end;
+
+     
     end;
 
 
