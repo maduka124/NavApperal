@@ -45,7 +45,18 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
             {
                 ApplicationArea = all;
             }
-
+            field("PO QTY"; Rec."PO QTY")
+            {
+                ApplicationArea = All;
+            }
+            field("Unit Price"; Rec."Unit Price")
+            {
+                ApplicationArea = All;
+            }
+            field("Ship Qty"; Rec."Ship Qty")
+            {
+                ApplicationArea = All;
+            }
             field("Your Reference"; Rec."Your Reference")
             {
                 ApplicationArea = all;
@@ -95,6 +106,20 @@ pageextension 50314 PostedSalesInvoice extends "Posted Sales Invoices"
     //     end;
     // end;
 
+
+    trigger OnAfterGetRecord()
+    var
+        SalesInvoiceLineRec: Record "Sales Invoice Line";
+    begin
+        SalesInvoiceLineRec.Reset();
+        SalesInvoiceLineRec.SetRange("Document No.", Rec."No.");
+        SalesInvoiceLineRec.SetRange(Type, SalesInvoiceLineRec.Type::Item);
+        if SalesInvoiceLineRec.FindSet() then begin
+            repeat
+                Rec."Ship Qty" += SalesInvoiceLineRec.Quantity;
+            until SalesInvoiceLineRec.Next() = 0;
+        end;
+    end;
 
     var
     // PaymentDueDate: Date;

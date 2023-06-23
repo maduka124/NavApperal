@@ -114,7 +114,19 @@ tableextension 50920 "PostedSales Invoice Extension" extends "Sales Invoice Head
         {
             DataClassification = ToBeClassified;
         }
-          field(50024;"Brand Name"; Text[50])
+        field(50024; "Brand Name"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50025; "PO QTY"; BigInteger)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50026; "Unit Price"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(50027; "Ship Qty"; BigInteger)
         {
             DataClassification = ToBeClassified;
         }
