@@ -242,7 +242,7 @@ page 51207 "UD Card"
                                     if SalesInVLine.FindSet() then begin
                                         repeat
                                             UDStylePOinfoRec."Ship Qty" += SalesInVLine.Quantity;
-                                            UDStylePOinfoRec."Ship Values" := SalesInVLine.Quantity * StyleMasterPORec."Unit Price";
+                                            UDStylePOinfoRec."Ship Values" += SalesInVLine.Quantity * StyleMasterPORec."Unit Price";
                                             TotShipQty += SalesInVLine.Quantity;
                                             TotShipValue += SalesInVLine.Quantity * StyleMasterPORec."Unit Price";
                                         until SalesInVLine.Next() = 0;
