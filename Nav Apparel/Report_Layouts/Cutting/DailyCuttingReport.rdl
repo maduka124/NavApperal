@@ -966,7 +966,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Output_Qty.Value)</Value>
+                                  <Value>=Sum(Fields!CutTotal.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1023,7 +1023,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Output_Qty.Value)-Fields!OrderQty.Value</Value>
+                                  <Value>=Sum(Fields!CutTotal.Value)-Fields!OrderQty.Value</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1261,7 +1261,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!Output_Qty.Value)</Value>
+                                  <Value>=Sum(Fields!CutTotal.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1319,7 +1319,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Sum(Fields!Output_Qty.Value) - Fields!OrderQty.Value)</Value>
+                                  <Value>=Sum(Sum(Fields!CutTotal.Value) - Fields!OrderQty.Value)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1366,6 +1366,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1644,6 +1645,9 @@ pfwr7Uf9hb8AtTKPUlZU6aB55HVx7PQ9Zt6bnR/7FT/iUgjrVee149gFOB1qCarj6kRs8vloUuSyJu5h
         </Field>
         <Field Name="Stdate">
           <DataField>Stdate</DataField>
+        </Field>
+        <Field Name="CutTotal">
+          <DataField>CutTotal</DataField>
         </Field>
       </Fields>
       <Query>

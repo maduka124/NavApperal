@@ -17,7 +17,7 @@ report 50315 DailyCuttingReport
             { }
             column(BuyerName; BuyerName)
             { }
-            column(Output_Qty; "Output Qty")
+            column(Output_Qty; "Input Qty")
             { }
             column(OrderQty; OrderQty)
             { }
@@ -27,14 +27,24 @@ report 50315 DailyCuttingReport
             { }
             column(Stdate; Stdate)
             { }
-            //  column()
-            // {}
+            column(CutTotal; CutTotal)
+            { }
             //  column()
             // {}
 
             trigger OnAfterGetRecord()
 
             begin
+                CutTotal := 0;
+                ProdRec.Reset();
+                ProdRec.SetRange("Style No.", "Style No.");
+                ProdRec.SetRange(Type, ProdRec.Type::Cut);
+                // ProdRec.SetFilter("Prod Date",'');
+                if ProdRec.FindSet() then begin
+                    repeat
+                        CutTotal += ProdRec."Input Qty";
+                    until ProdRec.Next() = 0;
+                end;
 
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -126,6 +136,8 @@ report 50315 DailyCuttingReport
 
 
     var
+        CutTotal: BigInteger;
+        ProdRec: Record ProductionOutHeader;
         FactoryFilter: Code[20];
         Stdate: Date;
         comRec: Record "Company Information";
