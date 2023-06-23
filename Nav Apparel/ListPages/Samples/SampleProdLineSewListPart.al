@@ -189,6 +189,9 @@ page 50437 SampleProdLineSewListPart
                         if rec."Sew Work center Name" = '' then
                             Error('Select a Router/Work Center');
 
+                        if Rec."Cutting Date" > Rec."Sewing Date" then
+                            Error('Sewing Date should be Greater than Cutting Date');
+
                         if format(rec."Sewing Date") <> '' then begin
                             RouterlineRec.Reset();
                             RouterlineRec.SetRange("Routing No.", rec."Routing Code");
