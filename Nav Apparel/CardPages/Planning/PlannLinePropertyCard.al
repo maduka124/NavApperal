@@ -14,7 +14,6 @@ page 50343 "Planning Line Property Card"
         {
             group(Properties)
             {
-
                 field(buyer; Buyer)
                 {
                     ApplicationArea = All;
@@ -158,7 +157,7 @@ page 50343 "Planning Line Property Card"
             part("Property Picture FactBox  Plan"; "Property Picture FactBox Plan")
             {
                 ApplicationArea = All;
-                SubPageLink = "Line No." = FIELD("Line No.");
+                SubPageLink = "No." = FIELD("Style No.");
                 Caption = ' ';
             }
         }

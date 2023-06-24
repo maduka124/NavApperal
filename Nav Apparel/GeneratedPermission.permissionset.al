@@ -980,7 +980,6 @@ permissionset 50100 GeneratedPermission
         page ProductionFileReleaseListPart=X,
         page "Proforma Invoice Details List"=X,
         page "Property Card"=X,
-        page "Property Picture FactBox"=X,
         page "Property Picture FactBox Plan"=X,
         page QCHeaderCardAW=X,
         page "Ratio Creation"=X,
@@ -1164,5 +1163,9 @@ permissionset 50100 GeneratedPermission
         tabledata BOMLineAutoGenPlWksht=RIMD,
         table BOMLineAutoGenPlWksht=X,
         page PostedSalesInvoiceTemp=X,
-        page SalesInvoiceTemp=X;
+        page SalesInvoiceTemp=X,
+        page "PO Complete List"=X,
+        page POCompleteCard=X,
+        page POCompleteListPart=X,
+        page "Property Picture FactBox Q"=X;
 }

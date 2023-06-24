@@ -2812,10 +2812,9 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     LocationRec.SetRange(code, FactoryNo);
                     LocationRec.FindSet();
 
-
                     if _contextMenuID = 'CM_Entity' then begin
 
-                        if _contextMenuItemCode = 'E_01' then begin   //Split
+                        if _contextMenuItemCode = 'E_02' then begin   //Split
 
                             SplitCard.LookupMode(true);
                             SplitCard.PassParameters(_objectID);
@@ -2825,7 +2824,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                         end;
 
-                        if _contextMenuItemCode = 'E_02' then begin   //Split more
+                        if _contextMenuItemCode = 'E_03' then begin   //Split more
 
                             //Clear(ResourceList);
                             SplitMoreCard.LookupMode(true);
@@ -2841,7 +2840,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                         end;
 
-                        if _contextMenuItemCode = 'E_03' then begin   //Delete
+                        if _contextMenuItemCode = 'E_04' then begin   //Delete
 
                             if (Dialog.CONFIRM('Do you want to delete?', true) = true) then begin
 
@@ -2909,7 +2908,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
 
                         end;
 
-                        if _contextMenuItemCode = 'E_04' then begin   //Properties
+                        if _contextMenuItemCode = 'E_01' then begin   //Properties
                             Evaluate(ID, _objectID);
                             PlanningQueueRec.Reset();
                             PlanningQueueRec.SetRange("Queue No.", ID);
@@ -2917,7 +2916,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             Page.RunModal(50340, PlanningQueueRec);
                         end;
 
-                        if _contextMenuItemCode = 'E_05' then begin   //Accessories Status  
+                        if _contextMenuItemCode = 'E_06' then begin   //Accessories Status  
                             Evaluate(ID, _objectID);
                             PlanningQueueRec.Reset();
                             PlanningQueueRec.SetRange("Queue No.", ID);
@@ -2928,7 +2927,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             AccessoriesStatusReportNew.RunModal();
                         end;
 
-                        if _contextMenuItemCode = 'E_06' then begin   //WIP  
+                        if _contextMenuItemCode = 'E_07' then begin   //WIP  
                             Evaluate(ID, _objectID);
                             PlanningQueueRec.Reset();
                             PlanningQueueRec.SetRange("Queue No.", ID);
@@ -2939,7 +2938,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             WIPReport.RunModal();
                         end;
 
-                        if _contextMenuItemCode = 'E_07' then begin   //Delete From Queue  
+                        if _contextMenuItemCode = 'E_05' then begin   //Delete From Queue  
                             if FactoryNo = '' then
                                 Error('Select a factory');
 
@@ -2965,385 +2964,401 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                                 end;
                             end;
                         end;
-
-
-                        if _contextMenuID = 'CM_Allocation' then begin
-
-                            if _contextMenuItemCode = 'Al_01' then begin   //Properties
-
-                                STYNo := _objectID.Substring(1, _objectID.IndexOfAny('/') - 1);
-                                Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
-                                lotNo := Temp.Substring(1, Temp.IndexOfAny('/') - 1);
-                                Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                PONo := Temp.Substring(1, Temp.IndexOfAny('/') - 1);
-                                Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                LineNo1 := Temp;
-                                Evaluate(LineNo, LineNo1);
-
-                                PlanningLinesRec.Reset();
-                                PlanningLinesRec.SetRange("Line No.", LineNo);
-                                PlanningLinesRec.FindSet();
-                                Page.RunModal(50343, PlanningLinesRec);
-                                LoadData(false, false, true, true, false);
-
-                            end;
-
-                            if _contextMenuItemCode = 'Al_02' then begin   //Cut
-
-                                Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
-                                Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                Evaluate(LineNo, LineNo1);
-                                evaluate(Y, copystr(Format(_date), 7, 2));
-                                evaluate(M, copystr(Format(_date), 4, 2));
-                                evaluate(D, copystr(Format(_date), 1, 2));
-                                Y := 2000 + Y;
-                                dtEnd := DMY2DATE(D, M, Y);
-                                HrsPerDay := 0;
-
-
-                                //Get resource No, Start Date
-                                PlanningLinesRec.Reset();
-                                PlanningLinesRec.SetRange("Line No.", LineNo);
-
-                                if PlanningLinesRec.FindSet() then begin
-                                    ResourceNo := PlanningLinesRec."Resource No.";
-                                    StartDate := PlanningLinesRec."Start Date";
-                                    FullQty := PlanningLinesRec.Qty;
-                                end;
-
-
-                                //Check for not prod. updated sewing out enties
-                                //Check whether pending sawing out quantity is there for the allocation
-                                // ProdHeaderRec.Reset();
-                                // ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
-                                // ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
-                                // ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
-                                // ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
-                                // ProdHeaderRec.SetFilter("Prod Date", '>=%1', dtEnd);
-                                // ProdHeaderRec.SetRange("Ref Line No.", LineNo);
-                                // ProdHeaderRec.SetRange("Resource No.", ResourceNo);
-                                // ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
-
-                                // if ProdHeaderRec.FindSet() then
-                                //     Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
-
-
-                                QTY := 0;
-                                //get records within date range
-                                ProdPlanDetRec.Reset();
-                                ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
-                                ProdPlanDetRec.SetRange(PlanDate, StartDate, dtEnd);
-                                ProdPlanDetRec.SetRange("Line No.", LineNo);
-
-                                if ProdPlanDetRec.FindSet() then begin
-                                    repeat
-                                        QTY += ProdPlanDetRec.Qty;
-                                    until ProdPlanDetRec.Next() = 0;
-                                end;
-
-                                QTY := round(QTY, 1);
-
-                                if QTY = 0 then
-                                    Error('You cannot cut at the start of line.');
-
-                                //Get Max QueueNo
-                                PlanningQueueRec.Reset();
-
-                                if PlanningQueueRec.FindLast() then
-                                    QueueNo := PlanningQueueRec."Queue No.";
-
-                                TempQty := PlanningLinesRec.Qty - QTY;
-
-                                if TempQty = 0 then
-                                    Error('You cannot cut at the end of line.');
-
-
-                                //Check whether user logged in or not
-                                LoginSessionsRec.Reset();
-                                LoginSessionsRec.SetRange(SessionID, SessionId());
-
-                                if not LoginSessionsRec.FindSet() then begin  //not logged in
-                                    Clear(LoginRec);
-                                    LoginRec.LookupMode(true);
-                                    LoginRec.RunModal();
-
-                                    LoginSessionsRec.Reset();
-                                    LoginSessionsRec.SetRange(SessionID, SessionId());
-                                    LoginSessionsRec.FindSet();
-                                end;
-
-
-                                //Add remaining qty to the Queue
-                                PlanningQueueRec.Init();
-                                PlanningQueueRec."Queue No." := QueueNo + 1;
-                                PlanningQueueRec."Style No." := PlanningLinesRec."Style No.";
-                                PlanningQueueRec."Style Name" := PlanningLinesRec."Style Name";
-                                PlanningQueueRec."PO No." := PlanningLinesRec."PO No.";
-                                PlanningQueueRec."Lot No." := PlanningLinesRec."Lot No.";
-                                PlanningQueueRec.Qty := PlanningLinesRec.Qty - QTY;
-                                PlanningQueueRec.SMV := PlanningLinesRec.SMV;
-                                PlanningQueueRec.Carder := PlanningLinesRec.Carder;
-                                PlanningQueueRec."TGTSEWFIN Date" := PlanningLinesRec."TGTSEWFIN Date";
-                                PlanningQueueRec."Learning Curve No." := PlanningLinesRec."Learning Curve No.";
-                                PlanningQueueRec.Eff := PlanningLinesRec.Eff;
-                                PlanningQueueRec.HoursPerDay := PlanningLinesRec.HoursPerDay;
-                                PlanningQueueRec.Front := PlanningLinesRec.Front;
-                                PlanningQueueRec.Back := PlanningLinesRec.Back;
-                                PlanningQueueRec.Waistage := 0;
-                                PlanningQueueRec."User ID" := UserId;
-                                PlanningQueueRec.Factory := PlanningLinesRec.Factory;
-                                PlanningQueueRec.Target := PlanningLinesRec.Target;
-                                PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                                PlanningQueueRec."Created Date" := WorkDate();
-                                PlanningQueueRec."Created User" := UserId;
-                                PlanningQueueRec.Insert();
-
-
-                                //Modify Planning line
-                                PlanningLinesRec.Reset();
-                                PlanningLinesRec.SetRange("Line No.", LineNo);
-                                PlanningLinesRec.FindSet();
-                                PlanningLinesRec."End Date" := dtEnd;
-                                PlanningLinesRec.Qty := QTY;
-                                PlanningLinesRec."Finish Time" := LocationRec."Finish Time";
-                                PlanningLinesRec.FinishDateTime := CREATEDATETIME(dtEnd, LocationRec."Finish Time");
-                                PlanningLinesRec.Modify();
-
-
-                                //Delete remaining line from the Prod Plan Det table
-                                ProdPlanDetRec.Reset();
-                                ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
-                                ProdPlanDetRec.SetRange("Line No.", LineNo);
-                                ProdPlanDetRec.SetFilter("PlanDate", '>=%1', dtEnd + 1);
-                                ProdPlanDetRec.DeleteAll();
-
-                                StyleMasterPORec.Reset();
-                                StyleMasterPORec.SetRange("Style No.", PlanningLinesRec."Style No.");
-                                StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
-                                StyleMasterPORec.FindSet();
-
-                                // if (StyleMasterPORec.PlannedQty - TempQty) < 0 then
-                                //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
-
-
-                                StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - TempQty;
-                                StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + TempQty;
-                                StyleMasterPORec.Modify();
-
-                                LoadData(false, false, true, true, false);
-
-                            end;
-
-                            if _contextMenuItemCode = 'Al_03' then begin   //Return to Queue
-
-                                Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
-                                Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                Evaluate(LineNo, LineNo1);
-
-                                //Get resource No, Start Date
-                                PlanningLinesRec.Reset();
-                                PlanningLinesRec.SetRange("Line No.", LineNo);
-                                if PlanningLinesRec.FindSet() then begin
-                                    QTY := PlanningLinesRec.Qty;
-                                    ResourceNo := PlanningLinesRec."Resource No.";
-                                end;
-
-
-                                // //Check for not prod. updated sewing out enties
-                                // //Check whether pending sawing out quantity is there for the allocation
-                                // ProdHeaderRec.Reset();
-                                // ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
-                                // ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
-                                // ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
-                                // ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
-                                // ProdHeaderRec.SetRange("Ref Line No.", LineNo);
-                                // ProdHeaderRec.SetRange("Resource No.", ResourceNo);
-                                // ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
-
-                                // if ProdHeaderRec.FindSet() then
-                                //     Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
-
-                                // QTY := 0;
-                                // //get remaining qty
-                                // ProdPlanDetRec.Reset();
-                                // ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
-                                // ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
-                                // ProdPlanDetRec.SetRange("Line No.", LineNo);
-
-
-                                // if ProdPlanDetRec.FindSet() then begin
-                                //     repeat
-                                //         QTY += ProdPlanDetRec.Qty;
-                                //     until ProdPlanDetRec.Next() = 0;
-                                // end;
-
-                                // QTY := Round(QTY, 1);
-
-                                //Check whether user logged in or not
-                                LoginSessionsRec.Reset();
-                                LoginSessionsRec.SetRange(SessionID, SessionId());
-
-                                if not LoginSessionsRec.FindSet() then begin  //not logged in
-                                    Clear(LoginRec);
-                                    LoginRec.LookupMode(true);
-                                    LoginRec.RunModal();
-
-                                    LoginSessionsRec.Reset();
-                                    LoginSessionsRec.SetRange(SessionID, SessionId());
-                                    LoginSessionsRec.FindSet();
-                                end;
-
-                                //Get Max QueueNo
-                                PlanningQueueRec.Reset();
-                                if PlanningQueueRec.FindLast() then
-                                    QueueNo := PlanningQueueRec."Queue No.";
-
-                                //Add remaining qty to the Queue
-                                PlanningQueueRec.Init();
-                                PlanningQueueRec."Queue No." := QueueNo + 1;
-                                PlanningQueueRec."Style No." := PlanningLinesRec."Style No.";
-                                PlanningQueueRec."Style Name" := PlanningLinesRec."Style Name";
-                                PlanningQueueRec."PO No." := PlanningLinesRec."PO No.";
-                                PlanningQueueRec."Lot No." := PlanningLinesRec."Lot No.";
-                                PlanningQueueRec.Qty := QTY;
-                                PlanningQueueRec.SMV := PlanningLinesRec.SMV;
-                                PlanningQueueRec.Carder := PlanningLinesRec.Carder;
-                                PlanningQueueRec."TGTSEWFIN Date" := PlanningLinesRec."TGTSEWFIN Date";
-                                PlanningQueueRec."Learning Curve No." := PlanningLinesRec."Learning Curve No.";
-                                PlanningQueueRec.Eff := PlanningLinesRec.Eff;
-                                PlanningQueueRec.HoursPerDay := PlanningLinesRec.HoursPerDay;
-                                PlanningQueueRec.Front := PlanningLinesRec.Front;
-                                PlanningQueueRec.Back := PlanningLinesRec.Back;
-                                PlanningQueueRec.Waistage := 0;
-                                PlanningQueueRec.Factory := PlanningLinesRec.Factory;
-                                PlanningQueueRec."User ID" := UserId;
-                                PlanningQueueRec.Target := PlanningLinesRec.Target;
-                                PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                                PlanningQueueRec."Created Date" := WorkDate();
-                                PlanningQueueRec."Created User" := UserId;
-                                PlanningQueueRec.Insert();
-
-
-                                //Update StyleMsterPO table
-                                StyleMasterPORec.Reset();
-                                StyleMasterPORec.SetRange("Style No.", PlanningLinesRec."Style No.");
-                                StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
-                                if StyleMasterPORec.FindSet() then begin
-                                    StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - QTY;
-                                    StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + QTY;
-                                    StyleMasterPORec.Modify();
-                                end
-                                else
-                                    Error('Cannot find PO : %1 in Style PO Details.', PlanningLinesRec."PO No.");
-
-                                // if (StyleMasterPORec.PlannedQty - QTY) < 0 then
-                                //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
-
-                                //Delete Planning line
-                                PlanningLinesRec.Reset();
-                                PlanningLinesRec.SetRange("Line No.", LineNo);
-                                if PlanningLinesRec.FindSet() then
-                                    PlanningLinesRec.Delete();
-
-                                //Delete remaining line from the Prod Plan Det table
-                                ProdPlanDetRec.Reset();
-                                ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
-                                ProdPlanDetRec.SetRange("Line No.", LineNo);
-                                ProdPlanDetRec.SetRange(ProdUpd, 0);
-                                if ProdPlanDetRec.FindSet() then
-                                    ProdPlanDetRec.DeleteAll();
-
-                                LoadData(false, false, true, true, false);
-
-                            end;
-
-                            if _contextMenuItemCode = 'Al_04' then begin   //Plan Targets
-
-                                Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
-                                Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                Clear(PlanTargetList);
-                                PlanTargetList.LookupMode(true);
-                                PlanTargetList.PassParameters(LineNo1);
-                                PlanTargetList.RunModal();
-
-                            end;
-
-                            if _contextMenuItemCode = 'Al_05' then begin   //Plan History
-
-                                STYNo := _objectID.Substring(1, _objectID.IndexOfAny('/') - 1);
-                                Clear(PlanHistoryList);
-                                PlanHistoryList.LookupMode(true);
-                                PlanHistoryList.PassParameters(STYNo);
-                                PlanHistoryList.RunModal();
-
-                            end;
-
-                            if _contextMenuItemCode = 'Al_06' then begin   //Target Vs Achieve
-
-                                Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
-                                Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                Evaluate(LineNo, LineNo1);
-                                // PlanningLinesRec.Reset();
-                                // PlanningLinesRec.SetRange("Line No.", LineNo);
-                                // PlanningLinesRec.FindSet();
-                                // ResourceNo := PlanningLinesRec."Resource No.";
-
-                                Clear(PlanTargetVsAchList);
-                                PlanTargetVsAchList.LookupMode(true);
-                                //PlanTargetVsAchList.PassParameters(ResourceNo);
-                                PlanTargetVsAchList.PassParameters(format(LineNo));
-                                PlanTargetVsAchList.RunModal();
-
-                            end;
-
-                            if _contextMenuItemCode = 'Al_08' then begin   //Accessories Status  
-                                AccessoriesStatusReportNew.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
-                                AccessoriesStatusReportNew.RunModal();
-                            end;
-                            //Mihiranga 2023/02/23
-                            if _contextMenuItemCode = 'Al_09' then begin   //WIP  
-                                WIPReport.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
-                                WIPReport.RunModal();
-                            end;
-
-                            if _contextMenuItemCode = 'Al_10' then begin   //picture
-
-                                Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
-                                Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-                                LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
-
-                                Clear(ProPicFactBoxPlan);
-                                ProPicFactBoxPlan.LookupMode(true);
-                                ProPicFactBoxPlan.PassParameters(LineNo1);
-                                ProPicFactBoxPlan.RunModal();
-
-                            end;
-
-                            if _contextMenuItemCode = 'Al_11' then begin   //Time and Action Plan
-                                TnAStyleMerchanReport.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
-                                TnAStyleMerchanReport.RunModal();
-                            end;
-
-                            if _contextMenuItemCode = 'Al_12' then begin   //Search By Style/Return To Queue
-                                if FactoryNo = '' then
-                                    Error('Select a factory');
-
-                                Clear(PlanHistoryListPage);
-                                PlanHistoryListPage.LookupMode(true);
-                                PlanHistoryListPage.PassParameters(FactoryNo);
-                                PlanHistoryListPage.RunModal();
-
-                                LoadData(false, false, true, true, false);
-                            end;
-
-                            //LoadData();
-                            SetconVSControlAddInSettings();
+                    end;
+
+                    if _contextMenuID = 'CM_Allocation' then begin
+
+                        if _contextMenuItemCode = 'Al_01' then begin   //Properties
+
+                            STYNo := _objectID.Substring(1, _objectID.IndexOfAny('/') - 1);
+                            Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
+                            lotNo := Temp.Substring(1, Temp.IndexOfAny('/') - 1);
+                            Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            PONo := Temp.Substring(1, Temp.IndexOfAny('/') - 1);
+                            Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            LineNo1 := Temp;
+                            Evaluate(LineNo, LineNo1);
+
+                            PlanningLinesRec.Reset();
+                            PlanningLinesRec.SetRange("Line No.", LineNo);
+                            PlanningLinesRec.FindSet();
+                            Page.RunModal(50343, PlanningLinesRec);
+                            LoadData(false, false, true, true, false);
 
                         end;
+
+                        if _contextMenuItemCode = 'Al_02' then begin   //Cut
+
+                            Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
+                            Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            Evaluate(LineNo, LineNo1);
+                            evaluate(Y, copystr(Format(_date), 7, 2));
+                            evaluate(M, copystr(Format(_date), 4, 2));
+                            evaluate(D, copystr(Format(_date), 1, 2));
+                            Y := 2000 + Y;
+                            dtEnd := DMY2DATE(D, M, Y);
+                            HrsPerDay := 0;
+
+
+                            //Get resource No, Start Date
+                            PlanningLinesRec.Reset();
+                            PlanningLinesRec.SetRange("Line No.", LineNo);
+
+                            if PlanningLinesRec.FindSet() then begin
+                                ResourceNo := PlanningLinesRec."Resource No.";
+                                StartDate := PlanningLinesRec."Start Date";
+                                FullQty := PlanningLinesRec.Qty;
+                            end;
+
+
+                            //Check for not prod. updated sewing out enties
+                            //Check whether pending sawing out quantity is there for the allocation
+                            // ProdHeaderRec.Reset();
+                            // ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
+                            // ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
+                            // ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
+                            // ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
+                            // ProdHeaderRec.SetFilter("Prod Date", '>=%1', dtEnd);
+                            // ProdHeaderRec.SetRange("Ref Line No.", LineNo);
+                            // ProdHeaderRec.SetRange("Resource No.", ResourceNo);
+                            // ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
+
+                            // if ProdHeaderRec.FindSet() then
+                            //     Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
+
+
+                            QTY := 0;
+                            //get records within date range
+                            ProdPlanDetRec.Reset();
+                            ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
+                            ProdPlanDetRec.SetRange(PlanDate, StartDate, dtEnd);
+                            ProdPlanDetRec.SetRange("Line No.", LineNo);
+
+                            if ProdPlanDetRec.FindSet() then begin
+                                repeat
+                                    QTY += ProdPlanDetRec.Qty;
+                                until ProdPlanDetRec.Next() = 0;
+                            end;
+
+                            QTY := round(QTY, 1);
+
+                            if QTY = 0 then
+                                Error('You cannot cut at the start of line.');
+
+                            //Get Max QueueNo
+                            PlanningQueueRec.Reset();
+
+                            if PlanningQueueRec.FindLast() then
+                                QueueNo := PlanningQueueRec."Queue No.";
+
+                            TempQty := PlanningLinesRec.Qty - QTY;
+
+                            if TempQty = 0 then
+                                Error('You cannot cut at the end of line.');
+
+
+                            //Check whether user logged in or not
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                            if not LoginSessionsRec.FindSet() then begin  //not logged in
+                                Clear(LoginRec);
+                                LoginRec.LookupMode(true);
+                                LoginRec.RunModal();
+
+                                LoginSessionsRec.Reset();
+                                LoginSessionsRec.SetRange(SessionID, SessionId());
+                                LoginSessionsRec.FindSet();
+                            end;
+
+
+                            //Add remaining qty to the Queue
+                            PlanningQueueRec.Init();
+                            PlanningQueueRec."Queue No." := QueueNo + 1;
+                            PlanningQueueRec."Style No." := PlanningLinesRec."Style No.";
+                            PlanningQueueRec."Style Name" := PlanningLinesRec."Style Name";
+                            PlanningQueueRec."PO No." := PlanningLinesRec."PO No.";
+                            PlanningQueueRec."Lot No." := PlanningLinesRec."Lot No.";
+                            PlanningQueueRec.Qty := PlanningLinesRec.Qty - QTY;
+                            PlanningQueueRec.SMV := PlanningLinesRec.SMV;
+                            PlanningQueueRec.Carder := PlanningLinesRec.Carder;
+                            PlanningQueueRec."TGTSEWFIN Date" := PlanningLinesRec."TGTSEWFIN Date";
+                            PlanningQueueRec."Learning Curve No." := PlanningLinesRec."Learning Curve No.";
+                            PlanningQueueRec.Eff := PlanningLinesRec.Eff;
+                            PlanningQueueRec.HoursPerDay := PlanningLinesRec.HoursPerDay;
+                            PlanningQueueRec.Front := PlanningLinesRec.Front;
+                            PlanningQueueRec.Back := PlanningLinesRec.Back;
+                            PlanningQueueRec.Waistage := 0;
+                            PlanningQueueRec."User ID" := UserId;
+                            PlanningQueueRec.Factory := PlanningLinesRec.Factory;
+                            PlanningQueueRec.Target := PlanningLinesRec.Target;
+                            PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                            PlanningQueueRec."Created Date" := WorkDate();
+                            PlanningQueueRec."Created User" := UserId;
+                            PlanningQueueRec.Insert();
+
+
+                            //Modify Planning line
+                            PlanningLinesRec.Reset();
+                            PlanningLinesRec.SetRange("Line No.", LineNo);
+                            PlanningLinesRec.FindSet();
+                            PlanningLinesRec."End Date" := dtEnd;
+                            PlanningLinesRec.Qty := QTY;
+                            PlanningLinesRec."Finish Time" := LocationRec."Finish Time";
+                            PlanningLinesRec.FinishDateTime := CREATEDATETIME(dtEnd, LocationRec."Finish Time");
+                            PlanningLinesRec.Modify();
+
+
+                            //Delete remaining line from the Prod Plan Det table
+                            ProdPlanDetRec.Reset();
+                            ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
+                            ProdPlanDetRec.SetRange("Line No.", LineNo);
+                            ProdPlanDetRec.SetFilter("PlanDate", '>=%1', dtEnd + 1);
+                            ProdPlanDetRec.DeleteAll();
+
+                            StyleMasterPORec.Reset();
+                            StyleMasterPORec.SetRange("Style No.", PlanningLinesRec."Style No.");
+                            StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
+                            StyleMasterPORec.FindSet();
+
+                            // if (StyleMasterPORec.PlannedQty - TempQty) < 0 then
+                            //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+
+
+                            StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - TempQty;
+                            StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + TempQty;
+                            StyleMasterPORec.Modify();
+
+                            LoadData(false, false, true, true, false);
+
+                        end;
+
+                        if _contextMenuItemCode = 'Al_03' then begin   //Return to Queue
+
+                            Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
+                            Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            Evaluate(LineNo, LineNo1);
+
+                            //Get resource No, Start Date
+                            PlanningLinesRec.Reset();
+                            PlanningLinesRec.SetRange("Line No.", LineNo);
+                            if PlanningLinesRec.FindSet() then begin
+                                QTY := PlanningLinesRec.Qty;
+                                ResourceNo := PlanningLinesRec."Resource No.";
+                            end;
+
+
+                            // //Check for not prod. updated sewing out enties
+                            // //Check whether pending sawing out quantity is there for the allocation
+                            // ProdHeaderRec.Reset();
+                            // ProdHeaderRec.SetFilter("Prod Updated", '=%1', 0);
+                            // ProdHeaderRec.SetRange("out Style No.", PlanningLinesRec."Style No.");
+                            // ProdHeaderRec.SetRange("out Lot No.", PlanningLinesRec."Lot No.");
+                            // ProdHeaderRec.SetRange("OUT PO No", PlanningLinesRec."PO No.");
+                            // ProdHeaderRec.SetRange("Ref Line No.", LineNo);
+                            // ProdHeaderRec.SetRange("Resource No.", ResourceNo);
+                            // ProdHeaderRec.SetFilter(Type, '=%1', ProdHeaderRec.Type::Saw);
+
+                            // if ProdHeaderRec.FindSet() then
+                            //     Error('Prodcution update for allocation : %1 has not processed yet for the date : %2. Cannot change the allocation.', _objectID, ProdHeaderRec."Prod Date");
+
+                            // QTY := 0;
+                            // //get remaining qty
+                            // ProdPlanDetRec.Reset();
+                            // ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
+                            // ProdPlanDetRec.SetFilter(ProdUpd, '=%1', 0);
+                            // ProdPlanDetRec.SetRange("Line No.", LineNo);
+
+
+                            // if ProdPlanDetRec.FindSet() then begin
+                            //     repeat
+                            //         QTY += ProdPlanDetRec.Qty;
+                            //     until ProdPlanDetRec.Next() = 0;
+                            // end;
+
+                            // QTY := Round(QTY, 1);
+
+                            //Check whether user logged in or not
+                            LoginSessionsRec.Reset();
+                            LoginSessionsRec.SetRange(SessionID, SessionId());
+
+                            if not LoginSessionsRec.FindSet() then begin  //not logged in
+                                Clear(LoginRec);
+                                LoginRec.LookupMode(true);
+                                LoginRec.RunModal();
+
+                                LoginSessionsRec.Reset();
+                                LoginSessionsRec.SetRange(SessionID, SessionId());
+                                LoginSessionsRec.FindSet();
+                            end;
+
+                            //Get Max QueueNo
+                            PlanningQueueRec.Reset();
+                            if PlanningQueueRec.FindLast() then
+                                QueueNo := PlanningQueueRec."Queue No.";
+
+                            //Add remaining qty to the Queue
+                            PlanningQueueRec.Init();
+                            PlanningQueueRec."Queue No." := QueueNo + 1;
+                            PlanningQueueRec."Style No." := PlanningLinesRec."Style No.";
+                            PlanningQueueRec."Style Name" := PlanningLinesRec."Style Name";
+                            PlanningQueueRec."PO No." := PlanningLinesRec."PO No.";
+                            PlanningQueueRec."Lot No." := PlanningLinesRec."Lot No.";
+                            PlanningQueueRec.Qty := QTY;
+                            PlanningQueueRec.SMV := PlanningLinesRec.SMV;
+                            PlanningQueueRec.Carder := PlanningLinesRec.Carder;
+                            PlanningQueueRec."TGTSEWFIN Date" := PlanningLinesRec."TGTSEWFIN Date";
+                            PlanningQueueRec."Learning Curve No." := PlanningLinesRec."Learning Curve No.";
+                            PlanningQueueRec.Eff := PlanningLinesRec.Eff;
+                            PlanningQueueRec.HoursPerDay := PlanningLinesRec.HoursPerDay;
+                            PlanningQueueRec.Front := PlanningLinesRec.Front;
+                            PlanningQueueRec.Back := PlanningLinesRec.Back;
+                            PlanningQueueRec.Waistage := 0;
+                            PlanningQueueRec.Factory := PlanningLinesRec.Factory;
+                            PlanningQueueRec."User ID" := UserId;
+                            PlanningQueueRec.Target := PlanningLinesRec.Target;
+                            PlanningQueueRec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
+                            PlanningQueueRec."Created Date" := WorkDate();
+                            PlanningQueueRec."Created User" := UserId;
+                            PlanningQueueRec.Insert();
+
+
+                            //Update StyleMsterPO table
+                            StyleMasterPORec.Reset();
+                            StyleMasterPORec.SetRange("Style No.", PlanningLinesRec."Style No.");
+                            StyleMasterPORec.SetRange("Lot No.", PlanningLinesRec."Lot No.");
+                            if StyleMasterPORec.FindSet() then begin
+                                StyleMasterPORec.PlannedQty := StyleMasterPORec.PlannedQty - QTY;
+                                StyleMasterPORec.QueueQty := StyleMasterPORec.QueueQty + QTY;
+                                StyleMasterPORec.Modify();
+                            end
+                            else
+                                Error('Cannot find PO : %1 in Style PO Details.', PlanningLinesRec."PO No.");
+
+                            // if (StyleMasterPORec.PlannedQty - QTY) < 0 then
+                            //     Error('Planned Qty is minus. Cannot proceed. PO No :  %1', StyleMasterPORec."PO No.");
+
+                            //Delete Planning line
+                            PlanningLinesRec.Reset();
+                            PlanningLinesRec.SetRange("Line No.", LineNo);
+                            if PlanningLinesRec.FindSet() then
+                                PlanningLinesRec.Delete();
+
+                            //Delete remaining line from the Prod Plan Det table
+                            ProdPlanDetRec.Reset();
+                            ProdPlanDetRec.SetRange("Resource No.", ResourceNo);
+                            ProdPlanDetRec.SetRange("Line No.", LineNo);
+                            ProdPlanDetRec.SetRange(ProdUpd, 0);
+                            if ProdPlanDetRec.FindSet() then
+                                ProdPlanDetRec.DeleteAll();
+
+                            LoadData(false, false, true, true, false);
+
+                        end;
+
+                        if _contextMenuItemCode = 'Al_04' then begin   //Plan Targets
+
+                            Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
+                            Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            Clear(PlanTargetList);
+                            PlanTargetList.LookupMode(true);
+                            PlanTargetList.PassParameters(LineNo1);
+                            PlanTargetList.RunModal();
+
+                        end;
+
+                        if _contextMenuItemCode = 'Al_05' then begin   //Plan History
+
+                            STYNo := _objectID.Substring(1, _objectID.IndexOfAny('/') - 1);
+                            Clear(PlanHistoryList);
+                            PlanHistoryList.LookupMode(true);
+                            PlanHistoryList.PassParameters(STYNo);
+                            PlanHistoryList.RunModal();
+
+                        end;
+
+                        if _contextMenuItemCode = 'Al_06' then begin   //Target Vs Achieve
+
+                            Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
+                            Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            Evaluate(LineNo, LineNo1);
+                            // PlanningLinesRec.Reset();
+                            // PlanningLinesRec.SetRange("Line No.", LineNo);
+                            // PlanningLinesRec.FindSet();
+                            // ResourceNo := PlanningLinesRec."Resource No.";
+
+                            Clear(PlanTargetVsAchList);
+                            PlanTargetVsAchList.LookupMode(true);
+                            //PlanTargetVsAchList.PassParameters(ResourceNo);
+                            PlanTargetVsAchList.PassParameters(format(LineNo));
+                            PlanTargetVsAchList.RunModal();
+
+                        end;
+
+                        if _contextMenuItemCode = 'Al_11' then begin   //Accessories Status  
+                            AccessoriesStatusReportNew.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
+                            AccessoriesStatusReportNew.RunModal();
+                        end;
+                        //Mihiranga 2023/02/23
+                        if _contextMenuItemCode = 'Al_12' then begin   //WIP  
+                            WIPReport.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
+                            WIPReport.RunModal();
+                        end;
+
+                        if _contextMenuItemCode = 'Al_13' then begin   //Size Color wise report  
+                            StyleMasterRec.Reset();
+                            StyleMasterRec.SetRange("No.", _objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
+                            if StyleMasterRec.FindSet() then begin
+                                SizeColorWiseQtyBrReport.PassParameters(StyleMasterRec."Buyer No.", _objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
+                                SizeColorWiseQtyBrReport.RunModal();
+                            end;
+                        end;
+
+                        if _contextMenuItemCode = 'Al_8' then begin   //picture
+
+                            // Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
+                            // Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            // LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+
+                            // Clear(ProPicFactBoxPlan);
+                            // ProPicFactBoxPlan.LookupMode(true);
+                            // ProPicFactBoxPlan.PassParameters(LineNo1);
+                            // ProPicFactBoxPlan.RunModal();
+
+                            Temp := _objectID.Substring(_objectID.IndexOfAny('/') + 1, StrLen(_objectID) - _objectID.IndexOfAny('/'));
+                            Temp := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            LineNo1 := Temp.Substring(Temp.IndexOfAny('/') + 1, StrLen(Temp) - Temp.IndexOfAny('/'));
+                            Evaluate(LineNo, LineNo1);
+                            Clear(ProPicFactBoxPlan);
+                            ProPicFactBoxPlan.LookupMode(true);
+                            ProPicFactBoxPlan.PassParameters(LineNo);
+                            ProPicFactBoxPlan.RunModal();
+
+                        end;
+
+                        if _contextMenuItemCode = 'Al_9' then begin   //Time and Action Plan
+                            TnAStyleMerchanReport.PassParameters(_objectID.Substring(1, _objectID.IndexOfAny('/') - 1));
+                            TnAStyleMerchanReport.RunModal();
+                        end;
+
+                        if _contextMenuItemCode = 'Al_10' then begin   //Search By Style/Return To Queue
+                            if FactoryNo = '' then
+                                Error('Select a factory');
+
+                            Clear(PlanHistoryListPage);
+                            PlanHistoryListPage.LookupMode(true);
+                            PlanHistoryListPage.PassParameters(FactoryNo);
+                            PlanHistoryListPage.RunModal();
+
+                            LoadData(false, false, true, true, false);
+                        end;
+
+                        //LoadData();
+                        SetconVSControlAddInSettings();
                     end;
                 end;
             }

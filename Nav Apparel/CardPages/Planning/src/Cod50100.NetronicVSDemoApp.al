@@ -606,32 +606,38 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Accessories Status');
-        ldnContextMenuItem.Add('Code', 'Al_08');
+        ldnContextMenuItem.Add('Text', 'Garment Picture');
+        ldnContextMenuItem.Add('Code', 'Al_8');
         ldnContextMenuItem.Add('SortCode', 'h');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'W.I.P.');
-        ldnContextMenuItem.Add('Code', 'Al_09');
-        ldnContextMenuItem.Add('SortCode', 'j');
-        tempEntries.Add(ldnContextMenuItem);
-
-        ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Garment Picture');
-        ldnContextMenuItem.Add('Code', 'Al_10');
-        ldnContextMenuItem.Add('SortCode', 'k');
-        tempEntries.Add(ldnContextMenuItem);
-
-        ldnContextMenuItem := createJsonObject();
         ldnContextMenuItem.Add('Text', 'Time and Action Plan');
-        ldnContextMenuItem.Add('Code', 'Al_11');
-        ldnContextMenuItem.Add('SortCode', 'l');
+        ldnContextMenuItem.Add('Code', 'Al_9');
+        ldnContextMenuItem.Add('SortCode', 'i');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
         ldnContextMenuItem.Add('Text', 'Search By Style/Return To Queue');
+        ldnContextMenuItem.Add('Code', 'Al_10');
+        ldnContextMenuItem.Add('SortCode', 'j');
+        tempEntries.Add(ldnContextMenuItem);
+
+        ldnContextMenuItem := createJsonObject();
+        ldnContextMenuItem.Add('Text', 'Accessories Status');
+        ldnContextMenuItem.Add('Code', 'Al_11');
+        ldnContextMenuItem.Add('SortCode', 'k');
+        tempEntries.Add(ldnContextMenuItem);
+
+        ldnContextMenuItem := createJsonObject();
+        ldnContextMenuItem.Add('Text', 'W.I.P.');
         ldnContextMenuItem.Add('Code', 'Al_12');
+        ldnContextMenuItem.Add('SortCode', 'l');
+        tempEntries.Add(ldnContextMenuItem);
+
+        ldnContextMenuItem := createJsonObject();
+        ldnContextMenuItem.Add('Text', 'Size/Color Wise Qty Breakdown Report');
+        ldnContextMenuItem.Add('Code', 'Al_13');
         ldnContextMenuItem.Add('SortCode', 'm');
         tempEntries.Add(ldnContextMenuItem);
 
@@ -645,51 +651,51 @@ codeunit 50325 "NETRONICVSDevToolboxDemo Code"
         tempEntries := createJsonArray();
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Split');
+        ldnContextMenuItem.Add('Text', 'Properties');
         ldnContextMenuItem.Add('Code', 'E_01');
         ldnContextMenuItem.Add('SortCode', 'a');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Split more');
+        ldnContextMenuItem.Add('Text', 'Split');
         ldnContextMenuItem.Add('Code', 'E_02');
         ldnContextMenuItem.Add('SortCode', 'b');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Delete');
+        ldnContextMenuItem.Add('Text', 'Split more');
         ldnContextMenuItem.Add('Code', 'E_03');
         ldnContextMenuItem.Add('SortCode', 'c');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Properties');
+        ldnContextMenuItem.Add('Text', 'Delete');
         ldnContextMenuItem.Add('Code', 'E_04');
         ldnContextMenuItem.Add('SortCode', 'd');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Accessories Status');
+        ldnContextMenuItem.Add('Text', 'Delete From Queue');
         ldnContextMenuItem.Add('Code', 'E_05');
         ldnContextMenuItem.Add('SortCode', 'e');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'WIP');
+        ldnContextMenuItem.Add('Text', 'Accessories Status');
         ldnContextMenuItem.Add('Code', 'E_06');
         ldnContextMenuItem.Add('SortCode', 'f');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
-        ldnContextMenuItem.Add('Text', 'Delete From Queue');
+        ldnContextMenuItem.Add('Text', 'WIP');
         ldnContextMenuItem.Add('Code', 'E_07');
-        ldnContextMenuItem.Add('SortCode', 'h');
+        ldnContextMenuItem.Add('SortCode', 'g');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenuItem := createJsonObject();
         ldnContextMenuItem.Add('Text', 'Size/Color Wise Qty Breakdown Report');
         ldnContextMenuItem.Add('Code', 'E_08');
-        ldnContextMenuItem.Add('SortCode', 'i');
+        ldnContextMenuItem.Add('SortCode', 'h');
         tempEntries.Add(ldnContextMenuItem);
 
         ldnContextMenu.Add('Items', tempEntries);

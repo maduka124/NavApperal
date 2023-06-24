@@ -1,7 +1,7 @@
 page 50344 "Property Picture FactBox Plan"
 {
     PageType = Cardpart;
-    SourceTable = "NavApp Planning Lines";
+    SourceTable = "Style Master";
     Caption = 'Style Picture Front/Back';
 
     layout
@@ -30,17 +30,41 @@ page 50344 "Property Picture FactBox Plan"
 
     trigger OnOpenPage()
     var
+        PlanLineRec: Record "NavApp Planning Lines";
     begin
-        rec.SetFilter("Line No.", LineNo);
+        if LineNo <> 0 then begin
+            PlanLineRec.Reset();
+            PlanLineRec.SetRange("Line No.", LineNo);
+            PlanLineRec.FindSet();
+
+            rec.SetRange("No.", PlanLineRec."Style No.");
+        end;
     end;
 
 
-    procedure PassParameters(LineNoPara: Text);
+    procedure PassParameters(LineNoPara: BigInteger);
 
     begin
         LineNo := LineNoPara;
     end;
 
     var
-        LineNo: Text;
+        LineNo: BigInteger;
+
+
+    // trigger OnOpenPage()
+    // var
+    // begin
+    //     rec.SetFilter("Line No.", LineNo);
+    // end;
+
+
+    // procedure PassParameters(LineNoPara: Text);
+
+    // begin
+    //     LineNo := LineNoPara;
+    // end;
+
+    // var
+    //     LineNo: Text;
 }
