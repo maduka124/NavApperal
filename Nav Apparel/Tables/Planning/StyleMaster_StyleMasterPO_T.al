@@ -120,6 +120,11 @@ table 50773 "StyleMaster_StyleMasterPO_T"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(23; "Waistage"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys
@@ -127,6 +132,10 @@ table 50773 "StyleMaster_StyleMasterPO_T"
         key(PK; "No", Lot_No)
         {
             Clustered = true;
+        }
+
+        key(SK; Buyer, Style_No, PONo, ShipDate)
+        {
         }
     }
 
