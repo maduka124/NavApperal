@@ -800,6 +800,12 @@ page 50968 "Nav Apperal Role Center"
                     ApplicationArea = all;
                 }
 
+                action("PO Complete")
+                {
+                    RunObject = page "PO Complete List";
+                    ApplicationArea = all;
+                }
+
                 action("Sales Order List1")
                 {
                     Caption = 'Sales Orders';

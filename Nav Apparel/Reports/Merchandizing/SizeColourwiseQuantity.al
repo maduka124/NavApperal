@@ -27,12 +27,12 @@ report 51077 SizeColourwiseQuantity
             { }
             column(CompLogo; comRec.Picture)
             { }
+
             dataitem(AssorColorSizeRatioView; AssorColorSizeRatioView)
             {
                 DataItemLinkReference = "Style Master";
                 DataItemLink = "Style No." = field("No.");
                 DataItemTableView = sorting("Style No.");
-                // RequestFilterFields = "PO No.";
 
                 column(PO_No_; "PO No.")
                 { }
@@ -52,100 +52,68 @@ report 51077 SizeColourwiseQuantity
                 { }
                 column("One"; oneDecimal)
                 { }
-                // column("Onepo"; oneDecimal)
-                // { }
                 column("OneTXT"; "1")
                 { }
                 column("Two"; twoDecimal)
                 { }
-                // column("Twopo"; twoDecimal)
-                // { }
                 column("TwoTxt"; "2")
                 { }
                 column("ThreeTxt"; "3")
                 { }
                 column("Three"; threeDecimal)
                 { }
-                // column("Threepo"; threeDecimal)
-                // { }
                 column("FourTxt"; "4")
                 { }
                 column("four"; fourDecimal)
                 { }
-                // column("fourpo"; fourDecimal)
-                // { }
                 column("FiveTxt"; "5")
                 { }
                 column("five"; fiveDecimal)
                 { }
-                // column("fivepo"; fiveDecimal)
-                // { }
                 column("SixTxt"; "6")
                 { }
                 column("six"; sixDecimal)
                 { }
-                // column("sixpo"; sixDecimal)
-                // { }
                 column("SevenTxt"; "7")
                 { }
                 column("seven"; sevenDecimal)
                 { }
-                // column("sevenpo"; sevenDecimal)
-                // { }
                 column("EightTxt"; "8")
                 { }
                 column("Eight"; eightDecimal)
                 { }
-                // column("Eightpo"; eightDecimal)
-                // { }
                 column("NineTxt"; "9")
                 { }
                 column("Nine"; nineDecimal)
                 { }
-                // column("Ninepo"; nineDecimal)
-                // { }
                 column("TenTxt"; "10")
                 { }
                 column("Ten"; tenDecimal)
                 { }
-                // column("Tenpo"; tenDecimal)
-                // { }
                 column("ElevenTxt"; "11")
                 { }
                 column("Eleven"; elevenDecimal)
                 { }
-                // column("Elevenpo"; elevenDecimal)
-                // { }
                 column("TwelveTxt"; "12")
                 { }
                 column("Twelve"; twelveDecimal)
                 { }
-                // column("Twelvepo"; twelveDecimal)
-                // { }
                 column("ThirteenTxt"; "13")
                 { }
                 column("Thirteen"; thirteenDecimal)
                 { }
-                // column("Thirteenpo"; thirteenDecimal)
-                // { }
                 column("FourteenTxt"; "14")
                 { }
                 column("Fourteen"; fourteenDecimal)
                 { }
-                // column("Fourteenpo"; fourteenDecimal)
-                // { }
                 column("FiftenTxt"; "15")
                 { }
                 column("Fifteen"; fifteenDecimal)
                 { }
-                // column("Fifteenpo"; fifteenDecimal)
-                // { }
                 column("SixteenTxt"; "16")
                 { }
                 column("Sixteen"; sixteenDecimal)
                 { }
-                // column("Sixteenpo"; sixteenDecimal)
-                // { }
                 column("Seventeen"; "17")
                 { }
                 column("Eighteen"; "18")
@@ -265,16 +233,6 @@ report 51077 SizeColourwiseQuantity
                     fifteenDecimal := 0;
                     sixteenDecimal := 0;
 
-                    // Evaluate(one, CopyStr(Format(varIntiger), 1));
-                    // SizeRec.reset();
-                    // Evaluate(oneDecimal, SizeRec."1");
-
-                    // if "1" <> '*' then begin
-                    //     for myInt := 1 To 64 do begin
-                    //         case Count of
-
-                    //             1:
-                    // tot := 0;
 
                     if (("1" <> '') and ("Colour Name" <> '*')) then
                         Evaluate(oneDecimal, "1");
@@ -328,16 +286,14 @@ report 51077 SizeColourwiseQuantity
                 end;
 
             }
+
             trigger OnPreDataItem()
             begin
-                //Done By Sachith On 20/02/23
                 SetRange("Buyer No.", BuyerNo);
                 SetRange("No.", StyleNum);
-                //SetRange("PO No", PONo);
             end;
 
             trigger OnAfterGetRecord()
-
             begin
                 comRec.Get;
                 comRec.CalcFields(Picture);
@@ -353,25 +309,24 @@ report 51077 SizeColourwiseQuantity
             {
                 group(GroupName)
                 {
-                    //Done By Sachith On 20/02/23 
                     field(BuyerNo; BuyerNo)
                     {
                         ApplicationArea = all;
                         Caption = 'Buyer';
                         ShowMandatory = true;
 
-                        //Done by Sachith 30/03/23
                         trigger OnLookup(var Tex: Text): Boolean
                         var
                             CustomerRec: Record Customer;
                             UserRec: Record "User Setup";
-                            StyleReportRec: Record StyleReport;
                         begin
-
                             UserRec.Reset();
                             UserRec.get(UserId);
 
                             CustomerRec.Reset();
+                            CustomerRec.SetCurrentKey(Name);
+                            CustomerRec.Ascending(true);
+
                             if UserRec."Merchandizer All Group" = false then begin
 
                                 if UserRec."Merchandizer Group Name" <> '' then begin
@@ -389,7 +344,6 @@ report 51077 SizeColourwiseQuantity
                             else
                                 if Page.RunModal(22, CustomerRec) = Action::LookupOK then
                                     BuyerNo := CustomerRec."No.";
-
                         end;
                     }
 
@@ -399,103 +353,36 @@ report 51077 SizeColourwiseQuantity
                         Caption = 'Style';
                         ShowMandatory = true;
 
-                        // done By sachith On 31/02/23
                         trigger OnLookup(var Text: Text): Boolean
                         var
                             StyleReportRec: Record StyleReport;
+                            StyleMasterRec: Record "Style Master";
                         begin
+                            StyleMasterRec.Reset();
+                            StyleMasterRec.SetRange("Buyer No.", BuyerNo);
+                            StyleMasterRec.Ascending(false);
 
-                            StyleReportRec.Reset();
-                            StyleReportRec.SetCurrentKey("Style No");
-                            StyleReportRec.SetRange("Buyer No", BuyerNo);
-                            StyleReportRec.Ascending(false);
-
-                            if StyleReportRec.FindSet() then begin
-                                if Page.RunModal(51281, StyleReportRec) = Action::LookupOK then
-                                    StyleNum := StyleReportRec."Style No";
+                            if StyleMasterRec.FindSet() then begin
+                                if Page.RunModal(51185, StyleMasterRec) = Action::LookupOK then
+                                    StyleNum := StyleMasterRec."No.";
                             end;
                         end;
-
                     }
-
-                    // done By sachith On 20/02/23
-                    // field(PONo; PONo)
-                    // {
-                    //     ApplicationArea = All;
-                    //     Caption = 'PO No';
-                    //     TableRelation = "Style Master PO"."Style No.";
-                    //     ShowMandatory = true;
-
-                    //     trigger OnValidate()
-                    //     var
-                    //         StyleMasterPORec: Record "Style Master PO";
-                    //     begin
-
-                    //         StyleMasterPORec.Reset();
-                    //         StyleMasterPORec.SetRange("Style No.", "Style Master"."No.");
-
-                    //         if StyleMasterPORec.FindSet() then
-                    //             PONo := StyleMasterPORec."PO No.";
-
-                    //     end;
-                    // }
                 }
             }
         }
     }
 
-    //Done By Sachith on 30/03/23
-    trigger OnInitReport()
+
+    procedure PassParameters(BuyerNoPara: Code[20]; StyleNoPara: Code[20])
     var
-
-        StyleMasterRec: Record "Style Master";
-        UserSetupRec: Record "User Setup";
-        StyleReportRec: Record StyleReport;
-        StyleReport2Rec: Record StyleReport;
-        LoginSessionsRec: Record LoginSessions;
-
     begin
-
-        LoginSessionsRec.Reset();
-        LoginSessionsRec.FindSet();
-
-        StyleReportRec.Reset();
-        StyleMasterRec.SetRange("Secondary UserID", LoginSessionsRec."Secondary UserID");
-        if StyleReportRec.FindSet() then
-            StyleReportRec.DeleteAll();
-
-
-        UserSetupRec.Reset();
-        UserSetupRec.Get(UserId);
-
-        StyleMasterRec.Reset();
-
-        if UserSetupRec."Merchandizer Group Name" <> '' then
-            StyleMasterRec.SetRange("Merchandizer Group Name", UserSetupRec."Merchandizer Group Name");
-
-        if StyleMasterRec.FindSet() then begin
-            repeat
-
-                StyleReportRec.Reset();
-                StyleReportRec.SetRange("Style No", StyleMasterRec."No.");
-
-                if not StyleReportRec.FindSet() then begin
-
-                    StyleReport2Rec.Init();
-                    StyleReport2Rec."Secondary UserID" := LoginSessionsRec."Secondary UserID";
-                    StyleReport2Rec."Style Name" := StyleMasterRec."Style No.";
-                    StyleReport2Rec."Style No" := StyleMasterRec."No.";
-                    StyleReport2Rec."Buyer No" := StyleMasterRec."Buyer No.";
-                    StyleReport2Rec.Insert();
-
-                end;
-            until StyleMasterRec.Next() = 0;
-        end;
-        Commit();
+        StyleNum := StyleNoPara;
+        BuyerNo := BuyerNoPara;
     end;
 
-    var
 
+    var
         buyername: Text[50];
         StyleNum: Code[20];
         oneDecimal: Decimal;
@@ -518,7 +405,4 @@ report 51077 SizeColourwiseQuantity
         oneDes: Decimal;
         comRec: Record "Company Information";
         BuyerNo: Code[20];
-    // PONo: Code[50];
-
-
 }

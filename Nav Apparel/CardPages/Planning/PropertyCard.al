@@ -39,7 +39,6 @@ page 50340 "Property Card"
 
                     trigger OnValidate()
                     var
-
                     begin
                         Cal();
                     end;
@@ -52,7 +51,6 @@ page 50340 "Property Card"
 
                     trigger OnValidate()
                     var
-
                     begin
                         Cal();
                     end;
@@ -66,7 +64,6 @@ page 50340 "Property Card"
 
                     trigger OnValidate()
                     var
-
                     begin
                         Cal();
                     end;

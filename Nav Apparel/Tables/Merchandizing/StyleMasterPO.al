@@ -215,6 +215,11 @@ table 50935 "Style Master PO"
         {
             DataClassification = ToBeClassified;
         }
+
+        field(71012618; "PO Complete"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

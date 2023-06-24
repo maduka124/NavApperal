@@ -33,7 +33,7 @@ query 50772 "StyleMaster_StyleMasterPO_Q"
             dataitem(StyleMasterPO; "Style Master PO")
             {
                 DataItemLink = "Style No." = StyleMaster."No.";
-                DataItemTableFilter = PlannedStatus = filter(false);
+                DataItemTableFilter = PlannedStatus = filter(false), "PO Complete" = filter(false);
 
                 column(Lot_No; "Lot No.")
                 {
