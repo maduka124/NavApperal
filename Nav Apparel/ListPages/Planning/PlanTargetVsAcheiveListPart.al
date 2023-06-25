@@ -12,33 +12,27 @@ page 50348 "Plan Target Vs Acheive"
         {
             repeater(General)
             {
-                // field("Resource No."; rec."Resource No.")
-                // {
-                //     ApplicationArea = All;
-                //     Caption = 'Line No';
-                // }
-
                 field(ResourceName; ResourceName)
                 {
                     ApplicationArea = All;
                     Caption = 'Line';
                 }
 
-                field(PlanDate; rec.PlanDate)
+                field(Buyer; Buyer)
                 {
                     ApplicationArea = All;
-                    Caption = 'Plan Date';
+                }
+
+                field("Brand Name"; Rec."Brand Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Brand Name';
                 }
 
                 field("Style Name"; rec."Style Name")
                 {
                     ApplicationArea = All;
                     Caption = 'Style';
-                }
-                field("Brand Name"; Rec."Brand Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Brand Name';
                 }
 
                 field("Lot No."; rec."Lot No.")
@@ -53,16 +47,35 @@ page 50348 "Plan Target Vs Acheive"
                     Caption = 'PO No';
                 }
 
-                field(Qty; rec.Qty)
+                field(PlanDate; rec.PlanDate)
                 {
                     ApplicationArea = All;
-                    Caption = 'Planned Qty';
+                    Caption = 'Plan Date';
                 }
 
                 field("Learning Curve No."; rec."Learning Curve No.")
                 {
                     ApplicationArea = All;
                     Caption = 'Learning Curve';
+                }
+
+                field(HoursPerDay; rec.HoursPerDay)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Hours Per Day';
+                }
+
+                field(OrderQty; OrderQty)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Order Qty';
+                }
+
+                field(Qty; rec.Qty)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Planned Qty';
+                    DecimalPlaces = 0;
                 }
 
                 field(ProdUpdQty; rec.ProdUpdQty)
@@ -83,9 +96,13 @@ page 50348 "Plan Target Vs Acheive"
     trigger OnAfterGetRecord()
     var
         WorkCEnterRec: Record "Work Center";
-        StyleRec: Record "Style Master";       
+        StyleRec: Record "Style Master";
+        StyleMasPoRec: Record "Style Master PO";
     begin
-        Variance := rec.ProdUpdQty - rec.qty;
+        if rec.ProdUpd = 1 then
+            Variance := rec.ProdUpdQty - rec.qty
+        else
+            Variance := 0;
 
         //Get Resource Name
         WorkCEnterRec.Reset();
@@ -93,23 +110,33 @@ page 50348 "Plan Target Vs Acheive"
         if WorkCEnterRec.FindSet() then
             ResourceName := WorkCEnterRec.Name;
 
+        StyleMasPoRec.Reset();
+        StyleMasPoRec.SetRange("Style No.", rec."Style No.");
+        StyleMasPoRec.SetRange("Lot No.", rec."Lot No.");
+        if StyleMasPoRec.FindSet() then begin
+            OrderQty := StyleMasPoRec.Qty;
+        end
+        else begin
+            OrderQty := 0;
+        end;
+
         StyleRec.Reset();
         StyleRec.SetRange("No.", Rec."Style No.");
         if StyleRec.FindFirst() then begin
-            repeat
-                Rec."Brand Name" := StyleRec."Brand Name";
-            until StyleRec.Next() = 0;
+            Buyer := StyleRec."Buyer Name";
+            Rec."Brand Name" := StyleRec."Brand Name";
+        end
+        else begin
+            Buyer := '';
+            Rec."Brand Name" := '';
         end;
     end;
 
 
     trigger OnOpenPage()
     var
-
     begin
-        //SetFilter("Resource No.", ResourceNo);
         rec.SetFilter("Line No.", LineNo);
-
     end;
 
 
@@ -126,6 +153,6 @@ page 50348 "Plan Target Vs Acheive"
         LineNo: Code[20];
         Variance: BigInteger;
         ResourceName: Text[50];
-
-
+        Buyer: Text[500];
+        OrderQty: BigInteger;
 }
