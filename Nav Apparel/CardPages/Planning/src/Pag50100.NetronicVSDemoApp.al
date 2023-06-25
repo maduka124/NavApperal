@@ -566,8 +566,29 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     end;
 
 
-                    // //------------------------------------------
+                    //Get Start and Finish Time
+                    LocationRec.Reset();
+                    LocationRec.SetRange(code, FactoryNo);
+                    LocationRec.FindSet();
+
+                    ResourceNo := copystr(_newRowObjectID, 3, StrLen(_newRowObjectID) - 2);
+
+                    //------------------------------------------
                     //calculate start date and strt time
+                    //Check whether a allocations starts between day start time and drop time. 
+                    JobPlaLineRec.Reset();
+                    JobPlaLineRec.SetRange("Resource No.", ResourceNo);
+                    JobPlaLineRec.SetRange("StartDateTime", CreateDateTime(DT2Date(_newStart), LocationRec."Start Time"), _newStart);
+                    if not JobPlaLineRec.FindSet() then begin
+
+                        //Check whether a allocations finishes between day start time and drop time. 
+                        JobPlaLineRec.Reset();
+                        JobPlaLineRec.SetRange("Resource No.", ResourceNo);
+                        JobPlaLineRec.SetRange(FinishDateTime, CreateDateTime(DT2Date(_newStart), LocationRec."Start Time"), _newStart);
+                        if not JobPlaLineRec.FindSet() then
+                            _newStart := CreateDateTime(DT2Date(_newStart), LocationRec."Start Time");
+                    end;
+
 
                     evaluate(Y, copystr(Format(_newStart), 7, 2));
                     evaluate(M, copystr(Format(_newStart), 4, 2));
@@ -601,12 +622,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                         Evaluate(LineNo, LineNo1);
                     end
                     else
-                        _objID := _objectID;  //From Queue
-
-                    //Get Start and Finish Time
-                    LocationRec.Reset();
-                    LocationRec.SetRange(code, FactoryNo);
-                    LocationRec.FindSet();
+                        _objID := _objectID;  //From Queue                  
 
                     if _dragMode = 0 then begin   //New PO From The Queue
 
@@ -616,7 +632,6 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                             HoursPerDay := 0;
                             IsInserted := false;
                             Evaluate(ID, _objID);
-                            ResourceNo := copystr(_newRowObjectID, 3, StrLen(_newRowObjectID) - 2);
 
                             //Get Resorce line details
                             ResourceRec.Reset();
@@ -1730,7 +1745,7 @@ page 50324 "NETRONICVSDevToolDemoAppPage"
                     else begin   //Drag and drop existing allocation
 
                         HoursPerDay := 0;
-                        ResourceNo := copystr(_newRowObjectID, 3, StrLen(_newRowObjectID) - 2);
+                        //ResourceNo := copystr(_newRowObjectID, 3, StrLen(_newRowObjectID) - 2);
 
                         // //Check whether pending sawing out quantity is there for the allocation
                         // ProdHeaderRec.Reset();
